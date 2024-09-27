@@ -1,8 +1,9 @@
 parameters:
-    level: 8
+    level: 5
     treatPhpDocTypesAsCertain: false
-    checkGenericClassInNonGenericObjectType: false
     bootstrapFiles:
         - config/bootstrap.php
     paths:
         - src/
+    parallel:
+        maximumNumberOfProcesses: 1

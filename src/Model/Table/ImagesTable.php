@@ -8,6 +8,7 @@ use Cake\Core\Configure;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
 use Cake\ORM\Table;
+use Cake\Utility\Text;
 use Cake\Validation\Validator;
 
 /**
@@ -41,31 +42,31 @@ class ImagesTable extends Table
         parent::initialize($config);
 
         $this->setTable('images');
-        $this->setDisplayField('path');
+        $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('QueueableImage', [
-            'folder_path' => 'files/Images/path/',
-            'field' => 'path'
+            'folder_path' => 'files/Images/image_file/',
+            'field' => 'image_file',
         ]);
 
         $this->addBehavior('Timestamp');
 
         $this->addBehavior('Josegonzalez/Upload.Upload', [
-            'path' => [
+            'image_file' => [
                 'fields' => [
                     'dir' => 'image_dir',
                     'size' => 'image_size',
                     'type' => 'image_type',
                 ],
                 'nameCallback' => function ($table, $entity, $data, $field, $settings) {
-                    return uniqid('', true);
+                    return Text::uuid();
                 },
                 'deleteCallback' => function ($path, $entity, $field, $settings) {
                     $paths = [
                         $path . $entity->{$field},
                     ];
-                    foreach (Configure::read('ImageSizes') as $width) {
+                    foreach (Configure::read('SiteSettings.ImageSizes') as $width) {
                         $paths[] = $path . $entity->{$field} . '_' . $width;
                     }
 
@@ -84,20 +85,71 @@ class ImagesTable extends Table
      */
     public function validationDefault(Validator $validator): Validator
     {
+        $validator->notEmptyString('name', 'Name cannot be empty');
+
+        return $validator;
+    }
+
+    /**
+     * Validation rules for creating a new image.
+     *
+     * Extends the default validation rules and adds specific requirements for image creation:
+     * - Requires the presence of an image file
+     * - Validates the image file mime type (JPEG, PNG, or GIF)
+     *
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @return \Cake\Validation\Validator
+     */
+    public function validationCreate(Validator $validator): Validator
+    {
+        $validator = $this->validationDefault($validator);
         $validator
-        ->notEmptyString('name', 'Name cannot be empty')
-        ->allowEmptyFile('path')
-            ->add('path', [
+            ->requirePresence('image_file', 'create')
+            ->notEmptyFile('image_file', 'An image file is required')
+            ->add('image_file', [
                 'mimeType' => [
                     'rule' => ['mimeType', ['image/jpeg', 'image/png', 'image/gif']],
-                    'message' => 'Please upload only images (jpeg, png, gif).',
+                    'message' => 'Please upload only jpeg, png, or gif images.',
                 ],
                 'fileSize' => [
-                    'rule' => ['fileSize', '<=', '20MB'],
-                    'message' => 'Image must be less than 20MB.',
+                    'rule' => ['fileSize', '<=', '10MB'],
+                    'message' => 'Image must be less than 10MB.',
                 ],
-            ])
-            ->allowEmptyString('path', 'Path can be empty on edit', 'update');
+            ]);
+
+        return $validator;
+    }
+
+    /**
+     * Validation rules for updating an existing image.
+     *
+     * Extends the default validation rules and adds specific requirements for image updates:
+     * - Allows the image file to be empty (no change)
+     * - If a new image is provided, validates the mime type (JPEG, PNG, or GIF)
+     * - Mime type validation only occurs when a new file is successfully uploaded
+     *
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @return \Cake\Validation\Validator
+     */
+    public function validationUpdate(Validator $validator): Validator
+    {
+        $validator = $this->validationDefault($validator);
+        $validator
+            ->allowEmptyFile('image_file')
+            ->add('image_file', [
+                'mimeType' => [
+                    'rule' => ['mimeType', ['image/jpeg', 'image/png', 'image/gif']],
+                    'message' => 'Please upload only jpeg, png, or gif images.',
+                    'on' => function ($context) {
+                        return !empty($context['data']['image_file'])
+                        && $context['data']['image_file']->getError() === UPLOAD_ERR_OK;
+                    },
+                ],
+                'fileSize' => [
+                    'rule' => ['fileSize', '<=', '10MB'],
+                    'message' => 'Image must be less than 10MB.',
+                ],
+            ]);
 
         return $validator;
     }
@@ -114,15 +166,15 @@ class ImagesTable extends Table
     public function beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): bool
     {
         //if editing an Image with new upload
-        if (!$entity->isNew() && $entity->isDirty('path')) {
-            $originalFilePath = $entity->getOriginal('path');
-            $fullOriginalFilePath = WWW_ROOT . 'files/Images/path/' . $originalFilePath;
+        if (!$entity->isNew() && $entity->isDirty('image_file')) {
+            $originalFilePath = $entity->getOriginal('image_file');
+            $fullOriginalFilePath = WWW_ROOT . 'files/Images/image_file/' . $originalFilePath;
             // Delete the old file if it exists
             if ($originalFilePath && file_exists($fullOriginalFilePath)) {
                 unlink($fullOriginalFilePath);
             }
             //delete all the resized versions too
-            foreach (Configure::read('ImageSizes') as $width) {
+            foreach (Configure::read('SiteSettings.ImageSizes') as $width) {
                 if (file_exists($fullOriginalFilePath . '_' . $width)) {
                     unlink($fullOriginalFilePath . '_' . $width);
                 }

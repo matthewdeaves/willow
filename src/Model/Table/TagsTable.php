@@ -43,6 +43,12 @@ class TagsTable extends Table
 
         $this->addBehavior('Timestamp');
 
+        $this->addBehavior('Sluggable', [
+            'field' => 'title',
+            'slug' => 'slug',
+            'maxLength' => 255,
+        ]);
+
         $this->belongsToMany('Articles', [
             'foreignKey' => 'tag_id',
             'targetForeignKey' => 'article_id',

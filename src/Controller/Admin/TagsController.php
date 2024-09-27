@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
+use Cake\Http\Response;
 
 /**
  * Tags Controller
@@ -13,16 +14,40 @@ use App\Controller\AppController;
 class TagsController extends AppController
 {
     /**
-     * Index method
+     * Index method for Tags Controller
      *
-     * @return \Cake\Http\Response|null|void Renders view
+     * This method handles the display of tags. It supports both standard and AJAX requests.
+     * For AJAX requests, it performs a search based on the 'search' query parameter and returns
+     * the results in an 'ajax' layout. For standard requests, it paginates the tags and renders
+     * the default view.
+     *
+     * @return \Cake\Http\Response The response object containing the rendered view.
      */
-    public function index()
+    public function index(): Response
     {
         $query = $this->Tags->find();
-        $tags = $this->paginate($query);
 
+        if ($this->request->is('ajax')) {
+            $search = $this->request->getQuery('search');
+            if (!empty($search)) {
+                $query->where([
+                    'OR' => [
+                        'Tags.title LIKE' => '%' . $search . '%',
+                        'Tags.description LIKE' => '%' . $search . '%',
+                    ],
+                ]);
+            }
+            $tags = $query->all();
+            $this->set(compact('tags'));
+            $this->viewBuilder()->setLayout('ajax');
+
+            return $this->render('search_results');
+        }
+
+        $tags = $this->paginate($query);
         $this->set(compact('tags'));
+
+        return $this->render();
     }
 
     /**
@@ -32,9 +57,9 @@ class TagsController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view(?string $id = null)
+    public function view(?string $id = null): void
     {
-        $tag = $this->Tags->get($id, contain: ['Articles']);
+        $tag = $this->Tags->get($id, contain: ['Articles.Users']);
         $this->set(compact('tag'));
     }
 
@@ -43,7 +68,7 @@ class TagsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add(): Response
     {
         $tag = $this->Tags->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -57,6 +82,8 @@ class TagsController extends AppController
         }
         $articles = $this->Tags->Articles->find('list', limit: 200)->all();
         $this->set(compact('tag', 'articles'));
+
+        return $this->render();
     }
 
     /**
@@ -66,7 +93,7 @@ class TagsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit(?string $id = null)
+    public function edit(?string $id = null): Response
     {
         $tag = $this->Tags->get($id, contain: ['Articles']);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -80,6 +107,8 @@ class TagsController extends AppController
         }
         $articles = $this->Tags->Articles->find('list', limit: 200)->all();
         $this->set(compact('tag', 'articles'));
+
+        return $this->render();
     }
 
     /**
@@ -89,7 +118,7 @@ class TagsController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete(?string $id = null)
+    public function delete(?string $id = null): Response
     {
         $this->request->allowMethod(['post', 'delete']);
         $tag = $this->Tags->get($id);

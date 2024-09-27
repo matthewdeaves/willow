@@ -71,6 +71,12 @@ services:
     environment:
       - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
 
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
 volumes:
   mysql_data:
   rabbitmq_data:

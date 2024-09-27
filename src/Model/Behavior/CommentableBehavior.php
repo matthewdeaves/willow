@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace App\Model\Behavior;
 
-use Cake\ORM\Behavior;
-use Cake\ORM\Table;
-use Cake\Event\EventInterface;
-use Cake\ORM\Query;
 use ArrayObject;
+use Cake\Datasource\EntityInterface;
+use Cake\Event\EventInterface;
+use Cake\ORM\Behavior;
+use Cake\ORM\ResultSet;
 
 /**
  * CommentableBehavior class
@@ -40,7 +40,7 @@ class CommentableBehavior extends Behavior
         $this->_table->hasMany($this->getConfig('commentsTable'), [
             'foreignKey' => $this->getConfig('foreignKey'),
             'conditions' => [
-                $this->getConfig('commentsTable') . '.' . $this->getConfig('modelField') => $this->_table->getAlias()
+                $this->getConfig('commentsTable') . '.' . $this->getConfig('modelField') => $this->_table->getAlias(),
             ],
             'dependent' => true,
         ]);
@@ -56,7 +56,7 @@ class CommentableBehavior extends Behavior
      * @param \ArrayObject $options The options passed to the save operation.
      * @return void
      */
-    public function beforeSave(EventInterface $event, $entity, ArrayObject $options)
+    public function beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
         if ($entity->isNew() && !empty($entity->comments)) {
             $commentsTable = $this->_table->getAssociation($this->getConfig('commentsTable'))->getTarget();
@@ -72,12 +72,12 @@ class CommentableBehavior extends Behavior
     /**
      * Add a comment to an entity.
      *
-     * @param int|string $entityId The ID of the entity to which the comment is related.
-     * @param int|string $userId The ID of the user who made the comment.
+     * @param string $entityId The ID of the entity to which the comment is related.
+     * @param string $userId The ID of the user who made the comment.
      * @param string $content The content of the comment.
      * @return \Cake\Datasource\EntityInterface|false The saved comment entity or false on failure.
      */
-    public function addComment($entityId, $userId, $content)
+    public function addComment(string $entityId, string $userId, string $content): EntityInterface|false
     {
         $commentsTable = $this->_table->getAssociation($this->getConfig('commentsTable'))->getTarget();
         $comment = $commentsTable->newEntity([
@@ -86,17 +86,18 @@ class CommentableBehavior extends Behavior
             $this->getConfig('userField') => $userId,
             $this->getConfig('contentField') => $content,
         ]);
+
         return $commentsTable->save($comment);
     }
 
     /**
      * Retrieve comments associated with an entity.
      *
-     * @param int|string $entityId The ID of the entity for which to retrieve comments.
+     * @param string $entityId The ID of the entity for which to retrieve comments.
      * @param array<string, mixed> $options Options for the query, such as 'order' and 'limit'.
      * @return \Cake\ORM\ResultSet The result set containing the comments.
      */
-    public function getComments($entityId, array $options = [])
+    public function getComments(string $entityId, array $options = []): ResultSet
     {
         $commentsTable = $this->_table->getAssociation($this->getConfig('commentsTable'))->getTarget();
         $query = $commentsTable->find();

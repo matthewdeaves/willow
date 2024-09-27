@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
-use Cake\Cache\Cache;
 use App\Controller\AppController;
+use Cake\Datasource\Exception\RecordNotFoundException;
+use Cake\Http\Response;
+use Exception;
 
 /**
  * Articles Controller
@@ -28,29 +30,10 @@ class ArticlesController extends AppController
      *
      * @return void
      */
-    public function treeIndex()
+    public function treeIndex(): void
     {
-        $conditions = [
-            'Articles.is_page' => 1
-        ];
-    
-        $query = $this->Articles->find()
-            ->select([
-                'id',
-                'parent_id',
-                'title',
-                'slug',
-                'created',
-                'modified',
-                'Users.id',
-                'Users.username',
-            ])
-            ->where($conditions)
-            ->contain(['Users'])
-            ->orderBy(['lft' => 'ASC']);
+        $articles = $this->Articles->getPageTree();
 
-        $articles = $query->find('threaded')->toArray();
-    
         $this->set(compact('articles'));
     }
 
@@ -65,7 +48,7 @@ class ArticlesController extends AppController
      * @throws \Exception If an error occurs during the reordering process, the exception message
      *                    is captured and returned in the response.
      */
-    public function updateTree()
+    public function updateTree(): ?Response
     {
         $this->request->allowMethod(['post', 'put']);
         $data = $this->request->getData();
@@ -75,18 +58,28 @@ class ArticlesController extends AppController
 
             return $this->response->withType('application/json')
                 ->withStringBody(json_encode(['success' => true, 'result' => $result]));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->response->withType('application/json')
                 ->withStringBody(json_encode(['success' => false, 'error' => $e->getMessage()]));
         }
     }
 
     /**
-     * Index method
+     * Index method for fetching and displaying a list of articles.
      *
-     * @return \Cake\Http\Response|null|void Renders view
+     * This method handles both standard and AJAX requests to display articles.
+     * It constructs a query to select various fields from the Articles and Users tables,
+     * including a count of page views for each article. The query filters out pages
+     * (non-articles) and groups results by article and user identifiers.
+     *
+     * For AJAX requests, it supports searching articles by title, slug, body, and other
+     * metadata fields. The search results are rendered using an 'ajax' layout.
+     *
+     * For standard requests, it paginates the articles and renders them using the default layout.
+     *
+     * @return \Cake\Http\Response The response object containing the rendered view.
      */
-    public function index()
+    public function index(): Response
     {
         $query = $this->Articles->find()
             ->select([
@@ -96,17 +89,24 @@ class ArticlesController extends AppController
                 'Articles.slug',
                 'Articles.created',
                 'Articles.modified',
+                'Articles.published',
+                'Articles.is_published',
+                'Articles.body',
+                'Articles.meta_title',
+                'Articles.meta_description',
+                'Articles.focus_keyword',
+                'Articles.social_description',
                 'Users.id',
                 'Users.username',
                 'pageview_count' => $this->Articles->PageViews->find()
                     ->where(['PageViews.article_id = Articles.id'])
                     ->func()
-                    ->count('PageViews.id')
+                    ->count('PageViews.id'),
             ])
-            ->contain(['Users'])
+            ->leftJoinWith('Users')
             ->leftJoinWith('PageViews')
             ->where(['Articles.is_page' => false])
-            ->group([
+            ->groupBy([
                 'Articles.id',
                 'Articles.user_id',
                 'Articles.title',
@@ -114,12 +114,35 @@ class ArticlesController extends AppController
                 'Articles.created',
                 'Articles.modified',
                 'Users.id',
-                'Users.username'
+                'Users.username',
             ]);
-    
+
+        if ($this->request->is('ajax')) {
+            $search = $this->request->getQuery('search');
+            if (!empty($search)) {
+                $query->where([
+                    'OR' => [
+                        'Articles.title LIKE' => '%' . $search . '%',
+                        'Articles.slug LIKE' => '%' . $search . '%',
+                        'Articles.body LIKE' => '%' . $search . '%',
+                        'Articles.meta_title LIKE' => '%' . $search . '%',
+                        'Articles.meta_description LIKE' => '%' . $search . '%',
+                        'Articles.focus_keyword LIKE' => '%' . $search . '%',
+                        'Articles.social_description LIKE' => '%' . $search . '%',
+                    ],
+                ]);
+            }
+            $articles = $query->all();
+            $this->set(compact('articles'));
+            $this->viewBuilder()->setLayout('ajax');
+
+            return $this->render('search_results');
+        }
+
         $articles = $this->paginate($query);
-    
         $this->set(compact('articles'));
+
+        return $this->render();
     }
 
     /**
@@ -129,9 +152,46 @@ class ArticlesController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view(?string $id = null)
+    public function view(?string $id = null): void
     {
-        $article = $this->Articles->get($id, contain: ['Users', 'Tags']);
+        $query = $this->Articles->find()
+            ->select([
+                'Articles.id',
+                'Articles.user_id',
+                'Articles.title',
+                'Articles.slug',
+                'Articles.body',
+                'Articles.created',
+                'Articles.modified',
+                'Users.id',
+                'Users.username',
+                'pageview_count' => $this->Articles->PageViews->find()
+                    ->where(['PageViews.article_id = Articles.id'])
+                    ->func()
+                    ->count('PageViews.id'),
+            ])
+            ->where(['Articles.id' => $id]) // Filter on article.id first
+            ->leftJoinWith('Users')
+            ->leftJoinWith('PageViews')
+            ->leftJoinWith('Tags')
+            ->groupBy([
+                'Articles.id',
+                'Articles.user_id',
+                'Articles.title',
+                'Articles.slug',
+                'Articles.body',
+                'Articles.created',
+                'Articles.modified',
+                'Users.id',
+                'Users.username',
+            ]);
+
+        $article = $query->first();
+
+        if (!$article) {
+            throw new RecordNotFoundException(__('Article not found'));
+        }
+
         $this->set(compact('article'));
     }
 
@@ -140,8 +200,8 @@ class ArticlesController extends AppController
      *
      * This method handles the creation of a new article. It processes POST requests,
      * sets the 'is_page' attribute based on query parameters, and attempts to save
-     * the new article data. On successful save, it clears the articles cache and
-     * redirects to the index or treeIndex action. On failure, it displays an error message.
+     * the new article data. On successful save it redirects to the index or
+     * treeIndex action. On failure, it displays an error message.
      *
      * The method also prepares data for the view, including:
      * - A list of parent articles (if 'is_page' query parameter is set)
@@ -151,7 +211,7 @@ class ArticlesController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects to index on successful save, null otherwise.
      */
-    public function add()
+    public function add(): Response
     {
         $article = $this->Articles->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -159,8 +219,6 @@ class ArticlesController extends AppController
             $data['is_page'] = $this->request->getQuery('is_page', 0);
             $article = $this->Articles->patchEntity($article, $data);
             if ($this->Articles->save($article)) {
-                //clear the cache
-                Cache::clear('articles');
                 $this->Flash->success(__('The article has been saved.'));
 
                 // Redirect to treeIndex if is_page is true, otherwise to index
@@ -186,6 +244,8 @@ class ArticlesController extends AppController
         $tags = $this->Articles->Tags->find('list', limit: 200)->all();
         $token = $this->request->getAttribute('csrfToken');
         $this->set(compact('article', 'users', 'tags', 'token', 'parentArticles'));
+
+        return $this->render();
     }
 
     /**
@@ -196,7 +256,6 @@ class ArticlesController extends AppController
      * - Processes PATCH, POST, or PUT requests
      * - Patches the article entity with submitted data
      * - Attempts to save the updated article
-     * - Clears the articles cache on successful save
      * - Sets flash messages for success or failure
      * - Redirects to the index action on successful save
      *
@@ -208,7 +267,7 @@ class ArticlesController extends AppController
      * @return \Cake\Http\Response|null Redirects to index on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit(?string $id = null)
+    public function edit(?string $id = null): Response
     {
         $article = $this->Articles->get($id, contain: ['Tags']);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -216,8 +275,6 @@ class ArticlesController extends AppController
             $data['is_page'] = $this->request->getQuery('is_page', 0);
             $article = $this->Articles->patchEntity($article, $data);
             if ($this->Articles->save($article)) {
-                //clear the cache
-                Cache::clear('articles');
                 $this->Flash->success(__('The article has been saved.'));
 
                 // Redirect to treeIndex if is_page is true, otherwise to index
@@ -241,26 +298,28 @@ class ArticlesController extends AppController
         $users = $this->Articles->Users->find('list', limit: 200)->all();
         $tags = $this->Articles->Tags->find('list', limit: 200)->all();
         $this->set(compact('article', 'users', 'tags', 'parentArticles'));
+
+        return $this->render();
     }
 
     /**
      * Delete method
      *
-     * This method handles the deletion of an article identified by its ID. It ensures that the request method is either POST or DELETE
-     * to prevent accidental deletions via GET requests. Upon successful deletion, it clears the cache for articles and displays a success message.
-     * If the deletion fails, an error message is displayed. After the operation, the user is redirected to the index action.
+     * This method handles the deletion of an article identified by its ID. It ensures that the request
+     * method is either POST or DELETE to prevent accidental deletions via GET requests. Upon successful
+     * deletion it displays a success message.
+     * If the deletion fails, an error message is displayed. After the operation, the user is
+     * redirected to the index action.
      *
      * @param string|null $id The ID of the article to be deleted. If null, no action is taken.
      * @return \Cake\Http\Response|null Redirects to the index action after attempting to delete the article.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When the article with the given ID does not exist.
      */
-    public function delete(?string $id = null)
+    public function delete(?string $id = null): Response
     {
         $this->request->allowMethod(['post', 'delete']);
         $article = $this->Articles->get($id);
         if ($this->Articles->delete($article)) {
-            //clear the cache
-            Cache::clear('articles');
             $this->Flash->success(__('The article has been deleted.'));
         } else {
             $this->Flash->error(__('The article could not be deleted. Please, try again.'));

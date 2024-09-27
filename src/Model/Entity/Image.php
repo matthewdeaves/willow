@@ -27,7 +27,9 @@ class Image extends Entity
      */
     protected array $_accessible = [
         'name' => true,
-        'path' => true,
+        'alt_text' => true,
+        'keywords' => true,
+        'image_file' => true,
         'image_dir' => true,
         'image_size' => true,
         'image_type' => true,

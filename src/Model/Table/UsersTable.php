@@ -3,16 +3,15 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
-use App\Service\RabbitMQService;
 use ArrayObject;
 use Cake\Core\Configure;
-use Cake\Datasource\ConnectionManager;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
+use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\Utility\Text;
 use Cake\Validation\Validator;
-
 
 class UsersTable extends Table
 {
@@ -31,27 +30,29 @@ class UsersTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('QueueableImage', [
-            'folder_path' => 'files/Users/profile/',
-            'field' => 'profile'
+            'folder_path' => 'files/Users/picture_file/',
+            'field' => 'picture_file',
         ]);
 
         $this->addBehavior('Timestamp');
 
         $this->addBehavior('Josegonzalez/Upload.Upload', [
-            'profile' => [
+            'picture_file' => [
                 'fields' => [
                     'dir' => 'picture_dir',
                     'size' => 'picture_size',
                     'type' => 'picture_type',
                 ],
+                'path' => 'webroot{DS}files{DS}Users{DS}picture_file{DS}',
                 'nameCallback' => function ($table, $entity, $data, $field, $settings) {
-                    return uniqid('', true);
+                    return Text::uuid();
+                    //return uniqid('', true) . '.' . pathinfo($data->getClientFilename(), PATHINFO_EXTENSION);
                 },
                 'deleteCallback' => function ($path, $entity, $field, $settings) {
                     $paths = [
                         $path . $entity->{$field},
                     ];
-                    foreach (Configure::read('ImageSizes') as $width) {
+                    foreach (Configure::read('SiteSettings.ImageSizes') as $width) {
                         $paths[] = $path . $entity->{$field} . '_' . $width;
                     }
 
@@ -62,6 +63,10 @@ class UsersTable extends Table
         ]);
 
         $this->hasMany('Articles', [
+            'foreignKey' => 'user_id',
+        ]);
+
+        $this->hasMany('Comments', [
             'foreignKey' => 'user_id',
         ]);
     }
@@ -82,31 +87,34 @@ class UsersTable extends Table
 
         $validator
             ->scalar('password')
+            ->minLength('password', 8, __('Password must be at least 8 characters long'))
             ->maxLength('password', 255)
             ->requirePresence('password', 'create')
-            ->allowEmptyString('password');
+            ->allowEmptyString('password', 'update')
+            ->notEmptyString('password', null, 'create');
 
         $validator
             ->scalar('confirm_password')
             ->maxLength('confirm_password', 255)
             ->requirePresence('confirm_password', 'create')
-            ->notEmptyString('confirm_password')
+            ->allowEmptyString('confirm_password', 'update')
+            ->notEmptyString('confirm_password', null, 'create')
             ->sameAs('confirm_password', 'password', 'Passwords do not match');
 
         $validator
             ->email('email')
-            ->allowEmptyString('email');
+            ->notEmptyString('email');
 
         $validator
-            ->allowEmptyFile('profile')
-            ->add('profile', [
+            ->allowEmptyFile('picture_file')
+            ->add('picture_file', [
                 'mimeType' => [
                     'rule' => ['mimeType', ['image/jpeg', 'image/png', 'image/gif']],
                     'message' => 'Please upload only images (jpeg, png, gif).',
                 ],
                 'fileSize' => [
-                    'rule' => ['fileSize', '<=', '20MB'],
-                    'message' => 'Image must be less than 20MB.',
+                    'rule' => ['fileSize', '<=', '5MB'],
+                    'message' => 'Image must be less than 5MB.',
                 ],
             ]);
 
@@ -139,15 +147,15 @@ class UsersTable extends Table
      */
     public function beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): bool
     {
-        if (!$entity->isNew() && $entity->isDirty('profile')) {
-            $originalFilePath = $entity->getOriginal('profile');
-            $fullOriginalFilePath = WWW_ROOT . 'files/Users/profile/' . $originalFilePath;
+        if (!$entity->isNew() && $entity->isDirty('picture_file')) {
+            $originalFilePath = $entity->getOriginal('picture_file');
+            $fullOriginalFilePath = WWW_ROOT . 'files/Users/picture_file/' . $originalFilePath;
             // Delete the old file if it exists
             if ($originalFilePath && file_exists($fullOriginalFilePath)) {
                 unlink($fullOriginalFilePath);
             }
             //delete all the resized versions too
-            foreach (Configure::read('ImageSizes') as $width) {
+            foreach (Configure::read('SiteSettings.ImageSizes') as $width) {
                 if (file_exists($fullOriginalFilePath . '_' . $width)) {
                     unlink($fullOriginalFilePath . '_' . $width);
                 }
@@ -155,5 +163,20 @@ class UsersTable extends Table
         }
 
         return true;
+    }
+
+    /**
+     * Custom finder method to retrieve only enabled records.
+     *
+     * This method modifies the query to filter out any records where the 'is_disabled'
+     * field is set to 1, effectively returning only those records that are enabled.
+     *
+     * @param \Cake\ORM\Query $query The query object to modify.
+     * @param array $options An array of options that can be used to customize the query.
+     * @return \Cake\ORM\Query The modified query object with the 'is_disabled' condition applied.
+     */
+    public function findAuth(Query $query, array $options): Query
+    {
+        return $query->where(['is_disabled' => 0]);
     }
 }

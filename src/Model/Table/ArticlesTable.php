@@ -3,13 +3,15 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use ArrayObject;
+use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Utility\Text;
 use Cake\Validation\Validator;
-use App\Model\Table\InvalidArgumentException;
-
+use DateTime;
+use InvalidArgumentException;
 
 /**
  * Articles Model
@@ -53,6 +55,12 @@ class ArticlesTable extends Table
 
         $this->addBehavior('Tree');
 
+        $this->addBehavior('Sluggable', [
+            'field' => 'title',
+            'slug' => 'slug',
+            'maxLength' => 255,
+        ]);
+
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'joinType' => 'INNER',
@@ -93,13 +101,17 @@ class ArticlesTable extends Table
         $validator
             ->scalar('slug')
             ->maxLength('slug', 255)
-            ->regex('slug', '/^[a-z0-9-]+$/', 'The slug must be URL-safe (only lowercase letters, numbers, and hyphens)')
+            ->regex(
+                'slug',
+                '/^[a-z0-9-]+$/',
+                'The slug must be URL-safe (only lowercase letters, numbers, and hyphens)'
+            )
             ->requirePresence('slug', 'create')
             ->allowEmptyString('slug')
             ->add('slug', 'unique', [
                 'rule' => 'validateUnique',
                 'provider' => 'table',
-                'message' => 'This slug is already in use. Please enter a unique slug.'
+                'message' => 'This slug is already in use. Please enter a unique slug.',
             ]);
 
         return $validator;
@@ -122,17 +134,17 @@ class ArticlesTable extends Table
     }
 
     /**
-     * beforeSave callback.
+     * Before save callback.
      *
-     * This method is triggered before an entity is saved. It generates a slug for new entities if one is not provided,
-     * ensuring the slug is unique. If the generated slug is not unique, it sets an error on the entity and prevents the save operation.
+     * Generates a unique slug for new entities if not already set.
+     * If the generated slug is not unique, it sets an error and prevents the save.
      *
-     * @param \Cake\Event\EventInterface $event The beforeSave event that was fired.
-     * @param \Cake\Datasource\EntityInterface $entity The entity that is going to be saved.
-     * @param \ArrayObject $options The options passed to the save method.
-     * @return bool|null Returns false if the generated slug is not unique, preventing the save operation.
+     * @param \Cake\Event\EventInterface $event The beforeSave event that was fired
+     * @param \Cake\Datasource\EntityInterface $entity The entity that is going to be saved
+     * @param \ArrayObject $options The options passed to the save method
+     * @return bool|null Returns false if the save should be stopped, true otherwise
      */
-    public function beforeSave(EventInterface $event, $entity, $options)
+    public function beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): ?bool
     {
         if ($entity->isNew() && !$entity->slug) {
             $sluggedTitle = strtolower(Text::slug($entity->title));
@@ -145,19 +157,45 @@ class ArticlesTable extends Table
             if ($existing) {
                 // If not unique, set the slug back to the entity for user modification
                 $entity->setError('slug', 'The generated slug is not unique. Please modify it.');
+
                 return false; // Prevent save
             }
         }
+
+        // Check if is_published is changing from 0 to 1
+        if ($entity->isDirty('is_published')) {
+            $originalValue = $entity->getOriginal('is_published');
+            if ($originalValue == 0 && $entity->is_published == 1) {
+                $entity->published = new DateTime();
+            } elseif ($originalValue == 1 && $entity->is_published == 0) {
+                $entity->published = null;
+            }
+        }
+
+        return true;
     }
 
-    public function reorder($data)
+    /**
+     * Reorders an article within a hierarchical structure.
+     *
+     * This method allows for moving an article to a new parent or to the root level,
+     * and adjusts its position among its siblings accordingly.
+     *
+     * @param array $data An associative array containing:
+     *                    - 'id' (int): The ID of the article to be reordered.
+     *                    - 'newParentId' (mixed): The ID of the new parent article, or 'root' to move to the root level.
+     *                    - 'newIndex' (int): The new position index among siblings.
+     * @throws \InvalidArgumentException If the provided data is not an array.
+     * @return bool Returns true on successful reordering.
+     */
+    public function reorder(array $data): bool
     {
         if (!is_array($data)) {
             throw new InvalidArgumentException('Data must be an array');
         }
-    
+
         $article = $this->get($data['id']);
-    
+
         if ($data['newParentId'] === 'root') {
             // Moving to root level
             $article->parent_id = null;
@@ -168,7 +206,7 @@ class ArticlesTable extends Table
             $article->parent_id = $newParent->id;
             $this->save($article);
         }
-    
+
         // Adjust the position within siblings
         if ($article->parent_id === null) {
             // For root level items
@@ -182,10 +220,10 @@ class ArticlesTable extends Table
                 ->orderBy(['lft' => 'ASC'])
                 ->toArray();
         }
-    
+
         $currentPosition = array_search($article->id, array_column($siblings, 'id'));
         $newPosition = $data['newIndex'];
-    
+
         if ($currentPosition !== false && $currentPosition !== $newPosition) {
             if ($newPosition > $currentPosition) {
                 $this->moveDown($article, $newPosition - $currentPosition);
@@ -193,7 +231,51 @@ class ArticlesTable extends Table
                 $this->moveUp($article, $currentPosition - $newPosition);
             }
         }
-    
+
         return true;
+    }
+
+    /**
+     * Retrieves a hierarchical tree structure of pages.
+     *
+     * This method queries the database to fetch articles that are marked as pages
+     * (i.e., where 'Articles.is_page' is set to 1). It selects specific fields such as
+     * 'id', 'parent_id', 'title', 'slug', 'created', and 'modified', and orders the results
+     * by the 'lft' column in ascending order to maintain the tree structure.
+     *
+     * The method utilizes the 'threaded' finder to organize the results into a nested
+     * array format, representing the hierarchical relationships between the pages.
+     *
+     * @return array An array representing the hierarchical tree of pages, with each node
+     *               containing its children in a nested structure.
+     */
+    public function getPageTree(array $additionalConditions = []): array
+    {
+        $conditions = [
+            'Articles.is_page' => 1,
+        ];
+
+        // Merge the default conditions with any additional conditions provided
+        $conditions = array_merge($conditions, $additionalConditions);
+
+        $query = $this->find()
+            ->select([
+                'id',
+                'parent_id',
+                'title',
+                'slug',
+                'created',
+                'modified',
+                'is_published',
+                'pageview_count' => $this->PageViews->find()
+                    ->where(['PageViews.article_id = Articles.id'])
+                    ->select([
+                        'count' => $this->PageViews->find()->func()->count('PageViews.id'),
+                    ]),
+            ])
+            ->where($conditions)
+            ->orderBy(['lft' => 'ASC']);
+
+        return $query->find('threaded')->toArray();
     }
 }

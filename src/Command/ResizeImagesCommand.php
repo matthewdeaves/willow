@@ -77,7 +77,7 @@ class ResizeImagesCommand extends Command
             foreach ($images as $image) {
                 $original = WWW_ROOT . 'files/' . $modelWithImage . DS . $column . DS . $image->{$column};
                 if (file_exists($original)) {
-                    foreach (Configure::read('ImageSizes') as $width) {
+                    foreach (Configure::read('SiteSettings.ImageSizes') as $width) {
                         $this->createImage($original, intval($width));
                     }
                 }

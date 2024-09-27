@@ -17,10 +17,10 @@ declare(strict_types=1);
 
 use Cake\Chronos\Chronos;
 use Cake\Core\Configure;
-use Cake\Datasource\ConnectionManager;
-use Migrations\TestSuite\Migrator;
 use Cake\Database\TypeFactory;
+use Cake\Datasource\ConnectionManager;
 use Josegonzalez\Upload\Database\Type\FileType;
+use Migrations\TestSuite\Migrator;
 
 /**
  * Test runner bootstrap.

@@ -46,7 +46,7 @@ class ImagesTable extends Table
 
         $this->addBehavior('QueueableImage', [
             'folder_path' => 'files/Images/path/',
-            'field' => 'path'
+            'field' => 'path',
         ]);
 
         $this->addBehavior('Timestamp');
@@ -65,7 +65,7 @@ class ImagesTable extends Table
                     $paths = [
                         $path . $entity->{$field},
                     ];
-                    foreach (Configure::read('ImageSizes') as $width) {
+                    foreach (Configure::read('SiteSettings.ImageSizes') as $width) {
                         $paths[] = $path . $entity->{$field} . '_' . $width;
                     }
 
@@ -77,27 +77,33 @@ class ImagesTable extends Table
     }
 
     /**
-     * Default validation rules.
+     * Default validation rules for the Images table.
      *
-     * @param \Cake\Validation\Validator $validator Validator instance.
-     * @return \Cake\Validation\Validator
+     * This method sets up the validation rules for the 'name' and 'path' fields of the Images table.
+     * It ensures that:
+     * - The 'name' field is not empty.
+     * - An image file is required when creating a new record.
+     * - The uploaded file is of a valid image type (jpeg, png, or gif).
+     * - The file size does not exceed 20MB.
+     * - The 'path' field can be empty when updating an existing record.
+     *
+     * @param \Cake\Validation\Validator $validator The validator instance.
+     * @return \Cake\Validation\Validator The modified validator instance.
      */
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-        ->notEmptyString('name', 'Name cannot be empty')
-        ->allowEmptyFile('path')
-            ->add('path', [
-                'mimeType' => [
-                    'rule' => ['mimeType', ['image/jpeg', 'image/png', 'image/gif']],
-                    'message' => 'Please upload only images (jpeg, png, gif).',
-                ],
-                'fileSize' => [
-                    'rule' => ['fileSize', '<=', '20MB'],
-                    'message' => 'Image must be less than 20MB.',
-                ],
+            ->notEmptyString('name', 'Name cannot be empty')
+            ->uploadedFile('path', [
+                'types' => ['image/jpeg', 'image/png', 'image/gif'],
+                'message' => __('Please upload only images (jpeg, png, gif).'),
             ])
-            ->allowEmptyString('path', 'Path can be empty on edit', 'update');
+            ->add('path', 'fileSize', [
+                'rule' => ['fileSize', '<=', '20MB'],
+                'message' => __('Image must be less than 20MB.'),
+            ])
+            ->requirePresence('path', 'create')
+            ->allowEmptyFile('path', __('Path can be empty on edit', 'update'));
 
         return $validator;
     }
@@ -122,7 +128,7 @@ class ImagesTable extends Table
                 unlink($fullOriginalFilePath);
             }
             //delete all the resized versions too
-            foreach (Configure::read('ImageSizes') as $width) {
+            foreach (Configure::read('SiteSettings.ImageSizes') as $width) {
                 if (file_exists($fullOriginalFilePath . '_' . $width)) {
                     unlink($fullOriginalFilePath . '_' . $width);
                 }

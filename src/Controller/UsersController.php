@@ -3,9 +3,14 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Controller\AppController;
-use Authentication\Controller\Component\AuthenticationComponent;
+use App\Job\SendEmailJob;
 use Cake\Event\EventInterface;
+use Cake\Http\Response;
+use Cake\Log\Log;
+use Cake\Queue\QueueManager;
+use Cake\Routing\Router;
+use Cake\Utility\Text;
+use Exception;
 
 /**
  * Users Controller
@@ -21,11 +26,13 @@ class UsersController extends AppController
      * @return void
      * @throws \Cake\Http\Exception\RedirectException If a redirect is necessary.
      */
-    public function beforeFilter(EventInterface $event)
+    public function beforeFilter(EventInterface $event): ?Response
     {
         parent::beforeFilter($event);
 
-        $this->Authentication->allowUnauthenticated(['login', 'logout', 'register']);
+        $this->Authentication->allowUnauthenticated(['login', 'logout', 'register', 'confirmEmail']);
+
+        return null;
     }
 
     /**
@@ -33,15 +40,15 @@ class UsersController extends AppController
      *
      * This method checks the authentication result to determine if a user is logged in.
      * If the user is authenticated and has admin privileges, they are redirected to the admin articles page.
-     * Otherwise, the user is redirected to the page they were attempting to access before logging in, or to the home page if no redirect target is set.
+     * Otherwise, the user is redirected to the page they were attempting to access before logging in,
+     * or to the home page if no redirect target is set.
      * If the login attempt fails, an error message is displayed.
      *
      * @return \Cake\Http\Response|null Redirects on successful login, or returns null on failure.
      */
-    public function login()
+    public function login(): ?Response
     {
         $result = $this->Authentication->getResult();
-
         // If the user is logged in send them away.
         if ($result != null && $result->isValid()) {
             $user = $this->Authentication->getIdentity();
@@ -52,6 +59,7 @@ class UsersController extends AppController
 
             // Redirect to the page the user was trying to access before logging in
             $target = $this->Authentication->getLoginRedirect() ?? '/';
+
             return $this->redirect($target);
         }
 
@@ -68,7 +76,7 @@ class UsersController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects to the login page.
      */
-    public function logout()
+    public function logout(): ?Response
     {
         $this->Authentication->logout();
 
@@ -86,7 +94,7 @@ class UsersController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects to login page on successful registration, or renders view otherwise.
      */
-    public function register()
+    public function register(): ?Response
     {
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -98,17 +106,84 @@ class UsersController extends AppController
             // Be super certain is_admin is false for new registrations
             $user->is_admin = false;
             $user->setAccess('is_admin', false);
-            
+            $user->is_disabled = true;
+            $user->setAccess('is_disabled', true);
+
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('Registration successful. Please log in.'));
-                return $this->redirect(['action' => 'login']);
+                // Add record to user_account_confirmations table
+                $confirmationsTable = $this->fetchTable('UserAccountConfirmations');
+                $confirmation = $confirmationsTable->newEntity([
+                    'user_id' => $user->id,
+                    'confirmation_code' => Text::uuid(),
+                ]);
+
+                if ($confirmationsTable->save($confirmation)) {
+                    $this->Flash->success(__('Registration successful. Please check your email for confirmation.'));
+
+                    try {
+                        // Send confirm email
+                        QueueManager::push(SendEmailJob::class, [
+                            'args' => [[
+                                'template_identifier' => 'confirm_email',
+                                'from' => 'noreply@example.com',
+                                'to' => $user->email,
+                                'viewVars' => [
+                                    'username' => $user->username,
+                                    'confirmation_code' => $confirmation->confirmation_code,
+                                    'confirm_email_link' => Router::url([
+                                        'controller' => 'Users',
+                                        'action' => 'confirmEmail',
+                                        $confirmation->confirmation_code,
+                                    ], true),
+                                ],
+                            ]],
+                        ]);
+                    } catch (Exception $e) {
+                        // Log the error message
+                        Log::error('Failed to send confirmation email: ' . $e->getMessage());
+                        $this->Flash->error(
+                            __('Registration successful, but there was an issue sending the confirmation email.')
+                        );
+                    }
+
+                    return $this->redirect(['action' => 'login']);
+                } else {
+                    $this->Flash->error(
+                        __('Registration successful, but there was an issue creating the confirmation record.')
+                    );
+                }
+            } else {
+                $this->Flash->error(__('Registration failed. Please, try again.'));
+                $this->response = $this->response->withStatus(403);
+
+                return $this->response;
             }
-            $this->Flash->error(__('Registration failed. Please, try again.'));
         }
         $this->set(compact('user'));
+
+        return $this->render();
     }
 
-    public function edit(?string $id = null)
+    /**
+     * Edit the current user's account information.
+     *
+     * This method allows a user to edit their own account details. It implements
+     * security checks to prevent unauthorized access to other users' accounts.
+     * If an unauthorized edit attempt is detected, it logs the incident and
+     * redirects the user to their own edit page.
+     *
+     * The method handles PATCH, POST, and PUT requests to update user information.
+     * It ensures that users cannot change their admin status during the update.
+     * Upon successful update, a success message is displayed and the user is
+     * redirected to their edit page. If the update fails, an error message is shown.
+     *
+     * @param string|null $id The ID of the user to be edited. Defaults to null.
+     * @return \Cake\Http\Response|null Redirects to the edit page of the current user
+     *                                  if unauthorized access is attempted or after
+     *                                  a successful update.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When the user record is not found.
+     */
+    public function edit(?string $id = null): Response
     {
         // Get the currently logged-in user's ID
         $currentUserId = $this->Authentication->getIdentity()->getIdentifier();
@@ -121,23 +196,76 @@ class UsersController extends AppController
                 'attempted_user_id' => $id,
                 'url' => $this->request->getRequestTarget(),
                 'ip' => $this->request->clientIp(),
-                'scope' => ['user']
+                'scope' => ['user'],
             ]);
             $this->Flash->error(__('You are not authorized to edit this account, stick to your own.'));
-            return $this->redirect(['action' => 'edit', $this->Authentication->getIdentity()->getIdentifier()]);
+
+            return $this->redirect(['action' => 'edit', $currentUserId]);
         }
-    
+
         $user = $this->Users->get($id, contain: []);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
             // Ensure the user can't change their admin status
-            $user->is_admin = 0;
+            $user->setAccess('is_admin', false);
+            $user->setAccess('is_disabled', false);
+            $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Your account has been updated.'));
-                return $this->redirect(['action' => 'edit', $currentUserId]);
+
+                return $this->redirect(['action' => 'edit', $user->id]);
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
+
+            return $this->response->withStatus(403);
         }
         $this->set(compact('user'));
+
+        return $this->render();
+    }
+
+    /**
+     * Confirms a user's email address using a confirmation code.
+     *
+     * This method validates the provided confirmation code against the UserAccountConfirmations table.
+     * If a valid confirmation is found, it enables the associated user account and deletes the confirmation record.
+     *
+     * @param string $confirmationCode The confirmation code to validate.
+     * @return \Cake\Http\Response|null A redirect response to the login page on success, or
+     *                                  to the register page on failure. Returns null if rendering is required.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When the user record is not found.
+     * @throws \Cake\ORM\Exception\PersistenceFailedException If the user entity couldn't be saved.
+     */
+    public function confirmEmail(string $confirmationCode): ?Response
+    {
+        $confirmationsTable = $this->fetchTable('UserAccountConfirmations');
+        $confirmation = $confirmationsTable->find()
+            ->where(['confirmation_code' => $confirmationCode])
+            ->first();
+
+        if ($confirmation) {
+            $user = $this->Users->get($confirmation->user_id);
+
+            // Explicitly allow modification of is_disabled
+            $user->setAccess('is_disabled', true);
+            $user->is_disabled = false; // Enable the user account
+
+            if ($this->Users->save($user)) {
+                // Delete the confirmation record
+                $confirmationsTable->delete($confirmation);
+                $this->Flash->success(__('Your account has been confirmed. You can now log in.'));
+
+                return $this->redirect(['action' => 'login']);
+            } else {
+                $this->Flash->error(__('There was an issue confirming your account. Please try again.'));
+
+                return $this->redirect(['action' => 'register']);
+            }
+        } else {
+            $this->Flash->error(__('Invalid confirmation code. Please contact support.'));
+
+            return $this->redirect(['action' => 'register']);
+        }
+
+        return $this->render();
     }
 }

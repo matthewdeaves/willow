@@ -1,11 +1,15 @@
 <?php
+declare(strict_types=1);
+
 namespace App\Service;
 
 use Cake\Core\Configure;
 use Cake\Log\Log;
 use Exception;
+use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
+use RuntimeException;
 
 /**
  * Service class for interacting with RabbitMQ.
@@ -13,14 +17,14 @@ use PhpAmqpLib\Message\AMQPMessage;
 class RabbitMQService
 {
     /**
-     * @var AMQPStreamConnection|null The connection to RabbitMQ.
+     * @var \PhpAmqpLib\Connection\AMQPStreamConnection|null The connection to RabbitMQ.
      */
     protected ?AMQPStreamConnection $connection = null;
 
     /**
      * @var \PhpAmqpLib\Channel\AMQPChannel|null The channel for communication.
      */
-    protected ?\PhpAmqpLib\Channel\AMQPChannel $channel = null;
+    protected ?AMQPChannel $channel = null;
 
     /**
      * Constructor to initialize RabbitMQ connection and channel.
@@ -29,22 +33,22 @@ class RabbitMQService
      */
     public function __construct()
     {
-        $host = Configure::read('RabbitMQ.host');
-        $port = Configure::read('RabbitMQ.port');
-        $user = Configure::read('RabbitMQ.user');
-        $password = Configure::read('RabbitMQ.password');
+        $host = Configure::read('SiteSettings.RabbitMQ.host');
+        $port = Configure::read('SiteSettings.RabbitMQ.port');
+        $user = Configure::read('SiteSettings.RabbitMQ.username');
+        $password = Configure::read('SiteSettings.RabbitMQ.password');
 
         // Check if configuration values are not null or empty
         if (empty($host) || empty($port) || empty($user) || empty($password)) {
-            throw new \RuntimeException('RabbitMQ configuration is incomplete');
+            throw new RuntimeException('RabbitMQ configuration is incomplete');
         }
 
         try {
             $this->connection = new AMQPStreamConnection($host, $port, $user, $password);
             $this->channel = $this->connection->channel();
         } catch (Exception $e) {
-            Log::error("RabbitMQ connection error: " . $e->getMessage());
-            throw new \RuntimeException('Failed to connect to RabbitMQ', 0, $e);
+            Log::error('RabbitMQ connection error: ' . $e->getMessage());
+            throw new RuntimeException('Failed to connect to RabbitMQ', 0, $e);
         }
     }
 
@@ -67,8 +71,8 @@ class RabbitMQService
             // Publish the message to the specified queue
             $this->channel->basic_publish($msg, '', $queue);
         } catch (Exception $e) {
-            Log::error("RabbitMQ send message error: " . $e->getMessage());
-            throw new \RuntimeException('Failed to send message to RabbitMQ', 0, $e);
+            Log::error('RabbitMQ send message error: ' . $e->getMessage());
+            throw new RuntimeException('Failed to send message to RabbitMQ', 0, $e);
         }
     }
 
@@ -85,7 +89,7 @@ class RabbitMQService
                 $this->connection->close();
             }
         } catch (Exception $e) {
-            Log::error("RabbitMQ close connection error: " . $e->getMessage());
+            Log::error('RabbitMQ close connection error: ' . $e->getMessage());
         }
     }
 }

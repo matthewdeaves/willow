@@ -57,7 +57,7 @@ return [
             'driver' => 'Cake\Database\Driver\Mysql',
             'persistent' => false,
             'host' => 'mysql',
-            'username' => 'cms_user_test',
+            'username' => 'root',
             'password' => 'password',
             'database' => 'cms_test',
             'encoding' => 'utf8mb4',
@@ -76,12 +76,46 @@ return [
      */
     'EmailTransport' => [
         'default' => [
-            'host' => 'localhost',
-            'port' => 25,
+            'host' => 'mailhog',
+            'port' => 1025,
             'username' => null,
             'password' => null,
             'client' => null,
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
         ],
     ],
+
+    /**
+     * SiteSettings configuration array.
+     *
+     * This configuration array contains settings for RabbitMQ and image sizes.
+     *
+     * @var array $SiteSettings
+     * 
+     * @property array $RabbitMQ Configuration settings for RabbitMQ.
+     * @property string $RabbitMQ['host'] The hostname for the RabbitMQ server.
+     * @property string $RabbitMQ['port'] The port number for the RabbitMQ server.
+     * @property string $RabbitMQ['username'] The username for connecting to RabbitMQ.
+     * @property string $RabbitMQ['password'] The password for connecting to RabbitMQ.
+     * 
+     * @property array $ImageSizes Configuration for various image width sizes.
+     * @property int $ImageSizes['massive'] The size for massive images in pixels.
+     * @property int $ImageSizes['extra-large'] The size for extra-large images in pixels.
+     * @property int $ImageSizes['large'] The size for large images in pixels.
+     * @property int $ImageSizes['medium'] The size for medium images in pixels.
+     * @property int $ImageSizes['small'] The size for small images in pixels.
+     * @property int $ImageSizes['tiny'] The size for tiny images in pixels.
+     * @property int $ImageSizes['teeny'] The size for teeny images in pixels.
+     */
+    'SiteSettings' => [
+        'ImageSizes' => [
+            'massive' => 800,
+            'extra-large' => 500,
+            'large' => 400,
+            'medium' => 300,
+            'small' => 200,
+            'tiny' => 100,
+            'teeny' => 50,
+        ]
+    ]
 ];

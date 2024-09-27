@@ -4,7 +4,26 @@ FROM jenkins/jenkins:lts
 USER root
 
 # Install necessary packages
-RUN apt-get update && apt-get install -y lsb-release
+RUN apt-get update && apt-get install -y lsb-release curl software-properties-common wget
+
+# Add PHP 8.3 repository
+RUN curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg
+RUN echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list
+
+# Install PHP 8.3 and extensions
+RUN apt-get update && apt-get install -y \
+    php8.3 \
+    php8.3-cli \
+    php8.3-intl \
+    php8.3-dom \
+    php8.3-xml \
+    php8.3-mbstring \
+    php8.3-zip \
+    php8.3-curl \
+    php8.3-mysql
+
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Add Docker apt repository
 RUN curl -fsSLo /usr/share/keyrings/docker-archive-keyring.asc \

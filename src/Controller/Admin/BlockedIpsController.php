@@ -3,8 +3,9 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
-use Cake\Cache\Cache;
 use App\Controller\AppController;
+use Cake\Cache\Cache;
+use Cake\Http\Response;
 
 /**
  * BlockedIps Controller
@@ -18,7 +19,7 @@ class BlockedIpsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index()
+    public function index(): void
     {
         $query = $this->BlockedIps->find();
         $blockedIps = $this->paginate($query);
@@ -33,7 +34,7 @@ class BlockedIpsController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view(?string $id = null): void
     {
         $blockedIp = $this->BlockedIps->get($id, contain: []);
         $this->set(compact('blockedIp'));
@@ -44,7 +45,7 @@ class BlockedIpsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add(): Response
     {
         $blockedIp = $this->BlockedIps->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -59,6 +60,8 @@ class BlockedIpsController extends AppController
             $this->Flash->error(__('The blocked ip could not be saved. Please, try again.'));
         }
         $this->set(compact('blockedIp'));
+
+        return $this->render();
     }
 
     /**
@@ -68,7 +71,7 @@ class BlockedIpsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit(?string $id = null): Response
     {
         $blockedIp = $this->BlockedIps->get($id, contain: []);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -83,6 +86,8 @@ class BlockedIpsController extends AppController
             $this->Flash->error(__('The blocked ip could not be saved. Please, try again.'));
         }
         $this->set(compact('blockedIp'));
+
+        return $this->render();
     }
 
     /**
@@ -92,7 +97,7 @@ class BlockedIpsController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete(?string $id = null): Response
     {
         $this->request->allowMethod(['post', 'delete']);
         $blockedIp = $this->BlockedIps->get($id);

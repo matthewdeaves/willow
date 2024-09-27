@@ -22,6 +22,7 @@ use Authentication\AuthenticationServiceInterface;
 use Authentication\AuthenticationServiceProviderInterface;
 use Authentication\Identifier\AbstractIdentifier;
 use Authentication\Middleware\AuthenticationMiddleware;
+use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Core\ContainerInterface;
 use Cake\Datasource\FactoryLocator;
@@ -56,10 +57,18 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         // Call parent to load bootstrap from files.
         parent::bootstrap();
 
+        // Check if the application is in debug mode
+        if (Configure::read('debug')) {
+            // Clear all cache entries
+            Cache::clearAll();
+        }
+
         require CONFIG . 'log_config.php';
 
         $this->addPlugin('Authentication');
-        
+
+        $this->addPlugin('Cake/Queue');
+
         if (PHP_SAPI !== 'cli') {
             FactoryLocator::add(
                 'Table',
@@ -98,8 +107,6 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             // https://book.cakephp.org/5/en/controllers/middleware.html#body-parser-middleware
             ->add(new BodyParserMiddleware())
 
-            
-
             // Add authentication middleware
             ->add(new AuthenticationMiddleware($this))
 
@@ -108,15 +115,15 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             ->add(new CsrfProtectionMiddleware([
                 'httponly' => true,
             ]))
-            
+
             /**
              * Adds the IP Blocker Middleware to the middleware queue.
-             * 
+             *
              * This middleware checks the client's IP address on every request,
              * querying the blocked_ips table to determine if the IP is blocked.
              * If blocked, it returns a 403 Forbidden response. Otherwise, it
              * allows the request to proceed normally.
-             * 
+             *
              * @see \App\Middleware\IpBlockerMiddleware
              */
             ->add(new IpBlockerMiddleware());
@@ -154,7 +161,8 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
      * - Loads the Authentication.Form authenticator with custom field mapping.
      *
      * Identifier:
-     * - Loads the Authentication.Password identifier with custom field mapping.
+     * - Loads the Authentication.Password identifier with custom field mapping
+     *   and ORM resolver using the 'auth' finder to filter out disabled users.
      *
      * @param \Psr\Http\Message\ServerRequestInterface $request The server request instance.
      * @return \Authentication\AuthenticationServiceInterface The configured authentication service.
@@ -178,6 +186,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             AbstractIdentifier::CREDENTIAL_USERNAME => 'email',
             AbstractIdentifier::CREDENTIAL_PASSWORD => 'password',
         ];
+
         // Load the authenticators. Session should be first.
         $service->loadAuthenticator('Authentication.Session');
         $service->loadAuthenticator('Authentication.Form', [
@@ -191,7 +200,14 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         ]);
 
         // Load identifiers
-        $service->loadIdentifier('Authentication.Password', compact('fields'));
+        $service->loadIdentifier('Authentication.Password', [
+            'fields' => $fields,
+            'resolver' => [
+                'className' => 'Authentication.Orm',
+                'userModel' => 'Users',
+                'finder' => 'auth',
+            ],
+        ]);
 
         return $service;
     }

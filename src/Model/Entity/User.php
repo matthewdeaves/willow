@@ -52,7 +52,7 @@ class User extends Entity
     protected array $_hidden = [
         'password',
     ];
-    
+
     /**
      * Sets the password for the user entity.
      *
@@ -74,27 +74,49 @@ class User extends Entity
     }
 
     /**
-     * Checks for errors when attempting to lock an account.
+     * Checks if the account associated with the given user ID is being disabled by the user themselves.
      *
-     * This method evaluates the provided data to determine if there are any errors
-     * related to locking an account, specifically for admin users. It checks if an
-     * admin user is trying to remove their own admin status or disable their own account.
+     * This method evaluates whether the 'is_disabled' flag is set to true in the provided data array
+     * and if the current object's ID matches the provided user ID. If both conditions are met, it returns true,
+     * indicating that the user is attempting to disable their own account.
      *
-     * @param array $data An associative array containing account data. Expected keys are:
-     *  - 'is_admin' (bool): Indicates if the user is an admin.
-     *  - 'is_disabled' (bool): Indicates if the account is disabled.
-     *
-     * @return string|false Returns an error message if an admin user attempts to remove
-     * their own admin status or disable their own account. Returns false if no errors are found.
+     * @param string $userId The ID of the user whose account is being checked.
+     * @param array $data An associative array containing account data, including the 'is_disabled' flag.
+     * @return bool|null Returns true if the account is being disabled by the user themselves, false otherwise.
+     *                   (Note: The method always returns a boolean, so the null part of the return type
+     *                   is not utilized in the current implementation.)
      */
-    public function lockAccountError(array $data): ?string
+    public function lockAdminAccountError(string $userId, array $data): ?bool
     {
-        if (isset($data['is_admin']) && !$data['is_admin'] && $this->is_admin) {
-            return __('You cannot remove your own admin status.');
+        //Setting is_admin to 0 for your own account
+        if (isset($data['is_admin']) && !$data['is_admin'] && $this->id == $userId) {
+            return true;
         }
-        if (isset($data['is_disabled']) && $data['is_disabled'] && $this->is_admin) {
-            return __('You cannot disable your own account.');
+
+        return false;
+    }
+
+    /**
+     * Checks if an admin account is being demoted by the account owner.
+     *
+     * This method determines whether the 'is_admin' flag is being set to false (0)
+     * for the account that matches the provided user ID. It returns true if the
+     * account owner is attempting to remove their own admin privileges, otherwise
+     * it returns false.
+     *
+     * @param string $userId The ID of the user attempting to modify the account.
+     * @param array $data An associative array containing the account data, including the 'is_admin' flag.
+     * @return bool|null Returns true if the admin account is being demoted by the owner, false otherwise.
+     *                   (Note: The method always returns a boolean, so the null part of the return type
+     *                   is not utilized in the current implementation.)
+     */
+    public function lockEnabledAccountError(string $userId, array $data): ?bool
+    {
+        //Setting is_disabled to 1 for your own account
+        if (isset($data['is_disabled']) && $data['is_disabled'] && $this->id == $userId) {
+            return true;
         }
-        return null;
+
+        return false;
     }
 }

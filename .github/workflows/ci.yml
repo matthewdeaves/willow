@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/*'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-version: ['8.1', '8.2', '8.3']
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup MySQL
+      run: |
+        sudo service mysql start
+        mysql -e 'CREATE DATABASE IF NOT EXISTS cms_test;' -uroot -proot
+        mysql -e 'SHOW DATABASES;' -uroot -proot
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-version }}
+        extensions: mbstring, intl, pdo_mysql, pcntl, sockets, bcmath, zip
+        coverage: xdebug
+
+    - name: Install RabbitMQ
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y rabbitmq-server
+        sudo systemctl start rabbitmq-server
+        sudo rabbitmqctl add_user admin password
+        sudo rabbitmqctl set_user_tags admin administrator
+        sudo rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"
+        sudo rabbitmq-plugins enable rabbitmq_management
+
+    - name: Set RabbitMQ URL
+      run: echo "RABBITMQ_URL=amqp://admin:password@localhost:5672" >> $GITHUB_ENV
+
+    - name: Clear Composer Cache
+      run: composer clear-cache
+
+    - name: Update Composer dependencies
+      run: composer update --no-interaction --prefer-dist
+
+    - name: Composer Install
+      run: composer install --no-interaction --prefer-dist
+
+    - name: Copy app_local.php
+      run: cp docker/php/cms_app_local_github.php config/app_local.php
+
+    - name: Debug app_local.php
+      run: cat "config/app_local.php"
+
+    - name: Run PHPUnit
+      run: php -d display_errors=on -d error_reporting=E_ALL vendor/bin/phpunit --coverage-text
+      env:
+        XDEBUG_MODE: coverage
+
+    - name: Run PHP CodeSniffer
+      run: vendor/bin/phpcs --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/
+
+    - name: Run PHPStan
+      run: php -d memory_limit=-1 vendor/bin/phpstan analyse src/
+      continue-on-error: true

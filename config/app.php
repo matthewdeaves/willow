@@ -25,7 +25,7 @@ return [
      * - defaultLocale - The default locale for translation, formatting currencies and numbers, date and time.
      * - encoding - The encoding used for HTML + database connections.
      * - base - The base directory the app resides in. If false this
-     *   will be auto-detected.
+     *   will be auto detected.
      * - dir - Name of app directory.
      * - webroot - The webroot directory.
      * - wwwRoot - The file path to webroot.
@@ -39,10 +39,10 @@ return [
      *   CakePHP generates required value based on `HTTP_HOST` environment variable.
      *   However, you can define it manually to optimize performance or if you
      *   are concerned about people manipulating the `Host` header.
-     * - imageBaseUrl - Web path to the public images/ directory under webroot.
-     * - cssBaseUrl - Web path to the public css/ directory under webroot.
-     * - jsBaseUrl - Web path to the public js/ directory under webroot.
-     * - paths - Configure paths for non class-based resources. Supports the
+     * - imageBaseUrl - Web path to the public images directory under webroot.
+     * - cssBaseUrl - Web path to the public css directory under webroot.
+     * - jsBaseUrl - Web path to the public js directory under webroot.
+     * - paths - Configure paths for non class based resources. Supports the
      *   `plugins`, `templates`, `locales` subkeys, which allow the definition of
      *   paths for plugins, view templates and locale files respectively.
      */
@@ -98,6 +98,7 @@ return [
         'default' => [
             'className' => FileEngine::class,
             'path' => CACHE,
+            'duration' => '+1 hour',
             'url' => env('CACHE_DEFAULT_URL', null),
         ],
 
@@ -107,7 +108,7 @@ return [
          * Duration will be set to '+2 minutes' in bootstrap.php when debug = true
          * If you set 'className' => 'Null' core cache will be disabled.
          */
-        '_cake_translations_' => [
+        '_cake_core_' => [
             'className' => FileEngine::class,
             'prefix' => 'myapp_cake_core_',
             'path' => CACHE . 'persistent' . DS,
@@ -131,7 +132,7 @@ return [
             'url' => env('CACHE_CAKEMODEL_URL', null),
         ],
 
-        /**
+         /**
          * Configuration for the IP Blocker cache engine.
          *
          * This configuration sets up a cache engine using the File class to store
@@ -163,6 +164,38 @@ return [
             'path' => CACHE . 'articles/',
             'duration' => '+1 week',
         ],
+
+        /**
+         * Cache configuration for storing tag-related data.
+         *
+         * This configuration uses the File cache engine to store data related to tags.
+         * The cache files are stored in the specified path and have a duration of one week.
+         *
+         * @var array $tags Cache configuration array
+         * @property string $className The class name of the cache engine to use. In this case, 'File'.
+         * @property string $path The path where cache files will be stored. This is set to CACHE . 'tags/'.
+         * @property string $duration The duration for which cache entries should be valid. This is set to '+1 week'.
+         */
+        'tags' => [
+            'className' => 'File',
+            'path' => CACHE . 'tags/',
+            'duration' => '+1 week',
+        ],
+
+        '_cake_routes_' => [
+            'className' => 'File',
+            'prefix' => 'myapp_cake_routes_',
+            'path' => CACHE . 'routes/',
+            'serialize' => true,
+            'duration' => '+1 week',
+            'url' => env('CACHE_CAKEROUTES_URL', null),
+        ],
+
+        'rate_limit' => [
+            'className' => 'File',
+            'path' => CACHE . 'rate_limit/',
+            'duration' => '+1 hour',
+        ],
     ],
 
     /*
@@ -179,11 +212,11 @@ return [
      * Options:
      *
      * - `errorLevel` - int - The level of errors you are interested in capturing.
-     * - `trace` - boolean - Whether backtraces should be included in
+     * - `trace` - boolean - Whether or not backtraces should be included in
      *   logged errors/exceptions.
-     * - `log` - boolean - Whether you want exceptions logged.
+     * - `log` - boolean - Whether or not you want exceptions logged.
      * - `exceptionRenderer` - string - The class responsible for rendering uncaught exceptions.
-     *   The chosen class will be used for both CLI and web environments. If you want different
+     *   The chosen class will be used for for both CLI and web environments. If you want different
      *   classes used in CLI and web environments you'll need to write that conditional logic as well.
      *   The conventional location for custom renderers is in `src/Error`. Your exception renderer needs to
      *   implement the `render()` method and return either a string or Http\Response.
@@ -198,16 +231,24 @@ return [
      * - `extraFatalErrorMemory` - int - The number of megabytes to increase the memory limit by
      *   when a fatal error is encountered. This allows
      *   breathing room to complete logging or error handling.
-     * - `ignoredDeprecationPaths` - array - A list of glob-compatible file paths that deprecations
+     * - `ignoredDeprecationPaths` - array - A list of glob compatible file paths that deprecations
      *   should be ignored in. Use this to ignore deprecations for plugins or parts of
      *   your application that still emit deprecations.
      */
     'Error' => [
-        'errorLevel' => E_ALL,
+        'errorLevel' => E_ALL & ~E_DEPRECATED,
+        'exceptionRenderer' => \App\Error\AppExceptionRenderer::class,
         'skipLog' => [],
         'log' => true,
         'trace' => true,
-        'ignoredDeprecationPaths' => [],
+        'ignoredDeprecationPaths' => [
+            'vendor/cakephp/cakephp/src/I18n/I18n.php',
+            'vendor/bunny/bunny/src/Bunny/ClientMethods.php',
+            'vendor/enqueue/amqp-bunny/AmqpProducer.php',
+            'vendor/enqueue/enqueue/Client/Driver/AmqpDriver.php',
+            'vendor/enqueue/enqueue/Client/Producer.php',
+            'vendor/enqueue/simple-client/SimpleClient.php',
+        ],
     ],
 
     /*
@@ -247,13 +288,13 @@ return [
      */
     'EmailTransport' => [
         'default' => [
-            'className' => MailTransport::class,
+            'className' => 'Smtp',
             /*
              * The keys host, port, timeout, username, password, client and tls
              * are used in SMTP transports
              */
-            'host' => 'localhost',
-            'port' => 25,
+            'host' => 'mailhog',
+            'port' => 1025,
             'timeout' => 30,
             /*
              * It is recommended to set these options through your environment or app_local.php
@@ -272,7 +313,7 @@ return [
      * Delivery profiles allow you to predefine various properties about email
      * messages from your application and give the settings a name. This saves
      * duplication across your application and makes maintenance and development
-     * easier. Each profile accepts a number of keys. See `Cake\Mailer\Mailer`
+     * easier. Each profile accepts a number of keys. See `Cake\Mailer\Email`
      * for more information.
      */
     'Email' => [
@@ -293,8 +334,8 @@ return [
      *
      * ### Notes
      * - Drivers include Mysql Postgres Sqlite Sqlserver
-     *   See vendor\cakephp\cakephp\src\Database\Driver for the complete list
-     * - Do not use periods in database name - it may lead to errors.
+     *   See vendor\cakephp\cakephp\src\Database\Driver for complete list
+     * - Do not use periods in database name - it may lead to error.
      *   See https://github.com/cakephp/cakephp/issues/6471 for details.
      * - 'encoding' is recommended to be set to full UTF-8 4-Byte support.
      *   E.g set it to 'utf8mb4' in MariaDB and MySQL and 'utf8' for any
@@ -308,8 +349,8 @@ return [
          * The values in app_local.php will override any values set here
          * and should be used for local and per-environment configurations.
          *
-         * Environment variable-based configurations can be loaded here or
-         * in app_local.php depending on the application's needs.
+         * Environment variable based configurations can be loaded here or
+         * in app_local.php depending on the applications needs.
          */
         'default' => [
             'className' => Connection::class,
@@ -318,9 +359,9 @@ return [
             'timezone' => 'UTC',
 
             /*
-             * For MariaDB/MySQL the internal default changed from utf8 to utf8mb4, aka full utf-8 support
+             * For MariaDB/MySQL the internal default changed from utf8 to utf8mb4, aka full utf-8 support, in CakePHP 3.6
              */
-            'encoding' => 'utf8mb4',
+            //'encoding' => 'utf8mb4',
 
             /*
              * If your MySQL server is configured with `skip-character-set-client-handshake`
@@ -359,7 +400,7 @@ return [
             'driver' => Mysql::class,
             'persistent' => false,
             'timezone' => 'UTC',
-            'encoding' => 'utf8mb4',
+            //'encoding' => 'utf8mb4',
             'flags' => [],
             'cacheMetadata' => true,
             'quoteIdentifiers' => false,
@@ -373,6 +414,14 @@ return [
      */
     'Log' => [
         'debug' => [
+            'className' => 'App\Log\Engine\DatabaseLog',
+            'levels' => ['notice', 'info', 'debug'],
+        ],
+        'error' => [
+            'className' => 'App\Log\Engine\DatabaseLog',
+            'levels' => ['warning', 'error', 'critical', 'alert', 'emergency'],
+        ],
+        'debug_file' => [
             'className' => FileLog::class,
             'path' => LOGS,
             'file' => 'debug',
@@ -380,7 +429,7 @@ return [
             'scopes' => null,
             'levels' => ['notice', 'info', 'debug'],
         ],
-        'error' => [
+        'error_file' => [
             'className' => FileLog::class,
             'path' => LOGS,
             'file' => 'error',
@@ -388,7 +437,7 @@ return [
             'scopes' => null,
             'levels' => ['warning', 'error', 'critical', 'alert', 'emergency'],
         ],
-        // To enable this dedicated query log, you need to set your datasource's log flag to true
+        // To enable this dedicated query log, you need set your datasource's log flag to true
         'queries' => [
             'className' => FileLog::class,
             'path' => LOGS,
@@ -411,8 +460,11 @@ return [
      *    Avoid using `.` in cookie names, as PHP will drop sessions from cookies with `.` in the name.
      * - `cookiePath` - The url path for which session cookie is set. Maps to the
      *   `session.cookie_path` php.ini config. Defaults to base path of app.
-     * - `timeout` - The time in minutes a session can be 'idle'. If no request is received in
-     *    this duration, the session will be expired and rotated. Pass 0 to disable idle timeout checks.
+     * - `timeout` - The time in minutes the session should be valid for.
+     *    Pass 0 to disable checking timeout.
+     *    Please note that php.ini's session.gc_maxlifetime must be equal to or greater
+     *    than the largest Session['timeout'] in all served websites for it to have the
+     *    desired effect.
      * - `defaults` - The default configuration set to use as a basis for your session.
      *    There are four built-in options: php, cake, cache, database.
      * - `handler` - Can be used to enable a custom session handler. Expects an
@@ -420,14 +472,6 @@ return [
      *    class to use for managing the session. CakePHP bundles the `CacheSession`
      *    and `DatabaseSession` engines.
      * - `ini` - An associative array of additional 'session.*` ini values to set.
-     *
-     * Within the `ini` key, you will likely want to define:
-     *
-     * - `session.cookie_lifetime` - The number of seconds that cookies are valid for. This
-     *    should be longer than `Session.timeout`.
-     * - `session.gc_maxlifetime` - The number of seconds after which a session is considered 'garbage'
-     *    that can be deleted by PHP's session cleanup behavior. This value should be greater than both
-     *    `Sesssion.timeout` and `session.cookie_lifetime`.
      *
      * The built-in `defaults` options are:
      *
@@ -445,9 +489,60 @@ return [
     'Session' => [
         'defaults' => 'php',
     ],
-    'DebugKit' => [
-        'forceEnable' => filter_var(env('DEBUG_KIT_FORCE_ENABLE', false), FILTER_VALIDATE_BOOLEAN),
-        'safeTld' => env('DEBUG_KIT_SAFE_TLD', null),
-        'ignoreAuthorization' => env('DEBUG_KIT_IGNORE_AUTHORIZATION', false)
+
+    'Queue' => [
+        'default' => [
+            'engine' => 'rabbitmq',
+            // A DSN for your configured backend. default: null
+            // Can contain protocol/port/username/password or be null if the backend defaults to localhost
+            'url' => env('RABBITMQ_URL', 'amqp://admin:password@rabbitmq:5672'),
+
+            // The queue that will be used for sending messages. default: default
+            // This can be overridden when queuing or processing messages
+            'queue' => 'default',
+
+            // The name of a configured logger, default: null
+            'logger' => 'stdout',
+
+            // The name of an event listener class to associate with the worker
+            //'listener' => \App\Listener\WorkerListener::class,
+
+            // The amount of time in milliseconds to sleep if no jobs are currently available. default: 10000
+            'receiveTimeout' => 10000,
+
+            // Whether to store failed jobs in the queue_failed_jobs table. default: false
+            'storeFailedJobs' => true,
+
+            // (optional) The cache configuration for storing unique job ids. `duration`
+            // should be greater than the maximum length of time any job can be expected
+            // to remain on the queue. Otherwise, duplicate jobs may be
+            // possible. Defaults to +24 hours. Note that `File` engine is only suitable
+            // for local development.
+            // See https://book.cakephp.org/4/en/core-libraries/caching.html#configuring-cache-engines.
+            'uniqueCache' => [
+                'engine' => 'File',
+            ],
+
+            'heartbeat' => 60,
+            'read_timeout' => 120,
+            'write_timeout' => 120,
+            'connection_timeout' => 3.0,
+        ],
+        'test' => [
+            'engine' => 'rabbitmq',
+            'url' => env('RABBITMQ_TEST_URL', 'amqp://admin:password@rabbitmq:5672'),
+            'queue' => 'test_queue',
+            'logger' => 'stdout',
+            'receiveTimeout' => 10000,
+            'storeFailedJobs' => true,
+            'uniqueCache' => [
+                'engine' => 'File',
+            ],
+            'heartbeat' => 60,
+            'read_timeout' => 120,
+            'write_timeout' => 120,
+            'connection_timeout' => 3.0,
+        ],
     ],
+// 
 ];

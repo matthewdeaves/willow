@@ -1,16 +1,20 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Test\TestCase\Controller;
+namespace App\Test\TestCase\Controller\Admin;
 
-use App\Controller\BlockedIpsController;
+use Authentication\AuthenticationService;
+use Authentication\Authenticator\Result;
+use Authentication\Identity;
+use Cake\I18n\DateTime;
+use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Controller\BlockedIpsController Test Case
+ * App\Controller\Admin\BlockedIpsController Test Case
  *
- * @uses \App\Controller\BlockedIpsController
+ * @uses \App\Controller\Admin\BlockedIpsController
  */
 class BlockedIpsControllerTest extends TestCase
 {
@@ -19,64 +23,187 @@ class BlockedIpsControllerTest extends TestCase
     /**
      * Fixtures
      *
-     * @var list<string>
+     * @var array<string>
      */
     protected array $fixtures = [
         'app.BlockedIps',
+        'app.Users',
     ];
+
+    /**
+     * @var \App\Model\Table\BlockedIpsTable
+     */
+    protected $BlockedIps;
+
+    /**
+     * setUp method
+     *
+     * @return void
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->disableErrorHandlerMiddleware();
+        $this->BlockedIps = TableRegistry::getTableLocator()->get('BlockedIps');
+        $this->setupAuthentication();
+
+        // Configure authentication
+        $this->configRequest([
+            'environment' => [
+                'AUTH_TYPE' => 'Form',
+            ],
+        ]);
+    }
+
+    /**
+     * tearDown method
+     *
+     * @return void
+     */
+    public function tearDown(): void
+    {
+        unset($this->BlockedIps);
+        parent::tearDown();
+    }
+
+    /**
+     * Setup authentication for tests
+     *
+     * @return void
+     */
+    private function setupAuthentication(): void
+    {
+        $adminId = '6509480c-e7e6-4e65-9c38-1423a8d09d0f';
+        $identity = new Identity([
+            'id' => $adminId,
+            'email' => 'admin@example.com',
+            'is_admin' => 1,
+        ]);
+
+        $this->session(['Auth' => $identity]);
+
+        $authenticationService = $this->createMock(AuthenticationService::class);
+        $authenticationService->method('getIdentity')->willReturn($identity);
+        $authenticationService->method('getResult')->willReturn(new Result($identity, Result::SUCCESS));
+
+        $this->_controller = $this->getMockBuilder('App\Controller\Admin\BlockedIpsController')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->_controller->Authentication = $authenticationService;
+    }
 
     /**
      * Test index method
      *
      * @return void
-     * @uses \App\Controller\BlockedIpsController::index()
+     * @uses \App\Controller\Admin\BlockedIpsController::index()
      */
     public function testIndex(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->get('/admin/blocked-ips');
+        $this->assertResponseOk();
+        $this->assertResponseContains('192.168.1.1');
+        $this->assertResponseContains('10.0.0.5');
+        $this->assertResponseContains('172.16.0.1');
     }
 
     /**
      * Test view method
      *
      * @return void
-     * @uses \App\Controller\BlockedIpsController::view()
+     * @uses \App\Controller\Admin\BlockedIpsController::view()
      */
     public function testView(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->get('/admin/blocked-ips/view/550e8400-e29b-41d4-a716-446655440000');
+        $this->assertResponseOk();
+        $this->assertResponseContains('192.168.1.1');
+        $this->assertResponseContains('Suspicious activity detected');
     }
 
     /**
      * Test add method
      *
      * @return void
-     * @uses \App\Controller\BlockedIpsController::add()
+     * @uses \App\Controller\Admin\BlockedIpsController::add()
      */
     public function testAdd(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->enableCsrfToken();
+        $this->post('/admin/blocked-ips/add', [
+            'ip_address' => '203.0.113.1',
+            'reason' => 'Test blocking',
+            'blocked_at' => DateTime::now(),
+            'expires_at' => DateTime::now()->modify('+1 hour'),
+        ]);
+
+        $this->assertResponseSuccess();
+        $this->assertRedirect(['action' => 'index']);
+        $this->assertFlashMessage('The blocked ip has been saved.');
+
+        $blockedIp = $this->BlockedIps->find()->where(['ip_address' => '203.0.113.1'])->first();
+        $this->assertNotEmpty($blockedIp);
     }
 
     /**
      * Test edit method
      *
      * @return void
-     * @uses \App\Controller\BlockedIpsController::edit()
+     * @uses \App\Controller\Admin\BlockedIpsController::edit()
      */
     public function testEdit(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->enableCsrfToken();
+        $this->put('/admin/blocked-ips/edit/550e8400-e29b-41d4-a716-446655440000', [
+            'ip_address' => '192.168.1.1',
+            'reason' => 'Updated reason',
+        ]);
+
+        $this->assertResponseSuccess();
+        $this->assertRedirect(['action' => 'index']);
+        $this->assertFlashMessage('The blocked ip has been saved.');
+
+        $updatedBlockedIp = $this->BlockedIps->get('550e8400-e29b-41d4-a716-446655440000');
+        $this->assertEquals('Updated reason', $updatedBlockedIp->reason);
     }
 
     /**
      * Test delete method
      *
      * @return void
-     * @uses \App\Controller\BlockedIpsController::delete()
+     * @uses \App\Controller\Admin\BlockedIpsController::delete()
      */
     public function testDelete(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->enableCsrfToken();
+        $this->delete('/admin/blocked-ips/delete/550e8400-e29b-41d4-a716-446655440000');
+
+        $this->assertResponseSuccess();
+        $this->assertRedirect(['action' => 'index']);
+        $this->assertFlashMessage('The blocked ip has been deleted.');
+
+        $deletedBlockedIp = $this->BlockedIps->findById('550e8400-e29b-41d4-a716-446655440000')->first();
+        $this->assertEmpty($deletedBlockedIp);
+    }
+
+    /**
+     * Test unauthorized access
+     *
+     * @return void
+     */
+    public function testUnauthorizedAccess(): void
+    {
+        // Setup non-admin user
+        $userId = '6509480c-e7e6-4e65-9c38-1423a8d09d02';
+        $identity = new Identity([
+            'id' => $userId,
+            'email' => 'user@example.com',
+            'is_admin' => 0,
+        ]);
+
+        $this->session(['Auth' => $identity]);
+
+        $this->get('/admin/blocked-ips');
+        $this->assertRedirect('/users/login');
     }
 }

@@ -54,5 +54,7 @@ class Article extends Entity
         'parent_id' => true,
         'lft' => true,
         'rght' => true,
+        'published' => true,
+        'is_published' => true,
     ];
 }

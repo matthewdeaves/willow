@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
-use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -13,7 +12,6 @@ use Cake\Validation\Validator;
  *
  * @property \App\Model\Table\ArticlesTable&\Cake\ORM\Association\BelongsTo $Articles
  * @property \App\Model\Table\TagsTable&\Cake\ORM\Association\BelongsTo $Tags
- *
  * @method \App\Model\Entity\ArticlesTag newEmptyEntity()
  * @method \App\Model\Entity\ArticlesTag newEntity(array $data, array $options = [])
  * @method array<\App\Model\Entity\ArticlesTag> newEntities(array $data, array $options = [])

@@ -11,14 +11,14 @@
 /webroot/files/*
 !/webroot/files/Images
 /webroot/files/Images/*
-!/webroot/files/Images/path
-/webroot/files/Images/path/*
-!/webroot/files/Images/path/.gitkeep
+!/webroot/files/Images/image_file
+/webroot/files/Images/image_file/*
+!/webroot/files/Images/image_file/.gitkeep
 !/webroot/files/Users
 /webroot/files/Users/*
-!/webroot/files/Users/profile
-/webroot/files/Users/profile/*
-!/webroot/files/Users/profile/.gitkeep
+!/webroot/files/Users/picture_file
+/webroot/files/Users/picture_file/*
+!/webroot/files/Users/picture_file/.gitkeep
 
 # OS generated files #
 ######################

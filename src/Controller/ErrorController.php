@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Event\EventInterface;
+use Cake\Http\Response;
 
 /**
  * Error Handling Controller
@@ -33,6 +34,7 @@ class ErrorController extends AppController
     public function initialize(): void
     {
         // Only add parent::initialize() if you are confident your appcontroller is safe.
+        $this->loadComponent('Authentication.Authentication');
     }
 
     /**
@@ -41,7 +43,7 @@ class ErrorController extends AppController
      * @param \Cake\Event\EventInterface<\Cake\Controller\Controller> $event Event.
      * @return \Cake\Http\Response|null|void
      */
-    public function beforeFilter(EventInterface $event)
+    public function beforeFilter(EventInterface $event): ?Response
     {
     }
 
@@ -51,7 +53,7 @@ class ErrorController extends AppController
      * @param \Cake\Event\EventInterface<\Cake\Controller\Controller> $event Event.
      * @return \Cake\Http\Response|null|void
      */
-    public function beforeRender(EventInterface $event)
+    public function beforeRender(EventInterface $event): void
     {
         parent::beforeRender($event);
 
@@ -64,7 +66,20 @@ class ErrorController extends AppController
      * @param \Cake\Event\EventInterface<\Cake\Controller\Controller> $event Event.
      * @return \Cake\Http\Response|null|void
      */
-    public function afterFilter(EventInterface $event)
+    public function afterFilter(EventInterface $event): void
     {
+    }
+
+    /**
+     * Handles 429 Too Many Requests error.
+     *
+     * @param \Cake\Http\Exception\HttpException $exception The exception to handle.
+     * @return void
+     */
+    public function tooManyRequests(HttpException $exception): void
+    {
+        $this->response = $this->response->withStatus(429);
+        $this->set('message', $exception->getMessage());
+        $this->viewBuilder()->setTemplate('error429');
     }
 }

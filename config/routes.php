@@ -81,6 +81,9 @@ return function (RouteBuilder $routes): void {
          */
         $builder->connect('/', ['controller' => 'Articles', 'action' => 'index']);
 
+
+        $builder->connect('/sitemap', ['controller' => 'Sitemap', 'action' => 'index'])->setExtensions(['xml']);
+
         /*
          * Connect catchall routes for all controllers.
          *
@@ -117,6 +120,9 @@ return function (RouteBuilder $routes): void {
         // All routes here will be prefixed with `/admin`, and
         // have the `'prefix' => 'Admin'` route element added that
         // will be required when generating URLs for these routes
+
+        $routes->connect('/', ['controller' => 'Articles', 'action' => 'index', 'prefix' => 'Admin']);
+        
         $routes->fallbacks(DashedRoute::class);
     });
 };

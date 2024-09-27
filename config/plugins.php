@@ -12,4 +12,6 @@ return [
         'onlyCli' => true,
     ],
     'Josegonzalez/Upload' => [],
+    'AdminTheme' => [],
+    'DefaultTheme' => [],
 ];

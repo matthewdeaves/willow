@@ -1,10 +1,11 @@
 <?php
+declare(strict_types=1);
+
 namespace App\Middleware;
 
 use Cake\Cache\Cache;
-use Cake\Core\Configure;
-use Cake\I18n\DateTime;
 use Cake\Http\Response;
+use Cake\I18n\DateTime;
 use Cake\ORM\TableRegistry;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -12,47 +13,45 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 /**
- * Middleware to block requests from specific IP addresses.
+ * Processes an incoming server request and checks if the client's IP address is blocked.
  *
- * This middleware checks if the client's IP address is blocked by performing the following steps:
- * 1. Attempts to retrieve the blocked status from the cache.
- * 2. If not in cache, queries the database to determine if the IP is blocked.
- * 3. Caches the result for future requests.
+ * This method retrieves the client's IP address from the server parameters and checks if it is blocked.
+ * It first checks a cache for the blocked status of the IP. If the status is not cached, it queries the
+ * database to determine if the IP is blocked and caches the result. If the IP is blocked, a 403 response
+ * is returned. Otherwise, the request is passed to the next handler.
  *
- * The database query checks for IP blocks with two possible conditions:
- * - Permanent blocks: Where 'expires_at' is NULL, indicating no expiration.
- * - Temporary blocks: Where 'expires_at' is a future date/time, indicating the block is still active.
- *
- * If the IP is blocked (either permanently or temporarily), a 403 Forbidden response is returned
- * with a message indicating access is denied. Otherwise, the request is passed to the next handler.
- *
- * @package App\Middleware
+ * @param \Psr\Http\Message\ServerRequestInterface $request The incoming server request.
+ * @param \Psr\Http\Server\RequestHandlerInterface $handler The request handler to delegate to if the IP is not blocked.
+ * @return \Psr\Http\Message\ResponseInterface A response indicating whether access is denied
+ * or the result of the next handler.
+ * @throws \RuntimeException If there is an issue with caching or database access.
  */
 class IpBlockerMiddleware implements MiddlewareInterface
 {
     /**
-     * Processes an incoming server request and returns a response.
+     * Process an incoming server request and return a response.
      *
-     * This method checks if the client's IP address is blocked by performing the following steps:
-     * 1. Attempts to retrieve the blocked status from the cache.
-     * 2. If not in cache, queries the database to determine if the IP is blocked.
-     * 3. Caches the result for future requests.
+     * This method checks if the client's IP address is blocked. It first attempts to retrieve the blocked status from
+     * the cache. If the status is not cached, it queries the database to determine if the IP is blocked. The result is
+     * then cached for future requests. If the IP is blocked, a 403 response is returned. Otherwise, the request is
+     * passed to the next handler.
      *
-     * The database query checks for IP blocks with two possible conditions:
-     * - Permanent blocks: Where 'expires_at' is NULL, indicating no expiration.
-     * - Temporary blocks: Where 'expires_at' is a future date/time, indicating the block is still active.
-     *
-     * If the IP is blocked (either permanently or temporarily), a 403 Forbidden response is returned
-     * with a message indicating access is denied. Otherwise, the request is passed to the next handler.
-     *
-     * @param ServerRequestInterface $request The incoming server request.
-     * @param RequestHandlerInterface $handler The request handler to delegate to if the IP is not blocked.
-     * @return ResponseInterface The response generated after processing the request.
-     * @throws \RuntimeException If there's an error accessing the database or cache.
+     * @param \Psr\Http\Message\ServerRequestInterface $request The incoming server request.
+     * @param \Psr\Http\Server\RequestHandlerInterface $handler The request handler to delegate to if the IP
+     * is not blocked.
+     * @return \Psr\Http\Message\ResponseInterface A response indicating whether the IP is blocked or the result
+     * of the next handler.
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $clientIp = $request->getServerParams()['REMOTE_ADDR'];
+        $params = $request->getServerParams();
+
+        if (isset($params['REMOTE_ADDR'])) {
+            $clientIp = $params['REMOTE_ADDR'];
+        } else {
+            return $handler->handle($request);
+        }
+
         $cacheKey = 'blocked_ip_' . $clientIp;
         $blockedStatus = Cache::read($cacheKey, 'ip_blocker');
 
@@ -64,7 +63,7 @@ class IpBlockerMiddleware implements MiddlewareInterface
                 ->where(function ($exp) {
                     return $exp->or([
                         'expires_at IS' => null,
-                        'expires_at >' => DateTime::now()
+                        'expires_at >' => DateTime::now(),
                     ]);
                 })
                 ->first();
@@ -77,6 +76,7 @@ class IpBlockerMiddleware implements MiddlewareInterface
 
         if ($blockedStatus) {
             $response = new Response();
+
             return $response->withStatus(403)->withStringBody('Access Denied: Your IP is blocked.');
         }
 

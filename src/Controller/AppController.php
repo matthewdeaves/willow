@@ -16,8 +16,10 @@ declare(strict_types=1);
  */
 namespace App\Controller;
 
-use Cake\Core\Configure;
 use Cake\Controller\Controller;
+use Cake\Core\Configure;
+use Cake\Event\EventInterface;
+use Cake\Http\Response;
 
 /**
  * Application Controller
@@ -46,6 +48,8 @@ class AppController extends Controller
 
         $this->loadComponent('Authentication.Authentication');
 
+        $this->loadComponent('DefaultTheme.FrontEndSite');
+
         /*
          * Enable the following component for recommended CakePHP form protection settings.
          * see https://book.cakephp.org/5/en/controllers/components/form-protection.html
@@ -56,20 +60,23 @@ class AppController extends Controller
     /**
      * beforeFilter callback.
      *
-     * This method is executed before each controller action. It checks if the current request is for an admin-prefixed route.
-     * If so, it verifies whether the authenticated user has admin privileges by checking the 'is_admin' flag in the Users table.
-     * If the user is not an admin, it logs the unauthorized access attempt and redirects the user to the login page with an error message.
+     * This method is executed before each controller action. It checks if the current
+     * request is for an admin-prefixed route. If so, it verifies whether the
+     * authenticated user has admin privileges by checking the 'is_admin' flag in the Users table.
+     * If the user is not an admin, it logs the unauthorized access attempt and redirects the user
+     * to the login page with an error message.
      *
      * @param \Cake\Event\EventInterface $event The event instance.
      * @return \Cake\Http\Response|null Redirects to the login page if the user is not an admin.
      */
-    public function beforeFilter(\Cake\Event\EventInterface $event)
+    public function beforeFilter(EventInterface $event): ?Response
     {
         parent::beforeFilter($event);
+
         if ($this->request->getParam('prefix') === 'Admin') {
             // Force a fresh check of the is_admin flag
             $identity = $this->Authentication->getIdentity();
-            if($identity) {
+            if ($identity) {
                 $usersTable = $this->fetchTable('Users');
                 $user = $usersTable->find()
                     ->select(['is_admin'])
@@ -78,19 +85,26 @@ class AppController extends Controller
                     ->is_admin; //todo: test this with logged in/out under 2 sites multi ten
                 if (!$user) {
                     // Log the unauthorized access attempt
-                    $this->log('Unauthorized access attempt to admin area', 'warning', [
-                        '$identity = $this->Authentication->getIdentity();group_name' => 'unauthorized_admin_access_attempt',
-                        'user_id' => $this->request->getAttribute('identity')->getIdentifier(),
-                        'url' => $this->request->getRequestTarget(),
-                        'ip' => $this->request->clientIp(),
-                        'scope' => ['system']
-                    ]);
+                    $this->log(
+                        'Unauthorized access attempt to admin area',
+                        'warning',
+                        [
+                            'group_name' => 'unauthorized_admin_access_attempt',
+                            'user_id' => $this->request->getAttribute('identity')->getIdentifier(),
+                            'url' => $this->request->getRequestTarget(),
+                            'ip' => $this->request->clientIp(),
+                            'scope' => ['system'],
+                        ]
+                    );
 
                     $this->Flash->error('Access denied. You must be an admin to view this page.');
+
                     return $this->redirect(['controller' => 'Users', 'action' => 'login', 'prefix' => false]);
                 }
             }
         }
+
+        return null;
     }
 
     /**
@@ -101,7 +115,6 @@ class AppController extends Controller
      *
      * @param \Cake\Event\EventInterface $event The event that was triggered.
      * @return void
-     *
      * @uses \Authentication\AuthenticationServiceInterface::getResult()
      * @uses \Authentication\AuthenticationServiceInterface::getIdentity()
      * @uses \Cake\Http\ServerRequest::getParam()
@@ -112,7 +125,7 @@ class AppController extends Controller
      * - Checks if the current request is for an admin route and sets the layout to 'admin' if true,
      *   otherwise sets the layout to 'default'.
      */
-    public function beforeRender(\Cake\Event\EventInterface $event)
+    public function beforeRender(EventInterface $event): void
     {
         parent::beforeRender($event);
         // Set the 'isLoggedIn' view variable to indicate if the user is authenticated
@@ -123,9 +136,9 @@ class AppController extends Controller
 
         // Check if the current request is for an admin route
         if ($this->request->getParam('prefix') === 'Admin') {
-            $this->viewBuilder()->setLayout('admin');
+            $this->viewBuilder()->setTheme(Configure::read('Theme.admin_theme'));
         } else {
-            $this->viewBuilder()->setLayout('default');
+            $this->viewBuilder()->setTheme(Configure::read('Theme.default_theme'));
         }
     }
 }

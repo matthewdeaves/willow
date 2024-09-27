@@ -1,0 +1,72 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/*'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-version: ['8.1', '8.2', '8.3']
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup MySQL
+      run: |
+        sudo service mysql start
+        mysql -e 'CREATE DATABASE IF NOT EXISTS cms_test;' -uroot -proot
+        mysql -e 'SHOW DATABASES;' -uroot -proot
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-version }}
+        extensions: mbstring, intl, pdo_mysql
+        coverage: xdebug
+
+    - name: Cache Composer packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.composer/cache/files
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+
+    - name: Update Composer
+      run: composer self-update
+
+    - name: Composer Install
+      run: composer install --prefer-dist --no-progress --ignore-platform-reqs
+
+    - name: Copy app_local.php
+      run: cp docker/php/cms_app_local_github.php config/app_local.php
+
+    - name: Debug app_local.php
+      run: |
+        cat "config/app_local.php"
+
+    - name: Run PHPUnit
+      run: vendor/bin/phpunit --configuration phpunit.xml.dist
+      env:
+        XDEBUG_MODE: coverage
+        DB_HOST: localhost
+        DB_DATABASE: cms_test
+        DB_USERNAME: root
+        DB_PASSWORD: root
+
+    - name: Run code standards
+      run: vendor/bin/phpcbf -n --standard=PSR2 src/
+
+    - name: Run PHP CodeSniffer
+      run: vendor/bin/phpcs --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/
+
+    - name: Run PHPStan
+      run: php -d memory_limit=-1 vendor/bin/phpstan analyse src/
+      continue-on-error: true

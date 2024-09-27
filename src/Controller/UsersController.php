@@ -3,9 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Controller\AppController;
-use Authentication\Controller\Component\AuthenticationComponent;
 use Cake\Event\EventInterface;
+use Cake\Http\Response;
 
 /**
  * Users Controller
@@ -21,11 +20,13 @@ class UsersController extends AppController
      * @return void
      * @throws \Cake\Http\Exception\RedirectException If a redirect is necessary.
      */
-    public function beforeFilter(EventInterface $event)
+    public function beforeFilter(EventInterface $event): ?Response
     {
         parent::beforeFilter($event);
 
         $this->Authentication->allowUnauthenticated(['login', 'logout', 'register']);
+
+        return null;
     }
 
     /**
@@ -33,12 +34,13 @@ class UsersController extends AppController
      *
      * This method checks the authentication result to determine if a user is logged in.
      * If the user is authenticated and has admin privileges, they are redirected to the admin articles page.
-     * Otherwise, the user is redirected to the page they were attempting to access before logging in, or to the home page if no redirect target is set.
+     * Otherwise, the user is redirected to the page they were attempting to access before logging in,
+     * or to the home page if no redirect target is set.
      * If the login attempt fails, an error message is displayed.
      *
      * @return \Cake\Http\Response|null Redirects on successful login, or returns null on failure.
      */
-    public function login()
+    public function login(): ?Response
     {
         $result = $this->Authentication->getResult();
 
@@ -52,6 +54,7 @@ class UsersController extends AppController
 
             // Redirect to the page the user was trying to access before logging in
             $target = $this->Authentication->getLoginRedirect() ?? '/';
+
             return $this->redirect($target);
         }
 
@@ -68,7 +71,7 @@ class UsersController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects to the login page.
      */
-    public function logout()
+    public function logout(): ?Response
     {
         $this->Authentication->logout();
 
@@ -86,7 +89,7 @@ class UsersController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects to login page on successful registration, or renders view otherwise.
      */
-    public function register()
+    public function register(): ?Response
     {
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -98,17 +101,39 @@ class UsersController extends AppController
             // Be super certain is_admin is false for new registrations
             $user->is_admin = false;
             $user->setAccess('is_admin', false);
-            
+
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Registration successful. Please log in.'));
+
                 return $this->redirect(['action' => 'login']);
             }
             $this->Flash->error(__('Registration failed. Please, try again.'));
         }
         $this->set(compact('user'));
+
+        return $this->render();
     }
 
-    public function edit(?string $id = null)
+    /**
+     * Edit the current user's account information.
+     *
+     * This method allows a user to edit their own account details. It implements
+     * security checks to prevent unauthorized access to other users' accounts.
+     * If an unauthorized edit attempt is detected, it logs the incident and
+     * redirects the user to their own edit page.
+     *
+     * The method handles PATCH, POST, and PUT requests to update user information.
+     * It ensures that users cannot change their admin status during the update.
+     * Upon successful update, a success message is displayed and the user is
+     * redirected to their edit page. If the update fails, an error message is shown.
+     *
+     * @param string|null $id The ID of the user to be edited. Defaults to null.
+     * @return \Cake\Http\Response|null Redirects to the edit page of the current user
+     *                                  if unauthorized access is attempted or after
+     *                                  a successful update.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When the user record is not found.
+     */
+    public function edit(?string $id = null): Response
     {
         // Get the currently logged-in user's ID
         $currentUserId = $this->Authentication->getIdentity()->getIdentifier();
@@ -121,12 +146,13 @@ class UsersController extends AppController
                 'attempted_user_id' => $id,
                 'url' => $this->request->getRequestTarget(),
                 'ip' => $this->request->clientIp(),
-                'scope' => ['user']
+                'scope' => ['user'],
             ]);
             $this->Flash->error(__('You are not authorized to edit this account, stick to your own.'));
+
             return $this->redirect(['action' => 'edit', $this->Authentication->getIdentity()->getIdentifier()]);
         }
-    
+
         $user = $this->Users->get($id, contain: []);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
@@ -134,10 +160,13 @@ class UsersController extends AppController
             $user->is_admin = 0;
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Your account has been updated.'));
+
                 return $this->redirect(['action' => 'edit', $currentUserId]);
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
         $this->set(compact('user'));
+
+        return $this->render();
     }
 }

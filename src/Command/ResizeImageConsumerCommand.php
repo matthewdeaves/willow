@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace App\Command;
 
 use Cake\Command\Command;
@@ -8,12 +10,48 @@ use Cake\Core\Configure;
 use Exception;
 use Imagick;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
+use Throwable;
 
+/**
+ * ResizeImageConsumerCommand
+ *
+ * This command class is responsible for consuming messages from a RabbitMQ queue
+ * and processing image uploads by resizing them to specified widths.
+ *
+ * It establishes a connection to a RabbitMQ server using configured settings,
+ * listens for messages on the 'image_uploads' queue, and processes each message
+ * by resizing the uploaded image to various widths specified in the application
+ * configuration.
+ *
+ * The class uses Imagick for image manipulation and PhpAmqpLib for RabbitMQ
+ * communication.
+ *
+ * @package App\Command
+ * @uses \Cake\Command\Command
+ * @uses \Cake\Console\Arguments
+ * @uses \Cake\Console\ConsoleIo
+ * @uses \Cake\Core\Configure
+ * @uses \Imagick
+ * @uses \PhpAmqpLib\Connection\AMQPStreamConnection
+ */
 class ResizeImageConsumerCommand extends Command
 {
     //store the IO object so we dont have to pass it around
     protected ConsoleIo $io;
 
+    /**
+     * Executes the command to consume messages from a RabbitMQ queue and process image uploads.
+     *
+     * This method establishes a connection to a RabbitMQ server using the configured settings.
+     * It declares a queue named 'image_uploads' and waits for incoming messages. Upon receiving
+     * a message, it decodes the JSON payload and processes image resizing for each specified
+     * width in the configuration.
+     *
+     * @param \Cake\Console\Arguments $args The command arguments.
+     * @param \Cake\Console\ConsoleIo $io The console I/O object for output.
+     * @return int Returns CODE_SUCCESS upon completion.
+     * @throws \Exception If there's an error connecting to RabbitMQ or processing messages.
+     */
     public function execute(Arguments $args, ConsoleIo $io): int
     {
         //save reference for IO
@@ -29,9 +67,9 @@ class ResizeImageConsumerCommand extends Command
             $channel = $connection->channel();
 
             $channel->queue_declare('image_uploads', false, false, false, false);
-            $io->out(" [*] Waiting for messages. To exit press CTRL+C");
+            $io->out(' [*] Waiting for messages. To exit press CTRL+C');
 
-            $callback = function ($msg) {
+            $callback = function ($msg): void {
                 echo ' [x] Received ' . $msg->body . "\n";
                 $jsonObj = json_decode($msg->body);
 
@@ -44,18 +82,17 @@ class ResizeImageConsumerCommand extends Command
 
             try {
                 $channel->consume();
-            } catch (\Throwable $exception) {
+            } catch (Throwable $exception) {
                 $io->out($exception->getMessage());
             }
-
         } catch (Exception $e) {
-            $io->out("RabbitMQ exception: " . $e->getMessage());
+            $io->out('RabbitMQ exception: ' . $e->getMessage());
         }
 
         return static::CODE_SUCCESS;
     }
 
-        /**
+    /**
      * Function to resize the image to the sizes set in config/app.php
      * Uses Image Magick for PHP
      *

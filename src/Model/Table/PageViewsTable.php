@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
-use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -12,7 +11,6 @@ use Cake\Validation\Validator;
  * PageViews Model
  *
  * @property \App\Model\Table\ArticlesTable&\Cake\ORM\Association\BelongsTo $Articles
- *
  * @method \App\Model\Entity\PageView newEmptyEntity()
  * @method \App\Model\Entity\PageView newEntity(array $data, array $options = [])
  * @method array<\App\Model\Entity\PageView> newEntities(array $data, array $options = [])
@@ -26,7 +24,6 @@ use Cake\Validation\Validator;
  * @method iterable<\App\Model\Entity\PageView>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\PageView> saveManyOrFail(iterable $entities, array $options = [])
  * @method iterable<\App\Model\Entity\PageView>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\PageView>|false deleteMany(iterable $entities, array $options = [])
  * @method iterable<\App\Model\Entity\PageView>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\PageView> deleteManyOrFail(iterable $entities, array $options = [])
- *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
 class PageViewsTable extends Table

@@ -31,10 +31,11 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'paths.php';
  */
 require CORE_PATH . 'config' . DS . 'bootstrap.php';
 
-use App\Core\Configure\Engine\DatabaseSettingsManager;
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Core\Configure\Engine\PhpConfig;
+use Cake\Database\Type\StringType;
+use Cake\Database\TypeFactory;
 use Cake\Datasource\ConnectionManager;
 use Cake\Error\ErrorTrap;
 use Cake\Error\ExceptionTrap;
@@ -42,6 +43,7 @@ use Cake\Http\ServerRequest;
 use Cake\Log\Log;
 use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
+use Cake\ORM\Locator\TableLocator;
 use Cake\Routing\Router;
 use Cake\Utility\Security;
 
@@ -101,7 +103,7 @@ if (file_exists(CONFIG . 'app_local.php')) {
  */
 if (Configure::read('debug')) {
     Configure::write('Cache._cake_model_.duration', '+2 minutes');
-    Configure::write('Cache._cake_translations_.duration', '+2 minutes');
+    Configure::write('Cache._cake_core_.duration', '+2 minutes');
     // disable router cache during development
     Configure::write('Cache._cake_routes_.duration', '+2 seconds');
 }
@@ -148,7 +150,7 @@ if (!$fullBaseUrl) {
      * you can enable `$trustProxy` to rely on the `X-Forwarded-Proto`
      * header to determine whether to generate URLs using `https`.
      *
-     * See also https://book.cakephp.org/5/en/controllers/request-response.html#trusting-proxy-headers
+     * See also https://book.cakephp.org/4/en/controllers/request-response.html#trusting-proxy-headers
      */
     $trustProxy = false;
 
@@ -158,7 +160,7 @@ if (!$fullBaseUrl) {
     }
 
     $httpHost = env('HTTP_HOST');
-    if ($httpHost) {
+    if (isset($httpHost)) {
         $fullBaseUrl = 'http' . $s . '://' . $httpHost;
     }
     unset($httpHost, $s);
@@ -195,7 +197,7 @@ ServerRequest::addDetector('tablet', function ($request) {
  * You can enable default locale format parsing by adding calls
  * to `useLocaleParser()`. This enables the automatic conversion of
  * locale specific date formats. For details see
- * @link https://book.cakephp.org/5/en/core-libraries/internationalization-and-localization.html#parsing-localized-datetime-data
+ * @link https://book.cakephp.org/4/en/core-libraries/internationalization-and-localization.html#parsing-localized-datetime-data
  */
 // \Cake\Database\TypeFactory::build('time')
 //    ->useLocaleParser();
@@ -224,28 +226,16 @@ ServerRequest::addDetector('tablet', function ($request) {
 //Inflector::rules('uninflected', ['dontinflectme']);
 
 // set a custom date and time format
-// see https://book.cakephp.org/5/en/core-libraries/time.html#setting-the-default-locale-and-format-string
+// see https://book.cakephp.org/4/en/core-libraries/time.html#setting-the-default-locale-and-format-string
 // and https://unicode-org.github.io/icu/userguide/format_parse/datetime/#datetime-format-syntax
-//\Cake\I18n\Date::setToStringFormat('dd.MM.yyyy');
-//\Cake\I18n\Time::setToStringFormat('dd.MM.yyyy HH:mm');
+//\Cake\I18n\FrozenDate::setToStringFormat('dd.MM.yyyy');
+//\Cake\I18n\FrozenTime::setToStringFormat('dd.MM.yyyy HH:mm');
 
-/**
- * Configures and loads settings from the settings table into CakePHP's Configure class.
- *
- * This code block attempts to set up a custom 'database' configuration engine
- * using DatabaseConfig and then load settings from the database. If successful,
- * these settings will be available via Configure::read() calls.
- *
- * The process is wrapped in a try-catch block to handle any exceptions that
- * may occur during configuration or loading. If an exception is caught, the
- * script will terminate and output the error message.
- *
- * @throws \Exception If there's an error in configuring or loading the database configuration.
- *                    The exception message will be displayed and the script will terminate.
- */
-try {
-    Configure::config('database', new DatabaseSettingsManager());
-    Configure::load('database', 'database');
-} catch (\Exception $e) {
-    exit($e->getMessage() . "\n");
+//Get database driven settings
+$tableLocator = new TableLocator();
+$settingsTable = $tableLocator->get('Settings');
+$settings = $settingsTable->getSettings();
+
+foreach ($settings as $setting => $keys) {
+    Configure::write($keys['group_name'].'.'.$keys['key_name'], $keys['value']);
 }

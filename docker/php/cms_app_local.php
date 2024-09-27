@@ -57,7 +57,7 @@ return [
             'driver' => 'Cake\Database\Driver\Mysql',
             'persistent' => false,
             'host' => 'mysql',
-            'username' => 'cms_user_test',
+            'username' => 'root',
             'password' => 'password',
             'database' => 'cms_test',
             'encoding' => 'utf8mb4',

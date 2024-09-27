@@ -3,16 +3,13 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
-use App\Service\RabbitMQService;
 use ArrayObject;
 use Cake\Core\Configure;
-use Cake\Datasource\ConnectionManager;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
-
 
 class UsersTable extends Table
 {
@@ -32,7 +29,7 @@ class UsersTable extends Table
 
         $this->addBehavior('QueueableImage', [
             'folder_path' => 'files/Users/profile/',
-            'field' => 'profile'
+            'field' => 'profile',
         ]);
 
         $this->addBehavior('Timestamp');
@@ -44,8 +41,9 @@ class UsersTable extends Table
                     'size' => 'picture_size',
                     'type' => 'picture_type',
                 ],
+                'path' => 'webroot{DS}files{DS}Users{DS}profile{DS}',
                 'nameCallback' => function ($table, $entity, $data, $field, $settings) {
-                    return uniqid('', true);
+                    return uniqid('', true) . '.' . pathinfo($data->getClientFilename(), PATHINFO_EXTENSION);
                 },
                 'deleteCallback' => function ($path, $entity, $field, $settings) {
                     $paths = [
@@ -62,6 +60,10 @@ class UsersTable extends Table
         ]);
 
         $this->hasMany('Articles', [
+            'foreignKey' => 'user_id',
+        ]);
+
+        $this->hasMany('Comments', [
             'foreignKey' => 'user_id',
         ]);
     }
@@ -84,18 +86,20 @@ class UsersTable extends Table
             ->scalar('password')
             ->maxLength('password', 255)
             ->requirePresence('password', 'create')
-            ->allowEmptyString('password');
+            ->allowEmptyString('password', 'update')
+            ->notEmptyString('password', null, 'create');
 
         $validator
             ->scalar('confirm_password')
             ->maxLength('confirm_password', 255)
             ->requirePresence('confirm_password', 'create')
-            ->notEmptyString('confirm_password')
+            ->allowEmptyString('confirm_password', 'update')
+            ->notEmptyString('confirm_password', null, 'create')
             ->sameAs('confirm_password', 'password', 'Passwords do not match');
 
         $validator
             ->email('email')
-            ->allowEmptyString('email');
+            ->notEmptyString('email');
 
         $validator
             ->allowEmptyFile('profile')

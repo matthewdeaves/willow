@@ -59,7 +59,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         require CONFIG . 'log_config.php';
 
         $this->addPlugin('Authentication');
-        
+
         if (PHP_SAPI !== 'cli') {
             FactoryLocator::add(
                 'Table',
@@ -98,8 +98,6 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             // https://book.cakephp.org/5/en/controllers/middleware.html#body-parser-middleware
             ->add(new BodyParserMiddleware())
 
-            
-
             // Add authentication middleware
             ->add(new AuthenticationMiddleware($this))
 
@@ -108,15 +106,15 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             ->add(new CsrfProtectionMiddleware([
                 'httponly' => true,
             ]))
-            
+
             /**
              * Adds the IP Blocker Middleware to the middleware queue.
-             * 
+             *
              * This middleware checks the client's IP address on every request,
              * querying the blocked_ips table to determine if the IP is blocked.
              * If blocked, it returns a 403 Forbidden response. Otherwise, it
              * allows the request to proceed normally.
-             * 
+             *
              * @see \App\Middleware\IpBlockerMiddleware
              */
             ->add(new IpBlockerMiddleware());

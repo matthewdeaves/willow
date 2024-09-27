@@ -3,8 +3,11 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
-use Cake\Cache\Cache;
 use App\Controller\AppController;
+use Cake\Cache\Cache;
+use Cake\Datasource\Exception\RecordNotFoundException;
+use Cake\Http\Response;
+use Exception;
 
 /**
  * Articles Controller
@@ -28,29 +31,10 @@ class ArticlesController extends AppController
      *
      * @return void
      */
-    public function treeIndex()
+    public function treeIndex(): void
     {
-        $conditions = [
-            'Articles.is_page' => 1
-        ];
-    
-        $query = $this->Articles->find()
-            ->select([
-                'id',
-                'parent_id',
-                'title',
-                'slug',
-                'created',
-                'modified',
-                'Users.id',
-                'Users.username',
-            ])
-            ->where($conditions)
-            ->contain(['Users'])
-            ->orderBy(['lft' => 'ASC']);
+        $articles = $this->Articles->getPageTree();
 
-        $articles = $query->find('threaded')->toArray();
-    
         $this->set(compact('articles'));
     }
 
@@ -65,7 +49,7 @@ class ArticlesController extends AppController
      * @throws \Exception If an error occurs during the reordering process, the exception message
      *                    is captured and returned in the response.
      */
-    public function updateTree()
+    public function updateTree(): ?Response
     {
         $this->request->allowMethod(['post', 'put']);
         $data = $this->request->getData();
@@ -75,7 +59,7 @@ class ArticlesController extends AppController
 
             return $this->response->withType('application/json')
                 ->withStringBody(json_encode(['success' => true, 'result' => $result]));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->response->withType('application/json')
                 ->withStringBody(json_encode(['success' => false, 'error' => $e->getMessage()]));
         }
@@ -86,7 +70,7 @@ class ArticlesController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index()
+    public function index(): void
     {
         $query = $this->Articles->find()
             ->select([
@@ -101,12 +85,12 @@ class ArticlesController extends AppController
                 'pageview_count' => $this->Articles->PageViews->find()
                     ->where(['PageViews.article_id = Articles.id'])
                     ->func()
-                    ->count('PageViews.id')
+                    ->count('PageViews.id'),
             ])
-            ->contain(['Users'])
+            ->leftJoinWith('Users') // Use leftJoinWith instead of contain
             ->leftJoinWith('PageViews')
             ->where(['Articles.is_page' => false])
-            ->group([
+            ->groupBy([
                 'Articles.id',
                 'Articles.user_id',
                 'Articles.title',
@@ -114,11 +98,11 @@ class ArticlesController extends AppController
                 'Articles.created',
                 'Articles.modified',
                 'Users.id',
-                'Users.username'
+                'Users.username',
             ]);
-    
+
         $articles = $this->paginate($query);
-    
+
         $this->set(compact('articles'));
     }
 
@@ -129,9 +113,46 @@ class ArticlesController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view(?string $id = null)
+    public function view(?string $id = null): void
     {
-        $article = $this->Articles->get($id, contain: ['Users', 'Tags']);
+        $query = $this->Articles->find()
+            ->select([
+                'Articles.id',
+                'Articles.user_id',
+                'Articles.title',
+                'Articles.slug',
+                'Articles.body',
+                'Articles.created',
+                'Articles.modified',
+                'Users.id',
+                'Users.username',
+                'pageview_count' => $this->Articles->PageViews->find()
+                    ->where(['PageViews.article_id = Articles.id'])
+                    ->func()
+                    ->count('PageViews.id'),
+            ])
+            ->where(['Articles.id' => $id]) // Filter on article.id first
+            ->leftJoinWith('Users')
+            ->leftJoinWith('PageViews')
+            ->leftJoinWith('Tags')
+            ->groupBy([
+                'Articles.id',
+                'Articles.user_id',
+                'Articles.title',
+                'Articles.slug',
+                'Articles.body',
+                'Articles.created',
+                'Articles.modified',
+                'Users.id',
+                'Users.username',
+            ]);
+
+        $article = $query->first();
+
+        if (!$article) {
+            throw new RecordNotFoundException(__('Article not found'));
+        }
+
         $this->set(compact('article'));
     }
 
@@ -151,7 +172,7 @@ class ArticlesController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects to index on successful save, null otherwise.
      */
-    public function add()
+    public function add(): Response
     {
         $article = $this->Articles->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -186,6 +207,8 @@ class ArticlesController extends AppController
         $tags = $this->Articles->Tags->find('list', limit: 200)->all();
         $token = $this->request->getAttribute('csrfToken');
         $this->set(compact('article', 'users', 'tags', 'token', 'parentArticles'));
+
+        return $this->render();
     }
 
     /**
@@ -208,7 +231,7 @@ class ArticlesController extends AppController
      * @return \Cake\Http\Response|null Redirects to index on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit(?string $id = null)
+    public function edit(?string $id = null): Response
     {
         $article = $this->Articles->get($id, contain: ['Tags']);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -241,20 +264,24 @@ class ArticlesController extends AppController
         $users = $this->Articles->Users->find('list', limit: 200)->all();
         $tags = $this->Articles->Tags->find('list', limit: 200)->all();
         $this->set(compact('article', 'users', 'tags', 'parentArticles'));
+
+        return $this->render();
     }
 
     /**
      * Delete method
      *
-     * This method handles the deletion of an article identified by its ID. It ensures that the request method is either POST or DELETE
-     * to prevent accidental deletions via GET requests. Upon successful deletion, it clears the cache for articles and displays a success message.
-     * If the deletion fails, an error message is displayed. After the operation, the user is redirected to the index action.
+     * This method handles the deletion of an article identified by its ID. It ensures that the request
+     * method is either POST or DELETE to prevent accidental deletions via GET requests. Upon successful
+     * deletion, it clears the cache for articles and displays a success message.
+     * If the deletion fails, an error message is displayed. After the operation, the user is
+     * redirected to the index action.
      *
      * @param string|null $id The ID of the article to be deleted. If null, no action is taken.
      * @return \Cake\Http\Response|null Redirects to the index action after attempting to delete the article.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When the article with the given ID does not exist.
      */
-    public function delete(?string $id = null)
+    public function delete(?string $id = null): Response
     {
         $this->request->allowMethod(['post', 'delete']);
         $article = $this->Articles->get($id);

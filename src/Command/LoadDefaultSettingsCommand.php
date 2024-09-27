@@ -1,14 +1,24 @@
 <?php
+declare(strict_types=1);
+
 namespace App\Command;
 
 use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
+use Cake\ORM\Table;
 
+/**
+ * Command to load default settings into the database.
+ */
 class LoadDefaultSettingsCommand extends Command
 {
-
+    /**
+     * Default settings to be loaded into the database.
+     *
+     * @var array
+     */
     protected array $defaultSettings = [
         ['key_name' => 'host', 'value' => 'rabbitmq', 'group_name' => 'RabbitMQ', 'is_numeric' => 0],
         ['key_name' => 'port', 'value' => '5672', 'group_name' => 'RabbitMQ', 'is_numeric' => 1],
@@ -20,8 +30,16 @@ class LoadDefaultSettingsCommand extends Command
         ['key_name' => 'large', 'value' => '300', 'group_name' => 'ImageSizes', 'is_numeric' => 1],
         ['key_name' => 'extra-large', 'value' => '400', 'group_name' => 'ImageSizes', 'is_numeric' => 1],
         ['key_name' => 'massive', 'value' => '500', 'group_name' => 'ImageSizes', 'is_numeric' => 1],
+        ['key_name' => 'admin_theme', 'value' => 'AdminTheme', 'group_name' => 'Theme', 'is_numeric' => 0],
+        ['key_name' => 'default_theme', 'value' => 'DefaultTheme', 'group_name' => 'Theme', 'is_numeric' => 0],
     ];
 
+    /**
+     * Builds the option parser for the command.
+     *
+     * @param \Cake\Console\ConsoleOptionParser $parser The option parser to be modified.
+     * @return \Cake\Console\ConsoleOptionParser The modified option parser.
+     */
     protected function buildOptionParser(ConsoleOptionParser $parser): ConsoleOptionParser
     {
         $parser
@@ -42,16 +60,23 @@ class LoadDefaultSettingsCommand extends Command
                 cake load_default_settings --update-existing
                 cake load_default_settings --delete-existing --update-existing
             ');
+
         return $parser;
     }
 
-
-    public function execute(Arguments $args, ConsoleIo $io)
+    /**
+     * Executes the command to load default settings.
+     *
+     * @param \Cake\Console\Arguments $args The command arguments.
+     * @param \Cake\Console\ConsoleIo $io The console io.
+     * @return int The exit code of the command.
+     */
+    public function execute(Arguments $args, ConsoleIo $io): int
     {
         $settingsTable = $this->fetchTable('Settings');
 
         if ($args->getOption('delete-existing')) {
-            $confirm = $io->askChoice('Are you sure you want to delete all existing settings? This action cannot be undone. (yes/no)', ['yes', 'no'], 'no');
+            $confirm = $io->askChoice('Delete all settings? Cannot undo. (yes/no)', ['yes', 'no'], 'no');
             if ($confirm === 'yes') {
                 $settingsTable->deleteAll([]);
                 $io->success('All existing settings have been deleted.');
@@ -63,10 +88,19 @@ class LoadDefaultSettingsCommand extends Command
         $this->loadDefaultSettings($args, $io, $settingsTable);
 
         $io->success('Default settings loaded successfully');
+
         return static::CODE_SUCCESS;
     }
 
-    private function loadDefaultSettings(Arguments $args, ConsoleIo $io, $settingsTable): void
+    /**
+     * Loads the default settings into the database.
+     *
+     * @param \Cake\Console\Arguments $args The command arguments.
+     * @param \Cake\Console\ConsoleIo $io The console io.
+     * @param \Cake\ORM\Table $settingsTable The settings table.
+     * @return void
+     */
+    private function loadDefaultSettings(Arguments $args, ConsoleIo $io, Table $settingsTable): void
     {
         foreach ($this->defaultSettings as $setting) {
             $existingSetting = $settingsTable->find()
@@ -79,7 +113,7 @@ class LoadDefaultSettingsCommand extends Command
                     if ($settingsTable->save($existingSetting)) {
                         $io->out("Updated setting: {$setting['key_name']} in group {$setting['group_name']}");
                     } else {
-                        $io->error("Failed to update setting: {$setting['key_name']} in group {$setting['group_name']}");
+                        $io->error("Failed to update: {$setting['key_name']} in group {$setting['group_name']}");
                     }
                 } else {
                     $io->out("Setting already exists: {$setting['key_name']} in group {$setting['group_name']}");

@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
-use Cake\Cache\Cache;
 use App\Controller\AppController;
+use Cake\Cache\Cache;
 
 /**
  * Settings Controller
@@ -18,14 +18,14 @@ class SettingsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index()
+    public function index(): void
     {
         $settings = $this->Settings->find()
             ->orderBy(['group_name' => 'ASC', 'key_name' => 'ASC'])
             ->all()
             ->groupBy('group_name')
             ->toArray();
-            
+
         $this->set(compact('settings'));
     }
 
@@ -36,31 +36,9 @@ class SettingsController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view(?string $id = null): void
     {
         $setting = $this->Settings->get($id, contain: []);
-        $this->set(compact('setting'));
-    }
-
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
-        $setting = $this->Settings->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $setting = $this->Settings->patchEntity($setting, $this->request->getData());
-            if ($this->Settings->save($setting)) {
-                //clear the cache
-                Cache::clear('default');
-                $this->Flash->success(__('The setting has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The setting could not be saved. Please, try again.'));
-        }
         $this->set(compact('setting'));
     }
 
@@ -71,7 +49,7 @@ class SettingsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit(?string $id = null): Response
     {
         $setting = $this->Settings->get($id, contain: []);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -86,6 +64,8 @@ class SettingsController extends AppController
             $this->Flash->error(__('The setting could not be saved. Please, try again.'));
         }
         $this->set(compact('setting'));
+
+        return $this->render();
     }
 
     /**
@@ -95,7 +75,7 @@ class SettingsController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete(?string $id = null): Response
     {
         $this->request->allowMethod(['post', 'delete']);
         $setting = $this->Settings->get($id);

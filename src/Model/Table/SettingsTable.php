@@ -4,14 +4,13 @@ declare(strict_types=1);
 namespace App\Model\Table;
 
 use App\Core\Configure\Engine\DatabaseSettingsManager;
-use Cake\Core\Configure;
-use Cake\Datasource\ConnectionManager;
+use ArrayObject;
+use Cake\Datasource\EntityInterface;
+use Cake\Cache\Cache;
 use Cake\Event\EventInterface;
-use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
-
 
 class SettingsTable extends Table
 {
@@ -61,9 +60,10 @@ class SettingsTable extends Table
                 if ($context['data']['is_numeric']) {
                     return is_numeric($value);
                 }
+
                 return is_string($value);
             },
-            'message' => 'The value must be numeric when is_numeric is true, otherwise it must be a string.'
+            'message' => 'The value must be numeric when is_numeric is true, otherwise it must be a string.',
         ]);
 
         return $validator;
@@ -78,7 +78,13 @@ class SettingsTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->isUnique(['key_name', 'group_name'], ['allowMultipleNulls' => true]), ['errorField' => 'key_name']);
+        $rules->add(
+            $rules->isUnique(
+                ['key_name', 'group_name'],
+                ['allowMultipleNulls' => true]
+            ),
+            ['errorField' => 'key_name']
+        );
 
         return $rules;
     }
@@ -94,10 +100,27 @@ class SettingsTable extends Table
      * @param \ArrayObject $options The options passed to the save method
      * @return void
      */
-    public function afterSave(EventInterface $event, $entity, $options)
+    public function afterSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
         if ($entity->isNew() || $entity->isDirty()) {
-            DatabaseSettingsManager::clearCache();
+            //TODO ::CLEAR THE CACHE FOR SETTINGS
         }
+    }
+
+    //todo dont use cache when running tests and write docblock for this too
+    public function getSettings()
+    {
+        $cachedSettings = Cache::read('app_settings');
+        if ($cachedSettings) {
+            return $cachedSettings;
+        }
+
+        $settings = $this->find()
+            ->select(['key_name', 'value', 'group_name', 'is_numeric'])
+            ->all()
+            ->toArray();
+
+        Cache::write('app_settings', $settings);
+        return $settings;
     }
 }

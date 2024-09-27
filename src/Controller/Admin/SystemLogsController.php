@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
+use Cake\Http\Response;
 
 /**
  * SystemLogs Controller
@@ -17,14 +18,14 @@ class SystemLogsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index()
+    public function index(): void
     {
         $systemLogs = $this->SystemLogs->find()
             ->orderBy(['group_name' => 'ASC', 'created' => 'DESC'])
             ->all()
             ->groupBy('group_name')
             ->toArray();
-            
+
         $this->set(compact('systemLogs'));
     }
 
@@ -35,7 +36,7 @@ class SystemLogsController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view(?string $id = null): void
     {
         $systemLog = $this->SystemLogs->get($id, contain: []);
         $this->set(compact('systemLog'));
@@ -48,7 +49,7 @@ class SystemLogsController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete(?string $id = null): Response
     {
         $this->request->allowMethod(['post', 'delete']);
         $systemLog = $this->SystemLogs->get($id);
@@ -70,10 +71,9 @@ class SystemLogsController extends AppController
      *
      * @param string|null $group_name Optional. The group name to filter logs for deletion.
      * @return \Cake\Http\Response|null Redirects to the index action after attempting to delete system logs.
-     *
      * @throws \Cake\Http\Exception\MethodNotAllowedException If the request method is not POST or DELETE.
      */
-    public function deleteAll($group_name = null)
+    public function deleteAll(?string $group_name = null): ?Response
     {
         $this->request->allowMethod(['post', 'delete']);
 

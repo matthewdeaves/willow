@@ -48,20 +48,20 @@ This CMS is designed to be user-friendly while offering powerful features for co
 
 ## Installation and setup with Docker
 
-Docker is used to host everything you need for a development environment: Nginx, PHP, MySQL, RabbitMQ and PHPMyAdmin. The only thing you need on your host machine is [Docker](https://www.docker.com) and [Composer](https://getcomposer.org)
+Docker is used to host everything you need for a development environment: Nginx, PHP, MySQL, RabbitMQ, PHPMyAdmin and Jenkins. The only thing you need on your host machine is [Docker](https://www.docker.com) since you can run all required commands on the PHP container via `docker compose exec`. See Useful Shell Aliases section below to make this even easier.
 
 ```
 #Clone the repo
 git clone git@github.com:matthewdeaves/willow.git
 
 #Change directory
-cd cakephpcms
-
-#Install dependencies with composer
-composer install
+cd willow/
 
 #start the docker containers
 docker compose up
+
+#Install PHP dependencies with composer
+docker compose exec php composer install
 
 #create the database tables
 docker compose exec php bin/cake migrations migrate
@@ -80,6 +80,9 @@ docker compose exec php bin/cake cache clear_all
 #run the PHPUnit Tests
 docker compose exec php vendor/bin/phpunit
 
+#run codesniffer
+docker compose exec php vendor/bin/phpcs --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/
+
 #run the resize image consumer
 docker compose exec php bin/cake resize_image_consumer
 
@@ -94,6 +97,8 @@ Visit `http://localhost:15673` to use the RabbitMQ interface
 
 Visit `http://localhost:8082` to use PHPMyAdmin
 
+Visit `http://localhost:8081` to use Jenkins
+
 ## Installation and setup without Docker
 
 If you prefer to use the built in CakePHP webserver and your own locally installed PHP, MySQL and RabbitMQ you can. Just create and configure `config/app_local.php` to match your setup and follow the steps below to craete the database tables, admin user and start the image resize consumer like so:
@@ -103,7 +108,7 @@ If you prefer to use the built in CakePHP webserver and your own locally install
 git clone git@github.com:matthewdeaves/willow.git
 
 #Change directory
-cd cakephpcms/
+cd willow/
 
 #Install dependencies with composer
 composer install
@@ -124,6 +129,9 @@ bin/cake cache clear_all
 
 #run the PHPUnit Tests
 vendor/bin/phpunit
+
+#run codesniffer
+vendor/bin/phpcs --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/
 
 #run the resize image consumer
 bin/cake resize_image_consumer
@@ -177,6 +185,9 @@ docker volume rm willow_mysql_data
 #rebuild a container
 docker compose up -d --no-deps --build mysql
 
+#rebuild the php image with plain output and no cache
+sudo docker compose build --no-cache --progress=plain php
+
 ```
 
 ## Useful shell aliases
@@ -184,36 +195,57 @@ docker compose up -d --no-deps --build mysql
 To make it easier to run `bin/cake` commands or get an interactive shell on the PHP container I added the below to my .bashrc file. You can then use the cakeshell on the container with arguments like `cmscake bake template Articles` or `cmscake bake migration_snapshot Initial`. Just type `cmssh` to get an interactive shell on the PHP container.
 
 ```
-# CMS Cake alias
+ Use Cake shell on the container with args
 cmscake() {
     sudo docker compose exec php bin/cake "$@"
 }
 
-#CMS Shell alias
-alias cmssh='sudo docker compose exec -it php /bin/sh'
-
-mine() {
-    local current_user=$(whoami)
-    local current_group=$(id -gn)
-    sudo chown -R "$current_user:$current_group" .
-    echo "Ownership set to $current_user:$current_group for current directory and subdirectories."
+cmsexec() {
+    sudo docker compose exec php "$@"
 }
+
+alias cmssh='sudo docker compose exec -it php /bin/sh'
+alias unittest='cmsexec php vendor/bin/phpunit'
+alias cscheck='cmsexec php composer cs-check'
+alias csfix='cmsexec php composer cs-fix'
+alias sniff='cmsexec php vendor/bin/phpcs --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/'
+alias snifffix='cmsexec php vendor/bin/phpcbf'
+alias stan='cmsexec php vendor/bin/phpstan analyse src/'
+
+# Set permissions
+alias cperm='cmsexec chmod -R 777 tmp logs'
+
+#quick bashrc edits
+alias nbash='nano ~/.bashrc'
+alias sbash='source ~/.bashrc'
 
 #Docker Aliases
 alias dnames='sudo docker container ls -a --format "{{.Names}}"'
 alias dprune='sudo docker system prune -a'
-```
+alias rebuild_jenkins='sudo docker compose stop jenkins && sudo docker compose rm -f jenkins && sudo docker volume rm -f willow_jenkins_home && sudo docker compose build jenkins --no-cache && sudo docker compose up -d jenkins'
 
-Running `bin/cake bake` commands to generate files can give issues if on your host machine you use sudo with docker. The following `mine` alias will set everything to match your user and group for the location in which you call it.
-
-```
+#Useful to set  everything you you:you if running docker with sudo
 mine() {
     local current_user=$(whoami)
     local current_group=$(id -gn)
     sudo chown -R "$current_user:$current_group" .
     echo "Ownership set to $current_user:$current_group for current directory and subdirectories."
 }
+
 ```
+
+### Code Checks
+
+Run the following commands for code check
+```
+#run a check to review any errors/warnings that should be fixed
+composer cs-check
+
+#auto-fix anything that can be auto-fixed
+composer cs-fix
+```
+### Jenkins Jobs
+Jenkins come pre-configured with a job that will checkout the repo and run the tests and code checks on the main branch. The docker/jenkins folder has all the configuration for this.
 
 ### Documentation updates TODO
 1. Detail on RabbitMQ queues and consumers

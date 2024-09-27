@@ -1,0 +1,77 @@
+services:
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "3310:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5673:5672"
+      - "15673:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: password
+
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    ports: 
+      - "8080:80"
+    volumes:
+      - .:/var/www/html/
+      - ./logs/nginx:/var/log/nginx/
+      - ./docker/nginx/nginx-cms.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+    - php
+
+  php:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    volumes:
+      - .:/var/www/html/
+      - ./logs/php.log:/var/log/fpm-php.www.log
+      - ./docker/php/cms_app_local.php:/var/www/html/config/app_local.php
+    expose:
+      - "9000"
+
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - 8082:80
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=password
+
+  jenkins:
+    build:
+      context: .
+      dockerfile: docker/jenkins/Dockerfile
+    privileged: true
+    user: root
+    ports:
+      - "8081:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./docker/jenkins/jenkins.yaml:/var/jenkins_home/jenkins.yaml
+    environment:
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+
+volumes:
+  mysql_data:
+  rabbitmq_data:
+  jenkins_home:

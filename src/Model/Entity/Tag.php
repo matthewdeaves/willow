@@ -28,6 +28,8 @@ class Tag extends Entity
      */
     protected array $_accessible = [
         'title' => true,
+        'slug' => true,
+        'description' => true,
         'created' => true,
         'modified' => true,
         'articles' => true,

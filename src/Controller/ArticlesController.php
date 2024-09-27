@@ -3,10 +3,11 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Controller\AppController;
-use Cake\Core\Configure;
 use App\Model\Table\PageViewsTable;
 use Cake\Cache\Cache;
+use Cake\Event\EventInterface;
+use Cake\Http\Exception\NotFoundException;
+use Cake\Http\Response;
 
 /**
  * Articles Controller
@@ -50,41 +51,43 @@ class ArticlesController extends AppController
      * @param \Cake\Event\EventInterface $event The event instance.
      * @return void
      */
-    public function beforeFilter(\Cake\Event\EventInterface $event)
+    public function beforeFilter(EventInterface $event): ?Response
     {
         parent::beforeFilter($event);
 
         // Allow view, index, and viewBySlug actions to be accessed without authentication
         $this->Authentication->addUnauthenticatedActions(['view', 'index', 'viewBySlug', 'pageIndex']);
+
+        return null;
     }
-    
-    public function pageIndex()
+
+    /**
+     * Retrieves and sets page articles for the index view.
+     *
+     * This method performs two main operations:
+     * 1. Fetches the first page article (root node) from the database.
+     * 2. Retrieves a threaded list of all page articles with associated user information.
+     *
+     * The method orders articles by their left value ('lft') in ascending order,
+     * ensuring a hierarchical structure. It then sets both the single article
+     * and the threaded list of articles to the view context.
+     *
+     * @return void The method sets data to the view context but does not return a value.
+     */
+    public function pageIndex(): void
     {
         // Get the first node in the tree (root node) that is a page
+        //todo do we need to get this first page?
         $article = $this->Articles->find()
             ->orderBy(['lft' => 'ASC'])
-            ->where(['Articles.is_page' => 1])
-            ->first();
-        
-        $query = $this->Articles->find()
-            ->select([
-                'id',
-                'parent_id',
-                'title',
-                'slug',
-                'created',
-                'modified',
-                'Users.id',
-                'Users.username',
-            ])
             ->where([
-                'Articles.is_page' => 1
+                'Articles.is_page' => 1,
+                'Articles.is_published' => 1,
             ])
-            ->contain(['Users'])
-            ->orderBy(['lft' => 'ASC']);
-    
-        $articles = $query->find('threaded')->toArray();
-        
+            ->first();
+
+        $articles = $this->Articles->getPageTree();
+
         $this->set(compact('article', 'articles'));
     }
 
@@ -100,15 +103,19 @@ class ArticlesController extends AppController
      *
      * @return void
      */
-    public function index()
+    public function index(): void
     {
         $cacheKey = 'articles_index_page_' . $this->request->getQuery('page', 1);
         $articles = Cache::read($cacheKey, 'articles');
 
         if (!$articles) {
             $query = $this->Articles->find()
+                ->where([
+                    'Articles.is_page' => 0,
+                    'Articles.is_published' => 1,
+                ])
                 ->contain(['Users'])
-                ->orderBy(['Articles.created' => 'DESC']);
+                ->orderBy(['Articles.published' => 'DESC']);
             $articles = $this->paginate($query);
             Cache::write($cacheKey, $articles, 'articles');
         }
@@ -119,64 +126,70 @@ class ArticlesController extends AppController
     /**
      * View an article by its slug.
      *
-     * This method retrieves an article from the database using the provided slug.
-     * It utilizes CakePHP's dynamic finder `findBySlug()` to query the article
-     * and `firstOrFail()` to either fetch the first record or throw a
-     * `\Cake\Datasource\Exception\RecordNotFoundException` if no record is found.
-     * The retrieved article is then set to the view for rendering.
+     * This method attempts to retrieve an article from the cache using the provided slug.
+     * If the article is not found in the cache, it queries the database for the article.
+     * If the article is found, it loads related data such as Users, Tags, and Comments,
+     * and stores the article in the cache for future requests.
+     * If the article is not found in the database, a NotFoundException is thrown.
+     * Additionally, this method records a page view for the article.
      *
-     * @param string $slug The slug of the article to be viewed.
+     * @param string $slug The slug of the article to view.
+     * @throws \Cake\Http\Exception\NotFoundException If the article is not found.
      * @return void
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When no article is found for the given slug.
      */
-    public function viewBySlug($slug)
+    public function viewBySlug(string $slug): void
     {
         // Attempt to retrieve the article from the cache
         $cacheKey = 'article_' . $slug;
         $article = Cache::read($cacheKey, 'articles');
 
         if (!$article) {
-            $article = $this->Articles
-                ->findBySlug($slug)
-                ->contain(['Users', 'Tags', 'Comments'])
-                ->firstOrFail();
-            
+            $query = $this->Articles->find()
+                ->where(['Articles.slug' => $slug]);
+
+            $article = $query->first();
+
+            if (!$article) {
+                throw new NotFoundException(__('Article not found'));
+            }
+
+            $this->Articles->loadInto($article, [
+                'Users',
+                'Tags',
+                'Comments' => function ($q) {
+                    return $q->order(['Comments.created' => 'DESC'])
+                             ->contain(['Users']);
+                },
+            ]);
+
             // Store the article in the cache
             Cache::write($cacheKey, $article, 'articles');
         }
 
-        // Attempt to retrieve comments from the cache
-        $commentsCacheKey = 'comments_article_' . $article->id;
-        $comments = Cache::read($commentsCacheKey, 'articles');
-        if (!$comments) {
-            $comments = $this->Articles->getComments($article->id);
-            // Store the comments in the cache
-            Cache::write($commentsCacheKey, $comments, 'articles');
-        }
-        
         // Record page view
         $this->recordPageView($article->id);
 
-        $this->set(compact('article', 'comments'));
+        $this->set(compact('article'));
     }
 
     /**
      * Adds a comment to an article.
      *
-     * This method handles the addition of a comment to a specified article. It first checks if the user is logged in,
-     * and if not, it redirects them back with an error message. It then verifies the existence of the article by its ID.
-     * If the article is not found, it redirects back with an error message. If the article is found, it attempts to add
-     * the comment using the provided article ID, user ID, and comment content. Upon successful addition, it clears
-     * the cache for the article's comments and displays a success message. If the addition fails, it displays an error
-     * message. Finally, it redirects the user to the article's view page.
+     * This method handles the addition of a comment to a specified article. It first checks if the user is logged
+     * in, and if not, it redirects them back with an error message. It then verifies the existence of the
+     * article by its ID. If the article is not found, it redirects back with an error message. If the article
+     * is found, it attempts to add the comment using the provided article ID, user ID, and comment content.
+     * Upon successful addition, it clears the cache for the article's comments and displays a success message.
+     * If the addition fails, it displays an error message. Finally, it redirects the user to the article's view page.
      *
      * @param int $articleId The ID of the article to which the comment is to be added.
      * @return \Cake\Http\Response|null Redirects to the referring page or the article's view page.
      */
-    public function addComment($articleId)
+    public function addComment(string $articleId): ?Response
     {
         if (!$this->request->getSession()->read('Auth.id')) {
             $this->Flash->error(__('You must be logged in to add a comment.'));
+
             return $this->redirect($this->referer());
         }
 
@@ -188,9 +201,10 @@ class ArticlesController extends AppController
 
         if (!$article) {
             $this->Flash->error(__('Article not found.'));
+
             return $this->redirect($this->referer());
         }
-        
+
         $userId = $this->request->getSession()->read('Auth.id');
         $content = $this->request->getData('content');
 
@@ -203,7 +217,7 @@ class ArticlesController extends AppController
         } else {
             $this->Flash->error(__('Unable to add your comment.'));
         }
-    
+
         return $this->redirect(['action' => 'viewBySlug', $article->slug]);
     }
 
@@ -221,7 +235,7 @@ class ArticlesController extends AppController
      * @param int $articleId The ID of the article being viewed
      * @return void
      */
-    private function recordPageView($articleId)
+    private function recordPageView(string $articleId): void
     {
         $pageView = $this->PageViews->newEmptyEntity();
         $pageView->article_id = $articleId;

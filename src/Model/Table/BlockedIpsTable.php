@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
-use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -24,7 +23,6 @@ use Cake\Validation\Validator;
  * @method iterable<\App\Model\Entity\BlockedIp>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\BlockedIp> saveManyOrFail(iterable $entities, array $options = [])
  * @method iterable<\App\Model\Entity\BlockedIp>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\BlockedIp>|false deleteMany(iterable $entities, array $options = [])
  * @method iterable<\App\Model\Entity\BlockedIp>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\BlockedIp> deleteManyOrFail(iterable $entities, array $options = [])
- *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
 class BlockedIpsTable extends Table
@@ -61,7 +59,7 @@ class BlockedIpsTable extends Table
             ->notEmptyString('ip_address')
             ->add('ip_address', 'unique', ['rule' => 'validateUnique', 'provider' => 'table'])
             ->add('ip_address', 'validIP', ['rule' => 'ip']);
-        
+
         $validator
             ->scalar('reason')
             ->allowEmptyString('reason');

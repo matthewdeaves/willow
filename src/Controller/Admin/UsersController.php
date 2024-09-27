@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
-use Authentication\Controller\Component\AuthenticationComponent;
 use Cake\Event\EventInterface;
+use Cake\Http\Response;
 
 /**
  * Users Controller
@@ -21,11 +21,12 @@ class UsersController extends AppController
      * @return void
      * @throws \Cake\Http\Exception\RedirectException If a redirect is necessary.
      */
-    public function beforeFilter(EventInterface $event)
+    public function beforeFilter(EventInterface $event): ?Response
     {
         parent::beforeFilter($event);
-
         $this->Authentication->allowUnauthenticated(['login']);
+
+        return null;
     }
 
     /**
@@ -33,7 +34,7 @@ class UsersController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index()
+    public function index(): void
     {
         $query = $this->Users->find();
         $users = $this->paginate($query);
@@ -48,9 +49,9 @@ class UsersController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view(?string $id = null)
+    public function view(?string $id = null): void
     {
-        $user = $this->Users->get($id, contain: ['Articles']);
+        $user = $this->Users->get($id, contain: ['Articles', 'Comments.Articles']);
         $this->set(compact('user'));
     }
 
@@ -59,7 +60,7 @@ class UsersController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add(): Response
     {
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -72,6 +73,8 @@ class UsersController extends AppController
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
         $this->set(compact('user'));
+
+        return $this->render();
     }
 
     /**
@@ -87,7 +90,7 @@ class UsersController extends AppController
      * @return \Cake\Http\Response|null Redirects to index on successful save, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit(?string $id = null)
+    public function edit(?string $id = null): Response
     {
         $user = $this->Users->get($id, contain: []);
         $currentUser = $this->Authentication->getIdentity();
@@ -95,17 +98,20 @@ class UsersController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user->setAccess('is_admin', true);
             $user->setAccess('is_disabled', true);
-            
+
             $data = $this->request->getData();
 
-            // Check if the current user could lock their own account
-            if ($currentUser->id == $user->id) {
-                // Prevent changing own admin status
-                $error = $user->lockAccountError($data);
-                if ($error) {
-                    $this->Flash->error($error);
-                    return $this->redirect(['action' => 'edit', $id]);
-                }
+            // Prevent changing own admin status
+            if ($user->lockAdminAccountError($currentUser->id, $data)) {
+                $this->Flash->error(__('You cannot remove your own admin status.'));
+
+                return $this->redirect(['action' => 'edit', $id]);
+            }
+            //prevent disabling own account
+            if ($user->lockEnabledAccountError($currentUser->id, $data)) {
+                $this->Flash->error(__('You cannot disable your own account.'));
+
+                return $this->redirect(['action' => 'edit', $id]);
             }
 
             $user = $this->Users->patchEntity($user, $data);
@@ -117,6 +123,8 @@ class UsersController extends AppController
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
         $this->set(compact('user'));
+
+        return $this->render();
     }
 
     /**
@@ -126,13 +134,14 @@ class UsersController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete(?string $id = null)
+    public function delete(?string $id = null): Response
     {
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
         $currentUser = $this->Authentication->getIdentity();
         if ($currentUser->id == $user->id) {
             $this->Flash->error(__('No deleting your own account.'));
+
             return $this->redirect(['action' => 'index']);
         }
         if ($this->Users->delete($user)) {

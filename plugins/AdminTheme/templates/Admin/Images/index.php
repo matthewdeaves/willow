@@ -1,0 +1,45 @@
+<?php use Cake\Core\Configure; ?>
+<?php
+/**
+ * @var \App\View\AppView $this
+ * @var iterable<\App\Model\Entity\Image> $images
+ */
+?>
+<div class="images index content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="mb-0"><?= __('Images') ?></h3>
+        <?= $this->Html->link(__('New Image'), ['action' => 'add'], ['class' => 'btn btn-primary my-3 ms-2']) ?>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-primary">
+                <tr>
+                    <th><?= __('Picture') ?></th>
+                    <th><?= $this->Paginator->sort('name') ?></th>
+                    <th><?= $this->Paginator->sort('created') ?></th>
+                    <th><?= $this->Paginator->sort('modified') ?></th>
+                    <th class="actions"><?= __('Actions') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($images as $image): ?>
+                <tr>
+                    <td>
+                        <?= $this->Html->image($image->path . '_' . Configure::read('SiteSettings.ImageSizes.small'), 
+                            ['pathPrefix' => 'files/Images/path/', 'alt' => 'Picture', 'class' => 'img-thumbnail', 'width' => '50']) ?>
+                    </td>
+                    <td><?= h($image->name) ?></td>
+                    <td><?= h($image->created->format('Y-m-d H:i')) ?></td>
+                    <td><?= h($image->modified->format('Y-m-d H:i')) ?></td>
+                    <td class="actions">
+                        <?= $this->Html->link(__('View'), ['action' => 'view', $image->id], ['class' => 'btn btn-sm btn-outline-primary']) ?>
+                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $image->id], ['class' => 'btn btn-sm btn-outline-secondary']) ?>
+                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $image->id], ['confirm' => __('Are you sure you want to delete {0}?', $image->name), 'class' => 'btn btn-sm btn-outline-danger']) ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?= $this->element('pagination') ?>
+</div>

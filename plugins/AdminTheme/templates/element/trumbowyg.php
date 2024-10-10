@@ -27,6 +27,9 @@
     max-width: 100%; /* Ensure images are responsive */
     height: auto; /* Maintain aspect ratio */
 }
+#imageSelectModal {
+    z-index: 99999 !important;
+}
 </style>
 <script>
 $(document).ready(function() {
@@ -48,6 +51,8 @@ $(document).ready(function() {
                                 role: 'dialog',
                                 'aria-labelledby': 'imageSelectModalLabel',
                                 'aria-hidden': 'true'
+                            }).css({
+                                'z-index': 99999
                             }).append(
                                 $('<div>', {
                                     class: 'modal-dialog modal-lg',
@@ -85,7 +90,8 @@ $(document).ready(function() {
                                     )
                                 )
                             );
-
+                            // Remove any existing model and append the new one
+                            $('#imageSelectModal').remove();
                             $('body').append($modal);
 
                             $.ajax({

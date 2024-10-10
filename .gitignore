@@ -8,6 +8,7 @@
 
 # Willow specific files #
 ##########################
+willow_cms_code.txt
 /webroot/files/*
 !/webroot/files/Images
 /webroot/files/Images/*

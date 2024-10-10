@@ -185,6 +185,87 @@ class LoadDefaultDataCommand extends Command
     }
 
     /**
+     * Loads default data into the settings table.
+     *
+     * This method inserts predefined settings data into the database. It supports a dry run mode
+     * where actions are logged without actually inserting data. The method handles various categories
+     * of settings including ImageSizes, Email, SEO, and AI.
+     *
+     * @param \Cake\Console\ConsoleIo $io The ConsoleIo instance for output handling.
+     * @param bool $dryRun If true, performs a dry run without inserting data.
+     * @return void
+     * @throws \Exception If there's an error during data insertion.
+     * @uses \Cake\Database\Connection
+     * @uses \Cake\Utility\Text
+     * @uses \Cake\Log\Log
+     */
+    protected function loadSettingsData(ConsoleIo $io, bool $dryRun): void
+    {
+        $this->log(
+            __('Starting to load default data for settings table. Dry run: {0}', [$dryRun ? 'Yes' : 'No']),
+            'info',
+            ['group_name' => 'default_data']
+        );
+
+        $connection = ConnectionManager::get('default');
+
+        $data = [
+            ['id' => Text::uuid(), 'category' => 'ImageSizes',
+            'key_name' => 'massive', 'value' => '800', 'is_numeric' => 1],
+            ['id' => Text::uuid(), 'category' => 'ImageSizes',
+            'key_name' => 'extra-large', 'value' => '500', 'is_numeric' => 1],
+            ['id' => Text::uuid(), 'category' => 'ImageSizes',
+            'key_name' => 'large', 'value' => '400', 'is_numeric' => 1],
+            ['id' => Text::uuid(), 'category' => 'ImageSizes',
+            'key_name' => 'medium', 'value' => '300', 'is_numeric' => 1],
+            ['id' => Text::uuid(), 'category' => 'ImageSizes',
+            'key_name' => 'small', 'value' => '200', 'is_numeric' => 1],
+            ['id' => Text::uuid(), 'category' => 'ImageSizes',
+            'key_name' => 'tiny', 'value' => '100', 'is_numeric' => 1],
+            ['id' => Text::uuid(), 'category' => 'ImageSizes',
+            'key_name' => 'teeny', 'value' => '50', 'is_numeric' => 1],
+            ['id' => Text::uuid(), 'category' => 'ImageSizes',
+            'key_name' => 'micro', 'value' => '10', 'is_numeric' => 1],
+            ['id' => Text::uuid(), 'category' => 'Email',
+            'key_name' => 'reply_email', 'value' => 'noreply@example.com', 'is_numeric' => 0,],
+            ['id' => Text::uuid(), 'category' => 'SEO',
+            'key_name' => 'siteStrapline', 'value' => 'Welcome to Willow CMS', 'is_numeric' => 0],
+            ['id' => Text::uuid(), 'category' => 'AI',
+            'key_name' => 'anthropicApiKey', 'value' => 'your-api-key-here', 'is_numeric' => 0],
+        ];
+
+        foreach ($data as $row) {
+            if ($dryRun) {
+                $this->log(
+                    __('Dry run: Would insert new data into settings table: {0}', [json_encode($row)]),
+                    'info',
+                    ['group_name' => 'default_data']
+                );
+            } else {
+                try {
+                    $query = "INSERT INTO `settings` 
+                    (`id`, `category`, `key_name`, `value`, `is_numeric`, `created`, `modified`) 
+                    VALUES (:id, :category, :key_name, :value, :is_numeric, :created, :modified)";
+
+                    $connection->execute($query, $row);
+                    $this->log(
+                        __('Successfully inserted new data into settings table with id: {0}', [$row['id']]),
+                        'info',
+                        ['group_name' => 'default_data']
+                    );
+                } catch (Exception $e) {
+                    $this->log(
+                        __('Error inserting data into settings table: {0}', [$e->getMessage()]),
+                        'error',
+                        ['group_name' => 'default_data']
+                    );
+                    throw $e;
+                }
+            }
+        }
+    }
+
+    /**
      * Deletes data from a specified table based on conditions.
      *
      * @param string $table The name of the table to delete from.

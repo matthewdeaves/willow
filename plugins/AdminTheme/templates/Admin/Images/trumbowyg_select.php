@@ -5,37 +5,14 @@
  */
 ?>
 <?php use Cake\Core\Configure; ?>
-<div class="container-fluid" id="image-gallery">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-        <?php foreach ($images as $image): ?>
-            <div class="col">
-                <div class="card h-100">
-                    <?= $this->Html->image($image->image_file . '_' . Configure::read('SiteSettings.ImageSizes.small'), 
-                        [
-                            'pathPrefix' => 'files/Images/image_file/',
-                            'alt' => 'Picture',
-                            'class' => 'card-img-top insert-image',
-                            'data-src' => $image->image_file,
-                            'data-id' => $image->id
-                        ]
-                    ) ?>
-                    <div class="card-body">
-                        <h6 class="card-title text-truncate"><?= h($image->name) ?></h6>
-                        <?= $this->Form->select(
-                            'size',
-                            array_flip(Configure::read('SiteSettings.ImageSizes')),
-                            [
-                                'hiddenField' => false,
-                                'id' => $image->id . '_size',
-                                'class' => 'form-select'
-                            ]
-                        ); ?>
-                    </div>
-                </div>
-            </div>
-        <?php endforeach; ?>
-    </div>
-    <?= $this->element('pagination') ?>
+<?php if (!$this->request->getQuery('gallery_only')): ?>
+<div class="mb-3">
+    <?php $searchQuery = $this->request->getQuery('search', ''); ?>
+    <input type="text" id="imageSearch" class="form-control" placeholder="<?= __('Search images...') ?>" value="<?= h($searchQuery) ?>">
+</div>
+<?php endif; ?>
+<div id="image-gallery">
+    <?php include 'image_gallery.php'; ?>
 </div>
 <script>
 $(document).ready(function() {
@@ -53,14 +30,11 @@ $(document).ready(function() {
                 trumbowyg.closeModal();
             }
 
-            // Close any Bootstrap modal
             $('.modal').modal('hide');
-
-            // Force Trumbowyg to close its modal
             $('.trumbowyg-modal-box').hide();
             $('.trumbowyg-modal-overlay').hide();
 
-            return false; // Prevent any default action
+            return false;
         });
     }
 
@@ -68,13 +42,14 @@ $(document).ready(function() {
         $.ajax({
             url: url,
             type: 'GET',
+            data: { gallery_only: true },
             success: function(response) {
                 $('#image-gallery').html(response);
                 bindImageInsertEvents();
                 bindPaginationEvents();
             },
             error: function(xhr, status, error) {
-                console.error("Error loading images:", error);
+                console.error("<?= __('Error loading images:') ?>", error);
             }
         });
     }
@@ -87,8 +62,25 @@ $(document).ready(function() {
         });
     }
 
-    // Initial binding
+    function bindSearchBoxEvents() {
+        const searchInput = document.getElementById('imageSearch');
+        let debounceTimer;
+
+        searchInput.addEventListener('input', function() {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                const searchTerm = this.value.trim();
+                let url = '/admin/images/trumbowygSelect';
+                if (searchTerm.length > 0) {
+                    url += '?search=' + encodeURIComponent(searchTerm);
+                }
+                loadImages(url);
+            }, 300);
+        });
+    }
+    
     bindImageInsertEvents();
     bindPaginationEvents();
+    bindSearchBoxEvents();
 });
 </script>

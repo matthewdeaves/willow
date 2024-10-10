@@ -18,6 +18,7 @@ namespace App;
 
 use App\Middleware\IpBlockerMiddleware;
 use App\Middleware\RateLimitMiddleware;
+use App\Utility\SettingsManager;
 use Authentication\AuthenticationService;
 use Authentication\AuthenticationServiceInterface;
 use Authentication\AuthenticationServiceProviderInterface;
@@ -94,6 +95,9 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
                 (new TableLocator())->allowFallbackClass(false)
             );
         }
+
+        // Initialize the SettingsManager for database driven settings
+        SettingsManager::initialize();
     }
 
     /**

@@ -427,6 +427,11 @@ class V1 extends AbstractMigration
                 'limit' => null,
                 'null' => false,
             ])
+            ->addColumn('category', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => false,
+            ])
             ->addColumn('key_name', 'string', [
                 'default' => null,
                 'limit' => 255,
@@ -435,17 +440,12 @@ class V1 extends AbstractMigration
             ->addColumn('value', 'text', [
                 'default' => null,
                 'limit' => null,
-                'null' => false,
-            ])
-            ->addColumn('group_name', 'string', [
-                'default' => null,
-                'limit' => 100,
                 'null' => true,
             ])
             ->addColumn('is_numeric', 'boolean', [
                 'default' => false,
                 'limit' => null,
-                'null' => false,
+                'null' => true,
             ])
             ->addColumn('created', 'datetime', [
                 'default' => 'CURRENT_TIMESTAMP',

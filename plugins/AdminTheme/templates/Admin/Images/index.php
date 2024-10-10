@@ -60,6 +60,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let debounceTimer;
 
+    initializePopovers();
+
     searchInput.addEventListener('input', function() {
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(() => {
@@ -74,13 +76,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(response => response.text())
                 .then(html => {
                     resultsContainer.innerHTML = html;
+                    initializePopovers();
                 })
                 .catch(error => console.error('Error:', error));
             } else {
-                // If search is empty, you might want to reload all results or clear the table
                 location.reload();
             }
-        }, 300); // Debounce for 300ms
+        }, 300);
     });
 });
+
+function initializePopovers() {
+    const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+    popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl);
+    });
+}
 </script>

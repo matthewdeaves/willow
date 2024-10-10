@@ -104,11 +104,18 @@ class ImagesController extends AppController
     }
 
     /**
-     * Retrieves images for Trumbowyg editor's image selection popup.
+     * Handles the selection of images for the Trumbowyg editor.
      *
-     * This method queries all images, paginates the results, and sets them for the view.
-     * It's specifically designed to populate the image selection popup when inserting
-     * images into article content using the Trumbowyg WYSIWYG editor.
+     * This method sets up pagination for the images with a maximum limit of 8 per page.
+     * It allows searching through images based on their name, alt text, or keywords.
+     * The search query is retrieved from the request's query parameters.
+     *
+     * If a search term is provided, it filters the images accordingly.
+     * The filtered images are then paginated and set to be available in the view.
+     *
+     * Additionally, it checks if only the gallery should be loaded based on the 'gallery_only'
+     * query parameter. If true, it sets the template to 'image_gallery' and uses a minimal layout.
+     * Otherwise, it uses a minimal layout without changing the template.
      *
      * @return void
      */
@@ -118,9 +125,27 @@ class ImagesController extends AppController
             'maxLimit' => 8,
         ];
         $query = $this->Images->find();
+        $search = $this->request->getQuery('search');
+        if (!empty($search)) {
+            $query->where([
+                'OR' => [
+                    'name LIKE' => '%' . $search . '%',
+                    'alt_text LIKE' => '%' . $search . '%',
+                    'keywords LIKE' => '%' . $search . '%',
+                ],
+            ]);
+        }
         $images = $this->paginate($query);
         $this->set(compact('images'));
-        $this->viewBuilder()->setLayout('minimal');
+
+        // Check if we're loading just the gallery
+        $loadGalleryOnly = $this->request->getQuery('gallery_only', false);
+        if ($loadGalleryOnly) {
+            $this->viewBuilder()->setTemplate('image_gallery');
+            $this->viewBuilder()->setLayout('minimal');
+        } else {
+            $this->viewBuilder()->setLayout('minimal');
+        }
     }
 
     /**

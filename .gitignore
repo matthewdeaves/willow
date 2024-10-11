@@ -6,9 +6,17 @@
 /tmp/*
 /vendor/*
 
-# Willow specific files #
+# Willow code_exports #
 ##########################
 willow_cms_code.txt
+willow_cms_code_Controllers.txt
+willow_cms_code_Models.txt
+willow_cms_code_Plugins.txt
+willow_cms_code_Tests.txt
+willow_cms_code_Views.txt
+
+# Willow specific files/folders #
+##########################
 /webroot/files/*
 !/webroot/files/Images
 /webroot/files/Images/*

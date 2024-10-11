@@ -4,13 +4,13 @@
  * @var iterable<\App\Model\Entity\Image> $images
  */
 ?>
-<?php use Cake\Core\Configure; ?>
+<?php use App\Utility\SettingsManager; ?>
 <div class="container-fluid">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
         <?php foreach ($images as $image): ?>
             <div class="col">
                 <div class="card h-100">
-                    <?= $this->Html->image($image->image_file . '_' . Configure::read('SiteSettings.ImageSizes.small'), 
+                    <?= $this->Html->image($image->image_file . '_' . SettingsManager::read('ImageSizes.small', '200'), 
                         [
                             'pathPrefix' => 'files/Images/image_file/',
                             'alt' => 'Picture',
@@ -23,7 +23,7 @@
                         <h6 class="card-title text-truncate"><?= h($image->name) ?></h6>
                         <?= $this->Form->select(
                             'size',
-                            array_flip(Configure::read('SiteSettings.ImageSizes')),
+                            array_flip(SettingsManager::read('ImageSizes')),
                             [
                                 'hiddenField' => false,
                                 'id' => $image->id . '_size',

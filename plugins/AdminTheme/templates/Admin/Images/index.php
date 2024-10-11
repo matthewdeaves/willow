@@ -1,4 +1,4 @@
-<?php use Cake\Core\Configure; ?>
+<?php use App\Utility\SettingsManager; ?>
 <?php
 /**
  * @var \App\View\AppView $this
@@ -33,8 +33,8 @@
                     <tr>
                         <td>
                             <div class="position-relative">
-                                <?= $this->Html->image($image->image_file . '_' . Configure::read('SiteSettings.ImageSizes.small'), 
-                                    ['pathPrefix' => 'files/Images/image_file/', 'alt' => 'Picture', 'class' => 'img-thumbnail', 'width' => '50', 'data-bs-toggle' => 'popover', 'data-bs-trigger' => 'hover', 'data-bs-html' => 'true', 'data-bs-content' => $this->Html->image($image->image_file . '_' . Configure::read('SiteSettings.ImageSizes.large'), ['pathPrefix' => 'files/Images/image_file/', 'alt' => 'Picture', 'class' => 'img-fluid', 'style' => 'max-width: 300px; max-height: 300px;'])]) ?>
+                                <?= $this->Html->image($image->image_file . '_' . SettingsManager::read('ImageSizes.small', '200'), 
+                                    ['pathPrefix' => 'files/Images/image_file/', 'alt' => 'Picture', 'class' => 'img-thumbnail', 'width' => '50', 'data-bs-toggle' => 'popover', 'data-bs-trigger' => 'hover', 'data-bs-html' => 'true', 'data-bs-content' => $this->Html->image($image->image_file . '_' . SettingsManager::read('ImageSizes.large', '400'), ['pathPrefix' => 'files/Images/image_file/', 'alt' => 'Picture', 'class' => 'img-fluid', 'style' => 'max-width: 300px; max-height: 300px;'])]) ?>
                             </div>
                         </td>
                         <td><?= h($image->name) ?></td>

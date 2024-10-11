@@ -1,4 +1,4 @@
-<?php use Cake\Core\Configure; ?>
+<?php use App\Utility\SettingsManager; ?>
 <?php
 /**
  * @var \App\View\AppView $this
@@ -85,7 +85,7 @@
                     <?php if (!empty($user->picture_file)): ?>
                         <div class="row">
                             <div class="col-md-12 mb-3">
-                                <?= $this->Html->image($user->picture_file . '_' . Configure::read('SiteSettings.ImageSizes.large'), 
+                                <?= $this->Html->image($user->picture_file . '_' . SettingsManager::read('ImageSizes.large', '400'), 
                                     ['pathPrefix' => 'files/Users/picture_file/', 'alt' => 'Profile Picture', 'class' => 'img-fluid']) ?>
                             </div>
                         </div>

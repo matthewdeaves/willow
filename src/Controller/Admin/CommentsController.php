@@ -18,13 +18,29 @@ class CommentsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index(): void
+    public function index(): Response
     {
         $query = $this->Comments->find()
             ->contain(['Users']);
-        $comments = $this->paginate($query);
 
+        if ($this->request->is('ajax')) {
+            $search = $this->request->getQuery('search');
+            if (!empty($search)) {
+                $query->where([
+                    'content LIKE' => '%' . $search . '%',
+                ]);
+            }
+            $comments = $query->all();
+            $this->set(compact('comments'));
+            $this->viewBuilder()->setLayout('ajax');
+
+            return $this->render('search_results');
+        }
+
+        $comments = $this->paginate($query);
         $this->set(compact('comments'));
+
+        return $this->render();
     }
 
     /**

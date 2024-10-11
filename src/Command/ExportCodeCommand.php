@@ -15,7 +15,7 @@ use SplFileInfo;
 /**
  * ExportCodeCommand
  *
- * This command exports all custom code with relative paths to a text file.
+ * This command exports all custom code with relative paths to a text file or separate files.
  * This is useful if you want to have AI work with the source code.
  */
 class ExportCodeCommand extends Command
@@ -29,7 +29,11 @@ class ExportCodeCommand extends Command
     protected function buildOptionParser(ConsoleOptionParser $parser): ConsoleOptionParser
     {
         $parser
-            ->setDescription('Exports all custom code with relative paths');
+            ->setDescription('Exports all custom code with relative paths')
+            ->addOption('separate', [
+                'help' => 'Create a separate file for each directory',
+                'boolean' => true,
+            ]);
 
         return $parser;
     }
@@ -53,14 +57,21 @@ class ExportCodeCommand extends Command
             'Plugins' => $rootDir . DS . 'plugins',
         ];
 
-        $handle = fopen($outputFile, 'w');
+        $separateFiles = $args->getOption('separate');
 
-        // Write metadata
-        $this->writeMetadata($handle);
+        if (!$separateFiles) {
+            $handle = fopen($outputFile, 'w');
+            $this->writeMetadata($handle);
+        }
 
         foreach ($directories as $dirName => $dir) {
             if (!is_dir($dir)) {
                 continue;
+            }
+
+            if ($separateFiles) {
+                $handle = fopen($rootDir . DS . "willow_cms_code_{$dirName}.txt", 'w');
+                $this->writeMetadata($handle);
             }
 
             $this->writeSectionHeader($handle, $dirName);
@@ -77,11 +88,18 @@ class ExportCodeCommand extends Command
             }
 
             $this->writeSectionFooter($handle, $dirName);
+
+            if ($separateFiles) {
+                fclose($handle);
+            }
         }
 
-        fclose($handle);
-
-        $io->success(__('Code exported successfully to {0}', $outputFile));
+        if (!$separateFiles) {
+            fclose($handle);
+            $io->success(__('Code exported successfully to {0}', $outputFile));
+        } else {
+            $io->success(__('Code exported successfully to separate files.'));
+        }
 
         return static::CODE_SUCCESS;
     }

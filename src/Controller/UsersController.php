@@ -6,7 +6,7 @@ namespace App\Controller;
 use App\Job\SendEmailJob;
 use App\Model\Entity\User;
 use App\Model\Entity\UserAccountConfirmation;
-use Cake\Core\Configure;
+use App\Utility\SettingsManager;
 use Cake\Event\EventInterface;
 use Cake\Http\Response;
 use Cake\Log\Log;
@@ -156,16 +156,16 @@ class UsersController extends AppController
      *
      * This method queues an email job to send a confirmation email to the user with a link
      * to confirm their email address. It handles exceptions by logging any errors encountered
-     * during the email sending process.
+     * during the email sending process. In test environments, it simulates email sending.
      *
      * @param \App\Model\Entity\User $user The user entity to whom the email is sent.
      * @param \App\Model\Entity\UserAccountConfirmation $confirmation The confirmation entity containing the confirmation code.
      * @return void
      * @throws \Exception If there is an error during the queue push operation, it logs the error message.
-     * @uses \Cake\Core\Configure::read()
      * @uses \Cake\Log\Log::error()
      * @uses \Cake\Queue\QueueManager::push()
      * @uses \Cake\Routing\Router::url()
+     * @uses \App\Utility\SettingsManager::read()
      */
     private function sendConfirmationEmailMessage(User $user, UserAccountConfirmation $confirmation): void
     {
@@ -178,7 +178,7 @@ class UsersController extends AppController
             QueueManager::push(SendEmailJob::class, [
                 'args' => [[
                     'template_identifier' => 'confirm_email',
-                    'from' => Configure::read('SiteSettings.Email.reply_email', 'default@example.com'),
+                    'from' => SettingsManager::read('Email.reply_email', 'noreply@example.com'),
                     'to' => $user->email,
                     'viewVars' => [
                         'username' => $user->username,

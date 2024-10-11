@@ -1,0 +1,253 @@
+<?php
+declare(strict_types=1);
+
+namespace App\Test\TestCase\Controller;
+
+use App\Model\Table\CommentsTable;
+use Authentication\AuthenticationService;
+use Authentication\Authenticator\Result;
+use Authentication\Identity;
+use Cake\ORM\TableRegistry;
+use Cake\TestSuite\IntegrationTestTrait;
+use Cake\TestSuite\TestCase;
+
+/**
+ * App\Controller\CommentsController Test Case
+ */
+class CommentsControllerTest extends TestCase
+{
+    use IntegrationTestTrait;
+
+    /**
+     * Fixtures
+     *
+     * @var array<string>
+     */
+    protected array $fixtures = [
+        'app.Users',
+        'app.Articles',
+        'app.Comments',
+    ];
+
+    /**
+     * CommentsTable instance
+     *
+     * @var \App\Model\Table\CommentsTable
+     */
+    protected CommentsTable $Comments;
+
+    /**
+     * Setup method
+     *
+     * @return void
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->Comments = TableRegistry::getTableLocator()->get('Comments');
+        $this->configRequest([
+            'environment' => [
+                'AUTH_TYPE' => 'Form',
+            ],
+        ]);
+    }
+
+    /**
+     * Setup authentication for tests
+     *
+     * @param string|null $id The ID of the user to authenticate, or null for no authentication
+     * @return void
+     */
+    private function setupAuthentication(?string $id = null): void
+    {
+        if ($id === null) {
+            $identity = null;
+            $result = new Result(null, Result::FAILURE_IDENTITY_NOT_FOUND);
+        } else {
+            $usersTable = TableRegistry::getTableLocator()->get('Users');
+            $user = $usersTable->find()->where(['id' => $id])->first();
+
+            if ($user) {
+                $identity = new Identity([
+                    'id' => $id,
+                    'email' => $user->email,
+                    'is_admin' => $user->is_admin,
+                ]);
+                $result = new Result($identity, Result::SUCCESS);
+            } else {
+                $identity = null;
+                $result = new Result(null, Result::FAILURE_IDENTITY_NOT_FOUND);
+            }
+        }
+
+        $this->session(['Auth' => $identity]);
+
+        $authenticationService = $this->createMock(AuthenticationService::class);
+        $authenticationService->method('getIdentity')->willReturn($identity);
+        $authenticationService->method('getResult')->willReturn($result);
+
+        $this->_controller = $this->getMockBuilder('App\Controller\Admin\CommentsController')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->_controller->Authentication = $authenticationService;
+    }
+
+    /**
+     * Test index method for admin
+     *
+     * @return void
+     */
+    public function testIndexForAdmin(): void
+    {
+        $this->setupAuthentication('6509480c-e7e6-4e65-9c38-1423a8d09d0f'); // Admin user
+        $this->get('/admin/comments');
+        $this->assertResponseOk();
+        $this->assertResponseContains('Comments');
+    }
+
+    /**
+     * Test index method for non-admin
+     *
+     * @return void
+     */
+    public function testIndexForNonAdmin(): void
+    {
+        $this->setupAuthentication('6509480c-e7e6-4e65-9c38-1423a8d09d02'); // Non-admin user
+        $this->get('/admin/comments');
+        $this->assertRedirect('/users/login'); // Assuming non-admins are redirected to home
+    }
+
+    /**
+     * Test view method for admin
+     *
+     * @return void
+     */
+    public function testViewForAdmin(): void
+    {
+        $this->setupAuthentication('6509480c-e7e6-4e65-9c38-1423a8d09d0f'); // Admin user
+        $this->get('/admin/comments/view/550e8400-e29b-41d4-a716-446655440000');
+        $this->assertResponseOk();
+        $this->assertResponseContains('Test comment content');
+    }
+
+    /**
+     * Test edit method for admin
+     *
+     * @return void
+     */
+    public function testEditForAdmin(): void
+    {
+        $this->setupAuthentication('6509480c-e7e6-4e65-9c38-1423a8d09d0f'); // Admin user
+        $this->enableCsrfToken();
+        $this->enableSecurityToken();
+
+        $this->post('/admin/comments/edit/550e8400-e29b-41d4-a716-446655440000', [
+            'content' => 'Updated comment content',
+            'display' => 0,
+        ]);
+
+        $this->assertResponseSuccess();
+        $this->assertRedirect(['action' => 'index']);
+
+        $comment = $this->Comments->get('550e8400-e29b-41d4-a716-446655440000');
+        $this->assertEquals('Updated comment content', $comment->content);
+        $this->assertEquals(0, $comment->display);
+    }
+
+    /**
+     * Test edit method for non-admin
+     *
+     * @return void
+     */
+    public function testEditForNonAdmin(): void
+    {
+        $this->setupAuthentication('6509480c-e7e6-4e65-9c38-1423a8d09d02'); // Non-admin user
+        $this->enableCsrfToken();
+        $this->enableSecurityToken();
+
+        $this->post('/admin/comments/edit/550e8400-e29b-41d4-a716-446655440000', [
+            'content' => 'Unauthorized update',
+            'display' => 0,
+        ]);
+
+        $this->assertRedirect('/users/login'); // Assuming non-admins are redirected to home
+    }
+
+    /**
+     * Test delete method for admin
+     *
+     * @return void
+     */
+    public function testDeleteForAdmin(): void
+    {
+        $this->setupAuthentication('6509480c-e7e6-4e65-9c38-1423a8d09d0f'); // Admin user
+        $this->enableCsrfToken();
+        $this->enableSecurityToken();
+
+        $this->post('/admin/comments/delete/550e8400-e29b-41d4-a716-446655440000');
+
+        $this->assertResponseSuccess();
+        $this->assertRedirect(['action' => 'index']);
+
+        $this->assertFalse($this->Comments->exists(['id' => '550e8400-e29b-41d4-a716-446655440000']));
+    }
+
+    /**
+     * Test delete method for non-admin
+     *
+     * @return void
+     */
+    public function testDeleteForNonAdmin(): void
+    {
+        $this->setupAuthentication('6509480c-e7e6-4e65-9c38-1423a8d09d02'); // Non-admin user
+        $this->enableCsrfToken();
+        $this->enableSecurityToken();
+
+        $this->post('/admin/comments/delete/550e8400-e29b-41d4-a716-446655440000');
+
+        $this->assertRedirect('/users/login'); // Assuming non-admins are redirected to home
+        $this->assertTrue($this->Comments->exists(['id' => '550e8400-e29b-41d4-a716-446655440000']));
+    }
+
+    /**
+     * Test comment visibility
+     *
+     * @return void
+     */
+    public function testCommentVisibility(): void
+    {
+        // First, ensure the comment is visible
+        $this->get('/articles/view-by-slug/article-six');
+        $this->assertResponseOk();
+        $this->assertResponseContains('Do not disable this comment it has to appear on article six.');
+
+        // Login as admin
+        $this->setupAuthentication('6509480c-e7e6-4e65-9c38-1423a8d09d0f'); // Admin user
+        $this->enableCsrfToken();
+        $this->enableSecurityToken();
+
+        // Set the comment's display to 0
+        $this->post('/admin/comments/edit/5ue8ro00-e29b-41d4-a716-446655447465', [
+            'display' => 0,
+        ]);
+        $this->assertResponseSuccess();
+
+        // Check that the comment is no longer visible on the front end
+        $this->get('/articles/view-by-slug/article-one');
+        $this->assertResponseOk();
+        $this->assertResponseNotContains('Do not disable this comment it has to appear on article six.');
+    }
+
+    /**
+     * Test accessing admin area without authentication
+     *
+     * @return void
+     */
+    public function testAccessAdminWithoutAuth(): void
+    {
+        $this->get('/admin/comments');
+        $this->assertRedirectContains('/users/login');
+        $this->assertResponseCode(302);
+        $this->assertHeader('Location', '/users/login?redirect=%2Fadmin%2Fcomments');
+    }
+}

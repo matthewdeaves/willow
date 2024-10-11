@@ -10,6 +10,9 @@ use Cake\Utility\Inflector;
         <h3 class="mb-0"><?= __('Comments') ?></h3>
         <?= $this->Html->link(__('New Comment'), ['prefix' => 'Admin', 'action' => 'add'], ['class' => 'btn btn-primary my-3 ms-2']) ?>
     </div>
+    <div class="mb-3">
+        <input type="text" id="commentSearch" class="form-control" placeholder="<?= __('Search comments...') ?>">
+    </div>
     <div class="table-responsive">
         <table class="table table-striped table-hover">
             <thead class="table-primary">
@@ -17,6 +20,7 @@ use Cake\Utility\Inflector;
                     <th><?= $this->Paginator->sort('model') ?></th>
                     <th><?= $this->Paginator->sort('user_id') ?></th>
                     <th><?= $this->Paginator->sort('display') ?></th>
+                    <th><?= __('Content') ?></th>
                     <th><?= $this->Paginator->sort('created') ?></th>
                     <th><?= $this->Paginator->sort('modified') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
@@ -36,7 +40,8 @@ use Cake\Utility\Inflector;
                         ) ?>
                     </td>
                     <td><?= $comment->hasValue('user') ? $this->Html->link($comment->user->username, ['controller' => 'Users', 'action' => 'view', $comment->user->id]) : '' ?></td>
-                    <td><?= h($comment->display ? 'Yes' : 'No') ?></td>
+                    <td><?= h($comment->display ? __('Yes') : __('No')) ?></td>
+                    <td><?= $this->Text->truncate($comment->content, 50, ['ellipsis' => '...', 'exact' => false]) ?></td>
                     <td><?= h($comment->created->format('Y-m-d H:i')) ?></td>
                     <td><?= h($comment->modified->format('Y-m-d H:i')) ?></td>
                     <td class="actions">
@@ -51,3 +56,34 @@ use Cake\Utility\Inflector;
     </div>
     <?= $this->element('pagination', ['recordCount' => count($comments)]) ?>
 </div>
+
+<?php $this->Html->scriptStart(['block' => true]); ?>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('commentSearch');
+    const resultsContainer = document.querySelector('tbody');
+
+    let debounceTimer;
+
+    searchInput.addEventListener('input', function() {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            const searchTerm = this.value.trim();
+
+            if (searchTerm.length > 0) {
+                fetch(`<?= $this->Url->build(['action' => 'index']) ?>?search=${encodeURIComponent(searchTerm)}`, {
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.text())
+                .then(html => {
+                    resultsContainer.innerHTML = html;
+                })
+                .catch(error => console.error('Error:', error));
+            } else {
+                location.reload();
+            }
+        }, 300); // Debounce for 300ms
+    });
+});
+<?php $this->Html->scriptEnd(); ?>

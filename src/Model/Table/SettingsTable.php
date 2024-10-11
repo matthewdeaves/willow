@@ -75,6 +75,10 @@ class SettingsTable extends Table
             ->boolean('is_numeric')
             ->allowEmptyString('is_numeric');
 
+        $validator
+            ->requirePresence('value', 'create')
+            ->notEmptyString('value', 'A value is required');
+
         return $validator;
     }
 
@@ -109,29 +113,33 @@ class SettingsTable extends Table
     }
 
     /**
-     * Retrieves the value of a setting based on the specified category, optional subcategory, and key name.
+     * Retrieves setting values based on the specified category and optional key name.
      *
-     * This method constructs a query to find a setting that matches the given category, subcategory (if provided),
-     * and key name. It returns the value of the setting if found, or null if no matching setting is found.
+     * This method can fetch either all settings for a given category or a specific setting
+     * within a category, depending on whether a key name is provided.
      *
-     * @param string $category The category of the setting to retrieve.
-     * @param string|null $subcategory The optional subcategory of the setting. If null, the subcategory condition is not applied.
-     * @param string $keyName The key name of the setting to retrieve.
-     * @return mixed|null The value of the setting if found, or null if no matching setting is found.
+     * @param string $category The category of the setting(s) to retrieve.
+     * @param string|null $keyName The specific key name of the setting. If null, all settings for the category are returned.
+     * @return mixed Returns one of the following:
+     *               - An associative array of all settings for the category if $keyName is null.
+     *               - The value of the specific setting if $keyName is provided and the setting exists.
+     *               - null if a specific setting is requested but not found.
+     * @throws \Cake\Database\Exception\DatabaseException If there's an issue with the database query.
      */
-    public function getSettingValue(string $category, ?string $subcategory, string $keyName): mixed
+    public function getSettingValue(string $category, ?string $keyName = null): mixed
     {
-        $conditions = [
-            'category' => $category,
-            'key_name' => $keyName,
-        ];
-
-        if ($subcategory !== null) {
-            $conditions['subcategory'] = $subcategory;
+        if ($keyName === null) {
+            // Fetch all settings for the category
+            return $this->find()
+                ->where(['category' => $category])
+                ->all()
+                ->combine('key_name', 'value')
+                ->toArray();
         }
 
+        // Fetch a single setting
         $setting = $this->find()
-            ->where($conditions)
+            ->where(['category' => $category, 'key_name' => $keyName])
             ->first();
 
         return $setting ? $setting->value : null;

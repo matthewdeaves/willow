@@ -1,4 +1,4 @@
-<?php use Cake\Core\Configure; ?>
+<?php use App\Utility\SettingsManager; ?>
 <?php
 /**
  * @var \App\View\AppView $this
@@ -25,9 +25,17 @@
                         <tr>
                             <th class="w-25"><?= __('Image') ?></th>
                             <td>
-                                <?= $this->Html->image($image->image_file . '_' . Configure::read('SiteSettings.ImageSizes.large'), 
+                                <?= $this->Html->image($image->image_file . '_' . SettingsManager::read('ImageSizes.large', '400'), 
                                 ['pathPrefix' => 'files/Images/image_file/', 'alt' => 'Picture', 'class' => 'img-fluid']) ?>
                             </td>
+                        </tr>
+                        <tr>
+                            <th><?= __('Alt Text') ?></th>
+                            <td><?= h($image->alt_text) ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= __('Alt Text') ?></th>
+                            <td><?= h($image->keywords) ?></td>
                         </tr>
                         <tr>
                             <th><?= __('Created') ?></th>

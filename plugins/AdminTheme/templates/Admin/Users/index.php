@@ -1,4 +1,4 @@
-<?php use Cake\Core\Configure; ?>
+<?php use App\Utility\SettingsManager; ?>
 <?php
 /**
  * @var \App\View\AppView $this
@@ -29,7 +29,7 @@
                 <tr>
                     <td>
                         <div class="position-relative">
-                            <?= $this->Html->image($user->picture_file . '_' . Configure::read('SiteSettings.ImageSizes.small'), 
+                            <?= $this->Html->image($user->picture_file . '_' . SettingsManager::read('ImageSizes.small', '200'), 
                                 ['pathPrefix' => 'files/Users/picture_file/', 
                                 'alt' => 'Profile Picture', 
                                 'class' => 'img-thumbnail', 
@@ -37,7 +37,7 @@
                                 'data-bs-toggle' => 'popover',
                                 'data-bs-trigger' => 'hover',
                                 'data-bs-html' => 'true',
-                                'data-bs-content' => $this->Html->image($user->picture_file . '_' . Configure::read('SiteSettings.ImageSizes.large'), 
+                                'data-bs-content' => $this->Html->image($user->picture_file . '_' . SettingsManager::read('ImageSizes.large', '400'), 
                                     ['pathPrefix' => 'files/Users/picture_file/', 
                                     'alt' => 'Profile Picture', 
                                     'class' => 'img-fluid', 

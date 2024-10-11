@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use App\Utility\SettingsManager;
 use ArrayObject;
-use Cake\Core\Configure;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
 use Cake\ORM\Query;
@@ -52,7 +52,7 @@ class UsersTable extends Table
                     $paths = [
                         $path . $entity->{$field},
                     ];
-                    foreach (Configure::read('SiteSettings.ImageSizes') as $width) {
+                    foreach (SettingsManager::read('ImageSizes') as $width) {
                         $paths[] = $path . $entity->{$field} . '_' . $width;
                     }
 
@@ -155,7 +155,7 @@ class UsersTable extends Table
                 unlink($fullOriginalFilePath);
             }
             //delete all the resized versions too
-            foreach (Configure::read('SiteSettings.ImageSizes') as $width) {
+            foreach (SettingsManager::read('ImageSizes') as $width) {
                 if (file_exists($fullOriginalFilePath . '_' . $width)) {
                     unlink($fullOriginalFilePath . '_' . $width);
                 }

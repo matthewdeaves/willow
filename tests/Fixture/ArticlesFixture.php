@@ -180,6 +180,20 @@ class ArticlesFixture extends TestFixture
                 'rght' => 26,
                 'is_page' => 0,
             ],
+            [
+                'id' => 'lm5eeeee-k010-334l-88mm-mn82o5n6nnj0',
+                'user_id' => '6509480c-e7e6-4e65-9c38-1423a8d09d0f',
+                'title' => 'Article Six',
+                'slug' => 'article-six',
+                'body' => 'Content for Article Six',
+                'published' => 1,
+                'created' => '2023-09-27 08:02:35',
+                'modified' => '2023-09-27 08:02:35',
+                'parent_id' => null,
+                'lft' => 27,
+                'rght' => 28,
+                'is_page' => 0,
+            ],
         ];
         parent::init();
     }

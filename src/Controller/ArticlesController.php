@@ -140,8 +140,9 @@ class ArticlesController extends AppController
             'Users',
             'Tags',
             'Comments' => function ($q) {
-                return $q->order(['Comments.created' => 'DESC'])
-                            ->contain(['Users']);
+                return $q->where(['Comments.display' => 1])
+                         ->order(['Comments.created' => 'DESC'])
+                         ->contain(['Users']);
             },
         ]);
 

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Job;
 
-use Cake\Core\Configure;
+use App\Utility\SettingsManager;
 use Cake\Log\LogTrait;
 use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
@@ -67,7 +67,7 @@ class ProcessImageJob implements JobInterface
         $payload = $args[0];
 
         $imagePath = $payload['path'] ?? null;
-        $imageSizes = Configure::read('SiteSettings.ImageSizes');
+        $imageSizes = SettingsManager::read('ImageSizes');
 
         if (!$imagePath || empty($imageSizes)) {
             $this->log(
@@ -93,7 +93,7 @@ class ProcessImageJob implements JobInterface
 
         try {
             foreach ($imageSizes as $width) {
-                $this->createImage($imagePath, $width);
+                $this->createImage($imagePath, intval($width));
             }
         } catch (Exception $e) {
             $this->log(

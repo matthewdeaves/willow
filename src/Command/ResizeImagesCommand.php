@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use App\Utility\SettingsManager;
 use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
-use Cake\Core\Configure;
 use Exception;
 use Imagick;
 
@@ -77,7 +77,7 @@ class ResizeImagesCommand extends Command
             foreach ($images as $image) {
                 $original = WWW_ROOT . 'files/' . $modelWithImage . DS . $column . DS . $image->{$column};
                 if (file_exists($original)) {
-                    foreach (Configure::read('SiteSettings.ImageSizes') as $width) {
+                    foreach (SettingsManager::read('ImageSizes') as $width) {
                         $this->createImage($original, intval($width));
                     }
                 }

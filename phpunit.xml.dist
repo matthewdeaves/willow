@@ -11,6 +11,8 @@
         <ini name="memory_limit" value="-1"/>
         <ini name="apc.enable_cli" value="1"/>
         <env name="CAKE_ENV" value="test"/>
+        <ini name="display_errors" value="On" />
+        <ini name="error_reporting" value="-1" />
     </php>
 
     <!-- Add any additional test suites you want to run here -->

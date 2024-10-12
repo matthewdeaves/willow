@@ -70,8 +70,8 @@ docker compose exec php bin/cake migrations migrate
 #create an admin user (--help for options/usage)
 docker compose exec php bin/cake create_user -u admin -p password -e admin@test.com -a 1
 
-#load default data (--help for options/usage)
-docker compose exec php bin/cake load_default_data email_templates
+#load default data
+docker compose exec php bin/cake default_data_import --all
 
 #make sure the cache is cleared
 docker compose exec php bin/cake cache clear_all
@@ -121,7 +121,7 @@ bin/cake migrations migrate
 bin/cake create_user -u admin -p password -e admin@test.com -a 1
 
 #load default data
-bin/cake load_default_data email_templates
+bin/cake default_data_import --all
 
 #make sure the cache is cleared
 bin/cake cache clear_all

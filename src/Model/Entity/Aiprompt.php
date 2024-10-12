@@ -6,17 +6,18 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Setting Entity
+ * Aiprompt Entity
  *
  * @property string $id
- * @property string $category
- * @property string $key_name
- * @property string|null $value
- * @property string $type
- * @property \Cake\I18n\DateTime|null $created
- * @property \Cake\I18n\DateTime|null $modified
+ * @property string $task_type
+ * @property string $system_prompt
+ * @property string $model
+ * @property int $max_tokens
+ * @property float $temperature
+ * @property \Cake\I18n\DateTime $created_at
+ * @property \Cake\I18n\DateTime $modified_at
  */
-class Setting extends Entity
+class Aiprompt extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -28,11 +29,12 @@ class Setting extends Entity
      * @var array<string, bool>
      */
     protected array $_accessible = [
-        'category' => true,
-        'key_name' => true,
-        'value' => true,
-        'value_type' => true,
-        'created' => true,
-        'modified' => true,
+        'task_type' => true,
+        'system_prompt' => true,
+        'model' => true,
+        'max_tokens' => true,
+        'temperature' => true,
+        'created_at' => true,
+        'modified_at' => true,
     ];
 }

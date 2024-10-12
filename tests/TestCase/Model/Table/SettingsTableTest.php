@@ -4,8 +4,6 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Model\Table;
 
 use App\Model\Table\SettingsTable;
-use ArrayObject;
-use Cake\Event\EventInterface;
 use Cake\TestSuite\TestCase;
 use Cake\Validation\Validator;
 
@@ -24,7 +22,7 @@ class SettingsTableTest extends TestCase
     /**
      * Fixtures
      *
-     * @var list<string>
+     * @var array<string>
      */
     protected array $fixtures = [
         'app.Settings',
@@ -69,7 +67,7 @@ class SettingsTableTest extends TestCase
         $validData = [
             'category' => 'TestCategory',
             'key_name' => 'TestKey',
-            'is_numeric' => true,
+            'value_type' => 'numeric',
             'value' => '100',
         ];
         $errors = $validator->validate($validData);
@@ -78,11 +76,20 @@ class SettingsTableTest extends TestCase
         $validStringData = [
             'category' => 'TestCategory',
             'key_name' => 'TestKey',
-            'is_numeric' => false,
+            'value_type' => 'text',
             'value' => 'Test Value',
         ];
         $errors = $validator->validate($validStringData);
         $this->assertEmpty($errors, 'Validation should pass for valid string data');
+
+        $validBoolData = [
+            'category' => 'TestCategory',
+            'key_name' => 'TestKey',
+            'value_type' => 'bool',
+            'value' => 1,
+        ];
+        $errors = $validator->validate($validBoolData);
+        $this->assertEmpty($errors, 'Validation should pass for valid boolean data');
 
         // Test missing required fields
         $missingCategory = $validData;
@@ -121,11 +128,11 @@ class SettingsTableTest extends TestCase
         $errors = $validator->validate($emptyValueString);
         $this->assertArrayHasKey('value', $errors, 'Validation should fail when value is empty for string setting');
 
-        // Test invalid is_numeric
-        $invalidIsNumeric = $validData;
-        $invalidIsNumeric['is_numeric'] = 'not_a_boolean';
-        $errors = $validator->validate($invalidIsNumeric);
-        $this->assertArrayHasKey('is_numeric', $errors, 'Validation should fail when is_numeric is not a boolean');
+        // Test invalid type
+        $invalidType = $validData;
+        $invalidType['value_type'] = 'invalid_type';
+        $errors = $validator->validate($invalidType);
+        $this->assertArrayHasKey('value_type', $errors, 'Validation should fail when value_type is invalid');
 
         // Test max length for string fields
         $longCategory = $validData;
@@ -138,61 +145,16 @@ class SettingsTableTest extends TestCase
         $errors = $validator->validate($longKeyName);
         $this->assertArrayHasKey('key_name', $errors, 'Validation should fail when key_name exceeds max length');
 
-        // Test subcategory (optional field)
-        $withSubcategory = $validData;
-        $withSubcategory['subcategory'] = 'TestSubcategory';
-        $errors = $validator->validate($withSubcategory);
-        $this->assertEmpty($errors, 'Validation should pass with valid subcategory');
+        // Test invalid values for different types
+        $invalidNumeric = $validData;
+        $invalidNumeric['value'] = 'not_a_number';
+        $errors = $validator->validate($invalidNumeric);
+        $this->assertArrayHasKey('value', $errors, 'Validation should fail when value is not numeric for numeric type');
 
-        $longSubcategory = $validData;
-        $longSubcategory['subcategory'] = str_repeat('a', 256);
-        $errors = $validator->validate($longSubcategory);
-        $this->assertArrayHasKey('subcategory', $errors, 'Validation should fail when subcategory exceeds max length');
-    }
-
-    /**
-     * Test beforeSave method
-     *
-     * @return void
-     * @uses \App\Model\Table\SettingsTable::beforeSave()
-     */
-    public function testBeforeSave(): void
-    {
-        $numericSetting = $this->SettingsTable->newEntity([
-            'category' => 'TestCategory',
-            'key_name' => 'numeric_setting',
-            'value' => '100',
-            'is_numeric' => true,
-        ]);
-        $this->SettingsTable->save($numericSetting);
-
-        $event = $this->getMockBuilder(EventInterface::class)->getMock();
-        $options = new ArrayObject();
-
-        // Test saving a non-numeric value to a numeric setting
-        $numericSetting->value = 'not_a_number';
-        $result = $this->SettingsTable->beforeSave($event, $numericSetting, $options);
-        $this->assertFalse($result, 'Should not save non-numeric value to numeric setting');
-        $this->assertNotEmpty($numericSetting->getError('value'), 'Should set an error on the value field');
-
-        // Test saving a numeric value to a numeric setting
-        $numericSetting->value = '200';
-        $result = $this->SettingsTable->beforeSave($event, $numericSetting, $options);
-        $this->assertTrue($result, 'Should save numeric value to numeric setting');
-
-        // Test saving an empty value to a non-numeric setting
-        $nonNumericSetting = $this->SettingsTable->newEntity([
-            'category' => 'TestCategory',
-            'key_name' => 'non_numeric_setting',
-            'value' => 'test',
-            'is_numeric' => false,
-        ]);
-        $this->SettingsTable->save($nonNumericSetting);
-
-        $nonNumericSetting->value = '';
-        $result = $this->SettingsTable->beforeSave($event, $nonNumericSetting, $options);
-        $this->assertFalse($result, 'Should not save empty value to non-numeric setting');
-        $this->assertNotEmpty($nonNumericSetting->getError('value'), 'Should set an error on the value field');
+        $invalidBool = $validBoolData;
+        $invalidBool['value'] = '2';
+        $errors = $validator->validate($invalidBool);
+        $this->assertArrayHasKey('value', $errors, 'Validation should fail when value is not 0 or 1 for bool type');
     }
 
     /**

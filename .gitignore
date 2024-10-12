@@ -14,6 +14,11 @@ willow_cms_code_Models.txt
 willow_cms_code_Plugins.txt
 willow_cms_code_Tests.txt
 willow_cms_code_Views.txt
+willow_cms_code_Commands.txt
+willow_cms_code_Jobs.txt
+willow_cms_code_Logs.txt
+willow_cms_code_Services.txt
+willow_cms_code_Utilities.txt
 
 # Willow specific files/folders #
 ##########################

@@ -35,10 +35,9 @@ class SettingsController extends AppController
 
         $groupedSettings = [];
         foreach ($settings as $setting) {
-            $isNumeric = is_numeric($setting->value);
             $groupedSettings[$setting->category][$setting->key_name] = [
                 'value' => $setting->value,
-                'is_numeric' => $isNumeric,
+                'value_type' => $setting->value_type,
             ];
         }
 

@@ -99,4 +99,14 @@ class SettingsManager
     {
         Cache::clear(self::$cacheConfig);
     }
+
+    /**
+     * Get the cache configuration name. Useful for testcases.
+     *
+     * @return string
+     */
+    public static function getCacheConfig(): string
+    {
+        return self::$cacheConfig;
+    }
 }

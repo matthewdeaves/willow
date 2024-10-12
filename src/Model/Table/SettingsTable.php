@@ -3,9 +3,6 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
-use App\Model\Entity\Setting;
-use ArrayObject;
-use Cake\Event\EventInterface;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
@@ -32,6 +29,9 @@ class SettingsTable extends Table
     /**
      * Initialize method
      *
+     * This method initializes the table configuration, including setting the table name,
+     * display field, primary key, and adding behaviors.
+     *
      * @param array<string, mixed> $config The configuration for the Table.
      * @return void
      */
@@ -49,6 +49,9 @@ class SettingsTable extends Table
     /**
      * Default validation rules.
      *
+     * This method sets up the validation rules for the Settings table fields.
+     * It includes rules for category, key_name, value_type, and value fields.
+     *
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
@@ -61,55 +64,39 @@ class SettingsTable extends Table
             ->notEmptyString('category');
 
         $validator
-            ->scalar('subcategory')
-            ->maxLength('subcategory', 255)
-            ->allowEmptyString('subcategory');
-
-        $validator
             ->scalar('key_name')
             ->maxLength('key_name', 255)
             ->requirePresence('key_name', 'create')
             ->notEmptyString('key_name');
 
         $validator
-            ->boolean('is_numeric')
-            ->allowEmptyString('is_numeric');
+            ->scalar('value_type')
+            ->requirePresence('value_type', 'create')
+            ->notEmptyString('value_type')
+            ->inList('value_type', ['text', 'numeric', 'bool'], __('Invalid type'));
 
         $validator
             ->requirePresence('value', 'create')
-            ->notEmptyString('value', 'A value is required');
+            ->notEmptyString('value', __('A value is required'))
+            ->add('value', 'custom', [
+                'rule' => function ($value, $context) {
+                    $value_type = $context['data']['value_type'] ?? null;
+                    if ($value_type === 'numeric' && !is_numeric($value)) {
+                        return __('The value must be a number.');
+                    }
+                    if ($value_type === 'bool' && !in_array($value, [0, 1], true)) {
+                        return __('The value must be 0 or 1.');
+                    }
+                    if ($value_type === 'text' && empty($value)) {
+                        return __('The value must not be empty.');
+                    }
+
+                    return true;
+                },
+                'message' => __('Invalid value for the specified type.'),
+            ]);
 
         return $validator;
-    }
-
-    /**
-     * Before save event handler.
-     *
-     * @param \Cake\Event\EventInterface $event The event instance.
-     * @param \App\Model\Entity\Setting $entity The entity instance.
-     * @param \ArrayObject $options The options passed to the save method.
-     * @return bool
-     */
-    public function beforeSave(EventInterface $event, Setting $entity, ArrayObject $options): bool
-    {
-        if ($entity->isNew()) {
-            return true;
-        }
-
-        $originalEntity = $this->get($entity->id);
-        if ($originalEntity->is_numeric == 1 && !is_numeric($entity->value)) {
-            $entity->setError('value', 'The value must be a number for this setting.');
-
-            return false;
-        }
-
-        if ($originalEntity->is_numeric == 0 && empty($entity->value)) {
-            $entity->setError('value', 'The value must not be empty for this setting.');
-
-            return false;
-        }
-
-        return true;
     }
 
     /**
@@ -128,13 +115,17 @@ class SettingsTable extends Table
      */
     public function getSettingValue(string $category, ?string $keyName = null): mixed
     {
-        if ($keyName === null) {
+        if (empty($keyName)) {
             // Fetch all settings for the category
-            return $this->find()
+            $settings = $this->find()
                 ->where(['category' => $category])
                 ->all()
-                ->combine('key_name', 'value')
+                ->combine('key_name', function ($setting) {
+                    return $this->castValue($setting->value, $setting->value_type);
+                })
                 ->toArray();
+
+            return $settings;
         }
 
         // Fetch a single setting
@@ -142,6 +133,29 @@ class SettingsTable extends Table
             ->where(['category' => $category, 'key_name' => $keyName])
             ->first();
 
-        return $setting ? $setting->value : null;
+        return $setting ? $this->castValue($setting->value, $setting->value_type) : null;
+    }
+
+    /**
+     * Casts the value to the appropriate type based on the value_type.
+     *
+     * This private method is used internally to ensure that the returned
+     * setting values are of the correct data type.
+     *
+     * @param mixed $value The value to be cast.
+     * @param string $valueType The type to cast the value to ('bool', 'numeric', or 'string').
+     * @return mixed The cast value.
+     */
+    private function castValue(mixed $value, string $valueType): mixed
+    {
+        switch ($valueType) {
+            case 'bool':
+                return filter_var($value, FILTER_VALIDATE_BOOLEAN);
+            case 'numeric':
+                return (int)$value;
+            case 'string':
+            default:
+                return (string)$value;
+        }
     }
 }

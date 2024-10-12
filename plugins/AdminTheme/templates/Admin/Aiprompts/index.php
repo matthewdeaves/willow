@@ -48,14 +48,6 @@
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $aiprompt->id], ['class' => 'btn btn-sm btn-outline-primary']) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $aiprompt->id], ['class' => 'btn btn-sm btn-outline-secondary']) ?>
-                        <?= $this->Form->postLink(
-                            __('Delete'), 
-                            ['action' => 'delete', $aiprompt->id], 
-                            [
-                                'confirm' => __('Are you sure you want to delete this prompt of type: {0}?', $aiprompt->task_type),
-                                'class' => 'btn btn-sm btn-outline-danger'
-                            ]
-                        ) ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>

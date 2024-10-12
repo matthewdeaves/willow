@@ -53,6 +53,8 @@ class LoadDefaultDataCommand extends Command
             ->setEpilog(
                 "Examples:\n" .
                 "  cake load_default_data email_templates\n" .
+                "  cake load_default_data settings\n" .
+                "  cake load_default_data aiprompts\n" .
                 '  cake load_default_data email_templates --dry-run'
             );
 
@@ -273,6 +275,77 @@ class LoadDefaultDataCommand extends Command
                     );
                     throw $e;
                 }
+            }
+        }
+    }
+
+    /**
+     * Loads default data into the `aiprompts` table.
+     *
+     * This function inserts a predefined set of data into the `aiprompts` table. It supports a dry run mode
+     * where the data is not actually inserted, but the intended operation is logged. The function logs the
+     * start of the operation, the parameters to be inserted in dry run mode, and the success or failure of
+     * the actual insertion.
+     *
+     * @param \Cake\Console\ConsoleIo $io The ConsoleIo instance used for logging and output.
+     * @param bool $dryRun If true, the function will only log the intended operation without executing it.
+     * @throws \Exception If an error occurs during the data insertion.
+     * @return void
+     * @uses \Cake\Database\Connection::execute() To execute the SQL query.
+     * @uses \Cake\Log\Log::write() To log information about the operation.
+     */
+    protected function loadAipromptsData(ConsoleIo $io, bool $dryRun): void
+    {
+        $this->log(
+            __('Starting to load default data for aiprompts table. Dry run: {0}', [$dryRun ? 'Yes' : 'No']),
+            'info',
+            ['group_name' => 'default_data']
+        );
+
+        $connection = ConnectionManager::get('default');
+
+        $query = "INSERT INTO `aiprompts` 
+        (`id`, `task_type`, `system_prompt`, `model`, `max_tokens`, `temperature`, `created_at`, `modified_at`) 
+        VALUES (:id, :task_type, :system_prompt, :model, :max_tokens, :temperature, :created_at, :modified_at)";
+
+        $params = [
+            'id' => 'b196ad21-26c0-41db-886e-57c2d873c244',
+            'task_type' => 'image_analysis',
+            'system_prompt' => 'You are an image analysis robot. For each image, generate:
+
+- **name**: A concise, descriptive string (max 255 characters) of the image\'s main subject.
+- **alt_text**: A detailed description for visually impaired users (max 255 characters).
+- **keywords**: Space-separated keywords capturing key elements/themes (max 30 words).
+
+Respond in valid JSON with these data items. Use your best judgment for ambiguous images.',
+            'model' => 'claude-3-haiku-20240307',
+            'max_tokens' => 1000,
+            'temperature' => 0.2,
+            'created_at' => '2024-10-12 11:50:07',
+            'modified_at' => '2024-10-12 11:50:07',
+        ];
+
+        if ($dryRun) {
+            $this->log(
+                __('Dry run: Would insert new data into aiprompts table: {0}', [json_encode($params)]),
+                'info',
+                ['group_name' => 'default_data']
+            );
+        } else {
+            try {
+                $connection->execute($query, $params);
+                $this->log(
+                    __('Successfully inserted new data into aiprompts table with id: {0}', [$params['id']]),
+                    'info',
+                    ['group_name' => 'default_data']
+                );
+            } catch (Exception $e) {
+                $this->log(
+                    __('Error inserting data into aiprompts table: {0}', [$e->getMessage()]),
+                    'error',
+                    ['group_name' => 'default_data']
+                );
+                throw $e;
             }
         }
     }

@@ -161,7 +161,7 @@ class AnthropicApiService
                     "generate the following data items:\nalt_text: a string containing alternative text describing " .
                     "the image for visually impaired people. Up to 255 characters long\nkeywords: a string " .
                     'containing space separated keywords based on the content of the image. Maximum 20 unique ' .
-                    "words.\n\nYou will respond only in valid JSON format including only the above data items " .
+                    "words.\nYou will respond only in valid JSON format including only the above data items " .
                     'and their values.';
             case 'article_summary':
                 return 'You are an article summarization assistant. Provide a concise summary of the given article ' .

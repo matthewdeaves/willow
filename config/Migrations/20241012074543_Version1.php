@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use Migrations\AbstractMigration;
 
-class V1 extends AbstractMigration
+class Version1 extends AbstractMigration
 {
     /**
      * Up Method.
@@ -442,9 +442,9 @@ class V1 extends AbstractMigration
                 'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('is_numeric', 'boolean', [
-                'default' => false,
-                'limit' => null,
+            ->addColumn('type', 'string', [
+                'default' => 'text',
+                'limit' => 10,
                 'null' => true,
             ])
             ->addColumn('created', 'datetime', [

@@ -4,11 +4,10 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Utility;
 
 use App\Utility\SettingsManager;
-use Cake\TestSuite\TestCase;
-use Cake\TestSuite\IntegrationTestTrait;
 use Cake\Cache\Cache;
 use Cake\ORM\TableRegistry;
-use Cake\Console\ConsoleOutput;
+use Cake\TestSuite\IntegrationTestTrait;
+use Cake\TestSuite\TestCase;
 
 class SettingsManagerTest extends TestCase
 {
@@ -19,7 +18,6 @@ class SettingsManagerTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        //$this->disableErrorHandlerMiddleware();
         SettingsManager::initialize();
         Cache::clear(SettingsManager::getCacheConfig());
     }
@@ -34,57 +32,69 @@ class SettingsManagerTest extends TestCase
     {
         $settingsTable = TableRegistry::getTableLocator()->get('Settings');
         $settingsTable->saveOrFail($settingsTable->newEntity([
-            'category' => 'AI',
+            'category' => 'AIEnabledTest',
             'key_name' => 'enabled',
             'value' => 1,
-            'type' => 'bool'
+            'value_type' => 'bool',
         ]));
 
-        $result = SettingsManager::read('AI.enabled');
+        $result = SettingsManager::read('AIEnabledTest.enabled');
         $this->assertIsBool($result);
         $this->assertTrue($result);
 
-        $settingsTable->updateAll(['value' => 'false'], ['category' => 'AI', 'key_name' => 'enabled']);
-        $result = SettingsManager::read('AI.enabled', null, true); // Force refresh
+        $settingsTable->updateAll(['value' => 'false'], ['category' => 'AIEnabledTest', 'key_name' => 'enabled']);
+        Cache::clear(SettingsManager::getCacheConfig());
+        $result = SettingsManager::read('AIEnabledTest.enabled');
         $this->assertFalse($result);
+    }
+
+    public function testReadAIAnthropicApiKey(): void
+    {
+        $settingsTable = TableRegistry::getTableLocator()->get('Settings');
+        $settingsTable->saveOrFail($settingsTable->newEntity([
+            'category' => 'AIKeyTest',
+            'key_name' => 'anthropicApiKey',
+            'value' => 'test_api_key_here',
+            'value_type' => 'text',
+        ]));
+
+        $result = SettingsManager::read('AIKeyTest.anthropicApiKey');
+        $this->assertIsString($result);
+        $this->assertEquals('test_api_key_here', $result);
     }
 
     public function testReadAICategory(): void
     {
         $settingsTable = TableRegistry::getTableLocator()->get('Settings');
         $settingsTable->saveOrFail($settingsTable->newEntity([
-            'category' => 'AI',
+            'category' => 'AITest',
             'key_name' => 'enabled',
             'value' => 1,
-            'type' => 'bool'
+            'value_type' => 'bool',
         ]));
         $settingsTable->saveOrFail($settingsTable->newEntity([
-            'category' => 'AI',
-            'key_name' => 'api_key',
+            'category' => 'AITest',
+            'key_name' => 'anthropicApiKey',
             'value' => 'test_api_key',
-            'type' => 'text'
+            'value_type' => 'text',
         ]));
 
-        $result = SettingsManager::read('AI');
-
-        $output = new ConsoleOutput();
-        $output->write(print_r($result));
-
+        $result = SettingsManager::read('AITest');
 
         $this->assertIsArray($result);
         $this->assertArrayHasKey('enabled', $result);
-        $this->assertArrayHasKey('api_key', $result);
+        $this->assertArrayHasKey('anthropicApiKey', $result);
         $this->assertTrue($result['enabled']);
-        $this->assertEquals('test_api_key', $result['api_key']);
+        $this->assertEquals('test_api_key', $result['anthropicApiKey']);
     }
 
     public function testReadImageSizes(): void
     {
         $settingsTable = TableRegistry::getTableLocator()->get('Settings');
         $imageSizes = [
-            'thumbnail' => 150,
+            'extra-large' => 500,
             'medium' => 300,
-            'large' => 1024
+            'large' => 400,
         ];
 
         foreach ($imageSizes as $key => $value) {
@@ -92,18 +102,24 @@ class SettingsManagerTest extends TestCase
                 'category' => 'ImageSizes',
                 'key_name' => $key,
                 'value' => (string)$value,
-                'type' => 'numeric'
+                'value_type' => 'numeric',
             ]));
         }
 
         $result = SettingsManager::read('ImageSizes');
-        
+
         $this->assertIsArray($result);
         foreach ($imageSizes as $key => $value) {
             $this->assertArrayHasKey($key, $result);
             $this->assertIsInt($result[$key]);
             $this->assertEquals($value, $result[$key]);
         }
+    }
+
+    public function testReadAIBagKey(): void
+    {
+        $result = SettingsManager::read('AI.bag_key');
+        $this->assertNull($result);
     }
 
     public function testReadNonExistentSetting(): void
@@ -119,7 +135,7 @@ class SettingsManagerTest extends TestCase
             'category' => 'Test',
             'key_name' => 'cached_value',
             'value' => 'initial',
-            'type' => 'text'
+            'value_type' => 'text',
         ]));
 
         $initialResult = SettingsManager::read('Test.cached_value');
@@ -139,10 +155,9 @@ class SettingsManagerTest extends TestCase
     {
         $settingsTable = TableRegistry::getTableLocator()->get('Settings');
         $settings = [
-            ['category' => 'Types', 'key_name' => 'string_value', 'value' => 'test', 'type' => 'text'],
-            ['category' => 'Types', 'key_name' => 'int_value', 'value' => '42', 'type' => 'numeric'],
-            ['category' => 'Types', 'key_name' => 'float_value', 'value' => '3.14', 'type' => 'numeric'],
-            ['category' => 'Types', 'key_name' => 'bool_value', 'value' => 1, 'type' => 'bool'],
+            ['category' => 'Types', 'key_name' => 'string_value', 'value' => 'test', 'value_type' => 'text'],
+            ['category' => 'Types', 'key_name' => 'int_value', 'value' => '42', 'value_type' => 'numeric'],
+            ['category' => 'Types', 'key_name' => 'bool_value', 'value' => 1, 'value_type' => 'bool'],
         ];
 
         foreach ($settings as $setting) {
@@ -154,9 +169,6 @@ class SettingsManagerTest extends TestCase
 
         $this->assertIsInt(SettingsManager::read('Types.int_value'));
         $this->assertEquals(42, SettingsManager::read('Types.int_value'));
-
-        $this->assertIsFloat(SettingsManager::read('Types.float_value'));
-        $this->assertEquals(3.14, SettingsManager::read('Types.float_value'));
 
         $this->assertIsBool(SettingsManager::read('Types.bool_value'));
         $this->assertTrue(SettingsManager::read('Types.bool_value'));

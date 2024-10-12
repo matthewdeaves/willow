@@ -29,6 +29,9 @@ class SettingsTable extends Table
     /**
      * Initialize method
      *
+     * This method initializes the table configuration, including setting the table name,
+     * display field, primary key, and adding behaviors.
+     *
      * @param array<string, mixed> $config The configuration for the Table.
      * @return void
      */
@@ -45,6 +48,9 @@ class SettingsTable extends Table
 
     /**
      * Default validation rules.
+     *
+     * This method sets up the validation rules for the Settings table fields.
+     * It includes rules for category, key_name, value_type, and value fields.
      *
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
@@ -118,7 +124,7 @@ class SettingsTable extends Table
                     return $this->castValue($setting->value, $setting->value_type);
                 })
                 ->toArray();
-            
+
             return $settings;
         }
 
@@ -130,18 +136,25 @@ class SettingsTable extends Table
         return $setting ? $this->castValue($setting->value, $setting->value_type) : null;
     }
 
+    /**
+     * Casts the value to the appropriate type based on the value_type.
+     *
+     * This private method is used internally to ensure that the returned
+     * setting values are of the correct data type.
+     *
+     * @param mixed $value The value to be cast.
+     * @param string $valueType The type to cast the value to ('bool', 'numeric', or 'string').
+     * @return mixed The cast value.
+     */
     private function castValue($value, $valueType)
     {
         switch ($valueType) {
             case 'bool':
-                
                 return filter_var($value, FILTER_VALIDATE_BOOLEAN);
             case 'numeric':
-
                 return (int)$value;
             case 'string':
             default:
-
                 return (string)$value;
         }
     }

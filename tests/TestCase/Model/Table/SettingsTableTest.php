@@ -67,7 +67,7 @@ class SettingsTableTest extends TestCase
         $validData = [
             'category' => 'TestCategory',
             'key_name' => 'TestKey',
-            'type' => 'numeric',
+            'value_type' => 'numeric',
             'value' => '100',
         ];
         $errors = $validator->validate($validData);
@@ -76,7 +76,7 @@ class SettingsTableTest extends TestCase
         $validStringData = [
             'category' => 'TestCategory',
             'key_name' => 'TestKey',
-            'type' => 'text',
+            'value_type' => 'text',
             'value' => 'Test Value',
         ];
         $errors = $validator->validate($validStringData);
@@ -85,7 +85,7 @@ class SettingsTableTest extends TestCase
         $validBoolData = [
             'category' => 'TestCategory',
             'key_name' => 'TestKey',
-            'type' => 'bool',
+            'value_type' => 'bool',
             'value' => 1,
         ];
         $errors = $validator->validate($validBoolData);
@@ -130,9 +130,9 @@ class SettingsTableTest extends TestCase
 
         // Test invalid type
         $invalidType = $validData;
-        $invalidType['type'] = 'invalid_type';
+        $invalidType['value_type'] = 'invalid_type';
         $errors = $validator->validate($invalidType);
-        $this->assertArrayHasKey('type', $errors, 'Validation should fail when type is invalid');
+        $this->assertArrayHasKey('value_type', $errors, 'Validation should fail when value_type is invalid');
 
         // Test max length for string fields
         $longCategory = $validData;

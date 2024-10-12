@@ -63,7 +63,7 @@ class SettingsManager
     {
         $cacheKey = 'setting_' . str_replace('.', '_', $path);
 
-        $value = null;//Cache::read($cacheKey, self::$cacheConfig);
+        $value = Cache::read($cacheKey, self::$cacheConfig);
         if ($value !== null) {
             return $value;
         }
@@ -98,5 +98,15 @@ class SettingsManager
     public static function clearCache(): void
     {
         Cache::clear(self::$cacheConfig);
+    }
+
+    /**
+     * Get the cache configuration name. Useful for testcases.
+     *
+     * @return string
+     */
+    public static function getCacheConfig(): string
+    {
+        return self::$cacheConfig;
     }
 }

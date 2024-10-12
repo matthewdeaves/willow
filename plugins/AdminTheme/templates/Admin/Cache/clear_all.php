@@ -14,7 +14,7 @@ function sanitizeId($name) {
             <h3 class="card-title mb-0"><?= __('Cache Management') ?></h3>
         </div>
         <div class="card-body">
-            <p><?= __('Below is information about the configured caches. Click the button to clear all caches.') ?></p>
+            <p><?= __('Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches.') ?></p>
 
             <?= $this->Form->create(null, ['url' => ['action' => 'clearAll'], 'class' => 'mb-4']) ?>
                 <?= $this->Form->button(__('Clear All Cache'), ['class' => 'btn btn-danger']) ?>
@@ -28,6 +28,7 @@ function sanitizeId($name) {
                         <th><?= __('Engine') ?></th>
                         <th><?= __('Last Cleared') ?></th>
                         <th><?= __('Details') ?></th>
+                        <th><?= __('Actions') ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,9 +42,14 @@ function sanitizeId($name) {
                                     <?= __('Show Details') ?>
                                 </button>
                             </td>
+                            <td>
+                                <?= $this->Form->create(null, ['url' => ['action' => 'clear', $name], 'class' => 'd-inline']) ?>
+                                    <?= $this->Form->button(__('Clear'), ['class' => 'btn btn-sm btn-warning']) ?>
+                                <?= $this->Form->end() ?>
+                            </td>
                         </tr>
                         <tr>
-                            <td colspan="4" class="p-0">
+                            <td colspan="5" class="p-0">
                                 <div class="collapse" id="details-<?= sanitizeId($name) ?>">
                                     <div class="card card-body">
                                         <h6><?= __('Settings') ?></h6>

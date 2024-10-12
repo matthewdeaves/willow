@@ -9,8 +9,16 @@ use Cake\Cache\Cache;
 use Cake\Http\Response;
 use Cake\I18n\FrozenTime;
 
+/**
+ * CacheController handles cache clearing operations for the application.
+ */
 class CacheController extends AppController
 {
+    /**
+     * Clears all cache configurations and updates the last cleared time.
+     *
+     * @return \Cake\Http\Response|null Redirects to the clearAll action or returns null.
+     */
     public function clearAll(): ?Response
     {
         $cacheInfo = $this->getCacheInfo();
@@ -45,9 +53,35 @@ class CacheController extends AppController
         }
 
         $this->set('cacheInfo', $cacheInfo);
+
         return null;
     }
 
+    /**
+     * Clears a specific cache configuration and updates the last cleared time.
+     *
+     * @param string $cacheName The name of the cache configuration to clear.
+     * @return \Cake\Http\Response|null Redirects to the clearAll action.
+     */
+    public function clear(string $cacheName): ?Response
+    {
+        if ($this->request->is('post')) {
+            if (Cache::clear($cacheName)) {
+                $this->updateLastClearedTime($cacheName);
+                $this->Flash->success(__('{0} cache has been cleared successfully.', $cacheName));
+            } else {
+                $this->Flash->error(__('{0} cache could not be cleared.', $cacheName));
+            }
+        }
+
+        return $this->redirect(['action' => 'clearAll']);
+    }
+
+    /**
+     * Retrieves information about all configured cache engines.
+     *
+     * @return array An array containing cache configuration details.
+     */
     private function getCacheInfo(): array
     {
         $cacheInfo = [];
@@ -65,12 +99,25 @@ class CacheController extends AppController
         return $cacheInfo;
     }
 
+    /**
+     * Gets the last cleared time for a specific cache configuration.
+     *
+     * @param string $config The cache configuration name.
+     * @return \Cake\I18n\FrozenTime|null The last cleared time or null if not available.
+     */
     private function getLastClearedTime(string $config): ?FrozenTime
     {
         $time = Cache::read('last_cleared_' . $config, 'default');
+
         return $time ? FrozenTime::parse($time) : null;
     }
 
+    /**
+     * Updates the last cleared time for a specific cache configuration.
+     *
+     * @param string $config The cache configuration name.
+     * @return void
+     */
     private function updateLastClearedTime(string $config): void
     {
         $time = FrozenTime::now();

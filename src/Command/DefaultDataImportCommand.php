@@ -13,9 +13,9 @@ use Cake\Utility\Inflector;
 /**
  * DefaultDataImportCommand
  *
- * This command allows importing data from JSON files in the default_data_export folder into specified tables.
- * It prompts the user to choose a file to import and then imports the data into the corresponding table,
- * deleting all existing data in the table before importing.
+ * This command allows importing data from JSON files in the default_data folder into specified tables.
+ * It prompts the user to choose a file to import or import all files, and then imports the data into the corresponding table(s),
+ * deleting all existing data in the table(s) before importing.
  */
 class DefaultDataImportCommand extends Command
 {
@@ -33,20 +33,25 @@ class DefaultDataImportCommand extends Command
                 'short' => 'i',
                 'help' => 'Input directory containing the JSON files.',
                 'default' => ROOT . DS . 'default_data',
+            ])
+            ->addOption('all', [
+                'short' => 'a',
+                'help' => 'Import data from all JSON files.',
+                'boolean' => true,
             ]);
 
         return $parser;
     }
 
     /**
-     * Executes the command to import data into a selected table.
+     * Executes the command to import data into a selected table or all tables.
      *
      * This method performs the following steps:
      * 1. Checks and creates the input directory if it doesn't exist.
      * 2. Retrieves and displays a list of available JSON files.
-     * 3. Prompts the user to select a file to import.
-     * 4. Deletes all existing data in the corresponding table.
-     * 5. Imports the data from the selected file into the corresponding table.
+     * 3. Prompts the user to select a file to import or imports all files if the 'all' option is set.
+     * 4. Deletes all existing data in the corresponding table(s).
+     * 5. Imports the data from the selected file(s) into the corresponding table(s).
      *
      * @param \Cake\Console\Arguments $args The command arguments.
      * @param \Cake\Console\ConsoleIo $io The console io object.
@@ -68,25 +73,33 @@ class DefaultDataImportCommand extends Command
             return Command::CODE_ERROR;
         }
 
-        // Display files and ask user to choose
-        $io->out(__('Available data files:'));
-        foreach ($files as $index => $file) {
-            $io->out(sprintf("[%d] %s", $index + 1, basename($file)));
+        if ($args->getOption('all')) {
+            // Import all files
+            foreach ($files as $file) {
+                $tableName = basename($file, '.json');
+                $this->importTable($tableName, $inputDir, $io);
+            }
+        } else {
+            // Display files and ask user to choose
+            $io->out(__('Available data files:'));
+            foreach ($files as $index => $file) {
+                $io->out(sprintf("[%d] %s", $index + 1, basename($file)));
+            }
+
+            $choice = $io->ask(__('Choose a file to import by number:'));
+            $choiceIndex = (int)$choice - 1;
+
+            if (!isset($files[$choiceIndex])) {
+                $io->error(__('Invalid choice.'));
+                return Command::CODE_ERROR;
+            }
+
+            $selectedFile = $files[$choiceIndex];
+            $tableName = basename($selectedFile, '.json');
+
+            // Import the selected table
+            $this->importTable($tableName, $inputDir, $io);
         }
-
-        $choice = $io->ask(__('Choose a file to import by number:'));
-        $choiceIndex = (int)$choice - 1;
-
-        if (!isset($files[$choiceIndex])) {
-            $io->error(__('Invalid choice.'));
-            return Command::CODE_ERROR;
-        }
-
-        $selectedFile = $files[$choiceIndex];
-        $tableName = basename($selectedFile, '.json');
-
-        // Import the selected table
-        $this->importTable($tableName, $inputDir, $io);
 
         return Command::CODE_SUCCESS;
     }

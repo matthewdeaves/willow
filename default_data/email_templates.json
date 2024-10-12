@@ -1,0 +1,9 @@
+[
+    {
+        "template_identifier": "confirm_email",
+        "name": "Confirm your email",
+        "subject": "Confirm your email",
+        "body_html": "<p>Hello {username}!<\/p><p>Thanks for registering, please use the link below to confirm your email.<\/p><p>&lt;a href=\"{confirm_email_link}\"&gt;{confirm_email_link}&lt;\/a&gt;<\/p><p>Thanks again!<\/p><p>Matt<\/p>",
+        "body_plain": "Hello {username}!Thanks for registering, please use the link below to confirm your email.<a href=\"{confirm_email_link}\">{confirm_email_link}<\/a>Thanks again!Matt"
+    }
+]

@@ -3,40 +3,41 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Model\Table\AipromptsTable;
 use App\Utility\SettingsManager;
 use Cake\Http\Client;
 use Cake\Http\Client\Response;
 use Cake\Http\Exception\ServiceUnavailableException;
 use Cake\Log\Log;
+use Cake\ORM\TableRegistry;
 use InvalidArgumentException;
 
 class AnthropicApiService
 {
     private const API_URL = 'https://api.anthropic.com/v1/messages';
     private const API_VERSION = '2023-06-01';
-    private const MODEL = 'claude-3-haiku-20240307';
-    private const MAX_TOKENS = 1000;
-    private const TEMPERATURE = 0;
 
     private Client $client;
     private string $apiKey;
+    private AipromptsTable $aipromptsTable;
 
     /**
      * Constructor for AnthropicApiService.
      *
-     * Initializes the HTTP client and retrieves the API key from settings.
+     * Initializes the HTTP client, retrieves the API key from settings, and loads the Aiprompts table.
      */
     public function __construct()
     {
         $this->client = new Client();
         $this->apiKey = SettingsManager::read('AI.anthropicApiKey');
+        $this->aipromptsTable = TableRegistry::getTableLocator()->get('Aiprompts');
     }
 
     /**
      * Analyzes an image using the Anthropic API.
      *
      * @param string $imagePath The path to the image file.
-     * @return array{alt_text: string, keywords: string} Analysis results.
+     * @return array{name: string, alt_text: string, keywords: string} Analysis results.
      * @throws \InvalidArgumentException If the image file doesn't exist.
      * @throws \Cake\Http\Exception\ServiceUnavailableException If the API request fails.
      */
@@ -49,11 +50,13 @@ class AnthropicApiService
         $imageData = base64_encode(file_get_contents($imagePath));
         $mimeType = mime_content_type($imagePath);
 
+        $promptData = $this->getPromptData('image_analysis');
+
         $payload = [
-            'model' => self::MODEL,
-            'max_tokens' => self::MAX_TOKENS,
-            'temperature' => self::TEMPERATURE,
-            'system' => $this->getSystemPrompt('image_analysis'),
+            'model' => $promptData['model'],
+            'max_tokens' => $promptData['max_tokens'],
+            'temperature' => $promptData['temperature'],
+            'system' => $promptData['system_prompt'],
             'messages' => [
                 [
                     'role' => 'user',
@@ -102,11 +105,13 @@ class AnthropicApiService
         // Strip HTML tags and decode HTML entities to ensure plain text
         $plainTextContent = strip_tags(html_entity_decode($text));
 
+        $promptData = $this->getPromptData('article_summary');
+
         $payload = [
-            'model' => self::MODEL,
-            'max_tokens' => self::MAX_TOKENS,
-            'temperature' => self::TEMPERATURE,
-            'system' => $this->getSystemPrompt('article_summary'),
+            'model' => $promptData['model'],
+            'max_tokens' => $promptData['max_tokens'],
+            'temperature' => $promptData['temperature'],
+            'system' => $promptData['system_prompt'],
             'messages' => [
                 [
                     'role' => 'user',
@@ -148,29 +153,28 @@ class AnthropicApiService
     }
 
     /**
-     * Gets the system prompt for the API request based on the task.
+     * Gets the prompt data for the API request based on the task.
      *
      * @param string $task The task type for the API request.
-     * @return string The system prompt.
+     * @return array The prompt data including system_prompt, model, max_tokens, and temperature.
+     * @throws \InvalidArgumentException If the task type is not found.
      */
-    private function getSystemPrompt(string $task): string
+    private function getPromptData(string $task): array
     {
-        switch ($task) {
-            case 'image_analysis':
-                return 'You are an image analysis robot. You will receive an image and based on the image ' .
-                    "generate the following data items:\nalt_text: a string containing alternative text describing " .
-                    "the image for visually impaired people. Up to 255 characters long\nkeywords: a string " .
-                    'containing space separated keywords based on the content of the image. Maximum 20 unique ' .
-                    "words.\nYou will respond only in valid JSON format including only the above data items " .
-                    'and their values.';
-            case 'article_summary':
-                return 'You are an article summarization assistant. Provide a concise summary of the given article ' .
-                    'content in no more than 3 paragraphs. Focus on the main points and key takeaways. ' .
-                    'Respond with a JSON object containing a single key "summary" with the summarized ' .
-                    'content as its value.';
-            default:
-                throw new InvalidArgumentException("Unknown task: {$task}");
+        $prompt = $this->aipromptsTable->find()
+            ->where(['task_type' => $task])
+            ->first();
+
+        if (!$prompt) {
+            throw new InvalidArgumentException("Unknown task: {$task}");
         }
+
+        return [
+            'system_prompt' => $prompt->system_prompt,
+            'model' => $prompt->model,
+            'max_tokens' => $prompt->max_tokens,
+            'temperature' => $prompt->temperature,
+        ];
     }
 
     /**

@@ -87,6 +87,7 @@ class AipromptsController extends AppController
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The aiprompt could not be saved. Please, try again.'));
+            $this->setResponse($this->getResponse()->withStatus(400));
         }
         $this->set(compact('aiprompt'));
 
@@ -111,6 +112,7 @@ class AipromptsController extends AppController
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The aiprompt could not be saved. Please, try again.'));
+            $this->setResponse($this->getResponse()->withStatus(400));
         }
         $this->set(compact('aiprompt'));
 

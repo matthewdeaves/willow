@@ -63,7 +63,7 @@ class SettingsManager
     {
         $cacheKey = 'setting_' . str_replace('.', '_', $path);
 
-        $value = Cache::read($cacheKey, self::$cacheConfig);
+        $value = null;//Cache::read($cacheKey, self::$cacheConfig);
         if ($value !== null) {
             return $value;
         }

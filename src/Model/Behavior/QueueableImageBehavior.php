@@ -66,10 +66,12 @@ class QueueableImageBehavior extends Behavior
                     'args' => [$message],
                 ]);
 
-                // Queue up an image analysis job
-                QueueManager::push('App\Job\ImageAnalysisJob', [
-                    'args' => [$message],
-                ]);
+                if (SettingsManager::read('AI.enabled')) {
+                    // Queue up an image analysis job
+                    QueueManager::push('App\Job\ImageAnalysisJob', [
+                        'args' => [$message],
+                    ]);
+                }
             } catch (Exception $e) {
                 // Log the error message
                 Log::error('Failed to queue image resize job: ' . $e->getMessage());

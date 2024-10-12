@@ -37,7 +37,7 @@ class SettingsController extends AppController
         foreach ($settings as $setting) {
             $groupedSettings[$setting->category][$setting->key_name] = [
                 'value' => $setting->value,
-                'type' => $setting->type,
+                'value_type' => $setting->value_type,
             ];
         }
 

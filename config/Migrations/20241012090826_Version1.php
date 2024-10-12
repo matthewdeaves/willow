@@ -442,7 +442,7 @@ class Version1 extends AbstractMigration
                 'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('type', 'string', [
+            ->addColumn('value_type', 'string', [
                 'default' => 'text',
                 'limit' => 10,
                 'null' => true,

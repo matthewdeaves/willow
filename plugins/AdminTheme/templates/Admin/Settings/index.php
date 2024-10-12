@@ -22,9 +22,9 @@ use Cake\Utility\Inflector;
                             <div class="col-md-4 mb-3">
                                 <?php
                                 $value = $setting['value'];
-                                $type = $setting['type'];
+                                $value_type = $setting['value_type'];
                                 ?>
-                                <?php if ($type === 'bool'): ?>
+                                <?php if ($value_type === 'bool'): ?>
                                     <div class="form-check form-switch">
                                         <?= $this->Form->checkbox("{$category}.{$key}", [
                                             'label' => false,
@@ -41,11 +41,11 @@ use Cake\Utility\Inflector;
                                     <?= $this->Form->control("{$category}.{$key}", [
                                         'label' => Inflector::humanize($key),
                                         'value' => $value,
-                                        'class' => 'form-control' . ($type === 'numeric' ? ' is-numeric' : ''),
-                                        'type' => $type === 'numeric' ? 'number' : 'text',
-                                        'min' => $type === 'numeric' ? 0 : null,
-                                        'step' => $type === 'numeric' ? 1 : null,
-                                        'placeholder' => $type === 'numeric' ? __('Enter a number') : __('Enter text')
+                                        'class' => 'form-control' . ($value_type === 'numeric' ? ' is-numeric' : ''),
+                                        'type' => $value_type === 'numeric' ? 'number' : 'text',
+                                        'min' => $value_type === 'numeric' ? 0 : null,
+                                        'step' => $value_type === 'numeric' ? 1 : null,
+                                        'placeholder' => $value_type === 'numeric' ? __('Enter a number') : __('Enter text')
                                     ]) ?>
                                 <?php endif; ?>
                             </div>

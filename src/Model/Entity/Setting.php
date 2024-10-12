@@ -31,7 +31,7 @@ class Setting extends Entity
         'category' => true,
         'key_name' => true,
         'value' => true,
-        'type' => true,
+        'value_type' => true,
         'created' => true,
         'modified' => true,
     ];

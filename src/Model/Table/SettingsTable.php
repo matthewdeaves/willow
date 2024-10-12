@@ -64,24 +64,24 @@ class SettingsTable extends Table
             ->notEmptyString('key_name');
 
         $validator
-            ->scalar('type')
-            ->requirePresence('type', 'create')
-            ->notEmptyString('type')
-            ->inList('type', ['text', 'numeric', 'bool'], __('Invalid type'));
+            ->scalar('value_type')
+            ->requirePresence('value_type', 'create')
+            ->notEmptyString('value_type')
+            ->inList('value_type', ['text', 'numeric', 'bool'], __('Invalid type'));
 
         $validator
             ->requirePresence('value', 'create')
             ->notEmptyString('value', __('A value is required'))
             ->add('value', 'custom', [
                 'rule' => function ($value, $context) {
-                    $type = $context['data']['type'] ?? null;
-                    if ($type === 'numeric' && !is_numeric($value)) {
+                    $value_type = $context['data']['value_type'] ?? null;
+                    if ($value_type === 'numeric' && !is_numeric($value)) {
                         return __('The value must be a number.');
                     }
-                    if ($type === 'bool' && !in_array($value, [0, 1], true)) {
+                    if ($value_type === 'bool' && !in_array($value, [0, 1], true)) {
                         return __('The value must be 0 or 1.');
                     }
-                    if ($type === 'text' && empty($value)) {
+                    if ($value_type === 'text' && empty($value)) {
                         return __('The value must not be empty.');
                     }
 
@@ -109,13 +109,17 @@ class SettingsTable extends Table
      */
     public function getSettingValue(string $category, ?string $keyName = null): mixed
     {
-        if ($keyName === null) {
+        if (empty($keyName)) {
             // Fetch all settings for the category
-            return $this->find()
+            $settings = $this->find()
                 ->where(['category' => $category])
                 ->all()
-                ->combine('key_name', 'value')
+                ->combine('key_name', function ($setting) {
+                    return $this->castValue($setting->value, $setting->value_type);
+                })
                 ->toArray();
+            
+            return $settings;
         }
 
         // Fetch a single setting
@@ -123,6 +127,22 @@ class SettingsTable extends Table
             ->where(['category' => $category, 'key_name' => $keyName])
             ->first();
 
-        return $setting ? $setting->value : null;
+        return $setting ? $this->castValue($setting->value, $setting->value_type) : null;
+    }
+
+    private function castValue($value, $valueType)
+    {
+        switch ($valueType) {
+            case 'bool':
+                
+                return filter_var($value, FILTER_VALIDATE_BOOLEAN);
+            case 'numeric':
+
+                return (int)$value;
+            case 'string':
+            default:
+
+                return (string)$value;
+        }
     }
 }

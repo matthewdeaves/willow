@@ -13,23 +13,33 @@ use Imagick;
 
 /**
  * ResizeImages command.
+ *
+ * This command is responsible for resizing images for specified models.
  */
 class ResizeImagesCommand extends Command
 {
     /**
-     * /store the model names that have images we need to process
+     * Stores the model names and their respective image columns to process.
      *
-     * @var array<string>
+     * @var array<string, string>
      */
     protected array $modelsWithImages = [
         'Users' => 'picture_file',
         'Images' => 'image_file',
     ];
 
-    //Store if we should overwrite existing images or not
+    /**
+     * Indicates whether to skip overwriting existing resized images.
+     *
+     * @var string|bool|null
+     */
     protected bool|string|null $skipExistingImages;
 
-    //store the IO object so we dont have to pass it around
+    /**
+     * Stores the ConsoleIo instance for output operations.
+     *
+     * @var \Cake\Console\ConsoleIo
+     */
     protected ConsoleIo $io;
 
     /**
@@ -53,11 +63,14 @@ class ResizeImagesCommand extends Command
     }
 
     /**
-     * Implement this method with your command's logic.
+     * Executes the command to resize images.
+     *
+     * This method iterates through the specified models, retrieves images,
+     * and resizes them according to the configured sizes.
      *
      * @param \Cake\Console\Arguments $args The command arguments.
      * @param \Cake\Console\ConsoleIo $io The console io
-     * @return int|null|void The exit code or null for success
+     * @return int The exit code of the command.
      */
     public function execute(Arguments $args, ConsoleIo $io): int
     {
@@ -88,12 +101,14 @@ class ResizeImagesCommand extends Command
     }
 
     /**
-     * Function to resize the image to the sizes set in config/app.php
-     * Uses Image Magick for PHP
+     * Resizes an image to the specified width.
+     *
+     * This method uses ImageMagick to resize the image while maintaining the aspect ratio.
+     * It also handles file existence checks and skipping based on the skipExistingImages option.
      *
      * @param string $original The path to the original image to resize.
-     * @param int $width The width to resize to
-     * @return void returns void
+     * @param int $width The width to resize to.
+     * @return void
      */
     private function createImage(string $original, int $width): void
     {

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Behavior;
 
+use App\Utility\SettingsManager;
 use ArrayObject;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;

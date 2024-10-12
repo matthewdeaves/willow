@@ -71,6 +71,7 @@ $cakeDescription = __('Willow CMS');
                         <ul class="dropdown-menu" aria-labelledby="systemDropdown">
                             <li><?= $this->Html->link(__('Users'), ['prefix' => 'Admin', 'controller' => 'Users', 'action' => 'index'], ['class' => 'dropdown-item']) ?></li>
                             <li><?= $this->Html->link(__('Settings'), ['prefix' => 'Admin', 'controller' => 'Settings', 'action' => 'index'], ['class' => 'dropdown-item']) ?></li>
+                            <li><?= $this->Html->link(__('Clear Cache'), ['prefix' => 'Admin', 'controller' => 'Cache', 'action' => 'clearAll'], ['class' => 'dropdown-item']) ?></li>
                             <li><?= $this->Html->link(__('Email Templates'), ['prefix' => 'Admin', 'controller' => 'EmailTemplates', 'action' => 'index'], ['class' => 'dropdown-item']) ?></li>
                             <li><?= $this->Html->link(__('Blocks'), ['prefix' => 'Admin', 'controller' => 'BlockedIps', 'action' => 'index'], ['class' => 'dropdown-item']) ?></li>
                             <li><?= $this->Html->link(__('Logs'), ['prefix' => 'Admin', 'controller' => 'SystemLogs', 'action' => 'index'], ['class' => 'dropdown-item']) ?></li>

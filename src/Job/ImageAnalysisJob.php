@@ -47,19 +47,16 @@ class ImageAnalysisJob implements JobInterface
      */
     public function execute(Message $message): ?string
     {
-        $data = $message->getArgument('data');
+        $args = $message->getArgument('args');
         $this->log(
-            __('Received image analysis message: {0}', [json_encode($data)]),
+            __('Received image analysis message: {0}', [json_encode($args)]),
             'debug',
             ['group_name' => 'image_analysis']
         );
 
-        if (!is_array($data) || !isset($data['path']) || !isset($data['id'])) {
+        if (!is_array($args) || !isset($args[0]) || !is_array($args[0])) {
             $this->log(
-                __(
-                    'Invalid argument structure for image analysis job. Expected array with path and id, got: {0}',
-                    [gettype($data)]
-                ),
+                __('Invalid argument structure for image analysis job. Expected array, got: {0}', [gettype($args)]),
                 'error',
                 ['group_name' => 'image_analysis']
             );
@@ -67,8 +64,19 @@ class ImageAnalysisJob implements JobInterface
             return Processor::REJECT;
         }
 
-        $imagePath = $data['path'];
-        $imageId = $data['id'];
+        $payload = $args[0];
+        $imagePath = $payload['path'] ?? null;
+        $imageId = $payload['id'] ?? null;
+
+        if (!$imagePath || !$imageId) {
+            $this->log(
+                __('Missing required fields in image analysis payload. Path: {0}, ID: {1}', [$imagePath, $imageId]),
+                'error',
+                ['group_name' => 'image_analysis']
+            );
+
+            return Processor::REJECT;
+        }
 
         try {
             $anthropicService = new AnthropicApiService();

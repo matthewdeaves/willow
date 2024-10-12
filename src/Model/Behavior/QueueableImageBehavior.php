@@ -59,6 +59,7 @@ class QueueableImageBehavior extends Behavior
         if ($entity->isDirty($config['field'])) {
             $message = [
                 'path' => WWW_ROOT . $config['folder_path'] . $entity->{$config['field']},
+                'id' => $entity->id,
             ];
 
             try {

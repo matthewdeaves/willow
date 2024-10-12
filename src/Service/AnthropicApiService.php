@@ -49,10 +49,27 @@ class AnthropicApiService
         $imageData = base64_encode(file_get_contents($imagePath));
         $mimeType = mime_content_type($imagePath);
 
-        $payload = $this->buildPayload('image_analysis', [
-            'mimeType' => $mimeType,
-            'imageData' => $imageData,
-        ]);
+        $payload = [
+            'model' => self::MODEL,
+            'max_tokens' => self::MAX_TOKENS,
+            'temperature' => self::TEMPERATURE,
+            'system' => $this->getSystemPrompt('image_analysis'),
+            'messages' => [
+                [
+                    'role' => 'user',
+                    'content' => [
+                        [
+                            'type' => 'image',
+                            'source' => [
+                                'type' => 'base64',
+                                'media_type' => $mimeType,
+                                'data' => $imageData,
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $response = $this->client->post(
             self::API_URL,
@@ -61,7 +78,9 @@ class AnthropicApiService
         );
 
         if (!$response->isOk()) {
-            Log::error('Anthropic API error: ' . $response->getStringBody());
+            $errorBody = $response->getStringBody();
+            $statusCode = $response->getStatusCode();
+            Log::error("Anthropic API error: Status Code: {$statusCode}, Body: {$errorBody}");
             throw new ServiceUnavailableException(__('Failed to analyze image. Please try again later.'));
         }
 
@@ -83,7 +102,18 @@ class AnthropicApiService
         // Strip HTML tags and decode HTML entities to ensure plain text
         $plainTextContent = strip_tags(html_entity_decode($text));
 
-        $payload = $this->buildPayload('article_summary', ['content' => $plainTextContent]);
+        $payload = [
+            'model' => self::MODEL,
+            'max_tokens' => self::MAX_TOKENS,
+            'temperature' => self::TEMPERATURE,
+            'system' => $this->getSystemPrompt('article_summary'),
+            'messages' => [
+                [
+                    'role' => 'user',
+                    'content' => $plainTextContent,
+                ],
+            ],
+        ];
 
         $response = $this->client->post(
             self::API_URL,
@@ -92,57 +122,15 @@ class AnthropicApiService
         );
 
         if (!$response->isOk()) {
-            Log::error('Anthropic API error: ' . $response->getStringBody());
+            $errorBody = $response->getStringBody();
+            $statusCode = $response->getStatusCode();
+            Log::error("Anthropic API error: Status Code: {$statusCode}, Body: {$errorBody}");
             throw new ServiceUnavailableException(__('Failed to summarize article. Please try again later.'));
         }
 
-        return $this->parseResponse($response)['summary'] ?? '';
-    }
+        $result = $this->parseResponse($response);
 
-    /**
-     * Builds the payload for the API request.
-     *
-     * @param string $task The task type for the API request.
-     * @param array $data The data required for the task.
-     * @return array The payload for the API request.
-     */
-    private function buildPayload(string $task, array $data): array
-    {
-        $systemPrompt = $this->getSystemPrompt($task);
-
-        $messages = [];
-        if ($task === 'image_analysis') {
-            $messages = [
-                [
-                    'role' => 'user',
-                    'content' => [
-                        [
-                            'type' => 'image',
-                            'source' => [
-                                'type' => 'base64',
-                                'media_type' => $data['mimeType'],
-                                'data' => $data['imageData'],
-                            ],
-                        ],
-                    ],
-                ],
-            ];
-        } elseif ($task === 'article_summary') {
-            $messages = [
-                [
-                    'role' => 'user',
-                    'content' => $data['content'] ?? $data['prompt'],
-                ],
-            ];
-        }
-
-        return [
-            'model' => self::MODEL,
-            'max_tokens' => self::MAX_TOKENS,
-            'temperature' => self::TEMPERATURE,
-            'system' => $systemPrompt,
-            'messages' => $messages,
-        ];
+        return $result['summary'] ?? '';
     }
 
     /**
@@ -153,9 +141,9 @@ class AnthropicApiService
     private function getHeaders(): array
     {
         return [
-            'Authorization' => 'Bearer ' . $this->apiKey,
-            'Content-Type' => 'application/json',
+            'x-api-key' => $this->apiKey,
             'anthropic-version' => self::API_VERSION,
+            'Content-Type' => 'application/json',
         ];
     }
 
@@ -193,6 +181,8 @@ class AnthropicApiService
      */
     private function parseResponse(Response $response): array
     {
-        return json_decode($response->getJson()['content'], true);
+        $responseData = $response->getJson();
+
+        return json_decode($responseData['content'][0]['text'], true);
     }
 }

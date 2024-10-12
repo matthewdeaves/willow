@@ -43,9 +43,11 @@ function sanitizeId($name) {
                                 </button>
                             </td>
                             <td>
-                                <?= $this->Form->create(null, ['url' => ['action' => 'clear', $name], 'class' => 'd-inline']) ?>
-                                    <?= $this->Form->button(__('Clear'), ['class' => 'btn btn-sm btn-warning']) ?>
-                                <?= $this->Form->end() ?>
+                                <?= $this->Form->postLink(
+                                    __('Clear'),
+                                    ['action' => 'clear', urlencode($name)],
+                                    ['class' => 'btn btn-sm btn-warning', 'confirm' => __('Are you sure you want to clear {0}?', $name)]
+                                ) ?>
                             </td>
                         </tr>
                         <tr>

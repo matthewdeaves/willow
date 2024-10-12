@@ -65,15 +65,21 @@ class CacheController extends AppController
      */
     public function clear(string $cacheName): ?Response
     {
+        $decodedCacheName = urldecode($cacheName);
+        
         if ($this->request->is('post')) {
-            if (Cache::clear($cacheName)) {
-                $this->updateLastClearedTime($cacheName);
-                $this->Flash->success(__('{0} cache has been cleared successfully.', $cacheName));
+            if (Cache::getConfig($decodedCacheName)) {
+                if (Cache::clear($decodedCacheName)) {
+                    $this->updateLastClearedTime($decodedCacheName);
+                    $this->Flash->success(__('{0} cache has been cleared successfully.', ucfirst($decodedCacheName)));
+                } else {
+                    $this->Flash->error(__('{0} cache could not be cleared.', ucfirst($decodedCacheName)));
+                }
             } else {
-                $this->Flash->error(__('{0} cache could not be cleared.', $cacheName));
+                $this->Flash->error(__('{0} cache configuration does not exist.', ucfirst($decodedCacheName)));
             }
         }
-
+    
         return $this->redirect(['action' => 'clearAll']);
     }
 

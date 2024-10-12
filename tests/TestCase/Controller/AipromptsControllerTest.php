@@ -10,8 +10,6 @@ use Cake\TestSuite\TestCase;
 
 /**
  * App\Controller\AipromptsController Test Case
- *
- * @uses \App\Controller\AipromptsController
  */
 class AipromptsControllerTest extends TestCase
 {
@@ -71,7 +69,6 @@ class AipromptsControllerTest extends TestCase
      * Test index method
      *
      * @return void
-     * @uses \App\Controller\AipromptsController::index()
      */
     public function testIndex(): void
     {
@@ -85,7 +82,6 @@ class AipromptsControllerTest extends TestCase
      * Test view method
      *
      * @return void
-     * @uses \App\Controller\AipromptsController::view()
      */
     public function testView(): void
     {
@@ -100,7 +96,6 @@ class AipromptsControllerTest extends TestCase
      * Test add method
      *
      * @return void
-     * @uses \App\Controller\AipromptsController::add()
      */
     public function testAdd(): void
     {
@@ -125,7 +120,6 @@ class AipromptsControllerTest extends TestCase
      * Test edit method
      *
      * @return void
-     * @uses \App\Controller\AipromptsController::edit()
      */
     public function testEdit(): void
     {

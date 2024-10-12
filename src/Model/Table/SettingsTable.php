@@ -146,7 +146,7 @@ class SettingsTable extends Table
      * @param string $valueType The type to cast the value to ('bool', 'numeric', or 'string').
      * @return mixed The cast value.
      */
-    private function castValue($value, $valueType)
+    private function castValue(mixed $value, string $valueType): mixed
     {
         switch ($valueType) {
             case 'bool':

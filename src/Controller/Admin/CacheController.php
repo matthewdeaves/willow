@@ -66,7 +66,7 @@ class CacheController extends AppController
     public function clear(string $cacheName): ?Response
     {
         $decodedCacheName = urldecode($cacheName);
-        
+
         if ($this->request->is('post')) {
             if (Cache::getConfig($decodedCacheName)) {
                 if (Cache::clear($decodedCacheName)) {
@@ -79,7 +79,7 @@ class CacheController extends AppController
                 $this->Flash->error(__('{0} cache configuration does not exist.', ucfirst($decodedCacheName)));
             }
         }
-    
+
         return $this->redirect(['action' => 'clearAll']);
     }
 

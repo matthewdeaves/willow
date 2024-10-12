@@ -67,7 +67,7 @@ class DefaultDataExportCommand extends Command
         // Display the list of tables
         $io->out('Available tables:');
         foreach ($tables as $index => $table) {
-            $io->out(sprintf("[%d] %s", $index + 1, $table));
+            $io->out(sprintf('[%d] %s', $index + 1, $table));
         }
 
         // Prompt the user to select a table
@@ -76,6 +76,7 @@ class DefaultDataExportCommand extends Command
 
         if (!isset($tables[$tableIndex])) {
             $io->error('Invalid selection. Exiting.');
+
             return Command::CODE_ERROR;
         }
 

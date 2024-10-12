@@ -70,6 +70,7 @@ class DefaultDataImportCommand extends Command
         $files = glob($inputDir . DS . '*.json');
         if (empty($files)) {
             $io->out(__('No JSON files found in the directory: {0}', $inputDir));
+
             return Command::CODE_ERROR;
         }
 
@@ -83,7 +84,7 @@ class DefaultDataImportCommand extends Command
             // Display files and ask user to choose
             $io->out(__('Available data files:'));
             foreach ($files as $index => $file) {
-                $io->out(sprintf("[%d] %s", $index + 1, basename($file)));
+                $io->out(sprintf('[%d] %s', $index + 1, basename($file)));
             }
 
             $choice = $io->ask(__('Choose a file to import by number:'));
@@ -91,6 +92,7 @@ class DefaultDataImportCommand extends Command
 
             if (!isset($files[$choiceIndex])) {
                 $io->error(__('Invalid choice.'));
+
                 return Command::CODE_ERROR;
             }
 
@@ -119,6 +121,7 @@ class DefaultDataImportCommand extends Command
 
         if (!file_exists($inputFile)) {
             $io->error(__('Input file not found: {0}', $inputFile));
+
             return;
         }
 

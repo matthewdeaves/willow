@@ -69,7 +69,7 @@ class SettingsTableTest extends TestCase
         $validData = [
             'category' => 'TestCategory',
             'key_name' => 'TestKey',
-            'is_numeric' => true,
+            'type' => 'numeric',
             'value' => '100',
         ];
         $errors = $validator->validate($validData);
@@ -78,7 +78,7 @@ class SettingsTableTest extends TestCase
         $validStringData = [
             'category' => 'TestCategory',
             'key_name' => 'TestKey',
-            'is_numeric' => false,
+            'type' => 'text',
             'value' => 'Test Value',
         ];
         $errors = $validator->validate($validStringData);
@@ -121,7 +121,7 @@ class SettingsTableTest extends TestCase
         $errors = $validator->validate($emptyValueString);
         $this->assertArrayHasKey('value', $errors, 'Validation should fail when value is empty for string setting');
 
-        // Test invalid is_numeric
+        // Test invalid numeric type
         $invalidIsNumeric = $validData;
         $invalidIsNumeric['is_numeric'] = 'not_a_boolean';
         $errors = $validator->validate($invalidIsNumeric);

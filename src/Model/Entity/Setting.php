@@ -10,10 +10,9 @@ use Cake\ORM\Entity;
  *
  * @property string $id
  * @property string $category
- * @property string|null $subcategory
  * @property string $key_name
  * @property string|null $value
- * @property bool|null $is_numeric
+ * @property string $type
  * @property \Cake\I18n\DateTime|null $created
  * @property \Cake\I18n\DateTime|null $modified
  */
@@ -30,10 +29,9 @@ class Setting extends Entity
      */
     protected array $_accessible = [
         'category' => true,
-        'subcategory' => true,
         'key_name' => true,
         'value' => true,
-        'is_numeric' => true,
+        'type' => true,
         'created' => true,
         'modified' => true,
     ];

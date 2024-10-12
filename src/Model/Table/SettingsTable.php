@@ -61,55 +61,41 @@ class SettingsTable extends Table
             ->notEmptyString('category');
 
         $validator
-            ->scalar('subcategory')
-            ->maxLength('subcategory', 255)
-            ->allowEmptyString('subcategory');
-
-        $validator
             ->scalar('key_name')
             ->maxLength('key_name', 255)
             ->requirePresence('key_name', 'create')
             ->notEmptyString('key_name');
 
         $validator
-            ->boolean('is_numeric')
-            ->allowEmptyString('is_numeric');
+            ->scalar('type')
+            ->requirePresence('type', 'create')
+            ->notEmptyString('type')
+            ->inList('type', ['text', 'numeric', 'bool'], __('Invalid type'));
 
         $validator
             ->requirePresence('value', 'create')
-            ->notEmptyString('value', 'A value is required');
+            ->notEmptyString('value', __('A value is required'))
+            ->add('value', 'custom', [
+                'rule' => function ($value, $context) {
+                    $type = $context['data']['type'] ?? null;
+                    if ($type === 'numeric' && !is_numeric($value)) {
+
+                        return __('The value must be a number.');
+                    }
+                    if ($type === 'bool' && !in_array($value, [0, 1], true)) {
+
+                        return __('The value must be 0 or 1.');
+                    }
+                    if ($type === 'text' && empty($value)) {
+
+                        return __('The value must not be empty.');
+                    }
+                    return true;
+                },
+                'message' => __('Invalid value for the specified type.')
+            ]);
 
         return $validator;
-    }
-
-    /**
-     * Before save event handler.
-     *
-     * @param \Cake\Event\EventInterface $event The event instance.
-     * @param \App\Model\Entity\Setting $entity The entity instance.
-     * @param \ArrayObject $options The options passed to the save method.
-     * @return bool
-     */
-    public function beforeSave(EventInterface $event, Setting $entity, ArrayObject $options): bool
-    {
-        if ($entity->isNew()) {
-            return true;
-        }
-
-        $originalEntity = $this->get($entity->id);
-        if ($originalEntity->is_numeric == 1 && !is_numeric($entity->value)) {
-            $entity->setError('value', 'The value must be a number for this setting.');
-
-            return false;
-        }
-
-        if ($originalEntity->is_numeric == 0 && empty($entity->value)) {
-            $entity->setError('value', 'The value must not be empty for this setting.');
-
-            return false;
-        }
-
-        return true;
     }
 
     /**

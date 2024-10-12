@@ -22,17 +22,32 @@ use Cake\Utility\Inflector;
                             <div class="col-md-4 mb-3">
                                 <?php
                                 $value = $setting['value'];
-                                $isNumeric = $setting['is_numeric'];
+                                $type = $setting['type'];
                                 ?>
-                                <?= $this->Form->control("{$category}.{$key}", [
-                                    'label' => Inflector::humanize($key),
-                                    'value' => $value,
-                                    'class' => 'form-control' . ($isNumeric ? ' is-numeric' : ''),
-                                    'type' => $isNumeric ? 'number' : 'text',
-                                    'min' => $isNumeric ? 0 : null,
-                                    'step' => $isNumeric ? 1 : null,
-                                    'placeholder' => $isNumeric ? __('Enter a number') : __('Enter text')
-                                ]) ?>
+                                <?php if ($type === 'bool'): ?>
+                                    <div class="form-check form-switch">
+                                        <?= $this->Form->checkbox("{$category}.{$key}", [
+                                            'label' => false,
+                                            'value' => 1,
+                                            'class' => 'form-check-input',
+                                            'checked' => (bool)$value,
+                                            'type' => 'checkbox'
+                                        ]) ?>
+                                        <label class="form-check-label" for="<?= "{$category}-{$key}" ?>">
+                                            <?= Inflector::humanize($key) ?>
+                                        </label>
+                                    </div>
+                                <?php else: ?>
+                                    <?= $this->Form->control("{$category}.{$key}", [
+                                        'label' => Inflector::humanize($key),
+                                        'value' => $value,
+                                        'class' => 'form-control' . ($type === 'numeric' ? ' is-numeric' : ''),
+                                        'type' => $type === 'numeric' ? 'number' : 'text',
+                                        'min' => $type === 'numeric' ? 0 : null,
+                                        'step' => $type === 'numeric' ? 1 : null,
+                                        'placeholder' => $type === 'numeric' ? __('Enter a number') : __('Enter text')
+                                    ]) ?>
+                                <?php endif; ?>
                             </div>
                         <?php endforeach; ?>
                         </div>

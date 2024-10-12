@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use Migrations\AbstractMigration;
 
-class Version1 extends AbstractMigration
+class V1 extends AbstractMigration
 {
     /**
      * Up Method.
@@ -14,6 +14,51 @@ class Version1 extends AbstractMigration
      */
     public function up(): void
     {
+        $this->table('aiprompts', ['id' => false, 'primary_key' => ['id']])
+            ->addColumn('id', 'uuid', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('task_type', 'string', [
+                'default' => null,
+                'limit' => 50,
+                'null' => false,
+            ])
+            ->addColumn('system_prompt', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('model', 'string', [
+                'default' => null,
+                'limit' => 50,
+                'null' => false,
+            ])
+            ->addColumn('max_tokens', 'integer', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+                'signed' => true,
+            ])
+            ->addColumn('temperature', 'float', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+                'signed' => true,
+            ])
+            ->addColumn('created_at', 'timestamp', [
+                'default' => 'CURRENT_TIMESTAMP',
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('modified_at', 'timestamp', [
+                'default' => 'CURRENT_TIMESTAMP',
+                'limit' => null,
+                'null' => false,
+            ])
+            ->create();
+
         $this->table('articles', ['id' => false, 'primary_key' => ['id']])
             ->addColumn('id', 'uuid', [
                 'default' => null,
@@ -631,6 +676,7 @@ class Version1 extends AbstractMigration
      */
     public function down(): void
     {
+        $this->table('aiprompts')->drop()->save();
         $this->table('articles')->drop()->save();
         $this->table('articles_tags')->drop()->save();
         $this->table('blocked_ips')->drop()->save();

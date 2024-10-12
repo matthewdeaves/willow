@@ -50,6 +50,11 @@ class ExportCodeCommand extends Command
         $rootDir = ROOT;
         $outputFile = $rootDir . DS . 'willow_cms_code.txt';
         $directories = [
+            'Commands' => $rootDir . DS . 'src' . DS . 'Command',
+            'Jobs' => $rootDir . DS . 'src' . DS . 'Job',
+            'Services' => $rootDir . DS . 'src' . DS . 'Service',
+            'Utilities' => $rootDir . DS . 'src' . DS . 'Utility',
+            'Logs' => $rootDir . DS . 'src' . DS . 'Log',
             'Controllers' => $rootDir . DS . 'src' . DS . 'Controller',
             'Models' => $rootDir . DS . 'src' . DS . 'Model',
             'Views' => $rootDir . DS . 'templates',

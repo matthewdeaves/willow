@@ -3,9 +3,6 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
-use App\Model\Entity\Setting;
-use ArrayObject;
-use Cake\Event\EventInterface;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
@@ -79,20 +76,18 @@ class SettingsTable extends Table
                 'rule' => function ($value, $context) {
                     $type = $context['data']['type'] ?? null;
                     if ($type === 'numeric' && !is_numeric($value)) {
-
                         return __('The value must be a number.');
                     }
                     if ($type === 'bool' && !in_array($value, [0, 1], true)) {
-
                         return __('The value must be 0 or 1.');
                     }
                     if ($type === 'text' && empty($value)) {
-
                         return __('The value must not be empty.');
                     }
+
                     return true;
                 },
-                'message' => __('Invalid value for the specified type.')
+                'message' => __('Invalid value for the specified type.'),
             ]);
 
         return $validator;

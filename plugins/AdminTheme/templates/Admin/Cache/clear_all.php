@@ -1,45 +1,77 @@
 <?php
 /**
  * @var \App\View\AppView $this
- * @var array $clearedCaches
- * @var array $failedCaches
+ * @var array $cacheInfo
  */
+
+function sanitizeId($name) {
+    return preg_replace('/[^a-z0-9]/i', '_', $name);
+}
 ?>
 <div class="container-fluid mt-4">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="card-title mb-0"><?= __('Clear All Cache') ?></h3>
-                </div>
-                <div class="card-body">
-                    <p><?= __('Click the button below to clear all cache in the application.') ?></p>
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h3 class="card-title mb-0"><?= __('Cache Management') ?></h3>
+        </div>
+        <div class="card-body">
+            <p><?= __('Below is information about the configured caches. Click the button to clear all caches.') ?></p>
 
-                    <?= $this->Form->create(null, ['url' => ['action' => 'clearAll'], 'class' => 'needs-validation', 'novalidate' => true]) ?>
-                    <div class="text-center">
-                        <?= $this->Form->button(__('Clear All Cache'), ['class' => 'btn btn-danger mt-3']) ?>
-                    </div>
-                    <?= $this->Form->end() ?>
+            <?= $this->Form->create(null, ['url' => ['action' => 'clearAll'], 'class' => 'mb-4']) ?>
+                <?= $this->Form->button(__('Clear All Cache'), ['class' => 'btn btn-danger']) ?>
+            <?= $this->Form->end() ?>
 
-                    <?php if (isset($clearedCaches) && !empty($clearedCaches)): ?>
-                        <h4 class="mb-3 mt-4 text-success"><?= __('Cleared Caches') ?></h4>
-                        <ul class="list-group">
-                            <?php foreach ($clearedCaches as $cache): ?>
-                                <li class="list-group-item"><?= h($cache) ?></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    <?php endif; ?>
-
-                    <?php if (isset($failedCaches) && !empty($failedCaches)): ?>
-                        <h4 class="mb-3 mt-4 text-danger"><?= __('Failed to Clear Caches') ?></h4>
-                        <ul class="list-group">
-                            <?php foreach ($failedCaches as $cache): ?>
-                                <li class="list-group-item"><?= h($cache) ?></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    <?php endif; ?>
-                </div>
-            </div>
+            <h4 class="mb-3"><?= __('Configured Caches') ?></h4>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th><?= __('Cache Name') ?></th>
+                        <th><?= __('Engine') ?></th>
+                        <th><?= __('Last Cleared') ?></th>
+                        <th><?= __('Details') ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($cacheInfo as $name => $info): ?>
+                        <tr>
+                            <td><?= h($name) ?></td>
+                            <td><?= h(basename($info['engine'])) ?></td>
+                            <td><?= $info['last_cleared'] ? $info['last_cleared']->nice() : __('Never') ?></td>
+                            <td>
+                                <button class="btn btn-sm btn-info" type="button" data-bs-toggle="collapse" data-bs-target="#details-<?= sanitizeId($name) ?>" aria-expanded="false">
+                                    <?= __('Show Details') ?>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="p-0">
+                                <div class="collapse" id="details-<?= sanitizeId($name) ?>">
+                                    <div class="card card-body">
+                                        <h6><?= __('Settings') ?></h6>
+                                        <ul class="list-unstyled">
+                                            <?php foreach ($info['settings'] as $key => $value): ?>
+                                                <li>
+                                                    <strong><?= h($key) ?>:</strong> 
+                                                    <?php
+                                                    if (is_array($value)) {
+                                                        echo empty($value) ? '[]' : h(json_encode($value, JSON_PRETTY_PRINT));
+                                                    } elseif (is_null($value)) {
+                                                        echo 'null';
+                                                    } elseif (is_bool($value)) {
+                                                        echo $value ? 'true' : 'false';
+                                                    } else {
+                                                        echo h($value);
+                                                    }
+                                                    ?>
+                                                </li>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

@@ -166,22 +166,19 @@ return [
         ],
 
         /**
-         * Cache configuration for storing tag-related data.
+         * Cache configuration for CakePHP routes.
          *
-         * This configuration uses the File cache engine to store data related to tags.
-         * The cache files are stored in the specified path and have a duration of one week.
+         * This configuration is used to cache the routing information for the application.
+         * It uses the File engine to store cache data in the specified path.
          *
-         * @var array $tags Cache configuration array
-         * @property string $className The class name of the cache engine to use. In this case, 'File'.
-         * @property string $path The path where cache files will be stored. This is set to CACHE . 'tags/'.
-         * @property string $duration The duration for which cache entries should be valid. This is set to '+1 week'.
+         * @var array
+         * @property string $className The cache engine to use. In this case, 'File' indicates the use of the FileEngine.
+         * @property string $prefix A prefix to prepend to all cache keys. Useful for distinguishing cache entries.
+         * @property string $path The directory path where cache files will be stored.
+         * @property bool $serialize Whether to serialize the cache data. Set to true to enable serialization.
+         * @property string $duration The duration for which the cache data should be valid. Uses a strtotime-compatible format.
+         * @property string|null $url The URL for the cache configuration, fetched from environment variables. Defaults to null if not set.
          */
-        'tags' => [
-            'className' => 'File',
-            'path' => CACHE . 'tags/',
-            'duration' => '+1 week',
-        ],
-
         '_cake_routes_' => [
             'className' => 'File',
             'prefix' => 'myapp_cake_routes_',
@@ -190,7 +187,18 @@ return [
             'duration' => '+1 week',
             'url' => env('CACHE_CAKEROUTES_URL', null),
         ],
-
+        
+        /**
+         * Cache configuration for rate limiting.
+         *
+         * This configuration is used to cache rate limit data for the application.
+         * It uses the File engine to store cache data in the specified path.
+         *
+         * @var array
+         * @property string $className The cache engine to use. In this case, 'File' indicates the use of the FileEngine.
+         * @property string $path The directory path where cache files will be stored.
+         * @property string $duration The duration for which the cache data should be valid. Uses a strtotime-compatible format.
+         */
         'rate_limit' => [
             'className' => 'File',
             'path' => CACHE . 'rate_limit/',

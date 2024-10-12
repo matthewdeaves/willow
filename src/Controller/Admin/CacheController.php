@@ -7,35 +7,22 @@ use App\Controller\AppController;
 use App\Utility\SettingsManager;
 use Cake\Cache\Cache;
 use Cake\Http\Response;
+use Cake\I18n\FrozenTime;
 
-/**
- * Cache Controller
- *
- * This controller handles the management of application cache.
- * It provides functionality to clear all cache.
- */
 class CacheController extends AppController
 {
-    /**
-     * Clear Cache method
-     *
-     * This method displays a view with a button to clear all cache.
-     * When the button is pressed (POST request), it clears all configured caches
-     * and the SettingsManager cache.
-     *
-     * @return \Cake\Http\Response|null|void Renders view or redirects after clearing cache
-     */
     public function clearAll(): ?Response
     {
+        $cacheInfo = $this->getCacheInfo();
+
         if ($this->request->is('post')) {
             $clearedCaches = [];
             $failedCaches = [];
 
-            // Clear all configured caches
-            $configuredCaches = Cache::configured();
-            foreach ($configuredCaches as $config) {
+            foreach ($cacheInfo as $config => $info) {
                 if (Cache::clear($config)) {
                     $clearedCaches[] = $config;
+                    $this->updateLastClearedTime($config);
                 } else {
                     $failedCaches[] = $config;
                 }
@@ -54,11 +41,39 @@ class CacheController extends AppController
                 ));
             }
 
-            $this->set(compact('clearedCaches', 'failedCaches'));
-
             return $this->redirect(['action' => 'clearAll']);
         }
 
+        $this->set('cacheInfo', $cacheInfo);
         return null;
+    }
+
+    private function getCacheInfo(): array
+    {
+        $cacheInfo = [];
+        $configuredCaches = Cache::configured();
+
+        foreach ($configuredCaches as $config) {
+            $engineConfig = Cache::getConfig($config);
+            $cacheInfo[$config] = [
+                'engine' => $engineConfig['className'],
+                'settings' => $engineConfig,
+                'last_cleared' => $this->getLastClearedTime($config),
+            ];
+        }
+
+        return $cacheInfo;
+    }
+
+    private function getLastClearedTime(string $config): ?FrozenTime
+    {
+        $time = Cache::read('last_cleared_' . $config, 'default');
+        return $time ? FrozenTime::parse($time) : null;
+    }
+
+    private function updateLastClearedTime(string $config): void
+    {
+        $time = FrozenTime::now();
+        Cache::write('last_cleared_' . $config, $time, 'default');
     }
 }

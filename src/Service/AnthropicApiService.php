@@ -5,22 +5,26 @@ namespace App\Service;
 
 use App\Utility\SettingsManager;
 use Cake\Http\Client;
+use Cake\Http\Client\Response;
+use Cake\Http\Exception\ServiceUnavailableException;
 use Cake\Log\Log;
+use InvalidArgumentException;
 
 class AnthropicApiService
 {
-    /**
-     * @var \Cake\Http\Client
-     */
-    private Client $client;
+    private const API_URL = 'https://api.anthropic.com/v1/messages';
+    private const API_VERSION = '2023-06-01';
+    private const MODEL = 'claude-3-haiku-20240307';
+    private const MAX_TOKENS = 1000;
+    private const TEMPERATURE = 0;
 
-    /**
-     * @var string
-     */
+    private Client $client;
     private string $apiKey;
 
     /**
      * Constructor for AnthropicApiService.
+     *
+     * Initializes the HTTP client and retrieves the API key from settings.
      */
     public function __construct()
     {
@@ -32,67 +36,163 @@ class AnthropicApiService
      * Analyzes an image using the Anthropic API.
      *
      * @param string $imagePath The path to the image file.
-     * @return array|null An array containing 'alt_text' and 'keywords', or null on failure.
+     * @return array{alt_text: string, keywords: string} Analysis results.
+     * @throws \InvalidArgumentException If the image file doesn't exist.
+     * @throws \Cake\Http\Exception\ServiceUnavailableException If the API request fails.
      */
-    public function analyzeImage(string $imagePath): ?array
+    public function analyzeImage(string $imagePath): array
     {
         if (!file_exists($imagePath)) {
-            Log::error('Image file not found: ' . $imagePath);
-
-            return null;
+            throw new InvalidArgumentException("Image file not found: {$imagePath}");
         }
 
         $imageData = base64_encode(file_get_contents($imagePath));
         $mimeType = mime_content_type($imagePath);
 
+        $payload = $this->buildPayload('image_analysis', [
+            'mimeType' => $mimeType,
+            'imageData' => $imageData,
+        ]);
+
         $response = $this->client->post(
-            'https://api.anthropic.com/v1/messages',
-            json_encode([
-                'model' => 'claude-3-haiku-20240307',
-                'max_tokens' => 1000,
-                'temperature' => 0,
-                'system' => 'You are an image analysis robot. You will receive an image and based on the image ' .
-                    "generate the following data items:\nalt_text: a string containing alternative text describing " .
-                    "the image for visually impaired people. Up to 255 characters long\nkeywords: a string " .
-                    'containing space separated keywords based on the content of the image. Maximum 20 unique ' .
-                    "words.\n\nYou will respond only in valid JSON format including only the above data items " .
-                    'and their values.',
-                'messages' => [
-                    [
-                        'role' => 'user',
-                        'content' => [
-                            [
-                                'type' => 'image',
-                                'source' => [
-                                    'type' => 'base64',
-                                    'media_type' => $mimeType,
-                                    'data' => $imageData,
-                                ],
+            self::API_URL,
+            json_encode($payload),
+            ['headers' => $this->getHeaders()]
+        );
+
+        if (!$response->isOk()) {
+            Log::error('Anthropic API error: ' . $response->getStringBody());
+            throw new ServiceUnavailableException(__('Failed to analyze image. Please try again later.'));
+        }
+
+        return $this->parseResponse($response);
+    }
+
+    /**
+     * Summarizes text using the Anthropic API.
+     *
+     * This method takes the text, strips any HTML tags and decodes HTML entities
+     * to ensure plain text before sending it to the Anthropic API for summarization.
+     *
+     * @param string $text The content to summarize, potentially containing HTML.
+     * @return string The summarized content of the article.
+     * @throws \Cake\Http\Exception\ServiceUnavailableException If the API request fails or returns an error.
+     */
+    public function summariseText(string $text): string
+    {
+        // Strip HTML tags and decode HTML entities to ensure plain text
+        $plainTextContent = strip_tags(html_entity_decode($text));
+
+        $payload = $this->buildPayload('article_summary', ['content' => $plainTextContent]);
+
+        $response = $this->client->post(
+            self::API_URL,
+            json_encode($payload),
+            ['headers' => $this->getHeaders()]
+        );
+
+        if (!$response->isOk()) {
+            Log::error('Anthropic API error: ' . $response->getStringBody());
+            throw new ServiceUnavailableException(__('Failed to summarize article. Please try again later.'));
+        }
+
+        return $this->parseResponse($response)['summary'] ?? '';
+    }
+
+    /**
+     * Builds the payload for the API request.
+     *
+     * @param string $task The task type for the API request.
+     * @param array $data The data required for the task.
+     * @return array The payload for the API request.
+     */
+    private function buildPayload(string $task, array $data): array
+    {
+        $systemPrompt = $this->getSystemPrompt($task);
+
+        $messages = [];
+        if ($task === 'image_analysis') {
+            $messages = [
+                [
+                    'role' => 'user',
+                    'content' => [
+                        [
+                            'type' => 'image',
+                            'source' => [
+                                'type' => 'base64',
+                                'media_type' => $data['mimeType'],
+                                'data' => $data['imageData'],
                             ],
                         ],
                     ],
                 ],
-            ]),
-            [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $this->apiKey,
-                    'Content-Type' => 'application/json',
-                    'anthropic-version' => '2023-06-01',
+            ];
+        } elseif ($task === 'article_summary') {
+            $messages = [
+                [
+                    'role' => 'user',
+                    'content' => $data['content'] ?? $data['prompt'],
                 ],
-            ]
-        );
-
-        if ($response->isOk()) {
-            $result = json_decode($response->getJson()['content'], true);
-
-            return [
-                'alt_text' => $result['alt_text'] ?? '',
-                'keywords' => $result['keywords'] ?? '',
             ];
         }
 
-        Log::error('Anthropic API error: ' . $response->getStringBody());
+        return [
+            'model' => self::MODEL,
+            'max_tokens' => self::MAX_TOKENS,
+            'temperature' => self::TEMPERATURE,
+            'system' => $systemPrompt,
+            'messages' => $messages,
+        ];
+    }
 
-        return null;
+    /**
+     * Gets the headers for the API request.
+     *
+     * @return array The headers for the API request.
+     */
+    private function getHeaders(): array
+    {
+        return [
+            'Authorization' => 'Bearer ' . $this->apiKey,
+            'Content-Type' => 'application/json',
+            'anthropic-version' => self::API_VERSION,
+        ];
+    }
+
+    /**
+     * Gets the system prompt for the API request based on the task.
+     *
+     * @param string $task The task type for the API request.
+     * @return string The system prompt.
+     */
+    private function getSystemPrompt(string $task): string
+    {
+        switch ($task) {
+            case 'image_analysis':
+                return 'You are an image analysis robot. You will receive an image and based on the image ' .
+                    "generate the following data items:\nalt_text: a string containing alternative text describing " .
+                    "the image for visually impaired people. Up to 255 characters long\nkeywords: a string " .
+                    'containing space separated keywords based on the content of the image. Maximum 20 unique ' .
+                    "words.\n\nYou will respond only in valid JSON format including only the above data items " .
+                    'and their values.';
+            case 'article_summary':
+                return 'You are an article summarization assistant. Provide a concise summary of the given article ' .
+                    'content in no more than 3 paragraphs. Focus on the main points and key takeaways. ' .
+                    'Respond with a JSON object containing a single key "summary" with the summarized ' .
+                    'content as its value.';
+            default:
+                throw new InvalidArgumentException("Unknown task: {$task}");
+        }
+    }
+
+    /**
+     * Parses the API response.
+     *
+     * @param \Cake\Http\Client\Response $response The API response.
+     * @return array The parsed response.
+     */
+    private function parseResponse(Response $response): array
+    {
+        return json_decode($response->getJson()['content'], true);
     }
 }

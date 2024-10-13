@@ -54,27 +54,39 @@ class SlugsTable extends Table
     }
 
     /**
-     * Default validation rules.
+     * Default validation rules for the Slugs table.
      *
-     * @param \Cake\Validation\Validator $validator Validator instance.
-     * @return \Cake\Validation\Validator
+     * This method defines the validation rules for the fields 'article_id', 'slug', and 'active'.
+     * 
+     * @param \Cake\Validation\Validator $validator The validator object to define rules on.
+     * @return \Cake\Validation\Validator The validator object with defined rules.
+     *
+     * Rules:
+     * - 'article_id': Must be an integer and cannot be empty.
+     * - 'slug': Must be a scalar value, with a maximum length of 255 characters. It is required when creating a new record and cannot be empty. The 'slug' must be unique within the table.
+     * - 'active': Must be a boolean value and cannot be empty.
      */
     public function validationDefault(Validator $validator): Validator
     {
         $validator
             ->integer('article_id')
             ->notEmptyString('article_id');
-
+    
         $validator
             ->scalar('slug')
             ->maxLength('slug', 255)
             ->requirePresence('slug', 'create')
-            ->notEmptyString('slug');
-
+            ->notEmptyString('slug')
+            ->add('slug', 'unique', [
+                'rule' => 'validateUnique',
+                'provider' => 'table',
+                'message' => __('The slug must be unique.')
+            ]);
+    
         $validator
             ->boolean('active')
             ->notEmptyString('active');
-
+    
         return $validator;
     }
 

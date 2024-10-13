@@ -33,6 +33,7 @@ class ArticleSeoUpdateJob implements JobInterface
                 'error',
                 ['group_name' => 'article_seo_update']
             );
+
             return Processor::REJECT;
         }
 
@@ -46,6 +47,7 @@ class ArticleSeoUpdateJob implements JobInterface
                 'error',
                 ['group_name' => 'article_seo_update']
             );
+
             return Processor::REJECT;
         }
 
@@ -73,6 +75,7 @@ class ArticleSeoUpdateJob implements JobInterface
                         'info',
                         ['group_name' => 'article_seo_update']
                     );
+
                     return Processor::ACK;
                 } else {
                     $this->log(
@@ -80,6 +83,7 @@ class ArticleSeoUpdateJob implements JobInterface
                         'error',
                         ['group_name' => 'article_seo_update']
                     );
+
                     return Processor::REJECT;
                 }
             } else {
@@ -88,6 +92,7 @@ class ArticleSeoUpdateJob implements JobInterface
                     'error',
                     ['group_name' => 'article_seo_update']
                 );
+
                 return Processor::REJECT;
             }
         } catch (Exception $e) {
@@ -96,6 +101,7 @@ class ArticleSeoUpdateJob implements JobInterface
                 'error',
                 ['group_name' => 'article_seo_update']
             );
+
             return Processor::REJECT;
         }
     }

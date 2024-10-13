@@ -245,9 +245,7 @@ class ArticlesTable extends Table
      * @param \Cake\Datasource\EntityInterface $entity The entity that was saved.
      * @param \ArrayObject $options The options passed to the save method.
      * @return void
-     *
      * @throws \Exception If there is an error while queueing the SEO update job.
-     *
      * @uses \App\Model\Table\SlugsTable::ensureSlugExists()
      * @uses \App\Utility\SettingsManager::read()
      * @uses \Cake\Queue\QueueManager::push()

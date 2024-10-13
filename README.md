@@ -210,7 +210,7 @@ alias csfix='cmsexec php composer cs-fix'
 alias sniff='cmsexec php vendor/bin/phpcs --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/'
 alias snifffix='cmsexec php vendor/bin/phpcbf'
 alias stan='cmsexec php vendor/bin/phpstan analyse src/'
-alias consumers='cmsexec bin/cake queue worker --verbose'
+alias runworkers='cmsexec bin/cake queue worker --verbose'
 
 # Set permissions
 alias cperm='cmsexec chmod -R 777 tmp logs webroot'
@@ -222,7 +222,7 @@ alias sbash='source ~/.bashrc'
 #Docker Aliases
 alias dnames='sudo docker container ls -a --format "{{.Names}}"'
 alias dprune='sudo docker system prune -a'
-alias rebuild_jenkins='sudo docker compose stop jenkins && sudo docker compose rm -f jenkins && sudo docker volume rm -f willow_jenkins_home && sudo docker compose build jenkins --no-cache && sudo docker compose up -d jenkins'
+alias rebuild_jenkins='sudo docker compose stop jenkins && sudo docker compose rm -f jenkins && sudo docker volume rm -f willow_jenkins_home && sudo docker compose build jenkins --no->
 
 #Useful to set  everything you you:you if running docker with sudo
 mine() {
@@ -231,7 +231,6 @@ mine() {
     sudo chown -R "$current_user:$current_group" .
     echo "Ownership set to $current_user:$current_group for current directory and subdirectories."
 }
-
 ```
 
 ### Code Checks

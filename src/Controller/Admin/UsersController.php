@@ -29,17 +29,41 @@ class UsersController extends AppController
         return null;
     }
 
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null|void Renders view
-     */
-    public function index(): void
+    public function index(): Response
     {
-        $query = $this->Users->find();
+        $query = $this->Users->find()
+            ->select([
+                'Users.id',
+                'Users.username',
+                'Users.email',
+                'Users.is_admin',
+                'Users.is_disabled',
+                'Users.created',
+                'Users.modified',
+                'Users.picture_file',
+            ]);
+    
+        if ($this->request->is('ajax')) {
+            $search = $this->request->getQuery('search');
+            if (!empty($search)) {
+                $query->where([
+                    'OR' => [
+                        'Users.username LIKE' => '%' . $search . '%',
+                        'Users.email LIKE' => '%' . $search . '%',
+                    ],
+                ]);
+            }
+            $users = $query->all();
+            $this->set(compact('users'));
+            $this->viewBuilder()->setLayout('ajax');
+    
+            return $this->render('search_results');
+        }
+    
         $users = $this->paginate($query);
-
         $this->set(compact('users'));
+    
+        return $this->render();
     }
 
     /**

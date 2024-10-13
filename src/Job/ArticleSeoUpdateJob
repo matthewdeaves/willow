@@ -39,7 +39,6 @@ class ArticleSeoUpdateJob implements JobInterface
         $payload = $args[0];
         $articleId = $payload['id'] ?? null;
         $articleTitle = $payload['title'] ?? '';
-        $articleBody = $payload['body'] ?? '';
 
         if (!$articleId) {
             $this->log(
@@ -51,13 +50,15 @@ class ArticleSeoUpdateJob implements JobInterface
         }
 
         try {
+            $articlesTable = TableRegistry::getTableLocator()->get('Articles');
+            $article = $articlesTable->get($articleId);
+
+            $articleBody = $article->body ?? '';
+
             $anthropicService = new AnthropicApiService();
             $seoResult = $anthropicService->generateArticleSeo($articleTitle, $articleBody);
 
             if ($seoResult) {
-                $articlesTable = TableRegistry::getTableLocator()->get('Articles');
-                $article = $articlesTable->get($articleId);
-                
                 $article->meta_title = $seoResult['meta_title'] ?? $article->meta_title;
                 $article->meta_description = $seoResult['meta_description'] ?? $article->meta_description;
                 $article->meta_keywords = $seoResult['meta_keywords'] ?? $article->meta_keywords;

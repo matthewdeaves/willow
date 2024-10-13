@@ -8,12 +8,12 @@ use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\Queue\QueueManager;
+use App\Utility\SettingsManager;
 use Cake\Utility\Text;
 use Cake\Validation\Validator;
 use DateTime;
 use InvalidArgumentException;
-use Cake\Queue\QueueManager;
-use Cake\Utility\SettingsManager;
 
 /**
  * Articles Model

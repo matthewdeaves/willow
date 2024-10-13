@@ -516,10 +516,20 @@ class V1 extends AbstractMigration
                 'limit' => 255,
                 'null' => false,
             ])
+            ->addColumn('active', 'boolean', [
+                'default' => true,
+                'limit' => null,
+                'null' => false,
+            ])
             ->addColumn('created', 'timestamp', [
                 'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => false,
+            ])
+            ->addColumn('modified', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
             ])
             ->create();
 

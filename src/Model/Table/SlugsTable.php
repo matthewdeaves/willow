@@ -71,6 +71,10 @@ class SlugsTable extends Table
             ->requirePresence('slug', 'create')
             ->notEmptyString('slug');
 
+        $validator
+            ->boolean('active')
+            ->notEmptyString('active');
+
         return $validator;
     }
 

@@ -19,9 +19,8 @@
         <table class="table table-striped table-hover">
             <thead class="table-primary">
                 <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('article_id') ?></th>
                     <th><?= $this->Paginator->sort('slug') ?></th>
+                    <th><?= $this->Paginator->sort('article_id') ?></th>
                     <th><?= $this->Paginator->sort('created') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
@@ -29,9 +28,8 @@
             <tbody id="slugResults">
                 <?php foreach ($slugs as $slug): ?>
                 <tr>
-                    <td><?= $this->Number->format($slug->id) ?></td>
+                <td><?= h($slug->slug) ?></td>
                     <td><?= $slug->hasValue('article') ? $this->Html->link($slug->article->title, ['controller' => 'Articles', 'action' => 'view', $slug->article->id]) : '' ?></td>
-                    <td><?= h($slug->slug) ?></td>
                     <td><?= h($slug->created->format('Y-m-d H:i')) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $slug->id], ['class' => 'btn btn-sm btn-outline-primary']) ?>

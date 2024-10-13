@@ -22,7 +22,9 @@ class SlugsFixture extends TestFixture
                 'id' => 1,
                 'article_id' => 1,
                 'slug' => 'Lorem ipsum dolor sit amet',
-                'created' => 1728806474,
+                'active' => 1,
+                'created' => 1728811267,
+                'modified' => '2024-10-13 09:21:07',
             ],
         ];
         parent::init();

@@ -11,7 +11,9 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property int $article_id
  * @property string $slug
+ * @property bool $active
  * @property \Cake\I18n\DateTime $created
+ * @property \Cake\I18n\DateTime|null $modified
  *
  * @property \App\Model\Entity\Article $article
  */
@@ -29,7 +31,9 @@ class Slug extends Entity
     protected array $_accessible = [
         'article_id' => true,
         'slug' => true,
+        'active' => true,
         'created' => true,
+        'modified' => true,
         'article' => true,
     ];
 }

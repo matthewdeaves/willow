@@ -49,12 +49,18 @@
             <p class="text-muted"><?= __('No comments yet.') ?></p>
         <?php endif; ?>           
     </section>
-
-    <section class="add-comment mb-4">
-        <h3 class="mb-3"><?= __('Add a Comment') ?></h3>
-        <?= $this->Form->create(null, ['url' => ['controller' => 'Articles', 'action' => 'addComment', $article->id]]) ?>
-            <?= $this->Form->control('content', ['label' => __('Comment'), 'type' => 'textarea', 'rows' => 3, 'class' => 'form-control mb-3']) ?>
-            <?= $this->Form->button(__('Submit Comment'), ['class' => 'btn btn-primary']) ?>
-        <?= $this->Form->end() ?>
-    </section>
+    <?php if ($this->Identity->isLoggedIn()): ?>
+        <section class="add-comment mb-4">
+            <h3 class="mb-3"><?= __('Add a Comment') ?></h3>
+            <?= $this->Form->create(null, ['url' => ['controller' => 'Articles', 'action' => 'addComment', $article->id]]) ?>
+                <?= $this->Form->control('content', ['label' => __('Comment'), 'type' => 'textarea', 'rows' => 3, 'class' => 'form-control mb-3']) ?>
+                <?= $this->Form->button(__('Submit Comment'), ['class' => 'btn btn-primary']) ?>
+            <?= $this->Form->end() ?>
+        </section>
+    <?php else: ?>
+        <section class="login-prompt mb-4">
+            <h3 class="mb-3"><?= __('Please log in to add a comment') ?></h3>
+            <?= $this->Html->link(__('Login'), ['controller' => 'Users', 'action' => 'login'], ['class' => 'btn btn-primary']) ?>
+        </section>
+    <?php endif; ?>
 </div>

@@ -34,6 +34,68 @@ class AnthropicApiService
     }
 
     /**
+     * Generates SEO content for an article using the Anthropic API.
+     *
+     * @param string $title The title of the article.
+     * @param string $body The body content of the article.
+     * @return array The generated SEO content including meta title, description, keywords, and social media descriptions.
+     * @throws \Cake\Http\Exception\ServiceUnavailableException If the API request fails or returns an error.
+     */
+    public function generateArticleSeo(string $title, string $body): array
+    {
+        $plainTextContent = strip_tags(html_entity_decode($body));
+
+        $promptData = $this->getPromptData('article_seo_analysis');
+
+        $payload = [
+            'model' => $promptData['model'],
+            'max_tokens' => $promptData['max_tokens'],
+            'temperature' => $promptData['temperature'],
+            'system' => $promptData['system_prompt'],
+            'messages' => [
+                [
+                    'role' => 'user',
+                    'content' => "Title: {$title}\n\nContent: {$plainTextContent}",
+                ],
+            ],
+        ];
+
+        $response = $this->client->post(
+            self::API_URL,
+            json_encode($payload),
+            ['headers' => $this->getHeaders()]
+        );
+
+        if (!$response->isOk()) {
+            $errorBody = $response->getStringBody();
+            $statusCode = $response->getStatusCode();
+            Log::error("Anthropic API error: Status Code: {$statusCode}, Body: {$errorBody}");
+            throw new ServiceUnavailableException(__('Failed to generate SEO content. Please try again later.'));
+        }
+
+        $result = $this->parseResponse($response);
+
+        // Ensure all expected keys are present in the result
+        $expectedKeys = [
+            'meta_title',
+            'meta_description',
+            'meta_keywords',
+            'facebook_description',
+            'linkedin_description',
+            'twitter_description',
+            'instagram_description',
+        ];
+
+        foreach ($expectedKeys as $key) {
+            if (!isset($result[$key])) {
+                $result[$key] = '';
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * Analyzes an image using the Anthropic API.
      *
      * @param string $imagePath The path to the image file.
@@ -88,54 +150,6 @@ class AnthropicApiService
         }
 
         return $this->parseResponse($response);
-    }
-
-    /**
-     * Summarizes text using the Anthropic API.
-     *
-     * This method takes the text, strips any HTML tags and decodes HTML entities
-     * to ensure plain text before sending it to the Anthropic API for summarization.
-     *
-     * @param string $text The content to summarize, potentially containing HTML.
-     * @return string The summarized content of the article.
-     * @throws \Cake\Http\Exception\ServiceUnavailableException If the API request fails or returns an error.
-     */
-    public function summariseText(string $text): string
-    {
-        // Strip HTML tags and decode HTML entities to ensure plain text
-        $plainTextContent = strip_tags(html_entity_decode($text));
-
-        $promptData = $this->getPromptData('article_summary');
-
-        $payload = [
-            'model' => $promptData['model'],
-            'max_tokens' => $promptData['max_tokens'],
-            'temperature' => $promptData['temperature'],
-            'system' => $promptData['system_prompt'],
-            'messages' => [
-                [
-                    'role' => 'user',
-                    'content' => $plainTextContent,
-                ],
-            ],
-        ];
-
-        $response = $this->client->post(
-            self::API_URL,
-            json_encode($payload),
-            ['headers' => $this->getHeaders()]
-        );
-
-        if (!$response->isOk()) {
-            $errorBody = $response->getStringBody();
-            $statusCode = $response->getStatusCode();
-            Log::error("Anthropic API error: Status Code: {$statusCode}, Body: {$errorBody}");
-            throw new ServiceUnavailableException(__('Failed to summarize article. Please try again later.'));
-        }
-
-        $result = $this->parseResponse($response);
-
-        return $result['summary'] ?? '';
     }
 
     /**

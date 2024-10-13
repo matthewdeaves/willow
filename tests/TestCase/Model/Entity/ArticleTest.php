@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Entity;
 
+use Cake\Cache\Cache;
 use Cake\TestSuite\TestCase;
 
 /**
@@ -163,6 +164,7 @@ class ArticleTest extends TestCase
     {
         parent::setUp();
         $this->Articles = $this->getTableLocator()->get('Articles');
+        Cache::clearAll();
     }
 
     /**

@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Test\TestCase;
 
 use App\Application;
+use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Error\Middleware\ErrorHandlerMiddleware;
 use Cake\Http\MiddlewareQueue;
@@ -39,6 +40,7 @@ class ApplicationTest extends TestCase
      */
     public function testBootstrap()
     {
+        Cache::clearAll();
         Configure::write('debug', false);
         $app = new Application(dirname(__DIR__, 2) . '/config');
         $app->bootstrap();
@@ -56,6 +58,7 @@ class ApplicationTest extends TestCase
      */
     public function testBootstrapInDebug()
     {
+        Cache::clearAll();
         Configure::write('debug', true);
         $app = new Application(dirname(__DIR__, 2) . '/config');
         $app->bootstrap();
@@ -71,6 +74,7 @@ class ApplicationTest extends TestCase
      */
     public function testMiddleware()
     {
+        Cache::clearAll();
         $app = new Application(dirname(__DIR__, 2) . '/config');
         $middleware = new MiddlewareQueue();
 

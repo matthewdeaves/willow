@@ -222,7 +222,6 @@ alias sbash='source ~/.bashrc'
 #Docker Aliases
 alias dnames='sudo docker container ls -a --format "{{.Names}}"'
 alias dprune='sudo docker system prune -a'
-alias rebuild_jenkins='sudo docker compose stop jenkins && sudo docker compose rm -f jenkins && sudo docker volume rm -f willow_jenkins_home && sudo docker compose build jenkins --no->
 
 #Useful to set  everything you you:you if running docker with sudo
 mine() {

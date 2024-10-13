@@ -87,6 +87,7 @@ class ImageAnalysisJob implements JobInterface
                 $image = $imagesTable->get($imageId);
                 $image->alt_text = $analysisResult['alt_text'];
                 $image->keywords = $analysisResult['keywords'];
+                $image->name = $analysisResult['name'];
                 $imagesTable->save($image);
 
                 $this->log(

@@ -46,6 +46,10 @@
                             </td>
                         </tr>
                         <tr>
+                            <th><?= __('Published') ?></th>
+                            <td><?= h($article->published) ?></td>
+                        </tr>
+                        <tr>
                             <th><?= __('Created') ?></th>
                             <td><?= h($article->created) ?></td>
                         </tr>

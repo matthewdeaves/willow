@@ -8,6 +8,8 @@ use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
+use Cake\Database\Exception\DatabaseException;
+use Cake\Http\Exception\HttpException;
 use Exception;
 use Interop\Queue\Processor;
 
@@ -16,24 +18,15 @@ class ArticleSeoUpdateJob implements JobInterface
     use LogTrait;
 
     public static ?int $maxAttempts = 3;
-    public static bool $shouldBeUnique = false;
+    public static bool $shouldBeUnique = true;
 
     public function execute(Message $message): ?string
     {
         $args = $message->getArgument('args');
-        $this->log(
-            __('Received article SEO update message: {0}', [json_encode($args)]),
-            'debug',
-            ['group_name' => 'article_seo_update']
-        );
+        $this->log(__('Received article SEO update message: {0}', [json_encode($args)]), 'debug', ['group_name' => 'article_seo_update']);
 
         if (!is_array($args) || !isset($args[0]) || !is_array($args[0])) {
-            $this->log(
-                __('Invalid argument structure for article SEO update job. Expected array, got: {0}', [gettype($args)]),
-                'error',
-                ['group_name' => 'article_seo_update']
-            );
-
+            $this->log(__('Invalid argument structure for article SEO update job. Expected array, got: {0}', [gettype($args)]), 'error', ['group_name' => 'article_seo_update']);
             return Processor::REJECT;
         }
 
@@ -42,67 +35,53 @@ class ArticleSeoUpdateJob implements JobInterface
         $articleTitle = $payload['title'] ?? '';
 
         if (!$articleId) {
-            $this->log(
-                __('Missing required fields in article SEO update payload. ID: {0}', [$articleId]),
-                'error',
-                ['group_name' => 'article_seo_update']
-            );
-
+            $this->log(__('Missing required fields in article SEO update payload. ID: {0}', [$articleId]), 'error', ['group_name' => 'article_seo_update']);
             return Processor::REJECT;
         }
 
         try {
             $articlesTable = TableRegistry::getTableLocator()->get('Articles');
             $article = $articlesTable->get($articleId);
-
             $articleBody = $article->body ?? '';
 
             $anthropicService = new AnthropicApiService();
             $seoResult = $anthropicService->generateArticleSeo($articleTitle, $articleBody);
 
             if ($seoResult) {
-                $article->meta_title = $seoResult['meta_title'] ?? $article->meta_title;
-                $article->meta_description = $seoResult['meta_description'] ?? $article->meta_description;
-                $article->meta_keywords = $seoResult['meta_keywords'] ?? $article->meta_keywords;
-                $article->facebook_description = $seoResult['facebook_description'] ?? $article->facebook_description;
-                $article->linkedin_description = $seoResult['linkedin_description'] ?? $article->linkedin_description;
-                $article->twitter_description = $seoResult['twitter_description'] ?? $article->twitter_description;
-                $article->instagram_description = $seoResult['instagram_description'] ?? $article->instagram_description;
+                $isUpdated = false;
+                foreach (['meta_title', 'meta_description', 'meta_keywords', 'facebook_description', 'linkedin_description', 'twitter_description', 'instagram_description'] as $field) {
+                    if (isset($seoResult[$field]) && $article->$field !== $seoResult[$field]) {
+                        $article->$field = $seoResult[$field];
+                        $isUpdated = true;
+                    }
+                }
 
-                if ($articlesTable->save($article)) {
-                    $this->log(
-                        __('Article SEO update completed successfully. Article ID: {0}', [$articleId]),
-                        'info',
-                        ['group_name' => 'article_seo_update']
-                    );
-
-                    return Processor::ACK;
+                if ($isUpdated) {
+                    if ($articlesTable->save($article)) {
+                        $this->log(__('Article SEO update completed successfully. Article ID: {0}', [$articleId]), 'info', ['group_name' => 'article_seo_update']);
+                        $this->log(__('Acknowledging message for Article ID: {0}', [$articleId]), 'debug', ['group_name' => 'article_seo_update']);
+                        return Processor::ACK;
+                    } else {
+                        $this->log(__('Failed to save article SEO updates. Article ID: {0}', [$articleId]), 'error', ['group_name' => 'article_seo_update']);
+                        return Processor::REJECT;
+                    }
                 } else {
-                    $this->log(
-                        __('Failed to save article SEO updates. Article ID: {0}', [$articleId]),
-                        'error',
-                        ['group_name' => 'article_seo_update']
-                    );
-
-                    return Processor::REJECT;
+                    $this->log(__('No changes detected for Article ID: {0}. Acknowledging message.', [$articleId]), 'info', ['group_name' => 'article_seo_update']);
+                    return Processor::ACK;
                 }
             } else {
-                $this->log(
-                    __('Article SEO update failed. No result returned. Article ID: {0}', [$articleId]),
-                    'error',
-                    ['group_name' => 'article_seo_update']
-                );
-
+                $this->log(__('Article SEO update failed. No result returned. Article ID: {0}', [$articleId]), 'error', ['group_name' => 'article_seo_update']);
                 return Processor::REJECT;
             }
-        } catch (Exception $e) {
-            $this->log(
-                __('Error during article SEO update. Article ID: {0}, Error: {1}', [$articleId, $e->getMessage()]),
-                'error',
-                ['group_name' => 'article_seo_update']
-            );
-
+        } catch (DatabaseException $e) {
+            $this->log(__('Database error during article SEO update. Article ID: {0}, Error: {1}', [$articleId, $e->getMessage()]), 'error', ['group_name' => 'article_seo_update']);
             return Processor::REJECT;
+        } catch (HttpException $e) {
+            $this->log(__('HTTP error during article SEO update. Article ID: {0}, Error: {1}', [$articleId, $e->getMessage()]), 'error', ['group_name' => 'article_seo_update']);
+            return Processor::REJECT;
+        } catch (Exception $e) {
+            $this->log(__('Unexpected error during article SEO update. Article ID: {0}, Error: {1}', [$articleId, $e->getMessage()]), 'error', ['group_name' => 'article_seo_update']);
+            throw $e; // Rethrow unexpected exceptions
         }
     }
 }

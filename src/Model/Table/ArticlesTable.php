@@ -261,7 +261,7 @@ class ArticlesTable extends Table
         }
 
         // New code for queueing SEO update job
-        if (SettingsManager::read('AI.enabled')) {
+        if ($entity->is_published && SettingsManager::read('AI.enabled')) {
             try {
                 QueueManager::push('App\Job\ArticleSeoUpdateJob', [
                     'args' => [[

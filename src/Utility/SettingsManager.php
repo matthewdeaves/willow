@@ -20,28 +20,6 @@ class SettingsManager
     private static string $cacheConfig = 'settings_cache';
 
     /**
-     * Initializes the cache configuration for settings.
-     *
-     * Configures the File cache engine with a specified duration and path,
-     * but only if the configuration doesn't already exist.
-     *
-     * @return void
-     */
-    public static function initialize(): void
-    {
-        // Check if the cache configuration already exists
-        if (!Cache::getConfig(self::$cacheConfig)) {
-            // Configure the File cache engine for settings
-            Cache::setConfig(self::$cacheConfig, [
-                'className' => 'File',
-                'duration' => '+1 hour',
-                'path' => CACHE,
-                'prefix' => 'settings_',
-            ]);
-        }
-    }
-
-    /**
      * Reads a setting value from the cache or database.
      *
      * This method attempts to read a setting value identified by the given path. It first checks the cache

@@ -95,9 +95,6 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
                 (new TableLocator())->allowFallbackClass(false)
             );
         }
-
-        // Initialize the SettingsManager for database driven settings
-        SettingsManager::initialize();
     }
 
     /**

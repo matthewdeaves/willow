@@ -166,6 +166,34 @@ return [
         ],
 
         /**
+         * Cache configuration for storing application settings.
+         *
+         * This configuration defines the caching mechanism used by the SettingsManager class to store
+         * application settings. It utilizes the File cache engine provided by CakePHP, which stores
+         * cached data in files on the server's filesystem.
+         *
+         * Configuration Details:
+         * - `className`: Specifies the cache engine to use. In this case, it is set to 'File', indicating
+         *   that the File cache engine is used.
+         * - `path`: Defines the directory path where cache files will be stored. The path is set to
+         *   CACHE . 'articles/', which means the cache files will be stored in the 'articles' directory
+         *   within the CACHE directory.
+         * - `duration`: Sets the time duration for which the cached data is considered valid. It is set
+         *   to '+1 month', meaning the cached settings will expire and be considered stale after one month.
+         *
+         * This cache configuration is essential for optimizing the retrieval of settings by reducing
+         * database queries and improving application performance. The SettingsManager class uses this
+         * configuration to store and retrieve settings efficiently.
+         *
+         * @var array
+         */
+        'settings_cache' => [
+            'className' => 'File',
+            'path' => CACHE . 'articles/',
+            'duration' => '+1 month',
+        ],
+
+        /**
          * Cache configuration for CakePHP routes.
          *
          * This configuration is used to cache the routing information for the application.

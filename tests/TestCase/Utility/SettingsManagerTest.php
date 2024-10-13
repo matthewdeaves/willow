@@ -18,7 +18,6 @@ class SettingsManagerTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        SettingsManager::initialize();
         Cache::clear(SettingsManager::getCacheConfig());
     }
 

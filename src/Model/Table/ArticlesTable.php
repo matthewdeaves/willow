@@ -179,13 +179,20 @@ class ArticlesTable extends Table
     /**
      * Before save callback.
      *
-     * Generates a unique slug for new entities if not already set.
-     * If the generated slug is not unique, it sets an error and prevents the save.
+     * This method is triggered before an entity is saved. It performs several operations:
+     * 1. Generates a slug from the entity's title if the entity is new and the slug is not set.
+     *    - The slug is trimmed to a maximum length of 255 characters.
+     *    - Checks if the generated slug is unique. If not, sets an error on the entity and prevents saving.
+     * 2. Updates the 'published' field based on changes to the 'is_published' field.
+     *    - Sets the 'published' date to the current date and time if 'is_published' changes from 0 to 1.
+     *    - Sets the 'published' field to null if 'is_published' changes from 1 to 0.
+     * 3. Calculates the word count of the 'body' field if it is set or modified.
+     *    - Strips HTML tags from the body and counts the words, storing the result in 'word_count'.
      *
-     * @param \Cake\Event\EventInterface $event The beforeSave event that was fired
-     * @param \Cake\Datasource\EntityInterface $entity The entity that is going to be saved
-     * @param \ArrayObject $options The options passed to the save method
-     * @return bool|null Returns false if the save should be stopped, true otherwise
+     * @param \Cake\Event\EventInterface $event The event that was triggered.
+     * @param \Cake\Datasource\EntityInterface $entity The entity that is being saved.
+     * @param \ArrayObject $options Additional options for the save operation.
+     * @return bool|null Returns false to prevent the save operation if the slug is not unique, true otherwise.
      */
     public function beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): ?bool
     {

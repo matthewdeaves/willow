@@ -122,6 +122,7 @@ return function (RouteBuilder $routes): void {
         $builder->connect('/users/confirm-email/*',['controller' => 'Users', 'action' => 'confirmEmail']);
         $builder->connect('/users/edit/*', ['controller' => 'Users', 'action' => 'edit']);
         $builder->connect('/atricles/add-comment/*', ['controller' => 'Articles', 'action' => 'addComment']);
+        $builder->connect('/tags', ['controller' => 'Tags', 'action' => 'index']);
         $builder->connect('/tags/view-by-slug/*', ['controller' => 'Tags', 'action' => 'viewBySlug']);
         $builder->connect('/tags/view/*', ['controller' => 'Tags', 'action' => 'view']);
 

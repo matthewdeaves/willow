@@ -215,6 +215,13 @@ class ArticlesTable extends Table
             }
         }
 
+        // Calculate word count if body is set or modified
+        if ($entity->isDirty('body') || ($entity->isNew() && !empty($entity->body))) {
+            $strippedBody = strip_tags($entity->body);
+            $wordCount = str_word_count($strippedBody);
+            $entity->word_count = $wordCount;
+        }
+
         return true;
     }
 

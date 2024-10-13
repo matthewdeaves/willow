@@ -17,10 +17,6 @@
                         <td><?= h($tag->title) ?></td>
                     </tr>
                     <tr>
-                        <th><?= __('Id') ?></th>
-                        <td><?= h($tag->id) ?></td>
-                    </tr>
-                    <tr>
                         <th><?= __('Created') ?></th>
                         <td><?= h($tag->created) ?></td>
                     </tr>
@@ -42,24 +38,16 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th><?= __('User ID') ?></th>
                                 <th><?= __('User') ?></th>
                                 <th><?= __('Title') ?></th>
-                                <th><?= __('Body') ?></th>
-                                <th><?= __('Created') ?></th>
-                                <th><?= __('Modified') ?></th>
                                 <th class="actions"><?= __('Actions') ?></th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($tag->articles as $article) : ?>
                             <tr>
-                                <td><?= h($article->user_id) ?></td>
                                 <td><?= h($article->user->username) ?></td>
                                 <td><?= h($article->title) ?></td>
-                                <td><?= h($article->body) ?></td>
-                                <td><?= h($article->created) ?></td>
-                                <td><?= h($article->modified) ?></td>
                                 <td class="actions">
                                     <?= $this->Html->link(
                                         __('View'),

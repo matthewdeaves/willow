@@ -72,6 +72,18 @@
         "value_type": "text"
     },
     {
+        "category": "SEO",
+        "key_name": "siteMetaDescription",
+        "value": "Default site meta description",
+        "value_type": "text"
+    },
+    {
+        "category": "SEO",
+        "key_name": "siteMetakeywords",
+        "value": "Default site meta keywords",
+        "value_type": "text"
+    },
+    {
         "category": "RateLimit",
         "key_name": "numberOfRequests",
         "value": "10",

@@ -1,13 +1,11 @@
-<?php
-$cakeDescription = 'Willow CMS';
-?>
+<?php use App\Utility\SettingsManager; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php if (isset($article)): ?>
-        <title><?= h($article->meta_title ?: $article->title) ?> | <?= $cakeDescription ?></title>
+        <title><?= h($article->meta_title ?: $article->title) ?></title>
         <meta name="description" content="<?= h($article->meta_description ?: substr(strip_tags($article->body), 0, 160)) ?>">
         <meta name="keywords" content="<?= h($article->meta_keywords) ?>">
         
@@ -33,8 +31,9 @@ $cakeDescription = 'Willow CMS';
         <meta name="instagram:title" content="<?= h($article->meta_title ?: $article->title) ?>">
         <meta name="instagram:description" content="<?= h($article->instagram_description ?: $article->meta_description) ?>">
     <?php else: ?>
-        <title><?= $cakeDescription ?>: <?= $this->fetch('title') ?></title>
-        <meta name="description" content="Default description for <?= $cakeDescription ?>">
+        <title><?= SettingsManager::read('SEO.siteStrapline') ?></title>
+        <meta name="description" content="<?= SettingsManager::read('SEO.siteMetaDescription') ?>">
+        <meta name="keywords" content="<?= SettingsManager::read('SEO.siteMetakeywords') ?>">
     <?php endif; ?>
     
     <?= $this->Html->meta('icon') ?>
@@ -49,7 +48,7 @@ $cakeDescription = 'Willow CMS';
 <body class="d-flex flex-column min-vh-100 bg-light">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
-            <?= $this->Html->link($cakeDescription, '/', ['class' => 'navbar-brand']) ?>
+            <?= $this->Html->link(SettingsManager::read('SEO.siteStrapline'), '/', ['class' => 'navbar-brand']) ?>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

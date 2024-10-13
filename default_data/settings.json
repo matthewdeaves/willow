@@ -67,6 +67,12 @@
     },
     {
         "category": "SEO",
+        "key_name": "siteName",
+        "value": "Willow CMS",
+        "value_type": "text"
+    },
+    {
+        "category": "SEO",
         "key_name": "siteStrapline",
         "value": "Welcome to Willow CMS",
         "value_type": "text"

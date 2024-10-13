@@ -32,8 +32,8 @@
         <meta name="instagram:description" content="<?= h($article->instagram_description ?: $article->meta_description) ?>">
     <?php else: ?>
         <title><?= SettingsManager::read('SEO.siteStrapline') ?></title>
-        <meta name="description" content="<?= SettingsManager::read('SEO.siteMetaDescription') ?>">
-        <meta name="keywords" content="<?= SettingsManager::read('SEO.siteMetakeywords') ?>">
+        <meta name="description" content="<?= SettingsManager::read('SEO.siteMetaDescription', 'Meta Description') ?>">
+        <meta name="keywords" content="<?= SettingsManager::read('SEO.siteMetakeywords', 'Meta Keywords') ?>">
     <?php endif; ?>
     
     <?= $this->Html->meta('icon') ?>
@@ -48,7 +48,7 @@
 <body class="d-flex flex-column min-vh-100 bg-light">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
-            <?= $this->Html->link(SettingsManager::read('SEO.siteStrapline'), '/', ['class' => 'navbar-brand']) ?>
+            <?= $this->Html->link(SettingsManager::read('SEO.siteStrapline', 'Default strapline'), '/', ['class' => 'navbar-brand']) ?>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -105,7 +105,7 @@
 
     <footer class="footer mt-auto py-3 bg-dark">
         <div class="container text-center">
-            <span class="text-white">&copy; <?= date('Y') ?> <?= $cakeDescription ?>. All rights reserved.</span>
+            <span class="text-white">&copy; <?= date('Y') ?> <?= SettingsManager::read('SEO.siteName', 'Willow CMS') ?>. All rights reserved.</span>
         </div>
     </footer>
 

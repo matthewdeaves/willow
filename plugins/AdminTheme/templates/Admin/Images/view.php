@@ -34,7 +34,7 @@
                             <td><?= h($image->alt_text) ?></td>
                         </tr>
                         <tr>
-                            <th><?= __('Alt Text') ?></th>
+                            <th><?= __('Keywords') ?></th>
                             <td><?= h($image->keywords) ?></td>
                         </tr>
                         <tr>

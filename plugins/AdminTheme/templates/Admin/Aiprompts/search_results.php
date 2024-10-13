@@ -4,16 +4,6 @@
     <td><?= h($aiprompt->model) ?></td>
     <td><?= $this->Number->format($aiprompt->max_tokens) ?></td>
     <td><?= $this->Number->format($aiprompt->temperature) ?></td>
-    <td>
-        <?php
-        $statusClass = [
-            'pending' => 'bg-warning',
-            'completed' => 'bg-success',
-            'failed' => 'bg-danger'
-        ][$aiprompt->status] ?? 'bg-secondary';
-        ?>
-        <span class="badge <?= $statusClass ?>"><?= h($aiprompt->status) ?></span>
-    </td>
     <td><?= h($aiprompt->created_at->format('Y-m-d H:i')) ?></td>
     <td><?= h($aiprompt->modified_at->format('Y-m-d H:i')) ?></td>
     <td class="actions">

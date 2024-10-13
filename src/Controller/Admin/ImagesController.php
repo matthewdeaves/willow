@@ -53,13 +53,23 @@ class ImagesController extends AppController
     }
 
     /**
-     * Index method
+     * Index method for Images.
      *
-     * Displays a list of images and handles AJAX search requests.
-     * If it's an AJAX request, it filters images based on the search query.
-     * Otherwise, it shows all images with pagination.
+     * This method handles both standard and AJAX requests for listing images.
+     * It supports two view types: 'list' and 'grid', with different pagination settings for each.
+     * For AJAX requests, it performs a search based on the 'search' query parameter.
      *
-     * @return \Cake\Http\Response|null
+     * @return \Cake\Http\Response The response object containing the rendered view.
+     * @uses \Cake\ORM\Table::find() To create a query object for retrieving image data.
+     * @uses \Cake\Http\ServerRequest::getQuery() To retrieve query parameters ('view' and 'search').
+     * @uses \Cake\Http\ServerRequest::is() To check if the request is an AJAX request.
+     * @uses \Cake\ORM\Query::where() To apply search conditions to the query.
+     * @uses \Cake\ORM\Query::all() To execute the query and retrieve all matching records for AJAX requests.
+     * @uses \Cake\Controller\Controller::set() To pass data to the view.
+     * @uses \Cake\View\ViewBuilder::setLayout() To set the layout for AJAX responses.
+     * @uses \Cake\Controller\Controller::render() To render the view.
+     * @uses \Cake\Controller\Controller::paginate() To paginate the query results for non-AJAX requests.
+     * @throws \Cake\Http\Exception\NotFoundException When invalid page number is provided.
      */
     public function index(): Response
     {

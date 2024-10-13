@@ -29,6 +29,25 @@ class UsersController extends AppController
         return null;
     }
 
+    /**
+     * Index method for Users.
+     *
+     * This method handles both standard and AJAX requests for listing users.
+     * For standard requests, it paginates the user data.
+     * For AJAX requests, it performs a search based on the 'search' query parameter.
+     *
+     * @return \Cake\Http\Response The response object containing the rendered view.
+     * @uses \Cake\ORM\Table::find() To create a query object for retrieving user data.
+     * @uses \Cake\ORM\Query::select() To specify the fields to be selected from the Users table.
+     * @uses \Cake\Http\ServerRequest::is() To check if the request is an AJAX request.
+     * @uses \Cake\Http\ServerRequest::getQuery() To retrieve the 'search' query parameter.
+     * @uses \Cake\ORM\Query::where() To apply search conditions to the query.
+     * @uses \Cake\ORM\Query::all() To execute the query and retrieve all matching records.
+     * @uses \Cake\Controller\Controller::set() To pass data to the view.
+     * @uses \Cake\View\ViewBuilder::setLayout() To set the layout for AJAX responses.
+     * @uses \Cake\Controller\Controller::render() To render the view.
+     * @uses \Cake\Controller\Controller::paginate() To paginate the query results for non-AJAX requests.
+     */
     public function index(): Response
     {
         $query = $this->Users->find()
@@ -42,7 +61,7 @@ class UsersController extends AppController
                 'Users.modified',
                 'Users.picture_file',
             ]);
-    
+
         if ($this->request->is('ajax')) {
             $search = $this->request->getQuery('search');
             if (!empty($search)) {
@@ -56,13 +75,13 @@ class UsersController extends AppController
             $users = $query->all();
             $this->set(compact('users'));
             $this->viewBuilder()->setLayout('ajax');
-    
+
             return $this->render('search_results');
         }
-    
+
         $users = $this->paginate($query);
         $this->set(compact('users'));
-    
+
         return $this->render();
     }
 

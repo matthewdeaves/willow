@@ -14,9 +14,12 @@
         </div>
     </div>
     <div class="mb-3">
+        <?= $this->Html->link(__('List View'), ['action' => 'index', '?' => ['view' => 'list']], ['class' => 'btn btn-secondary']) ?>
+        <?= $this->Html->link(__('Grid View'), ['action' => 'index', '?' => ['view' => 'grid']], ['class' => 'btn btn-outline-secondary']) ?>
+    </div>
+    <div class="mb-3">
         <input type="text" id="imageSearch" class="form-control" placeholder="Search images...">
     </div>
-
     <div class="table-responsive">
         <table class="table table-striped table-hover">
             <thead class="table-primary">

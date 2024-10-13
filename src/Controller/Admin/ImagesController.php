@@ -64,6 +64,7 @@ class ImagesController extends AppController
     public function index(): Response
     {
         $query = $this->Images->find();
+        $viewType = $this->request->getQuery('view', 'list');
 
         if ($this->request->is('ajax')) {
             $search = $this->request->getQuery('search');
@@ -77,17 +78,22 @@ class ImagesController extends AppController
                 ]);
             }
             $images = $query->all();
-            $this->set(compact('images'));
+            $this->set(compact('images', 'viewType'));
             $this->viewBuilder()->setLayout('ajax');
 
             return $this->render('search_results');
         }
 
-        // This will show all records by default
-        $images = $this->paginate($query);
-        $this->set(compact('images'));
+        // Set pagination options based on view type
+        $this->paginate = [
+            'limit' => $viewType === 'grid' ? 20 : 10,
+        ];
 
-        return $this->render();
+        $images = $this->paginate($query);
+        $this->set(compact('images', 'viewType'));
+
+        // Render the appropriate template based on view type
+        return $this->render($viewType === 'grid' ? 'index_grid' : 'index');
     }
 
     /**

@@ -50,7 +50,10 @@ $cakeDescription = __('Willow CMS');
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <?= $this->Html->link('Images', ['prefix' => 'Admin', 'controller' => 'Images', 'action' => 'index'], ['class' => 'nav-link']) ?>
+                        <?= $this->Html->link('Images', 
+                            ['prefix' => 'Admin', 'controller' => 'Images', 'action' => 'index', '?' => ['view' => 'grid']], 
+                            ['class' => 'nav-link']
+                        ) ?>
                     </li>
                     <li class="nav-item">
                         <?= $this->Html->link('Articles', ['prefix' => 'Admin', 'controller' => 'Articles', 'action' => 'index'], ['class' => 'nav-link']) ?>

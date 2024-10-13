@@ -504,6 +504,25 @@ class V1 extends AbstractMigration
             ])
             ->create();
 
+        $this->table('slugs')
+            ->addColumn('article_id', 'integer', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+                'signed' => true,
+            ])
+            ->addColumn('slug', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => false,
+            ])
+            ->addColumn('created', 'timestamp', [
+                'default' => 'CURRENT_TIMESTAMP',
+                'limit' => null,
+                'null' => false,
+            ])
+            ->create();
+
         $this->table('system_logs', ['id' => false, 'primary_key' => ['id']])
             ->addColumn('id', 'uuid', [
                 'default' => null,
@@ -686,6 +705,7 @@ class V1 extends AbstractMigration
         $this->table('page_views')->drop()->save();
         $this->table('queue_failed_jobs')->drop()->save();
         $this->table('settings')->drop()->save();
+        $this->table('slugs')->drop()->save();
         $this->table('system_logs')->drop()->save();
         $this->table('tags')->drop()->save();
         $this->table('user_account_confirmations')->drop()->save();

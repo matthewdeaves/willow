@@ -36,10 +36,33 @@ use InvalidArgumentException;
 class ArticlesTable extends Table
 {
     /**
-     * Initialize method
+     * Initialize method for the ArticlesTable.
      *
-     * @param array<string, mixed> $config The configuration for the Table.
+     * This method sets up the table configuration, behaviors, and associations for the Articles table.
+     *
+     * @param array $config The configuration array for the table.
+     *
      * @return void
+     *
+     * @uses \Cake\ORM\Table::setTable() Sets the database table name.
+     * @uses \Cake\ORM\Table::setDisplayField() Sets the display field for the table.
+     * @uses \Cake\ORM\Table::setPrimaryKey() Sets the primary key for the table.
+     * @uses \Cake\ORM\Table::addBehavior() Adds behaviors to the table.
+     * @uses \Cake\ORM\Table::belongsTo() Sets up a belongsTo association.
+     * @uses \Cake\ORM\Table::belongsToMany() Sets up a belongsToMany association.
+     * @uses \Cake\ORM\Table::hasMany() Sets up a hasMany association.
+     *
+     * Behaviors:
+     * - Timestamp: Automatically manages created and modified timestamps.
+     * - Commentable: Allows articles to have comments.
+     * - Tree: Enables tree structure for hierarchical data.
+     * - Sluggable: Automatically generates slugs from the title field.
+     *
+     * Associations:
+     * - Users: Articles belong to a User, linked by user_id.
+     * - Tags: Articles have a many-to-many relationship with Tags through the articles_tags join table.
+     * - PageViews: Articles have many PageViews, linked by article_id.
+     * - Slugs: Articles have many Slugs.
      */
     public function initialize(array $config): void
     {
@@ -74,6 +97,8 @@ class ArticlesTable extends Table
         $this->hasMany('PageViews', [
             'foreignKey' => 'article_id',
         ]);
+
+        $this->hasMany('Slugs');
     }
 
     /**
@@ -172,7 +197,39 @@ class ArticlesTable extends Table
             }
         }
 
+        // If published with slug or already published and slug changes, record the slug for 301 redirects
+        if (($entity->isNew() && $entity->is_published) || 
+            (!$entity->isNew() && $entity->isDirty('slug') && $entity->is_published)) {
+            
+            $this->Slugs->save($this->Slugs->newEntity([
+                'article_id' => $entity->id,
+                'slug' => $entity->slug,
+                'active' => true
+            ]));
+        }
+
         return true;
+    }
+
+    /**
+     * Before delete callback.
+     *
+     * This method is triggered before an entity is deleted. It updates all related
+     * slug records to set their 'active' status to false for the entity being deleted.
+     *
+     * @param \Cake\Event\EventInterface $event The beforeDelete event that was fired.
+     * @param \Cake\Datasource\EntityInterface $entity The entity that is going to be deleted.
+     * @param \ArrayObject $options The options passed to the delete method.
+     * @return void
+     *
+     * @throws \Cake\Datasource\Exception\InvalidPrimaryKeyException If the entity's primary key is invalid.
+     * @throws \Cake\ORM\Exception\PersistenceFailedException If the update operation fails.
+     *
+     * @see \Cake\ORM\Table::delete()
+     */
+    public function beforeDelete(EventInterface $event, $entity, $options)
+    {
+        $this->Slugs->updateAll(['active' => false], ['article_id' => $entity->id]);
     }
 
     /**

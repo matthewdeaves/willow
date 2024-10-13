@@ -1,0 +1,95 @@
+<?php
+declare(strict_types=1);
+
+namespace App\Job;
+
+use App\Service\AnthropicApiService;
+use Cake\Log\LogTrait;
+use Cake\ORM\TableRegistry;
+use Cake\Queue\Job\JobInterface;
+use Cake\Queue\Job\Message;
+use Exception;
+use Interop\Queue\Processor;
+
+class ArticleSeoUpdateJob implements JobInterface
+{
+    use LogTrait;
+
+    public static ?int $maxAttempts = 3;
+    public static bool $shouldBeUnique = false;
+
+    public function execute(Message $message): ?string
+    {
+        $args = $message->getArgument('args');
+        $this->log(
+            __('Received article SEO update message: {0}', [json_encode($args)]),
+            'debug',
+            ['group_name' => 'article_seo_update']
+        );
+
+        if (!is_array($args) || !isset($args[0]) || !is_array($args[0])) {
+            $this->log(
+                __('Invalid argument structure for article SEO update job. Expected array, got: {0}', [gettype($args)]),
+                'error',
+                ['group_name' => 'article_seo_update']
+            );
+            return Processor::REJECT;
+        }
+
+        $payload = $args[0];
+        $articleId = $payload['id'] ?? null;
+        $articleTitle = $payload['title'] ?? '';
+        $articleBody = $payload['body'] ?? '';
+
+        if (!$articleId) {
+            $this->log(
+                __('Missing required fields in article SEO update payload. ID: {0}', [$articleId]),
+                'error',
+                ['group_name' => 'article_seo_update']
+            );
+            return Processor::REJECT;
+        }
+
+        try {
+            $anthropicService = new AnthropicApiService();
+            $seoResult = $anthropicService->generateArticleSeo($articleTitle, $articleBody);
+
+            if ($seoResult) {
+                $articlesTable = TableRegistry::getTableLocator()->get('Articles');
+                $article = $articlesTable->get($articleId);
+                
+                $article->meta_title = $seoResult['meta_title'] ?? $article->meta_title;
+                $article->meta_description = $seoResult['meta_description'] ?? $article->meta_description;
+                $article->meta_keywords = $seoResult['meta_keywords'] ?? $article->meta_keywords;
+                $article->facebook_description = $seoResult['facebook_description'] ?? $article->facebook_description;
+                $article->linkedin_description = $seoResult['linkedin_description'] ?? $article->linkedin_description;
+                $article->twitter_description = $seoResult['twitter_description'] ?? $article->twitter_description;
+                $article->instagram_description = $seoResult['instagram_description'] ?? $article->instagram_description;
+
+                $articlesTable->save($article);
+
+                $this->log(
+                    __('Article SEO update completed successfully. Article ID: {0}', [$articleId]),
+                    'info',
+                    ['group_name' => 'article_seo_update']
+                );
+
+                return Processor::ACK;
+            } else {
+                $this->log(
+                    __('Article SEO update failed. No result returned. Article ID: {0}', [$articleId]),
+                    'error',
+                    ['group_name' => 'article_seo_update']
+                );
+                return Processor::REJECT;
+            }
+        } catch (Exception $e) {
+            $this->log(
+                __('Error during article SEO update. Article ID: {0}, Error: {1}', [$articleId, $e->getMessage()]),
+                'error',
+                ['group_name' => 'article_seo_update']
+            );
+            return Processor::REJECT;
+        }
+    }
+}

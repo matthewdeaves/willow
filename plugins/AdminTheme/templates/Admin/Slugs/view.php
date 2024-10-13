@@ -27,11 +27,7 @@
                         </tr>
                         <tr>
                             <th><?= __('Slug') ?></th>
-                            <td><?= h($slug->slug) ?></td>
-                        </tr>
-                        <tr>
-                            <th><?= __('Id') ?></th>
-                            <td><?= $this->Number->format($slug->id) ?></td>
+                            <td><?= $this->Html->link(h($slug->slug), '/' . h($slug->slug), ['escape' => false]) ?></td>
                         </tr>
                         <tr>
                             <th><?= __('Created') ?></th>

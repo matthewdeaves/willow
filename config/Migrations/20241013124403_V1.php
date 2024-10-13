@@ -504,12 +504,16 @@ class V1 extends AbstractMigration
             ])
             ->create();
 
-        $this->table('slugs')
-            ->addColumn('article_id', 'integer', [
+        $this->table('slugs', ['id' => false])
+            ->addColumn('id', 'uuid', [
                 'default' => null,
                 'limit' => null,
                 'null' => false,
-                'signed' => true,
+            ])
+            ->addColumn('article_id', 'uuid', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
             ])
             ->addColumn('slug', 'string', [
                 'default' => null,
@@ -531,6 +535,15 @@ class V1 extends AbstractMigration
                 'limit' => null,
                 'null' => true,
             ])
+            ->addIndex(
+                [
+                    'id',
+                ],
+                [
+                    'name' => 'id',
+                    'unique' => true,
+                ]
+            )
             ->create();
 
         $this->table('system_logs', ['id' => false, 'primary_key' => ['id']])

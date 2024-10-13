@@ -41,9 +41,7 @@ class ArticlesTable extends Table
      * This method sets up the table configuration, behaviors, and associations for the Articles table.
      *
      * @param array $config The configuration array for the table.
-     *
      * @return void
-     *
      * @uses \Cake\ORM\Table::setTable() Sets the database table name.
      * @uses \Cake\ORM\Table::setDisplayField() Sets the display field for the table.
      * @uses \Cake\ORM\Table::setPrimaryKey() Sets the primary key for the table.
@@ -197,18 +195,34 @@ class ArticlesTable extends Table
             }
         }
 
-        // If published with slug or already published and slug changes, record the slug for 301 redirects
-        if (($entity->isNew() && $entity->is_published) || 
-            (!$entity->isNew() && $entity->isDirty('slug') && $entity->is_published)) {
-            
-            $this->Slugs->save($this->Slugs->newEntity([
-                'article_id' => $entity->id,
-                'slug' => $entity->slug,
-                'active' => true
-            ]));
-        }
-
         return true;
+    }
+
+    /**
+     * After save callback.
+     *
+     * This method is triggered after an entity is saved. It ensures that a published article
+     * maintains a history of its slugs. If the article is new and published, or if an existing
+     * published article has a modified slug, a new slug entity is created and saved. If saving
+     * the slug fails, an error is logged.
+     *
+     * @param \Cake\Event\EventInterface $event The event that was triggered.
+     * @param \Cake\Datasource\EntityInterface $entity The entity that was saved.
+     * @param \ArrayObject $options Additional options for the save operation.
+     * @return void
+     * @throws \Cake\ORM\Exception\PersistenceFailedException If the slug entity fails to save.
+     * @uses \Cake\Datasource\EntityInterface::isNew() To check if the entity is new.
+     * @uses \Cake\Datasource\EntityInterface::isDirty() To check if the slug field has been modified.
+     * @uses \Cake\ORM\Table::newEntity() To create a new slug entity.
+     * @uses \Cake\ORM\Table::save() To save the new slug entity.
+     * @uses \Cake\Log\Log::error() To log errors if slug saving fails.
+     */
+    public function afterSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
+    {
+        // Make sure a published Article has a history of slugs
+        if ($entity->is_published) {
+            $this->Slugs->ensureSlugExists($entity->id, $entity->slug);
+        }
     }
 
     /**
@@ -221,15 +235,13 @@ class ArticlesTable extends Table
      * @param \Cake\Datasource\EntityInterface $entity The entity that is going to be deleted.
      * @param \ArrayObject $options The options passed to the delete method.
      * @return void
-     *
      * @throws \Cake\Datasource\Exception\InvalidPrimaryKeyException If the entity's primary key is invalid.
      * @throws \Cake\ORM\Exception\PersistenceFailedException If the update operation fails.
-     *
      * @see \Cake\ORM\Table::delete()
      */
-    public function beforeDelete(EventInterface $event, $entity, $options)
+    public function beforeDelete(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
-        $this->Slugs->updateAll(['active' => false], ['article_id' => $entity->id]);
+        //$this->Slugs->updateAll(['active' => false], ['article_id' => $entity->id]);
     }
 
     /**

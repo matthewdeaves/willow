@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
-use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -12,7 +11,6 @@ use Cake\Validation\Validator;
  * Slugs Model
  *
  * @property \App\Model\Table\ArticlesTable&\Cake\ORM\Association\BelongsTo $Articles
- *
  * @method \App\Model\Entity\Slug newEmptyEntity()
  * @method \App\Model\Entity\Slug newEntity(array $data, array $options = [])
  * @method array<\App\Model\Entity\Slug> newEntities(array $data, array $options = [])
@@ -26,7 +24,6 @@ use Cake\Validation\Validator;
  * @method iterable<\App\Model\Entity\Slug>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\Slug> saveManyOrFail(iterable $entities, array $options = [])
  * @method iterable<\App\Model\Entity\Slug>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\Slug>|false deleteMany(iterable $entities, array $options = [])
  * @method iterable<\App\Model\Entity\Slug>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\Slug> deleteManyOrFail(iterable $entities, array $options = [])
- *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
 class SlugsTable extends Table
@@ -54,39 +51,23 @@ class SlugsTable extends Table
     }
 
     /**
-     * Default validation rules for the Slugs table.
+     * Default validation rules.
      *
-     * This method defines the validation rules for the fields 'article_id', 'slug', and 'active'.
-     * 
-     * @param \Cake\Validation\Validator $validator The validator object to define rules on.
-     * @return \Cake\Validation\Validator The validator object with defined rules.
-     *
-     * Rules:
-     * - 'article_id': Must be an integer and cannot be empty.
-     * - 'slug': Must be a scalar value, with a maximum length of 255 characters. It is required when creating a new record and cannot be empty. The 'slug' must be unique within the table.
-     * - 'active': Must be a boolean value and cannot be empty.
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @return \Cake\Validation\Validator
      */
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->integer('article_id')
+            ->uuid('article_id')
             ->notEmptyString('article_id');
-    
+
         $validator
             ->scalar('slug')
             ->maxLength('slug', 255)
             ->requirePresence('slug', 'create')
-            ->notEmptyString('slug')
-            ->add('slug', 'unique', [
-                'rule' => 'validateUnique',
-                'provider' => 'table',
-                'message' => __('The slug must be unique.')
-            ]);
-    
-        $validator
-            ->boolean('active')
-            ->notEmptyString('active');
-    
+            ->notEmptyString('slug');
+
         return $validator;
     }
 
@@ -102,5 +83,31 @@ class SlugsTable extends Table
         $rules->add($rules->existsIn(['article_id'], 'Articles'), ['errorField' => 'article_id']);
 
         return $rules;
+    }
+
+    /**
+     * Ensures that a slug exists for a given article ID. If the slug does not exist, it creates a new slug entity
+     * and attempts to save it. Logs an error message if the save operation fails.
+     *
+     * @param int|string $articleId The ID of the article for which the slug should be ensured.
+     * @param string $slug The slug to be checked or created.
+     * @return void
+     */
+    public function ensureSlugExists($articleId, $slug): void
+    {
+        $existingSlug = $this->find()
+            ->where(['article_id' => $articleId, 'slug' => $slug])
+            ->first();
+
+        if (!$existingSlug) {
+            $newSlug = $this->newEntity([
+                'article_id' => $articleId,
+                'slug' => $slug,
+            ]);
+
+            if (!$this->save($newSlug)) {
+                $this->log('Failed to save slug: ' . json_encode($newSlug->getErrors()), 'error');
+            }
+        }
     }
 }

@@ -8,10 +8,9 @@ use Cake\ORM\Entity;
 /**
  * Slug Entity
  *
- * @property int $id
- * @property int $article_id
+ * @property string $id
+ * @property string $article_id
  * @property string $slug
- * @property bool $active
  * @property \Cake\I18n\DateTime $created
  * @property \Cake\I18n\DateTime|null $modified
  *
@@ -29,9 +28,9 @@ class Slug extends Entity
      * @var array<string, bool>
      */
     protected array $_accessible = [
+        'id' => true,
         'article_id' => true,
         'slug' => true,
-        'active' => true,
         'created' => true,
         'modified' => true,
         'article' => true,

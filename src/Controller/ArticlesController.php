@@ -28,16 +28,19 @@ class ArticlesController extends AppController
     protected PageViewsTable $PageViews;
 
     /**
-     * Initialize method
+     * Initializes the current table instance.
      *
-     * This method is called after the controller's constructor. It sets up
-     * the controller by initializing properties and loading necessary components.
+     * This method is called after the constructor and is used to set up
+     * associations, behaviors, and other initialization logic for the table.
+     * It fetches the 'Slugs' and 'PageViews' tables and assigns them to
+     * properties for later use.
      *
      * @return void
      */
     public function initialize(): void
     {
         parent::initialize();
+        $this->Slugs = $this->fetchTable('Slugs');
         $this->PageViews = $this->fetchTable('PageViews');
     }
 
@@ -115,41 +118,69 @@ class ArticlesController extends AppController
     }
 
     /**
-     * Displays an article by its slug.
+     * View an article by its slug.
      *
-     * This method retrieves an article based on the provided slug,
-     * loads its associated data (Users, Tags, and Comments),
-     * records a page view, and sets the article data for the view.
+     * This method retrieves an article based on the provided slug. It first finds the article ID associated with the slug.
+     * If the slug is not found, a NotFoundException is thrown. It then checks if the slug is the most recent for the article.
+     * If not, it redirects to the latest slug with a 301 status code. The method fetches the full article along with its
+     * associated users, tags, and comments (only those marked for display). If the article is not found, a NotFoundException
+     * is thrown. The page view is recorded, and the article is set for rendering.
      *
-     * @param string $slug The unique slug of the article to retrieve.
-     * @throws \Cake\Http\Exception\NotFoundException If the article is not found.
-     * @return void
+     * @param string $slug The slug of the article to view.
+     * @return \Cake\Http\Response|null The response object or null if rendering is successful.
+     * @throws \Cake\Http\Exception\NotFoundException If the article or slug is not found.
      */
-    public function viewBySlug(string $slug): void
+    public function viewBySlug(string $slug): ?Response
     {
-        $query = $this->Articles->find()
-            ->where(['Articles.slug' => $slug]);
+        // First, find the article ID associated with this slug
+        $slugEntity = $this->Slugs->find()
+            ->where(['slug' => $slug])
+            ->select(['article_id'])
+            ->first();
 
-        $article = $query->first();
+        if (!$slugEntity) {
+            throw new NotFoundException(__('Article not found'));
+        }
+
+        // Now, find the most recent slug for this article
+        $latestSlug = $this->Slugs->find()
+            ->where(['article_id' => $slugEntity->article_id])
+            ->order(['created' => 'DESC'])
+            ->select(['slug'])
+            ->first();
+
+        // If the current slug is not the latest, redirect
+        if ($latestSlug->slug !== $slug) {
+            return $this->redirect('/' . $latestSlug->slug, 301);
+        }
+
+        // Now fetch the full article with its associations
+        $article = $this->Articles->find()
+            ->where([
+                'Articles.id' => $slugEntity->article_id,
+                'Articles.published' => 1
+                ])
+            ->contain([
+                'Users',
+                'Tags',
+                'Comments' => function ($q) {
+                    return $q->where(['Comments.display' => 1])
+                             ->order(['Comments.created' => 'DESC'])
+                             ->contain(['Users']);
+                },
+            ])
+            ->first();
 
         if (!$article) {
             throw new NotFoundException(__('Article not found'));
         }
 
-        $this->Articles->loadInto($article, [
-            'Users',
-            'Tags',
-            'Comments' => function ($q) {
-                return $q->where(['Comments.display' => 1])
-                         ->order(['Comments.created' => 'DESC'])
-                         ->contain(['Users']);
-            },
-        ]);
-
         // Record page view
         $this->recordPageView($article->id);
 
         $this->set(compact('article'));
+
+        return $this->render();
     }
 
     /**

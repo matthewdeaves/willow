@@ -26,6 +26,7 @@ class CommentsControllerTest extends TestCase
     protected array $fixtures = [
         'app.Users',
         'app.Articles',
+        'app.Slugs',
         'app.Comments',
     ];
 
@@ -217,8 +218,9 @@ class CommentsControllerTest extends TestCase
     public function testCommentVisibility(): void
     {
         // First, ensure the comment is visible
-        $this->get('/articles/view-by-slug/article-six');
+        $this->get('/article-six');
         $this->assertResponseOk();
+        $this->assertResponseContains('Content for Article Six');
         $this->assertResponseContains('Do not disable this comment it has to appear on article six.');
 
         // Login as admin
@@ -233,8 +235,10 @@ class CommentsControllerTest extends TestCase
         $this->assertResponseSuccess();
 
         // Check that the comment is no longer visible on the front end
-        $this->get('/articles/view-by-slug/article-one');
+        // Using the newest slug for the article
+        $this->get('/article-six');
         $this->assertResponseOk();
+        $this->assertResponseContains('Content for Article Six');
         $this->assertResponseNotContains('Do not disable this comment it has to appear on article six.');
     }
 

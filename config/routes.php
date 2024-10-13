@@ -81,8 +81,65 @@ return function (RouteBuilder $routes): void {
          */
         $builder->connect('/', ['controller' => 'Articles', 'action' => 'index']);
 
-
+        /**
+         * Connects a route for the sitemap.
+         *
+         * This route maps the URL '/sitemap' to the 'index' action of the 'Sitemap' controller.
+         * It is configured to handle requests with the 'xml' file extension.
+         *
+         * @param string $url The URL pattern to match ('/sitemap').
+         * @param array $defaults An array of default route parameters:
+         *                        - 'controller': The controller to use ('Sitemap')
+         *                        - 'action': The action to call within the controller ('index')
+         *
+         * @return \Cake\Routing\Route\Route The connected route instance.
+         *
+         * Example usage:
+         * - Accessing /sitemap will invoke SitemapController::index()
+         * - Accessing /sitemap.xml will also invoke SitemapController::index() with XML response
+         */
         $builder->connect('/sitemap', ['controller' => 'Sitemap', 'action' => 'index'])->setExtensions(['xml']);
+
+        /**
+         * User-related route configurations.
+         *
+         * This block defines routes for various user actions including login, registration,
+         * logout, email confirmation, and profile editing. These routes map specific URLs
+         * to corresponding actions in the Users controller.
+         *
+         * Routes defined:
+         * - /users/login: Handles user login requests.
+         * - /users/register: Processes new user registrations.
+         * - /users/logout: Manages user logout functionality.
+         * - /users/confirm-email/*: Handles email confirmation with a wildcard parameter.
+         * - /users/edit/*: Allows users to edit their profile information, with a wildcard parameter.
+         *
+         * @see \App\Controller\UsersController
+         */
+        $builder->connect('/users/login', ['controller' => 'Users', 'action' => 'login']);
+        $builder->connect('/users/register', ['controller' => 'Users', 'action' => 'register']);
+        $builder->connect('/users/logout', ['controller' => 'Users', 'action' => 'logout']);
+        $builder->connect('/users/confirm-email/*',['controller' => 'Users', 'action' => 'confirmEmail']);
+        $builder->connect('/users/edit/*', ['controller' => 'Users', 'action' => 'edit']);
+
+        /**
+         * Connects a route to the Articles controller's viewBySlug action.
+         *
+         * This route is configured to handle all incoming requests with a wildcard ('/*') pattern,
+         * directing them to the 'viewBySlug' action of the 'Articles' controller. The route does not
+         * use any prefix, ensuring it operates within the non-admin context of the application.
+         *
+         * The 'slug' parameter is passed to the action, allowing the method to retrieve and display
+         * articles based on their slug. This setup is useful for SEO-friendly URLs where the article
+         * slug is part of the URL path.
+         *
+         * Example URL: /some-article-slug
+         * This would invoke the 'viewBySlug' method in the ArticlesController with 'some-article-slug'
+         * as the slug parameter.
+         *
+         * @param string $slug The slug of the article to be viewed.
+         */
+        $builder->connect('/*', ['prefix' => null, 'controller' => 'Articles', 'action' => 'viewBySlug'], ['pass' => ['slug']]);
 
         /*
          * Connect catchall routes for all controllers.

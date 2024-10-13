@@ -11,7 +11,8 @@
                 'modelName' => 'Aiprompt',
                 'controllerName' => 'Aiprompts',
                 'entity' => $aiprompt,
-                'entityDisplayName' => $aiprompt->task_type
+                'entityDisplayName' => $aiprompt->task_type,
+                'hideDelete' => true,
             ]);
         ?>
         <div class="col-md-9">

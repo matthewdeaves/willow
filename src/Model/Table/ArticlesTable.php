@@ -12,6 +12,8 @@ use Cake\Utility\Text;
 use Cake\Validation\Validator;
 use DateTime;
 use InvalidArgumentException;
+use Cake\Queue\QueueManager;
+use Cake\Utility\SettingsManager;
 
 /**
  * Articles Model
@@ -256,6 +258,20 @@ class ArticlesTable extends Table
         // Make sure a published Article has a history of slugs
         if ($entity->is_published) {
             $this->Slugs->ensureSlugExists($entity->id, $entity->slug);
+        }
+
+        // New code for queueing SEO update job
+        if (SettingsManager::read('AI.enabled')) {
+            try {
+                QueueManager::push('App\Job\ArticleSeoUpdateJob', [
+                    'args' => [[
+                        'id' => $entity->id,
+                        'title' => $entity->title,
+                    ]],
+                ]);
+            } catch (Exception $e) {
+                $this->log('Failed to queue article SEO update job: ' . $e->getMessage(), 'error');
+            }
         }
     }
 

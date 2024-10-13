@@ -15,14 +15,12 @@
         </div>
     </div>
     <div class="mb-3">
-        <input type="text" id="imageSearch" class="form-control" placeholder="Search images...">
-    </div>
-
-    <div class="mb-3">
         <?= $this->Html->link(__('List View'), ['action' => 'index', '?' => ['view' => 'list']], ['class' => 'btn btn-outline-secondary']) ?>
         <?= $this->Html->link(__('Grid View'), ['action' => 'index', '?' => ['view' => 'grid']], ['class' => 'btn btn-secondary']) ?>
     </div>
-
+    <div class="mb-3">
+        <input type="text" id="imageSearch" class="form-control" placeholder="Search images...">
+    </div>
     <div class="row row-cols-2 row-cols-md-4 row-cols-lg-5 g-4" id="imageResults">
         <?php foreach ($images as $image): ?>
             <div class="col">

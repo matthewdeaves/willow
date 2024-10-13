@@ -158,7 +158,7 @@ class ArticlesController extends AppController
         $article = $this->Articles->find()
             ->where([
                 'Articles.id' => $slugEntity->article_id,
-                'Articles.published' => 1
+                'Articles.published' => 1,
                 ])
             ->contain([
                 'Users',

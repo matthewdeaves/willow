@@ -96,7 +96,27 @@ class ArticlesTable extends Table
             'foreignKey' => 'article_id',
         ]);
 
-        $this->hasMany('Slugs');
+        /**
+         * Defines a hasMany association between the current model and the Slugs model.
+         *
+         * This association indicates that each record in the current model can have multiple associated records
+         * in the Slugs model. The association is configured with the following options:
+         *
+         * - 'dependent' => true: This option ensures that when a record in the current model is deleted,
+         *   all associated records in the Slugs model will also be deleted. This is useful for maintaining
+         *   referential integrity by automatically removing related data that is no longer needed.
+         *
+         * - 'cascadeCallbacks' => true: When set to true, this option ensures that callbacks are triggered
+         *   during the deletion process of associated records. This means that any logic defined in the
+         *   Slugs model's beforeDelete or afterDelete callbacks will be executed when associated records
+         *   are deleted. This is important for performing additional cleanup or logging operations.
+         *
+         * @see https://book.cakephp.org/5/en/orm/associations.html#hasmany-associations
+         */
+        $this->hasMany('Slugs', [
+            'dependent' => true,
+            'cascadeCallbacks' => true,
+        ]);
     }
 
     /**
@@ -223,25 +243,6 @@ class ArticlesTable extends Table
         if ($entity->is_published) {
             $this->Slugs->ensureSlugExists($entity->id, $entity->slug);
         }
-    }
-
-    /**
-     * Before delete callback.
-     *
-     * This method is triggered before an entity is deleted. It updates all related
-     * slug records to set their 'active' status to false for the entity being deleted.
-     *
-     * @param \Cake\Event\EventInterface $event The beforeDelete event that was fired.
-     * @param \Cake\Datasource\EntityInterface $entity The entity that is going to be deleted.
-     * @param \ArrayObject $options The options passed to the delete method.
-     * @return void
-     * @throws \Cake\Datasource\Exception\InvalidPrimaryKeyException If the entity's primary key is invalid.
-     * @throws \Cake\ORM\Exception\PersistenceFailedException If the update operation fails.
-     * @see \Cake\ORM\Table::delete()
-     */
-    public function beforeDelete(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
-    {
-        //$this->Slugs->updateAll(['active' => false], ['article_id' => $entity->id]);
     }
 
     /**

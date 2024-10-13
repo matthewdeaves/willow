@@ -111,7 +111,7 @@ class ArticlesFixture extends TestFixture
             ],
             // Articles
             [
-                'id' => 'hi1238e7-g606-990h-44ii-ij48k1j2jjf6',
+                'id' => '263a5364-a1bc-401c-9e44-49c23d066a0f',
                 'user_id' => '799b7544-8725-49ee-a26c-a3f32e03e429',
                 'title' => 'Article One',
                 'slug' => 'article-one',
@@ -139,7 +139,7 @@ class ArticlesFixture extends TestFixture
                 'is_page' => 0,
             ],
             [
-                'id' => 'jk3450g9-i808-112j-66kk-kl60m3l4llh8',
+                'id' => '42655115-cb43-4ba5-bae7-292443b9ce21',
                 'user_id' => '999b7544-8725-49ee-a26c-a3f32e03e431',
                 'title' => 'Article Three',
                 'slug' => 'article-three',
@@ -181,7 +181,7 @@ class ArticlesFixture extends TestFixture
                 'is_page' => 0,
             ],
             [
-                'id' => 'lm5eeeee-k010-334l-88mm-mn82o5n6nnj0',
+                'id' => '224310b4-96ad-4d58-a0a9-af6dc7253c4f',
                 'user_id' => '6509480c-e7e6-4e65-9c38-1423a8d09d0f',
                 'title' => 'Article Six',
                 'slug' => 'article-six',

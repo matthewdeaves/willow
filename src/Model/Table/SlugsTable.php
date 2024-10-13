@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use Cake\Log\Log;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -66,7 +67,12 @@ class SlugsTable extends Table
             ->scalar('slug')
             ->maxLength('slug', 255)
             ->requirePresence('slug', 'create')
-            ->notEmptyString('slug');
+            ->notEmptyString('slug')
+            ->add('slug', 'unique', [
+                'rule' => 'validateUnique',
+                'provider' => 'table',
+                'message' => __('The slug must be unique.'),
+            ]);
 
         return $validator;
     }
@@ -89,11 +95,11 @@ class SlugsTable extends Table
      * Ensures that a slug exists for a given article ID. If the slug does not exist, it creates a new slug entity
      * and attempts to save it. Logs an error message if the save operation fails.
      *
-     * @param int|string $articleId The ID of the article for which the slug should be ensured.
+     * @param string|int $articleId The ID of the article for which the slug should be ensured.
      * @param string $slug The slug to be checked or created.
      * @return void
      */
-    public function ensureSlugExists($articleId, $slug): void
+    public function ensureSlugExists(int|string $articleId, string $slug): void
     {
         $existingSlug = $this->find()
             ->where(['article_id' => $articleId, 'slug' => $slug])
@@ -106,7 +112,7 @@ class SlugsTable extends Table
             ]);
 
             if (!$this->save($newSlug)) {
-                $this->log('Failed to save slug: ' . json_encode($newSlug->getErrors()), 'error');
+                Log::error('Failed to save slug: ' . json_encode($newSlug->getErrors()));
             }
         }
     }

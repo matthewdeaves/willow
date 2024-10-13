@@ -44,7 +44,6 @@ class SlugsController extends AppController
                 'Slugs.article_id',
                 'Slugs.created',
                 'Slugs.modified',
-                'Slugs.active',
                 'Articles.id',
                 'Articles.title',
                 'Articles.slug',

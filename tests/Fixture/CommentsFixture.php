@@ -12,7 +12,7 @@ class CommentsFixture extends TestFixture
         $this->records = [
             [
                 'id' => '550e8400-e29b-41d4-a716-446655440000', // UUID for first comment
-                'foreign_key' => 'hi1238e7-g606-990h-44ii-ij48k1j2jjf6', // Article One
+                'foreign_key' => '263a5364-a1bc-401c-9e44-49c23d066a0f', // Article One
                 'model' => 'Articles',
                 'user_id' => '6509480c-e7e6-4e65-9c38-1423a8d09d02', // user@example.com
                 'content' => 'Test comment content',
@@ -32,7 +32,7 @@ class CommentsFixture extends TestFixture
             ],
             [
                 'id' => '5ue8ro00-e29b-41d4-a716-446655447465', // UUID for third comment
-                'foreign_key' => 'lm5eeeee-k010-334l-88mm-mn82o5n6nnj0', // Article Six
+                'foreign_key' => '224310b4-96ad-4d58-a0a9-af6dc7253c4f', // Article Six
                 'model' => 'Articles',
                 'user_id' => 'qwde480c-e7e6-34hy-9c38-8574a8d09d02', // user@example.com
                 'content' => 'Do not disable this comment it has to appear on article six.',
@@ -42,7 +42,7 @@ class CommentsFixture extends TestFixture
             ],
             [
                 'id' => '550e8445-e29b-41d4-a716-446655447465', // UUID for third comment
-                'foreign_key' => 'lm5eeeee-k010-334l-88mm-mn82o5n6nnj0', // Article Six
+                'foreign_key' => '224310b4-96ad-4d58-a0a9-af6dc7253c4f', // Article Six
                 'model' => 'Articles',
                 'user_id' => 'qwde480c-e7e6-34hy-9c38-8574a8d09d02', // user@example.com
                 'content' => 'Do not disable this comment either',

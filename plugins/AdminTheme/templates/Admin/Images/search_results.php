@@ -15,10 +15,6 @@
                     ['pathPrefix' => 'files/Images/image_file/', 'alt' => h($image->name), 'class' => 'card-img-top']) ?>
                 <div class="card-body">
                     <h6 class="card-title"><?= h($image->name) ?></h6>
-                    <p class="card-text small">
-                        <?= __('Created: {0}', $image->created->format('Y-m-d')) ?><br>
-                        <?= __('Modified: {0}', $image->modified->format('Y-m-d')) ?>
-                    </p>
                 </div>
                 <div class="card-footer">
                     <div class="btn-group btn-group-sm" role="group">

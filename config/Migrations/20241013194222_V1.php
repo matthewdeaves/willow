@@ -120,46 +120,25 @@ class V1 extends AbstractMigration
                 'limit' => 255,
                 'null' => true,
             ])
-            ->addColumn('focus_keyword', 'string', [
+            ->addColumn('facebook_description', 'string', [
                 'default' => null,
-                'limit' => 255,
+                'limit' => 300,
                 'null' => true,
             ])
-            ->addColumn('featured_image_alt', 'string', [
+            ->addColumn('linkedin_description', 'string', [
                 'default' => null,
-                'limit' => 255,
+                'limit' => 700,
                 'null' => true,
             ])
-            ->addColumn('canonical_url', 'string', [
+            ->addColumn('instagram_description', 'string', [
                 'default' => null,
-                'limit' => 255,
+                'limit' => 2000,
                 'null' => true,
             ])
-            ->addColumn('schema_markup', 'text', [
+            ->addColumn('twitter_description', 'string', [
                 'default' => null,
-                'limit' => null,
+                'limit' => 280,
                 'null' => true,
-            ])
-            ->addColumn('social_title', 'string', [
-                'default' => null,
-                'limit' => 255,
-                'null' => true,
-            ])
-            ->addColumn('social_description', 'text', [
-                'default' => null,
-                'limit' => null,
-                'null' => true,
-            ])
-            ->addColumn('social_image', 'string', [
-                'default' => null,
-                'limit' => 255,
-                'null' => true,
-            ])
-            ->addColumn('readability_score', 'integer', [
-                'default' => null,
-                'limit' => null,
-                'null' => true,
-                'signed' => true,
             ])
             ->addColumn('word_count', 'integer', [
                 'default' => null,

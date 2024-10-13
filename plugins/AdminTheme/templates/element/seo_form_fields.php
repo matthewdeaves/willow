@@ -2,7 +2,7 @@
     <div class="accordion-item">
         <h2 class="accordion-header" id="headingSeoFields">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#seoFields" aria-expanded="false" aria-controls="seoFields">
-                SEO Fields
+                <?= __('SEO Fields') ?>
             </button>
         </h2>
         <div id="seoFields" class="accordion-collapse collapse" aria-labelledby="headingSeoFields" data-bs-parent="#seoAccordion">
@@ -11,13 +11,7 @@
                     <div class="col-md-6 mb-3">
                         <?= $this->Form->control('meta_title', [
                             'class' => 'form-control',
-                            'label' => 'Meta Title'
-                        ]) ?>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <?= $this->Form->control('focus_keyword', [
-                            'class' => 'form-control',
-                            'label' => 'Focus Keyword'
+                            'label' => __('Meta Title')
                         ]) ?>
                     </div>
                 </div>
@@ -26,75 +20,56 @@
                         <?= $this->Form->control('meta_description', [
                             'type' => 'textarea',
                             'class' => 'form-control',
-                            'label' => 'Meta Description'
-                        ]) ?>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <?= $this->Form->control('meta_keywords', [
-                            'class' => 'form-control',
-                            'label' => 'Meta Keywords'
-                        ]) ?>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <?= $this->Form->control('canonical_url', [
-                            'class' => 'form-control',
-                            'label' => 'Canonical URL'
-                        ]) ?>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <?= $this->Form->control('featured_image_alt', [
-                            'class' => 'form-control',
-                            'label' => 'Featured Image Alt Text'
-                        ]) ?>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <?= $this->Form->control('social_image', [
-                            'class' => 'form-control',
-                            'label' => 'Social Media Image URL'
-                        ]) ?>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <?= $this->Form->control('social_title', [
-                            'class' => 'form-control',
-                            'label' => 'Social Media Title'
-                        ]) ?>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <?= $this->Form->control('social_description', [
-                            'type' => 'textarea',
-                            'class' => 'form-control',
-                            'label' => 'Social Media Description'
+                            'label' => __('Meta Description')
                         ]) ?>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12 mb-3">
-                        <?= $this->Form->control('schema_markup', [
-                            'type' => 'textarea',
+                        <?= $this->Form->control('meta_keywords', [
                             'class' => 'form-control',
-                            'label' => 'Schema Markup'
+                            'label' => __('Meta Keywords')
                         ]) ?>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <?= $this->Form->control('readability_score', [
-                            'type' => 'number',
+                        <?= $this->Form->control('facebook_description', [
+                            'type' => 'textarea',
                             'class' => 'form-control',
-                            'label' => 'Readability Score'
+                            'label' => __('Facebook Description')
                         ]) ?>
                     </div>
+                    <div class="col-md-6 mb-3">
+                        <?= $this->Form->control('linkedin_description', [
+                            'type' => 'textarea',
+                            'class' => 'form-control',
+                            'label' => __('LinkedIn Description')
+                        ]) ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <?= $this->Form->control('twitter_description', [
+                            'type' => 'textarea',
+                            'class' => 'form-control',
+                            'label' => __('Twitter Description')
+                        ]) ?>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <?= $this->Form->control('instagram_description', [
+                            'type' => 'textarea',
+                            'class' => 'form-control',
+                            'label' => __('Instagram Description')
+                        ]) ?>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-6 mb-3">
                         <?= $this->Form->control('word_count', [
                             'type' => 'number',
                             'class' => 'form-control',
-                            'label' => 'Word Count'
+                            'label' => __('Word Count')
                         ]) ?>
                     </div>
                 </div>

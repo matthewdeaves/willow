@@ -14,6 +14,21 @@ use Cake\ORM\Entity;
  * @property string|null $body
  * @property \Cake\I18n\DateTime|null $created
  * @property \Cake\I18n\DateTime|null $modified
+ * @property string|null $slug
+ * @property string|null $meta_title
+ * @property string|null $meta_description
+ * @property string|null $meta_keywords
+ * @property string|null $facebook_description
+ * @property string|null $linkedin_description
+ * @property string|null $twitter_description
+ * @property string|null $instagram_description
+ * @property int|null $word_count
+ * @property bool $is_page
+ * @property string|null $parent_id
+ * @property int|null $lft
+ * @property int|null $rght
+ * @property bool $published
+ * @property bool $is_published
  *
  * @property \App\Model\Entity\User $user
  * @property \App\Model\Entity\Tag[] $tags
@@ -36,19 +51,13 @@ class Article extends Entity
         'body' => true,
         'created' => true,
         'modified' => true,
-        'user' => true,
-        'tags' => true,
         'meta_title' => true,
         'meta_description' => true,
         'meta_keywords' => true,
-        'focus_keyword' => true,
-        'featured_image_alt' => true,
-        'canonical_url' => true,
-        'schema_markup' => true,
-        'social_title' => true,
-        'social_description' => true,
-        'social_image' => true,
-        'readability_score' => true,
+        'facebook_description' => true,
+        'linkedin_description' => true,
+        'twitter_description' => true,
+        'instagram_description' => true,
         'word_count' => true,
         'is_page' => true,
         'parent_id' => true,

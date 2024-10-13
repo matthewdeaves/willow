@@ -15,10 +15,6 @@
                 <td><?= h($article->meta_keywords) ?></td>
             </tr>
             <tr>
-                <th><?= __('Focus Keyword') ?></th>
-                <td><?= h($article->focus_keyword) ?></td>
-            </tr>
-            <tr>
                 <th><?= __('Featured Image Alt') ?></th>
                 <td><?= h($article->featured_image_alt) ?></td>
             </tr>

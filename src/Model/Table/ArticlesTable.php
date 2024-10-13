@@ -237,21 +237,20 @@ class ArticlesTable extends Table
     /**
      * After save callback.
      *
-     * This method is triggered after an entity is saved. It ensures that a published article
-     * maintains a history of its slugs. If the article is new and published, or if an existing
-     * published article has a modified slug, a new slug entity is created and saved. If saving
-     * the slug fails, an error is logged.
+     * This method is triggered after an entity is saved. It performs two main operations:
+     * 1. Ensures that a published article has a history of slugs.
+     * 2. Queues an SEO update job for published articles if AI settings are enabled.
      *
-     * @param \Cake\Event\EventInterface $event The event that was triggered.
+     * @param \Cake\Event\EventInterface $event The afterSave event that was fired.
      * @param \Cake\Datasource\EntityInterface $entity The entity that was saved.
-     * @param \ArrayObject $options Additional options for the save operation.
+     * @param \ArrayObject $options The options passed to the save method.
      * @return void
-     * @throws \Cake\ORM\Exception\PersistenceFailedException If the slug entity fails to save.
-     * @uses \Cake\Datasource\EntityInterface::isNew() To check if the entity is new.
-     * @uses \Cake\Datasource\EntityInterface::isDirty() To check if the slug field has been modified.
-     * @uses \Cake\ORM\Table::newEntity() To create a new slug entity.
-     * @uses \Cake\ORM\Table::save() To save the new slug entity.
-     * @uses \Cake\Log\Log::error() To log errors if slug saving fails.
+     *
+     * @throws \Exception If there is an error while queueing the SEO update job.
+     *
+     * @uses \App\Model\Table\SlugsTable::ensureSlugExists()
+     * @uses \App\Utility\SettingsManager::read()
+     * @uses \Cake\Queue\QueueManager::push()
      */
     public function afterSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {

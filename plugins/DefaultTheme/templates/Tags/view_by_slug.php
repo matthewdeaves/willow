@@ -27,7 +27,11 @@
                         <div class="list-group-item">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">
-                                    <?= $this->Html->link(h($article->title), ['controller' => 'Articles', 'action' => 'viewBySlug', $article->slug], ['class' => 'text-primary']) ?>
+                                    <?= $this->Html->link(
+                                        h($article->title),
+                                        '/' . $article->slug,
+                                        ['class' => 'text-primary']
+                                    ) ?>
                                 </h5>
                                 <small><?= h($article->created->format('M d, Y')) ?></small>
                             </div>

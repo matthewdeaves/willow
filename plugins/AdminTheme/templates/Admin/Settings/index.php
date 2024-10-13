@@ -16,7 +16,7 @@ use Cake\Utility\Inflector;
                 <div class="card-body">
                     <?= $this->Form->create(null, ['url' => ['action' => 'saveSettings'], 'class' => 'needs-validation', 'novalidate' => true]) ?>
                     <?php foreach ($groupedSettings as $category => $settings): ?>
-                        <h4 class="mb-3 mt-4 text-secondary"><?= h(Inflector::humanize($category)) ?></h4>
+                        <h4 class="mb-3 mt-4 text-secondary"><?= h(Inflector::humanize(Inflector::underscore($category))) ?></h4>
                         <div class="row">
                         <?php foreach ($settings as $key => $setting): ?>
                             <div class="col-md-4 mb-3">

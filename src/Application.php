@@ -168,8 +168,8 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
              * @see \App\Middleware\RateLimitMiddleware For full implementation details.
              */
             ->add(new RateLimitMiddleware([
-                'limit' => 4,
-                'period' => 60,
+                'limit' => SettingsManager::read('RateLimit.numberOfRequests', 4),
+                'period' => SettingsManager::read('RateLimit.numberOfSeconds', 60),
             ]));
 
         return $middlewareQueue;

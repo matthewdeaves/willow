@@ -71,14 +71,6 @@ class SlugsFixture extends TestFixture
                 'created' => '2024-09-27 08:01:35',
                 'modified' => '2024-09-27 08:01:35',
             ],
-            // Slug record for Article Five (single record)
-            [
-                'id' => '8l3j4i55-9f0k-10kl-ilg0-mh00k1086m42',
-                'article_id' => 'lm5672i1-k010-334l-88mm-mn82o5n6nnj0',
-                'slug' => 'article-five',
-                'created' => '2024-09-27 08:02:35',
-                'modified' => '2024-09-27 08:02:35',
-            ],
             // Slug record for Article Six (single record)
             [
                 'id' => '9m4k5j66-0g1l-21lm-jmh1-ni11l2197n53',

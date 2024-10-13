@@ -1,0 +1,302 @@
+<?php
+declare(strict_types=1);
+
+namespace App\Test\TestCase\Controller;
+
+use Authentication\AuthenticationService;
+use Authentication\Authenticator\Result;
+use Authentication\Identity;
+use Cake\Http\Exception\NotFoundException;
+use Cake\ORM\TableRegistry;
+use Cake\TestSuite\IntegrationTestTrait;
+use Cake\TestSuite\TestCase;
+
+/**
+ * App\Controller\ArticlesController Test Case
+ *
+ * @uses \App\Controller\ArticlesController
+ */
+class ArticlesControllerTest extends TestCase
+{
+    use IntegrationTestTrait;
+
+    /**
+     * Fixtures
+     *
+     * @var array<string>
+     */
+    protected array $fixtures = [
+        'app.Articles',
+        'app.Comments',
+        'app.Users',
+        'app.Tags',
+        'app.PageViews',
+        'app.Slugs',
+    ];
+
+    /**
+     * Setup method
+     *
+     * @return void
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->disableErrorHandlerMiddleware();
+    }
+
+    /**
+     * Setup authentication for tests
+     *
+     * @param string|null $id The ID of the user to authenticate, or null for no authentication
+     * @return void
+     */
+    private function setupAuthentication(?string $id = null): void
+    {
+        if ($id === null) {
+            $identity = null;
+            $result = new Result(null, Result::FAILURE_IDENTITY_NOT_FOUND);
+        } else {
+            $usersTable = TableRegistry::getTableLocator()->get('Users');
+            $user = $usersTable->get($id);
+            $identity = new Identity($user->toArray());
+            $result = new Result($identity, Result::SUCCESS);
+        }
+
+        $this->session(['Auth' => $identity]);
+
+        $authenticationService = $this->createMock(AuthenticationService::class);
+        $authenticationService->method('getIdentity')->willReturn($identity);
+        $authenticationService->method('getResult')->willReturn($result);
+
+        $this->_controller = $this->getMockBuilder('App\Controller\ArticlesController')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->_controller->Authentication = $authenticationService;
+    }
+
+    /**
+     * Test index method
+     *
+     * @return void
+     * @uses \App\Controller\ArticlesController::index()
+     */
+    public function testIndex(): void
+    {
+        $adminId = '6509480c-e7e6-4e65-9c38-1423a8d09d0f';
+        $this->setupAuthentication($adminId);
+
+        $this->get('/admin/articles');
+        $this->assertResponseOk();
+        $this->assertResponseContains('Article One');
+        $this->assertResponseContains('Article Two');
+        $this->assertResponseContains('Article Three');
+        $this->assertResponseContains('Article Four');
+        $this->assertResponseContains('Article Five');
+        $this->assertResponseContains('Article Six');
+    }
+
+    /**
+     * Test viewBySlug method for published article
+     *
+     * @return void
+     * @uses \App\Controller\ArticlesController::viewBySlug()
+     */
+    public function testViewByOldSlugPublished(): void
+    {
+        $this->get('/article-one');
+        $this->assertResponseCode(301);
+        $this->assertRedirect();
+
+        // Get the redirect location and follow it
+        $location = $this->_response->getHeaderLine('Location');
+        $this->get($location);
+
+        $this->assertResponseOk();
+        $this->assertResponseContains('Content for Article One');
+    }
+
+    /**
+     * Test viewBySlug method for unpublished article
+     *
+     * @return void
+     * @uses \App\Controller\ArticlesController::viewBySlug()
+     */
+    public function testViewBySlugUnpublished(): void
+    {
+        $this->expectException(NotFoundException::class);
+        $this->get('/article-five');
+    }
+
+    /**
+     * Test publishing an unpublished article and viewing it
+     *
+     * @return void
+     * @uses \App\Controller\ArticlesController::viewBySlug()
+     */
+    public function testPublishUnpublishedArticle(): void
+    {
+        $unpublishedArticleId = 'fef07ae2-1b1a-4653-a444-d093e35c6e2f';
+
+        // Try to view unpublished article
+        $this->expectException(NotFoundException::class);
+        $this->get('/article-five');
+
+        // Publish the article
+        $articlesTable = TableRegistry::getTableLocator()->get('Articles');
+        $article = $articlesTable->get($unpublishedArticleId);
+        $article->is_published = true;
+        $article->published = date('Y-m-d H:i:s');
+        $articlesTable->save($article);
+
+        // Clear the request to start a new one
+        $this->_request = null;
+
+        // Try to view the now published article
+        $this->get('/article-five');
+        $this->assertResponseOk();
+        $this->assertResponseContains('Content for Article Five');
+    }
+
+    /**
+     * Test publishing an unpublished page and viewing it
+     *
+     * @return void
+     * @uses \App\Controller\ArticlesController::viewBySlug()
+     */
+    public function testPublishUnpublishedPage(): void
+    {
+        $unpublishedPageId = 'e98aaafa-415a-4911-8ff2-25f76b326ea4'; // Page 6
+
+        // Try to view unpublished page
+        $this->expectException(NotFoundException::class);
+        $this->get('/page-six');
+
+        // Publish the page
+        $articlesTable = TableRegistry::getTableLocator()->get('Articles');
+        $page = $articlesTable->get($unpublishedPageId);
+        $page->is_published = true;
+        $page->published = date('Y-m-d H:i:s');
+        $articlesTable->save($page);
+
+        // Clear the request to start a new one
+        $this->_request = null;
+
+        // Try to view the now published page
+        $this->get('/page-six');
+        $this->assertResponseOk();
+        $this->assertResponseContains('Content for Page Six');
+    }
+
+    /**
+     * Test admin article search functionality
+     *
+     * @return void
+     * @uses \App\Controller\ArticlesController::index()
+     */
+    public function testAdminSearch(): void
+    {
+        $adminId = '6509480c-e7e6-4e65-9c38-1423a8d09d0f';
+        $this->setupAuthentication($adminId);
+
+        $this->configRequest([
+            'headers' => ['X-Requested-With' => 'XMLHttpRequest'],
+        ]);
+        $this->get('/admin/articles?search=Article One');
+        $this->assertResponseOk();
+        $this->assertResponseContains('Article One');
+        $this->assertResponseNotContains('Article Two');
+    }
+
+    /**
+     * Test access to admin area for non-admin user
+     *
+     * @return void
+     */
+    public function testNonAdminAccessToAdminArea(): void
+    {
+        $this->setupAuthentication('6509480c-e7e6-4e65-9c38-1423a8d09d02'); // Non-admin user ID
+        $this->get('/admin/articles');
+        $this->assertRedirectContains('/users/login'); // Assuming non-admins are redirected to home
+    }
+
+    /**
+     * Test access to admin area for admin user
+     *
+     * @return void
+     */
+    public function testAdminAccessToAdminArea(): void
+    {
+        $this->setupAuthentication('6509480c-e7e6-4e65-9c38-1423a8d09d0f'); // Admin user ID
+        $this->get('/admin/articles');
+        $this->assertResponseOk();
+    }
+
+    /**
+     * Test article creation by admin
+     *
+     * @return void
+     */
+    public function testArticleCreationByAdmin(): void
+    {
+        $adminUserId = '6509480c-e7e6-4e65-9c38-1423a8d09d0f';
+        $this->setupAuthentication($adminUserId);
+        $this->enableCsrfToken();
+        $this->post('/admin/articles/add', [
+            'title' => 'New Test Article Test Page',
+            'body' => 'This is a new test article',
+            'slug' => '',
+            'user_id' => $adminUserId,
+            'is_published' => 1,
+        ]);
+        $this->assertRedirectContains('/admin');
+
+        $articlesTable = TableRegistry::getTableLocator()->get('Articles');
+        $query = $articlesTable->find()->where(['title' => 'New Test Article Test Page']);
+        $this->assertEquals(1, $query->count());
+
+        $article = $query->first();
+        $this->assertEquals('new-test-article-test-page', $article->slug);
+    }
+
+    /**
+     * Test article editing by admin
+     *
+     * @return void
+     */
+    public function testArticleEditingByAdmin(): void
+    {
+        $adminUserId = '6509480c-e7e6-4e65-9c38-1423a8d09d0f';
+        $this->setupAuthentication($adminUserId);
+        $this->enableCsrfToken();
+        $articleId = '263a5364-a1bc-401c-9e44-49c23d066a0f'; // Article One ID
+        $this->post("/admin/articles/edit/{$articleId}", [
+            'title' => 'Updated Article One',
+            'body' => 'Updated content for Article One',
+        ]);
+        $this->assertRedirect('/admin');
+
+        $articlesTable = TableRegistry::getTableLocator()->get('Articles');
+        $article = $articlesTable->get($articleId);
+        $this->assertEquals('Updated Article One', $article->title);
+    }
+
+    /**
+     * Test article deletion by admin
+     *
+     * @return void
+     */
+    public function testArticleDeletionByAdmin(): void
+    {
+        $adminUserId = '6509480c-e7e6-4e65-9c38-1423a8d09d0f';
+        $this->setupAuthentication($adminUserId);
+        $this->enableCsrfToken();
+        $articleId = '263a5364-a1bc-401c-9e44-49c23d066a0f'; // Article One ID
+        $this->post("/admin/articles/delete/{$articleId}");
+        $this->assertRedirect('/admin');
+
+        $articlesTable = TableRegistry::getTableLocator()->get('Articles');
+        $this->expectException('Cake\Datasource\Exception\RecordNotFoundException');
+        $articlesTable->get($articleId);
+    }
+}

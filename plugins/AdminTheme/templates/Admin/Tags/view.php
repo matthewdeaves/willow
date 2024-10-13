@@ -68,7 +68,12 @@
                                 <tr>
                                     <td><?= h($article->user->username) ?></td>
                                     <td><?= h($article->title) ?></td>
-                                    <td><?= $this->Html->link(substr($article->slug, 0, 10) . '...', ['prefix' => false, 'controller' => 'Articles', 'action' => 'viewBySlug', $article->slug]) ?></td>
+                                    <td>
+                                        <?= $this->Html->link(
+                                            substr($article->slug, 0, 10) . '...',
+                                            '/' . $article->slug
+                                        ) ?>
+                                    </td>
                                     <td><?= h($article->created) ?></td>
                                     <td><?= h($article->modified) ?></td>
                                     <td class="actions">

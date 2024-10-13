@@ -60,6 +60,16 @@ class ArticlesController extends AppController
         // Allow view, index, and viewBySlug actions to be accessed without authentication
         $this->Authentication->addUnauthenticatedActions(['view', 'index', 'viewBySlug', 'pageIndex']);
 
+        if ($this->request->getParam('action') === 'addComment' && $this->request->is('post')) {
+            // Check if the user is not logged in
+            $result = $this->Authentication->getResult();
+            if (!$result || !$result->isValid()) {
+                // Save the request data to the session so once the user logs in their comment can be saved
+                $session = $this->request->getSession();
+                $session->write('Comment.formData', $this->request->getData());
+            }
+        }
+
         return null;
     }
 
@@ -132,6 +142,7 @@ class ArticlesController extends AppController
      */
     public function viewBySlug(string $slug): ?Response
     {
+        //debug($slug);
         // First, find the article ID associated with this slug
         $slugEntity = $this->Slugs->find()
             ->where(['slug' => $slug])
@@ -151,7 +162,6 @@ class ArticlesController extends AppController
 
         // If the current slug is not the latest, redirect
         if ($latestSlug->slug !== $slug) {
-
             return $this->redirect('/' . $latestSlug->slug, 301);
         }
 
@@ -218,13 +228,24 @@ class ArticlesController extends AppController
         $userId = $this->request->getSession()->read('Auth.id');
         $content = $this->request->getData('content');
 
+        // if there was saved comment data in session, load it back
+        /*
+        todo see if we can fix this
+        $savedData = $this->request->getSession()->read('Comment.formData');
+        if (!isset($savedData['content'])) {
+            debug($content);
+            $content = $savedData['content'];
+            $this->request->getSession()->delete('Comment.formData');
+        }
+            */
+
         if ($this->Articles->addComment($articleId, $userId, $content)) {
             $this->Flash->success(__('Your comment has been added.'));
         } else {
             $this->Flash->error(__('Unable to add your comment.'));
         }
 
-        return $this->redirect(['action' => 'viewBySlug', $article->slug]);
+        return $this->redirect('/' . $article->slug);
     }
 
     /**

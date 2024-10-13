@@ -7,7 +7,7 @@ if (!function_exists('renderArticleMenuItem')) {
         $hasChildren = !empty($item['children']);
         $indentClass = $level > 0 ? 'ps-' . ($level * 3) : '';
         $rootClass = $level == 0 ? 'bg-secondary' : '';
-        $url = isset($item['slug']) ? ['controller' => 'Articles', 'action' => 'viewBySlug', $item['slug']] : '#';
+        $url = isset($item['slug']) ? '/' . $item['slug'] : '#';
 
         // Capitalize each word in the title
         $title = Inflector::humanize($item['title']);

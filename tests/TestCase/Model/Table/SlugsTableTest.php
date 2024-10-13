@@ -124,7 +124,7 @@ class SlugsTableTest extends TestCase
             'slug' => $slug,
         ]);
 
-        $result = $this->Slugs->save($slug1);
+        $this->Slugs->save($slug1);
         $errors = $slug1->getErrors();
         $this->assertEmpty($errors, 'The $errors array should be empty');
 
@@ -133,7 +133,7 @@ class SlugsTableTest extends TestCase
             'slug' => $slug,
         ]);
 
-        $result = $this->Slugs->save($slug2);
+        $this->Slugs->save($slug2);
         $errors = $slug2->getErrors();
         $this->assertArrayHasKey('slug', $errors);
     }

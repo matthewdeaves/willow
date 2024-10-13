@@ -61,7 +61,11 @@
                                 <td><?= h($article->created) ?></td>
                                 <td><?= h($article->modified) ?></td>
                                 <td class="actions">
-                                    <?= $this->Html->link(__('View'), ['controller' => 'Articles', 'action' => 'viewBySlug', $article->slug], ['class' => 'btn btn-primary btn-sm']) ?>
+                                    <?= $this->Html->link(
+                                        __('View'),
+                                        '/' . $article->slug,
+                                        ['class' => 'btn btn-primary btn-sm']
+                                    ) ?>
                                 </td>
                             </tr>
                             <?php endforeach; ?>

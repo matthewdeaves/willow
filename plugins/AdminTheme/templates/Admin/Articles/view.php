@@ -37,7 +37,13 @@
                         </tr>
                         <tr>
                             <th><?= __('Slug') ?></th>
-                            <td><?= $this->Html->link($article->slug, ['prefix' => false, 'controller' => 'Articles', 'action' => 'viewBySlug', $article->slug], ['class' => 'text-primary']) ?></td>
+                            <td>
+                                <?= $this->Html->link(
+                                    $article->slug,
+                                    '/' . $article->slug,
+                                    ['class' => 'text-primary']
+                                ) ?>
+                            </td>
                         </tr>
                         <tr>
                             <th><?= __('Created') ?></th>

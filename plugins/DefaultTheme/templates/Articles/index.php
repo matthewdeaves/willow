@@ -11,7 +11,7 @@
                 <h2 class="card-title">
                     <?= $this->Html->link(
                         h($article->title),
-                        ['controller' => 'Articles', 'action' => 'viewBySlug', $article->slug],
+                        '/' . $article->slug,
                         ['class' => 'text-decoration-none']
                     ) ?>
                 </h2>
@@ -39,7 +39,7 @@
                 </button>
                 <?= $this->Html->link(
                     __('Read More'),
-                    ['controller' => 'Articles', 'action' => 'viewBySlug', $article->slug],
+                    '/' . $article->slug,
                     ['class' => 'btn btn-primary']
                 ) ?>
             </div>

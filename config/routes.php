@@ -121,6 +121,7 @@ return function (RouteBuilder $routes): void {
         $builder->connect('/users/logout', ['controller' => 'Users', 'action' => 'logout']);
         $builder->connect('/users/confirm-email/*',['controller' => 'Users', 'action' => 'confirmEmail']);
         $builder->connect('/users/edit/*', ['controller' => 'Users', 'action' => 'edit']);
+        $builder->connect('/atricles/add-comment/*', ['controller' => 'Articles', 'action' => 'addComment']);
 
         /**
          * Connects a route to the Articles controller's viewBySlug action.

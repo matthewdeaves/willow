@@ -70,5 +70,17 @@
         "key_name": "siteStrapline",
         "value": "Welcome to Willow CMS",
         "value_type": "text"
+    },
+    {
+        "category": "RateLimit",
+        "key_name": "numberOfRequests",
+        "value": "10",
+        "value_type": "numeric"
+    },
+    {
+        "category": "RateLimit",
+        "key_name": "numberOfSeconds",
+        "value": "60",
+        "value_type": "numeric"
     }
 ]

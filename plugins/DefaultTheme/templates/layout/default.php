@@ -6,10 +6,37 @@ $cakeDescription = 'Willow CMS';
 <head>
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>
-        <?= $cakeDescription ?>:
-        <?= $this->fetch('title') ?>
-    </title>
+    <?php if (isset($article)): ?>
+        <title><?= h($article->meta_title ?: $article->title) ?> | <?= $cakeDescription ?></title>
+        <meta name="description" content="<?= h($article->meta_description ?: substr(strip_tags($article->body), 0, 160)) ?>">
+        <meta name="keywords" content="<?= h($article->meta_keywords) ?>">
+        
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="<?= $this->Url->build('/' . $article->slug, ['fullBase' => true]) ?>">
+        <meta property="og:title" content="<?= h($article->meta_title ?: $article->title) ?>">
+        <meta property="og:description" content="<?= h($article->facebook_description ?: $article->meta_description) ?>">
+        <meta property="article:published_time" content="<?= $article->published->format('c') ?>">
+        <meta property="article:modified_time" content="<?= $article->modified->format('c') ?>">
+        
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:url" content="<?= $this->Url->build('/' . $article->slug, ['fullBase' => true]) ?>">
+        <meta name="twitter:title" content="<?= h($article->meta_title ?: $article->title) ?>">
+        <meta name="twitter:description" content="<?= h($article->twitter_description ?: $article->meta_description) ?>">
+        
+        <!-- LinkedIn -->
+        <meta name="linkedin:title" content="<?= h($article->meta_title ?: $article->title) ?>">
+        <meta name="linkedin:description" content="<?= h($article->linkedin_description ?: $article->meta_description) ?>">
+        
+        <!-- Instagram -->
+        <meta name="instagram:title" content="<?= h($article->meta_title ?: $article->title) ?>">
+        <meta name="instagram:description" content="<?= h($article->instagram_description ?: $article->meta_description) ?>">
+    <?php else: ?>
+        <title><?= $cakeDescription ?>: <?= $this->fetch('title') ?></title>
+        <meta name="description" content="Default description for <?= $cakeDescription ?>">
+    <?php endif; ?>
+    
     <?= $this->Html->meta('icon') ?>
 
     <?= $this->Html->css(['https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css']) ?>

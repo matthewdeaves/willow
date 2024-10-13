@@ -296,7 +296,6 @@ class ArticlesController extends AppController
                     return $this->redirect(['action' => 'index']);
                 }
             }
-            debug($article->getErrors());
             $this->Flash->error(__('The article could not be saved. Please, try again.'));
         }
 

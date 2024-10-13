@@ -5,11 +5,19 @@
  */
 ?>
 <div class="slugs index content">
-    <?= $this->Html->link(__('New Slug'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Slugs') ?></h3>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="mb-0"><?= __('Slugs') ?></h3>
+        <div>
+            <?= $this->Html->link(__('New Slug'), ['action' => 'add'], ['class' => 'btn btn-primary me-2']) ?>
+        </div>
+    </div>
+    <div class="mb-3">
+        <input type="text" id="slugSearch" class="form-control" placeholder="<?= __('Search slugs...') ?>">
+    </div>
+
     <div class="table-responsive">
-        <table>
-            <thead>
+        <table class="table table-striped table-hover">
+            <thead class="table-primary">
                 <tr>
                     <th><?= $this->Paginator->sort('id') ?></th>
                     <th><?= $this->Paginator->sort('article_id') ?></th>
@@ -18,31 +26,53 @@
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="slugResults">
                 <?php foreach ($slugs as $slug): ?>
                 <tr>
                     <td><?= $this->Number->format($slug->id) ?></td>
                     <td><?= $slug->hasValue('article') ? $this->Html->link($slug->article->title, ['controller' => 'Articles', 'action' => 'view', $slug->article->id]) : '' ?></td>
                     <td><?= h($slug->slug) ?></td>
-                    <td><?= h($slug->created) ?></td>
+                    <td><?= h($slug->created->format('Y-m-d H:i')) ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $slug->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $slug->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $slug->id], ['confirm' => __('Are you sure you want to delete # {0}?', $slug->id)]) ?>
+                        <?= $this->Html->link(__('View'), ['action' => 'view', $slug->id], ['class' => 'btn btn-sm btn-outline-primary']) ?>
+                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $slug->id], ['class' => 'btn btn-sm btn-outline-secondary']) ?>
+                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $slug->id], ['confirm' => __('Are you sure you want to delete # {0}?', $slug->id), 'class' => 'btn btn-sm btn-outline-danger']) ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     </div>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
-    </div>
+    <?= $this->element('pagination', ['recordCount' => count($slugs)]) ?>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('slugSearch');
+    const resultsContainer = document.getElementById('slugResults');
+
+    let debounceTimer;
+
+    searchInput.addEventListener('input', function() {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            const searchTerm = this.value.trim();
+
+            if (searchTerm.length > 0) {
+                fetch(`<?= $this->Url->build(['action' => 'index']) ?>?search=${encodeURIComponent(searchTerm)}`, {
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.text())
+                .then(html => {
+                    resultsContainer.innerHTML = html;
+                })
+                .catch(error => console.error('Error:', error));
+            } else {
+                location.reload();
+            }
+        }, 300);
+    });
+});
+</script>

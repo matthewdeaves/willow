@@ -67,15 +67,21 @@ class ArticleSeoUpdateJob implements JobInterface
                 $article->twitter_description = $seoResult['twitter_description'] ?? $article->twitter_description;
                 $article->instagram_description = $seoResult['instagram_description'] ?? $article->instagram_description;
 
-                $articlesTable->save($article);
-
-                $this->log(
-                    __('Article SEO update completed successfully. Article ID: {0}', [$articleId]),
-                    'info',
-                    ['group_name' => 'article_seo_update']
-                );
-
-                return Processor::ACK;
+                if ($articlesTable->save($article)) {
+                    $this->log(
+                        __('Article SEO update completed successfully. Article ID: {0}', [$articleId]),
+                        'info',
+                        ['group_name' => 'article_seo_update']
+                    );
+                    return Processor::ACK;
+                } else {
+                    $this->log(
+                        __('Failed to save article SEO updates. Article ID: {0}', [$articleId]),
+                        'error',
+                        ['group_name' => 'article_seo_update']
+                    );
+                    return Processor::REJECT;
+                }
             } else {
                 $this->log(
                     __('Article SEO update failed. No result returned. Article ID: {0}', [$articleId]),

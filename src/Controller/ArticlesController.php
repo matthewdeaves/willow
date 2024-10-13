@@ -146,11 +146,12 @@ class ArticlesController extends AppController
         $latestSlug = $this->Slugs->find()
             ->where(['article_id' => $slugEntity->article_id])
             ->order(['created' => 'DESC'])
-            ->select(['slug'])
+            ->select(['slug', 'article_id'])
             ->first();
 
         // If the current slug is not the latest, redirect
         if ($latestSlug->slug !== $slug) {
+
             return $this->redirect('/' . $latestSlug->slug, 301);
         }
 
@@ -158,7 +159,7 @@ class ArticlesController extends AppController
         $article = $this->Articles->find()
             ->where([
                 'Articles.id' => $slugEntity->article_id,
-                'Articles.published' => 1,
+                'Articles.is_published' => 1,
                 ])
             ->contain([
                 'Users',

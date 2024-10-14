@@ -66,13 +66,13 @@ require CAKE . 'functions.php';
  * security risks. See https://github.com/josegonzalez/php-dotenv#general-security-information
  * for more information for recommended practices.
 */
-// if (!env('APP_NAME') && file_exists(CONFIG . '.env')) {
-//     $dotenv = new \josegonzalez\Dotenv\Loader([CONFIG . '.env']);
-//     $dotenv->parse()
-//         ->putenv()
-//         ->toEnv()
-//         ->toServer();
-// }
+ if (!env('APP_NAME') && file_exists(CONFIG . '.env')) {
+     $dotenv = new \josegonzalez\Dotenv\Loader([CONFIG . '.env']);
+     $dotenv->parse()
+         ->putenv()
+         ->toEnv()
+         ->toServer();
+ }
 
 /*
  * Read configuration file and inject configuration into various
@@ -144,7 +144,7 @@ if (PHP_SAPI === 'cli') {
  */
 $fullBaseUrl = Configure::read('App.fullBaseUrl');
 if (!$fullBaseUrl) {
-    /*
+        /*
      * When using proxies or load balancers, SSL/TLS connections might
      * get terminated before reaching the server. If you trust the proxy,
      * you can enable `$trustProxy` to rely on the `X-Forwarded-Proto`
@@ -170,6 +170,74 @@ if ($fullBaseUrl) {
 }
 unset($fullBaseUrl);
 
+/*
+ * Configure Redis for caching
+ */
+Cache::setConfig('default', [
+    'className' => 'Cake\Cache\Engine\RedisEngine',
+    'host' => env('REDIS_HOST', 'redis'),
+    'port' => env('REDIS_PORT', 6379),
+    'password' => env('REDIS_PASSWORD', null),
+    'database' => 0,
+    'duration' => '+1 hours',
+    'prefix' => 'myapp_cache_',
+]);
+
+Cache::setConfig('_cake_core_', [
+    'className' => 'Cake\Cache\Engine\RedisEngine',
+    'host' => env('REDIS_HOST', 'redis'),
+    'port' => env('REDIS_PORT', 6379),
+    'password' => env('REDIS_PASSWORD', null),
+    'database' => 0,
+    'duration' => '+2 minutes',
+    'prefix' => 'myapp_cake_core_',
+]);
+
+Cache::setConfig('_cake_model_', [
+    'className' => 'Cake\Cache\Engine\RedisEngine',
+    'host' => env('REDIS_HOST', 'redis'),
+    'port' => env('REDIS_PORT', 6379),
+    'password' => env('REDIS_PASSWORD', null),
+    'database' => 0,
+    'duration' => '+2 minutes',
+    'prefix' => 'myapp_cake_model_',
+]);
+
+/*
+ * Configure Redis for sessions
+ */
+Configure::write('Session', [
+    'defaults' => 'cache',
+    'handler' => [
+        'config' => 'session'
+    ],
+    'timeout' => 24 * 60 * 60  // 24 hours
+]);
+
+Cache::setConfig('session', [
+    'className' => 'Cake\Cache\Engine\RedisEngine',
+    'host' => env('REDIS_HOST', 'redis'),
+    'port' => env('REDIS_PORT', 6379),
+    'password' => env('REDIS_PASSWORD', null),
+    'database' => 1,
+    'duration' => '+1 day',
+    'prefix' => 'myapp_session_',
+]);
+
+/*
+ * Configure Redis for queue
+ */
+Configure::write('Queue', [
+    'default' => [
+        'engine' => 'redis',
+        'url' => sprintf(
+            'redis://%s:%s?database=2&prefix=myapp_queue_',
+            env('REDIS_HOST', 'redis'),
+            env('REDIS_PORT', 6379)
+        ),
+    ],
+]);
+
 Cache::setConfig(Configure::consume('Cache'));
 ConnectionManager::setConfig(Configure::consume('Datasources'));
 TransportFactory::setConfig(Configure::consume('EmailTransport'));
@@ -179,17 +247,15 @@ Security::setSalt(Configure::consume('Security.salt'));
 
 /*
  * Setup detectors for mobile and tablet.
- * If you don't use these checks you can safely remove this code
+ *  * If you don't use these checks you can safely remove this code
  * and the mobiledetect package from composer.json.
  */
 ServerRequest::addDetector('mobile', function ($request) {
     $detector = new \Detection\MobileDetect();
-
     return $detector->isMobile();
 });
 ServerRequest::addDetector('tablet', function ($request) {
     $detector = new \Detection\MobileDetect();
-
     return $detector->isTablet();
 });
 
@@ -199,22 +265,14 @@ ServerRequest::addDetector('tablet', function ($request) {
  * locale specific date formats. For details see
  * @link https://book.cakephp.org/4/en/core-libraries/internationalization-and-localization.html#parsing-localized-datetime-data
  */
-// \Cake\Database\TypeFactory::build('time')
-//    ->useLocaleParser();
-// \Cake\Database\TypeFactory::build('date')
-//    ->useLocaleParser();
-// \Cake\Database\TypeFactory::build('datetime')
-//    ->useLocaleParser();
-// \Cake\Database\TypeFactory::build('timestamp')
-//    ->useLocaleParser();
-// \Cake\Database\TypeFactory::build('datetimefractional')
-//    ->useLocaleParser();
-// \Cake\Database\TypeFactory::build('timestampfractional')
-//    ->useLocaleParser();
-// \Cake\Database\TypeFactory::build('datetimetimezone')
-//    ->useLocaleParser();
-// \Cake\Database\TypeFactory::build('timestamptimezone')
-//    ->useLocaleParser();
+// TypeFactory::build('time')->useLocaleParser();
+// TypeFactory::build('date')->useLocaleParser();
+// TypeFactory::build('datetime')->useLocaleParser();
+// TypeFactory::build('timestamp')->useLocaleParser();
+// TypeFactory::build('datetimefractional')->useLocaleParser();
+// TypeFactory::build('timestampfractional')->useLocaleParser();
+// TypeFactory::build('datetimetimezone')->useLocaleParser();
+// TypeFactory::build('timestamptimezone')->useLocaleParser();
 
 /*
  * Custom Inflector rules, can be set to correctly pluralize or singularize
@@ -224,9 +282,3 @@ ServerRequest::addDetector('tablet', function ($request) {
 //Inflector::rules('plural', ['/^(inflect)or$/i' => '\1ables']);
 //Inflector::rules('irregular', ['red' => 'redlings']);
 //Inflector::rules('uninflected', ['dontinflectme']);
-
-// set a custom date and time format
-// see https://book.cakephp.org/4/en/core-libraries/time.html#setting-the-default-locale-and-format-string
-// and https://unicode-org.github.io/icu/userguide/format_parse/datetime/#datetime-format-syntax
-//\Cake\I18n\FrozenDate::setToStringFormat('dd.MM.yyyy');
-//\Cake\I18n\FrozenTime::setToStringFormat('dd.MM.yyyy HH:mm');

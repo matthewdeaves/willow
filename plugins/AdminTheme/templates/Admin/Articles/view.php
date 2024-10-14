@@ -46,6 +46,10 @@
                             </td>
                         </tr>
                         <tr>
+                            <th><?= __('Is Published') ?></th>
+                            <td><?= $article->is_published ? __('Yes') : __('No') ?></td>
+                        </tr>
+                        <tr>
                             <th><?= __('Published') ?></th>
                             <td><?= h($article->published) ?></td>
                         </tr>

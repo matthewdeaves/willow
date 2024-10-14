@@ -157,49 +157,31 @@ class ArticlesController extends AppController
      */
     public function view(?string $id = null): void
     {
-        $query = $this->Articles->find()
+        $article = $this->Articles->find()
             ->select([
                 'Articles.id',
-                'Articles.user_id',
                 'Articles.title',
                 'Articles.slug',
-                'Articles.created',
-                'Articles.modified',
-                'Articles.published',
-                'Articles.is_published',
                 'Articles.body',
                 'Articles.meta_title',
                 'Articles.meta_description',
                 'Articles.meta_keywords',
-                'Articles.linkedin_description',
                 'Articles.facebook_description',
-                'Articles.instagram_description',
+                'Articles.linkedin_description',
                 'Articles.twitter_description',
+                'Articles.instagram_description',
                 'Articles.word_count',
-                'Users.id',
-                'Users.username',
-                'pageview_count' => $this->Articles->PageViews->find()
-                    ->where(['PageViews.article_id = Articles.id'])
-                    ->func()
-                    ->count('PageViews.id'),
-            ])
-            ->where(['Articles.id' => $id]) // Filter on article.id first
-            ->leftJoinWith('Users')
-            ->leftJoinWith('PageViews')
-            ->leftJoinWith('Tags')
-            ->groupBy([
-                'Articles.id',
-                'Articles.user_id',
-                'Articles.title',
-                'Articles.slug',
-                'Articles.body',
                 'Articles.created',
                 'Articles.modified',
+                'Articles.published',
+                'Articles.is_published',
                 'Users.id',
                 'Users.username',
-            ]);
-
-        $article = $query->first();
+                'Users.email'
+            ])
+            ->where(['Articles.id' => $id])
+            ->contain(['Users', 'PageViews', 'Tags'])
+            ->first();
 
         if (!$article) {
             throw new RecordNotFoundException(__('Article not found'));

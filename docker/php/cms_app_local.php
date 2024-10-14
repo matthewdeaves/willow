@@ -39,14 +39,14 @@ return [
             'className' => 'Cake\Database\Connection',
             'driver' => 'Cake\Database\Driver\Mysql',
             'persistent' => false,
-            'host' => 'mysql',
-            'username' => 'cms_user',
-            'password' => 'password',
-            'database' => 'cms',
+            'host' => env('DB_HOST', 'mysql'),
+            'username' => env('DB_USERNAME', 'cms_user'),
+            'password' => env('DB_PASSWORD', 'password'),
+            'database' => env('DB_DATABASE', 'cms'),
             'encoding' => 'utf8mb4',
             'timezone' => 'UTC',
             'cacheMetadata' => true,
-            'port' => 3306
+            'port' => env('DB_PORT', 3306)
         ],
 
         /*
@@ -56,14 +56,14 @@ return [
             'className' => 'Cake\Database\Connection',
             'driver' => 'Cake\Database\Driver\Mysql',
             'persistent' => false,
-            'host' => 'mysql',
-            'username' => 'root',
-            'password' => 'password',
-            'database' => 'cms_test',
+            'host' => env('TEST_DB_HOST', 'mysql'),
+            'username' => env('TEST_DB_USERNAME', 'root'),
+            'password' => env('TEST_DB_PASSWORD', 'password'),
+            'database' => env('TEST_DB_DATABASE', 'cms_test'),
             'encoding' => 'utf8mb4',
             'timezone' => 'UTC',
             'cacheMetadata' => true,
-            'port' => 3306
+            'port' => env('TEST_DB_PORT', 3306)
         ],
     ],
 
@@ -76,49 +76,26 @@ return [
      */
     'EmailTransport' => [
         'default' => [
-            'host' => 'mailhog',
-            'port' => 1025,
-            'username' => null,
-            'password' => null,
+            'host' => env('EMAIL_HOST', 'mailhog'),
+            'port' => env('EMAIL_PORT', 1025),
+            'username' => env('EMAIL_USERNAME', null),
+            'password' => env('EMAIL_PASSWORD', null),
             'client' => null,
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
         ],
     ],
 
-    /**
-     * SiteSettings configuration array.
-     *
-     * This configuration array contains settings for RabbitMQ and image sizes.
-     *
-     * @var array $SiteSettings
-     * 
-     * @property array $RabbitMQ Configuration settings for RabbitMQ.
-     * @property string $RabbitMQ['host'] The hostname for the RabbitMQ server.
-     * @property string $RabbitMQ['port'] The port number for the RabbitMQ server.
-     * @property string $RabbitMQ['username'] The username for connecting to RabbitMQ.
-     * @property string $RabbitMQ['password'] The password for connecting to RabbitMQ.
-     * 
-     * @property array $ImageSizes Configuration for various image width sizes.
-     * @property int $ImageSizes['massive'] The size for massive images in pixels.
-     * @property int $ImageSizes['extra-large'] The size for extra-large images in pixels.
-     * @property int $ImageSizes['large'] The size for large images in pixels.
-     * @property int $ImageSizes['medium'] The size for medium images in pixels.
-     * @property int $ImageSizes['small'] The size for small images in pixels.
-     * @property int $ImageSizes['tiny'] The size for tiny images in pixels.
-     * @property int $ImageSizes['teeny'] The size for teeny images in pixels.
+    /*
+     * Cache configuration.
      */
-    'SiteSettings' => [
-        'ImageSizes' => [
-            'massive' => 800,
-            'extra-large' => 500,
-            'large' => 400,
-            'medium' => 300,
-            'small' => 200,
-            'tiny' => 100,
-            'teeny' => 50,
+    'Cache' => [
+        'default' => [
+            'className' => 'Cake\Cache\Engine\RedisEngine',
+            'host' => env('REDIS_HOST', 'redis'),
+            'port' => env('REDIS_PORT', 6379),
+            'password' => env('REDIS_PASSWORD', 'password'),
+            'database' => env('REDIS_DATABASE', 0),
+            'duration' => '+1 hour',
         ],
-        'Email' => [
-            'reply_email' => 'noreply@example.com'
-        ]
-    ]
+    ],
 ];

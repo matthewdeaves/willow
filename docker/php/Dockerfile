@@ -28,6 +28,10 @@ RUN pecl install pcov && \
 # Install a script that makes installing PHP extensions easier
 ADD --chmod=0755 https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
+# Install Redis extension
+RUN pecl install redis && \
+    docker-php-ext-enable redis
+
 # Use it to install ImageMagick module from source
 RUN install-php-extensions https://github.com/Imagick/imagick/archive/refs/tags/3.7.0.tar.gz
 

@@ -9,7 +9,7 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
-      
+
   nginx:
     build:
       context: .
@@ -30,7 +30,7 @@ services:
     volumes:
       - .:/var/www/html/
       - ./logs/php.log:/var/log/fpm-php.www.log
-      - ./docker/php/cms_app_local.php:/var/www/html/config/app_local.php
+      #- ./docker/php/cms_app_local.php:/var/www/html/config/app_local.php
     expose:
       - "9000"
 

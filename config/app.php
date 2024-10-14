@@ -95,12 +95,12 @@ return [
      * Configure the cache adapters.
      */
     'Cache' => [
-        /*'default' => [
+        'default' => [
             'className' => FileEngine::class,
             'path' => CACHE,
             'url' => env('CACHE_DEFAULT_URL', null),
-        ],*/
-        'default' => [
+        ],
+        'redis' => [
             'className' => 'Cake\Cache\Engine\RedisEngine',
             'host' => env('REDIS_HOST', 'redis'),
             'port' => env('REDIS_PORT', 6379),
@@ -444,7 +444,7 @@ return [
     'Queue' => [
         'default' => [
             'engine' => 'redis',
-            'url' => env('REDIS_URL', 'redis://redis:6379?password=password'),
+            'url' => env('REDIS_URL'),
             'queue' => 'default',
             'logger' => 'stdout',
             'receiveTimeout' => 10000,
@@ -456,7 +456,7 @@ return [
         ],
         'test' => [
             'engine' => 'redis',
-            'url' => env('REDIS_TEST_URL', 'redis://redis:6379?password=password'),
+            'url' => env('REDIS_TEST_URL'),
             'queue' => 'test_queue',
             'logger' => 'stdout',
             'receiveTimeout' => 10000,

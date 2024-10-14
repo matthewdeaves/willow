@@ -26,20 +26,8 @@ use Cake\Utility\Inflector;
                 <div class="card-body">
                     <table class="table table-bordered">
                         <tr>
-                            <th class="w-25"><?= __('ID') ?></th>
-                            <td><?= h($comment->id) ?></td>
-                        </tr>
-                        <tr>
-                            <th><?= __('Model') ?></th>
-                            <td><?= h($comment->model) ?></td>
-                        </tr>
-                        <tr>
                             <th><?= __('User') ?></th>
                             <td><?= $comment->hasValue('user') ? $this->Html->link($comment->user->username, ['controller' => 'Users', 'action' => 'view', $comment->user->id]) : '' ?></td>
-                        </tr>
-                        <tr>
-                            <th><?= __('Foreign Key') ?></th>
-                            <td><?= h($comment->foreign_key) ?></td>
                         </tr>
                         <tr>
                             <th><?= __('Display') ?></th>

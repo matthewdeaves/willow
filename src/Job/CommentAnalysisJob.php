@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Job;
 
+use App\Model\Entity\Comment;
 use App\Service\AnthropicApiService;
 use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
@@ -11,13 +12,39 @@ use Cake\Queue\Job\Message;
 use Exception;
 use Interop\Queue\Processor;
 
+/**
+ * CommentAnalysisJob Class
+ *
+ * This job is responsible for analyzing comments using the Anthropic API service.
+ * It processes comments, checks for inappropriate content, and updates the comment status accordingly.
+ */
 class CommentAnalysisJob implements JobInterface
 {
     use LogTrait;
 
+    /**
+     * Maximum number of attempts to process the job
+     *
+     * @var int|null
+     */
     public static ?int $maxAttempts = 3;
+
+    /**
+     * Flag to indicate if the job should be unique
+     *
+     * @var bool
+     */
     public static bool $shouldBeUnique = true;
 
+    /**
+     * Executes the comment analysis job
+     *
+     * This method processes the job message, analyzes the comment content,
+     * and updates the comment status based on the analysis result.
+     *
+     * @param \Cake\Queue\Job\Message $message The job message containing comment data
+     * @return string|null Returns Processor::ACK on success, Processor::REJECT on failure, or Processor::REQUEUE on API overload
+     */
     public function execute(Message $message): ?string
     {
         $args = $message->getArgument('args');
@@ -33,6 +60,7 @@ class CommentAnalysisJob implements JobInterface
                 'error',
                 ['group_name' => 'comment_analysis']
             );
+
             return Processor::REJECT;
         }
 
@@ -43,10 +71,17 @@ class CommentAnalysisJob implements JobInterface
 
         if (!$commentId || !$userId || !$content) {
             $this->log(
-                __('Missing required fields in comment analysis payload. Comment ID: {0}, User ID: {1}', [$commentId, $userId]),
+                __(
+                    'Missing required fields in comment analysis payload. Comment ID: {0}, User ID: {1}',
+                    [
+                        $commentId,
+                        $userId,
+                    ]
+                ),
                 'error',
                 ['group_name' => 'comment_analysis']
             );
+
             return Processor::REJECT;
         }
 
@@ -59,6 +94,7 @@ class CommentAnalysisJob implements JobInterface
                 'info',
                 ['group_name' => 'comment_analysis']
             );
+
             return Processor::ACK;
         }
 
@@ -73,6 +109,7 @@ class CommentAnalysisJob implements JobInterface
                     'info',
                     ['group_name' => 'comment_analysis']
                 );
+
                 return Processor::ACK;
             } else {
                 $this->log(
@@ -80,6 +117,7 @@ class CommentAnalysisJob implements JobInterface
                     'error',
                     ['group_name' => 'comment_analysis']
                 );
+
                 return Processor::REJECT;
             }
         } catch (Exception $e) {
@@ -88,17 +126,27 @@ class CommentAnalysisJob implements JobInterface
                 'error',
                 ['group_name' => 'comment_analysis']
             );
-            
+
             // Check if it's an overloaded error
             if (strpos($e->getMessage(), 'Overloaded') !== false) {
                 return Processor::REQUEUE;
             }
-            
+
             return Processor::REJECT;
         }
     }
 
-    private function updateCommentStatus($comment, array $analysisResult): void
+    /**
+     * Updates the comment status based on the analysis result
+     *
+     * This method updates the comment entity with the analysis results,
+     * including whether it's inappropriate, the reason if so, and its display status.
+     *
+     * @param \App\Model\Entity\Comment $comment The comment entity to update
+     * @param array $analysisResult The result of the comment analysis
+     * @return void
+     */
+    private function updateCommentStatus(Comment $comment, array $analysisResult): void
     {
         $isInappropriate = $analysisResult['is_inappropriate'] ?? false;
         $reason = $analysisResult['reason'] ?? [];

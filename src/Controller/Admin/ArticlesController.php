@@ -177,7 +177,7 @@ class ArticlesController extends AppController
                 'Articles.is_published',
                 'Users.id',
                 'Users.username',
-                'Users.email'
+                'Users.email',
             ])
             ->where(['Articles.id' => $id])
             ->contain(['Users', 'PageViews', 'Tags'])

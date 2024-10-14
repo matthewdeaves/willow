@@ -60,7 +60,7 @@ class QueueableImageBehavior extends Behavior
             $message = [
                 'path' => WWW_ROOT . $config['folder_path'] . $entity->{$config['field']},
                 'id' => $entity->id,
-                'model' => $event->getSubject()->getAlias()
+                'model' => $event->getSubject()->getAlias(),
             ];
 
             try {

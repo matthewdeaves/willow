@@ -3,8 +3,13 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use App\Utility\SettingsManager;
+use ArrayObject;
+use Cake\Datasource\EntityInterface;
+use Cake\Event\EventInterface;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\Queue\QueueManager;
 use Cake\Validation\Validator;
 
 /**
@@ -86,5 +91,33 @@ class CommentsTable extends Table
         $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
 
         return $rules;
+    }
+
+    /**
+     * After save event handler for processing comments.
+     *
+     * This method is triggered after a comment entity is saved. If AI features are enabled,
+     * it prepares a message containing the comment's ID, content, and user ID, and queues
+     * a job for comment analysis.
+     *
+     * @param \Cake\Event\EventInterface $event The event instance.
+     * @param \Cake\Datasource\EntityInterface $entity The entity that was saved.
+     * @param \ArrayObject $options Additional options passed during the save operation.
+     * @return void
+     */
+    public function afterSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
+    {
+        if (SettingsManager::read('AI.enabled')) {
+            $message = [
+                'id' => $entity->id,
+                'content' => $entity->content,
+                'user_id' => $entity->user_id,
+            ];
+
+            // Queue up a comment analysis job
+            QueueManager::push('App\Job\CommentAnalysisJob', [
+                'args' => [$message],
+            ]);
+        }
     }
 }

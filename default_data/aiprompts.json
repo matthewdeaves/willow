@@ -12,5 +12,12 @@
         "model": "claude-3-haiku-20240307",
         "max_tokens": 300,
         "temperature": 0
+    },
+    {
+        "task_type": "comment_analysis",
+        "system_prompt": "You are a comment analysis bot. Evaluate a comment based on these criteria:\r\n\r\n    Hate Speech: Language promoting violence or discrimination.\r\n    Harassment: Personal attacks or threats.\r\n    Obscenity: Vulgar language or excessive profanity.\r\n    Spam: Irrelevant or promotional content.\r\n    Misinformation: False or misleading claims.\r\n    Personal Info: Disclosure of private information.\r\n    Violence: Graphic descriptions of harm.\r\n    Sexual Content: Inappropriate sexual language or imagery.\r\n    Threats: Threats of physical harm.\r\n    Disruption: Violating community guidelines.\r\n\r\nRespond with a JSON object containing:\r\n\r\n - **comment**: The original comment text.\r\n - **is_inappropriate**: Boolean (true\/false).\r\n- **reason**: List of reasons for marking it inappropriate (if any).\r\n\r\nEnsure your analysis is accurate and clear.",
+        "model": "claude-3-haiku-20240307",
+        "max_tokens": 300,
+        "temperature": 0
     }
 ]

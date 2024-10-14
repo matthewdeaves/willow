@@ -153,6 +153,46 @@ class AnthropicApiService
     }
 
     /**
+     * Analyzes a comment using the Anthropic API.
+     *
+     * @param string $comment The comment text to analyze.
+     * @return array The analysis results including the original comment, is_inappropriate flag, and reasons.
+     * @throws \Cake\Http\Exception\ServiceUnavailableException If the API request fails.
+     */
+    public function analyzeComment(string $comment): array
+    {
+        $promptData = $this->getPromptData('comment_analysis');
+
+        $payload = [
+            'model' => $promptData['model'],
+            'max_tokens' => $promptData['max_tokens'],
+            'temperature' => $promptData['temperature'],
+            'system' => $promptData['system_prompt'],
+            'messages' => [
+                [
+                    'role' => 'user',
+                    'content' => $comment,
+                ],
+            ],
+        ];
+
+        $response = $this->client->post(
+            self::API_URL,
+            json_encode($payload),
+            ['headers' => $this->getHeaders()]
+        );
+
+        if (!$response->isOk()) {
+            $errorBody = $response->getStringBody();
+            $statusCode = $response->getStatusCode();
+            Log::error("Anthropic API error: Status Code: {$statusCode}, Body: {$errorBody}");
+            throw new ServiceUnavailableException(__('Failed to analyze comment. Please try again later.'));
+        }
+
+        return $this->parseResponse($response);
+    }
+
+    /**
      * Gets the headers for the API request.
      *
      * @return array The headers for the API request.

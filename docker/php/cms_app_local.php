@@ -84,18 +84,4 @@ return [
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
         ],
     ],
-
-    /*
-     * Cache configuration.
-     */
-    'Cache' => [
-        'default' => [
-            'className' => 'Cake\Cache\Engine\RedisEngine',
-            'host' => env('REDIS_HOST', 'redis'),
-            'port' => env('REDIS_PORT', 6379),
-            'password' => env('REDIS_PASSWORD', 'password'),
-            'database' => env('REDIS_DATABASE', 0),
-            'duration' => '+1 hour',
-        ],
-    ],
 ];

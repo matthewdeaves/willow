@@ -95,10 +95,18 @@ return [
      * Configure the cache adapters.
      */
     'Cache' => [
-        'default' => [
+        /*'default' => [
             'className' => FileEngine::class,
             'path' => CACHE,
             'url' => env('CACHE_DEFAULT_URL', null),
+        ],*/
+        'default' => [
+            'className' => 'Cake\Cache\Engine\RedisEngine',
+            'host' => env('REDIS_HOST', 'redis'),
+            'port' => env('REDIS_PORT', 6379),
+            'password' => env('REDIS_PASSWORD', 'password'),
+            'duration' => '+1 hours',
+            'prefix' => 'myapp_',
         ],
 
         /*

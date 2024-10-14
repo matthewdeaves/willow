@@ -254,9 +254,9 @@ return [
              * The keys host, port, timeout, username, password, client and tls
              * are used in SMTP transports
              */
-            'host' => 'mailhog',
-            'port' => 1025,
-            'timeout' => 30,
+            'host' => env('EMAIL_HOST'),
+            'port' => env('EMAIL_PORT'),
+            'timeout' => env('EMAIL_TIMEOUT'),
             /*
              * It is recommended to set these options through your environment or app_local.php
              */
@@ -281,7 +281,7 @@ return [
     'Email' => [
         'default' => [
             'transport' => 'default',
-            'from' => 'you@localhost',
+            'from' => env('EMAIL_REPLY'),
             /*
              * Will by default be set to config value of App.encoding, if that exists otherwise to UTF-8.
              */
@@ -373,20 +373,17 @@ return [
 
     /*
      * Configures logging options
-     * TODO PUT BACK FOR SAVING LOGS TO DATABASE TABLE
-     * 
-     * 'debug' => [
-     *       'className' => 'App\Log\Engine\DatabaseLog',
-     *       'levels' => ['notice', 'info', 'debug'],
-     *   ],
-     *   'error' => [
-     *       'className' => 'App\Log\Engine\DatabaseLog',
-     *       'levels' => ['warning', 'error', 'critical', 'alert', 'emergency'],
-     *  ],
-     *
      */
     'Log' => [
         'debug' => [
+            'className' => 'App\Log\Engine\DatabaseLog',
+            'levels' => ['notice', 'info', 'debug'],
+        ],
+        'error' => [
+            'className' => 'App\Log\Engine\DatabaseLog',
+            'levels' => ['warning', 'error', 'critical', 'alert', 'emergency'],
+        ],
+        'debug_file' => [
             'className' => FileLog::class,
             'path' => LOGS,
             'file' => 'debug',
@@ -394,7 +391,7 @@ return [
             'scopes' => null,
             'levels' => ['notice', 'info', 'debug'],
         ],
-        'error' => [
+        'error_file' => [
             'className' => FileLog::class,
             'path' => LOGS,
             'file' => 'error',

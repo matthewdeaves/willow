@@ -46,7 +46,7 @@ return [
             'encoding' => 'utf8mb4',
             'timezone' => 'UTC',
             'cacheMetadata' => true,
-            'port' => 3306
+            'port' => 3306,
         ],
 
         /*
@@ -56,14 +56,14 @@ return [
             'className' => 'Cake\Database\Connection',
             'driver' => 'Cake\Database\Driver\Mysql',
             'persistent' => false,
-            'host' => '127.0.0.1',
-            'username' => 'root',
-            'password' => 'root',
-            'database' => 'cms_test',
+            'host' => env('TEST_DB_HOST', '127.0.0.1'),
+            'username' => env('TEST_DB_USERNAME', 'root'),
+            'password' => env('TEST_DB_PASSWORD', 'root'),
+            'database' => env('TEST_DB_DATABASE', 'cms_test'),
             'encoding' => 'utf8mb4',
             'timezone' => 'UTC',
             'cacheMetadata' => true,
-            'port' => 3306
+            'port' => env('TEST_DB_PORT', 3306),
         ],
     ],
 

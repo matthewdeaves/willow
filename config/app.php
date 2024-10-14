@@ -130,6 +130,17 @@ return [
             'duration' => '+1 years',
             'url' => env('CACHE_CAKEMODEL_URL', null),
         ],
+
+        'settings_cache' => [
+            'className' => FileEngine::class,
+            'url' => env('CACHE_DEFAULT_URL'),
+            'duration' => '+1 month',
+        ],
+
+        '_cake_routes_' => [
+            'className' => FileEngine::class,
+            'url' => env('CACHE_CAKEROUTES_URL'),
+        ],
     ],
 
     /*

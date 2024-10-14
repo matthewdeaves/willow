@@ -60,6 +60,7 @@ class QueueableImageBehavior extends Behavior
             $message = [
                 'path' => WWW_ROOT . $config['folder_path'] . $entity->{$config['field']},
                 'id' => $entity->id,
+                'model' => $event->getSubject()->getAlias()
             ];
 
             try {
@@ -68,7 +69,8 @@ class QueueableImageBehavior extends Behavior
                     'args' => [$message],
                 ]);
 
-                if (SettingsManager::read('AI.enabled')) {
+                // No image analysis for users profile pictures as we don't store that
+                if (SettingsManager::read('AI.enabled') && $message['model'] != 'Users') {
                     // Queue up an image analysis job
                     QueueManager::push('App\Job\ImageAnalysisJob', [
                         'args' => [$message],

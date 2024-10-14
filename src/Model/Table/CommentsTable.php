@@ -109,7 +109,7 @@ class CommentsTable extends Table
         if (SettingsManager::read('AI.enabled')) {
             $message = [
                 'comment_id' => $entity->id,
-                'comment' => $entity->content,
+                'content' => $entity->content,
                 'user_id' => $entity->user_id,
             ];
 

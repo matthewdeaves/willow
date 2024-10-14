@@ -26,7 +26,11 @@ use Cake\Utility\Inflector;
                 <div class="card-body">
                     <table class="table table-bordered">
                         <tr>
-                            <th class="w-25"><?= __('Model') ?></th>
+                            <th class="w-25"><?= __('ID') ?></th>
+                            <td><?= h($comment->id) ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= __('Model') ?></th>
                             <td><?= h($comment->model) ?></td>
                         </tr>
                         <tr>
@@ -39,7 +43,19 @@ use Cake\Utility\Inflector;
                         </tr>
                         <tr>
                             <th><?= __('Display') ?></th>
-                            <td><?= h($comment->display ? 'Yes' : 'No') ?></td>
+                            <td><?= $comment->display ? __('Yes') : __('No') ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= __('Is Inappropriate') ?></th>
+                            <td><?= $comment->is_inappropriate ? __('Yes') : __('No') ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= __('Is Analyzed') ?></th>
+                            <td><?= $comment->is_analyzed ? __('Yes') : __('No') ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= __('Inappropriate Reason') ?></th>
+                            <td><?= h($comment->inappropriate_reason) ?></td>
                         </tr>
                         <tr>
                             <th><?= __('Created') ?></th>

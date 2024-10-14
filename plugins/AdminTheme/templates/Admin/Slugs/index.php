@@ -28,7 +28,13 @@
             <tbody id="slugResults">
                 <?php foreach ($slugs as $slug): ?>
                 <tr>
-                <td><?= h($slug->slug) ?></td>
+                    <td>
+                        <?= $this->Html->link(
+                            $slug->slug,
+                            '/' . $slug->slug,
+                            ['class' => 'text-primary']
+                        ) ?>
+                    </td>
                     <td><?= $slug->hasValue('article') ? $this->Html->link($slug->article->title, ['controller' => 'Articles', 'action' => 'view', $slug->article->id]) : '' ?></td>
                     <td><?= h($slug->created->format('Y-m-d H:i')) ?></td>
                     <td class="actions">

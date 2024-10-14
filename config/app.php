@@ -173,9 +173,19 @@ return [
     ],
 
     'Session' => [
-        'defaults' => 'redis',
+        'defaults' => env('SESSION_HANDLER', 'php'),
         'handler' => [
             'config' => 'session'
+        ],
+    ],
+
+    'Redis' => [
+        'session' => [
+            'host' => env('REDIS_HOST', 'redis'),
+            'port' => env('REDIS_PORT', 6379),
+            'password' => env('REDIS_PASSWORD', 'password'),
+            'database' => 1,
+            'prefix' => 'session_',
         ],
     ],
 

@@ -14,7 +14,8 @@
         "josegonzalez/cakephp-upload": "^8.0",
         "mobiledetect/mobiledetectlib": "^4.8.03",
         "mozex/anthropic-php": "^1.0",
-        "symfony/http-client": "^5.4 || ^6.0 || ^7.0"
+        "symfony/http-client": "^5.4 || ^6.0 || ^7.0",
+        "ext-redis": "*"
     },
     "require-dev": {
         "cakephp/bake": "^3.0.0",

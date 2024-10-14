@@ -75,7 +75,7 @@ return [
      *   You should treat it as extremely sensitive data.
      */
     'Security' => [
-        'salt' => env('SECURITY_SALT'),
+        'salt' => env('SECURITY_SALT', '8831764ad771299067333a9779c3a9818d0309dbbd797fdcdf175366486ed397'),
     ],
 
     /*
@@ -453,7 +453,7 @@ return [
     ],
     'Queue' => [
         'default' => [
-            'url' => env('REDIS_URL'),
+            'url' => env('REDIS_URL', 'redis://root:$password@redis:6379'),
             'queue' => 'default',
             'logger' => 'stdout',
             //'listener' => \App\Listener\WorkerListener::class,
@@ -464,7 +464,7 @@ return [
             ],
         ],
         'test' => [
-            'url' => env('REDIS_TEST_URL'),
+            'url' => env('REDIS_TEST_URL', 'redis://root:$password@redis:6379'),
             'queue' => 'test_queue',
             'logger' => 'stdout',
             //'listener' => \App\Listener\WorkerListener::class,

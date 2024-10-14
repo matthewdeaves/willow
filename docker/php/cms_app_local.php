@@ -25,7 +25,7 @@ return [
      *   You should treat it as extremely sensitive data.
      */
     'Security' => [
-        'salt' => env('SECURITY_SALT'),
+        'salt' => env('SECURITY_SALT', '8831764ad771299067333a9779c3a9818d0309dbbd797fdcdf175366486ed397'),
     ],
 
     /*
@@ -40,13 +40,13 @@ return [
             'driver' => 'Cake\Database\Driver\Mysql',
             'persistent' => false,
             'host' => env('DB_HOST', 'mysql'),
-            'username' => env('DB_USERNAME'),
-            'password' => env('DB_PASSWORD'),
-            'database' => env('DB_DATABASE'),
+            'username' => env('DB_USERNAME', 'cms_user'),
+            'password' => env('DB_PASSWORD', 'password'),
+            'database' => env('DB_DATABASE', 'cms'),
             'encoding' => 'utf8mb4',
             'timezone' => 'UTC',
             'cacheMetadata' => true,
-            'port' => env('DB_PORT')
+            'port' => env('DB_PORT', 3306)
         ],
 
         /*
@@ -56,14 +56,14 @@ return [
             'className' => 'Cake\Database\Connection',
             'driver' => 'Cake\Database\Driver\Mysql',
             'persistent' => false,
-            'host' => env('TEST_DB_HOST'),
-            'username' => env('TEST_DB_USERNAME'),
-            'password' => env('TEST_DB_PASSWORD'),
-            'database' => env('TEST_DB_DATABASE'),
+            'host' => env('TEST_DB_HOST', 'mysql'),
+            'username' => env('TEST_DB_USERNAME', 'cms_user_test'),
+            'password' => env('TEST_DB_PASSWORD', 'password'),
+            'database' => env('TEST_DB_DATABASE', 'cms_test'),
             'encoding' => 'utf8mb4',
             'timezone' => 'UTC',
             'cacheMetadata' => true,
-            'port' => env('TEST_DB_PORT')
+            'port' => env('TEST_DB_PORT', 3306)
         ],
     ],
 
@@ -76,10 +76,10 @@ return [
      */
     'EmailTransport' => [
         'default' => [
-            'host' => env('EMAIL_HOST'),
-            'port' => env('EMAIL_PORT'),
-            'username' => env('EMAIL_USERNAME'),
-            'password' => env('EMAIL_PASSWORD'),
+            'host' => env('EMAIL_HOST','mailhog'),
+            'port' => env('EMAIL_PORT', '1025'),
+            'username' => env('EMAIL_USERNAME', ''),
+            'password' => env('EMAIL_PASSWORD', ''),
             'client' => null,
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL'),
         ],

@@ -100,14 +100,6 @@ return [
             'path' => CACHE,
             'url' => env('CACHE_DEFAULT_URL', null),
         ],
-        'redis' => [
-            'className' => 'Cake\Cache\Engine\RedisEngine',
-            'host' => env('REDIS_HOST', 'redis'),
-            'port' => env('REDIS_PORT', 6379),
-            'password' => env('REDIS_PASSWORD', 'password'),
-            'duration' => '+1 hours',
-            'prefix' => 'myapp_',
-        ],
 
         /*
          * Configure the cache used for general framework caching.
@@ -141,13 +133,34 @@ return [
 
         'settings_cache' => [
             'className' => FileEngine::class,
-            'url' => env('CACHE_DEFAULT_URL'),
-            'duration' => '+1 month',
+            'prefix' => 'cms_settings_',
+            'path' => CACHE . 'settings' . DS,
+            'serialize' => true,
+            'duration' => '+1 years',
         ],
 
         '_cake_routes_' => [
             'className' => FileEngine::class,
-            'url' => env('CACHE_CAKEROUTES_URL'),
+            'prefix' => 'cms_routes_',
+            'path' => CACHE . 'routes' . DS,
+            'serialize' => true,
+            'duration' => '+1 years',
+        ],
+
+        'ip_blocker' => [
+            'className' => FileEngine::class,
+            'prefix' => 'cms_ip_blocker_',
+            'path' => CACHE . 'ipblocks' . DS,
+            'serialize' => true,
+            'duration' => '+1 week',
+        ],
+
+        'rate_limit' => [
+            'className' => FileEngine::class,
+            'prefix' => 'cms_rate_limit_',
+            'path' => CACHE . 'ratelimit' . DS,
+            'serialize' => true,
+            'duration' => '+1 hour',
         ],
     ],
 
@@ -189,7 +202,7 @@ return [
      *   your application that still emit deprecations.
      */
     'Error' => [
-        'errorLevel' => E_ALL,
+        'errorLevel' => E_ALL & ~E_DEPRECATED,
         'skipLog' => [],
         'log' => true,
         'trace' => true,
@@ -443,27 +456,25 @@ return [
     ],
     'Queue' => [
         'default' => [
-            'engine' => 'redis',
             'url' => env('REDIS_URL'),
             'queue' => 'default',
             'logger' => 'stdout',
+            //'listener' => \App\Listener\WorkerListener::class,
             'receiveTimeout' => 10000,
             'storeFailedJobs' => true,
             'uniqueCache' => [
-                'engine' => 'Redis',
-                'duration' => '+24 hours',
+                'engine' => 'File',
             ],
         ],
         'test' => [
-            'engine' => 'redis',
             'url' => env('REDIS_TEST_URL'),
             'queue' => 'test_queue',
             'logger' => 'stdout',
+            //'listener' => \App\Listener\WorkerListener::class,
             'receiveTimeout' => 10000,
             'storeFailedJobs' => true,
             'uniqueCache' => [
-                'engine' => 'Redis',
-                'duration' => '+24 hours',
+                'engine' => 'File',
             ],
         ],
     ],

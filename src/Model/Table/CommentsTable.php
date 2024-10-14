@@ -94,23 +94,22 @@ class CommentsTable extends Table
     }
 
     /**
-     * After save event handler for processing comments.
+     * After save callback.
      *
-     * This method is triggered after a comment entity is saved. If AI features are enabled,
-     * it prepares a message containing the comment's ID, content, and user ID, and queues
-     * a job for comment analysis.
+     * This method is called after a comment entity is saved. If AI analysis is enabled,
+     * it queues up a job to analyze the comment content for inappropriate language.
      *
-     * @param \Cake\Event\EventInterface $event The event instance.
-     * @param \Cake\Datasource\EntityInterface $entity The entity that was saved.
-     * @param \ArrayObject $options Additional options passed during the save operation.
+     * @param \Cake\Event\EventInterface $event The event that was fired
+     * @param \Cake\Datasource\EntityInterface $entity The entity that was saved
+     * @param \ArrayObject $options The options passed to the save method
      * @return void
      */
     public function afterSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
         if (SettingsManager::read('AI.enabled')) {
             $message = [
-                'id' => $entity->id,
-                'content' => $entity->content,
+                'comment_id' => $entity->id,
+                'comment' => $entity->content,
                 'user_id' => $entity->user_id,
             ];
 

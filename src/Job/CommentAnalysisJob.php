@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Job;
 
-use App\Service\CommentAnalysisApiService;
+use App\Service\AnthropicApiService;
 use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
@@ -16,7 +16,8 @@ use Interop\Queue\Processor;
  *
  * This class is responsible for analyzing comments as a background job.
  * It receives comment data, makes API calls to analyze the comments,
- * and logs any inappropriate comments along with user information.
+ * logs any inappropriate comments along with user information,
+ * and updates the comment status in the database if it's inappropriate.
  */
 class CommentAnalysisJob implements JobInterface
 {
@@ -40,7 +41,8 @@ class CommentAnalysisJob implements JobInterface
      * Executes the comment analysis job
      *
      * This method processes the job message, makes API calls to analyze the comment,
-     * and logs any inappropriate comments along with user information.
+     * logs any inappropriate comments along with user information,
+     * and updates the comment status in the database if it's inappropriate.
      *
      * @param \Cake\Queue\Job\Message $message The job message containing comment analysis details
      * @return string|null Returns Processor::ACK on success, Processor::REJECT on failure
@@ -67,12 +69,13 @@ class CommentAnalysisJob implements JobInterface
         $payload = $args[0];
         $commentText = $payload['comment'] ?? null;
         $userId = $payload['user_id'] ?? null;
+        $commentId = $payload['comment_id'] ?? null;
 
-        if (!$commentText || !$userId) {
+        if (!$commentText || !$userId || !$commentId) {
             $this->log(
                 __(
-                    'Missing required fields in comment analysis payload. Comment: {0}, User ID: {1}',
-                    [$commentText, $userId]
+                    'Missing required fields in comment analysis payload. Comment: {0}, User ID: {1}, Comment ID: {2}',
+                    [$commentText, $userId, $commentId]
                 ),
                 'error',
                 ['group_name' => 'comment_analysis']
@@ -89,22 +92,11 @@ class CommentAnalysisJob implements JobInterface
                 $isInappropriate = $analysisResult['is_inappropriate'] ?? false;
 
                 if ($isInappropriate) {
-                    // Log user information if the comment is flagged as inappropriate
-                    $usersTable = TableRegistry::getTableLocator()->get('Users');
-                    $user = $usersTable->get($userId);
-                    $this->log(
-                        __('Inappropriate comment detected. User ID: {0}, Comment: {1}, Reasons: {2}', [
-                            $user->id,
-                            $commentText,
-                            json_encode($analysisResult['reason']),
-                        ]),
-                        'warning',
-                        ['group_name' => 'comment_analysis']
-                    );
+                    $this->handleInappropriateComment($userId, $commentId, $commentText, $analysisResult['reason']);
                 }
 
                 $this->log(
-                    __('Comment analysis completed successfully. Comment: {0}', [$commentText]),
+                    __('Comment analysis completed successfully. Comment ID: {0}', [$commentId]),
                     'info',
                     ['group_name' => 'comment_analysis']
                 );
@@ -112,7 +104,7 @@ class CommentAnalysisJob implements JobInterface
                 return Processor::ACK;
             } else {
                 $this->log(
-                    __('Comment analysis failed. No result returned. Comment: {0}', [$commentText]),
+                    __('Comment analysis failed. No result returned. Comment ID: {0}', [$commentId]),
                     'error',
                     ['group_name' => 'comment_analysis']
                 );
@@ -121,12 +113,51 @@ class CommentAnalysisJob implements JobInterface
             }
         } catch (Exception $e) {
             $this->log(
-                __('Error during comment analysis. Comment: {0}, Error: {1}', [$commentText, $e->getMessage()]),
+                __('Error during comment analysis. Comment ID: {0}, Error: {1}', [$commentId, $e->getMessage()]),
                 'error',
                 ['group_name' => 'comment_analysis']
             );
 
             return Processor::REJECT;
+        }
+    }
+
+    /**
+     * Handles the case when a comment is flagged as inappropriate
+     *
+     * @param int $userId The ID of the user who posted the comment
+     * @param int $commentId The ID of the comment
+     * @param string $commentText The text of the comment
+     * @param array $reasons The reasons why the comment was flagged as inappropriate
+     * @return void
+     */
+    private function handleInappropriateComment(int $userId, int $commentId, string $commentText, array $reasons): void
+    {
+        // Log user information if the comment is flagged as inappropriate
+        $usersTable = TableRegistry::getTableLocator()->get('Users');
+        $user = $usersTable->get($userId);
+        $this->log(
+            __('Inappropriate comment detected. User ID: {0}, Comment: {1}, Reasons: {2}', [
+                $user->id,
+                $commentText,
+                json_encode($reasons),
+            ]),
+            'warning',
+            ['group_name' => 'comment_analysis']
+        );
+
+        // Update the comment in the database
+        $commentsTable = TableRegistry::getTableLocator()->get('Comments');
+        $comment = $commentsTable->get($commentId);
+        $comment->is_inappropriate = true;
+        $comment->inappropriate_reason = json_encode($reasons);
+
+        if (!$commentsTable->save($comment)) {
+            $this->log(
+                __('Failed to update comment status. Comment ID: {0}', [$commentId]),
+                'error',
+                ['group_name' => 'comment_analysis']
+            );
         }
     }
 }

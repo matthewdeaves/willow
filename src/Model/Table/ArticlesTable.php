@@ -85,6 +85,8 @@ class ArticlesTable extends Table
             'maxLength' => 255,
         ]);
 
+        $this->addBehavior('ImageAssociable');
+
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'joinType' => 'LEFT',
@@ -99,30 +101,6 @@ class ArticlesTable extends Table
             'foreignKey' => 'article_id',
         ]);
 
-        $this->belongsToMany('Images', [
-            'foreignKey' => 'foreign_key',
-            'targetForeignKey' => 'image_id',
-            'joinTable' => 'models_images',
-            'conditions' => ['ModelsImages.model' => 'Article'],
-        ]);
-
-        /**
-         * Defines a hasMany association between the current model and the Slugs model.
-         *
-         * This association indicates that each record in the current model can have multiple associated records
-         * in the Slugs model. The association is configured with the following options:
-         *
-         * - 'dependent' => true: This option ensures that when a record in the current model is deleted,
-         *   all associated records in the Slugs model will also be deleted. This is useful for maintaining
-         *   referential integrity by automatically removing related data that is no longer needed.
-         *
-         * - 'cascadeCallbacks' => true: When set to true, this option ensures that callbacks are triggered
-         *   during the deletion process of associated records. This means that any logic defined in the
-         *   Slugs model's beforeDelete or afterDelete callbacks will be executed when associated records
-         *   are deleted. This is important for performing additional cleanup or logging operations.
-         *
-         * @see https://book.cakephp.org/5/en/orm/associations.html#hasmany-associations
-         */
         $this->hasMany('Slugs', [
             'dependent' => true,
             'cascadeCallbacks' => true,
@@ -278,7 +256,7 @@ class ArticlesTable extends Table
                 $this->log('Failed to queue article SEO update job: ' . $e->getMessage(), 'error');
             }
         }
-
+/*
         // Save images
         if (!empty($entity->imageUploads)) {
             $this->saveImages($entity);
@@ -290,47 +268,7 @@ class ArticlesTable extends Table
   
             $this->unlinkImages($entity, $entity->unlinkedImages);
         }
-    }
-
-    protected function saveImages($entity)
-    {
-        $imagesTable = TableRegistry::getTableLocator()->get('Images');
-        $modelsImagesTable = TableRegistry::getTableLocator()->get('ModelsImages');
-
-        foreach ($entity->imageUploads as $image) {
-            $imageEntity = $imagesTable->newEntity([
-                'image_file' => $image,
-                'name' => $image->getClientFilename(),
-            ]);
-            if ($imagesTable->save($imageEntity)) {
-                $modelsImagesTable->save($modelsImagesTable->newEntity([
-                    'model' => 'Article',
-                    'foreign_key' => $entity->id,
-                    'image_id' => $imageEntity->id,
-                ]));
-            }
-        }
-    }
-
-    public function unlinkImages($entity, $imageIds)
-    {
-        $imageIds = array_filter($imageIds, function($value) {
-            return $value !== '0';
-        });
-
-        if (empty($imageIds)) {
-            return;
-        }
-
-        $modelsImagesTable = TableRegistry::getTableLocator()->get('ModelsImages');
-        
-        foreach ($imageIds as $imageId) {
-            $modelsImagesTable->deleteAll([
-                'model' => 'Article',
-                'foreign_key' => $entity->id,
-                'image_id' => $imageId
-            ]);
-        }
+            */
     }
 
     /**

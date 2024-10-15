@@ -43,17 +43,20 @@ class UsersTable extends Table
                     'size' => 'picture_size',
                     'type' => 'picture_type',
                 ],
-                'path' => 'webroot{DS}files{DS}Users{DS}picture_file{DS}',
                 'nameCallback' => function ($table, $entity, $data, $field, $settings) {
-                    return Text::uuid();
-                    //return uniqid('', true) . '.' . pathinfo($data->getClientFilename(), PATHINFO_EXTENSION);
+                    $file = $entity->image_file;
+                    $clientFilename = $file->getClientFilename();
+                    $ext = pathinfo($clientFilename, PATHINFO_EXTENSION);
+
+                    return Text::uuid() . '.' . strtolower($ext);
                 },
                 'deleteCallback' => function ($path, $entity, $field, $settings) {
                     $paths = [
                         $path . $entity->{$field},
                     ];
+
                     foreach (SettingsManager::read('ImageSizes') as $width) {
-                        $paths[] = $path . $entity->{$field} . '_' . $width;
+                        $paths[] = $path . $width . DS . $entity->{$field};
                     }
 
                     return $paths;

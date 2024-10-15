@@ -1,8 +1,9 @@
+<?php use App\Utility\SettingsManager; ?>
 <?php foreach ($users as $user): ?>
 <tr>
     <td>
         <div class="position-relative">
-            <?= $this->Html->image($user->picture_file . '_' . \App\Utility\SettingsManager::read('ImageSizes.small', '200'), 
+            <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $user->picture_file, 
                 ['pathPrefix' => 'files/Users/picture_file/', 
                 'alt' => __('Profile Picture'), 
                 'class' => 'img-thumbnail', 
@@ -10,7 +11,7 @@
                 'data-bs-toggle' => 'popover',
                 'data-bs-trigger' => 'hover',
                 'data-bs-html' => 'true',
-                'data-bs-content' => $this->Html->image($user->picture_file . '_' . \App\Utility\SettingsManager::read('ImageSizes.large', '400'), 
+                'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $user->picture_file, 
                     ['pathPrefix' => 'files/Users/picture_file/', 
                     'alt' => __('Profile Picture'), 
                     'class' => 'img-fluid', 

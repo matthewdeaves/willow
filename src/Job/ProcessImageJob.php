@@ -66,14 +66,18 @@ class ProcessImageJob implements JobInterface
 
         $payload = $args[0];
 
-        $imagePath = $payload['path'] ?? null;
+        $folderPath = $payload['folder_path'] ?? null;
+        $file = $payload['file'] ?? null;
+        //$id = $payload['id'] ?? null;
+        //$model = $payload['model'] ?? null;
+
         $imageSizes = SettingsManager::read('ImageSizes');
 
-        if (!$imagePath || empty($imageSizes)) {
+        if (empty($folderPath) || empty($file)) {
             $this->log(
                 __(
                     'Missing required fields in image processing payload. Path: {0}, Sizes: {1}',
-                    [$imagePath, json_encode($imageSizes)]
+                    [$folderPath . $file, json_encode($imageSizes)]
                 ),
                 'error',
                 ['group_name' => 'image_processing']
@@ -85,7 +89,7 @@ class ProcessImageJob implements JobInterface
         $this->log(
             __(
                 'Starting image processing job. Path: {0}, Sizes to process: {1}',
-                [$imagePath, implode(', ', $imageSizes)]
+                [$folderPath . $file, implode(', ', $imageSizes)]
             ),
             'info',
             ['group_name' => 'image_processing']
@@ -93,7 +97,7 @@ class ProcessImageJob implements JobInterface
 
         try {
             foreach ($imageSizes as $width) {
-                $this->createImage($imagePath, intval($width));
+                $this->createImage($folderPath, $file, intval($width));
             }
         } catch (Exception $e) {
             $this->log(
@@ -118,19 +122,43 @@ class ProcessImageJob implements JobInterface
     }
 
     /**
-     * Function to resize the image to the sizes set in config/app.php
-     * Uses Image Magick for PHP
+     * Creates a resized version of an image.
      *
-     * @param string $original The path to the original image to resize.
-     * @param int $width The width to resize to
-     * @return void returns void
+     * This function creates a new directory for the resized image if it doesn't exist,
+     * then resizes the original image to the specified width while maintaining aspect ratio.
+     * It uses Imagick for image processing and includes extensive error checking and logging.
+     *
+     * @param string $folder The base folder path where the original image is located.
+     * @param string $file The filename of the image to be resized.
+     * @param int $width The target width for the resized image.
+     * @throws \Exception If unable to create the directory for the resized image.
+     * @return void
+     * @uses Imagick For image resizing operations.
+     * @logs
+     * - Error if the original image is not found.
+     * - Info if the resized image already exists (skips resizing).
+     * - Info upon successful resizing and saving of the image.
+     * - Error if any exception occurs during the resizing process.
+     * @note All logs are grouped under 'image_processing'.
      */
-    private function createImage(string $original, int $width): void
+    private function createImage(string $folder, string $file, int $width): void
     {
-        $resizedPath = $original . '_' . $width;
+        // Make sure folder for size exists
+        // Ensure the folder path ends with a directory separator
+        $folder = rtrim($folder, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+
+        // Create the full path including the width
+        $sizeFolder = $folder . $width . DIRECTORY_SEPARATOR;
+
+        // Check if the directory exists, if not, create it
+        if (!is_dir($sizeFolder)) {
+            if (!mkdir($sizeFolder, 0755, true)) {
+                throw new Exception("Failed to create directory: $sizeFolder");
+            }
+        }
 
         try {
-            if (!file_exists($original)) {
+            if (!file_exists($folder . $file)) {
                 $this->log(
                     __('Original image not found for resizing. Path: {0}', [$original]),
                     'error',
@@ -140,11 +168,11 @@ class ProcessImageJob implements JobInterface
                 return;
             }
 
-            if (file_exists($resizedPath)) {
+            if (file_exists($sizeFolder . $file)) {
                 $this->log(
                     __(
-                        'Skipped resizing, image already exists. Path: {0}, Width: {1}px',
-                        [$resizedPath, $width]
+                        'Skipped resizing, image already exists. Path: {0}',
+                        [$sizeFolder . $file]
                     ),
                     'info',
                     ['group_name' => 'image_processing']
@@ -153,15 +181,15 @@ class ProcessImageJob implements JobInterface
                 return;
             }
 
-            $imagick = new Imagick($original);
+            $imagick = new Imagick($folder . $file);
             $imagick->resizeImage($width, 0, Imagick::FILTER_LANCZOS, 1);
-            $imagick->writeImage($resizedPath);
+            $imagick->writeImage($sizeFolder . $file);
             $imagick->clear();
 
             $this->log(
                 __(
                     'Successfully resized and saved image. Original: {0}, Resized: {1}, Width: {2}px',
-                    [$original, $resizedPath, $width]
+                    [$folder . $file, $sizeFolder . $file, $width]
                 ),
                 'info',
                 ['group_name' => 'image_processing']
@@ -170,7 +198,7 @@ class ProcessImageJob implements JobInterface
             $this->log(
                 __(
                     'Error resizing image. Original: {0}, Target Width: {1}px, Error: {2}',
-                    [$original, $width, $e->getMessage()]
+                    [$folder . $file, $width, $e->getMessage()]
                 ),
                 'error',
                 ['group_name' => 'image_processing']

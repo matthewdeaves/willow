@@ -60,14 +60,19 @@ class ImagesTable extends Table
                     'type' => 'image_type',
                 ],
                 'nameCallback' => function ($table, $entity, $data, $field, $settings) {
-                    return Text::uuid();
+                    $file = $entity->image_file;
+                    $clientFilename = $file->getClientFilename();
+                    $ext = pathinfo($clientFilename, PATHINFO_EXTENSION);
+
+                    return Text::uuid() . '.' . strtolower($ext);
                 },
                 'deleteCallback' => function ($path, $entity, $field, $settings) {
                     $paths = [
                         $path . $entity->{$field},
                     ];
+
                     foreach (SettingsManager::read('ImageSizes') as $width) {
-                        $paths[] = $path . $entity->{$field} . '_' . $width;
+                        $paths[] = $path . $width . DS . $entity->{$field};
                     }
 
                     return $paths;

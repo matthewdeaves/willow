@@ -57,8 +57,10 @@ class QueueableImageBehavior extends Behavior
     {
         $config = $this->getConfig();
         if ($entity->isDirty($config['field'])) {
+            //mesasge should just pass folder, original filename and entityid
             $message = [
-                'path' => WWW_ROOT . $config['folder_path'] . $entity->{$config['field']},
+                'folder_path' => WWW_ROOT . $config['folder_path'],
+                'file' => $entity->{$config['field']},
                 'id' => $entity->id,
                 'model' => $event->getSubject()->getAlias(),
             ];

@@ -12,7 +12,8 @@
         <div class="carousel-inner">
             <?php foreach ($images as $index => $image): ?>
                 <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
-                    <?= $this->Html->image($image->image_file . '_' . SettingsManager::read('ImageSizes.large', '200'), [
+                    <?= $this->Html->image(SettingsManager::read('ImageSizes.large', '200') . '/' . $image->image_file, 
+                    [
                         'pathPrefix' => 'files/Images/image_file/',
                         'class' => 'd-block w-100',
                         'alt' => $image->alt_text ?? '',

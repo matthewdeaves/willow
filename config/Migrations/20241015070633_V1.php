@@ -252,6 +252,21 @@ class V1 extends AbstractMigration
                 'limit' => null,
                 'null' => false,
             ])
+            ->addColumn('is_inappropriate', 'boolean', [
+                'default' => false,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('is_analyzed', 'boolean', [
+                'default' => false,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('inappropriate_reason', 'string', [
+                'default' => null,
+                'limit' => 300,
+                'null' => true,
+            ])
             ->addColumn('created', 'datetime', [
                 'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
@@ -470,6 +485,11 @@ class V1 extends AbstractMigration
                 'default' => 'text',
                 'limit' => 10,
                 'null' => true,
+            ])
+            ->addColumn('value_obscure', 'boolean', [
+                'default' => false,
+                'limit' => null,
+                'null' => false,
             ])
             ->addColumn('created', 'datetime', [
                 'default' => 'CURRENT_TIMESTAMP',

@@ -3,21 +3,17 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller\Admin;
 
-use Authentication\AuthenticationService;
-use Authentication\Authenticator\Result;
-use Authentication\Identity;
+use App\Test\TestCase\AppControllerTestCase;
 use Cake\Cache\Cache;
 use Cake\Datasource\FactoryLocator;
-use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestTrait;
-use Cake\TestSuite\TestCase;
 
 /**
  * App\Controller\Admin\SlugsController Test Case
  *
  * @uses \App\Controller\Admin\SlugsController
  */
-class SlugsControllerTest extends TestCase
+class SlugsControllerTest extends AppControllerTestCase
 {
     use IntegrationTestTrait;
 
@@ -51,46 +47,6 @@ class SlugsControllerTest extends TestCase
     }
 
     /**
-     * Setup authentication for tests
-     *
-     * @param string|null $id The ID of the user to authenticate, or null for no authentication
-     * @return void
-     */
-    private function setupAuthentication(?string $id = null): void
-    {
-        if ($id === null) {
-            $identity = null;
-            $result = new Result(null, Result::FAILURE_IDENTITY_NOT_FOUND);
-        } else {
-            $usersTable = TableRegistry::getTableLocator()->get('Users');
-            $user = $usersTable->find()->where(['id' => $id])->first();
-
-            if ($user) {
-                $identity = new Identity([
-                    'id' => $id,
-                    'email' => $user->email,
-                    'is_admin' => $user->is_admin,
-                ]);
-                $result = new Result($identity, Result::SUCCESS);
-            } else {
-                $identity = null;
-                $result = new Result(null, Result::FAILURE_IDENTITY_NOT_FOUND);
-            }
-        }
-
-        $this->session(['Auth' => $identity]);
-
-        $authenticationService = $this->createMock(AuthenticationService::class);
-        $authenticationService->method('getIdentity')->willReturn($identity);
-        $authenticationService->method('getResult')->willReturn($result);
-
-        $this->_controller = $this->getMockBuilder('App\Controller\Admin\SlugsController')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $this->_controller->Authentication = $authenticationService;
-    }
-
-    /**
      * Test index method
      *
      * @return void
@@ -98,7 +54,7 @@ class SlugsControllerTest extends TestCase
     public function testIndex(): void
     {
         $adminId = '6509480c-e7e6-4e65-9c38-1423a8d09d0f'; // Assuming this is an admin user ID
-        $this->setupAuthentication($adminId);
+        $this->loginUser($adminId);
 
         $this->get('/admin/slugs');
         $this->assertResponseOk();
@@ -113,7 +69,7 @@ class SlugsControllerTest extends TestCase
     public function testView(): void
     {
         $adminId = '6509480c-e7e6-4e65-9c38-1423a8d09d0f';
-        $this->setupAuthentication($adminId);
+        $this->loginUser($adminId);
 
         $slug = $this->Slugs->find()->first();
         $this->get('/admin/slugs/view/' . $slug->id);
@@ -129,7 +85,7 @@ class SlugsControllerTest extends TestCase
     public function testAdd(): void
     {
         $adminId = '6509480c-e7e6-4e65-9c38-1423a8d09d0f';
-        $this->setupAuthentication($adminId);
+        $this->loginUser($adminId);
 
         $this->enableCsrfToken();
         $this->post('/admin/slugs/add', [
@@ -150,7 +106,7 @@ class SlugsControllerTest extends TestCase
     public function testEdit(): void
     {
         $adminId = '6509480c-e7e6-4e65-9c38-1423a8d09d0f';
-        $this->setupAuthentication($adminId);
+        $this->loginUser($adminId);
 
         $slug = $this->Slugs->find()->first();
         $this->enableCsrfToken();
@@ -171,7 +127,7 @@ class SlugsControllerTest extends TestCase
     public function testDelete(): void
     {
         $adminId = '6509480c-e7e6-4e65-9c38-1423a8d09d0f';
-        $this->setupAuthentication($adminId);
+        $this->loginUser($adminId);
 
         $slug = $this->Slugs->find()->first();
         $this->enableCsrfToken();
@@ -194,13 +150,13 @@ class SlugsControllerTest extends TestCase
 
         // Test access with non-admin user
         $nonAdminId = '6509480c-e7e6-4e65-9c38-1423a8d09d02'; // Assuming this is a non-admin user ID
-        $this->setupAuthentication($nonAdminId);
+        $this->loginUser($nonAdminId);
         $this->get('/admin/slugs');
         $this->assertResponseCode(302);
         $this->assertRedirectContains('/users/login');
 
         $adminID = '6509480c-e7e6-4e65-9c38-1423a8d09d0f'; /// admin id
-        $this->setupAuthentication($adminID);
+        $this->loginUser($adminID);
         $this->get('/admin/slugs');
         $this->assertResponseOk();
     }
@@ -213,7 +169,7 @@ class SlugsControllerTest extends TestCase
     public function testSearch(): void
     {
         $adminId = '6509480c-e7e6-4e65-9c38-1423a8d09d0f';
-        $this->setupAuthentication($adminId);
+        $this->loginUser($adminId);
 
         $this->enableCsrfToken();
         $this->get('/admin/slugs?search=article-one');
@@ -229,7 +185,7 @@ class SlugsControllerTest extends TestCase
     public function testPagination(): void
     {
         $adminId = '6509480c-e7e6-4e65-9c38-1423a8d09d0f';
-        $this->setupAuthentication($adminId);
+        $this->loginUser($adminId);
 
         $this->get('/admin/slugs?page=1');
         $this->assertResponseOk();

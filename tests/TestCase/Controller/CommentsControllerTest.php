@@ -4,17 +4,14 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Controller;
 
 use App\Model\Table\CommentsTable;
-use Authentication\AuthenticationService;
-use Authentication\Authenticator\Result;
-use Authentication\Identity;
+use App\Test\TestCase\AppControllerTestCase;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestTrait;
-use Cake\TestSuite\TestCase;
 
 /**
  * App\Controller\CommentsController Test Case
  */
-class CommentsControllerTest extends TestCase
+class CommentsControllerTest extends AppControllerTestCase
 {
     use IntegrationTestTrait;
 
@@ -54,53 +51,13 @@ class CommentsControllerTest extends TestCase
     }
 
     /**
-     * Setup authentication for tests
-     *
-     * @param string|null $id The ID of the user to authenticate, or null for no authentication
-     * @return void
-     */
-    private function setupAuthentication(?string $id = null): void
-    {
-        if ($id === null) {
-            $identity = null;
-            $result = new Result(null, Result::FAILURE_IDENTITY_NOT_FOUND);
-        } else {
-            $usersTable = TableRegistry::getTableLocator()->get('Users');
-            $user = $usersTable->find()->where(['id' => $id])->first();
-
-            if ($user) {
-                $identity = new Identity([
-                    'id' => $id,
-                    'email' => $user->email,
-                    'is_admin' => $user->is_admin,
-                ]);
-                $result = new Result($identity, Result::SUCCESS);
-            } else {
-                $identity = null;
-                $result = new Result(null, Result::FAILURE_IDENTITY_NOT_FOUND);
-            }
-        }
-
-        $this->session(['Auth' => $identity]);
-
-        $authenticationService = $this->createMock(AuthenticationService::class);
-        $authenticationService->method('getIdentity')->willReturn($identity);
-        $authenticationService->method('getResult')->willReturn($result);
-
-        $this->_controller = $this->getMockBuilder('App\Controller\Admin\CommentsController')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $this->_controller->Authentication = $authenticationService;
-    }
-
-    /**
      * Test index method for admin
      *
      * @return void
      */
     public function testIndexForAdmin(): void
     {
-        $this->setupAuthentication('6509480c-e7e6-4e65-9c38-1423a8d09d0f'); // Admin user
+        $this->loginUser('6509480c-e7e6-4e65-9c38-1423a8d09d0f'); // Admin user
         $this->get('/admin/comments');
         $this->assertResponseOk();
         $this->assertResponseContains('Comments');
@@ -113,7 +70,7 @@ class CommentsControllerTest extends TestCase
      */
     public function testIndexForNonAdmin(): void
     {
-        $this->setupAuthentication('6509480c-e7e6-4e65-9c38-1423a8d09d02'); // Non-admin user
+        $this->loginUser('6509480c-e7e6-4e65-9c38-1423a8d09d02'); // Non-admin user
         $this->get('/admin/comments');
         $this->assertRedirect('/users/login'); // Assuming non-admins are redirected to home
     }
@@ -125,7 +82,7 @@ class CommentsControllerTest extends TestCase
      */
     public function testViewForAdmin(): void
     {
-        $this->setupAuthentication('6509480c-e7e6-4e65-9c38-1423a8d09d0f'); // Admin user
+        $this->loginUser('6509480c-e7e6-4e65-9c38-1423a8d09d0f'); // Admin user
         $this->get('/admin/comments/view/550e8400-e29b-41d4-a716-446655440000');
         $this->assertResponseOk();
         $this->assertResponseContains('Test comment content');
@@ -138,7 +95,7 @@ class CommentsControllerTest extends TestCase
      */
     public function testEditForAdmin(): void
     {
-        $this->setupAuthentication('6509480c-e7e6-4e65-9c38-1423a8d09d0f'); // Admin user
+        $this->loginUser('6509480c-e7e6-4e65-9c38-1423a8d09d0f'); // Admin user
         $this->enableCsrfToken();
         $this->enableSecurityToken();
 
@@ -162,7 +119,7 @@ class CommentsControllerTest extends TestCase
      */
     public function testEditForNonAdmin(): void
     {
-        $this->setupAuthentication('6509480c-e7e6-4e65-9c38-1423a8d09d02'); // Non-admin user
+        $this->loginUser('6509480c-e7e6-4e65-9c38-1423a8d09d02'); // Non-admin user
         $this->enableCsrfToken();
         $this->enableSecurityToken();
 
@@ -181,7 +138,7 @@ class CommentsControllerTest extends TestCase
      */
     public function testDeleteForAdmin(): void
     {
-        $this->setupAuthentication('6509480c-e7e6-4e65-9c38-1423a8d09d0f'); // Admin user
+        $this->loginUser('6509480c-e7e6-4e65-9c38-1423a8d09d0f'); // Admin user
         $this->enableCsrfToken();
         $this->enableSecurityToken();
 
@@ -200,7 +157,7 @@ class CommentsControllerTest extends TestCase
      */
     public function testDeleteForNonAdmin(): void
     {
-        $this->setupAuthentication('6509480c-e7e6-4e65-9c38-1423a8d09d02'); // Non-admin user
+        $this->loginUser('6509480c-e7e6-4e65-9c38-1423a8d09d02'); // Non-admin user
         $this->enableCsrfToken();
         $this->enableSecurityToken();
 
@@ -224,7 +181,7 @@ class CommentsControllerTest extends TestCase
         $this->assertResponseContains('Do not disable this comment it has to appear on article six.');
 
         // Login as admin
-        $this->setupAuthentication('6509480c-e7e6-4e65-9c38-1423a8d09d0f'); // Admin user
+        $this->loginUser('6509480c-e7e6-4e65-9c38-1423a8d09d0f'); // Admin user
         $this->enableCsrfToken();
         $this->enableSecurityToken();
 

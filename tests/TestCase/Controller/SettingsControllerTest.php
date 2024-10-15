@@ -3,20 +3,17 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller\Admin;
 
-use Authentication\AuthenticationService;
-use Authentication\Authenticator\Result;
-use Authentication\Identity;
+use App\Test\TestCase\AppControllerTestCase;
 use Cake\Cache\Cache;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestTrait;
-use Cake\TestSuite\TestCase;
 
 /**
  * App\Controller\Admin\SettingsController Test Case
  *
  * @uses \App\Controller\Admin\SettingsController
  */
-class SettingsControllerTest extends TestCase
+class SettingsControllerTest extends AppControllerTestCase
 {
     use IntegrationTestTrait;
 
@@ -51,46 +48,6 @@ class SettingsControllerTest extends TestCase
     }
 
     /**
-     * Setup authentication for tests
-     *
-     * @param string|null $id The ID of the user to authenticate, or null for no authentication
-     * @return void
-     */
-    private function setupAuthentication(?string $id = null): void
-    {
-        if ($id === null) {
-            $identity = null;
-            $result = new Result(null, Result::FAILURE_IDENTITY_NOT_FOUND);
-        } else {
-            $usersTable = TableRegistry::getTableLocator()->get('Users');
-            $user = $usersTable->find()->where(['id' => $id])->first();
-
-            if ($user) {
-                $identity = new Identity([
-                    'id' => $id,
-                    'email' => $user->email,
-                    'is_admin' => $user->is_admin,
-                ]);
-                $result = new Result($identity, Result::SUCCESS);
-            } else {
-                $identity = null;
-                $result = new Result(null, Result::FAILURE_IDENTITY_NOT_FOUND);
-            }
-        }
-
-        $this->session(['Auth' => $identity]);
-
-        $authenticationService = $this->createMock(AuthenticationService::class);
-        $authenticationService->method('getIdentity')->willReturn($identity);
-        $authenticationService->method('getResult')->willReturn($result);
-
-        $this->_controller = $this->getMockBuilder('App\Controller\Admin\SettingsController')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $this->_controller->Authentication = $authenticationService;
-    }
-
-    /**
      * Test index method
      *
      * @return void
@@ -99,7 +56,7 @@ class SettingsControllerTest extends TestCase
     public function testIndex(): void
     {
         $adminId = '6509480c-e7e6-4e65-9c38-1423a8d09d0f'; // Assuming this is a valid admin ID in your fixtures
-        $this->setupAuthentication($adminId);
+        $this->loginUser($adminId);
 
         $this->get('/admin/settings');
 
@@ -136,7 +93,7 @@ class SettingsControllerTest extends TestCase
     public function testSaveSettings(): void
     {
         $adminId = '6509480c-e7e6-4e65-9c38-1423a8d09d0f';
-        $this->setupAuthentication($adminId);
+        $this->loginUser($adminId);
 
         $this->enableCsrfToken();
         $data = [
@@ -166,7 +123,7 @@ class SettingsControllerTest extends TestCase
     public function testSaveSettingsInvalidData(): void
     {
         $adminId = '6509480c-e7e6-4e65-9c38-1423a8d09d0f'; // Assuming this is a valid admin ID in your fixtures
-        $this->setupAuthentication($adminId);
+        $this->loginUser($adminId);
 
         $this->enableCsrfToken();
         $data = [

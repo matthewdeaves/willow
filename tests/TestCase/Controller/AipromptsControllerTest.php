@@ -4,14 +4,14 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Controller;
 
 use App\Model\Table\AipromptsTable;
+use App\Test\TestCase\AppControllerTestCase;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestTrait;
-use Cake\TestSuite\TestCase;
 
 /**
  * App\Controller\AipromptsController Test Case
  */
-class AipromptsControllerTest extends TestCase
+class AipromptsControllerTest extends AppControllerTestCase
 {
     use IntegrationTestTrait;
 
@@ -51,18 +51,6 @@ class AipromptsControllerTest extends TestCase
     {
         unset($this->Aiprompts);
         parent::tearDown();
-    }
-
-    /**
-     * Helper method to log in a user
-     *
-     * @param string $userId The ID of the user to log in
-     * @return void
-     */
-    private function loginUser(string $userId): void
-    {
-        $user = TableRegistry::getTableLocator()->get('Users')->get($userId);
-        $this->session(['Auth' => $user]);
     }
 
     /**

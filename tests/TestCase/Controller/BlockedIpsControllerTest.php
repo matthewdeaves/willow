@@ -3,20 +3,18 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller\Admin;
 
-use Authentication\AuthenticationService;
-use Authentication\Authenticator\Result;
+use App\Test\TestCase\AppControllerTestCase;
 use Authentication\Identity;
 use Cake\I18n\DateTime;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestTrait;
-use Cake\TestSuite\TestCase;
 
 /**
  * App\Controller\Admin\BlockedIpsController Test Case
  *
  * @uses \App\Controller\Admin\BlockedIpsController
  */
-class BlockedIpsControllerTest extends TestCase
+class BlockedIpsControllerTest extends AppControllerTestCase
 {
     use IntegrationTestTrait;
 
@@ -45,7 +43,6 @@ class BlockedIpsControllerTest extends TestCase
         parent::setUp();
         $this->disableErrorHandlerMiddleware();
         $this->BlockedIps = TableRegistry::getTableLocator()->get('BlockedIps');
-        $this->setupAuthentication();
 
         // Configure authentication
         $this->configRequest([
@@ -53,6 +50,9 @@ class BlockedIpsControllerTest extends TestCase
                 'AUTH_TYPE' => 'Form',
             ],
         ]);
+
+        $adminId = '6509480c-e7e6-4e65-9c38-1423a8d09d0f';
+        $this->loginUser($adminId);
     }
 
     /**
@@ -64,32 +64,6 @@ class BlockedIpsControllerTest extends TestCase
     {
         unset($this->BlockedIps);
         parent::tearDown();
-    }
-
-    /**
-     * Setup authentication for tests
-     *
-     * @return void
-     */
-    private function setupAuthentication(): void
-    {
-        $adminId = '6509480c-e7e6-4e65-9c38-1423a8d09d0f';
-        $identity = new Identity([
-            'id' => $adminId,
-            'email' => 'admin@example.com',
-            'is_admin' => 1,
-        ]);
-
-        $this->session(['Auth' => $identity]);
-
-        $authenticationService = $this->createMock(AuthenticationService::class);
-        $authenticationService->method('getIdentity')->willReturn($identity);
-        $authenticationService->method('getResult')->willReturn(new Result($identity, Result::SUCCESS));
-
-        $this->_controller = $this->getMockBuilder('App\Controller\Admin\BlockedIpsController')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $this->_controller->Authentication = $authenticationService;
     }
 
     /**

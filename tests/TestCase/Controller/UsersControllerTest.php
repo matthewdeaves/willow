@@ -4,14 +4,10 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Controller;
 
 use App\Model\Table\UsersTable;
-use Authentication\AuthenticationService;
-use Authentication\Authenticator\Result;
-use Authentication\Identity;
+use App\Test\TestCase\AppControllerTestCase;
 use Cake\Cache\Cache;
 use Cake\Datasource\FactoryLocator;
-use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestTrait;
-use Cake\TestSuite\TestCase;
 
 /**
  * App\Controller\UsersController Test Case
@@ -21,7 +17,7 @@ use Cake\TestSuite\TestCase;
  *
  * @uses \App\Controller\UsersController
  */
-class UsersControllerTest extends TestCase
+class UsersControllerTest extends AppControllerTestCase
 {
     use IntegrationTestTrait;
 
@@ -73,52 +69,6 @@ class UsersControllerTest extends TestCase
 
         // Clear rate limiting cache
         Cache::clear('rate_limit');
-    }
-
-    /**
-     * Setup authentication for tests
-     *
-     * This method configures the authentication service mock for testing.
-     * It simulates different authentication scenarios based on the provided user ID.
-     *
-     * @param string|null $id The ID of the user to authenticate, or null for no authentication
-     * @return void
-     */
-    private function setupAuthentication(?string $id = null): void
-    {
-        if ($id === null) {
-            // Simulate no one being logged in
-            $identity = null;
-            $result = new Result(null, Result::FAILURE_IDENTITY_NOT_FOUND);
-        } else {
-            // Retrieve user data from the fixture
-            $usersTable = TableRegistry::getTableLocator()->get('Users');
-            $user = $usersTable->find()->where(['id' => $id])->first();
-
-            if ($user) {
-                $identity = new Identity([
-                    'id' => $id,
-                    'email' => $user->email,
-                    'is_admin' => $user->is_admin,
-                ]);
-                $result = new Result($identity, Result::SUCCESS);
-            } else {
-                // Handle case where user is not found in fixture
-                $identity = null;
-                $result = new Result(null, Result::FAILURE_IDENTITY_NOT_FOUND);
-            }
-        }
-
-        $this->session(['Auth' => $identity]);
-
-        $authenticationService = $this->createMock(AuthenticationService::class);
-        $authenticationService->method('getIdentity')->willReturn($identity);
-        $authenticationService->method('getResult')->willReturn($result);
-
-        $this->_controller = $this->getMockBuilder('App\Controller\Admin\UsersController')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $this->_controller->Authentication = $authenticationService;
     }
 
     /**
@@ -334,7 +284,7 @@ class UsersControllerTest extends TestCase
 
         //non admin user
         $userId = '6509480c-e7e6-4e65-9c38-1423a8d09d02';
-        $this->setupAuthentication($userId);
+        $this->loginUser($userId);
 
         $data = [
             'username' => 'updatedusername',
@@ -366,7 +316,7 @@ class UsersControllerTest extends TestCase
 
         //non admin user
         $userId = '6509480c-e7e6-4e65-9c38-1423a8d09d02';
-        $this->setupAuthentication($userId);
+        $this->loginUser($userId);
 
         // Test attempting to edit another user's account
         $anotherUserId = '6509480c-e7e6-4e65-9c38-8574a8d09d02';
@@ -449,7 +399,7 @@ class UsersControllerTest extends TestCase
         $adminId = '6509480c-e7e6-4e65-9c38-1423a8d09d0f';
         $userId = '6509480c-e7e6-4e65-9c38-1423a8d09d02';
 
-        $this->setupAuthentication($adminId);
+        $this->loginUser($adminId);
 
         // Test disabling a user account
         $this->post("/admin/users/edit/{$userId}", [

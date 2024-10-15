@@ -8,7 +8,7 @@ use Cake\ORM\Entity;
 /**
  * BlockedIp Entity
  *
- * @property int $id
+ * @property string $id
  * @property string $ip_address
  * @property string|null $reason
  * @property \Cake\I18n\DateTime $blocked_at

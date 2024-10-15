@@ -6,19 +6,18 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Comment Entity
+ * ModelsImage Entity
  *
  * @property string $id
- * @property string $foreign_key
  * @property string $model
- * @property string $user_id
- * @property string $content
+ * @property string $foreign_key
+ * @property string $image_id
  * @property \Cake\I18n\DateTime|null $created
  * @property \Cake\I18n\DateTime|null $modified
  *
- * @property \App\Model\Entity\User $user
+ * @property \App\Model\Entity\Image $image
  */
-class Comment extends Entity
+class ModelsImage extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -30,13 +29,11 @@ class Comment extends Entity
      * @var array<string, bool>
      */
     protected array $_accessible = [
-        'foreign_key' => true,
         'model' => true,
-        'user_id' => true,
-        'content' => true,
-        'display' => true,
+        'foreign_key' => true,
+        'image_id' => true,
         'created' => true,
         'modified' => true,
-        'user' => true,
+        'image' => true,
     ];
 }

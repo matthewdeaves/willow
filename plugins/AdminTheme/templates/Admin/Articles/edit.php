@@ -66,7 +66,36 @@
                                 'class' => 'form-check-input'
                             ]) ?>
                         </div>
+                        <div class="col-md-12 mb-3">
+                            <?= $this->Form->control('images[]', [
+                                'type' => 'file',
+                                'label' => 'Upload Images',
+                                'multiple' => true,
+                                'class' => 'form-control-file',
+                            ]) ?>
+                        </div>
                     </div>
+                    <?php if (isset($article) && !$article->isNew()): ?>
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <h4>Current Images</h4>
+                                <?php if (!empty($article->images)): ?>
+                                    <?php foreach ($article->images as $image): ?>
+                                        <div class="mb-2">
+                                            <?= $this->Html->image('/files/Images/image_file/' . $image->image_file, ['width' => 100]) ?>
+                                            <?= $this->Form->control('unlink_images[]', [
+                                                'type' => 'checkbox',
+                                                'label' => 'Unlink this image',
+                                                'value' => $image->id,
+                                            ]) ?>
+                                        </div>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <p>No images associated with this article.</p>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
                     <div class="row">
                         <div class="col-md-12 mb-3">
                             <?= $this->Form->control('body', [

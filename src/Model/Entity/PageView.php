@@ -8,8 +8,8 @@ use Cake\ORM\Entity;
 /**
  * PageView Entity
  *
- * @property int $id
- * @property int $article_id
+ * @property string $id
+ * @property string $article_id
  * @property string $ip_address
  * @property string|null $user_agent
  * @property string|null $referer

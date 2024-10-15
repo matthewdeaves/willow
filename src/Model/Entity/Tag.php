@@ -8,7 +8,7 @@ use Cake\ORM\Entity;
 /**
  * Tag Entity
  *
- * @property int $id
+ * @property string $id
  * @property string $title
  * @property \Cake\I18n\DateTime|null $created
  * @property \Cake\I18n\DateTime|null $modified

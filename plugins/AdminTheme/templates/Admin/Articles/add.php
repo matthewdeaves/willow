@@ -22,7 +22,7 @@
                     <h3 class="mb-0"><?= __('Add Article') ?></h3>
                 </div>
                 <div class="card-body">
-                    <?= $this->Form->create($article, ['class' => 'needs-validation', 'novalidate' => true]) ?>
+                    <?= $this->Form->create($article, ['type' => 'file', 'class' => 'needs-validation', 'novalidate' => true, 'enctype' => 'multipart/form-data']) ?>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <?= $this->Form->control('user_id', [
@@ -65,6 +65,15 @@
                                 'type' => 'checkbox',
                                 'label' => 'Published',
                                 'class' => 'form-check-input'
+                            ]) ?>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <?= $this->Form->control('images[]', [
+                                'type' => 'file',
+                                'label' => 'Upload Images',
+                                'multiple' => true,
+                                'class' => 'form-control-file',
+                                'required' => false,
                             ]) ?>
                         </div>
                     </div>

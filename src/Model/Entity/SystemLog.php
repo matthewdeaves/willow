@@ -8,7 +8,7 @@ use Cake\ORM\Entity;
 /**
  * SystemLog Entity
  *
- * @property int $id
+ * @property string $id
  * @property string $level
  * @property string $message
  * @property string|null $context

@@ -384,7 +384,12 @@ class V1 extends AbstractMigration
             ])
             ->create();
 
-        $this->table('model_images')
+        $this->table('model_images', ['id' => false, 'primary_key' => ['id']])
+            ->addColumn('id', 'uuid', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+            ])
             ->addColumn('model', 'string', [
                 'default' => null,
                 'limit' => 255,

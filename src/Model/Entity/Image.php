@@ -8,7 +8,7 @@ use Cake\ORM\Entity;
 /**
  * Image Entity
  *
- * @property int $id
+ * @property string $id
  * @property string $path
  * @property string $path
  * @property \Cake\I18n\DateTime $created

@@ -384,6 +384,51 @@ class V1 extends AbstractMigration
             ])
             ->create();
 
+        $this->table('model_images')
+            ->addColumn('model', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => false,
+            ])
+            ->addColumn('foreign_key', 'uuid', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('image_id', 'uuid', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('created', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('modified', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addIndex(
+                [
+                    'model',
+                    'foreign_key',
+                ],
+                [
+                    'name' => 'model_foreign_key',
+                ]
+            )
+            ->addIndex(
+                [
+                    'image_id',
+                ],
+                [
+                    'name' => 'image_id',
+                ]
+            )
+            ->create();
+
         $this->table('page_views', ['id' => false, 'primary_key' => ['id']])
             ->addColumn('id', 'uuid', [
                 'default' => null,
@@ -719,6 +764,7 @@ class V1 extends AbstractMigration
         $this->table('comments')->drop()->save();
         $this->table('email_templates')->drop()->save();
         $this->table('images')->drop()->save();
+        $this->table('model_images')->drop()->save();
         $this->table('page_views')->drop()->save();
         $this->table('queue_failed_jobs')->drop()->save();
         $this->table('settings')->drop()->save();

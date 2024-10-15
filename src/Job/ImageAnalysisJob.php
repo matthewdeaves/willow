@@ -68,7 +68,7 @@ class ImageAnalysisJob implements JobInterface
         $folder_path = $payload['folder_path'] ?? null;
         $file = $payload['file'] ?? null;
         $imageId = $payload['id'] ?? null;
-        $model = $payload[''] ?? null;
+        //$model = $payload[''] ?? null;
 
         if (!$folder_path || !$file) {
             $this->log(
@@ -110,7 +110,10 @@ class ImageAnalysisJob implements JobInterface
             }
         } catch (Exception $e) {
             $this->log(
-                __('Error during image analysis. Image Path: {0}, Error: {1}', [$folder_path . $file, $e->getMessage()]),
+                __(
+                    'Error during image analysis. Image Path: {0}, Error: {1}',
+                    [$folder_path . $file, $e->getMessage()]
+                ),
                 'error',
                 ['group_name' => 'image_analysis']
             );

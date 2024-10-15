@@ -66,47 +66,22 @@
                                 'class' => 'form-check-input'
                             ]) ?>
                         </div>
-                        <div class="col-md-12 mb-3">
-                            <?= $this->Form->label('image_uploads[]', 'Images') ?>
-                            <?= $this->Form->file('image_uploads[]', ['multiple' => true, 'class' => 'form-control-file']) ?>
+                        <div class="col-md-6 mb-3">
+                            <?php
+                            // Check if 'parent_id' is set in the URL parameters
+                            $parentId = $this->request->getQuery('parent_id');
+                            if ($this->request->getQuery('is_page') || $parentId) {
+                                echo $this->Form->control('parent_id', [
+                                    'type' => 'select',
+                                    'options' => $parentArticles,
+                                    'empty' => __('Select a parent'),
+                                    'default' => $parentId,
+                                    'class' => 'form-control' . ($this->Form->isFieldError('parent_id') ? ' is-invalid' : '')
+                                ]);
+                            }
+                            ?>
                         </div>
                     </div>
-                    <?php if (isset($article) && !$article->isNew()): ?>
-                        <div class="row">
-                            <div class="col-md-12 mb-3">
-                                <h4>Current Images</h4>
-                                <?php if (!empty($article->images)): ?>
-                                    <div id="articleImagesCarousel" class="carousel slide" data-bs-ride="carousel">
-                                        <div class="carousel-inner">
-                                            <?php foreach ($article->images as $index => $image): ?>
-                                                <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
-                                                    <?= $this->Html->image('/files/Images/image_file/' . $image->image_file, ['class' => 'd-block w-100', 'alt' => 'Article Image']) ?>
-                                                    <div class="carousel-caption d-none d-md-block">
-                                                        <?= $this->Form->control('unlink_images[]', [
-                                                            'type' => 'checkbox',
-                                                            'label' => 'Unlink this image',
-                                                            'value' => $image->id,
-                                                            'class' => 'form-check-input'
-                                                        ]) ?>
-                                                    </div>
-                                                </div>
-                                            <?php endforeach; ?>
-                                        </div>
-                                        <button class="carousel-control-prev" type="button" data-bs-target="#articleImagesCarousel" data-bs-slide="prev">
-                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                            <span class="visually-hidden">Previous</span>
-                                        </button>
-                                        <button class="carousel-control-next" type="button" data-bs-target="#articleImagesCarousel" data-bs-slide="next">
-                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                            <span class="visually-hidden">Next</span>
-                                        </button>
-                                    </div>
-                                <?php else: ?>
-                                    <p>No images associated with this article.</p>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                    <?php endif; ?>
                     <div class="row">
                         <div class="col-md-12 mb-3">
                             <?= $this->Form->control('body', [
@@ -118,20 +93,18 @@
                             ]) ?>
                         </div>
                     </div>
-                    <?php
-                    $parentId = $this->request->getQuery('parent_id') ?? $article->parent_id;
-                    if ($this->request->getQuery('is_page') || $parentId) {
-                        echo '<div class="row"><div class="col-md-6 mb-3">';
-                        echo $this->Form->control('parent_id', [
-                            'type' => 'select',
-                            'options' => $parentArticles,
-                            'empty' => __('Select a parent'),
-                            'default' => $parentId,
-                            'class' => 'form-control' . ($this->Form->isFieldError('parent_id') ? ' is-invalid' : '')
-                        ]);
-                        echo '</div></div>';
-                    }
-                    ?>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <?= $this->Form->label('image_uploads[]', 'Images') ?>
+                            <?= $this->Form->file('image_uploads[]', ['multiple' => true, 'class' => 'form-control-file']) ?>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <?= $this->element('image_carousel', [
+                                'images' => $article->images,
+                                'carouselId' => 'articleImagesCarousel'
+                            ]) ?>
+                        </div>
+                    </div>
                     <?= $this->element('seo_form_fields') ?>
                     <div class="row">
                         <div class="col-md-12">

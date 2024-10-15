@@ -67,9 +67,20 @@
                                 'class' => 'form-check-input'
                             ]) ?>
                         </div>
-                        <div class="col-md-12 mb-3">
-                            <?= $this->Form->label('image_uploads[]', 'Images') ?>
-                            <?= $this->Form->file('image_uploads[]', ['multiple' => true, 'class' => 'form-control-file']) ?>
+                        <div class="col-md-6 mb-3">
+                            <?php
+                            // Check if 'parent_id' is set in the URL parameters
+                            $parentId = $this->request->getQuery('parent_id');
+                            if ($this->request->getQuery('is_page') || $parentId) {
+                                echo $this->Form->control('parent_id', [
+                                    'type' => 'select',
+                                    'options' => $parentArticles,
+                                    'empty' => __('Select a parent'),
+                                    'default' => $parentId,
+                                    'class' => 'form-control' . ($this->Form->isFieldError('parent_id') ? ' is-invalid' : '')
+                                ]);
+                            }
+                            ?>
                         </div>
                     </div>
                     <div class="row">
@@ -83,21 +94,12 @@
                             ]) ?>
                         </div>
                     </div>
-                    <?php
-                    // Check if 'parent_id' is set in the URL parameters
-                    $parentId = $this->request->getQuery('parent_id');
-                    if ($this->request->getQuery('is_page') || $parentId) {
-                        echo '<div class="row"><div class="col-md-6 mb-3">';
-                        echo $this->Form->control('parent_id', [
-                            'type' => 'select',
-                            'options' => $parentArticles,
-                            'empty' => __('Select a parent'),
-                            'default' => $parentId,
-                            'class' => 'form-control' . ($this->Form->isFieldError('parent_id') ? ' is-invalid' : '')
-                        ]);
-                        echo '</div></div>';
-                    }
-                    ?>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <?= $this->Form->label('image_uploads[]', 'Images') ?>
+                            <?= $this->Form->file('image_uploads[]', ['multiple' => true, 'class' => 'form-control-file']) ?>
+                        </div>
+                    </div>
                     <?= $this->element('seo_form_fields') ?>
                     <div class="row">
                         <div class="col-md-12">

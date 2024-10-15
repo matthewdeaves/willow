@@ -65,12 +65,14 @@ class ImageAnalysisJob implements JobInterface
         }
 
         $payload = $args[0];
-        $imagePath = $payload['path'] ?? null;
+        $folder_path = $payload['folder_path'] ?? null;
+        $file = $payload['file'] ?? null;
         $imageId = $payload['id'] ?? null;
+        $model = $payload[''] ?? null;
 
-        if (!$imagePath || !$imageId) {
+        if (!$folder_path || !$file) {
             $this->log(
-                __('Missing required fields in image analysis payload. Path: {0}, ID: {1}', [$imagePath, $imageId]),
+                __('Missing required fields in image analysis payload. Path: {0}, File: {1}', [$folder_path, $file]),
                 'error',
                 ['group_name' => 'image_analysis']
             );
@@ -80,7 +82,7 @@ class ImageAnalysisJob implements JobInterface
 
         try {
             $anthropicService = new AnthropicApiService();
-            $analysisResult = $anthropicService->analyzeImage($imagePath);
+            $analysisResult = $anthropicService->analyzeImage($folder_path . $file);
 
             if ($analysisResult) {
                 $imagesTable = TableRegistry::getTableLocator()->get('Images');
@@ -99,7 +101,7 @@ class ImageAnalysisJob implements JobInterface
                 return Processor::ACK;
             } else {
                 $this->log(
-                    __('Image analysis failed. No result returned. Image Path: {0}', [$imagePath]),
+                    __('Image analysis failed. No result returned. Image Path: {0}', [$folder_path . $file]),
                     'error',
                     ['group_name' => 'image_analysis']
                 );
@@ -108,7 +110,7 @@ class ImageAnalysisJob implements JobInterface
             }
         } catch (Exception $e) {
             $this->log(
-                __('Error during image analysis. Image Path: {0}, Error: {1}', [$imagePath, $e->getMessage()]),
+                __('Error during image analysis. Image Path: {0}, Error: {1}', [$folder_path . $file, $e->getMessage()]),
                 'error',
                 ['group_name' => 'image_analysis']
             );

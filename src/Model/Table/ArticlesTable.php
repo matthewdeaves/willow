@@ -199,14 +199,9 @@ class ArticlesTable extends Table
             }
         }
 
-        // Check if is_published is changing from 0 to 1
-        if ($entity->isDirty('is_published')) {
-            $originalValue = $entity->getOriginal('is_published');
-            if ($originalValue == 0 && $entity->is_published == 1) {
-                $entity->published = new DateTime();
-            } elseif ($originalValue == 1 && $entity->is_published == 0) {
-                $entity->published = null;
-            }
+        // Check if is_published has changed to published
+        if ($entity->isDirty('is_published') && $entity->is_published) {
+            $entity->published = new DateTime('now');
         }
 
         // Calculate word count if body is set or modified
@@ -255,19 +250,6 @@ class ArticlesTable extends Table
                 $this->log('Failed to queue article SEO update job: ' . $e->getMessage(), 'error');
             }
         }
-/*
-        // Save images
-        if (!empty($entity->imageUploads)) {
-            $this->saveImages($entity);
-        }
-
-        // Unlink images
-        if (!empty($entity->unlinkedImages)) {
-
-
-            $this->unlinkImages($entity, $entity->unlinkedImages);
-        }
-            */
     }
 
     /**

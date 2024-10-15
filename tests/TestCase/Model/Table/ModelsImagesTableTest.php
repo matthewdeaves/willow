@@ -5,34 +5,17 @@ namespace App\Test\TestCase\Model\Table;
 
 use App\Model\Table\ModelsImagesTable;
 use Cake\TestSuite\TestCase;
+use Cake\Validation\Validator;
 
-/**
- * App\Model\Table\ModelsImagesTable Test Case
- */
 class ModelsImagesTableTest extends TestCase
 {
-    /**
-     * Test subject
-     *
-     * @var \App\Model\Table\ModelsImagesTable
-     */
     protected $ModelsImages;
 
-    /**
-     * Fixtures
-     *
-     * @var list<string>
-     */
     protected array $fixtures = [
         'app.ModelsImages',
         'app.Images',
     ];
 
-    /**
-     * setUp method
-     *
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -40,37 +23,35 @@ class ModelsImagesTableTest extends TestCase
         $this->ModelsImages = $this->getTableLocator()->get('ModelsImages', $config);
     }
 
-    /**
-     * tearDown method
-     *
-     * @return void
-     */
     protected function tearDown(): void
     {
         unset($this->ModelsImages);
-
         parent::tearDown();
     }
 
-    /**
-     * Test validationDefault method
-     *
-     * @return void
-     * @uses \App\Model\Table\ModelsImagesTable::validationDefault()
-     */
-    public function testValidationDefault(): void
+    public function testInitialize(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->assertSame('models_images', $this->ModelsImages->getTable());
+        $this->assertSame('id', $this->ModelsImages->getDisplayField());
+        $this->assertSame('id', $this->ModelsImages->getPrimaryKey());
+        $this->assertTrue($this->ModelsImages->hasBehavior('Timestamp'));
+        $this->assertTrue($this->ModelsImages->hasAssociation('Images'));
     }
 
-    /**
-     * Test buildRules method
-     *
-     * @return void
-     * @uses \App\Model\Table\ModelsImagesTable::buildRules()
-     */
-    public function testBuildRules(): void
+    public function testValidationDefault(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $validator = new Validator();
+        $validator = $this->ModelsImages->validationDefault($validator);
+
+        $this->assertTrue($validator->hasField('model'));
+        $this->assertTrue($validator->isPresenceRequired('model', true)); // Changed to boolean
+        $this->assertFalse($validator->isEmptyAllowed('model', false));
+
+        $this->assertTrue($validator->hasField('foreign_key'));
+        $this->assertTrue($validator->isPresenceRequired('foreign_key', true)); // Changed to boolean
+        $this->assertFalse($validator->isEmptyAllowed('foreign_key', false));
+
+        $this->assertTrue($validator->hasField('image_id'));
+        $this->assertFalse($validator->isEmptyAllowed('image_id', false));
     }
 }

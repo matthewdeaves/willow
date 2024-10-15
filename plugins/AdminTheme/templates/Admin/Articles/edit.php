@@ -94,15 +94,13 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12 mb-3">
-                            <?= $this->Form->label('image_uploads[]', 'Images') ?>
-                            <?= $this->Form->file('image_uploads[]', ['multiple' => true, 'class' => 'form-control-file']) ?>
-                        </div>
-                        <div class="col-md-12 mb-3">
+                        <div class="col-md-3 mb-3">
                             <?= $this->element('image_carousel', [
                                 'images' => $article->images,
                                 'carouselId' => 'articleImagesCarousel'
                             ]) ?>
+                            <?= $this->Form->label('image_uploads[]', 'Images') ?>
+                            <?= $this->Form->file('image_uploads[]', ['multiple' => true, 'class' => 'form-control-file']) ?>
                         </div>
                     </div>
                     <?= $this->element('seo_form_fields') ?>

@@ -41,7 +41,26 @@
                     </td>
                     <td><?= $article->is_published ? '<span class="badge bg-success">Yes</span>' : '<span class="badge bg-secondary">No</span>' ?></td>
                     <td><?= h($article->title) ?></td>
-                    <td><?= $this->Html->link(substr($article->slug, 0, 10) . '...', '/' . $article->slug, ['escape' => false]) ?></td>
+                    <td>
+                        <?php if ($article->is_published == true): ?>
+                            <?= $this->Html->link(
+                                substr($article->slug, 0, 15) . '...',
+                                '/' . $article->slug,
+                                ['escape' => false]
+                            ) ?>
+                        <?php else: ?>
+                            <?= $this->Html->link(
+                                substr($article->slug, 0, 15) . '...',
+                                [
+                                    'prefix' => 'Admin',
+                                    'controller' => 'Articles',
+                                    'action' => 'view',
+                                    $article->id
+                                ],
+                                ['escape' => false]
+                            ) ?>
+                        <?php endif; ?>
+                    </td>
                     <td>
                         <?= $this->Html->link(
                             h($article->pageview_count), 

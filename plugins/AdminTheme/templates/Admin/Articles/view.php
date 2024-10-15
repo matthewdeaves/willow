@@ -38,11 +38,24 @@
                         <tr>
                             <th><?= __('Slug') ?></th>
                             <td>
-                                <?= $this->Html->link(
-                                    $article->slug,
-                                    '/' . $article->slug,
-                                    ['class' => 'text-primary']
-                                ) ?>
+                                <?php if ($article->is_published == true): ?>
+                                    <?= $this->Html->link(
+                                        $article->slug,
+                                        '/' . $article->slug,
+                                        ['escape' => false]
+                                    ) ?>
+                                <?php else: ?>
+                                    <?= $this->Html->link(
+                                        $article->slug,
+                                        [
+                                            'prefix' => 'Admin',
+                                            'controller' => 'Articles',
+                                            'action' => 'view',
+                                            $article->id
+                                        ],
+                                        ['escape' => false]
+                                    ) ?>
+                                <?php endif; ?>
                             </td>
                         </tr>
                         <tr>

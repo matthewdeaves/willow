@@ -384,7 +384,7 @@ class V1 extends AbstractMigration
             ])
             ->create();
 
-        $this->table('model_images', ['id' => false, 'primary_key' => ['id']])
+        $this->table('models_images', ['id' => false, 'primary_key' => ['id']])
             ->addColumn('id', 'uuid', [
                 'default' => null,
                 'limit' => null,
@@ -769,7 +769,7 @@ class V1 extends AbstractMigration
         $this->table('comments')->drop()->save();
         $this->table('email_templates')->drop()->save();
         $this->table('images')->drop()->save();
-        $this->table('model_images')->drop()->save();
+        $this->table('models_images')->drop()->save();
         $this->table('page_views')->drop()->save();
         $this->table('queue_failed_jobs')->drop()->save();
         $this->table('settings')->drop()->save();

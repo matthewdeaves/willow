@@ -15,7 +15,7 @@
                     <?= $this->Html->image($image->image_file . '_' . SettingsManager::read('ImageSizes.large', '200'), [
                         'pathPrefix' => 'files/Images/image_file/',
                         'class' => 'd-block w-100',
-                        'alt' => 'Article Image'
+                        'alt' => $image->alt_text ?? '',
                     ]) ?>
                     <div class="carousel-caption d-none d-md-block">
                         <?= $this->Form->control('unlink_images[]', [

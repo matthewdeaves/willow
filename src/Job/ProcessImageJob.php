@@ -113,7 +113,7 @@ class ProcessImageJob implements JobInterface
         }
 
         $this->log(
-            __('Image processing job completed successfully. Path: {0}', [$imagePath]),
+            __('Image processing job completed successfully. Path: {0}', [$folderPath . $file]),
             'info',
             ['group_name' => 'image_processing']
         );

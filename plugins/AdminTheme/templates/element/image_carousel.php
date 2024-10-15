@@ -1,3 +1,4 @@
+<?php use App\Utility\SettingsManager; ?>
 <?php
 /**
  * @var \App\View\AppView $this
@@ -13,7 +14,11 @@
                 <div class="carousel-inner">
                     <?php foreach ($images as $index => $image): ?>
                         <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
-                            <?= $this->Html->image('/files/Images/image_file/' . $image->image_file, ['class' => 'd-block w-100', 'alt' => 'Article Image']) ?>
+                            <?= $this->Html->image($image->image_file . '_' . SettingsManager::read('ImageSizes.large', '200'), [
+                                'pathPrefix' => 'files/Images/image_file/',
+                                'class' => 'd-block w-100',
+                                'alt' => 'Article Image'
+                            ]) ?>
                             <div class="carousel-caption d-none d-md-block">
                                 <?= $this->Form->control('unlink_images[]', [
                                     'type' => 'checkbox',

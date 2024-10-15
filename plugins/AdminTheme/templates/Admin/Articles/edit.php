@@ -76,16 +76,31 @@
                             <div class="col-md-12 mb-3">
                                 <h4>Current Images</h4>
                                 <?php if (!empty($article->images)): ?>
-                                    <?php foreach ($article->images as $image): ?>
-                                        <div class="mb-2">
-                                            <?= $this->Html->image('/files/Images/image_file/' . $image->image_file, ['width' => 100]) ?>
-                                            <?= $this->Form->control('unlink_images[]', [
-                                                'type' => 'checkbox',
-                                                'label' => 'Unlink this image',
-                                                'value' => $image->id,
-                                            ]) ?>
+                                    <div id="articleImagesCarousel" class="carousel slide" data-bs-ride="carousel">
+                                        <div class="carousel-inner">
+                                            <?php foreach ($article->images as $index => $image): ?>
+                                                <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
+                                                    <?= $this->Html->image('/files/Images/image_file/' . $image->image_file, ['class' => 'd-block w-100', 'alt' => 'Article Image']) ?>
+                                                    <div class="carousel-caption d-none d-md-block">
+                                                        <?= $this->Form->control('unlink_images[]', [
+                                                            'type' => 'checkbox',
+                                                            'label' => 'Unlink this image',
+                                                            'value' => $image->id,
+                                                            'class' => 'form-check-input'
+                                                        ]) ?>
+                                                    </div>
+                                                </div>
+                                            <?php endforeach; ?>
                                         </div>
-                                    <?php endforeach; ?>
+                                        <button class="carousel-control-prev" type="button" data-bs-target="#articleImagesCarousel" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button" data-bs-target="#articleImagesCarousel" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
+                                    </div>
                                 <?php else: ?>
                                     <p>No images associated with this article.</p>
                                 <?php endif; ?>
@@ -104,7 +119,6 @@
                         </div>
                     </div>
                     <?php
-                    // Check if 'parent_id' is set in the URL parameters or if the article already has a parent
                     $parentId = $this->request->getQuery('parent_id') ?? $article->parent_id;
                     if ($this->request->getQuery('is_page') || $parentId) {
                         echo '<div class="row"><div class="col-md-6 mb-3">';

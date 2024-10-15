@@ -14,7 +14,6 @@ use Cake\Utility\Text;
 use Cake\Validation\Validator;
 use DateTime;
 use InvalidArgumentException;
-use Cake\ORM\TableRegistry;
 
 /**
  * Articles Model
@@ -265,7 +264,7 @@ class ArticlesTable extends Table
         // Unlink images
         if (!empty($entity->unlinkedImages)) {
 
-  
+
             $this->unlinkImages($entity, $entity->unlinkedImages);
         }
             */

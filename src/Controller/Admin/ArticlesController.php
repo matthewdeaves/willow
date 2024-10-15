@@ -273,7 +273,7 @@ class ArticlesController extends AppController
         $article = $this->Articles->get($id, contain: ['Tags', 'Images']);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
-            
+
             $data['is_page'] = $this->request->getQuery('is_page', 0);
             $article = $this->Articles->patchEntity($article, $data);
 
@@ -292,10 +292,8 @@ class ArticlesController extends AppController
 
                 // Redirect to treeIndex if is_page is true, otherwise to index
                 if ($article->is_page) {
-
                     return $this->redirect(['action' => 'treeIndex']);
                 } else {
-
                     return $this->redirect(['action' => 'index']);
                 }
             }

@@ -3,15 +3,29 @@ declare(strict_types=1);
 
 namespace App\Model\Behavior;
 
-use Cake\ORM\Behavior;
-use Cake\Event\EventInterface;
-use Cake\Datasource\EntityInterface;
-use Cake\ORM\TableRegistry;
 use ArrayObject;
+use Cake\Datasource\EntityInterface;
+use Cake\Event\EventInterface;
+use Cake\ORM\Behavior;
+use Cake\ORM\TableRegistry;
 
+/**
+ * ImageAssociable Behavior
+ *
+ * This behavior allows models to associate multiple images with their entities.
+ * It provides functionality for saving new image associations and unlinking existing ones.
+ * It uses the Images model so you get the resizing and AI analysis for free!
+ */
 class ImageAssociableBehavior extends Behavior
 {
-
+    /**
+     * Initialize method
+     *
+     * Sets up the belongsToMany association with the Images table.
+     *
+     * @param array $config The configuration settings for the behavior.
+     * @return void
+     */
     public function initialize(array $config): void
     {
         parent::initialize($config);
@@ -24,6 +38,16 @@ class ImageAssociableBehavior extends Behavior
         ]);
     }
 
+    /**
+     * After save callback
+     *
+     * Handles saving new image uploads and unlinking images after an entity is saved.
+     *
+     * @param \Cake\Event\EventInterface $event The afterSave event that was fired.
+     * @param \Cake\Datasource\EntityInterface $entity The entity that was saved.
+     * @param \ArrayObject $options The options passed to the save method.
+     * @return void
+     */
     public function afterSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
         if (!empty($entity->imageUploads)) {
@@ -35,6 +59,12 @@ class ImageAssociableBehavior extends Behavior
         }
     }
 
+    /**
+     * Save images associated with an entity
+     *
+     * @param \Cake\Datasource\EntityInterface $entity The entity to associate images with.
+     * @return void
+     */
     protected function saveImages(EntityInterface $entity): void
     {
         $imagesTable = TableRegistry::getTableLocator()->get('Images');
@@ -55,9 +85,16 @@ class ImageAssociableBehavior extends Behavior
         }
     }
 
+    /**
+     * Unlink images from an entity
+     *
+     * @param \Cake\Datasource\EntityInterface $entity The entity to unlink images from.
+     * @param array $imageIds The IDs of images to unlink.
+     * @return void
+     */
     public function unlinkImages(EntityInterface $entity, array $imageIds): void
     {
-        $imageIds = array_filter($imageIds, function($value) {
+        $imageIds = array_filter($imageIds, function ($value) {
             return $value !== '0';
         });
 
@@ -66,12 +103,12 @@ class ImageAssociableBehavior extends Behavior
         }
 
         $modelsImagesTable = TableRegistry::getTableLocator()->get('ModelsImages');
-        
+
         foreach ($imageIds as $imageId) {
             $modelsImagesTable->deleteAll([
                 'model' => $this->_table->getAlias(),
                 'foreign_key' => $entity->id,
-                'image_id' => $imageId
+                'image_id' => $imageId,
             ]);
         }
     }

@@ -42,7 +42,7 @@ class ModelsImagesTable extends Table
         parent::initialize($config);
 
         $this->setTable('models_images');
-        $this->setDisplayField('model');
+        $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');

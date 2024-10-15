@@ -14,6 +14,7 @@ use Cake\Utility\Text;
 use Cake\Validation\Validator;
 use DateTime;
 use InvalidArgumentException;
+use Cake\ORM\TableRegistry;
 
 /**
  * Articles Model
@@ -96,6 +97,13 @@ class ArticlesTable extends Table
 
         $this->hasMany('PageViews', [
             'foreignKey' => 'article_id',
+        ]);
+
+        $this->belongsToMany('Images', [
+            'foreignKey' => 'foreign_key',
+            'targetForeignKey' => 'image_id',
+            'joinTable' => 'models_images',
+            'conditions' => ['ModelsImages.model' => 'Article'],
         ]);
 
         /**
@@ -268,6 +276,31 @@ class ArticlesTable extends Table
                 ]);
             } catch (Exception $e) {
                 $this->log('Failed to queue article SEO update job: ' . $e->getMessage(), 'error');
+            }
+        }
+
+        // Save images
+        if (!empty($entity->images)) {
+            $this->saveImages($entity);
+        }
+    }
+
+    protected function saveImages($article)
+    {
+        $imagesTable = TableRegistry::getTableLocator()->get('Images');
+        $modelsImagesTable = TableRegistry::getTableLocator()->get('ModelsImages');
+
+        foreach ($article->images as $image) {
+            $imageEntity = $imagesTable->newEntity([
+                'image_file' => $image,
+                'name' => $image->getClientFilename(),
+            ]);
+            if ($imagesTable->save($imageEntity)) {
+                $modelsImagesTable->save($modelsImagesTable->newEntity([
+                    'model' => 'Article',
+                    'foreign_key' => $article->id,
+                    'image_id' => $imageEntity->id,
+                ]));
             }
         }
     }

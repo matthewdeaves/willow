@@ -213,6 +213,13 @@ class ArticlesController extends AppController
             $data = $this->request->getData();
             $data['is_page'] = $this->request->getQuery('is_page', 0);
             $article = $this->Articles->patchEntity($article, $data);
+
+            // Handle image uploads
+            $images = $this->request->getUploadedFiles('images');
+            if (!empty($images['images'])) {
+                $article->images = $images['images'];
+            }
+
             if ($this->Articles->save($article)) {
                 $this->Flash->success(__('The article has been saved.'));
 
@@ -263,18 +270,27 @@ class ArticlesController extends AppController
      */
     public function edit(?string $id = null): Response
     {
-        $article = $this->Articles->get($id, contain: ['Tags']);
+        $article = $this->Articles->get($id, contain: ['Tags', 'Images']);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
             $data['is_page'] = $this->request->getQuery('is_page', 0);
             $article = $this->Articles->patchEntity($article, $data);
+
+            // Handle image uploads
+            $images = $this->request->getUploadedFiles('images');
+            if (!empty($images)) {
+                $article->images = $images;
+            }
+
             if ($this->Articles->save($article)) {
                 $this->Flash->success(__('The article has been saved.'));
 
                 // Redirect to treeIndex if is_page is true, otherwise to index
                 if ($article->is_page) {
+
                     return $this->redirect(['action' => 'treeIndex']);
                 } else {
+
                     return $this->redirect(['action' => 'index']);
                 }
             }

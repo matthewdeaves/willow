@@ -68,13 +68,8 @@
                             ]) ?>
                         </div>
                         <div class="col-md-12 mb-3">
-                            <?= $this->Form->control('images[]', [
-                                'type' => 'file',
-                                'label' => 'Upload Images',
-                                'multiple' => true,
-                                'class' => 'form-control-file',
-                                'required' => false,
-                            ]) ?>
+                            <?= $this->Form->label('images[]', 'Images') ?>
+                            <?= $this->Form->file('images[]', ['multiple' => true, 'class' => 'form-control-file']) ?>
                         </div>
                     </div>
                     <div class="row">

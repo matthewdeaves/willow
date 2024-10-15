@@ -280,17 +280,24 @@ class ArticlesTable extends Table
         }
 
         // Save images
-        if (!empty($entity->images)) {
+        if (!empty($entity->imageUploads)) {
             $this->saveImages($entity);
+        }
+
+        // Unlink images
+        if (!empty($entity->unlinkedImages)) {
+
+  
+            $this->unlinkImages($entity, $entity->unlinkedImages);
         }
     }
 
-    protected function saveImages($article)
+    protected function saveImages($entity)
     {
         $imagesTable = TableRegistry::getTableLocator()->get('Images');
         $modelsImagesTable = TableRegistry::getTableLocator()->get('ModelsImages');
 
-        foreach ($article->images as $image) {
+        foreach ($entity->imageUploads as $image) {
             $imageEntity = $imagesTable->newEntity([
                 'image_file' => $image,
                 'name' => $image->getClientFilename(),
@@ -298,10 +305,31 @@ class ArticlesTable extends Table
             if ($imagesTable->save($imageEntity)) {
                 $modelsImagesTable->save($modelsImagesTable->newEntity([
                     'model' => 'Article',
-                    'foreign_key' => $article->id,
+                    'foreign_key' => $entity->id,
                     'image_id' => $imageEntity->id,
                 ]));
             }
+        }
+    }
+
+    public function unlinkImages($entity, $imageIds)
+    {
+        $imageIds = array_filter($imageIds, function($value) {
+            return $value !== '0';
+        });
+
+        if (empty($imageIds)) {
+            return;
+        }
+
+        $modelsImagesTable = TableRegistry::getTableLocator()->get('ModelsImages');
+        
+        foreach ($imageIds as $imageId) {
+            $modelsImagesTable->deleteAll([
+                'model' => 'Article',
+                'foreign_key' => $entity->id,
+                'image_id' => $imageId
+            ]);
         }
     }
 

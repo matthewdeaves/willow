@@ -23,7 +23,7 @@
                     <h3 class="mb-0"><?= __('Edit Article') ?></h3>
                 </div>
                 <div class="card-body">
-                    <?= $this->Form->create($article, ['class' => 'needs-validation', 'novalidate' => true]) ?>
+                    <?= $this->Form->create($article, ['type' => 'file', 'class' => 'needs-validation', 'novalidate' => true, 'enctype' => 'multipart/form-data']) ?>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <?= $this->Form->control('user_id', [
@@ -67,8 +67,8 @@
                             ]) ?>
                         </div>
                         <div class="col-md-12 mb-3">
-                            <?= $this->Form->label('images[]', 'Images') ?>
-                            <?= $this->Form->file('images[]', ['multiple' => true, 'class' => 'form-control-file']) ?>
+                            <?= $this->Form->label('image_uploads[]', 'Images') ?>
+                            <?= $this->Form->file('image_uploads[]', ['multiple' => true, 'class' => 'form-control-file']) ?>
                         </div>
                     </div>
                     <?php if (isset($article) && !$article->isNew()): ?>

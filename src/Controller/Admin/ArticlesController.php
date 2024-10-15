@@ -215,9 +215,9 @@ class ArticlesController extends AppController
             $article = $this->Articles->patchEntity($article, $data);
 
             // Handle image uploads
-            $images = $this->request->getUploadedFiles('images');
-            if (!empty($images['images'])) {
-                $article->images = $images['images'];
+            $imageUploads = $this->request->getUploadedFiles('image_uploads');
+            if (!empty($imageUploads['image_uploads'])) {
+                $article->imageUploads = $imageUploads['image_uploads'];
             }
 
             if ($this->Articles->save($article)) {
@@ -273,14 +273,19 @@ class ArticlesController extends AppController
         $article = $this->Articles->get($id, contain: ['Tags', 'Images']);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
+            
             $data['is_page'] = $this->request->getQuery('is_page', 0);
             $article = $this->Articles->patchEntity($article, $data);
 
             // Handle image uploads
-            $images = $this->request->getUploadedFiles('images');
-            if (!empty($images)) {
-                $article->images = $images;
+            $imageUploads = $this->request->getUploadedFiles('image_uploads') ?? [];
+            if (!empty($imageUploads['image_uploads'])) {
+                $article->imageUploads = $imageUploads['image_uploads'];
             }
+
+            // Handle image unlinking
+            $unlinkedImages = $this->request->getData('unlink_images') ?? [];
+            $article->unlinkedImages = $unlinkedImages;
 
             if ($this->Articles->save($article)) {
                 $this->Flash->success(__('The article has been saved.'));

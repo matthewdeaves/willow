@@ -68,8 +68,8 @@
                             ]) ?>
                         </div>
                         <div class="col-md-12 mb-3">
-                            <?= $this->Form->label('images[]', 'Images') ?>
-                            <?= $this->Form->file('images[]', ['multiple' => true, 'class' => 'form-control-file']) ?>
+                            <?= $this->Form->label('image_uploads[]', 'Images') ?>
+                            <?= $this->Form->file('image_uploads[]', ['multiple' => true, 'class' => 'form-control-file']) ?>
                         </div>
                     </div>
                     <div class="row">

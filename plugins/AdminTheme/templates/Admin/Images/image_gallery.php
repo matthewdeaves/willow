@@ -21,15 +21,20 @@
                     ) ?>
                     <div class="card-body">
                         <h6 class="card-title text-truncate"><?= h($image->name) ?></h6>
-                        <?= $this->Form->select(
+                        <?php
+                        $imageSizes = SettingsManager::read('ImageSizes');
+                        arsort($imageSizes);
+                        $imageSizes = array_flip($imageSizes);
+                        echo $this->Form->select(
                             'size',
-                            array_flip(SettingsManager::read('ImageSizes')),
+                            $imageSizes,
                             [
                                 'hiddenField' => false,
                                 'id' => $image->id . '_size',
                                 'class' => 'form-select'
                             ]
-                        ); ?>
+                        );
+                        ?>
                     </div>
                 </div>
             </div>

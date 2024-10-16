@@ -11,7 +11,6 @@
 <div class="systemLogs index content">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="mb-0"><?= __('System Logs') ?></h3>
-        <?= $this->Html->link(__('New System Log'), ['action' => 'add'], ['class' => 'btn btn-primary']) ?>
     </div>
     <div class="mb-3">
         <input type="text" id="logSearch" class="form-control" placeholder="<?= __('Search logs...') ?>">

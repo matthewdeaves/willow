@@ -4,10 +4,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
-use App\Model\Table\Trait\ArticleCacheTrait;
-use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Http\Response;
-use Exception;
 
 /**
  * SystemLogs Controller
@@ -17,9 +14,22 @@ use Exception;
 class SystemLogsController extends AppController
 {
     /**
-     * Index method
+     * Index method for SystemLogs.
      *
-     * @return \Cake\Http\Response|null|void Renders view
+     * This method retrieves and displays a list of system logs. It supports filtering by log level and group name,
+     * and allows for searching within the logs when accessed via AJAX. The logs are ordered by creation date in
+     * descending order. The method also retrieves distinct log levels and group names for filtering options.
+     *
+     * @return \Cake\Http\Response The response object containing the rendered view.
+     * @throws \Cake\Http\Exception\NotFoundException If the page is not found.
+     * @throws \Cake\Database\Exception\DatabaseException If there's an issue with the database query.
+     * @uses \App\Model\Table\SystemLogsTable::find()
+     * @uses \Cake\Http\ServerRequest::getQuery()
+     * @uses \Cake\Http\ServerRequest::is()
+     * @uses \Cake\View\ViewBuilder::setLayout()
+     * @uses \Cake\Controller\Controller::paginate()
+     * @uses \Cake\Controller\Controller::set()
+     * @uses \Cake\Controller\Controller::render()
      */
     public function index(): Response
     {
@@ -91,54 +101,12 @@ class SystemLogsController extends AppController
      * View method
      *
      * @param string|null $id System Log id.
-     * @return \Cake\Http\Response|null|void Renders view
+     * @return void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view(?string $id = null): void
     {
         $systemLog = $this->SystemLogs->get($id, contain: []);
-        $this->set(compact('systemLog'));
-    }
-
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
-        $systemLog = $this->SystemLogs->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $systemLog = $this->SystemLogs->patchEntity($systemLog, $this->request->getData());
-            if ($this->SystemLogs->save($systemLog)) {
-                $this->Flash->success(__('The system log has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The system log could not be saved. Please, try again.'));
-        }
-        $this->set(compact('systemLog'));
-    }
-
-    /**
-     * Edit method
-     *
-     * @param string|null $id System Log id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function edit($id = null)
-    {
-        $systemLog = $this->SystemLogs->get($id, contain: []);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $systemLog = $this->SystemLogs->patchEntity($systemLog, $this->request->getData());
-            if ($this->SystemLogs->save($systemLog)) {
-                $this->Flash->success(__('The system log has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The system log could not be saved. Please, try again.'));
-        }
         $this->set(compact('systemLog'));
     }
 
@@ -149,7 +117,7 @@ class SystemLogsController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete(?string $id = null): ?Response
     {
         $this->request->allowMethod(['post', 'delete']);
         $systemLog = $this->SystemLogs->get($id);

@@ -9,6 +9,7 @@ use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 use Cake\Queue\QueueManager;
 use Cake\Utility\Text;
 use Cake\Validation\Validator;
@@ -133,7 +134,7 @@ class ArticlesTable extends Table
         $this->hasMany('PageViews', [
             'foreignKey' => 'article_id',
             'dependent' => true,
-            'cascadeCallbacks' => true
+            'cascadeCallbacks' => true,
         ]);
 
         $this->hasMany('Slugs', [
@@ -164,20 +165,38 @@ class ArticlesTable extends Table
             ->scalar('body')
             ->allowEmptyString('body');
 
-        $validator
+            $validator
             ->scalar('slug')
             ->maxLength('slug', 255)
             ->regex(
                 'slug',
                 '/^[a-z0-9-]+$/',
-                'The slug must be URL-safe (only lowercase letters, numbers, and hyphens)'
+                __('The slug must be URL-safe (only lowercase letters, numbers, and hyphens)')
             )
             ->requirePresence('slug', 'create')
-            ->allowEmptyString('slug')
-            ->add('slug', 'unique', [
-                'rule' => 'validateUnique',
-                'provider' => 'table',
-                'message' => 'This slug is already in use. Please enter a unique slug.',
+            ->notEmptyString('slug')
+            ->add('slug', 'uniqueInArticles', [
+                'rule' => function ($value, $context) {
+                    $exists = $this->exists(['slug' => $value]);
+                    if ($exists && isset($context['data']['id'])) {
+                        $exists = $this->exists(['slug' => $value, 'id !=' => $context['data']['id']]);
+                    }
+
+                    return !$exists;
+                },
+                'message' => __('This slug is already in use in articles. Please enter a unique slug.'),
+            ])
+            ->add('slug', 'uniqueInSlugs', [
+                'rule' => function ($value, $context) {
+                    $slugsTable = TableRegistry::getTableLocator()->get('Slugs');
+                    $exists = $slugsTable->exists(['slug' => $value]);
+                    if ($exists && isset($context['data']['id'])) {
+                        $exists = $slugsTable->exists(['slug' => $value, 'article_id !=' => $context['data']['id']]);
+                    }
+
+                    return !$exists;
+                },
+                'message' => __('Slug conflicts with an existing SEO redirect. Please choose a different slug.'),
             ]);
 
         $validator
@@ -185,11 +204,11 @@ class ArticlesTable extends Table
             ->add('image', [
                 'mimeType' => [
                     'rule' => ['mimeType', ['image/jpeg', 'image/png', 'image/gif']],
-                    'message' => 'Please upload only images (jpeg, png, gif).',
+                    'message' => __('Please upload only images (jpeg, png, gif).'),
                 ],
                 'fileSize' => [
                     'rule' => ['fileSize', '<=', '5MB'],
-                    'message' => 'Image must be less than 5MB.',
+                    'message' => __('Image must be less than 5MB.'),
                 ],
             ]);
 

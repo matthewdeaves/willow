@@ -178,7 +178,7 @@ class ArticlesController extends AppController
                              ->order(['Comments.created' => 'DESC'])
                              ->contain(['Users']);
                 },
-                'Images'
+                'Images',
             ])
             ->first();
 

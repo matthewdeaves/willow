@@ -45,6 +45,9 @@ class ArticlesControllerTest extends AppControllerTestCase
     /**
      * Test index method
      *
+     * Verifies that the index page loads correctly for an admin user,
+     * displaying the expected article titles.
+     *
      * @return void
      * @uses \App\Controller\ArticlesController::index()
      */
@@ -64,12 +67,15 @@ class ArticlesControllerTest extends AppControllerTestCase
     }
 
     /**
-     * Test viewBySlug method for published article
+     * Test viewBySlug method for published article with an old slug
+     *
+     * Checks if accessing an article with an old slug results in a 301 redirect
+     * to the current slug, and that the article content is then displayed correctly.
      *
      * @return void
      * @uses \App\Controller\ArticlesController::viewBySlug()
      */
-    public function testViewByOldSlugPublished(): void
+    public function testViewByOldSlugForPublishedArticle(): void
     {
         $this->get('/article-one');
         $this->assertResponseCode(301);
@@ -86,6 +92,9 @@ class ArticlesControllerTest extends AppControllerTestCase
     /**
      * Test viewBySlug method for unpublished article
      *
+     * Ensures that attempting to view an unpublished article
+     * results in a NotFoundException.
+     *
      * @return void
      * @uses \App\Controller\ArticlesController::viewBySlug()
      */
@@ -97,6 +106,9 @@ class ArticlesControllerTest extends AppControllerTestCase
 
     /**
      * Test publishing an unpublished article and viewing it
+     *
+     * Verifies that an unpublished article cannot be viewed,
+     * then publishes it and confirms it can be accessed.
      *
      * @return void
      * @uses \App\Controller\ArticlesController::viewBySlug()
@@ -128,6 +140,9 @@ class ArticlesControllerTest extends AppControllerTestCase
     /**
      * Test publishing an unpublished page and viewing it
      *
+     * Similar to testPublishUnpublishedArticle, but specifically for pages.
+     * Checks that an unpublished page becomes accessible after publishing.
+     *
      * @return void
      * @uses \App\Controller\ArticlesController::viewBySlug()
      */
@@ -158,6 +173,9 @@ class ArticlesControllerTest extends AppControllerTestCase
     /**
      * Test admin article search functionality
      *
+     * Verifies that the admin search feature correctly filters articles
+     * based on the search query.
+     *
      * @return void
      * @uses \App\Controller\ArticlesController::index()
      */
@@ -178,6 +196,9 @@ class ArticlesControllerTest extends AppControllerTestCase
     /**
      * Test access to admin area for non-admin user
      *
+     * Ensures that non-admin users are redirected when attempting
+     * to access the admin area.
+     *
      * @return void
      */
     public function testNonAdminAccessToAdminArea(): void
@@ -190,6 +211,8 @@ class ArticlesControllerTest extends AppControllerTestCase
     /**
      * Test access to admin area for admin user
      *
+     * Verifies that admin users can successfully access the admin area.
+     *
      * @return void
      */
     public function testAdminAccessToAdminArea(): void
@@ -201,6 +224,9 @@ class ArticlesControllerTest extends AppControllerTestCase
 
     /**
      * Test article creation by admin
+     *
+     * Checks that an admin can successfully create a new article,
+     * including automatic slug generation.
      *
      * @return void
      */
@@ -229,6 +255,8 @@ class ArticlesControllerTest extends AppControllerTestCase
     /**
      * Test article editing by admin
      *
+     * Verifies that an admin can successfully edit an existing article.
+     *
      * @return void
      */
     public function testArticleEditingByAdmin(): void
@@ -250,6 +278,9 @@ class ArticlesControllerTest extends AppControllerTestCase
 
     /**
      * Test article deletion by admin
+     *
+     * Ensures that an admin can successfully delete an article,
+     * and that the article is no longer retrievable after deletion.
      *
      * @return void
      */

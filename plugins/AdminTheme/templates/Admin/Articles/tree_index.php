@@ -23,7 +23,7 @@ $this->Html->script('articles_tree', ['block' => true]);
                         echo '<div class="d-flex justify-content-between align-items-center">';
                         echo '<div class="d-flex align-items-center">';
                         echo '<span class="handle me-2">☰</span>';
-                        echo '<span class="me-3">' . h($article['title']) . '</span>'; // Added me-3 for extra margin
+                        echo '<span class="me-3">' . h($article['title']) . '</span>';
                         echo '<span class="badge ' . ($article->is_published ? 'bg-success' : 'bg-secondary') . '">' 
                             . ($article->is_published ? 'Published' : 'Unpublished') . '</span>';
 
@@ -43,11 +43,18 @@ $this->Html->script('articles_tree', ['block' => true]);
 
                         echo '</div>';
                         echo '<div class="btn-group" role="group">';
-                        echo $Form->Html->link('View', [
-                            'prefix' => 'Admin',
-                            'action' => 'view',
-                            $article['id']
-                        ], ['class' => 'btn btn-sm btn-outline-info']);
+
+                        echo $Form->Html->link(
+                            'View',
+                            $article->is_published 
+                                ? '/' . $article->slug 
+                                : [
+                                    'prefix' => 'Admin',
+                                    'action' => 'view',
+                                    $article->id
+                                ],
+                            ['class' => 'btn btn-sm btn-outline-info']
+                        );
                         
                         echo $Form->Html->link('Add', [
                             'prefix' => 'Admin',

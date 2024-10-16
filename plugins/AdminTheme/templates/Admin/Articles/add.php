@@ -18,8 +18,12 @@
         ?>
         <div class="col-md-9">
             <div class="card">
+                <?php
+                    $isPage = $this->request->getQuery('is_page') == '1';
+                    $headerText = $isPage ? __('Add Page') : __('Add Article');
+                ?>
                 <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0"><?= __('Add Article') ?></h3>
+                    <h3 class="mb-0"><?= $headerText ?></h3>
                 </div>
                 <div class="card-body">
                     <?= $this->Form->create($article, ['type' => 'file', 'class' => 'needs-validation', 'novalidate' => true, 'enctype' => 'multipart/form-data']) ?>
@@ -103,7 +107,7 @@
                             <?= $this->Form->control('image', [
                                 'type' => 'file',
                                 'class' => 'form-control-file' . ($this->Form->isFieldError('image') ? ' is-invalid' : ''),
-                                'label' => __('Article Main Picture')
+                                'label' => __('Main Picture')
                             ]) ?>
                         </div>
                     </div>

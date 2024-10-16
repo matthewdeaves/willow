@@ -112,5 +112,3 @@ document.addEventListener('DOMContentLoaded', function () {
     })
 });
 </script>
-
-<?php debug($article); ?>

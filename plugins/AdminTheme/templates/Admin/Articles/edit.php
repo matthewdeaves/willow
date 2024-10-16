@@ -104,7 +104,7 @@
                             <?= $this->Form->control('image', [
                                 'type' => 'file',
                                 'class' => 'form-control-file' . ($this->Form->isFieldError('image') ? ' is-invalid' : ''),
-                                'label' => __('Article Main Picture')
+                                'label' => __('Main Picture')
                             ]) ?>
                         </div>
                         <div class="col-md-4">

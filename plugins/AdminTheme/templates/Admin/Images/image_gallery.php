@@ -16,7 +16,8 @@
                             'alt' => $image->alt_text,
                             'class' => 'card-img-top insert-image',
                             'data-src' => $image->file,
-                            'data-id' => $image->id
+                            'data-id' => $image->id,
+                            'data-alt' => $image->alt_text
                         ]
                     ) ?>
                     <div class="card-body">

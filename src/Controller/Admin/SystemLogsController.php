@@ -4,7 +4,10 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
+use App\Model\Table\Trait\ArticleCacheTrait;
+use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Http\Response;
+use Exception;
 
 /**
  * SystemLogs Controller
@@ -18,15 +21,43 @@ class SystemLogsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index(): void
+    public function index(): Response
     {
-        $systemLogs = $this->SystemLogs->find()
-            ->orderBy(['group_name' => 'ASC', 'created' => 'DESC'])
-            ->all()
-            ->groupBy('group_name')
-            ->toArray();
+        $query = $this->SystemLogs->find()
+            ->select([
+                'SystemLogs.id',
+                'SystemLogs.level',
+                'SystemLogs.message',
+                'SystemLogs.context',
+                'SystemLogs.group_name',
+                'SystemLogs.created',
+            ])
+            ->orderBy(['SystemLogs.created' => 'DESC']);
 
+        if ($this->request->is('ajax')) {
+            $search = $this->request->getQuery('search');
+            if (!empty($search)) {
+                $query->where([
+                    'OR' => [
+                        'SystemLogs.level LIKE' => '%' . $search . '%',
+                        'SystemLogs.message LIKE' => '%' . $search . '%',
+                        'SystemLogs.context LIKE' => '%' . $search . '%',
+                        'SystemLogs.group_name LIKE' => '%' . $search . '%',
+                        'DATE(SystemLogs.created) LIKE' => '%' . $search . '%',
+                    ],
+                ]);
+            }
+            $systemLogs = $query->all();
+            $this->set(compact('systemLogs'));
+            $this->viewBuilder()->setLayout('ajax');
+
+            return $this->render('search_results');
+        }
+
+        $systemLogs = $this->paginate($query);
         $this->set(compact('systemLogs'));
+
+        return $this->render();
     }
 
     /**
@@ -36,9 +67,51 @@ class SystemLogsController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view(?string $id = null): void
+    public function view($id = null)
     {
         $systemLog = $this->SystemLogs->get($id, contain: []);
+        $this->set(compact('systemLog'));
+    }
+
+    /**
+     * Add method
+     *
+     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+     */
+    public function add()
+    {
+        $systemLog = $this->SystemLogs->newEmptyEntity();
+        if ($this->request->is('post')) {
+            $systemLog = $this->SystemLogs->patchEntity($systemLog, $this->request->getData());
+            if ($this->SystemLogs->save($systemLog)) {
+                $this->Flash->success(__('The system log has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The system log could not be saved. Please, try again.'));
+        }
+        $this->set(compact('systemLog'));
+    }
+
+    /**
+     * Edit method
+     *
+     * @param string|null $id System Log id.
+     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function edit($id = null)
+    {
+        $systemLog = $this->SystemLogs->get($id, contain: []);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $systemLog = $this->SystemLogs->patchEntity($systemLog, $this->request->getData());
+            if ($this->SystemLogs->save($systemLog)) {
+                $this->Flash->success(__('The system log has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The system log could not be saved. Please, try again.'));
+        }
         $this->set(compact('systemLog'));
     }
 
@@ -49,7 +122,7 @@ class SystemLogsController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete(?string $id = null): Response
+    public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
         $systemLog = $this->SystemLogs->get($id);
@@ -57,43 +130,6 @@ class SystemLogsController extends AppController
             $this->Flash->success(__('The system log has been deleted.'));
         } else {
             $this->Flash->error(__('The system log could not be deleted. Please, try again.'));
-        }
-
-        return $this->redirect(['action' => 'index']);
-    }
-
-    /**
-     * Deletes all system logs, optionally filtered by group name.
-     *
-     * This method allows only POST and DELETE HTTP methods to prevent accidental deletions via GET requests.
-     * It attempts to delete all records in the SystemLogs table, or only those matching the specified group name.
-     * If successful, a success message is displayed to the user. If the deletion fails, an error message is shown.
-     *
-     * @param string|null $group_name Optional. The group name to filter logs for deletion.
-     * @return \Cake\Http\Response|null Redirects to the index action after attempting to delete system logs.
-     * @throws \Cake\Http\Exception\MethodNotAllowedException If the request method is not POST or DELETE.
-     */
-    public function deleteAll(?string $group_name = null): ?Response
-    {
-        $this->request->allowMethod(['post', 'delete']);
-
-        $conditions = [];
-        if ($group_name !== null) {
-            $conditions['group_name'] = $group_name;
-        }
-
-        if ($this->SystemLogs->deleteAll($conditions)) {
-            if ($group_name) {
-                $this->Flash->success(__('All system logs for group "{0}" have been deleted.', $group_name));
-            } else {
-                $this->Flash->success(__('All system logs have been deleted.'));
-            }
-        } else {
-            if ($group_name) {
-                $this->Flash->error(__('Unable to delete system logs for group "{0}". Please try again.', $group_name));
-            } else {
-                $this->Flash->error(__('Unable to delete all system logs. Please try again.'));
-            }
         }
 
         return $this->redirect(['action' => 'index']);

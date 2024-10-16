@@ -142,7 +142,6 @@ class ArticlesController extends AppController
      */
     public function viewBySlug(string $slug): ?Response
     {
-        //debug($slug);
         // First, find the article ID associated with this slug
         $slugEntity = $this->Slugs->find()
             ->where(['slug' => $slug])
@@ -179,6 +178,7 @@ class ArticlesController extends AppController
                              ->order(['Comments.created' => 'DESC'])
                              ->contain(['Users']);
                 },
+                'Images'
             ])
             ->first();
 
@@ -227,17 +227,6 @@ class ArticlesController extends AppController
 
         $userId = $this->request->getSession()->read('Auth.id');
         $content = $this->request->getData('content');
-
-        // if there was saved comment data in session, load it back
-        /*
-        todo see if we can fix this
-        $savedData = $this->request->getSession()->read('Comment.formData');
-        if (!isset($savedData['content'])) {
-            debug($content);
-            $content = $savedData['content'];
-            $this->request->getSession()->delete('Comment.formData');
-        }
-            */
 
         if ($this->Articles->addComment($articleId, $userId, $content)) {
             $this->Flash->success(__('Your comment has been added.'));

@@ -34,7 +34,7 @@
                         <div class="position-relative">
                             <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $user->picture, 
                                 ['pathPrefix' => 'files/Users/picture/', 
-                                'alt' => __('Profile Picture'), 
+                                'alt' => $user->alt_text, 
                                 'class' => 'img-thumbnail', 
                                 'width' => '50',
                                 'data-bs-toggle' => 'popover',
@@ -42,7 +42,7 @@
                                 'data-bs-html' => 'true',
                                 'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $user->picture, 
                                     ['pathPrefix' => 'files/Users/picture/', 
-                                    'alt' => __('Profile Picture'), 
+                                    'alt' => $user->alt_text, 
                                     'class' => 'img-fluid', 
                                     'style' => 'max-width: 300px; max-height: 300px;'])
                                 ]) 

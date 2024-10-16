@@ -56,7 +56,7 @@
                     <div class="row">
                         <div class="col-md-12 mb-3">
                             <?= $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $image->file, 
-                                ['pathPrefix' => 'files/Images/file/', 'alt' => 'Picture', 'class' => 'img-fluid']) ?>
+                                ['pathPrefix' => 'files/Images/file/', 'alt' => $image->alt_text, 'class' => 'img-fluid']) ?>
                         </div>
                     </div>
                     <div class="row">

@@ -26,7 +26,7 @@
                             <th class="w-25"><?= __('Image') ?></th>
                             <td>
                                 <?= $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $image->file, 
-                                ['pathPrefix' => 'files/Images/file/', 'alt' => 'Picture', 'class' => 'img-fluid']) ?>
+                                ['pathPrefix' => 'files/Images/file/', 'alt' => $image->alt_text, 'class' => 'img-fluid']) ?>
                             </td>
                         </tr>
                         <tr>

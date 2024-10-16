@@ -33,7 +33,11 @@
                 </div>
                 <?php if (!empty($user->picture)): ?>
                     <div class="mb-3">
-                        <?= $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $user->picture, ['pathPrefix' => 'files/Users/picture/', 'alt' => 'Profile Picture', 'class' => 'img-thumbnail']) ?>
+                        <?= $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $user->picture, 
+                            ['pathPrefix' => 'files/Users/picture/',
+                            'alt' => $user->alt_text,
+                            'class' => 'img-thumbnail'
+                        ]) ?>
                     </div>
                 <?php endif; ?>
             </fieldset>

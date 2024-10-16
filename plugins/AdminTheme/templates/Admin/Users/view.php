@@ -50,7 +50,7 @@ use Cake\Utility\Inflector;
                         <div class="border p-3 bg-light">
                             <?php if (!empty($user->picture)): ?>
                                 <?= $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $user->picture, 
-                                    ['pathPrefix' => 'files/Users/picture/', 'alt' => 'Profile Picture', 'class' => 'img-fluid']) ?>
+                                    ['pathPrefix' => 'files/Users/picture/', 'alt' => $user->alt_text, 'class' => 'img-fluid']) ?>
                             <?php else: ?>
                                 <p>No profile picture available</p>
                             <?php endif; ?>

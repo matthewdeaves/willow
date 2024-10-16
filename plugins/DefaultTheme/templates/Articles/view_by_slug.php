@@ -1,3 +1,4 @@
+<?php use App\Utility\SettingsManager; ?>
 <?php
 /**
  * @var \App\View\AppView $this
@@ -8,6 +9,25 @@
     <div class="card mb-4 shadow-sm">
         <div class="card-body">
             <h1 class="card-title"><?= h($article->title) ?></h1>
+
+            <div class="position-relative">
+                <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $article->image, 
+                    [
+                        'pathPrefix' => 'files/Articles/image/', 
+                        'alt' => $article->alt_text, 
+                        'class' => 'img-thumbnail', 
+                        'data-bs-toggle' => 'popover', 
+                        'data-bs-trigger' => 'hover', 
+                        'data-bs-html' => 'true', 
+                        'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.extra-large', '400') . '/' . $article->image, 
+                        [
+                            'pathPrefix' => 'files/Articles/file/', 
+                            'alt' => $article->alt_text, 
+                            'class' => 'img-fluid', 
+                            'style' => 'max-width: 300px; max-height: 300px;'
+                        ])]) ?>
+            </div>
+            
             <p class="card-text text-muted">
                 <?= __('By') ?> <?= $article->user ? h($article->user->username) : __('Unknown Author') ?> | 
                 <?php if ($article->published): ?>
@@ -19,11 +39,19 @@
             <div class="article-content">
                 <?= $article->body ?>
             </div>
-            <?php if (!empty($article->tags)): ?>
-                <?= $this->element('tags', ['article' => $article]) ?>
-            <?php else: ?>
-                <p class="text-muted"><?= __('No tags available.') ?></p>
-            <?php endif; ?>
+            <div>
+                <?= $this->element('image_carousel', [
+                    'images' => $article->images,
+                    'carouselId' => 'articleImagesCarousel'
+                ]) ?>
+            </div>
+            <div>
+                <?php if (!empty($article->tags)): ?>
+                    <?= $this->element('tags', ['article' => $article]) ?>
+                <?php else: ?>
+                    <p class="text-muted"><?= __('No tags are linked.') ?></p>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
 
@@ -64,3 +92,5 @@
         </section>
     <?php endif; ?>
 </div>
+
+<?php debug($article); ?>

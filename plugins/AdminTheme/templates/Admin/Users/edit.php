@@ -86,7 +86,7 @@
                         <div class="row">
                             <div class="col-md-12 mb-3">
                                 <?= $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $user->picture, 
-                                    ['pathPrefix' => 'files/Users/picture/', 'alt' => 'Profile Picture', 'class' => 'img-fluid']) ?>
+                                    ['pathPrefix' => 'files/Users/picture/', 'alt' => $user->alt_text, 'class' => 'img-fluid']) ?>
                             </div>
                         </div>
                     <?php endif; ?>

@@ -13,7 +13,7 @@
                     <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $image->file, 
                         [
                             'pathPrefix' => 'files/Images/file/',
-                            'alt' => 'Picture',
+                            'alt' => $image->alt_text,
                             'class' => 'card-img-top insert-image',
                             'data-src' => $image->file,
                             'data-id' => $image->id

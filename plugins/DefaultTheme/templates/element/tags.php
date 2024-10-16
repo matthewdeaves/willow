@@ -6,7 +6,7 @@
 ?>
 <?php if (!empty($article->tags)) : ?>
 <div class="related-tags mb-4">
-    <h4><?= __('Related Tags') ?></h4>
+    <h4><?= __('Tags') ?></h4>
     <div class="table-responsive">
         <table class="table table-sm">
             <thead class="table-light">

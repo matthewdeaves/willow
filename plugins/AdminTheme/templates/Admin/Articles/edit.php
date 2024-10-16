@@ -1,3 +1,4 @@
+<?php use App\Utility\SettingsManager; ?>
 <?= $this->element('trumbowyg'); ?>
 <?php
 /**
@@ -105,6 +106,24 @@
                                 'class' => 'form-control-file' . ($this->Form->isFieldError('image') ? ' is-invalid' : ''),
                                 'label' => __('Article Main Picture')
                             ]) ?>
+                        </div>
+                        <div class="col-md-4">
+                            <?php if (!empty($article->image)): ?>
+                                <?= $this->Html->image(SettingsManager::read('ImageSizes.teeny', '200') . '/' . $article->image, 
+                                    [
+                                        'pathPrefix' => 'files/Articles/image/',
+                                        'alt' => $article->alt_text,
+                                        'class' => 'img-thumbnail',
+                                        'data-bs-toggle' => 'popover',
+                                        'data-bs-trigger' => 'hover',
+                                        'data-bs-html' => 'true',
+                                        'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.extra-large', '400') . '/' . $article->image,
+                                            ['pathPrefix' => 'files/Articles/image/',
+                                            'alt' => $article->alt_text,
+                                            'class' => 'img-fluid',
+                                            'style' => 'max-width: 300px; max-height: 300px;'
+                                    ])]) ?>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <div class="row">

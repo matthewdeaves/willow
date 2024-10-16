@@ -373,22 +373,23 @@ class V1 extends AbstractMigration
                 'limit' => 255,
                 'null' => true,
             ])
-            ->addColumn('image_file', 'string', [
+            ->addColumn('file', 'string', [
                 'default' => null,
                 'limit' => 255,
                 'null' => false,
             ])
-            ->addColumn('image_dir', 'string', [
+            ->addColumn('dir', 'string', [
                 'default' => null,
                 'limit' => 255,
                 'null' => false,
             ])
-            ->addColumn('image_size', 'string', [
+            ->addColumn('size', 'integer', [
                 'default' => null,
-                'limit' => 255,
+                'limit' => null,
                 'null' => false,
+                'signed' => true,
             ])
-            ->addColumn('image_type', 'string', [
+            ->addColumn('mime', 'string', [
                 'default' => null,
                 'limit' => 255,
                 'null' => false,

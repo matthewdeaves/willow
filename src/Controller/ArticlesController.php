@@ -130,53 +130,69 @@ class ArticlesController extends AppController
     /**
      * View an article by its slug.
      *
-     * This method retrieves an article based on the provided slug. It first finds the article ID associated with the slug.
-     * If the slug is not found, a NotFoundException is thrown. It then checks if the slug is the most recent for the article.
-     * If not, it redirects to the latest slug with a 301 status code. The method fetches the full article along with its
-     * associated users, tags, and comments (only those marked for display). If the article is not found, a NotFoundException
-     * is thrown. The page view is recorded, and the article is set for rendering.
+     * This method retrieves and displays an article based on the provided slug.
+     * It performs the following steps:
+     * 1. Attempts to find the article ID using the slug in the slugs table.
+     * 2. If not found, tries to find the article directly using the slug.
+     * 3. Checks if the current slug is the latest for the article.
+     * 4. Performs a 301 redirect if a more recent slug exists.
+     * 5. Fetches the full article with associated data (users, tags, comments, images).
+     * 6. Records the page view.
      *
      * @param string $slug The slug of the article to view.
-     * @return \Cake\Http\Response|null The response object or null if rendering is successful.
-     * @throws \Cake\Http\Exception\NotFoundException If the article or slug is not found.
+     * @return \Cake\Http\Response|null Returns a Response object in case of redirection,
+     *                                  or null if the view is rendered.
+     * @throws \Cake\Http\Exception\NotFoundException If the article is not found.
      */
     public function viewBySlug(string $slug): ?Response
     {
-        // First, find the article ID associated with this slug
+        // First, find the article associated in the slugs table by slug
         $slugEntity = $this->Slugs->find()
             ->where(['slug' => $slug])
+            ->order(['created' => 'DESC'])
             ->select(['article_id'])
             ->first();
 
+        // If we don't find a slug, try to find an article by the slug instead
         if (!$slugEntity) {
-            throw new NotFoundException(__('Article not found'));
+            $article = $this->Articles->find()
+                ->where(['slug' => $slug, 'is_published' => 1])
+                ->first();
+
+            if (!$article) {
+                throw new NotFoundException(__('Article not found'));
+            }
+
+            $articleId = $article->id;
+        } else {
+            $articleId = $slugEntity->article_id;
         }
 
-        // Now, find the most recent slug for this article
+        // Check if it's the latest slug for the article
         $latestSlug = $this->Slugs->find()
-            ->where(['article_id' => $slugEntity->article_id])
+            ->where(['article_id' => $articleId])
             ->order(['created' => 'DESC'])
             ->select(['slug', 'article_id'])
             ->first();
 
-        // If the current slug is not the latest, redirect
-        if ($latestSlug->slug !== $slug) {
+        // If $slug is not the same as the latestSlug, do a 301 redirect
+        if ($latestSlug && $latestSlug->slug !== $slug) {
             return $this->redirect('/' . $latestSlug->slug, 301);
         }
 
-        // Now fetch the full article with its associations
+        // Fetch the full article with its associations
         $article = $this->Articles->find()
             ->where([
-                'Articles.id' => $slugEntity->article_id,
+                'Articles.id' => $articleId,
                 'Articles.is_published' => 1,
-                ])
+            ])
             ->contain([
                 'Users',
                 'Tags',
                 'Comments' => function ($q) {
                     return $q->where(['Comments.display' => 1])
-                             ->order(['Comments.created' => 'DESC'])
-                             ->contain(['Users']);
+                            ->order(['Comments.created' => 'DESC'])
+                            ->contain(['Users']);
                 },
                 'Images',
             ])

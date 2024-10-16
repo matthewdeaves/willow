@@ -206,6 +206,7 @@ return [
         'skipLog' => [],
         'log' => true,
         'trace' => true,
+        'exceptionRenderer' => \App\Error\AppExceptionRenderer::class,
         'ignoredDeprecationPaths' => [
             'vendor/cakephp/cakephp/src/I18n/I18n.php',
         ],

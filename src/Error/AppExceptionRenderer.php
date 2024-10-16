@@ -5,58 +5,38 @@ namespace App\Error;
 
 use App\Http\Exception\TooManyRequestsException;
 use Cake\Error\Renderer\WebExceptionRenderer;
-use Psr\Http\Message\ResponseInterface;
 
 class AppExceptionRenderer extends WebExceptionRenderer
 {
-    /**
-     * Renders the response for TooManyRequestsException.
-     *
-     * @param \App\Http\Exception\TooManyRequestsException $exception The exception to render.
-     * @return \Psr\Http\Message\ResponseInterface The rendered response.
-     */
-    public function tooManyRequests(TooManyRequestsException $exception): ResponseInterface
+    public function render(): \Cake\Http\Response
     {
-        $response = $this->controller->getResponse()->withStatus(429);
-        if ($exception->getRetryAfter() !== null) {
-            $response = $response->withHeader('Retry-After', (string)$exception->getRetryAfter());
+        $exception = $this->error;
+        $code = $this->getHttpCode($exception);
+
+        if ($exception instanceof TooManyRequestsException) {
+            $code = 429;
+            $this->controller->setResponse($this->controller->getResponse()->withStatus($code));
+            $this->controller->viewBuilder()->setTemplate('error429');
+            
+            // Set variables for the error template
+            $this->controller->set([
+                'message' => $exception->getMessage(),
+                'error' => $exception,
+                'code' => $code,
+                'exceptions' => [$exception], // Add this line
+            ]);
+            
+            return $this->_outputMessage('error429');
         }
-        $this->controller->setResponse($response);
 
-        $this->controller->viewBuilder()
-        ->setPlugin('DefaultTheme')
-        ->setTemplate('Error/error429')
-        ->setLayout('error');
-
-        $viewVars = [
+        // For other exceptions, make sure to set the 'exceptions' variable
+        $this->controller->set([
             'message' => $exception->getMessage(),
             'error' => $exception,
-            'code' => $exception->getCode(),
-            'url' => $this->controller->getRequest()->getRequestTarget(),
-            'retryAfter' => $exception->getRetryAfter(),
+            'code' => $code,
             'exceptions' => [$exception],
-        ];
+        ]);
 
-        $this->controller->set($viewVars);
-
-        return $this->_outputMessage('error429');
-    }
-
-    /**
-     * Renders a generic error page for other types of exceptions.
-     *
-     * @return \Psr\Http\Message\ResponseInterface The rendered response.
-     */
-    public function render(): ResponseInterface
-    {
-        $response = parent::render();
-
-        // Add any custom headers or modifications to the response here
-        if ($response instanceof ResponseInterface) {
-            $exception = $this->error;
-            $response = $response->withHeader('X-Error-Type', get_class($exception));
-        }
-
-        return $response;
+        return parent::render();
     }
 }

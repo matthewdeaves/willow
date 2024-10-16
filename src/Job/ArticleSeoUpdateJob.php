@@ -18,7 +18,13 @@ class ArticleSeoUpdateJob implements JobInterface
     use LogTrait;
 
     public static ?int $maxAttempts = 3;
-    public static bool $shouldBeUnique = true;
+
+    /**
+     * Whether there should be only one instance of a job on the queue at a time. (optional property)
+     *
+     * @var bool
+     */
+    public static bool $shouldBeUnique = false;
 
     /**
      * Execute the article SEO update job.

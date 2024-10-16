@@ -4,10 +4,14 @@ on:
   push:
     branches:
       - main
+      - development
+      - staging
       - 'feature/*'
   pull_request:
     branches:
       - main
+      - development
+      - staging
 
 jobs:
   test:
@@ -38,8 +42,10 @@ jobs:
         composer config platform.php ${{ matrix.php-version }}
         composer update --no-interaction --prefer-dist --ignore-platform-reqs
 
-    - name: Copy app_local.php
-      run: cp docker/php/cms_app_local_github.php config/app_local.php
+    - name: Copy Configs
+      run: |
+        cp docker/php/cms_app_local_github.php config/app_local.php
+        cp docker/php/app_github.php config/app.php
 
     - name: Debug app_local.php
       run: cat "config/app_local.php"

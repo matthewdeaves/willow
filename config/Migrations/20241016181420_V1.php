@@ -85,6 +85,42 @@ class V1 extends AbstractMigration
                 'limit' => null,
                 'null' => true,
             ])
+            ->addColumn('image', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
+            ->addColumn('alt_text', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
+            ->addColumn('keywords', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
+            ->addColumn('name', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
+            ->addColumn('dir', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
+            ->addColumn('size', 'integer', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+                'signed' => true,
+            ])
+            ->addColumn('mime', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
             ->addColumn('is_published', 'boolean', [
                 'default' => false,
                 'limit' => null,
@@ -352,22 +388,23 @@ class V1 extends AbstractMigration
                 'limit' => 255,
                 'null' => true,
             ])
-            ->addColumn('image_file', 'string', [
+            ->addColumn('file', 'string', [
                 'default' => null,
                 'limit' => 255,
                 'null' => false,
             ])
-            ->addColumn('image_dir', 'string', [
+            ->addColumn('dir', 'string', [
                 'default' => null,
                 'limit' => 255,
                 'null' => false,
             ])
-            ->addColumn('image_size', 'string', [
+            ->addColumn('size', 'integer', [
                 'default' => null,
-                'limit' => 255,
+                'limit' => null,
                 'null' => false,
+                'signed' => true,
             ])
-            ->addColumn('image_type', 'string', [
+            ->addColumn('mime', 'string', [
                 'default' => null,
                 'limit' => 255,
                 'null' => false,
@@ -709,23 +746,38 @@ class V1 extends AbstractMigration
                 'limit' => 255,
                 'null' => false,
             ])
-            ->addColumn('picture_file', 'string', [
+            ->addColumn('picture', 'string', [
                 'default' => null,
                 'limit' => 255,
                 'null' => true,
             ])
-            ->addColumn('picture_dir', 'string', [
+            ->addColumn('alt_text', 'string', [
                 'default' => null,
                 'limit' => 255,
                 'null' => true,
             ])
-            ->addColumn('picture_size', 'integer', [
+            ->addColumn('keywords', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
+            ->addColumn('name', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
+            ->addColumn('dir', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
+            ->addColumn('size', 'integer', [
                 'default' => null,
                 'limit' => null,
                 'null' => true,
                 'signed' => true,
             ])
-            ->addColumn('picture_type', 'string', [
+            ->addColumn('mime', 'string', [
                 'default' => null,
                 'limit' => 255,
                 'null' => true,

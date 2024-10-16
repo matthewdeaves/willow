@@ -3,6 +3,10 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use App\Model\Table\Trait\ArticleCacheTrait;
+use ArrayObject;
+use Cake\Datasource\EntityInterface;
+use Cake\Event\EventInterface;
 use Cake\Log\Log;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -10,6 +14,8 @@ use Cake\Validation\Validator;
 
 /**
  * Slugs Model
+ *
+ * This model represents the slugs table and handles operations related to article slugs.
  *
  * @property \App\Model\Table\ArticlesTable&\Cake\ORM\Association\BelongsTo $Articles
  * @method \App\Model\Entity\Slug newEmptyEntity()
@@ -29,6 +35,8 @@ use Cake\Validation\Validator;
  */
 class SlugsTable extends Table
 {
+    use ArticleCacheTrait;
+
     /**
      * Initialize method
      *
@@ -111,9 +119,51 @@ class SlugsTable extends Table
                 'slug' => $slug,
             ]);
 
-            if (!$this->save($newSlug)) {
+            if ($this->save($newSlug)) {
+                // Clear the cache for this new slug
+                $this->clearFromCache($slug);
+            } else {
                 Log::error('Failed to save slug: ' . json_encode($newSlug->getErrors()));
             }
         }
+    }
+
+    /**
+     * After save callback.
+     *
+     * Clears the cache for the slug after it has been saved.
+     * If the slug was changed, it clears the cache for both the old and new slugs.
+     *
+     * @param \Cake\Event\EventInterface $event The event that was triggered.
+     * @param \Cake\Datasource\EntityInterface $entity The entity that was saved.
+     * @param \ArrayObject $options The options passed to the save method.
+     * @return void
+     */
+    public function afterSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
+    {
+        if (!$entity->isNew()) {
+            // Clear cache for both old and new slugs if the slug was changed
+            if ($entity->isDirty('slug')) {
+                $this->clearFromCache($entity->getOriginal('slug'));
+                $this->clearFromCache($entity->slug);
+            } else {
+                $this->clearFromCache($entity->slug);
+            }
+        }
+    }
+
+    /**
+     * After delete callback.
+     *
+     * Clears the cache for the slug after it has been deleted.
+     *
+     * @param \Cake\Event\EventInterface $event The event that was triggered.
+     * @param \Cake\Datasource\EntityInterface $entity The entity that was deleted.
+     * @param \ArrayObject $options The options passed to the delete method.
+     * @return void
+     */
+    public function afterDelete(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
+    {
+        $this->clearFromCache($entity->slug);
     }
 }

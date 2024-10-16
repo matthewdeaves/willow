@@ -10,13 +10,14 @@
         <?php foreach ($images as $image): ?>
             <div class="col">
                 <div class="card h-100">
-                    <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $image->image_file, 
+                    <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $image->file, 
                         [
-                            'pathPrefix' => 'files/Images/image_file/',
-                            'alt' => 'Picture',
+                            'pathPrefix' => 'files/Images/file/',
+                            'alt' => $image->alt_text,
                             'class' => 'card-img-top insert-image',
-                            'data-src' => $image->image_file,
-                            'data-id' => $image->id
+                            'data-src' => $image->file,
+                            'data-id' => $image->id,
+                            'data-alt' => $image->alt_text
                         ]
                     ) ?>
                     <div class="card-body">

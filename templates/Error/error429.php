@@ -13,17 +13,17 @@ if (Configure::read('debug')) :
     $this->layout = 'dev_error';
 
     $this->assign('title', $message);
-    $this->assign('templateName', 'error400.php');
+    $this->assign('templateName', 'error429.php');
 
     $this->start('file');
     echo $this->element('auto_table_warning');
     $this->end();
 endif;
 ?>
-<h2><?= h($message) ?></h2>
+<h2><?= __('Too Many Requests') ?></h2>
 <p class="error">
     <strong><?= __('Error') ?>: </strong>
-    <?= __('The requested address {0} was not found on this server.', "<strong>'{$url}'</strong>") ?>
+    <?= __('You have exceeded the rate limit. Please try again later.') ?>
 </p>
 <?php
 if (Configure::read('debug')):

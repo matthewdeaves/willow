@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
-use Cake\Event\EventInterface;
 use Cake\Http\Response;
 use Cake\View\JsonView;
 
@@ -26,30 +25,6 @@ class ImagesController extends AppController
     public function viewClasses(): array
     {
         return [JsonView::class];
-    }
-
-    /**
-     * Executes before the controller action is called.
-     *
-     * This method intercepts the request for the 'trumbowygAdd' action.
-     * It modifies the request data by renaming the 'alt' field to 'name'
-     * for image uploads through the Trumbowyg editor.
-     *
-     * @param \Cake\Event\EventInterface $event The event object.
-     * @return void
-     */
-    public function beforeFilter(EventInterface $event): ?Response
-    {
-        parent::beforeFilter($event);
-
-        if ($this->request->getParam('action') == 'trumbowygAdd') {
-            $postData = $this->request->getData();
-            $postData['name'] = $postData['alt'];
-            unset($postData['alt']);
-            $this->request = $this->request->withParsedBody($postData);
-        }
-
-        return null;
     }
 
     /**
@@ -213,7 +188,7 @@ class ImagesController extends AppController
 
                 // Pass the UploadedFile object directly
                 $data = [
-                    'image_file' => $uploadedFile,
+                    'file' => $uploadedFile,
                     'name' => pathinfo($originalFilename, PATHINFO_FILENAME),
                 ];
 

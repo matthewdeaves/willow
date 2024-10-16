@@ -164,23 +164,19 @@ return [
         ],
 
         'articles' => [
-            'className' => 'Redis',
+            'className' => FileEngine::class,
             'prefix' => 'cms_articles_',
-            'host' => env('REDIS_HOST', 'redis'),
-            'port' => env('REDIS_PORT', 6379),
-            'password' => env('REDIS_PASSWORD', 'password'),
-            'duration' => '+1 month',
+            'path' => CACHE . 'articles' . DS,
             'serialize' => true,
+            'duration' => '+1 month',
         ],
 
         'articles_index' => [
-            'className' => 'Redis',
+            'className' => FileEngine::class,
             'prefix' => 'cms_articles_index_',
-            'host' => env('REDIS_HOST', 'redis'),
-            'port' => env('REDIS_PORT', 6379),
-            'password' => env('REDIS_PASSWORD', 'password'),
-            'duration' => '+1 month',
+            'path' => CACHE . 'articles_index' . DS,
             'serialize' => true,
+            'duration' => '+1 month',
         ],
     ],
 

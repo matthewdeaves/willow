@@ -3,6 +3,7 @@
  * @var \App\View\AppView $this
  * @var string $message
  * @var string $url
+ * @var \Throwable $error
  */
 use Cake\Core\Configure;
 
@@ -21,6 +22,11 @@ endif;
 ?>
 <h2><?= h($message) ?></h2>
 <p class="error">
-    <strong><?= __d('cake', 'Error') ?>: </strong>
-    <?= __d('cake', 'The requested address {0} was not found on this server.', "<strong>'{$url}'</strong>") ?>
+    <strong><?= __('Error') ?>: </strong>
+    <?= __('The requested address {0} was not found on this server.', "<strong>'{$url}'</strong>") ?>
 </p>
+<?php
+if (Configure::read('debug')):
+    echo $this->element('exception_stack_trace');
+endif;
+?>

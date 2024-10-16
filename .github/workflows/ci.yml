@@ -30,19 +30,11 @@ jobs:
         mysql -e 'CREATE DATABASE IF NOT EXISTS cms_test;' -uroot -proot
         mysql -e 'SHOW DATABASES;' -uroot -proot
 
-    - name: Install and Configure Redis
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y redis-server
-        sudo sed -i 's/# requirepass foobared/requirepass password/' /etc/redis/redis.conf
-        sudo systemctl restart redis-server
-        redis-cli -a password ping
-
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php-version }}
-        extensions: mbstring, intl, pdo_mysql, pcntl, sockets, bcmath, zip, redis
+        extensions: mbstring, intl, pdo_mysql, pcntl, sockets, bcmath, zip
         coverage: xdebug
 
     - name: Install Composer dependencies
@@ -52,6 +44,9 @@ jobs:
 
     - name: Copy app_local.php
       run: cp docker/php/cms_app_local_github.php config/app_local.php
+
+    - name: Copy app.php
+      run: cp docker/php/docker/php/app_github.php config/app.php
 
     - name: Debug app_local.php
       run: cat "config/app_local.php"

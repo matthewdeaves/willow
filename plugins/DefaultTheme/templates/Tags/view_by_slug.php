@@ -4,12 +4,12 @@
  * @var \App\Model\Entity\Tag $tag
  */
 ?>
-<div class="container mt-4">
-    <h1 class="mb-4"><?= h($tag->title) ?>: <?= __('Associated Pages') ?></h1>
+<div class="tag-articles">
+    <h2 class="mb-4 text-primary"><?= h($tag->title) ?>: <?= __('Associated Pages') ?></h2>
 
-    <div class="card">
+    <div class="card mb-4 shadow-sm">
         <div class="card-header bg-primary text-white">
-            <h2 class="card-title h4 mb-0"><?= __('Associated Pages') ?></h2>
+            <h3 class="card-title h5 mb-0"><?= __('Associated Pages') ?></h3>
         </div>
         <div class="card-body">
             <?php if (!empty($tag->articles)): ?>
@@ -18,16 +18,16 @@
                         <li class="list-group-item">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <h5 class="mb-1">
+                                    <h4 class="h6 mb-1">
                                         <?= $this->Html->link(
                                             h($article->title),
                                             '/' . $article->slug,
                                             ['class' => 'text-primary']
                                         ) ?>
-                                    </h5>
-                                    <small class="text-muted">By <?= h($article->user->username) ?></small>
+                                    </h4>
+                                    <small class="text-muted"><?= __('By') ?> <?= h($article->user->username) ?></small>
                                 </div>
-                                <small class="text-muted"><?= h($article->created->format('M d, Y')) ?></small>
+                                <small class="text-muted"><?= h($article->created->format('F j, Y, g:i a')) ?></small>
                             </div>
                         </li>
                     <?php endforeach; ?>

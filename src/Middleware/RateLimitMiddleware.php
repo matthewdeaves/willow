@@ -93,7 +93,11 @@ class RateLimitMiddleware implements MiddlewareInterface
                     $response = $handler->handle($request);
                     $response = $response->withStatus(429)
                         ->withHeader('Retry-After', (string)$this->period);
-                    throw new TooManyRequestsException(__('Too many requests. Please try again later.'), null, $this->period);
+                    throw new TooManyRequestsException(
+                        __('Too many requests. Please try again later.'),
+                        null,
+                        $this->period
+                    );
                 }
             } catch (CacheException $e) {
                 Log::error('Cache error in rate limiting: ' . $e->getMessage(), [

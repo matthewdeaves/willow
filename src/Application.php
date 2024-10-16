@@ -37,7 +37,6 @@ use Cake\Routing\Middleware\AssetMiddleware;
 use Cake\Routing\Middleware\RoutingMiddleware;
 use Cake\Routing\Router;
 use Psr\Http\Message\ServerRequestInterface;
-use App\Http\Exception\TooManyRequestsException;
 
 /**
  * Application setup class.

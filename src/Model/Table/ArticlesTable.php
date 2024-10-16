@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use App\Model\Table\Trait\ArticleCacheTrait;
 use App\Utility\SettingsManager;
 use ArrayObject;
 use Cake\Datasource\EntityInterface;
@@ -38,6 +39,8 @@ use InvalidArgumentException;
  */
 class ArticlesTable extends Table
 {
+    use ArticleCacheTrait;
+
     /**
      * Initialize method for the ArticlesTable.
      *
@@ -340,6 +343,7 @@ class ArticlesTable extends Table
         }
 
         $article = $this->get($data['id']);
+        $oldParentId = $article->parent_id;
 
         if ($data['newParentId'] === 'root') {
             // Moving to root level
@@ -375,6 +379,26 @@ class ArticlesTable extends Table
             } else {
                 $this->moveUp($article, $currentPosition - $newPosition);
             }
+        }
+
+        // Clear cache for the moved article
+        $this->clearFromCache($article->slug);
+
+        // Clear cache for the old parent (if it exists)
+        if ($oldParentId) {
+            $oldParent = $this->get($oldParentId);
+            $this->clearFromCache($oldParent->slug);
+        }
+
+        // Clear cache for the new parent (if it's not root)
+        if ($article->parent_id) {
+            $newParent = $this->get($article->parent_id);
+            $this->clearFromCache($newParent->slug);
+        }
+
+        // Clear cache for affected siblings
+        foreach ($siblings as $sibling) {
+            $this->clearFromCache($sibling->slug);
         }
 
         return true;

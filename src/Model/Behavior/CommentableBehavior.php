@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Model\Behavior;
 
 use ArrayObject;
+use Cake\Cache\Cache;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
 use Cake\ORM\Behavior;
@@ -47,6 +48,20 @@ class CommentableBehavior extends Behavior
     }
 
     /**
+     * Clear the cache for a specific entity.
+     *
+     * @param string $entityId The ID of the entity to clear cache for.
+     * @return void
+     */
+    protected function clearEntityCache(string $entityId): void
+    {
+        $entity = $this->_table->get($entityId);
+        if (property_exists($entity, 'slug')) {
+            Cache::delete("article_{$entity->slug}", 'articles');
+        }
+    }
+
+    /**
      * Before save callback.
      *
      * Automatically saves new comments associated with the entity.
@@ -87,7 +102,13 @@ class CommentableBehavior extends Behavior
             $this->getConfig('contentField') => $content,
         ]);
 
-        return $commentsTable->save($comment);
+        $result = $commentsTable->save($comment);
+
+        if ($result) {
+            $this->clearEntityCache($entityId);
+        }
+
+        return $result;
     }
 
     /**

@@ -63,7 +63,7 @@
                 <?php endif; ?>
                 <?= $this->Html->link(
                     __('Read More'),
-                    ['controller' => 'Articles', 'action' => 'view', $article->slug],
+                    '/' . $article->slug,
                     ['class' => 'btn btn-primary']
                 ) ?>
             </div>

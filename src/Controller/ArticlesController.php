@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Model\Table\PageViewsTable;
+use App\Model\Table\Trait\ArticleCacheTrait;
 use Cake\Event\EventInterface;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
@@ -15,6 +16,8 @@ use Cake\Http\Response;
  */
 class ArticlesController extends AppController
 {
+    use ArticleCacheTrait;
+
     /**
      * PageViews Table
      *
@@ -130,76 +133,92 @@ class ArticlesController extends AppController
     /**
      * View an article by its slug.
      *
-     * This method retrieves and displays an article based on the provided slug.
-     * It performs the following steps:
-     * 1. Attempts to find the article ID using the slug in the slugs table.
-     * 2. If not found, tries to find the article directly using the slug.
-     * 3. Checks if the current slug is the latest for the article.
-     * 4. Performs a 301 redirect if a more recent slug exists.
-     * 5. Fetches the full article with associated data (users, tags, comments, images).
-     * 6. Records the page view.
+     * This method attempts to retrieve an article using the provided slug. It first checks the cache for the article.
+     * If not found in the cache, it verifies if the slug is the latest for the article. If the slug is outdated, it performs
+     * a 301 redirect to the latest slug. The method fetches the full article with its associations if necessary and caches
+     * it using the current slug. It also records a page view for analytics purposes.
+     *
+     * The method follows these steps:
+     * 1. Check cache for the article.
+     * 2. If not in cache, look up the slug in the database.
+     * 3. If slug not found, attempt to find the article directly by slug.
+     * 4. Verify if the slug is the latest for the article.
+     * 5. If not the latest, perform a 301 redirect to the latest slug.
+     * 6. Fetch the full article with associations.
+     * 7. Cache the article.
+     * 8. Record a page view.
+     * 9. Set the article data for the view.
      *
      * @param string $slug The slug of the article to view.
-     * @return \Cake\Http\Response|null Returns a Response object in case of redirection,
-     *                                  or null if the view is rendered.
+     * @return \Cake\Http\Response|null Returns a Response object if a redirect is performed, otherwise null.
      * @throws \Cake\Http\Exception\NotFoundException If the article is not found.
      */
     public function viewBySlug(string $slug): ?Response
     {
-        // First, find the article associated in the slugs table by slug
-        $slugEntity = $this->Slugs->find()
-            ->where(['slug' => $slug])
-            ->order(['created' => 'DESC'])
-            ->select(['article_id'])
-            ->first();
+        // Try to get the article from cache first
+        $article = $this->getFromCache($slug);
 
-        // If we don't find a slug, try to find an article by the slug instead
-        if (!$slugEntity) {
+        if (!empty($article)) {
+            // If in cache, we know this is the current slug
+        } else {
+            // If not in cache, we need to check if this is the latest slug
+            $slugEntity = $this->Slugs->find()
+                ->where(['slug' => $slug])
+                ->order(['created' => 'DESC'])
+                ->select(['article_id'])
+                ->first();
+
+            if (!$slugEntity) {
+                // If no slug found, try to find the article directly (fallback)
+                $article = $this->Articles->find()
+                    ->where(['slug' => $slug, 'is_published' => 1])
+                    ->first();
+
+                if (!$article) {
+                    throw new NotFoundException(__('Article not found'));
+                }
+
+                $articleId = $article->id;
+            } else {
+                $articleId = $slugEntity->article_id;
+            }
+
+            // Check if it's the latest slug for the article
+            $latestSlug = $this->Slugs->find()
+                ->where(['article_id' => $articleId])
+                ->order(['created' => 'DESC'])
+                ->select(['slug'])
+                ->first();
+
+            // If $slug is not the same as the latestSlug, do a 301 redirect
+            if ($latestSlug && $latestSlug->slug !== $slug) {
+                return $this->redirect('/' . $latestSlug->slug, 301);
+            }
+
+            // Fetch the full article with its associations
             $article = $this->Articles->find()
-                ->where(['slug' => $slug, 'is_published' => 1])
+                ->where([
+                    'Articles.id' => $articleId,
+                    'Articles.is_published' => 1,
+                ])
+                ->contain([
+                    'Users',
+                    'Tags',
+                    'Comments' => function ($q) {
+                        return $q->where(['Comments.display' => 1])
+                                ->order(['Comments.created' => 'DESC'])
+                                ->contain(['Users']);
+                    },
+                    'Images',
+                ])
                 ->first();
 
             if (!$article) {
                 throw new NotFoundException(__('Article not found'));
             }
 
-            $articleId = $article->id;
-        } else {
-            $articleId = $slugEntity->article_id;
-        }
-
-        // Check if it's the latest slug for the article
-        $latestSlug = $this->Slugs->find()
-            ->where(['article_id' => $articleId])
-            ->order(['created' => 'DESC'])
-            ->select(['slug', 'article_id'])
-            ->first();
-
-        // If $slug is not the same as the latestSlug, do a 301 redirect
-        if ($latestSlug && $latestSlug->slug !== $slug) {
-            return $this->redirect('/' . $latestSlug->slug, 301);
-        }
-
-        // Fetch the full article with its associations
-        $article = $this->Articles->find()
-            ->where([
-                'Articles.id' => $articleId,
-                'Articles.is_published' => 1,
-            ])
-            ->contain([
-                'Users',
-                'Tags',
-                'Comments' => function ($q) {
-                    return $q->where(['Comments.display' => 1])
-                            ->order(['Comments.created' => 'DESC'])
-                            ->contain(['Users']);
-                },
-                'Images',
-            ])
-            ->first();
-
-        if (!$article) {
-            throw new NotFoundException(__('Article not found'));
+            // Cache the article using the current (latest) slug
+            $this->setToCache($article->slug, $article);
         }
 
         // Record page view

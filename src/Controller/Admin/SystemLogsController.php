@@ -110,7 +110,22 @@ class SystemLogsController extends AppController
         $this->set(compact('systemLog'));
     }
 
-    public function delete($type = null, $value = null)
+    /**
+     * Delete system logs based on specified criteria.
+     *
+     * This method handles various deletion scenarios:
+     * - Delete all logs
+     * - Delete logs by level
+     * - Delete logs by group
+     * - Delete a single log by ID
+     *
+     * @param string|null $type The type of deletion ('all', 'level', 'group') or log ID for single deletion
+     * @param string|null $value The value associated with the deletion type (level or group name)
+     * @return \Cake\Http\Response|null Redirects to the index action after deletion attempt
+     * @throws \Cake\Http\Exception\MethodNotAllowedException When the request method is not POST or DELETE
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When a single log for deletion is not found
+     */
+    public function delete(?string $type = null, ?string $value = null): ?Response
     {
         $this->request->allowMethod(['post', 'delete']);
 

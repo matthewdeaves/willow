@@ -56,7 +56,7 @@ class CommentableBehavior extends Behavior
     protected function clearEntityCache(string $entityId): void
     {
         $entity = $this->_table->get($entityId);
-        if (property_exists($entity, 'slug')) {
+        if ($entity->slug) {
             Cache::delete("article_{$entity->slug}", 'articles');
         }
     }

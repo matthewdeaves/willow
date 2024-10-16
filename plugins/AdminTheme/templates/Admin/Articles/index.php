@@ -1,3 +1,4 @@
+<?php use App\Utility\SettingsManager; ?>
 <?php
 /**
  * @var \App\View\AppView $this
@@ -10,12 +11,13 @@
         <?= $this->Html->link(__('New Article'), ['prefix' => 'Admin', 'action' => 'add'], ['class' => 'btn btn-primary my-3 ms-2']) ?>
     </div>
     <div class="mb-3">
-        <input type="text" id="articleSearch" class="form-control" placeholder="Search articles...">
+        <input type="text" id="articleSearch" class="form-control" placeholder="<?= __('Search articles...') ?>">
     </div>
     <div class="table-responsive">
         <table class="table table-striped table-hover">
             <thead class="table-primary">
                 <tr>
+                    <th><?= __('Picture') ?></th>
                     <th><?= $this->Paginator->sort('user_id', 'Author') ?></th>
                     <th><?= $this->Paginator->sort('is_published', 'Published') ?></th>
                     <th><?= $this->Paginator->sort('title') ?></th>
@@ -30,6 +32,25 @@
                 <?php foreach ($articles as $article): ?>
                 <tr>
                     <td>
+                        <div class="position-relative">
+                            <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $article->image, 
+                                ['pathPrefix' => 'files/Articles/image/', 
+                                'alt' => $article->alt_text, 
+                                'class' => 'img-thumbnail', 
+                                'width' => '50',
+                                'data-bs-toggle' => 'popover',
+                                'data-bs-trigger' => 'hover',
+                                'data-bs-html' => 'true',
+                                'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $article->image, 
+                                    ['pathPrefix' => 'files/Articles/image/', 
+                                    'alt' => $article->alt_text, 
+                                    'class' => 'img-fluid', 
+                                    'style' => 'max-width: 300px; max-height: 300px;'])
+                                ]) 
+                            ?>
+                        </div>
+                    </td>
+                    <td>
                         <?php if (isset($article->_matchingData['Users']) && $article->_matchingData['Users']->username): ?>
                             <?= $this->Html->link(
                                 h($article->_matchingData['Users']->username),
@@ -39,7 +60,7 @@
                             <?= h(__('Unknown Author')) ?>
                         <?php endif; ?>
                     </td>
-                    <td><?= $article->is_published ? '<span class="badge bg-success">Yes</span>' : '<span class="badge bg-secondary">No</span>' ?></td>
+                    <td><?= $article->is_published ? '<span class="badge bg-success">' . __('Yes') . '</span>' : '<span class="badge bg-secondary">' . __('No') . '</span>' ?></td>
                     <td><?= h($article->title) ?></td>
                     <td>
                         <?php if ($article->is_published == true): ?>
@@ -109,6 +130,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(response => response.text())
                 .then(html => {
                     resultsContainer.innerHTML = html;
+                    // Re-initialize popovers after updating the content
+                    const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+                    popoverTriggerList.map(function (popoverTriggerEl) {
+                        return new bootstrap.Popover(popoverTriggerEl);
+                    });
                 })
                 .catch(error => console.error('Error:', error));
             } else {
@@ -116,6 +142,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 location.reload();
             }
         }, 300); // Debounce for 300ms
+    });
+
+    // Initialize popovers on page load
+    const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+    popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl);
     });
 });
 <?php $this->Html->scriptEnd(); ?>

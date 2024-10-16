@@ -6,26 +6,14 @@
 ?>
 <?php if (!empty($article->tags)) : ?>
 <div class="related-tags mb-4">
-    <h4><?= __('Tags') ?></h4>
-    <div class="table-responsive">
-        <table class="table table-sm">
-            <thead class="table-light">
-                <tr>
-                    <th><?= __('Title') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($article->tags as $tag) : ?>
-                <tr>
-                    <td><?= h($tag->title) ?></td>
-                    <td class="actions">
-                        <?= $this->Html->link(__('View'), ['controller' => 'Tags', 'action' => 'view', $tag->id], ['class' => 'btn btn-sm btn-outline-secondary']) ?>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+    <div class="d-flex flex-wrap gap-2">
+        <?php foreach ($article->tags as $tag) : ?>
+            <?= $this->Html->link(
+                h($tag->title),
+                ['controller' => 'Tags', 'action' => 'view', $tag->id],
+                ['class' => 'btn btn-outline-primary btn-sm']
+            ) ?>
+        <?php endforeach; ?>
     </div>
 </div>
 <?php endif; ?>

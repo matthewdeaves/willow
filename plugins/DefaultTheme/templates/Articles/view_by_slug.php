@@ -48,13 +48,17 @@
                     'carouselId' => 'articleImagesCarousel'
                 ]) ?>
             </div>
-            <div>
-                <?php if (!empty($article->tags)): ?>
-                    <?= $this->element('tags', ['article' => $article]) ?>
-                <?php else: ?>
-                    <p class="text-muted"><?= __('No tags are linked.') ?></p>
-                <?php endif; ?>
-            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <h3 class="card-title"><?= __('Tags') ?></h3>
+            <?php if (!empty($article->tags)): ?>
+                <?= $this->element('tags', ['article' => $article]) ?>
+            <?php else: ?>
+                <p class="text-muted"><?= __('No tags are linked.') ?></p>
+            <?php endif; ?>
         </div>
     </div>
 

@@ -41,12 +41,12 @@ class ImagesTableTest extends TestCase
         $validator = new Validator();
         $validator = $this->ImagesTable->validationCreate($validator);
 
-        $this->assertTrue($validator->hasField('image_file'));
-        $this->assertTrue($validator->isPresenceRequired('image_file', true));
-        $this->assertFalse($validator->isEmptyAllowed('image_file', false));
+        $this->assertTrue($validator->hasField('file'));
+        $this->assertTrue($validator->isPresenceRequired('file', true));
+        $this->assertFalse($validator->isEmptyAllowed('file', false));
 
-        $this->assertArrayHasKey('mimeType', $validator->field('image_file')->rules());
-        $this->assertArrayHasKey('fileSize', $validator->field('image_file')->rules());
+        $this->assertArrayHasKey('mimeType', $validator->field('file')->rules());
+        $this->assertArrayHasKey('fileSize', $validator->field('file')->rules());
     }
 
     public function testValidationUpdate(): void
@@ -54,11 +54,11 @@ class ImagesTableTest extends TestCase
         $validator = new Validator();
         $validator = $this->ImagesTable->validationUpdate($validator);
 
-        $this->assertTrue($validator->hasField('image_file'));
-        $this->assertTrue($validator->isEmptyAllowed('image_file', false));
+        $this->assertTrue($validator->hasField('file'));
+        $this->assertTrue($validator->isEmptyAllowed('file', false));
 
-        $this->assertArrayHasKey('mimeType', $validator->field('image_file')->rules());
-        $this->assertArrayHasKey('fileSize', $validator->field('image_file')->rules());
+        $this->assertArrayHasKey('mimeType', $validator->field('file')->rules());
+        $this->assertArrayHasKey('fileSize', $validator->field('file')->rules());
     }
 
     public function testBeforeSave(): void
@@ -66,15 +66,15 @@ class ImagesTableTest extends TestCase
         // Remove the QueueableImage behavior, dont want to trigger this for now
         $this->ImagesTable->removeBehavior('QueueableImage');
 
-        $oldImagePath = WWW_ROOT . 'files/Images/image_file/old_image.jpg';
+        $oldImagePath = WWW_ROOT . 'files/Images/file/old_image.jpg';
         file_put_contents($oldImagePath, 'dummy content');
 
         $entity = $this->ImagesTable->newEntity([
             'name' => 'Test Image',
-            'image_file' => 'old_image.jpg',
-            'image_dir' => 'files/Images/image_file/',
-            'image_size' => 1024, // Added this line
-            'image_type' => 'image/jpeg', // Added this line
+            'file' => 'old_image.jpg',
+            'dir' => 'files/Images/file/',
+            'size' => 1024,
+            'mime' => 'image/jpeg',
         ]);
         $entity = $this->ImagesTable->save($entity);
 
@@ -86,8 +86,8 @@ class ImagesTableTest extends TestCase
             'size' => 1024,
         ];
 
-        $entity = $this->ImagesTable->patchEntity($entity, ['image_file' => $newImageFile]);
-        $entity->setDirty('image_file', true);
+        $entity = $this->ImagesTable->patchEntity($entity, ['file' => $newImageFile]);
+        $entity->setDirty('file', true);
 
         $event = new Event('Model.beforeSave', $this->ImagesTable, ['entity' => $entity]);
         $options = new ArrayObject();

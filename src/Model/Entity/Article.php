@@ -67,5 +67,9 @@ class Article extends Entity
         'is_published' => true,
         'tags' => true,
         'images' => true,
+        'image' => true,
+        'dir' => true,
+        'size' => true,
+        'mime' => true,
     ];
 }

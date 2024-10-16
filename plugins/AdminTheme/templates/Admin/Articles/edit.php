@@ -29,7 +29,8 @@
                             <?= $this->Form->control('user_id', [
                                 'options' => $users,
                                 'class' => 'form-control' . ($this->Form->isFieldError('user_id') ? ' is-invalid' : ''),
-                                'required' => true
+                                'required' => true,
+                                'default' => $this->Identity->get('id')
                             ]) ?>
                         </div>
                         <div class="col-md-6 mb-3">
@@ -43,28 +44,32 @@
                         <div class="col-md-6 mb-3">
                             <?= $this->Form->control('slug', [
                                 'class' => 'form-control' . ($this->Form->isFieldError('slug') ? ' is-invalid' : ''),
-                                'required' => true
+                                'required' => true,
+                                'label' => ['class' => 'form-label']
                             ]) ?>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <?= $this->Form->control('tags._ids', [
-                                'options' => $tags,
+                            <?= $this->Form->label('tags._ids', 'Tags', ['class' => 'form-label']) ?>
+                            <?= $this->Form->select('tags._ids', $tags, [
                                 'class' => 'form-select' . ($this->Form->isFieldError('tags._ids') ? ' is-invalid' : ''),
                                 'multiple' => true,
                                 'data-live-search' => 'true',
                                 'data-actions-box' => 'true',
-                                'label' => 'Tags',
                                 'id' => 'tags-select'
                             ]) ?>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <?= $this->Form->control('is_published', [
-                                'type' => 'checkbox',
-                                'label' => 'Published',
-                                'class' => 'form-check-input'
-                            ]) ?>
+                            <div class="form-check">
+                                <?= $this->Form->checkbox('is_published', [
+                                    'class' => 'form-check-input'
+                                ]) ?>
+                                <?= $this->Form->label('is_published', 'Published', [
+                                    'class' => 'form-check-label',
+                                    'style' => 'margin-left: 5px;'
+                                ]) ?>
+                            </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <?php
@@ -90,6 +95,15 @@
                                 'rows' => '10',
                                 'class' => 'form-control' . ($this->Form->isFieldError('body') ? ' is-invalid' : ''),
                                 'required' => true
+                            ]) ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <?= $this->Form->control('image', [
+                                'type' => 'file',
+                                'class' => 'form-control-file' . ($this->Form->isFieldError('image') ? ' is-invalid' : ''),
+                                'label' => __('Article Main Picture')
                             ]) ?>
                         </div>
                     </div>

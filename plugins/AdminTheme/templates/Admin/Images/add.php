@@ -60,15 +60,15 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <?= $this->Form->control('image_file', [
+                            <?= $this->Form->control('file', [
                                 'type' => 'file',
-                                'class' => 'form-control-file' . ($this->Form->isFieldError('image_file') ? ' is-invalid' : ''),
+                                'class' => 'form-control-file' . ($this->Form->isFieldError('file') ? ' is-invalid' : ''),
                                 'label' => 'Image',
                                 'error' => false,
                             ]) ?>
-                            <?php if ($this->Form->isFieldError('image_file')): ?>
+                            <?php if ($this->Form->isFieldError('file')): ?>
                                 <div class="invalid-feedback d-block">
-                                    <?= $this->Form->error('image_file') ?>
+                                    <?= $this->Form->error('file') ?>
                                 </div>
                             <?php endif; ?>
                         </div>

@@ -53,14 +53,14 @@ class ImagesTable extends Table
         $this->addBehavior('Timestamp');
 
         $this->addBehavior('Josegonzalez/Upload.Upload', [
-            'image_file' => [
+            'file' => [
                 'fields' => [
-                    'dir' => 'image_dir',
-                    'size' => 'image_size',
-                    'type' => 'image_type',
+                    'dir' => 'dir',
+                    'size' => 'size',
+                    'type' => 'mime',
                 ],
                 'nameCallback' => function ($table, $entity, $data, $field, $settings) {
-                    $file = $entity->image_file;
+                    $file = $entity->{$field};
                     $clientFilename = $file->getClientFilename();
                     $ext = pathinfo($clientFilename, PATHINFO_EXTENSION);
 

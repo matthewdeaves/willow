@@ -85,6 +85,27 @@ class V1 extends AbstractMigration
                 'limit' => null,
                 'null' => true,
             ])
+            ->addColumn('image', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
+            ->addColumn('dir', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
+            ->addColumn('size', 'integer', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+                'signed' => true,
+            ])
+            ->addColumn('mime', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
             ->addColumn('is_published', 'boolean', [
                 'default' => false,
                 'limit' => null,

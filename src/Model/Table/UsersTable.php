@@ -44,7 +44,7 @@ class UsersTable extends Table
                     'type' => 'picture_type',
                 ],
                 'nameCallback' => function ($table, $entity, $data, $field, $settings) {
-                    $file = $entity->picture_file;
+                    $file = $entity->{$field};
                     $clientFilename = $file->getClientFilename();
                     $ext = pathinfo($clientFilename, PATHINFO_EXTENSION);
 

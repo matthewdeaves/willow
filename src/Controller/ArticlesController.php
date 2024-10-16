@@ -124,7 +124,8 @@ class ArticlesController extends AppController
                 'Articles.is_published' => 1,
             ])
             ->contain(['Users'])
-            ->orderBy(['Articles.published' => 'DESC']);
+            ->orderBy(['Articles.published' => 'DESC'])
+            ->cache('articles_index', 'articles_index');
         $articles = $this->paginate($query);
 
         $this->set(compact('articles'));

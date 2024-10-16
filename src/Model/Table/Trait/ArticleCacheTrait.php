@@ -50,6 +50,7 @@ trait ArticleCacheTrait
     public function clearFromCache(string $slug): void
     {
         Cache::delete($this->getCacheKey($slug), 'articles');
+        Cache::delete('articles_index', 'articles_index');
     }
 
     /**
@@ -60,5 +61,6 @@ trait ArticleCacheTrait
     public function clearAllArticlesCache(): void
     {
         Cache::clear('articles');
+        Cache::delete('articles_index', 'articles_index');
     }
 }

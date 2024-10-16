@@ -172,6 +172,16 @@ return [
             'duration' => '+1 month',
             'serialize' => true,
         ],
+
+        'articles_index' => [
+            'className' => 'Redis',
+            'prefix' => 'cms_articles_index_',
+            'host' => env('REDIS_HOST', 'redis'),
+            'port' => env('REDIS_PORT', 6379),
+            'password' => env('REDIS_PASSWORD', 'password'),
+            'duration' => '+1 month',
+            'serialize' => true,
+        ],
     ],
 
     /*

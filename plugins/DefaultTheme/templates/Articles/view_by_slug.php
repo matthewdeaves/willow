@@ -8,10 +8,8 @@
 <div class="articles">
     <div class="card mb-4 shadow-sm">
         <div class="card-body">
-            <h1 class="card-title"><?= h($article->title) ?></h1>
-
             <div class="position-relative">
-                <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $article->image, 
+                <?= $this->Html->image(SettingsManager::read('ImageSizes.teeny') . '/' . $article->image, 
                     [
                         'pathPrefix' => 'files/Articles/image/', 
                         'alt' => $article->alt_text, 
@@ -19,13 +17,16 @@
                         'data-bs-toggle' => 'popover', 
                         'data-bs-trigger' => 'hover', 
                         'data-bs-html' => 'true', 
-                        'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.extra-large', '400') . '/' . $article->image, 
+                        'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.extra-large') . '/' . $article->image, 
                         [
-                            'pathPrefix' => 'files/Articles/file/', 
+                            'pathPrefix' => 'files/Articles/image/', 
                             'alt' => $article->alt_text, 
                             'class' => 'img-fluid', 
-                            'style' => 'max-width: 300px; max-height: 300px;'
-                        ])]) ?>
+                            'style' => 'max-width: 400px; max-height: 400px;'
+                        ])
+                    ]) 
+                ?>
+                <h1 class="card-title"><?= h($article->title) ?></h1>
             </div>
             
             <p class="card-text text-muted">
@@ -92,5 +93,18 @@
         </section>
     <?php endif; ?>
 </div>
+
+<?php $this->Html->script('https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js', ['block' => true]); ?>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl, {
+            container: 'body'
+        })
+    })
+});
+</script>
 
 <?php debug($article); ?>

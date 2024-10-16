@@ -30,21 +30,21 @@ class UsersTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('QueueableImage', [
-            'folder_path' => 'files/Users/picture_file/',
-            'field' => 'picture_file',
+            'folder_path' => 'files/Users/picture/',
+            'field' => 'picture',
         ]);
 
         $this->addBehavior('Timestamp');
 
         $this->addBehavior('Josegonzalez/Upload.Upload', [
-            'picture_file' => [
+            'picture' => [
                 'fields' => [
-                    'dir' => 'picture_dir',
-                    'size' => 'picture_size',
-                    'type' => 'picture_type',
+                    'dir' => 'dir',
+                    'size' => 'size',
+                    'type' => 'mime',
                 ],
                 'nameCallback' => function ($table, $entity, $data, $field, $settings) {
-                    $file = $entity->picture_file;
+                    $file = $entity->{$field};
                     $clientFilename = $file->getClientFilename();
                     $ext = pathinfo($clientFilename, PATHINFO_EXTENSION);
 
@@ -109,8 +109,8 @@ class UsersTable extends Table
             ->notEmptyString('email');
 
         $validator
-            ->allowEmptyFile('picture_file')
-            ->add('picture_file', [
+            ->allowEmptyFile('picture')
+            ->add('picture', [
                 'mimeType' => [
                     'rule' => ['mimeType', ['image/jpeg', 'image/png', 'image/gif']],
                     'message' => 'Please upload only images (jpeg, png, gif).',
@@ -150,9 +150,9 @@ class UsersTable extends Table
      */
     public function beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): bool
     {
-        if (!$entity->isNew() && $entity->isDirty('picture_file')) {
-            $originalFilePath = $entity->getOriginal('picture_file');
-            $fullOriginalFilePath = WWW_ROOT . 'files/Users/picture_file/' . $originalFilePath;
+        if (!$entity->isNew() && $entity->isDirty('picture')) {
+            $originalFilePath = $entity->getOriginal('picture');
+            $fullOriginalFilePath = WWW_ROOT . 'files/Users/picture/' . $originalFilePath;
             // Delete the old file if it exists
             if ($originalFilePath && file_exists($fullOriginalFilePath)) {
                 unlink($fullOriginalFilePath);

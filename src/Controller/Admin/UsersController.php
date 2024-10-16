@@ -59,7 +59,7 @@ class UsersController extends AppController
                 'Users.is_disabled',
                 'Users.created',
                 'Users.modified',
-                'Users.picture_file',
+                'Users.picture',
             ]);
 
         if ($this->request->is('ajax')) {

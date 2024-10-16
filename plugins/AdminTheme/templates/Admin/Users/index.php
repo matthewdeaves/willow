@@ -32,17 +32,17 @@
                 <tr>
                     <td>
                         <div class="position-relative">
-                            <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $user->picture_file, 
-                                ['pathPrefix' => 'files/Users/picture_file/', 
-                                'alt' => __('Profile Picture'), 
+                            <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $user->picture, 
+                                ['pathPrefix' => 'files/Users/picture/', 
+                                'alt' => $user->alt_text, 
                                 'class' => 'img-thumbnail', 
                                 'width' => '50',
                                 'data-bs-toggle' => 'popover',
                                 'data-bs-trigger' => 'hover',
                                 'data-bs-html' => 'true',
-                                'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $user->picture_file, 
-                                    ['pathPrefix' => 'files/Users/picture_file/', 
-                                    'alt' => __('Profile Picture'), 
+                                'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $user->picture, 
+                                    ['pathPrefix' => 'files/Users/picture/', 
+                                    'alt' => $user->alt_text, 
                                     'class' => 'img-fluid', 
                                     'style' => 'max-width: 300px; max-height: 300px;'])
                                 ]) 

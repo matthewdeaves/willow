@@ -24,8 +24,8 @@ class ResizeImagesCommand extends Command
      * @var array<string, string>
      */
     protected array $modelsWithImages = [
-        'Users' => 'picture_file',
-        'Images' => 'image_file',
+        'Users' => 'picture',
+        'Images' => 'file',
     ];
 
     /**

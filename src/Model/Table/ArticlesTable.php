@@ -3,12 +3,14 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use App\Model\Table\Trait\ArticleCacheTrait;
 use App\Utility\SettingsManager;
 use ArrayObject;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 use Cake\Queue\QueueManager;
 use Cake\Utility\Text;
 use Cake\Validation\Validator;
@@ -37,6 +39,8 @@ use InvalidArgumentException;
  */
 class ArticlesTable extends Table
 {
+    use ArticleCacheTrait;
+
     /**
      * Initialize method for the ArticlesTable.
      *
@@ -86,6 +90,40 @@ class ArticlesTable extends Table
 
         $this->addBehavior('ImageAssociable');
 
+        $this->addBehavior('QueueableImage', [
+            'folder_path' => 'files/Articles/image/',
+            'field' => 'image',
+        ]);
+
+        $this->addBehavior('Josegonzalez/Upload.Upload', [
+            'image' => [
+                'fields' => [
+                    'dir' => 'dir',
+                    'size' => 'size',
+                    'type' => 'mime',
+                ],
+                'nameCallback' => function ($table, $entity, $data, $field, $settings) {
+                    $file = $entity->{$field};
+                    $clientFilename = $file->getClientFilename();
+                    $ext = pathinfo($clientFilename, PATHINFO_EXTENSION);
+
+                    return Text::uuid() . '.' . strtolower($ext);
+                },
+                'deleteCallback' => function ($path, $entity, $field, $settings) {
+                    $paths = [
+                        $path . $entity->{$field},
+                    ];
+
+                    foreach (SettingsManager::read('ImageSizes') as $width) {
+                        $paths[] = $path . $width . DS . $entity->{$field};
+                    }
+
+                    return $paths;
+                },
+                'keepFilesOnDelete' => false,
+            ],
+        ]);
+
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'joinType' => 'LEFT',
@@ -98,6 +136,8 @@ class ArticlesTable extends Table
 
         $this->hasMany('PageViews', [
             'foreignKey' => 'article_id',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
 
         $this->hasMany('Slugs', [
@@ -128,20 +168,51 @@ class ArticlesTable extends Table
             ->scalar('body')
             ->allowEmptyString('body');
 
-        $validator
+            $validator
             ->scalar('slug')
             ->maxLength('slug', 255)
             ->regex(
                 'slug',
                 '/^[a-z0-9-]+$/',
-                'The slug must be URL-safe (only lowercase letters, numbers, and hyphens)'
+                __('The slug must be URL-safe (only lowercase letters, numbers, and hyphens)')
             )
             ->requirePresence('slug', 'create')
-            ->allowEmptyString('slug')
-            ->add('slug', 'unique', [
-                'rule' => 'validateUnique',
-                'provider' => 'table',
-                'message' => 'This slug is already in use. Please enter a unique slug.',
+            ->notEmptyString('slug')
+            ->add('slug', 'uniqueInArticles', [
+                'rule' => function ($value, $context) {
+                    $exists = $this->exists(['slug' => $value]);
+                    if ($exists && isset($context['data']['id'])) {
+                        $exists = $this->exists(['slug' => $value, 'id !=' => $context['data']['id']]);
+                    }
+
+                    return !$exists;
+                },
+                'message' => __('This slug is already in use in articles. Please enter a unique slug.'),
+            ])
+            ->add('slug', 'uniqueInSlugs', [
+                'rule' => function ($value, $context) {
+                    $slugsTable = TableRegistry::getTableLocator()->get('Slugs');
+                    $exists = $slugsTable->exists(['slug' => $value]);
+                    if ($exists && isset($context['data']['id'])) {
+                        $exists = $slugsTable->exists(['slug' => $value, 'article_id !=' => $context['data']['id']]);
+                    }
+
+                    return !$exists;
+                },
+                'message' => __('Slug conflicts with an existing SEO redirect. Please choose a different slug.'),
+            ]);
+
+        $validator
+            ->allowEmptyFile('image')
+            ->add('image', [
+                'mimeType' => [
+                    'rule' => ['mimeType', ['image/jpeg', 'image/png', 'image/gif']],
+                    'message' => __('Please upload only images (jpeg, png, gif).'),
+                ],
+                'fileSize' => [
+                    'rule' => ['fileSize', '<=', '5MB'],
+                    'message' => __('Image must be less than 5MB.'),
+                ],
             ]);
 
         return $validator;
@@ -272,6 +343,7 @@ class ArticlesTable extends Table
         }
 
         $article = $this->get($data['id']);
+        $oldParentId = $article->parent_id;
 
         if ($data['newParentId'] === 'root') {
             // Moving to root level
@@ -307,6 +379,26 @@ class ArticlesTable extends Table
             } else {
                 $this->moveUp($article, $currentPosition - $newPosition);
             }
+        }
+
+        // Clear cache for the moved article
+        $this->clearFromCache($article->slug);
+
+        // Clear cache for the old parent (if it exists)
+        if ($oldParentId) {
+            $oldParent = $this->get($oldParentId);
+            $this->clearFromCache($oldParent->slug);
+        }
+
+        // Clear cache for the new parent (if it's not root)
+        if ($article->parent_id) {
+            $newParent = $this->get($article->parent_id);
+            $this->clearFromCache($newParent->slug);
+        }
+
+        // Clear cache for affected siblings
+        foreach ($siblings as $sibling) {
+            $this->clearFromCache($sibling->slug);
         }
 
         return true;

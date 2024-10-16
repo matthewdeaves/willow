@@ -20,9 +20,10 @@ $(document).ready(function() {
         $('.insert-image').off('click').on('click', function() {
             var imageSrc = $(this).data('src');
             var imageId = $(this).data('id');
+            var imageAlt = $(this).data('alt');
             var imageSize = $('#' + imageId + '_size').val();
 
-            var imageHtml = '<img src="/files/Images/image_file/' + imageSize + '/' + imageSrc + '" class="img-fluid" />';
+            var imageHtml = '<img src="/files/Images/file/' + imageSize + '/' + imageSrc + '" alt="' + imageAlt + '" class="img-fluid" />';
 
             var trumbowyg = $('#article-body').data('trumbowyg');
             if (trumbowyg) {

@@ -30,7 +30,7 @@ class ProcessImageJob implements JobInterface
     public static ?int $maxAttempts = 3;
 
     /**
-     * Flag to indicate if the job should be unique
+     * Whether there should be only one instance of a job on the queue at a time. (optional property)
      *
      * @var bool
      */

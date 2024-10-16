@@ -57,7 +57,6 @@ class QueueableImageBehavior extends Behavior
     {
         $config = $this->getConfig();
         if ($entity->isDirty($config['field'])) {
-            //mesasge should just pass folder, original filename and entityid
             $message = [
                 'folder_path' => WWW_ROOT . $config['folder_path'],
                 'file' => $entity->{$config['field']},
@@ -71,8 +70,7 @@ class QueueableImageBehavior extends Behavior
                     'args' => [$message],
                 ]);
 
-                // No image analysis for users profile pictures as we don't store that
-                if (SettingsManager::read('AI.enabled') && $message['model'] != 'Users') {
+                if (SettingsManager::read('AI.enabled')) {
                     // Queue up an image analysis job
                     QueueManager::push('App\Job\ImageAnalysisJob', [
                         'args' => [$message],

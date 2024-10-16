@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
+use App\Model\Table\Trait\ArticleCacheTrait;
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Http\Response;
 use Exception;
@@ -15,6 +16,8 @@ use Exception;
  */
 class ArticlesController extends AppController
 {
+    use ArticleCacheTrait;
+
     /**
      * Retrieves a hierarchical list of articles that are marked as pages.
      *
@@ -221,6 +224,9 @@ class ArticlesController extends AppController
             }
 
             if ($this->Articles->save($article)) {
+                // Clear the cache for this new article
+                $this->clearFromCache($article->slug);
+
                 $this->Flash->success(__('The article has been saved.'));
 
                 // Redirect to treeIndex if is_page is true, otherwise to index
@@ -271,9 +277,10 @@ class ArticlesController extends AppController
     public function edit(?string $id = null): Response
     {
         $article = $this->Articles->get($id, contain: ['Tags', 'Images']);
+        $oldSlug = $article->slug;
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
-
             $data['is_page'] = $this->request->getQuery('is_page', 0);
             $article = $this->Articles->patchEntity($article, $data);
 
@@ -288,6 +295,10 @@ class ArticlesController extends AppController
             $article->unlinkedImages = $unlinkedImages;
 
             if ($this->Articles->save($article)) {
+                // Clear cache for both old and new slugs
+                $this->clearFromCache($oldSlug);
+                $this->clearFromCache($article->slug);
+
                 $this->Flash->success(__('The article has been saved.'));
 
                 // Redirect to treeIndex if is_page is true, otherwise to index
@@ -333,6 +344,9 @@ class ArticlesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $article = $this->Articles->get($id);
         if ($this->Articles->delete($article)) {
+            // Clear the cache for this article
+            $this->clearFromCache($article->slug);
+
             $this->Flash->success(__('The article has been deleted.'));
         } else {
             $this->Flash->error(__('The article could not be deleted. Please, try again.'));

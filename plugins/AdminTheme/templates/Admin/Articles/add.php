@@ -18,8 +18,12 @@
         ?>
         <div class="col-md-9">
             <div class="card">
+                <?php
+                    $isPage = $this->request->getQuery('is_page') == '1';
+                    $headerText = $isPage ? __('Add Page') : __('Add Article');
+                ?>
                 <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0"><?= __('Add Article') ?></h3>
+                    <h3 class="mb-0"><?= $headerText ?></h3>
                 </div>
                 <div class="card-body">
                     <?= $this->Form->create($article, ['type' => 'file', 'class' => 'needs-validation', 'novalidate' => true, 'enctype' => 'multipart/form-data']) ?>
@@ -44,28 +48,32 @@
                             <?= $this->Form->control('slug', [
                                 'value' => $article->slug,
                                 'class' => 'form-control' . ($this->Form->isFieldError('slug') ? ' is-invalid' : ''),
-                                'required' => true
+                                'required' => true,
+                                'label' => ['class' => 'form-label']
                             ]) ?>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <?= $this->Form->control('tags._ids', [
-                                'options' => $tags,
+                            <?= $this->Form->label('tags._ids', 'Tags', ['class' => 'form-label']) ?>
+                            <?= $this->Form->select('tags._ids', $tags, [
                                 'class' => 'form-select' . ($this->Form->isFieldError('tags._ids') ? ' is-invalid' : ''),
                                 'multiple' => true,
                                 'data-live-search' => 'true',
                                 'data-actions-box' => 'true',
-                                'label' => 'Tags',
                                 'id' => 'tags-select'
                             ]) ?>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <?= $this->Form->control('is_published', [
-                                'type' => 'checkbox',
-                                'label' => 'Published',
-                                'class' => 'form-check-input'
-                            ]) ?>
+                            <div class="form-check">
+                                <?= $this->Form->checkbox('is_published', [
+                                    'class' => 'form-check-input'
+                                ]) ?>
+                                <?= $this->Form->label('is_published', 'Published', [
+                                    'class' => 'form-check-label',
+                                    'style' => 'margin-left: 5px;'  // Adjust this value as needed
+                                ]) ?>
+                            </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <?php
@@ -95,8 +103,17 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-3 mb-3">
-                            <?= $this->Form->label('image_uploads[]', 'Images') ?>
+                        <div class="col-md-6 mb-3">
+                            <?= $this->Form->control('image', [
+                                'type' => 'file',
+                                'class' => 'form-control-file' . ($this->Form->isFieldError('image') ? ' is-invalid' : ''),
+                                'label' => __('Main Picture')
+                            ]) ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <?= $this->Form->label('image_uploads[]', __('Additional Images')) ?>
                             <?= $this->Form->file('image_uploads[]', ['multiple' => true, 'class' => 'form-control-file']) ?>
                         </div>
                     </div>

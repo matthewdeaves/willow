@@ -39,3 +39,8 @@ RUN install-php-extensions https://github.com/Imagick/imagick/archive/refs/tags/
 RUN wget https://getcomposer.org/installer -O composer-setup.php && \
     php composer-setup.php --install-dir=/usr/local/bin --filename=composer && \
     rm composer-setup.php
+
+# Increase PHP limits
+RUN echo "upload_max_filesize = 100M" >> /usr/local/etc/php/conf.d/uploads.ini && \
+    echo "post_max_size = 100M" >> /usr/local/etc/php/conf.d/uploads.ini && \
+    echo "memory_limit = 256M" >> /usr/local/etc/php/conf.d/uploads.ini

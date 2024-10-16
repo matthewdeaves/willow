@@ -75,18 +75,18 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <?= $this->Form->control('picture_file', [
+                            <?= $this->Form->control('picture', [
                                 'type' => 'file',
-                                'class' => 'form-control' . ($this->Form->isFieldError('picture_file') ? ' is-invalid' : ''),
+                                'class' => 'form-control' . ($this->Form->isFieldError('picture') ? ' is-invalid' : ''),
                                 'label' => 'Upload Profile Picture'
                             ]) ?>
                         </div>
                     </div>
-                    <?php if (!empty($user->picture_file)): ?>
+                    <?php if (!empty($user->picture)): ?>
                         <div class="row">
                             <div class="col-md-12 mb-3">
-                                <?= $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $user->picture_file, 
-                                    ['pathPrefix' => 'files/Users/picture_file/', 'alt' => 'Profile Picture', 'class' => 'img-fluid']) ?>
+                                <?= $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $user->picture, 
+                                    ['pathPrefix' => 'files/Users/picture/', 'alt' => $user->alt_text, 'class' => 'img-fluid']) ?>
                             </div>
                         </div>
                     <?php endif; ?>

@@ -5,6 +5,7 @@ namespace App\Test\TestCase\Controller;
 
 use App\Model\Table\CommentsTable;
 use App\Test\TestCase\AppControllerTestCase;
+use Cake\Cache\Cache;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestTrait;
 
@@ -48,6 +49,9 @@ class CommentsControllerTest extends AppControllerTestCase
                 'AUTH_TYPE' => 'Form',
             ],
         ]);
+
+        // Clear all cache as the tests are a litte fast even for redis
+        Cache::clear();
     }
 
     /**

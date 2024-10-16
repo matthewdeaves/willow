@@ -90,6 +90,21 @@ class V1 extends AbstractMigration
                 'limit' => 255,
                 'null' => true,
             ])
+            ->addColumn('alt_text', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
+            ->addColumn('keywords', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
+            ->addColumn('name', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
             ->addColumn('dir', 'string', [
                 'default' => null,
                 'limit' => 255,
@@ -731,23 +746,38 @@ class V1 extends AbstractMigration
                 'limit' => 255,
                 'null' => false,
             ])
-            ->addColumn('picture_file', 'string', [
+            ->addColumn('picture', 'string', [
                 'default' => null,
                 'limit' => 255,
                 'null' => true,
             ])
-            ->addColumn('picture_dir', 'string', [
+            ->addColumn('alt_text', 'string', [
                 'default' => null,
                 'limit' => 255,
                 'null' => true,
             ])
-            ->addColumn('picture_size', 'integer', [
+            ->addColumn('keywords', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
+            ->addColumn('name', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
+            ->addColumn('dir', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
+            ->addColumn('size', 'integer', [
                 'default' => null,
                 'limit' => null,
                 'null' => true,
                 'signed' => true,
             ])
-            ->addColumn('picture_type', 'string', [
+            ->addColumn('mime', 'string', [
                 'default' => null,
                 'limit' => 255,
                 'null' => true,

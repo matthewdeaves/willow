@@ -19,21 +19,30 @@ use Imagick;
 class ResizeImagesCommand extends Command
 {
     /**
-     * Stores the model names and their respective image columns to process.
+     * Stores the model names and their respective columns to process.
      *
      * @var array<string, string>
      */
     protected array $modelsWithImages = [
-        'Users' => 'picture',
-        'Images' => 'file',
+        'Users' => [
+            'file' => 'picture',
+            'dir' => 'dir',
+            'size' => 'size',
+            'type' => 'mime',
+        ],
+        'Images' => [
+            'file' => 'file',
+            'dir' => 'dir',
+            'size' => 'size',
+            'type' => 'mime',
+        ],
+        'Articles' => [
+            'file' => 'image',
+            'dir' => 'dir',
+            'size' => 'size',
+            'type' => 'mime',
+        ],
     ];
-
-    /**
-     * Indicates whether to skip overwriting existing resized images.
-     *
-     * @var string|bool|null
-     */
-    protected bool|string|null $skipExistingImages;
 
     /**
      * Stores the ConsoleIo instance for output operations.
@@ -53,12 +62,6 @@ class ResizeImagesCommand extends Command
     {
         $parser = parent::buildOptionParser($parser);
 
-        $parser->addOption('skipExistingImages', [
-            'short' => 's',
-            'help' => 'Use bin/cake resize_images -s to skip overwriting existing resized images',
-            'boolean' => true,
-        ]);
-
         return $parser;
     }
 
@@ -74,24 +77,22 @@ class ResizeImagesCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io): int
     {
-        //set if we are overwriting images from the command option (default true)
-        $this->skipExistingImages = $args->getOption('skipExistingImages');
-
         //save reference for IO
         $this->io = $io;
         //for our models that have images, get their table
-        foreach ($this->modelsWithImages as $modelWithImage => $column) {
-            $imagesTable = $this->fetchTable($modelWithImage);
+        foreach ($this->modelsWithImages as $model => $columns) {
+            $imagesTable = $this->fetchTable($model);
             $images = $imagesTable->find('all')
-            ->select(['id', $column])
-            ->where([$column . ' IS NOT' => null])
+            ->select(['id', $columns['file'], $columns['dir']])
+            ->where([$columns['file'] . ' IS NOT' => null])
             ->toArray();
 
             foreach ($images as $image) {
-                $original = WWW_ROOT . 'files/' . $modelWithImage . DS . $column . DS . $image->{$column};
+                $folder = ROOT . DS . $image->dir;
+                $original = $folder . $image->{$columns['file']};
                 if (file_exists($original)) {
                     foreach (SettingsManager::read('ImageSizes') as $width) {
-                        $this->createImage($original, intval($width));
+                        $this->createImage($folder, $image->{$columns['file']}, intval($width));
                     }
                 }
             }
@@ -101,40 +102,79 @@ class ResizeImagesCommand extends Command
     }
 
     /**
-     * Resizes an image to the specified width.
+     * Creates a resized image.
      *
-     * This method uses ImageMagick to resize the image while maintaining the aspect ratio.
-     * It also handles file existence checks and skipping based on the skipExistingImages option.
+     * This method resizes the given image to the specified width and saves it
+     * in the appropriate directory.
      *
-     * @param string $original The path to the original image to resize.
-     * @param int $width The width to resize to.
+     * @param string $folder The directory where the original image is stored.
+     * @param string $file The name of the image file.
+     * @param int $width The target width for the resized image.
+     * @throws \Exception If the directory cannot be created.
      * @return void
      */
-    private function createImage(string $original, int $width): void
+    private function createImage(string $folder, string $file, int $width): void
     {
-        try {
-            if (file_exists($original)) {
-                //create the file if the resized version does not exist or if overwriteExistingImages set to true
-                if (!file_exists($original . '_' . $width) || !$this->skipExistingImages) {
-                    // Create an Imagick object
-                    $imagick = new Imagick($original);
+        // Make sure folder for size exists
+        // Ensure the folder path ends with a directory separator
+        $folder = rtrim($folder, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
 
-                    // Resize the image to 200 pixels wide while maintaining the aspect ratio
-                    $imagick->resizeImage($width, 0, Imagick::FILTER_LANCZOS, 1);
+        // Create the full path including the width
+        $sizeFolder = $folder . $width . DIRECTORY_SEPARATOR;
 
-                    // Save the resized image
-                    $imagick->writeImage($original . '_' . $width);
-
-                    // Clear the Imagick object
-                    $imagick->clear();
-
-                    $this->io->out('Saved image: ' . $original . '_' . $width);
-                } else {
-                    $this->io->out('Skipped saving image: ' . $original . '_' . $width);
-                }
+        // Check if the directory exists, if not, create it
+        if (!is_dir($sizeFolder)) {
+            if (!mkdir($sizeFolder, 0755, true)) {
+                throw new Exception("Failed to create directory: $sizeFolder");
             }
+        }
+
+        try {
+            if (!file_exists($folder . $file)) {
+                $this->log(
+                    __('Original image not found for resizing. Path: {0}', [$original]),
+                    'error',
+                    ['group_name' => 'image_processing']
+                );
+
+                return;
+            }
+
+            if (file_exists($sizeFolder . $file)) {
+                $this->log(
+                    __(
+                        'Skipped resizing, image already exists. Path: {0}',
+                        [$sizeFolder . $file]
+                    ),
+                    'info',
+                    ['group_name' => 'image_processing']
+                );
+
+                return;
+            }
+
+            $imagick = new Imagick($folder . $file);
+            $imagick->resizeImage($width, 0, Imagick::FILTER_LANCZOS, 1);
+            $imagick->writeImage($sizeFolder . $file);
+            $imagick->clear();
+
+            $this->log(
+                __(
+                    'Successfully resized and saved image. Original: {0}, Resized: {1}, Width: {2}px',
+                    [$folder . $file, $sizeFolder . $file, $width]
+                ),
+                'info',
+                ['group_name' => 'image_processing']
+            );
         } catch (Exception $e) {
-            $this->io->out('Error resizing image:' . $original . '_' . $width . ' - ' . $e->getMessage());
+            $this->log(
+                __(
+                    'Error resizing image. Original: {0}, Target Width: {1}px, Error: {2}',
+                    [$folder . $file, $width, $e->getMessage()]
+                ),
+                'error',
+                ['group_name' => 'image_processing']
+            );
         }
     }
 }

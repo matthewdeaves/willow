@@ -67,6 +67,9 @@
                     </li>
                     <?php if ($this->Identity->isLoggedIn()): ?>
                     <li class="nav-item">
+                    <?= $this->Html->link('Front Site', '/', ['class' => 'nav-link']) ?>
+                    </li>
+                    <li class="nav-item">
                         <?= $this->Html->link('Logout', ['prefix' => false, 'controller' => 'Users', 'action' => 'logout'], ['class' => 'nav-link']) ?>
                     </li>
                     <?php endif; ?>

@@ -7,6 +7,7 @@
 ?>
 <div class="articles">
     <?php foreach ($articles as $article): ?>
+        <?php $isSmallArticle = strlen(strip_tags($article->body)) <= 300; ?>
         <div class="card mb-4 shadow-sm">
             <div class="card-body">
                 <div class="d-flex align-items-start mb-3">
@@ -42,16 +43,24 @@
                     <?= $article->published->format('F j, Y, g:i a') ?>
                 </p>
                 <div class="article-content">
-                    <div class="article-preview">
-                        <?= $this->Text->truncate($article->body, 200, ['ellipsis' => '...', 'exact' => false]); ?>
-                    </div>
-                    <div class="article-full collapse" id="article-<?= $article->id ?>">
-                        <?= $article->body; ?>
-                    </div>
+                    <?php if ($isSmallArticle): ?>
+                        <div class="article-full">
+                            <?= $article->body; ?>
+                        </div>
+                    <?php else: ?>
+                        <div class="article-preview">
+                            <?= $this->Text->truncate($article->body, 200, ['ellipsis' => '...', 'exact' => false]); ?>
+                        </div>
+                        <div class="article-full" style="display: none;">
+                            <?= $article->body; ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
-                <button class="btn btn-secondary show-full-article" data-bs-toggle="collapse" data-bs-target="#article-<?= $article->id ?>">
-                    <?= __('Show Full Article') ?>
-                </button>
+                <?php if (!$isSmallArticle): ?>
+                    <button class="btn btn-secondary show-full-article" data-article-id="<?= $article->id ?>">
+                        <?= __('Show Full Article') ?>
+                    </button>
+                <?php endif; ?>
                 <?= $this->Html->link(
                     __('Read More'),
                     ['controller' => 'Articles', 'action' => 'view', $article->slug],
@@ -80,13 +89,14 @@ document.addEventListener('DOMContentLoaded', function () {
             var preview = card.querySelector('.article-preview');
             var full = card.querySelector('.article-full');
 
-            full.classList.toggle('show');
-            if (full.classList.contains('show')) {
-                this.textContent = '<?= __('Show Less') ?>';
+            if (full.style.display === 'none') {
+                full.style.display = 'block';
                 preview.style.display = 'none';
+                this.textContent = '<?= __('Show Less') ?>';
             } else {
-                this.textContent = '<?= __('Show Full Article') ?>';
+                full.style.display = 'none';
                 preview.style.display = 'block';
+                this.textContent = '<?= __('Show Full Article') ?>';
             }
         });
     });

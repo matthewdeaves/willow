@@ -33,26 +33,23 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <?= $this->Html->link('Images', 
-                            ['prefix' => 'Admin', 'controller' => 'Images', 'action' => 'index', '?' => ['view' => 'grid']], 
-                            ['class' => 'nav-link']
-                        ) ?>
+                        <?= $this->Html->link(__('Articles'), ['prefix' => 'Admin', 'controller' => 'Articles', 'action' => 'index'], ['class' => 'nav-link']) ?>
                     </li>
                     <li class="nav-item">
-                        <?= $this->Html->link('Articles', ['prefix' => 'Admin', 'controller' => 'Articles', 'action' => 'index'], ['class' => 'nav-link']) ?>
+                        <?= $this->Html->link(__('Pages'), ['prefix' => 'Admin', 'controller' => 'Articles', 'action' => 'treeIndex'], ['class' => 'nav-link']) ?>
                     </li>
                     <li class="nav-item">
-                        <?= $this->Html->link('Pages', ['prefix' => 'Admin', 'controller' => 'Articles', 'action' => 'treeIndex'], ['class' => 'nav-link']) ?>
+                        <?= $this->Html->link(__('Tags'), ['prefix' => 'Admin', 'controller' => 'Tags', 'action' => 'index'], ['class' => 'nav-link']) ?>
                     </li>
                     <li class="nav-item">
-                        <?= $this->Html->link('Tags', ['prefix' => 'Admin', 'controller' => 'Tags', 'action' => 'index'], ['class' => 'nav-link']) ?>
+                        <?= $this->Html->link(__('Images'), ['prefix' => 'Admin', 'controller' => 'Images', 'action' => 'index', '?' => ['view' => 'grid']], ['class' => 'nav-link']) ?>
                     </li>
                     <li class="nav-item">
-                        <?= $this->Html->link('Comments', ['prefix' => 'Admin', 'controller' => 'Comments', 'action' => 'index'], ['class' => 'nav-link']) ?>
+                        <?= $this->Html->link(__('Comments'), ['prefix' => 'Admin', 'controller' => 'Comments', 'action' => 'index'], ['class' => 'nav-link']) ?>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="systemDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            System
+                            <?= __('Admin') ?>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="systemDropdown">
                             <li><?= $this->Html->link(__('Users'), ['prefix' => 'Admin', 'controller' => 'Users', 'action' => 'index'], ['class' => 'dropdown-item']) ?></li>
@@ -67,10 +64,10 @@
                     </li>
                     <?php if ($this->Identity->isLoggedIn()): ?>
                     <li class="nav-item">
-                    <?= $this->Html->link('Front Site', '/', ['class' => 'nav-link']) ?>
+                    <?= $this->Html->link(__('Front Site'), '/', ['class' => 'nav-link']) ?>
                     </li>
                     <li class="nav-item">
-                        <?= $this->Html->link('Logout', ['prefix' => false, 'controller' => 'Users', 'action' => 'logout'], ['class' => 'nav-link']) ?>
+                        <?= $this->Html->link(__('Logout'), ['prefix' => false, 'controller' => 'Users', 'action' => 'logout'], ['class' => 'nav-link']) ?>
                     </li>
                     <?php endif; ?>
                 </ul>

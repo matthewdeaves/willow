@@ -90,6 +90,8 @@ class ArticlesController extends AppController
                 'Articles.user_id',
                 'Articles.title',
                 'Articles.slug',
+                'Articles.image',
+                'Articles.alt_text',
                 'Articles.created',
                 'Articles.modified',
                 'Articles.published',

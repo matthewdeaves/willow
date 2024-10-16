@@ -1,31 +1,25 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\SystemLog $systemLog
- */
-?>
-<div class="container-fluid mt-4">
+<div class="container mt-5">
     <div class="row">
         <?php
-            echo $this->element('actions_card', [
-                'modelName' => 'SystemLog',
-                'controllerName' => 'SystemLogs',
-                'entity' => $systemLog,
-                'entityDisplayName' => $systemLog->level . ' - ' . $systemLog->created,
-                'hideNew' => true,
-                'hideEdit' => true,
-            ]);
+        echo $this->element('actions_card', [
+            'modelName' => 'SystemLog',
+            'controllerName' => 'SystemLogs',
+            'entity' => $systemLog,
+            'entityDisplayName' => $systemLog->group_name . ':' . $systemLog->level . ':' . $systemLog->created->format('Y-m-d H:i:s'),
+            'hideNew' => true,
+            'hideEdit' => true,
+        ]);
         ?>
         <div class="col-md-9">
             <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0"><?= h($systemLog->level) ?> - <?= h($systemLog->created) ?></h3>
+                <div class="card-header bg-<?= strtolower($systemLog->level) ?>">
+                    <h3 class="card-title text-white mb-0"><?= h($systemLog->level) ?></h3>
                 </div>
                 <div class="card-body">
-                    <table class="table table-bordered">
+                    <table class="table table-striped">
                         <tr>
-                            <th class="w-25"><?= __('Level') ?></th>
-                            <td><?= h($systemLog->level) ?></td>
+                            <th><?= __('Level') ?></th>
+                            <td><span class="badge bg-<?= strtolower($systemLog->level) ?>"><?= h($systemLog->level) ?></span></td>
                         </tr>
                         <tr>
                             <th><?= __('Group Name') ?></th>
@@ -33,21 +27,32 @@
                         </tr>
                         <tr>
                             <th><?= __('Created') ?></th>
-                            <td><?= h($systemLog->created) ?></td>
+                            <td><?= $systemLog->created->format('Y-m-d H:i:s') ?></td>
                         </tr>
                     </table>
                     <div class="mt-4">
                         <h5><?= __('Message') ?></h5>
-                        <div class="border p-3 bg-light">
-                            <?= $this->Text->autoParagraph(h($systemLog->message)); ?>
+                        <div class="bg-light p-3 rounded">
+                            <?php
+                            $lines = explode("\n", h($systemLog->message));
+                            foreach ($lines as $line) {
+                                if (strpos($line, 'Stack Trace') !== false) {
+                                    echo "<strong class='text-danger'>$line</strong><br>";
+                                } elseif (preg_match('/^#\d+/', $line)) {
+                                    echo "<code class='text-muted'>$line</code><br>";
+                                } else {
+                                    echo "$line<br>";
+                                }
+                            }
+                            ?>
                         </div>
                     </div>
+                    <?php if (!empty($systemLog->context)): ?>
                     <div class="mt-4">
                         <h5><?= __('Context') ?></h5>
-                        <div class="border p-3 bg-light">
-                            <pre class="mb-0"><?= h($systemLog->context) ?></pre>
-                        </div>
+                        <pre class="bg-light p-3 rounded"><code><?= json_encode(json_decode($systemLog->context), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) ?></code></pre>
                     </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

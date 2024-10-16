@@ -110,21 +110,39 @@ class SystemLogsController extends AppController
         $this->set(compact('systemLog'));
     }
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id System Log id.
-     * @return \Cake\Http\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete(?string $id = null): ?Response
+    public function delete($type = null, $value = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $systemLog = $this->SystemLogs->get($id);
-        if ($this->SystemLogs->delete($systemLog)) {
-            $this->Flash->success(__('The system log has been deleted.'));
+
+        if ($type === 'all') {
+            // Delete all logs
+            if ($this->SystemLogs->deleteAll([])) {
+                $this->Flash->success(__('All logs have been deleted.'));
+            } else {
+                $this->Flash->error(__('Unable to delete all logs.'));
+            }
+        } elseif ($type === 'level' && $value) {
+            // Delete logs by level
+            if ($this->SystemLogs->deleteAll(['level' => $value])) {
+                $this->Flash->success(__('All logs with level {0} have been deleted.', $value));
+            } else {
+                $this->Flash->error(__('Unable to delete logs with level {0}.', $value));
+            }
+        } elseif ($type === 'group' && $value) {
+            // Delete logs by group
+            if ($this->SystemLogs->deleteAll(['group_name' => $value])) {
+                $this->Flash->success(__('All logs in group {0} have been deleted.', $value));
+            } else {
+                $this->Flash->error(__('Unable to delete logs in group {0}.', $value));
+            }
         } else {
-            $this->Flash->error(__('The system log could not be deleted. Please, try again.'));
+            // Delete a single log by ID
+            $log = $this->SystemLogs->get($type);
+            if ($this->SystemLogs->delete($log)) {
+                $this->Flash->success(__('The log has been deleted.'));
+            } else {
+                $this->Flash->error(__('Unable to delete the log.'));
+            }
         }
 
         return $this->redirect(['action' => 'index']);

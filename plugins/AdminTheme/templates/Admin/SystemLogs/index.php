@@ -15,28 +15,43 @@
     <div class="mb-3">
         <input type="text" id="logSearch" class="form-control" placeholder="<?= __('Search logs...') ?>">
     </div>
-    <div class="mb-3">
-        <div class="btn-group" role="group" aria-label="Level filters">
-            <?= $this->Html->link(__('All Levels'), ['action' => 'index'], ['class' => 'btn btn-outline-secondary' . (!$selectedLevel ? ' active' : '')]) ?>
-            <?php foreach ($levels as $level): ?>
-                <?= $this->Html->link(
-                    h($level),
-                    ['action' => 'index', '?' => ['level' => $level] + ($selectedGroup ? ['group' => $selectedGroup] : [])],
-                    ['class' => 'btn btn-outline-secondary' . ($selectedLevel === $level ? ' active' : '')]
-                ) ?>
-            <?php endforeach; ?>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <div class="btn-group" role="group" aria-label="Level filters">
+                <?= $this->Html->link(__('All Levels'), ['action' => 'index'], ['class' => 'btn btn-outline-secondary' . (!$selectedLevel ? ' active' : '')]) ?>
+                <?php foreach ($levels as $level): ?>
+                    <?= $this->Html->link(
+                        h($level),
+                        ['action' => 'index', '?' => ['level' => $level] + ($selectedGroup ? ['group' => $selectedGroup] : [])],
+                        ['class' => 'btn btn-outline-secondary' . ($selectedLevel === $level ? ' active' : '')]
+                    ) ?>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <div class="col-md-6 text-end">
+            <?= $this->Form->postLink(__('Delete All Logs'), ['action' => 'delete', 'all'], ['confirm' => __('Are you sure you want to delete all logs?'), 'class' => 'btn btn-danger']) ?>
+            <?php if ($selectedLevel): ?>
+                <?= $this->Form->postLink(__('Delete {0}', h($selectedLevel)), ['action' => 'delete', 'level', $selectedLevel], ['confirm' => __('Are you sure you want to delete all {0} logs?', $selectedLevel), 'class' => 'btn btn-outline-danger']) ?>
+            <?php endif; ?>
         </div>
     </div>
-    <div class="mb-3">
-        <div class="btn-group" role="group" aria-label="Group filters">
-            <?= $this->Html->link(__('All Groups'), ['action' => 'index'], ['class' => 'btn btn-outline-secondary' . (!$selectedGroup ? ' active' : '')]) ?>
-            <?php foreach ($groupNames as $group): ?>
-                <?= $this->Html->link(
-                    h($group),
-                    ['action' => 'index', '?' => ['group' => $group] + ($selectedLevel ? ['level' => $selectedLevel] : [])],
-                    ['class' => 'btn btn-outline-secondary' . ($selectedGroup === $group ? ' active' : '')]
-                ) ?>
-            <?php endforeach; ?>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <div class="btn-group" role="group" aria-label="Group filters">
+                <?= $this->Html->link(__('All Groups'), ['action' => 'index'], ['class' => 'btn btn-outline-secondary' . (!$selectedGroup ? ' active' : '')]) ?>
+                <?php foreach ($groupNames as $group): ?>
+                    <?= $this->Html->link(
+                        h($group),
+                        ['action' => 'index', '?' => ['group' => $group] + ($selectedLevel ? ['level' => $selectedLevel] : [])],
+                        ['class' => 'btn btn-outline-secondary' . ($selectedGroup === $group ? ' active' : '')]
+                    ) ?>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <div class="col-md-6 text-end">
+            <?php if ($selectedGroup): ?>
+                <?= $this->Form->postLink(__('Delete {0}', h($selectedGroup)), ['action' => 'delete', 'group', $selectedGroup], ['confirm' => __('Are you sure you want to delete all logs in group {0}?', $selectedGroup), 'class' => 'btn btn-outline-danger']) ?>
+            <?php endif; ?>
         </div>
     </div>
     <div class="table-responsive">

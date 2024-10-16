@@ -43,26 +43,6 @@ class TagsController extends AppController
     }
 
     /**
-     * View method
-     *
-     * @param string|null $id Tag id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view(?string $id = null): void
-    {
-        $tag = $this->Tags->find()
-            ->where(['Tags.id' => $id])
-            ->contain(['Articles' => [
-                'Users' => ['fields' => ['id', 'username']],
-                ],
-            ], true)
-            ->first();
-
-        $this->set(compact('tag'));
-    }
-
-    /**
      * Displays a tag and its associated articles based on the tag's slug.
      *
      * This method retrieves a tag by its slug and loads associated articles

@@ -5,16 +5,7 @@
  */
 ?>
 <div class="container mt-4">
-    <h1 class="mb-4"><?= h($tag->title) ?></h1>
-
-    <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
-            <h2 class="card-title h4 mb-0">Tag Details</h2>
-        </div>
-        <div class="card-body">
-            <p class="card-text"><strong>Slug:</strong> <?= h($tag->slug) ?></p>
-        </div>
-    </div>
+    <h1 class="mb-4"><?= h($tag->title) ?>: <?= __('Associated Pages') ?></h1>
 
     <div class="card">
         <div class="card-header bg-primary text-white">
@@ -22,25 +13,27 @@
         </div>
         <div class="card-body">
             <?php if (!empty($tag->articles)): ?>
-                <div class="list-group">
+                <ul class="list-group list-group-flush">
                     <?php foreach ($tag->articles as $article): ?>
-                        <div class="list-group-item">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">
-                                    <?= $this->Html->link(
-                                        h($article->title),
-                                        '/' . $article->slug,
-                                        ['class' => 'text-primary']
-                                    ) ?>
-                                </h5>
-                                <small><?= h($article->created->format('M d, Y')) ?></small>
+                        <li class="list-group-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="mb-1">
+                                        <?= $this->Html->link(
+                                            h($article->title),
+                                            '/' . $article->slug,
+                                            ['class' => 'text-primary']
+                                        ) ?>
+                                    </h5>
+                                    <small class="text-muted">By <?= h($article->user->username) ?></small>
+                                </div>
+                                <small class="text-muted"><?= h($article->created->format('M d, Y')) ?></small>
                             </div>
-                            <p class="mb-1">By <?= h($article->user->username) ?></p>
-                        </div>
+                        </li>
                     <?php endforeach; ?>
-                </div>
+                </ul>
             <?php else: ?>
-                <p class="card-text">No articles found for this tag.</p>
+                <p class="card-text"><?= __('No articles found for this tag.') ?></p>
             <?php endif; ?>
         </div>
     </div>

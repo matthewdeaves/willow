@@ -10,7 +10,7 @@
         <?php foreach ($article->tags as $tag) : ?>
             <?= $this->Html->link(
                 h($tag->title),
-                ['controller' => 'Tags', 'action' => 'view', $tag->id],
+                ['controller' => 'Tags', 'action' => 'view-by-slug', $tag->slug],
                 ['class' => 'btn btn-outline-primary btn-sm']
             ) ?>
         <?php endforeach; ?>

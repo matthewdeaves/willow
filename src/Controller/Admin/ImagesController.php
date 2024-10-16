@@ -213,7 +213,7 @@ class ImagesController extends AppController
 
                 // Pass the UploadedFile object directly
                 $data = [
-                    'image_file' => $uploadedFile,
+                    'file' => $uploadedFile,
                     'name' => pathinfo($originalFilename, PATHINFO_FILENAME),
                 ];
 

@@ -25,8 +25,8 @@
         <?php foreach ($images as $image): ?>
             <div class="col">
                 <div class="card h-100">
-                    <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $image->image_file, 
-                        ['pathPrefix' => 'files/Images/image_file/', 'alt' => h($image->name), 'class' => 'card-img-top']) ?>
+                    <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $image->file, 
+                        ['pathPrefix' => 'files/Images/file/', 'alt' => h($image->name), 'class' => 'card-img-top']) ?>
                     <div class="card-body">
                         <h6 class="card-title"><?= h($image->name) ?></h6>
                     </div>

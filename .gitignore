@@ -28,11 +28,13 @@ willow_cms_code_Utilities.txt
 !/webroot/files/Images/file
 /webroot/files/Images/file/*
 !/webroot/files/Images/file/.gitkeep
+
 !/webroot/files/Users
 /webroot/files/Users/*
 !/webroot/files/Users/picture
 /webroot/files/Users/picture/*
 !/webroot/files/Users/picture/.gitkeep
+
 !/webroot/files/Articles
 /webroot/files/Articles/*
 !/webroot/files/Articles/image

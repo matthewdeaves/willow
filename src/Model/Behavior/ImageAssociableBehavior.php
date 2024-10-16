@@ -72,7 +72,7 @@ class ImageAssociableBehavior extends Behavior
 
         foreach ($entity->imageUploads as $image) {
             $imageEntity = $imagesTable->newEntity([
-                'image_file' => $image,
+                'file' => $image,
                 'name' => $image->getClientFilename(),
             ]);
             if ($imagesTable->save($imageEntity)) {

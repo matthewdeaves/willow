@@ -46,17 +46,17 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <?= $this->Form->control('image_file', [
+                            <?= $this->Form->control('file', [
                                 'type' => 'file',
-                                'class' => 'form-control' . ($this->Form->isFieldError('image_file') ? ' is-invalid' : ''),
+                                'class' => 'form-control' . ($this->Form->isFieldError('file') ? ' is-invalid' : ''),
                                 'required' => false
                             ]) ?>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12 mb-3">
-                            <?= $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $image->image_file, 
-                                ['pathPrefix' => 'files/Images/image_file/', 'alt' => 'Picture', 'class' => 'img-fluid']) ?>
+                            <?= $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $image->file, 
+                                ['pathPrefix' => 'files/Images/file/', 'alt' => 'Picture', 'class' => 'img-fluid']) ?>
                         </div>
                     </div>
                     <div class="row">

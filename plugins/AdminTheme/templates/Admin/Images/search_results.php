@@ -11,8 +11,8 @@
     <?php foreach ($images as $image): ?>
         <div class="col">
             <div class="card h-100">
-                <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $image->image_file, 
-                    ['pathPrefix' => 'files/Images/image_file/', 'alt' => h($image->name), 'class' => 'card-img-top']) ?>
+                <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $image->file, 
+                    ['pathPrefix' => 'files/Images/file/', 'alt' => h($image->name), 'class' => 'card-img-top']) ?>
                 <div class="card-body">
                     <h6 class="card-title"><?= h($image->name) ?></h6>
                 </div>
@@ -31,8 +31,8 @@
     <tr>
         <td>
             <div class="position-relative">
-                <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $image->image_file, 
-                    ['pathPrefix' => 'files/Images/image_file/', 'alt' => 'Picture', 'class' => 'img-thumbnail', 'width' => '50', 'data-bs-toggle' => 'popover', 'data-bs-trigger' => 'hover', 'data-bs-html' => 'true', 'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $image->image_file, ['pathPrefix' => 'files/Images/image_file/', 'alt' => 'Picture', 'class' => 'img-fluid', 'style' => 'max-width: 300px; max-height: 300px;'])]) ?>
+                <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $image->file, 
+                    ['pathPrefix' => 'files/Images/file/', 'alt' => 'Picture', 'class' => 'img-thumbnail', 'width' => '50', 'data-bs-toggle' => 'popover', 'data-bs-trigger' => 'hover', 'data-bs-html' => 'true', 'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $image->file, ['pathPrefix' => 'files/Images/file/', 'alt' => 'Picture', 'class' => 'img-fluid', 'style' => 'max-width: 300px; max-height: 300px;'])]) ?>
             </div>
         </td>
         <td><?= h($image->name) ?></td>

@@ -30,11 +30,11 @@ class ImageAnalysisJob implements JobInterface
     public static ?int $maxAttempts = 3;
 
     /**
-     * Flag to indicate if the job should be unique
+     * Whether there should be only one instance of a job on the queue at a time. (optional property)
      *
      * @var bool
      */
-    public static bool $shouldBeUnique = true;
+    public static bool $shouldBeUnique = false;
 
     /**
      * Executes the image analysis job
@@ -68,9 +68,9 @@ class ImageAnalysisJob implements JobInterface
         $folder_path = $payload['folder_path'] ?? null;
         $file = $payload['file'] ?? null;
         $modelId = $payload['id'] ?? null;
-        $model = $payload[''] ?? null;
+        $model = $payload['model'] ?? null;
 
-        if (!$folder_path || !$file) {
+        if (!$folder_path || !$file || !$model || !$modelId) {
             $this->log(
                 __('Missing required fields in image analysis payload. Path: {0}, File: {1}', [$folder_path, $file]),
                 'error',

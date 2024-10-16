@@ -77,7 +77,7 @@
                         <div class="col-md-6 mb-3">
                             <?= $this->Form->control('picture', [
                                 'type' => 'file',
-                                'class' => 'form-control' . ($this->Form->isFieldError('picture_file') ? ' is-invalid' : ''),
+                                'class' => 'form-control' . ($this->Form->isFieldError('picture') ? ' is-invalid' : ''),
                                 'label' => 'Upload Profile Picture'
                             ]) ?>
                         </div>
@@ -85,7 +85,7 @@
                     <?php if (!empty($user->picture)): ?>
                         <div class="row">
                             <div class="col-md-12 mb-3">
-                                <?= $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $user->picture_file, 
+                                <?= $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $user->picture, 
                                     ['pathPrefix' => 'files/Users/picture/', 'alt' => 'Profile Picture', 'class' => 'img-fluid']) ?>
                             </div>
                         </div>

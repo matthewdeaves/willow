@@ -43,11 +43,12 @@ The development environment will be setup and you can visit [http://localhost:80
 Login to Willow CMS at [http://localhost:8080/admin](http://localhost:8080/admin) with `admin@test.com` & `password` to start using the CMS on the development environment.
 
 ### Anthropic API Integration
-Willow integrate the Anthropic API for some nice features:
+Willow integrates the Anthropic API for some nice features:
 
 * Generation of image alternate text, keywords, nice file names and descriptions
 * Automatic moderation of comments
 * Generation of SEO related texts based on Article content
+* A lot more to come...
 
 To use these feautures go to the settings page [http://localhost:8080/admin/settings](http://localhost:8080/admin/settings) to add your API key and enable the AI features.
 
@@ -71,7 +72,7 @@ docker compose exec php vendor/bin/phpunit
 #run PHP CodeSniffer (PHPCS)
 docker compose exec php vendor/bin/phpcs --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/
 
-#run PHP Code Beautifier and Fixer or PHPCBF)
+#run PHP Code Beautifier and Fixer or PHPCBF
 docker compose exec php vendor/bin/phpcbf
 
 #run code style checks via composer

@@ -3,16 +3,16 @@
 <tr>
     <td>
         <div class="position-relative">
-            <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $user->picture_file, 
-                ['pathPrefix' => 'files/Users/picture_file/', 
+            <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $user->picture, 
+                ['pathPrefix' => 'files/Users/picture/', 
                 'alt' => __('Profile Picture'), 
                 'class' => 'img-thumbnail', 
                 'width' => '50',
                 'data-bs-toggle' => 'popover',
                 'data-bs-trigger' => 'hover',
                 'data-bs-html' => 'true',
-                'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $user->picture_file, 
-                    ['pathPrefix' => 'files/Users/picture_file/', 
+                'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $user->picture, 
+                    ['pathPrefix' => 'files/Users/picture/', 
                     'alt' => __('Profile Picture'), 
                     'class' => 'img-fluid', 
                     'style' => 'max-width: 300px; max-height: 300px;'])

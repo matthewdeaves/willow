@@ -67,8 +67,8 @@ class ImageAnalysisJob implements JobInterface
         $payload = $args[0];
         $folder_path = $payload['folder_path'] ?? null;
         $file = $payload['file'] ?? null;
-        $imageId = $payload['id'] ?? null;
-        //$model = $payload[''] ?? null;
+        $modelId = $payload['id'] ?? null;
+        $model = $payload[''] ?? null;
 
         if (!$folder_path || !$file) {
             $this->log(
@@ -85,15 +85,15 @@ class ImageAnalysisJob implements JobInterface
             $analysisResult = $anthropicService->analyzeImage($folder_path . $file);
 
             if ($analysisResult) {
-                $imagesTable = TableRegistry::getTableLocator()->get('Images');
-                $image = $imagesTable->get($imageId);
+                $modelTable = TableRegistry::getTableLocator()->get($model);
+                $image = $modelTable->get($modelId);
                 $image->alt_text = $analysisResult['alt_text'];
                 $image->keywords = $analysisResult['keywords'];
                 $image->name = $analysisResult['name'];
-                $imagesTable->save($image);
+                $modelTable->save($image);
 
                 $this->log(
-                    __('Image analysis completed successfully. Image ID: {0}', [$imageId]),
+                    __('Image analysis completed successfully. Model: {0} ID: {1}', [$model, $modelId]),
                     'info',
                     ['group_name' => 'image_analysis']
                 );

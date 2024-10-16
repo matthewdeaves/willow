@@ -53,9 +53,9 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <?= $this->Form->control('picture_file', [
+                            <?= $this->Form->control('picture', [
                                 'type' => 'file',
-                                'class' => 'form-control-file' . ($this->Form->isFieldError('picture_file') ? ' is-invalid' : ''),
+                                'class' => 'form-control-file' . ($this->Form->isFieldError('picture') ? ' is-invalid' : ''),
                                 'label' => 'Upload Profile Picture'
                             ]) ?>
                         </div>

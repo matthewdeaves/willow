@@ -71,8 +71,7 @@ class QueueableImageBehavior extends Behavior
                     'args' => [$message],
                 ]);
 
-                // No image analysis for users profile pictures as we don't store that
-                if (SettingsManager::read('AI.enabled') && $message['model'] != 'Users') {
+                if (SettingsManager::read('AI.enabled')) {
                     // Queue up an image analysis job
                     QueueManager::push('App\Job\ImageAnalysisJob', [
                         'args' => [$message],

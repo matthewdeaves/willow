@@ -48,9 +48,9 @@ use Cake\Utility\Inflector;
                     <div class="mt-4">
                         <h5><?= __('Profile Picture') ?></h5>
                         <div class="border p-3 bg-light">
-                            <?php if (!empty($user->picture_file)): ?>
-                                <?= $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $user->picture_file, 
-                                    ['pathPrefix' => 'files/Users/picture_file/', 'alt' => 'Profile Picture', 'class' => 'img-fluid']) ?>
+                            <?php if (!empty($user->picture)): ?>
+                                <?= $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $user->picture, 
+                                    ['pathPrefix' => 'files/Users/picture/', 'alt' => 'Profile Picture', 'class' => 'img-fluid']) ?>
                             <?php else: ?>
                                 <p>No profile picture available</p>
                             <?php endif; ?>

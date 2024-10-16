@@ -67,7 +67,7 @@ If you build on Willow CMS you should update the Unit Tests and be sure to fix a
 cd willow/
 
 #run the PHPUnit Tests
-docker compose exec php vendor/bin/phpunit
+docker compose exec php vendor/bin/phpunit --coverage-text
 
 #run PHP CodeSniffer (PHPCS)
 docker compose exec php vendor/bin/phpcs --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/

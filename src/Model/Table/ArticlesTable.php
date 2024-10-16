@@ -132,6 +132,8 @@ class ArticlesTable extends Table
 
         $this->hasMany('PageViews', [
             'foreignKey' => 'article_id',
+            'dependent' => true,
+            'cascadeCallbacks' => true
         ]);
 
         $this->hasMany('Slugs', [

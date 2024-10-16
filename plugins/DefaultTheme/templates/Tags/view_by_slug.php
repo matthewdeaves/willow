@@ -18,7 +18,7 @@
 
     <div class="card">
         <div class="card-header bg-primary text-white">
-            <h2 class="card-title h4 mb-0">Associated Articles</h2>
+            <h2 class="card-title h4 mb-0"><?= __('Associated Pages') ?></h2>
         </div>
         <div class="card-body">
             <?php if (!empty($tag->articles)): ?>

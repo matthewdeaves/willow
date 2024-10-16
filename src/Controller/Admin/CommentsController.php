@@ -5,7 +5,6 @@ namespace App\Controller\Admin;
 
 use App\Controller\AppController;
 use Cake\Http\Response;
-use App\Model\Table\ArticlesTable;
 
 /**
  * Comments Controller
@@ -15,7 +14,6 @@ use App\Model\Table\ArticlesTable;
  */
 class CommentsController extends AppController
 {
-
     /**
      * Initialize method
      *
@@ -119,7 +117,7 @@ class CommentsController extends AppController
             if ($comment->article) {
                 $this->Articles->clearFromCache($comment->article->slug);
             }
-            
+
             $this->Flash->success(__('The comment has been deleted.'));
         } else {
             $this->Flash->error(__('The comment could not be deleted. Please, try again.'));

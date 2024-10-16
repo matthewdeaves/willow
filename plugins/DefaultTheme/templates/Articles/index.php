@@ -33,7 +33,7 @@
                     <h2 class="card-title mb-0">
                         <?= $this->Html->link(
                             h($article->title),
-                            ['controller' => 'Articles', 'action' => 'view', $article->slug],
+                            '/' . $article->slug,
                             ['class' => 'text-decoration-none']
                         ) ?>
                     </h2>

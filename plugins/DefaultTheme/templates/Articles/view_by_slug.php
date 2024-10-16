@@ -8,25 +8,27 @@
 <div class="articles">
     <div class="card mb-4 shadow-sm">
         <div class="card-body">
-            <div class="position-relative">
-                <?= $this->Html->image(SettingsManager::read('ImageSizes.teeny') . '/' . $article->image, 
-                    [
-                        'pathPrefix' => 'files/Articles/image/', 
-                        'alt' => $article->alt_text, 
-                        'class' => 'img-thumbnail', 
-                        'data-bs-toggle' => 'popover', 
-                        'data-bs-trigger' => 'hover', 
-                        'data-bs-html' => 'true', 
-                        'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.extra-large') . '/' . $article->image, 
+            <div class="d-flex align-items-start mb-3">
+                <div class="me-3">
+                    <?= $this->Html->image(SettingsManager::read('ImageSizes.teeny') . '/' . $article->image, 
                         [
                             'pathPrefix' => 'files/Articles/image/', 
                             'alt' => $article->alt_text, 
-                            'class' => 'img-fluid', 
-                            'style' => 'max-width: 400px; max-height: 400px;'
-                        ])
-                    ]) 
-                ?>
-                <h1 class="card-title"><?= h($article->title) ?></h1>
+                            'class' => 'img-thumbnail', 
+                            'data-bs-toggle' => 'popover', 
+                            'data-bs-trigger' => 'hover', 
+                            'data-bs-html' => 'true', 
+                            'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.extra-large') . '/' . $article->image, 
+                            [
+                                'pathPrefix' => 'files/Articles/image/', 
+                                'alt' => $article->alt_text, 
+                                'class' => 'img-fluid', 
+                                'style' => 'max-width: 400px; max-height: 400px;'
+                            ])
+                        ]) 
+                    ?>
+                </div>
+                <h1 class="card-title mb-0"><?= h($article->title) ?></h1>
             </div>
             
             <p class="card-text text-muted">

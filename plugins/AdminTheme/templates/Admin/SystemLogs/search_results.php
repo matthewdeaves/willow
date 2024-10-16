@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ * @var iterable<\App\Model\Entity\SystemLog> $systemLogs
+ */
+?>
 <?php foreach ($systemLogs as $systemLog): ?>
 <tr>
     <td><?= h($systemLog->level) ?></td>
@@ -15,7 +21,6 @@
     <td><?= h($systemLog->created->format('Y-m-d H:i')) ?></td>
     <td class="actions">
         <?= $this->Html->link(__('View'), ['action' => 'view', $systemLog->id], ['class' => 'btn btn-sm btn-outline-primary']) ?>
-        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $systemLog->id], ['class' => 'btn btn-sm btn-outline-secondary']) ?>
         <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $systemLog->id], ['confirm' => __('Are you sure you want to delete # {0}?', $systemLog->id), 'class' => 'btn btn-sm btn-outline-danger']) ?>
     </td>
 </tr>

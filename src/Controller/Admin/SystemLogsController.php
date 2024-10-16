@@ -32,7 +32,34 @@ class SystemLogsController extends AppController
                 'SystemLogs.group_name',
                 'SystemLogs.created',
             ])
-            ->orderBy(['SystemLogs.created' => 'DESC']);
+            ->order(['SystemLogs.created' => 'DESC']);
+
+        $levels = $this->SystemLogs->find()
+            ->select(['level'])
+            ->distinct(['level'])
+            ->order(['level' => 'ASC'])
+            ->all()
+            ->extract('level')
+            ->toArray();
+
+        $groupNames = $this->SystemLogs->find()
+            ->select(['group_name'])
+            ->distinct(['group_name'])
+            ->order(['group_name' => 'ASC'])
+            ->all()
+            ->extract('group_name')
+            ->toArray();
+
+        $selectedLevel = $this->request->getQuery('level');
+        $selectedGroup = $this->request->getQuery('group');
+
+        if ($selectedLevel) {
+            $query->where(['SystemLogs.level' => $selectedLevel]);
+        }
+
+        if ($selectedGroup) {
+            $query->where(['SystemLogs.group_name' => $selectedGroup]);
+        }
 
         if ($this->request->is('ajax')) {
             $search = $this->request->getQuery('search');
@@ -55,7 +82,7 @@ class SystemLogsController extends AppController
         }
 
         $systemLogs = $this->paginate($query);
-        $this->set(compact('systemLogs'));
+        $this->set(compact('systemLogs', 'levels', 'groupNames', 'selectedLevel', 'selectedGroup'));
 
         return $this->render();
     }

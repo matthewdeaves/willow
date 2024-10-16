@@ -2,6 +2,10 @@
 /**
  * @var \App\View\AppView $this
  * @var iterable<\App\Model\Entity\SystemLog> $systemLogs
+ * @var array $levels
+ * @var array $groupNames
+ * @var string|null $selectedLevel
+ * @var string|null $selectedGroup
  */
 ?>
 <div class="systemLogs index content">
@@ -12,14 +16,38 @@
     <div class="mb-3">
         <input type="text" id="logSearch" class="form-control" placeholder="<?= __('Search logs...') ?>">
     </div>
+    <div class="mb-3">
+        <div class="btn-group" role="group" aria-label="Level filters">
+            <?= $this->Html->link(__('All Levels'), ['action' => 'index'], ['class' => 'btn btn-outline-secondary' . (!$selectedLevel ? ' active' : '')]) ?>
+            <?php foreach ($levels as $level): ?>
+                <?= $this->Html->link(
+                    h($level),
+                    ['action' => 'index', '?' => ['level' => $level] + ($selectedGroup ? ['group' => $selectedGroup] : [])],
+                    ['class' => 'btn btn-outline-secondary' . ($selectedLevel === $level ? ' active' : '')]
+                ) ?>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <div class="mb-3">
+        <div class="btn-group" role="group" aria-label="Group filters">
+            <?= $this->Html->link(__('All Groups'), ['action' => 'index'], ['class' => 'btn btn-outline-secondary' . (!$selectedGroup ? ' active' : '')]) ?>
+            <?php foreach ($groupNames as $group): ?>
+                <?= $this->Html->link(
+                    h($group),
+                    ['action' => 'index', '?' => ['group' => $group] + ($selectedLevel ? ['level' => $selectedLevel] : [])],
+                    ['class' => 'btn btn-outline-secondary' . ($selectedGroup === $group ? ' active' : '')]
+                ) ?>
+            <?php endforeach; ?>
+        </div>
+    </div>
     <div class="table-responsive">
         <table class="table table-striped table-hover">
-            <thead class="table-light">
+            <thead>
                 <tr>
-                    <th><?= $this->Paginator->sort('level') ?></th>
-                    <th><?= $this->Paginator->sort('group_name') ?></th>
-                    <th><?= $this->Paginator->sort('message') ?></th>
-                    <th><?= $this->Paginator->sort('created') ?></th>
+                    <th><?= __('Level') ?></th>
+                    <th><?= __('Group Name') ?></th>
+                    <th><?= __('Message') ?></th>
+                    <th><?= __('Created') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -41,7 +69,6 @@
                     <td><?= h($systemLog->created->format('Y-m-d H:i')) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $systemLog->id], ['class' => 'btn btn-sm btn-outline-primary']) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $systemLog->id], ['class' => 'btn btn-sm btn-outline-secondary']) ?>
                         <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $systemLog->id], ['confirm' => __('Are you sure you want to delete # {0}?', $systemLog->id), 'class' => 'btn btn-sm btn-outline-danger']) ?>
                     </td>
                 </tr>
@@ -49,22 +76,14 @@
             </tbody>
         </table>
     </div>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
-    </div>
+    <?= $this->element('pagination') ?>
 </div>
 
-<?php $this->Html->scriptStart(['block' => true]); ?>
-document.addEventListener('DOMContentLoaded', function() {
+<script>
+   document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('logSearch');
     const resultsContainer = document.querySelector('tbody');
+    const currentUrl = new URL(window.location.href);
 
     let debounceTimer;
 
@@ -72,22 +91,31 @@ document.addEventListener('DOMContentLoaded', function() {
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(() => {
             const searchTerm = this.value.trim();
-
-            if (searchTerm.length > 0) {
-                fetch(`<?= $this->Url->build(['action' => 'index']) ?>?search=${encodeURIComponent(searchTerm)}`, {
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => response.text())
-                .then(html => {
-                    resultsContainer.innerHTML = html;
-                    initPopovers();
-                })
-                .catch(error => console.error('Error:', error));
+            
+            // Update the URL with the search term
+            if (searchTerm) {
+                currentUrl.searchParams.set('search', searchTerm);
             } else {
-                location.reload();
+                currentUrl.searchParams.delete('search');
             }
+
+            // Preserve existing level and group filters
+            const level = currentUrl.searchParams.get('level');
+            const group = currentUrl.searchParams.get('group');
+            if (level) currentUrl.searchParams.set('level', level);
+            if (group) currentUrl.searchParams.set('group', group);
+
+            fetch(currentUrl.toString(), {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.text())
+            .then(html => {
+                resultsContainer.innerHTML = html;
+                initPopovers();
+            })
+            .catch(error => console.error('Error:', error));
         }, 300);
     });
 
@@ -102,4 +130,4 @@ function initPopovers() {
         })
     })
 }
-<?php $this->Html->scriptEnd(); ?>
+</script>

@@ -114,7 +114,7 @@
     {
         "category": "AI",
         "key_name": "enabled",
-        "value": "1",
+        "value": "0",
         "value_type": "bool",
         "value_obscure": false
     }

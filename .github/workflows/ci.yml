@@ -42,7 +42,7 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php-version }}
-        extensions: mbstring, intl, pdo_mysql, pcntl, sockets, bcmath, zip
+        extensions: mbstring, intl, pdo_mysql, pcntl, sockets, bcmath, zip, redis
         coverage: xdebug
 
     - name: Install Composer dependencies

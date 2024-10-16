@@ -45,13 +45,6 @@ class ResizeImagesCommand extends Command
     ];
 
     /**
-     * Indicates whether to skip overwriting existing resized images.
-     *
-     * @var string|bool|null
-     */
-    protected bool|string|null $skipExistingImages;
-
-    /**
      * Stores the ConsoleIo instance for output operations.
      *
      * @var \Cake\Console\ConsoleIo
@@ -69,12 +62,6 @@ class ResizeImagesCommand extends Command
     {
         $parser = parent::buildOptionParser($parser);
 
-        $parser->addOption('skipExistingImages', [
-            'short' => 's',
-            'help' => 'Use bin/cake resize_images -s to skip overwriting existing resized images',
-            'boolean' => true,
-        ]);
-
         return $parser;
     }
 
@@ -90,14 +77,10 @@ class ResizeImagesCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io): int
     {
-        //set if we are overwriting images from the command option (default true)
-        $this->skipExistingImages = $args->getOption('skipExistingImages');
-
         //save reference for IO
         $this->io = $io;
         //for our models that have images, get their table
         foreach ($this->modelsWithImages as $model => $columns) {
-
             $imagesTable = $this->fetchTable($model);
             $images = $imagesTable->find('all')
             ->select(['id', $columns['file'], $columns['dir']])
@@ -106,7 +89,7 @@ class ResizeImagesCommand extends Command
 
             foreach ($images as $image) {
                 $folder = ROOT . DS . $image->dir;
-                $original =  $folder . $image->{$columns['file']};
+                $original = $folder . $image->{$columns['file']};
                 if (file_exists($original)) {
                     foreach (SettingsManager::read('ImageSizes') as $width) {
                         $this->createImage($folder, $image->{$columns['file']}, intval($width));
@@ -118,7 +101,18 @@ class ResizeImagesCommand extends Command
         return static::CODE_SUCCESS;
     }
 
-    
+    /**
+     * Creates a resized image.
+     *
+     * This method resizes the given image to the specified width and saves it
+     * in the appropriate directory.
+     *
+     * @param string $folder The directory where the original image is stored.
+     * @param string $file The name of the image file.
+     * @param int $width The target width for the resized image.
+     * @throws \Exception If the directory cannot be created.
+     * @return void
+     */
     private function createImage(string $folder, string $file, int $width): void
     {
         // Make sure folder for size exists

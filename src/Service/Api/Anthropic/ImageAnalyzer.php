@@ -7,17 +7,42 @@ use App\Model\Table\AipromptsTable;
 use App\Service\Api\AnthropicApiService;
 use InvalidArgumentException;
 
+/**
+ * ImageAnalyzer Class
+ *
+ * This class is responsible for analyzing images using the Anthropic API service.
+ */
 class ImageAnalyzer
 {
+    /**
+     * @var \App\Service\Api\AnthropicApiService The Anthropic API service.
+     */
     private AnthropicApiService $apiService;
+
+    /**
+     * @var \App\Model\Table\AipromptsTable The AI prompts table for retrieving prompt data.
+     */
     private AipromptsTable $aipromptsTable;
 
+    /**
+     * ImageAnalyzer constructor.
+     *
+     * @param \App\Service\Api\AnthropicApiService $apiService The Anthropic API service.
+     * @param \App\Model\Table\AipromptsTable $aipromptsTable The AI prompts table.
+     */
     public function __construct(AnthropicApiService $apiService, AipromptsTable $aipromptsTable)
     {
         $this->apiService = $apiService;
         $this->aipromptsTable = $aipromptsTable;
     }
 
+    /**
+     * Analyzes an image using the Anthropic API.
+     *
+     * @param string $imagePath The path to the image file to be analyzed.
+     * @return array The analysis results from the API.
+     * @throws \InvalidArgumentException If the image file is not found.
+     */
     public function analyze(string $imagePath): array
     {
         if (!file_exists($imagePath)) {
@@ -35,6 +60,14 @@ class ImageAnalyzer
         return $this->apiService->parseResponse($response);
     }
 
+    /**
+     * Creates a payload for the API request.
+     *
+     * @param array $promptData The prompt data retrieved from the AI prompts table.
+     * @param string $imageData The base64 encoded image data.
+     * @param string $mimeType The MIME type of the image.
+     * @return array The created payload.
+     */
     private function createPayload(array $promptData, string $imageData, string $mimeType): array
     {
         return [
@@ -60,6 +93,13 @@ class ImageAnalyzer
         ];
     }
 
+    /**
+     * Retrieves prompt data for a specific task.
+     *
+     * @param string $task The task type for which to retrieve prompt data.
+     * @return array The retrieved prompt data.
+     * @throws \InvalidArgumentException If the task is unknown.
+     */
     private function getPromptData(string $task): array
     {
         $prompt = $this->aipromptsTable->find()

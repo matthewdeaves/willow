@@ -36,14 +36,31 @@ class ImageAnalysisJob implements JobInterface
      */
     public static bool $shouldBeUnique = false;
 
+    /**
+     * @var \App\Service\Api\AnthropicApiService The Anthropic API service for image analysis.
+     */
     private AnthropicApiService $anthropicService;
 
+    /**
+     * ImageAnalysisJob constructor.
+     *
+     * Initializes the AnthropicApiService instance.
+     */
     public function __construct()
     {
         $this->anthropicService = new AnthropicApiService();
     }
 
-
+    /**
+     * Execute the image analysis job.
+     *
+     * This method processes the image analysis job by receiving the message,
+     * validating the payload, calling the API for analysis, and saving the
+     * results to the database.
+     *
+     * @param \Cake\Queue\Job\Message $message The message containing job arguments.
+     * @return string|null Returns Processor::ACK on success, Processor::REJECT on failure.
+     */
     public function execute(Message $message): ?string
     {
         $args = $message->getArgument('args');

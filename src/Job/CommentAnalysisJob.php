@@ -37,7 +37,7 @@ class CommentAnalysisJob implements JobInterface
     public static bool $shouldBeUnique = false;
 
     /**
-     * @var AnthropicApiService
+     * @var \App\Service\Api\AnthropicApiService
      */
     private AnthropicApiService $anthropicService;
 

@@ -346,7 +346,6 @@ class ArticlesControllerTest extends AppControllerTestCase
         $this->assertEquals(2, $slugCount);
 
         if (env('EXPERIMENTAL_TESTS', 'Off') == 'On') {
-
             // Check old slug redirects to new slug
             $this->get('/big-test-article-1');
             $this->assertResponseCode(301);

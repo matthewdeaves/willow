@@ -691,6 +691,41 @@ class V1 extends AbstractMigration
                 'limit' => null,
                 'null' => true,
             ])
+            ->addColumn('meta_title', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
+            ->addColumn('meta_description', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('meta_keywords', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
+            ->addColumn('facebook_description', 'string', [
+                'default' => null,
+                'limit' => 300,
+                'null' => true,
+            ])
+            ->addColumn('linkedin_description', 'string', [
+                'default' => null,
+                'limit' => 700,
+                'null' => true,
+            ])
+            ->addColumn('instagram_description', 'string', [
+                'default' => null,
+                'limit' => 2000,
+                'null' => true,
+            ])
+            ->addColumn('twitter_description', 'string', [
+                'default' => null,
+                'limit' => 280,
+                'null' => true,
+            ])
             ->create();
 
         $this->table('user_account_confirmations', ['id' => false, 'primary_key' => ['id']])

@@ -26,7 +26,7 @@ class TagsController extends AppController
     public function index(): Response
     {
         $query = $this->Tags->find()
-            ->order(['Tags.title' => 'ASC']);
+            ->orderBy(['Tags.title' => 'ASC']);
 
         if ($this->request->is('ajax')) {
             $search = $this->request->getQuery('search');

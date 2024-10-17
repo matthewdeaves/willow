@@ -344,82 +344,83 @@ class ArticlesControllerTest extends AppControllerTestCase
         // Check there are 2 slugs for Article 1
         $slugCount = $slugsTable->find()->where(['article_id' => $article1->id])->count();
         $this->assertEquals(2, $slugCount);
-/*
-        // Check old slug redirects to new slug
-        $this->get('/big-test-article-1');
-        $this->assertResponseCode(301);
-        $this->assertRedirect();
 
-        // Get the redirect location and follow it
-        $location = $this->_response->getHeaderLine('Location');
-        $this->get($location);
+        if (env('EXPERIMENTAL_TESTS', 'Off') == 'On') {
 
-        $this->assertResponseOk();
-        $this->assertResponseContains('Updated content for Test Article 1');
+            // Check old slug redirects to new slug
+            $this->get('/big-test-article-1');
+            $this->assertResponseCode(301);
+            $this->assertRedirect();
 
-        // Check new slug is accessible without redirect
-        $this->get('/big-test-article-1-v1');
-        $this->assertResponseOk();
-        $this->assertResponseContains('Updated content for Test Article 1');
+            // Get the redirect location and follow it
+            $location = $this->_response->getHeaderLine('Location');
+            $this->get($location);
 
-        // Try to create Article 2 with the same slug as original Article 1
-        $this->post('/admin/articles/add', [
-            'title' => 'Test Article 2',
-            'body' => 'Content for Test Article 2',
-            'slug' => 'big-test-article-1',
-            'user_id' => $adminUserId,
-            'is_published' => 1,
-        ]);
+            $this->assertResponseOk();
+            $this->assertResponseContains('Updated content for Test Article 1');
 
-        $this->assertResponseOk(); // Form should re-render with validation errors
-        $this->assertResponseContains('Slug conflicts with an existing SEO redirect.');
+            // Check new slug is accessible without redirect
+            $this->get('/big-test-article-1-v1');
+            $this->assertResponseOk();
+            $this->assertResponseContains('Updated content for Test Article 1');
 
-        // Try to create Article 2 with the same slug as current Article 1
-        $this->post('/admin/articles/add', [
-            'title' => 'Test Article 2',
-            'body' => 'Content for Test Article 2',
-            'slug' => 'big-test-article-1-v1',
-            'user_id' => $adminUserId,
-            'is_published' => 1,
-        ]);
-        $this->assertResponseOk(); // Form should re-render with validation errors
-        $this->assertResponseContains('This slug is already in use');
+            // Try to create Article 2 with the same slug as original Article 1
+            $this->post('/admin/articles/add', [
+                'title' => 'Test Article 2',
+                'body' => 'Content for Test Article 2',
+                'slug' => 'big-test-article-1',
+                'user_id' => $adminUserId,
+                'is_published' => 1,
+            ]);
 
-        // Create Article 2 with a unique slug
-        $this->post('/admin/articles/add', [
-            'title' => 'Test Article 2',
-            'body' => 'Content for Test Article 2',
-            'slug' => 'test-article-2-slug',
-            'user_id' => $adminUserId,
-            'is_published' => 1,
-        ]);
-        $this->assertRedirectContains('/admin');
+            $this->assertResponseOk(); // Form should re-render with validation errors
+            $this->assertResponseContains('Slug conflicts with an existing SEO redirect.');
 
-        $article2 = $articlesTable->find()->where(['title' => 'Test Article 2'])->first();
-        $this->assertNotEmpty($article2);
+            // Try to create Article 2 with the same slug as current Article 1
+            $this->post('/admin/articles/add', [
+                'title' => 'Test Article 2',
+                'body' => 'Content for Test Article 2',
+                'slug' => 'big-test-article-1-v1',
+                'user_id' => $adminUserId,
+                'is_published' => 1,
+            ]);
+            $this->assertResponseOk(); // Form should re-render with validation errors
+            $this->assertResponseContains('This slug is already in use');
 
-        // Check slug counts
-        $slugCount1 = $slugsTable->find()->where(['article_id' => $article1->id])->count();
-        $slugCount2 = $slugsTable->find()->where(['article_id' => $article2->id])->count();
-        $this->assertEquals(2, $slugCount1);
-        $this->assertEquals(1, $slugCount2);
+            // Create Article 2 with a unique slug
+            $this->post('/admin/articles/add', [
+                'title' => 'Test Article 2',
+                'body' => 'Content for Test Article 2',
+                'slug' => 'test-article-2-slug',
+                'user_id' => $adminUserId,
+                'is_published' => 1,
+            ]);
+            $this->assertRedirectContains('/admin');
 
-        // Delete Article 2
-        $this->post("/admin/articles/delete/{$article2->id}");
-        $this->assertRedirectContains('/admin');
+            $article2 = $articlesTable->find()->where(['title' => 'Test Article 2'])->first();
+            $this->assertNotEmpty($article2);
 
-        // Check no slugs for Article 2
-        $slugCount2 = $slugsTable->find()->where(['article_id' => $article2->id])->count();
-        $this->assertEquals(0, $slugCount2);
+            // Check slug counts
+            $slugCount1 = $slugsTable->find()->where(['article_id' => $article1->id])->count();
+            $slugCount2 = $slugsTable->find()->where(['article_id' => $article2->id])->count();
+            $this->assertEquals(2, $slugCount1);
+            $this->assertEquals(1, $slugCount2);
 
-        // Delete Article 1
-        $this->post("/admin/articles/delete/{$article1->id}");
-        $this->assertRedirectContains('/admin');
+            // Delete Article 2
+            $this->post("/admin/articles/delete/{$article2->id}");
+            $this->assertRedirectContains('/admin');
 
-        // Check no slugs for Article 1
-        $slugCount1 = $slugsTable->find()->where(['article_id' => $article1->id])->count();
-        $this->assertEquals(0, $slugCount1);
+            // Check no slugs for Article 2
+            $slugCount2 = $slugsTable->find()->where(['article_id' => $article2->id])->count();
+            $this->assertEquals(0, $slugCount2);
 
-        */
+            // Delete Article 1
+            $this->post("/admin/articles/delete/{$article1->id}");
+            $this->assertRedirectContains('/admin');
+
+            // Check no slugs for Article 1
+            $slugCount1 = $slugsTable->find()->where(['article_id' => $article1->id])->count();
+            $this->assertEquals(0, $slugCount1);
+        }
     }
 }

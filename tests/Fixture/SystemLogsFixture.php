@@ -7,7 +7,6 @@ use Cake\TestSuite\Fixture\TestFixture;
 
 class SystemLogsFixture extends TestFixture
 {
-
     public $fields = [
         'id' => ['type' => 'uuid', 'null' => false],
         'level' => ['type' => 'string', 'length' => 20, 'null' => false],
@@ -19,7 +18,7 @@ class SystemLogsFixture extends TestFixture
             'primary' => ['type' => 'primary', 'columns' => ['id']],
         ],
     ];
-    
+
     public function init(): void
     {
         $this->records = [

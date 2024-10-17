@@ -1,4 +1,7 @@
-<?php use App\Utility\SettingsManager; ?>
+<?php 
+use App\Utility\SettingsManager;
+use Cake\Core\Configure;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,19 +36,24 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <?= $this->Html->link(__('Articles'), ['prefix' => 'Admin', 'controller' => 'Articles', 'action' => 'index'], ['class' => 'nav-link']) ?>
+                        <?= $this->Html->link(__('Articles'),
+                        ['prefix' => 'Admin', 'controller' => 'Articles', 'action' => 'index'], ['class' => 'nav-link']) ?>
                     </li>
                     <li class="nav-item">
-                        <?= $this->Html->link(__('Pages'), ['prefix' => 'Admin', 'controller' => 'Articles', 'action' => 'treeIndex'], ['class' => 'nav-link']) ?>
+                        <?= $this->Html->link(__('Pages'),
+                        ['prefix' => 'Admin', 'controller' => 'Articles', 'action' => 'treeIndex'], ['class' => 'nav-link']) ?>
                     </li>
                     <li class="nav-item">
-                        <?= $this->Html->link(__('Tags'), ['prefix' => 'Admin', 'controller' => 'Tags', 'action' => 'index'], ['class' => 'nav-link']) ?>
+                        <?= $this->Html->link(__('Tags'),
+                        ['prefix' => 'Admin', 'controller' => 'Tags', 'action' => 'index'], ['class' => 'nav-link']) ?>
                     </li>
                     <li class="nav-item">
-                        <?= $this->Html->link(__('Images'), ['prefix' => 'Admin', 'controller' => 'Images', 'action' => 'index', '?' => ['view' => 'grid']], ['class' => 'nav-link']) ?>
+                        <?= $this->Html->link(__('Images'),
+                        ['prefix' => 'Admin', 'controller' => 'Images', 'action' => 'index', '?' => ['view' => 'grid']], ['class' => 'nav-link']) ?>
                     </li>
                     <li class="nav-item">
-                        <?= $this->Html->link(__('Comments'), ['prefix' => 'Admin', 'controller' => 'Comments', 'action' => 'index'], ['class' => 'nav-link']) ?>
+                        <?= $this->Html->link(__('Comments'),
+                        ['prefix' => 'Admin', 'controller' => 'Comments', 'action' => 'index'], ['class' => 'nav-link']) ?>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="systemDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -60,6 +68,9 @@
                             <li><?= $this->Html->link(__('Cache'), ['prefix' => 'Admin', 'controller' => 'Cache', 'action' => 'clearAll'], ['class' => 'dropdown-item']) ?></li>
                             <li><?= $this->Html->link(__('Block IPs'), ['prefix' => 'Admin', 'controller' => 'BlockedIps', 'action' => 'index'], ['class' => 'dropdown-item']) ?></li>
                             <li><?= $this->Html->link(__('Logs'), ['prefix' => 'Admin', 'controller' => 'SystemLogs', 'action' => 'index'], ['class' => 'dropdown-item']) ?></li>
+                            <?php if (Configure::read('debug')) : ?>
+                            <li><?= $this->Html->link(__('Code Coverage'), '/coverage/index.html', ['class' => 'dropdown-item']) ?></li>
+                            <?php endif; ?>  
                         </ul>
                     </li>
                     <?php if ($this->Identity->isLoggedIn()): ?>

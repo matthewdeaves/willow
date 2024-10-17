@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Controller;
 
 use App\Test\TestCase\AppControllerTestCase;
-use Cake\Cache\Cache;
 use Cake\Http\Exception\NotFoundException;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestTrait;
@@ -41,7 +40,6 @@ class ArticlesControllerTest extends AppControllerTestCase
     {
         parent::setUp();
         $this->disableErrorHandlerMiddleware();
-        Cache::clear();
     }
 
     /**
@@ -130,9 +128,6 @@ class ArticlesControllerTest extends AppControllerTestCase
         $article->published = date('Y-m-d H:i:s');
         $articlesTable->save($article);
 
-        // Clear the request to start a new one
-        $this->_request = null;
-
         // Try to view the now published article
         $this->get('/article-five');
         $this->assertResponseOk();
@@ -162,9 +157,6 @@ class ArticlesControllerTest extends AppControllerTestCase
         $page->is_published = true;
         $page->published = date('Y-m-d H:i:s');
         $articlesTable->save($page);
-
-        // Clear the request to start a new one
-        $this->_request = null;
 
         // Try to view the now published page
         $this->get('/page-six');
@@ -352,12 +344,11 @@ class ArticlesControllerTest extends AppControllerTestCase
         // Check there are 2 slugs for Article 1
         $slugCount = $slugsTable->find()->where(['article_id' => $article1->id])->count();
         $this->assertEquals(2, $slugCount);
-
-        /*
+/*
         // Check old slug redirects to new slug
         $this->get('/big-test-article-1');
-        //$this->assertResponseCode(301);
-        //$this->assertRedirect();
+        $this->assertResponseCode(301);
+        $this->assertRedirect();
 
         // Get the redirect location and follow it
         $location = $this->_response->getHeaderLine('Location');
@@ -368,7 +359,7 @@ class ArticlesControllerTest extends AppControllerTestCase
 
         // Check new slug is accessible without redirect
         $this->get('/big-test-article-1-v1');
-        //$this->assertResponseOk();
+        $this->assertResponseOk();
         $this->assertResponseContains('Updated content for Test Article 1');
 
         // Try to create Article 2 with the same slug as original Article 1
@@ -379,7 +370,7 @@ class ArticlesControllerTest extends AppControllerTestCase
             'user_id' => $adminUserId,
             'is_published' => 1,
         ]);
-        //debug($this->_response->getBody()->__toString());
+
         $this->assertResponseOk(); // Form should re-render with validation errors
         $this->assertResponseContains('Slug conflicts with an existing SEO redirect.');
 

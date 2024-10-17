@@ -8,7 +8,6 @@ use Cake\Utility\Inflector;
 <div class="comments index content">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="mb-0"><?= __('Comments') ?></h3>
-        <?= $this->Html->link(__('New Comment'), ['prefix' => 'Admin', 'action' => 'add'], ['class' => 'btn btn-primary my-3 ms-2']) ?>
     </div>
     <div class="mb-3">
         <input type="text" id="commentSearch" class="form-control" placeholder="<?= __('Search comments...') ?>">
@@ -20,9 +19,11 @@ use Cake\Utility\Inflector;
                     <th><?= $this->Paginator->sort('model') ?></th>
                     <th><?= $this->Paginator->sort('user_id') ?></th>
                     <th><?= $this->Paginator->sort('display') ?></th>
+                    <th><?= $this->Paginator->sort('is_inappropriate', 'Inappropriate?') ?></th> 
+                    <th><?= $this->Paginator->sort('inappropriate_reason', 'Reason') ?></th>
+                    <th><?= $this->Paginator->sort('is_analyzed', 'Analyzed?') ?></th>
                     <th><?= __('Content') ?></th>
                     <th><?= $this->Paginator->sort('created') ?></th>
-                    <th><?= $this->Paginator->sort('modified') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -41,9 +42,11 @@ use Cake\Utility\Inflector;
                     </td>
                     <td><?= $comment->hasValue('user') ? $this->Html->link($comment->user->username, ['controller' => 'Users', 'action' => 'view', $comment->user->id]) : '' ?></td>
                     <td><?= h($comment->display ? __('Yes') : __('No')) ?></td>
+                    <td><?= h($comment->is_inappropriate ? __('Yes') : __('No')) ?></td>
+                    <td><?= h($comment->inappropriate_reason) ?></td>
+                    <td><?= h($comment->is_analyzed ? __('Yes') : __('No')) ?></td>
                     <td><?= $this->Text->truncate($comment->content, 50, ['ellipsis' => '...', 'exact' => false]) ?></td>
                     <td><?= h($comment->created->format('Y-m-d H:i')) ?></td>
-                    <td><?= h($comment->modified->format('Y-m-d H:i')) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $comment->id], ['class' => 'btn btn-sm btn-outline-primary']) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $comment->id], ['class' => 'btn btn-sm btn-outline-secondary']) ?>

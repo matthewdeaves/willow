@@ -164,24 +164,28 @@ return [
         ],
 
         'articles' => [
-            'className' => 'Redis',
+            'className' => env('ARTICLES_CACHE_ENGINE', 'Redis'),
             'prefix' => 'cms_articles_',
+            'path' => CACHE,
+            'duration' => '+1 month',
+            'serialize' => true,
+        ] + (env('ARTICLES_CACHE_ENGINE', 'Redis') === 'Redis' ? [
             'host' => env('REDIS_HOST', 'redis'),
             'port' => env('REDIS_PORT', 6379),
             'password' => env('REDIS_PASSWORD', 'password'),
-            'duration' => '+1 month',
-            'serialize' => true,
-        ],
+        ] : []),
 
         'articles_index' => [
-            'className' => 'Redis',
+            'className' => env('ARTICLES_INDEX_CACHE_ENGINE', 'Redis'),
             'prefix' => 'cms_articles_index_',
+            'path' => CACHE,
+            'duration' => '+1 month',
+            'serialize' => true,
+        ] + (env('ARTICLES_INDEX_CACHE_ENGINE', 'Redis') === 'Redis' ? [
             'host' => env('REDIS_HOST', 'redis'),
             'port' => env('REDIS_PORT', 6379),
             'password' => env('REDIS_PASSWORD', 'password'),
-            'duration' => '+1 month',
-            'serialize' => true,
-        ],
+        ] : []),
     ],
 
     /*
@@ -230,6 +234,7 @@ return [
         'ignoredDeprecationPaths' => [
             'vendor/cakephp/cakephp/src/I18n/I18n.php',
         ],
+        'extraFatalErrorMemory' => 20,
     ],
 
     /*

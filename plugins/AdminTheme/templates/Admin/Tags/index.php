@@ -19,8 +19,6 @@
                 <tr>
                     <th><?= $this->Paginator->sort('title') ?></th>
                     <th><?= $this->Paginator->sort('slug') ?></th>
-                    <th><?= $this->Paginator->sort('created') ?></th>
-                    <th><?= $this->Paginator->sort('modified') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -29,8 +27,6 @@
                 <tr>
                     <td><?= h($tag->title) ?></td>
                     <td><?= h($tag->slug) ?></td>
-                    <td><?= h($tag->created->format('Y-m-d H:i')) ?></td>
-                    <td><?= h($tag->modified->format('Y-m-d H:i')) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $tag->id], ['class' => 'btn btn-sm btn-outline-primary']) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $tag->id], ['class' => 'btn btn-sm btn-outline-secondary']) ?>

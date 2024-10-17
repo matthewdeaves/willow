@@ -118,17 +118,39 @@ class ArticlesController extends AppController
      */
     public function index(): void
     {
+        $selectedTag = $this->request->getQuery('tag');
+
         $query = $this->Articles->find()
             ->where([
                 'Articles.is_page' => 0,
                 'Articles.is_published' => 1,
             ])
-            ->contain(['Users'])
-            ->orderBy(['Articles.published' => 'DESC'])
-            ->cache('articles_index', 'articles_index');
+            ->contain(['Users', 'Tags'])
+            ->orderBy(['Articles.published' => 'DESC']);
+
+        if ($selectedTag) {
+            $query->matching('Tags', function ($q) use ($selectedTag) {
+                return $q->where(['Tags.title' => $selectedTag]);
+            });
+        }
+
         $articles = $this->paginate($query);
 
-        $this->set(compact('articles'));
+        // Get all tags that have associated articles
+        $tagsQuery = $this->Articles->Tags->find()
+            ->matching('Articles', function ($q) {
+                return $q->where([
+                    'Articles.is_page' => 0,
+                    'Articles.is_published' => 1,
+                ]);
+            })
+            ->select(['Tags.title'])
+            ->distinct(['Tags.title'])
+            ->order(['Tags.title' => 'ASC']);
+
+        $tags = $tagsQuery->all()->extract('title')->toList();
+
+        $this->set(compact('articles', 'tags', 'selectedTag'));
     }
 
     /**
@@ -159,9 +181,7 @@ class ArticlesController extends AppController
         // Try to get the article from cache first
         $article = $this->getFromCache($slug);
 
-        if (!empty($article)) {
-            // If in cache, we know this is the current slug
-        } else {
+        if (empty($article)) {
             // If not in cache, we need to check if this is the latest slug
             $slugEntity = $this->Slugs->find()
                 ->where(['slug' => $slug])

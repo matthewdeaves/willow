@@ -13,6 +13,10 @@
         <env name="CAKE_ENV" value="test"/>
         <ini name="display_errors" value="On" />
         <ini name="error_reporting" value="-1" />
+
+        <!-- For tests, just use file based cache for front end site -->
+        <env name="ARTICLES_CACHE_ENGINE" value="File"/>
+        <env name="ARTICLES_INDEX_CACHE_ENGINE" value="File"/>
     </php>
 
     <!-- Add any additional test suites you want to run here -->
@@ -23,9 +27,10 @@
         <!-- Add plugin test suites here. -->
     </testsuites>
 
-    <!-- Load extension for fixtures -->
+    <!-- Load extensions -->
     <extensions>
         <bootstrap class="Cake\TestSuite\Fixture\Extension\PHPUnitExtension"/>
+        <bootstrap class="App\Test\Cleanup"/>
     </extensions>
 
     <!-- Ignore vendor tests in code coverage reports -->

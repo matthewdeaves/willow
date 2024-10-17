@@ -3,9 +3,13 @@
 /**
  * @var \App\View\AppView $this
  * @var iterable<\App\Model\Entity\Article> $articles
+ * @var array $tags
+ * @var string|null $selectedTag
  */
 ?>
 <div class="articles">
+    <?= $this->element('tag_filters', ['tags' => $tags, 'selectedTag' => $selectedTag]) ?>
+
     <?php foreach ($articles as $article): ?>
         <?php $isSmallArticle = strlen(strip_tags($article->body)) <= 300; ?>
         <div class="card mb-4 shadow-sm">

@@ -5,68 +5,59 @@ namespace App\Error;
 
 use App\Http\Exception\TooManyRequestsException;
 use Cake\Error\Renderer\WebExceptionRenderer;
-use Cake\Http\Response;
-use Throwable;
+use Psr\Http\Message\ResponseInterface;
 
+/**
+ * Class AppExceptionRenderer
+ *
+ * Custom exception renderer for handling specific application exceptions.
+ * Extends the WebExceptionRenderer to provide custom rendering logic for exceptions.
+ */
 class AppExceptionRenderer extends WebExceptionRenderer
 {
     /**
-     * Renders the response for the exception.
+     * Render method to handle exceptions and generate a response.
      *
-     * @return \Cake\Http\Response The response to be sent.
+     * This method checks if the exception is an instance of TooManyRequestsException.
+     * If so, it sets the response status code, prepares the view template, and sets
+     * various data to be serialized in the response. Otherwise, it falls back to the
+     * parent render method.
+     *
+     * @return \Psr\Http\Message\ResponseInterface The response object with the rendered error page.
      */
-    public function render(): Response
+    public function render(): ResponseInterface
     {
         $exception = $this->error;
         $code = $this->getHttpCode($exception);
 
         if ($exception instanceof TooManyRequestsException) {
-            return $this->renderTooManyRequests($exception);
+            $this->controller->setResponse($this->controller->getResponse()->withStatus($code));
+            $this->controller->viewBuilder()->setTemplatePath('Error');
+
+            $message = $exception->getMessage();
+            $url = $this->controller->getRequest()->getRequestTarget();
+
+            $this->controller->set([
+                'message' => $message,
+                'url' => h($url),
+                'error' => $exception,
+                'code' => $code,
+                'exceptions' => [$exception],
+                'file' => $exception->getFile(),
+                'line' => $exception->getLine(),
+            ]);
+
+            $this->controller->viewBuilder()->setOption('serialize', [
+                'message',
+                'url',
+                'code',
+                'exceptions',
+                'file',
+                'line',
+            ]);
+
+            return $this->_outputMessage('error429');
         }
-
-        return $this->renderDefaultError($exception, $code);
-    }
-
-    /**
-     * Renders the response for TooManyRequestsException.
-     *
-     * @param \Throwable $exception The exception to render.
-     * @return \Cake\Http\Response The response to be sent.
-     */
-    protected function renderTooManyRequests(Throwable $exception): Response
-    {
-        $code = 429;
-        $response = $this->controller->getResponse()->withStatus($code);
-        $this->controller->setResponse($response);
-        $this->controller->viewBuilder()->setTemplate('error429');
-
-        $this->controller->set([
-            'message' => $exception->getMessage(),
-            'url' => $this->controller->getRequest()->getRequestTarget(),
-            'error' => $exception,
-            'code' => $code,
-            'exceptions' => [$exception], // Add this line back
-        ]);
-
-        return $this->_outputMessage('error429');
-    }
-
-    /**
-     * Renders the response for default errors.
-     *
-     * @param \Throwable $exception The exception to render.
-     * @param int $code The HTTP status code.
-     * @return \Cake\Http\Response The response to be sent.
-     */
-    protected function renderDefaultError(Throwable $exception, int $code): Response
-    {
-        $this->controller->set([
-            'message' => $exception->getMessage(),
-            'url' => $this->controller->getRequest()->getRequestTarget(),
-            'error' => $exception,
-            'code' => $code,
-            'exceptions' => [$exception], // Add this line back
-        ]);
 
         return parent::render();
     }

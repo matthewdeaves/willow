@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Job;
 
 use App\Model\Entity\Comment;
-use App\Service\AnthropicApiService;
+use App\Service\Api\AnthropicApiService;
 use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
@@ -35,6 +35,19 @@ class CommentAnalysisJob implements JobInterface
      * @var bool
      */
     public static bool $shouldBeUnique = false;
+
+    /**
+     * @var \App\Service\Api\AnthropicApiService
+     */
+    private AnthropicApiService $anthropicService;
+
+    /**
+     * Constructor for CommentAnalysisJob.
+     */
+    public function __construct()
+    {
+        $this->anthropicService = new AnthropicApiService();
+    }
 
     /**
      * Executes the comment analysis job
@@ -99,8 +112,7 @@ class CommentAnalysisJob implements JobInterface
         }
 
         try {
-            $anthropicService = new AnthropicApiService();
-            $analysisResult = $anthropicService->analyzeComment($content);
+            $analysisResult = $this->anthropicService->analyzeComment($content);
 
             if ($analysisResult) {
                 $this->updateCommentStatus($comment, $analysisResult);

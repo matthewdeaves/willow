@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Job;
 
-use App\Service\AnthropicApiService;
+use App\Service\Api\AnthropicApiService;
 use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
@@ -37,13 +37,29 @@ class ImageAnalysisJob implements JobInterface
     public static bool $shouldBeUnique = false;
 
     /**
-     * Executes the image analysis job
+     * @var \App\Service\Api\AnthropicApiService The Anthropic API service for image analysis.
+     */
+    private AnthropicApiService $anthropicService;
+
+    /**
+     * ImageAnalysisJob constructor.
      *
-     * This method processes the job message, makes API calls to analyze the image,
-     * and saves the alt text and keywords back to the database.
+     * Initializes the AnthropicApiService instance.
+     */
+    public function __construct()
+    {
+        $this->anthropicService = new AnthropicApiService();
+    }
+
+    /**
+     * Execute the image analysis job.
      *
-     * @param \Cake\Queue\Job\Message $message The job message containing image analysis details
-     * @return string|null Returns Processor::ACK on success, Processor::REJECT on failure
+     * This method processes the image analysis job by receiving the message,
+     * validating the payload, calling the API for analysis, and saving the
+     * results to the database.
+     *
+     * @param \Cake\Queue\Job\Message $message The message containing job arguments.
+     * @return string|null Returns Processor::ACK on success, Processor::REJECT on failure.
      */
     public function execute(Message $message): ?string
     {
@@ -81,8 +97,7 @@ class ImageAnalysisJob implements JobInterface
         }
 
         try {
-            $anthropicService = new AnthropicApiService();
-            $analysisResult = $anthropicService->analyzeImage($folder_path . $file);
+            $analysisResult = $this->anthropicService->analyzeImage($folder_path . $file);
 
             if ($analysisResult) {
                 $modelTable = TableRegistry::getTableLocator()->get($model);

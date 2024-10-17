@@ -23,7 +23,7 @@ abstract class AbstractApiService
         $this->apiVersion = $apiVersion;
     }
 
-    protected function sendRequest(array $payload): Response
+    public function sendRequest(array $payload): Response
     {
         $response = $this->client->post(
             $this->apiUrl,

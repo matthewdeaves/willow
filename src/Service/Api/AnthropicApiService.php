@@ -4,13 +4,13 @@ declare(strict_types=1);
 namespace App\Service\Api;
 
 use App\Model\Table\AipromptsTable;
-use App\Service\Api\Anthropic\CommentAnalyzer;
-use App\Service\Api\Anthropic\ImageAnalyzer;
 use App\Service\Api\Anthropic\SeoContentGenerator;
+use App\Service\Api\Anthropic\ImageAnalyzer;
+use App\Service\Api\Anthropic\CommentAnalyzer;
 use App\Utility\SettingsManager;
 use Cake\Http\Client;
-use Cake\Http\Client\Response;
 use Cake\ORM\TableRegistry;
+use Cake\Http\Client\Response;
 
 class AnthropicApiService extends AbstractApiService
 {
@@ -53,10 +53,9 @@ class AnthropicApiService extends AbstractApiService
         return $this->commentAnalyzer->analyze($comment);
     }
 
-    protected function parseResponse(Response $response): array
+    public function parseResponse(Response $response): array
     {
         $responseData = $response->getJson();
-
         return json_decode($responseData['content'][0]['text'], true);
     }
 }

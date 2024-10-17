@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Job;
 
-use App\Service\AnthropicApiService;
+use App\Service\Api\AnthropicApiService;
 use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
@@ -35,6 +35,13 @@ class ImageAnalysisJob implements JobInterface
      * @var bool
      */
     public static bool $shouldBeUnique = false;
+
+    private AnthropicApiService $anthropicService;
+
+    public function __construct()
+    {
+        $this->anthropicService = new AnthropicApiService();
+    }
 
     /**
      * Executes the image analysis job
@@ -81,8 +88,7 @@ class ImageAnalysisJob implements JobInterface
         }
 
         try {
-            $anthropicService = new AnthropicApiService();
-            $analysisResult = $anthropicService->analyzeImage($folder_path . $file);
+            $analysisResult = $this->anthropicService->analyzeImage($folder_path . $file);
 
             if ($analysisResult) {
                 $modelTable = TableRegistry::getTableLocator()->get($model);

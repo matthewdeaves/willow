@@ -43,15 +43,7 @@ class ImageAnalysisJob implements JobInterface
         $this->anthropicService = new AnthropicApiService();
     }
 
-    /**
-     * Executes the image analysis job
-     *
-     * This method processes the job message, makes API calls to analyze the image,
-     * and saves the alt text and keywords back to the database.
-     *
-     * @param \Cake\Queue\Job\Message $message The job message containing image analysis details
-     * @return string|null Returns Processor::ACK on success, Processor::REJECT on failure
-     */
+
     public function execute(Message $message): ?string
     {
         $args = $message->getArgument('args');

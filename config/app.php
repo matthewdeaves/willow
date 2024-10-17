@@ -164,6 +164,30 @@ return [
         ],
 
         'articles' => [
+            'className' => env('ARTICLES_CACHE_ENGINE', 'Redis'),
+            'prefix' => 'cms_articles_',
+            'path' => CACHE,
+            'duration' => '+1 month',
+            'serialize' => true,
+        ] + (env('ARTICLES_CACHE_ENGINE', 'Redis') === 'Redis' ? [
+            'host' => env('REDIS_HOST', 'redis'),
+            'port' => env('REDIS_PORT', 6379),
+            'password' => env('REDIS_PASSWORD', 'password'),
+        ] : []),
+
+        'articles_index' => [
+            'className' => env('ARTICLES_INDEX_CACHE_ENGINE', 'Redis'),
+            'prefix' => 'cms_articles_index_',
+            'path' => CACHE,
+            'duration' => '+1 month',
+            'serialize' => true,
+        ] + (env('ARTICLES_INDEX_CACHE_ENGINE', 'Redis') === 'Redis' ? [
+            'host' => env('REDIS_HOST', 'redis'),
+            'port' => env('REDIS_PORT', 6379),
+            'password' => env('REDIS_PASSWORD', 'password'),
+        ] : []),
+
+       /* 'articles' => [
             'className' => 'Redis',
             'prefix' => 'cms_articles_',
             'host' => env('REDIS_HOST', 'redis'),
@@ -182,6 +206,7 @@ return [
             'duration' => '+1 month',
             'serialize' => true,
         ],
+        */
     ],
 
     /*

@@ -67,7 +67,7 @@ class UsersControllerTest extends AppControllerTestCase
             ],
         ]);
 
-        // Clear rate limiting cache
+        // Clear rate limiting cache to make sure /login is not blocked
         Cache::clear('rate_limit');
     }
 

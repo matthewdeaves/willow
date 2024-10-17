@@ -49,9 +49,6 @@ class CommentsControllerTest extends AppControllerTestCase
                 'AUTH_TYPE' => 'Form',
             ],
         ]);
-
-        // Clear all cache as the tests are a litte fast even for redis
-        Cache::clear();
     }
 
     /**

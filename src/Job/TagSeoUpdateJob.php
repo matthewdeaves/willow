@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Job;
 
-use App\Service\AnthropicApiService;
+use App\Service\Api\AnthropicApiService;
 use Cake\Database\Exception\DatabaseException;
 use Cake\Http\Exception\HttpException;
 use Cake\Log\LogTrait;
@@ -25,6 +25,19 @@ class TagSeoUpdateJob implements JobInterface
      * @var bool
      */
     public static bool $shouldBeUnique = false;
+
+    /**
+     * @var AnthropicApiService
+     */
+    private AnthropicApiService $anthropicService;
+
+    /**
+     * Constructor for TagSeoUpdateJob.
+     */
+    public function __construct()
+    {
+        $this->anthropicService = new AnthropicApiService();
+    }
 
     /**
      * Execute the tag SEO update job.
@@ -70,8 +83,7 @@ class TagSeoUpdateJob implements JobInterface
             $tag = $tagsTable->get($tagId);
             $tagDescription = $tag->description ?? '';
 
-            $anthropicService = new AnthropicApiService();
-            $seoResult = $anthropicService->generateTagSeo($tagTitle, $tagDescription);
+            $seoResult = $this->anthropicService->generateTagSeo($tagTitle, $tagDescription);
             $seoFields = [
                 'meta_title',
                 'meta_description',

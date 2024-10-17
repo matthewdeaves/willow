@@ -68,7 +68,7 @@ docker compose exec php composer cs-fix
 ```
 
 ### Useful Shell Aliases
-Its a lot to type out the commands above. If you build on Willow CMS you should make life easier with some shell aliases. You can auto set them by running `./setup_dev_aliases.sh` from the project root. [setup_dev_aliases.sh](https://raw.githubusercontent.com/matthewdeaves/willow/refs/heads/main/setup_dev_aliases.sh) will add a statement to simply load the aliases from [dev_aliases.txt](https://raw.githubusercontent.com/matthewdeaves/willow/refs/heads/main/dev_aliases.txt) when you start a new shell. Or you can manually add the aliases:
+It's a lot to type out the commands above. If you build on Willow CMS you should make life easier with some shell aliases. You can auto set them (zshrc/bashrc detection included) by running `./setup_dev_aliases.sh` from the project root. [setup_dev_aliases.sh](https://raw.githubusercontent.com/matthewdeaves/willow/refs/heads/main/setup_dev_aliases.sh) will add a statement to simply load the aliases from [dev_aliases.txt](https://raw.githubusercontent.com/matthewdeaves/willow/refs/heads/main/dev_aliases.txt) when you start a new shell. Or you can manually add the aliases:
 
 1. Copy the contents of `dev_aliases.sh`
 2. Open your `~/.bashrc` file

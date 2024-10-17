@@ -29,9 +29,11 @@
             </div>
         </div>
         <div class="col-md-6 text-end">
-            <?= $this->Form->postLink(__('Delete All Logs'), ['action' => 'delete', 'all'], ['confirm' => __('Are you sure you want to delete all logs?'), 'class' => 'btn btn-danger']) ?>
-            <?php if ($selectedLevel): ?>
-                <?= $this->Form->postLink(__('Delete {0}', h($selectedLevel)), ['action' => 'delete', 'level', $selectedLevel], ['confirm' => __('Are you sure you want to delete all {0} logs?', $selectedLevel), 'class' => 'btn btn-outline-danger']) ?>
+            <?php if (count($systemLogs) > 0): ?>
+                <?= $this->Form->postLink(__('Delete All Logs'), ['action' => 'delete', 'all'], ['confirm' => __('Are you sure you want to delete all logs?'), 'class' => 'btn btn-danger']) ?>
+                <?php if ($selectedLevel): ?>
+                    <?= $this->Form->postLink(__('Delete {0}', h($selectedLevel)), ['action' => 'delete', 'level', $selectedLevel], ['confirm' => __('Are you sure you want to delete all {0} logs?', $selectedLevel), 'class' => 'btn btn-outline-danger']) ?>
+                <?php endif; ?>
             <?php endif; ?>
         </div>
     </div>
@@ -49,7 +51,7 @@
             </div>
         </div>
         <div class="col-md-6 text-end">
-            <?php if ($selectedGroup): ?>
+            <?php if (count($systemLogs) > 0 && $selectedGroup): ?>
                 <?= $this->Form->postLink(__('Delete {0}', h($selectedGroup)), ['action' => 'delete', 'group', $selectedGroup], ['confirm' => __('Are you sure you want to delete all logs in group {0}?', $selectedGroup), 'class' => 'btn btn-outline-danger']) ?>
             <?php endif; ?>
         </div>

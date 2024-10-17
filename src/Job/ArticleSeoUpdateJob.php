@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Job;
 
-use App\Service\AnthropicApiService;
+use App\Service\Api\AnthropicApiService;
 use Cake\Database\Exception\DatabaseException;
 use Cake\Http\Exception\HttpException;
 use Cake\Log\LogTrait;
@@ -25,6 +25,19 @@ class ArticleSeoUpdateJob implements JobInterface
      * @var bool
      */
     public static bool $shouldBeUnique = false;
+
+    /**
+     * @var AnthropicApiService
+     */
+    private AnthropicApiService $anthropicService;
+
+    /**
+     * Constructor for ArticleSeoUpdateJob.
+     */
+    public function __construct()
+    {
+        $this->anthropicService = new AnthropicApiService();
+    }
 
     /**
      * Execute the article SEO update job.
@@ -70,8 +83,7 @@ class ArticleSeoUpdateJob implements JobInterface
             $article = $articlesTable->get($articleId);
             $articleBody = $article->body ?? '';
 
-            $anthropicService = new AnthropicApiService();
-            $seoResult = $anthropicService->generateArticleSeo($articleTitle, $articleBody);
+            $seoResult = $this->anthropicService->generateArticleSeo($articleTitle, $articleBody);
             $seoFields = [
                 'meta_title',
                 'meta_description',
@@ -96,11 +108,6 @@ class ArticleSeoUpdateJob implements JobInterface
                         $this->log(
                             __('Article SEO update completed successfully. Article ID: {0}', [$articleId]),
                             'info',
-                            ['group_name' => 'article_seo_update']
-                        );
-                        $this->log(
-                            __('Acknowledging message for Article ID: {0}', [$articleId]),
-                            'debug',
                             ['group_name' => 'article_seo_update']
                         );
 

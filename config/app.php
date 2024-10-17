@@ -230,6 +230,7 @@ return [
         'ignoredDeprecationPaths' => [
             'vendor/cakephp/cakephp/src/I18n/I18n.php',
         ],
+        'extraFatalErrorMemory' => 20,
     ],
 
     /*

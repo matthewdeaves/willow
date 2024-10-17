@@ -93,3 +93,6 @@ Configured via [docker-compose.yml](https://github.com/matthewdeaves/willow/blob
 
 #### MailHog
 Configured via [docker-compose.yml](https://github.com/matthewdeaves/willow/blob/2a3dc5c9a3629b99797c586c938ed94a756b15fc/docker-compose.yml#L63). Use [http://localhost:8025](http://localhost:8025) for MailHog. It will receive all email sent by Willow CMS on the development environment.
+
+### GitHub Actions
+Willow CMS is setup to execute tests with GitHub Actions with [ci.yml](https://github.com/matthewdeaves/willow/blob/main/.github/workflows/ci.yml). We test on PHP 8.1, 8.2 and 8.3.

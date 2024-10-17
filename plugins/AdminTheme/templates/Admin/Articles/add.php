@@ -120,7 +120,7 @@
                     <?= $this->element('seo_form_fields') ?>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="mt-4 mb-3"> <!-- Added margin top and bottom -->
+                            <div class="mt-4 mb-3">
                                 <?= $this->Form->button(__('Submit'), [
                                     'class' => 'btn btn-primary'
                                 ]) ?>

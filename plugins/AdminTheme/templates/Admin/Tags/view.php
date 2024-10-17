@@ -42,6 +42,9 @@
                             <td><?= h($tag->modified) ?></td>
                         </tr>
                     </table>
+                    <div class="mt-4">
+                        <?= $this->element('seo_fields', ['model' => $tag, 'hideWordCount' => true]) ?>
+                    </div>
                 </div>
             </div>
 

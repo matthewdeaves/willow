@@ -33,5 +33,12 @@ class Tag extends Entity
         'created' => true,
         'modified' => true,
         'articles' => true,
+        'meta_title' => true,
+        'meta_description' => true,
+        'meta_keywords' => true,
+        'facebook_description' => true,
+        'linkedin_description' => true,
+        'twitter_description' => true,
+        'instagram_description' => true,
     ];
 }

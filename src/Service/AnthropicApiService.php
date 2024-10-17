@@ -34,6 +34,68 @@ class AnthropicApiService
     }
 
     /**
+     * Generates SEO content for a tag using the Anthropic API.
+     *
+     * @param string $tagTitle The title of the tag.
+     * @param string $tagDescription The description of the tag.
+     * @return array The generated SEO content including meta title, description, keywords, and social media descriptions.
+     * @throws \Cake\Http\Exception\ServiceUnavailableException If the API request fails or returns an error.
+     */
+    public function generateTagSeo(string $tagTitle, string $tagDescription): array
+    {
+        $promptData = $this->getPromptData('tag_seo_analysis');
+
+        $payload = [
+            'model' => $promptData['model'],
+            'max_tokens' => $promptData['max_tokens'],
+            'temperature' => $promptData['temperature'],
+            'system' => $promptData['system_prompt'],
+            'messages' => [
+                [
+                    'role' => 'user',
+                    'content' => "Tag Title: {$tagTitle}\n\nTag Description: {$tagDescription}",
+                ],
+            ],
+        ];
+
+        $response = $this->client->post(
+            self::API_URL,
+            json_encode($payload),
+            ['headers' => $this->getHeaders()]
+        );
+
+        if (!$response->isOk()) {
+            $errorBody = $response->getStringBody();
+            $statusCode = $response->getStatusCode();
+            Log::error("Anthropic API error: Status Code: {$statusCode}, Body: {$errorBody}");
+            throw new ServiceUnavailableException(
+                __('Failed to generate SEO content for tag. Please try again later.')
+            );
+        }
+
+        $result = $this->parseResponse($response);
+
+        // Ensure all expected keys are present in the result
+        $expectedKeys = [
+            'meta_title',
+            'meta_description',
+            'meta_keywords',
+            'facebook_description',
+            'linkedin_description',
+            'twitter_description',
+            'instagram_description',
+        ];
+
+        foreach ($expectedKeys as $key) {
+            if (!isset($result[$key])) {
+                $result[$key] = '';
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * Generates SEO content for an article using the Anthropic API.
      *
      * @param string $title The title of the article.

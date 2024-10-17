@@ -25,7 +25,12 @@
                             <th class="w-25"><?= __('User') ?></th>
                             <td>
                                 <?php if (isset($article->user->username)): ?>
-                                    <?= $this->Html->link(h($article->user->username), ['controller' => 'Users', 'action' => 'view', $article->user->id], ['class' => 'text-primary']) ?>
+                                    <?= $this->Html->link(h($article->user->username), 
+                                        ['controller' => 'Users',
+                                        'action' => 'view',
+                                        $article->user->id],
+                                        ['class' => 'text-primary']) 
+                                    ?>
                                 <?php else: ?>
                                     <?= __('Unknown User') ?>
                                 <?php endif; ?>
@@ -82,7 +87,7 @@
                         </div>
                     </div>
                     <div class="mt-4">
-                        <?= $this->element('seo_fields', ['article' => $article]) ?>
+                        <?= $this->element('seo_fields', ['model' => $article]) ?>
                     </div>
                 </div>
             </div>

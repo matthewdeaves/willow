@@ -15,6 +15,7 @@ use Cake\Queue\QueueManager;
 use Cake\Utility\Text;
 use Cake\Validation\Validator;
 use DateTime;
+use Exception;
 use InvalidArgumentException;
 
 /**
@@ -308,7 +309,7 @@ class ArticlesTable extends Table
             $this->Slugs->ensureSlugExists($entity->id, $entity->slug);
         }
 
-        // New code for queueing SEO update job
+        // Queue an Article SEO update job
         if ($entity->is_published && SettingsManager::read('AI.enabled')) {
             try {
                 QueueManager::push('App\Job\ArticleSeoUpdateJob', [

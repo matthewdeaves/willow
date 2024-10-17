@@ -14,8 +14,21 @@ use PHPUnit\TextUI\Configuration\Configuration;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
+/**
+ * Class Cleanup
+ *
+ * Implements the PHPUnit Extension interface to perform cleanup tasks after test execution.
+ * This is mainly to avoid any cache permissions errors in the front end site after running tests.
+ */
 class Cleanup implements Extension
 {
+    /**
+     * Bootstrap method to register the cleanup subscriber.
+     *
+     * @param Configuration $configuration The PHPUnit configuration object.
+     * @param Facade $facade The PHPUnit facade for managing extensions.
+     * @param ParameterCollection $parameters The collection of parameters for the extension.
+     */
     public function bootstrap(Configuration $configuration, Facade $facade, ParameterCollection $parameters): void
     {
         $facade->registerSubscriber(new class implements ExecutionFinishedSubscriber {
@@ -26,7 +39,7 @@ class Cleanup implements Extension
                     // Clear all caches
                     Cache::clearAll();
 
-                    // Reset permissions for tmp and logs directories
+                    // Reset permissions for tmp, logs, and webroot directories
                     $dirs = [TMP, LOGS, WWW_ROOT];
                     foreach ($dirs as $dir) {
                         $this->setPermissions($dir);
@@ -36,9 +49,16 @@ class Cleanup implements Extension
 
             private function setPermissions($dir)
             {
-                $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir));
+                $iterator = new RecursiveIteratorIterator(
+                    new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS),
+                    RecursiveIteratorIterator::SELF_FIRST
+                );
                 foreach ($iterator as $item) {
-                    chmod($item, 0777);
+                    if ($item->isDir()) {
+                        chmod($item->getRealPath(), 0755); // Directory permissions
+                    } else {
+                        chmod($item->getRealPath(), 0644); // File permissions
+                    }
                 }
             }
         });

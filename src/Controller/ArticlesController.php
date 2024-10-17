@@ -180,10 +180,8 @@ class ArticlesController extends AppController
     {
         // Try to get the article from cache first
         $article = $this->getFromCache($slug);
-
-        if (!empty($article)) {
-            // If in cache, we know this is the current slug
-        } else {
+        
+        if (empty($article)) {
             // If not in cache, we need to check if this is the latest slug
             $slugEntity = $this->Slugs->find()
                 ->where(['slug' => $slug])

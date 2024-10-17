@@ -8,7 +8,6 @@ use Cake\Utility\Inflector;
 <div class="comments index content">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="mb-0"><?= __('Comments') ?></h3>
-        <?= $this->Html->link(__('New Comment'), ['prefix' => 'Admin', 'action' => 'add'], ['class' => 'btn btn-primary my-3 ms-2']) ?>
     </div>
     <div class="mb-3">
         <input type="text" id="commentSearch" class="form-control" placeholder="<?= __('Search comments...') ?>">

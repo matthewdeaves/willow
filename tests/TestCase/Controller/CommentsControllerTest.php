@@ -5,7 +5,6 @@ namespace App\Test\TestCase\Controller;
 
 use App\Model\Table\CommentsTable;
 use App\Test\TestCase\AppControllerTestCase;
-use Cake\Cache\Cache;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestTrait;
 

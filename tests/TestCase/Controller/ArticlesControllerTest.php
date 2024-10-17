@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Controller;
 
 use App\Test\TestCase\AppControllerTestCase;
-use Cake\Cache\Cache;
 use Cake\Http\Exception\NotFoundException;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestTrait;
@@ -346,7 +345,6 @@ class ArticlesControllerTest extends AppControllerTestCase
         $slugCount = $slugsTable->find()->where(['article_id' => $article1->id])->count();
         $this->assertEquals(2, $slugCount);
 
-        
         // Check old slug redirects to new slug
         $this->get('/big-test-article-1');
         $this->assertResponseCode(301);

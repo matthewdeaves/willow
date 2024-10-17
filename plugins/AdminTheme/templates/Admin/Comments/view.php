@@ -38,13 +38,15 @@ use Cake\Utility\Inflector;
                             <td><?= $comment->is_inappropriate ? __('Yes') : __('No') ?></td>
                         </tr>
                         <tr>
-                            <th><?= __('Is Analyzed') ?></th>
+                            <th><?= __('Is AI Analyzed') ?></th>
                             <td><?= $comment->is_analyzed ? __('Yes') : __('No') ?></td>
                         </tr>
+                        <?php if (!empty($comment->inappropriate_reason)) : ?>
                         <tr>
                             <th><?= __('Inappropriate Reason') ?></th>
                             <td><?= h($comment->inappropriate_reason) ?></td>
                         </tr>
+                        <?php endif; ?>
                         <tr>
                             <th><?= __('Created') ?></th>
                             <td><?= h($comment->created) ?></td>

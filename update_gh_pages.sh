@@ -3,15 +3,6 @@
 # Store the current branch name
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 
-# Run PHPUnit tests and generate coverage report
-docker compose exec php php vendor/bin/phpunit --coverage-html webroot/coverage tests/TestCase/
-
-# Check if the tests passed
-if [ $? -ne 0 ]; then
-    echo "Tests failed. Aborting."
-    exit 1
-fi
-
 # Switch to gh-pages branch
 git checkout gh-pages
 

@@ -344,9 +344,10 @@ class ArticlesControllerTest extends AppControllerTestCase
         // Check there are 2 slugs for Article 1
         $slugCount = $slugsTable->find()->where(['article_id' => $article1->id])->count();
         $this->assertEquals(2, $slugCount);
-
+        sleep(1);
         // Check old slug redirects to new slug
         $this->get('/big-test-article-1');
+
         $this->assertResponseContains('Updated content for Test Article 1');
         //$this->assertResponseCode(301);
         //$this->assertRedirect();

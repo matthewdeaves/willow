@@ -55,9 +55,9 @@ class Cleanup implements Extension
                 );
                 foreach ($iterator as $item) {
                     if ($item->isDir()) {
-                        chmod($item->getRealPath(), 0755); // Directory permissions
+                        chmod($item->getRealPath(), 0777); // Directory permissions
                     } else {
-                        chmod($item->getRealPath(), 0644); // File permissions
+                        chmod($item->getRealPath(), 0777); // File permissions
                     }
                 }
             }

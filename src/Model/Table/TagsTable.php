@@ -3,8 +3,14 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use App\Utility\SettingsManager;
+use ArrayObject;
+use Cake\Datasource\EntityInterface;
+use Cake\Event\EventInterface;
 use Cake\ORM\Table;
+use Cake\Queue\QueueManager;
 use Cake\Validation\Validator;
+use Exception;
 
 /**
  * Tags Model
@@ -71,5 +77,33 @@ class TagsTable extends Table
             ->notEmptyString('title');
 
         return $validator;
+    }
+
+    /**
+     * After save callback.
+     *
+     * This method is triggered after a tag entity is saved. It queues a TagSeoUpdateJob
+     * if AI settings are enabled.
+     *
+     * @param \Cake\Event\EventInterface $event The afterSave event that was fired.
+     * @param \Cake\Datasource\EntityInterface $entity The tag entity that was saved.
+     * @param \ArrayObject $options The options passed to the save method.
+     * @return void
+     * @throws \Exception If there is an error while queueing the SEO update job.
+     */
+    public function afterSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
+    {
+        if (SettingsManager::read('AI.enabled')) {
+            try {
+                QueueManager::push('App\Job\TagSeoUpdateJob', [
+                    'args' => [[
+                        'id' => $entity->id,
+                        'title' => $entity->title,
+                    ]],
+                ]);
+            } catch (Exception $e) {
+                $this->log('Failed to queue tag SEO update job: ' . $e->getMessage(), 'error');
+            }
+        }
     }
 }

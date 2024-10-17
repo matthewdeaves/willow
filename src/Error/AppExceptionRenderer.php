@@ -26,9 +26,13 @@ class AppExceptionRenderer extends WebExceptionRenderer
                 'url' => h($url),
                 'error' => $exception,
                 'code' => $code,
+                'exceptions' => [$exception],
+                //'trace' => Debugger::formatTrace($exception->getTrace(), ['format' => 'array']),
+                'file' => $exception->getFile(),
+                'line' => $exception->getLine(),
             ]);
             
-            $this->controller->viewBuilder()->setOption('serialize', ['message', 'url', 'code']);
+            $this->controller->viewBuilder()->setOption('serialize', ['message', 'url', 'code', 'exceptions', 'file', 'line']);
             
             return $this->_outputMessage('error429');
         }

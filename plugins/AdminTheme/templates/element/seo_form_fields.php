@@ -64,6 +64,7 @@
                         ]) ?>
                     </div>
                 </div>
+                <?php if (!isset($hideWordCount)) : ?>
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <?= $this->Form->control('word_count', [
@@ -73,6 +74,7 @@
                         ]) ?>
                     </div>
                 </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>

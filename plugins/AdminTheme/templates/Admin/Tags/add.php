@@ -63,7 +63,7 @@
                             </div>
                         </div>
                     </div>
-                    <?= $this->element('seo_form_fields') ?>
+                    <?= $this->element('seo_form_fields', ['hideWordCount' => true]) ?>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="mt-4 mb-3">

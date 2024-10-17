@@ -15,6 +15,7 @@ use Cake\Queue\QueueManager;
 use Cake\Utility\Text;
 use Cake\Validation\Validator;
 use DateTime;
+use Exception;
 use InvalidArgumentException;
 
 /**

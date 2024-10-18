@@ -35,6 +35,7 @@ RUN apk add --no-cache \
   php83-sockets \
   php83-intl \
   php83-cli \
+  php83-pdo_sqlite \
   supervisor \
   php83-simplexml \
   wget \
@@ -64,8 +65,7 @@ COPY docker/willowcms/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 RUN chown -R nobody:nobody /var/www/html /run /var/lib/nginx /var/log/nginx
 
 # Set permissions for the mounted directory
-RUN chown -R nobody:nobody /var/www/html && \
-    chmod -R 777 /var/www/html
+RUN chmod -R 777 /var/www/html /run /var/lib/nginx /var/log/nginx
 
 # Switch to use a non-root user from here on
 USER nobody

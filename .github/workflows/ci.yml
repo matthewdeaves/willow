@@ -6,7 +6,6 @@ on:
       - main
       - development
       - staging
-      - 'feature/*'
   pull_request:
     branches:
       - main

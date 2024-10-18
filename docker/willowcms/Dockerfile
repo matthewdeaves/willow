@@ -60,20 +60,12 @@ RUN wget https://getcomposer.org/installer -O composer-setup.php && \
 # Configure supervisord
 COPY docker/willowcms/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-
-# Delete composer.lock and run composer update
-#RUN rm -f composer.lock && \
-#    composer update
-
-# Install PHP dependencies
-RUN composer install --optimize-autoloader
-
 # Install wait-for-it
 ADD https://github.com/vishnubob/wait-for-it/raw/master/wait-for-it.sh /usr/local/bin/wait-for-it.sh
 RUN chmod +x /usr/local/bin/wait-for-it.sh
 
 # Copy entrypoint script
-COPY docker-entrypoint.sh /usr/local/bin/
+COPY docker/willowcms/docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 # Make sure files/folders needed by the processes are accessible when they run under the nobody user

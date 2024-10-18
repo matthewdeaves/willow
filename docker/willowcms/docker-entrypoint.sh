@@ -11,6 +11,9 @@ FIRST_RUN_FLAG="/var/lib/willow/first_run_completed"
 if [ ! -f "$FIRST_RUN_FLAG" ]; then
     echo "First time container startup detected. Running initial setup..."
 
+    # Composer install
+    composer install --optimize-autoloader
+
     # Run migrations
     bin/cake migrations migrate
 

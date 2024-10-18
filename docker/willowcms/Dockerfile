@@ -60,28 +60,12 @@ RUN wget https://getcomposer.org/installer -O composer-setup.php && \
 # Configure supervisord
 COPY docker/willowcms/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-# Install wait-for-it
-ADD https://github.com/vishnubob/wait-for-it/raw/master/wait-for-it.sh /usr/local/bin/wait-for-it.sh
-RUN chmod +x /usr/local/bin/wait-for-it.sh
+# Make sure files/folders needed by the processes are accessable when they run under the nobody user
+RUN chown -R nobody:nobody /var/www/html /run /var/lib/nginx /var/log/nginx
 
-# Copy entrypoint script
-COPY docker/willowcms/docker-entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-
-# Make sure files/folders needed by the processes are accessible when they run under the nobody user
-RUN chown -R nobody:nobody /var/www/html /run /var/lib/nginx /var/log/nginx && \
-    mkdir -p /var/lib/nginx/logs && \
-    chown -R nobody:nobody /var/lib/nginx/logs && \
-    chmod -R 755 /var/lib/nginx/logs && \
-    mkdir -p /var/lib/willow && \
-    chown -R nobody:nobody /var/lib/willow && \
-    chmod -R 755 /var/lib/willow && \
-    mkdir -p /var/www/html/vendor/composer && \
-    chown -R nobody:nobody /var/www/html/vendor && \
-    chmod -R 755 /var/www/html/vendor
-
-# Ensure nobody user can access the wait-for-it script
-RUN chown nobody:nobody /usr/local/bin/wait-for-it.sh
+# Set permissions for the mounted directory
+RUN chown -R nobody:nobody /var/www/html && \
+    chmod -R 777 /var/www/html
 
 # Switch to use a non-root user from here on
 USER nobody
@@ -89,9 +73,8 @@ USER nobody
 # Expose the port nginx is reachable on
 EXPOSE 80
 
-# Set entrypoint
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+# Let supervisord start nginx & php-fpm
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
 
 # Configure a healthcheck to validate that everything is up&running
-HEALTHCHECK --timeout=10s CMD curl --silent --fail http://127.0.0.1:80/fpm-ping || exit 1
+HEALTHCHECK --timeout=10s CMD curl --silent --fail http://127.0.0.1:8080/fpm-ping || exit 1

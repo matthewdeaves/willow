@@ -1,7 +1,9 @@
 #!/bin/sh
 
 # Make sure vendor folder rw
-chmod -R 777 vendor/
+mkdir -p vendor
+mkdir -p .phpunit.cache
+chmod -R 777 vendor/ .phpunit.cache
 
 # Define the flag file in the project root
 FIRST_RUN_FLAG="./config/.first_run_completed"

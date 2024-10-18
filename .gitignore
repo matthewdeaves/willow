@@ -41,6 +41,10 @@ willow_cms_code_Utilities.txt
 /webroot/files/Articles/image/*
 !/webroot/files/Articles/image/.gitkeep
 
+# Willow dev env init setup flag #
+##################################
+config/.first_run_completed
+
 # Code Coverage Report #
 ########################
 webroot/coverage/

@@ -75,7 +75,10 @@ RUN chown -R nobody:nobody /var/www/html /run /var/lib/nginx /var/log/nginx && \
     chmod -R 755 /var/lib/nginx/logs && \
     mkdir -p /var/lib/willow && \
     chown -R nobody:nobody /var/lib/willow && \
-    chmod -R 755 /var/lib/willow
+    chmod -R 755 /var/lib/willow && \
+    mkdir -p /var/www/html/vendor/composer && \
+    chown -R nobody:nobody /var/www/html/vendor && \
+    chmod -R 755 /var/www/html/vendor
 
 # Ensure nobody user can access the wait-for-it script
 RUN chown nobody:nobody /usr/local/bin/wait-for-it.sh

@@ -10,14 +10,8 @@ services:
       - redis
     volumes:
       - .:/var/www/html/
-      - ./logs/nginx:/var/log/nginx/
-      - ./logs/php.log:/var/log/fpm-php.www.log
       - ./docker/willowcms/cms_app_local.php:/var/www/html/config/app_local.php
       - ./config/.env.example:/var/www/html/config/.env
-
-    environment:
-      - PHP_FPM_USER=nobody
-      - PHP_FPM_GROUP=nobody
 
   mysql:
     image: mysql:5.7

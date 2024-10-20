@@ -69,7 +69,7 @@ use Cake\Core\Configure;
                             <li><?= $this->Html->link(__('Logs'), ['prefix' => 'Admin', 'controller' => 'SystemLogs', 'action' => 'index'], ['class' => 'dropdown-item']) ?></li>
                             <li><?= $this->Html->link(__('Settings'), ['prefix' => 'Admin', 'controller' => 'Settings', 'action' => 'index'], ['class' => 'dropdown-item']) ?></li>
                             <?php if (Configure::read('debug')) : ?>
-                            <li><?= $this->Html->link(__('Code Coverage'), '/coverage/index.html', ['class' => 'dropdown-item']) ?></li>
+                            <li><?= $this->Html->link(__('Code Coverage'), 'coverage/src/index.html', ['class' => 'dropdown-item']) ?></li>
                             <?php endif; ?>  
                         </ul>
                     </li>

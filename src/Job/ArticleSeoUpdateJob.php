@@ -60,31 +60,17 @@ class ArticleSeoUpdateJob implements JobInterface
             $article = $articlesTable->get($id);
 
             $seoResult = $this->anthropicService->generateArticleSeo($title, strip_tags($article->body));
-            $expectedKeys = [
-                'meta_title',
-                'meta_description',
-                'meta_keywords',
-                'facebook_description',
-                'linkedin_description',
-                'twitter_description',
-                'instagram_description',
-            ];
 
             if ($seoResult) {
-                // Just in case we don't get back the JSON keys we expect
-                foreach ($expectedKeys as $key) {
-                    if (isset($seoResult[$key])) {
-                        $article->$key = $seoResult[$key];
-                    }
-                }
 
-                // Sometimes meta_keywords comes back with ,'s
-                // Replace commas with spaces and remove extra whitespace
-                $article->meta_keywords = Text::cleanInsert($article->meta_keywords, ['clean' => true]);
-                // Ensure only alphanumeric characters and spaces
-                $article->meta_keywords = preg_replace('/[^a-zA-Z0-9\s]/', '', $article->meta_keyword);
-                // Trim whitespace
-                $article->meta_keywords = trim($article->meta_keywords);
+                //Set the data we got back
+                $article->meta_title = $seoResult['meta_title'];
+                $article->meta_description = $seoResult['meta_description'];
+                $article->meta_keywords = $seoResult['meta_keywords'];
+                $article->facebook_description = $seoResult['facebook_description'];
+                $article->linkedin_description = $seoResult['linkedin_description'];
+                $article->twitter_description = $seoResult['twitter_description'];
+                $article->instagram_description = $seoResult['instagram_description'];
 
                 // Save the data
                 if ($articlesTable->save($article)) {

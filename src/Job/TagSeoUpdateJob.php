@@ -60,31 +60,16 @@ class TagSeoUpdateJob implements JobInterface
             $tag = $tagsTable->get($id);
 
             $seoResult = $this->anthropicService->generateTagSeo($title, $tag->description);
-            $expectedKeys = [
-                'meta_title',
-                'meta_description',
-                'meta_keywords',
-                'facebook_description',
-                'linkedin_description',
-                'twitter_description',
-                'instagram_description',
-            ];
 
             if ($seoResult) {
-                // Just in case we don't get back the JSON keys we expect
-                foreach ($expectedKeys as $key) {
-                    if (isset($seoResult[$key])) {
-                        $tag->$key = $seoResult[$key];
-                    }
-                }
-
-                // Sometimes meta_keywords comes back with ,'s
-                // Replace commas with spaces and remove extra whitespace
-                $tag->meta_keywords = Text::cleanInsert($tag->meta_keywords, ['clean' => true]);
-                // Ensure only alphanumeric characters and spaces
-                $tag->meta_keywords = preg_replace('/[^a-zA-Z0-9\s]/', '', $tag->meta_keyword);
-                // Trim whitespace
-                $tag->meta_keywords = trim($tag->meta_keywords);
+                //Set the data we got back
+                $tag->meta_title = $seoResult['meta_title'];
+                $tag->meta_description = $seoResult['meta_description'];
+                $tag->meta_keywords = $seoResult['meta_keywords'];
+                $tag->facebook_description = $seoResult['facebook_description'];
+                $tag->linkedin_description = $seoResult['linkedin_description'];
+                $tag->twitter_description = $seoResult['twitter_description'];
+                $tag->instagram_description = $seoResult['instagram_description'];
 
                 if ($tagsTable->save($tag)) {
                     $this->log(

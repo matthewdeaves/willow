@@ -80,26 +80,12 @@ class ImageAnalysisJob implements JobInterface
             $image = $modelTable->get($id);
 
             $analysisResult = $this->anthropicService->analyzeImage($folderPath . $file);
-            $expectedKeys = [
-                'alt_text',
-                'keywords',
-                'name',
-            ];
 
             if ($analysisResult) {
-                // Just in case we don't get back the JSON keys we expect
-                foreach ($expectedKeys as $key) {
-                    if (isset($seoResult[$key])) {
-                        $image->$key = $seoResult[$key];
-                    }
-                }
-                // Sometimes met_keywords comes back with ,'s
-                // Replace commas with spaces and remove extra whitespace
-                $image->keywords = Text::cleanInsert($image->keywords, ['clean' => true]);
-                // Ensure only alphanumeric characters and spaces
-                $image->keywords = preg_replace('/[^a-zA-Z0-9\s]/', '', $image->keywords);
-                // Trim whitespace
-                $image->keywords = trim($image->keywords);
+                //Set the data we got back
+                $image->name = $analysisResult['name'];
+                $image->alt_text = $analysisResult['alt_text'];
+                $image->keywords = $analysisResult['keywords'];
 
                 if ($modelTable->save($image)) {
                     $this->log(

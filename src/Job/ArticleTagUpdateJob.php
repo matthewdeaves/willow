@@ -64,15 +64,15 @@ class ArticleTagUpdateJob implements JobInterface
             $articlesTable = TableRegistry::getTableLocator()->get('Articles');
             $tagsTable = TableRegistry::getTableLocator()->get('Tags');
 
-            $article = $articlesTable->get($articleId, ['contain' => ['Tags']]);
-            $allTags = $tagsTable->find()->select(['title'])->extract('title')->toArray();
+            $article = $articlesTable->get($articleId, contain: ['Tags']);
+            $allTags = $tagsTable->find()->select(['title'])->all()->extract('title')->toArray();
 
             $tagResult = $this->anthropicService->generateArticleTags($allTags, $article->title, $article->body);
 
             if ($tagResult && isset($tagResult['new_tags']) && is_array($tagResult['new_tags'])) {
                 $newTags = [];
                 foreach ($tagResult['new_tags'] as $tagTitle) {
-                    $tag = $tagsTable->findOrCreate(['title' => $tagTitle]);
+                    $tag = $tagsTable->findOrCreate(['title' => $tagTitle, 'slug' => '']);
                     $newTags[] = $tag;
                 }
 

@@ -72,6 +72,7 @@ class AnthropicApiService extends AbstractApiService
         $this->seoContentGenerator = new SeoContentGenerator($this, $this->aipromptsTable);
         $this->imageAnalyzer = new ImageAnalyzer($this, $this->aipromptsTable);
         $this->commentAnalyzer = new CommentAnalyzer($this, $this->aipromptsTable);
+        $this->tagGenerator = new TagGenerator($this, $this->aipromptsTable);
     }
 
     /**

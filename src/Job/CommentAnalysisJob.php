@@ -10,7 +10,6 @@ use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
-use Exception;
 use Interop\Queue\Processor;
 
 /**
@@ -92,36 +91,26 @@ class CommentAnalysisJob implements JobInterface
             return Processor::ACK;
         }
 
-        try {
-            $analysisResult = $this->anthropicService->analyzeComment($content);
+        $analysisResult = $this->anthropicService->analyzeComment($content);
 
-            if ($analysisResult) {
-                $this->updateCommentStatus($comment, $analysisResult);
-                $this->log(
-                    __('Comment analysis completed successfully. Comment ID: {0}', [$commentId]),
-                    'info',
-                    ['group_name' => 'comment_analysis']
-                );
-
-                return Processor::ACK;
-            } else {
-                $this->log(
-                    __('Comment analysis failed. No result returned. Comment ID: {0}', [$commentId]),
-                    'error',
-                    ['group_name' => 'comment_analysis']
-                );
-
-                return Processor::REJECT;
-            }
-        } catch (Exception $e) {
+        if ($analysisResult) {
+            $this->updateCommentStatus($comment, $analysisResult);
             $this->log(
-                __('Error during comment analysis. Comment ID: {0}, Error: {1}', [$commentId, $e->getMessage()]),
-                'error',
+                __('Comment analysis completed successfully. Comment ID: {0}', [$commentId]),
+                'info',
                 ['group_name' => 'comment_analysis']
             );
 
-            return Processor::REJECT;
+            return Processor::ACK;
+        } else {
+            $this->log(
+                __('Comment analysis failed. No result returned. Comment ID: {0}', [$commentId]),
+                'error',
+                ['group_name' => 'comment_analysis']
+            );
         }
+
+        return Processor::REJECT;
     }
 
     /**

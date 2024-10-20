@@ -8,7 +8,6 @@ use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
-use Exception;
 use Interop\Queue\Processor;
 
 /**
@@ -79,55 +78,40 @@ class ImageAnalysisJob implements JobInterface
             ['group_name' => 'image_analysis']
         );
 
-        try {
-            $modelTable = TableRegistry::getTableLocator()->get($model);
-            $image = $modelTable->get($id);
+        $modelTable = TableRegistry::getTableLocator()->get($model);
+        $image = $modelTable->get($id);
 
-            $analysisResult = $this->anthropicService->analyzeImage($folderPath . $file);
+        $analysisResult = $this->anthropicService->analyzeImage($folderPath . $file);
 
-            if ($analysisResult) {
-                //Set the data we got back
-                $image->name = $analysisResult['name'];
-                $image->alt_text = $analysisResult['alt_text'];
-                $image->keywords = $analysisResult['keywords'];
+        if ($analysisResult) {
+            //Set the data we got back
+            $image->name = $analysisResult['name'];
+            $image->alt_text = $analysisResult['alt_text'];
+            $image->keywords = $analysisResult['keywords'];
 
-                if ($modelTable->save($image)) {
-                    $this->log(
-                        __('Image analysis completed successfully. Model: {0} ID: {1}', [$model, $id]),
-                        'info',
-                        ['group_name' => 'image_analysis']
-                    );
-
-                    return Processor::ACK;
-                } else {
-                    $this->log(
-                        __('Image analysis failed. Model: {0} ID: {1}', [$model, $id]),
-                        'error',
-                        ['group_name' => 'image_analysis']
-                    );
-
-                    return Processor::REJECT;
-                }
-            } else {
+            if ($modelTable->save($image)) {
                 $this->log(
-                    __('Image analysis failed. No result returned. Image Path: {0}', [$folderPath . $file]),
-                    'error',
+                    __('Image analysis completed successfully. Model: {0} ID: {1}', [$model, $id]),
+                    'info',
                     ['group_name' => 'image_analysis']
                 );
 
-                return Processor::REJECT;
+                return Processor::ACK;
+            } else {
+                $this->log(
+                    __('Image analysis failed. Model: {0} ID: {1}', [$model, $id]),
+                    'error',
+                    ['group_name' => 'image_analysis']
+                );
             }
-        } catch (Exception $e) {
+        } else {
             $this->log(
-                __(
-                    'Error during image analysis. Image Path: {0}, Error: {1}',
-                    [$folderPath . $file, $e->getMessage()]
-                ),
+                __('Image analysis failed. No result returned. Image Path: {0}', [$folderPath . $file]),
                 'error',
                 ['group_name' => 'image_analysis']
             );
-
-            return Processor::REJECT;
         }
+
+        return Processor::REJECT;
     }
 }

@@ -8,7 +8,6 @@ use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
-use Exception;
 use Interop\Queue\Processor;
 
 /**
@@ -89,72 +88,57 @@ class ArticleTagUpdateJob implements JobInterface
             ['group_name' => 'article_tag_update']
         );
 
-        try {
-            $articlesTable = TableRegistry::getTableLocator()->get('Articles');
-            $tagsTable = TableRegistry::getTableLocator()->get('Tags');
+        $articlesTable = TableRegistry::getTableLocator()->get('Articles');
+        $tagsTable = TableRegistry::getTableLocator()->get('Tags');
 
-            $article = $articlesTable->get($id, contain: ['Tags']);
-            $allTags = $tagsTable->find()->select(['title'])->all()->extract('title')->toArray();
+        $article = $articlesTable->get($id, contain: ['Tags']);
+        $allTags = $tagsTable->find()->select(['title'])->all()->extract('title')->toArray();
 
-            $tagResult = $this->anthropicService->generateArticleTags($allTags, $article->title, $article->body);
+        $tagResult = $this->anthropicService->generateArticleTags($allTags, $article->title, $article->body);
 
-            if ($tagResult && isset($tagResult['new_tags']) && is_array($tagResult['new_tags'])) {
-                $newTags = [];
-                foreach ($tagResult['new_tags'] as $tagTitle) {
-                    if (!in_array($tagTitle, $allTags)) {
-                        $tag = $tagsTable->findOrCreate(['title' => $tagTitle, 'slug' => '']);
-                        $newTags[] = $tag;
+        if ($tagResult && isset($tagResult['new_tags']) && is_array($tagResult['new_tags'])) {
+            $newTags = [];
+            foreach ($tagResult['new_tags'] as $tagTitle) {
+                if (!in_array($tagTitle, $allTags)) {
+                    $tag = $tagsTable->findOrCreate(['title' => $tagTitle, 'slug' => '']);
+                    $newTags[] = $tag;
 
-                        // Check if the tag was newly created & log
-                        if ($tag->isNew()) {
-                            $this->log(
-                                __('New tag created: {0}', [$tagTitle]),
-                                'info',
-                                ['group_name' => 'article_tag_update']
-                            );
-                        }
+                    // Check if the tag was newly created & log
+                    if ($tag->isNew()) {
+                        $this->log(
+                            __('New tag created: {0}', [$tagTitle]),
+                            'info',
+                            ['group_name' => 'article_tag_update']
+                        );
                     }
                 }
+            }
 
-                $article->tags = $newTags;
+            $article->tags = $newTags;
 
-                if ($articlesTable->save($article)) {
-                    $this->log(
-                        __('Article tag update completed successfully. Article ID: {0}', [$id]),
-                        'info',
-                        ['group_name' => 'article_tag_update']
-                    );
-
-                    return Processor::ACK;
-                } else {
-                    $this->log(
-                        __('Failed to save article tag updates. Article ID: {0}', [$id]),
-                        'error',
-                        ['group_name' => 'article_tag_update']
-                    );
-
-                    return Processor::REJECT;
-                }
-            } else {
+            if ($articlesTable->save($article)) {
                 $this->log(
-                    __('Article tag update failed. No valid result returned. Article ID: {0}', [$id]),
-                    'error',
+                    __('Article tag update completed successfully. Article ID: {0}', [$id]),
+                    'info',
                     ['group_name' => 'article_tag_update']
                 );
 
-                return Processor::REJECT;
+                return Processor::ACK;
+            } else {
+                $this->log(
+                    __('Failed to save article tag updates. Article ID: {0}', [$id]),
+                    'error',
+                    ['group_name' => 'article_tag_update']
+                );
             }
-        } catch (Exception $e) {
+        } else {
             $this->log(
-                __('Unexpected error during article tag update. Article ID: {0}, Error: {1}', [
-                    $id,
-                    $e->getMessage(),
-                ]),
+                __('Article tag update failed. No valid result returned. Article ID: {0}', [$id]),
                 'error',
                 ['group_name' => 'article_tag_update']
             );
-
-            return Processor::REJECT;
         }
+
+        return Processor::REJECT;
     }
 }

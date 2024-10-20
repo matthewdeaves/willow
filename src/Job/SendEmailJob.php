@@ -74,67 +74,54 @@ class SendEmailJob implements JobInterface
             ['group_name' => 'email_sending']
         );
 
-        try {
-            // Fetch the email template from the database
-            $emailTemplatesTable = TableRegistry::getTableLocator()->get('EmailTemplates');
-            $emailTemplate = $emailTemplatesTable->find()
-                ->where(['template_identifier' => $templateIdentifier])
-                ->first();
+        // Fetch the email template from the database
+        $emailTemplatesTable = TableRegistry::getTableLocator()->get('EmailTemplates');
+        $emailTemplate = $emailTemplatesTable->find()
+            ->where(['template_identifier' => $templateIdentifier])
+            ->first();
 
-            if (!$emailTemplate) {
-                throw new Exception(__('Email template not found: {0}', $templateIdentifier));
-            }
+        if (!$emailTemplate) {
+            throw new Exception(__('Email template not found: {0}', $templateIdentifier));
+        }
 
-            // Replace placeholders in the email body
-            foreach ($viewVars as $key => $value) {
-                $emailTemplate->body_html = str_replace('{' . $key . '}', $value, $emailTemplate->body_html);
-                $emailTemplate->bodyPlain = str_replace('{' . $key . '}', $value, $emailTemplate->bodyPlain);
-            }
+        // Replace placeholders in the email body
+        foreach ($viewVars as $key => $value) {
+            $emailTemplate->body_html = str_replace('{' . $key . '}', $value, $emailTemplate->body_html);
+            $emailTemplate->bodyPlain = str_replace('{' . $key . '}', $value, $emailTemplate->bodyPlain);
+        }
 
-            $mailer = new Mailer('default');
-            $mailer->setTo($to)
-                ->setFrom($from)
-                ->setSubject($emailTemplate->subject)
-                ->setEmailFormat('both')
-                ->setViewVars([
-                    'bodyHtml' => $emailTemplate->body_html,
-                    'bodyPlain' => $emailTemplate->bodyPlain,
-                ])
-                ->viewBuilder()
-                    ->setTemplate('default')
-                    ->setLayout('default')
-                    ->setPlugin('AdminTheme');
+        $mailer = new Mailer('default');
+        $mailer->setTo($to)
+            ->setFrom($from)
+            ->setSubject($emailTemplate->subject)
+            ->setEmailFormat('both')
+            ->setViewVars([
+                'bodyHtml' => $emailTemplate->body_html,
+                'bodyPlain' => $emailTemplate->bodyPlain,
+            ])
+            ->viewBuilder()
+                ->setTemplate('default')
+                ->setLayout('default')
+                ->setPlugin('AdminTheme');
 
-            $result = $mailer->deliver();
+        $result = $mailer->deliver();
 
-            if ($result) {
-                $this->log(
-                    __('Email sent successfully: {0} to {1}', [$emailTemplate->subject, $to]),
-                    'info',
-                    ['group_name' => 'email_sending']
-                );
-
-                return Processor::ACK;
-            } else {
-                $this->log(
-                    __('Email sending failed: {0} to {1}', [$emailTemplate->subject, $to]),
-                    'info',
-                    ['group_name' => 'email_sending']
-                );
-
-                return Processor::REJECT;
-            }
-        } catch (Exception $e) {
+        if ($result) {
             $this->log(
-                _(
-                    'Error sending email: {0}',
-                    $e->getMessage()
-                ),
-                'error',
+                __('Email sent successfully: {0} to {1}', [$emailTemplate->subject, $to]),
+                'info',
                 ['group_name' => 'email_sending']
             );
 
-            return Processor::REJECT;
+            return Processor::ACK;
+        } else {
+            $this->log(
+                __('Email sending failed: {0} to {1}', [$emailTemplate->subject, $to]),
+                'info',
+                ['group_name' => 'email_sending']
+            );
         }
+
+        return Processor::REJECT;
     }
 }

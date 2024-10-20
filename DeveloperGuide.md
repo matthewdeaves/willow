@@ -64,79 +64,11 @@ These tests provide valuable insights into how different components of the CMS a
 
 By exploring these directories and resources, developers can gain a deeper understanding of the Willow CMS architecture and begin contributing effectively. For further guidance, the [CakePHP Book](https://book.cakephp.org/5/en/index.html) is an excellent resource for learning more about the framework's capabilities and best practices.
 
-## Anthropic API Integration Classes
-
-Willow CMS leverages Anthropic's AI capabilities through a set of specialized classes. These classes are designed to facilitate various AI-driven features and can be extended or customized to build further integrations. Here's an overview of the key classes:
-
-### 1. AbstractApiService
-**Location**: `src/Service/Api/AbstractApiService.php`
-
-   [src/Service/Api//AbstractApiService.php](https://github.com/matthewdeaves/willow/blob/main/src/Service/Api/AbstractApiService.php)
-
-The AbstractApiService serves as a base class for API interactions. It provides common functionality such as:
-- Sending HTTP POST requests with JSON payloads
-- Managing API authentication using API keys
-- Handling API errors by logging and throwing exceptions
-- Providing a method to parse API responses
-- Configuring request headers including API versioning
-
-This abstract class can be extended to create services for interacting with other APIs, ensuring consistency across different integrations.
-
-### 2. AnthropicApiService
-**Location**: `src/Service/Api/AnthropicApiService.php`
-
-   [src/Service/Api/AnthropicApiService.php](https://github.com/matthewdeaves/willow/blob/main/src/Service/Api/AbstractApiService.php)
-
-This class is a concrete implementation of AbstractApiService, specifically tailored for interacting with the Anthropic API. It handles:
-- Managing API endpoints by defining the base URL and version for the Anthropic API
-- Formating requests specifically for the Anthropic API by utilizing the SettingsManager to retrieve the API key and initializing the service with necessary configurations
-- Processing responses by parsing the HTTP response from the API to extract and decode the relevant data
-- Handling various AI-related tasks through specialized services for SEO content generation, image analysis, and comment moderation
-
-### 3. CommentAnalyzer
-**Location**: `src/Service/Api/Anthropic/CommentAnalyzer.php`
-
-   [src/Service/Api/Anthropic/CommentAnalyzer.php](https://github.com/matthewdeaves/willow/blob/main/src/Service/Api/Anthropic/CommentAnalyzer.php)
-
-This class is responsible for analyzing user comments using Anthropic's natural language processing capabilities. It is used for:
-- Inappropriate comment content detection
-- Flagging inappropriate comments so they do not appear
-
-Developers can extend this class to implement more sophisticated comment moderation features or to extract valuable insights from user-generated content.
-
-### 4. ImageAnalyzer
-**Location**: `src/Service/Api/Anthropic/ImageAnalyzer.php`
-
-   [src/Service/Api/Anthropic/ImageAnalyzer.php](https://github.com/matthewdeaves/willow/blob/main/src/Service/Api/Anthropic/ImageAnalyzer.php)
-
-The ImageAnalyzer class utilizes Anthropic's image processing capabilities to analyze uploaded images. Its functionalities include:
-- Generating descriptive SEO meta data for alternate text, keywords and a nice file name
-
-This class could be extended to implement advanced image-based features, such as automatic tagging or content-aware image filtering.
-
-### 5. SeoContentGenerator
-**Location**: `src/Service/Api/Anthropic/SeoContentGenerator.php`
-
-   [src/Service/Api/Anthropic/SeoContentGenerator.php](https://github.com/matthewdeaves/willow/blob/main/src/Service/Api/Anthropic/SeoContentGenerator.php)
-
-This class leverages Anthropic's language generation capabilities to create SEO-optimized content. It is used for generating Article and Page meta data for social media, including:
-- meta_title
-- meta_description
-- meta_keywords
-- facebook_description
-- linkedin_description
-- twitter_description
-- instagram_description
-
-This class could be extended to create more advanced SEO tools or to automate content creation processes.
-
-Developers can use these classes as a foundation for building more specialized Anthropic API interactions or as a model for integrating other AI services.
-
-## Running Unit Tests
+#### Running Unit Tests
 
 Unit testing is a crucial part of ensuring the quality and reliability of the Willow CMS codebase. By running unit tests, developers can verify that individual parts of the application function as expected. This section provides guidance on how to execute these tests using both alias commands and their raw command equivalents.
 
-### Testing Commands
+#### Testing Commands
 
 To streamline the process of running unit tests, several alias commands have been defined. These aliases simplify the execution of tests and the generation of code coverage reports. You can auto set them (zshrc/bashrc detection included) by running `./setup_dev_aliases.sh` from the project root. [setup_dev_aliases.sh](https://raw.githubusercontent.com/matthewdeaves/willow/refs/heads/main/setup_dev_aliases.sh) will add a statement to simply load the aliases from [dev_aliases.txt](https://raw.githubusercontent.com/matthewdeaves/willow/refs/heads/main/dev_aliases.txt) when you start a new shell.
 
@@ -181,7 +113,7 @@ Below are the available commands and their purposes:
 
    This command generates a detailed HTML code coverage report, which can be viewed in a web browser for a more visual representation of test coverage. This is also published to GitHub Pages and can be viewed [here]().
 
-### Additional Information
+#### Code Coverage Reports
 
 - **Viewing HTML Coverage Reports**: After generating the HTML coverage report, you can view it by navigating to the `http://localhost:8080/coverage/index.html` directory in your web browser. The Willow CMS Admin backend also provides a link to the coverage report when running in debug mode. This provides a user-friendly interface to explore the coverage details. For example [http://localhost:8080/coverage/src/Controller/Admin/index.html](http://localhost:8080/coverage/src/Controller/Admin/index.html) will show you the test coverage details for all the admin backend controllers.
 
@@ -203,3 +135,103 @@ sudo docker compose exec php php vendor/bin/phpunit --filter testLogin tests/Tes
 ```
 
 This command will run only the test methods whose names match the pattern testLogin.
+
+### Anthropic API Integration Classes
+
+Willow CMS leverages Anthropic's AI capabilities through a set of specialized classes. These classes are designed to facilitate various AI-driven features and can be extended or customized to build further integrations. Here's an overview of the key classes:
+
+#### 1. AbstractApiService
+**Location**: `src/Service/Api/AbstractApiService.php`
+
+   [src/Service/Api//AbstractApiService.php](https://github.com/matthewdeaves/willow/blob/main/src/Service/Api/AbstractApiService.php)
+
+The AbstractApiService serves as a base class for API interactions. It provides common functionality such as:
+- Sending HTTP POST requests with JSON payloads
+- Managing API authentication using API keys
+- Handling API errors by logging and throwing exceptions
+- Providing a method to parse API responses
+- Configuring request headers including API versioning
+
+This abstract class can be extended to create services for interacting with other APIs, ensuring consistency across different integrations.
+
+#### 2. AnthropicApiService
+**Location**: `src/Service/Api/AnthropicApiService.php`
+
+   [src/Service/Api/AnthropicApiService.php](https://github.com/matthewdeaves/willow/blob/main/src/Service/Api/AbstractApiService.php)
+
+This class is a concrete implementation of AbstractApiService, specifically tailored for interacting with the Anthropic API. It handles:
+- Managing API endpoints by defining the base URL and version for the Anthropic API
+- Formating requests specifically for the Anthropic API by utilizing the SettingsManager to retrieve the API key and initializing the service with necessary configurations
+- Processing responses by parsing the HTTP response from the API to extract and decode the relevant data
+- Handling various AI-related tasks through specialized services for SEO content generation, image analysis, and comment moderation
+
+#### 3. CommentAnalyzer
+**Location**: `src/Service/Api/Anthropic/CommentAnalyzer.php`
+
+   [src/Service/Api/Anthropic/CommentAnalyzer.php](https://github.com/matthewdeaves/willow/blob/main/src/Service/Api/Anthropic/CommentAnalyzer.php)
+
+This class is responsible for analyzing user comments using Anthropic's natural language processing capabilities. It is used for:
+- Inappropriate comment content detection
+- Flagging inappropriate comments so they do not appear
+
+Developers can extend this class to implement more sophisticated comment moderation features or to extract valuable insights from user-generated content.
+
+#### 4. ImageAnalyzer
+**Location**: `src/Service/Api/Anthropic/ImageAnalyzer.php`
+
+   [src/Service/Api/Anthropic/ImageAnalyzer.php](https://github.com/matthewdeaves/willow/blob/main/src/Service/Api/Anthropic/ImageAnalyzer.php)
+
+The ImageAnalyzer class utilizes Anthropic's image processing capabilities to analyze uploaded images. Its functionalities include:
+- Generating descriptive SEO meta data for alternate text, keywords and a nice file name
+
+This class could be extended to implement advanced image-based features, such as automatic tagging or content-aware image filtering.
+
+#### 5. SeoContentGenerator
+**Location**: `src/Service/Api/Anthropic/SeoContentGenerator.php`
+
+   [src/Service/Api/Anthropic/SeoContentGenerator.php](https://github.com/matthewdeaves/willow/blob/main/src/Service/Api/Anthropic/SeoContentGenerator.php)
+
+This class leverages Anthropic's language generation capabilities to create SEO-optimized content. It is used for generating Article and Page meta data for social media, including:
+- meta_title
+- meta_description
+- meta_keywords
+- facebook_description
+- linkedin_description
+- twitter_description
+- instagram_description
+
+This class could be extended to create more advanced SEO tools or to automate content creation processes.
+
+Developers can use these classes as a foundation for building more specialized Anthropic API interactions or as a model for integrating other AI services.
+
+### Environment Configuration with `config/.env.example` 
+
+The `config/.env.example` file serves as a template for configuring Willow CMS using environment variables. This file is designed to help you manage configuration settings that vary across different environments, such as development, testing, and production. By leveraging environment variables, you can streamline the configuration process and ensure that your application behaves appropriately in each environment. Defaults are provided for the development environment and you can use the `.env` file out of the box with developmen, but it is not necessary since calls to `env()` in the codebase already supply default values for the development environment.
+
+#### Steps to Use `config/.env.example`
+
+1. **Copy the File**: Begin by copying the `config/.env.example` file to `config/.env`. This new file will be used to store your environment-specific configurations. Because Willow is built on the CakePHP framework everything is is setup to use this file immediately.
+
+2. **Edit the `.env` File**: Customize the values in `config/.env` to suit your specific environment needs. This includes setting application configurations, database credentials, email settings, and more.
+
+4. **Security Considerations**: It is important to note that having the `.env` file in a production environment is considered a **security risk** and can decrease the bootstrap performance of your application. Ensure that sensitive information is protected and that the `.env` file is not included in your version control system. The project `.gitignore` ignores `config.env` by default.
+
+### Configuration Options
+
+- **Application Configuration**: Set the application name, debug mode, encoding, locale, timezone, and security salt used for password hashing.
+
+- **Database Configuration**: Define the database host, username, password, database name, and port. The `DATABASE_URL` variable provides a convenient way to configure the database connection string.
+
+- **Email Configuration**: Configure the email host, port, timeout, and credentials. The `EMAIL_TRANSPORT_DEFAULT_URL` variable specifies the default email transport method.
+
+- **Redis Configuration**: Set the Redis host, port, username, password, and database. Redis is used for caching and queue management, and the `REDIS_URL` variable simplifies the connection setup.
+
+- **Cache Configuration**: Specify the cache duration and type. You can choose between Redis or File caching for the front-end site cache. [Read the book](https://book.cakephp.org/5/en/core-libraries/caching.html#) to learn more about cache types and configurations. See [config/app.php](https://github.com/matthewdeaves/willow/blob/ecbf5a0d9328cbb53faf91a7c98dcf1b04d6b4f1/config/app.php#L97) for cache configurations in Willow CMS.
+
+- **Queue Configuration**: Define the default and test queue URLs using Redis. This setup is essential for managing background tasks and job queues.
+
+- **Experimental Tests**: Toggle experimental tests on or off as needed.
+
+- **Logging Configuration**: Uncomment and configure logging settings via environment variables to manage log levels and file paths.
+
+By following these steps and guidelines, you can effectively use the `config/.env` file to manage Willow CMS configurations on a per-environment basis.

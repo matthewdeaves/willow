@@ -37,20 +37,6 @@ class TagSeoUpdateJob implements JobInterface
         $this->anthropicService = new AnthropicApiService();
     }
 
-    /**
-     * Executes the tag SEO update process.
-     *
-     * This method processes a message containing a tag ID and title, retrieves the corresponding tag from the database,
-     * and uses an external service to generate SEO metadata for the tag. The generated metadata is then saved back to the
-     * database. The method logs the progress and outcome of the operation, and returns a status code indicating success
-     * or failure.
-     *
-     * @param \Cake\Queue\Job\Message $message The message containing the tag ID and title.
-     * @return string|null Returns Processor::ACK on successful update, Processor::REJECT on failure or error.
-     * @throws \Exception If an unexpected error occurs during the process.
-     * @uses \App\Model\Table\TagsTable
-     * @uses \App\Service\Api\AnthropicApiService
-     */
     public function execute(Message $message): ?string
     {
         $id = $message->getArgument('id');
@@ -84,7 +70,6 @@ class TagSeoUpdateJob implements JobInterface
                         'info',
                         ['group_name' => 'tag_seo_update']
                     );
-
                     return Processor::ACK;
                 } else {
                     $this->log(
@@ -92,8 +77,6 @@ class TagSeoUpdateJob implements JobInterface
                         'error',
                         ['group_name' => 'tag_seo_update']
                     );
-
-                    return Processor::REJECT;
                 }
             } else {
                 $this->log(
@@ -101,8 +84,6 @@ class TagSeoUpdateJob implements JobInterface
                     'error',
                     ['group_name' => 'tag_seo_update']
                 );
-
-                return Processor::REJECT;
             }
         } catch (Exception $e) {
             $this->log(
@@ -114,8 +95,8 @@ class TagSeoUpdateJob implements JobInterface
                 'error',
                 ['group_name' => 'tag_seo_update']
             );
-
-            return Processor::REJECT;
         }
+
+        return Processor::REJECT;
     }
 }

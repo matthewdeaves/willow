@@ -484,7 +484,7 @@ return [
             'logger' => 'stdout',
             //'listener' => \App\Listener\WorkerListener::class,
             'receiveTimeout' => 10000,
-            'storeFailedJobs' => true,
+            'storeFailedJobs' => false,
             'uniqueCache' => [
                 'engine' => 'File',
             ],
@@ -495,7 +495,7 @@ return [
             'logger' => 'stdout',
             //'listener' => \App\Listener\WorkerListener::class,
             'receiveTimeout' => 10000,
-            'storeFailedJobs' => true,
+            'storeFailedJobs' => false,
             'uniqueCache' => [
                 'engine' => 'File',
             ],

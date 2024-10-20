@@ -504,49 +504,6 @@ class V1 extends AbstractMigration
             ])
             ->create();
 
-        $this->table('queue_failed_jobs')
-            ->addColumn('class', 'string', [
-                'default' => null,
-                'limit' => 255,
-                'null' => false,
-            ])
-            ->addColumn('method', 'string', [
-                'default' => null,
-                'limit' => 255,
-                'null' => false,
-            ])
-            ->addColumn('data', 'text', [
-                'default' => null,
-                'limit' => null,
-                'null' => false,
-            ])
-            ->addColumn('config', 'string', [
-                'default' => null,
-                'limit' => 255,
-                'null' => false,
-            ])
-            ->addColumn('priority', 'string', [
-                'default' => null,
-                'limit' => 255,
-                'null' => true,
-            ])
-            ->addColumn('queue', 'string', [
-                'default' => null,
-                'limit' => 255,
-                'null' => false,
-            ])
-            ->addColumn('exception', 'text', [
-                'default' => null,
-                'limit' => null,
-                'null' => true,
-            ])
-            ->addColumn('created', 'datetime', [
-                'default' => null,
-                'limit' => null,
-                'null' => true,
-            ])
-            ->create();
-
         $this->table('settings', ['id' => false, 'primary_key' => ['id']])
             ->addColumn('id', 'uuid', [
                 'default' => null,
@@ -858,7 +815,6 @@ class V1 extends AbstractMigration
         $this->table('images')->drop()->save();
         $this->table('models_images')->drop()->save();
         $this->table('page_views')->drop()->save();
-        $this->table('queue_failed_jobs')->drop()->save();
         $this->table('settings')->drop()->save();
         $this->table('slugs')->drop()->save();
         $this->table('system_logs')->drop()->save();

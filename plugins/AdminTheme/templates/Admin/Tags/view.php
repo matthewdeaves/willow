@@ -1,0 +1,97 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ * @var \App\Model\Entity\Tag $tag
+ */
+?>
+<div class="container-fluid mt-4">
+    <div class="row">
+        <?php
+        echo $this->element('actions_card', [
+            'modelName' => 'Tag',
+            'controllerName' => 'Tags',
+            'entity' => $tag,
+            'entityDisplayName' => $tag->title
+        ]);
+        ?>
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0"><?= h($tag->title) ?></h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th><?= __('Title') ?></th>
+                            <td><?= h($tag->title) ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= __('Slug') ?></th>
+                            <td><?= h($tag->slug) ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= __('Description') ?></th>
+                            <td><?= h($tag->description) ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= __('Created') ?></th>
+                            <td><?= h($tag->created) ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= __('Modified') ?></th>
+                            <td><?= h($tag->modified) ?></td>
+                        </tr>
+                    </table>
+                    <div class="mt-4">
+                        <?= $this->element('seo_fields', ['model' => $tag, 'hideWordCount' => true]) ?>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-header bg-secondary text-white">
+                    <h4 class="mb-0"><?= __('Related Articles') ?></h4>
+                </div>
+                <div class="card-body">
+                    <?php if (!empty($tag->articles)) : ?>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th><?= __('User') ?></th>
+                                    <th><?= __('Title') ?></th>
+                                    <th><?= __('Slug') ?></th>
+                                    <th><?= __('Created') ?></th>
+                                    <th><?= __('Modified') ?></th>
+                                    <th class="actions"><?= __('Actions') ?></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($tag->articles as $article) : ?>
+                                <tr>
+                                    <td><?= h($article->user->username) ?></td>
+                                    <td><?= h($article->title) ?></td>
+                                    <td>
+                                        <?= $this->Html->link(
+                                            substr($article->slug, 0, 10) . '...',
+                                            '/' . $article->slug
+                                        ) ?>
+                                    </td>
+                                    <td><?= h($article->created) ?></td>
+                                    <td><?= h($article->modified) ?></td>
+                                    <td class="actions">
+                                        <?= $this->Html->link(__('View'), ['controller' => 'Articles', 'action' => 'view', $article->id], ['class' => 'btn btn-sm btn-info']) ?>
+                                        <?= $this->Html->link(__('Edit'), ['controller' => 'Articles', 'action' => 'edit', $article->id], ['class' => 'btn btn-sm btn-primary']) ?>
+                                        <?= $this->Form->postLink(__('Delete'), ['controller' => 'Articles', 'action' => 'delete', $article->id], ['confirm' => __('Are you sure you want to delete {0}?', $article->title), 'class' => 'btn btn-sm btn-danger']) ?>
+                                    </td>
+                                </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

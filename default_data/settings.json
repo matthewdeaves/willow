@@ -1,0 +1,121 @@
+[
+    {
+        "category": "SEO",
+        "key_name": "siteName",
+        "value": "Willow CMS",
+        "value_type": "text",
+        "value_obscure": false
+    },
+    {
+        "category": "ImageSizes",
+        "key_name": "large",
+        "value": "400",
+        "value_type": "numeric",
+        "value_obscure": false
+    },
+    {
+        "category": "SEO",
+        "key_name": "siteMetaDescription",
+        "value": "Default site meta description",
+        "value_type": "text",
+        "value_obscure": false
+    },
+    {
+        "category": "RateLimit",
+        "key_name": "numberOfRequests",
+        "value": "10",
+        "value_type": "numeric",
+        "value_obscure": false
+    },
+    {
+        "category": "SEO",
+        "key_name": "siteMetakeywords",
+        "value": "Default site meta keywords",
+        "value_type": "text",
+        "value_obscure": false
+    },
+    {
+        "category": "Email",
+        "key_name": "reply_email",
+        "value": "noreply@example.com",
+        "value_type": "text",
+        "value_obscure": false
+    },
+    {
+        "category": "RateLimit",
+        "key_name": "numberOfSeconds",
+        "value": "60",
+        "value_type": "numeric",
+        "value_obscure": false
+    },
+    {
+        "category": "AI",
+        "key_name": "enabled",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false
+    },
+    {
+        "category": "ImageSizes",
+        "key_name": "micro",
+        "value": "10",
+        "value_type": "numeric",
+        "value_obscure": false
+    },
+    {
+        "category": "SEO",
+        "key_name": "siteStrapline",
+        "value": "Welcome to Willow CMS",
+        "value_type": "text",
+        "value_obscure": false
+    },
+    {
+        "category": "ImageSizes",
+        "key_name": "teeny",
+        "value": "50",
+        "value_type": "numeric",
+        "value_obscure": false
+    },
+    {
+        "category": "ImageSizes",
+        "key_name": "massive",
+        "value": "800",
+        "value_type": "numeric",
+        "value_obscure": false
+    },
+    {
+        "category": "ImageSizes",
+        "key_name": "small",
+        "value": "200",
+        "value_type": "numeric",
+        "value_obscure": false
+    },
+    {
+        "category": "ImageSizes",
+        "key_name": "tiny",
+        "value": "100",
+        "value_type": "numeric",
+        "value_obscure": false
+    },
+    {
+        "category": "ImageSizes",
+        "key_name": "extra-large",
+        "value": "500",
+        "value_type": "numeric",
+        "value_obscure": false
+    },
+    {
+        "category": "ImageSizes",
+        "key_name": "medium",
+        "value": "300",
+        "value_type": "numeric",
+        "value_obscure": false
+    },
+    {
+        "category": "AI",
+        "key_name": "anthropicApiKey",
+        "value": "your-api-key-here",
+        "value_type": "text",
+        "value_obscure": true
+    }
+]

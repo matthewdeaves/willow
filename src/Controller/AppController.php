@@ -33,7 +33,7 @@ use Cake\Log\LogTrait;
 class AppController extends Controller
 {
     use LogTrait;
-    
+
     /**
      * Initialization hook method.
      *

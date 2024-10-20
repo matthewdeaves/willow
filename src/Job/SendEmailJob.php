@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Job;
 
+use Cake\Core\Configure;
 use Cake\Log\LogTrait;
 use Cake\Mailer\Mailer;
 use Cake\ORM\TableRegistry;
@@ -49,10 +50,21 @@ class SendEmailJob implements JobInterface
     public function execute(Message $message): ?string
     {
         $args = $message->getArgument('args');
-        $this->log('Received message: ' . json_encode($args), 'debug');
+
+        if (Configure::read('debug')) {
+            $this->log(
+                __('Received message: {0}', [json_encode($args)]),
+                'debug',
+                ['group_name' => 'email_sending']
+            );
+        }
 
         if (!is_array($args) || !isset($args[0]) || !is_array($args[0])) {
-            $this->log('Invalid args structure', 'error');
+            $this->log(
+                __('Invalid args structure'),
+                'error',
+                ['group_name' => 'email_sending']
+            );
 
             return Processor::REJECT;
         }
@@ -65,18 +77,28 @@ class SendEmailJob implements JobInterface
         $viewVars = $payload['viewVars'] ?? [];
 
         if (!$template || !$from || !$to || empty($viewVars)) {
-            $this->log('Missing required fields in payload', 'error');
+            $this->log(
+                __('Missing required fields in payload'),
+                'error',
+                ['group_name' => 'email_sending']
+            );
 
             return Processor::REJECT;
         }
 
-        $this->log(sprintf(
-            'Processing email job: template=%s, from=%s, to=%s, viewVars=%s',
-            $template,
-            $from,
-            $to,
-            json_encode($viewVars)
-        ), 'info');
+        $this->log(
+            __(
+                'Processing email job: {0} {1} {2} {3}',
+                [
+                $template,
+                $from,
+                $to,
+                json_encode($viewVars),
+                ]
+            ),
+            'info',
+            ['group_name' => 'email_sending']
+        );
 
         try {
             // Fetch the email template from the database
@@ -115,12 +137,23 @@ class SendEmailJob implements JobInterface
             $result = $mailer->deliver();
 
             if ($result) {
-                $this->log('Email sent successfully', 'info');
+                $this->log(
+                    __('Email sent successfully: {0} to {1}', [$emailTemplate->subject, $to]),
+                    'info',
+                    ['group_name' => 'email_sending']
+                );
             } else {
                 throw new Exception('Failed to send email');
             }
         } catch (Exception $e) {
-            $this->log('Error sending email: ' . $e->getMessage(), 'error');
+            $this->log(
+                _(
+                    'Error sending email: {0}',
+                    $e->getMessage()
+                ),
+                'error',
+                ['group_name' => 'email_sending']
+            );
 
             return Processor::REJECT;
         }

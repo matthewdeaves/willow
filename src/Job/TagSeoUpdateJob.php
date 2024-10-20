@@ -4,8 +4,6 @@ declare(strict_types=1);
 namespace App\Job;
 
 use App\Service\Api\AnthropicApiService;
-use Cake\Database\Exception\DatabaseException;
-use Cake\Http\Exception\HttpException;
 use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
@@ -110,11 +108,6 @@ class TagSeoUpdateJob implements JobInterface
                             'info',
                             ['group_name' => 'tag_seo_update']
                         );
-                        $this->log(
-                            __('Acknowledging message for Tag ID: {0}', [$tagId]),
-                            'debug',
-                            ['group_name' => 'tag_seo_update']
-                        );
 
                         return Processor::ACK;
                     } else {
@@ -144,28 +137,6 @@ class TagSeoUpdateJob implements JobInterface
 
                 return Processor::REJECT;
             }
-        } catch (DatabaseException $e) {
-            $this->log(
-                __('Database error during tag SEO update. Tag ID: {0}, Error: {1}', [
-                    $tagId,
-                    $e->getMessage(),
-                ]),
-                'error',
-                ['group_name' => 'tag_seo_update']
-            );
-
-            return Processor::REJECT;
-        } catch (HttpException $e) {
-            $this->log(
-                __('HTTP error during tag SEO update. Tag ID: {0}, Error: {1}', [
-                    $tagId,
-                    $e->getMessage(),
-                ]),
-                'error',
-                ['group_name' => 'tag_seo_update']
-            );
-
-            return Processor::REJECT;
         } catch (Exception $e) {
             $this->log(
                 __('Unexpected error during tag SEO update. Tag ID: {0}, Error: {1}', [

@@ -98,7 +98,7 @@ class TagGenerator
             ->first();
 
         if (!$prompt) {
-            throw new InvalidArgumentException(__("Unknown task: {0}", $task));
+            throw new InvalidArgumentException(__('Unknown task: {0}', $task));
         }
 
         return [

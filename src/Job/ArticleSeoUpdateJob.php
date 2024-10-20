@@ -4,8 +4,6 @@ declare(strict_types=1);
 namespace App\Job;
 
 use App\Service\Api\AnthropicApiService;
-use Cake\Database\Exception\DatabaseException;
-use Cake\Http\Exception\HttpException;
 use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
@@ -24,7 +22,7 @@ class ArticleSeoUpdateJob implements JobInterface
      *
      * @var bool
      */
-    public static bool $shouldBeUnique = false;
+    public static bool $shouldBeUnique = true;
 
     /**
      * @var \App\Service\Api\AnthropicApiService
@@ -70,7 +68,10 @@ class ArticleSeoUpdateJob implements JobInterface
 
         if (!$articleId) {
             $this->log(
-                __('Missing required fields in article SEO update payload. ID: {0} Title: {1}', [$articleId, $articleTitle]),
+                __(
+                    'Missing required fields in article SEO update payload. ID: {0} Title: {1}',
+                    [$articleId, $articleTitle]
+                ),
                 'error',
                 ['group_name' => 'article_seo_update']
             );
@@ -139,28 +140,6 @@ class ArticleSeoUpdateJob implements JobInterface
 
                 return Processor::REJECT;
             }
-        } catch (DatabaseException $e) {
-            $this->log(
-                __('Database error during article SEO update. Article ID: {0}, Error: {1}', [
-                    $articleId,
-                    $e->getMessage(),
-                ]),
-                'error',
-                ['group_name' => 'article_seo_update']
-            );
-
-            return Processor::REJECT;
-        } catch (HttpException $e) {
-            $this->log(
-                __('HTTP error during article SEO update. Article ID: {0}, Error: {1}', [
-                    $articleId,
-                    $e->getMessage(),
-                ]),
-                'error',
-                ['group_name' => 'article_seo_update']
-            );
-
-            return Processor::REJECT;
         } catch (Exception $e) {
             $this->log(
                 __('Unexpected error during article SEO update. Article ID: {0}, Error: {1}', [

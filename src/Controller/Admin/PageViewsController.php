@@ -5,12 +5,12 @@ namespace App\Controller\Admin;
 
 use App\Controller\AppController;
 use App\Model\Table\ArticlesTable;
+use Cake\Core\Configure;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
+use Cake\Log\LogTrait;
 use DateTime;
 use Exception;
-use Cake\Log\LogTrait;
-use Cake\Core\Configure;
 
 /**
  * PageViews Controller
@@ -135,7 +135,7 @@ class PageViewsController extends AppController
             $this->log('Start date: ' . $this->request->getQuery('start'), 'debug');
             $this->log('End date: ' . $this->request->getQuery('end'), 'debug');
         }
-        
+
         try {
             $article = $this->Articles->find()
                 ->select(['id', 'title', 'slug'])

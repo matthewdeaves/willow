@@ -8,6 +8,7 @@ use App\Utility\SettingsManager;
 use ArrayObject;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
+use Cake\Log\LogTrait;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
@@ -17,7 +18,6 @@ use Cake\Validation\Validator;
 use DateTime;
 use Exception;
 use InvalidArgumentException;
-use Cake\Log\LogTrait;
 
 /**
  * Articles Model
@@ -320,13 +320,17 @@ class ArticlesTable extends Table
                         'title' => $entity->title,
                     ]],
                 ]);
-                $this->log(__('Queued Article SEO update job: {0}', 
-                    [$entity->title]), 
-                    'info', 
+                $this->log(
+                    __(
+                        'Queued Article SEO update job: {0}',
+                        [$entity->title]
+                    ),
+                    'info',
                     ['group_name' => 'article_seo_update']
                 );
             } catch (Exception $e) {
-                $this->log(__('Failed to queue Article SEO update job: {0}'. [$e->getMessage()]),
+                $this->log(
+                    __('Failed to queue Article SEO update job: {0}' . [$e->getMessage()]),
                     'error',
                     ['group_name' => 'article_seo_update']
                 );
@@ -341,13 +345,17 @@ class ArticlesTable extends Table
                     'title' => $entity->title,
                 ]],
             ]);
-            $this->log(__('Queued Article Tag update job: {0}', 
-                [$entity->title]), 
-                'info', 
+            $this->log(
+                __(
+                    'Queued Article Tag update job: {0}',
+                    [$entity->title]
+                ),
+                'info',
                 ['group_name' => 'article_tag_update']
             );
         } catch (Exception $e) {
-            $this->log(__('Failed to queue Article Tag update job: {0}'. [$e->getMessage()]),
+            $this->log(
+                __('Failed to queue Article Tag update job: {0}' . [$e->getMessage()]),
                 'error',
                 ['group_name' => 'article_tag_update']
             );

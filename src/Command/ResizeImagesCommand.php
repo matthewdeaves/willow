@@ -8,9 +8,9 @@ use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
+use Cake\Log\LogTrait;
 use Exception;
 use Imagick;
-use Cake\Log\LogTrait;
 
 /**
  * ResizeImages command.

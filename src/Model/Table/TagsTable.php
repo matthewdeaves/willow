@@ -35,7 +35,7 @@ use Exception;
 class TagsTable extends Table
 {
     use LogTrait;
-    
+
     /**
      * Initialize method
      *
@@ -104,12 +104,14 @@ class TagsTable extends Table
                         'title' => $entity->title,
                     ]],
                 ]);
-                $this->log(__('Queue tag SEO update job for Tag:{0}', [$entity->title]), 
+                $this->log(
+                    __('Queue tag SEO update job for Tag:{0}', [$entity->title]),
                     'info',
                     ['group_name' => 'tag_seo_update']
                 );
             } catch (Exception $e) {
-                $this->log('Failed to queue tag SEO update job: ' . $e->getMessage(), 
+                $this->log(
+                    'Failed to queue tag SEO update job: ' . $e->getMessage(),
                     'error',
                     ['group_name' => 'tag_seo_update']
                 );

@@ -4,8 +4,6 @@ declare(strict_types=1);
 namespace App\Job;
 
 use App\Service\Api\AnthropicApiService;
-use Cake\Database\Exception\DatabaseException;
-use Cake\Http\Exception\HttpException;
 use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
@@ -19,7 +17,7 @@ class ArticleTagUpdateJob implements JobInterface
 
     public static ?int $maxAttempts = 3;
 
-    public static bool $shouldBeUnique = false;
+    public static bool $shouldBeUnique = true;
 
     private AnthropicApiService $anthropicService;
 
@@ -67,13 +65,27 @@ class ArticleTagUpdateJob implements JobInterface
             $article = $articlesTable->get($articleId, contain: ['Tags']);
             $allTags = $tagsTable->find()->select(['title'])->all()->extract('title')->toArray();
 
+            debug($allTags);
+
             $tagResult = $this->anthropicService->generateArticleTags($allTags, $article->title, $article->body);
+            debug($tagResult['new_tags']);
 
             if ($tagResult && isset($tagResult['new_tags']) && is_array($tagResult['new_tags'])) {
                 $newTags = [];
                 foreach ($tagResult['new_tags'] as $tagTitle) {
-                    $tag = $tagsTable->findOrCreate(['title' => $tagTitle, 'slug' => '']);
-                    $newTags[] = $tag;
+                    if (!in_array($tagTitle, $allTags)) {
+                        $tag = $tagsTable->findOrCreate(['title' => $tagTitle, 'slug' => '']);
+                        $newTags[] = $tag;
+
+                        // Check if the tag was newly created & log
+                        if ($tag->isNew()) {
+                            $this->log(
+                                __('New tag created: {0}', [$tagTitle]),
+                                'info',
+                                ['group_name' => 'article_tag_update']
+                            );
+                        }
+                    }
                 }
 
                 $article->tags = $newTags;
@@ -104,28 +116,6 @@ class ArticleTagUpdateJob implements JobInterface
 
                 return Processor::REJECT;
             }
-        } catch (DatabaseException $e) {
-            $this->log(
-                __('Database error during article tag update. Article ID: {0}, Error: {1}', [
-                    $articleId,
-                    $e->getMessage(),
-                ]),
-                'error',
-                ['group_name' => 'article_tag_update']
-            );
-
-            return Processor::REJECT;
-        } catch (HttpException $e) {
-            $this->log(
-                __('HTTP error during article tag update. Article ID: {0}, Error: {1}', [
-                    $articleId,
-                    $e->getMessage(),
-                ]),
-                'error',
-                ['group_name' => 'article_tag_update']
-            );
-
-            return Processor::REJECT;
         } catch (Exception $e) {
             $this->log(
                 __('Unexpected error during article tag update. Article ID: {0}, Error: {1}', [

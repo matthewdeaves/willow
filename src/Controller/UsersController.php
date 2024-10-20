@@ -10,11 +10,11 @@ use App\Utility\SettingsManager;
 use Cake\Event\EventInterface;
 use Cake\Http\Response;
 use Cake\Log\Log;
+use Cake\Log\LogTrait;
 use Cake\Queue\QueueManager;
 use Cake\Routing\Router;
 use Cake\Utility\Text;
 use Exception;
-use Cake\Log\LogTrait;
 
 /**
  * Users Controller

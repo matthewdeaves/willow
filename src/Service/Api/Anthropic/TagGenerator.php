@@ -50,11 +50,11 @@ class TagGenerator
         $plainTextContent = strip_tags(html_entity_decode($body));
         $promptData = $this->getPromptData('article_tag_generation');
         $payload = $this->createPayload($promptData, [
-            'Existing Tags' => implode(', ', $existingTags),
-            'Title' => $title,
-            'Content' => $plainTextContent,
+            'existing_tags' => implode(', ', $existingTags),
+            'article_title' => $title,
+            'articlie_content' => $plainTextContent,
         ]);
-
+        
         $response = $this->apiService->sendRequest($payload);
         $result = $this->apiService->parseResponse($response);
 

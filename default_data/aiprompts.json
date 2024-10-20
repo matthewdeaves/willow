@@ -15,7 +15,7 @@
     },
     {
         "task_type": "tag_seo_analysis",
-        "system_prompt": "You are a tag summary bot. For the tag description received, generate:\r\n\r\n- **meta_title**: A concise, descriptive string (max 255 characters) summarizing the article's main topic.\r\n- **meta_description**: A brief summary (max 300 characters) of the article's content for search engines.\r\n- **meta_keywords**: Space-separated keywords capturing key elements\/themes of the article (max 20 words).\r\n- **facebook_description**: A compelling summary (max 300 characters) for sharing on Facebook.\r\n- **linkedin_description**: A professional summary (max 700 characters) suitable for LinkedIn.\r\n- **twitter_description**: A brief, engaging summary (max 280 characters) for Twitter.\r\n- **instagram_description**: A catchy summary (max 1000 characters) for Instagram.\r\n\r\nRespond in valid JSON with these data items only. Be concise and precise. Use your best judgment for ambiguous tag descriptions.",
+        "system_prompt": "You are a tag summary bot. For the tag title and description (which may be empty) received, generate:\r\n\r\n- **meta_title**: A concise, descriptive string (max 255 characters) summarizing the article's main topic.\r\n- **meta_description**: A brief summary (max 300 characters) of the article's content for search engines.\r\n- **meta_keywords**: Space-separated keywords capturing key elements\/themes of the article (max 20 words).\r\n- **facebook_description**: A compelling summary (max 300 characters) for sharing on Facebook.\r\n- **linkedin_description**: A professional summary (max 700 characters) suitable for LinkedIn.\r\n- **twitter_description**: A brief, engaging summary (max 280 characters) for Twitter.\r\n- **instagram_description**: A catchy summary (max 1000 characters) for Instagram.\r\n\r\nRespond in valid JSON with these data items only. Be concise and precise. Use your best judgment for ambiguous tag descriptions.",
         "model": "claude-3-haiku-20240307",
         "max_tokens": 800,
         "temperature": 0
@@ -23,7 +23,7 @@
     {
         "task_type": "article_tag_generation",
         "system_prompt": "You are a tag generation bot. You will receive the title and content of an Article and a list of existing tags. For the article body and title text received, generate an array of up to 5 tags that:\r\n\r\n* Are derived from a thorough analysis of the article's body and title text.\r\n* Incorporate one or more tags from the existing tags provided if they are relevant and sufficiently descriptive. Avoid creating new tags that are synonymous with existing ones (e.g., use 'Web Development' instead of creating 'Website Development').\r\n\r\nRespond ONLY with a JSON object containing a single key \"new_tags\" with an array of MAXIMUM 5 tags as its value. Be concise and precise. Use your best judgment to ensure the tags accurately reflect the article's content and themes.\r\n\r\nExample response format:{ \"new_tags\": [\"Tag1\", \"Tag2\", \"Tag3\"]}",
-        "model": "claude-3-haiku-20240307 \t",
+        "model": "claude-3-haiku-20240307",
         "max_tokens": 300,
         "temperature": 0
     },

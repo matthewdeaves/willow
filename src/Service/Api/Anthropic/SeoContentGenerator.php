@@ -48,8 +48,8 @@ class SeoContentGenerator
     {
         $promptData = $this->getPromptData('tag_seo_analysis');
         $payload = $this->createPayload($promptData, [
-            'Tag Title' => $tagTitle,
-            'Tag Description' => $tagDescription,
+            'tag_title' => $tagTitle,
+            'tag_description' => $tagDescription,
         ]);
 
         $response = $this->apiService->sendRequest($payload);

@@ -59,6 +59,11 @@ class TagSeoUpdateJob implements JobInterface
         $tagsTable = TableRegistry::getTableLocator()->get('Tags');
         $tag = $tagsTable->get($id);
 
+        // Convert null description to an empty string
+        if ($tag->description === null) {
+            $tag->description = '';
+        }
+
         $seoResult = $this->anthropicService->generateTagSeo($title, $tag->description);
 
         if ($seoResult) {

@@ -8,9 +8,9 @@ To help developers dive into the Willow CMS codebase, this section provides an o
    - `CreateUserCommand.php` - For creating new users.
    - `DefaultDataExportCommand.php` - To export default data.
    - `DefaultDataImportCommand.php` - To import default data.
-   - `ExportCodeCommand.php` - For exporting code.
+   - `ExportCodeCommand.php` - For exporting code, useful for working with AI agents.
    - `ResizeImagesCommand.php` - To resize images.
-   - `TestRateLimitCommand.php` - For testing rate limits.
+   - `TestRateLimitCommand.php` - For testing rate limits (PHPUnit tests test this too, just useful to have a seperate tool.).
 
    [src/Command](https://github.com/matthewdeaves/willow/tree/main/src/Command)
 
@@ -131,11 +131,6 @@ This class leverages Anthropic's language generation capabilities to create SEO-
 This class could be extended to create more advanced SEO tools or to automate content creation processes.
 
 Developers can use these classes as a foundation for building more specialized Anthropic API interactions or as a model for integrating other AI services.
-
-
-
-
-
 
 ## Running Unit Tests
 

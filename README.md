@@ -26,7 +26,7 @@ Depending on your Ubuntu version you may need to run docker with `sudo`. Note: t
 Follow these steps:
 
 ```
-#Clone the repo (or download a [release](https://github.com/matthewdeaves/willow/releases))
+#Clone the repo (or download a release from https://github.com/matthewdeaves/willow/releases)
 git clone git@github.com:matthewdeaves/willow.git
 
 #Change directory
@@ -44,6 +44,10 @@ The development environment will be setup and you can visit [http://localhost:80
 
 Login to the Willow CMS admin area at [http://localhost:8080/admin](http://localhost:8080/admin) using `admin@test.com` & `password`.
 
+This is all handled by `./setup_dev_env.sh` which is installing dependencies via [Composer](https://getcomposer.org/), running the database migration, creating a user and importing default data.
+
+[setup_dev_env.sh](https://github.com/matthewdeaves/willow/blob/main/setup_dev_env.sh)
+
 ### Anthropic API Integration
 Willow integrates the [Anthropic API](https://console.anthropic.com/dashboard) for some nice features:
 
@@ -60,7 +64,7 @@ Willow CMS uses queues and consumers to offload heavy duty tasks to background p
 ```
 docker compose exec php bin/cake queue worker --verbose
 ```
-The worker process is started by default (and restarted) when you run `./setup_dev_env.sh`.
+The worker process is started by default (and restarted) when you run `./setup_dev_env.sh`. This is done with [supervisord](https://github.com/matthewdeaves/willow/blob/main/docker/php/supervisord.conf).
 
 ## Development Guide
 If you build on Willow CMS you should update the Unit Tests and be sure to fix anything that PHP Code Sniffer picks up. You can run those tools like so:

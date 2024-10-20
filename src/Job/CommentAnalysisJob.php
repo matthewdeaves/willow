@@ -42,14 +42,6 @@ class CommentAnalysisJob implements JobInterface
     private AnthropicApiService $anthropicService;
 
     /**
-     * Constructor for CommentAnalysisJob.
-     */
-    public function __construct()
-    {
-        $this->anthropicService = new AnthropicApiService();
-    }
-
-    /**
      * Executes the comment analysis process for a given message.
      *
      * This method retrieves the necessary data from the provided message, logs the receipt of the message,
@@ -67,6 +59,8 @@ class CommentAnalysisJob implements JobInterface
      */
     public function execute(Message $message): ?string
     {
+        $this->anthropicService = new AnthropicApiService();
+        
         // Get data we need
         $commentId = $message->getArgument('comment_id');
         $content = $message->getArgument('content');

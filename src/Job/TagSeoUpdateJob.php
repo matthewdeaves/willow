@@ -29,14 +29,6 @@ class TagSeoUpdateJob implements JobInterface
     private AnthropicApiService $anthropicService;
 
     /**
-     * Constructor for TagSeoUpdateJob.
-     */
-    public function __construct()
-    {
-        $this->anthropicService = new AnthropicApiService();
-    }
-
-    /**
      * Executes the tag SEO update process for a given message.
      *
      * This method retrieves the tag information based on the provided ID and title from the message.
@@ -53,6 +45,8 @@ class TagSeoUpdateJob implements JobInterface
      */
     public function execute(Message $message): ?string
     {
+        $this->anthropicService = new AnthropicApiService();
+        
         $id = $message->getArgument('id');
         $title = $message->getArgument('title');
 

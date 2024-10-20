@@ -97,26 +97,18 @@ class TagsTable extends Table
     public function afterSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
         if (SettingsManager::read('AI.enabled')) {
-            try {
-                $data = [
-                    'id' => $entity->id,
-                    'title' => $entity->title,
-                ];
+            $data = [
+                'id' => $entity->id,
+                'title' => $entity->title,
+            ];
 
-                QueueManager::push('App\Job\TagSeoUpdateJob', $data);
+            QueueManager::push('App\Job\TagSeoUpdateJob', $data);
 
-                $this->log(
-                    __('Queue tag SEO update job for Tag:{0}', [$entity->title]),
-                    'info',
-                    ['group_name' => 'tag_seo_update']
-                );
-            } catch (Exception $e) {
-                $this->log(
-                    'Failed to queue tag SEO update job: ' . $e->getMessage(),
-                    'error',
-                    ['group_name' => 'tag_seo_update']
-                );
-            }
+            $this->log(
+                __('Queue tag SEO update job for Tag:{0}', [$entity->title]),
+                'info',
+                ['group_name' => 'tag_seo_update']
+            );
         }
     }
 }

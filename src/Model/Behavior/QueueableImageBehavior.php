@@ -63,19 +63,14 @@ class QueueableImageBehavior extends Behavior
                 'id' => $entity->id,
             ];
 
-            try {
-                // Queue up an image processing job
-                QueueManager::push('App\Job\ProcessImageJob', $data);
+            // Queue up an image processing job
+            QueueManager::push('App\Job\ProcessImageJob', $data);
 
-                if (SettingsManager::read('AI.enabled')) {
-                    $data['model'] = $event->getSubject()->getAlias();
+            if (SettingsManager::read('AI.enabled')) {
+                $data['model'] = $event->getSubject()->getAlias();
 
-                    // Queue up an image analysis job
-                    QueueManager::push('App\Job\ImageAnalysisJob', $data);
-                }
-            } catch (Exception $e) {
-                // Log the error message
-                Log::error('Failed to queue image resize job: ' . $e->getMessage());
+                // Queue up an image analysis job
+                QueueManager::push('App\Job\ImageAnalysisJob', $data);
             }
         }
     }

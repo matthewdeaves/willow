@@ -29,14 +29,6 @@ class ArticleSeoUpdateJob implements JobInterface
     private AnthropicApiService $anthropicService;
 
     /**
-     * Constructor for ArticleSeoUpdateJob.
-     */
-    public function __construct()
-    {
-        $this->anthropicService = new AnthropicApiService();
-    }
-
-    /**
      * Executes the SEO update process for a given article.
      *
      * This method retrieves an article by its ID, generates SEO metadata using an external service,
@@ -66,6 +58,8 @@ class ArticleSeoUpdateJob implements JobInterface
      */
     public function execute(Message $message): ?string
     {
+        $this->anthropicService = new AnthropicApiService();
+
         $id = $message->getArgument('id');
         $title = $message->getArgument('title');
 

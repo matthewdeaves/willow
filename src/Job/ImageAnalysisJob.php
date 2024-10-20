@@ -41,16 +41,6 @@ class ImageAnalysisJob implements JobInterface
     private AnthropicApiService $anthropicService;
 
     /**
-     * ImageAnalysisJob constructor.
-     *
-     * Initializes the AnthropicApiService instance.
-     */
-    public function __construct()
-    {
-        $this->anthropicService = new AnthropicApiService();
-    }
-
-    /**
      * Executes the image analysis process for a given message.
      *
      * This method retrieves the necessary arguments from the provided message, logs the receipt of the image analysis
@@ -67,6 +57,8 @@ class ImageAnalysisJob implements JobInterface
      */
     public function execute(Message $message): ?string
     {
+        $this->anthropicService = new AnthropicApiService();
+        
         $folderPath = $message->getArgument('folder_path');
         $file = $message->getArgument('file');
         $id = $message->getArgument('id');

@@ -313,53 +313,37 @@ class ArticlesTable extends Table
 
         // Queue an Article SEO update job
         if ($entity->is_published && SettingsManager::read('AI.enabled')) {
-            try {
-                $data = [
-                    'id' => $entity->id,
-                    'title' => $entity->title,
-                ];
-                QueueManager::push('App\Job\ArticleSeoUpdateJob', $data);
-                $this->log(
-                    __(
-                        'Queued Article SEO update job: {0}',
-                        [$entity->title]
-                    ),
-                    'info',
-                    ['group_name' => 'article_seo_update']
-                );
-            } catch (Exception $e) {
-                $this->log(
-                    __('Failed to queue Article SEO update job: {0}' . [$e->getMessage()]),
-                    'error',
-                    ['group_name' => 'article_seo_update']
-                );
-            }
+            $data = [
+                'id' => $entity->id,
+                'title' => $entity->title,
+            ];
+            QueueManager::push('App\Job\ArticleSeoUpdateJob', $data);
+            $this->log(
+                __(
+                    'Queued Article SEO update job: {0}',
+                    [$entity->title]
+                ),
+                'info',
+                ['group_name' => 'article_seo_update']
+            );
         }
 
         // Queue an Article Tag Update job
         if (SettingsManager::read('AI.enabled')) {
-            try {
-                $data = [
-                    'id' => $entity->id,
-                    'title' => $entity->title,
-                ];
+            $data = [
+                'id' => $entity->id,
+                'title' => $entity->title,
+            ];
 
-                QueueManager::push('App\Job\ArticleTagUpdateJob', $data);
-                $this->log(
-                    __(
-                        'Queued Article Tag update job: {0}',
-                        [$entity->title]
-                    ),
-                    'info',
-                    ['group_name' => 'article_tag_update']
-                );
-            } catch (Exception $e) {
-                $this->log(
-                    __('Failed to queue Article Tag update job: {0}' . [$e->getMessage()]),
-                    'error',
-                    ['group_name' => 'article_tag_update']
-                );
-            }
+            QueueManager::push('App\Job\ArticleTagUpdateJob', $data);
+            $this->log(
+                __(
+                    'Queued Article Tag update job: {0}',
+                    [$entity->title]
+                ),
+                'info',
+                ['group_name' => 'article_tag_update']
+            );
         }
     }
 

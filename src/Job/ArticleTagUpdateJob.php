@@ -44,16 +44,6 @@ class ArticleTagUpdateJob implements JobInterface
     private AnthropicApiService $anthropicService;
 
     /**
-     * Constructor
-     *
-     * Initializes the Anthropic API service.
-     */
-    public function __construct()
-    {
-        $this->anthropicService = new AnthropicApiService();
-    }
-
-    /**
      * Executes the article tag update process.
      *
      * This method processes a message containing an article ID and title, retrieves the article and its associated tags,
@@ -78,6 +68,8 @@ class ArticleTagUpdateJob implements JobInterface
      */
     public function execute(Message $message): ?string
     {
+        $this->anthropicService = new AnthropicApiService();
+        
         // Get message data we need
         $id = $message->getArgument('id');
         $title = $message->getArgument('title');

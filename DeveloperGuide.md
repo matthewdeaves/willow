@@ -234,4 +234,4 @@ The `config/.env.example` file serves as a template for configuring Willow CMS u
 
 - **Logging Configuration**: Uncomment and configure logging settings via environment variables to manage log levels and file paths.
 
-By following these steps and guidelines, you can effectively use the `config/.env` file to manage Willow CMS configurations on a per-environment basis.
+By following these steps and guidelines, you can effectively use the `config/.env` file to manage Willow CMS configurations on a per-environment basis. For my own production instances of Willow CMS on AWS AppRunner see [https://github.com/matthewdeaves/willow_cms_production_deployment](https://github.com/matthewdeaves/willow_cms_production_deployment)

@@ -8,7 +8,6 @@ use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
-use Cake\Utility\Text;
 use Exception;
 use Interop\Queue\Processor;
 
@@ -53,14 +52,19 @@ class ImageAnalysisJob implements JobInterface
     }
 
     /**
-     * Execute the image analysis job.
+     * Executes the image analysis process for a given message.
      *
-     * This method processes the image analysis job by receiving the message,
-     * validating the payload, calling the API for analysis, and saving the
-     * results to the database.
+     * This method retrieves the necessary arguments from the provided message, logs the receipt of the image analysis
+     * request, and attempts to analyze the image using the anthropic service. If the analysis is successful, it updates
+     * the image record in the database with the analysis results and logs the success. If the analysis fails or an
+     * exception is thrown, it logs the error and returns a rejection status.
      *
-     * @param \Cake\Queue\Job\Message $message The message containing job arguments.
-     * @return string|null Returns Processor::ACK on success, Processor::REJECT on failure.
+     * @param \Cake\Queue\Job\Message $message The message containing the arguments for image analysis.
+     * @return string|null Returns Processor::ACK if the image analysis and database update are successful,
+     *                     or Processor::REJECT if the analysis fails or an error occurs.
+     * @throws \Exception If an error occurs during the image analysis process.
+     * @uses \Cake\ORM\TableRegistry
+     * @uses \App\Service\Api\AnthropicApiService
      */
     public function execute(Message $message): ?string
     {

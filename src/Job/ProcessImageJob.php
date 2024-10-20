@@ -37,13 +37,21 @@ class ProcessImageJob implements JobInterface
     public static bool $shouldBeUnique = false;
 
     /**
-     * Executes the image processing job
+     * Executes the image processing task.
      *
-     * This method processes the job message, validates the input, and resizes the image.
-     * It logs various stages of the process and handles exceptions.
+     * This method processes an image based on the provided message arguments. It retrieves the folder path,
+     * file name, and image ID from the message, logs the start of the processing job, and processes the image
+     * for each specified size. If an error occurs during processing, it logs the error and returns a rejection
+     * status. Upon successful completion, it logs the success and returns an acknowledgment status.
      *
-     * @param \Cake\Queue\Job\Message $message The job message containing image processing details
-     * @return string|null Returns Processor::ACK on success, Processor::REJECT on failure
+     * @param \Cake\Queue\Job\Message $message The message containing the arguments for image processing.
+     *                                Expected arguments:
+     *                                - 'folder_path': The path to the folder containing the image.
+     *                                - 'file': The name of the image file to process.
+     *                                - 'id': The ID of the image.
+     * @return string|null Returns Processor::ACK on successful processing, or Processor::REJECT on error.
+     * @throws \Exception If an error occurs during image processing.
+     * @uses \App\Utility\SettingsManager
      */
     public function execute(Message $message): ?string
     {

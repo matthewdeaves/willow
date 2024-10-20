@@ -8,7 +8,6 @@ use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
-use Cake\Utility\Text;
 use Exception;
 use Interop\Queue\Processor;
 
@@ -39,10 +38,32 @@ class ArticleSeoUpdateJob implements JobInterface
     }
 
     /**
-     * Execute the article SEO update job.
+     * Executes the SEO update process for a given article.
      *
-     * @param \Cake\Queue\Job\Message $message The job message.
-     * @return string|null The result of the job execution.
+     * This method retrieves an article by its ID, generates SEO metadata using an external service,
+     * and updates the article with the generated metadata. It logs the process and returns an
+     * acknowledgment or rejection status based on the success of the operation.
+     *
+     * The method performs the following steps:
+     * 1. Retrieves the article from the database using the provided ID.
+     * 2. Calls an external service to generate SEO metadata based on the article's title and body.
+     * 3. Updates the article with the generated SEO metadata, including:
+     *    - Meta title
+     *    - Meta description
+     *    - Meta keywords
+     *    - Facebook description
+     *    - LinkedIn description
+     *    - Twitter description
+     *    - Instagram description
+     * 4. Saves the updated article to the database.
+     * 5. Logs the result of the operation.
+     *
+     * @param \Cake\Queue\Job\Message $message The message containing the article ID and title.
+     * @return string|null Returns Processor::ACK if the SEO update is successful and saved,
+     *                     Processor::REJECT if the update fails or an error occurs.
+     * @throws \Exception If an unexpected error occurs during the SEO update process.
+     * @uses \App\Model\Table\ArticlesTable
+     * @uses \App\Service\Api\AnthropicApiService
      */
     public function execute(Message $message): ?string
     {
@@ -62,7 +83,6 @@ class ArticleSeoUpdateJob implements JobInterface
             $seoResult = $this->anthropicService->generateArticleSeo($title, strip_tags($article->body));
 
             if ($seoResult) {
-
                 //Set the data we got back
                 $article->meta_title = $seoResult['meta_title'];
                 $article->meta_description = $seoResult['meta_description'];

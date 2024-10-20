@@ -51,13 +51,20 @@ class CommentAnalysisJob implements JobInterface
     }
 
     /**
-     * Executes the comment analysis job
+     * Executes the comment analysis process for a given message.
      *
-     * This method processes the job message, analyzes the comment content,
-     * and updates the comment status based on the analysis result.
+     * This method retrieves the necessary data from the provided message, logs the receipt of the message,
+     * and checks if the comment has already been analyzed. If the comment is already analyzed, it logs this
+     * information and acknowledges the message. If not, it attempts to analyze the comment using the
+     * anthropicService. Depending on the result of the analysis, it updates the comment status and logs
+     * the outcome. In case of an error during analysis, it logs the error and rejects the message.
      *
-     * @param \Cake\Queue\Job\Message $message The job message containing comment data
-     * @return string|null Returns Processor::ACK on success, Processor::REJECT on failure, or Processor::REQUEUE on API overload
+     * @param \Cake\Queue\Job\Message $message The message containing the comment data to be analyzed.
+     * @return string|null Returns Processor::ACK if the comment is successfully analyzed or already analyzed,
+     *                     Processor::REJECT if the analysis fails or an error occurs.
+     * @throws \Exception If an error occurs during the comment analysis process.
+     * @uses \App\Model\Table\CommentsTable
+     * @uses \App\Service\Api\AnthropicApiService
      */
     public function execute(Message $message): ?string
     {

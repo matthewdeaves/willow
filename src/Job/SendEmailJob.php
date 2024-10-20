@@ -37,14 +37,20 @@ class SendEmailJob implements JobInterface
     public static bool $shouldBeUnique = false;
 
     /**
-     * Executes the email sending job
+     * Executes the email sending process using the provided message data.
      *
-     * This method processes the job message, validates the input, fetches the email template,
-     * replaces placeholders, and sends the email. It logs various stages of the process
-     * and handles exceptions.
+     * This method retrieves the necessary data from the Message object, logs the email job details,
+     * fetches the email template from the database, replaces placeholders in the email body with
+     * provided view variables, and sends the email using the configured mailer.
      *
-     * @param \Cake\Queue\Job\Message $message The job message containing email sending details
-     * @return string|null Returns Processor::ACK on success, Processor::REJECT on failure
+     * @param \Cake\Queue\Job\Message $message The message object containing email details such as template identifier,
+     *                                         sender, recipient, and view variables.
+     * @return string|null Returns Processor::ACK if the email is sent successfully, Processor::REJECT
+     *                     if the email sending fails or an error occurs.
+     * @throws \Exception If the email template is not found in the database or any other error occurs during the process.
+     * @uses \App\Model\Table\EmailTemplatesTable
+     * @uses \Cake\Mailer\Mailer
+     * @uses \Cake\ORM\TableRegistry
      */
     public function execute(Message $message): ?string
     {

@@ -8,7 +8,6 @@ use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
-use Cake\Utility\Text;
 use Exception;
 use Interop\Queue\Processor;
 
@@ -39,10 +38,18 @@ class TagSeoUpdateJob implements JobInterface
     }
 
     /**
-     * Execute the tag SEO update job.
+     * Executes the tag SEO update process.
      *
-     * @param \Cake\Queue\Job\Message $message The job message.
-     * @return string|null The result of the job execution.
+     * This method processes a message containing a tag ID and title, retrieves the corresponding tag from the database,
+     * and uses an external service to generate SEO metadata for the tag. The generated metadata is then saved back to the
+     * database. The method logs the progress and outcome of the operation, and returns a status code indicating success
+     * or failure.
+     *
+     * @param \Cake\Queue\Job\Message $message The message containing the tag ID and title.
+     * @return string|null Returns Processor::ACK on successful update, Processor::REJECT on failure or error.
+     * @throws \Exception If an unexpected error occurs during the process.
+     * @uses \App\Model\Table\TagsTable
+     * @uses \App\Service\Api\AnthropicApiService
      */
     public function execute(Message $message): ?string
     {

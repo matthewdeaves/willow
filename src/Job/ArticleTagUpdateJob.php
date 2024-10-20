@@ -55,13 +55,27 @@ class ArticleTagUpdateJob implements JobInterface
     }
 
     /**
-     * Execute the job to update article tags.
+     * Executes the article tag update process.
      *
-     * This method processes the queued message, retrieves the article,
-     * generates new tags using the Anthropic API, and updates the article's tags.
+     * This method processes a message containing an article ID and title, retrieves the article and its associated tags,
+     * and attempts to update the article's tags using an external service. It logs the process and handles any errors
+     * that occur during execution.
      *
-     * @param \Cake\Queue\Job\Message $message The queued message containing job data.
-     * @return string|null The processing result (ACK or REJECT).
+     * The method performs the following steps:
+     * 1. Retrieves the article and all existing tags from the database.
+     * 2. Calls an external service to generate new tags for the article.
+     * 3. Creates new tags if they don't already exist in the database.
+     * 4. Updates the article with the new tags.
+     * 5. Saves the updated article to the database.
+     *
+     * Throughout the process, it logs various events and errors for monitoring and debugging purposes.
+     *
+     * @param \Cake\Queue\Job\Message $message The message containing the article ID and title.
+     * @return string|null Returns Processor::ACK if the update is successful, Processor::REJECT if it fails or an error occurs.
+     * @throws \Exception If an unexpected error occurs during the process.
+     * @uses \App\Model\Table\ArticlesTable
+     * @uses \App\Model\Table\TagsTable
+     * @uses \App\Service\Api\AnthropicApiService
      */
     public function execute(Message $message): ?string
     {

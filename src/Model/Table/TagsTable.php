@@ -98,12 +98,12 @@ class TagsTable extends Table
     {
         if (SettingsManager::read('AI.enabled')) {
             try {
-                QueueManager::push('App\Job\TagSeoUpdateJob', [
-                    'args' => [[
-                        'id' => $entity->id,
-                        'title' => $entity->title,
-                    ]],
-                ]);
+                $data = [
+                    'id' => $entity->id,
+                    'title' => $entity->title,
+                ];
+
+                QueueManager::push('App\Job\TagSeoUpdateJob', $data);
                 $this->log(
                     __('Queue tag SEO update job for Tag:{0}', [$entity->title]),
                     'info',

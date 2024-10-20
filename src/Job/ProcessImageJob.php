@@ -47,44 +47,19 @@ class ProcessImageJob implements JobInterface
      */
     public function execute(Message $message): ?string
     {
-        $args = $message->getArgument('args');
+        // Get the data we need
+        $folderPath = $message->getArgument('folder_path');
+        $file = $message->getArgument('file');
+        $id = $message->getArgument('id');
+        $model = $message->getArgument('model');
+
         $this->log(
-            __('Received image processing message: {0}', [json_encode($args)]),
-            'debug',
+            __('Received image processing message: Image ID: {0} Path: {1}', [$id, $folderPath . $file]),
+            'info',
             ['group_name' => 'image_processing']
         );
 
-        if (!is_array($args) || !isset($args[0]) || !is_array($args[0])) {
-            $this->log(
-                __('Invalid argument structure for image processing job. Expected array, got: {0}', [gettype($args)]),
-                'error',
-                ['group_name' => 'image_processing']
-            );
-
-            return Processor::REJECT;
-        }
-
-        $payload = $args[0];
-
-        $folderPath = $payload['folder_path'] ?? null;
-        $file = $payload['file'] ?? null;
-        //$id = $payload['id'] ?? null;
-        //$model = $payload['model'] ?? null;
-
         $imageSizes = SettingsManager::read('ImageSizes');
-
-        if (empty($folderPath) || empty($file)) {
-            $this->log(
-                __(
-                    'Missing required fields in image processing payload. Path: {0}, Sizes: {1}',
-                    [$folderPath . $file, json_encode($imageSizes)]
-                ),
-                'error',
-                ['group_name' => 'image_processing']
-            );
-
-            return Processor::REJECT;
-        }
 
         $this->log(
             __(
@@ -103,7 +78,7 @@ class ProcessImageJob implements JobInterface
             $this->log(
                 __(
                     'Error during image processing. Path: {0}, Error: {1}',
-                    [$imagePath, $e->getMessage()]
+                    [$folderPath . $file, $e->getMessage()]
                 ),
                 'error',
                 ['group_name' => 'image_processing']
@@ -160,7 +135,7 @@ class ProcessImageJob implements JobInterface
         try {
             if (!file_exists($folder . $file)) {
                 $this->log(
-                    __('Original image not found for resizing. Path: {0}', [$original]),
+                    __('Original image not found for resizing. Path: {0}', [$folder . $file]),
                     'error',
                     ['group_name' => 'image_processing']
                 );

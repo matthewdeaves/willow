@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Job;
 
-use Cake\Core\Configure;
 use Cake\Log\LogTrait;
 use Cake\Mailer\Mailer;
 use Cake\ORM\TableRegistry;
@@ -49,48 +48,17 @@ class SendEmailJob implements JobInterface
      */
     public function execute(Message $message): ?string
     {
-        $args = $message->getArgument('args');
-
-        if (Configure::read('debug')) {
-            $this->log(
-                __('Received message: {0}', [json_encode($args)]),
-                'debug',
-                ['group_name' => 'email_sending']
-            );
-        }
-
-        if (!is_array($args) || !isset($args[0]) || !is_array($args[0])) {
-            $this->log(
-                __('Invalid args structure'),
-                'error',
-                ['group_name' => 'email_sending']
-            );
-
-            return Processor::REJECT;
-        }
-
-        $payload = $args[0];
-
-        $template = $payload['template_identifier'] ?? null;
-        $from = $payload['from'] ?? null;
-        $to = $payload['to'] ?? null;
-        $viewVars = $payload['viewVars'] ?? [];
-
-        if (!$template || !$from || !$to || empty($viewVars)) {
-            $this->log(
-                __('Missing required fields in payload'),
-                'error',
-                ['group_name' => 'email_sending']
-            );
-
-            return Processor::REJECT;
-        }
+        // Get the data we need
+        $templateIdentifier = $message->getArgument('template_identifier');
+        $from = $message->getArgument('from');
+        $to = $message->getArgument('to');
+        $viewVars = $message->getArgument('viewVars');
 
         $this->log(
             __(
-                'Processing email job: {0} {1} {2} {3}',
+                'Processing email job: Template: {0} From: {1} To: {2} viewVars: {3}',
                 [
-                $template,
+                $templateIdentifier,
                 $from,
                 $to,
                 json_encode($viewVars),
@@ -104,20 +72,17 @@ class SendEmailJob implements JobInterface
             // Fetch the email template from the database
             $emailTemplatesTable = TableRegistry::getTableLocator()->get('EmailTemplates');
             $emailTemplate = $emailTemplatesTable->find()
-                ->where(['template_identifier' => $template])
+                ->where(['template_identifier' => $templateIdentifier])
                 ->first();
 
             if (!$emailTemplate) {
-                throw new Exception("Email template not found: {$template}");
+                throw new Exception(__('Email template not found: {0}', $templateIdentifier));
             }
-
-            $bodyHtml = $emailTemplate->body_html ?? '';
-            $bodyPlain = $emailTemplate->body_plain ?? '';
 
             // Replace placeholders in the email body
             foreach ($viewVars as $key => $value) {
-                $bodyHtml = str_replace('{' . $key . '}', $value, $bodyHtml);
-                $bodyPlain = str_replace('{' . $key . '}', $value, $bodyPlain);
+                $emailTemplate->body_html = str_replace('{' . $key . '}', $value, $emailTemplate->body_html);
+                $emailTemplate->bodyPlain = str_replace('{' . $key . '}', $value, $emailTemplate->bodyPlain);
             }
 
             $mailer = new Mailer('default');
@@ -126,8 +91,8 @@ class SendEmailJob implements JobInterface
                 ->setSubject($emailTemplate->subject)
                 ->setEmailFormat('both')
                 ->setViewVars([
-                    'bodyHtml' => $bodyHtml,
-                    'bodyPlain' => $bodyPlain,
+                    'bodyHtml' => $emailTemplate->body_html,
+                    'bodyPlain' => $emailTemplate->bodyPlain,
                 ])
                 ->viewBuilder()
                     ->setTemplate('default')
@@ -142,8 +107,16 @@ class SendEmailJob implements JobInterface
                     'info',
                     ['group_name' => 'email_sending']
                 );
+
+                return Processor::ACK;
             } else {
-                throw new Exception('Failed to send email');
+                $this->log(
+                    __('Email sending failed: {0} to {1}', [$emailTemplate->subject, $to]),
+                    'info',
+                    ['group_name' => 'email_sending']
+                );
+
+                return Processor::REJECT;
             }
         } catch (Exception $e) {
             $this->log(
@@ -157,7 +130,5 @@ class SendEmailJob implements JobInterface
 
             return Processor::REJECT;
         }
-
-        return Processor::ACK;
     }
 }

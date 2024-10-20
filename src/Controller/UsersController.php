@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Job\SendEmailJob;
 use App\Model\Entity\User;
 use App\Model\Entity\UserAccountConfirmation;
 use App\Utility\SettingsManager;
@@ -178,24 +177,24 @@ class UsersController extends AppController
         }
 
         try {
-            QueueManager::push(SendEmailJob::class, [
-                'args' => [[
-                    'template_identifier' => 'confirm_email',
-                    'from' => SettingsManager::read('Email.reply_email', 'noreply@example.com'),
-                    'to' => $user->email,
-                    'viewVars' => [
-                        'username' => $user->username,
-                        'confirmation_code' => $confirmation->confirmation_code,
-                        'confirm_email_link' => Router::url([
-                            'controller' => 'Users',
-                            'action' => 'confirmEmail',
-                            $confirmation->confirmation_code,
-                        ], true),
-                    ],
-                ]],
-            ]);
+            $data = [
+                'template_identifier' => 'confirm_email',
+                'from' => SettingsManager::read('Email.reply_email', 'noreply@example.com'),
+                'to' => $user->email,
+                'viewVars' => [
+                    'username' => $user->username,
+                    'confirmation_code' => $confirmation->confirmation_code,
+                    'confirm_email_link' => Router::url([
+                        'controller' => 'Users',
+                        'action' => 'confirmEmail',
+                        $confirmation->confirmation_code,
+                    ], true),
+                ],
+            ];
+
+            QueueManager::push('App\Job\SendEmailJob', $data);
         } catch (Exception $e) {
-            Log::error('Failed to send confirmation email message: ' . $e->getMessage());
+            Log::error(__('Failed to send confirmation email message: {0}', $e->getMessage()));
         }
     }
 

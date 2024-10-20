@@ -8,6 +8,7 @@ use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
+use Cake\Utility\Text;
 use Exception;
 use Interop\Queue\Processor;
 
@@ -63,60 +64,63 @@ class ImageAnalysisJob implements JobInterface
      */
     public function execute(Message $message): ?string
     {
-        $args = $message->getArgument('args');
+        $folderPath = $message->getArgument('folder_path');
+        $file = $message->getArgument('file');
+        $id = $message->getArgument('id');
+        $model = $message->getArgument('model');
+
         $this->log(
-            __('Received image analysis message: {0}', [json_encode($args)]),
-            'debug',
+            __('Received image analysis message: Image ID: {0} Path: {1}', [$id, $folderPath . $file]),
+            'info',
             ['group_name' => 'image_analysis']
         );
 
-        if (!is_array($args) || !isset($args[0]) || !is_array($args[0])) {
-            $this->log(
-                __('Invalid argument structure for image analysis job. Expected array, got: {0}', [gettype($args)]),
-                'error',
-                ['group_name' => 'image_analysis']
-            );
-
-            return Processor::REJECT;
-        }
-
-        $payload = $args[0];
-        $folder_path = $payload['folder_path'] ?? null;
-        $file = $payload['file'] ?? null;
-        $modelId = $payload['id'] ?? null;
-        $model = $payload['model'] ?? null;
-
-        if (!$folder_path || !$file || !$model || !$modelId) {
-            $this->log(
-                __('Missing required fields in image analysis payload. Path: {0}, File: {1}', [$folder_path, $file]),
-                'error',
-                ['group_name' => 'image_analysis']
-            );
-
-            return Processor::REJECT;
-        }
-
         try {
-            $analysisResult = $this->anthropicService->analyzeImage($folder_path . $file);
+            $modelTable = TableRegistry::getTableLocator()->get($model);
+            $image = $modelTable->get($id);
+
+            $analysisResult = $this->anthropicService->analyzeImage($folderPath . $file);
+            $expectedKeys = [
+                'alt_text',
+                'keywords',
+                'name',
+            ];
 
             if ($analysisResult) {
-                $modelTable = TableRegistry::getTableLocator()->get($model);
-                $image = $modelTable->get($modelId);
-                $image->alt_text = $analysisResult['alt_text'];
-                $image->keywords = $analysisResult['keywords'];
-                $image->name = $analysisResult['name'];
-                $modelTable->save($image);
+                // Just in case we don't get back the JSON keys we expect
+                foreach ($expectedKeys as $key) {
+                    if (isset($seoResult[$key])) {
+                        $image->$key = $seoResult[$key];
+                    }
+                }
+                // Sometimes met_keywords comes back with ,'s
+                // Replace commas with spaces and remove extra whitespace
+                $image->keywords = Text::cleanInsert($image->keywords, ['clean' => true]);
+                // Ensure only alphanumeric characters and spaces
+                $image->keywords = preg_replace('/[^a-zA-Z0-9\s]/', '', $image->keywords);
+                // Trim whitespace
+                $image->keywords = trim($image->keywords);
 
-                $this->log(
-                    __('Image analysis completed successfully. Model: {0} ID: {1}', [$model, $modelId]),
-                    'info',
-                    ['group_name' => 'image_analysis']
-                );
+                if ($modelTable->save($image)) {
+                    $this->log(
+                        __('Image analysis completed successfully. Model: {0} ID: {1}', [$model, $id]),
+                        'info',
+                        ['group_name' => 'image_analysis']
+                    );
 
-                return Processor::ACK;
+                    return Processor::ACK;
+                } else {
+                    $this->log(
+                        __('Image analysis failed. Model: {0} ID: {1}', [$model, $id]),
+                        'error',
+                        ['group_name' => 'image_analysis']
+                    );
+
+                    return Processor::REJECT;
+                }
             } else {
                 $this->log(
-                    __('Image analysis failed. No result returned. Image Path: {0}', [$folder_path . $file]),
+                    __('Image analysis failed. No result returned. Image Path: {0}', [$folderPath . $file]),
                     'error',
                     ['group_name' => 'image_analysis']
                 );
@@ -127,7 +131,7 @@ class ImageAnalysisJob implements JobInterface
             $this->log(
                 __(
                     'Error during image analysis. Image Path: {0}, Error: {1}',
-                    [$folder_path . $file, $e->getMessage()]
+                    [$folderPath . $file, $e->getMessage()]
                 ),
                 'error',
                 ['group_name' => 'image_analysis']

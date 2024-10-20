@@ -28,47 +28,24 @@ class ArticleTagUpdateJob implements JobInterface
 
     public function execute(Message $message): ?string
     {
-        $args = $message->getArgument('args');
+        // Get message data we need
+        $id = $message->getArgument('id');
+        $title = $message->getArgument('title');
+
         $this->log(
-            __('Received article tag update message: {0}', [json_encode($args)]),
-            'debug',
+            __('Received article tag update message: {0} : {1}', [$id, $title]),
+            'info',
             ['group_name' => 'article_tag_update']
         );
-
-        if (!is_array($args) || !isset($args[0]) || !is_array($args[0])) {
-            $this->log(
-                __('Invalid argument structure for article tag update job. Expected array, got: {0}', [gettype($args)]),
-                'error',
-                ['group_name' => 'article_tag_update']
-            );
-
-            return Processor::REJECT;
-        }
-
-        $payload = $args[0];
-        $articleId = $payload['id'] ?? null;
-
-        if (!$articleId) {
-            $this->log(
-                __('Missing required fields in article tag update payload. ID: {0}', [$articleId]),
-                'error',
-                ['group_name' => 'article_tag_update']
-            );
-
-            return Processor::REJECT;
-        }
 
         try {
             $articlesTable = TableRegistry::getTableLocator()->get('Articles');
             $tagsTable = TableRegistry::getTableLocator()->get('Tags');
 
-            $article = $articlesTable->get($articleId, contain: ['Tags']);
+            $article = $articlesTable->get($id, contain: ['Tags']);
             $allTags = $tagsTable->find()->select(['title'])->all()->extract('title')->toArray();
 
-            debug($allTags);
-
             $tagResult = $this->anthropicService->generateArticleTags($allTags, $article->title, $article->body);
-            debug($tagResult['new_tags']);
 
             if ($tagResult && isset($tagResult['new_tags']) && is_array($tagResult['new_tags'])) {
                 $newTags = [];
@@ -92,7 +69,7 @@ class ArticleTagUpdateJob implements JobInterface
 
                 if ($articlesTable->save($article)) {
                     $this->log(
-                        __('Article tag update completed successfully. Article ID: {0}', [$articleId]),
+                        __('Article tag update completed successfully. Article ID: {0}', [$id]),
                         'info',
                         ['group_name' => 'article_tag_update']
                     );
@@ -100,7 +77,7 @@ class ArticleTagUpdateJob implements JobInterface
                     return Processor::ACK;
                 } else {
                     $this->log(
-                        __('Failed to save article tag updates. Article ID: {0}', [$articleId]),
+                        __('Failed to save article tag updates. Article ID: {0}', [$id]),
                         'error',
                         ['group_name' => 'article_tag_update']
                     );
@@ -109,7 +86,7 @@ class ArticleTagUpdateJob implements JobInterface
                 }
             } else {
                 $this->log(
-                    __('Article tag update failed. No valid result returned. Article ID: {0}', [$articleId]),
+                    __('Article tag update failed. No valid result returned. Article ID: {0}', [$id]),
                     'error',
                     ['group_name' => 'article_tag_update']
                 );
@@ -119,13 +96,14 @@ class ArticleTagUpdateJob implements JobInterface
         } catch (Exception $e) {
             $this->log(
                 __('Unexpected error during article tag update. Article ID: {0}, Error: {1}', [
-                    $articleId,
+                    $id,
                     $e->getMessage(),
                 ]),
                 'error',
                 ['group_name' => 'article_tag_update']
             );
-            throw $e; // Rethrow unexpected exceptions
+
+            return Processor::REJECT;
         }
     }
 }

@@ -8,6 +8,7 @@ use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
+use Cake\Utility\Text;
 use Exception;
 use Interop\Queue\Processor;
 
@@ -45,44 +46,21 @@ class TagSeoUpdateJob implements JobInterface
      */
     public function execute(Message $message): ?string
     {
-        $args = $message->getArgument('args');
+        $id = $message->getArgument('id');
+        $title = $message->getArgument('title');
+
         $this->log(
-            __('Received tag SEO update message: {0}', [json_encode($args)]),
-            'debug',
+            __('Received tag SEO update message: ID: {0} Title: {1}', [$id, $title]),
+            'info',
             ['group_name' => 'tag_seo_update']
         );
 
-        if (!is_array($args) || !isset($args[0]) || !is_array($args[0])) {
-            $this->log(
-                __('Invalid argument structure for tag SEO update job. Expected array, got: {0}', [gettype($args)]),
-                'error',
-                ['group_name' => 'tag_seo_update']
-            );
-
-            return Processor::REJECT;
-        }
-
-        $payload = $args[0];
-        $tagId = $payload['id'] ?? null;
-        $tagTitle = $payload['title'] ?? '';
-
-        if (!$tagId) {
-            $this->log(
-                __('Missing required fields in tag SEO update payload. ID: {0}', [$tagId]),
-                'error',
-                ['group_name' => 'tag_seo_update']
-            );
-
-            return Processor::REJECT;
-        }
-
         try {
             $tagsTable = TableRegistry::getTableLocator()->get('Tags');
-            $tag = $tagsTable->get($tagId);
-            $tagDescription = $tag->description ?? '';
+            $tag = $tagsTable->get($id);
 
-            $seoResult = $this->anthropicService->generateTagSeo($tagTitle, $tagDescription);
-            $seoFields = [
+            $seoResult = $this->anthropicService->generateTagSeo($title, $tag->description);
+            $expectedKeys = [
                 'meta_title',
                 'meta_description',
                 'meta_keywords',
@@ -93,44 +71,41 @@ class TagSeoUpdateJob implements JobInterface
             ];
 
             if ($seoResult) {
-                $isUpdated = false;
-                foreach ($seoFields as $field) {
-                    if (isset($seoResult[$field]) && $tag->$field !== $seoResult[$field]) {
-                        $tag->$field = $seoResult[$field];
-                        $isUpdated = true;
+                // Just in case we don't get back the JSON keys we expect
+                foreach ($expectedKeys as $key) {
+                    if (isset($seoResult[$key])) {
+                        $tag->$key = $seoResult[$key];
                     }
                 }
 
-                if ($isUpdated) {
-                    if ($tagsTable->save($tag)) {
-                        $this->log(
-                            __('Tag SEO update completed successfully. Tag ID: {0}', [$tagId]),
-                            'info',
-                            ['group_name' => 'tag_seo_update']
-                        );
+                // Sometimes meta_keywords comes back with ,'s
+                // Replace commas with spaces and remove extra whitespace
+                $tag->meta_keywords = Text::cleanInsert($tag->meta_keywords, ['clean' => true]);
+                // Ensure only alphanumeric characters and spaces
+                $tag->meta_keywords = preg_replace('/[^a-zA-Z0-9\s]/', '', $tag->meta_keyword);
+                // Trim whitespace
+                $tag->meta_keywords = trim($tag->meta_keywords);
 
-                        return Processor::ACK;
-                    } else {
-                        $this->log(
-                            __('Failed to save tag SEO updates. Tag ID: {0}', [$tagId]),
-                            'error',
-                            ['group_name' => 'tag_seo_update']
-                        );
-
-                        return Processor::REJECT;
-                    }
-                } else {
+                if ($tagsTable->save($tag)) {
                     $this->log(
-                        __('No changes detected for Tag ID: {0}. Acknowledging message.', [$tagId]),
+                        __('Tag SEO update completed successfully. ID: {0} Title: {1}', [$id, $title]),
                         'info',
                         ['group_name' => 'tag_seo_update']
                     );
 
                     return Processor::ACK;
+                } else {
+                    $this->log(
+                        __('Failed to save tag SEO updates. ID: {0} Title: {1}', [$id, $title]),
+                        'error',
+                        ['group_name' => 'tag_seo_update']
+                    );
+
+                    return Processor::REJECT;
                 }
             } else {
                 $this->log(
-                    __('Tag SEO update failed. No result returned. Tag ID: {0}', [$tagId]),
+                    __('Tag SEO update failed. No result returned. ID: {0} Title: {1}', [$id, $title]),
                     'error',
                     ['group_name' => 'tag_seo_update']
                 );
@@ -139,14 +114,16 @@ class TagSeoUpdateJob implements JobInterface
             }
         } catch (Exception $e) {
             $this->log(
-                __('Unexpected error during tag SEO update. Tag ID: {0}, Error: {1}', [
-                    $tagId,
+                __('Unexpected error during tag SEO update. ID: {0}, Title: {1} Error: {2}', [
+                    $id,
+                    $title,
                     $e->getMessage(),
                 ]),
                 'error',
                 ['group_name' => 'tag_seo_update']
             );
-            throw $e; // Rethrow unexpected exceptions
+
+            return Processor::REJECT;
         }
     }
 }

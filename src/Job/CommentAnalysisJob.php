@@ -61,43 +61,16 @@ class CommentAnalysisJob implements JobInterface
      */
     public function execute(Message $message): ?string
     {
-        $args = $message->getArgument('args');
+        // Get data we need
+        $commentId = $message->getArgument('comment_id');
+        $content = $message->getArgument('content');
+        $userId = $message->getArgument('user_id');
+
         $this->log(
-            __('Received comment analysis message: {0}', [json_encode($args)]),
-            'debug',
+            __('Received comment analysis message: Comment ID: {0} User ID: {1}', [$commentId, $userId]),
+            'info',
             ['group_name' => 'comment_analysis']
         );
-
-        if (!is_array($args) || !isset($args[0]) || !is_array($args[0])) {
-            $this->log(
-                __('Invalid argument structure for comment analysis job. Expected array, got: {0}', [gettype($args)]),
-                'error',
-                ['group_name' => 'comment_analysis']
-            );
-
-            return Processor::REJECT;
-        }
-
-        $payload = $args[0];
-        $commentId = $payload['comment_id'] ?? null;
-        $userId = $payload['user_id'] ?? null;
-        $content = $payload['content'] ?? null;
-
-        if (!$commentId || !$userId || !$content) {
-            $this->log(
-                __(
-                    'Missing required fields in comment analysis payload. Comment ID: {0}, User ID: {1}',
-                    [
-                        $commentId,
-                        $userId,
-                    ]
-                ),
-                'error',
-                ['group_name' => 'comment_analysis']
-            );
-
-            return Processor::REJECT;
-        }
 
         $commentsTable = TableRegistry::getTableLocator()->get('Comments');
         $comment = $commentsTable->get($commentId);
@@ -139,11 +112,6 @@ class CommentAnalysisJob implements JobInterface
                 'error',
                 ['group_name' => 'comment_analysis']
             );
-
-            // Check if it's an overloaded error
-            if (strpos($e->getMessage(), 'Overloaded') !== false) {
-                return Processor::REQUEUE;
-            }
 
             return Processor::REJECT;
         }

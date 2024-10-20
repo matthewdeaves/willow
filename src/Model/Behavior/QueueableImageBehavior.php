@@ -57,7 +57,7 @@ class QueueableImageBehavior extends Behavior
     {
         $config = $this->getConfig();
         if ($entity->isDirty($config['field'])) {
-            $message = [
+            $data = [
                 'folder_path' => WWW_ROOT . $config['folder_path'],
                 'file' => $entity->{$config['field']},
                 'id' => $entity->id,
@@ -66,15 +66,11 @@ class QueueableImageBehavior extends Behavior
 
             try {
                 // Queue up an image processing job
-                QueueManager::push('App\Job\ProcessImageJob', [
-                    'args' => [$message],
-                ]);
+                QueueManager::push('App\Job\ProcessImageJob', $data);
 
                 if (SettingsManager::read('AI.enabled')) {
                     // Queue up an image analysis job
-                    QueueManager::push('App\Job\ImageAnalysisJob', [
-                        'args' => [$message],
-                    ]);
+                    QueueManager::push('App\Job\ImageAnalysisJob', $data);
                 }
             } catch (Exception $e) {
                 // Log the error message

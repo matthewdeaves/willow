@@ -42,12 +42,12 @@ class SystemLogsController extends AppController
                 'SystemLogs.group_name',
                 'SystemLogs.created',
             ])
-            ->order(['SystemLogs.created' => 'DESC']);
+            ->orderBy(['SystemLogs.created' => 'DESC']);
 
         $levels = $this->SystemLogs->find()
             ->select(['level'])
             ->distinct(['level'])
-            ->order(['level' => 'ASC'])
+            ->orderBy(['level' => 'ASC'])
             ->all()
             ->extract('level')
             ->toArray();
@@ -55,7 +55,7 @@ class SystemLogsController extends AppController
         $groupNames = $this->SystemLogs->find()
             ->select(['group_name'])
             ->distinct(['group_name'])
-            ->order(['group_name' => 'ASC'])
+            ->orderBy(['group_name' => 'ASC'])
             ->all()
             ->extract('group_name')
             ->toArray();

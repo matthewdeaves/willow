@@ -49,7 +49,7 @@ class SlugsController extends AppController
                 'Articles.slug',
             ])
             ->contain(['Articles'])
-            ->order(['Slugs.modified' => 'DESC']);
+            ->orderBy(['Slugs.modified' => 'DESC']);
 
         if ($this->request->is('ajax')) {
             $search = $this->request->getQuery('search');

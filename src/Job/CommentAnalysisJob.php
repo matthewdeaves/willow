@@ -5,6 +5,7 @@ namespace App\Job;
 
 use App\Model\Entity\Comment;
 use App\Service\Api\AnthropicApiService;
+use Cake\Cache\Cache;
 use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
@@ -176,5 +177,7 @@ class CommentAnalysisJob implements JobInterface
                 ['group_name' => 'comment_analysis']
             );
         }
+        // Clear the cache
+        Cache::clear('articles');
     }
 }

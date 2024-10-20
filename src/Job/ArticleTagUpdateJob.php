@@ -40,7 +40,7 @@ class ArticleTagUpdateJob implements JobInterface
     /**
      * The Anthropic API service used for generating article tags.
      *
-     * @var AnthropicApiService
+     * @var \App\Service\Api\AnthropicApiService
      */
     private AnthropicApiService $anthropicService;
 
@@ -60,7 +60,7 @@ class ArticleTagUpdateJob implements JobInterface
      * This method processes the queued message, retrieves the article,
      * generates new tags using the Anthropic API, and updates the article's tags.
      *
-     * @param Message $message The queued message containing job data.
+     * @param \Cake\Queue\Job\Message $message The queued message containing job data.
      * @return string|null The processing result (ACK or REJECT).
      */
     public function execute(Message $message): ?string

@@ -61,7 +61,6 @@ class QueueableImageBehavior extends Behavior
                 'folder_path' => WWW_ROOT . $config['folder_path'],
                 'file' => $entity->{$config['field']},
                 'id' => $entity->id,
-                'model' => $event->getSubject()->getAlias(),
             ];
 
             try {
@@ -69,6 +68,8 @@ class QueueableImageBehavior extends Behavior
                 QueueManager::push('App\Job\ProcessImageJob', $data);
 
                 if (SettingsManager::read('AI.enabled')) {
+                    $data['model'] = $event->getSubject()->getAlias();
+                    
                     // Queue up an image analysis job
                     QueueManager::push('App\Job\ImageAnalysisJob', $data);
                 }

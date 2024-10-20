@@ -51,7 +51,6 @@ class ProcessImageJob implements JobInterface
         $folderPath = $message->getArgument('folder_path');
         $file = $message->getArgument('file');
         $id = $message->getArgument('id');
-        $model = $message->getArgument('model');
 
         $this->log(
             __('Received image processing message: Image ID: {0} Path: {1}', [$id, $folderPath . $file]),

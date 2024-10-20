@@ -11,21 +11,58 @@ use Cake\Queue\Job\Message;
 use Exception;
 use Interop\Queue\Processor;
 
+/**
+ * ArticleTagUpdateJob
+ *
+ * This job is responsible for updating tags for articles using the Anthropic API.
+ * It processes queued messages to update article tags based on the article's content.
+ *
+ * @package App\Job
+ */
 class ArticleTagUpdateJob implements JobInterface
 {
     use LogTrait;
 
+    /**
+     * Maximum number of attempts for this job.
+     *
+     * @var int|null
+     */
     public static ?int $maxAttempts = 3;
 
+    /**
+     * Whether this job should be unique in the queue.
+     *
+     * @var bool
+     */
     public static bool $shouldBeUnique = true;
 
+    /**
+     * The Anthropic API service used for generating article tags.
+     *
+     * @var AnthropicApiService
+     */
     private AnthropicApiService $anthropicService;
 
+    /**
+     * Constructor
+     *
+     * Initializes the Anthropic API service.
+     */
     public function __construct()
     {
         $this->anthropicService = new AnthropicApiService();
     }
 
+    /**
+     * Execute the job to update article tags.
+     *
+     * This method processes the queued message, retrieves the article,
+     * generates new tags using the Anthropic API, and updates the article's tags.
+     *
+     * @param Message $message The queued message containing job data.
+     * @return string|null The processing result (ACK or REJECT).
+     */
     public function execute(Message $message): ?string
     {
         // Get message data we need

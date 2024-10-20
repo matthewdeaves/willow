@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Model\Table\ArticlesTable;
 use Cake\Http\Response;
-use Cake\I18n\FrozenTime;
+use Cake\I18n\DateTime;
 use Cake\ORM\Query;
-use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
 
@@ -20,7 +20,7 @@ class SitemapController extends AppController
     /**
      * @var \Cake\ORM\Table The Articles table instance.
      */
-    protected Table $Articles;
+    protected ArticlesTable $Articles;
 
     /**
      * Initialize method
@@ -48,11 +48,13 @@ class SitemapController extends AppController
         $this->response = $this->response->withDisabledCache();
         $this->response = $this->response->withType('xml');
 
+        /** @var \Cake\ORM\Query $articles */
         $articles = $this->Articles->find('all')
             ->select(['id', 'slug', 'modified', 'published', 'is_page'])
             ->where(['is_page' => false, 'is_published' => true])
             ->orderBy(['created' => 'DESC']);
 
+        /** @var \Cake\ORM\Query $pages */
         $pages = $this->Articles->find('all')
             ->select(['id', 'slug', 'modified', 'published', 'is_page'])
             ->where(['is_page' => true, 'is_published' => true]);
@@ -81,8 +83,8 @@ class SitemapController extends AppController
         // Add homepage
         $xmlContent .= $this->generateUrlXml(
             Router::url('/', true),
-            FrozenTime::now(),
-            FrozenTime::now(),
+            DateTime::now(),
+            DateTime::now(),
             'daily',
             '1.0'
         );
@@ -117,8 +119,8 @@ class SitemapController extends AppController
         for ($i = 1; $i <= $totalPages; $i++) {
             $xmlContent .= $this->generateUrlXml(
                 Router::url(['controller' => 'Articles', 'action' => 'index', 'page' => $i], true),
-                FrozenTime::now(),
-                FrozenTime::now(),
+                DateTime::now(),
+                DateTime::now(),
                 'daily',
                 $i === 1 ? '0.9' : '0.7'
             );
@@ -135,16 +137,16 @@ class SitemapController extends AppController
      * Generates a single URL entry for the sitemap XML.
      *
      * @param string $loc The URL location.
-     * @param \Cake\I18n\FrozenTime $published The published date.
-     * @param \Cake\I18n\FrozenTime $lastmod The last modified date.
+     * @param \Cake\I18n\DateTime $published The published date.
+     * @param \Cake\I18n\DateTime $lastmod The last modified date.
      * @param string $changefreq The change frequency.
      * @param string $priority The priority of the URL.
      * @return string The generated URL XML entry.
      */
     private function generateUrlXml(
         string $loc,
-        FrozenTime $published,
-        FrozenTime $lastmod,
+        DateTime $published,
+        DateTime $lastmod,
         string $changefreq,
         string $priority
     ): string {
@@ -152,11 +154,13 @@ class SitemapController extends AppController
             "  <url>\n" .
             "    <loc>%s</loc>\n" .
             "    <lastmod>%s</lastmod>\n" .
+            "    <publication_date>%s</publication_date>\n" .
             "    <changefreq>%s</changefreq>\n" .
             "    <priority>%s</priority>\n" .
             "  </url>\n",
             htmlspecialchars($loc),
             $lastmod->format('Y-m-d'),
+            $published->format('Y-m-d'),
             htmlspecialchars($changefreq),
             htmlspecialchars($priority)
         );

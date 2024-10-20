@@ -34,7 +34,7 @@ class CommentsController extends AppController
     {
         $query = $this->Comments->find()
             ->contain(['Users'])
-            ->order(['Comments.created' => 'DESC']);
+            ->orderBy(['Comments.created' => 'DESC']);
 
         if ($this->request->is('ajax')) {
             $search = $this->request->getQuery('search');

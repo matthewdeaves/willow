@@ -11,6 +11,7 @@ use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
 use Exception;
 use Interop\Queue\Processor;
+use Cake\Cache\Cache;
 
 /**
  * CommentAnalysisJob Class
@@ -176,5 +177,7 @@ class CommentAnalysisJob implements JobInterface
                 ['group_name' => 'comment_analysis']
             );
         }
+        // Clear the cache
+        Cache::clear('articles');
     }
 }

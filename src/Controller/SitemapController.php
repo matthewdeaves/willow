@@ -51,7 +51,7 @@ class SitemapController extends AppController
         $articles = $this->Articles->find('all')
             ->select(['id', 'slug', 'modified', 'published', 'is_page'])
             ->where(['is_page' => false, 'is_published' => true])
-            ->order(['created' => 'DESC']);
+            ->orderBy(['created' => 'DESC']);
 
         $pages = $this->Articles->find('all')
             ->select(['id', 'slug', 'modified', 'published', 'is_page'])

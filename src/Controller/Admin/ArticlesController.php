@@ -125,7 +125,7 @@ class ArticlesController extends AppController
                 'Users.id',
                 'Users.username',
             ])
-            ->order(['Articles.created' => 'DESC']);
+            ->orderBy(['Articles.created' => 'DESC']);
 
         if ($this->request->is('ajax')) {
             $search = $this->request->getQuery('search');

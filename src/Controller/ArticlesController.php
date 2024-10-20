@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Model\Table\PageViewsTable;
+use App\Model\Table\SlugsTable;
 use App\Model\Table\Trait\ArticleCacheTrait;
 use Cake\Event\EventInterface;
 use Cake\Http\Exception\NotFoundException;
@@ -29,6 +30,19 @@ class ArticlesController extends AppController
      * page view data, such as tracking article views and retrieving view statistics.
      */
     protected PageViewsTable $PageViews;
+
+    /**
+     * Slugs Table
+     *
+     * @var \App\Model\Table\SlugsTable $Slugs
+     *
+     * This property holds an instance of the SlugsTable class.
+     * It is used to interact with the slugs table in the database.
+     * The SlugsTable provides methods for querying and manipulating
+     * slug data, such as creating new slugs, finding the latest slug
+     * for an article, and managing slug history.
+     */
+    protected SlugsTable $Slugs;
 
     /**
      * Initializes the current table instance.
@@ -146,7 +160,7 @@ class ArticlesController extends AppController
             })
             ->select(['Tags.title'])
             ->distinct(['Tags.title'])
-            ->order(['Tags.title' => 'ASC']);
+            ->orderBy(['Tags.title' => 'ASC']);
 
         $tags = $tagsQuery->all()->extract('title')->toList();
 
@@ -185,7 +199,7 @@ class ArticlesController extends AppController
             // If not in cache, we need to check if this is the latest slug
             $slugEntity = $this->Slugs->find()
                 ->where(['slug' => $slug])
-                ->order(['created' => 'DESC'])
+                ->orderBy(['created' => 'DESC'])
                 ->select(['article_id'])
                 ->first();
 
@@ -207,7 +221,7 @@ class ArticlesController extends AppController
             // Check if it's the latest slug for the article
             $latestSlug = $this->Slugs->find()
                 ->where(['article_id' => $articleId])
-                ->order(['created' => 'DESC'])
+                ->orderBy(['created' => 'DESC'])
                 ->select(['slug'])
                 ->first();
 

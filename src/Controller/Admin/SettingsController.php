@@ -30,7 +30,7 @@ class SettingsController extends AppController
     public function index(): ?Response
     {
         $settings = $this->Settings->find('all')
-            ->order(['category' => 'ASC', 'key_name' => 'ASC'])
+            ->orderBy(['category' => 'ASC', 'key_name' => 'ASC'])
             ->toArray();
 
         $groupedSettings = [];

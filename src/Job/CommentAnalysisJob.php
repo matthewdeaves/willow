@@ -5,13 +5,13 @@ namespace App\Job;
 
 use App\Model\Entity\Comment;
 use App\Service\Api\AnthropicApiService;
+use Cake\Cache\Cache;
 use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
 use Exception;
 use Interop\Queue\Processor;
-use Cake\Cache\Cache;
 
 /**
  * CommentAnalysisJob Class

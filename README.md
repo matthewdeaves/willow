@@ -61,10 +61,14 @@ To use these feautures go to the settings page [http://localhost:8080/admin/sett
 ### Queues and Consumers
 Willow CMS uses queues and consumers to offload heavy duty tasks to background processes. This includes things like image processing/resizing and making calls to the Anthropic API. You can run a worker process like this:
 
+- **Alias Command**: 
+```
+cake_queue_worker
+```
+- **Raw Command**: 
 ```
 docker compose exec php bin/cake queue worker --verbose
 ```
-The worker process is started by default (and restarted) when you run `./setup_dev_env.sh`. This is done with [supervisord](https://github.com/matthewdeaves/willow/blob/main/docker/php/supervisord.conf).
 
 ## Development Guide
 If you build on Willow CMS you should update the Unit Tests and be sure to fix anything that PHP Code Sniffer picks up. You can run those tools like so:

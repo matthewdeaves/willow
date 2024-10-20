@@ -70,7 +70,7 @@ class ArticleSeoUpdateJob implements JobInterface
 
         if (!$articleId) {
             $this->log(
-                __('Missing required fields in article SEO update payload. ID: {0}', [$articleId]),
+                __('Missing required fields in article SEO update payload. ID: {0} Title: {1}', [$articleId, $articleTitle]),
                 'error',
                 ['group_name' => 'article_seo_update']
             );

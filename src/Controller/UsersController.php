@@ -14,6 +14,7 @@ use Cake\Queue\QueueManager;
 use Cake\Routing\Router;
 use Cake\Utility\Text;
 use Exception;
+use Cake\Log\LogTrait;
 
 /**
  * Users Controller
@@ -22,6 +23,8 @@ use Exception;
  */
 class UsersController extends AppController
 {
+    use LogTrait;
+
     /**
      * beforeFilter method
      *

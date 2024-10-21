@@ -37,7 +37,6 @@ class ArticleTagUpdateJob implements JobInterface
     {
         $this->anthropicService = new AnthropicApiService();
 
-        // Get message data we need
         $id = $message->getArgument('id');
         $title = $message->getArgument('title');
 
@@ -50,32 +49,33 @@ class ArticleTagUpdateJob implements JobInterface
         $articlesTable = TableRegistry::getTableLocator()->get('Articles');
         $tagsTable = TableRegistry::getTableLocator()->get('Tags');
 
-        $article = $articlesTable->get($id, contain: ['Tags']);
-        $allTags = $tagsTable->find()->select(['title'])->all()->extract('title')->toArray();
+        $article = $articlesTable->get($id, 
+            fields: ['id', 'title', 'body'], 
+            contain: ['Tags' => ['fields' => ['id']]]
+        );
 
+        $allTags = $tagsTable->find()->select(['title'])->all()->extract('title')->toArray();
+        
         $tagResult = $this->anthropicService->generateArticleTags($allTags, $article->title, $article->body);
 
-        if ($tagResult && isset($tagResult['new_tags']) && is_array($tagResult['new_tags'])) {
+        if ($tagResult && isset($tagResult['tags']) && is_array($tagResult['tags'])) {
             $newTags = [];
-            foreach ($tagResult['new_tags'] as $tagTitle) {
-                if (!in_array($tagTitle, $allTags)) {
-                    $tag = $tagsTable->findOrCreate(['title' => $tagTitle, 'slug' => '']);
-                    $newTags[] = $tag;
+            foreach ($tagResult['tags'] as $tagTitle) {
+                $tag = $tagsTable->findOrCreate(['title' => $tagTitle]);
 
-                    // Check if the tag was newly created & log
-                    if ($tag->isNew()) {
-                        $this->log(
-                            __('New tag created: {0}', [$tagTitle]),
-                            'info',
-                            ['group_name' => 'article_tag_update']
-                        );
-                    }
+                if ($tag->isNew()) {
+                    $this->log(
+                        __('New tag created: {0}', [$tagTitle]),
+                        'info',
+                        ['group_name' => 'article_tag_update']
+                    );
                 }
+                $newTags[] = $tag;
             }
-
+           
             $article->tags = $newTags;
-            
-            if ($articlesTable->save($article)) {
+
+            if ($articlesTable->save($article, ['validate' => false])) {
                 $this->log(
                     __('Article tag update completed successfully. Article ID: {0}', [$id]),
                     'info',
@@ -85,7 +85,7 @@ class ArticleTagUpdateJob implements JobInterface
                 return Processor::ACK;
             } else {
                 $this->log(
-                    __('Failed to save article tag updates. Article ID: {0}', [$id]),
+                    __('Failed to save article tag updates. Article ID: {0} Error: {1}', [$id, json_encode($article->getErrors())]),
                     'error',
                     ['group_name' => 'article_tag_update']
                 );

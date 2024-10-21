@@ -111,7 +111,7 @@ class ArticleTagsGenerator
     private function ensureExpectedKeys(array $result): array
     {
         $expectedKeys = [
-            'new_tags',
+            'tags',
         ];
 
         foreach ($expectedKeys as $key) {

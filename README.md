@@ -16,13 +16,13 @@
    - [Redis and Redis Commander](#redis-and-redis-commander)
    - [phpMyAdmin](#phpmyadmin)
    - [MailHog](#mailhog)
-6. [GitHub Actions](#github-actions)
+6. [Production Environment](#production-environment)
+7. [GitHub Actions](#github-actions)
 
 ## Docker Development Environment
 Docker is used to host everything you need for a development environment: Nginx, PHP, MySQL, Redis, PHPMyAdmin, MailHog and Jenkins. The only thing you need on your host machine is [Docker](https://www.docker.com).
 
 ### Quick Start - Mac OS X / Ubuntu
-Depending on your Ubuntu version you may need to run docker with `sudo`. Note: the `docker compose up` takes a while as I'm building a lot of the PHP extensions from source. I intend to improve this from lessons learned making a [production version of Willow CMS for AWS AppRunner](https://github.com/matthewdeaves/willow_cms_production_deployment) which has a more efficient way of setting up PHP with extensions.
 
 Follow these steps:
 
@@ -121,6 +121,9 @@ Configured via [docker-compose.yml](https://github.com/matthewdeaves/willow/blob
 
 #### MailHog
 Configured via [docker-compose.yml](https://github.com/matthewdeaves/willow/blob/2a3dc5c9a3629b99797c586c938ed94a756b15fc/docker-compose.yml#L63). Use [http://localhost:8025](http://localhost:8025) for MailHog. It will receive all email sent by Willow CMS on the development environment and give you a nice interface to view it.
+
+### Production Environment
+There is a separate GitHub Repository for a [production version of Willow CMS for AWS AppRunner](https://github.com/matthewdeaves/willow_cms_production_deployment) with its own guide.
 
 ### GitHub Actions
 Willow CMS is setup to execute tests with GitHub Actions with [ci.yml](https://github.com/matthewdeaves/willow/blob/main/.github/workflows/ci.yml). Willow CMS is tested against PHP 8.1, 8.2 and 8.3.

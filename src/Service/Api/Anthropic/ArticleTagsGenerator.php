@@ -7,7 +7,6 @@ use App\Model\Table\AipromptsTable;
 use App\Service\Api\AnthropicApiService;
 use InvalidArgumentException;
 
-
 class ArticleTagsGenerator
 {
     /**

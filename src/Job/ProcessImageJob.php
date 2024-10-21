@@ -64,7 +64,7 @@ class ProcessImageJob implements JobInterface
 
             return Processor::REJECT;
         }
-        
+
         // Get the data we need
         $folderPath = $message->getArgument('folder_path');
         $file = $message->getArgument('file');

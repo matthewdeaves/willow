@@ -4,10 +4,10 @@ declare(strict_types=1);
 namespace App\Service\Api;
 
 use App\Model\Table\AipromptsTable;
+use App\Service\Api\Anthropic\ArticleTagsGenerator;
 use App\Service\Api\Anthropic\CommentAnalyzer;
 use App\Service\Api\Anthropic\ImageAnalyzer;
 use App\Service\Api\Anthropic\SeoContentGenerator;
-use App\Service\Api\Anthropic\ArticleTagsGenerator;
 use App\Utility\SettingsManager;
 use Cake\Http\Client;
 use Cake\Http\Client\Response;

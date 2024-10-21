@@ -49,13 +49,14 @@ class ArticleTagUpdateJob implements JobInterface
         $articlesTable = TableRegistry::getTableLocator()->get('Articles');
         $tagsTable = TableRegistry::getTableLocator()->get('Tags');
 
-        $article = $articlesTable->get($id, 
-            fields: ['id', 'title', 'body'], 
+        $article = $articlesTable->get(
+            $id,
+            fields: ['id', 'title', 'body'],
             contain: ['Tags' => ['fields' => ['id']]]
         );
 
         $allTags = $tagsTable->find()->select(['title'])->all()->extract('title')->toArray();
-        
+
         $tagResult = $this->anthropicService->generateArticleTags($allTags, $article->title, $article->body);
 
         if ($tagResult && isset($tagResult['tags']) && is_array($tagResult['tags'])) {
@@ -72,7 +73,7 @@ class ArticleTagUpdateJob implements JobInterface
                 }
                 $newTags[] = $tag;
             }
-           
+
             $article->tags = $newTags;
 
             if ($articlesTable->save($article, ['validate' => false])) {

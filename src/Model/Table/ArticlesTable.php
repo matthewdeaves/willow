@@ -342,7 +342,7 @@ class ArticlesTable extends Table
                 'id' => $entity->id,
                 'title' => $entity->title,
             ];
-            
+
             QueueManager::push('App\Job\ArticleTagUpdateJob', $data);
             $this->log(
                 __(

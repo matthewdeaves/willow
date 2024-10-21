@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Job;
 
-use App\Service\AnthropicImageAnalyzer;
+use App\Service\Api\AnthropicApiService;
 use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
@@ -16,12 +16,17 @@ class ImageAnalysisJob implements JobInterface
     use LogTrait;
 
     public static ?int $maxAttempts = 3;
+
     public static bool $shouldBeUnique = false;
-    private AnthropicImageAnalyzer $imageAnalyzer;
+
+    /**
+     * @var \App\Service\Api\AnthropicApiService
+     */
+    private AnthropicApiService $anthropicService;
 
     public function execute(Message $message): ?string
     {
-        $this->imageAnalyzer = new AnthropicImageAnalyzer();
+        $this->anthropicService = new AnthropicApiService();
 
         $folderPath = $message->getArgument('folder_path');
         $file = $message->getArgument('file');
@@ -38,7 +43,7 @@ class ImageAnalysisJob implements JobInterface
         $image = $modelTable->get($id);
 
         try {
-            $analysisResult = $this->imageAnalyzer->analyze($folderPath . $file);
+            $analysisResult = $this->anthropicService->analyzeImage($folderPath . $file);
 
             if ($analysisResult) {
                 $image->name = $analysisResult['name'];

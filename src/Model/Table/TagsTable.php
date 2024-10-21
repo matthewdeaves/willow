@@ -101,14 +101,14 @@ class TagsTable extends Table
                 'id' => $entity->id,
                 'title' => $entity->title,
             ];
-
+/*
             QueueManager::push('App\Job\TagSeoUpdateJob', $data);
 
             $this->log(
                 __('Queue tag SEO update job for Tag:{0}', [$entity->title]),
                 'info',
                 ['group_name' => 'tag_seo_update']
-            );
+            );*/
         }
     }
 }

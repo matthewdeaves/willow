@@ -334,7 +334,7 @@ class ArticlesTable extends Table
                 'id' => $entity->id,
                 'title' => $entity->title,
             ];
-
+/*
             QueueManager::push('App\Job\ArticleTagUpdateJob', $data);
             $this->log(
                 __(
@@ -344,6 +344,7 @@ class ArticlesTable extends Table
                 'info',
                 ['group_name' => 'article_tag_update']
             );
+            */
         }
     }
 

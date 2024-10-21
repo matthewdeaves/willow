@@ -28,25 +28,10 @@ class TagSeoUpdateJob implements JobInterface
      */
     private AnthropicApiService $anthropicService;
 
-    /**
-     * Executes the tag SEO update process for a given message.
-     *
-     * This method retrieves the tag information based on the provided ID and title from the message.
-     * It then uses the anthropic service to generate SEO data for the tag. If the SEO data is successfully
-     * generated and saved, it logs a success message and returns an acknowledgment. If the save operation
-     * fails or no SEO data is returned, it logs an error message and returns a rejection.
-     *
-     * @param \Cake\Queue\Job\Message $message The message containing the 'id' and 'title' arguments for the tag.
-     * @return string|null Returns Processor::ACK if the operation is successful, Processor::REJECT otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException If the tag with the given ID is not found.
-     * @throws \Cake\ORM\Exception\PersistenceFailedException If there's an error saving the tag data.
-     * @uses \App\Model\Table\TagsTable
-     * @uses \App\Service\Api\AnthropicApiService
-     */
     public function execute(Message $message): ?string
     {
         $this->anthropicService = new AnthropicApiService();
-        
+
         $id = $message->getArgument('id');
         $title = $message->getArgument('title');
 

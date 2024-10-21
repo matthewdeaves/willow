@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Job;
 
 use App\Model\Entity\Comment;
-use App\Service\Api\AnthropicApiService;
 use Cake\Cache\Cache;
 use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
@@ -12,12 +11,7 @@ use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
 use Interop\Queue\Processor;
 
-/**
- * CommentAnalysisJob Class
- *
- * This job is responsible for analyzing comments using the Anthropic API service.
- * It processes comments, checks for inappropriate content, and updates the comment status accordingly.
- */
+
 class CommentAnalysisJob implements JobInterface
 {
     use LogTrait;
@@ -36,31 +30,9 @@ class CommentAnalysisJob implements JobInterface
      */
     public static bool $shouldBeUnique = false;
 
-    /**
-     * @var \App\Service\Api\AnthropicApiService
-     */
-    private AnthropicApiService $anthropicService;
 
-    /**
-     * Executes the comment analysis process for a given message.
-     *
-     * This method retrieves the necessary data from the provided message, logs the receipt of the message,
-     * and checks if the comment has already been analyzed. If the comment is already analyzed, it logs this
-     * information and acknowledges the message. If not, it attempts to analyze the comment using the
-     * anthropicService. Depending on the result of the analysis, it updates the comment status and logs
-     * the outcome. In case of an error during analysis, it logs the error and rejects the message.
-     *
-     * @param \Cake\Queue\Job\Message $message The message containing the comment data to be analyzed.
-     * @return string|null Returns Processor::ACK if the comment is successfully analyzed or already analyzed,
-     *                     Processor::REJECT if the analysis fails or an error occurs.
-     * @throws \Exception If an error occurs during the comment analysis process.
-     * @uses \App\Model\Table\CommentsTable
-     * @uses \App\Service\Api\AnthropicApiService
-     */
     public function execute(Message $message): ?string
     {
-        $this->anthropicService = new AnthropicApiService();
-        
         // Get data we need
         $commentId = $message->getArgument('comment_id');
         $content = $message->getArgument('content');
@@ -85,7 +57,7 @@ class CommentAnalysisJob implements JobInterface
             return Processor::ACK;
         }
 
-        $analysisResult = $this->anthropicService->analyzeComment($content);
+        $analysisResult = $NEWCLASS->analyzeComment($content);
 
         if ($analysisResult) {
             $this->updateCommentStatus($comment, $analysisResult);

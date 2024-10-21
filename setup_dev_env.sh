@@ -28,7 +28,7 @@ check_docker_status() {
 start_docker_containers() {
     echo "Starting Docker containers..."
     $(needs_sudo) docker compose up -d
-    sleep 10  # Give containers some time to fully start
+    sleep 5  # Give containers some time to fully start
 }
 
 # Main script execution starts here
@@ -76,7 +76,7 @@ if [ ! -f "$FIRST_RUN_FLAG" ]; then
     echo "First time development container startup detected. Running initial setup..."
 
     # Composer install dependencies
-    $(needs_sudo) docker compose exec willowcms composer install
+    $(needs_sudo) docker compose exec willowcms composer install --no-interaction
 
     # Run migrations
     $(needs_sudo) docker compose exec willowcms bin/cake migrations migrate

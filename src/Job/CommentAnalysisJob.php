@@ -12,19 +12,26 @@ use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
 use Interop\Queue\Processor;
 
+/**
+ * CommentAnalysisJob Class
+ *
+ * This job is responsible for analyzing comments using the Anthropic API service.
+ * It processes comments from the queue, performs analysis, and updates the comment status
+ * based on the analysis results.
+ */
 class CommentAnalysisJob implements JobInterface
 {
     use LogTrait;
 
     /**
-     * Maximum number of attempts to process the job
+     * Maximum number of attempts to process the job.
      *
      * @var int|null
      */
     public static ?int $maxAttempts = 3;
 
     /**
-     * Whether there should be only one instance of a job on the queue at a time. (optional property)
+     * Whether there should be only one instance of a job on the queue at a time.
      *
      * @var bool
      */
@@ -37,6 +44,21 @@ class CommentAnalysisJob implements JobInterface
      */
     private AnthropicApiService $anthropicService;
 
+    /**
+     * Executes the comment analysis job.
+     *
+     * This method performs the following steps:
+     * 1. Initializes the Anthropic API service.
+     * 2. Retrieves comment data from the message.
+     * 3. Logs the receipt of the analysis message.
+     * 4. Checks if the comment has already been analyzed.
+     * 5. Performs the comment analysis using the Anthropic API service.
+     * 6. Updates the comment status based on the analysis result.
+     * 7. Logs the outcome of the analysis process.
+     *
+     * @param \Cake\Queue\Job\Message $message The message containing job data.
+     * @return string|null The processor status (ACK or REJECT).
+     */
     public function execute(Message $message): ?string
     {
         $this->anthropicService = new AnthropicApiService();
@@ -88,13 +110,16 @@ class CommentAnalysisJob implements JobInterface
     }
 
     /**
-     * Updates the comment status based on the analysis result
+     * Updates the comment status based on the analysis result.
      *
-     * This method updates the comment entity with the analysis results,
-     * including whether it's inappropriate, the reason if so, and its display status.
+     * This method performs the following steps:
+     * 1. Extracts the inappropriateness status and reason from the analysis result.
+     * 2. Updates the comment entity with the analysis results.
+     * 3. Saves the updated comment entity to the database.
+     * 4. Clears the articles cache to reflect the updated comment status.
      *
-     * @param \App\Model\Entity\Comment $comment The comment entity to update
-     * @param array $analysisResult The result of the comment analysis
+     * @param \App\Model\Entity\Comment $comment The comment entity to update.
+     * @param array $analysisResult The result of the comment analysis.
      * @return void
      */
     private function updateCommentStatus(Comment $comment, array $analysisResult): void

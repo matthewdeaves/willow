@@ -33,9 +33,4 @@ else
 fi
 
 # Clear cache (this will run every time)
-#docker compose exec php bin/cake cache clear_all
 docker compose exec willowcms bin/cake cache clear_all
-
-#this helps with permissions on macOS when first setting up the development environment
-docker compose down
-docker compose up -d

@@ -60,7 +60,7 @@ Willow integrates the [Anthropic API](https://console.anthropic.com/dashboard) f
 To use these feautures go to the settings page [http://localhost:8080/admin/settings](http://localhost:8080/admin/settings) to add your API key and enable the AI features.
 
 ### Queues and Consumers
-Willow CMS uses queues and consumers to offload heavy duty tasks to background processes. This includes things like image processing/resizing and making calls to the Anthropic API. You can run a worker process like this:
+Willow CMS uses queues and consumers to offload heavy duty tasks to background processes. This includes things like image processing/resizing and making calls to the Anthropic API. On the development environment, queue workers are not started automatically. This means if you upload an image or perform a task that offloads a message to the queue for a worker to pick, you will need to start a queue worker. You can start a queue worker process like this:
 
 - **Alias Command**: 
 ```
@@ -70,6 +70,7 @@ cake_queue_worker
 ```
 docker compose exec php bin/cake queue worker --verbose
 ```
+Leave the queue worker running in a terminal to see useful output as it picks up and runs [jobs](https://github.com/matthewdeaves/willow/tree/main/src/Job). Remember to save your Anthropic API key in the settings page.
 
 ## Development Guide
 If you build on Willow CMS you should update the Unit Tests and be sure to fix anything that PHP Code Sniffer picks up. You can run those tools like so:

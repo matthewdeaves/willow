@@ -143,7 +143,7 @@ class V1 extends AbstractMigration
             ])
             ->addColumn('meta_title', 'string', [
                 'default' => null,
-                'limit' => 255,
+                'limit' => 400,
                 'null' => true,
             ])
             ->addColumn('meta_description', 'text', [
@@ -151,29 +151,29 @@ class V1 extends AbstractMigration
                 'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('meta_keywords', 'string', [
+            ->addColumn('meta_keywords', 'text', [
                 'default' => null,
-                'limit' => 255,
+                'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('facebook_description', 'string', [
+            ->addColumn('facebook_description', 'text', [
                 'default' => null,
-                'limit' => 300,
+                'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('linkedin_description', 'string', [
+            ->addColumn('linkedin_description', 'text', [
                 'default' => null,
-                'limit' => 700,
+                'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('instagram_description', 'string', [
+            ->addColumn('instagram_description', 'text', [
                 'default' => null,
-                'limit' => 2000,
+                'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('twitter_description', 'string', [
+            ->addColumn('twitter_description', 'text', [
                 'default' => null,
-                'limit' => 280,
+                'limit' => null,
                 'null' => true,
             ])
             ->addColumn('word_count', 'integer', [
@@ -658,29 +658,29 @@ class V1 extends AbstractMigration
                 'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('meta_keywords', 'string', [
+            ->addColumn('meta_keywords', 'text', [
                 'default' => null,
-                'limit' => 255,
+                'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('facebook_description', 'string', [
+            ->addColumn('facebook_description', 'text', [
                 'default' => null,
-                'limit' => 300,
+                'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('linkedin_description', 'string', [
+            ->addColumn('linkedin_description', 'text', [
                 'default' => null,
-                'limit' => 700,
+                'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('instagram_description', 'string', [
+            ->addColumn('instagram_description', 'text', [
                 'default' => null,
-                'limit' => 2000,
+                'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('twitter_description', 'string', [
+            ->addColumn('twitter_description', 'text', [
                 'default' => null,
-                'limit' => 280,
+                'limit' => null,
                 'null' => true,
             ])
             ->create();

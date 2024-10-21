@@ -310,7 +310,7 @@ class ArticlesTable extends Table
             $this->Slugs->ensureSlugExists($entity->id, $entity->slug);
         }
 
-        // Queue an Article SEO update job
+        // Published Articles should be SEO ready
         if (
             $entity->is_published
             && SettingsManager::read('AI.enabled')
@@ -320,6 +320,8 @@ class ArticlesTable extends Table
                 'id' => $entity->id,
                 'title' => $entity->title,
             ];
+
+            // Queue a job to update the Article SEO fields
             QueueManager::push('App\Job\ArticleSeoUpdateJob', $data);
             $this->log(
                 __(
@@ -331,13 +333,16 @@ class ArticlesTable extends Table
             );
         }
 
-        // Queue an Article Tag Update job
-        if (SettingsManager::read('AI.enabled')) {
+        // All Articles should be tagged from the start
+        if (
+            SettingsManager::read('AI.enabled')
+            && ($entity->isDirty('title') || $entity->isDirty('body'))
+        ) {
             $data = [
                 'id' => $entity->id,
                 'title' => $entity->title,
             ];
-/*
+            
             QueueManager::push('App\Job\ArticleTagUpdateJob', $data);
             $this->log(
                 __(
@@ -347,7 +352,6 @@ class ArticlesTable extends Table
                 'info',
                 ['group_name' => 'article_tag_update']
             );
-            */
         }
     }
 

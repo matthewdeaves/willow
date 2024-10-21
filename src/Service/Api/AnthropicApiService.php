@@ -7,6 +7,7 @@ use App\Model\Table\AipromptsTable;
 use App\Service\Api\Anthropic\CommentAnalyzer;
 use App\Service\Api\Anthropic\ImageAnalyzer;
 use App\Service\Api\Anthropic\SeoContentGenerator;
+use App\Service\Api\Anthropic\ArticleTagsGenerator;
 use App\Utility\SettingsManager;
 use Cake\Http\Client;
 use Cake\Http\Client\Response;
@@ -56,6 +57,11 @@ class AnthropicApiService extends AbstractApiService
     private CommentAnalyzer $commentAnalyzer;
 
     /**
+     * @var \App\Service\Api\Anthropic\ArticleTagsGenerator The article tags generator service.
+     */
+    private ArticleTagsGenerator $articleTagsGenerator;
+
+    /**
      * AnthropicApiService constructor.
      *
      * Initializes the service with necessary dependencies and configurations.
@@ -69,6 +75,7 @@ class AnthropicApiService extends AbstractApiService
         $this->seoContentGenerator = new SeoContentGenerator($this, $this->aipromptsTable);
         $this->imageAnalyzer = new ImageAnalyzer($this, $this->aipromptsTable);
         $this->commentAnalyzer = new CommentAnalyzer($this, $this->aipromptsTable);
+        $this->articleTagsGenerator = new ArticleTagsGenerator($this, $this->aipromptsTable);
     }
 
     /**
@@ -93,6 +100,11 @@ class AnthropicApiService extends AbstractApiService
     public function generateArticleSeo(string $title, string $body): array
     {
         return $this->seoContentGenerator->generateArticleSeo($title, $body);
+    }
+
+    public function generateArticleTags(array $allTags, string $title, string $body): array
+    {
+        return $this->articleTagsGenerator->generateArticleTags($allTags, $title, $body);
     }
 
     /**

@@ -74,7 +74,7 @@ class ArticleTagUpdateJob implements JobInterface
             }
 
             $article->tags = $newTags;
-
+            
             if ($articlesTable->save($article)) {
                 $this->log(
                     __('Article tag update completed successfully. Article ID: {0}', [$id]),

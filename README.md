@@ -33,15 +33,12 @@ git clone git@github.com:matthewdeaves/willow.git
 #Change directory
 cd willow/
 
-#start the docker containers (-d is detached so they run in background)
-docker compose up -d
-
 #Run the setup script
 ./setup_dev_env.sh
 
 ```
 
-The development environment will be setup and you can visit [http://localhost:8080](http://localhost:8080) to see the front end site for Willow CMS.
+On your first run, the development environment will be setup and you can visit [http://localhost:8080](http://localhost:8080) to use Willow CMS. On subsequent runs of `setup_dev_env.sh` you are given options to wipe the container volumes, rebuild docker containers or restart the docker containers.
 
 Login to the Willow CMS admin area at [http://localhost:8080/admin](http://localhost:8080/admin) using `admin@test.com` & `password`.
 

@@ -144,6 +144,7 @@ class SeoContentGenerator
             'linkedin_description',
             'twitter_description',
             'instagram_description',
+            'description',
         ];
 
         foreach ($expectedKeys as $key) {

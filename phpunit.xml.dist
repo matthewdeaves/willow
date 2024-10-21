@@ -30,7 +30,6 @@
     <!-- Load extensions -->
     <extensions>
         <bootstrap class="Cake\TestSuite\Fixture\Extension\PHPUnitExtension"/>
-        <bootstrap class="App\Test\Cleanup"/>
     </extensions>
 
     <!-- Ignore vendor tests in code coverage reports -->

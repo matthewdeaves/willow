@@ -1,49 +1,37 @@
-# Detect the operating system
-OS="$(uname)"
-
-# Function to determine if sudo is needed
-needs_sudo() {
-    if [ "$OS" = "Linux" ]; then
-        echo "sudo"
-    else
-        echo ""
-    fi
-}
-
 # CakePHP Shells
-alias cake_shell='$(needs_sudo) docker compose exec php bin/cake "$@"'
-alias php_exec='$(needs_sudo) docker compose exec php "$@"'
-alias php_shell='$(needs_sudo) docker compose exec -it php /bin/sh'
+alias cake_shell='sudo docker compose exec willowcms bin/cake "$@"'
+alias willowcms_exec='sudo docker compose exec willowcms "$@"'
+alias willowcms_shell='sudo docker compose exec -it willowcms /bin/sh'
 
 # Testing Commands
-alias phpunit='php_exec php vendor/bin/phpunit'
-alias phpunit_cov='php_exec php vendor/bin/phpunit --coverage-text'
-alias phpunit_cov_html='php_exec php vendor/bin/phpunit --coverage-html webroot/coverage tests/TestCase/'
+alias phpunit='willowcms_exec php vendor/bin/phpunit'
+alias phpunit_cov='willowcms_exec php vendor/bin/phpunit --coverage-text'
+alias phpunit_cov_html='willowcms_exec php vendor/bin/phpunit --coverage-html webroot/coverage tests/TestCase/'
 
 # Code Quality Commands
-alias composer_cs_check='php_exec php composer cs-check'
-alias composer_cs_fix='php_exec php composer cs-fix'
-alias phpcs_sniff='php_exec php vendor/bin/phpcs --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/'
-alias phpcs_fix='php_exec php vendor/bin/phpcbf'
-alias phpstan_analyse='php_exec php vendor/bin/phpstan analyse src/'
+alias composer_cs_check='willowcms_exec php composer cs-check'
+alias composer_cs_fix='willowcms_exec php composer cs-fix'
+alias phpcs_sniff='willowcms_exec php vendor/bin/phpcs --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/'
+alias phpcs_fix='willowcms_exec php vendor/bin/phpcbf'
+alias phpstan_analyse='willowcms_exec php vendor/bin/phpstan analyse src/'
 
 # Queue Worker
-alias cake_queue_worker='php_exec bin/cake queue worker --verbose'
+alias cake_queue_worker='willowcms_exec bin/cake queue worker --verbose'
 
 # Set permissions for specific directories
-alias set_permissions='php_exec chmod -R 777 tmp logs webroot'
+alias set_permissions='willowcms_exec chmod -R 777 tmp logs webroot'
 
 # Quick BashRC Edits
 alias edit_bashrc='nano ~/.bashrc'
 alias reload_bashrc='source ~/.bashrc'
 
 # Docker Management
-alias docker_names='$(needs_sudo) docker container ls -a --format "{{.Names}}"'
-alias docker_prune='$(needs_sudo) docker system prune -a'
-alias docker_up='$(needs_sudo) docker compose up -d'
-alias docker_down='$(needs_sudo) docker compose down'
-alias docker_downv='$(needs_sudo) docker compose down -v'
-alias docker_logs='$(needs_sudo) docker compose logs -f'
+alias docker_names='sudo docker container ls -a --format "{{.Names}}"'
+alias docker_prune='sudo docker system prune -a'
+alias docker_up='sudo docker compose up -d'
+alias docker_down='sudo docker compose down'
+alias docker_downv='sudo docker compose down -v'
+alias docker_logs='sudo docker compose logs -f'
 
 # Git Commands
 alias gs='git status'
@@ -52,19 +40,19 @@ alias gc='git commit'
 alias gd='git diff'
 
 # CakePHP Bake Commands
-alias cake_bake_model='php_exec bin/cake bake model'
-alias cake_bake_controller='php_exec bin/cake bake controller'
-alias cake_bake_template='php_exec bin/cake bake template'
+alias cake_bake_model='willowcms_exec bin/cake bake model'
+alias cake_bake_controller='willowcms_exec bin/cake bake controller'
+alias cake_bake_template='willowcms_exec bin/cake bake template'
 
 # CakePHP Cache and Migrations
-alias cake_clear_cache='php_exec bin/cake cache clear_all'
-alias cake_migrate='php_exec bin/cake migrations migrate'
-alias cake_rollback='php_exec bin/cake migrations rollback'
+alias cake_clear_cache='willowcms_exec bin/cake cache clear_all'
+alias cake_migrate='willowcms_exec bin/cake migrations migrate'
+alias cake_rollback='willowcms_exec bin/cake migrations rollback'
 
 # Change ownership of current directory to current user
 change_ownership() {
     local current_user=$(whoami)
     local current_group=$(id -gn)
-    $(needs_sudo) chown -R "$current_user:$current_group" .
+    sudo chown -R "$current_user:$current_group" .
     echo "Ownership set to $current_user:$current_group for current directory and subdirectories."
 }

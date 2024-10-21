@@ -143,7 +143,7 @@ class V1 extends AbstractMigration
             ])
             ->addColumn('meta_title', 'string', [
                 'default' => null,
-                'limit' => 255,
+                'limit' => 400,
                 'null' => true,
             ])
             ->addColumn('meta_description', 'text', [
@@ -151,29 +151,29 @@ class V1 extends AbstractMigration
                 'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('meta_keywords', 'string', [
+            ->addColumn('meta_keywords', 'text', [
                 'default' => null,
-                'limit' => 255,
+                'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('facebook_description', 'string', [
+            ->addColumn('facebook_description', 'text', [
                 'default' => null,
-                'limit' => 300,
+                'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('linkedin_description', 'string', [
+            ->addColumn('linkedin_description', 'text', [
                 'default' => null,
-                'limit' => 700,
+                'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('instagram_description', 'string', [
+            ->addColumn('instagram_description', 'text', [
                 'default' => null,
-                'limit' => 2000,
+                'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('twitter_description', 'string', [
+            ->addColumn('twitter_description', 'text', [
                 'default' => null,
-                'limit' => 280,
+                'limit' => null,
                 'null' => true,
             ])
             ->addColumn('word_count', 'integer', [
@@ -504,49 +504,6 @@ class V1 extends AbstractMigration
             ])
             ->create();
 
-        $this->table('queue_failed_jobs')
-            ->addColumn('class', 'string', [
-                'default' => null,
-                'limit' => 255,
-                'null' => false,
-            ])
-            ->addColumn('method', 'string', [
-                'default' => null,
-                'limit' => 255,
-                'null' => false,
-            ])
-            ->addColumn('data', 'text', [
-                'default' => null,
-                'limit' => null,
-                'null' => false,
-            ])
-            ->addColumn('config', 'string', [
-                'default' => null,
-                'limit' => 255,
-                'null' => false,
-            ])
-            ->addColumn('priority', 'string', [
-                'default' => null,
-                'limit' => 255,
-                'null' => true,
-            ])
-            ->addColumn('queue', 'string', [
-                'default' => null,
-                'limit' => 255,
-                'null' => false,
-            ])
-            ->addColumn('exception', 'text', [
-                'default' => null,
-                'limit' => null,
-                'null' => true,
-            ])
-            ->addColumn('created', 'datetime', [
-                'default' => null,
-                'limit' => null,
-                'null' => true,
-            ])
-            ->create();
-
         $this->table('settings', ['id' => false, 'primary_key' => ['id']])
             ->addColumn('id', 'uuid', [
                 'default' => null,
@@ -701,29 +658,29 @@ class V1 extends AbstractMigration
                 'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('meta_keywords', 'string', [
+            ->addColumn('meta_keywords', 'text', [
                 'default' => null,
-                'limit' => 255,
+                'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('facebook_description', 'string', [
+            ->addColumn('facebook_description', 'text', [
                 'default' => null,
-                'limit' => 300,
+                'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('linkedin_description', 'string', [
+            ->addColumn('linkedin_description', 'text', [
                 'default' => null,
-                'limit' => 700,
+                'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('instagram_description', 'string', [
+            ->addColumn('instagram_description', 'text', [
                 'default' => null,
-                'limit' => 2000,
+                'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('twitter_description', 'string', [
+            ->addColumn('twitter_description', 'text', [
                 'default' => null,
-                'limit' => 280,
+                'limit' => null,
                 'null' => true,
             ])
             ->create();
@@ -858,7 +815,6 @@ class V1 extends AbstractMigration
         $this->table('images')->drop()->save();
         $this->table('models_images')->drop()->save();
         $this->table('page_views')->drop()->save();
-        $this->table('queue_failed_jobs')->drop()->save();
         $this->table('settings')->drop()->save();
         $this->table('slugs')->drop()->save();
         $this->table('system_logs')->drop()->save();

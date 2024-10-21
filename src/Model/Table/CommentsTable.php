@@ -107,16 +107,14 @@ class CommentsTable extends Table
     public function afterSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
         if (SettingsManager::read('AI.enabled')) {
-            $message = [
+            $data = [
                 'comment_id' => $entity->id,
                 'content' => $entity->content,
                 'user_id' => $entity->user_id,
             ];
 
-            // Queue up a comment analysis job
-            QueueManager::push('App\Job\CommentAnalysisJob', [
-                'args' => [$message],
-            ]);
+            // Queue up a comment analysis job];
+            QueueManager::push('App\Job\CommentAnalysisJob', $data);
         }
     }
 }

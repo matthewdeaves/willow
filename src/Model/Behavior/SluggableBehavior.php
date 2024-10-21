@@ -104,7 +104,6 @@ class SluggableBehavior extends Behavior
                 '/^[a-z0-9-]+$/',
                 __('The slug must be URL-safe (only lowercase letters, numbers, and hyphens)')
             )
-            ->requirePresence($slugField, 'create')
             ->allowEmptyString($slugField)
             ->add($slugField, 'unique', [
                 'rule' => 'validateUnique',

@@ -7,10 +7,10 @@ use App\Utility\SettingsManager;
 use ArrayObject;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
+use Cake\Log\LogTrait;
 use Cake\ORM\Table;
 use Cake\Queue\QueueManager;
 use Cake\Validation\Validator;
-use Exception;
 
 /**
  * Tags Model
@@ -33,6 +33,8 @@ use Exception;
  */
 class TagsTable extends Table
 {
+    use LogTrait;
+
     /**
      * Initialize method
      *
@@ -93,17 +95,19 @@ class TagsTable extends Table
      */
     public function afterSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
-        if (SettingsManager::read('AI.enabled')) {
-            try {
-                QueueManager::push('App\Job\TagSeoUpdateJob', [
-                    'args' => [[
-                        'id' => $entity->id,
-                        'title' => $entity->title,
-                    ]],
-                ]);
-            } catch (Exception $e) {
-                $this->log('Failed to queue tag SEO update job: ' . $e->getMessage(), 'error');
-            }
+        if (SettingsManager::read('AI.enabled') && $entity->isDirty('title')) {
+            $data = [
+                'id' => $entity->id,
+                'title' => $entity->title,
+            ];
+
+            QueueManager::push('App\Job\TagSeoUpdateJob', $data);
+
+            $this->log(
+                __('Queue tag SEO update job for Tag:{0}', [$entity->title]),
+                'info',
+                ['group_name' => 'tag_seo_update']
+            );
         }
     }
 }

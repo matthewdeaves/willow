@@ -20,6 +20,7 @@ use Cake\Controller\Controller;
 use Cake\Core\Configure;
 use Cake\Event\EventInterface;
 use Cake\Http\Response;
+use Cake\Log\LogTrait;
 
 /**
  * Application Controller
@@ -31,6 +32,8 @@ use Cake\Http\Response;
  */
 class AppController extends Controller
 {
+    use LogTrait;
+
     /**
      * Initialization hook method.
      *

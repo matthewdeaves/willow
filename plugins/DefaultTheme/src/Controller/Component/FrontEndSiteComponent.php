@@ -84,12 +84,41 @@ class FrontEndSiteComponent extends Component
     {
         $tagsTable = $this->getController()->fetchTable('Tags');
         $query = $tagsTable->find()
-            ->contain(['Articles' => function ($q) {
-                return $q->select(['id', 'title', 'slug', 'user_id'])
-                        ->order(['Articles.created' => 'DESC']);
-            }])
+            ->select([
+                'Tags.id',
+                'Tags.title',
+                'Tags.slug',
+                'Tags.description',
+                'Tags.created',
+                'Tags.modified',
+                'Tags.meta_title',
+                'Tags.meta_description',
+                'Tags.meta_keywords',
+                'Tags.facebook_description',
+                'Tags.linkedin_description',
+                'Tags.instagram_description',
+                'Tags.twitter_description'
+            ])
+            ->innerJoinWith('Articles', function ($q) {
+                return $q->where(['Articles.is_published' => true]);
+            })
+            ->groupBy([
+                'Tags.id',
+                'Tags.title',
+                'Tags.slug',
+                'Tags.description',
+                'Tags.created',
+                'Tags.modified',
+                'Tags.meta_title',
+                'Tags.meta_description',
+                'Tags.meta_keywords',
+                'Tags.facebook_description',
+                'Tags.linkedin_description',
+                'Tags.instagram_description',
+                'Tags.twitter_description'
+            ])
             ->orderBy(['Tags.title' => 'ASC']);
-
+    
         return $query->all();
     }
 }

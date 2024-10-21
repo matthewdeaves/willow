@@ -7,10 +7,8 @@ use App\Utility\SettingsManager;
 use ArrayObject;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
-use Cake\Log\Log;
 use Cake\ORM\Behavior;
 use Cake\Queue\QueueManager;
-use Exception;
 
 class QueueableImageBehavior extends Behavior
 {
@@ -57,28 +55,20 @@ class QueueableImageBehavior extends Behavior
     {
         $config = $this->getConfig();
         if ($entity->isDirty($config['field'])) {
-            $message = [
+            $data = [
                 'folder_path' => WWW_ROOT . $config['folder_path'],
                 'file' => $entity->{$config['field']},
                 'id' => $entity->id,
-                'model' => $event->getSubject()->getAlias(),
             ];
 
-            try {
-                // Queue up an image processing job
-                QueueManager::push('App\Job\ProcessImageJob', [
-                    'args' => [$message],
-                ]);
+            // Queue up an image processing job
+            QueueManager::push('App\Job\ProcessImageJob', $data);
 
-                if (SettingsManager::read('AI.enabled')) {
-                    // Queue up an image analysis job
-                    QueueManager::push('App\Job\ImageAnalysisJob', [
-                        'args' => [$message],
-                    ]);
-                }
-            } catch (Exception $e) {
-                // Log the error message
-                Log::error('Failed to queue image resize job: ' . $e->getMessage());
+            if (SettingsManager::read('AI.enabled')) {
+                $data['model'] = $event->getSubject()->getAlias();
+
+                // Queue up an image analysis job
+                QueueManager::push('App\Job\ImageAnalysisJob', $data);
             }
         }
     }

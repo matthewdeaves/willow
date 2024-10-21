@@ -8,13 +8,13 @@ use App\Service\Api\AnthropicApiService;
 use InvalidArgumentException;
 
 /**
- * SeoContentGenerator Class
+ * ArticleTagsGenerator
  *
- * This class is responsible for generating SEO content for tags and articles
- * using the Anthropic API service. It interacts with the AI prompts table to retrieve
- * prompt data and uses the AnthropicApiService to send requests and parse responses.
+ * This class is responsible for generating article tags using the Anthropic API service.
+ * It interacts with the AI prompts table to retrieve prompt data and uses the AnthropicApiService
+ * to send requests and parse responses.
  */
-class SeoContentGenerator
+class ArticleTagsGenerator
 {
     /**
      * The Anthropic API service used for sending requests and parsing responses.
@@ -24,16 +24,16 @@ class SeoContentGenerator
     private AnthropicApiService $apiService;
 
     /**
-     * The AI prompts table for retrieving prompt data necessary for SEO content generation.
+     * The AI prompts table for retrieving prompt data necessary for generating tags.
      *
      * @var \App\Model\Table\AipromptsTable
      */
     private AipromptsTable $aipromptsTable;
 
     /**
-     * SeoContentGenerator constructor.
+     * ArticleTagsGenerator constructor.
      *
-     * Initializes the API service and AI prompts table for SEO content generation.
+     * Initializes the API service and AI prompts table.
      *
      * @param \App\Service\Api\AnthropicApiService $apiService The Anthropic API service.
      * @param \App\Model\Table\AipromptsTable $aipromptsTable The AI prompts table.
@@ -45,55 +45,24 @@ class SeoContentGenerator
     }
 
     /**
-     * Generates SEO content for a tag.
+     * Generates article tags based on the provided title and body content.
      *
-     * This method performs the following steps:
-     * 1. Retrieves the appropriate prompt data for tag SEO analysis.
-     * 2. Creates a payload with the tag title and description.
-     * 3. Sends a request to the Anthropic API and processes the response.
-     * 4. Ensures all expected SEO keys are present in the result.
+     * This method retrieves the appropriate prompt data, creates a payload,
+     * sends a request to the Anthropic API, and processes the response to generate tags.
      *
-     * @param string $tagTitle The title of the tag.
-     * @param string $tagDescription The description of the tag.
-     * @return array The generated SEO content, including meta tags and social media descriptions.
-     * @throws \InvalidArgumentException If the task prompt data is not found.
-     */
-    public function generateTagSeo(string $tagTitle, string $tagDescription): array
-    {
-        $promptData = $this->getPromptData('tag_seo_analysis');
-        $payload = $this->createPayload($promptData, [
-            'tag_title' => $tagTitle,
-            'tag_description' => $tagDescription,
-        ]);
-
-        $response = $this->apiService->sendRequest($payload);
-        $result = $this->apiService->parseResponse($response);
-
-        return $this->ensureExpectedKeys($result);
-    }
-
-    /**
-     * Generates SEO content for an article.
-     *
-     * This method performs the following steps:
-     * 1. Strips HTML tags and decodes entities from the article body.
-     * 2. Retrieves the appropriate prompt data for article SEO analysis.
-     * 3. Creates a payload with the article title and plain text content.
-     * 4. Sends a request to the Anthropic API and processes the response.
-     * 5. Ensures all expected SEO keys are present in the result.
-     *
+     * @param array $allTags An array of existing tags.
      * @param string $title The title of the article.
-     * @param string $body The body content of the article (may contain HTML).
-     * @return array The generated SEO content, including meta tags and social media descriptions.
+     * @param string $body The body content of the article.
+     * @return array The generated tags for the article.
      * @throws \InvalidArgumentException If the task prompt data is not found.
      */
-    public function generateArticleSeo(string $title, string $body): array
+    public function generateArticleTags(array $allTags, string $title, string $body): array
     {
-        $plainTextContent = strip_tags(html_entity_decode($body));
-        $promptData = $this->getPromptData('article_seo_analysis');
+        $promptData = $this->getPromptData('article_tag_generation');
         $payload = $this->createPayload($promptData, [
+            'existing_tags' => $allTags,
             'article_title' => $title,
-            'article_content' => $plainTextContent,
+            'article_content' => $body,
         ]);
 
         $response = $this->apiService->sendRequest($payload);
@@ -129,8 +98,8 @@ class SeoContentGenerator
      * Retrieves prompt data for a specific task from the AI prompts table.
      *
      * @param string $task The task type for which to retrieve prompt data.
-     * @return array The retrieved prompt data including system prompt, model, max tokens, and temperature.
-     * @throws \InvalidArgumentException If the task is unknown or not found in the AI prompts table.
+     * @return array The retrieved prompt data.
+     * @throws \InvalidArgumentException If the task is unknown or not found.
      */
     private function getPromptData(string $task): array
     {
@@ -151,22 +120,15 @@ class SeoContentGenerator
     }
 
     /**
-     * Ensures that the result contains all expected SEO keys, initializing them if necessary.
+     * Ensures that the result contains all expected keys, initializing them if necessary.
      *
      * @param array $result The result array to check and modify.
-     * @return array The result array with all expected SEO keys initialized.
+     * @return array The result array with all expected keys initialized.
      */
     private function ensureExpectedKeys(array $result): array
     {
         $expectedKeys = [
-            'meta_title',
-            'meta_description',
-            'meta_keywords',
-            'facebook_description',
-            'linkedin_description',
-            'twitter_description',
-            'instagram_description',
-            'description',
+            'tags',
         ];
 
         foreach ($expectedKeys as $key) {

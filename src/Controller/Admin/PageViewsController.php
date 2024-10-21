@@ -5,8 +5,10 @@ namespace App\Controller\Admin;
 
 use App\Controller\AppController;
 use App\Model\Table\ArticlesTable;
+use Cake\Core\Configure;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
+use Cake\Log\LogTrait;
 use DateTime;
 use Exception;
 
@@ -17,6 +19,8 @@ use Exception;
  */
 class PageViewsController extends AppController
 {
+    use LogTrait;
+
     /**
      * Articles Table
      *
@@ -126,9 +130,11 @@ class PageViewsController extends AppController
      */
     public function filterStats(string $articleId): ?Response
     {
-        $this->log('Filter request received for article ID: ' . $articleId, 'debug');
-        $this->log('Start date: ' . $this->request->getQuery('start'), 'debug');
-        $this->log('End date: ' . $this->request->getQuery('end'), 'debug');
+        if (Configure::read('debug')) {
+            $this->log('Filter request received for article ID: ' . $articleId, 'debug');
+            $this->log('Start date: ' . $this->request->getQuery('start'), 'debug');
+            $this->log('End date: ' . $this->request->getQuery('end'), 'debug');
+        }
 
         try {
             $article = $this->Articles->find()
@@ -153,7 +159,7 @@ class PageViewsController extends AppController
                     'date' => 'DATE(created)',
                     'count' => $this->PageViews->find()->func()->count('*'),
                 ])
-                ->group('DATE(created)')
+                ->groupBy('DATE(created)')
                 ->orderBy(['DATE(created)' => 'ASC'])
                 ->all();
 
@@ -164,7 +170,9 @@ class PageViewsController extends AppController
                 'totalViews' => $totalViews,
             ];
 
-            $this->log('Filtered data: ' . json_encode($filteredData), 'debug');
+            if (Configure::read('debug')) {
+                $this->log('Filtered data: ' . json_encode($filteredData), 'debug');
+            }
 
             return $this->response->withType('application/json')->withStringBody(json_encode($filteredData));
         } catch (Exception $e) {

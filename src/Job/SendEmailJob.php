@@ -23,108 +23,112 @@ class SendEmailJob implements JobInterface
     use LogTrait;
 
     /**
-     * Maximum number of attempts to process the job
+     * Maximum number of attempts to process the job.
+     *
+     * This property defines how many times the job should be retried if it fails.
      *
      * @var int|null
      */
     public static ?int $maxAttempts = 3;
 
     /**
-     * Whether there should be only one instance of a job on the queue at a time. (optional property)
+     * Indicates if there should be only one instance of this job on the queue at a time.
+     *
+     * When set to true, it ensures that only one instance of this job is queued,
+     * preventing duplicate processing.
      *
      * @var bool
      */
     public static bool $shouldBeUnique = false;
 
     /**
-     * Executes the email sending job
+     * Executes the email sending process using the provided message data.
      *
-     * This method processes the job message, validates the input, fetches the email template,
-     * replaces placeholders, and sends the email. It logs various stages of the process
-     * and handles exceptions.
+     * This method performs the following steps:
+     * 1. Retrieves email details from the Message object.
+     * 2. Logs the email job details for tracking.
+     * 3. Fetches the email template from the database.
+     * 4. Replaces placeholders in the email body with provided view variables.
+     * 5. Configures and sends the email using CakePHP's Mailer class.
+     * 6. Logs the result of the email sending process.
      *
-     * @param \Cake\Queue\Job\Message $message The job message containing email sending details
-     * @return string|null Returns Processor::ACK on success, Processor::REJECT on failure
+     * @param \Cake\Queue\Job\Message $message The message object containing email details such as
+     *                                         template identifier, sender, recipient, and view variables.
+     * @return string|null Returns Processor::ACK if the email is sent successfully,
+     *                     Processor::REJECT if the email sending fails or an error occurs.
+     * @throws \Exception If the email template is not found in the database or any other error
+     *                    occurs during the process.
      */
     public function execute(Message $message): ?string
     {
-        $args = $message->getArgument('args');
-        $this->log('Received message: ' . json_encode($args), 'debug');
+        // Get the data we need
+        $templateIdentifier = $message->getArgument('template_identifier');
+        $from = $message->getArgument('from');
+        $to = $message->getArgument('to');
+        $viewVars = $message->getArgument('viewVars');
 
-        if (!is_array($args) || !isset($args[0]) || !is_array($args[0])) {
-            $this->log('Invalid args structure', 'error');
+        $this->log(
+            __(
+                'Processing email job: Template: {0} From: {1} To: {2} viewVars: {3}',
+                [
+                $templateIdentifier,
+                $from,
+                $to,
+                json_encode($viewVars),
+                ]
+            ),
+            'info',
+            ['group_name' => 'email_sending']
+        );
 
-            return Processor::REJECT;
+        // Fetch the email template from the database
+        $emailTemplatesTable = TableRegistry::getTableLocator()->get('EmailTemplates');
+        $emailTemplate = $emailTemplatesTable->find()
+            ->where(['template_identifier' => $templateIdentifier])
+            ->first();
+
+        if (!$emailTemplate) {
+            throw new Exception(__('Email template not found: {0}', $templateIdentifier));
         }
 
-        $payload = $args[0];
-
-        $template = $payload['template_identifier'] ?? null;
-        $from = $payload['from'] ?? null;
-        $to = $payload['to'] ?? null;
-        $viewVars = $payload['viewVars'] ?? [];
-
-        if (!$template || !$from || !$to || empty($viewVars)) {
-            $this->log('Missing required fields in payload', 'error');
-
-            return Processor::REJECT;
+        // Replace placeholders in the email body
+        foreach ($viewVars as $key => $value) {
+            $emailTemplate->body_html = str_replace('{' . $key . '}', $value, $emailTemplate->body_html);
+            $emailTemplate->body_plain = str_replace('{' . $key . '}', $value, $emailTemplate->body_plain);
         }
 
-        $this->log(sprintf(
-            'Processing email job: template=%s, from=%s, to=%s, viewVars=%s',
-            $template,
-            $from,
-            $to,
-            json_encode($viewVars)
-        ), 'info');
+        $mailer = new Mailer('default');
+        $mailer->setTo($to)
+            ->setFrom($from)
+            ->setSubject($emailTemplate->subject)
+            ->setEmailFormat('both')
+            ->setViewVars([
+                'bodyHtml' => $emailTemplate->body_html,
+                'bodyPlain' => $emailTemplate->body_plain,
+            ])
+            ->viewBuilder()
+                ->setTemplate('default')
+                ->setLayout('default')
+                ->setPlugin('AdminTheme');
 
-        try {
-            // Fetch the email template from the database
-            $emailTemplatesTable = TableRegistry::getTableLocator()->get('EmailTemplates');
-            $emailTemplate = $emailTemplatesTable->find()
-                ->where(['template_identifier' => $template])
-                ->first();
+        $result = $mailer->deliver();
 
-            if (!$emailTemplate) {
-                throw new Exception("Email template not found: {$template}");
-            }
+        if ($result) {
+            $this->log(
+                __('Email sent successfully: {0} to {1}', [$emailTemplate->subject, $to]),
+                'info',
+                ['group_name' => 'email_sending']
+            );
 
-            $bodyHtml = $emailTemplate->body_html ?? '';
-            $bodyPlain = $emailTemplate->body_plain ?? '';
-
-            // Replace placeholders in the email body
-            foreach ($viewVars as $key => $value) {
-                $bodyHtml = str_replace('{' . $key . '}', $value, $bodyHtml);
-                $bodyPlain = str_replace('{' . $key . '}', $value, $bodyPlain);
-            }
-
-            $mailer = new Mailer('default');
-            $mailer->setTo($to)
-                ->setFrom($from)
-                ->setSubject($emailTemplate->subject)
-                ->setEmailFormat('both')
-                ->setViewVars([
-                    'bodyHtml' => $bodyHtml,
-                    'bodyPlain' => $bodyPlain,
-                ])
-                ->viewBuilder()
-                    ->setTemplate('default')
-                    ->setLayout('default')
-                    ->setPlugin('AdminTheme');
-
-            $result = $mailer->deliver();
-
-            if ($result) {
-                $this->log('Email sent successfully', 'info');
-            } else {
-                throw new Exception('Failed to send email');
-            }
-        } catch (Exception $e) {
-            $this->log('Error sending email: ' . $e->getMessage(), 'error');
-
-            return Processor::REJECT;
+            return Processor::ACK;
+        } else {
+            $this->log(
+                __('Email sending failed: {0} to {1}', [$emailTemplate->subject, $to]),
+                'error',
+                ['group_name' => 'email_sending']
+            );
         }
 
-        return Processor::ACK;
+        return Processor::REJECT;
     }
 }

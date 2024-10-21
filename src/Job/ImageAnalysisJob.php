@@ -12,128 +12,95 @@ use Exception;
 use Interop\Queue\Processor;
 
 /**
- * ImageAnalysisJob Class
+ * ImageAnalysisJob
  *
- * This class is responsible for analyzing images as a background job.
- * It receives image paths, makes API calls to analyze the images,
- * and saves the alt text and keywords back to the database.
+ * This job is responsible for analyzing images using the Anthropic API.
+ * It processes messages from the queue to analyze images and update their metadata.
  */
 class ImageAnalysisJob implements JobInterface
 {
     use LogTrait;
 
     /**
-     * Maximum number of attempts to process the job
+     * Maximum number of attempts for the job.
      *
      * @var int|null
      */
     public static ?int $maxAttempts = 3;
 
     /**
-     * Whether there should be only one instance of a job on the queue at a time. (optional property)
+     * Whether there should be only one instance of a job on the queue at a time.
      *
      * @var bool
      */
     public static bool $shouldBeUnique = false;
 
     /**
-     * @var \App\Service\Api\AnthropicApiService The Anthropic API service for image analysis.
+     * Instance of the Anthropic API service.
+     *
+     * @var \App\Service\Api\AnthropicApiService
      */
     private AnthropicApiService $anthropicService;
 
     /**
-     * ImageAnalysisJob constructor.
+     * Executes the job to analyze an image and update its metadata.
      *
-     * Initializes the AnthropicApiService instance.
-     */
-    public function __construct()
-    {
-        $this->anthropicService = new AnthropicApiService();
-    }
-
-    /**
-     * Execute the image analysis job.
+     * This method processes the message, retrieves the image, analyzes it using the Anthropic API,
+     * and updates the image record with the analysis results.
      *
-     * This method processes the image analysis job by receiving the message,
-     * validating the payload, calling the API for analysis, and saving the
-     * results to the database.
-     *
-     * @param \Cake\Queue\Job\Message $message The message containing job arguments.
+     * @param \Cake\Queue\Job\Message $message The message containing image data.
      * @return string|null Returns Processor::ACK on success, Processor::REJECT on failure.
      */
     public function execute(Message $message): ?string
     {
-        $args = $message->getArgument('args');
+        $this->anthropicService = new AnthropicApiService();
+
+        $folderPath = $message->getArgument('folder_path');
+        $file = $message->getArgument('file');
+        $id = $message->getArgument('id');
+        $model = $message->getArgument('model');
+
         $this->log(
-            __('Received image analysis message: {0}', [json_encode($args)]),
-            'debug',
+            __('Received image analysis message: Image ID: {0} Path: {1}', [$id, $folderPath . $file]),
+            'info',
             ['group_name' => 'image_analysis']
         );
 
-        if (!is_array($args) || !isset($args[0]) || !is_array($args[0])) {
-            $this->log(
-                __('Invalid argument structure for image analysis job. Expected array, got: {0}', [gettype($args)]),
-                'error',
-                ['group_name' => 'image_analysis']
-            );
-
-            return Processor::REJECT;
-        }
-
-        $payload = $args[0];
-        $folder_path = $payload['folder_path'] ?? null;
-        $file = $payload['file'] ?? null;
-        $modelId = $payload['id'] ?? null;
-        $model = $payload['model'] ?? null;
-
-        if (!$folder_path || !$file || !$model || !$modelId) {
-            $this->log(
-                __('Missing required fields in image analysis payload. Path: {0}, File: {1}', [$folder_path, $file]),
-                'error',
-                ['group_name' => 'image_analysis']
-            );
-
-            return Processor::REJECT;
-        }
+        $modelTable = TableRegistry::getTableLocator()->get($model);
+        $image = $modelTable->get($id);
 
         try {
-            $analysisResult = $this->anthropicService->analyzeImage($folder_path . $file);
+            $analysisResult = $this->anthropicService->analyzeImage($folderPath . $file);
 
             if ($analysisResult) {
-                $modelTable = TableRegistry::getTableLocator()->get($model);
-                $image = $modelTable->get($modelId);
+                $image->name = $analysisResult['name'];
                 $image->alt_text = $analysisResult['alt_text'];
                 $image->keywords = $analysisResult['keywords'];
-                $image->name = $analysisResult['name'];
-                $modelTable->save($image);
 
-                $this->log(
-                    __('Image analysis completed successfully. Model: {0} ID: {1}', [$model, $modelId]),
-                    'info',
-                    ['group_name' => 'image_analysis']
-                );
+                if ($modelTable->save($image)) {
+                    $this->log(
+                        __('Image analysis completed successfully. Model: {0} ID: {1}', [$model, $id]),
+                        'info',
+                        ['group_name' => 'image_analysis']
+                    );
 
-                return Processor::ACK;
-            } else {
-                $this->log(
-                    __('Image analysis failed. No result returned. Image Path: {0}', [$folder_path . $file]),
-                    'error',
-                    ['group_name' => 'image_analysis']
-                );
-
-                return Processor::REJECT;
+                    return Processor::ACK;
+                }
             }
-        } catch (Exception $e) {
+
             $this->log(
-                __(
-                    'Error during image analysis. Image Path: {0}, Error: {1}',
-                    [$folder_path . $file, $e->getMessage()]
-                ),
+                __('Image analysis failed. Model: {0} ID: {1}', [$model, $id]),
                 'error',
                 ['group_name' => 'image_analysis']
             );
-
-            return Processor::REJECT;
+        } catch (Exception $e) {
+            $this->log(
+                __('Error during image analysis: {0}', [$e->getMessage()]),
+                'error',
+                ['group_name' => 'image_analysis']
+            );
         }
+
+        return Processor::REJECT;
     }
 }

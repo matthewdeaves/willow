@@ -8,6 +8,7 @@ use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
+use Cake\Log\LogTrait;
 use Exception;
 use Imagick;
 
@@ -18,6 +19,8 @@ use Imagick;
  */
 class ResizeImagesCommand extends Command
 {
+    use LogTrait;
+
     /**
      * Stores the model names and their respective columns to process.
      *
@@ -132,7 +135,7 @@ class ResizeImagesCommand extends Command
         try {
             if (!file_exists($folder . $file)) {
                 $this->log(
-                    __('Original image not found for resizing. Path: {0}', [$original]),
+                    __('Original image not found for resizing. Path: {0}', [$folder . $file]),
                     'error',
                     ['group_name' => 'image_processing']
                 );

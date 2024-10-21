@@ -37,6 +37,7 @@ docker compose exec php bin/cake cache clear_all
 docker compose down
 docker compose up -d
 
+#EXPERIMENTAL FEATURE/MAKES DEVELOPMENT OF JOBS HARDER AS QUEUE ALWAYS ON
 # Start or restart supervisord
-docker-compose exec -d php sh -c "/usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf"
+#docker-compose exec -d php sh -c "/usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf"
 

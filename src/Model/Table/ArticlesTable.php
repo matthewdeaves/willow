@@ -8,6 +8,7 @@ use App\Utility\SettingsManager;
 use ArrayObject;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
+use Cake\Log\LogTrait;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
@@ -15,7 +16,6 @@ use Cake\Queue\QueueManager;
 use Cake\Utility\Text;
 use Cake\Validation\Validator;
 use DateTime;
-use Exception;
 use InvalidArgumentException;
 
 /**
@@ -41,6 +41,7 @@ use InvalidArgumentException;
 class ArticlesTable extends Table
 {
     use ArticleCacheTrait;
+    use LogTrait;
 
     /**
      * Initialize method for the ArticlesTable.
@@ -309,18 +310,48 @@ class ArticlesTable extends Table
             $this->Slugs->ensureSlugExists($entity->id, $entity->slug);
         }
 
-        // Queue an Article SEO update job
-        if ($entity->is_published && SettingsManager::read('AI.enabled')) {
-            try {
-                QueueManager::push('App\Job\ArticleSeoUpdateJob', [
-                    'args' => [[
-                        'id' => $entity->id,
-                        'title' => $entity->title,
-                    ]],
-                ]);
-            } catch (Exception $e) {
-                $this->log('Failed to queue article SEO update job: ' . $e->getMessage(), 'error');
-            }
+        // Published Articles should be SEO ready
+        if (
+            $entity->is_published
+            && SettingsManager::read('AI.enabled')
+            && ($entity->isDirty('title') || $entity->isDirty('body'))
+        ) {
+            $data = [
+                'id' => $entity->id,
+                'title' => $entity->title,
+            ];
+
+            // Queue a job to update the Article SEO fields
+            QueueManager::push('App\Job\ArticleSeoUpdateJob', $data);
+            $this->log(
+                __(
+                    'Queued Article SEO update job: {0}',
+                    [$entity->title]
+                ),
+                'info',
+                ['group_name' => 'article_seo_update']
+            );
+        }
+
+        // All Articles should be tagged from the start
+        if (
+            SettingsManager::read('AI.enabled')
+            && ($entity->isDirty('title') || $entity->isDirty('body'))
+        ) {
+            $data = [
+                'id' => $entity->id,
+                'title' => $entity->title,
+            ];
+
+            QueueManager::push('App\Job\ArticleTagUpdateJob', $data);
+            $this->log(
+                __(
+                    'Queued Article Tag update job: {0}',
+                    [$entity->title]
+                ),
+                'info',
+                ['group_name' => 'article_tag_update']
+            );
         }
     }
 

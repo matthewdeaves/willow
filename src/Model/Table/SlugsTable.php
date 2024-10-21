@@ -7,7 +7,7 @@ use App\Model\Table\Trait\ArticleCacheTrait;
 use ArrayObject;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
-use Cake\Log\Log;
+use Cake\Log\LogTrait;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -36,6 +36,7 @@ use Cake\Validation\Validator;
 class SlugsTable extends Table
 {
     use ArticleCacheTrait;
+    use LogTrait;
 
     /**
      * Initialize method
@@ -123,7 +124,11 @@ class SlugsTable extends Table
                 // Clear the cache for this new slug
                 $this->clearFromCache($slug);
             } else {
-                Log::error('Failed to save slug: ' . json_encode($newSlug->getErrors()));
+                $this->log(
+                    __('Failed to save slug: {0}', json_encode($newSlug->getErrors())),
+                    'error',
+                    ['group_name' => 'slug_creation']
+                );
             }
         }
     }

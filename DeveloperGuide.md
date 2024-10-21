@@ -143,7 +143,7 @@ Willow CMS leverages Anthropic's AI capabilities through a set of specialized cl
 #### 1. AbstractApiService
 **Location**: `src/Service/Api/AbstractApiService.php`
 
-   [src/Service/Api//AbstractApiService.php](https://github.com/matthewdeaves/willow/blob/main/src/Service/Api/AbstractApiService.php)
+   [src/Service/Api/AbstractApiService.php](https://github.com/matthewdeaves/willow/blob/main/src/Service/Api/AbstractApiService.php)
 
 The AbstractApiService serves as a base class for API interactions. It provides common functionality such as:
 - Sending HTTP POST requests with JSON payloads
@@ -203,6 +203,17 @@ This class leverages Anthropic's language generation capabilities to create SEO-
 This class could be extended to create more advanced SEO tools or to automate content creation processes.
 
 Developers can use these classes as a foundation for building more specialized Anthropic API interactions or as a model for integrating other AI services.
+
+#### 6. ArticleTagsGenerator
+**Location**: `src/Service/Api/Anthropic/ArticleTagsGenerator.php`
+
+   [src/Service/Api/Anthropic/ArticleTagsGenerator.php](https://github.com/matthewdeaves/willow/blob/main/src/Service/Api/Anthropic/ArticleTagsGenerator.php)
+
+The ArticleTagsGenerator class utilizes Anthropic's natural language processing capabilities to generate relevant tags for articles. Its main functionalities include:
+- Generating article tags based on the article's title and content
+- Considering existing tags to avoid duplication
+
+This class interacts with the AipromptsTable to fetch task-specific prompt data, ensuring that the tag generation process is customizable and can be fine-tuned as needed. Developers can extend this class to implement more advanced tagging features, such as hierarchical tagging or tag recommendations based on user behavior.
 
 ### Environment Configuration with `config/.env.example` 
 

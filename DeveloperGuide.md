@@ -1,3 +1,29 @@
+# Table of Contents
+
+1. [Getting Started with Willow CMS Code](#getting-started-with-willow-cms-code)
+   - [Key Code Folders](#key-code-folders)
+     - [Command Line Tools](#command-line-tools)
+     - [Controllers](#controllers)
+     - [Models](#models)
+     - [Templates](#templates)
+   - [Theming with Plugins](#theming-with-plugins)
+   - [Unit Tests](#unit-tests)
+   - [Running Unit Tests](#running-unit-tests)
+     - [Testing Commands](#testing-commands)
+     - [Code Coverage Reports](#code-coverage-reports)
+
+2. [Anthropic API Integration Classes](#anthropic-api-integration-classes)
+   - [AbstractApiService](#1-abstractapiservice)
+   - [AnthropicApiService](#2-anthropicapiservice)
+   - [CommentAnalyzer](#3-commentanalyzer)
+   - [ImageAnalyzer](#4-imageanalyzer)
+   - [SeoContentGenerator](#5-seocontentgenerator)
+   - [ArticleTagsGenerator](#6-articletagsgenerator)
+
+3. [Environment Configuration](#environment-configuration-with-configenvexample)
+   - [Steps to Use config/.env.example](#steps-to-use-configenvexample)
+   - [Configuration Options](#configuration-options)
+
 ## Getting Started with Willow CMS Code
 
 To help developers dive into the Willow CMS codebase, this section provides an overview of key components and resources. For a comprehensive understanding of CakePHP, which Willow CMS is built upon, refer to the [CakePHP Book](https://book.cakephp.org/5/en/index.html).

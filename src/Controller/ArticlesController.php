@@ -241,7 +241,7 @@ class ArticlesController extends AppController
                     'Tags',
                     'Comments' => function ($q) {
                         return $q->where(['Comments.display' => 1])
-                                ->order(['Comments.created' => 'DESC'])
+                                ->orderBy(['Comments.created' => 'DESC'])
                                 ->contain(['Users']);
                     },
                     'Images',

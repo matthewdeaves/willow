@@ -9,6 +9,7 @@
 3. [Queues and Consumers](#queues-and-consumers)
 4. [Development Guide](#development-guide)
    - [Useful Shell Aliases](#useful-shell-aliases)
+   - [Detailed Development Guide](https://github.com/matthewdeaves/willow/blob/main/DeveloperGuide.md)
 5. [Docker Containers](#docker-containers)
    - [Jenkins](#jenkins)
    - [MySQL Server](#mysql-server)

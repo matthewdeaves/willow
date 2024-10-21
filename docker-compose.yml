@@ -1,5 +1,12 @@
 services:
 
+  willowcms:
+    build:
+      context: .
+      dockerfile: docker/willowcms/Dockerfile
+    ports: 
+      - "80:80"
+
   mysql:
     image: mysql:5.7
     environment:

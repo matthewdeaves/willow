@@ -11,7 +11,6 @@ use Cake\Log\LogTrait;
 use Cake\ORM\Table;
 use Cake\Queue\QueueManager;
 use Cake\Validation\Validator;
-use Exception;
 
 /**
  * Tags Model

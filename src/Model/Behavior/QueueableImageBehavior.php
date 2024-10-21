@@ -7,10 +7,8 @@ use App\Utility\SettingsManager;
 use ArrayObject;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
-use Cake\Log\Log;
 use Cake\ORM\Behavior;
 use Cake\Queue\QueueManager;
-use Exception;
 
 class QueueableImageBehavior extends Behavior
 {

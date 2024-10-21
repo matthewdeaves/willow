@@ -11,7 +11,6 @@ use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
 use Interop\Queue\Processor;
 
-
 class CommentAnalysisJob implements JobInterface
 {
     use LogTrait;
@@ -29,7 +28,6 @@ class CommentAnalysisJob implements JobInterface
      * @var bool
      */
     public static bool $shouldBeUnique = false;
-
 
     public function execute(Message $message): ?string
     {

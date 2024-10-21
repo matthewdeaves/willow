@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace App\Job;
 
+use App\Service\AnthropicImageAnalyzer;
 use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
+use Exception;
 use Interop\Queue\Processor;
-use App\Utility\SettingsManager;
-use App\Service\AnthropicImageAnalyzer;
 
 class ImageAnalysisJob implements JobInterface
 {
@@ -61,7 +61,7 @@ class ImageAnalysisJob implements JobInterface
                 'error',
                 ['group_name' => 'image_analysis']
             );
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->log(
                 __('Error during image analysis: {0}', [$e->getMessage()]),
                 'error',

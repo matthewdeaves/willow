@@ -70,8 +70,8 @@ class SeoContentGenerator
         $plainTextContent = strip_tags(html_entity_decode($body));
         $promptData = $this->getPromptData('article_seo_analysis');
         $payload = $this->createPayload($promptData, [
-            'Title' => $title,
-            'Content' => $plainTextContent,
+            'article_title' => $title,
+            'article_content' => $plainTextContent,
         ]);
 
         $response = $this->apiService->sendRequest($payload);

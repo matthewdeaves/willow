@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Job;
 
-
+use App\Service\Api\AnthropicApiService;
 use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
@@ -23,10 +23,14 @@ class ArticleSeoUpdateJob implements JobInterface
      */
     public static bool $shouldBeUnique = true;
 
+    /**
+     * @var \App\Service\Api\AnthropicApiService
+     */
+    private AnthropicApiService $anthropicService;
 
     public function execute(Message $message): ?string
     {
-
+        $this->anthropicService = new AnthropicApiService();
 
         $id = $message->getArgument('id');
         $title = $message->getArgument('title');
@@ -40,7 +44,7 @@ class ArticleSeoUpdateJob implements JobInterface
         $articlesTable = TableRegistry::getTableLocator()->get('Articles');
         $article = $articlesTable->get($id);
 
-        $seoResult = $NEWCLASS->generateArticleSeo($title, strip_tags($article->body));
+        $seoResult = $this->anthropicService->generateArticleSeo($title, strip_tags($article->body));
 
         if ($seoResult) {
             //Set the data we got back

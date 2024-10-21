@@ -16,7 +16,6 @@ use Cake\Queue\QueueManager;
 use Cake\Utility\Text;
 use Cake\Validation\Validator;
 use DateTime;
-use Exception;
 use InvalidArgumentException;
 
 /**
@@ -312,7 +311,11 @@ class ArticlesTable extends Table
         }
 
         // Queue an Article SEO update job
-        if ($entity->is_published && SettingsManager::read('AI.enabled')) {
+        if (
+            $entity->is_published
+            && SettingsManager::read('AI.enabled')
+            && ($entity->isDirty('title') || $entity->isDirty('body'))
+        ) {
             $data = [
                 'id' => $entity->id,
                 'title' => $entity->title,

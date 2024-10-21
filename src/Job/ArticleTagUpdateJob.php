@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace App\Job;
 
+use App\Service\Api\AnthropicApiService;
 use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
 use Interop\Queue\Processor;
-
 
 class ArticleTagUpdateJob implements JobInterface
 {
@@ -26,12 +26,17 @@ class ArticleTagUpdateJob implements JobInterface
      *
      * @var bool
      */
-    public static bool $shouldBeUnique = true;
+    public static bool $shouldBeUnique = false;
 
+    /**
+     * @var \App\Service\Api\AnthropicApiService
+     */
+    private AnthropicApiService $anthropicService;
 
     public function execute(Message $message): ?string
     {
-    
+        $this->anthropicService = new AnthropicApiService();
+
         // Get message data we need
         $id = $message->getArgument('id');
         $title = $message->getArgument('title');
@@ -48,7 +53,7 @@ class ArticleTagUpdateJob implements JobInterface
         $article = $articlesTable->get($id, contain: ['Tags']);
         $allTags = $tagsTable->find()->select(['title'])->all()->extract('title')->toArray();
 
-        $tagResult = $NEWCLASS->generateArticleTags($allTags, $article->title, $article->body);
+        $tagResult = $this->anthropicService->generateArticleTags($allTags, $article->title, $article->body);
 
         if ($tagResult && isset($tagResult['new_tags']) && is_array($tagResult['new_tags'])) {
             $newTags = [];

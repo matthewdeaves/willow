@@ -10,24 +10,46 @@ use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
 use Interop\Queue\Processor;
 
+/**
+ * TagSeoUpdateJob
+ *
+ * This job is responsible for updating SEO-related information for tags using the Anthropic API.
+ * It processes queued messages, retrieves tag information, generates SEO content, and updates the tag record.
+ */
 class TagSeoUpdateJob implements JobInterface
 {
     use LogTrait;
 
+    /**
+     * The maximum number of attempts for this job.
+     *
+     * @var int
+     */
     public static int $maxAttempts = 3;
 
     /**
-     * Whether there should be only one instance of a job on the queue at a time. (optional property)
+     * Whether there should be only one instance of this job on the queue at a time.
      *
      * @var bool
      */
     public static bool $shouldBeUnique = false;
 
     /**
+     * The Anthropic API service used for generating SEO content.
+     *
      * @var \App\Service\Api\AnthropicApiService
      */
     private AnthropicApiService $anthropicService;
 
+    /**
+     * Executes the job to update tag SEO information.
+     *
+     * This method processes the queued message, retrieves the tag, generates SEO content using the Anthropic API,
+     * and updates the tag record with the new SEO information.
+     *
+     * @param \Cake\Queue\Job\Message $message The message containing the job data.
+     * @return string|null Returns Processor::ACK on success, Processor::REJECT on failure.
+     */
     public function execute(Message $message): ?string
     {
         $this->anthropicService = new AnthropicApiService();
@@ -52,7 +74,7 @@ class TagSeoUpdateJob implements JobInterface
         $seoResult = $this->anthropicService->generateTagSeo($title, $tag->description);
 
         if ($seoResult) {
-            //Set the data we got back
+            // Set the data we got back
             $tag->meta_title = $seoResult['meta_title'];
             $tag->meta_description = $seoResult['meta_description'];
             $tag->meta_keywords = $seoResult['meta_keywords'];

@@ -11,22 +11,29 @@ use InvalidArgumentException;
  * SeoContentGenerator Class
  *
  * This class is responsible for generating SEO content for tags and articles
- * using the Anthropic API service.
+ * using the Anthropic API service. It interacts with the AI prompts table to retrieve
+ * prompt data and uses the AnthropicApiService to send requests and parse responses.
  */
 class SeoContentGenerator
 {
     /**
-     * @var \App\Service\Api\AnthropicApiService The Anthropic API service.
+     * The Anthropic API service used for sending requests and parsing responses.
+     *
+     * @var \App\Service\Api\AnthropicApiService
      */
     private AnthropicApiService $apiService;
 
     /**
-     * @var \App\Model\Table\AipromptsTable The AI prompts table for retrieving prompt data.
+     * The AI prompts table for retrieving prompt data necessary for SEO content generation.
+     *
+     * @var \App\Model\Table\AipromptsTable
      */
     private AipromptsTable $aipromptsTable;
 
     /**
      * SeoContentGenerator constructor.
+     *
+     * Initializes the API service and AI prompts table for SEO content generation.
      *
      * @param \App\Service\Api\AnthropicApiService $apiService The Anthropic API service.
      * @param \App\Model\Table\AipromptsTable $aipromptsTable The AI prompts table.
@@ -40,9 +47,16 @@ class SeoContentGenerator
     /**
      * Generates SEO content for a tag.
      *
+     * This method performs the following steps:
+     * 1. Retrieves the appropriate prompt data for tag SEO analysis.
+     * 2. Creates a payload with the tag title and description.
+     * 3. Sends a request to the Anthropic API and processes the response.
+     * 4. Ensures all expected SEO keys are present in the result.
+     *
      * @param string $tagTitle The title of the tag.
      * @param string $tagDescription The description of the tag.
-     * @return array The generated SEO content.
+     * @return array The generated SEO content, including meta tags and social media descriptions.
+     * @throws \InvalidArgumentException If the task prompt data is not found.
      */
     public function generateTagSeo(string $tagTitle, string $tagDescription): array
     {
@@ -61,9 +75,17 @@ class SeoContentGenerator
     /**
      * Generates SEO content for an article.
      *
+     * This method performs the following steps:
+     * 1. Strips HTML tags and decodes entities from the article body.
+     * 2. Retrieves the appropriate prompt data for article SEO analysis.
+     * 3. Creates a payload with the article title and plain text content.
+     * 4. Sends a request to the Anthropic API and processes the response.
+     * 5. Ensures all expected SEO keys are present in the result.
+     *
      * @param string $title The title of the article.
-     * @param string $body The body content of the article.
-     * @return array The generated SEO content.
+     * @param string $body The body content of the article (may contain HTML).
+     * @return array The generated SEO content, including meta tags and social media descriptions.
+     * @throws \InvalidArgumentException If the task prompt data is not found.
      */
     public function generateArticleSeo(string $title, string $body): array
     {
@@ -81,11 +103,11 @@ class SeoContentGenerator
     }
 
     /**
-     * Creates a payload for the API request.
+     * Creates a payload for the API request using the provided prompt data and content.
      *
      * @param array $promptData The prompt data retrieved from the AI prompts table.
      * @param array $content The content to be included in the payload.
-     * @return array The created payload.
+     * @return array The created payload for the API request.
      */
     private function createPayload(array $promptData, array $content): array
     {
@@ -104,11 +126,11 @@ class SeoContentGenerator
     }
 
     /**
-     * Retrieves prompt data for a specific task.
+     * Retrieves prompt data for a specific task from the AI prompts table.
      *
      * @param string $task The task type for which to retrieve prompt data.
-     * @return array The retrieved prompt data.
-     * @throws \InvalidArgumentException If the task is unknown.
+     * @return array The retrieved prompt data including system prompt, model, max tokens, and temperature.
+     * @throws \InvalidArgumentException If the task is unknown or not found in the AI prompts table.
      */
     private function getPromptData(string $task): array
     {
@@ -129,10 +151,10 @@ class SeoContentGenerator
     }
 
     /**
-     * Ensures that the result contains all expected keys.
+     * Ensures that the result contains all expected SEO keys, initializing them if necessary.
      *
      * @param array $result The result array to check and modify.
-     * @return array The result array with all expected keys.
+     * @return array The result array with all expected SEO keys initialized.
      */
     private function ensureExpectedKeys(array $result): array
     {

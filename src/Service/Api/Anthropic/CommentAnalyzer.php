@@ -11,21 +11,29 @@ use InvalidArgumentException;
  * CommentAnalyzer Class
  *
  * This class is responsible for analyzing comments using the Anthropic API service.
+ * It interacts with the AI prompts table to retrieve prompt data and uses the AnthropicApiService
+ * to send requests and parse responses for comment analysis.
  */
 class CommentAnalyzer
 {
     /**
-     * @var \App\Service\Api\AnthropicApiService The Anthropic API service.
+     * The Anthropic API service used for sending requests and parsing responses.
+     *
+     * @var \App\Service\Api\AnthropicApiService
      */
     private AnthropicApiService $apiService;
 
     /**
-     * @var \App\Model\Table\AipromptsTable The AI prompts table for retrieving prompt data.
+     * The AI prompts table for retrieving prompt data necessary for comment analysis.
+     *
+     * @var \App\Model\Table\AipromptsTable
      */
     private AipromptsTable $aipromptsTable;
 
     /**
      * CommentAnalyzer constructor.
+     *
+     * Initializes the API service and AI prompts table for comment analysis.
      *
      * @param \App\Service\Api\AnthropicApiService $apiService The Anthropic API service.
      * @param \App\Model\Table\AipromptsTable $aipromptsTable The AI prompts table.
@@ -39,8 +47,12 @@ class CommentAnalyzer
     /**
      * Analyzes a comment using the Anthropic API.
      *
+     * This method retrieves the appropriate prompt data, creates a payload,
+     * sends a request to the Anthropic API, and processes the response to analyze the comment.
+     *
      * @param string $comment The comment to be analyzed.
-     * @return array The analysis results from the API.
+     * @return array The analysis results from the API, containing various aspects of the comment analysis.
+     * @throws \InvalidArgumentException If the task prompt data is not found.
      */
     public function analyze(string $comment): array
     {
@@ -53,11 +65,11 @@ class CommentAnalyzer
     }
 
     /**
-     * Creates a payload for the API request.
+     * Creates a payload for the API request using the provided prompt data and comment.
      *
      * @param array $promptData The prompt data retrieved from the AI prompts table.
      * @param string $comment The comment to be analyzed.
-     * @return array The created payload.
+     * @return array The created payload for the API request.
      */
     private function createPayload(array $promptData, string $comment): array
     {
@@ -76,11 +88,11 @@ class CommentAnalyzer
     }
 
     /**
-     * Retrieves prompt data for a specific task.
+     * Retrieves prompt data for a specific task from the AI prompts table.
      *
      * @param string $task The task type for which to retrieve prompt data.
-     * @return array The retrieved prompt data.
-     * @throws \InvalidArgumentException If the task is unknown.
+     * @return array The retrieved prompt data including system prompt, model, max tokens, and temperature.
+     * @throws \InvalidArgumentException If the task is unknown or not found in the AI prompts table.
      */
     private function getPromptData(string $task): array
     {

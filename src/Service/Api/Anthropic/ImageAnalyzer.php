@@ -11,21 +11,29 @@ use InvalidArgumentException;
  * ImageAnalyzer Class
  *
  * This class is responsible for analyzing images using the Anthropic API service.
+ * It interacts with the AI prompts table to retrieve prompt data and uses the AnthropicApiService
+ * to send requests and parse responses for image analysis.
  */
 class ImageAnalyzer
 {
     /**
-     * @var \App\Service\Api\AnthropicApiService The Anthropic API service.
+     * The Anthropic API service used for sending requests and parsing responses.
+     *
+     * @var \App\Service\Api\AnthropicApiService
      */
     private AnthropicApiService $apiService;
 
     /**
-     * @var \App\Model\Table\AipromptsTable The AI prompts table for retrieving prompt data.
+     * The AI prompts table for retrieving prompt data necessary for image analysis.
+     *
+     * @var \App\Model\Table\AipromptsTable
      */
     private AipromptsTable $aipromptsTable;
 
     /**
      * ImageAnalyzer constructor.
+     *
+     * Initializes the API service and AI prompts table for image analysis.
      *
      * @param \App\Service\Api\AnthropicApiService $apiService The Anthropic API service.
      * @param \App\Model\Table\AipromptsTable $aipromptsTable The AI prompts table.
@@ -39,9 +47,16 @@ class ImageAnalyzer
     /**
      * Analyzes an image using the Anthropic API.
      *
+     * This method performs the following steps:
+     * 1. Validates the existence of the image file.
+     * 2. Encodes the image file to base64 and determines its MIME type.
+     * 3. Retrieves the appropriate prompt data for image analysis.
+     * 4. Creates a payload with the image data and prompt information.
+     * 5. Sends a request to the Anthropic API and processes the response.
+     *
      * @param string $imagePath The path to the image file to be analyzed.
-     * @return array The analysis results from the API.
-     * @throws \InvalidArgumentException If the image file is not found.
+     * @return array The analysis results from the API, containing various aspects of the image analysis.
+     * @throws \InvalidArgumentException If the image file is not found or the task prompt data is not found.
      */
     public function analyze(string $imagePath): array
     {
@@ -61,12 +76,12 @@ class ImageAnalyzer
     }
 
     /**
-     * Creates a payload for the API request.
+     * Creates a payload for the API request using the provided prompt data and image information.
      *
      * @param array $promptData The prompt data retrieved from the AI prompts table.
      * @param string $imageData The base64 encoded image data.
      * @param string $mimeType The MIME type of the image.
-     * @return array The created payload.
+     * @return array The created payload for the API request.
      */
     private function createPayload(array $promptData, string $imageData, string $mimeType): array
     {
@@ -94,11 +109,11 @@ class ImageAnalyzer
     }
 
     /**
-     * Retrieves prompt data for a specific task.
+     * Retrieves prompt data for a specific task from the AI prompts table.
      *
      * @param string $task The task type for which to retrieve prompt data.
-     * @return array The retrieved prompt data.
-     * @throws \InvalidArgumentException If the task is unknown.
+     * @return array The retrieved prompt data including system prompt, model, max tokens, and temperature.
+     * @throws \InvalidArgumentException If the task is unknown or not found in the AI prompts table.
      */
     private function getPromptData(string $task): array
     {

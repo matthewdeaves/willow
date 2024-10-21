@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Job;
 
 use App\Model\Entity\Comment;
+use App\Service\Api\AnthropicApiService;
 use Cake\Cache\Cache;
 use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
@@ -29,8 +30,17 @@ class CommentAnalysisJob implements JobInterface
      */
     public static bool $shouldBeUnique = false;
 
+    /**
+     * Instance of the Anthropic API service.
+     *
+     * @var \App\Service\Api\AnthropicApiService
+     */
+    private AnthropicApiService $anthropicService;
+
     public function execute(Message $message): ?string
     {
+        $this->anthropicService = new AnthropicApiService();
+
         // Get data we need
         $commentId = $message->getArgument('comment_id');
         $content = $message->getArgument('content');
@@ -55,7 +65,7 @@ class CommentAnalysisJob implements JobInterface
             return Processor::ACK;
         }
 
-        $analysisResult = $NEWCLASS->analyzeComment($content);
+        $analysisResult = $this->anthropicService->analyzeComment($content);
 
         if ($analysisResult) {
             $this->updateCommentStatus($comment, $analysisResult);
@@ -93,7 +103,7 @@ class CommentAnalysisJob implements JobInterface
         $reason = $analysisResult['reason'] ?? [];
 
         $comment->is_analyzed = true;
-        $comment->display = !$isInappropriate; // Set display to false only if inappropriate
+        $comment->display = !$isInappropriate;
         $comment->is_inappropriate = $isInappropriate;
         $comment->inappropriate_reason = $isInappropriate ? json_encode($reason) : null;
 

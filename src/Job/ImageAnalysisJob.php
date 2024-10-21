@@ -11,19 +11,46 @@ use Cake\Queue\Job\Message;
 use Exception;
 use Interop\Queue\Processor;
 
+/**
+ * ImageAnalysisJob
+ *
+ * This job is responsible for analyzing images using the Anthropic API.
+ * It processes messages from the queue to analyze images and update their metadata.
+ */
 class ImageAnalysisJob implements JobInterface
 {
     use LogTrait;
 
+    /**
+     * Maximum number of attempts for the job.
+     *
+     * @var int|null
+     */
     public static ?int $maxAttempts = 3;
 
+    /**
+     * Whether there should be only one instance of a job on the queue at a time.
+     *
+     * @var bool
+     */
     public static bool $shouldBeUnique = false;
 
     /**
+     * Instance of the Anthropic API service.
+     *
      * @var \App\Service\Api\AnthropicApiService
      */
     private AnthropicApiService $anthropicService;
 
+    /**
+     * Executes the job to analyze an image and update its metadata.
+     *
+     * This method processes the message, retrieves the image, analyzes it using the Anthropic API,
+     * and updates the image record with the analysis results.
+     *
+     * @param \Cake\Queue\Job\Message $message The message containing image data.
+     * @return string|null Returns Processor::ACK on success, Processor::REJECT on failure.
+     */
     public function execute(Message $message): ?string
     {
         $this->anthropicService = new AnthropicApiService();

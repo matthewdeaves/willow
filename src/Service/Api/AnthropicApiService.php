@@ -102,6 +102,14 @@ class AnthropicApiService extends AbstractApiService
         return $this->seoContentGenerator->generateArticleSeo($title, $body);
     }
 
+    /**
+     * Generates tags for an article.
+     *
+     * @param array $allTags All available tags.
+     * @param string $title The title of the article.
+     * @param string $body The body content of the article.
+     * @return array The generated article tags.
+     */
     public function generateArticleTags(array $allTags, string $title, string $body): array
     {
         return $this->articleTagsGenerator->generateArticleTags($allTags, $title, $body);

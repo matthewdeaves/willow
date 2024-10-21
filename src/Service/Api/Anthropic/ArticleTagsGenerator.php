@@ -7,20 +7,33 @@ use App\Model\Table\AipromptsTable;
 use App\Service\Api\AnthropicApiService;
 use InvalidArgumentException;
 
+/**
+ * ArticleTagsGenerator
+ *
+ * This class is responsible for generating article tags using the Anthropic API service.
+ * It interacts with the AI prompts table to retrieve prompt data and uses the AnthropicApiService
+ * to send requests and parse responses.
+ */
 class ArticleTagsGenerator
 {
     /**
-     * @var \App\Service\Api\AnthropicApiService The Anthropic API service.
+     * The Anthropic API service used for sending requests and parsing responses.
+     *
+     * @var \App\Service\Api\AnthropicApiService
      */
     private AnthropicApiService $apiService;
 
     /**
-     * @var \App\Model\Table\AipromptsTable The AI prompts table for retrieving prompt data.
+     * The AI prompts table for retrieving prompt data necessary for generating tags.
+     *
+     * @var \App\Model\Table\AipromptsTable
      */
     private AipromptsTable $aipromptsTable;
 
     /**
-     * SeoContentGenerator constructor.
+     * ArticleTagsGenerator constructor.
+     *
+     * Initializes the API service and AI prompts table.
      *
      * @param \App\Service\Api\AnthropicApiService $apiService The Anthropic API service.
      * @param \App\Model\Table\AipromptsTable $aipromptsTable The AI prompts table.
@@ -32,11 +45,16 @@ class ArticleTagsGenerator
     }
 
     /**
-     * Generates SEO content for a tag.
+     * Generates article tags based on the provided title and body content.
      *
-     * @param string $tagTitle The title of the tag.
-     * @param string $tagDescription The description of the tag.
-     * @return array The generated SEO content.
+     * This method retrieves the appropriate prompt data, creates a payload,
+     * sends a request to the Anthropic API, and processes the response to generate tags.
+     *
+     * @param array $allTags An array of existing tags.
+     * @param string $title The title of the article.
+     * @param string $body The body content of the article.
+     * @return array The generated tags for the article.
+     * @throws \InvalidArgumentException If the task prompt data is not found.
      */
     public function generateArticleTags(array $allTags, string $title, string $body): array
     {
@@ -54,11 +72,11 @@ class ArticleTagsGenerator
     }
 
     /**
-     * Creates a payload for the API request.
+     * Creates a payload for the API request using the provided prompt data and content.
      *
      * @param array $promptData The prompt data retrieved from the AI prompts table.
      * @param array $content The content to be included in the payload.
-     * @return array The created payload.
+     * @return array The created payload for the API request.
      */
     private function createPayload(array $promptData, array $content): array
     {
@@ -77,11 +95,11 @@ class ArticleTagsGenerator
     }
 
     /**
-     * Retrieves prompt data for a specific task.
+     * Retrieves prompt data for a specific task from the AI prompts table.
      *
      * @param string $task The task type for which to retrieve prompt data.
      * @return array The retrieved prompt data.
-     * @throws \InvalidArgumentException If the task is unknown.
+     * @throws \InvalidArgumentException If the task is unknown or not found.
      */
     private function getPromptData(string $task): array
     {
@@ -102,10 +120,10 @@ class ArticleTagsGenerator
     }
 
     /**
-     * Ensures that the result contains all expected keys.
+     * Ensures that the result contains all expected keys, initializing them if necessary.
      *
      * @param array $result The result array to check and modify.
-     * @return array The result array with all expected keys.
+     * @return array The result array with all expected keys initialized.
      */
     private function ensureExpectedKeys(array $result): array
     {

@@ -23,14 +23,19 @@ class SendEmailJob implements JobInterface
     use LogTrait;
 
     /**
-     * Maximum number of attempts to process the job
+     * Maximum number of attempts to process the job.
+     *
+     * This property defines how many times the job should be retried if it fails.
      *
      * @var int|null
      */
     public static ?int $maxAttempts = 3;
 
     /**
-     * Whether there should be only one instance of a job on the queue at a time. (optional property)
+     * Indicates if there should be only one instance of this job on the queue at a time.
+     *
+     * When set to true, it ensures that only one instance of this job is queued,
+     * preventing duplicate processing.
      *
      * @var bool
      */
@@ -39,18 +44,20 @@ class SendEmailJob implements JobInterface
     /**
      * Executes the email sending process using the provided message data.
      *
-     * This method retrieves the necessary data from the Message object, logs the email job details,
-     * fetches the email template from the database, replaces placeholders in the email body with
-     * provided view variables, and sends the email using the configured mailer.
+     * This method performs the following steps:
+     * 1. Retrieves email details from the Message object.
+     * 2. Logs the email job details for tracking.
+     * 3. Fetches the email template from the database.
+     * 4. Replaces placeholders in the email body with provided view variables.
+     * 5. Configures and sends the email using CakePHP's Mailer class.
+     * 6. Logs the result of the email sending process.
      *
-     * @param \Cake\Queue\Job\Message $message The message object containing email details such as template identifier,
-     *                                         sender, recipient, and view variables.
-     * @return string|null Returns Processor::ACK if the email is sent successfully, Processor::REJECT
-     *                     if the email sending fails or an error occurs.
-     * @throws \Exception If the email template is not found in the database or any other error occurs during the process.
-     * @uses \App\Model\Table\EmailTemplatesTable
-     * @uses \Cake\Mailer\Mailer
-     * @uses \Cake\ORM\TableRegistry
+     * @param \Cake\Queue\Job\Message $message The message object containing email details such as
+     *                                         template identifier, sender, recipient, and view variables.
+     * @return string|null Returns Processor::ACK if the email is sent successfully,
+     *                     Processor::REJECT if the email sending fails or an error occurs.
+     * @throws \Exception If the email template is not found in the database or any other error
+     *                    occurs during the process.
      */
     public function execute(Message $message): ?string
     {
@@ -117,7 +124,7 @@ class SendEmailJob implements JobInterface
         } else {
             $this->log(
                 __('Email sending failed: {0} to {1}', [$emailTemplate->subject, $to]),
-                'info',
+                'error',
                 ['group_name' => 'email_sending']
             );
         }

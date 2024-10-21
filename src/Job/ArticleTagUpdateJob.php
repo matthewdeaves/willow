@@ -10,6 +10,12 @@ use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
 use Interop\Queue\Processor;
 
+/**
+ * ArticleTagUpdateJob
+ *
+ * This job is responsible for updating the tags of an article using the Anthropic API.
+ * It processes messages from the queue to generate and update tags for articles.
+ */
 class ArticleTagUpdateJob implements JobInterface
 {
     use LogTrait;
@@ -29,10 +35,21 @@ class ArticleTagUpdateJob implements JobInterface
     public static bool $shouldBeUnique = false;
 
     /**
+     * Instance of the Anthropic API service.
+     *
      * @var \App\Service\Api\AnthropicApiService
      */
     private AnthropicApiService $anthropicService;
 
+    /**
+     * Executes the job to update article tags.
+     *
+     * This method processes the message, retrieves the article, generates new tags using the Anthropic API,
+     * and updates the article with the new tags.
+     *
+     * @param \Cake\Queue\Job\Message $message The message containing article data.
+     * @return string|null Returns Processor::ACK on success, Processor::REJECT on failure.
+     */
     public function execute(Message $message): ?string
     {
         $this->anthropicService = new AnthropicApiService();
@@ -86,7 +103,13 @@ class ArticleTagUpdateJob implements JobInterface
                 return Processor::ACK;
             } else {
                 $this->log(
-                    __('Failed to save article tag updates. Article ID: {0} Error: {1}', [$id, json_encode($article->getErrors())]),
+                    __(
+                        'Failed to save article tag updates. Article ID: {0} Error: {1}',
+                        [
+                            $id,
+                            json_encode($article->getErrors()),
+                        ]
+                    ),
                     'error',
                     ['group_name' => 'article_tag_update']
                 );

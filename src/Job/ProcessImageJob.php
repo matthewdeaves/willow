@@ -55,6 +55,16 @@ class ProcessImageJob implements JobInterface
      */
     public function execute(Message $message): ?string
     {
+        if (!extension_loaded('imagick')) {
+            $this->log(
+                __('Imagick extension is not loaded'),
+                'error',
+                ['group_name' => 'image_processing']
+            );
+
+            return Processor::REJECT;
+        }
+        
         // Get the data we need
         $folderPath = $message->getArgument('folder_path');
         $file = $message->getArgument('file');

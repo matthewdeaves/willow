@@ -42,6 +42,16 @@ class ArticleSeoUpdateJob implements JobInterface
     private AnthropicApiService $anthropicService;
 
     /**
+     * Constructor to allow dependency injection for testing
+     *
+     * @param \App\Service\Api\AnthropicApiService|null $anthropicService
+     */
+    public function __construct(?AnthropicApiService $anthropicService = null)
+    {
+        $this->anthropicService = $anthropicService ?? new AnthropicApiService();
+    }
+
+    /**
      * Executes the job to update article SEO metadata.
      *
      * This method processes the message, retrieves the article, generates SEO content

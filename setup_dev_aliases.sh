@@ -6,7 +6,7 @@ if [ -f ~/.zshrc ]; then
 elif [ -f ~/.bashrc ]; then
     RC_FILE=~/.bashrc
 else
-    echo "No .zshrc or .bashrc found. Please create one and run this script again."
+    echo "No .zshrc or .bashrc found. Please create one and run this script again. touch ~/.zshrc or touch ~/.bashrc"
     exit 1
 fi
 

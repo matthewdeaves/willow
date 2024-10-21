@@ -1,7 +1,19 @@
+# Detect the operating system
+OS="$(uname)"
+
+# Function to determine if sudo is needed
+needs_sudo() {
+    if [ "$OS" = "Linux" ]; then
+        echo "sudo"
+    else
+        echo ""
+    fi
+}
+
 # CakePHP Shells
-alias cake_shell='sudo docker compose exec php bin/cake "$@"'
-alias php_exec='sudo docker compose exec php "$@"'
-alias php_shell='sudo docker compose exec -it php /bin/sh'
+alias cake_shell='$(needs_sudo) docker compose exec php bin/cake "$@"'
+alias php_exec='$(needs_sudo) docker compose exec php "$@"'
+alias php_shell='$(needs_sudo) docker compose exec -it php /bin/sh'
 
 # Testing Commands
 alias phpunit='php_exec php vendor/bin/phpunit'
@@ -26,12 +38,12 @@ alias edit_bashrc='nano ~/.bashrc'
 alias reload_bashrc='source ~/.bashrc'
 
 # Docker Management
-alias docker_names='sudo docker container ls -a --format "{{.Names}}"'
-alias docker_prune='sudo docker system prune -a'
-alias docker_up='sudo docker compose up -d'
-alias docker_down='sudo docker compose down'
-alias docker_downv='sudo docker compose down -v'
-alias docker_logs='sudo docker compose logs -f'
+alias docker_names='$(needs_sudo) docker container ls -a --format "{{.Names}}"'
+alias docker_prune='$(needs_sudo) docker system prune -a'
+alias docker_up='$(needs_sudo) docker compose up -d'
+alias docker_down='$(needs_sudo) docker compose down'
+alias docker_downv='$(needs_sudo) docker compose down -v'
+alias docker_logs='$(needs_sudo) docker compose logs -f'
 
 # Git Commands
 alias gs='git status'
@@ -53,6 +65,6 @@ alias cake_rollback='php_exec bin/cake migrations rollback'
 change_ownership() {
     local current_user=$(whoami)
     local current_group=$(id -gn)
-    sudo chown -R "$current_user:$current_group" .
+    $(needs_sudo) chown -R "$current_user:$current_group" .
     echo "Ownership set to $current_user:$current_group for current directory and subdirectories."
 }

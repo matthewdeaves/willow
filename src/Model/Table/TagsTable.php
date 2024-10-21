@@ -96,19 +96,19 @@ class TagsTable extends Table
      */
     public function afterSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
-        if (SettingsManager::read('AI.enabled')) {
+        if (SettingsManager::read('AI.enabled') && $entity->isDirty('title')) {
             $data = [
                 'id' => $entity->id,
                 'title' => $entity->title,
             ];
-/*
+
             QueueManager::push('App\Job\TagSeoUpdateJob', $data);
 
             $this->log(
                 __('Queue tag SEO update job for Tag:{0}', [$entity->title]),
                 'info',
                 ['group_name' => 'tag_seo_update']
-            );*/
+            );
         }
     }
 }

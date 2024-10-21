@@ -60,7 +60,8 @@ class TagSeoUpdateJob implements JobInterface
             $tag->linkedin_description = $seoResult['linkedin_description'];
             $tag->twitter_description = $seoResult['twitter_description'];
             $tag->instagram_description = $seoResult['instagram_description'];
-
+            $tag->description = !empty($seoResult['description']) ? $seoResult['description'] : $tag->description;
+            
             if ($tagsTable->save($tag)) {
                 $this->log(
                     __('Tag SEO update completed successfully. ID: {0} Title: {1}', [$id, $title]),

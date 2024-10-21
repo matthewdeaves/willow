@@ -44,6 +44,34 @@ fi
 $(needs_sudo) chmod -R 777 logs/ tmp/ webroot/
 
 # Check if this is the first run
+if [ -f "$FIRST_RUN_FLAG" ]; then
+    echo "Subsequent container startup detected."
+    read -p "Do you want to [W]ipe data, re[B]uild or [R]estart the development environment? (w/b/r): " choice
+    case ${choice:0:1} in
+        w|W)
+            echo "Wiping Docker containers..."
+            $(needs_sudo) docker compose down -v
+            start_docker_containers
+            rm -f "$FIRST_RUN_FLAG"
+            ;;
+        b|B)
+            echo "Rebuilding Docker containers..."
+            $(needs_sudo) docker compose down
+            $(needs_sudo) docker compose build
+            start_docker_containers 
+            ;;
+        r|R)
+            echo "Restarting Docker containers..."
+            $(needs_sudo) docker compose down
+            start_docker_containers
+            ;;
+        *)
+            echo "Invalid option. Continuing with normal startup..."
+            ;;
+    esac
+fi
+
+# Check if this is the first run
 if [ ! -f "$FIRST_RUN_FLAG" ]; then
     echo "First time development container startup detected. Running initial setup..."
 
@@ -63,8 +91,6 @@ if [ ! -f "$FIRST_RUN_FLAG" ]; then
     touch "$FIRST_RUN_FLAG"
 
     echo "Initial setup completed."
-else
-    echo "Subsequent container startup detected. Skipping initial setup."
 fi
 
 # Clear cache (this will run every time)

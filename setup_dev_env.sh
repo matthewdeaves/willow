@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Define the flag file in the project root
 FIRST_RUN_FLAG="./config/.first_run_completed"
@@ -14,6 +14,31 @@ needs_sudo() {
         echo ""
     fi
 }
+
+# Function to check if Docker containers are running
+check_docker_status() {
+    if $(needs_sudo) docker compose ps --services --filter "status=running" | grep -q "willowcms"; then
+        return 0  # Container is running
+    else
+        return 1  # Container is not running
+    fi
+}
+
+# Start Docker containers if they're not running
+start_docker_containers() {
+    echo "Starting Docker containers..."
+    $(needs_sudo) docker compose up -d
+    sleep 10  # Give containers some time to fully start
+}
+
+# Main script execution starts here
+echo "Checking Docker container status..."
+
+if ! check_docker_status; then
+    start_docker_containers
+else
+    echo "Docker containers are already running."
+fi
 
 # Its dev so just be fully open with permissions
 $(needs_sudo) chmod -R 777 logs/ tmp/ webroot/
@@ -44,3 +69,5 @@ fi
 
 # Clear cache (this will run every time)
 $(needs_sudo) docker compose exec willowcms bin/cake cache clear_all
+
+echo "Development environment setup complete."

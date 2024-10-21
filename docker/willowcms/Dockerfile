@@ -35,6 +35,7 @@ RUN apk add --no-cache \
   php83-sockets \
   php83-intl \
   php83-cli \
+  php83-pdo_sqlite \
   supervisor \
   php83-simplexml \
   wget \
@@ -60,24 +61,20 @@ RUN wget https://getcomposer.org/installer -O composer-setup.php && \
 # Configure supervisord
 COPY docker/willowcms/config/supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-# Download and extract Willow CMS
-ARG WILLOW_VERSION=1.0.3
-RUN curl -L "https://github.com/matthewdeaves/willow/archive/refs/tags/v${WILLOW_VERSION}.zip" -o willow.zip && \
-    unzip willow.zip && \
-    mv willow-${WILLOW_VERSION}/* . && \
-    rm -rf willow-${WILLOW_VERSION} willow.zip
+ARG UID
+ARG GID
+ 
+ENV UID=${UID}
+ENV GID=${GID}
 
-# Copy .env.example to .env
-COPY docker/willowcms/config/app/env.example config/.env
-RUN sed -i 's/export ARTICLES_CACHE_ENGINE="File"/export ARTICLES_CACHE_ENGINE="Redis"/' config/.env && \
-    sed -i 's/export ARTICLES_INDEX_CACHE_ENGINE="File"/export ARTICLES_INDEX_CACHE_ENGINE="Redis"/' config/.env && \
-
-# Install PHP dependencies
-RUN composer install --no-dev --optimize-autoloader
-
+# Update the nobody user with the provided UID and GID
+RUN deluser nobody && \
+    addgroup -g ${GID} -S nobody && \
+    adduser -u ${UID} -S -G nobody nobody
 
 # Make sure files/folders needed by the processes are accessible when they run under the nobody user
-RUN chown -R nobody:nobody /var/www/html /run /var/lib/nginx /var/log/nginx
+RUN mkdir -p /var/www/html /run /var/lib/nginx /var/log/nginx && \
+    chown -R nobody:nobody /var/www/html /run /var/lib/nginx /var/log/nginx
 
 # Switch to use a non-root user from here on
 USER nobody

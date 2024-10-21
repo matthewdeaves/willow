@@ -28,7 +28,7 @@ check_docker_status() {
 start_docker_containers() {
     echo "Starting Docker containers..."
     $(needs_sudo) docker compose up -d
-    sleep 5  # Give containers some time to fully start
+    sleep 10  # Give containers some time to fully start
 }
 
 # Main script execution starts here

@@ -36,7 +36,7 @@ cd willow/
 #start the docker containers (-d is detached so they run in background)
 docker compose up -d
 
-#Run the setup script (on Ubuntu you may need to run with sudo)
+#Run the setup script
 ./setup_dev_env.sh
 
 ```

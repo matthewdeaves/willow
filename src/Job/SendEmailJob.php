@@ -87,7 +87,7 @@ class SendEmailJob implements JobInterface
         // Replace placeholders in the email body
         foreach ($viewVars as $key => $value) {
             $emailTemplate->body_html = str_replace('{' . $key . '}', $value, $emailTemplate->body_html);
-            $emailTemplate->bodyPlain = str_replace('{' . $key . '}', $value, $emailTemplate->bodyPlain);
+            $emailTemplate->body_plain = str_replace('{' . $key . '}', $value, $emailTemplate->body_plain);
         }
 
         $mailer = new Mailer('default');
@@ -97,7 +97,7 @@ class SendEmailJob implements JobInterface
             ->setEmailFormat('both')
             ->setViewVars([
                 'bodyHtml' => $emailTemplate->body_html,
-                'bodyPlain' => $emailTemplate->bodyPlain,
+                'bodyPlain' => $emailTemplate->body_plain,
             ])
             ->viewBuilder()
                 ->setTemplate('default')

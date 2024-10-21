@@ -77,7 +77,7 @@ return [
     'EmailTransport' => [
         'default' => [
             'host' => env('EMAIL_HOST','mailhog'),
-            'port' => env('EMAIL_PORT', '1125'),
+            'port' => env('EMAIL_PORT', '1025'),
             'username' => env('EMAIL_USERNAME', ''),
             'password' => env('EMAIL_PASSWORD', ''),
             'client' => null,

@@ -271,8 +271,8 @@ return [
              * The keys host, port, timeout, username, password, client and tls
              * are used in SMTP transports
              */
-            'host' => env('EMAIL_HOST'),
-            'port' => env('EMAIL_PORT'),
+            'host' => env('EMAIL_HOST', 'localhost'),
+            'port' => env('EMAIL_PORT', 25),
             'timeout' => env('EMAIL_TIMEOUT'),
             /*
              * It is recommended to set these options through your environment or app_local.php

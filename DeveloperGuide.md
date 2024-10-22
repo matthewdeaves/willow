@@ -19,6 +19,7 @@
    - [ImageAnalyzer](#4-imageanalyzer)
    - [SeoContentGenerator](#5-seocontentgenerator)
    - [ArticleTagsGenerator](#6-articletagsgenerator)
+   - [ClassesSummary](#classes-summary)
 
 3. [Environment Configuration](#environment-configuration-with-configenvexample)
    - [Steps to Use config/.env.example](#steps-to-use-configenvexample)
@@ -226,9 +227,7 @@ This class leverages Anthropic's language generation capabilities to create SEO-
 - twitter_description
 - instagram_description
 
-This class could be extended to create more advanced SEO tools or to automate content creation processes.
-
-Developers can use these classes as a foundation for building more specialized Anthropic API interactions or as a model for integrating other AI services.
+This class could be extended to create more advanced SEO tools or as a template to automate other content creation processes.
 
 #### 6. ArticleTagsGenerator
 **Location**: `src/Service/Api/Anthropic/ArticleTagsGenerator.php`
@@ -239,7 +238,8 @@ The ArticleTagsGenerator class utilizes Anthropic's natural language processing 
 - Generating article tags based on the article's title and content
 - Considering existing tags to avoid duplication
 
-This class interacts with the AipromptsTable to fetch task-specific prompt data, ensuring that the tag generation process is customizable and can be fine-tuned as needed. Developers can extend this class to implement more advanced tagging features, such as hierarchical tagging or tag recommendations based on user behavior.
+##### Classes Summary
+The Generator/Analyzer classes use the AipromptsTable to retrieve task-specific prompt data from the `aipromtps` table and serve as a foundation for developing specialized Anthropic API interactions or as a template for integrating other AI services.
 
 ### Environment Configuration with `config/.env.example` 
 

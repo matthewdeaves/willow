@@ -11,7 +11,10 @@
     <?= $this->element('tag_filters', ['tags' => $tags, 'selectedTag' => $selectedTag]) ?>
 
     <?php foreach ($articles as $article): ?>
-        <?php $isSmallArticle = strlen(strip_tags($article->body)) <= 300; ?>
+        <?php 
+        $hasNonEmptySummary = !empty($article->summary);
+        $isSmallArticle = !$hasNonEmptySummary && strlen(strip_tags($article->body)) <= 500; 
+        ?>
         <div class="card mb-4 shadow-sm">
             <div class="card-body">
                 <div class="d-flex align-items-start mb-3">
@@ -47,7 +50,11 @@
                     <?= $article->published->format('F j, Y, g:i a') ?>
                 </p>
                 <div class="article-content">
-                    <?php if ($isSmallArticle): ?>
+                    <?php if ($hasNonEmptySummary): ?>
+                        <div class="article-summary">
+                            <?= $article->summary; ?>
+                        </div>
+                    <?php elseif ($isSmallArticle): ?>
                         <div class="article-full">
                             <?= $article->body; ?>
                         </div>
@@ -60,7 +67,7 @@
                         </div>
                     <?php endif; ?>
                 </div>
-                <?php if (!$isSmallArticle): ?>
+                <?php if (!$hasNonEmptySummary && !$isSmallArticle): ?>
                     <button class="btn btn-secondary show-full-article" data-article-id="<?= $article->id ?>">
                         <?= __('Show Full Article') ?>
                     </button>

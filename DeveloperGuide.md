@@ -19,6 +19,7 @@
    - [ImageAnalyzer](#4-imageanalyzer)
    - [SeoContentGenerator](#5-seocontentgenerator)
    - [ArticleTagsGenerator](#6-articletagsgenerator)
+   - [TextSummaryGenerator](#7-textsummarygenerator)
    - [ClassesSummary](#classes-summary)
 
 3. [Environment Configuration](#environment-configuration-with-configenvexample)
@@ -54,7 +55,6 @@ To help developers dive into the Willow CMS codebase, this section provides an o
    There are also some key Behavior classes used across these Models
 
    [src/Model/Behavior](https://github.com/matthewdeaves/willow/tree/main/src/Model/Behavior)
-
 
 4. **Templates**: The `plugins/DefaultTheme/templates` directory holds the templates for the default theme. Willow CMS uses plugins to facilitate easy theming, with themes residing in `plugins/AdminTheme` and `plugins/DefaultTheme`.
 
@@ -237,6 +237,14 @@ This class could be extended to create more advanced SEO tools or as a template 
 The ArticleTagsGenerator class utilizes Anthropic's natural language processing capabilities to generate relevant tags for articles. Its main functionalities include:
 - Generating article tags based on the article's title and content
 - Considering existing tags to avoid duplication
+
+#### 7. TextSummaryGenerator
+**Location**: `src/Service/Api/Anthropic/TextSummaryGenerator.php`
+
+   [src/Service/Api/Anthropic/TextSummaryGenerator.php](https://github.com/matthewdeaves/willow/blob/main/src/Service/Api/Anthropic/TextSummaryGenerator.php)
+
+The TextSummaryGenerator class leverages Anthropic's advanced natural language processing capabilities to create concise summaries of text. Its primary functionality includes:
+- Generating summaries based on the provided text and context
 
 ##### Classes Summary
 The Generator/Analyzer classes use the AipromptsTable to retrieve task-specific prompt data from the `aipromtps` table and serve as a foundation for developing specialized Anthropic API interactions or as a template for integrating other AI services.

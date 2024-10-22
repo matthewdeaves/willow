@@ -35,7 +35,6 @@ cd willow/
 
 #Run the setup script
 ./setup_dev_env.sh
-
 ```
 
 On your first run, the development environment will be setup and you can visit [http://localhost:8080](http://localhost:8080) to use Willow CMS. On subsequent runs of `setup_dev_env.sh` you are given options to wipe the container volumes, rebuild docker containers or restart the docker containers.

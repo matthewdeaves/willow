@@ -8,6 +8,11 @@
    - [Templates](#templates)
    - [Theming with Plugins](#theming-with-plugins)
 
+2. [Feature Development and Database Migrations](#feature-development-and-database-migrations)
+   - [Development Process](#development-process)
+   - [Applying Changes to Production](#applying-changes-to-production)
+   - [Best Practices](#best-practices)
+
 2. [Unit Tests](#unit-tests)
    - [Running Unit Tests](#running-unit-tests)
    - [Testing Commands](#testing-commands)
@@ -53,7 +58,7 @@ The `src/Controller` directory houses the controllers for the front-end site. Th
 
    [src/Controller (admin back end)](https://github.com/matthewdeaves/willow/tree/main/src/Controller/Admin)
 
-##### Models
+#### Models
 
 The `src/Model` directory contains the application's data models, which are crucial for interacting with the database and managing data logic.
 
@@ -76,6 +81,64 @@ Willow CMS leverages CakePHP plugins to simplify the theming process. The front-
    [plugins/AdminTheme](https://github.com/matthewdeaves/willow/tree/main/plugins/AdminTheme)
 
    [plugins/DefaultTheme](https://github.com/matthewdeaves/willow/tree/main/plugins/DefaultTheme)
+
+## Feature Development and Database Migrations
+
+When developing new features for Willow CMS that require changes to the database schema, you can leverage CakePHP's Migrations feature to manage schema upgrades efficiently. Follow these steps to ensure a smooth transition from development to production:
+
+### Development Process
+
+1. **Develop Your Feature**: 
+   - Build your feature in your development environment.
+   - Use phpMyAdmin or your preferred database management tool to modify the existing database schema as needed.
+
+2. **Testing**:
+   - Write comprehensive tests for your new feature.
+   - Ensure all tests pass and the feature works as intended.
+
+3. **Generate Migration Diff**:
+   - Run the following command to create a migration diff:
+     ```
+     bin/cake bake migration_diff NameOfYourFeatureMigration
+     ```
+   - This command generates a migration file capturing the differences in your database schema.
+
+4. **Review Migration File**:
+   - Check the generated migration file in `config/Migrations/`.
+   - Ensure it accurately reflects your intended schema changes.
+
+5. **Version Control**:
+   - Commit your code changes along with the new migration file.
+   - Push your changes to a feature branch in your repository.
+
+6. **Code Review and Merge**:
+   - Have your changes reviewed by team members.
+   - Once approved, merge the feature branch into the main branch.
+
+7. **Release**:
+   - Create a new release of Willow CMS that includes your changes.
+
+### Applying Changes to Production
+
+8. **Upgrade Willow CMS**:
+   - On any production instance of WillowCMS, upgrade to the latest release.
+
+9. **Run Migrations**:
+   - Apply the schema changes by running:
+     ```
+     bin/cake migrations migrate
+     ```
+   - CakePHP will handle the schema upgrade process.
+
+### Best Practices
+
+- Always backup your production database before applying migrations.
+- Test migrations in a staging environment that mirrors your production setup.
+- Keep migration files small and focused on specific changes for easier management and rollback if needed.
+- Use descriptive names for your migration files to easily identify their purpose.
+- Read the book about [migrations](https://book.cakephp.org/migrations/4/en/index.html).
+
+By following this workflow, you ensure that all database changes are version-controlled, tested, and can be easily applied across different environments.
 
 ## Unit Tests
 

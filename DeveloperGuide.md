@@ -2,17 +2,18 @@
 
 1. [Getting Started with Willow CMS Code](#getting-started-with-willow-cms-code)
    - [Key Code Folders](#key-code-folders)
-     - [Command Line Tools](#command-line-tools)
-     - [Controllers](#controllers)
-     - [Models](#models)
-     - [Templates](#templates)
+   - [Command Line Tools](#command-line-tools)
+   - [Controllers](#controllers)
+   - [Models](#models)
+   - [Templates](#templates)
    - [Theming with Plugins](#theming-with-plugins)
-   - [Unit Tests](#unit-tests)
-   - [Running Unit Tests](#running-unit-tests)
-     - [Testing Commands](#testing-commands)
-     - [Code Coverage Reports](#code-coverage-reports)
 
-2. [Anthropic API Integration Classes](#anthropic-api-integration-classes)
+2. [Unit Tests](#unit-tests)
+   - [Running Unit Tests](#running-unit-tests)
+   - [Testing Commands](#testing-commands)
+   - [Code Coverage Reports](#code-coverage-reports)
+
+3. [Anthropic API Integration Classes](#anthropic-api-integration-classes)
    - [AbstractApiService](#1-abstractapiservice)
    - [AnthropicApiService](#2-anthropicapiservice)
    - [CommentAnalyzer](#3-commentanalyzer)
@@ -22,7 +23,7 @@
    - [TextSummaryGenerator](#7-textsummarygenerator)
    - [ClassesSummary](#classes-summary)
 
-3. [Environment Configuration](#environment-configuration-with-configenvexample)
+4. [Environment Configuration](#environment-configuration-with-configenvexample)
    - [Steps to Use config/.env.example](#steps-to-use-configenvexample)
    - [Configuration Options](#configuration-options)
 
@@ -68,7 +69,7 @@ Willow CMS leverages CakePHP plugins to simplify the theming process. The front-
 
    [plugins/DefaultTheme](https://github.com/matthewdeaves/willow/tree/main/plugins/DefaultTheme)
 
-### Unit Tests
+## Unit Tests
 
 Unit testing is an integral part of maintaining code quality in Willow CMS. Tests are located in the `tests/TestCase` directory, with fixtures in `tests/Fixture`. Some particularly useful tests to examine include:
 - `tests/TestCase/Controller/ArticlesControllerTest.php` - Tests related to the Articles controller.
@@ -91,11 +92,11 @@ These tests provide valuable insights into how different components of the CMS a
 
 By exploring these directories and resources, developers can gain a deeper understanding of the Willow CMS architecture and begin contributing effectively. For further guidance, the [CakePHP Book](https://book.cakephp.org/5/en/index.html) is an excellent resource for learning more about the framework's capabilities and best practices.
 
-#### Running Unit Tests
+### Running Unit Tests
 
 Unit testing is a crucial part of ensuring the quality and reliability of the Willow CMS codebase. By running unit tests, developers can verify that individual parts of the application function as expected. This section provides guidance on how to execute these tests using both alias commands and their raw command equivalents.
 
-#### Testing Commands
+### Testing Commands
 
 To streamline the process of running unit tests, several alias commands have been defined. These aliases simplify the execution of tests and the generation of code coverage reports. You can auto set them (zshrc/bashrc detection included) by running `./setup_dev_aliases.sh` from the project root. [setup_dev_aliases.sh](https://raw.githubusercontent.com/matthewdeaves/willow/refs/heads/main/setup_dev_aliases.sh) will add a statement to simply load the aliases from [dev_aliases.txt](https://raw.githubusercontent.com/matthewdeaves/willow/refs/heads/main/dev_aliases.txt) when you start a new shell.
 
@@ -140,7 +141,7 @@ Below are the available commands and their purposes:
 
    This command generates a detailed HTML code coverage report, which can be viewed in a web browser for a more visual representation of test coverage. This is also published to GitHub Pages and can be viewed [here]().
 
-#### Code Coverage Reports
+### Code Coverage Reports
 
 - **Viewing HTML Coverage Reports**: After generating the HTML coverage report, you can view it by navigating to the `http://localhost:8080/coverage/index.html` directory in your web browser. The Willow CMS Admin backend also provides a link to the coverage report when running in debug mode. This provides a user-friendly interface to explore the coverage details. For example [http://localhost:8080/coverage/src/Controller/Admin/index.html](http://localhost:8080/coverage/src/Controller/Admin/index.html) will show you the test coverage details for all the admin backend controllers.
 
@@ -163,11 +164,11 @@ sudo docker compose exec php php vendor/bin/phpunit --filter testLogin tests/Tes
 
 This command will run only the test methods whose names match the pattern testLogin.
 
-### Anthropic API Integration Classes
+## Anthropic API Integration Classes
 
 Willow CMS leverages Anthropic's AI capabilities through a set of specialized classes. These classes are designed to facilitate various AI-driven features and can be extended or customized to build further integrations. Here's an overview of the key classes:
 
-#### 1. AbstractApiService
+### 1. AbstractApiService
 **Location**: `src/Service/Api/AbstractApiService.php`
 
    [src/Service/Api/AbstractApiService.php](https://github.com/matthewdeaves/willow/blob/main/src/Service/Api/AbstractApiService.php)
@@ -181,7 +182,7 @@ The AbstractApiService serves as a base class for API interactions. It provides 
 
 This abstract class can be extended to create services for interacting with other APIs, ensuring consistency across different integrations.
 
-#### 2. AnthropicApiService
+### 2. AnthropicApiService
 **Location**: `src/Service/Api/AnthropicApiService.php`
 
    [src/Service/Api/AnthropicApiService.php](https://github.com/matthewdeaves/willow/blob/main/src/Service/Api/AbstractApiService.php)
@@ -192,7 +193,7 @@ This class is a concrete implementation of AbstractApiService, specifically tail
 - Processing responses by parsing the HTTP response from the API to extract and decode the relevant data
 - Handling various AI-related tasks through specialized services for SEO content generation, image analysis, and comment moderation
 
-#### 3. CommentAnalyzer
+### 3. CommentAnalyzer
 **Location**: `src/Service/Api/Anthropic/CommentAnalyzer.php`
 
    [src/Service/Api/Anthropic/CommentAnalyzer.php](https://github.com/matthewdeaves/willow/blob/main/src/Service/Api/Anthropic/CommentAnalyzer.php)
@@ -203,7 +204,7 @@ This class is responsible for analyzing user comments using Anthropic's natural 
 
 Developers can extend this class to implement more sophisticated comment moderation features or to extract valuable insights from user-generated content.
 
-#### 4. ImageAnalyzer
+### 4. ImageAnalyzer
 **Location**: `src/Service/Api/Anthropic/ImageAnalyzer.php`
 
    [src/Service/Api/Anthropic/ImageAnalyzer.php](https://github.com/matthewdeaves/willow/blob/main/src/Service/Api/Anthropic/ImageAnalyzer.php)
@@ -213,7 +214,7 @@ The ImageAnalyzer class utilizes Anthropic's image processing capabilities to an
 
 This class could be extended to implement advanced image-based features, such as automatic tagging or content-aware image filtering.
 
-#### 5. SeoContentGenerator
+### 5. SeoContentGenerator
 **Location**: `src/Service/Api/Anthropic/SeoContentGenerator.php`
 
    [src/Service/Api/Anthropic/SeoContentGenerator.php](https://github.com/matthewdeaves/willow/blob/main/src/Service/Api/Anthropic/SeoContentGenerator.php)
@@ -229,7 +230,7 @@ This class leverages Anthropic's language generation capabilities to create SEO-
 
 This class could be extended to create more advanced SEO tools or as a template to automate other content creation processes.
 
-#### 6. ArticleTagsGenerator
+### 6. ArticleTagsGenerator
 **Location**: `src/Service/Api/Anthropic/ArticleTagsGenerator.php`
 
    [src/Service/Api/Anthropic/ArticleTagsGenerator.php](https://github.com/matthewdeaves/willow/blob/main/src/Service/Api/Anthropic/ArticleTagsGenerator.php)
@@ -238,7 +239,7 @@ The ArticleTagsGenerator class utilizes Anthropic's natural language processing 
 - Generating article tags based on the article's title and content
 - Considering existing tags to avoid duplication
 
-#### 7. TextSummaryGenerator
+### 7. TextSummaryGenerator
 **Location**: `src/Service/Api/Anthropic/TextSummaryGenerator.php`
 
    [src/Service/Api/Anthropic/TextSummaryGenerator.php](https://github.com/matthewdeaves/willow/blob/main/src/Service/Api/Anthropic/TextSummaryGenerator.php)
@@ -246,14 +247,14 @@ The ArticleTagsGenerator class utilizes Anthropic's natural language processing 
 The TextSummaryGenerator class leverages Anthropic's advanced natural language processing capabilities to create concise summaries of text. Its primary functionality includes:
 - Generating summaries based on the provided text and context
 
-##### Classes Summary
+### Classes Summary
 The Generator/Analyzer classes use the AipromptsTable to retrieve task-specific prompt data from the `aipromtps` table and serve as a foundation for developing specialized Anthropic API interactions or as a template for integrating other AI services.
 
-### Environment Configuration with `config/.env.example` 
+## Environment Configuration with `config/.env.example` 
 
 The `config/.env.example` file serves as a template for configuring Willow CMS using environment variables. This file is designed to help you manage configuration settings that vary across different environments, such as development, testing, and production. By leveraging environment variables, you can streamline the configuration process and ensure that your application behaves appropriately in each environment. Defaults are provided for the development environment and you can use the `.env` file out of the box with developmen, but it is not necessary since calls to `env()` in the codebase already supply default values for the development environment.
 
-#### Steps to Use `config/.env.example`
+### Steps to Use `config/.env.example`
 
 1. **Copy the File**: Begin by copying the `config/.env.example` file to `config/.env`. This new file will be used to store your environment-specific configurations. Because Willow is built on the CakePHP framework everything is is setup to use this file immediately.
 

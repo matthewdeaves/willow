@@ -343,6 +343,7 @@ class ArticlesTable extends Table
                 'title' => $entity->title,
             ];
 
+            // Queue up an ArticleTagUpdateJob
             QueueManager::push('App\Job\ArticleTagUpdateJob', $data);
             $this->log(
                 __(
@@ -351,6 +352,17 @@ class ArticlesTable extends Table
                 ),
                 'info',
                 ['group_name' => 'article_tag_update']
+            );
+
+            // Queue up an ArticleSummaryUpdateJob
+            QueueManager::push('App\Job\ArticleSummaryUpdateJob', $data);
+            $this->log(
+                __(
+                    'Queued Article Summary update job: {0}',
+                    [$entity->title]
+                ),
+                'info',
+                ['group_name' => 'article_summary_update']
             );
         }
     }

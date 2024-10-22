@@ -69,37 +69,9 @@ docker compose exec php bin/cake queue worker --verbose
 Leave the queue worker running in a terminal to see useful output as it picks up and runs [jobs](https://github.com/matthewdeaves/willow/tree/main/src/Job). Remember to save your Anthropic API key in the settings page.
 
 ## Development Guide
-If you build on Willow CMS you should update the Unit Tests and be sure to fix anything that PHP Code Sniffer picks up. You can run those tools like so:
+You should checkout the detailed [Developer Guide](https://github.com/matthewdeaves/willow/blob/main/DeveloperGuide.md) for an overview of some key source code, development process and best practice.
 
-```
-#cd into the code folder
-cd willow/
 
-#run the PHPUnit Tests
-docker compose exec php vendor/bin/phpunit --coverage-text
-
-#run PHP CodeSniffer (PHPCS)
-docker compose exec php vendor/bin/phpcs --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/
-
-#run PHP Code Beautifier and Fixer or PHPCBF
-docker compose exec php vendor/bin/phpcbf
-
-#run code style checks via composer
-docker compose exec php composer cs-check
-
-#run code style automatic fixes via composer
-docker compose exec php composer cs-fix
-```
-You should checkout the detailed [Developer Guide](https://github.com/matthewdeaves/willow/blob/main/DeveloperGuide.md) for an overview of some key source code.
-
-### Useful Shell Aliases
-It's a lot to type out the commands above. If you build on Willow CMS you should make life easier with some shell aliases. You can auto set them (zshrc/bashrc detection included) by running `./setup_dev_aliases.sh` from the project root. [setup_dev_aliases.sh](https://raw.githubusercontent.com/matthewdeaves/willow/refs/heads/main/setup_dev_aliases.sh) will add a statement to simply load the aliases from [dev_aliases.txt](https://raw.githubusercontent.com/matthewdeaves/willow/refs/heads/main/dev_aliases.txt) when you start a new shell. Or you can manually add the aliases:
-
-1. Copy the contents of `dev_aliases.sh`
-2. Open your `~/.bashrc` or `.zshrc` file
-3. Paste the contents at the end of the file
-4. Save and close the file
-5. Run `source ~/.bashrc` or `source ~/.zshrc` or restart your terminal
 
 ### Docker Containers
 See [docker-compose.yml](https://raw.githubusercontent.com/matthewdeaves/willow/refs/heads/main/docker-compose.yml) and the [docker](https://github.com/matthewdeaves/willow/tree/main/docker) folder for how the docker images and containers are built.
@@ -126,7 +98,7 @@ Configured via [docker-compose.yml](https://github.com/matthewdeaves/willow/blob
 There is a separate GitHub Repository for a [production version of Willow CMS for AWS AppRunner](https://github.com/matthewdeaves/willow_cms_production_deployment) with its own guide.
 
 ### GitHub Actions
-Willow CMS is setup to execute tests with GitHub Actions with [ci.yml](https://github.com/matthewdeaves/willow/blob/main/.github/workflows/ci.yml). Willow CMS is tested against PHP 8.1, 8.2 and 8.3.
+GitHub Actions will execute PHPUnit tests and PHP CodeSniffer on the main/development/staging branches and pull requests. Configuration for this is in [ci.yml](https://github.com/matthewdeaves/willow/blob/main/.github/workflows/ci.yml). Willow CMS is tested against PHP 8.1, 8.2 and 8.3.
 
 ### Thanks To
 

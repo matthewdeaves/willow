@@ -1,6 +1,7 @@
 # Table of Contents
 
 1. [Getting Started with Willow CMS Code](#getting-started-with-willow-cms-code)
+   - [Useful Shell Aliases](#useful-shell-aliases)
    - [Key Code Folders](#key-code-folders)
    - [Command Line Tools](#command-line-tools)
    - [Controllers](#controllers)
@@ -35,6 +36,15 @@
 ## Getting Started with Willow CMS Code
 
 To help developers dive into the Willow CMS codebase, this section provides an overview of key components and resources. For a comprehensive understanding of CakePHP, which Willow CMS is built upon, refer to the [CakePHP Book](https://book.cakephp.org/5/en/index.html).
+
+### Useful Shell Aliases
+If you build on Willow CMS you should make life easier with some shell aliases. You can auto set them (zshrc/bashrc detection included) by running `./setup_dev_aliases.sh` from the project root. [setup_dev_aliases.sh](https://raw.githubusercontent.com/matthewdeaves/willow/refs/heads/main/setup_dev_aliases.sh) will add a statement to simply load the aliases from [dev_aliases.txt](https://raw.githubusercontent.com/matthewdeaves/willow/refs/heads/main/dev_aliases.txt) when you start a new shell. Or you can manually add the aliases:
+
+1. Copy the contents of `dev_aliases.sh`
+2. Open your `~/.bashrc` or `.zshrc` file
+3. Paste the contents at the end of the file
+4. Save and close the file
+5. Run `source ~/.bashrc` or `source ~/.zshrc` or restart your terminal
 
 ### Key Code Folders
 
@@ -99,7 +109,11 @@ When developing new features for Willow CMS that require changes to the database
 3. **Generate Migration Diff**:
    - Run the following command to create a migration diff:
      ```
-     bin/cake bake migration_diff NameOfYourFeatureMigration
+     # using developer alias
+     cake_shell bake migration_diff NameOfYourFeatureMigration
+     
+     # raw command
+     docker compose exec willowcms bin/cake bake migration_diff NameOfYourFeatureMigration
      ```
    - This command generates a migration file capturing the differences in your database schema.
 
@@ -234,6 +248,27 @@ sudo docker compose exec php php vendor/bin/phpunit --filter testLogin tests/Tes
 ```
 
 This command will run only the test methods whose names match the pattern testLogin.
+
+### PHP CodeSniffer (phpcs)
+
+I use PHP CodeSniffer (phpcs) to maintain consistent coding standards across the project. This tool helps developers adhere to the CakePHP coding style, ensuring readability and uniformity throughout the codebase. These tools are run within the Docker development environment, making it easy to maintain code quality regardless of your local setup. Below are the commands you can use to check your code for style violations and automatically fix many common issues:
+
+   - **Alias Commands**: 
+     ```bash
+     # to sniff for errors
+     phpcs_sniff
+
+     #to auto-fix fixable errors
+     phpcs_fix
+     ```
+   - **Raw Commands**: 
+     ```bash
+     # to sniff for errors
+     sudo docker compose exec willowcms vendor/bin/phpcs --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/
+
+     #to auto-fix fixable errors
+     docker compose exec willowcms php vendor/bin/phpcbf
+     ```
 
 ## Anthropic API Integration Classes
 

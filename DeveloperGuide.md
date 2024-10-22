@@ -170,7 +170,7 @@ I use PHP CodeSniffer (phpcs) to maintain consistent coding standards across the
    - **Raw Commands**: 
      ```bash
      # to sniff for errors
-     sudo docker compose exec willowcms vendor/bin/phpcs --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/
+     docker compose exec willowcms vendor/bin/phpcs --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/
 
      #to auto-fix fixable errors
      docker compose exec willowcms php vendor/bin/phpcbf

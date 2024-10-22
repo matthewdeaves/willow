@@ -85,6 +85,11 @@ class V1 extends AbstractMigration
                 'limit' => null,
                 'null' => true,
             ])
+            ->addColumn('summary', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
             ->addColumn('image', 'string', [
                 'default' => null,
                 'limit' => 255,

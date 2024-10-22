@@ -3,8 +3,6 @@
  * @var \App\View\AppView $this
  * @var array $groupedSettings
  */
-
-use Cake\Utility\Inflector;
 ?>
 
 <div class="container-fluid mt-4">
@@ -17,7 +15,7 @@ use Cake\Utility\Inflector;
                 <div class="card-body">
                     <?= $this->Form->create(null, ['url' => ['action' => 'saveSettings'], 'class' => 'needs-validation', 'novalidate' => true]) ?>
                     <?php foreach ($groupedSettings as $category => $settings): ?>
-                        <h4 class="mb-3 mt-4 text-secondary"><?= h(Inflector::humanize(Inflector::underscore($category))) ?></h4>
+                        <h4 class="mb-3 mt-4 text-secondary"><?= h($this->makeHumanReadable($category)) ?></h4>
                         <div class="row">
                         <?php foreach ($settings as $key => $setting): ?>
                             <div class="col-md-4 mb-3">
@@ -36,11 +34,11 @@ use Cake\Utility\Inflector;
                                             'type' => 'checkbox'
                                         ]) ?>
                                         <label class="form-check-label" for="<?= "{$category}-{$key}" ?>">
-                                            <?= Inflector::humanize($key) ?>
+                                            <?= $this->makeHumanReadable($key) ?>
                                         </label>
                                     </div>
                                 <?php elseif ($obscure): ?>
-                                    <label for="<?= "{$category}-{$key}" ?>"><?= Inflector::humanize($key) ?></label>
+                                    <label for="<?= "{$category}-{$key}" ?>"><?= $this->makeHumanReadable($key) ?></label>
                                     <div class="input-group">
                                         <?= $this->Form->text("{$category}.{$key}", [
                                             'value' => str_repeat('•', strlen($value)),
@@ -55,7 +53,7 @@ use Cake\Utility\Inflector;
                                     </div>
                                 <?php else: ?>
                                     <?= $this->Form->control("{$category}.{$key}", [
-                                        'label' => Inflector::humanize($key),
+                                        'label' => $this->makeHumanReadable($key),
                                         'value' => $value,
                                         'class' => 'form-control' . ($value_type === 'numeric' ? ' is-numeric' : ''),
                                         'type' => $value_type === 'numeric' ? 'number' : 'text',

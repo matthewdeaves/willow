@@ -49,6 +49,7 @@ class Article extends Entity
         'title' => true,
         'slug' => true,
         'body' => true,
+        'summary' => true,
         'created' => true,
         'modified' => true,
         'meta_title' => true,

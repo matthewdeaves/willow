@@ -7,6 +7,13 @@
 function sanitizeId($name) {
     return preg_replace('/[^a-z0-9]/i', '_', $name);
 }
+
+function formatDateTime(?DateTime $dateTime): string {
+    if ($dateTime === null) {
+        return __('Never');
+    }
+    return $dateTime->format('Y-m-d H:i:s');
+}
 ?>
 <div class="container-fluid mt-4">
     <div class="card shadow-sm">
@@ -36,9 +43,9 @@ function sanitizeId($name) {
                         <tr>
                             <td><?= h($name) ?></td>
                             <td><?= h(basename($info['engine'])) ?></td>
-                            <td><?= $info['last_cleared'] ? $info['last_cleared']->nice() : __('Never') ?></td>
+                            <td><?= formatDateTime($info['last_cleared']) ?></td>
                             <td>
-                                <button class="btn btn-sm btn-info" type="button" data-bs-toggle="collapse" data-bs-target="#details-<?= sanitizeId($name) ?>" aria-expanded="false">
+                                <button class="btn btn-sm btn-info" type="button" data-bs-toggle="collapse" data-bs-target="#details-<?= sanitizeId($name) ?>" aria-expanded="false" aria-controls="details-<?= sanitizeId($name) ?>">
                                     <?= __('Show Details') ?>
                                 </button>
                             </td>

@@ -7,7 +7,7 @@ use App\Controller\AppController;
 use App\Utility\SettingsManager;
 use Cake\Cache\Cache;
 use Cake\Http\Response;
-use Cake\I18n\FrozenTime;
+use DateTime;
 
 /**
  * CacheController handles cache clearing operations for the application.
@@ -95,6 +95,10 @@ class CacheController extends AppController
 
         foreach ($configuredCaches as $config) {
             $engineConfig = Cache::getConfig($config);
+
+            // No passwords
+            unset($engineConfig['password']);
+
             $cacheInfo[$config] = [
                 'engine' => $engineConfig['className'],
                 'settings' => $engineConfig,
@@ -109,13 +113,13 @@ class CacheController extends AppController
      * Gets the last cleared time for a specific cache configuration.
      *
      * @param string $config The cache configuration name.
-     * @return \Cake\I18n\FrozenTime|null The last cleared time or null if not available.
+     * @return \DateTime|null The last cleared time or null if not available.
      */
-    private function getLastClearedTime(string $config): ?FrozenTime
+    private function getLastClearedTime(string $config): ?DateTime
     {
         $time = Cache::read('last_cleared_' . $config, 'default');
 
-        return $time ? FrozenTime::parse($time) : null;
+        return $time ? new DateTime($time) : null;
     }
 
     /**
@@ -126,7 +130,7 @@ class CacheController extends AppController
      */
     private function updateLastClearedTime(string $config): void
     {
-        $time = FrozenTime::now();
-        Cache::write('last_cleared_' . $config, $time, 'default');
+        $time = new DateTime();
+        Cache::write('last_cleared_' . $config, $time->format('Y-m-d H:i:s'), 'default');
     }
 }

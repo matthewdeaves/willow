@@ -60,6 +60,7 @@ alias cake_bake_template='willowcms_exec bin/cake bake template'
 alias cake_clear_cache='willowcms_exec bin/cake cache clear_all'
 alias cake_migrate='willowcms_exec bin/cake migrations migrate'
 alias cake_rollback='willowcms_exec bin/cake migrations rollback'
+alias bake_snapshot='cake_shell bake migration_snapshot "$@"'
 
 # Change ownership of current directory to current user
 change_ownership() {

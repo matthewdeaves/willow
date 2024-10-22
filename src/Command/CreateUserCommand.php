@@ -68,15 +68,10 @@ class CreateUserCommand extends Command
     {
         $usersTable = $this->fetchTable('Users');
 
-        $this->log(__('Starting user creation process'), 'info', ['group_name' => 'user_creation']);
-
         if ($this->createUser($args, $io, $usersTable)) {
-            $this->log(__('User created successfully'), 'info', ['group_name' => 'user_creation']);
 
             return static::CODE_SUCCESS;
         }
-
-        $this->log(__('User creation failed'), 'error', ['group_name' => 'user_creation']);
 
         return static::CODE_ERROR;
     }

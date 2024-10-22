@@ -98,7 +98,7 @@ class CacheController extends AppController
 
             // No passwords
             unset($engineConfig['password']);
-            
+
             $cacheInfo[$config] = [
                 'engine' => $engineConfig['className'],
                 'settings' => $engineConfig,

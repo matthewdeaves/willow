@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Job;
 
 use App\Service\Api\Anthropic\TextSummaryGenerator;
+use App\Service\Api\AnthropicApiService;
 use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
@@ -49,7 +50,7 @@ class ArticleSummaryUpdateJob implements JobInterface
     public function __construct(?TextSummaryGenerator $summaryGenerator = null)
     {
         $this->summaryGenerator = $summaryGenerator ?? new TextSummaryGenerator(
-            new \App\Service\Api\AnthropicApiService(),
+            new AnthropicApiService(),
             TableRegistry::getTableLocator()->get('Aiprompts')
         );
     }
@@ -82,7 +83,7 @@ class ArticleSummaryUpdateJob implements JobInterface
         if ($summaryResult && isset($summaryResult['summary'])) {
             // Set the summary data we got back
             $article->summary = $summaryResult['summary'];
-            
+
             // We don't do anything with key points for now
             /*
             if (isset($summaryResult['key_points'])) {
@@ -108,7 +109,10 @@ class ArticleSummaryUpdateJob implements JobInterface
             }
         } else {
             $this->log(
-                __('Article summary update failed. No valid result returned. Article ID: {0} Title: {1}', [$id, $title]),
+                __(
+                    'Article summary update failed. No valid result returned. Article ID: {0} Title: {1}',
+                    [$id, $title]
+                ),
                 'error',
                 ['group_name' => 'article_summary_update']
             );

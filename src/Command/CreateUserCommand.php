@@ -69,7 +69,6 @@ class CreateUserCommand extends Command
         $usersTable = $this->fetchTable('Users');
 
         if ($this->createUser($args, $io, $usersTable)) {
-
             return static::CODE_SUCCESS;
         }
 

@@ -50,8 +50,8 @@ class AppView extends View
      * @param string $string The input string to be converted
      * @return string The humanized and readable version of the input string
      */
-    public function makeHumanReadable($string) {
-
+    public function makeHumanReadable(string $string): string
+    {
         return Inflector::humanize(Inflector::underscore($string));
     }
 }

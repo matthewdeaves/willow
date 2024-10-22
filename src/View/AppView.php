@@ -15,6 +15,7 @@ declare(strict_types=1);
  */
 namespace App\View;
 
+use Cake\Utility\Inflector;
 use Cake\View\View;
 
 /**
@@ -38,5 +39,19 @@ class AppView extends View
     public function initialize(): void
     {
         $this->loadHelper('Authentication.Identity');
+    }
+
+    /**
+     * Converts a string to a human-readable format.
+     *
+     * This method takes a string, converts it to underscore format,
+     * and then humanizes it for better readability.
+     *
+     * @param string $string The input string to be converted
+     * @return string The humanized and readable version of the input string
+     */
+    public function makeHumanReadable($string) {
+
+        return Inflector::humanize(Inflector::underscore($string));
     }
 }

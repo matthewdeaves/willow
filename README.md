@@ -69,36 +69,31 @@ docker compose exec php bin/cake queue worker --verbose
 Leave the queue worker running in a terminal to see useful output as it picks up and runs [jobs](https://github.com/matthewdeaves/willow/tree/main/src/Job). Remember to save your Anthropic API key in the settings page.
 
 ## Development Guide
-You should checkout the detailed [Developer Guide](https://github.com/matthewdeaves/willow/blob/main/DeveloperGuide.md) for an overview of some key source code, development process and best practice.
 
+The Willow CMS [Developer Guide](https://github.com/matthewdeaves/willow/blob/main/DeveloperGuide.md) provides a comprehensive overview of the project structure, development processes, and best practices. This guide is essential for both new and experienced contributors to understand the codebase and maintain consistency across the project.
 
+Key areas covered in the guide include:
 
-### Docker Containers
-See [docker-compose.yml](https://raw.githubusercontent.com/matthewdeaves/willow/refs/heads/main/docker-compose.yml) and the [docker](https://github.com/matthewdeaves/willow/tree/main/docker) folder for how the docker images and containers are built.
+1. **Getting Started**: Learn about useful shell aliases, key code folders, and the structure of controllers, models, and templates.
 
-#### Willow CMS
-This is a combined nginx and PHP-FPM container using Alpine Linux. The [docker/willowcms](https://github.com/matthewdeaves/willow/tree/main/docker/willowcms) folder has all the configuration that make it a little more open and therefore suitable for a development environment. In all other respects it is exactly the same as the production environment. Use [http://localhost:8080](http://localhost:8080) to use the development environment.
+2. **Theming with Plugins**: Understand how to customize the CMS appearance using the plugin system.
 
-#### Jenkins 
-Jenkins is pre-configured with a job that will checkout the repo and run the tests and code checks on the main branch. The [docker/jenkins](https://github.com/matthewdeaves/willow/tree/main/docker/jenkins) folder has all the configuration for this and more jobs will be added in future (front end tests for example). Use [http://localhost:8081](http://localhost:8081) to use Jenkins.
+3. **Feature Development and Database Migrations**: Follow best practices for developing new features, including database schema changes and applying them to production.
 
-#### MySQL Server
-Mostly configured via [docker-compose.yml](https://github.com/matthewdeaves/willow/blob/2a3dc5c9a3629b99797c586c938ed94a756b15fc/docker-compose.yml#L3) and loads an [init.sql](https://github.com/matthewdeaves/willow/blob/main/docker/mysql/init.sql) from [docker/mysql](https://github.com/matthewdeaves/willow/tree/main/docker/mysql). Default login is root:password
+4. **Coding Standards**: Utilize PHP CodeSniffer to maintain consistent code style across the project.
 
-#### redis and redis Commander
-Configured via [docker-compose.yml](https://github.com/matthewdeaves/willow/blob/2a3dc5c9a3629b99797c586c938ed94a756b15fc/docker-compose.yml#L69). Use [http://localhost:8084](http://localhost:8084) for redis Commander interface. Default login is root:password
+5. **Unit Testing**: Learn how to write, run, and interpret unit tests, including generating code coverage reports.
 
-#### phpMyAdmin
-Configured via [docker-compose.yml](https://github.com/matthewdeaves/willow/blob/2a3dc5c9a3629b99797c586c938ed94a756b15fc/docker-compose.yml#L37). Use [http://localhost:8082](http://localhost:8082) to access phpMyAdmin. It is pre-configured to access the MySQL Server container.
+6. **Anthropic API Integration**: Explore the classes used for AI-driven features, including comment analysis, image analysis, and SEO content generation.
 
-#### MailHog
-Configured via [docker-compose.yml](https://github.com/matthewdeaves/willow/blob/2a3dc5c9a3629b99797c586c938ed94a756b15fc/docker-compose.yml#L63). Use [http://localhost:8025](http://localhost:8025) for MailHog. It will receive all email sent by Willow CMS on the development environment and give you a nice interface to view it.
+7. **Environment Configuration**: Understand how to set up and manage different environments using the `config/.env` file.
+
+8. **The Docker Development Environment**: Understand how the development environment is setup and can be modified.
+
+For a deeper understanding of the underlying CakePHP framework, the [CakePHP Book](https://book.cakephp.org/5/en/index.html) is an invaluable resource.
 
 ### Production Environment
 There is a separate GitHub Repository for a [production version of Willow CMS for AWS AppRunner](https://github.com/matthewdeaves/willow_cms_production_deployment) with its own guide.
-
-### GitHub Actions
-GitHub Actions will execute PHPUnit tests and PHP CodeSniffer on the main/development/staging branches and pull requests. Configuration for this is in [ci.yml](https://github.com/matthewdeaves/willow/blob/main/.github/workflows/ci.yml). Willow CMS is tested against PHP 8.1, 8.2 and 8.3.
 
 ### Thanks To
 

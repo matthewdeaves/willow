@@ -15,12 +15,13 @@
    - [Best Practices](#best-practices)
    - [Coding Standards via PHP CodeSniffer](#coding-standards-via-php-codesniffer)
 
-2. [Unit Tests](#unit-tests)
+3. [Unit Tests](#unit-tests)
    - [Running Unit Tests](#running-unit-tests)
    - [Testing Commands](#testing-commands)
    - [Code Coverage Reports](#code-coverage-reports)
+   - [GitHub Actions](#gitHub-actions)
 
-3. [Anthropic API Integration Classes](#anthropic-api-integration-classes)
+4. [Anthropic API Integration Classes](#anthropic-api-integration-classes)
    - [AbstractApiService](#1-abstractapiservice)
    - [AnthropicApiService](#2-anthropicapiservice)
    - [CommentAnalyzer](#3-commentanalyzer)
@@ -30,9 +31,11 @@
    - [TextSummaryGenerator](#7-textsummarygenerator)
    - [ClassesSummary](#classes-summary)
 
-4. [Environment Configuration](#environment-configuration-with-configenvexample)
+5. [Environment Configuration](#environment-configuration-with-configenvexample)
    - [Steps to Use config/.env.example](#steps-to-use-configenvexample)
    - [Configuration Options](#configuration-options)
+
+6. [Docker Development Environment](#docker-development-environment)
 
 ## Getting Started with Willow CMS Code
 
@@ -271,6 +274,9 @@ sudo docker compose exec php php vendor/bin/phpunit --filter testLogin tests/Tes
 
 This command will run only the test methods whose names match the pattern testLogin.
 
+### GitHub Actions
+GitHub Actions will execute PHPUnit tests and PHP CodeSniffer on the main/development/staging branches and pull requests. Configuration for this is in [ci.yml](https://github.com/matthewdeaves/willow/blob/main/.github/workflows/ci.yml). Willow CMS is tested against PHP 8.1, 8.2 and 8.3.
+
 ## Anthropic API Integration Classes
 
 Willow CMS leverages Anthropic's AI capabilities through a set of specialized classes. These classes are designed to facilitate various AI-driven features and can be extended or customized to build further integrations. Here's an overview of the key classes:
@@ -388,3 +394,24 @@ The `config/.env.example` file serves as a template for configuring Willow CMS u
 - **Logging Configuration**: Uncomment and configure logging settings via environment variables to manage log levels and file paths.
 
 By following these steps and guidelines, you can effectively use the `config/.env` file to manage Willow CMS configurations on a per-environment basis. For my own production instances of Willow CMS on AWS AppRunner see [https://github.com/matthewdeaves/willow_cms_production_deployment](https://github.com/matthewdeaves/willow_cms_production_deployment)
+
+## Docker Development Environment
+See [docker-compose.yml](https://raw.githubusercontent.com/matthewdeaves/willow/refs/heads/main/docker-compose.yml) and the [docker](https://github.com/matthewdeaves/willow/tree/main/docker) folder for how the docker images and containers are built.
+
+#### Willow CMS
+This is a combined nginx and PHP-FPM container using Alpine Linux. The [docker/willowcms](https://github.com/matthewdeaves/willow/tree/main/docker/willowcms) folder has all the configuration that make it a little more open and therefore suitable for a development environment. In all other respects it is exactly the same as the production environment. Use [http://localhost:8080](http://localhost:8080) to use the development environment.
+
+#### Jenkins 
+Jenkins is pre-configured with a job that will checkout the repo and run the tests and code checks on the main branch. The [docker/jenkins](https://github.com/matthewdeaves/willow/tree/main/docker/jenkins) folder has all the configuration for this and more jobs will be added in future (front end tests for example). Use [http://localhost:8081](http://localhost:8081) to use Jenkins.
+
+#### MySQL Server
+Mostly configured via [docker-compose.yml](https://github.com/matthewdeaves/willow/blob/2a3dc5c9a3629b99797c586c938ed94a756b15fc/docker-compose.yml#L3) and loads an [init.sql](https://github.com/matthewdeaves/willow/blob/main/docker/mysql/init.sql) from [docker/mysql](https://github.com/matthewdeaves/willow/tree/main/docker/mysql). Default login is root:password
+
+#### redis and redis Commander
+Configured via [docker-compose.yml](https://github.com/matthewdeaves/willow/blob/2a3dc5c9a3629b99797c586c938ed94a756b15fc/docker-compose.yml#L69). Use [http://localhost:8084](http://localhost:8084) for redis Commander interface. Default login is root:password
+
+#### phpMyAdmin
+Configured via [docker-compose.yml](https://github.com/matthewdeaves/willow/blob/2a3dc5c9a3629b99797c586c938ed94a756b15fc/docker-compose.yml#L37). Use [http://localhost:8082](http://localhost:8082) to access phpMyAdmin. It is pre-configured to access the MySQL Server container.
+
+#### MailHog
+Configured via [docker-compose.yml](https://github.com/matthewdeaves/willow/blob/2a3dc5c9a3629b99797c586c938ed94a756b15fc/docker-compose.yml#L63). Use [http://localhost:8025](http://localhost:8025) for MailHog. It will receive all email sent by Willow CMS on the development environment and give you a nice interface to view it.

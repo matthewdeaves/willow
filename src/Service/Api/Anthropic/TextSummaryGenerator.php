@@ -8,7 +8,7 @@ use App\Service\Api\AnthropicApiService;
 use InvalidArgumentException;
 
 /**
- * TextSummaryGenerator Class
+ * Class TextSummaryGenerator
  *
  * This class is responsible for generating summaries of text using the Anthropic
  * API service. It interacts with the AI prompts table to retrieve prompt data
@@ -23,14 +23,32 @@ class TextSummaryGenerator
      */
     private AnthropicApiService $apiService;
 
+    /**
+     * The AI prompts table used for retrieving prompt data.
+     *
+     * @var \App\Model\Table\AipromptsTable
+     */
     private AipromptsTable $aipromptsTable;
 
+    /**
+     * Constructor for the TextSummaryGenerator class.
+     *
+     * @param \App\Service\Api\AnthropicApiService $apiService The API service for handling requests.
+     * @param \App\Model\Table\AipromptsTable $aipromptsTable The table for AI prompts.
+     */
     public function __construct(AnthropicApiService $apiService, AipromptsTable $aipromptsTable)
     {
         $this->apiService = $apiService;
         $this->aipromptsTable = $aipromptsTable;
     }
 
+    /**
+     * Generates a text summary using the Anthropic API.
+     *
+     * @param string $context The context for the text summary.
+     * @param string $text The text to be summarized.
+     * @return array The generated summary and key points.
+     */
     public function generateTextSummary(string $context, string $text): array
     {
         $promptData = $this->getPromptData('text_summary');

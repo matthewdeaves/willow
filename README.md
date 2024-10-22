@@ -51,7 +51,7 @@ To use these feautures go to the settings page [http://localhost:8080/admin/sett
 ### Queues and Consumers
 Willow CMS uses queues and consumers to offload heavy duty tasks to background processes. This includes things like image processing/resizing and making calls to the Anthropic API. On the development environment, queue workers are not started automatically. This means if you upload an image or perform a task that offloads a message to the queue for a worker to pick, you will need to start a queue worker. You can start a queue worker process like this:
 
-- **Alias Command**: 
+- **Alias Command**: (see [Useful Shell Aliases](https://github.com/matthewdeaves/willow/blob/main/DeveloperGuide.md#useful-shell-aliases))
 ```
 cake_queue_worker
 ```

@@ -13,6 +13,7 @@
    - [Development Process](#development-process)
    - [Applying Changes to Production](#applying-changes-to-production)
    - [Best Practices](#best-practices)
+   - [Coding Standards via PHP CodeSniffer](#coding-standards-via-php-codesniffer)
 
 2. [Unit Tests](#unit-tests)
    - [Running Unit Tests](#running-unit-tests)
@@ -154,6 +155,27 @@ When developing new features for Willow CMS that require changes to the database
 
 By following this workflow, you ensure that all database changes are version-controlled, tested, and can be easily applied across different environments.
 
+### Coding Standards via PHP CodeSniffer
+
+I use PHP CodeSniffer (phpcs) to maintain consistent coding standards across the project. This tool helps developers adhere to the CakePHP coding style, ensuring readability and uniformity throughout the codebase. These tools are run within the Docker development environment, making it easy to maintain code quality regardless of your local setup. Below are the commands you can use to check your code for style violations and automatically fix many common issues:
+
+   - **Alias Commands**: 
+     ```bash
+     # to sniff for errors
+     phpcs_sniff
+
+     #to auto-fix fixable errors
+     phpcs_fix
+     ```
+   - **Raw Commands**: 
+     ```bash
+     # to sniff for errors
+     sudo docker compose exec willowcms vendor/bin/phpcs --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/
+
+     #to auto-fix fixable errors
+     docker compose exec willowcms php vendor/bin/phpcbf
+     ```
+
 ## Unit Tests
 
 Unit testing is an integral part of maintaining code quality in Willow CMS. Tests are located in the `tests/TestCase` directory, with fixtures in `tests/Fixture`. Some particularly useful tests to examine include:
@@ -248,27 +270,6 @@ sudo docker compose exec php php vendor/bin/phpunit --filter testLogin tests/Tes
 ```
 
 This command will run only the test methods whose names match the pattern testLogin.
-
-### PHP CodeSniffer (phpcs)
-
-I use PHP CodeSniffer (phpcs) to maintain consistent coding standards across the project. This tool helps developers adhere to the CakePHP coding style, ensuring readability and uniformity throughout the codebase. These tools are run within the Docker development environment, making it easy to maintain code quality regardless of your local setup. Below are the commands you can use to check your code for style violations and automatically fix many common issues:
-
-   - **Alias Commands**: 
-     ```bash
-     # to sniff for errors
-     phpcs_sniff
-
-     #to auto-fix fixable errors
-     phpcs_fix
-     ```
-   - **Raw Commands**: 
-     ```bash
-     # to sniff for errors
-     sudo docker compose exec willowcms vendor/bin/phpcs --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/
-
-     #to auto-fix fixable errors
-     docker compose exec willowcms php vendor/bin/phpcbf
-     ```
 
 ## Anthropic API Integration Classes
 

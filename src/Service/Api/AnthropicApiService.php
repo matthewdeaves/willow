@@ -8,6 +8,7 @@ use App\Service\Api\Anthropic\ArticleTagsGenerator;
 use App\Service\Api\Anthropic\CommentAnalyzer;
 use App\Service\Api\Anthropic\ImageAnalyzer;
 use App\Service\Api\Anthropic\SeoContentGenerator;
+use App\Service\Api\Anthropic\TextSummaryGenerator;
 use App\Utility\SettingsManager;
 use Cake\Http\Client;
 use Cake\Http\Client\Response;
@@ -18,7 +19,7 @@ use Cake\ORM\TableRegistry;
  *
  * This service class provides an interface to interact with the Anthropic API,
  * handling various AI-related tasks such as SEO content generation, image analysis,
- * and comment moderation.
+ * comment moderation, and text summarization.
  */
 class AnthropicApiService extends AbstractApiService
 {
@@ -62,6 +63,11 @@ class AnthropicApiService extends AbstractApiService
     private ArticleTagsGenerator $articleTagsGenerator;
 
     /**
+     * @var \App\Service\Api\Anthropic\TextSummaryGenerator The text summary generator service.
+     */
+    private TextSummaryGenerator $textSummaryGenerator;
+
+    /**
      * AnthropicApiService constructor.
      *
      * Initializes the service with necessary dependencies and configurations.
@@ -76,6 +82,7 @@ class AnthropicApiService extends AbstractApiService
         $this->imageAnalyzer = new ImageAnalyzer($this, $this->aipromptsTable);
         $this->commentAnalyzer = new CommentAnalyzer($this, $this->aipromptsTable);
         $this->articleTagsGenerator = new ArticleTagsGenerator($this, $this->aipromptsTable);
+        $this->textSummaryGenerator = new TextSummaryGenerator($this, $this->aipromptsTable);
     }
 
     /**
@@ -135,6 +142,18 @@ class AnthropicApiService extends AbstractApiService
     public function analyzeComment(string $comment): array
     {
         return $this->commentAnalyzer->analyze($comment);
+    }
+
+    /**
+     * Generates a summary for a given text.
+     *
+     * @param string $context The context of the text (e.g., 'article', 'page', 'report').
+     * @param string $text The text to summarize.
+     * @return array The generated summary.
+     */
+    public function generateTextSummary(string $context, string $text): array
+    {
+        return $this->textSummaryGenerator->generateTextSummary($context, $text);
     }
 
     /**

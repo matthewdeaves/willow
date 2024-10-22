@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use Migrations\AbstractMigration;
 
-class ArticleSummary extends AbstractMigration
+class V1 extends AbstractMigration
 {
     /**
      * Up Method.

@@ -10,8 +10,15 @@ $modelNamePlural = Inflector::pluralize($modelName);
         </div>
         <div class="card-body p-0">
             <div class="list-group list-group-flush">
-                <?= $this->Html->link(__('List {0}', [$modelNamePlural]), ['controller' => $controllerName, 'action' => 'index'], ['class' => 'list-group-item list-group-item-action']) ?>
-                
+                <?= $this->Html->link(__('List {0}', 
+                    [$modelNamePlural]),
+                    [
+                        'controller' => $controllerName,
+                        'action' => 'index',
+                        '?' => isset($urlParams) ? $urlParams : []
+                    ],
+                    ['class' => 'list-group-item list-group-item-action']
+                ) ?>
                 <?php if (!isset($hideNew)) : ?>
                 <?= $this->Html->link(__('New {0}', [$modelName]), ['controller' => $controllerName, 'action' => 'add'], ['class' => 'list-group-item list-group-item-action']) ?>
                 <?php endif; ?>

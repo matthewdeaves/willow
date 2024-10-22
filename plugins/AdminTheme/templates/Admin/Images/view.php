@@ -12,7 +12,8 @@
                 'modelName' => 'Image',
                 'controllerName' => 'Images',
                 'entity' => $image,
-                'entityDisplayName' => $image->name
+                'entityDisplayName' => $image->name,
+                'urlParams' => ['view' => 'grid'],
             ]);
         ?>
         <div class="col-md-9">

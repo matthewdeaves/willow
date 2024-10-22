@@ -8,16 +8,8 @@
 2. [Anthropic API Integration](#anthropic-api-integration)
 3. [Queues and Consumers](#queues-and-consumers)
 4. [Development Guide](#development-guide)
-   - [Useful Shell Aliases](#useful-shell-aliases)
    - [Detailed Development Guide](https://github.com/matthewdeaves/willow/blob/main/DeveloperGuide.md)
-5. [Docker Containers](#docker-containers)
-   - [Jenkins](#jenkins)
-   - [MySQL Server](#mysql-server)
-   - [Redis and Redis Commander](#redis-and-redis-commander)
-   - [phpMyAdmin](#phpmyadmin)
-   - [MailHog](#mailhog)
-6. [Production Environment](#production-environment)
-7. [GitHub Actions](#github-actions)
+5. [Production Environment](#production-environment)
 
 ## Docker Development Environment
 Docker is used to host everything you need for a development environment: Nginx, PHP, MySQL, Redis, PHPMyAdmin, MailHog and Jenkins. The only thing you need on your host machine is [Docker](https://www.docker.com).
@@ -50,7 +42,8 @@ Willow integrates the [Anthropic API](https://console.anthropic.com/dashboard) f
 
 * Generation of image alternate text, keywords, nice file names and descriptions
 * Automatic moderation of comments
-* Generation of SEO related texts based on Article content
+* Generation of SEO related texts for Article/Pages and Tags based on their content
+* Auto Tagging of Articles/Pages (automatically create Tags based on content)
 * A lot more to come...
 
 To use these feautures go to the settings page [http://localhost:8080/admin/settings](http://localhost:8080/admin/settings) to add your API key and enable the AI features.

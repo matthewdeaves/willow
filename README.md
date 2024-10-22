@@ -33,9 +33,7 @@ On your first run, the development environment will be setup and you can visit [
 
 Login to the Willow CMS admin area at [http://localhost:8080/admin](http://localhost:8080/admin) using `admin@test.com` & `password`.
 
-This is all handled by `./setup_dev_env.sh` which is installing dependencies via [Composer](https://getcomposer.org/), running the database migration, creating a user and importing default data.
-
-[setup_dev_env.sh](https://github.com/matthewdeaves/willow/blob/main/setup_dev_env.sh)
+This is all handled by `./setup_dev_env.sh` which is installing dependencies via [Composer](https://getcomposer.org/), running the database migration, creating a user and importing default data. [View the setup_dev_env.sh script](https://github.com/matthewdeaves/willow/blob/main/setup_dev_env.sh)
 
 ### Anthropic API Integration
 Willow integrates the [Anthropic API](https://console.anthropic.com/dashboard) for some nice features:

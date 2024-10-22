@@ -81,6 +81,12 @@
                         </tr>
                     </table>
                     <div class="mt-4">
+                        <h5><?= __('Summary') ?></h5>
+                        <div class="border p-3 bg-light">
+                            <?= $article->summary; ?>
+                        </div>
+                    </div>
+                    <div class="mt-4">
                         <h5><?= __('Body') ?></h5>
                         <div class="border p-3 bg-light">
                             <?= $article->body; ?>

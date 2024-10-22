@@ -33,7 +33,9 @@ To help developers dive into the Willow CMS codebase, this section provides an o
 
 ### Key Code Folders
 
-1. **Command Line Tools**: The `src/Command` directory contains several useful CakePHP command line tools that can assist in various development tasks. These include:
+#### Command Line Tools
+
+The `src/Command` directory contains several useful CakePHP command line tools that can assist in various development tasks. These include:
    - `CreateUserCommand.php` - For creating new users.
    - `DefaultDataExportCommand.php` - To export default data.
    - `DefaultDataImportCommand.php` - To import default data.
@@ -43,13 +45,17 @@ To help developers dive into the Willow CMS codebase, this section provides an o
 
    [src/Command](https://github.com/matthewdeaves/willow/tree/main/src/Command)
 
-2. **Controllers**: The `src/Controller` directory houses the controllers for the front-end site. The `/admin` backend controllers are kept separate in `src/Controller/Admin`, ensuring a clear distinction between the front-end and back-end logic.
+#### Controllers
+
+The `src/Controller` directory houses the controllers for the front-end site. The `/admin` backend controllers are kept separate in `src/Controller/Admin`, ensuring a clear distinction between the front-end and back-end logic.
 
    [src/Controller (front end)](https://github.com/matthewdeaves/willow/tree/main/src/Controller)
 
    [src/Controller (admin back end)](https://github.com/matthewdeaves/willow/tree/main/src/Controller/Admin)
 
-3. **Models**: The `src/Model` directory contains the application's data models, which are crucial for interacting with the database and managing data logic.
+##### Models
+
+The `src/Model` directory contains the application's data models, which are crucial for interacting with the database and managing data logic.
 
    [src/Model](https://github.com/matthewdeaves/willow/tree/main/src/Model)
 
@@ -57,7 +63,9 @@ To help developers dive into the Willow CMS codebase, this section provides an o
 
    [src/Model/Behavior](https://github.com/matthewdeaves/willow/tree/main/src/Model/Behavior)
 
-4. **Templates**: The `plugins/DefaultTheme/templates` directory holds the templates for the default theme. Willow CMS uses plugins to facilitate easy theming, with themes residing in `plugins/AdminTheme` and `plugins/DefaultTheme`.
+#### Templates
+
+The `plugins/DefaultTheme/templates` directory holds the templates for the default theme. Willow CMS uses plugins to facilitate easy theming, with themes residing in `plugins/AdminTheme` and `plugins/DefaultTheme`.
 
    [src/Model](https://github.com/matthewdeaves/willow/tree/main/src/Model)
 

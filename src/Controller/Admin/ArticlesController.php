@@ -12,6 +12,8 @@ use Exception;
 /**
  * Articles Controller
  *
+ * Handles CRUD operations for articles, including pages and blog posts.
+ *
  * @property \App\Model\Table\ArticlesTable $Articles
  */
 class ArticlesController extends AppController
@@ -21,35 +23,19 @@ class ArticlesController extends AppController
     /**
      * Retrieves a hierarchical list of articles that are marked as pages.
      *
-     * This method constructs a query to fetch articles from the database that are identified as pages
-     * (i.e., where 'Articles.is_page' is set to 1). The query selects specific fields from the Articles
-     * table, including 'id', 'parent_id', 'title', 'slug', 'created', and 'modified', as well as fields
-     * from the associated Users table ('Users.id' and 'Users.username'). The results are ordered by the
-     * 'lft' field in ascending order to maintain the hierarchical structure.
-     *
-     * The query uses the 'threaded' finder to organize the articles into a nested array structure,
-     * reflecting their hierarchical relationships. The resulting array of articles is then set to the
-     * view context for rendering.
-     *
      * @return void
      */
     public function treeIndex(): void
     {
         $articles = $this->Articles->getPageTree();
-
         $this->set(compact('articles'));
     }
 
     /**
      * Updates the tree structure of articles.
      *
-     * This method allows only POST and PUT HTTP methods. It retrieves the data from the request
-     * and attempts to reorder the articles based on the provided data. The response is returned
-     * in JSON format indicating the success or failure of the operation.
-     *
-     * @return \Cake\Http\Response The response object containing the JSON encoded result.
-     * @throws \Exception If an error occurs during the reordering process, the exception message
-     *                    is captured and returned in the response.
+     * @return \Cake\Http\Response|null The JSON response indicating success or failure.
+     * @throws \Exception If an error occurs during the reordering process.
      */
     public function updateTree(): ?Response
     {
@@ -68,21 +54,11 @@ class ArticlesController extends AppController
     }
 
     /**
-     * Index method for fetching and displaying a list of articles.
+     * Displays a list of articles with search functionality.
      *
-     * This method handles both standard and AJAX requests to display articles.
-     * It constructs a query to select various fields from the Articles and Users tables,
-     * including a count of page views for each article. The query filters out pages
-     * (non-articles) and groups results by article and user identifiers.
-     *
-     * For AJAX requests, it supports searching articles by title, slug, body, and other
-     * metadata fields. The search results are rendered using an 'ajax' layout.
-     *
-     * For standard requests, it paginates the articles and renders them using the default layout.
-     *
-     * @return \Cake\Http\Response The response object containing the rendered view.
+     * @return \Cake\Http\Response|null
      */
-    public function index(): Response
+    public function index(): ?Response
     {
         $query = $this->Articles->find()
             ->select([
@@ -152,14 +128,14 @@ class ArticlesController extends AppController
         $articles = $this->paginate($query);
         $this->set(compact('articles'));
 
-        return $this->render();
+        return null;
     }
 
     /**
-     * View method
+     * Displays details of a specific article.
      *
      * @param string|null $id Article id.
-     * @return \Cake\Http\Response|null|void Renders view
+     * @return void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view(?string $id = null): void
@@ -199,22 +175,11 @@ class ArticlesController extends AppController
     }
 
     /**
-     * Add a new article.
+     * Adds a new article.
      *
-     * This method handles the creation of a new article. It processes POST requests,
-     * sets the 'is_page' attribute based on query parameters, and attempts to save
-     * the new article data. On successful save it redirects to the index or
-     * treeIndex action. On failure, it displays an error message.
-     *
-     * The method also prepares data for the view, including:
-     * - A list of parent articles (if 'is_page' query parameter is set)
-     * - A list of users
-     * - A list of tags
-     * - CSRF token for form protection
-     *
-     * @return \Cake\Http\Response|null Redirects to index on successful save, null otherwise.
+     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add(): Response
+    public function add(): ?Response
     {
         $article = $this->Articles->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -257,29 +222,17 @@ class ArticlesController extends AppController
         $token = $this->request->getAttribute('csrfToken');
         $this->set(compact('article', 'users', 'tags', 'token', 'parentArticles'));
 
-        return $this->render();
+        return null;
     }
 
     /**
-     * Edit method for updating an existing article.
-     *
-     * This method handles the editing of an existing article. It performs the following operations:
-     * - Retrieves the article by ID, including associated tags
-     * - Processes PATCH, POST, or PUT requests
-     * - Patches the article entity with submitted data
-     * - Attempts to save the updated article
-     * - Sets flash messages for success or failure
-     * - Redirects to the index action on successful save
-     *
-     * It also prepares data for the view, including:
-     * - Lists of users and tags for selection
-     * - The article entity for form population
+     * Edits an existing article.
      *
      * @param string|null $id Article ID.
-     * @return \Cake\Http\Response|null Redirects to index on successful edit, renders view otherwise.
+     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit(?string $id = null): Response
+    public function edit(?string $id = null): ?Response
     {
         $article = $this->Articles->get($id, contain: ['Tags', 'Images']);
         $oldSlug = $article->slug;
@@ -328,21 +281,15 @@ class ArticlesController extends AppController
         $tags = $this->Articles->Tags->find('list', limit: 200)->all();
         $this->set(compact('article', 'users', 'tags', 'parentArticles'));
 
-        return $this->render();
+        return null;
     }
 
     /**
-     * Delete method
+     * Deletes an article.
      *
-     * This method handles the deletion of an article identified by its ID. It ensures that the request
-     * method is either POST or DELETE to prevent accidental deletions via GET requests. Upon successful
-     * deletion it displays a success message.
-     * If the deletion fails, an error message is displayed. After the operation, the user is
-     * redirected to the index action.
-     *
-     * @param string|null $id The ID of the article to be deleted. If null, no action is taken.
-     * @return \Cake\Http\Response|null Redirects to the index action after attempting to delete the article.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When the article with the given ID does not exist.
+     * @param string|null $id Article ID.
+     * @return \Cake\Http\Response|null Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete(?string $id = null): Response
     {

@@ -10,16 +10,17 @@ use Cake\Http\Response;
 /**
  * Users Controller
  *
+ * Manages user-related actions such as listing, viewing, adding, editing, and deleting users.
+ *
  * @property \App\Model\Table\UsersTable $Users
  */
 class UsersController extends AppController
 {
     /**
-     * beforeFilter method
+     * Configures actions that can be accessed without authentication.
      *
-     * @param \Cake\Event\EventInterface $event The event object that contains the request and response objects.
-     * @return void
-     * @throws \Cake\Http\Exception\RedirectException If a redirect is necessary.
+     * @param \Cake\Event\EventInterface $event The event object.
+     * @return \Cake\Http\Response|null
      */
     public function beforeFilter(EventInterface $event): ?Response
     {
@@ -30,25 +31,14 @@ class UsersController extends AppController
     }
 
     /**
-     * Index method for Users.
+     * Lists users and handles search functionality.
      *
-     * This method handles both standard and AJAX requests for listing users.
-     * For standard requests, it paginates the user data.
-     * For AJAX requests, it performs a search based on the 'search' query parameter.
+     * Processes both standard and AJAX requests for listing users.
+     * Paginates user data for standard requests and performs search for AJAX requests.
      *
-     * @return \Cake\Http\Response The response object containing the rendered view.
-     * @uses \Cake\ORM\Table::find() To create a query object for retrieving user data.
-     * @uses \Cake\ORM\Query::select() To specify the fields to be selected from the Users table.
-     * @uses \Cake\Http\ServerRequest::is() To check if the request is an AJAX request.
-     * @uses \Cake\Http\ServerRequest::getQuery() To retrieve the 'search' query parameter.
-     * @uses \Cake\ORM\Query::where() To apply search conditions to the query.
-     * @uses \Cake\ORM\Query::all() To execute the query and retrieve all matching records.
-     * @uses \Cake\Controller\Controller::set() To pass data to the view.
-     * @uses \Cake\View\ViewBuilder::setLayout() To set the layout for AJAX responses.
-     * @uses \Cake\Controller\Controller::render() To render the view.
-     * @uses \Cake\Controller\Controller::paginate() To paginate the query results for non-AJAX requests.
+     * @return \Cake\Http\Response|null Returns a response for AJAX requests, null otherwise.
      */
-    public function index(): Response
+    public function index(): ?Response
     {
         $query = $this->Users->find()
             ->select([
@@ -82,14 +72,14 @@ class UsersController extends AppController
         $users = $this->paginate($query);
         $this->set(compact('users'));
 
-        return $this->render();
+        return null;
     }
 
     /**
-     * View method
+     * Displays details of a specific user.
      *
      * @param string|null $id User id.
-     * @return \Cake\Http\Response|null|void Renders view
+     * @return void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view(?string $id = null): void
@@ -99,11 +89,11 @@ class UsersController extends AppController
     }
 
     /**
-     * Add method
+     * Adds a new user.
      *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+     * @return \Cake\Http\Response|null Redirects on successful add, null otherwise.
      */
-    public function add(): Response
+    public function add(): ?Response
     {
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -117,23 +107,19 @@ class UsersController extends AppController
         }
         $this->set(compact('user'));
 
-        return $this->render();
+        return null;
     }
 
     /**
-     * Edit method for updating user information.
+     * Edits user information.
      *
-     * This method handles the editing of a user's details. It retrieves the user entity
-     * based on the provided ID and processes PATCH, POST, or PUT requests to update the user's information.
-     * The method implements a security check to prevent users from locking their own account
-     * by changing admin status or disabling it. It uses patchEntity to apply changes and
-     * attempts to save the updated user entity.
+     * Handles updating of user details with security checks to prevent self-locking their account.
      *
      * @param string|null $id The ID of the user to edit.
-     * @return \Cake\Http\Response|null Redirects to index on successful save, renders view otherwise.
+     * @return \Cake\Http\Response|null Redirects on successful edit, null otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit(?string $id = null): Response
+    public function edit(?string $id = null): ?Response
     {
         $user = $this->Users->get($id, contain: []);
         $currentUser = $this->Authentication->getIdentity();
@@ -167,15 +153,16 @@ class UsersController extends AppController
         }
         $this->set(compact('user'));
 
-        return $this->render();
+        return null;
     }
 
     /**
-     * Delete method
+     * Deletes a user.
      *
      * @param string|null $id User id.
-     * @return \Cake\Http\Response|null Redirects to index.
+     * @return \Cake\Http\Response Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @throws \Cake\Http\Exception\MethodNotAllowedException When invalid method is used.
      */
     public function delete(?string $id = null): Response
     {

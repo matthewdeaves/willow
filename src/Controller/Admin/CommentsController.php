@@ -9,13 +9,15 @@ use Cake\Http\Response;
 /**
  * Comments Controller
  *
+ * Manages CRUD operations for comments in the admin area.
+ *
  * @property \App\Model\Table\CommentsTable $Comments
  * @property \App\Model\Table\ArticlesTable $Articles
  */
 class CommentsController extends AppController
 {
     /**
-     * Initialize method
+     * Initializes the controller and loads the Articles table.
      *
      * @return void
      */
@@ -26,11 +28,11 @@ class CommentsController extends AppController
     }
 
     /**
-     * Index method
+     * Displays a paginated list of comments with search functionality.
      *
-     * @return \Cake\Http\Response|null|void Renders view
+     * @return \Cake\Http\Response|null Renders view or returns search results for AJAX requests.
      */
-    public function index(): Response
+    public function index(): ?Response
     {
         $query = $this->Comments->find()
             ->contain(['Users'])
@@ -53,15 +55,15 @@ class CommentsController extends AppController
         $comments = $this->paginate($query);
         $this->set(compact('comments'));
 
-        return $this->render();
+        return null;
     }
 
     /**
-     * View method
+     * Displays details of a specific comment.
      *
      * @param string|null $id Comment id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @return void
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When comment is not found.
      */
     public function view(?string $id = null): void
     {
@@ -70,21 +72,18 @@ class CommentsController extends AppController
     }
 
     /**
-     * Edit method
-     *
-     * Updates a comment and clears the cache for the associated article.
+     * Edits an existing comment and clears the cache for the associated article.
      *
      * @param string|null $id Comment id.
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When comment is not found.
      */
-    public function edit(?string $id = null): Response
+    public function edit(?string $id = null): ?Response
     {
         $comment = $this->Comments->get($id, contain: ['Articles']);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $comment = $this->Comments->patchEntity($comment, $this->request->getData());
             if ($this->Comments->save($comment)) {
-                // Clear the cache for the associated article
                 if ($comment->article) {
                     $this->Articles->clearFromCache($comment->article->slug);
                 }
@@ -97,24 +96,21 @@ class CommentsController extends AppController
         $users = $this->Comments->Users->find('list', limit: 200)->all();
         $this->set(compact('comment', 'users'));
 
-        return $this->render();
+        return null;
     }
 
     /**
-     * Delete method
-     *
      * Deletes a comment and clears the cache for the associated article.
      *
      * @param string|null $id Comment id.
-     * @return \Cake\Http\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @return \Cake\Http\Response Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When comment is not found.
      */
     public function delete(?string $id = null): Response
     {
         $this->request->allowMethod(['post', 'delete']);
         $comment = $this->Comments->get($id);
         if ($this->Comments->delete($comment)) {
-            // Clear the cache for the associated article
             if ($comment->article) {
                 $this->Articles->clearFromCache($comment->article->slug);
             }

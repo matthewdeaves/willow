@@ -16,14 +16,16 @@ use Exception;
 /**
  * EmailTemplates Controller
  *
+ * Manages email templates and sending emails based on these templates.
+ *
  * @property \App\Model\Table\EmailTemplatesTable $EmailTemplates
  */
 class EmailTemplatesController extends AppController
 {
     /**
-     * Index method
+     * Displays a paginated list of email templates.
      *
-     * @return \Cake\Http\Response|null|void Renders view
+     * @return void
      */
     public function index(): void
     {
@@ -34,10 +36,10 @@ class EmailTemplatesController extends AppController
     }
 
     /**
-     * View method
+     * Displays details of a specific email template.
      *
      * @param string|null $id Email Template id.
-     * @return \Cake\Http\Response|null|void Renders view
+     * @return void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view(?string $id = null): void
@@ -47,16 +49,15 @@ class EmailTemplatesController extends AppController
     }
 
     /**
-     * Add method
+     * Adds a new email template.
      *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add(): Response
+    public function add(): ?Response
     {
         $emailTemplate = $this->EmailTemplates->newEmptyEntity();
         if ($this->request->is('post')) {
             $data = $this->request->getData();
-            // Generate plain text version from HTML
             $data['body_plain'] = $this->htmlToPlainText($data['body_html']);
 
             $emailTemplate = $this->EmailTemplates->patchEntity($emailTemplate, $data);
@@ -69,22 +70,21 @@ class EmailTemplatesController extends AppController
         }
         $this->set(compact('emailTemplate'));
 
-        return $this->render();
+        return null;
     }
 
     /**
-     * Edit method
+     * Edits an existing email template.
      *
      * @param string|null $id Email Template id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
+     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit(?string $id = null): Response
+    public function edit(?string $id = null): ?Response
     {
         $emailTemplate = $this->EmailTemplates->get($id, contain: []);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
-            // Generate plain text version from HTML
             $data['body_plain'] = $this->htmlToPlainText($data['body_html']);
 
             $emailTemplate = $this->EmailTemplates->patchEntity($emailTemplate, $data);
@@ -97,37 +97,28 @@ class EmailTemplatesController extends AppController
         }
         $this->set(compact('emailTemplate'));
 
-        return $this->render();
+        return null;
     }
 
     /**
      * Converts HTML content to plain text.
      *
-     * This function removes all HTML tags from the provided HTML content,
-     * decodes HTML entities to their corresponding characters, and removes
-     * any extra whitespace. The resulting plain text is trimmed of leading
-     * and trailing whitespace before being returned.
-     *
-     * @param string $html The HTML content to be converted to plain text.
-     * @return string The plain text representation of the provided HTML content.
+     * @param string $html The HTML content to be converted.
+     * @return string The plain text representation of the HTML content.
      */
     private function htmlToPlainText(string $html): string
     {
-        // Remove HTML tags
         $text = strip_tags($html);
-        // Convert HTML entities to their corresponding characters
         $text = html_entity_decode($text);
-        // Remove extra whitespace
-        //$text = preg_replace('/\s+/', ' ', $text);
-        // Trim the result
+
         return trim($text);
     }
 
     /**
-     * Delete method
+     * Deletes an email template.
      *
      * @param string|null $id Email Template id.
-     * @return \Cake\Http\Response|null Redirects to index.
+     * @return \Cake\Http\Response Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete(?string $id = null): Response
@@ -146,21 +137,9 @@ class EmailTemplatesController extends AppController
     /**
      * Sends an email to a user based on a selected email template.
      *
-     * This method retrieves a list of email templates and users, and upon receiving a POST request,
-     * it sends an email to a specified user using a specified email template. The email content is
-     * customized by replacing placeholders in the template with actual data.
-     *
-     * @return \Cake\Http\Response|null Redirects to the index action after attempting to send the email,
-     *                                   or renders the current view if no POST request is made.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException If the email template or user cannot be found.
-     * @throws \Exception If there is an error during the email sending process.
-     * @uses \App\Model\Table\EmailTemplatesTable::find() To retrieve the list of email templates.
-     * @uses \App\Model\Table\UsersTable::find() To retrieve the list of users.
-     * @uses \App\Controller\Component\EmailComponent::prepareEmailVariables() To prepare variables for the email template.
-     * @uses \Cake\Mailer\Mailer To send the email.
-     * @uses \Cake\Http\ServerRequest::getData() To retrieve POST data.
-     * @uses \Cake\Controller\Component\FlashComponent::success() To set success flash messages.
-     * @uses \Cake\Controller\Component\FlashComponent::error() To set error flash messages.
+     * @return \Cake\Http\Response|null Redirects after attempting to send the email, or renders view.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When email template or user not found.
+     * @throws \Exception If there's an error during the email sending process.
      */
     public function sendEmail(): ?Response
     {
@@ -193,7 +172,6 @@ class EmailTemplatesController extends AppController
             }
 
             $mailer = new Mailer('default');
-
             $mailer->setTo($user->email)
                 ->setSubject($emailTemplate->subject)
                 ->setEmailFormat('both')
@@ -239,7 +217,7 @@ class EmailTemplatesController extends AppController
 
         $this->set(compact('emailTemplates', 'users'));
 
-        return $this->render();
+        return null;
     }
 
     /**
@@ -252,10 +230,6 @@ class EmailTemplatesController extends AppController
      * @param string $templateId The UUID of the email template.
      * @param string $userId The ID of the user for whom the email is being prepared.
      * @return array An associative array of variables for use in the email template.
-     * @uses \App\Model\Table\EmailTemplatesTable::get() To retrieve the email template.
-     * @uses \Cake\ORM\TableRegistry::getTableLocator() To get the Users table.
-     * @uses \App\Model\Table\UsersTable::get() To retrieve the user data.
-     * @uses self::generateConfirmationLink() To generate a confirmation link if needed.
      */
     private function prepareEmailVariables(string $templateId, string $userId): array
     {
@@ -263,22 +237,15 @@ class EmailTemplatesController extends AppController
         $emailTemplate = $this->EmailTemplates->get($templateId, contain: []);
         $user = TableRegistry::getTableLocator()->get('Users')->get($userId, contain: []);
 
-        // Always include basic user info
         $variables['username'] = $user->username;
         $variables['email'] = $user->email;
 
-        // Check for specific template needs
         if (
             strpos($emailTemplate->body_html, '{confirm_email_link}') !== false ||
             strpos($emailTemplate->body_plain, '{confirm_email_link}') !== false
         ) {
             $variables['confirm_email_link'] = $this->generateConfirmationLink($user);
         }
-
-        // Add more conditional variables here as needed
-        // if (strpos($emailTemplate->body_html, '{some_other_variable}') !== false) {
-        //     $variables['some_other_variable'] = $this->generateSomeOtherVariable();
-        // }
 
         return $variables;
     }
@@ -293,28 +260,18 @@ class EmailTemplatesController extends AppController
      *
      * @param \App\Model\Entity\User $user The user entity for whom the confirmation link is generated.
      * @return string The generated confirmation link URL.
-     * @uses \Cake\ORM\TableRegistry::getTableLocator() To get the UserAccountConfirmations table.
-     * @uses \Cake\Utility\Text::uuid() To generate a new UUID if no confirmation code exists.
-     * @uses \Cake\Routing\Router::url() To generate the confirmation link URL.
      */
     private function generateConfirmationLink(User $user): string
     {
-        // Get the UserAccountConfirmations table
         $userAccountConfirmationsTable = TableRegistry::getTableLocator()->get('UserAccountConfirmations');
-
-        // Look up the confirmation code for the user
         $confirmation = $userAccountConfirmationsTable->find()
             ->where(['user_id' => $user->id])
             ->first();
 
         if ($confirmation) {
-            // If a confirmation code exists, use it to generate the link
             $confirmationCode = $confirmation->confirmation_code;
         } else {
-            // If no confirmation code exists, generate a new UUID
-            $confirmationCode = Text::uuid(); // Generate a UUID
-
-            // Save the new confirmation code
+            $confirmationCode = Text::uuid();
             $newConfirmation = $userAccountConfirmationsTable->newEntity([
                 'user_id' => $user->id,
                 'confirmation_code' => $confirmationCode,
@@ -322,7 +279,6 @@ class EmailTemplatesController extends AppController
             $userAccountConfirmationsTable->save($newConfirmation);
         }
 
-        // Generate the confirmation link
         return Router::url([
             'prefix' => false,
             'controller' => 'Users',

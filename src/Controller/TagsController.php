@@ -10,16 +10,17 @@ use Cake\Http\Response;
 /**
  * Tags Controller
  *
+ * Handles operations related to tags, including listing all tags and viewing articles associated with a specific tag.
+ *
  * @property \App\Model\Table\TagsTable $Tags
  */
 class TagsController extends AppController
 {
     /**
-     * beforeFilter method
+     * Configures actions that can be accessed without authentication.
      *
-     * @param \Cake\Event\EventInterface $event The event object that contains the request and response objects.
-     * @return void
-     * @throws \Cake\Http\Exception\RedirectException If a redirect is necessary.
+     * @param \Cake\Event\EventInterface $event The event object.
+     * @return \Cake\Http\Response|null
      */
     public function beforeFilter(EventInterface $event): ?Response
     {
@@ -30,9 +31,9 @@ class TagsController extends AppController
     }
 
     /**
-     * Index method
+     * Displays a paginated list of all tags.
      *
-     * @return \Cake\Http\Response|null|void Renders view
+     * @return void
      */
     public function index(): void
     {
@@ -43,11 +44,10 @@ class TagsController extends AppController
     }
 
     /**
-     * Displays a tag and its associated articles based on the tag's slug.
+     * Displays a tag and its associated published articles.
      *
-     * This method retrieves a tag by its slug and loads associated articles
-     * with their authors. It selects specific fields for efficiency and
-     * throws an exception if the tag is not found.
+     * Retrieves a tag by its slug and loads associated published articles with their authors.
+     * Throws an exception if the tag is not found.
      *
      * @param string $slug The unique slug of the tag to retrieve.
      * @throws \Cake\Http\Exception\NotFoundException If the tag is not found.
@@ -71,7 +71,6 @@ class TagsController extends AppController
             throw new NotFoundException(__('Tag not found'));
         }
 
-        // Set the tag data for the view
         $this->set(compact('tag'));
     }
 }

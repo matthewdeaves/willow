@@ -16,9 +16,11 @@ class AipromptsController extends AppController
     /**
      * Index method
      *
-     * @return \Cake\Http\Response The response object containing the rendered view.
+     * Lists all AI prompts and handles search functionality.
+     *
+     * @return \Cake\Http\Response|null
      */
-    public function index(): Response
+    public function index(): ?Response
     {
         $query = $this->Aiprompts->find()
             ->select([
@@ -53,26 +55,28 @@ class AipromptsController extends AppController
         $aiprompts = $this->paginate($query);
         $this->set(compact('aiprompts'));
 
-        return $this->render();
+        return null;
     }
 
     /**
      * View method
      *
+     * Displays details of a specific AI prompt.
+     *
      * @param string|null $id Aiprompt id.
-     * @return \Cake\Http\Response|null Renders view
+     * @return void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view(?string $id = null): ?Response
+    public function view(?string $id = null): void
     {
         $aiprompt = $this->Aiprompts->get($id, contain: []);
         $this->set(compact('aiprompt'));
-
-        return $this->render();
     }
 
     /**
      * Add method
+     *
+     * Creates a new AI prompt.
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
@@ -91,11 +95,13 @@ class AipromptsController extends AppController
         }
         $this->set(compact('aiprompt'));
 
-        return $this->render();
+        return null;
     }
 
     /**
      * Edit method
+     *
+     * Modifies an existing AI prompt.
      *
      * @param string|null $id Aiprompt id.
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
@@ -116,6 +122,6 @@ class AipromptsController extends AppController
         }
         $this->set(compact('aiprompt'));
 
-        return $this->render();
+        return null;
     }
 }

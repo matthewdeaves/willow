@@ -15,6 +15,8 @@ use Exception;
 /**
  * PageViews Controller
  *
+ * Manages page view statistics for articles.
+ *
  * @property \App\Model\Table\PageViewsTable $PageViews
  */
 class PageViewsController extends AppController
@@ -24,8 +26,7 @@ class PageViewsController extends AppController
     /**
      * Articles Table
      *
-     * @var \App\Model\Table\ArticlesTable $Articles
-     *
+     * @var \App\Model\Table\ArticlesTable
      * This property holds an instance of the ArticlesTable class.
      * It is used to interact with the articles table in the database.
      * The ArticlesTable class provides methods for querying and manipulating
@@ -34,14 +35,9 @@ class PageViewsController extends AppController
     protected ArticlesTable $Articles;
 
     /**
-     * Retrieves page view statistics for a specific article.
+     * Initialize method
      *
-     * This method fetches an article by its ID and retrieves the number of page views
-     * grouped by date. It then sets the data to be used in the view.
-     *
-     * @param int $articleId The ID of the article to retrieve statistics for
      * @return void
-     * @throws \Cake\Http\Exception\NotFoundException If the article is not found
      */
     public function initialize(): void
     {
@@ -84,15 +80,15 @@ class PageViewsController extends AppController
     }
 
     /**
-     * Retrieves and sets view records for a specific article.
+     * Retrieves view records for a specific article.
      *
      * This method fetches an article by its ID and retrieves all associated page view records.
      * If a date query parameter is provided, it filters the page views by that date.
      * The results are then set to be available in the view.
      *
-     * @param string $articleId The ID of the article to retrieve view records for.
-     * @throws \Cake\Http\Exception\NotFoundException If the article is not found.
+     * @param string $articleId The ID of the article to retrieve view records for
      * @return void
+     * @throws \Cake\Http\Exception\NotFoundException If the article is not found
      */
     public function viewRecords(string $articleId): void
     {
@@ -125,8 +121,7 @@ class PageViewsController extends AppController
      * Filters page view statistics for a specific article based on date range.
      *
      * @param string $articleId The ID of the article to retrieve statistics for
-     * @return \Cake\Http\Response
-     * @throws \Cake\Http\Exception\NotFoundException If the article is not found
+     * @return \Cake\Http\Response|null JSON response with filtered data or error message
      */
     public function filterStats(string $articleId): ?Response
     {

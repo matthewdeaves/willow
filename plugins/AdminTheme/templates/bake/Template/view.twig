@@ -1,0 +1,122 @@
+{#
+/**
+ * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
+ * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
+ * @link          https://cakephp.org CakePHP(tm) Project
+ * @since         2.0.0
+ * @license       https://www.opensource.org/licenses/mit-license.php MIT License
+ */
+#}
+<?php
+/**
+ * @var \{{ namespace }}\View\AppView $this
+ * @var \{{ entityClass }} ${{ singularVar }}
+ */
+?>
+{% set associations = {'BelongsTo': [], 'HasOne': [], 'HasMany': [], 'BelongsToMany': []}|merge(associations) %}
+{% set fieldsData = Bake.getViewFieldsData(fields, schema, associations) %}
+{% set associationFields = fieldsData.associationFields %}
+{% set groupedFields = fieldsData.groupedFields %}
+{% set pK = '$' ~ singularVar ~ '->' ~ primaryKey1 %}
+<div class="container-fluid mt-4">
+    <div class="row">
+        <?php
+        echo $this->element('actions_card', [
+            'modelName' => '{{ singularHumanName }}',
+            'controllerName' => '{{ pluralHumanName }}',
+            'entity' => ${{ singularVar }},
+            'entityDisplayName' => ${{ singularVar }}->{{ displayField }}
+        ]);
+        ?>
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0"><?= h(${{ singularVar }}->{{ displayField }}) ?></h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+{% for field, value in groupedFields %}
+{% if field != 'number' %}
+{% for fieldName in value %}
+{% if associationFields[fieldName] is defined %}
+{% set details = associationFields[fieldName] %}
+                        <tr>
+                            <th><?= __('{{ details.property|humanize }}') ?></th>
+                            <td><?= ${{ singularVar }}->hasValue('{{ details.property }}') ? $this->Html->link(${{ singularVar }}->{{ details.property }}->{{ details.displayField }}, ['controller' => '{{ details.controller }}', 'action' => 'view', ${{ singularVar }}->{{ details.property }}->{{ details.primaryKey[0] }}]) : '' ?></td>
+                        </tr>
+{% else %}
+                        <tr>
+                            <th><?= __('{{ fieldName|humanize }}') ?></th>
+                            <td><?= h(${{ singularVar }}->{{ fieldName }}) ?></td>
+                        </tr>
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% if groupedFields.number %}
+{% for field in groupedFields.number %}
+                        <tr>
+                            <th><?= __('{{ field|humanize }}') ?></th>
+{% set columnData = Bake.columnData(field, schema) %}
+{% if columnData.null %}
+                            <td><?= ${{ singularVar }}->{{ field }} === null ? '' : $this->Number->format(${{ singularVar }}->{{ field }}) ?></td>
+{% else %}
+                            <td><?= $this->Number->format(${{ singularVar }}->{{ field }}) ?></td>
+{% endif %}
+                        </tr>
+{% endfor %}
+{% endif %}
+                    </table>
+                </div>
+            </div>
+
+{% set relations = associations.BelongsToMany|merge(associations.HasMany) %}
+{% for alias, details in relations %}
+{% set otherSingularVar = alias|singularize|variable %}
+{% set otherPluralHumanName = details.controller|underscore|humanize %}
+            <div class="card mt-4">
+                <div class="card-header bg-secondary text-white">
+                    <h4 class="mb-0"><?= __('Related {{ otherPluralHumanName }}') ?></h4>
+                </div>
+                <div class="card-body">
+                    <?php if (!empty(${{ singularVar }}->{{ details.property }})) : ?>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+{% for field in details.fields %}
+                                    <th><?= __('{{ field|humanize }}') ?></th>
+{% endfor %}
+                                    <th class="actions"><?= __('Actions') ?></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach (${{ singularVar }}->{{ details.property }} as ${{ otherSingularVar }}) : ?>
+                                <tr>
+{% for field in details.fields %}
+                                    <td><?= h(${{ otherSingularVar }}->{{ field }}) ?></td>
+{% endfor %}
+{% set otherPk = '$' ~ otherSingularVar ~ '->' ~ details.primaryKey1 %}
+                                    <td class="actions">
+                                        <?= $this->Html->link(__('View'), ['controller' => '{{ details.controller }}', 'action' => 'view', {{ otherPk|raw }}], ['class' => 'btn btn-sm btn-info']) ?>
+                                        <?= $this->Html->link(__('Edit'), ['controller' => '{{ details.controller }}', 'action' => 'edit', {{ otherPk|raw }}], ['class' => 'btn btn-sm btn-primary']) ?>
+                                        <?= $this->Form->postLink(__('Delete'), ['controller' => '{{ details.controller }}', 'action' => 'delete', {{ otherPk|raw }}], ['confirm' => __('Are you sure you want to delete # {0}?', {{ otherPk|raw }}), 'class' => 'btn btn-sm btn-danger']) ?>
+                                    </td>
+                                </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+{% endfor %}
+        </div>
+    </div>
+</div>

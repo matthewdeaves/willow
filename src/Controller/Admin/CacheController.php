@@ -10,14 +10,16 @@ use Cake\Http\Response;
 use DateTime;
 
 /**
- * CacheController handles cache clearing operations for the application.
+ * CacheController
+ *
+ * Handles cache clearing operations for the application.
  */
 class CacheController extends AppController
 {
     /**
      * Clears all cache configurations and updates the last cleared time.
      *
-     * @return \Cake\Http\Response|null Redirects to the clearAll action or returns null.
+     * @return \Cake\Http\Response|null Redirects to the clearAll action or renders the view.
      */
     public function clearAll(): ?Response
     {
@@ -36,7 +38,6 @@ class CacheController extends AppController
                 }
             }
 
-            // Clear SettingsManager cache
             SettingsManager::clearCache();
             $clearedCaches[] = 'SettingsManager';
 
@@ -61,9 +62,9 @@ class CacheController extends AppController
      * Clears a specific cache configuration and updates the last cleared time.
      *
      * @param string $cacheName The name of the cache configuration to clear.
-     * @return \Cake\Http\Response|null Redirects to the clearAll action.
+     * @return \Cake\Http\Response Redirects to the clearAll action.
      */
-    public function clear(string $cacheName): ?Response
+    public function clear(string $cacheName): Response
     {
         $decodedCacheName = urldecode($cacheName);
 
@@ -95,8 +96,6 @@ class CacheController extends AppController
 
         foreach ($configuredCaches as $config) {
             $engineConfig = Cache::getConfig($config);
-
-            // No passwords
             unset($engineConfig['password']);
 
             $cacheInfo[$config] = [

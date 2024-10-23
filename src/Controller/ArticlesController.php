@@ -13,7 +13,11 @@ use Cake\Http\Response;
 /**
  * Articles Controller
  *
+ * Manages article-related operations including viewing, listing, and commenting.
+ *
  * @property \App\Model\Table\ArticlesTable $Articles
+ * @property \App\Model\Table\PageViewsTable $PageViews
+ * @property \App\Model\Table\SlugsTable $Slugs
  */
 class ArticlesController extends AppController
 {
@@ -45,12 +49,9 @@ class ArticlesController extends AppController
     protected SlugsTable $Slugs;
 
     /**
-     * Initializes the current table instance.
+     * Initializes the controller.
      *
-     * This method is called after the constructor and is used to set up
-     * associations, behaviors, and other initialization logic for the table.
-     * It fetches the 'Slugs' and 'PageViews' tables and assigns them to
-     * properties for later use.
+     * Sets up the Slugs and PageViews table instances.
      *
      * @return void
      */
@@ -62,26 +63,20 @@ class ArticlesController extends AppController
     }
 
     /**
-     * Before filter callback.
-     *
-     * This method is called before the controller action is executed. It configures
-     * certain actions to be accessible without requiring authentication.
+     * Configures authentication for specific actions.
      *
      * @param \Cake\Event\EventInterface $event The event instance.
-     * @return void
+     * @return \Cake\Http\Response|null
      */
     public function beforeFilter(EventInterface $event): ?Response
     {
         parent::beforeFilter($event);
 
-        // Allow view, index, and viewBySlug actions to be accessed without authentication
         $this->Authentication->addUnauthenticatedActions(['view', 'index', 'viewBySlug', 'pageIndex']);
 
         if ($this->request->getParam('action') === 'addComment' && $this->request->is('post')) {
-            // Check if the user is not logged in
             $result = $this->Authentication->getResult();
             if (!$result || !$result->isValid()) {
-                // Save the request data to the session so once the user logs in their comment can be saved
                 $session = $this->request->getSession();
                 $session->write('Comment.formData', $this->request->getData());
             }
@@ -91,22 +86,14 @@ class ArticlesController extends AppController
     }
 
     /**
-     * Retrieves and sets page articles for the index view.
+     * Displays the page index.
      *
-     * This method performs two main operations:
-     * 1. Fetches the first page article (root node) from the database.
-     * 2. Retrieves a threaded list of all page articles with associated user information.
+     * Retrieves and sets the root page article and a threaded list of all page articles.
      *
-     * The method orders articles by their left value ('lft') in ascending order,
-     * ensuring a hierarchical structure. It then sets both the single article
-     * and the threaded list of articles to the view context.
-     *
-     * @return void The method sets data to the view context but does not return a value.
+     * @return void
      */
     public function pageIndex(): void
     {
-        // Get the first node in the tree (root node) that is a page
-        //todo do we need to get this first page?
         $article = $this->Articles->find()
             ->orderBy(['lft' => 'ASC'])
             ->where([
@@ -123,10 +110,7 @@ class ArticlesController extends AppController
     /**
      * Displays a paginated list of published articles.
      *
-     * This method retrieves all published articles that are not pages,
-     * orders them by publication date in descending order,
-     * includes associated user data, and paginates the results.
-     * The paginated articles are then set for the view.
+     * Retrieves published articles with optional tag filtering.
      *
      * @return void
      */
@@ -150,7 +134,6 @@ class ArticlesController extends AppController
 
         $articles = $this->paginate($query);
 
-        // Get all tags that have associated articles
         $tagsQuery = $this->Articles->Tags->find()
             ->matching('Articles', function ($q) {
                 return $q->where([
@@ -168,26 +151,12 @@ class ArticlesController extends AppController
     }
 
     /**
-     * View an article by its slug.
+     * Displays an article by its slug.
      *
-     * This method attempts to retrieve an article using the provided slug. It first checks the cache for the article.
-     * If not found in the cache, it verifies if the slug is the latest for the article. If the slug is outdated, it performs
-     * a 301 redirect to the latest slug. The method fetches the full article with its associations if necessary and caches
-     * it using the current slug. It also records a page view for analytics purposes.
-     *
-     * The method follows these steps:
-     * 1. Check cache for the article.
-     * 2. If not in cache, look up the slug in the database.
-     * 3. If slug not found, attempt to find the article directly by slug.
-     * 4. Verify if the slug is the latest for the article.
-     * 5. If not the latest, perform a 301 redirect to the latest slug.
-     * 6. Fetch the full article with associations.
-     * 7. Cache the article.
-     * 8. Record a page view.
-     * 9. Set the article data for the view.
+     * Retrieves an article using the provided slug, handling caching and redirects.
      *
      * @param string $slug The slug of the article to view.
-     * @return \Cake\Http\Response|null Returns a Response object if a redirect is performed, otherwise null.
+     * @return \Cake\Http\Response|null
      * @throws \Cake\Http\Exception\NotFoundException If the article is not found.
      */
     public function viewBySlug(string $slug): ?Response
@@ -256,24 +225,18 @@ class ArticlesController extends AppController
             $this->setToCache($article->slug, $article);
         }
 
-        // Record page view
         $this->recordPageView($article->id);
 
         $this->set(compact('article'));
 
-        return $this->render();
+        return null;
     }
 
     /**
      * Adds a new comment to an article.
      *
-     * This method handles the process of adding a comment to a specific article.
-     * It checks if the user is logged in, verifies the existence of the article,
-     * and then attempts to add the comment using the provided data.
-     *
      * @param string $articleId The ID of the article to which the comment will be added.
-     * @return \Cake\Http\Response|null A response object for redirection, or null if the action doesn't redirect.
-     * @throws \Cake\Http\Exception\NotFoundException If the article is not found (implicitly through redirect).
+     * @return \Cake\Http\Response|null
      */
     public function addComment(string $articleId): ?Response
     {
@@ -310,15 +273,7 @@ class ArticlesController extends AppController
     /**
      * Records a page view for a given article.
      *
-     * This private method creates a new PageView entity and populates it with:
-     * - The ID of the viewed article
-     * - The IP address of the client
-     * - The User-Agent string from the request headers
-     * - The referer URL
-     *
-     * After populating the entity, it saves it to the PageViews table.
-     *
-     * @param int $articleId The ID of the article being viewed
+     * @param string $articleId The ID of the article being viewed
      * @return void
      */
     private function recordPageView(string $articleId): void

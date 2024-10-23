@@ -9,6 +9,8 @@ use Cake\Http\Response;
 /**
  * Tags Controller
  *
+ * Manages tags, providing functionalities to list, view, add, edit, and delete tags.
+ *
  * @property \App\Model\Table\TagsTable $Tags
  */
 class TagsController extends AppController
@@ -16,14 +18,13 @@ class TagsController extends AppController
     /**
      * Index method for Tags Controller
      *
-     * This method handles the display of tags. It supports both standard and AJAX requests.
-     * For AJAX requests, it performs a search based on the 'search' query parameter and returns
-     * the results in an 'ajax' layout. For standard requests, it paginates the tags and renders
-     * the default view.
+     * Handles the display of tags. Supports both standard and AJAX requests.
+     * For AJAX requests, performs a search based on the 'search' query parameter and returns
+     * the results in an 'ajax' layout. For standard requests, paginates the tags.
      *
-     * @return \Cake\Http\Response The response object containing the rendered view.
+     * @return \Cake\Http\Response|null Returns a Response object for AJAX requests, null otherwise.
      */
-    public function index(): Response
+    public function index(): ?Response
     {
         $query = $this->Tags->find()
             ->orderBy(['Tags.title' => 'ASC']);
@@ -48,14 +49,16 @@ class TagsController extends AppController
         $tags = $this->paginate($query);
         $this->set(compact('tags'));
 
-        return $this->render();
+        return null;
     }
 
     /**
      * View method
      *
+     * Displays details of a specific tag, including associated articles and their authors.
+     *
      * @param string|null $id Tag id.
-     * @return \Cake\Http\Response|null|void Renders view
+     * @return void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view(?string $id = null): void
@@ -67,9 +70,11 @@ class TagsController extends AppController
     /**
      * Add method
      *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+     * Handles the creation of a new tag.
+     *
+     * @return \Cake\Http\Response|null Redirects on successful add, null otherwise.
      */
-    public function add(): Response
+    public function add(): ?Response
     {
         $tag = $this->Tags->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -84,17 +89,19 @@ class TagsController extends AppController
         $articles = $this->Tags->Articles->find('list', limit: 200)->all();
         $this->set(compact('tag', 'articles'));
 
-        return $this->render();
+        return null;
     }
 
     /**
      * Edit method
      *
+     * Handles the editing of an existing tag.
+     *
      * @param string|null $id Tag id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
+     * @return \Cake\Http\Response|null Redirects on successful edit, null otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit(?string $id = null): Response
+    public function edit(?string $id = null): ?Response
     {
         $tag = $this->Tags->get($id, contain: ['Articles']);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -109,15 +116,18 @@ class TagsController extends AppController
         $articles = $this->Tags->Articles->find('list', limit: 200)->all();
         $this->set(compact('tag', 'articles'));
 
-        return $this->render();
+        return null;
     }
 
     /**
      * Delete method
      *
+     * Handles the deletion of a tag.
+     *
      * @param string|null $id Tag id.
-     * @return \Cake\Http\Response|null Redirects to index.
+     * @return \Cake\Http\Response Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @throws \Cake\Http\Exception\MethodNotAllowedException When invalid method is used.
      */
     public function delete(?string $id = null): Response
     {

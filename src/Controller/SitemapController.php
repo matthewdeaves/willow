@@ -13,12 +13,12 @@ use Cake\Routing\Router;
 /**
  * SitemapController
  *
- * This controller is responsible for generating the XML sitemap for the application.
+ * Responsible for generating the XML sitemap for the application.
  */
 class SitemapController extends AppController
 {
     /**
-     * @var \Cake\ORM\Table The Articles table instance.
+     * @var \App\Model\Table\ArticlesTable The Articles table instance.
      */
     protected ArticlesTable $Articles;
 

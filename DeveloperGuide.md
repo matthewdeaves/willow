@@ -377,21 +377,19 @@ The `config/.env.example` file serves as a template for configuring Willow CMS u
 
 ### Configuration Options
 
-- **Application Configuration**: Set the application name, debug mode, encoding, locale, timezone, and security salt used for password hashing.
+- **Application Configuration**: Set the application name, debug mode, encoding, locale, timezone, and security salt used for password hashing. See [section](https://github.com/matthewdeaves/willow/blob/853894a240441919dfa12273542cf4920e2fce30/config/.env.example#L17).
 
-- **Database Configuration**: Define the database host, username, password, database name, and port. The `DATABASE_URL` variable provides a convenient way to configure the database connection string.
+- **Database Configuration**: Define the database host, username, password, database name, and port. The `DATABASE_URL` variable provides a convenient way to configure the database connection string. See [section](https://github.com/matthewdeaves/willow/blob/853894a240441919dfa12273542cf4920e2fce30/config/.env.example#L26).
 
-- **Email Configuration**: Configure the email host, port, timeout, and credentials. The `EMAIL_TRANSPORT_DEFAULT_URL` variable specifies the default email transport method.
+- **Email Configuration**: Configure the email host, port, timeout, and credentials. The `EMAIL_TRANSPORT_DEFAULT_URL` variable specifies the default email transport method. See [section](https://github.com/matthewdeaves/willow/blob/853894a240441919dfa12273542cf4920e2fce30/config/.env.example#L42).
 
-- **Redis Configuration**: Set the Redis host, port, username, password, and database. Redis is used for caching and queue management, and the `REDIS_URL` variable simplifies the connection setup.
+- **Redis Configuration**: Set the Redis host, port, username, password, and database. Redis is used for caching and queue management, and the `REDIS_URL` variable simplifies the connection setup. See [section](https://github.com/matthewdeaves/willow/blob/853894a240441919dfa12273542cf4920e2fce30/config/.env.example#L52).
 
 - **Cache Configuration**: Specify the cache duration and type. You can choose between Redis or File caching for the front-end site cache. [Read the book](https://book.cakephp.org/5/en/core-libraries/caching.html#) to learn more about cache types and configurations. See [config/app.php](https://github.com/matthewdeaves/willow/blob/ecbf5a0d9328cbb53faf91a7c98dcf1b04d6b4f1/config/app.php#L97) for cache configurations in Willow CMS.
 
-- **Queue Configuration**: Define the default and test queue URLs using Redis. This setup is essential for managing background tasks and job queues.
+- **Queue Configuration**: Define the default and test queue URLs using Redis. This setup is essential for managing background tasks and job queues. See [section](https://github.com/matthewdeaves/willow/blob/853894a240441919dfa12273542cf4920e2fce30/config/.env.example#L68).
 
-- **Experimental Tests**: Toggle experimental tests on or off as needed.
-
-- **Logging Configuration**: Uncomment and configure logging settings via environment variables to manage log levels and file paths.
+- **Experimental Tests**: Toggle experimental tests on or off as needed. See [section](https://github.com/matthewdeaves/willow/blob/853894a240441919dfa12273542cf4920e2fce30/config/.env.example#L72).
 
 By following these steps and guidelines, you can effectively use the `config/.env` file to manage Willow CMS configurations on a per-environment basis. For my own production instances of Willow CMS on AWS AppRunner see [https://github.com/matthewdeaves/willow_cms_production_deployment](https://github.com/matthewdeaves/willow_cms_production_deployment)
 

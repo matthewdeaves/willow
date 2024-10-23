@@ -44,8 +44,8 @@ jobs:
 
     - name: Copy Configs
       run: |
-        cp docker/php/cms_app_local_github.php config/app_local.php
-        cp docker/php/app_github.php config/app.php
+        cp docker/github/cms_app_local_github.php config/app_local.php
+        cp docker/github/app_github.php config/app.php
 
     - name: Debug app_local.php
       run: cat "config/app_local.php"

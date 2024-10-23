@@ -63,7 +63,7 @@ alias cake_rollback='willowcms_exec bin/cake migrations rollback'
 alias bake_snapshot='cake_shell bake migration_snapshot "$@"'
 
 # i18n Commands
-alias i18n_extract='willowcms_exec bin/cake i18n extract'
+alias i18n_extract='willowcms_exec bin/cake i18n extract --paths /var/www/html/src,/var/www/html/plugins,/var/www/html/templates'
 
 # Change ownership of current directory to current user
 change_ownership() {

@@ -62,6 +62,9 @@ alias cake_migrate='willowcms_exec bin/cake migrations migrate'
 alias cake_rollback='willowcms_exec bin/cake migrations rollback'
 alias bake_snapshot='cake_shell bake migration_snapshot "$@"'
 
+# i18n Commands
+alias i18n_extract='willowcms_exec bin/cake i18n extract'
+
 # Change ownership of current directory to current user
 change_ownership() {
     local current_user=$(whoami)

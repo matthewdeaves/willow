@@ -1,4 +1,3 @@
-<?= $this->element('trumbowyg'); ?>
 <?php
 /**
  * @var \App\View\AppView $this

@@ -9,6 +9,8 @@ use Cake\Http\Response;
 /**
  * SystemLogs Controller
  *
+ * Manages system logs, providing functionalities to view, filter, search, and delete logs.
+ *
  * @property \App\Model\Table\SystemLogsTable $SystemLogs
  */
 class SystemLogsController extends AppController
@@ -16,20 +18,13 @@ class SystemLogsController extends AppController
     /**
      * Index method for SystemLogs.
      *
-     * This method retrieves and displays a list of system logs. It supports filtering by log level and group name,
+     * Retrieves and displays a list of system logs. Supports filtering by log level and group name,
      * and allows for searching within the logs when accessed via AJAX. The logs are ordered by creation date in
-     * descending order. The method also retrieves distinct log levels and group names for filtering options.
+     * descending order. Also retrieves distinct log levels and group names for filtering options.
      *
-     * @return \Cake\Http\Response The response object containing the rendered view.
+     * @return \Cake\Http\Response|null Returns null to render the view, or a Response object for AJAX requests.
      * @throws \Cake\Http\Exception\NotFoundException If the page is not found.
      * @throws \Cake\Database\Exception\DatabaseException If there's an issue with the database query.
-     * @uses \App\Model\Table\SystemLogsTable::find()
-     * @uses \Cake\Http\ServerRequest::getQuery()
-     * @uses \Cake\Http\ServerRequest::is()
-     * @uses \Cake\View\ViewBuilder::setLayout()
-     * @uses \Cake\Controller\Controller::paginate()
-     * @uses \Cake\Controller\Controller::set()
-     * @uses \Cake\Controller\Controller::render()
      */
     public function index(): ?Response
     {
@@ -98,7 +93,7 @@ class SystemLogsController extends AppController
     }
 
     /**
-     * View method
+     * View method for displaying a specific system log.
      *
      * @param string|null $id System Log id.
      * @return void
@@ -113,7 +108,7 @@ class SystemLogsController extends AppController
     /**
      * Delete system logs based on specified criteria.
      *
-     * This method handles various deletion scenarios:
+     * Handles various deletion scenarios:
      * - Delete all logs
      * - Delete logs by level
      * - Delete logs by group

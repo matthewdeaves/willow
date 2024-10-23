@@ -21,11 +21,11 @@ class SettingsController extends AppController
     /**
      * Index method
      *
-     * This method retrieves all settings from the database, orders them by category
+     * Retrieves all settings from the database, orders them by category
      * and key name, and groups them into an array structure.
      * The grouped settings are then passed to the view for rendering.
      *
-     * @return \Cake\Http\Response|null|void Renders view
+     * @return \Cake\Http\Response|null Returns null, allowing the view to be rendered
      */
     public function index(): ?Response
     {
@@ -50,12 +50,12 @@ class SettingsController extends AppController
     /**
      * Save Settings method
      *
-     * This method processes the incoming request to update settings. It iterates over
+     * Processes the incoming request to update settings. It iterates over
      * the submitted data, finds the corresponding setting in the database, and updates
-     * its value. If all updates are successful, a success message is displayed; otherwise,
-     * an error message is shown. The user is then redirected to the index action.
+     * its value. If all updates are successful, a success message is displayed and the
+     * cache is cleared. Otherwise, an error message is shown with details of the failed updates.
      *
-     * @return \Cake\Http\Response|null|void Redirects on successful save, renders view otherwise.
+     * @return \Cake\Http\Response|null Redirects to the index action after processing
      */
     public function saveSettings(): ?Response
     {
@@ -95,7 +95,7 @@ class SettingsController extends AppController
 
             if ($success) {
                 $this->Flash->success(__('The settings have been saved.'));
-                //Clear the cache if saved OK
+                // Clear the cache if saved successfully
                 SettingsManager::clearCache();
             } else {
                 $this->Flash->error(__('Some settings could not be saved. Please, try again.'), [

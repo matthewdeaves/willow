@@ -13,6 +13,13 @@ use Cake\Http\Response;
  */
 class AipromptsController extends AppController
 {
+    /**
+     * Index method
+     *
+     * Lists all AI prompts and handles search functionality.
+     *
+     * @return \Cake\Http\Response|null
+     */
     public function index(): ?Response
     {
         $query = $this->Aiprompts->find()
@@ -54,8 +61,10 @@ class AipromptsController extends AppController
     /**
      * View method
      *
+     * Displays details of a specific AI prompt.
+     *
      * @param string|null $id Aiprompt id.
-     * @return \Cake\Http\Response|null Renders view
+     * @return void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view(?string $id = null): void
@@ -66,6 +75,8 @@ class AipromptsController extends AppController
 
     /**
      * Add method
+     *
+     * Creates a new AI prompt.
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
@@ -89,6 +100,8 @@ class AipromptsController extends AppController
 
     /**
      * Edit method
+     *
+     * Modifies an existing AI prompt.
      *
      * @param string|null $id Aiprompt id.
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.

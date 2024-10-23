@@ -10,14 +10,16 @@ use Cake\Http\Response;
 /**
  * BlockedIps Controller
  *
+ * Manages CRUD operations for blocked IP addresses.
+ *
  * @property \App\Model\Table\BlockedIpsTable $BlockedIps
  */
 class BlockedIpsController extends AppController
 {
     /**
-     * Index method
+     * Displays a paginated list of blocked IP addresses.
      *
-     * @return \Cake\Http\Response|null|void Renders view
+     * @return void
      */
     public function index(): void
     {
@@ -28,10 +30,10 @@ class BlockedIpsController extends AppController
     }
 
     /**
-     * View method
+     * Displays details of a specific blocked IP address.
      *
-     * @param string|null $id Blocked Ip id.
-     * @return \Cake\Http\Response|null|void Renders view
+     * @param string|null $id Blocked IP id.
+     * @return void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view(?string $id = null): void
@@ -41,9 +43,9 @@ class BlockedIpsController extends AppController
     }
 
     /**
-     * Add method
+     * Adds a new blocked IP address.
      *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
     public function add(): ?Response
     {
@@ -51,7 +53,6 @@ class BlockedIpsController extends AppController
         if ($this->request->is('post')) {
             $blockedIp = $this->BlockedIps->patchEntity($blockedIp, $this->request->getData());
             if ($this->BlockedIps->save($blockedIp)) {
-                //clear the cache
                 Cache::clear('ip_blocker');
                 $this->Flash->success(__('The blocked ip has been saved.'));
 
@@ -65,10 +66,10 @@ class BlockedIpsController extends AppController
     }
 
     /**
-     * Edit method
+     * Edits an existing blocked IP address.
      *
-     * @param string|null $id Blocked Ip id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
+     * @param string|null $id Blocked IP id.
+     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function edit(?string $id = null): ?Response
@@ -77,7 +78,6 @@ class BlockedIpsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $blockedIp = $this->BlockedIps->patchEntity($blockedIp, $this->request->getData());
             if ($this->BlockedIps->save($blockedIp)) {
-                //clear the cache
                 Cache::clear('ip_blocker');
                 $this->Flash->success(__('The blocked ip has been saved.'));
 
@@ -91,10 +91,10 @@ class BlockedIpsController extends AppController
     }
 
     /**
-     * Delete method
+     * Deletes a blocked IP address.
      *
-     * @param string|null $id Blocked Ip id.
-     * @return \Cake\Http\Response|null Redirects to index.
+     * @param string|null $id Blocked IP id.
+     * @return \Cake\Http\Response Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete(?string $id = null): Response
@@ -102,7 +102,6 @@ class BlockedIpsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $blockedIp = $this->BlockedIps->get($id);
         if ($this->BlockedIps->delete($blockedIp)) {
-            //clear the cache
             Cache::clear('ip_blocker');
             $this->Flash->success(__('The blocked ip has been deleted.'));
         } else {

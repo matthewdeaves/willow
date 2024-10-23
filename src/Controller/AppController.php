@@ -25,10 +25,12 @@ use Cake\Log\LogTrait;
 /**
  * Application Controller
  *
- * Add your application-wide methods in the class below, your controllers
- * will inherit them.
+ * Base controller class for the application. All controllers should extend this class
+ * to inherit common functionality and configurations.
  *
- * @link https://book.cakephp.org/5/en/controllers.html#the-app-controller
+ * @property \Cake\Controller\Component\FlashComponent $Flash
+ * @property \Authentication\Controller\Component\AuthenticationComponent $Authentication
+ * @property \DefaultTheme\Controller\Component\FrontEndSiteComponent $FrontEndSite
  */
 class AppController extends Controller
 {
@@ -48,9 +50,7 @@ class AppController extends Controller
         parent::initialize();
 
         $this->loadComponent('Flash');
-
         $this->loadComponent('Authentication.Authentication');
-
         $this->loadComponent('DefaultTheme.FrontEndSite');
 
         /*
@@ -63,45 +63,39 @@ class AppController extends Controller
     /**
      * beforeFilter callback.
      *
-     * This method is executed before each controller action. It checks if the current
-     * request is for an admin-prefixed route. If so, it verifies whether the
-     * authenticated user has admin privileges by checking the 'is_admin' flag in the Users table.
-     * If the user is not an admin, it logs the unauthorized access attempt and redirects the user
-     * to the login page with an error message. ToDo consider moving admin acces check to AdminPlugin
-     * and refactoring this code
+     * Executed before each controller action. Checks for admin access rights
+     * when accessing admin-prefixed routes.
      *
      * @param \Cake\Event\EventInterface $event The event instance.
-     * @return \Cake\Http\Response|null Redirects to the login page if the user is not an admin.
+     * @return \Cake\Http\Response|null Redirects to login page if user lacks admin privileges.
      */
     public function beforeFilter(EventInterface $event): ?Response
     {
         parent::beforeFilter($event);
 
         if ($this->request->getParam('prefix') === 'Admin') {
-            // Force a fresh check of the is_admin flag
             $identity = $this->Authentication->getIdentity();
             if ($identity) {
                 $usersTable = $this->fetchTable('Users');
                 $user = $usersTable->find()
                     ->select(['is_admin'])
                     ->where(['id' => $identity->getIdentifier()])
-                    ->first()
-                    ->is_admin;
-                if (!$user) {
-                    // Log the unauthorized access attempt
+                    ->first();
+
+                if (!$user || empty($user->is_admin)) {
                     $this->log(
                         'Unauthorized access attempt to admin area',
                         'warning',
                         [
                             'group_name' => 'unauthorized_admin_access_attempt',
-                            'user_id' => $this->request->getAttribute('identity')->getIdentifier(),
+                            'user_id' => $identity->getIdentifier(),
                             'url' => $this->request->getRequestTarget(),
                             'ip' => $this->request->clientIp(),
                             'scope' => ['system'],
                         ]
                     );
 
-                    $this->Flash->error('Access denied. You must be an admin to view this page.');
+                    $this->Flash->error(__('Access denied. You must be an admin to view this page.'));
 
                     return $this->redirect(['controller' => 'Users', 'action' => 'login', 'prefix' => false]);
                 }
@@ -112,27 +106,22 @@ class AppController extends Controller
     }
 
     /**
-     * Executes before the view is rendered.
+     * beforeRender callback.
      *
-     * This method sets the appropriate theme based on whether the current request
-     * is for an admin route or not. It uses the 'prefix' parameter to determine
-     * if it's an admin route and sets the theme accordingly using configuration values.
+     * Sets the appropriate theme based on whether the current request
+     * is for an admin route or not.
      *
      * @param \Cake\Event\EventInterface $event The event that was triggered.
      * @return void
-     * @uses \Cake\Http\ServerRequest::getParam()
-     * @uses \Cake\View\ViewBuilder::setTheme()
-     * @uses \Cake\Core\Configure::read()
      */
     public function beforeRender(EventInterface $event): void
     {
         parent::beforeRender($event);
 
-        // Check if the current request is for an admin route or not and set the theme
-        if ($this->request->getParam('prefix') === 'Admin') {
-            $this->viewBuilder()->setTheme(Configure::read('Theme.admin_theme', 'AdminTheme'));
-        } else {
-            $this->viewBuilder()->setTheme(Configure::read('Theme.default_theme', 'DefaultTheme'));
-        }
+        $theme = $this->request->getParam('prefix') === 'Admin'
+            ? Configure::read('Theme.admin_theme', 'AdminTheme')
+            : Configure::read('Theme.default_theme', 'DefaultTheme');
+
+        $this->viewBuilder()->setTheme($theme);
     }
 }

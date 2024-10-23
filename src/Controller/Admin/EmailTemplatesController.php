@@ -51,7 +51,7 @@ class EmailTemplatesController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add(): Response
+    public function add(): ?Response
     {
         $emailTemplate = $this->EmailTemplates->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -69,7 +69,7 @@ class EmailTemplatesController extends AppController
         }
         $this->set(compact('emailTemplate'));
 
-        return $this->render();
+        return null;
     }
 
     /**
@@ -79,7 +79,7 @@ class EmailTemplatesController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit(?string $id = null): Response
+    public function edit(?string $id = null): ?Response
     {
         $emailTemplate = $this->EmailTemplates->get($id, contain: []);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -97,7 +97,7 @@ class EmailTemplatesController extends AppController
         }
         $this->set(compact('emailTemplate'));
 
-        return $this->render();
+        return null;
     }
 
     /**
@@ -239,7 +239,7 @@ class EmailTemplatesController extends AppController
 
         $this->set(compact('emailTemplates', 'users'));
 
-        return $this->render();
+        return null;
     }
 
     /**

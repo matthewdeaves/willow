@@ -109,7 +109,7 @@ class UsersController extends AppController
      * @uses \Cake\View\Helper\FlashHelper::success()
      * @uses \Cake\View\Helper\FlashHelper::error()
      */
-    public function register(): Response
+    public function register(): ?Response
     {
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -150,7 +150,7 @@ class UsersController extends AppController
         }
         $this->set(compact('user'));
 
-        return $this->render();
+        return null;
     }
 
     /**
@@ -217,7 +217,7 @@ class UsersController extends AppController
      *                                  a successful update.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When the user record is not found.
      */
-    public function edit(?string $id = null): Response
+    public function edit(?string $id = null): ?Response
     {
         // Get the currently logged-in user's ID
         $currentUserId = $this->Authentication->getIdentity()->getIdentifier();
@@ -254,7 +254,7 @@ class UsersController extends AppController
         }
         $this->set(compact('user'));
 
-        return $this->render();
+        return null;
     }
 
     /**
@@ -300,6 +300,6 @@ class UsersController extends AppController
             return $this->redirect(['action' => 'register']);
         }
 
-        return $this->render();
+        return null;
     }
 }

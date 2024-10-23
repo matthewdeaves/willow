@@ -23,7 +23,7 @@ class TagsController extends AppController
      *
      * @return \Cake\Http\Response The response object containing the rendered view.
      */
-    public function index(): Response
+    public function index(): ?Response
     {
         $query = $this->Tags->find()
             ->orderBy(['Tags.title' => 'ASC']);
@@ -48,7 +48,7 @@ class TagsController extends AppController
         $tags = $this->paginate($query);
         $this->set(compact('tags'));
 
-        return $this->render();
+        return null;
     }
 
     /**
@@ -69,7 +69,7 @@ class TagsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add(): Response
+    public function add(): ?Response
     {
         $tag = $this->Tags->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -84,7 +84,7 @@ class TagsController extends AppController
         $articles = $this->Tags->Articles->find('list', limit: 200)->all();
         $this->set(compact('tag', 'articles'));
 
-        return $this->render();
+        return null;
     }
 
     /**
@@ -94,7 +94,7 @@ class TagsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit(?string $id = null): Response
+    public function edit(?string $id = null): ?Response
     {
         $tag = $this->Tags->get($id, contain: ['Articles']);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -109,7 +109,7 @@ class TagsController extends AppController
         $articles = $this->Tags->Articles->find('list', limit: 200)->all();
         $this->set(compact('tag', 'articles'));
 
-        return $this->render();
+        return null;
     }
 
     /**

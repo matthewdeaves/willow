@@ -48,7 +48,7 @@ class UsersController extends AppController
      * @uses \Cake\Controller\Controller::render() To render the view.
      * @uses \Cake\Controller\Controller::paginate() To paginate the query results for non-AJAX requests.
      */
-    public function index(): Response
+    public function index(): ?Response
     {
         $query = $this->Users->find()
             ->select([
@@ -82,7 +82,7 @@ class UsersController extends AppController
         $users = $this->paginate($query);
         $this->set(compact('users'));
 
-        return $this->render();
+        return null;
     }
 
     /**
@@ -103,7 +103,7 @@ class UsersController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add(): Response
+    public function add(): ?Response
     {
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -117,7 +117,7 @@ class UsersController extends AppController
         }
         $this->set(compact('user'));
 
-        return $this->render();
+        return null;
     }
 
     /**
@@ -133,7 +133,7 @@ class UsersController extends AppController
      * @return \Cake\Http\Response|null Redirects to index on successful save, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit(?string $id = null): Response
+    public function edit(?string $id = null): ?Response
     {
         $user = $this->Users->get($id, contain: []);
         $currentUser = $this->Authentication->getIdentity();
@@ -167,7 +167,7 @@ class UsersController extends AppController
         }
         $this->set(compact('user'));
 
-        return $this->render();
+        return null;
     }
 
     /**

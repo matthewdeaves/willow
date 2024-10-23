@@ -45,7 +45,7 @@ class BlockedIpsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add(): Response
+    public function add(): ?Response
     {
         $blockedIp = $this->BlockedIps->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -61,7 +61,7 @@ class BlockedIpsController extends AppController
         }
         $this->set(compact('blockedIp'));
 
-        return $this->render();
+        return null;
     }
 
     /**
@@ -71,7 +71,7 @@ class BlockedIpsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit(?string $id = null): Response
+    public function edit(?string $id = null): ?Response
     {
         $blockedIp = $this->BlockedIps->get($id, contain: []);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -87,7 +87,7 @@ class BlockedIpsController extends AppController
         }
         $this->set(compact('blockedIp'));
 
-        return $this->render();
+        return null;
     }
 
     /**

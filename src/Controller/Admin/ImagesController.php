@@ -148,7 +148,7 @@ class ImagesController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add(): Response
+    public function add(): ?Response
     {
         $image = $this->Images->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -163,7 +163,7 @@ class ImagesController extends AppController
         }
         $this->set(compact('image'));
 
-        return $this->render();
+        return null;
     }
 
     /**
@@ -176,7 +176,7 @@ class ImagesController extends AppController
      * @return \Cake\Http\Response|null Returns a JSON response on AJAX requests,
      *                                  or renders the default view otherwise.
      */
-    public function bulkUpload(): Response
+    public function bulkUpload(): ?Response
     {
         if ($this->request->is('ajax')) {
             $uploadedFile = $this->request->getUploadedFile('file');
@@ -212,7 +212,7 @@ class ImagesController extends AppController
             }
         }
 
-        return $this->render();
+        return null;
     }
 
     /**
@@ -222,7 +222,7 @@ class ImagesController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit(?string $id = null): Response
+    public function edit(?string $id = null): ?Response
     {
         $image = $this->Images->get($id, contain: []);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -237,7 +237,7 @@ class ImagesController extends AppController
         }
         $this->set(compact('image'));
 
-        return $this->render();
+        return null;
     }
 
     /**

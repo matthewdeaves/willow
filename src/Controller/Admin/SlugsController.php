@@ -35,7 +35,7 @@ class SlugsController extends AppController
      * @uses \Cake\Controller\Controller::render() To render the view.
      * @uses \Cake\Controller\Component\PaginatorComponent::paginate() To paginate the query results.
      */
-    public function index(): Response
+    public function index(): ?Response
     {
         $query = $this->Slugs->find()
             ->select([
@@ -73,7 +73,7 @@ class SlugsController extends AppController
         $slugs = $this->paginate($query);
         $this->set(compact('slugs'));
 
-        return $this->render();
+        return null;
     }
 
     /**
@@ -83,12 +83,10 @@ class SlugsController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view(?string $id = null): Response
+    public function view(?string $id = null): void
     {
         $slug = $this->Slugs->get($id, contain: ['Articles']);
         $this->set(compact('slug'));
-
-        return $this->render();
     }
 
     /**
@@ -96,7 +94,7 @@ class SlugsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add(): Response
+    public function add(): ?Response
     {
         $slug = $this->Slugs->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -111,7 +109,7 @@ class SlugsController extends AppController
         $articles = $this->Slugs->Articles->find('list')->all();
         $this->set(compact('slug', 'articles'));
 
-        return $this->render();
+        return null;
     }
 
     /**
@@ -121,7 +119,7 @@ class SlugsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit(?string $id = null): Response
+    public function edit(?string $id = null): ?Response
     {
         $slug = $this->Slugs->get($id, contain: []);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -136,7 +134,7 @@ class SlugsController extends AppController
         $articles = $this->Slugs->Articles->find('list', limit: 200)->all();
         $this->set(compact('slug', 'articles'));
 
-        return $this->render();
+        return null;
     }
 
     /**

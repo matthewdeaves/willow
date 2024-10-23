@@ -13,12 +13,7 @@ use Cake\Http\Response;
  */
 class AipromptsController extends AppController
 {
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response The response object containing the rendered view.
-     */
-    public function index(): Response
+    public function index(): ?Response
     {
         $query = $this->Aiprompts->find()
             ->select([
@@ -53,7 +48,7 @@ class AipromptsController extends AppController
         $aiprompts = $this->paginate($query);
         $this->set(compact('aiprompts'));
 
-        return $this->render();
+        return null;
     }
 
     /**
@@ -63,12 +58,10 @@ class AipromptsController extends AppController
      * @return \Cake\Http\Response|null Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view(?string $id = null): ?Response
+    public function view(?string $id = null): void
     {
         $aiprompt = $this->Aiprompts->get($id, contain: []);
         $this->set(compact('aiprompt'));
-
-        return $this->render();
     }
 
     /**
@@ -91,7 +84,7 @@ class AipromptsController extends AppController
         }
         $this->set(compact('aiprompt'));
 
-        return $this->render();
+        return null;
     }
 
     /**
@@ -116,6 +109,6 @@ class AipromptsController extends AppController
         }
         $this->set(compact('aiprompt'));
 
-        return $this->render();
+        return null;
     }
 }

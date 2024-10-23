@@ -31,7 +31,7 @@ class SystemLogsController extends AppController
      * @uses \Cake\Controller\Controller::set()
      * @uses \Cake\Controller\Controller::render()
      */
-    public function index(): Response
+    public function index(): ?Response
     {
         $query = $this->SystemLogs->find()
             ->select([
@@ -94,7 +94,7 @@ class SystemLogsController extends AppController
         $systemLogs = $this->paginate($query);
         $this->set(compact('systemLogs', 'levels', 'groupNames', 'selectedLevel', 'selectedGroup'));
 
-        return $this->render();
+        return null;
     }
 
     /**

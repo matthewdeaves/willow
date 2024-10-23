@@ -36,7 +36,6 @@ class ArticlesController extends AppController
     public function treeIndex(): void
     {
         $articles = $this->Articles->getPageTree();
-
         $this->set(compact('articles'));
     }
 
@@ -65,6 +64,8 @@ class ArticlesController extends AppController
             return $this->response->withType('application/json')
                 ->withStringBody(json_encode(['success' => false, 'error' => $e->getMessage()]));
         }
+
+        return null;
     }
 
     /**
@@ -82,7 +83,7 @@ class ArticlesController extends AppController
      *
      * @return \Cake\Http\Response The response object containing the rendered view.
      */
-    public function index(): Response
+    public function index(): ?Response
     {
         $query = $this->Articles->find()
             ->select([
@@ -152,7 +153,7 @@ class ArticlesController extends AppController
         $articles = $this->paginate($query);
         $this->set(compact('articles'));
 
-        return $this->render();
+        return null;
     }
 
     /**
@@ -214,7 +215,7 @@ class ArticlesController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects to index on successful save, null otherwise.
      */
-    public function add(): Response
+    public function add(): ?Response
     {
         $article = $this->Articles->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -257,7 +258,7 @@ class ArticlesController extends AppController
         $token = $this->request->getAttribute('csrfToken');
         $this->set(compact('article', 'users', 'tags', 'token', 'parentArticles'));
 
-        return $this->render();
+        return null;
     }
 
     /**
@@ -279,7 +280,7 @@ class ArticlesController extends AppController
      * @return \Cake\Http\Response|null Redirects to index on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit(?string $id = null): Response
+    public function edit(?string $id = null): ?Response
     {
         $article = $this->Articles->get($id, contain: ['Tags', 'Images']);
         $oldSlug = $article->slug;
@@ -328,7 +329,7 @@ class ArticlesController extends AppController
         $tags = $this->Articles->Tags->find('list', limit: 200)->all();
         $this->set(compact('article', 'users', 'tags', 'parentArticles'));
 
-        return $this->render();
+        return null;
     }
 
     /**

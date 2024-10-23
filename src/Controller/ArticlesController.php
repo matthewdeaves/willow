@@ -261,7 +261,7 @@ class ArticlesController extends AppController
 
         $this->set(compact('article'));
 
-        return $this->render();
+        return null;
     }
 
     /**

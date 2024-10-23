@@ -30,7 +30,7 @@ class CommentsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index(): Response
+    public function index(): ?Response
     {
         $query = $this->Comments->find()
             ->contain(['Users'])
@@ -53,7 +53,7 @@ class CommentsController extends AppController
         $comments = $this->paginate($query);
         $this->set(compact('comments'));
 
-        return $this->render();
+        return null;
     }
 
     /**
@@ -78,7 +78,7 @@ class CommentsController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit(?string $id = null): Response
+    public function edit(?string $id = null): ?Response
     {
         $comment = $this->Comments->get($id, contain: ['Articles']);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -97,7 +97,7 @@ class CommentsController extends AppController
         $users = $this->Comments->Users->find('list', limit: 200)->all();
         $this->set(compact('comment', 'users'));
 
-        return $this->render();
+        return null;
     }
 
     /**

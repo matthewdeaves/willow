@@ -57,7 +57,16 @@ class InternationalisationsTable extends Table
         $validator
             ->scalar('message_id')
             ->requirePresence('message_id', 'create')
-            ->notEmptyString('message_id');
+            ->notEmptyString('message_id')
+            ->add('message_id', 'unique', [
+                'rule' => function ($value, $context) {
+                    $count = $this->find()
+                        ->where(['message_id' => $value, 'locale' => $context['data']['locale']])
+                        ->count();
+                    return $count === 0;
+                },
+                'message' => __('This message_id must be unique for the given locale.')
+            ]);
 
         $validator
             ->scalar('message_str')

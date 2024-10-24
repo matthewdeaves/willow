@@ -574,6 +574,10 @@ msgid "Email template not found: {0}"
 msgstr "E-Mail-Vorlage nicht gefunden: {0}"
 
 #: 
+msgid "Search tags..."
+msgstr "Tags suchen..."
+
+#: 
 msgid "Page Views for {0}"
 msgstr "Seitenaufrufe für {0}"
 
@@ -1428,6 +1432,10 @@ msgstr "Kommentaranalysenachricht erhalten: Kommentar-ID: {0} Benutzer-ID: {1}"
 #: 
 msgid "Search slugs..."
 msgstr "Slugs suchen..."
+
+#: 
+msgid "No translations found for locale: {0}. Skipping..."
+msgstr "Keine Übersetzungen für Gebietsschema gefunden: {0}. Wird übersprungen..."
 
 #: 
 msgid "Yes"

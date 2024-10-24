@@ -150,6 +150,10 @@ msgid "Failed to save article SEO updates. Article ID: {0} Title: {1}"
 msgstr "Échec de l'enregistrement des mises à jour SEO de l'article. ID de l'article : {0} Titre : {1}"
 
 #: 
+msgid "No translations found for locale: {0}. Skipping..."
+msgstr "Aucune traduction trouvée pour la locale : {0}. Ignoré..."
+
+#: 
 msgid "Attempting to create user with data: {0}"
 msgstr "Tentative de création d'utilisateur avec les données : {0}"
 
@@ -840,6 +844,10 @@ msgstr "Jamais"
 #: 
 msgid "The image could not be deleted. Please, try again."
 msgstr "L'image n'a pas pu être supprimée. Veuillez réessayer."
+
+#: 
+msgid "Search tags..."
+msgstr "Rechercher des tags..."
 
 #: 
 msgid "Submit"

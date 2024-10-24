@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2024-10-24 23:40+0100\n"
+"POT-Creation-Date: 2024-10-25 00:50+0100\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -74,7 +74,11 @@ msgstr ""
 msgid "Code exported successfully to separate files."
 msgstr ""
 
-#: ./src/Command/GeneratePoFilesCommand.php:77
+#: ./src/Command/GeneratePoFilesCommand.php:69
+msgid "No translations found for locale: {0}. Skipping..."
+msgstr ""
+
+#: ./src/Command/GeneratePoFilesCommand.php:83
 msgid "Generated default.po for locale: {0}"
 msgstr ""
 
@@ -300,19 +304,19 @@ msgstr ""
 msgid "An error occurred while processing your request."
 msgstr ""
 
-#: ./src/Controller/Admin/SettingsController.php:79
+#: ./src/Controller/Admin/SettingsController.php:80
 msgid "Setting not found: {0}.{1}"
 msgstr ""
 
-#: ./src/Controller/Admin/SettingsController.php:89
+#: ./src/Controller/Admin/SettingsController.php:90
 msgid "Error saving {0}.{1}: {2}"
 msgstr ""
 
-#: ./src/Controller/Admin/SettingsController.php:97
+#: ./src/Controller/Admin/SettingsController.php:98
 msgid "The settings have been saved."
 msgstr ""
 
-#: ./src/Controller/Admin/SettingsController.php:101
+#: ./src/Controller/Admin/SettingsController.php:102
 msgid "Some settings could not be saved. Please, try again."
 msgstr ""
 
@@ -811,7 +815,6 @@ msgstr ""
 #: ./plugins/AdminTheme/templates/Admin/Users/search_results.php:30
 #: ./plugins/AdminTheme/templates/Admin/Users/view.php:85
 #: ./plugins/AdminTheme/templates/Admin/Users/view.php:121
-#: ./vendor/cakephp/cakephp/src/View/Helper/PaginatorHelper.php:1178
 msgid "View"
 msgstr ""
 
@@ -1474,15 +1477,15 @@ msgstr ""
 msgid "Edit Settings"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Settings/index.php:62
+#: ./plugins/AdminTheme/templates/Admin/Settings/index.php:69
 msgid "Enter a number"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Settings/index.php:62
+#: ./plugins/AdminTheme/templates/Admin/Settings/index.php:69
 msgid "Enter text"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Settings/index.php:70
+#: ./plugins/AdminTheme/templates/Admin/Settings/index.php:77
 msgid "Save All Settings"
 msgstr ""
 
@@ -1596,6 +1599,10 @@ msgstr ""
 
 #: ./plugins/AdminTheme/templates/Admin/Tags/index.php:11
 msgid "New Tag"
+msgstr ""
+
+#: ./plugins/AdminTheme/templates/Admin/Tags/index.php:14
+msgid "Search tags..."
 msgstr ""
 
 #: ./plugins/AdminTheme/templates/Admin/Tags/view.php:33

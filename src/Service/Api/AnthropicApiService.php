@@ -174,9 +174,9 @@ class AnthropicApiService extends AbstractApiService
      * @param string $localeTo The locale code of the target language (e.g., 'fr_FR').
      * @return array The translated strings.
      */
-    public function generateTranslation(array $strings, string $localeFrom, string $localeTo): array
+    public function generateI18nTranslation(array $strings, string $localeFrom, string $localeTo): array
     {
-        return $this->translationGenerator->generateTranslation($strings, $localeFrom, $localeTo);
+        return $this->translationGenerator->generateI18nTranslation($strings, $localeFrom, $localeTo);
     }
 
     /**

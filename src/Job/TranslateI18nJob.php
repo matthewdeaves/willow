@@ -44,22 +44,47 @@ class TranslateI18nJob implements JobInterface
      */
     public function execute(Message $message): ?string
     {
-        $ids = $message->getArgument('internationalisations');
+        $internationalisations = $message->getArgument('internationalisations');
+        $locale = $message->getArgument('locale');
 
-        if (empty($ids)) {
-            Log::warning('No internationalization IDs provided in the message.');
+        if (empty($internationalisations)|| empty($locale)) {
+            Log::warning(__('Missing required arguments in the message.'));
 
             return Processor::REJECT;
         }
 
         $i18nTable = TableRegistry::getTableLocator()->get('internationalisations');
         $internationalizations = $i18nTable->find()
-            ->select(['id', 'locale', 'message_id', 'message_str'])
-            ->where(['id IN' => $ids])
+            ->select(['id', 'locale', 'message_id'])
+            ->where(['id IN' => $internationalisations])
             ->all();
 
-        debug($internationalizations);
+        if ($internationalizations->isEmpty()) {
+            Log::warning(__('No internationalizations found for the provided IDs.'));
+            
+            return Processor::REJECT;
+        }
 
-        return Processor::ACK;
+        $messageStrings = $internationalizations->extract('message_id')->toArray();
+
+        try {
+            $translatedMessages = $this->anthropicService->generateI18nTranslation(
+                $messageStrings,
+                'en_GB',
+                $locale
+            );
+
+            debug($translatedMessages); 
+
+            exit;
+
+            Log::info('Internationalizations updated successfully.');
+
+            return Processor::ACK;
+        } catch (\Exception $e) {
+            Log::error('Failed to update internationalizations: ' . $e->getMessage());
+        }
+
+        return Processor::REJECT;
     }
 }

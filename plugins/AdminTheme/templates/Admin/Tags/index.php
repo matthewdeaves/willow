@@ -11,7 +11,7 @@
         <?= $this->Html->link(__('New Tag'), ['action' => 'add'], ['class' => 'btn btn-primary my-3 ms-2']) ?>
     </div>
     <div class="mb-3">
-        <input type="text" id="tagSearch" class="form-control" placeholder="Search tags...">
+        <input type="text" id="tagSearch" class="form-control" placeholder="<?= __('Search tags...') ?>">
     </div>
     <div class="table-responsive">
         <table class="table table-striped table-hover">

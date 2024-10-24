@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Job;
 
 use App\Service\Api\AnthropicApiService;
-use Cake\I18n\I18n;
 use Cake\Log\Log;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
@@ -49,6 +48,7 @@ class TranslateI18nJob implements JobInterface
 
         if (empty($ids)) {
             Log::warning('No internationalization IDs provided in the message.');
+
             return Processor::REJECT;
         }
 
@@ -58,7 +58,8 @@ class TranslateI18nJob implements JobInterface
             ->where(['id IN' => $ids])
             ->all();
 
-        
+        debug($internationalizations);
+
         return Processor::ACK;
     }
 }

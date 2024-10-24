@@ -1,12 +1,13 @@
 <?php
+declare(strict_types=1);
+
 namespace App\Command;
 
-use Cake\ORM\TableRegistry;
-use Cake\Queue\QueueManager;
 use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
-use Cake\Console\ConsoleOptionParser;
+use Cake\ORM\TableRegistry;
+use Cake\Queue\QueueManager;
 
 /**
  * Class TranslateI18nCommand
@@ -20,16 +21,16 @@ class TranslateI18nCommand extends Command
      *
      * @var int
      */
-    protected $batchSize = 50; // Adjust this number based on your AI's capacity
+    protected int $batchSize = 50; // Adjust this number based on your AI's capacity
 
     /**
      * Executes the command to queue translation jobs for empty internationalisations.
      *
-     * @param Arguments $args The command line arguments.
-     * @param ConsoleIo $io The console input/output.
+     * @param \Cake\Console\Arguments $args The command line arguments.
+     * @param \Cake\Console\ConsoleIo $io The console input/output.
      * @return void
      */
-    public function execute(Arguments $args, ConsoleIo $io)
+    public function execute(Arguments $args, ConsoleIo $io): void
     {
         // Fetch the I18n table
         $i18nTable = TableRegistry::getTableLocator()->get('internationalisations');
@@ -60,10 +61,10 @@ class TranslateI18nCommand extends Command
      * Queues a batch of messages for translation.
      *
      * @param array $batch The batch of messages to queue.
-     * @param ConsoleIo $io The console input/output.
+     * @param \Cake\Console\ConsoleIo $io The console input/output.
      * @return void
      */
-    protected function queueBatch(array $batch, ConsoleIo $io)
+    protected function queueBatch(array $batch, ConsoleIo $io): void
     {
         // Queue a job to translate the batch of messages
         QueueManager::push('App\Job\TranslateI18nJob', $batch);

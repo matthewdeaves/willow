@@ -10,11 +10,11 @@ use Cake\ORM\TableRegistry;
 use Exception;
 
 /**
- * Class Process18nCommand
+ * Class LoadDefault18nCommand
  *
- * This command processes internationalization by parsing a .pot file and updating the database with translation records.
+ * This command processes teh default.pot file and updates the database with translation records per supported locale.
  */
-class Process18nCommand extends Command
+class LoadDefault18nCommand extends Command
 {
     /**
      * Executes the command to update internationalisation records.
@@ -32,7 +32,33 @@ class Process18nCommand extends Command
         $internationalisationsTable = TableRegistry::getTableLocator()->get('Internationalisations');
 
         // Define the locales you want to support
-        $locales = ['de_DE', 'fr_FR'];
+        $locales = [
+            'de_DE', // German (Germany)
+            'fr_FR', // French (France)
+            /*'es_ES', // Spanish (Spain)
+            'it_IT', // Italian (Italy)
+            'pt_PT', // Portuguese (Portugal)
+            'nl_NL', // Dutch (Netherlands)
+            'pl_PL', // Polish (Poland)
+            'ru_RU', // Russian (Russia)
+            'sv_SE', // Swedish (Sweden)
+            'da_DK', // Danish (Denmark)
+            'fi_FI', // Finnish (Finland)
+            'no_NO', // Norwegian (Norway)
+            'el_GR', // Greek (Greece)
+            'tr_TR', // Turkish (Turkey)
+            'cs_CZ', // Czech (Czech Republic)
+            'hu_HU', // Hungarian (Hungary)
+            'ro_RO', // Romanian (Romania)
+            'sk_SK', // Slovak (Slovakia)
+            'sl_SI', // Slovenian (Slovenia)
+            'bg_BG', // Bulgarian (Bulgaria)
+            'hr_HR', // Croatian (Croatia)
+            'et_EE', // Estonian (Estonia)
+            'lv_LV', // Latvian (Latvia)
+            'lt_LT', // Lithuanian (Lithuania)
+            'uk_UA', // Ukrainian (Ukraine)*/
+        ];
 
         foreach ($translations as $messageId => $messageStr) {
             foreach ($locales as $locale) {

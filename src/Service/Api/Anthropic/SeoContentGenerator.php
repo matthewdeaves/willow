@@ -151,7 +151,7 @@ class SeoContentGenerator
     }
 
     /**
-     * Ensures that the result contains all expected SEO keys, initializing them if necessary.
+     * Ensures that the result contains all expected keys, initializing them if necessary.
      *
      * @param array $result The result array to check and modify.
      * @return array The result array with all expected SEO keys initialized.

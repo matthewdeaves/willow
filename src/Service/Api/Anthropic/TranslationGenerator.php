@@ -8,13 +8,13 @@ use App\Service\Api\AnthropicApiService;
 use InvalidArgumentException;
 
 /**
- * Class TextSummaryGenerator
+ * Class TranslationGenerator
  *
- * This class is responsible for generating summaries of text using the Anthropic
+ * This class is responsible for generating translations of text using the Anthropic
  * API service. It interacts with the AI prompts table to retrieve prompt data
  * and uses the AnthropicApiService to send requests and parse responses.
  */
-class TextSummaryGenerator
+class TranslationGenerator
 {
     /**
      * The Anthropic API service used for sending requests and parsing responses.
@@ -42,19 +42,14 @@ class TextSummaryGenerator
         $this->aipromptsTable = $aipromptsTable;
     }
 
-    /**
-     * Generates a text summary using the Anthropic API.
-     *
-     * @param string $context The context for the text summary.
-     * @param string $text The text to be summarized.
-     * @return array The generated summary and key points.
-     */
-    public function generateTextSummary(string $context, string $text): array
+
+    public function generateTranslation(array $strings, $localeFrom, $localeTo): array
     {
         $promptData = $this->getPromptData('text_summary');
         $payload = $this->createPayload($promptData, [
-            'context' => $context,
-            'text' => $text,
+            'strings' => $strings,
+            'localeFrom' => $localeFrom,
+            'localeTo' => $localeTo,
         ]);
 
         $response = $this->apiService->sendRequest($payload);
@@ -120,8 +115,7 @@ class TextSummaryGenerator
     private function ensureExpectedKeys(array $result): array
     {
         $expectedKeys = [
-            'summary',
-            'key_points',
+            'strings',
         ];
 
         foreach ($expectedKeys as $key) {

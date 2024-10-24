@@ -14,7 +14,7 @@
     <td class="actions">
         <?= $this->Html->link(__('View'), ['action' => 'view', $internationalisation->id], ['class' => 'btn btn-sm btn-outline-primary']) ?>
         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $internationalisation->id], ['class' => 'btn btn-sm btn-outline-secondary']) ?>
-        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $internationalisation->id], ['confirm' => __('Are you sure you want to delete this internationalisation?'), 'class' => 'btn btn-sm btn-outline-danger']) ?>
+        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $internationalisation->id], ['confirm' => __('Are you sure you want to delete {0}?', [$internationalisation->message_id]), 'class' => 'btn btn-sm btn-outline-danger']) ?>
     </td>
 </tr>
 <?php endforeach; ?>

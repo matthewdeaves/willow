@@ -5,6 +5,7 @@ namespace App\Service\Api;
 
 use App\Model\Table\AipromptsTable;
 use App\Service\Api\Anthropic\ArticleTagsGenerator;
+use App\Service\Api\Anthropic\TranslationGenerator;
 use App\Service\Api\Anthropic\CommentAnalyzer;
 use App\Service\Api\Anthropic\ImageAnalyzer;
 use App\Service\Api\Anthropic\SeoContentGenerator;
@@ -68,6 +69,11 @@ class AnthropicApiService extends AbstractApiService
     private TextSummaryGenerator $textSummaryGenerator;
 
     /**
+     * @var \App\Service\Api\Anthropic\TranslationGenerator The text summary generator service.
+     */
+    private TranslationGenerator $translationGenerator;
+
+    /**
      * AnthropicApiService constructor.
      *
      * Initializes the service with necessary dependencies and configurations.
@@ -83,6 +89,7 @@ class AnthropicApiService extends AbstractApiService
         $this->commentAnalyzer = new CommentAnalyzer($this, $this->aipromptsTable);
         $this->articleTagsGenerator = new ArticleTagsGenerator($this, $this->aipromptsTable);
         $this->textSummaryGenerator = new TextSummaryGenerator($this, $this->aipromptsTable);
+        $this->translationGenerator = new TranslationGenerator($this, $this->aipromptsTable);
     }
 
     /**
@@ -154,6 +161,10 @@ class AnthropicApiService extends AbstractApiService
     public function generateTextSummary(string $context, string $text): array
     {
         return $this->textSummaryGenerator->generateTextSummary($context, $text);
+    }
+
+    public function generateTranslation(array $strings, $localeFrom, $localeTo) {
+        return $this->translationGenerator->generateTranslation($strings, $localeFrom, $localeTo);
     }
 
     /**

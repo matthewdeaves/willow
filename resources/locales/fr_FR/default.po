@@ -1,710 +1,103 @@
 # LANGUAGE translation of CakePHP Application
-# Copyright 2024 Willow CMS <hello@willowcms.app>
+# Copyright YEAR NAME <EMAIL@ADDRESS>
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2024-10-23 22:17+0000\n"
-"PO-Revision-Date: 2024-10-23 23:29+0000\n"
-"Last-Translator: NAME <hello@willowcms.app>\n"
-"Language-Team: LANGUAGE <hello@willowcms.app>\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-
-#: ./src/Command/CreateUserCommand.php:101
-msgid "Attempting to create user with data: {0}"
-msgstr "Tentative de création d'utilisateur avec les données : {0}"
-
-#: ./src/Command/CreateUserCommand.php:112
-msgid "User created successfully: {0}"
-msgstr "Utilisateur créé avec succès : {0}"
-
-#: ./src/Command/CreateUserCommand.php:122
-msgid "Failed to create user: {0}. Errors: {1}"
-msgstr "Échec de la création de l'utilisateur : {0}. Erreurs : {1}"
-
-#: ./src/Command/DefaultDataExportCommand.php:102
-msgid "Data exported to {0}"
-msgstr "Données exportées vers {0}"
-
-#: ./src/Command/DefaultDataImportCommand.php:72
-msgid "No JSON files found in the directory: {0}"
-msgstr "Aucun fichier JSON trouvé dans le répertoire : {0}"
-
-#: ./src/Command/DefaultDataImportCommand.php:85
-msgid "Available data files:"
-msgstr "Fichiers de données disponibles :"
-
-#: ./src/Command/DefaultDataImportCommand.php:90
-msgid "Choose a file to import by number:"
-msgstr "Choisissez un fichier à importer par numéro :"
-
-#: ./src/Command/DefaultDataImportCommand.php:94
-msgid "Invalid choice."
-msgstr "Choix invalide."
-
-#: ./src/Command/DefaultDataImportCommand.php:123
-msgid "Input file not found: {0}"
-msgstr "Fichier d'entrée non trouvé : {0}"
-
-#: ./src/Command/DefaultDataImportCommand.php:133
-msgid "Deleted all existing records from table: {0}"
-msgstr "Tous les enregistrements existants ont été supprimés de la table : {0}"
-
-#: ./src/Command/DefaultDataImportCommand.php:152
-msgid "Failed to save entity: {0} {1}"
-msgstr "Échec de l'enregistrement de l'entité : {0} {1}"
-
-#: ./src/Command/DefaultDataImportCommand.php:157
-msgid "Saved : {0} {1}"
-msgstr "Enregistré : {0} {1}"
-
-#: ./src/Command/DefaultDataImportCommand.php:164
-msgid "Imported data into table: {0}"
-msgstr "Données importées dans la table : {0}"
-
-#: ./src/Command/ExportCodeCommand.php:104
-msgid "Code exported successfully to {0}"
-msgstr "Code exporté avec succès vers {0}"
-
-#: ./src/Command/ExportCodeCommand.php:106
-msgid "Code exported successfully to separate files."
-msgstr "Code exporté avec succès vers des fichiers séparés."
-
-#: ./src/Command/ResizeImagesCommand.php:138
-#: ./src/Job/ProcessImageJob.php:155
-msgid "Original image not found for resizing. Path: {0}"
-msgstr "Image originale non trouvée pour le redimensionnement. Chemin : {0}"
-
-#: ./src/Command/ResizeImagesCommand.php:148
-#: ./src/Job/ProcessImageJob.php:165
-msgid "Skipped resizing, image already exists. Path: {0}"
-msgstr "Redimensionnement ignoré, l'image existe déjà. Chemin : {0}"
-
-#: ./src/Command/ResizeImagesCommand.php:165
-#: ./src/Job/ProcessImageJob.php:182
-msgid "Successfully resized and saved image. Original: {0}, Resized: {1}, Width: {2}px"
-msgstr "Image redimensionnée et enregistrée avec succès. Original : {0}, Redimensionné : {1}, Largeur : {2}px"
-
-#: ./src/Command/ResizeImagesCommand.php:174
-#: ./src/Job/ProcessImageJob.php:191
-msgid "Error resizing image. Original: {0}, Target Width: {1}px, Error: {2}"
-msgstr "Erreur lors du redimensionnement de l'image. Original : {0}, Largeur cible : {1}px, Erreur : {2}"
-
-#: ./src/Command/TestRateLimitCommand.php:56
-msgid "Testing rate limit on URL: {0}"
-msgstr "Test de la limite de taux sur l'URL : {0}"
-
-#: ./src/Command/TestRateLimitCommand.php:57
-msgid "Number of attempts: {0}"
-msgstr "Nombre de tentatives : {0}"
-
-#: ./src/Command/TestRateLimitCommand.php:82
-msgid "Attempt {0} failed. Error ({1}): {2}"
-msgstr "Tentative {0} échouée. Erreur ({1}) : {2}"
-
-#: ./src/Command/TestRateLimitCommand.php:85
-msgid "Attempt {0}: HTTP Code: {1}"
-msgstr "Tentative {0} : Code HTTP : {1}"
-
-#: ./src/Command/TestRateLimitCommand.php:86
-msgid "Response: {0}"
-msgstr "Réponse : {0}"
-
-#: ./src/Controller/Admin/AipromptsController.php:89
-#: ./src/Controller/Admin/AipromptsController.php:116
-msgid "The aiprompt has been saved."
-msgstr "L'aiprompt a été enregistré."
-
-#: ./src/Controller/Admin/AipromptsController.php:93
-#: ./src/Controller/Admin/AipromptsController.php:120
-msgid "The aiprompt could not be saved. Please, try again."
-msgstr "L'aiprompt n'a pas pu être enregistré. Veuillez réessayer."
-
-#: ./src/Controller/Admin/ArticlesController.php:171
-#: ./src/Controller/Admin/PageViewsController.php:66
-#: ./src/Controller/Admin/PageViewsController.php:101
-#: ./src/Controller/Admin/PageViewsController.php:141
-#: ./src/Controller/ArticlesController.php:182
-#: ./src/Controller/ArticlesController.php:221
-msgid "Article not found"
-msgstr "Article non trouvé"
-
-#: ./src/Controller/Admin/ArticlesController.php:200
-#: ./src/Controller/Admin/ArticlesController.php:260
-msgid "The article has been saved."
-msgstr "L'article a été enregistré."
-
-#: ./src/Controller/Admin/ArticlesController.php:209
-#: ./src/Controller/Admin/ArticlesController.php:269
-msgid "The article could not be saved. Please, try again."
-msgstr "L'article n'a pas pu être enregistré. Veuillez réessayer."
-
-#: ./src/Controller/Admin/ArticlesController.php:302
-msgid "The article has been deleted."
-msgstr "L'article a été supprimé."
-
-#: ./src/Controller/Admin/ArticlesController.php:304
-msgid "The article could not be deleted. Please, try again."
-msgstr "L'article n'a pas pu être supprimé. Veuillez réessayer."
-
-#: ./src/Controller/Admin/BlockedIpsController.php:57
-#: ./src/Controller/Admin/BlockedIpsController.php:82
-msgid "The blocked ip has been saved."
-msgstr "L'IP bloquée a été enregistrée."
-
-#: ./src/Controller/Admin/BlockedIpsController.php:61
-#: ./src/Controller/Admin/BlockedIpsController.php:86
-msgid "The blocked ip could not be saved. Please, try again."
-msgstr "L'IP bloquée n'a pas pu être enregistrée. Veuillez réessayer."
-
-#: ./src/Controller/Admin/BlockedIpsController.php:106
-msgid "The blocked ip has been deleted."
-msgstr "L'IP bloquée a été supprimée."
-
-#: ./src/Controller/Admin/BlockedIpsController.php:108
-msgid "The blocked ip could not be deleted. Please, try again."
-msgstr "L'IP bloquée n'a pas pu être supprimée. Veuillez réessayer."
-
-#: ./src/Controller/Admin/CacheController.php:45
-msgid "All caches have been cleared successfully."
-msgstr "Tous les caches ont été vidés avec succès."
-
-#: ./src/Controller/Admin/CacheController.php:47
-msgid "Some caches were cleared, but the following failed: {0}"
-msgstr "Certains caches ont été vidés, mais les suivants ont échoué : {0}"
-
-#: ./src/Controller/Admin/CacheController.php:75
-msgid "{0} cache has been cleared successfully."
-msgstr "Le cache {0} a été vidé avec succès."
-
-#: ./src/Controller/Admin/CacheController.php:77
-msgid "{0} cache could not be cleared."
-msgstr "Le cache {0} n'a pas pu être vidé."
-
-#: ./src/Controller/Admin/CacheController.php:80
-msgid "{0} cache configuration does not exist."
-msgstr "La configuration du cache {0} n'existe pas."
-
-#: ./src/Controller/Admin/CommentsController.php:90
-msgid "The comment has been saved."
-msgstr "Le commentaire a été enregistré."
-
-#: ./src/Controller/Admin/CommentsController.php:94
-msgid "The comment could not be saved. Please, try again."
-msgstr "Le commentaire n'a pas pu être enregistré. Veuillez réessayer."
-
-#: ./src/Controller/Admin/CommentsController.php:118
-msgid "The comment has been deleted."
-msgstr "Le commentaire a été supprimé."
-
-#: ./src/Controller/Admin/CommentsController.php:120
-msgid "The comment could not be deleted. Please, try again."
-msgstr "Le commentaire n'a pas pu être supprimé. Veuillez réessayer."
-
-#: ./src/Controller/Admin/EmailTemplatesController.php:65
-#: ./src/Controller/Admin/EmailTemplatesController.php:92
-msgid "The email template has been saved."
-msgstr "Le modèle d'e-mail a été enregistré."
-
-#: ./src/Controller/Admin/EmailTemplatesController.php:69
-#: ./src/Controller/Admin/EmailTemplatesController.php:96
-msgid "The email template could not be saved. Please, try again."
-msgstr "Le modèle d'e-mail n'a pas pu être enregistré. Veuillez réessayer."
-
-#: ./src/Controller/Admin/EmailTemplatesController.php:129
-msgid "The email template has been deleted."
-msgstr "Le modèle d'e-mail a été supprimé."
-
-#: ./src/Controller/Admin/EmailTemplatesController.php:131
-msgid "The email template could not be deleted. Please, try again."
-msgstr "Le modèle d'e-mail n'a pas pu être supprimé. Veuillez réessayer."
-
-#: ./src/Controller/Admin/EmailTemplatesController.php:190
-msgid "Email sent successfully."
-msgstr "E-mail envoyé avec succès."
-
-#: ./src/Controller/Admin/EmailTemplatesController.php:192
-msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
-msgstr "E-mail envoyé avec succès à : {0}. Modèle : {1}, Objet : {2}"
-
-#: ./src/Controller/Admin/EmailTemplatesController.php:201
-msgid "Failed to send email. Please check your email configuration."
-msgstr "Échec de l'envoi de l'e-mail. Veuillez vérifier votre configuration e-mail."
-
-#: ./src/Controller/Admin/EmailTemplatesController.php:203
-msgid "Failed to send email to: {0}"
-msgstr "Échec de l'envoi de l'e-mail à : {0}"
-
-#: ./src/Controller/Admin/EmailTemplatesController.php:208
-#: ./src/Controller/Admin/EmailTemplatesController.php:210
-msgid "Error sending email: {0}"
-msgstr "Erreur lors de l'envoi de l'e-mail : {0}"
-
-#: ./src/Controller/Admin/ImagesController.php:143
-#: ./src/Controller/Admin/ImagesController.php:209
-msgid "The image has been saved."
-msgstr "L'image a été enregistrée."
-
-#: ./src/Controller/Admin/ImagesController.php:147
-#: ./src/Controller/Admin/ImagesController.php:213
-msgid "The image could not be saved. Please, try again."
-msgstr "L'image n'a pas pu être enregistrée. Veuillez réessayer."
-
-#: ./src/Controller/Admin/ImagesController.php:180
-msgid "Image uploaded successfully"
-msgstr "Image téléchargée avec succès"
-
-#: ./src/Controller/Admin/ImagesController.php:186
-msgid "Failed to save the image"
-msgstr "Échec de l'enregistrement de l'image"
-
-#: ./src/Controller/Admin/ImagesController.php:232
-msgid "The image has been deleted."
-msgstr "L'image a été supprimée."
-
-#: ./src/Controller/Admin/ImagesController.php:234
-msgid "The image could not be deleted. Please, try again."
-msgstr "L'image n'a pas pu être supprimée. Veuillez réessayer."
-
-#: ./src/Controller/Admin/PageViewsController.php:176
-msgid "An error occurred while processing your request."
-msgstr "Une erreur s'est produite lors du traitement de votre demande."
-
-#: ./src/Controller/Admin/SettingsController.php:79
-msgid "Setting not found: {0}.{1}"
-msgstr "Paramètre non trouvé : {0}.{1}"
-
-#: ./src/Controller/Admin/SettingsController.php:89
-msgid "Error saving {0}.{1}: {2}"
-msgstr "Erreur lors de l'enregistrement de {0}.{1} : {2}"
-
-#: ./src/Controller/Admin/SettingsController.php:97
-msgid "The settings have been saved."
-msgstr "Les paramètres ont été enregistrés."
-
-#: ./src/Controller/Admin/SettingsController.php:101
-msgid "Some settings could not be saved. Please, try again."
-msgstr "Certains paramètres n'ont pas pu être enregistrés. Veuillez réessayer."
-
-#: ./src/Controller/Admin/SlugsController.php:97
-#: ./src/Controller/Admin/SlugsController.php:124
-msgid "The slug has been saved."
-msgstr "Le slug a été enregistré."
-
-#: ./src/Controller/Admin/SlugsController.php:101
-#: ./src/Controller/Admin/SlugsController.php:128
-msgid "The slug could not be saved. Please, try again."
-msgstr "Le slug n'a pas pu être enregistré. Veuillez réessayer."
-
-#: ./src/Controller/Admin/SlugsController.php:151
-msgid "The slug has been deleted."
-msgstr "Le slug a été supprimé."
-
-#: ./src/Controller/Admin/
-
-#: ./src/Controller/Admin/SlugsController.php:153
-msgid "The slug could not be deleted. Please, try again."
-msgstr "Le slug n'a pas pu être supprimé. Veuillez réessayer."
-
-#: ./src/Controller/Admin/SystemLogsController.php:130
-msgid "All logs have been deleted."
-msgstr "Tous les journaux ont été supprimés."
-
-#: ./src/Controller/Admin/SystemLogsController.php:132
-msgid "Unable to delete all logs."
-msgstr "Impossible de supprimer tous les journaux."
-
-#: ./src/Controller/Admin/SystemLogsController.php:137
-msgid "All logs with level {0} have been deleted."
-msgstr "Tous les journaux de niveau {0} ont été supprimés."
-
-#: ./src/Controller/Admin/SystemLogsController.php:139
-msgid "Unable to delete logs with level {0}."
-msgstr "Impossible de supprimer les journaux de niveau {0}."
-
-#: ./src/Controller/Admin/SystemLogsController.php:144
-msgid "All logs in group {0} have been deleted."
-msgstr "Tous les journaux du groupe {0} ont été supprimés."
-
-#: ./src/Controller/Admin/SystemLogsController.php:146
-msgid "Unable to delete logs in group {0}."
-msgstr "Impossible de supprimer les journaux du groupe {0}."
-
-#: ./src/Controller/Admin/SystemLogsController.php:152
-msgid "The log has been deleted."
-msgstr "Le journal a été supprimé."
-
-#: ./src/Controller/Admin/SystemLogsController.php:154
-msgid "Unable to delete the log."
-msgstr "Impossible de supprimer le journal."
-
-#: ./src/Controller/Admin/TagsController.php:83
-#: ./src/Controller/Admin/TagsController.php:110
-msgid "The tag has been saved."
-msgstr "Le tag a été enregistré."
-
-#: ./src/Controller/Admin/TagsController.php:87
-#: ./src/Controller/Admin/TagsController.php:114
-msgid "The tag could not be saved. Please, try again."
-msgstr "Le tag n'a pas pu être enregistré. Veuillez réessayer."
-
-#: ./src/Controller/Admin/TagsController.php:137
-msgid "The tag has been deleted."
-msgstr "Le tag a été supprimé."
-
-#: ./src/Controller/Admin/TagsController.php:139
-msgid "The tag could not be deleted. Please, try again."
-msgstr "Le tag n'a pas pu être supprimé. Veuillez réessayer."
-
-#: ./src/Controller/Admin/UsersController.php:102
-#: ./src/Controller/Admin/UsersController.php:148
-msgid "The user has been saved."
-msgstr "L'utilisateur a été enregistré."
-
-#: ./src/Controller/Admin/UsersController.php:106
-#: ./src/Controller/Admin/UsersController.php:152
-#: ./src/Controller/UsersController.php:203
-msgid "The user could not be saved. Please, try again."
-msgstr "L'utilisateur n'a pas pu être enregistré. Veuillez réessayer."
-
-#: ./src/Controller/Admin/UsersController.php:135
-msgid "You cannot remove your own admin status."
-msgstr "Vous ne pouvez pas supprimer votre propre statut d'administrateur."
-
-#: ./src/Controller/Admin/UsersController.php:141
-msgid "You cannot disable your own account."
-msgstr "Vous ne pouvez pas désactiver votre propre compte."
-
-#: ./src/Controller/Admin/UsersController.php:173
-msgid "No deleting your own account."
-msgstr "Vous ne pouvez pas supprimer votre propre compte."
-
-#: ./src/Controller/Admin/UsersController.php:178
-msgid "The user has been deleted."
-msgstr "L'utilisateur a été supprimé."
-
-#: ./src/Controller/Admin/UsersController.php:180
-msgid "The user could not be deleted. Please, try again."
-msgstr "L'utilisateur n'a pas pu être supprimé. Veuillez réessayer."
-
-#: ./src/Controller/AppController.php:98
-msgid "Access denied. You must be an admin to view this page."
-msgstr "Accès refusé. Vous devez être administrateur pour voir cette page."
-
-#: ./src/Controller/ArticlesController.php:244
-msgid "You must be logged in to add a comment."
-msgstr "Vous devez être connecté pour ajouter un commentaire."
-
-#: ./src/Controller/ArticlesController.php:256
-msgid "Article not found."
-msgstr "Article non trouvé."
-
-#: ./src/Controller/ArticlesController.php:265
-msgid "Your comment has been added."
-msgstr "Votre commentaire a été ajouté."
-
-#: ./src/Controller/ArticlesController.php:267
-msgid "Unable to add your comment."
-msgstr "Impossible d'ajouter votre commentaire."
-
-#: ./src/Controller/TagsController.php:71
-msgid "Tag not found"
-msgstr "Tag non trouvé"
-
-#: ./src/Controller/UsersController.php:66
-msgid "Invalid username or password"
-msgstr "Nom d'utilisateur ou mot de passe invalide"
-
-#: ./src/Controller/UsersController.php:114
-msgid "Registration successful. Please check your email for confirmation."
-msgstr "Inscription réussie. Veuillez vérifier votre e-mail pour la confirmation."
-
-#: ./src/Controller/UsersController.php:118
-msgid "Registration successful, but there was an issue creating the confirmation link."
-msgstr "Inscription réussie, mais il y a eu un problème lors de la création du lien de confirmation."
-
-#: ./src/Controller/UsersController.php:124
-msgid "Registration failed. Please, try again."
-msgstr "L'inscription a échoué. Veuillez réessayer."
-
-#: ./src/Controller/UsersController.php:165
-msgid "Failed to send confirmation email message: {0}"
-msgstr "Échec de l'envoi du message de confirmation par e-mail : {0}"
-
-#: ./src/Controller/UsersController.php:188
-msgid "You are not authorized to edit this account, stick to your own."
-msgstr "Vous n'êtes pas autorisé à modifier ce compte, tenez-vous en au vôtre."
-
-#: ./src/Controller/UsersController.php:199
-msgid "Your account has been updated."
-msgstr "Votre compte a été mis à jour."
-
-#: ./src/Controller/UsersController.php:232
-msgid "Your account has been confirmed. You can now log in."
-msgstr "Votre compte a été confirmé. Vous pouvez maintenant vous connecter."
-
-#: ./src/Controller/UsersController.php:236
-msgid "There was an issue confirming your account. Please try again."
-msgstr "Il y a eu un problème lors de la confirmation de votre compte. Veuillez réessayer."
-
-#: ./src/Controller/UsersController.php:241
-msgid "Invalid confirmation code. Please contact support."
-msgstr "Code de confirmation invalide. Veuillez contacter le support."
-
-#: ./src/Http/Exception/TooManyRequestsException.php:30
-msgid "Too Many Requests"
-msgstr "Trop de requêtes"
-
-#: ./src/Job/ArticleSeoUpdateJob.php:71
-msgid "Received article SEO update message: {0} : {1}"
-msgstr "Message de mise à jour SEO de l'article reçu : {0} : {1}"
-
-#: ./src/Job/ArticleSeoUpdateJob.php:94
-msgid "Article SEO update completed successfully. Article ID: {0} Title: {1}"
-msgstr "Mise à jour SEO de l'article terminée avec succès. ID de l'article : {0} Titre : {1}"
-
-#: ./src/Job/ArticleSeoUpdateJob.php:102
-msgid "Failed to save article SEO updates. Article ID: {0} Title: {1}"
-msgstr "Échec de l'enregistrement des mises à jour SEO de l'article. ID de l'article : {0} Titre : {1}"
-
-#: ./src/Job/ArticleSeoUpdateJob.php:109
-msgid "Article SEO update failed. No result returned. Article ID: {0} Title: {1}"
-msgstr "Échec de la mise à jour SEO de l'article. Aucun résultat retourné. ID de l'article : {0} Titre : {1}"
-
-#: ./src/Job/ArticleSummaryUpdateJob.php:73
-msgid "Received article summary update message: {0} : {1}"
-msgstr "Message de mise à jour du résumé de l'article reçu : {0} : {1}"
-
-#: ./src/Job/ArticleSummaryUpdateJob.php:97
-msgid "Article summary update completed successfully. Article ID: {0} Title: {1}"
-msgstr "Mise à jour du résumé de l'article terminée avec succès. ID de l'article : {0} Titre : {1}"
-
-#: ./src/Job/ArticleSummaryUpdateJob.php:105
+"Project-Id-Version: PROJECT VERSION"
+"POT-Creation-Date: 2024-10-23 23:47+0100"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ"
+"Last-Translator: NAME <EMAIL@ADDRESS>"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>"
+"MIME-Version: 1.0"
+"Content-Type: text/plain; charset=utf-8"
+"Content-Transfer-Encoding: 8bit"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
+#: 
 msgid "Failed to save article summary updates. Article ID: {0} Title: {1}"
 msgstr "Échec de l'enregistrement des mises à jour du résumé de l'article. ID de l'article : {0} Titre : {1}"
 
-#: ./src/Job/ArticleSummaryUpdateJob.php:112
-msgid "Article summary update failed. No valid result returned. Article ID: {0} Title: {1}"
-msgstr "Échec de la mise à jour du résumé de l'article. Aucun résultat valide retourné. ID de l'article : {0} Titre : {1}"
+#: 
+msgid "Blocked At"
+msgstr "Bloqué le"
 
-#: ./src/Job/ArticleTagUpdateJob.php:61
-msgid "Received article tag update message: {0} : {1}"
-msgstr "Message de mise à jour des tags de l'article reçu : {0} : {1}"
-
-#: ./src/Job/ArticleTagUpdateJob.php:86
-msgid "New tag created: {0}"
-msgstr "Nouveau tag créé : {0}"
-
-#: ./src/Job/ArticleTagUpdateJob.php:98
-msgid "Article tag update completed successfully. Article ID: {0}"
-msgstr "Mise à jour des tags de l'article terminée avec succès. ID de l'article : {0}"
-
-#: ./src/Job/ArticleTagUpdateJob.php:106
-msgid "Failed to save article tag updates. Article ID: {0} Error: {1}"
-msgstr "Échec de l'enregistrement des mises à jour des tags de l'article. ID de l'article : {0} Erreur : {1}"
-
-#: ./src/Job/ArticleTagUpdateJob.php:119
-msgid "Article tag update failed. No valid result returned. Article ID: {0}"
-msgstr "Échec de la mise à jour des tags de l'article. Aucun résultat valide retourné. ID de l'article : {0}"
-
-#: ./src/Job/CommentAnalysisJob.php:72
-msgid "Received comment analysis message: Comment ID: {0} User ID: {1}"
-msgstr "Message d'analyse de commentaire reçu : ID du commentaire : {0} ID de l'utilisateur : {1}"
-
-#: ./src/Job/CommentAnalysisJob.php:82
-msgid "Comment already analyzed. Skipping. Comment ID: {0}"
-msgstr "Commentaire déjà analysé. Ignoré. ID du commentaire : {0}"
-
-#: ./src/Job/CommentAnalysisJob.php:95
-msgid "Comment analysis completed successfully. Comment ID: {0}"
-msgstr "Analyse du commentaire terminée avec succès. ID du commentaire : {0}"
-
-#: ./src/Job/CommentAnalysisJob.php:103
-msgid "Comment analysis failed. No result returned. Comment ID: {0}"
-msgstr "Échec de l'analyse du commentaire. Aucun résultat retourné. ID du commentaire : {0}"
-
-#: ./src/Job/CommentAnalysisJob.php:138
-msgid "Failed to update comment status. Comment ID: {0}"
-msgstr "Échec de la mise à jour du statut du commentaire. ID du commentaire : {0}"
-
-#: ./src/Job/ImageAnalysisJob.php:64
-msgid "Received image analysis message: Image ID: {0} Path: {1}"
-msgstr "Message d'analyse d'image reçu : ID de l'image : {0} Chemin : {1}"
-
-#: ./src/Job/ImageAnalysisJob.php:82
-msgid "Image analysis completed successfully. Model: {0} ID: {1}"
-msgstr "Analyse de l'image terminée avec succès. Modèle : {0} ID : {1}"
-
-#: ./src/Job/ImageAnalysisJob.php:92
-msgid "Image analysis failed. Model: {0} ID: {1}"
-msgstr "Échec de l'analyse de l'image. Modèle : {0} ID : {1}"
-
-#: ./src/Job/ImageAnalysisJob.php:98
-msgid "Error during image analysis: {0}"
-msgstr "Erreur lors de l'analyse de l'image : {0}"
-
-#: ./src/Job/ProcessImageJob.php:60
-msgid "Imagick extension is not loaded"
-msgstr "L'extension Imagick n'est pas chargée"
-
-#: ./src/Job/ProcessImageJob.php:74
-msgid "Received image processing message: Image ID: {0} Path: {1}"
-msgstr "Message de traitement d'image reçu : ID de l'image : {0} Chemin : {1}"
-
-#: ./src/Job/ProcessImageJob.php:82
-msgid "Starting image processing job. Path: {0}, Sizes to process: {1}"
-msgstr "Démarrage du traitement de l'image. Chemin : {0}, Tailles à traiter : {1}"
-
-#: ./src/Job/ProcessImageJob.php:96
-msgid "Error during image processing. Path: {0}, Error: {1}"
-msgstr "Erreur lors du traitement de l'image. Chemin : {0}, Erreur : {1}"
-
-#: ./src/Job/ProcessImageJob.php:108
-msgid "Image processing job completed successfully. Path: {0}"
-msgstr "Traitement de l'image terminé avec succès. Chemin : {0}"
-
-#: ./src/Job/SendEmailJob.php:71
-msgid "Processing email job: Template: {0} From: {1} To: {2} viewVars: {3}"
-msgstr "Traitement de la tâche d'envoi d'e-mail : Modèle : {0} De : {1} À : {2} Variables de vue : {3}"
-
-#: ./src/Job/SendEmailJob.php:91
-msgid "Email template not found: {0}"
-msgstr "Modèle d'e-mail non trouvé : {0}"
-
-#: ./src/Job/SendEmailJob.php:118
-msgid "Email sent successfully: {0} to {1}"
-msgstr "E-mail envoyé avec succès : {0} à {1}"
-
-#: ./src/Job/SendEmailJob.php:126
-msgid "Email sending failed: {0} to {1}"
-msgstr "Échec de l'envoi de l'e-mail : {0} à {1}"
-
-#: ./src/Job/TagSeoUpdateJob.php:61
-msgid "Received tag SEO update message: ID: {0} Title: {1}"
-msgstr "Message de mise à jour SEO du tag reçu : ID : {0} Titre : {1}"
-
-#: ./src/Job/TagSeoUpdateJob.php:89
-msgid "Tag SEO update completed successfully. ID: {0} Title: {1}"
-msgstr "Mise à jour SEO du tag terminée avec succès. ID : {0} Titre : {1}"
-
-#: ./src/Job/TagSeoUpdateJob.php:97
-msgid "Failed to save tag SEO updates. ID: {0} Title: {1}"
-msgstr "Échec de l'enregistrement des mises à jour SEO du tag. ID : {0} Titre : {1}"
-
-#: ./src/Job/TagSeoUpdateJob.php:104
-msgid "Tag SEO update failed. No result returned. ID: {0} Title: {1}"
-msgstr "Échec de la mise à jour SEO du tag. Aucun résultat retourné. ID : {0} Titre : {1}"
-
-#: ./src/Middleware/RateLimitMiddleware.php:85
-msgid "Rate limit exceeded for IP: {0} on route: {1}"
-msgstr "Limite de taux dépassée pour l'IP : {0} sur la route : {1}"
-
-#: ./src/Middleware/RateLimitMiddleware.php:97
-msgid "Too many requests. Please try again later."
-msgstr "Trop de requêtes. Veuillez réessayer plus tard."
-
-#: ./src/Model/Behavior/SluggableBehavior.php:105
-#: ./src/Model/Table/ArticlesTable.php:179
-msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
-msgstr "Le slug doit être compatible URL (uniquement des lettres minuscules, des chiffres et des tirets)"
-
-#: ./src/Model/Behavior/SluggableBehavior.php:111
-msgid "This slug is already in use. Please enter a unique slug."
-msgstr "Ce slug est déjà utilisé. Veuillez entrer un slug unique."
-
-#: ./src/Model/Table/ArticlesTable.php:192
-msgid "This slug is already in use in articles. Please enter a unique slug."
-msgstr "Ce slug est déjà utilisé dans les articles. Veuillez entrer un slug unique."
-
-#: ./src/Model/Table/ArticlesTable.php:204
-msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
-msgstr "Le slug est en conflit avec une redirection SEO existante. Veuillez choisir un slug différent."
-
-#: ./src/Model/Table/ArticlesTable.php:212
-msgid "Please upload only images (jpeg, png, gif)."
-msgstr "Veuillez télécharger uniquement des images (jpeg, png, gif)."
-
-#: ./src/Model/Table/ArticlesTable.php:216
-msgid "Image must be less than 5MB."
-msgstr "L'image doit être inférieure à 5 Mo."
-
-#: ./src/Model/Table/ArticlesTable.php:327
-msgid "Queued Article SEO update job: {0}"
-msgstr "Tâche de mise à jour SEO de l'article mise en file d'attente : {0}"
-
-#: ./src/Model/Table/ArticlesTable.php:349
-msgid "Queued Article Tag update job: {0}"
-msgstr "Tâche de mise à jour des tags de l'article mise en file d'attente : {0}"
-
-#: ./src/Model/Table/ArticlesTable.php:360
-msgid "Queued Article Summary update job: {0}"
-msgstr "Tâche de mise à jour du résumé de l'article mise en file d'attente : {0}"
-
-#: ./src/Model/Table/SettingsTable.php:76
-msgid "Invalid type"
-msgstr "Type invalide"
-
-#: ./src/Model/Table/SettingsTable.php:80
-msgid "A value is required"
-msgstr "Une valeur est requise"
-
-#: ./src/Model/Table/SettingsTable.php:85
-msgid "The value must be a number."
-msgstr "La valeur doit être un nombre."
-
-#: ./src/Model/Table/SettingsTable.php:88
-msgid "The value must be 0 or 1."
-msgstr "La valeur doit être 0 ou 1."
-
-#: ./src/Model/Table/SettingsTable.php:91
-msgid "The value must not be empty."
-msgstr "La valeur ne doit pas être vide."
-
-#: ./src/Model/Table/SettingsTable.php:96
-msgid "Invalid value for the specified type."
-msgstr "Valeur invalide pour le type spécifié."
-
-#: ./src/Model/Table/SlugsTable.php:83
-msgid "The slug must be unique."
-msgstr "Le slug doit être unique."
-
-#: ./src/Model/Table/SlugsTable.php:128
-msgid "Failed to save slug: {0}"
-msgstr "Échec de l'enregistrement du slug : {0}"
-
-#: ./src/Model/Table/TagsTable.php:107
-msgid "Queue tag SEO update job for Tag:{0}"
-msgstr "Mise en file d'attente de la tâche de mise à jour SEO pour le tag : {0}"
-
-#: ./src/Model/Table/UsersTable.php:93
-msgid "Password must be at least 8 characters long"
-msgstr "Le mot de passe doit comporter au moins 8 caractères"
-
-#: ./src/Service/Api/AbstractApiService.php:102
-msgid "API request failed. Please try again later."
-msgstr "La requête API a échoué. Veuillez réessayer plus tard."
-
-#: ./templates/Error/error400.php:25
-#: ./templates/Error/error500.php:32
-msgid "Error"
-msgstr "Erreur"
-
-#: ./templates/Error/error400.php:26
+#: 
 msgid "The requested address {0} was not found on this server."
 msgstr "L'adresse demandée {0} n'a pas été trouvée sur ce serveur."
 
-#: ./templates/Error/error500.php:22
-msgid "Error in: "
-msgstr "Erreur dans : "
+#: 
+msgid "Article SEO update failed. No result returned. Article ID: {0} Title: {1}"
+msgstr "La mise à jour SEO de l'article a échoué. Aucun résultat retourné. ID de l'article : {0} Titre : {1}"
 
-#: ./templates/Error/error500.php:30
-msgid "An Internal Error Has Occurred."
-msgstr "Une erreur interne s'est produite."
+#: 
+msgid "Tag SEO update failed. No result returned. ID: {0} Title: {1}"
+msgstr "La mise à jour SEO du tag a échoué. Aucun résultat retourné. ID : {0} Titre : {1}"
 
-#: ./templates/layout/error.php:36
-msgid "Back"
-msgstr "Retour"
+#: 
+msgid "Yes"
+msgstr "Oui"
+
+#: 
+msgid "The blocked ip could not be deleted. Please, try again."
+msgstr "L'adresse IP bloquée n'a pas pu être supprimée. Veuillez réessayer."
+
+#: 
+msgid "Please enter your email and password"
+msgstr "Veuillez saisir votre email et mot de passe"
+
+#: 
+msgid "Imported data into table: {0}"
+msgstr "Données importées dans la table : {0}"
+
+#: 
+msgid "Cache Management"
+msgstr "Gestion du Cache"
+
+#: 
+msgid "Created At"
+msgstr "Créé le"
+
+#: 
+msgid "The aiprompt could not be saved. Please, try again."
+msgstr "L'invite IA n'a pas pu être enregistrée. Veuillez réessayer."
+
+#: 
+msgid "Grid View"
+msgstr "Vue en grille"
+
+#: 
+msgid "Received comment analysis message: Comment ID: {0} User ID: {1}"
+msgstr "Message d'analyse de commentaire reçu : ID du commentaire : {0} ID utilisateur : {1}"
+
+#: 
+msgid "Admin"
+msgstr "Administrateur"
+
+#: 
+msgid "The email template could not be deleted. Please, try again."
+msgstr "Le modèle d'email n'a pas pu être supprimé. Veuillez réessayer."
+
+#: 
+msgid "Cache Name"
+msgstr "Nom du Cache"
+
+#: 
+msgid "Bulk Upload"
+msgstr "Téléchargement en masse"
+
+#: 
+msgid "Inappropriate Reason"
+msgstr "Motif d'inadéquation"
+
+#: 
+msgid "Image analysis completed successfully. Model: {0} ID: {1}"
+msgstr "Analyse d'image terminée avec succès. Modèle : {0} ID : {1}"
+
+#: 
+msgid "Registration successful, but there was an issue creating the confirmation link."
+msgstr "Inscription réussie, mais il y a eu un problème lors de la création du lien de confirmation."
+
+#: 
+msgid "Unable to delete logs with level {0}."
+msgstr "Impossible de supprimer les journaux de niveau {0}."
+

@@ -5,11 +5,11 @@ namespace App\Service\Api;
 
 use App\Model\Table\AipromptsTable;
 use App\Service\Api\Anthropic\ArticleTagsGenerator;
-use App\Service\Api\Anthropic\TranslationGenerator;
 use App\Service\Api\Anthropic\CommentAnalyzer;
 use App\Service\Api\Anthropic\ImageAnalyzer;
 use App\Service\Api\Anthropic\SeoContentGenerator;
 use App\Service\Api\Anthropic\TextSummaryGenerator;
+use App\Service\Api\Anthropic\TranslationGenerator;
 use App\Utility\SettingsManager;
 use Cake\Http\Client;
 use Cake\Http\Client\Response;
@@ -163,7 +163,19 @@ class AnthropicApiService extends AbstractApiService
         return $this->textSummaryGenerator->generateTextSummary($context, $text);
     }
 
-    public function generateTranslation(array $strings, $localeFrom, $localeTo) {
+    /**
+     * Translates an array of strings from one locale to another.
+     *
+     * This method utilizes the TranslationGenerator service to perform translations
+     * of the provided strings from the specified source locale to the target locale.
+     *
+     * @param array $strings The array of strings to be translated.
+     * @param string $localeFrom The locale code of the source language (e.g., 'en_US').
+     * @param string $localeTo The locale code of the target language (e.g., 'fr_FR').
+     * @return array The translated strings.
+     */
+    public function generateTranslation(array $strings, string $localeFrom, string $localeTo): array
+    {
         return $this->translationGenerator->generateTranslation($strings, $localeFrom, $localeTo);
     }
 

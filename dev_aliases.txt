@@ -61,6 +61,7 @@ alias cake_clear_cache='willowcms_exec bin/cake cache clear_all'
 alias cake_migrate='willowcms_exec bin/cake migrations migrate'
 alias cake_rollback='willowcms_exec bin/cake migrations rollback'
 alias bake_snapshot='cake_shell bake migration_snapshot "$@"'
+alias bake_diff='cake_shell bake migration_diff "$@"'
 
 # i18n Commands
 alias i18n_extract='willowcms_exec bin/cake i18n extract --paths /var/www/html/src,/var/www/html/plugins,/var/www/html/templates'

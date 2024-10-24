@@ -8,15 +8,34 @@ use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 
+/**
+ * CopyPotCommand class
+ *
+ * This command copies the default.pot file to language-specific default_empty.po files.
+ */
 class CopyPotCommand extends Command
 {
+    /**
+     * Configures the command's option parser.
+     *
+     * @param \Cake\Console\ConsoleOptionParser $parser The option parser to configure.
+     * @return \Cake\Console\ConsoleOptionParser The updated option parser.
+     */
     protected function buildOptionParser(ConsoleOptionParser $parser): ConsoleOptionParser
     {
         $parser
             ->setDescription(__('Copies default.pot to language-specific default_empty.po files.'));
+
         return $parser;
     }
 
+    /**
+     * Executes the command.
+     *
+     * @param \Cake\Console\Arguments $args The command arguments.
+     * @param \Cake\Console\ConsoleIo $io The console input/output.
+     * @return int The exit code. 0 for success, 1 for error.
+     */
     public function execute(Arguments $args, ConsoleIo $io): int
     {
         $languages = [
@@ -32,6 +51,7 @@ class CopyPotCommand extends Command
 
         if (!file_exists($sourcePath)) {
             $io->error(__('Source file default.pot not found at {0}', $sourcePath));
+
             return self::CODE_ERROR;
         }
 

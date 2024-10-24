@@ -63,9 +63,10 @@ class InternationalisationsTable extends Table
                     $count = $this->find()
                         ->where(['message_id' => $value, 'locale' => $context['data']['locale']])
                         ->count();
+
                     return $count === 0;
                 },
-                'message' => __('This message_id must be unique for the given locale.')
+                'message' => __('This message_id must be unique for the given locale.'),
             ]);
 
         $validator

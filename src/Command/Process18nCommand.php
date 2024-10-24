@@ -1,10 +1,13 @@
 <?php
+declare(strict_types=1);
+
 namespace App\Command;
 
 use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\ORM\TableRegistry;
+use Exception;
 
 /**
  * Class Process18nCommand
@@ -16,11 +19,11 @@ class Process18nCommand extends Command
     /**
      * Executes the command to update internationalisation records.
      *
-     * @param Arguments $args The command line arguments.
-     * @param ConsoleIo $io The console input/output.
+     * @param \Cake\Console\Arguments $args The command line arguments.
+     * @param \Cake\Console\ConsoleIo $io The console input/output.
      * @return void
      */
-    public function execute(Arguments $args, ConsoleIo $io)
+    public function execute(Arguments $args, ConsoleIo $io): void
     {
         $potFile = 'resources/locales/default.pot';
         $translations = $this->parsePoFile($potFile);
@@ -43,7 +46,7 @@ class Process18nCommand extends Command
                     $internationalisation = $internationalisationsTable->newEntity([
                         'message_id' => $messageId,
                         'locale' => $locale,
-                        'message_str' => ''
+                        'message_str' => '',
                     ]);
                     $internationalisationsTable->save($internationalisation);
                 }
@@ -60,20 +63,20 @@ class Process18nCommand extends Command
      * @return array An associative array of message IDs and their corresponding translations.
      * @throws \Exception If the file does not exist.
      */
-    private function parsePoFile($file)
+    private function parsePoFile(string $file): array
     {
         if (!file_exists($file)) {
-            throw new \Exception("The file {$file} does not exist.");
+            throw new Exception("The file {$file} does not exist.");
         }
-        
+
         $translations = [];
         $currentMsgId = null;
         $currentMsgStr = '';
-    
+
         $lines = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         foreach ($lines as $line) {
             $line = trim($line);
-    
+
             if (strpos($line, 'msgid "') === 0) {
                 if ($currentMsgId !== null) {
                     $translations[$currentMsgId] = $currentMsgStr;
@@ -88,12 +91,12 @@ class Process18nCommand extends Command
                 }
             }
         }
-    
+
         // Add the last translation
         if ($currentMsgId !== null) {
             $translations[$currentMsgId] = $currentMsgStr;
         }
-    
+
         return $translations;
     }
 }

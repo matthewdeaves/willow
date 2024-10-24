@@ -43,6 +43,10 @@ class Process18nCommand extends Command
 
     private function parsePoFile($file)
     {
+        if (!file_exists($file)) {
+            throw new \Exception("The file {$file} does not exist.");
+        }
+        
         $translations = [];
         $currentMsgId = null;
         $currentMsgStr = '';

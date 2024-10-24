@@ -20,6 +20,8 @@ class InternationalisationsController extends AppController
      */
     public function index(): ?Response
     {
+        $selectedLocale = $this->request->getQuery('locale');
+
         $query = $this->Internationalisations->find()
             ->select([
                 'Internationalisations.id',
@@ -29,6 +31,10 @@ class InternationalisationsController extends AppController
                 'Internationalisations.created_at',
                 'Internationalisations.updated_at',
             ]);
+
+        if ($selectedLocale) {
+            $query->where(['Internationalisations.locale' => $selectedLocale]);
+        }
 
         if ($this->request->is('ajax')) {
             $search = $this->request->getQuery('search');
@@ -49,7 +55,16 @@ class InternationalisationsController extends AppController
         }
 
         $internationalisations = $this->paginate($query);
-        $this->set(compact('internationalisations'));
+
+        // Get unique locales for the filter buttons
+        $localesQuery = $this->Internationalisations->find()
+            ->select(['Internationalisations.locale'])
+            ->distinct(['Internationalisations.locale'])
+            ->orderBy(['Internationalisations.locale' => 'ASC']);
+
+        $locales = $localesQuery->all()->extract('locale')->toList();
+
+        $this->set(compact('internationalisations', 'locales', 'selectedLocale'));
 
         return null;
     }

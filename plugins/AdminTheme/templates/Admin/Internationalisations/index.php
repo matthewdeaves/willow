@@ -10,6 +10,9 @@
         <?= $this->Html->link(__('New Internationalisation'), ['action' => 'add'], ['class' => 'btn btn-primary my-3 ms-2']) ?>
     </div>
     <div class="mb-3">
+    <?= $this->element('locale_filters', ['tags' => $locales, 'selectedTag' => $selectedLocale]) ?>
+    </div>
+    <div class="mb-3">
         <input type="text" id="internationalisationSearch" class="form-control" placeholder="Search Internationalisations...">
     </div>
     <div class="table-responsive">

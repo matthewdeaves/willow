@@ -6,8 +6,20 @@ use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\ORM\TableRegistry;
 
+/**
+ * Class Process18nCommand
+ *
+ * This command processes internationalization by parsing a .pot file and updating the database with translation records.
+ */
 class Process18nCommand extends Command
 {
+    /**
+     * Executes the command to update internationalisation records.
+     *
+     * @param Arguments $args The command line arguments.
+     * @param ConsoleIo $io The console input/output.
+     * @return void
+     */
     public function execute(Arguments $args, ConsoleIo $io)
     {
         $potFile = 'resources/locales/default.pot';
@@ -41,6 +53,13 @@ class Process18nCommand extends Command
         $io->success('Internationalisations updated successfully.');
     }
 
+    /**
+     * Parses a .po file to extract translations.
+     *
+     * @param string $file The path to the .po file.
+     * @return array An associative array of message IDs and their corresponding translations.
+     * @throws \Exception If the file does not exist.
+     */
     private function parsePoFile($file)
     {
         if (!file_exists($file)) {

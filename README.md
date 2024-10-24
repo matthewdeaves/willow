@@ -1,6 +1,6 @@
 # Willow CMS - Easy-to-Use Content Management System Built with CakePHP 5.x
 
-![Build Status](https://github.com/matthewdeaves/willow/workflows/CI/badge.svg?branch=main)
+![Build Status](https://github.com/matthewdeaves/willow/workflows/CI/badge.svg)
 
 ## Table of Contents
 1. [Docker Development Environment](#docker-development-environment)

@@ -6,6 +6,7 @@ namespace App\Command;
 use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
+use Cake\ORM\ResultSet;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Filesystem;
 
@@ -86,7 +87,7 @@ class GeneratePoFilesCommand extends Command
      * @param \Cake\ORM\ResultSet $translations The translations to include in the .po file.
      * @return string The content of the .po file.
      */
-    protected function generatePoContent(string $locale, $translations): string
+    protected function generatePoContent(string $locale, ResultSet $translations): string
     {
         $header = <<<EOT
 # LANGUAGE translation of CakePHP Application

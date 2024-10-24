@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use App\Utility\SettingsManager;
 use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
@@ -35,7 +36,7 @@ class TranslateI18nCommand extends Command
         $locales = [
             'de_DE', // German (Germany)
             'fr_FR', // French (France)
-            /*'es_ES', // Spanish (Spain)
+            'es_ES', // Spanish (Spain)
             'it_IT', // Italian (Italy)
             'pt_PT', // Portuguese (Portugal)
             'nl_NL', // Dutch (Netherlands)
@@ -57,9 +58,9 @@ class TranslateI18nCommand extends Command
             'et_EE', // Estonian (Estonia)
             'lv_LV', // Latvian (Latvia)
             'lt_LT', // Lithuanian (Lithuania)
-            'uk_UA', // Ukrainian (Ukraine)*/
+            'uk_UA', // Ukrainian (Ukraine)
         ];
-        
+
         // Fetch the I18n table
         $i18nTable = TableRegistry::getTableLocator()->get('internationalisations');
 
@@ -96,9 +97,13 @@ class TranslateI18nCommand extends Command
      */
     protected function queueBatch(array $batch, ConsoleIo $io): void
     {
-        //IF SETTING AI ENABLED!
         // Queue a job to translate the batch of messages
-        QueueManager::push('App\Job\TranslateI18nJob', $batch);
-        $io->out(__('Queued translation job for batch of {0} messages for locale {1}', [count($batch['internationalisations']), $batch['locale']]));
+        if (SettingsManager::read('AI.enabled')) {
+            QueueManager::push('App\Job\TranslateI18nJob', $batch);
+            $io->out(__(
+                'Queued translation job for batch of {0} messages for locale {1}',
+                [count($batch['internationalisations']), $batch['locale']]
+            ));
+        }
     }
 }

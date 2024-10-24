@@ -8,6 +8,7 @@ use Cake\Log\Log;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
+use Exception;
 use Interop\Queue\Processor;
 
 /**
@@ -47,7 +48,7 @@ class TranslateI18nJob implements JobInterface
         $internationalisations = $message->getArgument('internationalisations');
         $locale = $message->getArgument('locale');
 
-        if (empty($internationalisations)|| empty($locale)) {
+        if (empty($internationalisations) || empty($locale)) {
             Log::warning(__('Missing required arguments in the message.'));
 
             return Processor::REJECT;
@@ -61,7 +62,7 @@ class TranslateI18nJob implements JobInterface
 
         if ($internationalizations->isEmpty()) {
             Log::warning(__('No internationalizations found for the provided IDs.'));
-            
+
             return Processor::REJECT;
         }
 
@@ -74,14 +75,32 @@ class TranslateI18nJob implements JobInterface
                 $locale
             );
 
-            debug($translatedMessages); 
+            // Iterate over the translated messages and update the database
+            foreach ($translatedMessages['translations'] as $translatedMessage) {
+                $originalMessage = $translatedMessage['original'];
+                $translatedText = $translatedMessage['translated'];
 
-            exit;
+                // Find the existing translation record for the given locale and original message
+                $existingTranslation = $i18nTable->find()
+                    ->where([
+                        'message_id' => $originalMessage,
+                        'locale' => $locale,
+                    ])
+                    ->first();
+
+                if ($existingTranslation) {
+                    // Update the existing translation record
+                    $existingTranslation->message_str = $translatedText;
+                    if (!$i18nTable->save($existingTranslation)) {
+                        Log::error(__('Failed to update translation for message ID: {0}', $originalMessage));
+                    }
+                }
+            }
 
             Log::info('Internationalizations updated successfully.');
 
             return Processor::ACK;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error('Failed to update internationalizations: ' . $e->getMessage());
         }
 

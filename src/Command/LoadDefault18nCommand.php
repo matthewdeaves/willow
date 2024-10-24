@@ -33,7 +33,7 @@ class LoadDefault18nCommand extends Command
 
         // Define the locales you want to support
         $locales = [
-            'de_DE', // German (Germany)
+            //'de_DE', // German (Germany)
             'fr_FR', // French (France)
             /*'es_ES', // Spanish (Spain)
             'it_IT', // Italian (Italy)

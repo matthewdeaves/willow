@@ -64,6 +64,12 @@ class GeneratePoFilesCommand extends Command
                 ->where(['locale' => $locale, 'message_str !=' => ''])
                 ->all();
 
+            // Check if there are any translations for the locale
+            if ($translations->isEmpty()) {
+                $io->out(__('No translations found for locale: {0}. Skipping...', $locale));
+                continue;
+            }
+
             $poContent = $this->generatePoContent($locale, $translations);
 
             $filePath = ROOT . DS . 'resources' . DS . 'locales' . DS . $locale . DS . 'default.po';

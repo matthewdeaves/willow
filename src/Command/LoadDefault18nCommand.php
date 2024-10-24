@@ -35,7 +35,7 @@ class LoadDefault18nCommand extends Command
         $locales = [
             'de_DE', // German (Germany)
             'fr_FR', // French (France)
-            'es_ES', // Spanish (Spain)
+            /*'es_ES', // Spanish (Spain)
             'it_IT', // Italian (Italy)
             'pt_PT', // Portuguese (Portugal)
             'nl_NL', // Dutch (Netherlands)
@@ -57,7 +57,7 @@ class LoadDefault18nCommand extends Command
             'et_EE', // Estonian (Estonia)
             'lv_LV', // Latvian (Latvia)
             'lt_LT', // Lithuanian (Lithuania)
-            'uk_UA', // Ukrainian (Ukraine)
+            'uk_UA', // Ukrainian (Ukraine)*/
         ];
 
         foreach ($translations as $messageId => $messageStr) {

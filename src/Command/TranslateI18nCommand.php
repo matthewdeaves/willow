@@ -22,7 +22,7 @@ class TranslateI18nCommand extends Command
      *
      * @var int
      */
-    protected int $batchSize = 50; // Adjust this number based on your AI's capacity
+    protected int $batchSize = 35; // Adjust this number based on your AI's capacity
 
     /**
      * Executes the command to queue translation jobs for empty internationalisations.
@@ -36,7 +36,7 @@ class TranslateI18nCommand extends Command
         $locales = [
             'de_DE', // German (Germany)
             'fr_FR', // French (France)
-            'es_ES', // Spanish (Spain)
+            /*'es_ES', // Spanish (Spain)
             'it_IT', // Italian (Italy)
             'pt_PT', // Portuguese (Portugal)
             'nl_NL', // Dutch (Netherlands)
@@ -58,7 +58,7 @@ class TranslateI18nCommand extends Command
             'et_EE', // Estonian (Estonia)
             'lv_LV', // Latvian (Latvia)
             'lt_LT', // Lithuanian (Lithuania)
-            'uk_UA', // Ukrainian (Ukraine)
+            'uk_UA', // Ukrainian (Ukraine)*/
         ];
 
         // Fetch the I18n table

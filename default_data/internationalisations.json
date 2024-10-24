@@ -1,0 +1,4718 @@
+[
+    {
+        "locale": "fr_FR",
+        "message_id": "No pages found.",
+        "message_str": "Aucune page trouv\u00e9e.",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Failed to update comment status. Comment ID: {0}",
+        "message_str": "\u00c9chec de la mise \u00e0 jour du statut du commentaire. ID du commentaire : {0}",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Search comments...",
+        "message_str": "Kommentare durchsuchen...",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Add Blocked IP",
+        "message_str": "Ajouter une IP bloqu\u00e9e",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "View",
+        "message_str": "Ansehen",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Error during image processing. Path: {0}, Error: {1}",
+        "message_str": "Fehler bei der Bildverarbeitung. Pfad: {0}, Fehler: {1}",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The internationalisation could not be deleted. Please, try again.",
+        "message_str": "L'internationalisation n'a pas pu \u00eatre supprim\u00e9e. Veuillez r\u00e9essayer.",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Read More",
+        "message_str": "Lire la suite",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Queued Article Tag update job: {0}",
+        "message_str": "T\u00e2che de mise \u00e0 jour des tags d'article mise en file d'attente : {0}",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Add User",
+        "message_str": "Ajouter un utilisateur",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Add AI Prompt",
+        "message_str": "Ajouter une invite IA",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Article SEO update completed successfully. Article ID: {0} Title: {1}",
+        "message_str": "Mise \u00e0 jour SEO de l'article effectu\u00e9e avec succ\u00e8s. ID de l'article : {0} Titre : {1}",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Blocked IPs",
+        "message_str": "Gesperrte IPs",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Article SEO update failed. No result returned. Article ID: {0} Title: {1}",
+        "message_str": "SEO-Aktualisierung des Artikels fehlgeschlagen. Kein Ergebnis zur\u00fcckgegeben. Artikel-ID: {0} Titel: {1}",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "All logs with level {0} have been deleted.",
+        "message_str": "Tous les journaux de niveau {0} ont \u00e9t\u00e9 supprim\u00e9s.",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Register",
+        "message_str": "S'inscrire",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Filter",
+        "message_str": "Filter",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Are you sure you want to delete all logs?",
+        "message_str": "Sind Sie sicher, dass Sie alle Protokolle l\u00f6schen m\u00f6chten?",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Meta Keywords",
+        "message_str": "Meta-Schl\u00fcsselw\u00f6rter",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Saved : {0} {1}",
+        "message_str": "Gespeichert: {0} {1}",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Articles",
+        "message_str": "Articles",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Unable to delete logs in group {0}.",
+        "message_str": "Impossible de supprimer les journaux du groupe {0}.",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Data exported to {0}",
+        "message_str": "Daten exportiert nach {0}",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Queued Article SEO update job: {0}",
+        "message_str": "SEO-Aktualisierungsauftrag f\u00fcr Artikel in Warteschlange: {0}",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Is Admin",
+        "message_str": "Ist Administrator",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Error loading images:",
+        "message_str": "Fehler beim Laden der Bilder:",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The slug could not be saved. Please, try again.",
+        "message_str": "Le slug n'a pas pu \u00eatre enregistr\u00e9. Veuillez r\u00e9essayer.",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Username",
+        "message_str": "Nom d'utilisateur",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The requested address {0} was not found on this server.",
+        "message_str": "Die angeforderte Adresse {0} wurde auf diesem Server nicht gefunden.",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The internationalisation could not be saved. Please, try again.",
+        "message_str": "L'internationalisation n'a pas pu \u00eatre enregistr\u00e9e. Veuillez r\u00e9essayer.",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Edit User",
+        "message_str": "Benutzer bearbeiten",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "{0} cache has been cleared successfully.",
+        "message_str": "{0} Cache wurde erfolgreich geleert.",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The blocked ip has been saved.",
+        "message_str": "L'IP bloqu\u00e9e a \u00e9t\u00e9 enregistr\u00e9e.",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Tag SEO update completed successfully. ID: {0} Title: {1}",
+        "message_str": "Mise \u00e0 jour SEO du tag effectu\u00e9e avec succ\u00e8s. ID : {0} Titre : {1}",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The comment has been saved.",
+        "message_str": "Le commentaire a \u00e9t\u00e9 enregistr\u00e9.",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Invalid confirmation code. Please contact support.",
+        "message_str": "Ung\u00fcltiger Best\u00e4tigungscode. Bitte kontaktieren Sie den Support.",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Settings",
+        "message_str": "Einstellungen",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Missing required arguments in the message.",
+        "message_str": "Fehlende erforderliche Argumente in der Nachricht.",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Are you sure you want to delete this comment?",
+        "message_str": "Sind Sie sicher, dass Sie diesen Kommentar l\u00f6schen m\u00f6chten?",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Show Details",
+        "message_str": "Afficher les d\u00e9tails",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Are you sure you want to clear {0}?",
+        "message_str": "Sind Sie sicher, dass Sie {0} leeren m\u00f6chten?",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Article SEO update failed. No result returned. Article ID: {0} Title: {1}",
+        "message_str": "\u00c9chec de la mise \u00e0 jour SEO de l'article. Aucun r\u00e9sultat retourn\u00e9. ID de l'article : {0} Titre : {1}",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Search slugs...",
+        "message_str": "Rechercher des slugs...",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Image processing job completed successfully. Path: {0}",
+        "message_str": "Traitement d'image termin\u00e9 avec succ\u00e8s. Chemin : {0}",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Queued translation job for batch of {0} messages for locale {1}",
+        "message_str": "\u00dcbersetzungsauftrag f\u00fcr {0} Nachrichten f\u00fcr Sprache {1} in Warteschlange gestellt",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "New AI Prompt",
+        "message_str": "Nouvelle invite IA",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "All Groups",
+        "message_str": "Tous les groupes",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Update Comment",
+        "message_str": "Mettre \u00e0 jour le commentaire",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Failed to update translation for message ID: {0}",
+        "message_str": "\u00c9chec de la mise \u00e0 jour de la traduction pour l'ID de message : {0}",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The image has been deleted.",
+        "message_str": "Das Bild wurde gel\u00f6scht.",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The aiprompt has been saved.",
+        "message_str": "L'invite IA a \u00e9t\u00e9 enregistr\u00e9e.",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Meta Keywords",
+        "message_str": "Mots-cl\u00e9s Meta",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Are you sure you want to delete all logs?",
+        "message_str": "\u00cates-vous s\u00fbr de vouloir supprimer tous les journaux ?",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Title",
+        "message_str": "Titel",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Update Aiprompt",
+        "message_str": "Mettre \u00e0 jour l'invite IA",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "By",
+        "message_str": "Von",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "All caches have been cleared successfully.",
+        "message_str": "Alle Caches wurden erfolgreich geleert.",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Queued Article Tag update job: {0}",
+        "message_str": "Tag-Aktualisierungsauftrag f\u00fcr Artikel in Warteschlange: {0}",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "User Agent",
+        "message_str": "Agent utilisateur",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "List View",
+        "message_str": "Vue en liste",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Update Tag",
+        "message_str": "Tag aktualisieren",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Article not found",
+        "message_str": "Artikel nicht gefunden",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "No pages found.",
+        "message_str": "Keine Seiten gefunden.",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Failed to save article SEO updates. Article ID: {0} Title: {1}",
+        "message_str": "\u00c9chec de l'enregistrement des mises \u00e0 jour SEO de l'article. ID de l'article : {0} Titre : {1}",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Received article SEO update message: {0} : {1}",
+        "message_str": "SEO-Aktualisierungsnachricht f\u00fcr Artikel empfangen: {0} : {1}",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "User Agent",
+        "message_str": "User Agent",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Show Less",
+        "message_str": "Weniger anzeigen",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Bulk Upload",
+        "message_str": "Massenupload",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Back",
+        "message_str": "Zur\u00fcck",
+        "updated_at": "2024-10-24T22:52:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Attempting to create user with data: {0}",
+        "message_str": "Tentative de cr\u00e9ation d'utilisateur avec les donn\u00e9es : {0}",
+        "updated_at": "2024-10-24T22:56:41+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "No view records found for this article.",
+        "message_str": "Aucun enregistrement de vue trouv\u00e9 pour cet article.",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Reason",
+        "message_str": "Grund",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Update User",
+        "message_str": "Mettre \u00e0 jour l'utilisateur",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Add AI Prompt",
+        "message_str": "KI-Prompt hinzuf\u00fcgen",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Configured Caches",
+        "message_str": "Konfigurierte Caches",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Unable to delete logs in group {0}.",
+        "message_str": "Protokolle in Gruppe {0} k\u00f6nnen nicht gel\u00f6scht werden.",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The image could not be saved. Please, try again.",
+        "message_str": "Das Bild konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Unable to add your comment.",
+        "message_str": "Impossible d'ajouter votre commentaire.",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "New AI Prompt",
+        "message_str": "Neuer KI-Prompt",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The internationalisation has been deleted.",
+        "message_str": "L'internationalisation a \u00e9t\u00e9 supprim\u00e9e.",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Unable to delete all logs.",
+        "message_str": "Impossible de supprimer tous les journaux.",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The slug could not be deleted. Please, try again.",
+        "message_str": "Le slug n'a pas pu \u00eatre supprim\u00e9. Veuillez r\u00e9essayer.",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Slug conflicts with an existing SEO redirect. Please choose a different slug.",
+        "message_str": "Le slug est en conflit avec une redirection SEO existante. Veuillez choisir un slug diff\u00e9rent.",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Error sending email: {0}",
+        "message_str": "Fehler beim Senden der E-Mail: {0}",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Image",
+        "message_str": "Image",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "List {0}",
+        "message_str": "Liste {0}",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Data exported to {0}",
+        "message_str": "Donn\u00e9es export\u00e9es vers {0}",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Unable to delete all logs.",
+        "message_str": "Alle Protokolle k\u00f6nnen nicht gel\u00f6scht werden.",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Tags",
+        "message_str": "Schlagworte",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "A value is required",
+        "message_str": "Une valeur est requise",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Some caches were cleared, but the following failed: {0}",
+        "message_str": "Einige Caches wurden geleert, aber die folgenden sind fehlgeschlagen: {0}",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Search articles...",
+        "message_str": "Rechercher des articles...",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Article tag update failed. No valid result returned. Article ID: {0}",
+        "message_str": "Aktualisierung der Artikel-Schlagworte fehlgeschlagen. Kein g\u00fcltiges Ergebnis zur\u00fcckgegeben. Artikel-ID: {0}",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "All logs in group {0} have been deleted.",
+        "message_str": "Alle Protokolle in Gruppe {0} wurden gel\u00f6scht.",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Page Views for {0}",
+        "message_str": "Vues de page pour {0}",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Message",
+        "message_str": "Nachricht",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "No deleting your own account.",
+        "message_str": "Sie k\u00f6nnen Ihr eigenes Konto nicht l\u00f6schen.",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Are you sure you want to delete comment by {0}?",
+        "message_str": "Sind Sie sicher, dass Sie den Kommentar von {0} l\u00f6schen m\u00f6chten?",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The log has been deleted.",
+        "message_str": "Le journal a \u00e9t\u00e9 supprim\u00e9.",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Summary",
+        "message_str": "R\u00e9sum\u00e9",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Email sent successfully to: {0}. Template: {1}, Subject: {2}",
+        "message_str": "E-Mail erfolgreich gesendet an: {0}. Vorlage: {1}, Betreff: {2}",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Details",
+        "message_str": "D\u00e9tails",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "{0} Views",
+        "message_str": "{0} Aufrufe",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Edit Settings",
+        "message_str": "Modifier les param\u00e8tres",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Body Text",
+        "message_str": "Haupttext",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Your account has been updated.",
+        "message_str": "Ihr Konto wurde aktualisiert.",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Skipped resizing, image already exists. Path: {0}",
+        "message_str": "Redimensionnement ignor\u00e9, l'image existe d\u00e9j\u00e0. Chemin : {0}",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Are you sure you want to delete this prompt?",
+        "message_str": "Sind Sie sicher, dass Sie diesen Prompt l\u00f6schen m\u00f6chten?",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Article summary update completed successfully. Article ID: {0} Title: {1}",
+        "message_str": "Mise \u00e0 jour du r\u00e9sum\u00e9 de l'article effectu\u00e9e avec succ\u00e8s. ID de l'article : {0} Titre : {1}",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Invalid confirmation code. Please contact support.",
+        "message_str": "Code de confirmation invalide. Veuillez contacter le support.",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Starting image processing job. Path: {0}, Sizes to process: {1}",
+        "message_str": "Bildverarbeitungsauftrag wird gestartet. Pfad: {0}, Zu verarbeitende Gr\u00f6\u00dfen: {1}",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Queued Article Summary update job: {0}",
+        "message_str": "T\u00e2che de mise \u00e0 jour du r\u00e9sum\u00e9 d'article mise en file d'attente : {0}",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Modified At",
+        "message_str": "Ge\u00e4ndert am",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Level",
+        "message_str": "Niveau",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Published",
+        "message_str": "Ver\u00f6ffentlicht",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Edit Email Template",
+        "message_str": "E-Mail-Vorlage bearbeiten",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Received tag SEO update message: ID: {0} Title: {1}",
+        "message_str": "Message de mise \u00e0 jour SEO du tag re\u00e7u : ID : {0} Titre : {1}",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Comments",
+        "message_str": "Kommentare",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The aiprompt could not be saved. Please, try again.",
+        "message_str": "L'invite IA n'a pas pu \u00eatre sauvegard\u00e9e. Veuillez r\u00e9essayer.",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Received image processing message: Image ID: {0} Path: {1}",
+        "message_str": "Bildverarbeitungsnachricht empfangen: Bild-ID: {0} Pfad: {1}",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "User",
+        "message_str": "Utilisateur",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Delete All Logs",
+        "message_str": "Supprimer tous les journaux",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Received comment analysis message: Comment ID: {0} User ID: {1}",
+        "message_str": "Message d'analyse de commentaire re\u00e7u : ID du commentaire : {0} ID de l'utilisateur : {1}",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Choose a file to import by number:",
+        "message_str": "W\u00e4hlen Sie eine Datei zum Importieren nach Nummer:",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Attempting to create user with data: {0}",
+        "message_str": "Versuch, Benutzer mit folgenden Daten zu erstellen: {0}",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Update Image",
+        "message_str": "Bild aktualisieren",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Registration successful. Please check your email for confirmation.",
+        "message_str": "Inscription r\u00e9ussie. Veuillez v\u00e9rifier votre email pour la confirmation.",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Number of attempts: {0}",
+        "message_str": "Nombre de tentatives : {0}",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Update Article",
+        "message_str": "Mettre \u00e0 jour l'article",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Article not found.",
+        "message_str": "Article non trouv\u00e9.",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Context",
+        "message_str": "Contexte",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Error",
+        "message_str": "Erreur",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Received image analysis message: Image ID: {0} Path: {1}",
+        "message_str": "Message d'analyse d'image re\u00e7u : ID de l'image : {0} Chemin : {1}",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Slug conflicts with an existing SEO redirect. Please choose a different slug.",
+        "message_str": "Slug steht in Konflikt mit einer bestehenden SEO-Weiterleitung. Bitte w\u00e4hlen Sie einen anderen Slug.",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "List Blocked IPs",
+        "message_str": "Liste des IPs bloqu\u00e9es",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "No tags are linked.",
+        "message_str": "Aucun tag n'est li\u00e9.",
+        "updated_at": "2024-10-24T22:57:02+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Not published",
+        "message_str": "Non publi\u00e9",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The user has been deleted.",
+        "message_str": "Der Benutzer wurde gel\u00f6scht.",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The image could not be saved. Please, try again.",
+        "message_str": "L'image n'a pas pu \u00eatre enregistr\u00e9e. Veuillez r\u00e9essayer.",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "New Tag",
+        "message_str": "Neues Schlagwort",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Edit Tag",
+        "message_str": "Modifier l'\u00e9tiquette",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "All Groups",
+        "message_str": "Alle Gruppen",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Date",
+        "message_str": "Date",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The log has been deleted.",
+        "message_str": "Das Protokoll wurde gel\u00f6scht.",
+        "updated_at": "2024-10-24T22:52:49+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Received article tag update message: {0} : {1}",
+        "message_str": "Artikel-Tag-Aktualisierungsnachricht erhalten: {0} : {1}",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Failed to send email. Please check your email configuration.",
+        "message_str": "\u00c9chec de l'envoi de l'e-mail. Veuillez v\u00e9rifier votre configuration e-mail.",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Additional Images",
+        "message_str": "Zus\u00e4tzliche Bilder",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Subject",
+        "message_str": "Sujet",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "No page view data available for this article.",
+        "message_str": "Aucune donn\u00e9e de vue de page disponible pour cet article.",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Views",
+        "message_str": "Vues",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Not published",
+        "message_str": "Nicht ver\u00f6ffentlicht",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Comment already analyzed. Skipping. Comment ID: {0}",
+        "message_str": "Commentaire d\u00e9j\u00e0 analys\u00e9. Ignor\u00e9. ID du commentaire : {0}",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Rate limit exceeded for IP: {0} on route: {1}",
+        "message_str": "Anfragelimit \u00fcberschritten f\u00fcr IP: {0} auf Route: {1}",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Word Count",
+        "message_str": "Nombre de mots",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Comment for {0}",
+        "message_str": "Commentaire pour {0}",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Description",
+        "message_str": "Beschreibung",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Show Full Article",
+        "message_str": "Afficher l'article complet",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "API request failed. Please try again later.",
+        "message_str": "API-Anfrage fehlgeschlagen. Bitte versuchen Sie es sp\u00e4ter erneut.",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Meta Description",
+        "message_str": "Meta-Beschreibung",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Choose a file to import by number:",
+        "message_str": "Choisissez un fichier \u00e0 importer par num\u00e9ro :",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Article summary update completed successfully. Article ID: {0} Title: {1}",
+        "message_str": "Artikelzusammenfassung erfolgreich aktualisiert. Artikel-ID: {0} Titel: {1}",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "No JSON files found in the directory: {0}",
+        "message_str": "Aucun fichier JSON trouv\u00e9 dans le r\u00e9pertoire : {0}",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Temperature",
+        "message_str": "Temperatur",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Message",
+        "message_str": "Message",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "IP Address",
+        "message_str": "IP-Adresse",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Please upload only images (jpeg, png, gif).",
+        "message_str": "Bitte laden Sie nur Bilder hoch (jpeg, png, gif).",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Are you sure you want to delete all {0} logs?",
+        "message_str": "Sind Sie sicher, dass Sie alle {0} Protokolle l\u00f6schen m\u00f6chten?",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Failed to save article tag updates. Article ID: {0} Error: {1}",
+        "message_str": "\u00c9chec de l'enregistrement des mises \u00e0 jour des \u00e9tiquettes de l'article. ID de l'article : {0} Erreur : {1}",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Imagick extension is not loaded",
+        "message_str": "L'extension Imagick n'est pas charg\u00e9e",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Access denied. You must be an admin to view this page.",
+        "message_str": "Acc\u00e8s refus\u00e9. Vous devez \u00eatre administrateur pour voir cette page.",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Select a parent",
+        "message_str": "S\u00e9lectionner un parent",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The value must not be empty.",
+        "message_str": "Der Wert darf nicht leer sein.",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Generated default.po for locale: {0}",
+        "message_str": "Default.po f\u00fcr Gebietsschema generiert: {0}",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The blocked ip has been deleted.",
+        "message_str": "Die blockierte IP wurde gel\u00f6scht.",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "All caches have been cleared successfully.",
+        "message_str": "Tous les caches ont \u00e9t\u00e9 vid\u00e9s avec succ\u00e8s.",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Received article summary update message: {0} : {1}",
+        "message_str": "Artikelzusammenfassungs-Aktualisierungsnachricht erhalten: {0} : {1}",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Failed to save article summary updates. Article ID: {0} Title: {1}",
+        "message_str": "\u00c9chec de l'enregistrement des mises \u00e0 jour du r\u00e9sum\u00e9 de l'article. ID de l'article : {0} Titre : {1}",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Email sent successfully.",
+        "message_str": "E-Mail erfolgreich gesendet.",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "No images.",
+        "message_str": "Keine Bilder.",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Skipped resizing, image already exists. Path: {0}",
+        "message_str": "Gr\u00f6\u00dfen\u00e4nderung \u00fcbersprungen, Bild existiert bereits. Pfad: {0}",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "No deleting your own account.",
+        "message_str": "Impossible de supprimer votre propre compte.",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "View detailed records for this date",
+        "message_str": "Detaillierte Aufzeichnungen f\u00fcr dieses Datum anzeigen",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Email Templates",
+        "message_str": "Mod\u00e8les d'e-mail",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Model",
+        "message_str": "Modell",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "User created successfully: {0}",
+        "message_str": "Benutzer erfolgreich erstellt: {0}",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Add User",
+        "message_str": "Benutzer hinzuf\u00fcgen",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Update Slug",
+        "message_str": "Mettre \u00e0 jour le slug",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "You cannot remove your own admin status.",
+        "message_str": "Vous ne pouvez pas supprimer votre propre statut d'administrateur.",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "New Internationalisation",
+        "message_str": "Nouvelle internationalisation",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The article has been deleted.",
+        "message_str": "Der Artikel wurde gel\u00f6scht.",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Missing required arguments in the message.",
+        "message_str": "Arguments requis manquants dans le message.",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Is Published",
+        "message_str": "Est publi\u00e9",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Comment already analyzed. Skipping. Comment ID: {0}",
+        "message_str": "Kommentar bereits analysiert. Wird \u00fcbersprungen. Kommentar-ID: {0}",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "You must be logged in to add a comment.",
+        "message_str": "Sie m\u00fcssen eingeloggt sein, um einen Kommentar hinzuzuf\u00fcgen.",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Image analysis completed successfully. Model: {0} ID: {1}",
+        "message_str": "Bildanalyse erfolgreich abgeschlossen. Modell: {0} ID: {1}",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The slug has been saved.",
+        "message_str": "Der Slug wurde gespeichert.",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Main Picture",
+        "message_str": "Hauptbild",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Generated default.po for locale: {0}",
+        "message_str": "Fichier default.po g\u00e9n\u00e9r\u00e9 pour la locale : {0}",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The image has been deleted.",
+        "message_str": "L'image a \u00e9t\u00e9 supprim\u00e9e.",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Edit Blocked IP",
+        "message_str": "Blockierte IP bearbeiten",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The tag could not be saved. Please, try again.",
+        "message_str": "Der Tag konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Successfully resized and saved image. Original: {0}, Resized: {1}, Width: {2}px",
+        "message_str": "Bild erfolgreich in der Gr\u00f6\u00dfe ge\u00e4ndert und gespeichert. Original: {0}, Neue Gr\u00f6\u00dfe: {1}, Breite: {2}px",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The user could not be saved. Please, try again.",
+        "message_str": "Der Benutzer konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Profile Picture",
+        "message_str": "Photo de profil",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Update Comment",
+        "message_str": "Kommentar aktualisieren",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Failed to save tag SEO updates. ID: {0} Title: {1}",
+        "message_str": "Fehler beim Speichern der Tag-SEO-Aktualisierungen. ID: {0} Titel: {1}",
+        "updated_at": "2024-10-24T22:53:13+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "No JSON files found in the directory: {0}",
+        "message_str": "Keine JSON-Dateien im Verzeichnis gefunden: {0}",
+        "updated_at": "2024-10-24T22:53:36+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Setting not found: {0}.{1}",
+        "message_str": "Param\u00e8tre non trouv\u00e9 : {0}.{1}",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Internationalisation",
+        "message_str": "Internationalisation",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Are you sure you want to clear {0}?",
+        "message_str": "\u00cates-vous s\u00fbr de vouloir vider {0} ?",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "No tags are linked.",
+        "message_str": "Keine Tags sind verkn\u00fcpft.",
+        "updated_at": "2024-10-24T22:53:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Search users...",
+        "message_str": "Benutzer suchen...",
+        "updated_at": "2024-10-24T22:53:36+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Error saving {0}.{1}: {2}",
+        "message_str": "Erreur lors de l'enregistrement de {0}.{1} : {2}",
+        "updated_at": "2024-10-24T22:57:26+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Are you sure you want to delete all {0} logs?",
+        "message_str": "\u00cates-vous s\u00fbr de vouloir supprimer tous les journaux {0} ?",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "User",
+        "message_str": "Benutzer",
+        "updated_at": "2024-10-24T22:53:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Max Tokens",
+        "message_str": "Maximale Token",
+        "updated_at": "2024-10-24T22:53:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "This message_id must be unique for the given locale.",
+        "message_str": "Diese message_id muss f\u00fcr das angegebene Gebietsschema eindeutig sein.",
+        "updated_at": "2024-10-24T22:53:36+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Slug",
+        "message_str": "Slug",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Internationalisations",
+        "message_str": "Internationalisations",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Failed to save entity: {0} {1}",
+        "message_str": "\u00c9chec de l'enregistrement de l'entit\u00e9 : {0} {1}",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Block IPs",
+        "message_str": "Bloquer les IPs",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "New User",
+        "message_str": "Nouvel Utilisateur",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "LinkedIn Description",
+        "message_str": "Description LinkedIn",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The email template has been saved.",
+        "message_str": "Le mod\u00e8le d'e-mail a \u00e9t\u00e9 enregistr\u00e9.",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Edit Internationalisation",
+        "message_str": "Internationalisierung bearbeiten",
+        "updated_at": "2024-10-24T22:53:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Id",
+        "message_str": "Id",
+        "updated_at": "2024-10-24T22:53:36+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Front Site",
+        "message_str": "Site Principal",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Tag SEO update failed. No result returned. ID: {0} Title: {1}",
+        "message_str": "Tag-SEO-Aktualisierung fehlgeschlagen. Kein Ergebnis zur\u00fcckgegeben. ID: {0} Titel: {1}",
+        "updated_at": "2024-10-24T22:53:36+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Please log in to add a comment",
+        "message_str": "Veuillez vous connecter pour ajouter un commentaire",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Body HTML",
+        "message_str": "Corps HTML",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Add a Comment",
+        "message_str": "Ajouter un Commentaire",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Error saving {0}.{1}: {2}",
+        "message_str": "Fehler beim Speichern von {0}.{1}: {2}",
+        "updated_at": "2024-10-24T22:53:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "An Internal Error Has Occurred.",
+        "message_str": "Ein interner Fehler ist aufgetreten.",
+        "updated_at": "2024-10-24T22:53:36+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Additional Images",
+        "message_str": "Images Suppl\u00e9mentaires",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Your account has been confirmed. You can now log in.",
+        "message_str": "Ihr Konto wurde best\u00e4tigt. Sie k\u00f6nnen sich jetzt anmelden.",
+        "updated_at": "2024-10-24T22:53:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "A value is required",
+        "message_str": "Ein Wert ist erforderlich",
+        "updated_at": "2024-10-24T22:53:36+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "API request failed. Please try again later.",
+        "message_str": "La requ\u00eate API a \u00e9chou\u00e9. Veuillez r\u00e9essayer plus tard.",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Your account has been updated.",
+        "message_str": "Votre compte a \u00e9t\u00e9 mis \u00e0 jour.",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Delete {0}",
+        "message_str": "Supprimer {0}",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Edit Your Account",
+        "message_str": "Ihr Konto bearbeiten",
+        "updated_at": "2024-10-24T22:53:36+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Some settings could not be saved. Please, try again.",
+        "message_str": "Certains param\u00e8tres n'ont pas pu \u00eatre enregistr\u00e9s. Veuillez r\u00e9essayer.",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches.",
+        "message_str": "Nachfolgend finden Sie Informationen \u00fcber die konfigurierten Caches. Klicken Sie auf die Schaltfl\u00e4che, um alle Caches zu l\u00f6schen, oder auf einzelne Cache-Schaltfl\u00e4chen, um bestimmte Caches zu l\u00f6schen.",
+        "updated_at": "2024-10-24T22:53:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Please enter your email and password",
+        "message_str": "Bitte geben Sie Ihre E-Mail-Adresse und Ihr Passwort ein",
+        "updated_at": "2024-10-24T22:53:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Is Inappropriate",
+        "message_str": "Ist unangemessen",
+        "updated_at": "2024-10-24T22:53:36+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Are you sure you want to delete IP {0}?",
+        "message_str": "\u00cates-vous s\u00fbr de vouloir supprimer l'IP {0} ?",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Submit Comment",
+        "message_str": "Soumettre le Commentaire",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Error during image processing. Path: {0}, Error: {1}",
+        "message_str": "Erreur lors du traitement de l'image. Chemin : {0}, Erreur : {1}",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Grid View",
+        "message_str": "Vue en Grille",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)",
+        "message_str": "Der Slug muss URL-sicher sein (nur Kleinbuchstaben, Zahlen und Bindestriche)",
+        "updated_at": "2024-10-24T22:53:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Unable to add your comment.",
+        "message_str": "Ihr Kommentar konnte nicht hinzugef\u00fcgt werden.",
+        "updated_at": "2024-10-24T22:53:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The email template could not be saved. Please, try again.",
+        "message_str": "Die E-Mail-Vorlage konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.",
+        "updated_at": "2024-10-24T22:53:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "List View",
+        "message_str": "Listenansicht",
+        "updated_at": "2024-10-24T22:53:36+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Are you sure you want to delete comment by {0}?",
+        "message_str": "\u00cates-vous s\u00fbr de vouloir supprimer le commentaire de {0} ?",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Invalid value for the specified type.",
+        "message_str": "Valeur invalide pour le type sp\u00e9cifi\u00e9.",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "View",
+        "message_str": "Voir",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Error loading images:",
+        "message_str": "Erreur lors du chargement des images :",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Modified",
+        "message_str": "Modifi\u00e9",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Please enter your email and password",
+        "message_str": "Veuillez saisir votre e-mail et mot de passe",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Login",
+        "message_str": "Connexion",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Slugs",
+        "message_str": "Slugs",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "All Locales",
+        "message_str": "Toutes les Locales",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Article tag update failed. No valid result returned. Article ID: {0}",
+        "message_str": "La mise \u00e0 jour du tag de l'article a \u00e9chou\u00e9. Aucun r\u00e9sultat valide retourn\u00e9. ID de l'article : {0}",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Unknown Author",
+        "message_str": "Auteur Inconnu",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "An error occurred while processing your request.",
+        "message_str": "Bei der Verarbeitung Ihrer Anfrage ist ein Fehler aufgetreten.",
+        "updated_at": "2024-10-24T22:53:36+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Are you sure you want to delete all logs in group {0}?",
+        "message_str": "\u00cates-vous s\u00fbr de vouloir supprimer tous les journaux du groupe {0} ?",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Date",
+        "message_str": "Datum",
+        "updated_at": "2024-10-24T22:53:36+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Blocked IPs",
+        "message_str": "IPs Bloqu\u00e9es",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The email template could not be saved. Please, try again.",
+        "message_str": "Le mod\u00e8le d'e-mail n'a pas pu \u00eatre enregistr\u00e9. Veuillez r\u00e9essayer.",
+        "updated_at": "2024-10-24T22:57:46+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Attempt {0}: HTTP Code: {1}",
+        "message_str": "Versuch {0}: HTTP-Code: {1}",
+        "updated_at": "2024-10-24T22:53:37+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Edit Article",
+        "message_str": "Artikel bearbeiten",
+        "updated_at": "2024-10-24T22:53:37+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Testing rate limit on URL: {0}",
+        "message_str": "Teste Ratenlimit f\u00fcr URL: {0}",
+        "updated_at": "2024-10-24T22:53:37+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Message Str",
+        "message_str": "Cha\u00eene de message",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Display",
+        "message_str": "Afficher",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The article has been saved.",
+        "message_str": "L'article a \u00e9t\u00e9 enregistr\u00e9.",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Received image processing message: Image ID: {0} Path: {1}",
+        "message_str": "Message de traitement d'image re\u00e7u : ID de l'image : {0} Chemin : {1}",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "User created successfully: {0}",
+        "message_str": "Utilisateur cr\u00e9\u00e9 avec succ\u00e8s : {0}",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Article tag update completed successfully. Article ID: {0}",
+        "message_str": "Artikel-Tag-Aktualisierung erfolgreich abgeschlossen. Artikel-ID: {0}",
+        "updated_at": "2024-10-24T22:53:37+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "{0} cache configuration does not exist.",
+        "message_str": "La configuration du cache {0} n'existe pas.",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "System Prompt",
+        "message_str": "Systemaufforderung",
+        "updated_at": "2024-10-24T22:53:37+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The value must be a number.",
+        "message_str": "La valeur doit \u00eatre un nombre.",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Meta Description",
+        "message_str": "Meta Description",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Comments",
+        "message_str": "Commentaires",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "All Tags",
+        "message_str": "Tous les tags",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Response: {0}",
+        "message_str": "Antwort: {0}",
+        "updated_at": "2024-10-24T22:53:37+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "All logs have been deleted.",
+        "message_str": "Alle Protokolle wurden gel\u00f6scht.",
+        "updated_at": "2024-10-24T22:53:37+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The tag could not be deleted. Please, try again.",
+        "message_str": "Der Tag konnte nicht gel\u00f6scht werden. Bitte versuchen Sie es erneut.",
+        "updated_at": "2024-10-24T22:53:37+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Image",
+        "message_str": "Bild",
+        "updated_at": "2024-10-24T22:53:37+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Too many requests. Please try again later.",
+        "message_str": "Zu viele Anfragen. Bitte versuchen Sie es sp\u00e4ter erneut.",
+        "updated_at": "2024-10-24T22:53:37+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "This slug is already in use in articles. Please enter a unique slug.",
+        "message_str": "Ce slug est d\u00e9j\u00e0 utilis\u00e9 dans les articles. Veuillez entrer un slug unique.",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Name",
+        "message_str": "Name",
+        "updated_at": "2024-10-24T22:53:37+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Email template not found: {0}",
+        "message_str": "E-Mail-Vorlage nicht gefunden: {0}",
+        "updated_at": "2024-10-24T22:53:37+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The article has been deleted.",
+        "message_str": "L'article a \u00e9t\u00e9 supprim\u00e9.",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Page Views for {0}",
+        "message_str": "Seitenaufrufe f\u00fcr {0}",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Article",
+        "message_str": "Article",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The aiprompt has been saved.",
+        "message_str": "Der KI-Prompt wurde gespeichert.",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Failed to send email to: {0}",
+        "message_str": "E-Mail konnte nicht gesendet werden an: {0}",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The email template could not be deleted. Please, try again.",
+        "message_str": "Le mod\u00e8le d'e-mail n'a pas pu \u00eatre supprim\u00e9. Veuillez r\u00e9essayer.",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Add Email Template",
+        "message_str": "E-Mail-Vorlage hinzuf\u00fcgen",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The slug must be unique.",
+        "message_str": "Der Slug muss eindeutig sein.",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Add Slug",
+        "message_str": "Ajouter un slug",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "This slug is already in use. Please enter a unique slug.",
+        "message_str": "Dieser Slug wird bereits verwendet. Bitte geben Sie einen eindeutigen Slug ein.",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Related Articles",
+        "message_str": "Verwandte Artikel",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The slug could not be deleted. Please, try again.",
+        "message_str": "Der Slug konnte nicht gel\u00f6scht werden. Bitte versuchen Sie es erneut.",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "No view records found for this article.",
+        "message_str": "Keine Aufrufe f\u00fcr diesen Artikel gefunden.",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The tag has been deleted.",
+        "message_str": "Le tag a \u00e9t\u00e9 supprim\u00e9.",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Add Internationalisation",
+        "message_str": "Ajouter l'internationalisation",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Created",
+        "message_str": "Erstellt",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "You cannot disable your own account.",
+        "message_str": "Sie k\u00f6nnen Ihr eigenes Konto nicht deaktivieren.",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "AI Prompts",
+        "message_str": "Invites IA",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Is Published",
+        "message_str": "Ist ver\u00f6ffentlicht",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Show Details",
+        "message_str": "Details anzeigen",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Locale",
+        "message_str": "Sprache",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Cache Management",
+        "message_str": "Gestion du cache",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Response: {0}",
+        "message_str": "R\u00e9ponse : {0}",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Article",
+        "message_str": "Artikel",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Body",
+        "message_str": "Corps",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "New Blocked IP",
+        "message_str": "Nouvelle IP bloqu\u00e9e",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Failed to save the image",
+        "message_str": "\u00c9chec de l'enregistrement de l'image",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The user has been deleted.",
+        "message_str": "L'utilisateur a \u00e9t\u00e9 supprim\u00e9.",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Invalid type",
+        "message_str": "Type invalide",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "All logs in group {0} have been deleted.",
+        "message_str": "Tous les logs du groupe {0} ont \u00e9t\u00e9 supprim\u00e9s.",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "No images.",
+        "message_str": "Aucune image.",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Associated Pages",
+        "message_str": "Pages associ\u00e9es",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Display",
+        "message_str": "Anzeige",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Published",
+        "message_str": "Publi\u00e9",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Toggle SEO Fields",
+        "message_str": "SEO-Felder ein-\/ausblenden",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Referer",
+        "message_str": "R\u00e9f\u00e9rent",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The internationalisation has been saved.",
+        "message_str": "Die Internationalisierung wurde gespeichert.",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Admin",
+        "message_str": "Administrator",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Expires At",
+        "message_str": "Expire le",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Expires At",
+        "message_str": "L\u00e4uft ab am",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Show Full Article",
+        "message_str": "Vollst\u00e4ndigen Artikel anzeigen",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Tag not found",
+        "message_str": "Tag nicht gefunden",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Cache Name",
+        "message_str": "Cache-Name",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Image uploaded successfully",
+        "message_str": "Bild erfolgreich hochgeladen",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Error resizing image. Original: {0}, Target Width: {1}px, Error: {2}",
+        "message_str": "Fehler beim \u00c4ndern der Bildgr\u00f6\u00dfe. Original: {0}, Zielbreite: {1}px, Fehler: {2}",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Original image not found for resizing. Path: {0}",
+        "message_str": "Image originale non trouv\u00e9e pour le redimensionnement. Chemin : {0}",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Add Tag",
+        "message_str": "Ajouter un tag",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Unable to delete the log.",
+        "message_str": "Log konnte nicht gel\u00f6scht werden.",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Are you sure you want to delete all logs in group {0}?",
+        "message_str": "Sind Sie sicher, dass Sie alle Logs in der Gruppe {0} l\u00f6schen m\u00f6chten?",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Submit Comment",
+        "message_str": "Kommentar absenden",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "All Levels",
+        "message_str": "Alle Ebenen",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Edit Email Template",
+        "message_str": "Modifier le mod\u00e8le d'e-mail",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Failed to save slug: {0}",
+        "message_str": "Slug konnte nicht gespeichert werden: {0}",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Slug:",
+        "message_str": "Slug :",
+        "updated_at": "2024-10-24T22:58:06+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Unknown Author",
+        "message_str": "Unbekannter Autor",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The slug must be unique.",
+        "message_str": "Le slug doit \u00eatre unique.",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Setting not found: {0}.{1}",
+        "message_str": "Einstellung nicht gefunden: {0}.{1}",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Please log in to add a comment",
+        "message_str": "Bitte melden Sie sich an, um einen Kommentar hinzuzuf\u00fcgen",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Created At",
+        "message_str": "Erstellt am",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Edit Image",
+        "message_str": "Modifier l'image",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Inappropriate Reason",
+        "message_str": "Motif inappropri\u00e9",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Add Article",
+        "message_str": "Artikel hinzuf\u00fcgen",
+        "updated_at": "2024-10-24T22:53:56+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The blocked ip could not be saved. Please, try again.",
+        "message_str": "Die blockierte IP konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The internationalisation could not be saved. Please, try again.",
+        "message_str": "Die Internationalisierung konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "No articles found for this tag.",
+        "message_str": "Aucun article trouv\u00e9 pour ce tag.",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The tag could not be deleted. Please, try again.",
+        "message_str": "Le tag n'a pas pu \u00eatre supprim\u00e9. Veuillez r\u00e9essayer.",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Edit Aiprompt",
+        "message_str": "KI-Prompt bearbeiten",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Available data files:",
+        "message_str": "Fichiers de donn\u00e9es disponibles :",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The article could not be deleted. Please, try again.",
+        "message_str": "L'article n'a pas pu \u00eatre supprim\u00e9. Veuillez r\u00e9essayer.",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Clear",
+        "message_str": "L\u00f6schen",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Login",
+        "message_str": "Anmelden",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Some settings could not be saved. Please, try again.",
+        "message_str": "Einige Einstellungen konnten nicht gespeichert werden. Bitte versuchen Sie es erneut.",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Update User",
+        "message_str": "Benutzer aktualisieren",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Images",
+        "message_str": "Bilder",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Page Views",
+        "message_str": "Vues de la page",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Too many requests. Please try again later.",
+        "message_str": "Trop de requ\u00eates. Veuillez r\u00e9essayer plus tard.",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "New Image",
+        "message_str": "Nouvelle image",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The value must not be empty.",
+        "message_str": "La valeur ne doit pas \u00eatre vide.",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The article could not be saved. Please, try again.",
+        "message_str": "L'article n'a pas pu \u00eatre enregistr\u00e9. Veuillez r\u00e9essayer.",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Password must be at least 8 characters long",
+        "message_str": "Das Passwort muss mindestens 8 Zeichen lang sein",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Available data files:",
+        "message_str": "Verf\u00fcgbare Datendateien:",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The settings have been saved.",
+        "message_str": "Les param\u00e8tres ont \u00e9t\u00e9 enregistr\u00e9s.",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "There was an issue confirming your account. Please try again.",
+        "message_str": "Es gab ein Problem bei der Best\u00e4tigung Ihres Kontos. Bitte versuchen Sie es erneut.",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Article not found",
+        "message_str": "Article non trouv\u00e9",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "New Blocked IP",
+        "message_str": "Neue blockierte IP",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Send Email",
+        "message_str": "E-Mail senden",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The comment could not be saved. Please, try again.",
+        "message_str": "Der Kommentar konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Image uploaded successfully",
+        "message_str": "Image t\u00e9l\u00e9charg\u00e9e avec succ\u00e8s",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Cache Name",
+        "message_str": "Nom du cache",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Total Views: ",
+        "message_str": "Gesamtaufrufe: ",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "You are not authorized to edit this account, stick to your own.",
+        "message_str": "Sie sind nicht berechtigt, dieses Konto zu bearbeiten. Bleiben Sie bei Ihrem eigenen.",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Too Many Requests",
+        "message_str": "Zu viele Anfragen",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Unable to delete logs with level {0}.",
+        "message_str": "Impossible de supprimer les logs de niveau {0}.",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The tag has been saved.",
+        "message_str": "Der Tag wurde gespeichert.",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The blocked ip could not be saved. Please, try again.",
+        "message_str": "L'IP bloqu\u00e9e n'a pas pu \u00eatre enregistr\u00e9e. Veuillez r\u00e9essayer.",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Image must be less than 5MB.",
+        "message_str": "L'image doit \u00eatre inf\u00e9rieure \u00e0 5 Mo.",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Logs",
+        "message_str": "Logs",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Search images...",
+        "message_str": "Rechercher des images...",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Email Templates",
+        "message_str": "E-Mail-Vorlagen",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The comment has been deleted.",
+        "message_str": "Der Kommentar wurde gel\u00f6scht.",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Code exported successfully to separate files.",
+        "message_str": "Code wurde erfolgreich in separate Dateien exportiert.",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Group Name",
+        "message_str": "Gruppenname",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The settings have been saved.",
+        "message_str": "Die Einstellungen wurden gespeichert.",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Failed to save the image",
+        "message_str": "Fehler beim Speichern des Bildes",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "{0} cache could not be cleared.",
+        "message_str": "{0} Cache konnte nicht geleert werden.",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Unable to delete the log.",
+        "message_str": "Impossible de supprimer le log.",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Registration failed. Please, try again.",
+        "message_str": "L'inscription a \u00e9chou\u00e9. Veuillez r\u00e9essayer.",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Send Email",
+        "message_str": "Envoyer un email",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Are you sure you want to delete {0}?",
+        "message_str": "\u00cates-vous s\u00fbr de vouloir supprimer {0} ?",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Enter text",
+        "message_str": "Saisir du texte",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Logout",
+        "message_str": "D\u00e9connexion",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Internationalisations",
+        "message_str": "Internationalisierungen",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Tags",
+        "message_str": "Tags",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Imported data into table: {0}",
+        "message_str": "Daten in Tabelle importiert: {0}",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Unknown User",
+        "message_str": "Unbekannter Benutzer",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Comment for {0}",
+        "message_str": "Kommentar f\u00fcr {0}",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "This message_id must be unique for the given locale.",
+        "message_str": "Cet identifiant de message doit \u00eatre unique pour la locale donn\u00e9e.",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Error during image analysis: {0}",
+        "message_str": "Fehler bei der Bildanalyse: {0}",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Edit Comment",
+        "message_str": "Kommentar bearbeiten",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Instagram Description",
+        "message_str": "Instagram-Beschreibung",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Related Tags",
+        "message_str": "Verwandte Tags",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "By",
+        "message_str": "Par",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Never",
+        "message_str": "Jamais",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The internationalisation has been deleted.",
+        "message_str": "Die Internationalisierung wurde gel\u00f6scht.",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Referer",
+        "message_str": "Referrer",
+        "updated_at": "2024-10-24T22:54:18+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Deleted all existing records from table: {0}",
+        "message_str": "Alle vorhandenen Datens\u00e4tze aus Tabelle gel\u00f6scht: {0}",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The image could not be deleted. Please, try again.",
+        "message_str": "L'image n'a pas pu \u00eatre supprim\u00e9e. Veuillez r\u00e9essayer.",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "List Blocked IPs",
+        "message_str": "Gesperrte IPs auflisten",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Submit",
+        "message_str": "Soumettre",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Update Image",
+        "message_str": "Mettre \u00e0 jour l'image",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "No",
+        "message_str": "Non",
+        "updated_at": "2024-10-24T22:58:28+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Failed to save article tag updates. Article ID: {0} Error: {1}",
+        "message_str": "Fehler beim Speichern der Artikel-Tag-Aktualisierungen. Artikel-ID: {0} Fehler: {1}",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Block IPs",
+        "message_str": "IPs sperren",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Edit Tag",
+        "message_str": "Tag bearbeiten",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Tag SEO update failed. No result returned. ID: {0} Title: {1}",
+        "message_str": "La mise \u00e0 jour SEO du tag a \u00e9chou\u00e9. Aucun r\u00e9sultat retourn\u00e9. ID : {0} Titre : {1}",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The user could not be deleted. Please, try again.",
+        "message_str": "L'utilisateur n'a pas pu \u00eatre supprim\u00e9. Veuillez r\u00e9essayer.",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "User Comments",
+        "message_str": "Commentaires de l'utilisateur",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "All Locales",
+        "message_str": "Alle Sprachversionen",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "View detailed records for this date",
+        "message_str": "Voir les enregistrements d\u00e9taill\u00e9s pour cette date",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Invalid choice.",
+        "message_str": "Ung\u00fcltige Auswahl.",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Is Admin",
+        "message_str": "Est administrateur",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Blocked At",
+        "message_str": "Bloqu\u00e9 le",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Subject",
+        "message_str": "Betreff",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "All logs with level {0} have been deleted.",
+        "message_str": "Alle Protokolle mit Level {0} wurden gel\u00f6scht.",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Add Email Template",
+        "message_str": "Ajouter un mod\u00e8le d'e-mail",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Clear All Cache",
+        "message_str": "Vider tout le cache",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Facebook Description",
+        "message_str": "Description Facebook",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Word Count",
+        "message_str": "Wortanzahl",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Edit Your Account",
+        "message_str": "Modifier votre compte",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Queue tag SEO update job for Tag:{0}",
+        "message_str": "Mettre en file d'attente la t\u00e2che de mise \u00e0 jour SEO pour le tag : {0}",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Attempt {0}: HTTP Code: {1}",
+        "message_str": "Tentative {0} : Code HTTP : {1}",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Delete All Logs",
+        "message_str": "Alle Protokolle l\u00f6schen",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Update Article",
+        "message_str": "Artikel aktualisieren",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The comment could not be deleted. Please, try again.",
+        "message_str": "Le commentaire n'a pas pu \u00eatre supprim\u00e9. Veuillez r\u00e9essayer.",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Failed to update translation for message ID: {0}",
+        "message_str": "Fehler beim Aktualisieren der \u00dcbersetzung f\u00fcr Nachrichten-ID: {0}",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Confirm Password",
+        "message_str": "Passwort best\u00e4tigen",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)",
+        "message_str": "Le slug doit \u00eatre compatible URL (uniquement lettres minuscules, chiffres et traits d'union)",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Clear All Cache",
+        "message_str": "Gesamten Cache leeren",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Last Cleared",
+        "message_str": "Zuletzt geleert",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The comment has been deleted.",
+        "message_str": "Le commentaire a \u00e9t\u00e9 supprim\u00e9.",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Modified At",
+        "message_str": "Modifi\u00e9 le",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Access denied. You must be an admin to view this page.",
+        "message_str": "Zugriff verweigert. Sie m\u00fcssen Administrator sein, um diese Seite anzuzeigen.",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Clear",
+        "message_str": "Effacer",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Task Type",
+        "message_str": "Aufgabentyp",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total",
+        "message_str": "Seite {{page}} von {{pages}}, zeige {{current}} Datensatz\/Datens\u00e4tze von insgesamt {{count}}",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The comment could not be saved. Please, try again.",
+        "message_str": "Le commentaire n'a pas pu \u00eatre enregistr\u00e9. Veuillez r\u00e9essayer.",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The tag could not be saved. Please, try again.",
+        "message_str": "Le tag n'a pas pu \u00eatre enregistr\u00e9. Veuillez r\u00e9essayer.",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Summary",
+        "message_str": "Zusammenfassung",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Delete {0}",
+        "message_str": "{0} l\u00f6schen",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches.",
+        "message_str": "Ci-dessous les informations sur les caches configur\u00e9s. Cliquez sur le bouton pour vider tous les caches ou sur les boutons individuels pour vider des caches sp\u00e9cifiques.",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "An error occurred while processing your request.",
+        "message_str": "Une erreur s'est produite lors du traitement de votre demande.",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Edit",
+        "message_str": "Bearbeiten",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "SEO Fields",
+        "message_str": "Champs SEO",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Received article tag update message: {0} : {1}",
+        "message_str": "Message de mise \u00e0 jour du tag d'article re\u00e7u : {0} : {1}",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "No page view data available for this article.",
+        "message_str": "Keine Seitenaufrufdaten f\u00fcr diesen Artikel verf\u00fcgbar.",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Are you sure you want to delete # {0}?",
+        "message_str": "\u00cates-vous s\u00fbr de vouloir supprimer # {0} ?",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Failed to save article SEO updates. Article ID: {0} Title: {1}",
+        "message_str": "Fehler beim Speichern der Artikel-SEO-Aktualisierungen. Artikel-ID: {0} Titel: {1}",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Level",
+        "message_str": "Level",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Email sending failed: {0} to {1}",
+        "message_str": "\u00c9chec de l'envoi de l'e-mail : {0} \u00e0 {1}",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Created At",
+        "message_str": "Cr\u00e9\u00e9 le",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Bulk Upload",
+        "message_str": "T\u00e9l\u00e9chargement en masse",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Task Type",
+        "message_str": "Type de t\u00e2che",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Email sent successfully to: {0}. Template: {1}, Subject: {2}",
+        "message_str": "E-mail envoy\u00e9 avec succ\u00e8s \u00e0 : {0}. Mod\u00e8le : {1}, Objet : {2}",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Image analysis failed. Model: {0} ID: {1}",
+        "message_str": "L'analyse de l'image a \u00e9chou\u00e9. Mod\u00e8le : {0} ID : {1}",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The slug has been deleted.",
+        "message_str": "Der Slug wurde gel\u00f6scht.",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Submit",
+        "message_str": "Absenden",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Settings",
+        "message_str": "Param\u00e8tres",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Failed to send email to: {0}",
+        "message_str": "\u00c9chec de l'envoi de l'e-mail \u00e0 : {0}",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Body HTML",
+        "message_str": "HTML-Inhalt",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Add Tag",
+        "message_str": "Tag hinzuf\u00fcgen",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Failed to create user: {0}. Errors: {1}",
+        "message_str": "Benutzer konnte nicht erstellt werden: {0}. Fehler: {1}",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Search users...",
+        "message_str": "Rechercher des utilisateurs...",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Details",
+        "message_str": "Details",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The user could not be saved. Please, try again.",
+        "message_str": "L'utilisateur n'a pas pu \u00eatre enregistr\u00e9. Veuillez r\u00e9essayer.",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The image could not be deleted. Please, try again.",
+        "message_str": "Das Bild konnte nicht gel\u00f6scht werden. Bitte versuchen Sie es erneut.",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "You cannot disable your own account.",
+        "message_str": "Vous ne pouvez pas d\u00e9sactiver votre propre compte.",
+        "updated_at": "2024-10-24T22:58:54+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Edit {0}",
+        "message_str": "Modifier {0}",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Failed to save entity: {0} {1}",
+        "message_str": "Fehler beim Speichern der Entit\u00e4t: {0} {1}",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Rate limit exceeded for IP: {0} on route: {1}",
+        "message_str": "Limite de taux d\u00e9pass\u00e9e pour l'IP : {0} sur la route : {1}",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Select a parent",
+        "message_str": "\u00dcbergeordnetes Element ausw\u00e4hlen",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Failed to send confirmation email message: {0}",
+        "message_str": "Fehler beim Senden der Best\u00e4tigungs-E-Mail: {0}",
+        "updated_at": "2024-10-24T22:54:40+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Error in: ",
+        "message_str": "Fehler in: ",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Edit Blocked IP",
+        "message_str": "Modifier l'IP bloqu\u00e9e",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Starting image processing job. Path: {0}, Sizes to process: {1}",
+        "message_str": "D\u00e9marrage du traitement d'image. Chemin : {0}, Tailles \u00e0 traiter : {1}",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Profile Picture",
+        "message_str": "Profilbild",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "You cannot remove your own admin status.",
+        "message_str": "Sie k\u00f6nnen Ihren eigenen Administrator-Status nicht entfernen.",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "There was an issue confirming your account. Please try again.",
+        "message_str": "Un probl\u00e8me est survenu lors de la confirmation de votre compte. Veuillez r\u00e9essayer.",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Add Blocked IP",
+        "message_str": "Gesperrte IP hinzuf\u00fcgen",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The image has been saved.",
+        "message_str": "L'image a \u00e9t\u00e9 enregistr\u00e9e.",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Logs",
+        "message_str": "Protokolle",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The tag has been deleted.",
+        "message_str": "Der Tag wurde gel\u00f6scht.",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "New Email Template",
+        "message_str": "Neue E-Mail-Vorlage",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The email template has been deleted.",
+        "message_str": "Die E-Mail-Vorlage wurde gel\u00f6scht.",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The value must be a number.",
+        "message_str": "Der Wert muss eine Zahl sein.",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "New Image",
+        "message_str": "Neues Bild",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Queue tag SEO update job for Tag:{0}",
+        "message_str": "SEO-Aktualisierungsauftrag f\u00fcr Tag:{0} einreihen",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "All Tags",
+        "message_str": "Alle Tags",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "{0} Views",
+        "message_str": "{0} Vues",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Received article SEO update message: {0} : {1}",
+        "message_str": "Message de mise \u00e0 jour SEO de l'article re\u00e7u : {0} : {1}",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Invalid username or password",
+        "message_str": "Ung\u00fcltiger Benutzername oder Passwort",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The user has been saved.",
+        "message_str": "L'utilisateur a \u00e9t\u00e9 enregistr\u00e9.",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "All Levels",
+        "message_str": "Tous les niveaux",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "No",
+        "message_str": "Nein",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The article could not be saved. Please, try again.",
+        "message_str": "Der Artikel konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Password must be at least 8 characters long",
+        "message_str": "Le mot de passe doit contenir au moins 8 caract\u00e8res",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Pages",
+        "message_str": "Seiten",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Are you sure you want to delete this comment?",
+        "message_str": "\u00cates-vous s\u00fbr de vouloir supprimer ce commentaire ?",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Article ID:",
+        "message_str": "Artikel-ID:",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Error in: ",
+        "message_str": "Erreur dans : ",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Title",
+        "message_str": "Titre",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Imported data into table: {0}",
+        "message_str": "Donn\u00e9es import\u00e9es dans la table : {0}",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Please upload only images (jpeg, png, gif).",
+        "message_str": "Veuillez t\u00e9l\u00e9charger uniquement des images (jpeg, png, gif).",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Content",
+        "message_str": "Inhalt",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Is Inappropriate",
+        "message_str": "Est inappropri\u00e9",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Message Str",
+        "message_str": "Nachrichtentext",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Related Articles",
+        "message_str": "Articles connexes",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Article not found.",
+        "message_str": "Artikel nicht gefunden.",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Engine",
+        "message_str": "Engine",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Articles",
+        "message_str": "Artikel",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Register New Account",
+        "message_str": "Cr\u00e9er un nouveau compte",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Updated At",
+        "message_str": "Aktualisiert am",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Failed to save article summary updates. Article ID: {0} Title: {1}",
+        "message_str": "Fehler beim Speichern der Artikelzusammenfassung. Artikel-ID: {0} Titel: {1}",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Is AI Analyzed",
+        "message_str": "Ist KI-analysiert",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "New Article",
+        "message_str": "Neuer Artikel",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Registration successful. Please check your email for confirmation.",
+        "message_str": "Registrierung erfolgreich. Bitte \u00fcberpr\u00fcfen Sie Ihre E-Mail f\u00fcr die Best\u00e4tigung.",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Too Many Requests",
+        "message_str": "Trop de requ\u00eates",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The comment has been saved.",
+        "message_str": "Der Kommentar wurde gespeichert.",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Article ID:",
+        "message_str": "ID de l'article :",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Enter text",
+        "message_str": "Text eingeben",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "No comments yet.",
+        "message_str": "Noch keine Kommentare.",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "New Tag",
+        "message_str": "Nouvelle \u00e9tiquette",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "An Internal Error Has Occurred.",
+        "message_str": "Une erreur interne s'est produite.",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Are you sure you want to delete this prompt?",
+        "message_str": "\u00cates-vous s\u00fbr de vouloir supprimer cette invite ?",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Edit {0}",
+        "message_str": "{0} bearbeiten",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Edit Slug",
+        "message_str": "Slug bearbeiten",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Alt Text",
+        "message_str": "Alt-Text",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Slug:",
+        "message_str": "Slug:",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "New Email Template",
+        "message_str": "Nouveau mod\u00e8le d'e-mail",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Code exported successfully to separate files.",
+        "message_str": "Code export\u00e9 avec succ\u00e8s dans des fichiers s\u00e9par\u00e9s.",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The user has been saved.",
+        "message_str": "Der Benutzer wurde gespeichert.",
+        "updated_at": "2024-10-24T22:54:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Admin",
+        "message_str": "Admin",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Last Cleared",
+        "message_str": "Derni\u00e8re suppression",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Grid View",
+        "message_str": "Rasteransicht",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Reason",
+        "message_str": "Raison",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Posted on {date} by {author}",
+        "message_str": "Publi\u00e9 le {date} par {author}",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Unknown User",
+        "message_str": "Utilisateur inconnu",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Pages",
+        "message_str": "Pages",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Testing rate limit on URL: {0}",
+        "message_str": "Test de la limite de taux sur l'URL : {0}",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Users",
+        "message_str": "Utilisateurs",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Context",
+        "message_str": "Kontext",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "List {0}",
+        "message_str": "Liste {0}",
+        "updated_at": "2024-10-24T22:59:14+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Failed to update comment status. Comment ID: {0}",
+        "message_str": "Aktualisierung des Kommentarstatus fehlgeschlagen. Kommentar-ID: {0}",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Meta Title",
+        "message_str": "Meta-Titel",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "LinkedIn Description",
+        "message_str": "LinkedIn-Beschreibung",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Description",
+        "message_str": "Description",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Invalid value for the specified type.",
+        "message_str": "Ung\u00fcltiger Wert f\u00fcr den angegebenen Typ.",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Error resizing image. Original: {0}, Target Width: {1}px, Error: {2}",
+        "message_str": "Erreur lors du redimensionnement de l'image. Original : {0}, Largeur cible : {1}px, Erreur : {2}",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Search images...",
+        "message_str": "Bilder suchen...",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Invalid username or password",
+        "message_str": "Nom d'utilisateur ou mot de passe invalide",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Update Aiprompt",
+        "message_str": "KI-Prompt aktualisieren",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Received image analysis message: Image ID: {0} Path: {1}",
+        "message_str": "Bildanalysenachricht empfangen: Bild-ID: {0} Pfad: {1}",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Saved : {0} {1}",
+        "message_str": "Enregistr\u00e9 : {0} {1}",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Actions",
+        "message_str": "Aktionen",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Save All Settings",
+        "message_str": "Alle Einstellungen speichern",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Edit Article",
+        "message_str": "Modifier l'article",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Tag not found",
+        "message_str": "Tag non trouv\u00e9",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Add Internationalisation",
+        "message_str": "Internationalisierung hinzuf\u00fcgen",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Main Picture",
+        "message_str": "Image principale",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Users",
+        "message_str": "Benutzer",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The email template has been saved.",
+        "message_str": "Die E-Mail-Vorlage wurde gespeichert.",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The blocked ip has been saved.",
+        "message_str": "Die blockierte IP wurde gespeichert.",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "No internationalizations found for the provided IDs.",
+        "message_str": "Aucune internationalisation trouv\u00e9e pour les identifiants fournis.",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Input file not found: {0}",
+        "message_str": "Fichier d'entr\u00e9e non trouv\u00e9 : {0}",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The slug could not be saved. Please, try again.",
+        "message_str": "Der Slug konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Id",
+        "message_str": "Id",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Original image not found for resizing. Path: {0}",
+        "message_str": "Originalbild zum \u00c4ndern der Gr\u00f6\u00dfe nicht gefunden. Pfad: {0}",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Comment",
+        "message_str": "Commentaire",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Article SEO update completed successfully. Article ID: {0} Title: {1}",
+        "message_str": "Artikel-SEO-Aktualisierung erfolgreich abgeschlossen. Artikel-ID: {0} Titel: {1}",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Logout",
+        "message_str": "Abmelden",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Delete",
+        "message_str": "Supprimer",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Code Coverage",
+        "message_str": "Couverture de code",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Queued Article Summary update job: {0}",
+        "message_str": "Artikel-Zusammenfassungs-Aktualisierungsauftrag in Warteschlange: {0}",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "No internationalizations found for the provided IDs.",
+        "message_str": "Keine Internationalisierungen f\u00fcr die angegebenen IDs gefunden.",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "New User",
+        "message_str": "Neuer Benutzer",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Edit Image",
+        "message_str": "Bild bearbeiten",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The article has been saved.",
+        "message_str": "Der Artikel wurde gespeichert.",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Engine",
+        "message_str": "Moteur",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The comment could not be deleted. Please, try again.",
+        "message_str": "Der Kommentar konnte nicht gel\u00f6scht werden. Bitte versuchen Sie es erneut.",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Email sent successfully.",
+        "message_str": "E-mail envoy\u00e9 avec succ\u00e8s.",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Show Less",
+        "message_str": "Afficher moins",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Unable to delete logs with level {0}.",
+        "message_str": "Protokolle mit Level {0} k\u00f6nnen nicht gel\u00f6scht werden.",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Search comments...",
+        "message_str": "Rechercher des commentaires...",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Page View Statistics for slug: {0}",
+        "message_str": "Seitenaufrufsstatistiken f\u00fcr Slug: {0}",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "New tag created: {0}",
+        "message_str": "Neuer Tag erstellt: {0}",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Edit User",
+        "message_str": "Modifier l'utilisateur",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Article summary update failed. No valid result returned. Article ID: {0} Title: {1}",
+        "message_str": "Aktualisierung der Artikelzusammenfassung fehlgeschlagen. Kein g\u00fcltiges Ergebnis zur\u00fcckgegeben. Artikel-ID: {0} Titel: {1}",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Code exported successfully to {0}",
+        "message_str": "Code erfolgreich nach {0} exportiert",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Is AI Analyzed",
+        "message_str": "Est analys\u00e9 par l'IA",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Slug",
+        "message_str": "Slug",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "You are not authorized to edit this account, stick to your own.",
+        "message_str": "Vous n'\u00eates pas autoris\u00e9 \u00e0 modifier ce compte, tenez-vous en au v\u00f4tre.",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "IP Address",
+        "message_str": "Adresse IP",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The article could not be deleted. Please, try again.",
+        "message_str": "Der Artikel konnte nicht gel\u00f6scht werden. Bitte versuchen Sie es erneut.",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Page View Statistics for slug: {0}",
+        "message_str": "Statistiques de vue de page pour le slug : {0}",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Add Slug",
+        "message_str": "Slug hinzuf\u00fcgen",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Add Image",
+        "message_str": "Bild hinzuf\u00fcgen",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Failed to send email. Please check your email configuration.",
+        "message_str": "E-Mail konnte nicht gesendet werden. Bitte \u00fcberpr\u00fcfen Sie Ihre E-Mail-Konfiguration.",
+        "updated_at": "2024-10-24T22:55:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The internationalisation could not be deleted. Please, try again.",
+        "message_str": "Die Internationalisierung konnte nicht gel\u00f6scht werden. Bitte versuchen Sie es erneut.",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Email template not found: {0}",
+        "message_str": "Mod\u00e8le d'e-mail non trouv\u00e9 : {0}",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Body Text",
+        "message_str": "Corps du texte",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Add Page",
+        "message_str": "Seite hinzuf\u00fcgen",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Comment analysis failed. No result returned. Comment ID: {0}",
+        "message_str": "Kommentaranalyse fehlgeschlagen. Kein Ergebnis zur\u00fcckgegeben. Kommentar-ID: {0}",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Keywords",
+        "message_str": "Schl\u00fcsselw\u00f6rter",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Keywords",
+        "message_str": "Mots-cl\u00e9s",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total",
+        "message_str": "Page {{page}} sur {{pages}}, affichant {{current}} enregistrement(s) sur {{count}} au total",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Input file not found: {0}",
+        "message_str": "Eingabedatei nicht gefunden: {0}",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Queued Article SEO update job: {0}",
+        "message_str": "T\u00e2che de mise \u00e0 jour SEO d'article mise en file d'attente : {0}",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Message Id",
+        "message_str": "ID du message",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Back",
+        "message_str": "Retour",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Your comment has been added.",
+        "message_str": "Votre commentaire a \u00e9t\u00e9 ajout\u00e9.",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Add a Comment",
+        "message_str": "Kommentar hinzuf\u00fcgen",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Registration successful, but there was an issue creating the confirmation link.",
+        "message_str": "Inscription r\u00e9ussie, mais il y a eu un probl\u00e8me lors de la cr\u00e9ation du lien de confirmation.",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "User Comments",
+        "message_str": "Benutzerkommentare",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Twitter Description",
+        "message_str": "Twitter-Beschreibung",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Image must be less than 5MB.",
+        "message_str": "Das Bild muss kleiner als 5MB sein.",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The slug has been saved.",
+        "message_str": "Le slug a \u00e9t\u00e9 enregistr\u00e9.",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Front Site",
+        "message_str": "Hauptseite",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Edit Comment",
+        "message_str": "Modifier le commentaire",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Register New Account",
+        "message_str": "Neues Konto registrieren",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Email",
+        "message_str": "E-Mail",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Comment analysis failed. No result returned. Comment ID: {0}",
+        "message_str": "L'analyse du commentaire a \u00e9chou\u00e9. Aucun r\u00e9sultat retourn\u00e9. ID du commentaire : {0}",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "System Logs",
+        "message_str": "Systemprotokolle",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Delete",
+        "message_str": "L\u00f6schen",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Configured Caches",
+        "message_str": "Caches configur\u00e9s",
+        "updated_at": "2024-10-24T22:59:36+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "All logs have been deleted.",
+        "message_str": "Tous les journaux ont \u00e9t\u00e9 supprim\u00e9s.",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Content",
+        "message_str": "Contenu",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "You must be logged in to add a comment.",
+        "message_str": "Vous devez \u00eatre connect\u00e9 pour ajouter un commentaire.",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Register",
+        "message_str": "Registrieren",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Are you sure you want to delete {0}?",
+        "message_str": "Sind Sie sicher, dass Sie {0} l\u00f6schen m\u00f6chten?",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Registration failed. Please, try again.",
+        "message_str": "Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut.",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Your comment has been added.",
+        "message_str": "Ihr Kommentar wurde hinzugef\u00fcgt.",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Invalid choice.",
+        "message_str": "Choix invalide.",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Add Image",
+        "message_str": "Ajouter une image",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Your account has been confirmed. You can now log in.",
+        "message_str": "Votre compte a \u00e9t\u00e9 confirm\u00e9. Vous pouvez maintenant vous connecter.",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Number of attempts: {0}",
+        "message_str": "Anzahl der Versuche: {0}",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Cache",
+        "message_str": "Cache",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "{0} cache could not be cleared.",
+        "message_str": "Le cache {0} n'a pas pu \u00eatre vid\u00e9.",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Internationalisation",
+        "message_str": "Internationalisierung",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Enter a number",
+        "message_str": "Geben Sie eine Zahl ein",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Processing email job: Template: {0} From: {1} To: {2} viewVars: {3}",
+        "message_str": "E-Mail-Auftrag wird verarbeitet: Vorlage: {0} Von: {1} An: {2} viewVars: {3}",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "{0} cache has been cleared successfully.",
+        "message_str": "Le cache {0} a \u00e9t\u00e9 vid\u00e9 avec succ\u00e8s.",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Message Id",
+        "message_str": "Nachrichten-ID",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The slug has been deleted.",
+        "message_str": "Le slug a \u00e9t\u00e9 supprim\u00e9.",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Edit Internationalisation",
+        "message_str": "Modifier l'internationalisation",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Failed to save tag SEO updates. ID: {0} Title: {1}",
+        "message_str": "\u00c9chec de l'enregistrement des mises \u00e0 jour SEO du tag. ID : {0} Titre : {1}",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Read More",
+        "message_str": "Weiterlesen",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Email",
+        "message_str": "E-mail",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "{0} cache configuration does not exist.",
+        "message_str": "{0} Cache-Konfiguration existiert nicht.",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "New Slug",
+        "message_str": "Nouveau slug",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The blocked ip has been deleted.",
+        "message_str": "L'adresse IP bloqu\u00e9e a \u00e9t\u00e9 supprim\u00e9e.",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Related Tags",
+        "message_str": "Tags associ\u00e9s",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Twitter Description",
+        "message_str": "Description Twitter",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "System Prompt",
+        "message_str": "Invite syst\u00e8me",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Cache",
+        "message_str": "Cache",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Error sending email: {0}",
+        "message_str": "Erreur lors de l'envoi de l'e-mail : {0}",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Comment analysis completed successfully. Comment ID: {0}",
+        "message_str": "Analyse du commentaire termin\u00e9e avec succ\u00e8s. ID du commentaire : {0}",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Enter a number",
+        "message_str": "Saisissez un nombre",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The requested address {0} was not found on this server.",
+        "message_str": "L'adresse demand\u00e9e {0} n'a pas \u00e9t\u00e9 trouv\u00e9e sur ce serveur.",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Facebook Description",
+        "message_str": "Facebook-Beschreibung",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The blocked ip could not be deleted. Please, try again.",
+        "message_str": "L'adresse IP bloqu\u00e9e n'a pas pu \u00eatre supprim\u00e9e. Veuillez r\u00e9essayer.",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Received article summary update message: {0} : {1}",
+        "message_str": "Message de mise \u00e0 jour du r\u00e9sum\u00e9 de l'article re\u00e7u : {0} : {1}",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Associated Pages",
+        "message_str": "Verkn\u00fcpfte Seiten",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Email sent successfully: {0} to {1}",
+        "message_str": "E-Mail erfolgreich gesendet: {0} an {1}",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "New tag created: {0}",
+        "message_str": "Nouveau tag cr\u00e9\u00e9 : {0}",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Tag SEO update completed successfully. ID: {0} Title: {1}",
+        "message_str": "Tag-SEO-Aktualisierung erfolgreich abgeschlossen. ID: {0} Titel: {1}",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Edit Aiprompt",
+        "message_str": "Modifier l'invite IA",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Blocked At",
+        "message_str": "Gesperrt am",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Search logs...",
+        "message_str": "Protokolle durchsuchen...",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Error during image analysis: {0}",
+        "message_str": "Erreur lors de l'analyse de l'image : {0}",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The image has been saved.",
+        "message_str": "Das Bild wurde gespeichert.",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Yes",
+        "message_str": "Oui",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The aiprompt could not be saved. Please, try again.",
+        "message_str": "Der KI-Prompt konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Updated At",
+        "message_str": "Mis \u00e0 jour le",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Successfully resized and saved image. Original: {0}, Resized: {1}, Width: {2}px",
+        "message_str": "Image redimensionn\u00e9e et enregistr\u00e9e avec succ\u00e8s. Original : {0}, Redimensionn\u00e9 : {1}, Largeur : {2}px",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The email template could not be deleted. Please, try again.",
+        "message_str": "Die E-Mail-Vorlage konnte nicht gel\u00f6scht werden. Bitte versuchen Sie es erneut.",
+        "updated_at": "2024-10-24T22:55:46+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Article tag update completed successfully. Article ID: {0}",
+        "message_str": "Mise \u00e0 jour des tags de l'article termin\u00e9e avec succ\u00e8s. ID de l'article : {0}",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Search articles...",
+        "message_str": "Artikel suchen...",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "AI Prompts",
+        "message_str": "KI-Prompts",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Received comment analysis message: Comment ID: {0} User ID: {1}",
+        "message_str": "Kommentaranalysenachricht erhalten: Kommentar-ID: {0} Benutzer-ID: {1}",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Search slugs...",
+        "message_str": "Slugs suchen...",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Yes",
+        "message_str": "Ja",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Group Name",
+        "message_str": "Nom du groupe",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Filter",
+        "message_str": "Filtrer",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Confirm Password",
+        "message_str": "Confirmer le mot de passe",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Image analysis completed successfully. Model: {0} ID: {1}",
+        "message_str": "Analyse de l'image termin\u00e9e avec succ\u00e8s. Mod\u00e8le : {0} ID : {1}",
+        "updated_at": "2024-10-24T22:59:59+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Add Page",
+        "message_str": "Ajouter une Page",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The value must be 0 or 1.",
+        "message_str": "La valeur doit \u00eatre 0 ou 1.",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Search logs...",
+        "message_str": "Rechercher dans les journaux...",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Failed to create user: {0}. Errors: {1}",
+        "message_str": "\u00c9chec de la cr\u00e9ation de l'utilisateur : {0}. Erreurs : {1}",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Temperature",
+        "message_str": "Temp\u00e9rature",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Edit Slug",
+        "message_str": "Modifier le Slug",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "No articles found for this tag.",
+        "message_str": "Keine Artikel f\u00fcr diesen Tag gefunden.",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The email template has been deleted.",
+        "message_str": "Le mod\u00e8le d'e-mail a \u00e9t\u00e9 supprim\u00e9.",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Failed to save slug: {0}",
+        "message_str": "\u00c9chec de l'enregistrement du slug : {0}",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Bulk Upload Images",
+        "message_str": "Massenupload von Bildern",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Created",
+        "message_str": "Cr\u00e9\u00e9",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Deleted all existing records from table: {0}",
+        "message_str": "Suppression de tous les enregistrements existants de la table : {0}",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Images",
+        "message_str": "Images",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Actions",
+        "message_str": "Actions",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Posted on {date} by {author}",
+        "message_str": "Ver\u00f6ffentlicht am {date} von {author}",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "No comments yet.",
+        "message_str": "Pas encore de commentaires.",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Image analysis failed. Model: {0} ID: {1}",
+        "message_str": "Bildanalyse fehlgeschlagen. Modell: {0} ID: {1}",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "SEO Fields",
+        "message_str": "SEO-Felder",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Modified",
+        "message_str": "Ge\u00e4ndert",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Alt Text",
+        "message_str": "Texte alternatif",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Edit Settings",
+        "message_str": "Einstellungen bearbeiten",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Picture",
+        "message_str": "Image",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The value must be 0 or 1.",
+        "message_str": "Der Wert muss 0 oder 1 sein.",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Queued translation job for batch of {0} messages for locale {1}",
+        "message_str": "T\u00e2che de traduction mise en file d'attente pour un lot de {0} messages pour la locale {1}",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Slugs",
+        "message_str": "Slugs",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Total Views: ",
+        "message_str": "Vues totales : ",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "New Slug",
+        "message_str": "Neuer Slug",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Processing email job: Template: {0} From: {1} To: {2} viewVars: {3}",
+        "message_str": "Traitement de la t\u00e2che e-mail : Mod\u00e8le : {0} De : {1} \u00c0 : {2} viewVars : {3}",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Registration successful, but there was an issue creating the confirmation link.",
+        "message_str": "Registrierung erfolgreich, aber es gab ein Problem beim Erstellen des Best\u00e4tigungslinks.",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Some caches were cleared, but the following failed: {0}",
+        "message_str": "Certains caches ont \u00e9t\u00e9 effac\u00e9s, mais les suivants ont \u00e9chou\u00e9 : {0}",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "New Article",
+        "message_str": "Nouvel Article",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Username",
+        "message_str": "Benutzername",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Attempt {0} failed. Error ({1}): {2}",
+        "message_str": "Tentative {0} \u00e9chou\u00e9e. Erreur ({1}) : {2}",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Article summary update failed. No valid result returned. Article ID: {0} Title: {1}",
+        "message_str": "La mise \u00e0 jour du r\u00e9sum\u00e9 de l'article a \u00e9chou\u00e9. Aucun r\u00e9sultat valide retourn\u00e9. ID de l'article : {0} Titre : {1}",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Update Slug",
+        "message_str": "Slug aktualisieren",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "New {0}",
+        "message_str": "Neu {0}",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Add Article",
+        "message_str": "Ajouter un Article",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Attempt {0} failed. Error ({1}): {2}",
+        "message_str": "Versuch {0} fehlgeschlagen. Fehler ({1}): {2}",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "List Email Templates",
+        "message_str": "Liste des Mod\u00e8les d'E-mail",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Email sending failed: {0} to {1}",
+        "message_str": "E-Mail-Versand fehlgeschlagen: {0} an {1}",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "New {0}",
+        "message_str": "Nouveau {0}",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Instagram Description",
+        "message_str": "Description Instagram",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "This slug is already in use in articles. Please enter a unique slug.",
+        "message_str": "Dieser Slug wird bereits in Artikeln verwendet. Bitte geben Sie einen eindeutigen Slug ein.",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Imagick extension is not loaded",
+        "message_str": "Imagick-Erweiterung ist nicht geladen",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Toggle SEO Fields",
+        "message_str": "Afficher\/Masquer les Champs SEO",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Meta Title",
+        "message_str": "Titre Meta",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Picture",
+        "message_str": "Bild",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Name",
+        "message_str": "Nom",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Edit",
+        "message_str": "Modifier",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Body",
+        "message_str": "Inhalt",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Max Tokens",
+        "message_str": "Nombre Maximum de Tokens",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Email sent successfully: {0} to {1}",
+        "message_str": "E-mail envoy\u00e9 avec succ\u00e8s : {0} \u00e0 {1}",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Views",
+        "message_str": "Aufrufe",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The tag has been saved.",
+        "message_str": "Le tag a \u00e9t\u00e9 enregistr\u00e9.",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "This slug is already in use. Please enter a unique slug.",
+        "message_str": "Ce slug est d\u00e9j\u00e0 utilis\u00e9. Veuillez entrer un slug unique.",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The user could not be deleted. Please, try again.",
+        "message_str": "Der Benutzer konnte nicht gel\u00f6scht werden. Bitte versuchen Sie es erneut.",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Page Views",
+        "message_str": "Seitenaufrufe",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Cache Management",
+        "message_str": "Cache-Verwaltung",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "New Internationalisation",
+        "message_str": "Neue Internationalisierung",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Failed to send confirmation email message: {0}",
+        "message_str": "\u00c9chec de l'envoi de l'e-mail de confirmation : {0}",
+        "updated_at": "2024-10-24T23:00:19+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Are you sure you want to delete IP {0}?",
+        "message_str": "Sind Sie sicher, dass Sie die IP {0} l\u00f6schen m\u00f6chten?",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "System Logs",
+        "message_str": "Journaux syst\u00e8me",
+        "updated_at": "2024-10-24T23:00:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Save All Settings",
+        "message_str": "Enregistrer tous les param\u00e8tres",
+        "updated_at": "2024-10-24T23:00:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "List Email Templates",
+        "message_str": "E-Mail-Vorlagen auflisten",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Update Tag",
+        "message_str": "Mettre \u00e0 jour le tag",
+        "updated_at": "2024-10-24T23:00:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Invalid type",
+        "message_str": "Ung\u00fcltiger Typ",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Image processing job completed successfully. Path: {0}",
+        "message_str": "Bildverarbeitungsauftrag erfolgreich abgeschlossen. Pfad: {0}",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Are you sure you want to delete # {0}?",
+        "message_str": "Sind Sie sicher, dass Sie # {0} l\u00f6schen m\u00f6chten?",
+        "updated_at": "2024-10-24T22:56:08+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Error",
+        "message_str": "Fehler",
+        "updated_at": "2024-10-24T22:56:15+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "The blocked ip could not be deleted. Please, try again.",
+        "message_str": "Die blockierte IP konnte nicht gel\u00f6scht werden. Bitte versuchen Sie es erneut.",
+        "updated_at": "2024-10-24T22:56:15+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Comment analysis completed successfully. Comment ID: {0}",
+        "message_str": "Kommentaranalyse erfolgreich abgeschlossen. Kommentar-ID: {0}",
+        "updated_at": "2024-10-24T22:56:15+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Bulk Upload Images",
+        "message_str": "T\u00e9l\u00e9charger des images en masse",
+        "updated_at": "2024-10-24T23:00:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Code exported successfully to {0}",
+        "message_str": "Code export\u00e9 avec succ\u00e8s vers {0}",
+        "updated_at": "2024-10-24T23:00:25+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Model",
+        "message_str": "Mod\u00e8le",
+        "updated_at": "2024-10-24T23:00:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Received tag SEO update message: ID: {0} Title: {1}",
+        "message_str": "SEO-Tag-Aktualisierungsnachricht empfangen: ID: {0} Titel: {1}",
+        "updated_at": "2024-10-24T22:56:15+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Inappropriate Reason",
+        "message_str": "Grund f\u00fcr Unangemessenheit",
+        "updated_at": "2024-10-24T22:56:15+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Comment",
+        "message_str": "Kommentar",
+        "updated_at": "2024-10-24T22:56:15+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Never",
+        "message_str": "Nie",
+        "updated_at": "2024-10-24T22:56:15+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "The internationalisation has been saved.",
+        "message_str": "L'internationalisation a \u00e9t\u00e9 enregistr\u00e9e.",
+        "updated_at": "2024-10-24T23:00:25+01:00"
+    },
+    {
+        "locale": "de_DE",
+        "message_id": "Code Coverage",
+        "message_str": "Code-Abdeckung",
+        "updated_at": "2024-10-24T22:56:15+01:00"
+    },
+    {
+        "locale": "fr_FR",
+        "message_id": "Locale",
+        "message_str": "Langue",
+        "updated_at": "2024-10-24T23:00:25+01:00"
+    }
+]

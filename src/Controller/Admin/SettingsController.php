@@ -39,6 +39,7 @@ class SettingsController extends AppController
                 'value' => $setting->value,
                 'value_type' => $setting->value_type,
                 'value_obscure' => $setting->value_obscure,
+                'data' => $setting->data,
             ];
         }
 

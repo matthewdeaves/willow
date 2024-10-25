@@ -37,6 +37,13 @@
                                             <?= $this->makeHumanReadable($key) ?>
                                         </label>
                                     </div>
+                                <?php elseif ($value_type === 'select'): ?>
+                                    <?php $options = json_decode($setting['data'], true); ?>
+                                    <?= $this->Form->select("{$category}.{$key}", $options, [
+                                        'label' => $this->makeHumanReadable($key),
+                                        'value' => $value,
+                                        'class' => 'form-control'
+                                    ]) ?>
                                 <?php elseif ($obscure): ?>
                                     <label for="<?= "{$category}-{$key}" ?>"><?= $this->makeHumanReadable($key) ?></label>
                                     <div class="input-group">

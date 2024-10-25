@@ -149,7 +149,7 @@ class DefaultDataImportCommand extends Command
                         break;
                 }
             }
-            
+
             if (!$table->save($entity)) {
                 $io->error(__('Failed to save entity: {0} {1}', [
                     $tableName,

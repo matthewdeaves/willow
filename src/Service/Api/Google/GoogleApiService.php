@@ -7,7 +7,6 @@ use App\Service\Api\AbstractApiService;
 use App\Utility\SettingsManager;
 use Cake\Http\Client;
 use Cake\Http\Client\Response;
-use Google\Cloud\Translate\V2\TranslateClient;
 
 /**
  * GoogleApiService Class
@@ -17,11 +16,6 @@ use Google\Cloud\Translate\V2\TranslateClient;
  */
 class GoogleApiService extends AbstractApiService
 {
-    /**
-     * @var \Google\Cloud\Translate\V2\TranslateClient The Google Cloud Translation client.
-     */
-    private TranslateClient $translateClient;
-
     /**
      * @var \App\Service\Api\Google\TranslationGenerator The translation generator service.
      */
@@ -35,13 +29,10 @@ class GoogleApiService extends AbstractApiService
     public function __construct()
     {
         $apiKey = SettingsManager::read('Google.apiKey');
-        parent::__construct(new Client(), $apiKey, '', '');
+        $apiUrl = 'https://translation.googleapis.com/language/translate/v2';
+        parent::__construct(new Client(), $apiKey, $apiUrl, '');
 
-        $this->translateClient = new TranslateClient([
-            'key' => $apiKey,
-        ]);
-
-        $this->translationGenerator = new TranslationGenerator($this, $this->translateClient);
+        $this->translationGenerator = new TranslationGenerator($this);
     }
 
     /**

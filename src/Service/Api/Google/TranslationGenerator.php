@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace App\Service\Api\Google;
 
-use Google\Cloud\Translate\V2\TranslateClient;
-
 /**
  * Class TranslationGenerator
  *
@@ -21,28 +19,19 @@ class TranslationGenerator
     private GoogleApiService $apiService;
 
     /**
-     * The Google Cloud Translation client used for performing translations.
-     *
-     * @var \Google\Cloud\Translate\V2\TranslateClient
-     */
-    private TranslateClient $translateClient;
-
-    /**
      * Constructor for the TranslationGenerator class.
      *
      * @param \App\Service\Api\Google\GoogleApiService $apiService The API service for handling requests.
-     * @param \Google\Cloud\Translate\V2\TranslateClient $translateClient The Google Cloud Translation client.
      */
-    public function __construct(GoogleApiService $apiService, TranslateClient $translateClient)
+    public function __construct(GoogleApiService $apiService)
     {
         $this->apiService = $apiService;
-        $this->translateClient = $translateClient;
     }
 
     /**
      * Translates an array of strings from one locale to another.
      *
-     * This method uses the Google Cloud Translation client to translate the provided strings
+     * This method uses the Google Cloud Translation API to translate the provided strings
      * from the specified source locale to the target locale.
      *
      * @param array $strings The array of strings to be translated.
@@ -52,14 +41,19 @@ class TranslationGenerator
      */
     public function translateStrings(array $strings, string $localeFrom, string $localeTo): array
     {
-        $translations = $this->translateClient->translateBatch($strings, [
+        $data = [
+            'q' => $strings,
             'source' => $localeFrom,
             'target' => $localeTo,
-        ]);
+            'format' => 'text',
+        ];
+
+        $response = $this->apiService->sendRequest($data);
+        $translationData = $this->apiService->parseResponse($response);
 
         $translatedStrings = [];
-        foreach ($translations as $translation) {
-            $translatedStrings[] = $translation['text'];
+        foreach ($translationData['data']['translations'] as $translation) {
+            $translatedStrings[] = $translation['translatedText'];
         }
 
         return $translatedStrings;

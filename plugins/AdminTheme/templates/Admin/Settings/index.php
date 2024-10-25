@@ -39,6 +39,9 @@
                                     </div>
                                 <?php elseif ($value_type === 'select'): ?>
                                     <?php $options = json_decode($setting['data'], true); ?>
+                                    <label class="form-check-label" for="<?= "{$category}-{$key}" ?>">
+                                        <?= $this->makeHumanReadable($key) ?>
+                                    </label>
                                     <?= $this->Form->select("{$category}.{$key}", $options, [
                                         'label' => $this->makeHumanReadable($key),
                                         'value' => $value,

@@ -77,7 +77,7 @@
         "value": "google",
         "value_type": "select",
         "value_obscure": false,
-        "data": "{\n  \"google\": \"Google\",\n  \"anthropic\": \"Anthropic\",\n}"
+        "data": "{\n  \"google\": \"Google\",\n  \"anthropic\": \"Anthropic\"\n}"
     },
     {
         "category": "RateLimit",

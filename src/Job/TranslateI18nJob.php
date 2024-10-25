@@ -34,7 +34,7 @@ class TranslateI18nJob implements JobInterface
      */
     public function __construct(?AnthropicApiService $anthropicService = null, ?GoogleApiService $googleService = null)
     {
-        $apiProvider = SettingsManager::read('ImageSizes.teeny', '200');
+        $apiProvider = SettingsManager::read('i18n.provider', 'google');
 
         if ($apiProvider === 'google') {
             $this->apiService = $googleService ?? new GoogleApiService();

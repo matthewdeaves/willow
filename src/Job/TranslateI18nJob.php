@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Job;
 
-use App\Service\Api\AnthropicApiService;
+use App\Service\Api\Anthropic\AnthropicApiService;
 use Cake\Log\Log;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;

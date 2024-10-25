@@ -1,8 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Service\Api;
+namespace App\Service\Api\Anthropic;
 
+use App\Service\Api\AbstractApiService;
 use App\Model\Table\AipromptsTable;
 use App\Service\Api\Anthropic\ArticleTagsGenerator;
 use App\Service\Api\Anthropic\CommentAnalyzer;

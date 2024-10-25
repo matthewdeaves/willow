@@ -13,6 +13,7 @@
         "cakephp/plugin-installer": "^2.0",
         "cakephp/queue": "^2.1",
         "enqueue/redis": "^0.10.19",
+        "google/cloud-translate": "^1.19",
         "josegonzalez/cakephp-upload": "^8.0",
         "josegonzalez/dotenv": "^4.0",
         "mobiledetect/mobiledetectlib": "^4.8.03",

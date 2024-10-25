@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Job;
 
 use App\Model\Entity\Comment;
-use App\Service\Api\AnthropicApiService;
+use App\Service\Api\Anthropic\AnthropicApiService;
 use Cake\Cache\Cache;
 use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;

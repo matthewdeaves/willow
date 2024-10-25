@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Service\Api\Anthropic;
 
 use App\Model\Table\AipromptsTable;
-use App\Service\Api\AnthropicApiService;
+use App\Service\Api\Anthropic\AnthropicApiService;
 use InvalidArgumentException;
 
 /**

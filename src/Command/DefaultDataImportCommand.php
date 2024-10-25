@@ -135,28 +135,25 @@ class DefaultDataImportCommand extends Command
         foreach ($data as $row) {
             $entity = $table->newEntity($row);
 
-            // Type cast $entity->value based on $entity->value_type
-            switch ($entity->value_type) {
-                case 'text':
-                    $entity->value = (string)$entity->value;
-                    break;
-                case 'numeric':
-                    $entity->value = (int)$entity->value;
-                    break;
-                case 'bool':
-                    $entity->value = (bool)$entity->value;
-                    break;
+            if ($tableName == 'settings') {
+                // Type cast $entity->value based on $entity->value_type
+                switch ($entity->value_type) {
+                    case 'text':
+                        $entity->value = (string)$entity->value;
+                        break;
+                    case 'numeric':
+                        $entity->value = (int)$entity->value;
+                        break;
+                    case 'bool':
+                        $entity->value = (bool)$entity->value;
+                        break;
+                }
             }
-
+            
             if (!$table->save($entity)) {
                 $io->error(__('Failed to save entity: {0} {1}', [
-                    $entity->category . ':' . $entity->key_name,
+                    $tableName,
                     json_encode($entity->getErrors()),
-                ]));
-            } else {
-                $io->success(__('Saved : {0} {1}', [
-                    $entity->category . ':' . $entity->key_name,
-                    $entity->value,
                 ]));
             }
         }

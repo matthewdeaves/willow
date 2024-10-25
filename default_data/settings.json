@@ -16,6 +16,14 @@
         "data": null
     },
     {
+        "category": "AI",
+        "key_name": "googleApiKey",
+        "value": "your-api-key-here",
+        "value_type": "text",
+        "value_obscure": true,
+        "data": null
+    },
+    {
         "category": "ImageSizes",
         "key_name": "tiny",
         "value": "100",

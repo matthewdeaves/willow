@@ -3,14 +3,8 @@ declare(strict_types=1);
 
 namespace App\Service\Api\Anthropic;
 
-use App\Service\Api\AbstractApiService;
 use App\Model\Table\AipromptsTable;
-use App\Service\Api\Anthropic\ArticleTagsGenerator;
-use App\Service\Api\Anthropic\CommentAnalyzer;
-use App\Service\Api\Anthropic\ImageAnalyzer;
-use App\Service\Api\Anthropic\SeoContentGenerator;
-use App\Service\Api\Anthropic\TextSummaryGenerator;
-use App\Service\Api\Anthropic\TranslationGenerator;
+use App\Service\Api\AbstractApiService;
 use App\Utility\SettingsManager;
 use Cake\Http\Client;
 use Cake\Http\Client\Response;

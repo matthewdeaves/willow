@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Job;
 
-use App\Service\Api\Anthropic\TextSummaryGenerator;
 use App\Service\Api\Anthropic\AnthropicApiService;
+use App\Service\Api\Anthropic\TextSummaryGenerator;
 use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;

@@ -75,7 +75,7 @@ class AnthropicApiService extends AbstractApiService
      */
     public function __construct()
     {
-        $apiKey = SettingsManager::read('AI.anthropicApiKey');
+        $apiKey = SettingsManager::read('Anthropic.apiKey');
         parent::__construct(new Client(), $apiKey, self::API_URL, self::API_VERSION);
 
         $this->aipromptsTable = TableRegistry::getTableLocator()->get('Aiprompts');

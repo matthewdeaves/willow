@@ -8,16 +8,16 @@
         "data": null
     },
     {
-        "category": "AI",
-        "key_name": "anthropicApiKey",
+        "category": "Anthropic",
+        "key_name": "apiKey",
         "value": "your-api-key-here",
         "value_type": "text",
         "value_obscure": true,
         "data": null
     },
     {
-        "category": "AI",
-        "key_name": "googleApiKey",
+        "category": "Google",
+        "key_name": "apiKey",
         "value": "your-api-key-here",
         "value_type": "text",
         "value_obscure": true,
@@ -130,7 +130,7 @@
     {
         "category": "AI",
         "key_name": "enabled",
-        "value": "1",
+        "value": "0",
         "value_type": "bool",
         "value_obscure": false,
         "data": null

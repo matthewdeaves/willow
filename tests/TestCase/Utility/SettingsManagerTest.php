@@ -115,9 +115,9 @@ class SettingsManagerTest extends TestCase
         }
     }
 
-    public function testReadAIBagKey(): void
+    public function testReadAIBadKey(): void
     {
-        $result = SettingsManager::read('AI.bag_key');
+        $result = SettingsManager::read('AI.bad_key');
         $this->assertNull($result);
     }
 

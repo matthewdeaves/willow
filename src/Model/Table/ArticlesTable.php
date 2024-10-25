@@ -314,7 +314,7 @@ class ArticlesTable extends Table
         if (
             $entity->is_published
             && SettingsManager::read('AI.enabled')
-            && ($entity->isDirty('title') || $entity->isDirty('body'))
+            && ($entity->isDirty('title') || $entity->isDirty('body') || $entity->isDirty('is_published'))
         ) {
             $data = [
                 'id' => $entity->id,

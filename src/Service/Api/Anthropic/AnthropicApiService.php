@@ -88,6 +88,20 @@ class AnthropicApiService extends AbstractApiService
     }
 
     /**
+     * Gets the headers for the API request.
+     *
+     * @return array An associative array of headers.
+     */
+    protected function getHeaders(): array
+    {
+        return [
+            'x-api-key' => $this->apiKey,
+            'anthropic-version' => $this->apiVersion,
+            'Content-Type' => 'application/json',
+        ];
+    }
+
+    /**
      * Generates SEO content for a tag.
      *
      * @param string $tagTitle The title of the tag.

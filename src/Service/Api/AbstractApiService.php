@@ -82,14 +82,7 @@ abstract class AbstractApiService
      *
      * @return array An associative array of headers.
      */
-    protected function getHeaders(): array
-    {
-        return [
-            'x-api-key' => $this->apiKey,
-            'anthropic-version' => $this->apiVersion,
-            'Content-Type' => 'application/json',
-        ];
-    }
+    abstract protected function getHeaders(): array;
 
     /**
      * Handles API errors by logging the error and throwing an exception.

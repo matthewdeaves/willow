@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2024-10-25 00:50+0100\n"
+"POT-Creation-Date: 2024-10-25 16:30+0100\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -54,15 +54,11 @@ msgstr ""
 msgid "Deleted all existing records from table: {0}"
 msgstr ""
 
-#: ./src/Command/DefaultDataImportCommand.php:152
+#: ./src/Command/DefaultDataImportCommand.php:154
 msgid "Failed to save entity: {0} {1}"
 msgstr ""
 
-#: ./src/Command/DefaultDataImportCommand.php:157
-msgid "Saved : {0} {1}"
-msgstr ""
-
-#: ./src/Command/DefaultDataImportCommand.php:164
+#: ./src/Command/DefaultDataImportCommand.php:161
 msgid "Imported data into table: {0}"
 msgstr ""
 
@@ -627,15 +623,15 @@ msgstr ""
 msgid "Tag SEO update failed. No result returned. ID: {0} Title: {1}"
 msgstr ""
 
-#: ./src/Job/TranslateI18nJob.php:52
+#: ./src/Job/TranslateI18nJob.php:61
 msgid "Missing required arguments in the message."
 msgstr ""
 
-#: ./src/Job/TranslateI18nJob.php:64
+#: ./src/Job/TranslateI18nJob.php:73
 msgid "No internationalizations found for the provided IDs."
 msgstr ""
 
-#: ./src/Job/TranslateI18nJob.php:95
+#: ./src/Job/TranslateI18nJob.php:103
 msgid "Failed to update translation for message ID: {0}"
 msgstr ""
 
@@ -1477,15 +1473,15 @@ msgstr ""
 msgid "Edit Settings"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Settings/index.php:69
+#: ./plugins/AdminTheme/templates/Admin/Settings/index.php:72
 msgid "Enter a number"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Settings/index.php:69
+#: ./plugins/AdminTheme/templates/Admin/Settings/index.php:72
 msgid "Enter text"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Settings/index.php:77
+#: ./plugins/AdminTheme/templates/Admin/Settings/index.php:80
 msgid "Save All Settings"
 msgstr ""
 

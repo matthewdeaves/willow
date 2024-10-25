@@ -36,6 +36,24 @@ class GoogleApiService extends AbstractApiService
     }
 
     /**
+     * Retrieves the headers for an HTTP request to the Google API.
+     *
+     * This method returns an associative array of headers to be used in an HTTP request
+     * to the Google API. The headers include:
+     * - 'Content-Type': Specifies that the content type of the request is JSON.
+     * - 'Authorization': Contains a Bearer token for API authentication, constructed using the apiKey.
+     *
+     * @return array An associative array of HTTP headers.
+     */
+    protected function getHeaders(): array
+    {
+        return [
+            'Content-Type' => 'application/json',
+            'Authorization' => 'Bearer ' . $this->apiKey,
+        ];
+    }
+
+    /**
      * Translates an array of strings from one locale to another.
      *
      * This method utilizes the TranslationGenerator service to perform translations

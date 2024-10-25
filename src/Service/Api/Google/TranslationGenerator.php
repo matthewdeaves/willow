@@ -37,7 +37,7 @@ class TranslationGenerator
      * @param array $strings The array of strings to be translated.
      * @param string $localeFrom The locale code of the source language (e.g., 'en').
      * @param string $localeTo The locale code of the target language (e.g., 'fr').
-     * @return array The translated strings.
+     * @return array The translated strings in the expected format.
      */
     public function translateStrings(array $strings, string $localeFrom, string $localeTo): array
     {
@@ -56,6 +56,7 @@ class TranslationGenerator
             $translatedStrings[] = $translation['translatedText'];
         }
 
-        return $translatedStrings;
+        // Return the translated strings in the expected format
+        return ['strings' => $translatedStrings];
     }
 }

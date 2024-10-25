@@ -22,15 +22,20 @@ class GoogleApiService extends AbstractApiService
     private TranslationGenerator $translationGenerator;
 
     /**
+     * @var string The API key for Google Cloud Translation API.
+     */
+    private string $apiKey;
+
+    /**
      * GoogleApiService constructor.
      *
      * Initializes the service with necessary dependencies and configurations.
      */
     public function __construct()
     {
-        $apiKey = SettingsManager::read('Google.apiKey');
+        $this->apiKey = SettingsManager::read('Google.apiKey');
         $apiUrl = 'https://translation.googleapis.com/language/translate/v2';
-        parent::__construct(new Client(), $apiKey, $apiUrl, '');
+        parent::__construct(new Client(), $this->apiKey, $apiUrl, '');
 
         $this->translationGenerator = new TranslationGenerator($this);
     }

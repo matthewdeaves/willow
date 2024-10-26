@@ -56,7 +56,7 @@ class TranslationGenerator
      * @param string $localeTo The locale code of the target language (e.g., 'fr_FR').
      * @return array An array containing the translated strings with expected keys.
      */
-    public function generateI18nTranslation(array $strings, string $localeFrom, string $localeTo): array
+    public function generateTranslation(array $strings, string $localeFrom, string $localeTo): array
     {
         $promptData = $this->getPromptData('i18n_batch_translation');
         $payload = $this->createPayload($promptData, [

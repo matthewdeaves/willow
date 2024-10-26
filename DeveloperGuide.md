@@ -29,13 +29,17 @@
    - [SeoContentGenerator](#5-seocontentgenerator)
    - [ArticleTagsGenerator](#6-articletagsgenerator)
    - [TextSummaryGenerator](#7-textsummarygenerator)
+   - [TranslationGenerator](#8-translationgenerator)
    - [ClassesSummary](#classes-summary)
 
-5. [Environment Configuration](#environment-configuration-with-configenvexample)
+5. [Google Cloud Translate API Integration]
+   - [GoogleApiService](#1-googleapiservice)
+
+6. [Environment Configuration](#environment-configuration-with-configenvexample)
    - [Steps to Use config/.env.example](#steps-to-use-configenvexample)
    - [Configuration Options](#configuration-options)
 
-6. [Docker Development Environment](#docker-development-environment)
+7. [Docker Development Environment](#docker-development-environment)
 
 ## Getting Started with Willow CMS Code
 
@@ -298,7 +302,7 @@ This abstract class can be extended to create services for interacting with othe
 ### 2. AnthropicApiService
 **Location**: `src/Service/Api/AnthropicApiService.php`
 
-   [src/Service/Api/AnthropicApiService.php](https://github.com/matthewdeaves/willow/blob/main/src/Service/Api/AbstractApiService.php)
+   [src/Service/Api/Anthropic/AnthropicApiService.php](https://github.com/matthewdeaves/willow/blob/main/src/Service/Api/Anthropic/AnthropicApiService.php)
 
 This class is a concrete implementation of AbstractApiService, specifically tailored for interacting with the Anthropic API. It handles:
 - Managing API endpoints by defining the base URL and version for the Anthropic API
@@ -360,8 +364,27 @@ The ArticleTagsGenerator class utilizes Anthropic's natural language processing 
 The TextSummaryGenerator class leverages Anthropic's advanced natural language processing capabilities to create concise summaries of text. Its primary functionality includes:
 - Generating summaries based on the provided text and context
 
+### 8. TranslationGenerator
+**Location**: `src/Service/Api/Anthropic/TranslationGenerator.php`
+
+   [src/Service/Api/Anthropic/TranslationGenerator.php](https://github.com/matthewdeaves/willow/blob/main/src/Service/Api/Anthropic/TranslationGenerator.php)
+
+The TranslationGenerator class leverages Anthropic's advanced natural language processing capabilities to create translation of text. Bare in mind that as a general purpose model, translations into other languages may not be as accurate as dedicated services such as Google Translate. Its primary functionality includes:
+- Generating translations of an array of strings from a locale to a locale
+
 ### Classes Summary
 The Generator/Analyzer classes use the AipromptsTable to retrieve task-specific prompt data from the `aipromtps` table and serve as a foundation for developing specialized Anthropic API interactions or as a template for integrating other AI services.
+
+## Google Cloud Translate API Integration
+
+Willow CMS leverages Googles Cloud Translate API through a set of specialized classes. These classes are designed to facilitate various tranlsation features and can be extended or customized to build further integrations. Here's an overview of the key classes:
+
+### 1. GoogleApiService
+**Location**: `src/Service/Api/Google/GoogleApiService.php`
+
+   [src/Service/Api/Google/GoogleApiService.php](https://github.com/matthewdeaves/willow/blob/main/src/Service/Api/Google/GoogleApiService.php)
+
+The GoogleApiService provides one method to translate an array of strings from one locale to another.
 
 ## Environment Configuration with `config/.env.example` 
 

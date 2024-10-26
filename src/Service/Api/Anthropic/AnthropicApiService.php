@@ -185,7 +185,7 @@ class AnthropicApiService extends AbstractApiService
      */
     public function translateStrings(array $strings, string $localeFrom, string $localeTo): array
     {
-        return $this->translationGenerator->generateI18nTranslation($strings, $localeFrom, $localeTo);
+        return $this->translationGenerator->generateTranslation($strings, $localeFrom, $localeTo);
     }
 
     /**

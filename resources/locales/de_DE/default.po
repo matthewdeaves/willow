@@ -14,1578 +14,1578 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
 #: 
-msgid "Admin"
-msgstr "Admin"
-
-#: 
-msgid "New AI Prompt"
-msgstr "Neue KI-Eingabeaufforderung"
-
-#: 
-msgid "Comment for {0}"
-msgstr "Kommentar für {0}"
-
-#: 
-msgid "Are you sure you want to clear {0}?"
-msgstr "Sind Sie sicher, dass Sie {0} löschen möchten?"
-
-#: 
-msgid "Is AI Analyzed"
-msgstr "Ist KI-analysiert"
-
-#: 
-msgid "New tag created: {0}"
-msgstr "Neuer Tag erstellt: {0}"
-
-#: 
-msgid "No tags are linked."
-msgstr "Keine Tags verknüpft."
-
-#: 
-msgid "The email template has been deleted."
-msgstr "Die E-Mail-Vorlage wurde gelöscht."
-
-#: 
-msgid "The email template could not be saved. Please, try again."
-msgstr "Die E-Mail-Vorlage konnte nicht gespeichert werden. Bitte versuchen Sie es erneut."
-
-#: 
-msgid "{0} cache could not be cleared."
-msgstr "{0} Cache konnte nicht geleert werden."
-
-#: 
-msgid "This slug is already in use in articles. Please enter a unique slug."
-msgstr "Dieser Slug wird bereits in Artikeln verwendet. Bitte geben Sie einen eindeutigen Slug ein."
-
-#: 
-msgid "The settings have been saved."
-msgstr "Die Einstellungen wurden gespeichert."
-
-#: 
-msgid "Update Slug"
-msgstr "Slug aktualisieren"
-
-#: 
-msgid "Search images..."
-msgstr "Bilder suchen..."
-
-#: 
-msgid "Comment analysis completed successfully. Comment ID: {0}"
-msgstr "Kommentaranalyse erfolgreich abgeschlossen. Kommentar-ID: {0}"
-
-#: 
-msgid "Received article SEO update message: {0} : {1}"
-msgstr "Artikel-SEO-Aktualisierungsnachricht erhalten: {0} : {1}"
-
-#: 
-msgid "Cache Name"
-msgstr "Cache-Name"
-
-#: 
-msgid "Edit Tag"
-msgstr "Tag bearbeiten"
-
-#: 
-msgid "Edit Comment"
-msgstr "Kommentar bearbeiten"
-
-#: 
-msgid "Error during image processing. Path: {0}, Error: {1}"
-msgstr "Fehler bei der Bildverarbeitung. Pfad: {0}, Fehler: {1}"
-
-#: 
-msgid "Related Articles"
-msgstr "Verwandte Artikel"
-
-#: 
-msgid "Page View Statistics for slug: {0}"
-msgstr "Seitenaufrufsstatistiken für Slug: {0}"
-
-#: 
-msgid "Task Type"
-msgstr "Aufgabentyp"
-
-#: 
-msgid "SEO Fields"
-msgstr "SEO-Felder"
-
-#: 
-msgid "The user could not be saved. Please, try again."
-msgstr "Der Benutzer konnte nicht gespeichert werden. Bitte versuchen Sie es erneut."
-
-#: 
-msgid "The slug could not be saved. Please, try again."
-msgstr "Der Slug konnte nicht gespeichert werden. Bitte versuchen Sie es erneut."
-
-#: 
-msgid "Comment analysis failed. No result returned. Comment ID: {0}"
-msgstr "Kommentaranalyse fehlgeschlagen. Kein Ergebnis zurückgegeben. Kommentar-ID: {0}"
-
-#: 
-msgid "Search users..."
-msgstr "Benutzer suchen..."
-
-#: 
-msgid "Username"
-msgstr "Benutzername"
-
-#: 
-msgid "Description"
-msgstr "Beschreibung"
-
-#: 
-msgid "Total Views: "
-msgstr "Gesamtaufrufe: "
-
-#: 
-msgid "You must be logged in to add a comment."
-msgstr "Sie müssen eingeloggt sein, um einen Kommentar hinzuzufügen."
-
-#: 
-msgid "Registration successful, but there was an issue creating the confirmation link."
-msgstr "Registrierung erfolgreich, aber es gab ein Problem beim Erstellen des Bestätigungslinks."
-
-#: 
-msgid "Email template not found: {0}"
-msgstr "E-Mail-Vorlage nicht gefunden: {0}"
-
-#: 
-msgid "This message_id must be unique for the given locale."
-msgstr "Diese Message-ID muss für das angegebene Gebietsschema eindeutig sein."
-
-#: 
-msgid "Reason"
-msgstr "Grund"
-
-#: 
-msgid "Edit"
-msgstr "Bearbeiten"
-
-#: 
-msgid "Missing required arguments in the message."
-msgstr "Erforderliche Argumente in der Nachricht fehlen."
-
-#: 
-msgid "Article not found"
-msgstr "Artikel nicht gefunden"
-
-#: 
-msgid "Imported data into table: {0}"
-msgstr "Daten in Tabelle importiert: {0}"
-
-#: 
-msgid "All Levels"
-msgstr "Alle Ebenen"
-
-#: 
-msgid "List Blocked IPs"
-msgstr "Liste gesperrter IPs"
-
-#: 
-msgid "New User"
-msgstr "Neuer Benutzer"
-
-#: 
-msgid "The image has been deleted."
-msgstr "Das Bild wurde gelöscht."
-
-#: 
-msgid "Some settings could not be saved. Please, try again."
-msgstr "Einige Einstellungen konnten nicht gespeichert werden. Bitte versuchen Sie es erneut."
-
-#: 
-msgid "Max Tokens"
-msgstr "Maximale Token"
-
-#: 
-msgid "Unable to delete logs in group {0}."
-msgstr "Protokolle in Gruppe {0} können nicht gelöscht werden."
-
-#: 
-msgid "Update Image"
-msgstr "Bild aktualisieren"
-
-#: 
-msgid "The email template has been saved."
-msgstr "Die E-Mail-Vorlage wurde gespeichert."
-
-#: 
-msgid "List Email Templates"
-msgstr "E-Mail-Vorlagen auflisten"
-
-#: 
-msgid "Failed to save article summary updates. Article ID: {0} Title: {1}"
-msgstr "Fehler beim Speichern der Artikelzusammenfassung. Artikel-ID: {0} Titel: {1}"
-
-#: 
-msgid "Cache Management"
-msgstr "Cache-Verwaltung"
-
-#: 
-msgid "Your comment has been added."
-msgstr "Ihr Kommentar wurde hinzugefügt."
-
-#: 
-msgid "The slug has been deleted."
-msgstr "Der Slug wurde gelöscht."
-
-#: 
-msgid "The image could not be deleted. Please, try again."
-msgstr "Das Bild konnte nicht gelöscht werden. Bitte versuchen Sie es erneut."
-
-#: 
-msgid "You are not authorized to edit this account, stick to your own."
-msgstr "Sie sind nicht berechtigt, dieses Konto zu bearbeiten. Bleiben Sie bei Ihrem eigenen."
-
-#: 
-msgid "New Article"
-msgstr "Neuer Artikel"
-
-#: 
-msgid "The tag has been deleted."
-msgstr "Der Tag wurde gelöscht."
-
-#: 
-msgid "Enter text"
-msgstr "Text eingeben"
-
-#: 
-msgid "Image uploaded successfully"
-msgstr "Bild erfolgreich hochgeladen"
-
-#: 
-msgid "Internationalisation"
-msgstr "Internationalisierung"
-
-#: 
-msgid "Invalid confirmation code. Please contact support."
-msgstr "Ungültiger Bestätigungscode. Bitte kontaktieren Sie den Support."
-
-#: 
-msgid "Edit Settings"
-msgstr "Einstellungen bearbeiten"
-
-#: 
-msgid "New Tag"
-msgstr "Neuer Tag"
-
-#: 
-msgid "Email"
-msgstr "E-Mail"
-
-#: 
-msgid "The blocked ip could not be deleted. Please, try again."
-msgstr "Die gesperrte IP konnte nicht gelöscht werden. Bitte versuchen Sie es erneut."
-
-#: 
-msgid "Instagram Description"
-msgstr "Instagram-Beschreibung"
-
-#: 
-msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
-msgstr "Der Slug muss URL-sicher sein (nur Kleinbuchstaben, Zahlen und Bindestriche)"
-
-#: 
-msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
-msgstr "Nachfolgend finden Sie Informationen über die konfigurierten Caches. Klicken Sie auf die Schaltfläche, um alle Caches zu löschen, oder auf einzelne Cache-Schaltflächen, um bestimmte Caches zu löschen."
-
-#: 
-msgid "Are you sure you want to delete all {0} logs?"
-msgstr "Sind Sie sicher, dass Sie alle {0} Protokolle löschen möchten?"
-
-#: 
-msgid "Received article tag update message: {0} : {1}"
-msgstr "Artikel-Tag-Aktualisierungsnachricht erhalten: {0} : {1}"
-
-#: 
-msgid "Edit Email Template"
-msgstr "E-Mail-Vorlage bearbeiten"
-
-#: 
-msgid "Search logs..."
-msgstr "Protokolle durchsuchen..."
-
-#: 
-msgid "Email sending failed: {0} to {1}"
-msgstr "E-Mail-Versand fehlgeschlagen: {0} an {1}"
-
-#: 
-msgid "Locale"
-msgstr "Sprache"
-
-#: 
-msgid "Edit Your Account"
-msgstr "Konto bearbeiten"
-
-#: 
-msgid "List {0}"
-msgstr "Liste {0}"
-
-#: 
-msgid "Unable to delete logs with level {0}."
-msgstr "Protokolle mit Level {0} können nicht gelöscht werden."
+msgid "Attempt {0}: HTTP Code: {1}"
+msgstr "Versuch {0}: HTTP-Code: {1}"
 
 #: 
 msgid "The user has been saved."
 msgstr "Der Benutzer wurde gespeichert."
 
 #: 
-msgid "View"
-msgstr "Ansehen"
-
-#: 
-msgid "Level"
-msgstr "Level"
-
-#: 
-msgid "Code exported successfully to {0}"
-msgstr "Code erfolgreich nach {0} exportiert"
-
-#: 
-msgid "Invalid username or password"
-msgstr "Ungültiger Benutzername oder Passwort"
-
-#: 
-msgid "Failed to send email. Please check your email configuration."
-msgstr "E-Mail konnte nicht gesendet werden. Bitte überprüfen Sie Ihre E-Mail-Konfiguration."
-
-#: 
-msgid "The image has been saved."
-msgstr "Das Bild wurde gespeichert."
-
-#: 
-msgid "You cannot disable your own account."
-msgstr "Sie können Ihr eigenes Konto nicht deaktivieren."
-
-#: 
-msgid "Unknown Author"
-msgstr "Unbekannter Autor"
-
-#: 
-msgid "Summary"
-msgstr "Zusammenfassung"
-
-#: 
-msgid "Available data files:"
-msgstr "Verfügbare Datendateien:"
-
-#: 
-msgid "Failed to save article tag updates. Article ID: {0} Error: {1}"
-msgstr "Artikel-Tag-Aktualisierungen konnten nicht gespeichert werden. Artikel-ID: {0} Fehler: {1}"
-
-#: 
-msgid "Register"
-msgstr "Registrieren"
-
-#: 
-msgid "Blocked At"
-msgstr "Gesperrt am"
-
-#: 
-msgid "Received image analysis message: Image ID: {0} Path: {1}"
-msgstr "Bildanalysenachricht erhalten: Bild-ID: {0} Pfad: {1}"
-
-#: 
-msgid "Meta Description"
-msgstr "Meta-Beschreibung"
-
-#: 
-msgid "Too Many Requests"
-msgstr "Zu viele Anfragen"
-
-#: 
-msgid "Submit"
-msgstr "Absenden"
-
-#: 
-msgid "Tags"
-msgstr "Tags"
-
-#: 
-msgid "Toggle SEO Fields"
-msgstr "SEO-Felder ein-/ausblenden"
-
-#: 
-msgid "Updated At"
-msgstr "Aktualisiert am"
-
-#: 
-msgid "Never"
-msgstr "Nie"
-
-#: 
-msgid "Email sent successfully: {0} to {1}"
-msgstr "E-Mail erfolgreich gesendet: {0} an {1}"
-
-#: 
-msgid "Slugs"
-msgstr "Slugs"
-
-#: 
-msgid "Article ID:"
-msgstr "Artikel-ID:"
-
-#: 
-msgid "Unable to add your comment."
-msgstr "Ihr Kommentar konnte nicht hinzugefügt werden."
-
-#: 
-msgid "Input file not found: {0}"
-msgstr "Eingabedatei nicht gefunden: {0}"
-
-#: 
-msgid "The value must not be empty."
-msgstr "Der Wert darf nicht leer sein."
-
-#: 
-msgid "Register New Account"
-msgstr "Neues Konto registrieren"
-
-#: 
-msgid "Is Inappropriate"
-msgstr "Ist unangemessen"
-
-#: 
-msgid "The comment has been deleted."
-msgstr "Der Kommentar wurde gelöscht."
-
-#: 
-msgid "Attempt {0} failed. Error ({1}): {2}"
-msgstr "Versuch {0} fehlgeschlagen. Fehler ({1}): {2}"
-
-#: 
-msgid "Tag not found"
-msgstr "Tag nicht gefunden"
-
-#: 
-msgid "The tag could not be saved. Please, try again."
-msgstr "Der Tag konnte nicht gespeichert werden. Bitte versuchen Sie es erneut."
-
-#: 
-msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
-msgstr "Slug steht in Konflikt mit einer bestehenden SEO-Weiterleitung. Bitte wählen Sie einen anderen Slug."
-
-#: 
-msgid "Error during image analysis: {0}"
-msgstr "Fehler bei der Bildanalyse: {0}"
-
-#: 
-msgid "Settings"
-msgstr "Einstellungen"
-
-#: 
-msgid "All logs in group {0} have been deleted."
-msgstr "Alle Protokolle in Gruppe {0} wurden gelöscht."
-
-#: 
-msgid "Received comment analysis message: Comment ID: {0} User ID: {1}"
-msgstr "Kommentaranalyse-Nachricht empfangen: Kommentar-ID: {0} Benutzer-ID: {1}"
-
-#: 
-msgid "Queued Article Summary update job: {0}"
-msgstr "Artikel-Zusammenfassungs-Update in Warteschlange: {0}"
-
-#: 
-msgid "Failed to create user: {0}. Errors: {1}"
-msgstr "Benutzer konnte nicht erstellt werden: {0}. Fehler: {1}"
-
-#: 
-msgid "Successfully resized and saved image. Original: {0}, Resized: {1}, Width: {2}px"
-msgstr "Bild erfolgreich skaliert und gespeichert. Original: {0}, Skaliert: {1}, Breite: {2}px"
-
-#: 
-msgid "Article SEO update failed. No result returned. Article ID: {0} Title: {1}"
-msgstr "Artikel-SEO-Update fehlgeschlagen. Kein Ergebnis zurückgegeben. Artikel-ID: {0} Titel: {1}"
-
-#: 
-msgid "Your account has been confirmed. You can now log in."
-msgstr "Ihr Konto wurde bestätigt. Sie können sich jetzt anmelden."
-
-#: 
-msgid "Name"
-msgstr "Name"
-
-#: 
-msgid "Edit {0}"
-msgstr "{0} bearbeiten"
-
-#: 
-msgid "Generated default.po for locale: {0}"
-msgstr "default.po für Gebietsschema generiert: {0}"
-
-#: 
-msgid "Response: {0}"
-msgstr "Antwort: {0}"
-
-#: 
-msgid "Keywords"
-msgstr "Schlüsselwörter"
-
-#: 
-msgid "The internationalisation has been deleted."
-msgstr "Die Internationalisierung wurde gelöscht."
-
-#: 
-msgid "The internationalisation has been saved."
-msgstr "Die Internationalisierung wurde gespeichert."
-
-#: 
-msgid "Block IPs"
-msgstr "IPs blockieren"
-
-#: 
-msgid "Registration failed. Please, try again."
-msgstr "Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut."
-
-#: 
-msgid "Articles"
-msgstr "Artikel"
-
-#: 
-msgid "Not published"
-msgstr "Nicht veröffentlicht"
+msgid "Email"
+msgstr "E-Mail"
 
 #: 
 msgid "Back"
 msgstr "Zurück"
 
 #: 
-msgid "Front Site"
-msgstr "Startseite"
+msgid "Failed to create user: {0}. Errors: {1}"
+msgstr "Benutzer konnte nicht erstellt werden: {0}. Fehler: {1}"
 
 #: 
-msgid "Rate limit exceeded for IP: {0} on route: {1}"
-msgstr "Anfragelimit überschritten für IP: {0} auf Route: {1}"
-
-#: 
-msgid "Article not found."
-msgstr "Artikel nicht gefunden."
-
-#: 
-msgid "Article tag update failed. No valid result returned. Article ID: {0}"
-msgstr "Artikel-Tag-Update fehlgeschlagen. Kein gültiges Ergebnis zurückgegeben. Artikel-ID: {0}"
-
-#: 
-msgid "Enter a number"
-msgstr "Geben Sie eine Zahl ein"
-
-#: 
-msgid "New Email Template"
-msgstr "Neue E-Mail-Vorlage"
-
-#: 
-msgid "Error loading images:"
-msgstr "Fehler beim Laden der Bilder:"
-
-#: 
-msgid "Are you sure you want to delete {0}?"
-msgstr "Sind Sie sicher, dass Sie {0} löschen möchten?"
-
-#: 
-msgid "Model"
-msgstr "Modell"
-
-#: 
-msgid "Code Coverage"
-msgstr "Code-Abdeckung"
-
-#: 
-msgid "Logout"
-msgstr "Abmelden"
-
-#: 
-msgid "Add Internationalisation"
-msgstr "Internationalisierung hinzufügen"
-
-#: 
-msgid "Add a Comment"
-msgstr "Kommentar hinzufügen"
-
-#: 
-msgid "System Prompt"
-msgstr "Systemaufforderung"
-
-#: 
-msgid "User"
-msgstr "Benutzer"
-
-#: 
-msgid "Image processing job completed successfully. Path: {0}"
-msgstr "Bildverarbeitung erfolgreich abgeschlossen. Pfad: {0}"
-
-#: 
-msgid "Users"
-msgstr "Benutzer"
-
-#: 
-msgid "Are you sure you want to delete all logs?"
-msgstr "Sind Sie sicher, dass Sie alle Protokolle löschen möchten?"
-
-#: 
-msgid "View detailed records for this date"
-msgstr "Detaillierte Aufzeichnungen für dieses Datum anzeigen"
-
-#: 
-msgid "Content"
-msgstr "Inhalt"
-
-#: 
-msgid "Show Details"
-msgstr "Details anzeigen"
-
-#: 
-msgid "Modified"
-msgstr "Geändert"
-
-#: 
-msgid "Article summary update failed. No valid result returned. Article ID: {0} Title: {1}"
-msgstr "Aktualisierung der Artikelzusammenfassung fehlgeschlagen. Kein gültiges Ergebnis zurückgegeben. Artikel-ID: {0} Titel: {1}"
-
-#: 
-msgid "Tag SEO update completed successfully. ID: {0} Title: {1}"
-msgstr "Tag-SEO-Aktualisierung erfolgreich abgeschlossen. ID: {0} Titel: {1}"
-
-#: 
-msgid "This slug is already in use. Please enter a unique slug."
-msgstr "Dieser Slug wird bereits verwendet. Bitte geben Sie einen eindeutigen Slug ein."
-
-#: 
-msgid "No view records found for this article."
-msgstr "Keine Ansichtsaufzeichnungen für diesen Artikel gefunden."
-
-#: 
-msgid "Created"
-msgstr "Erstellt"
-
-#: 
-msgid "The user could not be deleted. Please, try again."
-msgstr "Der Benutzer konnte nicht gelöscht werden. Bitte versuchen Sie es erneut."
-
-#: 
-msgid "Message Id"
-msgstr "Nachrichten-ID"
-
-#: 
-msgid "Update User"
-msgstr "Benutzer aktualisieren"
-
-#: 
-msgid "Clear"
-msgstr "Löschen"
-
-#: 
-msgid "Attempt {0}: HTTP Code: {1}"
-msgstr "Versuch {0}: HTTP-Code: {1}"
-
-#: 
-msgid "Failed to update translation for message ID: {0}"
-msgstr "Aktualisierung der Übersetzung für Nachrichten-ID {0} fehlgeschlagen"
-
-#: 
-msgid "Yes"
-msgstr "Ja"
-
-#: 
-msgid "Are you sure you want to delete # {0}?"
-msgstr "Sind Sie sicher, dass Sie # {0} löschen möchten?"
-
-#: 
-msgid "Error sending email: {0}"
-msgstr "Fehler beim Senden der E-Mail: {0}"
-
-#: 
-msgid "The requested address {0} was not found on this server."
-msgstr "Die angeforderte Adresse {0} wurde auf diesem Server nicht gefunden."
-
-#: 
-msgid "Logs"
-msgstr "Protokolle"
-
-#: 
-msgid "Failed to send email to: {0}"
-msgstr "E-Mail konnte nicht gesendet werden an: {0}"
-
-#: 
-msgid "Choose a file to import by number:"
-msgstr "Wählen Sie eine Datei zum Importieren nach Nummer:"
-
-#: 
-msgid "Imagick extension is not loaded"
-msgstr "Imagick-Erweiterung ist nicht geladen"
-
-#: 
-msgid "Update Aiprompt"
-msgstr "Aiprompt aktualisieren"
-
-#: 
-msgid "Add Slug"
-msgstr "Slug hinzufügen"
-
-#: 
-msgid "The article has been deleted."
-msgstr "Der Artikel wurde gelöscht."
-
-#: 
-msgid "Edit Image"
-msgstr "Bild bearbeiten"
-
-#: 
-msgid "Tag SEO update failed. No result returned. ID: {0} Title: {1}"
-msgstr "Tag-SEO-Aktualisierung fehlgeschlagen. Kein Ergebnis zurückgegeben. ID: {0} Titel: {1}"
-
-#: 
-msgid "Body Text"
-msgstr "Haupttext"
-
-#: 
-msgid "Body HTML"
-msgstr "HTML-Inhalt"
-
-#: 
-msgid "The slug must be unique."
-msgstr "Der Slug muss eindeutig sein."
-
-#: 
-msgid "Published"
-msgstr "Veröffentlicht"
-
-#: 
-msgid "LinkedIn Description"
-msgstr "LinkedIn-Beschreibung"
-
-#: 
-msgid "API request failed. Please try again later."
-msgstr "API-Anfrage fehlgeschlagen. Bitte versuchen Sie es später erneut."
-
-#: 
-msgid "Created At"
-msgstr "Erstellt am"
-
-#: 
-msgid "Error resizing image. Original: {0}, Target Width: {1}px, Error: {2}"
-msgstr "Fehler beim Ändern der Bildgröße. Original: {0}, Zielbreite: {1}px, Fehler: {2}"
-
-#: 
-msgid "Page Views for {0}"
-msgstr "Seitenaufrufe für {0}"
-
-#: 
-msgid "Are you sure you want to delete this comment?"
-msgstr "Sind Sie sicher, dass Sie diesen Kommentar löschen möchten?"
-
-#: 
-msgid "Is Admin"
-msgstr "Ist Administrator"
-
-#: 
-msgid "Bulk Upload"
-msgstr "Massenupload"
-
-#: 
-msgid "Message Str"
-msgstr "Nachrichtentext"
-
-#: 
-msgid "There was an issue confirming your account. Please try again."
-msgstr "Es gab ein Problem bei der Bestätigung Ihres Kontos. Bitte versuchen Sie es erneut."
-
-#: 
-msgid "Email Templates"
-msgstr "E-Mail-Vorlagen"
-
-#: 
-msgid "Too many requests. Please try again later."
-msgstr "Zu viele Anfragen. Bitte versuchen Sie es später erneut."
-
-#: 
-msgid "Received image processing message: Image ID: {0} Path: {1}"
-msgstr "Bildverarbeitungsnachricht empfangen: Bild-ID: {0} Pfad: {1}"
-
-#: 
-msgid "Some caches were cleared, but the following failed: {0}"
-msgstr "Einige Caches wurden geleert, aber die folgenden sind fehlgeschlagen: {0}"
-
-#: 
-msgid "Slug:"
-msgstr "Slug:"
-
-#: 
-msgid "An Internal Error Has Occurred."
-msgstr "Ein interner Fehler ist aufgetreten."
-
-#: 
-msgid "Edit Aiprompt"
-msgstr "Aiprompt bearbeiten"
-
-#: 
-msgid "Inappropriate Reason"
-msgstr "Grund für Unangemessenheit"
-
-#: 
-msgid "Error in: "
-msgstr "Fehler in: "
-
-#: 
-msgid "Deleted all existing records from table: {0}"
-msgstr "Alle vorhandenen Datensätze aus Tabelle gelöscht: {0}"
-
-#: 
-msgid "Unable to delete all logs."
-msgstr "Protokolle konnten nicht vollständig gelöscht werden."
-
-#: 
-msgid "Your account has been updated."
-msgstr "Ihr Konto wurde aktualisiert."
-
-#: 
-msgid "System Logs"
-msgstr "Systemprotokolle"
-
-#: 
-msgid "Twitter Description"
-msgstr "Twitter-Beschreibung"
-
-#: 
-msgid "Read More"
-msgstr "Weiterlesen"
-
-#: 
-msgid "All logs have been deleted."
-msgstr "Alle Protokolle wurden gelöscht."
-
-#: 
-msgid "Invalid choice."
-msgstr "Ungültige Auswahl."
-
-#: 
-msgid "Testing rate limit on URL: {0}"
-msgstr "Teste Ratenlimit für URL: {0}"
-
-#: 
-msgid "The slug has been saved."
-msgstr "Der Slug wurde gespeichert."
-
-#: 
-msgid "Slug"
-msgstr "Slug"
-
-#: 
-msgid "Add User"
-msgstr "Benutzer hinzufügen"
-
-#: 
-msgid "Failed to update comment status. Comment ID: {0}"
-msgstr "Aktualisierung des Kommentarstatus fehlgeschlagen. Kommentar-ID: {0}"
-
-#: 
-msgid "Skipped resizing, image already exists. Path: {0}"
-msgstr "Größenänderung übersprungen, Bild existiert bereits. Pfad: {0}"
-
-#: 
-msgid "The log has been deleted."
-msgstr "Das Protokoll wurde gelöscht."
-
-#: 
-msgid "The article could not be saved. Please, try again."
-msgstr "Der Artikel konnte nicht gespeichert werden. Bitte versuchen Sie es erneut."
-
-#: 
-msgid "Message"
-msgstr "Nachricht"
-
-#: 
-msgid "No"
-msgstr "Nein"
-
-#: 
-msgid "Associated Pages"
-msgstr "Verknüpfte Seiten"
-
-#: 
-msgid "The article could not be deleted. Please, try again."
-msgstr "Der Artikel konnte nicht gelöscht werden. Bitte versuchen Sie es erneut."
-
-#: 
-msgid "Meta Title"
-msgstr "Meta-Titel"
-
-#: 
-msgid "Queued Article Tag update job: {0}"
-msgstr "Article-Tag-Aktualisierungsauftrag in Warteschlange: {0}"
-
-#: 
-msgid "Clear All Cache"
-msgstr "Gesamten Cache leeren"
-
-#: 
-msgid "Received article summary update message: {0} : {1}"
-msgstr "Artikelzusammenfassungs-Aktualisierungsnachricht erhalten: {0} : {1}"
-
-#: 
-msgid "Filter"
-msgstr "Filter"
-
-#: 
-msgid "Search slugs..."
-msgstr "Slugs durchsuchen..."
-
-#: 
-msgid "Group Name"
-msgstr "Gruppenname"
-
-#: 
-msgid "All Locales"
-msgstr "Alle Sprachen"
-
-#: 
-msgid "Display"
-msgstr "Anzeige"
-
-#: 
-msgid "No images."
-msgstr "Keine Bilder."
-
-#: 
-msgid "Email sent successfully."
-msgstr "E-Mail erfolgreich gesendet."
-
-#: 
-msgid "Posted on {date} by {author}"
-msgstr "Veröffentlicht am {date} von {author}"
-
-#: 
-msgid "Show Full Article"
-msgstr "Vollständigen Artikel anzeigen"
-
-#: 
-msgid "Article"
-msgstr "Artikel"
-
-#: 
-msgid "Password must be at least 8 characters long"
-msgstr "Das Passwort muss mindestens 8 Zeichen lang sein"
-
-#: 
-msgid "The aiprompt has been saved."
-msgstr "Der KI-Prompt wurde gespeichert."
-
-#: 
-msgid "No articles found for this tag."
-msgstr "Keine Artikel für diesen Tag gefunden."
-
-#: 
-msgid "Queued Article SEO update job: {0}"
-msgstr "Article-SEO-Aktualisierungsauftrag in Warteschlange: {0}"
-
-#: 
-msgid "Failed to send confirmation email message: {0}"
-msgstr "Fehler beim Senden der Bestätigungs-E-Mail: {0}"
-
-#: 
-msgid "Actions"
-msgstr "Aktionen"
-
-#: 
-msgid "Meta Keywords"
-msgstr "Meta-Keywords"
-
-#: 
-msgid "Registration successful. Please check your email for confirmation."
-msgstr "Registrierung erfolgreich. Bitte überprüfen Sie Ihre E-Mail für die Bestätigung."
-
-#: 
-msgid "Add Blocked IP"
-msgstr "Blockierte IP hinzufügen"
-
-#: 
-msgid "Temperature"
-msgstr "Temperatur"
-
-#: 
-msgid "Article SEO update completed successfully. Article ID: {0} Title: {1}"
-msgstr "Artikel-SEO-Aktualisierung erfolgreich abgeschlossen. Artikel-ID: {0} Titel: {1}"
-
-#: 
-msgid "Edit Slug"
-msgstr "Slug bearbeiten"
-
-#: 
-msgid "The value must be 0 or 1."
-msgstr "Der Wert muss 0 oder 1 sein."
-
-#: 
-msgid "Show Less"
-msgstr "Weniger anzeigen"
-
-#: 
-msgid "Delete All Logs"
-msgstr "Alle Protokolle löschen"
-
-#: 
-msgid "Details"
-msgstr "Details"
-
-#: 
-msgid "Failed to save slug: {0}"
-msgstr "Fehler beim Speichern des Slugs: {0}"
-
-#: 
-msgid "Engine"
-msgstr "Motor"
-
-#: 
-msgid "Data exported to {0}"
-msgstr "Daten exportiert nach {0}"
-
-#: 
-msgid "Please log in to add a comment"
-msgstr "Bitte melden Sie sich an, um einen Kommentar hinzuzufügen"
-
-#: 
-msgid "User Agent"
-msgstr "User Agent"
-
-#: 
-msgid "Picture"
-msgstr "Bild"
-
-#: 
-msgid "Failed to save the image"
-msgstr "Fehler beim Speichern des Bildes"
-
-#: 
-msgid "Edit Article"
-msgstr "Artikel bearbeiten"
-
-#: 
-msgid "Page Views"
-msgstr "Seitenaufrufe"
-
-#: 
-msgid "IP Address"
-msgstr "IP-Adresse"
-
-#: 
-msgid "Setting not found: {0}.{1}"
-msgstr "Einstellung nicht gefunden: {0}.{1}"
-
-#: 
-msgid "{0} cache configuration does not exist."
-msgstr "{0} Cache-Konfiguration existiert nicht."
-
-#: 
-msgid "The email template could not be deleted. Please, try again."
-msgstr "Die E-Mail-Vorlage konnte nicht gelöscht werden. Bitte versuchen Sie es erneut."
-
-#: 
-msgid "The internationalisation could not be saved. Please, try again."
-msgstr "Die Internationalisierung konnte nicht gespeichert werden. Bitte versuchen Sie es erneut."
-
-#: 
-msgid "Received tag SEO update message: ID: {0} Title: {1}"
-msgstr "Tag-SEO-Aktualisierungsnachricht empfangen: ID: {0} Titel: {1}"
-
-#: 
-msgid "All logs with level {0} have been deleted."
-msgstr "Alle Protokolle mit Level {0} wurden gelöscht."
-
-#: 
-msgid "Pages"
-msgstr "Seiten"
-
-#: 
-msgid "Image must be less than 5MB."
-msgstr "Das Bild muss kleiner als 5MB sein."
-
-#: 
-msgid "Add Page"
-msgstr "Seite hinzufügen"
-
-#: 
-msgid "Confirm Password"
-msgstr "Passwort bestätigen"
-
-#: 
-msgid "Edit User"
-msgstr "Benutzer bearbeiten"
-
-#: 
-msgid "New Slug"
-msgstr "Neuer Slug"
-
-#: 
-msgid "Add Tag"
-msgstr "Tag hinzufügen"
-
-#: 
-msgid "Last Cleared"
-msgstr "Zuletzt geleert"
-
-#: 
-msgid "The value must be a number."
-msgstr "Der Wert muss eine Zahl sein."
-
-#: 
-msgid "Bulk Upload Images"
-msgstr "Massenupload von Bildern"
-
-#: 
-msgid "Facebook Description"
-msgstr "Facebook-Beschreibung"
-
-#: 
-msgid "The slug could not be deleted. Please, try again."
-msgstr "Der Slug konnte nicht gelöscht werden. Bitte versuchen Sie es erneut."
-
-#: 
-msgid "Date"
-msgstr "Datum"
-
-#: 
-msgid "Add AI Prompt"
-msgstr "KI-Prompt hinzufügen"
-
-#: 
-msgid "Image"
-msgstr "Bild"
-
-#: 
-msgid "Error saving {0}.{1}: {2}"
-msgstr "Fehler beim Speichern von {0}.{1}: {2}"
-
-#: 
-msgid "Additional Images"
-msgstr "Zusätzliche Bilder"
-
-#: 
-msgid "Starting image processing job. Path: {0}, Sizes to process: {1}"
-msgstr "Bildverarbeitungsauftrag wird gestartet. Pfad: {0}, Zu verarbeitende Größen: {1}"
-
-#: 
-msgid "Unable to delete the log."
-msgstr "Das Protokoll konnte nicht gelöscht werden."
-
-#: 
-msgid "The article has been saved."
-msgstr "Der Artikel wurde gespeichert."
-
-#: 
-msgid "Please enter your email and password"
-msgstr "Bitte geben Sie Ihre E-Mail und Ihr Passwort ein"
-
-#: 
-msgid "Update Article"
-msgstr "Artikel aktualisieren"
-
-#: 
-msgid "Attempting to create user with data: {0}"
-msgstr "Versuch, Benutzer mit folgenden Daten zu erstellen: {0}"
-
-#: 
-msgid "The user has been deleted."
-msgstr "Der Benutzer wurde gelöscht."
-
-#: 
-msgid "Is Published"
-msgstr "Ist veröffentlicht"
-
-#: 
-msgid "Search comments..."
-msgstr "Kommentare durchsuchen..."
-
-#: 
-msgid "Failed to save tag SEO updates. ID: {0} Title: {1}"
-msgstr "Fehler beim Speichern der Tag-SEO-Aktualisierungen. ID: {0} Titel: {1}"
-
-#: 
-msgid "Body"
-msgstr "Inhalt"
-
-#: 
-msgid "Are you sure you want to delete comment by {0}?"
-msgstr "Sind Sie sicher, dass Sie den Kommentar von {0} löschen möchten?"
-
-#: 
-msgid "Comment already analyzed. Skipping. Comment ID: {0}"
-msgstr "Kommentar bereits analysiert. Wird übersprungen. Kommentar-ID: {0}"
-
-#: 
-msgid "No comments yet."
-msgstr "Noch keine Kommentare."
-
-#: 
-msgid "Failed to save article SEO updates. Article ID: {0} Title: {1}"
-msgstr "Fehler beim Speichern der Artikel-SEO-Aktualisierungen. Artikel-ID: {0} Titel: {1}"
-
-#: 
-msgid "Referer"
-msgstr "Referrer"
-
-#: 
-msgid "Image analysis completed successfully. Model: {0} ID: {1}"
-msgstr "Bildanalyse erfolgreich abgeschlossen. Modell: {0} ID: {1}"
-
-#: 
-msgid "Original image not found for resizing. Path: {0}"
-msgstr "Originalbild für die Größenänderung nicht gefunden. Pfad: {0}"
-
-#: 
-msgid "Select a parent"
-msgstr "Übergeordnetes Element auswählen"
-
-#: 
-msgid "Grid View"
-msgstr "Rasteransicht"
-
-#: 
-msgid "Login"
-msgstr "Anmelden"
-
-#: 
-msgid "Comment"
-msgstr "Kommentar"
-
-#: 
-msgid "Invalid value for the specified type."
-msgstr "Ungültiger Wert für den angegebenen Typ."
-
-#: 
-msgid "The blocked ip could not be saved. Please, try again."
-msgstr "Die blockierte IP konnte nicht gespeichert werden. Bitte versuchen Sie es erneut."
-
-#: 
-msgid "Add Article"
-msgstr "Artikel hinzufügen"
-
-#: 
-msgid "Subject"
-msgstr "Betreff"
-
-#: 
-msgid "Are you sure you want to delete IP {0}?"
-msgstr "Sind Sie sicher, dass Sie die IP {0} löschen möchten?"
-
-#: 
-msgid "No deleting your own account."
-msgstr "Sie können Ihr eigenes Konto nicht löschen."
-
-#: 
-msgid "Modified At"
-msgstr "Geändert am"
-
-#: 
-msgid "All Tags"
-msgstr "Alle Tags"
-
-#: 
-msgid "Internationalisations"
-msgstr "Internationalisierungen"
-
-#: 
-msgid "AI Prompts"
-msgstr "KI-Prompts"
-
-#: 
-msgid "Invalid type"
-msgstr "Ungültiger Typ"
-
-#: 
-msgid "Processing email job: Template: {0} From: {1} To: {2} viewVars: {3}"
-msgstr "E-Mail-Auftrag wird verarbeitet: Vorlage: {0} Von: {1} An: {2} viewVars: {3}"
-
-#: 
-msgid "Add Email Template"
-msgstr "E-Mail-Vorlage hinzufügen"
-
-#: 
-msgid "The comment has been saved."
-msgstr "Der Kommentar wurde gespeichert."
-
-#: 
-msgid "Update Tag"
-msgstr "Tag aktualisieren"
-
-#: 
-msgid "Queued translation job for batch of {0} messages for locale {1}"
-msgstr "Übersetzungsauftrag für {0} Nachrichten für Sprache {1} in die Warteschlange eingereiht"
-
-#: 
-msgid "Send Email"
-msgstr "E-Mail senden"
-
-#: 
-msgid "Add Image"
-msgstr "Bild hinzufügen"
-
-#: 
-msgid "An error occurred while processing your request."
-msgstr "Bei der Verarbeitung Ihrer Anfrage ist ein Fehler aufgetreten."
-
-#: 
-msgid "Edit Internationalisation"
-msgstr "Internationalisierung bearbeiten"
-
-#: 
-msgid "The comment could not be deleted. Please, try again."
-msgstr "Der Kommentar konnte nicht gelöscht werden. Bitte versuchen Sie es erneut."
-
-#: 
-msgid "Delete"
-msgstr "Löschen"
-
-#: 
-msgid "All caches have been cleared successfully."
-msgstr "Alle Caches wurden erfolgreich geleert."
-
-#: 
-msgid "No internationalizations found for the provided IDs."
-msgstr "Keine Internationalisierungen für die angegebenen IDs gefunden."
-
-#: 
-msgid "Are you sure you want to delete this prompt?"
-msgstr "Sind Sie sicher, dass Sie diesen Prompt löschen möchten?"
-
-#: 
-msgid "Please upload only images (jpeg, png, gif)."
-msgstr "Bitte laden Sie nur Bilder hoch (jpeg, png, gif)."
-
-#: 
-msgid "You cannot remove your own admin status."
-msgstr "Sie können Ihren eigenen Administrator-Status nicht entfernen."
-
-#: 
-msgid "Related Tags"
-msgstr "Verwandte Tags"
-
-#: 
-msgid "{0} Views"
-msgstr "{0} Aufrufe"
-
-#: 
-msgid "No pages found."
-msgstr "Keine Seiten gefunden."
-
-#: 
-msgid "The image could not be saved. Please, try again."
-msgstr "Das Bild konnte nicht gespeichert werden. Bitte versuchen Sie es erneut."
-
-#: 
-msgid "By"
-msgstr "Von"
-
-#: 
-msgid "The tag could not be deleted. Please, try again."
-msgstr "Der Tag konnte nicht gelöscht werden. Bitte versuchen Sie es erneut."
-
-#: 
-msgid "Unknown User"
-msgstr "Unbekannter Benutzer"
-
-#: 
-msgid "Main Picture"
-msgstr "Hauptbild"
-
-#: 
-msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
-msgstr "Seite {{page}} von {{pages}}, zeige {{current}} Datensatz/Datensätze von insgesamt {{count}}"
-
-#: 
-msgid "User Comments"
-msgstr "Benutzerkommentare"
-
-#: 
-msgid "New Blocked IP"
-msgstr "Neue blockierte IP"
+msgid "Search images..."
+msgstr "Bilder suchen..."
 
 #: 
 msgid "Are you sure you want to delete all logs in group {0}?"
-msgstr "Sind Sie sicher, dass Sie alle Protokolle in Gruppe {0} löschen möchten?"
-
-#: 
-msgid "Update Comment"
-msgstr "Kommentar aktualisieren"
+msgstr "Möchten Sie wirklich alle Protokolle in der Gruppe {0} löschen?"
 
 #: 
 msgid "User created successfully: {0}"
 msgstr "Benutzer erfolgreich erstellt: {0}"
 
 #: 
-msgid "No JSON files found in the directory: {0}"
-msgstr "Keine JSON-Dateien im Verzeichnis gefunden: {0}"
+msgid "User"
+msgstr "Benutzer"
 
 #: 
-msgid "No translations found for locale: {0}. Skipping..."
-msgstr "Keine Übersetzungen für Gebietsschema gefunden: {0}. Wird übersprungen..."
+msgid "Clear"
+msgstr "Klar"
 
 #: 
-msgid "Error"
-msgstr "Fehler"
+msgid "Register New Account"
+msgstr "Neues Konto registrieren"
 
 #: 
-msgid "The blocked ip has been deleted."
-msgstr "Die blockierte IP wurde gelöscht."
-
-#: 
-msgid "Article tag update completed successfully. Article ID: {0}"
-msgstr "Artikel-Tag-Aktualisierung erfolgreich abgeschlossen. Artikel-ID: {0}"
-
-#: 
-msgid "New Internationalisation"
-msgstr "Neue Internationalisierung"
-
-#: 
-msgid "The tag has been saved."
-msgstr "Der Tag wurde gespeichert."
-
-#: 
-msgid "Blocked IPs"
-msgstr "Blockierte IPs"
-
-#: 
-msgid "New {0}"
-msgstr "Neue(r) {0}"
-
-#: 
-msgid "New Image"
-msgstr "Neues Bild"
-
-#: 
-msgid "Queue tag SEO update job for Tag:{0}"
-msgstr "SEO-Aktualisierungsauftrag für Tag einreihen: {0}"
-
-#: 
-msgid "Submit Comment"
-msgstr "Kommentar absenden"
-
-#: 
-msgid "Code exported successfully to separate files."
-msgstr "Code wurde erfolgreich in separate Dateien exportiert."
-
-#: 
-msgid "Title"
-msgstr "Titel"
-
-#: 
-msgid "Image analysis failed. Model: {0} ID: {1}"
-msgstr "Bildanalyse fehlgeschlagen. Modell: {0} ID: {1}"
-
-#: 
-msgid "Save All Settings"
-msgstr "Alle Einstellungen speichern"
-
-#: 
-msgid "Search articles..."
-msgstr "Artikel suchen..."
-
-#: 
-msgid "Images"
-msgstr "Bilder"
-
-#: 
-msgid "All Groups"
-msgstr "Alle Gruppen"
-
-#: 
-msgid "Id"
-msgstr "ID"
-
-#: 
-msgid "{0} cache has been cleared successfully."
-msgstr "{0} Cache wurde erfolgreich geleert."
-
-#: 
-msgid "Access denied. You must be an admin to view this page."
-msgstr "Zugriff verweigert. Sie müssen Administrator sein, um diese Seite anzuzeigen."
-
-#: 
-msgid "Configured Caches"
-msgstr "Konfigurierte Caches"
-
-#: 
-msgid "Cache"
-msgstr "Cache"
-
-#: 
-msgid "The blocked ip has been saved."
-msgstr "Die blockierte IP wurde gespeichert."
-
-#: 
-msgid "Context"
-msgstr "Kontext"
-
-#: 
-msgid "A value is required"
-msgstr "Ein Wert wird benötigt"
-
-#: 
-msgid "Comments"
-msgstr "Kommentare"
-
-#: 
-msgid "List View"
-msgstr "Listenansicht"
-
-#: 
-msgid "No page view data available for this article."
-msgstr "Keine Seitenaufruf-Daten für diesen Artikel verfügbar."
-
-#: 
-msgid "Article summary update completed successfully. Article ID: {0} Title: {1}"
-msgstr "Artikel-Zusammenfassung erfolgreich aktualisiert. Artikel-ID: {0} Titel: {1}"
-
-#: 
-msgid "Number of attempts: {0}"
-msgstr "Anzahl der Versuche: {0}"
-
-#: 
-msgid "The aiprompt could not be saved. Please, try again."
-msgstr "Die KI-Eingabeaufforderung konnte nicht gespeichert werden. Bitte versuchen Sie es erneut."
+msgid "Edit Blocked IP"
+msgstr "Blockierte IP bearbeiten"
 
 #: 
 msgid "Expires At"
 msgstr "Läuft ab am"
 
 #: 
-msgid "Alt Text"
-msgstr "Alt-Text"
+msgid "Tag SEO update completed successfully. ID: {0} Title: {1}"
+msgstr "Tag-SEO-Update erfolgreich abgeschlossen. ID: {0} Titel: {1}"
 
 #: 
-msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
-msgstr "E-Mail erfolgreich gesendet an: {0}. Vorlage: {1}, Betreff: {2}"
+msgid "Edit Settings"
+msgstr "Einstellungen bearbeiten"
+
+#: 
+msgid "Users"
+msgstr "Benutzer"
+
+#: 
+msgid "All Locales"
+msgstr "Alle Gebietsschemas"
+
+#: 
+msgid "Last Cleared"
+msgstr "Zuletzt gelöscht"
+
+#: 
+msgid "Are you sure you want to delete # {0}?"
+msgstr "Möchten Sie # {0} wirklich löschen?"
+
+#: 
+msgid "Add Tag"
+msgstr "Tag hinzufügen"
+
+#: 
+msgid "Reason"
+msgstr "Grund"
+
+#: 
+msgid "Deleted all existing records from table: {0}"
+msgstr "Alle vorhandenen Datensätze aus der Tabelle gelöscht: {0}"
+
+#: 
+msgid "Response: {0}"
+msgstr "Antwort: {0}"
+
+#: 
+msgid "Related Articles"
+msgstr "Verwandte Artikel"
+
+#: 
+msgid "User Agent"
+msgstr "Benutzeragent"
+
+#: 
+msgid "Max Tokens"
+msgstr "Maximale Token"
+
+#: 
+msgid "The comment has been saved."
+msgstr "Der Kommentar wurde gespeichert."
+
+#: 
+msgid "This slug is already in use in articles. Please enter a unique slug."
+msgstr "Dieser Slug wird bereits in Artikeln verwendet. Geben Sie bitte einen eindeutigen Slug ein."
+
+#: 
+msgid "Your account has been updated."
+msgstr "Ihr Konto wurde aktualisiert."
+
+#: 
+msgid "The internationalisation has been deleted."
+msgstr "Die Internationalisierung wurde gelöscht."
+
+#: 
+msgid "Twitter Description"
+msgstr "Twitter-Beschreibung"
+
+#: 
+msgid "Model"
+msgstr "Modell"
+
+#: 
+msgid "The image could not be deleted. Please, try again."
+msgstr "Das Bild konnte nicht gelöscht werden. Bitte versuchen Sie es erneut."
+
+#: 
+msgid "Your account has been confirmed. You can now log in."
+msgstr "Ihr Konto wurde bestätigt. Sie können sich jetzt anmelden."
+
+#: 
+msgid "Content"
+msgstr "Inhalt"
+
+#: 
+msgid "Is AI Analyzed"
+msgstr "Wird KI analysiert"
+
+#: 
+msgid "Not published"
+msgstr "Nicht veröffentlicht"
+
+#: 
+msgid "Search logs..."
+msgstr "Protokolle durchsuchen..."
+
+#: 
+msgid "Add Image"
+msgstr "Bild hinzufügen"
+
+#: 
+msgid "Edit"
+msgstr "Bearbeiten"
 
 #: 
 msgid "The comment could not be saved. Please, try again."
 msgstr "Der Kommentar konnte nicht gespeichert werden. Bitte versuchen Sie es erneut."
 
 #: 
-msgid "Edit Blocked IP"
-msgstr "Gesperrte IP bearbeiten"
+msgid "Admin"
+msgstr "Verwaltung"
 
 #: 
-msgid "Word Count"
-msgstr "Wortanzahl"
+msgid "Error resizing image. Original: {0}, Target Width: {1}px, Error: {2}"
+msgstr "Fehler beim Ändern der Bildgröße. Original: {0}, Zielbreite: {1}px, Fehler: {2}"
 
 #: 
-msgid "Failed to save entity: {0} {1}"
-msgstr "Fehler beim Speichern der Entität: {0} {1}"
+msgid "Actions"
+msgstr "Aktionen"
 
 #: 
-msgid "Delete {0}"
-msgstr "Lösche {0}"
+msgid "Page Views for {0}"
+msgstr "Seitenaufrufe für {0}"
+
+#: 
+msgid "Comment for {0}"
+msgstr "Kommentar für {0}"
+
+#: 
+msgid "All caches have been cleared successfully."
+msgstr "Alle Caches wurden erfolgreich geleert."
+
+#: 
+msgid "Email sending failed: {0} to {1}"
+msgstr "Senden der E-Mail fehlgeschlagen: {0} an {1}"
+
+#: 
+msgid "Description"
+msgstr "Beschreibung"
+
+#: 
+msgid "The blocked ip has been deleted."
+msgstr "Die blockierte IP wurde gelöscht."
+
+#: 
+msgid "API request failed. Please try again later."
+msgstr "API-Anforderung ist fehlgeschlagen. Bitte versuchen Sie es später erneut."
+
+#: 
+msgid "The internationalisation could not be saved. Please, try again."
+msgstr "Die Internationalisierung konnte nicht gespeichert werden. Bitte versuchen Sie es erneut."
+
+#: 
+msgid "Updated At"
+msgstr "Aktualisiert am"
+
+#: 
+msgid "Data exported to {0}"
+msgstr "Daten exportiert nach {0}"
+
+#: 
+msgid "Email sent successfully."
+msgstr "E-Mail erfolgreich gesendet."
+
+#: 
+msgid "Enter a number"
+msgstr "Geben Sie eine Nummer ein"
+
+#: 
+msgid "The tag has been saved."
+msgstr "Das Tag wurde gespeichert."
+
+#: 
+msgid "Edit Your Account"
+msgstr "Bearbeiten Sie Ihr Konto"
+
+#: 
+msgid "Article not found"
+msgstr "Artikel nicht gefunden"
+
+#: 
+msgid "Add Internationalisation"
+msgstr "Internationalisierung hinzufügen"
+
+#: 
+msgid "Cache Management"
+msgstr "Cache-Verwaltung"
+
+#: 
+msgid "Available data files:"
+msgstr "Verfügbare Datendateien:"
+
+#: 
+msgid "Task Type"
+msgstr "Aufgabentyp"
+
+#: 
+msgid "Setting not found: {0}.{1}"
+msgstr "Einstellung nicht gefunden: {0}.{1}"
+
+#: 
+msgid "The image could not be saved. Please, try again."
+msgstr "Das Bild konnte nicht gespeichert werden. Bitte versuchen Sie es erneut."
+
+#: 
+msgid "List {0}"
+msgstr "Liste {0}"
+
+#: 
+msgid "The slug has been deleted."
+msgstr "Der Slug wurde gelöscht."
+
+#: 
+msgid "Related Tags"
+msgstr "Verwandte Tags"
+
+#: 
+msgid "Email sent successfully: {0} to {1}"
+msgstr "E-Mail erfolgreich gesendet: {0} an {1}"
+
+#: 
+msgid "Code exported successfully to separate files."
+msgstr "Code erfolgreich in separate Dateien exportiert."
+
+#: 
+msgid "Starting image processing job. Path: {0}, Sizes to process: {1}"
+msgstr "Bildverarbeitungsauftrag wird gestartet. Pfad: {0}, zu verarbeitende Größen: {1}"
+
+#: 
+msgid "Yes"
+msgstr "Ja"
+
+#: 
+msgid "Meta Description"
+msgstr "Meta-Beschreibung"
+
+#: 
+msgid "Edit Aiprompt"
+msgstr "Aiprompt bearbeiten"
+
+#: 
+msgid "Error saving {0}.{1}: {2}"
+msgstr "Fehler beim Speichern von {0}.{1}: {2}"
+
+#: 
+msgid "There was an issue confirming your account. Please try again."
+msgstr "Bei der Bestätigung Ihres Kontos ist ein Fehler aufgetreten. Versuchen Sie es erneut."
+
+#: 
+msgid "Queued translation job for batch of {0} messages for locale {1}"
+msgstr "In die Warteschlange gestellter Übersetzungsauftrag für einen Stapel von {0} Nachrichten für das Gebietsschema {1}"
+
+#: 
+msgid "Update User"
+msgstr "Benutzer aktualisieren"
+
+#: 
+msgid "No view records found for this article."
+msgstr "Für diesen Artikel wurden keine Ansichtsdatensätze gefunden."
+
+#: 
+msgid "Message Id"
+msgstr "Nachrichten-ID"
+
+#: 
+msgid "Are you sure you want to delete IP {0}?"
+msgstr "Möchten Sie die IP {0} wirklich löschen?"
+
+#: 
+msgid "Imported data into table: {0}"
+msgstr "In Tabelle importierte Daten: {0}"
+
+#: 
+msgid "Image"
+msgstr "Bild"
+
+#: 
+msgid "New AI Prompt"
+msgstr "Neue KI-Eingabeaufforderung"
+
+#: 
+msgid "The image has been saved."
+msgstr "Das Bild wurde gespeichert."
+
+#: 
+msgid "Unable to delete logs with level {0}."
+msgstr "Protokolle mit Ebene {0} können nicht gelöscht werden."
+
+#: 
+msgid "Testing rate limit on URL: {0}"
+msgstr "Testen der Ratenbegrenzung für URL: {0}"
+
+#: 
+msgid "New Email Template"
+msgstr "Neue E-Mail-Vorlage"
+
+#: 
+msgid "Delete All Logs"
+msgstr "Alle Protokolle löschen"
+
+#: 
+msgid "Display"
+msgstr "Anzeige"
+
+#: 
+msgid "The user could not be saved. Please, try again."
+msgstr "Der Benutzer konnte nicht gespeichert werden. Bitte versuchen Sie es erneut."
+
+#: 
+msgid "{0} cache has been cleared successfully."
+msgstr "Der {0}-Cache wurde erfolgreich geleert."
+
+#: 
+msgid "Add Blocked IP"
+msgstr "Blockierte IP hinzufügen"
+
+#: 
+msgid "Toggle SEO Fields"
+msgstr "SEO-Felder umschalten"
+
+#: 
+msgid "Slug:"
+msgstr "Schnecke:"
+
+#: 
+msgid "Invalid choice."
+msgstr "Ungültige Auswahl."
+
+#: 
+msgid "No internationalizations found for the provided IDs."
+msgstr "Für die angegebenen IDs wurden keine Internationalisierungen gefunden."
+
+#: 
+msgid "Error"
+msgstr "Fehler"
+
+#: 
+msgid "Some settings could not be saved. Please, try again."
+msgstr "Einige Einstellungen konnten nicht gespeichert werden. Bitte versuchen Sie es erneut."
+
+#: 
+msgid "Queued Article SEO update job: {0}"
+msgstr "SEO-Aktualisierungsjob für Artikel in der Warteschlange: {0}"
+
+#: 
+msgid "Update Image"
+msgstr "Bild aktualisieren"
+
+#: 
+msgid "The article has been deleted."
+msgstr "Der Artikel wurde gelöscht."
+
+#: 
+msgid "Queued Article Summary update job: {0}"
+msgstr "Aktualisierungsauftrag für die Zusammenfassung der in die Warteschlange gestellten Artikel: {0}"
+
+#: 
+msgid "{0} cache configuration does not exist."
+msgstr "{0} Cache-Konfiguration existiert nicht."
+
+#: 
+msgid "All logs have been deleted."
+msgstr "Alle Protokolle wurden gelöscht."
+
+#: 
+msgid "Received image analysis message: Image ID: {0} Path: {1}"
+msgstr "Empfangene Bildanalysenachricht: Bild-ID: {0} Pfad: {1}"
+
+#: 
+msgid "The image has been deleted."
+msgstr "Das Bild wurde gelöscht."
+
+#: 
+msgid "Bulk Upload Images"
+msgstr "Massen-Upload von Bildern"
+
+#: 
+msgid "The blocked ip has been saved."
+msgstr "Die blockierte IP wurde gespeichert."
+
+#: 
+msgid "Login"
+msgstr "Login"
+
+#: 
+msgid "The user could not be deleted. Please, try again."
+msgstr "Der Benutzer konnte nicht gelöscht werden. Bitte versuchen Sie es erneut."
+
+#: 
+msgid "Inappropriate Reason"
+msgstr "Unangemessener Grund"
+
+#: 
+msgid "Add Email Template"
+msgstr "E-Mail-Vorlage hinzufügen"
 
 #: 
 msgid "Profile Picture"
 msgstr "Profilbild"
 
 #: 
+msgid "Edit Article"
+msgstr "Artikel bearbeiten"
+
+#: 
+msgid "Alt Text"
+msgstr "Alternativtext"
+
+#: 
+msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
+msgstr "Nachfolgend finden Sie Informationen zu den konfigurierten Caches. Klicken Sie auf die Schaltfläche, um alle Caches zu löschen, oder auf die Schaltflächen „Einzelne Caches“, um bestimmte Caches zu löschen."
+
+#: 
+msgid "The email template could not be deleted. Please, try again."
+msgstr "Die E-Mail-Vorlage konnte nicht gelöscht werden. Bitte versuchen Sie es erneut."
+
+#: 
+msgid "Engine"
+msgstr "Motor"
+
+#: 
+msgid "All Tags"
+msgstr "Alle Tags"
+
+#: 
+msgid "The slug has been saved."
+msgstr "Die Schnecke wurde gerettet."
+
+#: 
+msgid "Front Site"
+msgstr "Vorderseite"
+
+#: 
+msgid "New Slug"
+msgstr "Neue Schnecke"
+
+#: 
+msgid "Configured Caches"
+msgstr "Konfigurierte Caches"
+
+#: 
+msgid "Is Published"
+msgstr "Wird veröffentlicht"
+
+#: 
+msgid "The log has been deleted."
+msgstr "Das Protokoll wurde gelöscht."
+
+#: 
+msgid "Generated default.po for locale: {0}"
+msgstr "Generierte Datei default.po für das Gebietsschema: {0}"
+
+#: 
+msgid "Received image processing message: Image ID: {0} Path: {1}"
+msgstr "Empfangene Bildverarbeitungsnachricht: Bild-ID: {0} Pfad: {1}"
+
+#: 
+msgid "Context"
+msgstr "Kontext"
+
+#: 
+msgid "Search users..."
+msgstr "Benutzer suchen..."
+
+#: 
+msgid "An Internal Error Has Occurred."
+msgstr "Es ist ein interner Fehler aufgetreten."
+
+#: 
+msgid "Unable to add your comment."
+msgstr "Ihr Kommentar konnte nicht hinzugefügt werden."
+
+#: 
+msgid "Code Coverage"
+msgstr "Code-Abdeckung"
+
+#: 
+msgid "Cache"
+msgstr "Zwischenspeicher"
+
+#: 
+msgid "Word Count"
+msgstr "Wortanzahl"
+
+#: 
+msgid "Queue tag SEO update job for Tag:{0}"
+msgstr "Tag-SEO-Aktualisierungsjob für Tag: {0} in die Warteschlange stellen"
+
+#: 
+msgid "Choose a file to import by number:"
+msgstr "Wählen Sie eine zu importierende Datei nach Nummer aus:"
+
+#: 
+msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
+msgstr "Der Slug steht im Konflikt mit einer vorhandenen SEO-Weiterleitung. Bitte wählen Sie einen anderen Slug."
+
+#: 
+msgid "Successfully resized and saved image. Original: {0}, Resized: {1}, Width: {2}px"
+msgstr "Größe des Bildes erfolgreich geändert und gespeichert. Original: {0}, Größe geändert: {1}, Breite: {2}px"
+
+#: 
+msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
+msgstr "Seite {{page}} von {{pages}}, zeigt {{current}} Datensatz(e) von {{count}} insgesamt"
+
+#: 
+msgid "The email template has been saved."
+msgstr "Die E-Mail-Vorlage wurde gespeichert."
+
+#: 
+msgid "Are you sure you want to delete comment by {0}?"
+msgstr "Möchten Sie den Kommentar von {0} wirklich löschen?"
+
+#: 
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: 
+msgid "Add Article"
+msgstr "Artikel hinzufügen"
+
+#: 
+msgid "Too many requests. Please try again later."
+msgstr "Zu viele Anfragen. Bitte versuchen Sie es später erneut."
+
+#: 
+msgid "Internationalisation"
+msgstr "Internationalisierung"
+
+#: 
+msgid "All Levels"
+msgstr "Alle Levels"
+
+#: 
+msgid "Failed to save article SEO updates. Article ID: {0} Title: {1}"
+msgstr "SEO-Updates des Artikels konnten nicht gespeichert werden. Artikel-ID: {0} Titel: {1}"
+
+#: 
+msgid "Are you sure you want to delete {0}?"
+msgstr "Möchten Sie {0} wirklich löschen?"
+
+#: 
+msgid "Send Email"
+msgstr "E-Mail senden"
+
+#: 
+msgid "Show Less"
+msgstr "Weniger zeigen"
+
+#: 
+msgid "Edit Email Template"
+msgstr "E-Mail-Vorlage bearbeiten"
+
+#: 
+msgid "Invalid confirmation code. Please contact support."
+msgstr "Ungültiger Bestätigungscode. Bitte wenden Sie sich an den Support."
+
+#: 
+msgid "Comment analysis completed successfully. Comment ID: {0}"
+msgstr "Kommentaranalyse erfolgreich abgeschlossen. Kommentar-ID: {0}"
+
+#: 
+msgid "Image uploaded successfully"
+msgstr "Bild erfolgreich hochgeladen"
+
+#: 
+msgid "Created"
+msgstr "Erstellt"
+
+#: 
+msgid "Comment already analyzed. Skipping. Comment ID: {0}"
+msgstr "Kommentar wurde bereits analysiert. Wird übersprungen. Kommentar-ID: {0}"
+
+#: 
+msgid "Invalid username or password"
+msgstr "Ungültiger Benutzername oder ungültiges Passwort"
+
+#: 
+msgid "Page View Statistics for slug: {0}"
+msgstr "Seitenaufrufstatistiken für Slug: {0}"
+
+#: 
+msgid "Summary"
+msgstr "Zusammenfassung"
+
+#: 
+msgid "The settings have been saved."
+msgstr "Die Einstellungen wurden gespeichert."
+
+#: 
+msgid "The email template could not be saved. Please, try again."
+msgstr "Die E-Mail-Vorlage konnte nicht gespeichert werden. Bitte versuchen Sie es erneut."
+
+#: 
+msgid "The article could not be deleted. Please, try again."
+msgstr "Der Artikel konnte nicht gelöscht werden. Bitte versuchen Sie es erneut."
+
+#: 
+msgid "The aiprompt could not be saved. Please, try again."
+msgstr "Der Aiprompt konnte nicht gespeichert werden. Bitte versuchen Sie es erneut."
+
+#: 
+msgid "Imagick extension is not loaded"
+msgstr "Die Imagick-Erweiterung wurde nicht geladen"
+
+#: 
+msgid "Edit User"
+msgstr "Benutzer bearbeiten"
+
+#: 
+msgid "Number of attempts: {0}"
+msgstr "Anzahl der Versuche: {0}"
+
+#: 
+msgid "New User"
+msgstr "Neuer Benutzer"
+
+#: 
+msgid "Update Article"
+msgstr "Artikel aktualisieren"
+
+#: 
+msgid "Locale"
+msgstr "Gebietsschema"
+
+#: 
+msgid "Access denied. You must be an admin to view this page."
+msgstr "Zugriff verweigert. Sie müssen ein Administrator sein, um diese Seite anzuzeigen."
+
+#: 
+msgid "No articles found for this tag."
+msgstr "Es wurden keine Artikel zu diesem Tag gefunden."
+
+#: 
+msgid "Instagram Description"
+msgstr "Instagram Beschreibung"
+
+#: 
+msgid "Search articles..."
+msgstr "Artikel suchen..."
+
+#: 
+msgid "The blocked ip could not be saved. Please, try again."
+msgstr "Die blockierte IP konnte nicht gespeichert werden. Bitte versuchen Sie es erneut."
+
+#: 
+msgid "Missing required arguments in the message."
+msgstr "In der Nachricht fehlen erforderliche Argumente."
+
+#: 
+msgid "New {0}"
+msgstr "Neu {0}"
+
+#: 
+msgid "Logs"
+msgstr "Protokolle"
+
+#: 
+msgid "Unknown User"
+msgstr "Unbekannter Benutzer"
+
+#: 
+msgid "System Prompt"
+msgstr "Systemaufforderung"
+
+#: 
+msgid "Failed to save the image"
+msgstr "Das Bild konnte nicht gespeichert werden"
+
+#: 
+msgid "Are you sure you want to delete all logs?"
+msgstr "Möchten Sie wirklich alle Protokolle löschen?"
+
+#: 
+msgid "Email template not found: {0}"
+msgstr "E-Mail-Vorlage nicht gefunden: {0}"
+
+#: 
+msgid "Image analysis completed successfully. Model: {0} ID: {1}"
+msgstr "Bildanalyse erfolgreich abgeschlossen. Modell: {0} ID: {1}"
+
+#: 
+msgid "Delete"
+msgstr "Löschen"
+
+#: 
+msgid "Tag SEO update failed. No result returned. ID: {0} Title: {1}"
+msgstr "Tag SEO-Update fehlgeschlagen. Kein Ergebnis zurückgegeben. ID: {0} Titel: {1}"
+
+#: 
+msgid "Add AI Prompt"
+msgstr "KI-Eingabeaufforderung hinzufügen"
+
+#: 
+msgid "Image processing job completed successfully. Path: {0}"
+msgstr "Bildverarbeitungsauftrag erfolgreich abgeschlossen. Pfad: {0}"
+
+#: 
+msgid "Comments"
+msgstr "Kommentare"
+
+#: 
+msgid "Rate limit exceeded for IP: {0} on route: {1}"
+msgstr "Ratenbegrenzung überschritten für IP: {0} auf Route: {1}"
+
+#: 
+msgid "Article not found."
+msgstr "Artikel nicht gefunden."
+
+#: 
+msgid "Article SEO update failed. No result returned. Article ID: {0} Title: {1}"
+msgstr "SEO-Update des Artikels fehlgeschlagen. Kein Ergebnis zurückgegeben. Artikel-ID: {0} Titel: {1}"
+
+#: 
+msgid "Images"
+msgstr "Bilder"
+
+#: 
+msgid "No comments yet."
+msgstr "Noch keine Kommentare vorhanden."
+
+#: 
+msgid "Is Admin"
+msgstr "Ist Admin"
+
+#: 
+msgid "Received comment analysis message: Comment ID: {0} User ID: {1}"
+msgstr "Empfangene Kommentaranalysenachricht: Kommentar-ID: {0} Benutzer-ID: {1}"
+
+#: 
+msgid "Show Details"
+msgstr "Details anzeigen"
+
+#: 
+msgid "Slugs"
+msgstr "Schnecken"
+
+#: 
+msgid "Failed to send email. Please check your email configuration."
+msgstr "Senden der E-Mail fehlgeschlagen. Bitte überprüfen Sie Ihre E-Mail-Konfiguration."
+
+#: 
+msgid "The value must be a number."
+msgstr "Der Wert muss eine Zahl sein."
+
+#: 
+msgid "Add Slug"
+msgstr "Slug hinzufügen"
+
+#: 
+msgid "Slug"
+msgstr "Schnecke"
+
+#: 
+msgid "Email Templates"
+msgstr "E-Mail-Vorlagen"
+
+#: 
+msgid "Cache Name"
+msgstr "Cachename"
+
+#: 
+msgid "Failed to save entity: {0} {1}"
+msgstr "Entität konnte nicht gespeichert werden: {0} {1}"
+
+#: 
+msgid "Comment analysis failed. No result returned. Comment ID: {0}"
+msgstr "Kommentaranalyse fehlgeschlagen. Kein Ergebnis zurückgegeben. Kommentar-ID: {0}"
+
+#: 
+msgid "Article ID:"
+msgstr "Artikel-ID:"
+
+#: 
+msgid "{0} Views"
+msgstr "{0} Ansichten"
+
+#: 
+msgid "Original image not found for resizing. Path: {0}"
+msgstr "Originalbild zur Größenänderung nicht gefunden. Pfad: {0}"
+
+#: 
+msgid "New tag created: {0}"
+msgstr "Neues Tag erstellt: {0}"
+
+#: 
+msgid "Please enter your email and password"
+msgstr "Bitte geben Sie Ihre E-Mail und Ihr Passwort ein"
+
+#: 
+msgid "Failed to send confirmation email message: {0}"
+msgstr "Das Senden der Bestätigungs-E-Mail ist fehlgeschlagen: {0}"
+
+#: 
+msgid "The email template has been deleted."
+msgstr "Die E-Mail-Vorlage wurde gelöscht."
+
+#: 
+msgid "Associated Pages"
+msgstr "Verwandte Seiten"
+
+#: 
+msgid "You cannot remove your own admin status."
+msgstr "Sie können Ihren eigenen Administratorstatus nicht entfernen."
+
+#: 
+msgid "Failed to save article summary updates. Article ID: {0} Title: {1}"
+msgstr "Die Aktualisierungen der Artikelzusammenfassung konnten nicht gespeichert werden. Artikel-ID: {0} Titel: {1}"
+
+#: 
+msgid "Too Many Requests"
+msgstr "Zu viele Anfragen"
+
+#: 
+msgid "Received article tag update message: {0} : {1}"
+msgstr "Nachricht zur Aktualisierung des Artikel-Tags erhalten: {0} : {1}"
+
+#: 
+msgid "Level"
+msgstr "Ebene"
+
+#: 
+msgid "Add Page"
+msgstr "Seite hinzufügen"
+
+#: 
+msgid "Articles"
+msgstr "Artikel"
+
+#: 
+msgid "Attempt {0} failed. Error ({1}): {2}"
+msgstr "Versuch {0} ist fehlgeschlagen. Fehler ({1}): {2}"
+
+#: 
+msgid "Name"
+msgstr "Name"
+
+#: 
+msgid "Received article summary update message: {0} : {1}"
+msgstr "Aktualisierungsnachricht zur Artikelzusammenfassung erhalten: {0} : {1}"
+
+#: 
+msgid "Error during image analysis: {0}"
+msgstr "Fehler während der Bildanalyse: {0}"
+
+#: 
+msgid "Show Full Article"
+msgstr "Vollständigen Artikel anzeigen"
+
+#: 
+msgid "Processing email job: Template: {0} From: {1} To: {2} viewVars: {3}"
+msgstr "E-Mail-Job wird verarbeitet: Vorlage: {0} Von: {1} An: {2} viewVars: {3}"
+
+#: 
+msgid "Image must be less than 5MB."
+msgstr "Das Bild muss kleiner als 5 MB sein."
+
+#: 
+msgid "By"
+msgstr "Von"
+
+#: 
+msgid "No"
+msgstr "NEIN"
+
+#: 
+msgid "Are you sure you want to delete all {0} logs?"
+msgstr "Möchten Sie wirklich alle {0} Protokolle löschen?"
+
+#: 
+msgid "Search slugs..."
+msgstr "Suche Schnecken..."
+
+#: 
+msgid "No images."
+msgstr "Keine Bilder."
+
+#: 
+msgid "The tag has been deleted."
+msgstr "Das Tag wurde gelöscht."
+
+#: 
+msgid "Is Inappropriate"
+msgstr "Ist unangemessen"
+
+#: 
+msgid "Modified"
+msgstr "Geändert"
+
+#: 
+msgid "List View"
+msgstr "Listenansicht"
+
+#: 
+msgid "System Logs"
+msgstr "Systemprotokolle"
+
+#: 
+msgid "Filter"
+msgstr "Filter"
+
+#: 
+msgid "A value is required"
+msgstr "Ein Wert ist erforderlich"
+
+#: 
+msgid "Registration successful, but there was an issue creating the confirmation link."
+msgstr "Die Registrierung war erfolgreich, allerdings ist beim Erstellen des Bestätigungslinks ein Problem aufgetreten."
+
+#: 
+msgid "Error in: "
+msgstr "Fehler in: "
+
+#: 
+msgid "SEO Fields"
+msgstr "SEO-Felder"
+
+#: 
+msgid "Registration failed. Please, try again."
+msgstr "Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut."
+
+#: 
+msgid "View"
+msgstr "Sicht"
+
+#: 
+msgid "Referer"
+msgstr "Referrer"
+
+#: 
+msgid "Article tag update failed. No valid result returned. Article ID: {0}"
+msgstr "Aktualisierung des Artikel-Tags fehlgeschlagen. Kein gültiges Ergebnis zurückgegeben. Artikel-ID: {0}"
+
+#: 
+msgid "The requested address {0} was not found on this server."
+msgstr "Die angeforderte Adresse {0} wurde auf diesem Server nicht gefunden."
+
+#: 
+msgid "New Article"
+msgstr "Neuer Artikel"
+
+#: 
+msgid "Edit Comment"
+msgstr "Kommentar bearbeiten"
+
+#: 
+msgid "IP Address"
+msgstr "IP-Adresse"
+
+#: 
+msgid "Submit"
+msgstr "Einreichen"
+
+#: 
+msgid "An error occurred while processing your request."
+msgstr "Beim Verarbeiten Ihrer Anfrage ist ein Fehler aufgetreten."
+
+#: 
+msgid "The article could not be saved. Please, try again."
+msgstr "Der Artikel konnte nicht gespeichert werden. Versuchen Sie es bitte noch einmal."
+
+#: 
+msgid "Grid View"
+msgstr "Rasteransicht"
+
+#: 
+msgid "Failed to send email to: {0}"
+msgstr "E-Mail konnte nicht gesendet werden an: {0}"
+
+#: 
+msgid "Received tag SEO update message: ID: {0} Title: {1}"
+msgstr "Empfangene Tag-SEO-Update-Nachricht: ID: {0} Titel: {1}"
+
+#: 
+msgid "No pages found."
+msgstr "Keine Seiten gefunden."
+
+#: 
+msgid "Search comments..."
+msgstr "Kommentare durchsuchen..."
+
+#: 
+msgid "The internationalisation has been saved."
+msgstr "Die Internationalisierung ist gesichert."
+
+#: 
+msgid "Your comment has been added."
+msgstr "Ihr Kommentar wurde hinzugefügt."
+
+#: 
+msgid "No page view data available for this article."
+msgstr "Für diesen Artikel sind keine Seitenaufrufdaten verfügbar."
+
+#: 
+msgid "Keywords"
+msgstr "Schlagwörter"
+
+#: 
+msgid "Delete {0}"
+msgstr "Löschen Sie {0}"
+
+#: 
+msgid "Posted on {date} by {author}"
+msgstr "Gepostet am {date} von {author}"
+
+#: 
+msgid "Unable to delete all logs."
+msgstr "Es können nicht alle Protokolle gelöscht werden."
+
+#: 
+msgid "New Tag"
+msgstr "Neues Tag"
+
+#: 
+msgid "New Internationalisation"
+msgstr "Neue Internationalisierung"
+
+#: 
+msgid "Read More"
+msgstr "Mehr lesen"
+
+#: 
+msgid "The value must not be empty."
+msgstr "Der Wert darf nicht leer sein."
+
+#: 
+msgid "Body"
+msgstr "Körper"
+
+#: 
+msgid "Block IPs"
+msgstr "IPs blockieren"
+
+#: 
+msgid "You are not authorized to edit this account, stick to your own."
+msgstr "Sie sind nicht berechtigt, dieses Konto zu bearbeiten, bleiben Sie bei Ihrem eigenen."
+
+#: 
+msgid "Title"
+msgstr "Titel"
+
+#: 
+msgid "Additional Images"
+msgstr "Weitere Bilder"
+
+#: 
+msgid "Edit Slug"
+msgstr "Slug bearbeiten"
+
+#: 
+msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
+msgstr "Der Slug muss URL-sicher sein (nur Kleinbuchstaben, Zahlen und Bindestriche)"
+
+#: 
+msgid "Are you sure you want to clear {0}?"
+msgstr "Möchten Sie {0} wirklich löschen?"
+
+#: 
 msgid "Views"
-msgstr "Aufrufe"
+msgstr "Ansichten"
+
+#: 
+msgid "List Email Templates"
+msgstr "Listen Sie E-Mail-Vorlagen auf"
+
+#: 
+msgid "Code exported successfully to {0}"
+msgstr "Code erfolgreich nach {0} exportiert"
+
+#: 
+msgid "Internationalisations"
+msgstr "Internationalisierungen"
+
+#: 
+msgid "Pages"
+msgstr "Seiten"
+
+#: 
+msgid "Update Slug"
+msgstr "Slug aktualisieren"
+
+#: 
+msgid "Group Name"
+msgstr "Gruppenname"
+
+#: 
+msgid "Invalid type"
+msgstr "Ungültiger Typ"
+
+#: 
+msgid "Queued Article Tag update job: {0}"
+msgstr "Job zur Aktualisierung von Artikel-Tags in der Warteschlange: {0}"
+
+#: 
+msgid "Message Str"
+msgstr "Nachrichten-Str"
+
+#: 
+msgid "Published"
+msgstr "Veröffentlicht"
+
+#: 
+msgid "No translations found for locale: {0}. Skipping..."
+msgstr "Für das Gebietsschema {0} wurden keine Übersetzungen gefunden. Wird übersprungen..."
+
+#: 
+msgid "Subject"
+msgstr "Thema"
+
+#: 
+msgid "Edit Image"
+msgstr "Bild bearbeiten"
+
+#: 
+msgid "Meta Title"
+msgstr "Meta-Titel"
+
+#: 
+msgid "Failed to save tag SEO updates. ID: {0} Title: {1}"
+msgstr "Das Speichern der Tag-SEO-Updates ist fehlgeschlagen. ID: {0} Titel: {1}"
+
+#: 
+msgid "Error loading images:"
+msgstr "Fehler beim Laden der Bilder:"
+
+#: 
+msgid "Message"
+msgstr "Nachricht"
+
+#: 
+msgid "{0} cache could not be cleared."
+msgstr "Der {0}-Cache konnte nicht geleert werden."
+
+#: 
+msgid "The slug must be unique."
+msgstr "Der Slug muss eindeutig sein."
+
+#: 
+msgid "Password must be at least 8 characters long"
+msgstr "Das Passwort muss mindestens 8 Zeichen lang sein"
+
+#: 
+msgid "All logs in group {0} have been deleted."
+msgstr "Alle Protokolle in Gruppe {0} wurden gelöscht."
+
+#: 
+msgid "Failed to save slug: {0}"
+msgstr "Slug konnte nicht gespeichert werden: {0}"
+
+#: 
+msgid "New Image"
+msgstr "Neues Bild"
+
+#: 
+msgid "Are you sure you want to delete this comment?"
+msgstr "Möchten Sie diesen Kommentar wirklich löschen?"
+
+#: 
+msgid "Logout"
+msgstr "Ausloggen"
+
+#: 
+msgid "No tags are linked."
+msgstr "Es sind keine Tags verknüpft."
+
+#: 
+msgid "Update Aiprompt"
+msgstr "Aiprompt aktualisieren"
+
+#: 
+msgid "Article SEO update completed successfully. Article ID: {0} Title: {1}"
+msgstr "SEO-Update des Artikels erfolgreich abgeschlossen. Artikel-ID: {0} Titel: {1}"
+
+#: 
+msgid "View detailed records for this date"
+msgstr "Detaillierte Aufzeichnungen für dieses Datum anzeigen"
+
+#: 
+msgid "Failed to save article tag updates. Article ID: {0} Error: {1}"
+msgstr "Das Speichern der Artikel-Tag-Updates ist fehlgeschlagen. Artikel-ID: {0} Fehler: {1}"
+
+#: 
+msgid "Meta Keywords"
+msgstr "Meta-Schlüsselwörter"
+
+#: 
+msgid "Unable to delete logs in group {0}."
+msgstr "Protokolle in Gruppe {0} können nicht gelöscht werden."
 
 #: 
 msgid "The internationalisation could not be deleted. Please, try again."
 msgstr "Die Internationalisierung konnte nicht gelöscht werden. Bitte versuchen Sie es erneut."
 
 #: 
+msgid "Input file not found: {0}"
+msgstr "Eingabedatei nicht gefunden: {0}"
+
+#: 
+msgid "Enter text"
+msgstr "Text eingeben"
+
+#: 
+msgid "Please log in to add a comment"
+msgstr "Bitte melden Sie sich an, um einen Kommentar hinzuzufügen"
+
+#: 
+msgid "All Groups"
+msgstr "Alle Gruppen"
+
+#: 
+msgid "Blocked At"
+msgstr "Blockiert am"
+
+#: 
+msgid "Attempting to create user with data: {0}"
+msgstr "Versuch, einen Benutzer mit den Daten zu erstellen: {0}"
+
+#: 
+msgid "The blocked ip could not be deleted. Please, try again."
+msgstr "Die blockierte IP konnte nicht gelöscht werden. Bitte versuchen Sie es erneut."
+
+#: 
+msgid "Register"
+msgstr "Registrieren"
+
+#: 
+msgid "Failed to update comment status. Comment ID: {0}"
+msgstr "Der Kommentarstatus konnte nicht aktualisiert werden. Kommentar-ID: {0}"
+
+#: 
+msgid "Received article SEO update message: {0} : {1}"
+msgstr "Nachricht zur SEO-Aktualisierung des Artikels erhalten: {0} : {1}"
+
+#: 
+msgid "Error during image processing. Path: {0}, Error: {1}"
+msgstr "Fehler bei der Bildverarbeitung. Pfad: {0}, Fehler: {1}"
+
+#: 
+msgid "The comment could not be deleted. Please, try again."
+msgstr "Der Kommentar konnte nicht gelöscht werden. Bitte versuchen Sie es erneut."
+
+#: 
+msgid "Unknown Author"
+msgstr "Unbekannter Autor"
+
+#: 
+msgid "Picture"
+msgstr "Bild"
+
+#: 
+msgid "Article summary update completed successfully. Article ID: {0} Title: {1}"
+msgstr "Aktualisierung der Artikelzusammenfassung erfolgreich abgeschlossen. Artikel-ID: {0} Titel: {1}"
+
+#: 
+msgid "List Blocked IPs"
+msgstr "Liste blockierter IPs"
+
+#: 
+msgid "Main Picture"
+msgstr "Hauptbild"
+
+#: 
+msgid "Comment"
+msgstr "Kommentar"
+
+#: 
+msgid "Modified At"
+msgstr "Geändert am"
+
+#: 
+msgid "This slug is already in use. Please enter a unique slug."
+msgstr "Dieser Slug wird bereits verwendet. Geben Sie einen eindeutigen Slug ein."
+
+#: 
+msgid "Facebook Description"
+msgstr "Facebook-Beschreibung"
+
+#: 
+msgid "Edit {0}"
+msgstr "Bearbeiten {0}"
+
+#: 
+msgid "The user has been deleted."
+msgstr "Der Benutzer wurde gelöscht."
+
+#: 
+msgid "This message_id must be unique for the given locale."
+msgstr "Diese Nachrichten-ID muss für das angegebene Gebietsschema eindeutig sein."
+
+#: 
+msgid "Registration successful. Please check your email for confirmation."
+msgstr "Registrierung erfolgreich. Bitte überprüfen Sie Ihre E-Mail zur Bestätigung."
+
+#: 
+msgid "Date"
+msgstr "Datum"
+
+#: 
+msgid "Image analysis failed. Model: {0} ID: {1}"
+msgstr "Bildanalyse fehlgeschlagen. Modell: {0} ID: {1}"
+
+#: 
+msgid "You must be logged in to add a comment."
+msgstr "Sie müssen angemeldet sein, um einen Kommentar hinzuzufügen."
+
+#: 
+msgid "Edit Internationalisation"
+msgstr "Internationalisierung bearbeiten"
+
+#: 
+msgid "All logs with level {0} have been deleted."
+msgstr "Alle Protokolle mit der Ebene {0} wurden gelöscht."
+
+#: 
+msgid "Id"
+msgstr "Ausweis"
+
+#: 
+msgid "Body Text"
+msgstr "Textkörper"
+
+#: 
+msgid "AI Prompts"
+msgstr "KI-Eingabeaufforderungen"
+
+#: 
+msgid "The article has been saved."
+msgstr "Der Artikel wurde gespeichert."
+
+#: 
+msgid "Article"
+msgstr "Artikel"
+
+#: 
 msgid "Search tags..."
-msgstr "Tags suchen..."
+msgstr "Such-Tags..."
+
+#: 
+msgid "Edit Tag"
+msgstr "Tag bearbeiten"
+
+#: 
+msgid "Article summary update failed. No valid result returned. Article ID: {0} Title: {1}"
+msgstr "Aktualisierung der Artikelzusammenfassung fehlgeschlagen. Kein gültiges Ergebnis zurückgegeben. Artikel-ID: {0} Titel: {1}"
+
+#: 
+msgid "You cannot disable your own account."
+msgstr "Sie können Ihr eigenes Konto nicht deaktivieren."
+
+#: 
+msgid "Add a Comment"
+msgstr "Schreibe einen Kommentar"
+
+#: 
+msgid "Save All Settings"
+msgstr "Alle Einstellungen speichern"
+
+#: 
+msgid "The aiprompt has been saved."
+msgstr "Der Airprompt wurde gespeichert."
+
+#: 
+msgid "Update Comment"
+msgstr "Kommentar aktualisieren"
+
+#: 
+msgid "Please upload only images (jpeg, png, gif)."
+msgstr "Bitte laden Sie nur Bilder (jpeg, png, gif) hoch."
+
+#: 
+msgid "Are you sure you want to delete this prompt?"
+msgstr "Möchten Sie diese Eingabeaufforderung wirklich löschen?"
+
+#: 
+msgid "Some caches were cleared, but the following failed: {0}"
+msgstr "Einige Caches wurden geleert, aber Folgendes ist fehlgeschlagen: {0}"
+
+#: 
+msgid "Add User"
+msgstr "Benutzer hinzufügen"
+
+#: 
+msgid "Never"
+msgstr "Niemals"
+
+#: 
+msgid "Clear All Cache"
+msgstr "Gesamten Cache leeren"
+
+#: 
+msgid "The tag could not be deleted. Please, try again."
+msgstr "Das Tag konnte nicht gelöscht werden. Bitte versuchen Sie es erneut."
+
+#: 
+msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
+msgstr "E-Mail erfolgreich gesendet an: {0}. Vorlage: {1}, Betreff: {2}"
+
+#: 
+msgid "User Comments"
+msgstr "Benutzerkommentare"
+
+#: 
+msgid "The value must be 0 or 1."
+msgstr "Der Wert muss 0 oder 1 sein."
+
+#: 
+msgid "Blocked IPs"
+msgstr "Blockierte IPs"
+
+#: 
+msgid "Total Views: "
+msgstr "Aufrufe gesamt: "
+
+#: 
+msgid "Update Tag"
+msgstr "Tag aktualisieren"
+
+#: 
+msgid "Unable to delete the log."
+msgstr "Das Protokoll kann nicht gelöscht werden."
+
+#: 
+msgid "Username"
+msgstr "Benutzername"
+
+#: 
+msgid "Created At"
+msgstr "Erstellt am"
+
+#: 
+msgid "Invalid value for the specified type."
+msgstr "Ungültiger Wert für den angegebenen Typ."
+
+#: 
+msgid "Confirm Password"
+msgstr "Passwort bestätigen"
+
+#: 
+msgid "The comment has been deleted."
+msgstr "Der Kommentar wurde gelöscht."
+
+#: 
+msgid "The slug could not be saved. Please, try again."
+msgstr "Der Slug konnte nicht gespeichert werden. Bitte versuchen Sie es erneut."
+
+#: 
+msgid "Select a parent"
+msgstr "Wählen Sie ein übergeordnetes Element aus"
+
+#: 
+msgid "Failed to update translation for message ID: {0}"
+msgstr "Die Übersetzung für die Nachrichten-ID konnte nicht aktualisiert werden: {0}"
+
+#: 
+msgid "New Blocked IP"
+msgstr "Neue blockierte IP"
+
+#: 
+msgid "The slug could not be deleted. Please, try again."
+msgstr "Der Slug konnte nicht gelöscht werden. Bitte versuchen Sie es erneut."
+
+#: 
+msgid "Submit Comment"
+msgstr "Kommentar abschicken"
+
+#: 
+msgid "LinkedIn Description"
+msgstr "LinkedIn Beschreibung"
+
+#: 
+msgid "Tag not found"
+msgstr "Tag nicht gefunden"
+
+#: 
+msgid "No deleting your own account."
+msgstr "Kein Löschen des eigenen Accounts."
+
+#: 
+msgid "Page Views"
+msgstr "Seitenaufrufe"
+
+#: 
+msgid "Details"
+msgstr "Details"
+
+#: 
+msgid "Skipped resizing, image already exists. Path: {0}"
+msgstr "Größenanpassung übersprungen, Bild existiert bereits. Pfad: {0}"
+
+#: 
+msgid "No JSON files found in the directory: {0}"
+msgstr "Keine JSON-Dateien im Verzeichnis gefunden: {0}"
+
+#: 
+msgid "Article tag update completed successfully. Article ID: {0}"
+msgstr "Aktualisierung des Artikel-Tags erfolgreich abgeschlossen. Artikel-ID: {0}"
+
+#: 
+msgid "The tag could not be saved. Please, try again."
+msgstr "Das Tag konnte nicht gespeichert werden. Bitte versuchen Sie es erneut."
+
+#: 
+msgid "Bulk Upload"
+msgstr "Massen-Upload"
+
+#: 
+msgid "Temperature"
+msgstr "Temperatur"
+
+#: 
+msgid "Body HTML"
+msgstr "Textkörper-HTML"
+
+#: 
+msgid "Tags"
+msgstr "Schlagwörter"
+
+#: 
+msgid "Error sending email: {0}"
+msgstr "Fehler beim Senden der E-Mail: {0}"
 

@@ -13,3 +13,1579 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8"
 "Content-Transfer-Encoding: 8bit"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
+#: 
+msgid "Image analysis completed successfully. Model: {0} ID: {1}"
+msgstr "Pildianalüüs on edukalt lõpule viidud. Mudel: {0} ID: {1}"
+
+#: 
+msgid "Failed to save article tag updates. Article ID: {0} Error: {1}"
+msgstr "Artikli märgendi värskenduste salvestamine ebaõnnestus. Artikli ID: {0} Viga: {1}"
+
+#: 
+msgid "Are you sure you want to delete this prompt?"
+msgstr "Kas olete kindel, et soovite selle viiba kustutada?"
+
+#: 
+msgid "Message Id"
+msgstr "Sõnumi ID"
+
+#: 
+msgid "Queued Article SEO update job: {0}"
+msgstr "Järjekorras artikli SEO värskendamise töö: {0}"
+
+#: 
+msgid "The log has been deleted."
+msgstr "Logi on kustutatud."
+
+#: 
+msgid "Is AI Analyzed"
+msgstr "Kas AI analüüsitakse"
+
+#: 
+msgid "Filter"
+msgstr "Filter"
+
+#: 
+msgid "The email template has been deleted."
+msgstr "Meili mall on kustutatud."
+
+#: 
+msgid "Image processing job completed successfully. Path: {0}"
+msgstr "Pilditöötlus on edukalt lõpule viidud. Tee: {0}"
+
+#: 
+msgid "No pages found."
+msgstr "Ühtegi lehte ei leitud."
+
+#: 
+msgid "Are you sure you want to delete {0}?"
+msgstr "Kas soovite kindlasti {0} kustutada?"
+
+#: 
+msgid "Comment"
+msgstr "Kommenteeri"
+
+#: 
+msgid "Total Views: "
+msgstr "Vaatamisi kokku: "
+
+#: 
+msgid "All Levels"
+msgstr "Kõik tasemed"
+
+#: 
+msgid "{0} Views"
+msgstr "{0} vaatamist"
+
+#: 
+msgid "Cache Name"
+msgstr "Vahemälu nimi"
+
+#: 
+msgid "Add Internationalisation"
+msgstr "Lisa rahvusvahelistumine"
+
+#: 
+msgid "The tag could not be deleted. Please, try again."
+msgstr "Märgendit ei saanud kustutada. Palun proovi uuesti."
+
+#: 
+msgid "Group Name"
+msgstr "Grupi nimi"
+
+#: 
+msgid "The image could not be deleted. Please, try again."
+msgstr "Pilti ei saanud kustutada. Palun proovi uuesti."
+
+#: 
+msgid "LinkedIn Description"
+msgstr "LinkedIni kirjeldus"
+
+#: 
+msgid "API request failed. Please try again later."
+msgstr "API taotlus nurjus. Proovige hiljem uuesti."
+
+#: 
+msgid "Published"
+msgstr "Avaldatud"
+
+#: 
+msgid "Article not found"
+msgstr "Artiklit ei leitud"
+
+#: 
+msgid "AI Prompts"
+msgstr "AI viibad"
+
+#: 
+msgid "Add Page"
+msgstr "Lisa leht"
+
+#: 
+msgid "Code exported successfully to separate files."
+msgstr "Kood eksporditi edukalt eraldi failidesse."
+
+#: 
+msgid "Edit Blocked IP"
+msgstr "Redigeeri blokeeritud IP-d"
+
+#: 
+msgid "Generated default.po for locale: {0}"
+msgstr "Lokaadi jaoks loodud default.po: {0}"
+
+#: 
+msgid "No deleting your own account."
+msgstr "Enda kontot ei tohi kustutada."
+
+#: 
+msgid "List {0}"
+msgstr "Loend {0}"
+
+#: 
+msgid "Page Views for {0}"
+msgstr "Lehevaatamised: {0}"
+
+#: 
+msgid "The email template has been saved."
+msgstr "Meili mall on salvestatud."
+
+#: 
+msgid "New tag created: {0}"
+msgstr "Uus silt loodud: {0}"
+
+#: 
+msgid "Email Templates"
+msgstr "Meilimallid"
+
+#: 
+msgid "Body HTML"
+msgstr "Keha HTML"
+
+#: 
+msgid "Number of attempts: {0}"
+msgstr "Katsete arv: {0}"
+
+#: 
+msgid "Successfully resized and saved image. Original: {0}, Resized: {1}, Width: {2}px"
+msgstr "Pildi suuruse muutmine ja salvestamine õnnestus. Algne: {0}, muudetud suurus: {1}, laius: {2} pikslit"
+
+#: 
+msgid "No tags are linked."
+msgstr "Silte pole lingitud."
+
+#: 
+msgid "The user could not be deleted. Please, try again."
+msgstr "Kasutajat ei saanud kustutada. Palun proovi uuesti."
+
+#: 
+msgid "User created successfully: {0}"
+msgstr "Kasutaja loodud edukalt: {0}"
+
+#: 
+msgid "The blocked ip has been deleted."
+msgstr "Blokeeritud IP on kustutatud."
+
+#: 
+msgid "Failed to send email. Please check your email configuration."
+msgstr "Meili saatmine ebaõnnestus. Kontrollige oma e-posti konfiguratsiooni."
+
+#: 
+msgid "This slug is already in use in articles. Please enter a unique slug."
+msgstr "See nälkjas on juba artiklites kasutusel. Sisestage ainulaadne nälkjas."
+
+#: 
+msgid "The internationalisation could not be saved. Please, try again."
+msgstr "Rahvusvahelistumist ei õnnestunud päästa. Palun proovi uuesti."
+
+#: 
+msgid "Received article tag update message: {0} : {1}"
+msgstr "Vastu võetud artiklimärgendi värskendusteade: {0}: {1}"
+
+#: 
+msgid "Update User"
+msgstr "Värskenda kasutajat"
+
+#: 
+msgid "No images."
+msgstr "Pilte pole."
+
+#: 
+msgid "Edit User"
+msgstr "Redigeeri kasutajat"
+
+#: 
+msgid "Add Image"
+msgstr "Lisa pilt"
+
+#: 
+msgid "Add Article"
+msgstr "Lisa artikkel"
+
+#: 
+msgid "Locale"
+msgstr "Lokaal"
+
+#: 
+msgid "The user has been deleted."
+msgstr "Kasutaja on kustutatud."
+
+#: 
+msgid "You must be logged in to add a comment."
+msgstr "Kommentaari lisamiseks peate olema sisse logitud."
+
+#: 
+msgid "Tag SEO update completed successfully. ID: {0} Title: {1}"
+msgstr "Märgendi SEO värskendus edukalt lõpule viidud. ID: {0} Pealkiri: {1}"
+
+#: 
+msgid "Edit Settings"
+msgstr "Muuda sätteid"
+
+#: 
+msgid "Last Cleared"
+msgstr "Viimati kustutatud"
+
+#: 
+msgid "The comment has been saved."
+msgstr "Kommentaar on salvestatud."
+
+#: 
+msgid "Enter text"
+msgstr "Sisestage tekst"
+
+#: 
+msgid "Logout"
+msgstr "Väljalogimine"
+
+#: 
+msgid "List Email Templates"
+msgstr "Loetlege meilimallid"
+
+#: 
+msgid "An error occurred while processing your request."
+msgstr "Teie taotluse töötlemisel ilmnes viga."
+
+#: 
+msgid "Queued translation job for batch of {0} messages for locale {1}"
+msgstr "Järjekorras tõlketöö lokaadi {1} {0} sõnumi partii jaoks"
+
+#: 
+msgid "The article could not be saved. Please, try again."
+msgstr "Artiklit ei õnnestunud salvestada. Palun proovi uuesti."
+
+#: 
+msgid "Edit {0}"
+msgstr "Redigeeri {0}"
+
+#: 
+msgid "Imagick extension is not loaded"
+msgstr "Imagicki laiendust ei laadita"
+
+#: 
+msgid "Skipped resizing, image already exists. Path: {0}"
+msgstr "Suuruse muutmine jäeti vahele, pilt on juba olemas. Tee: {0}"
+
+#: 
+msgid "Search tags..."
+msgstr "Otsi silte..."
+
+#: 
+msgid "Context"
+msgstr "Kontekst"
+
+#: 
+msgid "Configured Caches"
+msgstr "Konfigureeritud vahemälud"
+
+#: 
+msgid "Select a parent"
+msgstr "Valige vanem"
+
+#: 
+msgid "Invalid username or password"
+msgstr "Kehtetu kasutajanimi või parool"
+
+#: 
+msgid "Model"
+msgstr "Mudel"
+
+#: 
+msgid "Blocked At"
+msgstr "Blokeeritud kell"
+
+#: 
+msgid "All Tags"
+msgstr "Kõik sildid"
+
+#: 
+msgid "Grid View"
+msgstr "Võrguvaade"
+
+#: 
+msgid "Failed to send email to: {0}"
+msgstr "Meili saatmine aadressile {0} ebaõnnestus"
+
+#: 
+msgid "Related Articles"
+msgstr "Seotud artiklid"
+
+#: 
+msgid "Invalid value for the specified type."
+msgstr "Määratud tüübi jaoks sobimatu väärtus."
+
+#: 
+msgid "The requested address {0} was not found on this server."
+msgstr "Nõutud aadressi {0} sellest serverist ei leitud."
+
+#: 
+msgid "{0} cache has been cleared successfully."
+msgstr "{0} vahemälu on edukalt tühjendatud."
+
+#: 
+msgid "Expires At"
+msgstr "Aegub kl"
+
+#: 
+msgid "Too Many Requests"
+msgstr "Liiga palju taotlusi"
+
+#: 
+msgid "The blocked ip could not be deleted. Please, try again."
+msgstr "Blokeeritud IP-d ei saanud kustutada. Palun proovi uuesti."
+
+#: 
+msgid "Bulk Upload"
+msgstr "Hulgiüleslaadimine"
+
+#: 
+msgid "Instagram Description"
+msgstr "Instagrami kirjeldus"
+
+#: 
+msgid "Image analysis failed. Model: {0} ID: {1}"
+msgstr "Pildi analüüs ebaõnnestus. Mudel: {0} ID: {1}"
+
+#: 
+msgid "Edit Internationalisation"
+msgstr "Muuda rahvusvahelistumist"
+
+#: 
+msgid "User"
+msgstr "Kasutaja"
+
+#: 
+msgid "Modified At"
+msgstr "Muudetud kell"
+
+#: 
+msgid "Are you sure you want to delete all logs?"
+msgstr "Kas olete kindel, et soovite kõik logid kustutada?"
+
+#: 
+msgid "No articles found for this tag."
+msgstr "Selle märgendi jaoks ei leitud artikleid."
+
+#: 
+msgid "Add Email Template"
+msgstr "Lisa meili mall"
+
+#: 
+msgid "Code Coverage"
+msgstr "Koodi katvus"
+
+#: 
+msgid "Main Picture"
+msgstr "Põhipilt"
+
+#: 
+msgid "Edit"
+msgstr "Muuda"
+
+#: 
+msgid "Submit Comment"
+msgstr "Esitage kommentaar"
+
+#: 
+msgid "Failed to save slug: {0}"
+msgstr "Nälkja salvestamine ebaõnnestus: {0}"
+
+#: 
+msgid "Password must be at least 8 characters long"
+msgstr "Parool peab olema vähemalt 8 tähemärki pikk"
+
+#: 
+msgid "Show Details"
+msgstr "Näita üksikasju"
+
+#: 
+msgid "New User"
+msgstr "Uus kasutaja"
+
+#: 
+msgid "Search articles..."
+msgstr "Otsi artikleid..."
+
+#: 
+msgid "The tag has been saved."
+msgstr "Silt on salvestatud."
+
+#: 
+msgid "Search comments..."
+msgstr "Otsi kommentaare..."
+
+#: 
+msgid "Access denied. You must be an admin to view this page."
+msgstr "Juurdepääs keelatud. Selle lehe vaatamiseks peate olema administraator."
+
+#: 
+msgid "The email template could not be deleted. Please, try again."
+msgstr "Meilimalli ei saanud kustutada. Palun proovi uuesti."
+
+#: 
+msgid "Your account has been updated."
+msgstr "Teie kontot on värskendatud."
+
+#: 
+msgid "Task Type"
+msgstr "Ülesande tüüp"
+
+#: 
+msgid "The aiprompt has been saved."
+msgstr "Aiprompt on salvestatud."
+
+#: 
+msgid "This message_id must be unique for the given locale."
+msgstr "See message_id peab antud lokaadi jaoks olema kordumatu."
+
+#: 
+msgid "The article could not be deleted. Please, try again."
+msgstr "Artiklit ei saanud kustutada. Palun proovi uuesti."
+
+#: 
+msgid "No translations found for locale: {0}. Skipping..."
+msgstr "Lokaadile ei leitud tõlkeid: {0}. Vahele jätmine..."
+
+#: 
+msgid "A value is required"
+msgstr "Väärtus on nõutav"
+
+#: 
+msgid "{0} cache could not be cleared."
+msgstr "{0} vahemälu ei saanud tühjendada."
+
+#: 
+msgid "Max Tokens"
+msgstr "Max märgid"
+
+#: 
+msgid "Send Email"
+msgstr "Saada meil"
+
+#: 
+msgid "Internationalisation"
+msgstr "Rahvusvahelistumine"
+
+#: 
+msgid "Too many requests. Please try again later."
+msgstr "Liiga palju taotlusi. Proovige hiljem uuesti."
+
+#: 
+msgid "Updated At"
+msgstr "Uuendatud kl"
+
+#: 
+msgid "Read More"
+msgstr "Loe edasi"
+
+#: 
+msgid "Please log in to add a comment"
+msgstr "Kommentaari lisamiseks logige sisse"
+
+#: 
+msgid "Slugs"
+msgstr "Nälkjad"
+
+#: 
+msgid "Article ID:"
+msgstr "Artikli ID:"
+
+#: 
+msgid "User Agent"
+msgstr "Kasutajaagent"
+
+#: 
+msgid "Setting not found: {0}.{1}"
+msgstr "Seadet ei leitud: {0}.{1}"
+
+#: 
+msgid "Error in: "
+msgstr "Viga: "
+
+#: 
+msgid "Failed to save tag SEO updates. ID: {0} Title: {1}"
+msgstr "Märgendi SEO värskenduste salvestamine ebaõnnestus. ID: {0} Pealkiri: {1}"
+
+#: 
+msgid "The value must not be empty."
+msgstr "Väärtus ei tohi olla tühi."
+
+#: 
+msgid "Id"
+msgstr "Id"
+
+#: 
+msgid "The slug has been deleted."
+msgstr "Nälkjas on kustutatud."
+
+#: 
+msgid "All caches have been cleared successfully."
+msgstr "Kõik vahemälud on edukalt tühjendatud."
+
+#: 
+msgid "Error during image processing. Path: {0}, Error: {1}"
+msgstr "Viga pildi töötlemisel. Tee: {0}, viga: {1}"
+
+#: 
+msgid "The user has been saved."
+msgstr "Kasutaja on salvestatud."
+
+#: 
+msgid "Attempt {0} failed. Error ({1}): {2}"
+msgstr "Katse {0} ebaõnnestus. Viga ({1}): {2}"
+
+#: 
+msgid "New {0}"
+msgstr "Uus {0}"
+
+#: 
+msgid "Profile Picture"
+msgstr "Profiilipilt"
+
+#: 
+msgid "Toggle SEO Fields"
+msgstr "SEO väljade sisse- ja väljalülitamine"
+
+#: 
+msgid "Show Less"
+msgstr "Näita vähem"
+
+#: 
+msgid "Inappropriate Reason"
+msgstr "Sobimatu põhjus"
+
+#: 
+msgid "Registration failed. Please, try again."
+msgstr "Registreerimine ebaõnnestus. Palun proovi uuesti."
+
+#: 
+msgid "Front Site"
+msgstr "Esikülg"
+
+#: 
+msgid "Imported data into table: {0}"
+msgstr "Imporditud andmed tabelisse: {0}"
+
+#: 
+msgid "Are you sure you want to delete all {0} logs?"
+msgstr "Kas olete kindel, et soovite kustutada kõik {0} logi?"
+
+#: 
+msgid "Is Inappropriate"
+msgstr "On sobimatu"
+
+#: 
+msgid "Tag SEO update failed. No result returned. ID: {0} Title: {1}"
+msgstr "Märgendi SEO värskendamine ebaõnnestus. Tulemust ei tagastatud. ID: {0} Pealkiri: {1}"
+
+#: 
+msgid "Please enter your email and password"
+msgstr "Palun sisesta oma email ja parool"
+
+#: 
+msgid "Received image analysis message: Image ID: {0} Path: {1}"
+msgstr "Vastu võetud pildianalüüsi sõnum: pildi ID: {0} Tee: {1}"
+
+#: 
+msgid "Image"
+msgstr "Pilt"
+
+#: 
+msgid "An Internal Error Has Occurred."
+msgstr "Ilmnes sisemine viga."
+
+#: 
+msgid "The value must be a number."
+msgstr "Väärtus peab olema arv."
+
+#: 
+msgid "No"
+msgstr "Ei"
+
+#: 
+msgid "The blocked ip has been saved."
+msgstr "Blokeeritud IP on salvestatud."
+
+#: 
+msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
+msgstr "Meil saadeti edukalt aadressile {0}. Mall: {1}, Teema: {2}"
+
+#: 
+msgid "Queued Article Tag update job: {0}"
+msgstr "Järjekorras oleva artikli märgendi värskendamise töö: {0}"
+
+#: 
+msgid "Attempt {0}: HTTP Code: {1}"
+msgstr "Katse {0}: HTTP-kood: {1}"
+
+#: 
+msgid "Invalid type"
+msgstr "Sobimatu tüüp"
+
+#: 
+msgid "Failed to update comment status. Comment ID: {0}"
+msgstr "Kommentaari oleku värskendamine ebaõnnestus. Kommentaari ID: {0}"
+
+#: 
+msgid "Word Count"
+msgstr "Sõnade arv"
+
+#: 
+msgid "Processing email job: Template: {0} From: {1} To: {2} viewVars: {3}"
+msgstr "Meilitöö töötlemine: mall: {0} Saatja: {1} Saaja: {2} viewVars: {3}"
+
+#: 
+msgid "Message Str"
+msgstr "Sõnum Str"
+
+#: 
+msgid "Login"
+msgstr "Logi sisse"
+
+#: 
+msgid "Error saving {0}.{1}: {2}"
+msgstr "Viga faili {0} salvestamisel.{1}: {2}"
+
+#: 
+msgid "List Blocked IPs"
+msgstr "Loetlege blokeeritud IP-d"
+
+#: 
+msgid "New Blocked IP"
+msgstr "Uus blokeeritud IP"
+
+#: 
+msgid "Unable to delete logs with level {0}."
+msgstr "Taseme {0} logisid ei saa kustutada."
+
+#: 
+msgid "Details"
+msgstr "Üksikasjad"
+
+#: 
+msgid "Response: {0}"
+msgstr "Vastus: {0}"
+
+#: 
+msgid "No internationalizations found for the provided IDs."
+msgstr "Esitatud ID-de jaoks ei leitud rahvusvahelistumist."
+
+#: 
+msgid "Email sent successfully."
+msgstr "Meili saatmine õnnestus."
+
+#: 
+msgid "Tags"
+msgstr "Sildid"
+
+#: 
+msgid "Unable to delete the log."
+msgstr "Logi ei saa kustutada."
+
+#: 
+msgid "Meta Keywords"
+msgstr "Meta märksõnad"
+
+#: 
+msgid "Delete All Logs"
+msgstr "Kustuta kõik logid"
+
+#: 
+msgid "Your comment has been added."
+msgstr "Teie kommentaar on lisatud."
+
+#: 
+msgid "Block IPs"
+msgstr "Blokeeri IP-d"
+
+#: 
+msgid "Choose a file to import by number:"
+msgstr "Valige numbri järgi imporditav fail:"
+
+#: 
+msgid "Registration successful, but there was an issue creating the confirmation link."
+msgstr "Registreerimine õnnestus, kuid kinnituslingi loomisel ilmnes probleem."
+
+#: 
+msgid "Some caches were cleared, but the following failed: {0}"
+msgstr "Mõned vahemälud tühjendati, kuid järgmine ebaõnnestus: {0}"
+
+#: 
+msgid "Available data files:"
+msgstr "Saadaolevad andmefailid:"
+
+#: 
+msgid "Search slugs..."
+msgstr "Otsi nälkjaid..."
+
+#: 
+msgid "Display"
+msgstr "Ekraan"
+
+#: 
+msgid "Comments"
+msgstr "Kommentaarid"
+
+#: 
+msgid "Username"
+msgstr "Kasutajanimi"
+
+#: 
+msgid "Comment for {0}"
+msgstr "Kommentaar kasutajale {0}"
+
+#: 
+msgid "The slug has been saved."
+msgstr "Nälkjas on päästetud."
+
+#: 
+msgid "Register New Account"
+msgstr "Registreeri uus konto"
+
+#: 
+msgid "Edit Tag"
+msgstr "Redigeeri sildi"
+
+#: 
+msgid "All Groups"
+msgstr "Kõik rühmad"
+
+#: 
+msgid "Are you sure you want to delete comment by {0}?"
+msgstr "Kas olete kindel, et soovite kasutaja {0} kommentaari kustutada?"
+
+#: 
+msgid "Actions"
+msgstr "Tegevused"
+
+#: 
+msgid "System Logs"
+msgstr "Süsteemi logid"
+
+#: 
+msgid "Update Tag"
+msgstr "Uuenda sildi"
+
+#: 
+msgid "Edit Comment"
+msgstr "Muuda kommentaari"
+
+#: 
+msgid "Email template not found: {0}"
+msgstr "Meilimalli ei leitud: {0}"
+
+#: 
+msgid "Search logs..."
+msgstr "Otsi logisid..."
+
+#: 
+msgid "Attempting to create user with data: {0}"
+msgstr "Andmete abil kasutaja loomine: {0}"
+
+#: 
+msgid "Content"
+msgstr "Sisu"
+
+#: 
+msgid "Associated Pages"
+msgstr "Seotud lehed"
+
+#: 
+msgid "Image must be less than 5MB."
+msgstr "Pilt peab olema väiksem kui 5 MB."
+
+#: 
+msgid "No view records found for this article."
+msgstr "Selle artikli vaatamise kirjeid ei leitud."
+
+#: 
+msgid "Admin"
+msgstr "Admin"
+
+#: 
+msgid "The tag has been deleted."
+msgstr "Silt on kustutatud."
+
+#: 
+msgid "Bulk Upload Images"
+msgstr "Kujutiste hulgiüleslaadimine"
+
+#: 
+msgid "Received tag SEO update message: ID: {0} Title: {1}"
+msgstr "Vastu võetud märgendi SEO värskenduse sõnum: ID: {0} Pealkiri: {1}"
+
+#: 
+msgid "Error"
+msgstr "Viga"
+
+#: 
+msgid "Logs"
+msgstr "Palgid"
+
+#: 
+msgid "Queue tag SEO update job for Tag:{0}"
+msgstr "Järjekorra märgendi SEO värskendamise töö märgendi jaoks:{0}"
+
+#: 
+msgid "The image has been deleted."
+msgstr "Pilt on kustutatud."
+
+#: 
+msgid "Error loading images:"
+msgstr "Viga piltide laadimisel:"
+
+#: 
+msgid "Article tag update completed successfully. Article ID: {0}"
+msgstr "Artikli märgendi värskendamine on edukalt lõpule viidud. Artikli ID: {0}"
+
+#: 
+msgid "Submit"
+msgstr "Esita"
+
+#: 
+msgid "New Slug"
+msgstr "Uus nälkjas"
+
+#: 
+msgid "Delete {0}"
+msgstr "Kustuta {0}"
+
+#: 
+msgid "No page view data available for this article."
+msgstr "Selle artikli kohta pole lehevaatamise andmeid saadaval."
+
+#: 
+msgid "All logs have been deleted."
+msgstr "Kõik logid on kustutatud."
+
+#: 
+msgid "Enter a number"
+msgstr "Sisestage number"
+
+#: 
+msgid "IP Address"
+msgstr "IP-aadress"
+
+#: 
+msgid "Search users..."
+msgstr "Otsi kasutajaid..."
+
+#: 
+msgid "Blocked IPs"
+msgstr "Blokeeritud IP-d"
+
+#: 
+msgid "System Prompt"
+msgstr "Süsteemi viip"
+
+#: 
+msgid "Add User"
+msgstr "Lisa kasutaja"
+
+#: 
+msgid "Yes"
+msgstr "Jah"
+
+#: 
+msgid "Slug:"
+msgstr "Nälkjas:"
+
+#: 
+msgid "Failed to save article summary updates. Article ID: {0} Title: {1}"
+msgstr "Artikli kokkuvõtte värskenduste salvestamine ebaõnnestus. Artikli ID: {0} Pealkiri: {1}"
+
+#: 
+msgid "Engine"
+msgstr "Mootor"
+
+#: 
+msgid "Error during image analysis: {0}"
+msgstr "Viga pildianalüüsi ajal: {0}"
+
+#: 
+msgid "Cache"
+msgstr "Vahemälu"
+
+#: 
+msgid "Edit Image"
+msgstr "Redigeeri pilti"
+
+#: 
+msgid "New Article"
+msgstr "Uus artikkel"
+
+#: 
+msgid "No comments yet."
+msgstr "Kommentaarid veel puuduvad."
+
+#: 
+msgid "Users"
+msgstr "Kasutajad"
+
+#: 
+msgid "The tag could not be saved. Please, try again."
+msgstr "Märgendit ei saanud salvestada. Palun proovi uuesti."
+
+#: 
+msgid "{0} cache configuration does not exist."
+msgstr "{0} vahemälu konfiguratsiooni pole olemas."
+
+#: 
+msgid "Title"
+msgstr "Pealkiri"
+
+#: 
+msgid "Some settings could not be saved. Please, try again."
+msgstr "Mõnda seadet ei saanud salvestada. Palun proovi uuesti."
+
+#: 
+msgid "Are you sure you want to clear {0}?"
+msgstr "Kas olete kindel, et soovite tühjendada {0}?"
+
+#: 
+msgid "Alt Text"
+msgstr "Alternatiivne tekst"
+
+#: 
+msgid "Email sent successfully: {0} to {1}"
+msgstr "Meil saadeti edukalt: {0} aadressile {1}"
+
+#: 
+msgid "Original image not found for resizing. Path: {0}"
+msgstr "Algset pilti suuruse muutmiseks ei leitud. Tee: {0}"
+
+#: 
+msgid "Subject"
+msgstr "Teema"
+
+#: 
+msgid "Meta Title"
+msgstr "Meta pealkiri"
+
+#: 
+msgid "Search images..."
+msgstr "Otsi pilte..."
+
+#: 
+msgid "Modified"
+msgstr "Muudetud"
+
+#: 
+msgid "Clear"
+msgstr "Selge"
+
+#: 
+msgid "Facebook Description"
+msgstr "Facebooki kirjeldus"
+
+#: 
+msgid "The comment could not be saved. Please, try again."
+msgstr "Kommentaari ei õnnestunud salvestada. Palun proovi uuesti."
+
+#: 
+msgid "Are you sure you want to delete # {0}?"
+msgstr "Kas soovite kindlasti # {0} kustutada?"
+
+#: 
+msgid "Referer"
+msgstr "Viitaja"
+
+#: 
+msgid "Received article SEO update message: {0} : {1}"
+msgstr "Saadud artikli SEO värskenduse sõnum: {0}: {1}"
+
+#: 
+msgid "Rate limit exceeded for IP: {0} on route: {1}"
+msgstr "IP: {0} määra limiit on ületatud marsruudil: {1}"
+
+#: 
+msgid "Back"
+msgstr "Tagasi"
+
+#: 
+msgid "List View"
+msgstr "Loendivaade"
+
+#: 
+msgid "Article SEO update failed. No result returned. Article ID: {0} Title: {1}"
+msgstr "Artikli SEO värskendamine ebaõnnestus. Tulemust ei tagastatud. Artikli ID: {0} Pealkiri: {1}"
+
+#: 
+msgid "Data exported to {0}"
+msgstr "Andmed eksporditi asukohta {0}"
+
+#: 
+msgid "Posted on {date} by {author}"
+msgstr "Postitas {date}, autor {author}"
+
+#: 
+msgid "Please upload only images (jpeg, png, gif)."
+msgstr "Palun laadige üles ainult pilte (jpeg, png, gif)."
+
+#: 
+msgid "Settings"
+msgstr "Seaded"
+
+#: 
+msgid "Unknown Author"
+msgstr "Tundmatu autor"
+
+#: 
+msgid "View"
+msgstr "Vaade"
+
+#: 
+msgid "Articles"
+msgstr "Artiklid"
+
+#: 
+msgid "Failed to save the image"
+msgstr "Pildi salvestamine ebaõnnestus"
+
+#: 
+msgid "Cache Management"
+msgstr "Vahemälu haldamine"
+
+#: 
+msgid "Deleted all existing records from table: {0}"
+msgstr "Kustutas kõik olemasolevad kirjed tabelist: {0}"
+
+#: 
+msgid "New Internationalisation"
+msgstr "Uus rahvusvahelistumine"
+
+#: 
+msgid "New Email Template"
+msgstr "Uus meili mall"
+
+#: 
+msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
+msgstr "Nälk peab olema URL-i jaoks ohutu (ainult väiketähti, numbreid ja sidekriipse)"
+
+#: 
+msgid "Meta Description"
+msgstr "Meta kirjeldus"
+
+#: 
+msgid "The internationalisation has been deleted."
+msgstr "Rahvusvahelistumine on kustutatud."
+
+#: 
+msgid "The image could not be saved. Please, try again."
+msgstr "Pilti ei saanud salvestada. Palun proovi uuesti."
+
+#: 
+msgid "The user could not be saved. Please, try again."
+msgstr "Kasutajat ei õnnestunud salvestada. Palun proovi uuesti."
+
+#: 
+msgid "Failed to create user: {0}. Errors: {1}"
+msgstr "Kasutaja loomine ebaõnnestus: {0}. Vead: {1}"
+
+#: 
+msgid "Code exported successfully to {0}"
+msgstr "Kood eksporditi edukalt asukohta {0}"
+
+#: 
+msgid "Registration successful. Please check your email for confirmation."
+msgstr "Registreerimine õnnestus. Kinnituse saamiseks kontrollige oma meili."
+
+#: 
+msgid "Not published"
+msgstr "Ei avaldatud"
+
+#: 
+msgid "The slug must be unique."
+msgstr "Nälkjas peab olema ainulaadne."
+
+#: 
+msgid "Internationalisations"
+msgstr "Rahvusvahelistumine"
+
+#: 
+msgid "Update Slug"
+msgstr "Värskenda Slug"
+
+#: 
+msgid "Register"
+msgstr "Registreeru"
+
+#: 
+msgid "By"
+msgstr "Autor"
+
+#: 
+msgid "New Tag"
+msgstr "Uus silt"
+
+#: 
+msgid "Update Aiprompt"
+msgstr "Värskenda Airprompt"
+
+#: 
+msgid "Email sending failed: {0} to {1}"
+msgstr "Meili saatmine ebaõnnestus: {0} kasutajale {1}"
+
+#: 
+msgid "Show Full Article"
+msgstr "Kuva kogu artikkel"
+
+#: 
+msgid "The settings have been saved."
+msgstr "Seaded on salvestatud."
+
+#: 
+msgid "Failed to save article SEO updates. Article ID: {0} Title: {1}"
+msgstr "Artikli SEO värskenduste salvestamine ebaõnnestus. Artikli ID: {0} Pealkiri: {1}"
+
+#: 
+msgid "The image has been saved."
+msgstr "Pilt on salvestatud."
+
+#: 
+msgid "Name"
+msgstr "Nimi"
+
+#: 
+msgid "Add Slug"
+msgstr "Lisa nälkjas"
+
+#: 
+msgid "All logs with level {0} have been deleted."
+msgstr "Kõik logid tasemega {0} on kustutatud."
+
+#: 
+msgid "Edit Your Account"
+msgstr "Muutke oma kontot"
+
+#: 
+msgid "Unknown User"
+msgstr "Tundmatu kasutaja"
+
+#: 
+msgid "The internationalisation could not be deleted. Please, try again."
+msgstr "Rahvusvahelistumist ei saanud kustutada. Palun proovi uuesti."
+
+#: 
+msgid "Error resizing image. Original: {0}, Target Width: {1}px, Error: {2}"
+msgstr "Viga pildi suuruse muutmisel. Algne: {0}, sihtlaius: {1} pikslit, viga: {2}"
+
+#: 
+msgid "The comment has been deleted."
+msgstr "Kommentaar on kustutatud."
+
+#: 
+msgid "Queued Article Summary update job: {0}"
+msgstr "Järjekorras oleva artikli kokkuvõtte värskendamise töö: {0}"
+
+#: 
+msgid "The internationalisation has been saved."
+msgstr "Rahvusvahelistumine on päästetud."
+
+#: 
+msgid "Invalid confirmation code. Please contact support."
+msgstr "Kehtetu kinnituskood. Võtke ühendust klienditoega."
+
+#: 
+msgid "Page Views"
+msgstr "Lehekülje vaatamised"
+
+#: 
+msgid "Update Article"
+msgstr "Värskenda artiklit"
+
+#: 
+msgid "New Image"
+msgstr "Uus pilt"
+
+#: 
+msgid "Input file not found: {0}"
+msgstr "Sisendfaili ei leitud: {0}"
+
+#: 
+msgid "Add AI Prompt"
+msgstr "Lisage AI-viip"
+
+#: 
+msgid "View detailed records for this date"
+msgstr "Vaadake selle kuupäeva üksikasjalikke kirjeid"
+
+#: 
+msgid "Body Text"
+msgstr "Kehatekst"
+
+#: 
+msgid "Never"
+msgstr "Mitte kunagi"
+
+#: 
+msgid "Received comment analysis message: Comment ID: {0} User ID: {1}"
+msgstr "Vastu võetud kommentaaride analüüsi sõnum: Kommentaari ID: {0} Kasutaja ID: {1}"
+
+#: 
+msgid "SEO Fields"
+msgstr "SEO väljad"
+
+#: 
+msgid "Created"
+msgstr "Loodud"
+
+#: 
+msgid "Additional Images"
+msgstr "Lisapildid"
+
+#: 
+msgid "Received image processing message: Image ID: {0} Path: {1}"
+msgstr "Vastu võetud pilditöötlusteade: pildi ID: {0} Tee: {1}"
+
+#: 
+msgid "Slug"
+msgstr "Nälkjas"
+
+#: 
+msgid "Level"
+msgstr "Tase"
+
+#: 
+msgid "Add Blocked IP"
+msgstr "Lisage blokeeritud IP"
+
+#: 
+msgid "Are you sure you want to delete IP {0}?"
+msgstr "Kas soovite kindlasti IP-aadressi {0} kustutada?"
+
+#: 
+msgid "No JSON files found in the directory: {0}"
+msgstr "Kataloogist ei leitud ühtegi JSON-faili: {0}"
+
+#: 
+msgid "Keywords"
+msgstr "Märksõnad"
+
+#: 
+msgid "The blocked ip could not be saved. Please, try again."
+msgstr "Blokeeritud IP-d ei õnnestunud salvestada. Palun proovi uuesti."
+
+#: 
+msgid "All logs in group {0} have been deleted."
+msgstr "Kõik logid rühmas {0} on kustutatud."
+
+#: 
+msgid "This slug is already in use. Please enter a unique slug."
+msgstr "See nälkjas on juba kasutusel. Sisestage ainulaadne nälkjas."
+
+#: 
+msgid "Update Image"
+msgstr "Värskenda pilti"
+
+#: 
+msgid "Your account has been confirmed. You can now log in."
+msgstr "Teie konto on kinnitatud. Nüüd saate sisse logida."
+
+#: 
+msgid "Failed to update translation for message ID: {0}"
+msgstr "Sõnumi ID: {0} tõlke värskendamine ebaõnnestus"
+
+#: 
+msgid "Article summary update failed. No valid result returned. Article ID: {0} Title: {1}"
+msgstr "Artikli kokkuvõtte värskendamine ebaõnnestus. Ühtegi kehtivat tulemust ei tagastatud. Artikli ID: {0} Pealkiri: {1}"
+
+#: 
+msgid "Article SEO update completed successfully. Article ID: {0} Title: {1}"
+msgstr "Artikli SEO värskendus edukalt lõpule viidud. Artikli ID: {0} Pealkiri: {1}"
+
+#: 
+msgid "Unable to delete logs in group {0}."
+msgstr "Grupi {0} logisid ei saa kustutada."
+
+#: 
+msgid "The value must be 0 or 1."
+msgstr "Väärtus peab olema 0 või 1."
+
+#: 
+msgid "User Comments"
+msgstr "Kasutajate kommentaarid"
+
+#: 
+msgid "Save All Settings"
+msgstr "Salvesta kõik sätted"
+
+#: 
+msgid "Is Admin"
+msgstr "Kas administraator"
+
+#: 
+msgid "Message"
+msgstr "Sõnum"
+
+#: 
+msgid "Image uploaded successfully"
+msgstr "Pildi üleslaadimine õnnestus"
+
+#: 
+msgid "Picture"
+msgstr "Pilt"
+
+#: 
+msgid "Comment analysis completed successfully. Comment ID: {0}"
+msgstr "Kommentaaride analüüs on edukalt lõpule viidud. Kommentaari ID: {0}"
+
+#: 
+msgid "Temperature"
+msgstr "Temperatuur"
+
+#: 
+msgid "Edit Aiprompt"
+msgstr "Redigeeri Aiprompt"
+
+#: 
+msgid "Add a Comment"
+msgstr "Lisa kommentaar"
+
+#: 
+msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
+msgstr "Leht {{page}}/{{pages}}, kuvatakse {{praegune}} kirjet kokku {{count}}-st"
+
+#: 
+msgid "Unable to delete all logs."
+msgstr "Kõiki logisid ei saa kustutada."
+
+#: 
+msgid "Are you sure you want to delete all logs in group {0}?"
+msgstr "Kas olete kindel, et soovite kustutada kõik logid rühmas {0}?"
+
+#: 
+msgid "Edit Article"
+msgstr "Redigeeri artiklit"
+
+#: 
+msgid "Pages"
+msgstr "Leheküljed"
+
+#: 
+msgid "Description"
+msgstr "Kirjeldus"
+
+#: 
+msgid "Edit Slug"
+msgstr "Redigeeri Slug"
+
+#: 
+msgid "Related Tags"
+msgstr "Seotud sildid"
+
+#: 
+msgid "New AI Prompt"
+msgstr "Uus tehisintellekti viip"
+
+#: 
+msgid "Article not found."
+msgstr "Artiklit ei leitud."
+
+#: 
+msgid "Update Comment"
+msgstr "Värskenda kommentaari"
+
+#: 
+msgid "The aiprompt could not be saved. Please, try again."
+msgstr "Lennukiirt ei õnnestunud salvestada. Palun proovi uuesti."
+
+#: 
+msgid "Article"
+msgstr "Artikkel"
+
+#: 
+msgid "Created At"
+msgstr "Loodud kl"
+
+#: 
+msgid "Failed to send confirmation email message: {0}"
+msgstr "Kinnitusmeili saatmine ebaõnnestus: {0}"
+
+#: 
+msgid "The slug could not be deleted. Please, try again."
+msgstr "Nälkjat ei saanud kustutada. Palun proovi uuesti."
+
+#: 
+msgid "Invalid choice."
+msgstr "Vale valik."
+
+#: 
+msgid "Missing required arguments in the message."
+msgstr "Sõnumis puuduvad nõutavad argumendid."
+
+#: 
+msgid "Starting image processing job. Path: {0}, Sizes to process: {1}"
+msgstr "Pilditöötluse töö alustamine. Tee: {0}, töödeldavad suurused: {1}"
+
+#: 
+msgid "You cannot remove your own admin status."
+msgstr "Te ei saa enda administraatori staatust eemaldada."
+
+#: 
+msgid "The article has been deleted."
+msgstr "Artikkel on kustutatud."
+
+#: 
+msgid "Date"
+msgstr "Kuupäev"
+
+#: 
+msgid "Body"
+msgstr "Keha"
+
+#: 
+msgid "Comment analysis failed. No result returned. Comment ID: {0}"
+msgstr "Kommentaaride analüüs ebaõnnestus. Tulemust ei tagastatud. Kommentaari ID: {0}"
+
+#: 
+msgid "Testing rate limit on URL: {0}"
+msgstr "Testimismäära piirang URL-is: {0}"
+
+#: 
+msgid "Comment already analyzed. Skipping. Comment ID: {0}"
+msgstr "Kommentaar on juba analüüsitud. Vahelejätmine. Kommentaari ID: {0}"
+
+#: 
+msgid "All Locales"
+msgstr "Kõik asukohad"
+
+#: 
+msgid "Tag not found"
+msgstr "Märgendit ei leitud"
+
+#: 
+msgid "Unable to add your comment."
+msgstr "Teie kommentaari ei saa lisada."
+
+#: 
+msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
+msgstr "Slug on vastuolus olemasoleva SEO ümbersuunamisega. Valige mõni muu nälkjas."
+
+#: 
+msgid "Reason"
+msgstr "Põhjus"
+
+#: 
+msgid "Twitter Description"
+msgstr "Twitteri kirjeldus"
+
+#: 
+msgid "You cannot disable your own account."
+msgstr "Te ei saa oma kontot keelata."
+
+#: 
+msgid "Are you sure you want to delete this comment?"
+msgstr "Kas olete kindel, et soovite selle kommentaari kustutada?"
+
+#: 
+msgid "Summary"
+msgstr "Kokkuvõte"
+
+#: 
+msgid "Page View Statistics for slug: {0}"
+msgstr "Lehevaate statistika nälkjate kohta: {0}"
+
+#: 
+msgid "Clear All Cache"
+msgstr "Tühjendage kogu vahemälu"
+
+#: 
+msgid "You are not authorized to edit this account, stick to your own."
+msgstr "Teil ei ole õigust seda kontot redigeerida, jääge oma enda juurde."
+
+#: 
+msgid "The comment could not be deleted. Please, try again."
+msgstr "Kommentaari ei saanud kustutada. Palun proovi uuesti."
+
+#: 
+msgid "The slug could not be saved. Please, try again."
+msgstr "Nälkjat ei õnnestunud päästa. Palun proovi uuesti."
+
+#: 
+msgid "Add Tag"
+msgstr "Lisa silt"
+
+#: 
+msgid "Failed to save entity: {0} {1}"
+msgstr "Olemi salvestamine ebaõnnestus: {0} {1}"
+
+#: 
+msgid "Images"
+msgstr "Pildid"
+
+#: 
+msgid "Article summary update completed successfully. Article ID: {0} Title: {1}"
+msgstr "Artikli kokkuvõtte värskendamine on edukalt lõpule viidud. Artikli ID: {0} Pealkiri: {1}"
+
+#: 
+msgid "The email template could not be saved. Please, try again."
+msgstr "Meilimalli ei saanud salvestada. Palun proovi uuesti."
+
+#: 
+msgid "Article tag update failed. No valid result returned. Article ID: {0}"
+msgstr "Artikli märgendi värskendamine ebaõnnestus. Ühtegi kehtivat tulemust ei tagastatud. Artikli ID: {0}"
+
+#: 
+msgid "Received article summary update message: {0} : {1}"
+msgstr "Vastu võetud artikli kokkuvõtte värskendusteade: {0}: {1}"
+
+#: 
+msgid "Is Published"
+msgstr "On avaldatud"
+
+#: 
+msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
+msgstr "Allpool on teave konfigureeritud vahemälude kohta. Kõigi vahemälu tühjendamiseks klõpsake nuppu või konkreetse vahemälu tühjendamiseks üksikuid vahemälunuppe."
+
+#: 
+msgid "There was an issue confirming your account. Please try again."
+msgstr "Teie konto kinnitamisel ilmnes probleem. Palun proovi uuesti."
+
+#: 
+msgid "Error sending email: {0}"
+msgstr "Viga meili saatmisel: {0}"
+
+#: 
+msgid "Confirm Password"
+msgstr "Kinnitage parool"
+
+#: 
+msgid "The article has been saved."
+msgstr "Artikkel on salvestatud."
+
+#: 
+msgid "Email"
+msgstr "Meil"
+
+#: 
+msgid "Edit Email Template"
+msgstr "Redigeeri meilimalli"
+
+#: 
+msgid "Delete"
+msgstr "Kustuta"
+
+#: 
+msgid "Views"
+msgstr "Vaated"
+

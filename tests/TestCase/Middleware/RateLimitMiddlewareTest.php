@@ -49,7 +49,7 @@ class RateLimitMiddlewareTest extends TestCase
     public function testRateLimitNotExceeded(): void
     {
         $request = ServerRequestFactory::fromGlobals()
-            ->withUri(ServerRequestFactory::fromGlobals()->getUri()->withPath('/users/login'))
+            ->withUri(ServerRequestFactory::fromGlobals()->getUri()->withPath('/en/users/login'))
             ->withEnv('REMOTE_ADDR', '127.0.0.1');
 
         $handler = $this->createMock(RequestHandlerInterface::class);
@@ -75,7 +75,7 @@ class RateLimitMiddlewareTest extends TestCase
     public function testRateLimitExceeded(): void
     {
         $request = ServerRequestFactory::fromGlobals()
-            ->withUri(ServerRequestFactory::fromGlobals()->getUri()->withPath('/users/login'))
+            ->withUri(ServerRequestFactory::fromGlobals()->getUri()->withPath('/en/users/login'))
             ->withEnv('REMOTE_ADDR', '127.0.0.1');
 
         $handler = $this->createMock(RequestHandlerInterface::class);
@@ -107,7 +107,7 @@ class RateLimitMiddlewareTest extends TestCase
         for ($i = 0; $i < 10; $i++) {
             $ip = $this->generateRandomIp();
             $request = ServerRequestFactory::fromGlobals()
-                ->withUri(ServerRequestFactory::fromGlobals()->getUri()->withPath('/users/login'))
+                ->withUri(ServerRequestFactory::fromGlobals()->getUri()->withPath('/en/users/login'))
                 ->withEnv('REMOTE_ADDR', $ip);
 
             $response = $this->middleware->process($request, $handler);

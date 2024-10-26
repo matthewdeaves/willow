@@ -18,6 +18,7 @@
         <div class="card mb-4 shadow-sm">
             <div class="card-body">
                 <div class="d-flex align-items-start mb-3">
+                    <?php if (!empty($article->image)) : ?>
                     <div class="me-3">
                         <?= $this->Html->image(SettingsManager::read('ImageSizes.teeny') . '/' . $article->image, 
                             [
@@ -37,6 +38,7 @@
                             ]) 
                         ?>
                     </div>
+                    <?php endif; ?>
                     <h2 class="card-title mb-0">
                         <?= $this->Html->link(
                             h($article->title),

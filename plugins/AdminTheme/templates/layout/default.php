@@ -78,7 +78,7 @@ use Cake\Core\Configure;
                     <?= $this->Html->link(__('Front Site'), '/', ['class' => 'nav-link']) ?>
                     </li>
                     <li class="nav-item">
-                        <?= $this->Html->link(__('Logout'), ['prefix' => false, 'controller' => 'Users', 'action' => 'logout'], ['class' => 'nav-link']) ?>
+                        <?= $this->Html->link(__('Logout'), ['prefix' => 'Admin', 'controller' => 'Users', 'action' => 'logout'], ['class' => 'nav-link']) ?>
                     </li>
                     <?php endif; ?>
                 </ul>

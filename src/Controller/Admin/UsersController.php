@@ -182,4 +182,16 @@ class UsersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    /**
+     * Logs out the current user.
+     *
+     * @return \Cake\Http\Response|null Redirects to the login page.
+     */
+    public function logout(): ?Response
+    {
+        $this->Authentication->logout();
+
+        return $this->redirect('/');
+    }
 }

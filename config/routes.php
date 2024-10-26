@@ -66,9 +66,30 @@ return function (RouteBuilder $routes): void {
 
         $builder->connect('/sitemap', ['controller' => 'Sitemap', 'action' => 'index'], ['routeClass' => 'ADmad/I18n.I18nRoute'])->setExtensions(['xml']);
 
-        $builder->connect('/users/login', ['controller' => 'Users', 'action' => 'login'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+        $builder->connect(
+            '/users/login',
+            [
+                'controller' => 'Users',
+                'action' => 'login'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'login',
+            ]
+        );
         $builder->connect('/users/register', ['controller' => 'Users', 'action' => 'register'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
-        $builder->connect('/users/logout', ['controller' => 'Users', 'action' => 'logout'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+        $builder->connect(
+            '/users/logout',
+            [
+                'controller' => 'Users',
+                'action' => 'logout'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'logout',
+            ]
+        );
+
         $builder->connect('/users/confirm-email/*',['controller' => 'Users', 'action' => 'confirmEmail'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
         $builder->connect('/users/edit/*', ['controller' => 'Users', 'action' => 'edit'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
         $builder->connect('/atricles/add-comment/*', ['controller' => 'Articles', 'action' => 'addComment'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
@@ -127,6 +148,18 @@ return function (RouteBuilder $routes): void {
         // will be required when generating URLs for these routes
 
         $routes->connect('/', ['controller' => 'Articles', 'action' => 'index', 'prefix' => 'Admin']);
+
+        $routes->connect(
+            '/users/logout',
+            [
+                'controller' => 'Users',
+                'action' => 'logout'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'admin-logout',
+            ]
+        );
         
         $routes->fallbacks(DashedRoute::class);
     });

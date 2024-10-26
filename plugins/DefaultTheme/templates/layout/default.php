@@ -41,7 +41,7 @@
                             </li>
                         <?php endif; ?>
                         <li class="nav-item">
-                            <?= $this->Html->link('Logout', ['controller' => 'Users', 'action' => 'logout'], ['class' => 'nav-link']) ?>
+                            <?= $this->Html->link(__('Logout'), ['_name' => 'logout'], ['class' => 'nav-link']) ?>
                         </li>
                     <?php else: ?>
                         <li class="nav-item">

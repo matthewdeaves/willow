@@ -50,8 +50,10 @@
                     </h2>
                 </div>
                 <p class="card-text text-muted">
+                    <?php if (!empty($article->user->username)) :?>
                     <?= __('By') ?> <?= h($article->user->username) ?> | 
                     <?= $article->published->format('F j, Y, g:i a') ?>
+                    <?php endif; ?>
                 </p>
                 <div class="article-content">
                     <?php if ($hasNonEmptySummary): ?>

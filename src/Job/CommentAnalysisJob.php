@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Job;
 
 use App\Model\Entity\Comment;
-use App\Service\Api\AnthropicApiService;
+use App\Service\Api\Anthropic\AnthropicApiService;
 use Cake\Cache\Cache;
 use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
@@ -69,7 +69,7 @@ class CommentAnalysisJob implements JobInterface
         $userId = $message->getArgument('user_id');
 
         $this->log(
-            __('Received comment analysis message: Comment ID: {0} User ID: {1}', [$commentId, $userId]),
+            sprintf('Received comment analysis message: Comment ID: %s User ID: %s', $commentId, $userId),
             'info',
             ['group_name' => 'comment_analysis']
         );
@@ -79,7 +79,7 @@ class CommentAnalysisJob implements JobInterface
 
         if ($comment->is_analyzed) {
             $this->log(
-                __('Comment already analyzed. Skipping. Comment ID: {0}', [$commentId]),
+                sprintf('Comment already analyzed. Skipping. Comment ID: %s', $commentId),
                 'info',
                 ['group_name' => 'comment_analysis']
             );
@@ -92,7 +92,7 @@ class CommentAnalysisJob implements JobInterface
         if ($analysisResult) {
             $this->updateCommentStatus($comment, $analysisResult);
             $this->log(
-                __('Comment analysis completed successfully. Comment ID: {0}', [$commentId]),
+                sprintf('Comment analysis completed successfully. Comment ID: %s', $commentId),
                 'info',
                 ['group_name' => 'comment_analysis']
             );
@@ -100,7 +100,7 @@ class CommentAnalysisJob implements JobInterface
             return Processor::ACK;
         } else {
             $this->log(
-                __('Comment analysis failed. No result returned. Comment ID: {0}', [$commentId]),
+                sprintf('Comment analysis failed. No result returned. Comment ID: %s', $commentId),
                 'error',
                 ['group_name' => 'comment_analysis']
             );
@@ -135,7 +135,7 @@ class CommentAnalysisJob implements JobInterface
         $commentsTable = TableRegistry::getTableLocator()->get('Comments');
         if (!$commentsTable->save($comment)) {
             $this->log(
-                __('Failed to update comment status. Comment ID: {0}', [$comment->id]),
+                sprintf('Failed to update comment status. Comment ID: %s', $comment->id),
                 'error',
                 ['group_name' => 'comment_analysis']
             );

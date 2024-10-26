@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Service\Api\Anthropic;
 
 use App\Model\Table\AipromptsTable;
-use App\Service\Api\AnthropicApiService;
+use Cake\Log\LogTrait;
 use InvalidArgumentException;
 
 /**
@@ -16,6 +16,8 @@ use InvalidArgumentException;
  */
 class TextSummaryGenerator
 {
+    use LogTrait;
+
     /**
      * The Anthropic API service used for sending requests and parsing responses.
      *
@@ -112,7 +114,7 @@ class TextSummaryGenerator
     }
 
     /**
-     * Ensures that the result contains all expected SEO keys, initializing them if necessary.
+     * Ensures that the result contains all expected keys, initializing them if necessary.
      *
      * @param array $result The result array to check and modify.
      * @return array The result array with all expected SEO keys initialized.
@@ -127,6 +129,11 @@ class TextSummaryGenerator
         foreach ($expectedKeys as $key) {
             if (!isset($result[$key])) {
                 $result[$key] = '';
+                $this->log(
+                    sprintf('Text Summary Generator did not find expected key: %s', $key),
+                    'error',
+                    ['group_name' => 'anthropic']
+                );
             }
         }
 

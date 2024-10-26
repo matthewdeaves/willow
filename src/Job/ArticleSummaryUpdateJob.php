@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Job;
 
+use App\Service\Api\Anthropic\AnthropicApiService;
 use App\Service\Api\Anthropic\TextSummaryGenerator;
-use App\Service\Api\AnthropicApiService;
 use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
@@ -70,7 +70,7 @@ class ArticleSummaryUpdateJob implements JobInterface
         $title = $message->getArgument('title');
 
         $this->log(
-            __('Received article summary update message: {0} : {1}', [$id, $title]),
+            sprintf('Received article summary update message: %s : %s', $id, $title),
             'info',
             ['group_name' => 'article_summary_update']
         );
@@ -94,7 +94,7 @@ class ArticleSummaryUpdateJob implements JobInterface
             // Save the data
             if ($articlesTable->save($article)) {
                 $this->log(
-                    __('Article summary update completed successfully. Article ID: {0} Title: {1}', [$id, $title]),
+                    sprintf('Article summary update completed successfully. Article ID: %s Title: %s', $id, $title),
                     'info',
                     ['group_name' => 'article_summary_update']
                 );
@@ -102,16 +102,17 @@ class ArticleSummaryUpdateJob implements JobInterface
                 return Processor::ACK;
             } else {
                 $this->log(
-                    __('Failed to save article summary updates. Article ID: {0} Title: {1}', [$id, $title]),
+                    sprintf('Failed to save article summary updates. Article ID: %s Title: %s', $id, $title),
                     'error',
                     ['group_name' => 'article_summary_update']
                 );
             }
         } else {
             $this->log(
-                __(
-                    'Article summary update failed. No valid result returned. Article ID: {0} Title: {1}',
-                    [$id, $title]
+                sprintf(
+                    'Article summary update failed. No valid result returned. Article ID: %s Title: %s',
+                    $id,
+                    $title
                 ),
                 'error',
                 ['group_name' => 'article_summary_update']

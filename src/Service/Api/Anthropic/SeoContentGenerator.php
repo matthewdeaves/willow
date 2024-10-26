@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Service\Api\Anthropic;
 
 use App\Model\Table\AipromptsTable;
-use App\Service\Api\AnthropicApiService;
+use Cake\Log\LogTrait;
 use InvalidArgumentException;
 
 /**
@@ -16,6 +16,8 @@ use InvalidArgumentException;
  */
 class SeoContentGenerator
 {
+    use LogTrait;
+
     /**
      * The Anthropic API service used for sending requests and parsing responses.
      *
@@ -69,7 +71,18 @@ class SeoContentGenerator
         $response = $this->apiService->sendRequest($payload);
         $result = $this->apiService->parseResponse($response);
 
-        return $this->ensureExpectedKeys($result);
+        $defaultKeys = [
+            'meta_title',
+            'meta_description',
+            'meta_keywords',
+            'facebook_description',
+            'linkedin_description',
+            'twitter_description',
+            'instagram_description',
+            'description',
+        ];
+
+        return $this->ensureExpectedKeys($result, $defaultKeys);
     }
 
     /**
@@ -151,14 +164,14 @@ class SeoContentGenerator
     }
 
     /**
-     * Ensures that the result contains all expected SEO keys, initializing them if necessary.
+     * Ensures that the result contains all expected keys, initializing them if necessary.
      *
      * @param array $result The result array to check and modify.
      * @return array The result array with all expected SEO keys initialized.
      */
-    private function ensureExpectedKeys(array $result): array
+    private function ensureExpectedKeys(array $result, ?array $expectedKeys = null): array
     {
-        $expectedKeys = [
+        $defaultKeys = [
             'meta_title',
             'meta_description',
             'meta_keywords',
@@ -166,12 +179,18 @@ class SeoContentGenerator
             'linkedin_description',
             'twitter_description',
             'instagram_description',
-            'description',
         ];
 
-        foreach ($expectedKeys as $key) {
+        $keys = $expectedKeys ?? $defaultKeys;
+
+        foreach ($keys as $key) {
             if (!isset($result[$key])) {
                 $result[$key] = '';
+                $this->log(
+                    sprintf('SEO Content Generator did not find expected key: %s', $key),
+                    'error',
+                    ['group_name' => 'anthropic']
+                );
             }
         }
 

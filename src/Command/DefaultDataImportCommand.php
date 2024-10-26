@@ -69,7 +69,7 @@ class DefaultDataImportCommand extends Command
         // Get list of JSON files
         $files = glob($inputDir . DS . '*.json');
         if (empty($files)) {
-            $io->out(__('No JSON files found in the directory: {0}', $inputDir));
+            $io->out(sprintf('No JSON files found in the directory: %s', $inputDir));
 
             return Command::CODE_ERROR;
         }
@@ -82,16 +82,16 @@ class DefaultDataImportCommand extends Command
             }
         } else {
             // Display files and ask user to choose
-            $io->out(__('Available data files:'));
+            $io->out('Available data files:');
             foreach ($files as $index => $file) {
                 $io->out(sprintf('[%d] %s', $index + 1, basename($file)));
             }
 
-            $choice = $io->ask(__('Choose a file to import by number:'));
+            $choice = $io->ask('Choose a file to import by number:');
             $choiceIndex = (int)$choice - 1;
 
             if (!isset($files[$choiceIndex])) {
-                $io->error(__('Invalid choice.'));
+                $io->error('Invalid choice.');
 
                 return Command::CODE_ERROR;
             }
@@ -120,7 +120,7 @@ class DefaultDataImportCommand extends Command
         $inputFile = $inputDir . DS . Inflector::underscore($tableName) . '.json';
 
         if (!file_exists($inputFile)) {
-            $io->error(__('Input file not found: {0}', $inputFile));
+            $io->error(sprintf('Input file not found: %s', $inputFile));
 
             return;
         }
@@ -130,37 +130,35 @@ class DefaultDataImportCommand extends Command
 
         // Delete all existing records from the table
         $table->deleteAll([]);
-        $io->out(__('Deleted all existing records from table: {0}', $tableName));
+        $io->out(sprintf('Deleted all existing records from table: %s', $tableName));
 
         foreach ($data as $row) {
             $entity = $table->newEntity($row);
 
-            // Type cast $entity->value based on $entity->value_type
-            switch ($entity->value_type) {
-                case 'text':
-                    $entity->value = (string)$entity->value;
-                    break;
-                case 'numeric':
-                    $entity->value = (int)$entity->value;
-                    break;
-                case 'bool':
-                    $entity->value = (bool)$entity->value;
-                    break;
+            if ($tableName == 'settings') {
+                // Type cast $entity->value based on $entity->value_type
+                switch ($entity->value_type) {
+                    case 'text':
+                        $entity->value = (string)$entity->value;
+                        break;
+                    case 'numeric':
+                        $entity->value = (int)$entity->value;
+                        break;
+                    case 'bool':
+                        $entity->value = (bool)$entity->value;
+                        break;
+                }
             }
 
             if (!$table->save($entity)) {
-                $io->error(__('Failed to save entity: {0} {1}', [
-                    $entity->category . ':' . $entity->key_name,
-                    json_encode($entity->getErrors()),
-                ]));
-            } else {
-                $io->success(__('Saved : {0} {1}', [
-                    $entity->category . ':' . $entity->key_name,
-                    $entity->value,
-                ]));
+                $io->error(sprintf(
+                    'Failed to save entity: %s %s',
+                    $tableName,
+                    json_encode($entity->getErrors())
+                ));
             }
         }
 
-        $io->success(__('Imported data into table: {0}', $tableName));
+        $io->success(sprintf('Imported data into table: %s', $tableName));
     }
 }

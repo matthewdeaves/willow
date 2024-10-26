@@ -101,9 +101,9 @@ class ExportCodeCommand extends Command
 
         if (!$separateFiles) {
             fclose($handle);
-            $io->success(__('Code exported successfully to {0}', $outputFile));
+            $io->success(sprintf('Code exported successfully to %s', $outputFile));
         } else {
-            $io->success(__('Code exported successfully to separate files.'));
+            $io->success('Code exported successfully to separate files.');
         }
 
         return static::CODE_SUCCESS;

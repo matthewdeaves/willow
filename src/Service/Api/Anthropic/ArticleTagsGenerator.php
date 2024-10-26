@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Service\Api\Anthropic;
 
 use App\Model\Table\AipromptsTable;
-use App\Service\Api\AnthropicApiService;
+use Cake\Log\LogTrait;
 use InvalidArgumentException;
 
 /**
@@ -16,6 +16,8 @@ use InvalidArgumentException;
  */
 class ArticleTagsGenerator
 {
+    use LogTrait;
+
     /**
      * The Anthropic API service used for sending requests and parsing responses.
      *
@@ -134,6 +136,11 @@ class ArticleTagsGenerator
         foreach ($expectedKeys as $key) {
             if (!isset($result[$key])) {
                 $result[$key] = '';
+                $this->log(
+                    sprintf('Article Tag Generator did not find expected key: %s', $key),
+                    'error',
+                    ['group_name' => 'anthropic']
+                );
             }
         }
 

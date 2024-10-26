@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Job;
 
-use App\Service\Api\AnthropicApiService;
+use App\Service\Api\Anthropic\AnthropicApiService;
 use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
@@ -61,7 +61,7 @@ class ImageAnalysisJob implements JobInterface
         $model = $message->getArgument('model');
 
         $this->log(
-            __('Received image analysis message: Image ID: {0} Path: {1}', [$id, $folderPath . $file]),
+            sprintf('Received image analysis message: Image ID: %s Path: %s', $id, $folderPath . $file),
             'info',
             ['group_name' => 'image_analysis']
         );
@@ -79,7 +79,7 @@ class ImageAnalysisJob implements JobInterface
 
                 if ($modelTable->save($image)) {
                     $this->log(
-                        __('Image analysis completed successfully. Model: {0} ID: {1}', [$model, $id]),
+                        sprintf('Image analysis completed successfully. Model: %s ID: %s', $model, $id),
                         'info',
                         ['group_name' => 'image_analysis']
                     );
@@ -89,13 +89,13 @@ class ImageAnalysisJob implements JobInterface
             }
 
             $this->log(
-                __('Image analysis failed. Model: {0} ID: {1}', [$model, $id]),
+                sprintf('Image analysis failed. Model: %s ID: %s', $model, $id),
                 'error',
                 ['group_name' => 'image_analysis']
             );
         } catch (Exception $e) {
             $this->log(
-                __('Error during image analysis: {0}', [$e->getMessage()]),
+                sprintf('Error during image analysis: %s', $e->getMessage()),
                 'error',
                 ['group_name' => 'image_analysis']
             );

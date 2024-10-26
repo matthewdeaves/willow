@@ -68,14 +68,12 @@ class SendEmailJob implements JobInterface
         $viewVars = $message->getArgument('viewVars');
 
         $this->log(
-            __(
-                'Processing email job: Template: {0} From: {1} To: {2} viewVars: {3}',
-                [
+            sprintf(
+                'Processing email job: Template: %s From: %s To: %s viewVars: %s',
                 $templateIdentifier,
                 $from,
                 $to,
-                json_encode($viewVars),
-                ]
+                json_encode($viewVars)
             ),
             'info',
             ['group_name' => 'email_sending']
@@ -115,7 +113,11 @@ class SendEmailJob implements JobInterface
 
         if ($result) {
             $this->log(
-                __('Email sent successfully: {0} to {1}', [$emailTemplate->subject, $to]),
+                sprintf(
+                    'Email sent successfully: %s to %s',
+                    $emailTemplate->subject,
+                    $to
+                ),
                 'info',
                 ['group_name' => 'email_sending']
             );
@@ -123,7 +125,11 @@ class SendEmailJob implements JobInterface
             return Processor::ACK;
         } else {
             $this->log(
-                __('Email sending failed: {0} to {1}', [$emailTemplate->subject, $to]),
+                sprintf(
+                    'Email sending failed: %s to %s',
+                    $emailTemplate->subject,
+                    $to
+                ),
                 'error',
                 ['group_name' => 'email_sending']
             );

@@ -98,7 +98,7 @@ class CreateUserCommand extends Command
         unset($logData['password'], $logData['confirm_password']);
 
         $this->log(
-            __('Attempting to create user with data: {0}', [json_encode($logData)]),
+            sprintf('Attempting to create user with data: %s', json_encode($logData)),
             'info',
             ['group_name' => 'user_creation']
         );
@@ -109,9 +109,9 @@ class CreateUserCommand extends Command
 
         if ($usersTable->save($user)) {
             $this->log(
-                __(
-                    'User created successfully: {0}',
-                    [$user['username']]
+                sprintf(
+                    'User created successfully: %s',
+                    $user['username']
                 ),
                 'info',
                 ['group_name' => 'user_creation']
@@ -119,10 +119,15 @@ class CreateUserCommand extends Command
 
             return true;
         } else {
-            $this->log(__('Failed to create user: {0}. Errors: {1}', [
-                $user['username'],
-                json_encode($user->getErrors()),
-            ]), 'error', ['group_name' => 'user_creation']);
+            $this->log(
+                sprintf(
+                    'Failed to create user: %s. Errors: %s',
+                    $user['username'],
+                    json_encode($user->getErrors())
+                ),
+                'error',
+                ['group_name' => 'user_creation']
+            );
 
             return false;
         }

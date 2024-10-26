@@ -1,14 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Service\Api;
+namespace App\Service\Api\Anthropic;
 
 use App\Model\Table\AipromptsTable;
-use App\Service\Api\Anthropic\ArticleTagsGenerator;
-use App\Service\Api\Anthropic\CommentAnalyzer;
-use App\Service\Api\Anthropic\ImageAnalyzer;
-use App\Service\Api\Anthropic\SeoContentGenerator;
-use App\Service\Api\Anthropic\TextSummaryGenerator;
+use App\Service\Api\AbstractApiService;
 use App\Utility\SettingsManager;
 use Cake\Http\Client;
 use Cake\Http\Client\Response;
@@ -68,13 +64,18 @@ class AnthropicApiService extends AbstractApiService
     private TextSummaryGenerator $textSummaryGenerator;
 
     /**
+     * @var \App\Service\Api\Anthropic\TranslationGenerator The text summary generator service.
+     */
+    private TranslationGenerator $translationGenerator;
+
+    /**
      * AnthropicApiService constructor.
      *
      * Initializes the service with necessary dependencies and configurations.
      */
     public function __construct()
     {
-        $apiKey = SettingsManager::read('AI.anthropicApiKey');
+        $apiKey = SettingsManager::read('Anthropic.apiKey');
         parent::__construct(new Client(), $apiKey, self::API_URL, self::API_VERSION);
 
         $this->aipromptsTable = TableRegistry::getTableLocator()->get('Aiprompts');
@@ -83,6 +84,21 @@ class AnthropicApiService extends AbstractApiService
         $this->commentAnalyzer = new CommentAnalyzer($this, $this->aipromptsTable);
         $this->articleTagsGenerator = new ArticleTagsGenerator($this, $this->aipromptsTable);
         $this->textSummaryGenerator = new TextSummaryGenerator($this, $this->aipromptsTable);
+        $this->translationGenerator = new TranslationGenerator($this, $this->aipromptsTable);
+    }
+
+    /**
+     * Gets the headers for the API request.
+     *
+     * @return array An associative array of headers.
+     */
+    protected function getHeaders(): array
+    {
+        return [
+            'x-api-key' => $this->apiKey,
+            'anthropic-version' => $this->apiVersion,
+            'Content-Type' => 'application/json',
+        ];
     }
 
     /**
@@ -154,6 +170,22 @@ class AnthropicApiService extends AbstractApiService
     public function generateTextSummary(string $context, string $text): array
     {
         return $this->textSummaryGenerator->generateTextSummary($context, $text);
+    }
+
+    /**
+     * Translates an array of strings from one locale to another.
+     *
+     * This method utilizes the TranslationGenerator service to perform translations
+     * of the provided strings from the specified source locale to the target locale.
+     *
+     * @param array $strings The array of strings to be translated.
+     * @param string $localeFrom The locale code of the source language (e.g., 'en_US').
+     * @param string $localeTo The locale code of the target language (e.g., 'fr_FR').
+     * @return array The translated strings.
+     */
+    public function translateStrings(array $strings, string $localeFrom, string $localeTo): array
+    {
+        return $this->translationGenerator->generateI18nTranslation($strings, $localeFrom, $localeTo);
     }
 
     /**

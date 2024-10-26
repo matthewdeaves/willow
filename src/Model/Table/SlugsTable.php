@@ -125,7 +125,10 @@ class SlugsTable extends Table
                 $this->clearFromCache($slug);
             } else {
                 $this->log(
-                    __('Failed to save slug: {0}', json_encode($newSlug->getErrors())),
+                    sprintf(
+                        'Failed to save slug: %s',
+                        json_encode($newSlug->getErrors())
+                    ),
                     'error',
                     ['group_name' => 'slug_creation']
                 );

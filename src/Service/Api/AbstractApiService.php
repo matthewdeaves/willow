@@ -59,12 +59,15 @@ abstract class AbstractApiService
      * @return \Cake\Http\Client\Response The response from the API.
      * @throws \Cake\Http\Exception\ServiceUnavailableException If the API request fails.
      */
-    public function sendRequest(array $payload): Response
+    public function sendRequest(array $payload, int $timeOut = 30): Response
     {
         $response = $this->client->post(
             $this->apiUrl,
             json_encode($payload),
-            ['headers' => $this->getHeaders()]
+            [
+                'headers' => $this->getHeaders(),
+                'timeout' => $timeOut,
+            ]
         );
 
         if (!$response->isOk()) {
@@ -79,14 +82,7 @@ abstract class AbstractApiService
      *
      * @return array An associative array of headers.
      */
-    protected function getHeaders(): array
-    {
-        return [
-            'x-api-key' => $this->apiKey,
-            'anthropic-version' => $this->apiVersion,
-            'Content-Type' => 'application/json',
-        ];
-    }
+    abstract protected function getHeaders(): array;
 
     /**
      * Handles API errors by logging the error and throwing an exception.

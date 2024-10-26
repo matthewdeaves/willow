@@ -57,7 +57,7 @@ class ProcessImageJob implements JobInterface
     {
         if (!extension_loaded('imagick')) {
             $this->log(
-                __('Imagick extension is not loaded'),
+                'Imagick extension is not loaded',
                 'error',
                 ['group_name' => 'image_processing']
             );
@@ -71,7 +71,7 @@ class ProcessImageJob implements JobInterface
         $id = $message->getArgument('id');
 
         $this->log(
-            __('Received image processing message: Image ID: {0} Path: {1}', [$id, $folderPath . $file]),
+            sprintf('Received image processing message: Image ID: %s Path: %s', $id, $folderPath . $file),
             'info',
             ['group_name' => 'image_processing']
         );
@@ -79,9 +79,10 @@ class ProcessImageJob implements JobInterface
         $imageSizes = SettingsManager::read('ImageSizes');
 
         $this->log(
-            __(
-                'Starting image processing job. Path: {0}, Sizes to process: {1}',
-                [$folderPath . $file, implode(', ', $imageSizes)]
+            sprintf(
+                'Starting image processing job. Path: %s, Sizes to process: %s',
+                $folderPath . $file,
+                implode(', ', $imageSizes)
             ),
             'info',
             ['group_name' => 'image_processing']
@@ -93,9 +94,10 @@ class ProcessImageJob implements JobInterface
             }
         } catch (Exception $e) {
             $this->log(
-                __(
-                    'Error during image processing. Path: {0}, Error: {1}',
-                    [$folderPath . $file, $e->getMessage()]
+                sprintf(
+                    'Error during image processing. Path: %s, Error: %s',
+                    $folderPath . $file,
+                    $e->getMessage()
                 ),
                 'error',
                 ['group_name' => 'image_processing']
@@ -105,7 +107,7 @@ class ProcessImageJob implements JobInterface
         }
 
         $this->log(
-            __('Image processing job completed successfully. Path: {0}', [$folderPath . $file]),
+            sprintf('Image processing job completed successfully. Path: %s', $folderPath . $file),
             'info',
             ['group_name' => 'image_processing']
         );
@@ -152,7 +154,7 @@ class ProcessImageJob implements JobInterface
         try {
             if (!file_exists($folder . $file)) {
                 $this->log(
-                    __('Original image not found for resizing. Path: {0}', [$folder . $file]),
+                    sprintf('Original image not found for resizing. Path: %s', $folder . $file),
                     'error',
                     ['group_name' => 'image_processing']
                 );
@@ -162,9 +164,9 @@ class ProcessImageJob implements JobInterface
 
             if (file_exists($sizeFolder . $file)) {
                 $this->log(
-                    __(
-                        'Skipped resizing, image already exists. Path: {0}',
-                        [$sizeFolder . $file]
+                    sprintf(
+                        'Skipped resizing, image already exists. Path: %s',
+                        $sizeFolder . $file
                     ),
                     'info',
                     ['group_name' => 'image_processing']
@@ -179,18 +181,22 @@ class ProcessImageJob implements JobInterface
             $imagick->clear();
 
             $this->log(
-                __(
-                    'Successfully resized and saved image. Original: {0}, Resized: {1}, Width: {2}px',
-                    [$folder . $file, $sizeFolder . $file, $width]
+                sprintf(
+                    'Successfully resized and saved image. Original: %s, Resized: %s, Width: %dpx',
+                    $folder . $file,
+                    $sizeFolder . $file,
+                    $width
                 ),
                 'info',
                 ['group_name' => 'image_processing']
             );
         } catch (Exception $e) {
             $this->log(
-                __(
-                    'Error resizing image. Original: {0}, Target Width: {1}px, Error: {2}',
-                    [$folder . $file, $width, $e->getMessage()]
+                sprintf(
+                    'Error resizing image. Original: %s, Target Width: %dpx, Error: %s',
+                    $folder . $file,
+                    $width,
+                    $e->getMessage()
                 ),
                 'error',
                 ['group_name' => 'image_processing']

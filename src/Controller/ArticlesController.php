@@ -10,6 +10,7 @@ use Cake\Event\EventInterface;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
 use Cake\I18n\I18n;
+use Cake\Routing\Router;
 
 /**
  * Articles Controller
@@ -268,7 +269,10 @@ class ArticlesController extends AppController
             $this->Flash->error(__('Unable to add your comment.'));
         }
 
-        return $this->redirect('/' . $article->slug);
+        return $this->redirect(Router::url([
+            '_name' => 'article-by-slug',
+            'slug' => $article->slug
+        ], true));
     }
 
     /**

@@ -55,4 +55,48 @@ class GoogleApiService
 
         return $translatedStrings;
     }
+
+    /**
+     * Translates an article title and body into multiple languages using the Google Translate API.
+     *
+     * @param string $title The title of the article to be translated.
+     * @param string $body The body of the article to be translated (can contain HTML).
+     * @return array An associative array where the keys are the locale codes and the values are arrays
+     *               containing the translated 'title' and 'body' for each enabled locale.
+     *               Example format:
+     *               [
+     *                   'fr_FR' => [
+     *                       'title' => 'Titre traduit',
+     *                       'body' => 'Corps traduit',
+     *                   ],
+     *                   'es_ES' => [
+     *                       'title' => 'Título traducido',
+     *                       'body' => 'Cuerpo traducido',
+     *                   ],
+     *                   ...
+     *               ]
+     */
+    public function translateArticle(string $title, string $body): array
+    {
+        $locales = SettingsManager::read('Translations', null);
+
+        $translations = [];
+        foreach ($locales as $locale => $enabled)
+        {
+            if ($enabled) {
+                $translationResult = $this->translateClient->translateBatch(
+                    [$title, $body],
+                    [
+                        'source' => 'en',
+                        'target' => $locale,
+                        'format' => 'html',
+                    ]
+                );
+                $translations[$locale]['title'] = $translationResult[0]['text'];
+                $translations[$locale]['body'] = $translationResult[1]['text'];
+            }
+        }
+
+        return $translations;
+    }
 }

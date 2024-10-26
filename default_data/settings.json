@@ -158,5 +158,205 @@
         "value_type": "text",
         "value_obscure": false,
         "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "de_DE",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "fr_FR",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "es_ES",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "it_IT",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "pt_PT",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "nl_NL",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "pl_PL",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "ru_RU",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "sv_SE",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "da_DK",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "fi_FI",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "no_NO",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "el_GR",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "tr_TR",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "cs_CZ",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "hu_HU",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "ro_RO",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "sk_SK",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "sl_SI",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "bg_BG",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "hr_HR",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "et_EE",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "lv_LV",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "lt_LT",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "uk_UA",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
     }
 ]

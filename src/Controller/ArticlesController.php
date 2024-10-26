@@ -9,6 +9,7 @@ use App\Model\Table\Trait\ArticleCacheTrait;
 use Cake\Event\EventInterface;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
+use Cake\I18n\I18n;
 
 /**
  * Articles Controller
@@ -116,6 +117,8 @@ class ArticlesController extends AppController
      */
     public function index(): void
     {
+        I18n::setLocale('en_GB');
+
         $selectedTag = $this->request->getQuery('tag');
 
         $query = $this->Articles->find()
@@ -141,8 +144,8 @@ class ArticlesController extends AppController
                     'Articles.is_published' => 1,
                 ]);
             })
-            ->select(['Tags.title'])
-            ->distinct(['Tags.title'])
+            ->select(['Tags.id', 'Tags.title'])
+            ->groupBy(['Tags.id', 'Tags.title'])
             ->orderBy(['Tags.title' => 'ASC']);
 
         $tags = $tagsQuery->all()->extract('title')->toList();

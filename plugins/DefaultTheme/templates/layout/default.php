@@ -26,10 +26,7 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <?= $this->Html->link('Home', '/', ['class' => 'nav-link']) ?>
-                    </li>
-                    <li class="nav-item">
-                        <?= $this->Html->link('Articles', ['controller' => 'Articles', 'action' => 'index'], ['class' => 'nav-link']) ?>
+                        <?= $this->Html->link(__('Home'), ['_name' => 'home'], ['class' => 'nav-link']) ?>
                     </li>
                     <li class="nav-item">
                         <?= $this->Html->link('Tags', ['controller' => 'Tags', 'action' => 'index'], ['class' => 'nav-link']) ?>
@@ -44,7 +41,7 @@
                             </li>
                         <?php endif; ?>
                         <li class="nav-item">
-                            <?= $this->Html->link('Logout', ['controller' => 'Users', 'action' => 'logout'], ['class' => 'nav-link']) ?>
+                            <?= $this->Html->link(__('Logout'), ['_name' => 'logout'], ['class' => 'nav-link']) ?>
                         </li>
                     <?php else: ?>
                         <li class="nav-item">

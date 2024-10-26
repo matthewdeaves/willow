@@ -42,14 +42,18 @@
                     <h2 class="card-title mb-0">
                         <?= $this->Html->link(
                             h($article->title),
-                            '/' . $article->slug,
-                            ['class' => 'text-decoration-none']
-                        ) ?>
+                            [
+                                '_name' => 'article-by-slug',
+                                'slug' => $article->slug
+                            ]
+                        ); ?>
                     </h2>
                 </div>
                 <p class="card-text text-muted">
+                    <?php if (!empty($article->user->username)) :?>
                     <?= __('By') ?> <?= h($article->user->username) ?> | 
                     <?= $article->published->format('F j, Y, g:i a') ?>
+                    <?php endif; ?>
                 </p>
                 <div class="article-content">
                     <?php if ($hasNonEmptySummary): ?>
@@ -74,11 +78,14 @@
                         <?= __('Show Full Article') ?>
                     </button>
                 <?php endif; ?>
-                <?= $this->Html->link(
-                    __('Read More'),
-                    '/' . $article->slug,
-                    ['class' => 'btn btn-primary']
-                ) ?>
+                    <?= $this->Html->link(
+                        __('Read More'),
+                        [
+                            '_name' => 'article-by-slug',
+                            'slug' => $article->slug
+                        ],
+                        ['class' => 'btn btn-primary']
+                    ); ?>
             </div>
         </div>
     <?php endforeach; ?>

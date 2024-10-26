@@ -224,6 +224,34 @@ class V1 extends AbstractMigration
             ])
             ->create();
 
+        $this->table('articles_translations', ['id' => false, 'primary_key' => ['id', 'locale']])
+            ->addColumn('id', 'uuid', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('locale', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => false,
+            ])
+            ->addColumn('title', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
+            ->addColumn('body', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('summary', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->create();
+
         $this->table('blocked_ips', ['id' => false, 'primary_key' => ['id']])
             ->addColumn('id', 'uuid', [
                 'default' => null,
@@ -426,6 +454,39 @@ class V1 extends AbstractMigration
             ])
             ->create();
 
+        $this->table('internationalisations', ['id' => false, 'primary_key' => ['id']])
+            ->addColumn('id', 'uuid', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('locale', 'string', [
+                'default' => null,
+                'limit' => 10,
+                'null' => false,
+            ])
+            ->addColumn('message_id', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('message_str', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('created_at', 'timestamp', [
+                'default' => 'CURRENT_TIMESTAMP',
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('updated_at', 'timestamp', [
+                'default' => 'CURRENT_TIMESTAMP',
+                'limit' => null,
+                'null' => false,
+            ])
+            ->create();
+
         $this->table('models_images', ['id' => false, 'primary_key' => ['id']])
             ->addColumn('id', 'uuid', [
                 'default' => null,
@@ -539,6 +600,11 @@ class V1 extends AbstractMigration
                 'default' => false,
                 'limit' => null,
                 'null' => false,
+            ])
+            ->addColumn('data', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
             ])
             ->addColumn('created', 'datetime', [
                 'default' => 'CURRENT_TIMESTAMP',
@@ -814,10 +880,12 @@ class V1 extends AbstractMigration
         $this->table('aiprompts')->drop()->save();
         $this->table('articles')->drop()->save();
         $this->table('articles_tags')->drop()->save();
+        $this->table('articles_translations')->drop()->save();
         $this->table('blocked_ips')->drop()->save();
         $this->table('comments')->drop()->save();
         $this->table('email_templates')->drop()->save();
         $this->table('images')->drop()->save();
+        $this->table('internationalisations')->drop()->save();
         $this->table('models_images')->drop()->save();
         $this->table('page_views')->drop()->save();
         $this->table('settings')->drop()->save();

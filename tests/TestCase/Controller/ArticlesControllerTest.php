@@ -77,7 +77,7 @@ class ArticlesControllerTest extends AppControllerTestCase
      */
     public function testViewByOldSlugForPublishedArticle(): void
     {
-        $this->get('/article-one');
+        $this->get('/en/articles/article-one');
         $this->assertResponseCode(301);
         $this->assertRedirect();
 
@@ -101,7 +101,7 @@ class ArticlesControllerTest extends AppControllerTestCase
     public function testViewBySlugUnpublished(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->get('/article-five');
+        $this->get('/en/articles/article-five');
     }
 
     /**
@@ -119,7 +119,7 @@ class ArticlesControllerTest extends AppControllerTestCase
 
         // Try to view unpublished article
         $this->expectException(NotFoundException::class);
-        $this->get('/article-five');
+        $this->get('/en/articles/article-five');
 
         // Publish the article
         $articlesTable = TableRegistry::getTableLocator()->get('Articles');
@@ -129,7 +129,7 @@ class ArticlesControllerTest extends AppControllerTestCase
         $articlesTable->save($article);
 
         // Try to view the now published article
-        $this->get('/article-five');
+        $this->get('/en/articles/article-five');
         $this->assertResponseOk();
         $this->assertResponseContains('Content for Article Five');
     }
@@ -149,7 +149,7 @@ class ArticlesControllerTest extends AppControllerTestCase
 
         // Try to view unpublished page
         $this->expectException(NotFoundException::class);
-        $this->get('/page-six');
+        $this->get('/en/articles/page-six');
 
         // Publish the page
         $articlesTable = TableRegistry::getTableLocator()->get('Articles');
@@ -159,7 +159,7 @@ class ArticlesControllerTest extends AppControllerTestCase
         $articlesTable->save($page);
 
         // Try to view the now published page
-        $this->get('/page-six');
+        $this->get('/en/articles/page-six');
         $this->assertResponseOk();
         $this->assertResponseContains('Content for Page Six');
     }
@@ -323,7 +323,7 @@ class ArticlesControllerTest extends AppControllerTestCase
         $this->assertNotEmpty($article1);
 
         // Check Article 1 is viewable in front end
-        $this->get('/big-test-article-1');
+        $this->get('/en/articles/big-test-article-1');
         $this->assertResponseOk();
         $this->assertResponseContains('Content for Big Test Article 1');
 
@@ -347,7 +347,7 @@ class ArticlesControllerTest extends AppControllerTestCase
 
         if (env('EXPERIMENTAL_TESTS', 'Off') == 'On') {
             // Check old slug redirects to new slug
-            $this->get('/big-test-article-1');
+            $this->get('/en/articles/big-test-article-1');
             $this->assertResponseCode(301);
             $this->assertRedirect();
 
@@ -359,7 +359,7 @@ class ArticlesControllerTest extends AppControllerTestCase
             $this->assertResponseContains('Updated content for Test Article 1');
 
             // Check new slug is accessible without redirect
-            $this->get('/big-test-article-1-v1');
+            $this->get('/en/articles/big-test-article-1-v1');
             $this->assertResponseOk();
             $this->assertResponseContains('Updated content for Test Article 1');
 

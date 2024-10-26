@@ -14,4 +14,5 @@ return [
     'Josegonzalez/Upload' => [],
     'AdminTheme' => [],
     'DefaultTheme' => [],
+    'ADmad/I18n' => [],
 ];

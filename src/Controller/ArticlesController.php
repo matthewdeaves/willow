@@ -9,6 +9,7 @@ use App\Model\Table\Trait\ArticleCacheTrait;
 use Cake\Event\EventInterface;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
+use Cake\Routing\Router;
 
 /**
  * Articles Controller
@@ -141,8 +142,8 @@ class ArticlesController extends AppController
                     'Articles.is_published' => 1,
                 ]);
             })
-            ->select(['Tags.title'])
-            ->distinct(['Tags.title'])
+            ->select(['Tags.id', 'Tags.title'])
+            ->groupBy(['Tags.id', 'Tags.title'])
             ->orderBy(['Tags.title' => 'ASC']);
 
         $tags = $tagsQuery->all()->extract('title')->toList();
@@ -162,7 +163,7 @@ class ArticlesController extends AppController
     public function viewBySlug(string $slug): ?Response
     {
         // Try to get the article from cache first
-        $article = $this->getFromCache($slug);
+        $article = $this->getFromCache($slug . $this->request->getParam('language', 'en'));
 
         if (empty($article)) {
             // If not in cache, we need to check if this is the latest slug
@@ -267,7 +268,10 @@ class ArticlesController extends AppController
             $this->Flash->error(__('Unable to add your comment.'));
         }
 
-        return $this->redirect('/' . $article->slug);
+        return $this->redirect(Router::url([
+            '_name' => 'article-by-slug',
+            'slug' => $article->slug,
+        ], true));
     }
 
     /**

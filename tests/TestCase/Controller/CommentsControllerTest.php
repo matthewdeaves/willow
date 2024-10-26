@@ -175,7 +175,7 @@ class CommentsControllerTest extends AppControllerTestCase
     public function testCommentVisibility(): void
     {
         // First, ensure the comment is visible
-        $this->get('/article-six');
+        $this->get('/en/articles/article-six');
         $this->assertResponseOk();
         $this->assertResponseContains('Content for Article Six');
         $this->assertResponseContains('Do not disable this comment it has to appear on article six.');
@@ -193,7 +193,7 @@ class CommentsControllerTest extends AppControllerTestCase
 
         // Check that the comment is no longer visible on the front end
         // Using the newest slug for the article
-        $this->get('/article-six');
+        $this->get('/en/articles/article-six');
         $this->assertResponseOk();
         $this->assertResponseContains('Content for Article Six');
         $this->assertResponseNotContains('Do not disable this comment it has to appear on article six.');

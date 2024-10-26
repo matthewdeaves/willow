@@ -80,7 +80,7 @@ class UsersControllerTest extends AppControllerTestCase
      */
     public function testLoginAccessForUnauthenticatedUsers(): void
     {
-        $this->get('/users/login');
+        $this->get('/en/users/login');
         $this->assertResponseOk();
     }
 
@@ -94,7 +94,7 @@ class UsersControllerTest extends AppControllerTestCase
     public function testSuccessfulNonAdminLogin(): void
     {
         $this->enableCsrfToken();
-        $this->post('/users/login', [
+        $this->post('/en/users/login', [
             'email' => 'user@example.com',
             'password' => 'password',
         ]);
@@ -111,7 +111,7 @@ class UsersControllerTest extends AppControllerTestCase
     public function testSuccessfulAdminLogin(): void
     {
         $this->enableCsrfToken();
-        $this->post('/users/login', [
+        $this->post('/en/users/login', [
             'email' => 'admin@example.com',
             'password' => 'password',
         ]);
@@ -128,7 +128,7 @@ class UsersControllerTest extends AppControllerTestCase
     public function testLoginWithBadCredentials(): void
     {
         $this->enableCsrfToken();
-        $this->post('/users/login', [
+        $this->post('/en/users/login', [
             'email' => 'wrong@example.com',
             'password' => 'incorrectpassword',
         ]);
@@ -153,7 +153,7 @@ class UsersControllerTest extends AppControllerTestCase
     public function testLogout(): void
     {
         $this->session(['Auth' => ['User' => ['id' => 1]]]);
-        $this->get('/users/logout');
+        $this->get('/en/users/logout');
         $this->assertRedirect(['controller' => 'Users', 'action' => 'login']);
     }
 
@@ -167,7 +167,7 @@ class UsersControllerTest extends AppControllerTestCase
     public function testSuccessfulRegistration(): void
     {
         $this->enableCsrfToken();
-        $this->post('/users/register', [
+        $this->post('/en/users/register', [
             'email' => 'newuser@example.com',
             'password' => 'newpassword123',
             'confirm_password' => 'newpassword123',
@@ -185,7 +185,7 @@ class UsersControllerTest extends AppControllerTestCase
     public function testRegistrationFailure(): void
     {
         $this->enableCsrfToken();
-        $this->post('/users/register', [
+        $this->post('/en/users/register', [
             'email' => 'invalidemail',
             'password' => 'short',
             'confirm_password' => 'mismatch',
@@ -209,7 +209,7 @@ class UsersControllerTest extends AppControllerTestCase
         $this->enableCsrfToken();
 
         // Test sending confirmation email message
-        $this->post('/users/register', [
+        $this->post('/en/users/register', [
             'email' => 'newuser66@example.com',
             'password' => 'newpassword123',
             'confirm_password' => 'newpassword123',
@@ -224,17 +224,17 @@ class UsersControllerTest extends AppControllerTestCase
         $confirmationCode = $confirmation->confirmation_code;
 
         // Test confirming email with valid confirmation code
-        $this->get("/users/confirm-email/{$confirmationCode}");
+        $this->get("/en/users/confirm-email/{$confirmationCode}");
         $this->assertRedirect(['controller' => 'Users', 'action' => 'login']);
         $this->assertFlashMessage('Your account has been confirmed. You can now log in.');
 
         // Test confirming email with invalid confirmation code
-        $this->get('/users/confirm-email/invalidcode');
+        $this->get('/en/users/confirm-email/invalidcode');
         $this->assertRedirect(['controller' => 'Users', 'action' => 'register']);
         $this->assertFlashMessage('Invalid confirmation code. Please contact support.');
 
         // Test confirming email with already used confirmation code
-        $this->get("/users/confirm-email/{$confirmationCode}");
+        $this->get("/en/users/confirm-email/{$confirmationCode}");
         $this->assertRedirect(['controller' => 'Users', 'action' => 'register']);
         $this->assertFlashMessage('Invalid confirmation code. Please contact support.');
     }
@@ -253,7 +253,7 @@ class UsersControllerTest extends AppControllerTestCase
         $this->enableCsrfToken();
 
         // Test registration with mismatched passwords
-        $this->post('/users/register', [
+        $this->post('/en/users/register', [
             'email' => 'mismatch@example.com',
             'password' => 'password123',
             'confirm_password' => 'password456',
@@ -262,7 +262,7 @@ class UsersControllerTest extends AppControllerTestCase
         $this->assertFlashMessage('Registration failed. Please, try again.');
 
         // Test registration with an existing email
-        $this->post('/users/register', [
+        $this->post('/en/users/register', [
             'email' => 'user@example.com', // Assuming this email already exists in fixtures
             'password' => 'newpassword123',
             'confirm_password' => 'newpassword123',
@@ -291,7 +291,7 @@ class UsersControllerTest extends AppControllerTestCase
             'email' => 'updated@example.com',
         ];
         // Test editing user's own account
-        $this->post("/users/edit/{$userId}", $data);
+        $this->post("/en/users/edit/{$userId}", $data);
 
         $this->assertResponseSuccess();
         $this->assertFlashMessage('Your account has been updated.');
@@ -320,7 +320,7 @@ class UsersControllerTest extends AppControllerTestCase
 
         // Test attempting to edit another user's account
         $anotherUserId = '6509480c-e7e6-4e65-9c38-8574a8d09d02';
-        $this->post("/users/edit/{$anotherUserId}", [
+        $this->post("/en/users/edit/{$anotherUserId}", [
             'email' => 'hacked@example.com',
             'username' => 'updatedusername',
         ]);
@@ -332,7 +332,7 @@ class UsersControllerTest extends AppControllerTestCase
         $this->assertNotEquals('hacked@example.com', $anotherUser->email);
 
         // Test attempting to change admin status
-        $this->post("/users/edit/{$userId}", [
+        $this->post("/en/users/edit/{$userId}", [
             'is_admin' => true,
         ]);
         $this->assertResponseCode(302);
@@ -341,7 +341,7 @@ class UsersControllerTest extends AppControllerTestCase
         $this->assertFalse($user->is_admin);
 
         // Test submitting invalid data
-        $this->post("/users/edit/{$userId}", [
+        $this->post("/en/users/edit/{$userId}", [
             'email' => 'invalid-email',
         ]);
         $this->assertResponseCode(403);
@@ -377,7 +377,7 @@ class UsersControllerTest extends AppControllerTestCase
         $this->enableCsrfToken();
 
         // Test password too short
-        $this->post('/users/register', [
+        $this->post('/en/users/register', [
             'email' => 'short@example.com',
             'password' => 'short',
             'confirm_password' => 'short',
@@ -425,7 +425,7 @@ class UsersControllerTest extends AppControllerTestCase
         $this->enableCsrfToken();
 
         // Test logging in with a disabled account
-        $this->post('/users/login', [
+        $this->post('/en/users/login', [
             'email' => 'disabled@example.com',
             'password' => 'password',
         ]);

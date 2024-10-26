@@ -43,9 +43,12 @@
                                     <h4 class="h6 mb-0">
                                         <?= $this->Html->link(
                                             h($article->title),
-                                            '/' . $article->slug,
+                                            [
+                                                '_name' => 'article-by-slug',
+                                                'slug' => $article->slug
+                                            ],
                                             ['class' => 'text-primary']
-                                        ) ?>
+                                        ); ?>
                                     </h4>
                                     <small class="text-muted"><?= __('By') ?> <?= h($article->user->username) ?></small>
                                 </div>

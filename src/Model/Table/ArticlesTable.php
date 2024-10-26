@@ -9,6 +9,7 @@ use ArrayObject;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
 use Cake\Log\LogTrait;
+use Cake\ORM\Behavior\Translate\TranslateTrait;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
@@ -53,6 +54,7 @@ class ArticlesTable extends Table
 {
     use ArticleCacheTrait;
     use LogTrait;
+    use TranslateTrait;
 
     /**
      * Initialize method for the ArticlesTable.
@@ -106,6 +108,12 @@ class ArticlesTable extends Table
         $this->addBehavior('QueueableImage', [
             'folder_path' => 'files/Articles/image/',
             'field' => 'image',
+        ]);
+
+        $this->addBehavior('Translate', [
+            'fields' => ['title', 'body', 'summary'],
+            'defaultLocale' => 'en_GB',
+            'allowEmptyTranslations' => false,
         ]);
 
         $this->addBehavior('Josegonzalez/Upload.Upload', [
@@ -332,7 +340,7 @@ class ArticlesTable extends Table
             $this->Slugs->ensureSlugExists($entity->id, $entity->slug);
         }
 
-        // Published Articles should be SEO ready
+        // Published Articles should be SEO ready with translations
         if (
             $entity->is_published
             && SettingsManager::read('AI.enabled')
@@ -352,6 +360,17 @@ class ArticlesTable extends Table
                 ),
                 'info',
                 ['group_name' => 'article_seo_update']
+            );
+
+            // Queue a job to update the Article SEO fields
+            QueueManager::push('App\Job\TranslateArticleJob', $data);
+            $this->log(
+                sprintf(
+                    'Queued Article Translation job: %s',
+                    $entity->title
+                ),
+                'info',
+                ['group_name' => 'article_translation']
             );
         }
 

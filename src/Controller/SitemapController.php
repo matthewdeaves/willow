@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Model\Table\ArticlesTable;
+use Cake\Event\EventInterface;
 use Cake\Http\Response;
 use Cake\I18n\DateTime;
 use Cake\ORM\Query;
@@ -33,6 +34,24 @@ class SitemapController extends AppController
     {
         parent::initialize();
         $this->Articles = TableRegistry::getTableLocator()->get('Articles');
+    }
+
+    /**
+     * Performs actions before the controller's action is executed.
+     *
+     * This method is called before each action in the controller is executed.
+     * It allows you to perform initialization logic, modify the request, or restrict access to certain actions.
+     *
+     * @param \Cake\Event\EventInterface $event The event instance.
+     * @return \Cake\Http\Response|null The response object or null to continue the normal flow.
+     */
+    public function beforeFilter(EventInterface $event): ?Response
+    {
+        parent::beforeFilter($event);
+
+        $this->Authentication->addUnauthenticatedActions(['index']);
+
+        return null;
     }
 
     /**

@@ -50,114 +50,79 @@ return function (RouteBuilder $routes): void {
     $routes->setRouteClass(DashedRoute::class);
 
     $routes->scope('/', function (RouteBuilder $builder): void {
-        /*
-         * Here, we are connecting '/' (base path) to a controller called 'Pages',
-         * its action called 'display', and we pass a param to select the view file
-         * to use (in this case, templates/Pages/home.php)...
-         */
-        //$builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
 
-        /*
-         * ...and connect the rest of 'Pages' controller's URLs.
-         */
-        //$builder->connect('/pages/*', 'Pages::display');
-
-
-        /**
-         * Connects the root URL ('/') to the 'index' action of the 'Articles' controller.
-         *
-         * This route configuration sets the default landing page for the application.
-         * When a user visits the root URL, they will be directed to the article listing page.
-         *
-         * @param string $url The URL pattern to match. In this case, it's the root URL ('/').
-         * @param array $defaults An array specifying the default route elements:
-         *                        - 'controller': The controller to use ('Articles')
-         *                        - 'action': The action to call within the controller ('index')
-         *
-         * @return \Cake\Routing\Route\Route The created route object.
-         *
-         * @see \Cake\Routing\RouteBuilder::connect()
-         * @see \App\Controller\ArticlesController::index()
-         */
         $builder->connect('/', ['controller' => 'Articles', 'action' => 'index']);
+        $builder->connect(
+            '/',
+            [
+                'controller' => 'Articles',
+                'action' => 'index'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'home'
+            ]
+        );
 
-        /**
-         * Connects a route for the sitemap.
-         *
-         * This route maps the URL '/sitemap' to the 'index' action of the 'Sitemap' controller.
-         * It is configured to handle requests with the 'xml' file extension.
-         *
-         * @param string $url The URL pattern to match ('/sitemap').
-         * @param array $defaults An array of default route parameters:
-         *                        - 'controller': The controller to use ('Sitemap')
-         *                        - 'action': The action to call within the controller ('index')
-         *
-         * @return \Cake\Routing\Route\Route The connected route instance.
-         *
-         * Example usage:
-         * - Accessing /sitemap will invoke SitemapController::index()
-         * - Accessing /sitemap.xml will also invoke SitemapController::index() with XML response
-         */
-        $builder->connect('/sitemap', ['controller' => 'Sitemap', 'action' => 'index'])->setExtensions(['xml']);
+        $builder->connect('/sitemap', ['controller' => 'Sitemap', 'action' => 'index'], ['routeClass' => 'ADmad/I18n.I18nRoute'])->setExtensions(['xml']);
 
-        /**
-         * User-related route configurations.
-         *
-         * This block defines routes for various user actions including login, registration,
-         * logout, email confirmation, and profile editing. These routes map specific URLs
-         * to corresponding actions in the Users controller.
-         *
-         * Routes defined:
-         * - /users/login: Handles user login requests.
-         * - /users/register: Processes new user registrations.
-         * - /users/logout: Manages user logout functionality.
-         * - /users/confirm-email/*: Handles email confirmation with a wildcard parameter.
-         * - /users/edit/*: Allows users to edit their profile information, with a wildcard parameter.
-         *
-         * @see \App\Controller\UsersController
-         */
-        $builder->connect('/users/login', ['controller' => 'Users', 'action' => 'login']);
-        $builder->connect('/users/register', ['controller' => 'Users', 'action' => 'register']);
-        $builder->connect('/users/logout', ['controller' => 'Users', 'action' => 'logout']);
-        $builder->connect('/users/confirm-email/*',['controller' => 'Users', 'action' => 'confirmEmail']);
-        $builder->connect('/users/edit/*', ['controller' => 'Users', 'action' => 'edit']);
-        $builder->connect('/atricles/add-comment/*', ['controller' => 'Articles', 'action' => 'addComment']);
-        $builder->connect('/tags', ['controller' => 'Tags', 'action' => 'index']);
-        $builder->connect('/tags/view-by-slug/*', ['controller' => 'Tags', 'action' => 'viewBySlug']);
-        $builder->connect('/tags/view/*', ['controller' => 'Tags', 'action' => 'view']);
+        $builder->connect(
+            '/users/login',
+            [
+                'controller' => 'Users',
+                'action' => 'login'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'login',
+            ]
+        );
+        $builder->connect('/users/register', ['controller' => 'Users', 'action' => 'register'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+        $builder->connect(
+            '/users/logout',
+            [
+                'controller' => 'Users',
+                'action' => 'logout'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'logout',
+            ]
+        );
 
-        /**
-         * Connects a route to the Articles controller's viewBySlug action.
-         *
-         * This route is configured to handle all incoming requests with a wildcard ('/*') pattern,
-         * directing them to the 'viewBySlug' action of the 'Articles' controller. The route does not
-         * use any prefix, ensuring it operates within the non-admin context of the application.
-         *
-         * The 'slug' parameter is passed to the action, allowing the method to retrieve and display
-         * articles based on their slug. This setup is useful for SEO-friendly URLs where the article
-         * slug is part of the URL path.
-         *
-         * Example URL: /some-article-slug
-         * This would invoke the 'viewBySlug' method in the ArticlesController with 'some-article-slug'
-         * as the slug parameter.
-         *
-         * @param string $slug The slug of the article to be viewed.
-         */
-        $builder->connect('/*', ['prefix' => null, 'controller' => 'Articles', 'action' => 'viewBySlug'], ['pass' => ['slug']]);
+        $builder->connect('/users/confirm-email/*',['controller' => 'Users', 'action' => 'confirmEmail'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+        $builder->connect('/users/edit/*', ['controller' => 'Users', 'action' => 'edit'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+        $builder->connect('/atricles/add-comment/*', ['controller' => 'Articles', 'action' => 'addComment'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+        $builder->connect('/tags', ['controller' => 'Tags', 'action' => 'index'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+        
+        $builder->connect(
+            'articles/{slug}',
+            [
+                'controller' => 'Articles',
+                'action' => 'view-by-slug'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'article-by-slug',
+                'pass' => ['slug'] 
+            ]
+        );
 
-        /*
-         * Connect catchall routes for all controllers.
-         *
-         * The `fallbacks` method is a shortcut for
-         *
-         * ```
-         * $builder->connect('/{controller}', ['action' => 'index']);
-         * $builder->connect('/{controller}/{action}/*', []);
-         * ```
-         *
-         * You can remove these routes once you've connected the
-         * routes you want in your application.
-         */
+        $builder->connect(
+            'tags/{slug}',
+            [
+                'controller' => 'Tags',
+                'action' => 'view-by-slug'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'tag-by-slug',
+                'pass' => ['slug'] 
+            ]
+        );
+
+        //$builder->connect('/*', ['prefix' => null, 'controller' => 'Articles', 'action' => 'view-by-slug'], ['pass' => ['slug'], 'routeClass' => 'ADmad/I18n.I18nRoute']);
+
         $builder->fallbacks();
     });
 
@@ -183,6 +148,18 @@ return function (RouteBuilder $routes): void {
         // will be required when generating URLs for these routes
 
         $routes->connect('/', ['controller' => 'Articles', 'action' => 'index', 'prefix' => 'Admin']);
+
+        $routes->connect(
+            '/users/logout',
+            [
+                'controller' => 'Users',
+                'action' => 'logout'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'admin-logout',
+            ]
+        );
         
         $routes->fallbacks(DashedRoute::class);
     });

@@ -7,11 +7,21 @@
 ?>
 <div class="mb-3">
     <div class="d-flex flex-wrap gap-2" role="group" aria-label="Tag filters">
-        <?= $this->Html->link(__('All Tags'), ['action' => 'index'], ['class' => 'btn btn-outline-secondary' . (!$selectedTag ? ' active' : '')]) ?>
+        <?= $this->Html->link(
+            __('All Tags'),
+            [
+                '_name' => 'home',
+            ],
+            [
+                'class' => 'btn btn-outline-secondary' . (!$selectedTag ? ' active' : '')
+            ]) ?>
         <?php foreach ($tags as $tag): ?>
             <?= $this->Html->link(
                 h($tag),
-                ['action' => 'index', '?' => ['tag' => $tag]],
+                [
+                    '_name' => 'home',
+                    '?' => ['tag' => $tag]
+                ],
                 ['class' => 'btn btn-outline-secondary' . ($selectedTag === $tag ? ' active' : '')]
             ) ?>
         <?php endforeach; ?>

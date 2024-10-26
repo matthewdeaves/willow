@@ -127,8 +127,9 @@ class RateLimitMiddleware implements MiddlewareInterface
     /**
      * Check if the given route should be rate limited.
      *
-     * This method checks if the given route starts with any of the
-     * rate-limited routes specified in the configuration.
+     * This method checks if the given route matches any of the
+     * rate-limited routes specified in the configuration, considering
+     * language prefixes.
      *
      * @param string $route The route to check.
      * @return bool True if the route should be rate limited, false otherwise.
@@ -136,7 +137,10 @@ class RateLimitMiddleware implements MiddlewareInterface
     private function isRouteLimited(string $route): bool
     {
         foreach ($this->rateLimitedRoutes as $limitedRoute) {
-            if (strpos($route, $limitedRoute) === 0) {
+            // Create a regular expression pattern to match the route with language prefix
+            $pattern = '#^/[a-z]{2}' . preg_quote($limitedRoute, '#') . '$#';
+
+            if (preg_match($pattern, $route)) {
                 return true;
             }
         }

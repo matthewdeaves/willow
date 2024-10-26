@@ -24,7 +24,7 @@ class GoogleApiService extends AbstractApiService
     /**
      * @var string The API key for Google Cloud Translation API.
      */
-    private string $apiKey;
+    protected string $apiKey;
 
     /**
      * GoogleApiService constructor.

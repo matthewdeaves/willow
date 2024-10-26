@@ -169,7 +169,7 @@ class SeoContentGenerator
      * @param array $result The result array to check and modify.
      * @return array The result array with all expected SEO keys initialized.
      */
-    private function ensureExpectedKeys(array $result, array $expectedKeys = null): array
+    private function ensureExpectedKeys(array $result, ?array $expectedKeys = null): array
     {
         $defaultKeys = [
             'meta_title',
@@ -180,9 +180,9 @@ class SeoContentGenerator
             'twitter_description',
             'instagram_description',
         ];
-    
+
         $keys = $expectedKeys ?? $defaultKeys;
-    
+
         foreach ($keys as $key) {
             if (!isset($result[$key])) {
                 $result[$key] = '';
@@ -193,7 +193,7 @@ class SeoContentGenerator
                 );
             }
         }
-    
+
         return $result;
     }
 }

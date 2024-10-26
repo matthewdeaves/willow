@@ -14,1578 +14,1318 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
 #: 
-msgid "Password must be at least 8 characters long"
-msgstr "Lösenordet måste vara minst 8 tecken långt"
-
-#: 
-msgid "A value is required"
-msgstr "Ett värde krävs"
-
-#: 
-msgid "Too many requests. Please try again later."
-msgstr "För många förfrågningar. Försök igen senare."
-
-#: 
-msgid "Search images..."
-msgstr "Sök bilder..."
-
-#: 
-msgid "Register"
-msgstr "Register"
-
-#: 
-msgid "Update Aiprompt"
-msgstr "Uppdatera Aiprompt"
-
-#: 
-msgid "Subject"
-msgstr "Ämne"
-
-#: 
-msgid "Article tag update failed. No valid result returned. Article ID: {0}"
-msgstr "Uppdateringen av artikeltaggen misslyckades. Inget giltigt resultat returnerades. Artikel-id: {0}"
-
-#: 
-msgid "Some caches were cleared, but the following failed: {0}"
-msgstr "Vissa cacheminne rensades, men följande misslyckades: {0}"
-
-#: 
-msgid "The internationalisation could not be deleted. Please, try again."
-msgstr "Internationaliseringen kunde inte raderas. Försök igen."
-
-#: 
-msgid "No page view data available for this article."
-msgstr "Ingen sidvisningsdata tillgänglig för den här artikeln."
-
-#: 
-msgid "Received article summary update message: {0} : {1}"
-msgstr "Mottaget meddelande om uppdatering av artikelsammanfattning: {0} : {1}"
-
-#: 
-msgid "The image could not be saved. Please, try again."
-msgstr "Det gick inte att spara bilden. Försök igen."
-
-#: 
-msgid "The aiprompt has been saved."
-msgstr "Aiprompten har sparats."
-
-#: 
-msgid "Failed to save slug: {0}"
-msgstr "Det gick inte att spara snigel: {0}"
-
-#: 
-msgid "Image processing job completed successfully. Path: {0}"
-msgstr "Bildbearbetningsjobbet har slutförts. Sökväg: {0}"
-
-#: 
-msgid "Clear"
-msgstr "Rensa"
-
-#: 
-msgid "Setting not found: {0}.{1}"
-msgstr "Inställningen hittades inte: {0}.{1}"
-
-#: 
-msgid "The blocked ip has been deleted."
-msgstr "Den blockerade IP-adressen har tagits bort."
-
-#: 
 msgid "Meta Description"
 msgstr "Metabeskrivning"
-
-#: 
-msgid "Register New Account"
-msgstr "Registrera nytt konto"
-
-#: 
-msgid "Description"
-msgstr "Beskrivning"
-
-#: 
-msgid "Invalid confirmation code. Please contact support."
-msgstr "Ogiltig bekräftelsekod. Kontakta supporten."
-
-#: 
-msgid "Comments"
-msgstr "Kommentarer"
-
-#: 
-msgid "Comment for {0}"
-msgstr "Kommentar för {0}"
-
-#: 
-msgid "Starting image processing job. Path: {0}, Sizes to process: {1}"
-msgstr "Startar bildbehandlingsjobb. Sökväg: {0}, storlekar att bearbeta: {1}"
-
-#: 
-msgid "Are you sure you want to delete all {0} logs?"
-msgstr "Är du säker på att du vill ta bort alla {0} loggar?"
-
-#: 
-msgid "Slugs"
-msgstr "Sniglar"
-
-#: 
-msgid "Choose a file to import by number:"
-msgstr "Välj en fil att importera efter nummer:"
 
 #: 
 msgid "The slug has been deleted."
 msgstr "Snigeln har tagits bort."
 
 #: 
-msgid "Body Text"
-msgstr "Brödtext"
-
-#: 
-msgid "Image analysis failed. Model: {0} ID: {1}"
-msgstr "Bildanalys misslyckades. Modell: {0} ID: {1}"
-
-#: 
-msgid "Received comment analysis message: Comment ID: {0} User ID: {1}"
-msgstr "Mottaget kommentarsanalysmeddelande: Kommentar-ID: {0} Användar-ID: {1}"
-
-#: 
-msgid "Created"
-msgstr "Skapad"
-
-#: 
-msgid "Unknown Author"
-msgstr "Okänd författare"
-
-#: 
-msgid "No articles found for this tag."
-msgstr "Inga artiklar hittades för den här taggen."
-
-#: 
-msgid "Alt Text"
-msgstr "Alt text"
-
-#: 
-msgid "Error loading images:"
-msgstr "Det gick inte att ladda bilder:"
-
-#: 
-msgid "Max Tokens"
-msgstr "Max Tokens"
-
-#: 
-msgid "Add Email Template"
-msgstr "Lägg till e-postmall"
-
-#: 
-msgid "The tag has been saved."
-msgstr "Taggen har sparats."
-
-#: 
-msgid "The slug could not be deleted. Please, try again."
-msgstr "Snigeln kunde inte raderas. Försök igen."
-
-#: 
-msgid "User"
-msgstr "Användare"
-
-#: 
-msgid "Failed to update comment status. Comment ID: {0}"
-msgstr "Det gick inte att uppdatera kommentarstatus. Kommentar-ID: {0}"
-
-#: 
-msgid "Edit Internationalisation"
-msgstr "Redigera internationalisering"
-
-#: 
-msgid "The comment could not be saved. Please, try again."
-msgstr "Kommentaren kunde inte sparas. Försök igen."
-
-#: 
-msgid "Search articles..."
-msgstr "Sök artiklar..."
-
-#: 
-msgid "Update Comment"
-msgstr "Uppdatera kommentar"
-
-#: 
-msgid "Comment analysis failed. No result returned. Comment ID: {0}"
-msgstr "Kommentarsanalysen misslyckades. Inget resultat returnerades. Kommentar-ID: {0}"
-
-#: 
-msgid "Queued Article Tag update job: {0}"
-msgstr "Uppdateringsjobb för artikeltagg i kö: {0}"
-
-#: 
-msgid "Image"
-msgstr "Bild"
-
-#: 
-msgid "Page Views for {0}"
-msgstr "Sidvisningar för {0}"
-
-#: 
-msgid "Edit {0}"
-msgstr "Redigera {0}"
-
-#: 
-msgid "Save All Settings"
-msgstr "Spara alla inställningar"
-
-#: 
-msgid "Failed to save article tag updates. Article ID: {0} Error: {1}"
-msgstr "Det gick inte att spara artikeltagguppdateringar. Artikel-ID: {0} Fel: {1}"
-
-#: 
-msgid "SEO Fields"
-msgstr "SEO-fält"
-
-#: 
-msgid "Confirm Password"
-msgstr "Bekräfta lösenord"
-
-#: 
-msgid "All logs in group {0} have been deleted."
-msgstr "Alla loggar i grupp {0} har tagits bort."
-
-#: 
-msgid "Attempting to create user with data: {0}"
-msgstr "Försöker skapa användare med data: {0}"
-
-#: 
-msgid "All logs have been deleted."
-msgstr "Alla loggar har raderats."
-
-#: 
-msgid "No deleting your own account."
-msgstr "Ingen radering av ditt eget konto."
-
-#: 
-msgid "This slug is already in use. Please enter a unique slug."
-msgstr "Denna snigel används redan. Ange en unik snigel."
-
-#: 
-msgid "Generated default.po for locale: {0}"
-msgstr "Genererad default.po för språk: {0}"
-
-#: 
-msgid "Received image analysis message: Image ID: {0} Path: {1}"
-msgstr "Mottaget bildanalysmeddelande: Bild-ID: {0} Sökväg: {1}"
-
-#: 
-msgid "Failed to send email to: {0}"
-msgstr "Det gick inte att skicka e-post till: {0}"
-
-#: 
-msgid "Failed to save the image"
-msgstr "Det gick inte att spara bilden"
-
-#: 
-msgid "User created successfully: {0}"
-msgstr "Användaren skapades framgångsrikt: {0}"
-
-#: 
-msgid "{0} cache configuration does not exist."
-msgstr "{0} cache-konfiguration finns inte."
-
-#: 
-msgid "Registration successful. Please check your email for confirmation."
-msgstr "Registreringen lyckades. Kontrollera din e-post för bekräftelse."
-
-#: 
-msgid "Rate limit exceeded for IP: {0} on route: {1}"
-msgstr "Frekvensgränsen har överskridits för IP: {0} på rutt: {1}"
-
-#: 
-msgid "API request failed. Please try again later."
-msgstr "API-begäran misslyckades. Försök igen senare."
-
-#: 
-msgid "Imported data into table: {0}"
-msgstr "Importerad data till tabellen: {0}"
-
-#: 
-msgid "Code Coverage"
-msgstr "Kodtäckning"
-
-#: 
-msgid "The article could not be deleted. Please, try again."
-msgstr "Artikeln kunde inte raderas. Försök igen."
-
-#: 
-msgid "Created At"
-msgstr "Skapad på"
-
-#: 
-msgid "Error resizing image. Original: {0}, Target Width: {1}px, Error: {2}"
-msgstr "Det gick inte att ändra storlek på bilden. Original: {0}, Målbredd: {1}px, Fel: {2}"
-
-#: 
-msgid "Update Image"
-msgstr "Uppdatera bild"
-
-#: 
-msgid "All logs with level {0} have been deleted."
-msgstr "Alla loggar med nivå {0} har tagits bort."
-
-#: 
-msgid "New Article"
-msgstr "Ny artikel"
-
-#: 
-msgid "Queued translation job for batch of {0} messages for locale {1}"
-msgstr "Översättningsjobb i kö för en grupp av {0} meddelanden för språk {1}"
-
-#: 
-msgid "Login"
-msgstr "Inloggning"
-
-#: 
-msgid "Delete {0}"
-msgstr "Ta bort {0}"
-
-#: 
-msgid "The settings have been saved."
-msgstr "Inställningarna har sparats."
-
-#: 
-msgid "The internationalisation could not be saved. Please, try again."
-msgstr "Internationaliseringen gick inte att rädda. Försök igen."
-
-#: 
-msgid "Main Picture"
-msgstr "Huvudbild"
-
-#: 
-msgid "Display"
-msgstr "Visa"
-
-#: 
-msgid "Modified At"
-msgstr "Ändrad kl"
-
-#: 
-msgid "Details"
-msgstr "Detaljer"
-
-#: 
-msgid "Update Article"
-msgstr "Uppdatera artikel"
-
-#: 
-msgid "Block IPs"
-msgstr "Blockera IP-adresser"
-
-#: 
-msgid "Edit Tag"
-msgstr "Redigera tagg"
-
-#: 
-msgid "User Comments"
-msgstr "Användarkommentarer"
-
-#: 
-msgid "Facebook Description"
-msgstr "Facebook Beskrivning"
-
-#: 
-msgid "Total Views: "
-msgstr "Totalt antal visningar: "
-
-#: 
-msgid "Article summary update failed. No valid result returned. Article ID: {0} Title: {1}"
-msgstr "Uppdateringen av artikelsammanfattningen misslyckades. Inget giltigt resultat returnerades. Artikel-ID: {0} Titel: {1}"
-
-#: 
-msgid "Instagram Description"
-msgstr "Instagram beskrivning"
-
-#: 
-msgid "Received article tag update message: {0} : {1}"
-msgstr "Mottaget meddelande om uppdatering av artikeltagg: {0} : {1}"
-
-#: 
-msgid "Pages"
-msgstr "Sidor"
-
-#: 
-msgid "Edit Aiprompt"
-msgstr "Redigera Aiprompt"
-
-#: 
-msgid "The blocked ip has been saved."
-msgstr "Den blockerade IP-adressen har sparats."
-
-#: 
-msgid "Failed to send confirmation email message: {0}"
-msgstr "Det gick inte att skicka e-postbekräftelse: {0}"
-
-#: 
-msgid "Article tag update completed successfully. Article ID: {0}"
-msgstr "Uppdatering av artikeltaggen har slutförts. Artikel-id: {0}"
-
-#: 
-msgid "Clear All Cache"
-msgstr "Rensa all cache"
-
-#: 
-msgid "Please enter your email and password"
-msgstr "Vänligen ange din e-postadress och ditt lösenord"
-
-#: 
-msgid "Published"
-msgstr "Publicerad"
-
-#: 
-msgid "Show Full Article"
-msgstr "Visa hela artikeln"
-
-#: 
-msgid "Level"
-msgstr "Nivå"
-
-#: 
-msgid "Edit Email Template"
-msgstr "Redigera e-postmall"
-
-#: 
-msgid "The article could not be saved. Please, try again."
-msgstr "Artikeln kunde inte sparas. Försök igen."
-
-#: 
-msgid "Code exported successfully to {0}"
-msgstr "Koden har exporterats till {0}"
-
-#: 
-msgid "Registration failed. Please, try again."
-msgstr "Registreringen misslyckades. Försök igen."
-
-#: 
-msgid "Processing email job: Template: {0} From: {1} To: {2} viewVars: {3}"
-msgstr "Bearbetar e-postjobb: Mall: {0} Från: {1} Till: {2} viewVars: {3}"
-
-#: 
-msgid "There was an issue confirming your account. Please try again."
-msgstr "Det uppstod ett problem med att bekräfta ditt konto. Försök igen."
-
-#: 
-msgid "Search logs..."
-msgstr "Sök i loggar..."
-
-#: 
-msgid "Invalid choice."
-msgstr "Ogiltigt val."
-
-#: 
-msgid "Some settings could not be saved. Please, try again."
-msgstr "Vissa inställningar kunde inte sparas. Försök igen."
-
-#: 
-msgid "New Tag"
-msgstr "Ny Tag"
-
-#: 
-msgid "Unable to delete all logs."
-msgstr "Det gick inte att ta bort alla loggar."
-
-#: 
-msgid "Profile Picture"
-msgstr "Profilbild"
-
-#: 
-msgid "Views"
-msgstr "Visningar"
-
-#: 
-msgid "Edit Slug"
-msgstr "Redigera Slug"
-
-#: 
-msgid "Imagick extension is not loaded"
-msgstr "Imagick-tillägget är inte laddat"
-
-#: 
-msgid "The blocked ip could not be saved. Please, try again."
-msgstr "Den blockerade IP-adressen kunde inte sparas. Försök igen."
-
-#: 
-msgid "Date"
-msgstr "Datum"
-
-#: 
-msgid "Comment already analyzed. Skipping. Comment ID: {0}"
-msgstr "Kommentar redan analyserad. Hoppa över. Kommentar-ID: {0}"
-
-#: 
-msgid "Input file not found: {0}"
-msgstr "Indatafil hittades inte: {0}"
-
-#: 
-msgid "Related Articles"
-msgstr "Relaterade artiklar"
-
-#: 
-msgid "All Levels"
-msgstr "Alla nivåer"
-
-#: 
-msgid "Tag not found"
-msgstr "Taggen hittades inte"
-
-#: 
-msgid "Unknown User"
-msgstr "Okänd användare"
-
-#: 
-msgid "The internationalisation has been deleted."
-msgstr "Internationaliseringen har tagits bort."
-
-#: 
-msgid "Is Admin"
-msgstr "Är Admin"
-
-#: 
-msgid "Model"
-msgstr "Modell"
-
-#: 
-msgid "Show Details"
-msgstr "Visa detaljer"
-
-#: 
-msgid "Username"
-msgstr "Användarnamn"
-
-#: 
-msgid "The slug could not be saved. Please, try again."
-msgstr "Snigeln kunde inte räddas. Försök igen."
-
-#: 
-msgid "Not published"
-msgstr "Ej publicerad"
-
-#: 
-msgid "Edit User"
-msgstr "Redigera användare"
-
-#: 
-msgid "The log has been deleted."
-msgstr "Loggen har tagits bort."
-
-#: 
-msgid "Unable to delete the log."
-msgstr "Det gick inte att ta bort loggen."
-
-#: 
-msgid "Failed to save article summary updates. Article ID: {0} Title: {1}"
-msgstr "Det gick inte att spara artikelsammanfattningsuppdateringar. Artikel-ID: {0} Titel: {1}"
-
-#: 
-msgid "Delete All Logs"
-msgstr "Ta bort alla loggar"
-
-#: 
-msgid "Data exported to {0}"
-msgstr "Data exporteras till {0}"
-
-#: 
-msgid "Name"
-msgstr "Namn"
-
-#: 
-msgid "Attempt {0}: HTTP Code: {1}"
-msgstr "Försök {0}: HTTP-kod: {1}"
-
-#: 
-msgid "System Logs"
-msgstr "Systemloggar"
+msgid "All Groups"
+msgstr "Alla grupper"
 
 #: 
 msgid "You are not authorized to edit this account, stick to your own."
 msgstr "Du är inte behörig att redigera detta konto, håll dig till ditt eget."
 
 #: 
-msgid "{0} cache could not be cleared."
-msgstr "{0} cache kunde inte rensas."
-
-#: 
-msgid "Tag SEO update failed. No result returned. ID: {0} Title: {1}"
-msgstr "Taggen SEO-uppdatering misslyckades. Inget resultat returnerades. ID: {0} Titel: {1}"
-
-#: 
-msgid "Id"
-msgstr "Id"
-
-#: 
-msgid "Access denied. You must be an admin to view this page."
-msgstr "Åtkomst nekad. Du måste vara administratör för att se den här sidan."
-
-#: 
-msgid "Article ID:"
-msgstr "Artikel-ID:"
-
-#: 
-msgid "Toggle SEO Fields"
-msgstr "Växla SEO-fält"
-
-#: 
-msgid "Referer"
-msgstr "Referent"
-
-#: 
-msgid "Updated At"
-msgstr "Uppdaterad kl"
-
-#: 
-msgid "Invalid username or password"
-msgstr "Ogiltigt användarnamn eller lösenord"
-
-#: 
-msgid "Error"
-msgstr "Fel"
-
-#: 
-msgid "Slug:"
-msgstr "Snigel:"
-
-#: 
-msgid "Blocked At"
-msgstr "Blockerad kl"
-
-#: 
-msgid "No JSON files found in the directory: {0}"
-msgstr "Inga JSON-filer hittades i katalogen: {0}"
-
-#: 
-msgid "Show Less"
-msgstr "Visa mindre"
-
-#: 
-msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
-msgstr "Sida {{page}} av {{pages}}, visar {{current}} post(er) av totalt {{count}}"
-
-#: 
-msgid "Are you sure you want to delete this prompt?"
-msgstr "Är du säker på att du vill ta bort denna prompt?"
-
-#: 
-msgid "The email template has been saved."
-msgstr "E-postmallen har sparats."
-
-#: 
-msgid "Search slugs..."
-msgstr "Sök efter sniglar..."
-
-#: 
-msgid "Failed to save entity: {0} {1}"
-msgstr "Det gick inte att spara enheten: {0} {1}"
-
-#: 
-msgid "Modified"
-msgstr "Ändrad"
-
-#: 
-msgid "You cannot remove your own admin status."
-msgstr "Du kan inte ta bort din egen administratörsstatus."
-
-#: 
-msgid "The article has been deleted."
-msgstr "Artikeln har tagits bort."
-
-#: 
-msgid "The tag has been deleted."
-msgstr "Taggen har tagits bort."
-
-#: 
-msgid "Edit Settings"
-msgstr "Redigera inställningar"
-
-#: 
-msgid "Users"
-msgstr "Användare"
-
-#: 
-msgid "Missing required arguments in the message."
-msgstr "Obligatoriska argument saknas i meddelandet."
-
-#: 
-msgid "Failed to send email. Please check your email configuration."
-msgstr "Det gick inte att skicka e-post. Kontrollera din e-postkonfiguration."
-
-#: 
-msgid "Admin"
-msgstr "Administration"
-
-#: 
-msgid "Queued Article SEO update job: {0}"
-msgstr "Uppdateringsjobb för SEO i kö för artikel: {0}"
-
-#: 
-msgid "Bulk Upload"
-msgstr "Massuppladdning"
-
-#: 
-msgid "No tags are linked."
-msgstr "Inga taggar är länkade."
-
-#: 
-msgid "No"
-msgstr "Inga"
-
-#: 
-msgid "Associated Pages"
-msgstr "Associerade sidor"
-
-#: 
-msgid "Failed to update translation for message ID: {0}"
-msgstr "Det gick inte att uppdatera översättningen för meddelande-ID: {0}"
-
-#: 
-msgid "Edit Article"
-msgstr "Redigera artikel"
-
-#: 
-msgid "The email template has been deleted."
-msgstr "E-postmallen har tagits bort."
-
-#: 
-msgid "Are you sure you want to delete {0}?"
-msgstr "Är du säker på att du vill ta bort {0}?"
-
-#: 
-msgid "Add Internationalisation"
-msgstr "Lägg till internationalisering"
-
-#: 
-msgid "The user has been saved."
-msgstr "Användaren har sparats."
-
-#: 
-msgid "Is AI Analyzed"
-msgstr "Är AI analyserad"
-
-#: 
-msgid "Add Blocked IP"
-msgstr "Lägg till blockerad IP"
-
-#: 
-msgid "Summary"
-msgstr "Sammanfattning"
-
-#: 
-msgid "New Image"
-msgstr "Ny bild"
-
-#: 
-msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
-msgstr "Slug kommer i konflikt med en befintlig SEO-omdirigering. Välj en annan snigel."
-
-#: 
-msgid "The blocked ip could not be deleted. Please, try again."
-msgstr "Den blockerade IP-adressen kunde inte raderas. Försök igen."
-
-#: 
-msgid "Bulk Upload Images"
-msgstr "Massuppladdning av bilder"
-
-#: 
-msgid "Comment analysis completed successfully. Comment ID: {0}"
-msgstr "Kommentarsanalysen har slutförts. Kommentar-ID: {0}"
-
-#: 
-msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
-msgstr "Snigeln måste vara URL-säker (endast små bokstäver, siffror och bindestreck)"
-
-#: 
-msgid "IP Address"
-msgstr "IP-adress"
-
-#: 
-msgid "Blocked IPs"
-msgstr "Blockerade IP-adresser"
-
-#: 
-msgid "Image must be less than 5MB."
-msgstr "Bilden måste vara mindre än 5 MB."
-
-#: 
-msgid "Email Templates"
-msgstr "E-postmallar"
-
-#: 
-msgid "Failed to create user: {0}. Errors: {1}"
-msgstr "Det gick inte att skapa användare: {0}. Fel: {1}"
-
-#: 
-msgid "New Email Template"
-msgstr "Ny e-postmall"
-
-#: 
-msgid "Word Count"
-msgstr "Ordräkning"
-
-#: 
-msgid "Cache Name"
-msgstr "Cachenamn"
-
-#: 
-msgid "Update Slug"
-msgstr "Uppdatera Slug"
-
-#: 
-msgid "You cannot disable your own account."
-msgstr "Du kan inte inaktivera ditt eget konto."
-
-#: 
-msgid "Unable to delete logs in group {0}."
-msgstr "Det gick inte att ta bort loggar i gruppen {0}."
-
-#: 
-msgid "The slug must be unique."
-msgstr "Snigeln måste vara unik."
-
-#: 
-msgid "List View"
-msgstr "Listvy"
-
-#: 
-msgid "This slug is already in use in articles. Please enter a unique slug."
-msgstr "Denna snigel används redan i artiklar. Ange en unik snigel."
-
-#: 
-msgid "The internationalisation has been saved."
-msgstr "Internationaliseringen är räddad."
-
-#: 
-msgid "Email"
-msgstr "E-post"
-
-#: 
-msgid "Enter text"
-msgstr "Skriv in text"
-
-#: 
-msgid "Twitter Description"
-msgstr "Twitter Beskrivning"
-
-#: 
-msgid "New Internationalisation"
-msgstr "Ny internationalisering"
-
-#: 
-msgid "Too Many Requests"
-msgstr "För många förfrågningar"
-
-#: 
-msgid "Message Str"
-msgstr "Meddelande Str"
-
-#: 
-msgid "Picture"
-msgstr "Bild"
-
-#: 
-msgid "The image could not be deleted. Please, try again."
-msgstr "Bilden kunde inte raderas. Försök igen."
-
-#: 
-msgid "Add User"
-msgstr "Lägg till användare"
-
-#: 
-msgid "Deleted all existing records from table: {0}"
-msgstr "Raderade alla befintliga poster från tabellen: {0}"
-
-#: 
-msgid "Articles"
-msgstr "Artiklar"
-
-#: 
-msgid "Meta Keywords"
-msgstr "Meta nyckelord"
-
-#: 
-msgid "Email template not found: {0}"
-msgstr "E-postmall hittades inte: {0}"
-
-#: 
-msgid "You must be logged in to add a comment."
-msgstr "Du måste vara inloggad för att lägga till en kommentar."
-
-#: 
-msgid "Images"
-msgstr "Bilder"
-
-#: 
-msgid "Your account has been confirmed. You can now log in."
-msgstr "Ditt konto har bekräftats. Du kan nu logga in."
-
-#: 
-msgid "New User"
-msgstr "Ny användare"
-
-#: 
-msgid "Attempt {0} failed. Error ({1}): {2}"
-msgstr "Försök {0} misslyckades. Fel ({1}): {2}"
-
-#: 
-msgid "Article SEO update failed. No result returned. Article ID: {0} Title: {1}"
-msgstr "Uppdatering av artikel SEO misslyckades. Inget resultat returnerades. Artikel-ID: {0} Titel: {1}"
-
-#: 
-msgid "Add Article"
-msgstr "Lägg till artikel"
-
-#: 
-msgid "Queue tag SEO update job for Tag:{0}"
-msgstr "Kötagg SEO-uppdateringsjobb för Tag:{0}"
-
-#: 
-msgid "AI Prompts"
-msgstr "AI-meddelanden"
-
-#: 
-msgid "Invalid type"
-msgstr "Ogiltig typ"
-
-#: 
-msgid "{0} cache has been cleared successfully."
-msgstr "{0} cache har rensats."
-
-#: 
-msgid "Body"
-msgstr "Kropp"
-
-#: 
-msgid "Keywords"
-msgstr "Nyckelord"
-
-#: 
-msgid "Cache"
-msgstr "Cache"
-
-#: 
-msgid "System Prompt"
-msgstr "Systemprompt"
-
-#: 
-msgid "The slug has been saved."
-msgstr "Snigeln har räddats."
-
-#: 
-msgid "Enter a number"
-msgstr "Ange ett nummer"
-
-#: 
-msgid "Select a parent"
-msgstr "Välj en förälder"
-
-#: 
-msgid "Delete"
-msgstr "Radera"
-
-#: 
-msgid "Are you sure you want to delete IP {0}?"
-msgstr "Är du säker på att du vill ta bort IP {0}?"
-
-#: 
-msgid "New Slug"
-msgstr "Ny Slug"
-
-#: 
-msgid "The email template could not be deleted. Please, try again."
-msgstr "E-postmallen kunde inte raderas. Försök igen."
-
-#: 
-msgid "Successfully resized and saved image. Original: {0}, Resized: {1}, Width: {2}px"
-msgstr "Bildstorleken och bilden har sparats. Original: {0}, storleksändring: {1}, bredd: {2}px"
-
-#: 
-msgid "Update Tag"
-msgstr "Uppdatera Tag"
-
-#: 
-msgid "An Internal Error Has Occurred."
-msgstr "Ett internt fel har uppstått."
-
-#: 
-msgid "Article not found."
-msgstr "Artikeln hittades inte."
-
-#: 
-msgid "Article summary update completed successfully. Article ID: {0} Title: {1}"
-msgstr "Uppdatering av artikelsammanfattningen har slutförts. Artikel-ID: {0} Titel: {1}"
-
-#: 
-msgid "Email sent successfully: {0} to {1}"
-msgstr "E-post skickades: {0} till {1}"
-
-#: 
-msgid "Edit Comment"
-msgstr "Redigera kommentar"
-
-#: 
-msgid "The comment has been saved."
-msgstr "Kommentaren har sparats."
-
-#: 
-msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
-msgstr "E-post har skickats till: {0}. Mall: {1}, Ämne: {2}"
-
-#: 
-msgid "Error during image analysis: {0}"
-msgstr "Fel under bildanalys: {0}"
-
-#: 
-msgid "Grid View"
-msgstr "Rutnätsvy"
-
-#: 
-msgid "All Tags"
-msgstr "Alla taggar"
-
-#: 
-msgid "No comments yet."
-msgstr "Inga kommentarer än."
-
-#: 
-msgid "The value must not be empty."
-msgstr "Värdet får inte vara tomt."
-
-#: 
-msgid "Context"
-msgstr "Sammanhang"
-
-#: 
-msgid "Email sent successfully."
-msgstr "E-postmeddelandet har skickats."
-
-#: 
-msgid "Additional Images"
-msgstr "Ytterligare bilder"
-
-#: 
-msgid "Registration successful, but there was an issue creating the confirmation link."
-msgstr "Registreringen lyckades, men det uppstod ett problem när bekräftelselänken skapades."
-
-#: 
-msgid "The image has been deleted."
-msgstr "Bilden har tagits bort."
-
-#: 
-msgid "No pages found."
-msgstr "Inga sidor hittades."
-
-#: 
-msgid "Actions"
-msgstr "Åtgärder"
-
-#: 
-msgid "Cache Management"
-msgstr "Cachehantering"
-
-#: 
-msgid "Unable to add your comment."
-msgstr "Det gick inte att lägga till din kommentar."
-
-#: 
-msgid "Add AI Prompt"
-msgstr "Lägg till AI-prompt"
-
-#: 
-msgid "Failed to save tag SEO updates. ID: {0} Title: {1}"
-msgstr "Det gick inte att spara taggen SEO-uppdateringar. ID: {0} Titel: {1}"
-
-#: 
-msgid "Temperature"
-msgstr "Temperatur"
-
-#: 
-msgid "The email template could not be saved. Please, try again."
-msgstr "E-postmallen kunde inte sparas. Försök igen."
-
-#: 
-msgid "No view records found for this article."
-msgstr "Inga visningsposter hittades för denna artikel."
-
-#: 
-msgid "Add Tag"
-msgstr "Lägg till tagg"
-
-#: 
-msgid "New AI Prompt"
-msgstr "Ny AI-prompt"
-
-#: 
-msgid "{0} Views"
-msgstr "{0} Visningar"
-
-#: 
-msgid "The tag could not be deleted. Please, try again."
-msgstr "Taggen kunde inte raderas. Försök igen."
-
-#: 
-msgid "Are you sure you want to delete all logs in group {0}?"
-msgstr "Är du säker på att du vill ta bort alla loggar i gruppen {0}?"
-
-#: 
-msgid "Error during image processing. Path: {0}, Error: {1}"
-msgstr "Fel under bildbehandling. Sökväg: {0}, Fel: {1}"
-
-#: 
-msgid "Failed to save article SEO updates. Article ID: {0} Title: {1}"
-msgstr "Det gick inte att spara artikel SEO-uppdateringar. Artikel-ID: {0} Titel: {1}"
-
-#: 
-msgid "All Groups"
-msgstr "Alla grupper"
-
-#: 
-msgid "The article has been saved."
-msgstr "Artikeln har sparats."
-
-#: 
-msgid "User Agent"
-msgstr "Användaragent"
-
-#: 
-msgid "Is Inappropriate"
-msgstr "Är olämpligt"
-
-#: 
-msgid "List {0}"
-msgstr "Lista {0}"
-
-#: 
-msgid "Code exported successfully to separate files."
-msgstr "Koden har exporterats till separata filer."
-
-#: 
-msgid "Engine"
-msgstr "Motor"
-
-#: 
-msgid "Is Published"
-msgstr "Är publicerad"
-
-#: 
-msgid "View detailed records for this date"
-msgstr "Se detaljerade uppgifter för detta datum"
-
-#: 
-msgid "Comment"
-msgstr "Kommentar"
-
-#: 
-msgid "Page Views"
-msgstr "Sidvisningar"
-
-#: 
-msgid "Logs"
-msgstr "Loggar"
-
-#: 
-msgid "Are you sure you want to clear {0}?"
-msgstr "Är du säker på att du vill rensa {0}?"
-
-#: 
-msgid "Image uploaded successfully"
-msgstr "Bilden har laddats upp"
-
-#: 
-msgid "The value must be 0 or 1."
-msgstr "Värdet måste vara 0 eller 1."
-
-#: 
-msgid "The requested address {0} was not found on this server."
-msgstr "Den begärda adressen {0} hittades inte på den här servern."
-
-#: 
-msgid "Skipped resizing, image already exists. Path: {0}"
-msgstr "Hoppade över storleksändring, bilden finns redan. Sökväg: {0}"
-
-#: 
-msgid "No images."
-msgstr "Inga bilder."
-
-#: 
-msgid "Edit Blocked IP"
-msgstr "Redigera blockerad IP"
-
-#: 
-msgid "LinkedIn Description"
-msgstr "LinkedIn Beskrivning"
-
-#: 
-msgid "Received article SEO update message: {0} : {1}"
-msgstr "Mottaget artikel SEO-uppdateringsmeddelande: {0} : {1}"
-
-#: 
-msgid "Response: {0}"
-msgstr "Svar: {0}"
-
-#: 
-msgid "Add Page"
-msgstr "Lägg till sida"
-
-#: 
-msgid "Front Site"
-msgstr "Framsida"
-
-#: 
-msgid "Image analysis completed successfully. Model: {0} ID: {1}"
-msgstr "Bildanalys slutförd framgångsrikt. Modell: {0} ID: {1}"
-
-#: 
-msgid "Search users..."
-msgstr "Sök användare..."
-
-#: 
-msgid "The aiprompt could not be saved. Please, try again."
-msgstr "Aiprompten kunde inte sparas. Försök igen."
+msgid "Last Cleared"
+msgstr "Senast rensat"
 
 #: 
 msgid "Are you sure you want to delete comment by {0}?"
 msgstr "Är du säker på att du vill ta bort kommentar från {0}?"
 
 #: 
-msgid "Last Cleared"
-msgstr "Senast rensat"
+msgid "Confirm Password"
+msgstr "Bekräfta lösenord"
 
 #: 
-msgid "Slug"
-msgstr "Snigel"
+msgid "Page Views for {0}"
+msgstr "Sidvisningar för {0}"
 
 #: 
-msgid "Error in: "
-msgstr "Fel i: "
-
-#: 
-msgid "Internationalisation"
-msgstr "Internationalisering"
-
-#: 
-msgid "No internationalizations found for the provided IDs."
-msgstr "Inga internationaliseringar hittades för de angivna ID:n."
-
-#: 
-msgid "Received image processing message: Image ID: {0} Path: {1}"
-msgstr "Mottaget bildbehandlingsmeddelande: Bild-ID: {0} Sökväg: {1}"
-
-#: 
-msgid "Task Type"
-msgstr "Uppgiftstyp"
-
-#: 
-msgid "Edit Your Account"
-msgstr "Redigera ditt konto"
-
-#: 
-msgid "Edit"
-msgstr "Redigera"
-
-#: 
-msgid "Email sending failed: {0} to {1}"
-msgstr "E-postsändning misslyckades: {0} till {1}"
-
-#: 
-msgid "Tags"
-msgstr "Taggar"
-
-#: 
-msgid "All caches have been cleared successfully."
-msgstr "Alla cacher har rensats."
-
-#: 
-msgid "The comment has been deleted."
-msgstr "Kommentaren har tagits bort."
-
-#: 
-msgid "Add a Comment"
-msgstr "Lägg till en kommentar"
-
-#: 
-msgid "The user could not be deleted. Please, try again."
-msgstr "Användaren kunde inte raderas. Försök igen."
-
-#: 
-msgid "No translations found for locale: {0}. Skipping..."
-msgstr "Inga översättningar hittades för språk: {0}. Hoppa över..."
-
-#: 
-msgid "Title"
-msgstr "Titel"
-
-#: 
-msgid "Inappropriate Reason"
-msgstr "Olämplig anledning"
-
-#: 
-msgid "Settings"
-msgstr "Inställningar"
-
-#: 
-msgid "Are you sure you want to delete # {0}?"
-msgstr "Är du säker på att du vill ta bort # {0}?"
-
-#: 
-msgid "The user has been deleted."
-msgstr "Användaren har tagits bort."
-
-#: 
-msgid "Message"
-msgstr "Meddelande"
-
-#: 
-msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
-msgstr "Nedan finns information om de konfigurerade cacharna. Klicka på knappen för att rensa alla cacheminne eller individuella cacheknappar för att rensa specifika cacher."
-
-#: 
-msgid "Filter"
-msgstr "Filtrera"
-
-#: 
-msgid "Your account has been updated."
-msgstr "Ditt konto har uppdaterats."
-
-#: 
-msgid "List Blocked IPs"
-msgstr "Lista blockerade IP-adresser"
-
-#: 
-msgid "Related Tags"
-msgstr "Relaterade taggar"
-
-#: 
-msgid "The user could not be saved. Please, try again."
-msgstr "Användaren kunde inte sparas. Försök igen."
-
-#: 
-msgid "The image has been saved."
-msgstr "Bilden har sparats."
-
-#: 
-msgid "Number of attempts: {0}"
-msgstr "Antal försök: {0}"
-
-#: 
-msgid "Are you sure you want to delete all logs?"
-msgstr "Är du säker på att du vill ta bort alla loggar?"
-
-#: 
-msgid "All Locales"
-msgstr "Alla lokaler"
-
-#: 
-msgid "Internationalisations"
-msgstr "Internationaliseringar"
-
-#: 
-msgid "Edit Image"
-msgstr "Redigera bild"
-
-#: 
-msgid "Send Email"
-msgstr "Skicka e-post"
-
-#: 
-msgid "The value must be a number."
-msgstr "Värdet måste vara ett tal."
-
-#: 
-msgid "Back"
-msgstr "Tillbaka"
-
-#: 
-msgid "Add Slug"
-msgstr "Lägg till Slug"
-
-#: 
-msgid "Posted on {date} by {author}"
-msgstr "Upplagt den {date} av {author}"
-
-#: 
-msgid "New tag created: {0}"
-msgstr "Ny tagg skapad: {0}"
+msgid "The internationalisation could not be saved. Please, try again."
+msgstr "Internationaliseringen gick inte att rädda. Försök igen."
 
 #: 
 msgid "New {0}"
 msgstr "Ny {0}"
 
 #: 
-msgid "Please log in to add a comment"
-msgstr "Logga in för att lägga till en kommentar"
-
-#: 
-msgid "Configured Caches"
-msgstr "Konfigurerade cacher"
-
-#: 
-msgid "Search tags..."
-msgstr "Sök taggar..."
-
-#: 
-msgid "Received tag SEO update message: ID: {0} Title: {1}"
-msgstr "Mottaget meddelande om uppdatering av taggen SEO: ID: {0} Titel: {1}"
-
-#: 
-msgid "The tag could not be saved. Please, try again."
-msgstr "Taggen kunde inte sparas. Försök igen."
-
-#: 
-msgid "Your comment has been added."
-msgstr "Din kommentar har lagts till."
-
-#: 
-msgid "Original image not found for resizing. Path: {0}"
-msgstr "Originalbilden hittades inte för storleksändring. Sökväg: {0}"
-
-#: 
-msgid "Reason"
-msgstr "Resonera"
-
-#: 
-msgid "Error sending email: {0}"
-msgstr "Fel när e-post skickades: {0}"
-
-#: 
-msgid "Add Image"
-msgstr "Lägg till bild"
-
-#: 
-msgid "An error occurred while processing your request."
-msgstr "Ett fel uppstod när din begäran bearbetades."
-
-#: 
-msgid "Submit"
-msgstr "Överlämna"
-
-#: 
-msgid "Invalid value for the specified type."
-msgstr "Ogiltigt värde för den angivna typen."
-
-#: 
-msgid "Expires At"
-msgstr "Går ut kl"
-
-#: 
-msgid "Never"
-msgstr "Aldrig"
-
-#: 
-msgid "Search comments..."
-msgstr "Sök kommentarer..."
-
-#: 
-msgid "Read More"
-msgstr "Läs mer"
-
-#: 
-msgid "Update User"
-msgstr "Uppdatera användare"
-
-#: 
-msgid "Tag SEO update completed successfully. ID: {0} Title: {1}"
-msgstr "Taggen SEO-uppdatering har slutförts. ID: {0} Titel: {1}"
-
-#: 
-msgid "Please upload only images (jpeg, png, gif)."
-msgstr "Ladda bara upp bilder (jpeg, png, gif)."
-
-#: 
-msgid "Article SEO update completed successfully. Article ID: {0} Title: {1}"
-msgstr "Uppdatering av artikel SEO slutfördes framgångsrikt. Artikel-ID: {0} Titel: {1}"
-
-#: 
-msgid "Group Name"
-msgstr "Gruppnamn"
-
-#: 
-msgid "View"
-msgstr "Se"
-
-#: 
-msgid "Page View Statistics for slug: {0}"
-msgstr "Sidvisningsstatistik för snigel: {0}"
-
-#: 
-msgid "Error saving {0}.{1}: {2}"
-msgstr "Fel när {0} skulle sparas.{1}: {2}"
-
-#: 
-msgid "Submit Comment"
-msgstr "Skicka kommentar"
-
-#: 
-msgid "Unable to delete logs with level {0}."
-msgstr "Det går inte att ta bort loggar med nivå {0}."
-
-#: 
-msgid "Message Id"
-msgstr "Meddelande-id"
-
-#: 
-msgid "Article not found"
-msgstr "Artikeln hittades inte"
-
-#: 
-msgid "Meta Title"
-msgstr "Meta titel"
-
-#: 
-msgid "This message_id must be unique for the given locale."
-msgstr "Detta meddelande-id måste vara unikt för den givna lokalen."
-
-#: 
-msgid "The comment could not be deleted. Please, try again."
-msgstr "Kommentaren kunde inte raderas. Försök igen."
-
-#: 
-msgid "List Email Templates"
-msgstr "Lista e-postmallar"
-
-#: 
-msgid "Content"
-msgstr "Innehåll"
-
-#: 
-msgid "Available data files:"
-msgstr "Tillgängliga datafiler:"
-
-#: 
-msgid "Article"
-msgstr "Artikel"
-
-#: 
-msgid "Queued Article Summary update job: {0}"
-msgstr "Uppdateringsjobb för artikelsammanfattning i kö: {0}"
-
-#: 
-msgid "New Blocked IP"
-msgstr "Ny blockerad IP"
-
-#: 
-msgid "Yes"
-msgstr "Ja"
-
-#: 
-msgid "Logout"
-msgstr "Utloggning"
-
-#: 
-msgid "Are you sure you want to delete this comment?"
-msgstr "Är du säker på att du vill ta bort den här kommentaren?"
-
-#: 
-msgid "By"
-msgstr "Av"
-
-#: 
-msgid "Body HTML"
-msgstr "Kropps-HTML"
+msgid "Is Inappropriate"
+msgstr "Är olämpligt"
 
 #: 
 msgid "Locale"
 msgstr "Plats"
 
 #: 
-msgid "Testing rate limit on URL: {0}"
-msgstr "Testhastighetsgräns för webbadress: {0}"
+msgid "Main Picture"
+msgstr "Huvudbild"
+
+#: 
+msgid "Id"
+msgstr "Id"
+
+#: 
+msgid "List {0}"
+msgstr "Lista {0}"
+
+#: 
+msgid "Yes"
+msgstr "Ja"
+
+#: 
+msgid "Access denied. You must be an admin to view this page."
+msgstr "Åtkomst nekad. Du måste vara administratör för att se den här sidan."
+
+#: 
+msgid "Email Templates"
+msgstr "E-postmallar"
+
+#: 
+msgid "No comments yet."
+msgstr "Inga kommentarer än."
+
+#: 
+msgid "Pages"
+msgstr "Sidor"
+
+#: 
+msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
+msgstr "E-post har skickats till: {0}. Mall: {1}, Ämne: {2}"
+
+#: 
+msgid "New Slug"
+msgstr "Ny Slug"
+
+#: 
+msgid "The image has been deleted."
+msgstr "Bilden har tagits bort."
+
+#: 
+msgid "Article ID:"
+msgstr "Artikel-ID:"
+
+#: 
+msgid "The email template could not be deleted. Please, try again."
+msgstr "E-postmallen kunde inte raderas. Försök igen."
+
+#: 
+msgid "Enter a number"
+msgstr "Ange ett nummer"
+
+#: 
+msgid "An error occurred while processing your request."
+msgstr "Ett fel uppstod när din begäran bearbetades."
+
+#: 
+msgid "Logs"
+msgstr "Loggar"
+
+#: 
+msgid "The value must not be empty."
+msgstr "Värdet får inte vara tomt."
+
+#: 
+msgid "Message Str"
+msgstr "Meddelande Str"
+
+#: 
+msgid "Failed to send confirmation email message: {0}"
+msgstr "Det gick inte att skicka e-postbekräftelse: {0}"
+
+#: 
+msgid "Message Id"
+msgstr "Meddelande-id"
+
+#: 
+msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
+msgstr "Snigeln måste vara URL-säker (endast små bokstäver, siffror och bindestreck)"
+
+#: 
+msgid "User Agent"
+msgstr "Användaragent"
+
+#: 
+msgid "No deleting your own account."
+msgstr "Ingen radering av ditt eget konto."
+
+#: 
+msgid "Slugs"
+msgstr "Sniglar"
+
+#: 
+msgid "The requested address {0} was not found on this server."
+msgstr "Den begärda adressen {0} hittades inte på den här servern."
+
+#: 
+msgid "New Image"
+msgstr "Ny bild"
+
+#: 
+msgid "{0} cache has been cleared successfully."
+msgstr "{0} cache har rensats."
+
+#: 
+msgid "No page view data available for this article."
+msgstr "Ingen sidvisningsdata tillgänglig för den här artikeln."
+
+#: 
+msgid "New Blocked IP"
+msgstr "Ny blockerad IP"
+
+#: 
+msgid "The tag could not be saved. Please, try again."
+msgstr "Taggen kunde inte sparas. Försök igen."
+
+#: 
+msgid "Send Email"
+msgstr "Skicka e-post"
+
+#: 
+msgid "Article"
+msgstr "Artikel"
+
+#: 
+msgid "Add Image"
+msgstr "Lägg till bild"
+
+#: 
+msgid "Never"
+msgstr "Aldrig"
+
+#: 
+msgid "Update Image"
+msgstr "Uppdatera bild"
+
+#: 
+msgid "Comment for {0}"
+msgstr "Kommentar för {0}"
+
+#: 
+msgid "Details"
+msgstr "Detaljer"
+
+#: 
+msgid "Are you sure you want to delete {0}?"
+msgstr "Är du säker på att du vill ta bort {0}?"
+
+#: 
+msgid "IP Address"
+msgstr "IP-adress"
+
+#: 
+msgid "{0} cache could not be cleared."
+msgstr "{0} cache kunde inte rensas."
+
+#: 
+msgid "Register New Account"
+msgstr "Registrera nytt konto"
+
+#: 
+msgid "Email template not found: {0}"
+msgstr "E-postmall hittades inte: {0}"
+
+#: 
+msgid "Unable to add your comment."
+msgstr "Det gick inte att lägga till din kommentar."
+
+#: 
+msgid "Instagram Description"
+msgstr "Instagram beskrivning"
+
+#: 
+msgid "Your account has been confirmed. You can now log in."
+msgstr "Ditt konto har bekräftats. Du kan nu logga in."
+
+#: 
+msgid "Delete All Logs"
+msgstr "Ta bort alla loggar"
+
+#: 
+msgid "Unable to delete logs with level {0}."
+msgstr "Det går inte att ta bort loggar med nivå {0}."
+
+#: 
+msgid "Invalid value for the specified type."
+msgstr "Ogiltigt värde för den angivna typen."
+
+#: 
+msgid "Add Article"
+msgstr "Lägg till artikel"
+
+#: 
+msgid "The user could not be deleted. Please, try again."
+msgstr "Användaren kunde inte raderas. Försök igen."
+
+#: 
+msgid "The internationalisation could not be deleted. Please, try again."
+msgstr "Internationaliseringen kunde inte raderas. Försök igen."
+
+#: 
+msgid "No"
+msgstr "Inga"
+
+#: 
+msgid "LinkedIn Description"
+msgstr "LinkedIn Beskrivning"
+
+#: 
+msgid "You cannot remove your own admin status."
+msgstr "Du kan inte ta bort din egen administratörsstatus."
+
+#: 
+msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
+msgstr "Nedan finns information om de konfigurerade cacharna. Klicka på knappen för att rensa alla cacheminne eller individuella cacheknappar för att rensa specifika cacher."
+
+#: 
+msgid "Add a Comment"
+msgstr "Lägg till en kommentar"
+
+#: 
+msgid "Failed to send email. Please check your email configuration."
+msgstr "Det gick inte att skicka e-post. Kontrollera din e-postkonfiguration."
+
+#: 
+msgid "Are you sure you want to delete all {0} logs?"
+msgstr "Är du säker på att du vill ta bort alla {0} loggar?"
+
+#: 
+msgid "SEO Fields"
+msgstr "SEO-fält"
+
+#: 
+msgid "Filter"
+msgstr "Filtrera"
+
+#: 
+msgid "List Email Templates"
+msgstr "Lista e-postmallar"
+
+#: 
+msgid "The internationalisation has been deleted."
+msgstr "Internationaliseringen har tagits bort."
+
+#: 
+msgid "Configured Caches"
+msgstr "Konfigurerade cacher"
+
+#: 
+msgid "Error"
+msgstr "Fel"
+
+#: 
+msgid "Rate limit exceeded for IP: {0} on route: {1}"
+msgstr "Frekvensgränsen har överskridits för IP: {0} på rutt: {1}"
+
+#: 
+msgid "Page Views"
+msgstr "Sidvisningar"
+
+#: 
+msgid "Display"
+msgstr "Visa"
+
+#: 
+msgid "Not published"
+msgstr "Ej publicerad"
+
+#: 
+msgid "Temperature"
+msgstr "Temperatur"
+
+#: 
+msgid "Comment"
+msgstr "Kommentar"
+
+#: 
+msgid "Username"
+msgstr "Användarnamn"
+
+#: 
+msgid "Are you sure you want to delete IP {0}?"
+msgstr "Är du säker på att du vill ta bort IP {0}?"
+
+#: 
+msgid "Users"
+msgstr "Användare"
+
+#: 
+msgid "Are you sure you want to delete # {0}?"
+msgstr "Är du säker på att du vill ta bort # {0}?"
+
+#: 
+msgid "Settings"
+msgstr "Inställningar"
+
+#: 
+msgid "Posted on {date} by {author}"
+msgstr "Upplagt den {date} av {author}"
+
+#: 
+msgid "Code Coverage"
+msgstr "Kodtäckning"
+
+#: 
+msgid "Search logs..."
+msgstr "Sök i loggar..."
+
+#: 
+msgid "Title"
+msgstr "Titel"
+
+#: 
+msgid "Body Text"
+msgstr "Brödtext"
+
+#: 
+msgid "Description"
+msgstr "Beskrivning"
+
+#: 
+msgid "Are you sure you want to delete all logs in group {0}?"
+msgstr "Är du säker på att du vill ta bort alla loggar i gruppen {0}?"
+
+#: 
+msgid "AI Prompts"
+msgstr "AI-meddelanden"
+
+#: 
+msgid "The article could not be saved. Please, try again."
+msgstr "Artikeln kunde inte sparas. Försök igen."
+
+#: 
+msgid "Please enter your email and password"
+msgstr "Vänligen ange din e-postadress och ditt lösenord"
+
+#: 
+msgid "List View"
+msgstr "Listvy"
+
+#: 
+msgid "Error in: "
+msgstr "Fel i: "
+
+#: 
+msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
+msgstr "Sida {{page}} av {{pages}}, visar {{current}} post(er) av totalt {{count}}"
+
+#: 
+msgid "The tag has been saved."
+msgstr "Taggen har sparats."
+
+#: 
+msgid "Add Slug"
+msgstr "Lägg till Slug"
+
+#: 
+msgid "Edit Comment"
+msgstr "Redigera kommentar"
+
+#: 
+msgid "The article has been deleted."
+msgstr "Artikeln har tagits bort."
+
+#: 
+msgid "No tags are linked."
+msgstr "Inga taggar är länkade."
+
+#: 
+msgid "Word Count"
+msgstr "Ordräkning"
+
+#: 
+msgid "Message"
+msgstr "Meddelande"
+
+#: 
+msgid "Are you sure you want to delete this prompt?"
+msgstr "Är du säker på att du vill ta bort denna prompt?"
+
+#: 
+msgid "The slug could not be saved. Please, try again."
+msgstr "Snigeln kunde inte räddas. Försök igen."
+
+#: 
+msgid "Register"
+msgstr "Register"
+
+#: 
+msgid "There was an issue confirming your account. Please try again."
+msgstr "Det uppstod ett problem med att bekräfta ditt konto. Försök igen."
+
+#: 
+msgid "Summary"
+msgstr "Sammanfattning"
+
+#: 
+msgid "Name"
+msgstr "Namn"
+
+#: 
+msgid "Body"
+msgstr "Kropp"
+
+#: 
+msgid "Error sending email: {0}"
+msgstr "Fel när e-post skickades: {0}"
+
+#: 
+msgid "Show Details"
+msgstr "Visa detaljer"
+
+#: 
+msgid "Are you sure you want to clear {0}?"
+msgstr "Är du säker på att du vill rensa {0}?"
+
+#: 
+msgid "Email"
+msgstr "E-post"
+
+#: 
+msgid "Some caches were cleared, but the following failed: {0}"
+msgstr "Vissa cacheminne rensades, men följande misslyckades: {0}"
+
+#: 
+msgid "Tag not found"
+msgstr "Taggen hittades inte"
+
+#: 
+msgid "The image has been saved."
+msgstr "Bilden har sparats."
+
+#: 
+msgid "Internationalisations"
+msgstr "Internationaliseringar"
+
+#: 
+msgid "You must be logged in to add a comment."
+msgstr "Du måste vara inloggad för att kunna lägga till en kommentar."
+
+#: 
+msgid "Search users..."
+msgstr "Sök användare..."
+
+#: 
+msgid "The value must be 0 or 1."
+msgstr "Värdet måste vara 0 eller 1."
+
+#: 
+msgid "Unknown User"
+msgstr "Okänd användare"
+
+#: 
+msgid "Article not found"
+msgstr "Artikeln hittades inte"
+
+#: 
+msgid "The slug has been saved."
+msgstr "Snigeln har räddats."
+
+#: 
+msgid "Unknown Author"
+msgstr "Okänd författare"
+
+#: 
+msgid "Unable to delete logs in group {0}."
+msgstr "Det gick inte att ta bort loggar i gruppen {0}."
+
+#: 
+msgid "The article could not be deleted. Please, try again."
+msgstr "Artikeln kunde inte raderas. Försök igen."
+
+#: 
+msgid "The email template has been saved."
+msgstr "E-postmallen har sparats."
+
+#: 
+msgid "Edit Email Template"
+msgstr "Redigera e-postmall"
+
+#: 
+msgid "Date"
+msgstr "Datum"
+
+#: 
+msgid "Published"
+msgstr "Publicerad"
+
+#: 
+msgid "Edit Internationalisation"
+msgstr "Redigera internationalisering"
+
+#: 
+msgid "Are you sure you want to delete all logs?"
+msgstr "Är du säker på att du vill ta bort alla loggar?"
+
+#: 
+msgid "System Logs"
+msgstr "Systemloggar"
+
+#: 
+msgid "Update Slug"
+msgstr "Uppdatera Slug"
+
+#: 
+msgid "Search slugs..."
+msgstr "Sök efter sniglar..."
+
+#: 
+msgid "Front Site"
+msgstr "Framsida"
+
+#: 
+msgid "An Internal Error Has Occurred."
+msgstr "Ett internt fel har uppstått."
+
+#: 
+msgid "Image"
+msgstr "Bild"
+
+#: 
+msgid "A value is required"
+msgstr "Ett värde krävs"
+
+#: 
+msgid "Level"
+msgstr "Nivå"
+
+#: 
+msgid "Max Tokens"
+msgstr "Max Tokens"
+
+#: 
+msgid "The comment has been saved."
+msgstr "Kommentaren har sparats."
+
+#: 
+msgid "Update Comment"
+msgstr "Uppdatera kommentar"
+
+#: 
+msgid "Modified At"
+msgstr "Ändrad kl"
+
+#: 
+msgid "No pages found."
+msgstr "Inga sidor hittades."
+
+#: 
+msgid "Please upload only images (jpeg, png, gif)."
+msgstr "Ladda bara upp bilder (jpeg, png, gif)."
+
+#: 
+msgid "View"
+msgstr "Se"
+
+#: 
+msgid "Bulk Upload"
+msgstr "Massuppladdning"
+
+#: 
+msgid "Engine"
+msgstr "Motor"
+
+#: 
+msgid "The blocked ip has been saved."
+msgstr "Den blockerade IP-adressen har sparats."
+
+#: 
+msgid "{0} cache configuration does not exist."
+msgstr "{0} cache-konfiguration finns inte."
+
+#: 
+msgid "Content"
+msgstr "Innehåll"
+
+#: 
+msgid "Additional Images"
+msgstr "Ytterligare bilder"
+
+#: 
+msgid "No internationalizations found for the provided IDs."
+msgstr "Inga internationaliseringar hittades för de angivna ID:n."
+
+#: 
+msgid "Facebook Description"
+msgstr "Facebook Beskrivning"
+
+#: 
+msgid "Is AI Analyzed"
+msgstr "Är AI analyserad"
+
+#: 
+msgid "Model"
+msgstr "Modell"
+
+#: 
+msgid "Edit Aiprompt"
+msgstr "Redigera Aiprompt"
+
+#: 
+msgid "Edit User"
+msgstr "Redigera användare"
+
+#: 
+msgid "Views"
+msgstr "Visningar"
+
+#: 
+msgid "Cache Name"
+msgstr "Cachenamn"
+
+#: 
+msgid "API request failed. Please try again later."
+msgstr "API-begäran misslyckades. Försök igen senare."
+
+#: 
+msgid "Back"
+msgstr "Tillbaka"
+
+#: 
+msgid "The tag has been deleted."
+msgstr "Taggen har tagits bort."
+
+#: 
+msgid "This slug is already in use. Please enter a unique slug."
+msgstr "Denna snigel används redan. Ange en unik snigel."
+
+#: 
+msgid "Image uploaded successfully"
+msgstr "Bilden har laddats upp"
+
+#: 
+msgid "Edit Tag"
+msgstr "Redigera tagg"
+
+#: 
+msgid "Subject"
+msgstr "Ämne"
+
+#: 
+msgid "Cache Management"
+msgstr "Cachehantering"
+
+#: 
+msgid "The aiprompt has been saved."
+msgstr "Aiprompten har sparats."
+
+#: 
+msgid "Add AI Prompt"
+msgstr "Lägg till AI-prompt"
+
+#: 
+msgid "The log has been deleted."
+msgstr "Loggen har tagits bort."
+
+#: 
+msgid "Failed to update translation for message ID: {0}"
+msgstr "Det gick inte att uppdatera översättningen för meddelande-ID: {0}"
+
+#: 
+msgid "Registration successful. Please check your email for confirmation."
+msgstr "Registreringen lyckades. Kontrollera din e-post för bekräftelse."
+
+#: 
+msgid "New Tag"
+msgstr "Ny Tag"
+
+#: 
+msgid "Edit Slug"
+msgstr "Redigera Slug"
+
+#: 
+msgid "Related Articles"
+msgstr "Relaterade artiklar"
+
+#: 
+msgid "The blocked ip has been deleted."
+msgstr "Den blockerade IP-adressen har tagits bort."
+
+#: 
+msgid "Expires At"
+msgstr "Går ut kl"
+
+#: 
+msgid "Email sent successfully."
+msgstr "E-postmeddelandet har skickats."
+
+#: 
+msgid "This message_id must be unique for the given locale."
+msgstr "Detta meddelande-id måste vara unikt för den givna lokalen."
+
+#: 
+msgid "Please log in to add a comment"
+msgstr "Logga in för att lägga till en kommentar"
+
+#: 
+msgid "All caches have been cleared successfully."
+msgstr "Alla cacher har rensats."
+
+#: 
+msgid "Add Email Template"
+msgstr "Lägg till e-postmall"
+
+#: 
+msgid "Picture"
+msgstr "Bild"
+
+#: 
+msgid "Image must be less than 5MB."
+msgstr "Bilden måste vara mindre än 5 MB."
+
+#: 
+msgid "Failed to send email to: {0}"
+msgstr "Det gick inte att skicka e-post till: {0}"
+
+#: 
+msgid "Edit Image"
+msgstr "Redigera bild"
+
+#: 
+msgid "The blocked ip could not be saved. Please, try again."
+msgstr "Den blockerade IP-adressen kunde inte sparas. Försök igen."
+
+#: 
+msgid "Missing required arguments in the message."
+msgstr "Obligatoriska argument saknas i meddelandet."
+
+#: 
+msgid "Clear"
+msgstr "Rensa"
+
+#: 
+msgid "The value must be a number."
+msgstr "Värdet måste vara ett tal."
+
+#: 
+msgid "Search images..."
+msgstr "Sök bilder..."
+
+#: 
+msgid "Modified"
+msgstr "Ändrad"
+
+#: 
+msgid "List Blocked IPs"
+msgstr "Lista blockerade IP-adresser"
+
+#: 
+msgid "Add Internationalisation"
+msgstr "Lägg till internationalisering"
+
+#: 
+msgid "Grid View"
+msgstr "Rutnätsvy"
+
+#: 
+msgid "Updated At"
+msgstr "Uppdaterad kl"
+
+#: 
+msgid "Update Aiprompt"
+msgstr "Uppdatera Aiprompt"
+
+#: 
+msgid "Associated Pages"
+msgstr "Associerade sidor"
+
+#: 
+msgid "No view records found for this article."
+msgstr "Inga visningsposter hittades för denna artikel."
+
+#: 
+msgid "Select a parent"
+msgstr "Välj en förälder"
+
+#: 
+msgid "Setting not found: {0}.{1}"
+msgstr "Inställningen hittades inte: {0}.{1}"
+
+#: 
+msgid "Unable to delete the log."
+msgstr "Det gick inte att ta bort loggen."
+
+#: 
+msgid "Save All Settings"
+msgstr "Spara alla inställningar"
+
+#: 
+msgid "Blocked At"
+msgstr "Blockerad kl"
+
+#: 
+msgid "Alt Text"
+msgstr "Alt text"
+
+#: 
+msgid "Internationalisation"
+msgstr "Internationalisering"
+
+#: 
+msgid "Update Tag"
+msgstr "Uppdatera Tag"
+
+#: 
+msgid "Error saving {0}.{1}: {2}"
+msgstr "Fel när {0} skulle sparas.{1}: {2}"
+
+#: 
+msgid "Referer"
+msgstr "Referent"
+
+#: 
+msgid "Edit Article"
+msgstr "Redigera artikel"
+
+#: 
+msgid "Images"
+msgstr "Bilder"
+
+#: 
+msgid "Too Many Requests"
+msgstr "För många förfrågningar"
+
+#: 
+msgid "Show Full Article"
+msgstr "Visa hela artikeln"
+
+#: 
+msgid "Page View Statistics for slug: {0}"
+msgstr "Sidvisningsstatistik för snigel: {0}"
+
+#: 
+msgid "The blocked ip could not be deleted. Please, try again."
+msgstr "Den blockerade IP-adressen kunde inte raderas. Försök igen."
+
+#: 
+msgid "The user has been deleted."
+msgstr "Användaren har tagits bort."
+
+#: 
+msgid "The article has been saved."
+msgstr "Artikeln har sparats."
+
+#: 
+msgid "Profile Picture"
+msgstr "Profilbild"
+
+#: 
+msgid "Read More"
+msgstr "Läs mer"
+
+#: 
+msgid "Invalid type"
+msgstr "Ogiltig typ"
+
+#: 
+msgid "Add Tag"
+msgstr "Lägg till tagg"
+
+#: 
+msgid "Search articles..."
+msgstr "Sök artiklar..."
+
+#: 
+msgid "Is Published"
+msgstr "Är publicerad"
+
+#: 
+msgid "All logs with level {0} have been deleted."
+msgstr "Alla loggar med nivå {0} har tagits bort."
+
+#: 
+msgid "No articles found for this tag."
+msgstr "Inga artiklar hittades för den här taggen."
+
+#: 
+msgid "Articles"
+msgstr "Artiklar"
+
+#: 
+msgid "Add Blocked IP"
+msgstr "Lägg till blockerad IP"
+
+#: 
+msgid "System Prompt"
+msgstr "Systemprompt"
+
+#: 
+msgid "Edit Settings"
+msgstr "Redigera inställningar"
+
+#: 
+msgid "Article not found."
+msgstr "Artikeln hittades inte."
+
+#: 
+msgid "Meta Title"
+msgstr "Meta titel"
+
+#: 
+msgid "New Internationalisation"
+msgstr "Ny internationalisering"
+
+#: 
+msgid "User Comments"
+msgstr "Användarkommentarer"
+
+#: 
+msgid "Body HTML"
+msgstr "Kropps-HTML"
+
+#: 
+msgid "Bulk Upload Images"
+msgstr "Massuppladdning av bilder"
+
+#: 
+msgid "Failed to save the image"
+msgstr "Det gick inte att spara bilden"
+
+#: 
+msgid "You cannot disable your own account."
+msgstr "Du kan inte inaktivera ditt eget konto."
+
+#: 
+msgid "All Levels"
+msgstr "Alla nivåer"
+
+#: 
+msgid "Created"
+msgstr "Skapad"
+
+#: 
+msgid "Block IPs"
+msgstr "Blockera IP-adresser"
+
+#: 
+msgid "No images."
+msgstr "Inga bilder."
+
+#: 
+msgid "The comment could not be deleted. Please, try again."
+msgstr "Kommentaren kunde inte raderas. Försök igen."
+
+#: 
+msgid "Comments"
+msgstr "Kommentarer"
+
+#: 
+msgid "Edit {0}"
+msgstr "Redigera {0}"
+
+#: 
+msgid "Delete {0}"
+msgstr "Ta bort {0}"
+
+#: 
+msgid "Task Type"
+msgstr "Uppgiftstyp"
+
+#: 
+msgid "The comment has been deleted."
+msgstr "Kommentaren har tagits bort."
+
+#: 
+msgid "Related Tags"
+msgstr "Relaterade taggar"
+
+#: 
+msgid "Update User"
+msgstr "Uppdatera användare"
+
+#: 
+msgid "Actions"
+msgstr "Åtgärder"
+
+#: 
+msgid "The settings have been saved."
+msgstr "Inställningarna har sparats."
+
+#: 
+msgid "Login"
+msgstr "Inloggning"
+
+#: 
+msgid "New AI Prompt"
+msgstr "Ny AI-prompt"
+
+#: 
+msgid "Add User"
+msgstr "Lägg till användare"
+
+#: 
+msgid "All logs in group {0} have been deleted."
+msgstr "Alla loggar i grupp {0} har tagits bort."
+
+#: 
+msgid "Tags"
+msgstr "Taggar"
+
+#: 
+msgid "Too many requests. Please try again later."
+msgstr "För många förfrågningar. Försök igen senare."
+
+#: 
+msgid "Search tags..."
+msgstr "Sök taggar..."
+
+#: 
+msgid "Total Views: "
+msgstr "Totalt antal visningar: "
+
+#: 
+msgid "Logout"
+msgstr "Utloggning"
+
+#: 
+msgid "Search comments..."
+msgstr "Sök kommentarer..."
+
+#: 
+msgid "{0} Views"
+msgstr "{0} Visningar"
+
+#: 
+msgid "Clear All Cache"
+msgstr "Rensa all cache"
+
+#: 
+msgid "New Article"
+msgstr "Ny artikel"
+
+#: 
+msgid "Toggle SEO Fields"
+msgstr "Växla SEO-fält"
+
+#: 
+msgid "New Email Template"
+msgstr "Ny e-postmall"
+
+#: 
+msgid "Admin"
+msgstr "Administration"
+
+#: 
+msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
+msgstr "Slug kommer i konflikt med en befintlig SEO-omdirigering. Välj en annan snigel."
+
+#: 
+msgid "Blocked IPs"
+msgstr "Blockerade IP-adresser"
+
+#: 
+msgid "View detailed records for this date"
+msgstr "Se detaljerade uppgifter för detta datum"
+
+#: 
+msgid "The aiprompt could not be saved. Please, try again."
+msgstr "Aiprompten kunde inte sparas. Försök igen."
+
+#: 
+msgid "This slug is already in use in articles. Please enter a unique slug."
+msgstr "Denna snigel används redan i artiklar. Ange en unik snigel."
+
+#: 
+msgid "Submit Comment"
+msgstr "Skicka kommentar"
+
+#: 
+msgid "New User"
+msgstr "Ny användare"
+
+#: 
+msgid "User"
+msgstr "Användare"
+
+#: 
+msgid "Invalid confirmation code. Please contact support."
+msgstr "Ogiltig bekräftelsekod. Kontakta supporten."
+
+#: 
+msgid "Some settings could not be saved. Please, try again."
+msgstr "Vissa inställningar kunde inte sparas. Försök igen."
+
+#: 
+msgid "The image could not be deleted. Please, try again."
+msgstr "Bilden kunde inte raderas. Försök igen."
+
+#: 
+msgid "By"
+msgstr "Av"
+
+#: 
+msgid "The email template has been deleted."
+msgstr "E-postmallen har tagits bort."
+
+#: 
+msgid "Show Less"
+msgstr "Visa mindre"
+
+#: 
+msgid "Slug"
+msgstr "Snigel"
+
+#: 
+msgid "Slug:"
+msgstr "Snigel:"
+
+#: 
+msgid "The user has been saved."
+msgstr "Användaren har sparats."
+
+#: 
+msgid "Is Admin"
+msgstr "Är Admin"
+
+#: 
+msgid "The image could not be saved. Please, try again."
+msgstr "Det gick inte att spara bilden. Försök igen."
+
+#: 
+msgid "Meta Keywords"
+msgstr "Meta nyckelord"
+
+#: 
+msgid "Twitter Description"
+msgstr "Twitter Beskrivning"
+
+#: 
+msgid "Cache"
+msgstr "Cache"
+
+#: 
+msgid "Password must be at least 8 characters long"
+msgstr "Lösenordet måste vara minst 8 tecken långt"
+
+#: 
+msgid "Edit Your Account"
+msgstr "Redigera ditt konto"
+
+#: 
+msgid "Keywords"
+msgstr "Nyckelord"
+
+#: 
+msgid "All logs have been deleted."
+msgstr "Alla loggar har raderats."
+
+#: 
+msgid "Unable to delete all logs."
+msgstr "Det gick inte att ta bort alla loggar."
+
+#: 
+msgid "The slug could not be deleted. Please, try again."
+msgstr "Snigeln kunde inte raderas. Försök igen."
+
+#: 
+msgid "Add Page"
+msgstr "Lägg till sida"
+
+#: 
+msgid "The tag could not be deleted. Please, try again."
+msgstr "Taggen kunde inte raderas. Försök igen."
+
+#: 
+msgid "The comment could not be saved. Please, try again."
+msgstr "Kommentaren kunde inte sparas. Försök igen."
+
+#: 
+msgid "Enter text"
+msgstr "Skriv in text"
+
+#: 
+msgid "The internationalisation has been saved."
+msgstr "Internationaliseringen är räddad."
+
+#: 
+msgid "Group Name"
+msgstr "Gruppnamn"
+
+#: 
+msgid "Error loading images:"
+msgstr "Det gick inte att ladda bilder:"
+
+#: 
+msgid "The email template could not be saved. Please, try again."
+msgstr "E-postmallen kunde inte sparas. Försök igen."
+
+#: 
+msgid "Delete"
+msgstr "Radera"
+
+#: 
+msgid "Inappropriate Reason"
+msgstr "Olämplig anledning"
+
+#: 
+msgid "Created At"
+msgstr "Skapad på"
+
+#: 
+msgid "The slug must be unique."
+msgstr "Snigeln måste vara unik."
+
+#: 
+msgid "Invalid username or password"
+msgstr "Ogiltigt användarnamn eller lösenord"
+
+#: 
+msgid "Your comment has been added."
+msgstr "Din kommentar har lagts till."
+
+#: 
+msgid "Reason"
+msgstr "Resonera"
+
+#: 
+msgid "Registration failed. Please, try again."
+msgstr "Registreringen misslyckades. Försök igen."
+
+#: 
+msgid "Update Article"
+msgstr "Uppdatera artikel"
+
+#: 
+msgid "Your account has been updated."
+msgstr "Ditt konto har uppdaterats."
+
+#: 
+msgid "Edit Blocked IP"
+msgstr "Redigera blockerad IP"
+
+#: 
+msgid "Are you sure you want to delete this comment?"
+msgstr "Är du säker på att du vill ta bort den här kommentaren?"
+
+#: 
+msgid "Submit"
+msgstr "Överlämna"
+
+#: 
+msgid "Context"
+msgstr "Sammanhang"
+
+#: 
+msgid "Registration successful, but there was an issue creating the confirmation link."
+msgstr "Registreringen lyckades, men det uppstod ett problem när bekräftelselänken skapades."
+
+#: 
+msgid "Edit"
+msgstr "Redigera"
+
+#: 
+msgid "The user could not be saved. Please, try again."
+msgstr "Användaren kunde inte sparas. Försök igen."
+
+#: 
+msgid "All Locales"
+msgstr "Alla lokaler"
+
+#: 
+msgid "All Tags"
+msgstr "Alla taggar"
 

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2024-10-26 10:09+0100\n"
+"POT-Creation-Date: 2024-10-26 12:25+0100\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -13,114 +13,6 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-
-#: ./src/Command/CreateUserCommand.php:101
-msgid "Attempting to create user with data: {0}"
-msgstr ""
-
-#: ./src/Command/CreateUserCommand.php:112
-msgid "User created successfully: {0}"
-msgstr ""
-
-#: ./src/Command/CreateUserCommand.php:122
-msgid "Failed to create user: {0}. Errors: {1}"
-msgstr ""
-
-#: ./src/Command/DefaultDataExportCommand.php:102
-msgid "Data exported to {0}"
-msgstr ""
-
-#: ./src/Command/DefaultDataImportCommand.php:72
-msgid "No JSON files found in the directory: {0}"
-msgstr ""
-
-#: ./src/Command/DefaultDataImportCommand.php:85
-msgid "Available data files:"
-msgstr ""
-
-#: ./src/Command/DefaultDataImportCommand.php:90
-msgid "Choose a file to import by number:"
-msgstr ""
-
-#: ./src/Command/DefaultDataImportCommand.php:94
-msgid "Invalid choice."
-msgstr ""
-
-#: ./src/Command/DefaultDataImportCommand.php:123
-msgid "Input file not found: {0}"
-msgstr ""
-
-#: ./src/Command/DefaultDataImportCommand.php:133
-msgid "Deleted all existing records from table: {0}"
-msgstr ""
-
-#: ./src/Command/DefaultDataImportCommand.php:154
-msgid "Failed to save entity: {0} {1}"
-msgstr ""
-
-#: ./src/Command/DefaultDataImportCommand.php:161
-msgid "Imported data into table: {0}"
-msgstr ""
-
-#: ./src/Command/ExportCodeCommand.php:104
-msgid "Code exported successfully to {0}"
-msgstr ""
-
-#: ./src/Command/ExportCodeCommand.php:106
-msgid "Code exported successfully to separate files."
-msgstr ""
-
-#: ./src/Command/GeneratePoFilesCommand.php:69
-msgid "No translations found for locale: {0}. Skipping..."
-msgstr ""
-
-#: ./src/Command/GeneratePoFilesCommand.php:83
-msgid "Generated default.po for locale: {0}"
-msgstr ""
-
-#: ./src/Command/ResizeImagesCommand.php:138
-#: ./src/Job/ProcessImageJob.php:155
-msgid "Original image not found for resizing. Path: {0}"
-msgstr ""
-
-#: ./src/Command/ResizeImagesCommand.php:148
-#: ./src/Job/ProcessImageJob.php:165
-msgid "Skipped resizing, image already exists. Path: {0}"
-msgstr ""
-
-#: ./src/Command/ResizeImagesCommand.php:165
-#: ./src/Job/ProcessImageJob.php:182
-msgid "Successfully resized and saved image. Original: {0}, Resized: {1}, Width: {2}px"
-msgstr ""
-
-#: ./src/Command/ResizeImagesCommand.php:174
-#: ./src/Job/ProcessImageJob.php:191
-msgid "Error resizing image. Original: {0}, Target Width: {1}px, Error: {2}"
-msgstr ""
-
-#: ./src/Command/TestRateLimitCommand.php:56
-msgid "Testing rate limit on URL: {0}"
-msgstr ""
-
-#: ./src/Command/TestRateLimitCommand.php:57
-msgid "Number of attempts: {0}"
-msgstr ""
-
-#: ./src/Command/TestRateLimitCommand.php:82
-msgid "Attempt {0} failed. Error ({1}): {2}"
-msgstr ""
-
-#: ./src/Command/TestRateLimitCommand.php:85
-msgid "Attempt {0}: HTTP Code: {1}"
-msgstr ""
-
-#: ./src/Command/TestRateLimitCommand.php:86
-msgid "Response: {0}"
-msgstr ""
-
-#: ./src/Command/TranslateI18nCommand.php:103
-msgid "Queued translation job for batch of {0} messages for locale {1}"
-msgstr ""
 
 #: ./src/Controller/Admin/AipromptsController.php:89
 #: ./src/Controller/Admin/AipromptsController.php:116
@@ -483,144 +375,8 @@ msgstr ""
 msgid "Too Many Requests"
 msgstr ""
 
-#: ./src/Job/ArticleSeoUpdateJob.php:71
-msgid "Received article SEO update message: {0} : {1}"
-msgstr ""
-
-#: ./src/Job/ArticleSeoUpdateJob.php:94
-msgid "Article SEO update completed successfully. Article ID: {0} Title: {1}"
-msgstr ""
-
-#: ./src/Job/ArticleSeoUpdateJob.php:102
-msgid "Failed to save article SEO updates. Article ID: {0} Title: {1}"
-msgstr ""
-
-#: ./src/Job/ArticleSeoUpdateJob.php:109
-msgid "Article SEO update failed. No result returned. Article ID: {0} Title: {1}"
-msgstr ""
-
-#: ./src/Job/ArticleSummaryUpdateJob.php:73
-msgid "Received article summary update message: {0} : {1}"
-msgstr ""
-
-#: ./src/Job/ArticleSummaryUpdateJob.php:97
-msgid "Article summary update completed successfully. Article ID: {0} Title: {1}"
-msgstr ""
-
-#: ./src/Job/ArticleSummaryUpdateJob.php:105
-msgid "Failed to save article summary updates. Article ID: {0} Title: {1}"
-msgstr ""
-
-#: ./src/Job/ArticleSummaryUpdateJob.php:112
-msgid "Article summary update failed. No valid result returned. Article ID: {0} Title: {1}"
-msgstr ""
-
-#: ./src/Job/ArticleTagUpdateJob.php:61
-msgid "Received article tag update message: {0} : {1}"
-msgstr ""
-
-#: ./src/Job/ArticleTagUpdateJob.php:86
-msgid "New tag created: {0}"
-msgstr ""
-
-#: ./src/Job/ArticleTagUpdateJob.php:98
-msgid "Article tag update completed successfully. Article ID: {0}"
-msgstr ""
-
-#: ./src/Job/ArticleTagUpdateJob.php:106
-msgid "Failed to save article tag updates. Article ID: {0} Error: {1}"
-msgstr ""
-
-#: ./src/Job/ArticleTagUpdateJob.php:119
-msgid "Article tag update failed. No valid result returned. Article ID: {0}"
-msgstr ""
-
-#: ./src/Job/CommentAnalysisJob.php:72
-msgid "Received comment analysis message: Comment ID: {0} User ID: {1}"
-msgstr ""
-
-#: ./src/Job/CommentAnalysisJob.php:82
-msgid "Comment already analyzed. Skipping. Comment ID: {0}"
-msgstr ""
-
-#: ./src/Job/CommentAnalysisJob.php:95
-msgid "Comment analysis completed successfully. Comment ID: {0}"
-msgstr ""
-
-#: ./src/Job/CommentAnalysisJob.php:103
-msgid "Comment analysis failed. No result returned. Comment ID: {0}"
-msgstr ""
-
-#: ./src/Job/CommentAnalysisJob.php:138
-msgid "Failed to update comment status. Comment ID: {0}"
-msgstr ""
-
-#: ./src/Job/ImageAnalysisJob.php:64
-msgid "Received image analysis message: Image ID: {0} Path: {1}"
-msgstr ""
-
-#: ./src/Job/ImageAnalysisJob.php:82
-msgid "Image analysis completed successfully. Model: {0} ID: {1}"
-msgstr ""
-
-#: ./src/Job/ImageAnalysisJob.php:92
-msgid "Image analysis failed. Model: {0} ID: {1}"
-msgstr ""
-
-#: ./src/Job/ImageAnalysisJob.php:98
-msgid "Error during image analysis: {0}"
-msgstr ""
-
-#: ./src/Job/ProcessImageJob.php:60
-msgid "Imagick extension is not loaded"
-msgstr ""
-
-#: ./src/Job/ProcessImageJob.php:74
-msgid "Received image processing message: Image ID: {0} Path: {1}"
-msgstr ""
-
-#: ./src/Job/ProcessImageJob.php:82
-msgid "Starting image processing job. Path: {0}, Sizes to process: {1}"
-msgstr ""
-
-#: ./src/Job/ProcessImageJob.php:96
-msgid "Error during image processing. Path: {0}, Error: {1}"
-msgstr ""
-
-#: ./src/Job/ProcessImageJob.php:108
-msgid "Image processing job completed successfully. Path: {0}"
-msgstr ""
-
-#: ./src/Job/SendEmailJob.php:71
-msgid "Processing email job: Template: {0} From: {1} To: {2} viewVars: {3}"
-msgstr ""
-
-#: ./src/Job/SendEmailJob.php:91
+#: ./src/Job/SendEmailJob.php:89
 msgid "Email template not found: {0}"
-msgstr ""
-
-#: ./src/Job/SendEmailJob.php:118
-msgid "Email sent successfully: {0} to {1}"
-msgstr ""
-
-#: ./src/Job/SendEmailJob.php:126
-msgid "Email sending failed: {0} to {1}"
-msgstr ""
-
-#: ./src/Job/TagSeoUpdateJob.php:61
-msgid "Received tag SEO update message: ID: {0} Title: {1}"
-msgstr ""
-
-#: ./src/Job/TagSeoUpdateJob.php:89
-msgid "Tag SEO update completed successfully. ID: {0} Title: {1}"
-msgstr ""
-
-#: ./src/Job/TagSeoUpdateJob.php:97
-msgid "Failed to save tag SEO updates. ID: {0} Title: {1}"
-msgstr ""
-
-#: ./src/Job/TagSeoUpdateJob.php:104
-msgid "Tag SEO update failed. No result returned. ID: {0} Title: {1}"
 msgstr ""
 
 #: ./src/Job/TranslateI18nJob.php:61
@@ -668,18 +424,6 @@ msgstr ""
 msgid "Image must be less than 5MB."
 msgstr ""
 
-#: ./src/Model/Table/ArticlesTable.php:327
-msgid "Queued Article SEO update job: {0}"
-msgstr ""
-
-#: ./src/Model/Table/ArticlesTable.php:349
-msgid "Queued Article Tag update job: {0}"
-msgstr ""
-
-#: ./src/Model/Table/ArticlesTable.php:360
-msgid "Queued Article Summary update job: {0}"
-msgstr ""
-
 #: ./src/Model/Table/InternationalisationsTable.php:69
 msgid "This message_id must be unique for the given locale."
 msgstr ""
@@ -710,14 +454,6 @@ msgstr ""
 
 #: ./src/Model/Table/SlugsTable.php:83
 msgid "The slug must be unique."
-msgstr ""
-
-#: ./src/Model/Table/SlugsTable.php:128
-msgid "Failed to save slug: {0}"
-msgstr ""
-
-#: ./src/Model/Table/TagsTable.php:107
-msgid "Queue tag SEO update job for Tag:{0}"
 msgstr ""
 
 #: ./src/Model/Table/UsersTable.php:93
@@ -811,6 +547,7 @@ msgstr ""
 #: ./plugins/AdminTheme/templates/Admin/Users/search_results.php:30
 #: ./plugins/AdminTheme/templates/Admin/Users/view.php:85
 #: ./plugins/AdminTheme/templates/Admin/Users/view.php:121
+#: ./vendor/cakephp/cakephp/src/View/Helper/PaginatorHelper.php:1178
 msgid "View"
 msgstr ""
 

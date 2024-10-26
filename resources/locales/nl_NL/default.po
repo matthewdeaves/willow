@@ -14,1504 +14,936 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
 #: 
-msgid "Email template not found: {0}"
-msgstr "E-mailsjabloon niet gevonden: {0}"
-
-#: 
-msgid "User Agent"
-msgstr "Gebruikersagent"
-
-#: 
-msgid "Enter text"
-msgstr "Voer tekst in"
-
-#: 
-msgid "Never"
-msgstr "Nooit"
-
-#: 
-msgid "{0} cache configuration does not exist."
-msgstr "{0} cacheconfiguratie bestaat niet."
-
-#: 
-msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
-msgstr "Pagina {{page}} van {{pages}}, met {{current}} record(s) van in totaal {{count}}"
-
-#: 
-msgid "Received comment analysis message: Comment ID: {0} User ID: {1}"
-msgstr "Ontvangen commentaaranalysebericht: Commentaar-ID: {0} Gebruikers-ID: {1}"
-
-#: 
-msgid "{0} cache has been cleared successfully."
-msgstr "{0} cache is succesvol gewist."
-
-#: 
-msgid "Message"
-msgstr "Bericht"
-
-#: 
-msgid "Model"
-msgstr "Model"
-
-#: 
-msgid "Cache Management"
-msgstr "Cachebeheer"
-
-#: 
-msgid "Enter a number"
-msgstr "Voer een nummer in"
-
-#: 
-msgid "Edit Comment"
-msgstr "Bewerken Commentaar"
-
-#: 
-msgid "The log has been deleted."
-msgstr "Het logboek is verwijderd."
-
-#: 
-msgid "Image analysis failed. Model: {0} ID: {1}"
-msgstr "Beeldanalyse mislukt. Model: {0} ID: {1}"
-
-#: 
-msgid "The requested address {0} was not found on this server."
-msgstr "Het gevraagde adres {0} is niet gevonden op deze server."
-
-#: 
-msgid "Image must be less than 5MB."
-msgstr "De afbeelding moet kleiner zijn dan 5 MB."
-
-#: 
-msgid "No deleting your own account."
-msgstr "U kunt uw eigen account niet verwijderen."
-
-#: 
-msgid "All Tags"
-msgstr "Alle tags"
-
-#: 
-msgid "Are you sure you want to delete all {0} logs?"
-msgstr "Weet u zeker dat u alle {0} logs wilt verwijderen?"
-
-#: 
-msgid "Comment analysis failed. No result returned. Comment ID: {0}"
-msgstr "Commentaaranalyse mislukt. Geen resultaat geretourneerd. Commentaar-ID: {0}"
-
-#: 
-msgid "User"
-msgstr "Gebruiker"
-
-#: 
-msgid "Is Inappropriate"
-msgstr "Is ongepast"
-
-#: 
-msgid "Search tags..."
-msgstr "Zoek tags..."
-
-#: 
-msgid "Article tag update completed successfully. Article ID: {0}"
-msgstr "Artikeltag-update succesvol voltooid. Artikel-ID: {0}"
-
-#: 
-msgid "Error"
-msgstr "Fout"
-
-#: 
-msgid "Edit Tag"
-msgstr "Tag bewerken"
-
-#: 
-msgid "Modified"
-msgstr "Gewijzigd"
-
-#: 
-msgid "Id"
-msgstr "Identiteitsbewijs"
-
-#: 
-msgid "Content"
-msgstr "Inhoud"
-
-#: 
-msgid "Received article SEO update message: {0} : {1}"
-msgstr "Ontvangen SEO-updatebericht voor artikel: {0} : {1}"
-
-#: 
-msgid "Display"
-msgstr "Weergave"
-
-#: 
-msgid "Twitter Description"
-msgstr "Twitter-beschrijving"
-
-#: 
-msgid "Details"
-msgstr "Details"
-
-#: 
-msgid "Submit"
-msgstr "Indienen"
-
-#: 
-msgid "Please enter your email and password"
-msgstr "Voer uw e-mailadres en wachtwoord in"
-
-#: 
-msgid "List {0}"
-msgstr "Lijst {0}"
-
-#: 
-msgid "Group Name"
-msgstr "Groepsnaam"
-
-#: 
-msgid "All caches have been cleared successfully."
-msgstr "Alle caches zijn succesvol gewist."
-
-#: 
-msgid "List Blocked IPs"
-msgstr "Lijst geblokkeerde IP&#39;s"
-
-#: 
-msgid "No articles found for this tag."
-msgstr "Er zijn geen artikelen gevonden voor deze tag."
-
-#: 
-msgid "The aiprompt could not be saved. Please, try again."
-msgstr "De aiprompt kon niet worden opgeslagen. Probeer het opnieuw."
-
-#: 
-msgid "Your account has been updated."
-msgstr "Uw account is bijgewerkt."
-
-#: 
-msgid "Update Aiprompt"
-msgstr "AiPrompt bijwerken"
-
-#: 
-msgid "Add Blocked IP"
-msgstr "Geblokkeerd IP toevoegen"
-
-#: 
-msgid "No pages found."
-msgstr "Geen pagina&#39;s gevonden."
-
-#: 
-msgid "The email template has been saved."
-msgstr "De e-mailsjabloon is opgeslagen."
-
-#: 
-msgid "Profile Picture"
-msgstr "Profielfoto"
-
-#: 
-msgid "View detailed records for this date"
-msgstr "Bekijk gedetailleerde gegevens voor deze datum"
-
-#: 
-msgid "This message_id must be unique for the given locale."
-msgstr "Deze message_id moet uniek zijn voor de opgegeven landinstelling."
-
-#: 
-msgid "The article could not be deleted. Please, try again."
-msgstr "Het artikel kon niet worden verwijderd. Probeer het opnieuw."
-
-#: 
-msgid "Page Views"
-msgstr "Paginaweergaven"
-
-#: 
-msgid "Internationalisations"
-msgstr "Internationaliseringen"
-
-#: 
-msgid "Please upload only images (jpeg, png, gif)."
-msgstr "Upload alleen afbeeldingen (jpeg, png, gif)."
-
-#: 
-msgid "Grid View"
-msgstr "Rasterweergave"
-
-#: 
-msgid "Level"
-msgstr "Niveau"
-
-#: 
-msgid "Related Tags"
-msgstr "Gerelateerde tags"
-
-#: 
-msgid "Error during image analysis: {0}"
-msgstr "Fout tijdens beeldanalyse: {0}"
-
-#: 
-msgid "All Groups"
-msgstr "Alle groepen"
-
-#: 
-msgid "View"
-msgstr "Weergave"
-
-#: 
-msgid "Modified At"
-msgstr "Gewijzigd op"
-
-#: 
-msgid "Image uploaded successfully"
-msgstr "Afbeelding succesvol geüpload"
-
-#: 
-msgid "Response: {0}"
-msgstr "Antwoord: {0}"
-
-#: 
-msgid "Access denied. You must be an admin to view this page."
-msgstr "Toegang geweigerd. U moet een beheerder zijn om deze pagina te bekijken."
-
-#: 
-msgid "You must be logged in to add a comment."
-msgstr "U moet ingelogd zijn om een reactie te kunnen plaatsen."
-
-#: 
-msgid "No"
-msgstr "Nee"
-
-#: 
-msgid "The image has been deleted."
-msgstr "De afbeelding is verwijderd."
-
-#: 
-msgid "Register"
-msgstr "Register"
-
-#: 
-msgid "Comment for {0}"
-msgstr "Commentaar voor {0}"
-
-#: 
-msgid "Message Str"
-msgstr "Bericht Str"
-
-#: 
-msgid "API request failed. Please try again later."
-msgstr "API-verzoek mislukt. Probeer het later opnieuw."
-
-#: 
-msgid "Unable to delete logs with level {0}."
-msgstr "Kan logs met niveau {0} niet verwijderen."
-
-#: 
-msgid "An Internal Error Has Occurred."
-msgstr "Er is een interne fout opgetreden."
-
-#: 
-msgid "Meta Title"
-msgstr "Meta-titel"
-
-#: 
-msgid "Is Admin"
-msgstr "Is beheerder"
-
-#: 
-msgid "Received article summary update message: {0} : {1}"
-msgstr "Bericht over update van artikelsamenvatting ontvangen: {0} : {1}"
-
-#: 
-msgid "Received article tag update message: {0} : {1}"
-msgstr "Bericht over update van artikeltag ontvangen: {0} : {1}"
-
-#: 
-msgid "Created At"
-msgstr "Gemaakt op"
-
-#: 
-msgid "Delete"
-msgstr "Verwijderen"
-
-#: 
-msgid "Associated Pages"
-msgstr "Geassocieerde pagina&#39;s"
-
-#: 
-msgid "Are you sure you want to delete this comment?"
-msgstr "Weet u zeker dat u deze opmerking wilt verwijderen?"
-
-#: 
-msgid "No translations found for locale: {0}. Skipping..."
-msgstr "Geen vertalingen gevonden voor locale: {0}. Overslaan..."
-
-#: 
-msgid "Successfully resized and saved image. Original: {0}, Resized: {1}, Width: {2}px"
-msgstr "Afbeelding succesvol aangepast en opgeslagen. Origineel: {0}, Aangepast formaat: {1}, Breedte: {2}px"
-
-#: 
-msgid "Are you sure you want to delete comment by {0}?"
-msgstr "Weet u zeker dat u de opmerking van {0} wilt verwijderen?"
-
-#: 
-msgid "All logs have been deleted."
-msgstr "Alle logs zijn verwijderd."
-
-#: 
-msgid "Max Tokens"
-msgstr "Maximale tokens"
-
-#: 
-msgid "Your comment has been added."
-msgstr "Uw opmerking is toegevoegd."
-
-#: 
-msgid "Edit"
-msgstr "Bewerking"
-
-#: 
-msgid "Title"
-msgstr "Titel"
-
-#: 
-msgid "Code Coverage"
-msgstr "Codedekking"
-
-#: 
-msgid "The user has been saved."
-msgstr "De gebruiker is opgeslagen."
-
-#: 
-msgid "Error sending email: {0}"
-msgstr "Fout bij het verzenden van e-mail: {0}"
-
-#: 
-msgid "Setting not found: {0}.{1}"
-msgstr "Instelling niet gevonden: {0}.{1}"
-
-#: 
-msgid "Delete {0}"
-msgstr "Verwijderen {0}"
-
-#: 
-msgid "The article has been deleted."
-msgstr "Het artikel is verwijderd."
-
-#: 
-msgid "Task Type"
-msgstr "Taaktype"
-
-#: 
-msgid "Add User"
-msgstr "Gebruiker toevoegen"
-
-#: 
-msgid "Is AI Analyzed"
-msgstr "Wordt AI geanalyseerd?"
-
-#: 
-msgid "The email template could not be deleted. Please, try again."
-msgstr "De e-mailsjabloon kon niet worden verwijderd. Probeer het opnieuw."
-
-#: 
-msgid "Search users..."
-msgstr "Zoek gebruikers..."
-
-#: 
-msgid "Input file not found: {0}"
-msgstr "Invoerbestand niet gevonden: {0}"
-
-#: 
-msgid "Imported data into table: {0}"
-msgstr "Geïmporteerde gegevens in tabel: {0}"
-
-#: 
-msgid "The image has been saved."
-msgstr "De afbeelding is opgeslagen."
-
-#: 
-msgid "{0} Views"
-msgstr "{0} Weergaven"
-
-#: 
-msgid "Article not found"
-msgstr "Artikel niet gevonden"
-
-#: 
-msgid "Update Slug"
-msgstr "Slug bijwerken"
-
-#: 
-msgid "Edit Image"
-msgstr "Afbeelding bewerken"
-
-#: 
-msgid "No view records found for this article."
-msgstr "Er zijn geen weergaven gevonden voor dit artikel."
-
-#: 
-msgid "New User"
-msgstr "Nieuwe gebruiker"
-
-#: 
-msgid "The slug has been saved."
-msgstr "De slak is gered."
-
-#: 
-msgid "The article has been saved."
-msgstr "Het artikel is opgeslagen."
-
-#: 
-msgid "Failed to create user: {0}. Errors: {1}"
-msgstr "Het is niet gelukt om de gebruiker {0} aan te maken. Fouten: {1}"
-
-#: 
-msgid "Edit Article"
-msgstr "Artikel bewerken"
-
-#: 
-msgid "Error in: "
-msgstr "Fout in: "
-
-#: 
-msgid "Facebook Description"
-msgstr "Facebook-beschrijving"
-
-#: 
-msgid "Cache"
-msgstr "cachen"
-
-#: 
-msgid "Comment analysis completed successfully. Comment ID: {0}"
-msgstr "Commentaaranalyse succesvol afgerond. Commentaar-ID: {0}"
-
-#: 
-msgid "Published"
-msgstr "Gepubliceerd"
-
-#: 
-msgid "The value must not be empty."
-msgstr "De waarde mag niet leeg zijn."
-
-#: 
-msgid "Show Less"
-msgstr "Minder weergeven"
-
-#: 
-msgid "Description"
-msgstr "Beschrijving"
-
-#: 
-msgid "New Tag"
-msgstr "Nieuwe tag"
-
-#: 
-msgid "Engine"
-msgstr "Motor"
-
-#: 
-msgid "Failed to send confirmation email message: {0}"
-msgstr "Het verzenden van het bevestigings-e-mailbericht is mislukt: {0}"
-
-#: 
-msgid "Slug"
-msgstr "Naaktslak"
-
-#: 
-msgid "The tag has been deleted."
-msgstr "De tag is verwijderd."
-
-#: 
-msgid "Are you sure you want to delete IP {0}?"
-msgstr "Weet u zeker dat u IP {0} wilt verwijderen?"
-
-#: 
-msgid "Are you sure you want to delete all logs in group {0}?"
-msgstr "Weet u zeker dat u alle logboeken in groep {0} wilt verwijderen?"
-
-#: 
-msgid "The user could not be saved. Please, try again."
-msgstr "De gebruiker kon niet worden opgeslagen. Probeer het opnieuw."
-
-#: 
-msgid "List View"
-msgstr "Lijstweergave"
-
-#: 
-msgid "Tag SEO update failed. No result returned. ID: {0} Title: {1}"
-msgstr "Tag SEO-update mislukt. Geen resultaat geretourneerd. ID: {0} Titel: {1}"
-
-#: 
-msgid "Queued Article Tag update job: {0}"
-msgstr "Taak voor bijwerken van artikeltag in wachtrij: {0}"
-
-#: 
-msgid "Unable to delete the log."
-msgstr "Het logboek kan niet worden verwijderd."
-
-#: 
-msgid "Temperature"
-msgstr "Temperatuur"
-
-#: 
-msgid "Configured Caches"
-msgstr "Geconfigureerde caches"
-
-#: 
-msgid "Invalid type"
-msgstr "Ongeldig type"
-
-#: 
-msgid "Unknown Author"
-msgstr "Onbekende auteur"
-
-#: 
-msgid "Attempt {0}: HTTP Code: {1}"
-msgstr "Poging {0}: HTTP-code: {1}"
-
-#: 
-msgid "Invalid value for the specified type."
-msgstr "Ongeldige waarde voor het opgegeven type."
-
-#: 
-msgid "A value is required"
-msgstr "Er is een waarde vereist"
-
-#: 
-msgid "Toggle SEO Fields"
-msgstr "Schakel SEO-velden in"
-
-#: 
-msgid "The slug could not be saved. Please, try again."
-msgstr "De slug kon niet worden opgeslagen. Probeer het opnieuw."
-
-#: 
-msgid "Processing email job: Template: {0} From: {1} To: {2} viewVars: {3}"
-msgstr "Verwerken van e-mailtaak: Sjabloon: {0} Van: {1} Aan: {2} viewVars: {3}"
-
-#: 
-msgid "Summary"
-msgstr "Samenvatting"
-
-#: 
-msgid "Tags"
-msgstr "Labels"
-
-#: 
-msgid "Is Published"
-msgstr "Is gepubliceerd"
-
-#: 
-msgid "Internationalisation"
-msgstr "Internationalisering"
-
-#: 
-msgid "{0} cache could not be cleared."
-msgstr "{0} cache kon niet worden gewist."
-
-#: 
-msgid "Please log in to add a comment"
-msgstr "Meld u aan om een opmerking toe te voegen"
-
-#: 
-msgid "Add Image"
-msgstr "Afbeelding toevoegen"
-
-#: 
-msgid "Comments"
-msgstr "Reacties"
-
-#: 
-msgid "Are you sure you want to delete {0}?"
-msgstr "Weet u zeker dat u {0} wilt verwijderen?"
-
-#: 
-msgid "The user has been deleted."
-msgstr "De gebruiker is verwijderd."
-
-#: 
-msgid "Are you sure you want to delete this prompt?"
-msgstr "Weet u zeker dat u deze prompt wilt verwijderen?"
-
-#: 
-msgid "No JSON files found in the directory: {0}"
-msgstr "Geen JSON-bestanden gevonden in de map: {0}"
-
-#: 
-msgid "Related Articles"
-msgstr "Gerelateerde artikelen"
-
-#: 
-msgid "There was an issue confirming your account. Please try again."
-msgstr "Er is een probleem opgetreden bij het bevestigen van uw account. Probeer het opnieuw."
-
-#: 
-msgid "New AI Prompt"
-msgstr "Nieuwe AI-prompt"
-
-#: 
-msgid "Some caches were cleared, but the following failed: {0}"
-msgstr "Sommige caches zijn gewist, maar de volgende zijn mislukt: {0}"
-
-#: 
-msgid "Actions"
-msgstr "Acties"
-
-#: 
-msgid "Invalid username or password"
-msgstr "Ongeldige gebruikersnaam of wachtwoord"
-
-#: 
-msgid "Are you sure you want to delete # {0}?"
-msgstr "Weet u zeker dat u # {0} wilt verwijderen?"
-
-#: 
-msgid "All logs in group {0} have been deleted."
-msgstr "Alle logboeken in groep {0} zijn verwijderd."
-
-#: 
-msgid "Slug:"
-msgstr "Naaktslak:"
-
-#: 
-msgid "Pages"
-msgstr "Pagina&#39;s"
-
-#: 
-msgid "The value must be 0 or 1."
-msgstr "De waarde moet 0 of 1 zijn."
-
-#: 
-msgid "Registration successful. Please check your email for confirmation."
-msgstr "Registratie succesvol. Controleer uw e-mail voor bevestiging."
-
-#: 
-msgid "Failed to update comment status. Comment ID: {0}"
-msgstr "Het is niet gelukt om de status van de opmerking bij te werken. Opmerking-ID: {0}"
-
-#: 
-msgid "New Article"
-msgstr "Nieuw artikel"
-
-#: 
-msgid "Page Views for {0}"
-msgstr "Paginaweergaven voor {0}"
-
-#: 
-msgid "Image analysis completed successfully. Model: {0} ID: {1}"
-msgstr "Beeldanalyse succesvol afgerond. Model: {0} ID: {1}"
-
-#: 
-msgid "Unknown User"
-msgstr "Onbekende gebruiker"
-
-#: 
-msgid "Subject"
-msgstr "Onderwerp"
-
-#: 
-msgid "No page view data available for this article."
-msgstr "Er zijn geen paginaweergavegegevens beschikbaar voor dit artikel."
-
-#: 
-msgid "Expires At"
-msgstr "Verloopt op"
-
-#: 
-msgid "Settings"
-msgstr "Instellingen"
-
-#: 
-msgid "All Locales"
-msgstr "Alle locaties"
-
-#: 
-msgid "Name"
-msgstr "Naam"
-
-#: 
-msgid "Failed to update translation for message ID: {0}"
-msgstr "Het is niet gelukt om de vertaling voor bericht-ID {0} bij te werken"
-
-#: 
-msgid "Save All Settings"
-msgstr "Alle instellingen opslaan"
-
-#: 
-msgid "Total Views: "
-msgstr "Totaal aantal weergaven: "
-
-#: 
-msgid "Original image not found for resizing. Path: {0}"
-msgstr "Originele afbeelding niet gevonden voor formaat wijzigen. Pad: {0}"
-
-#: 
-msgid "Some settings could not be saved. Please, try again."
-msgstr "Sommige instellingen konden niet worden opgeslagen. Probeer het opnieuw."
-
-#: 
-msgid "Bulk Upload"
-msgstr "Bulkupload"
-
-#: 
-msgid "Updated At"
-msgstr "Bijgewerkt op"
-
-#: 
-msgid "Clear"
-msgstr "Duidelijk"
+msgid "Failed to send email to: {0}"
+msgstr "Het is niet gelukt om een e-mail te sturen naar: {0}"
 
 #: 
 msgid "Confirm Password"
 msgstr "Bevestig wachtwoord"
 
 #: 
-msgid "Last Cleared"
-msgstr "Laatst gewist"
+msgid "No view records found for this article."
+msgstr "Er zijn geen weergaverecords gevonden voor dit artikel."
 
 #: 
-msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
-msgstr "De slug moet URL-veilig zijn (alleen kleine letters, cijfers en koppeltekens)"
-
-#: 
-msgid "Article not found."
-msgstr "Artikel niet gevonden."
-
-#: 
-msgid "Choose a file to import by number:"
-msgstr "Kies een bestand om te importeren op nummer:"
-
-#: 
-msgid "New Internationalisation"
-msgstr "Nieuwe internationalisering"
-
-#: 
-msgid "Code exported successfully to separate files."
-msgstr "Code succesvol geëxporteerd naar aparte bestanden."
-
-#: 
-msgid "The internationalisation has been deleted."
-msgstr "De internationalisering is verwijderd."
-
-#: 
-msgid "Instagram Description"
-msgstr "Instagram-beschrijving"
-
-#: 
-msgid "New Image"
-msgstr "Nieuwe afbeelding"
-
-#: 
-msgid "Unable to delete logs in group {0}."
-msgstr "Kan logboeken in groep {0} niet verwijderen."
-
-#: 
-msgid "User created successfully: {0}"
-msgstr "Gebruiker succesvol aangemaakt: {0}"
-
-#: 
-msgid "Edit {0}"
-msgstr "Bewerken {0}"
-
-#: 
-msgid "The comment has been deleted."
-msgstr "De reactie is verwijderd."
-
-#: 
-msgid "Generated default.po for locale: {0}"
-msgstr "Gegenereerde default.po voor locale: {0}"
-
-#: 
-msgid "The internationalisation could not be deleted. Please, try again."
-msgstr "De internationalisatie kon niet worden verwijderd. Probeer het opnieuw."
-
-#: 
-msgid "Alt Text"
-msgstr "Alt-tekst"
-
-#: 
-msgid "Add Internationalisation"
-msgstr "Internationalisering toevoegen"
-
-#: 
-msgid "The blocked ip could not be saved. Please, try again."
-msgstr "Het geblokkeerde IP kon niet worden opgeslagen. Probeer het opnieuw."
-
-#: 
-msgid "Filter"
-msgstr "Filter"
-
-#: 
-msgid "New Slug"
-msgstr "Nieuwe slak"
-
-#: 
-msgid "Tag SEO update completed successfully. ID: {0} Title: {1}"
-msgstr "Tag SEO-update succesvol voltooid. ID: {0} Titel: {1}"
-
-#: 
-msgid "Failed to save article summary updates. Article ID: {0} Title: {1}"
-msgstr "Het opslaan van updates van het artikeloverzicht is mislukt. Artikel-ID: {0} Titel: {1}"
-
-#: 
-msgid "Comment"
-msgstr "Opmerking"
-
-#: 
-msgid "Meta Keywords"
-msgstr "Meta-trefwoorden"
+msgid "Comments"
+msgstr "Reacties"
 
 #: 
 msgid "Main Picture"
 msgstr "Hoofdfoto"
 
 #: 
-msgid "Missing required arguments in the message."
-msgstr "Vereiste argumenten ontbreken in het bericht."
+msgid "Cache"
+msgstr "cachen"
 
 #: 
-msgid "System Logs"
-msgstr "Systeemlogboeken"
-
-#: 
-msgid "Body Text"
-msgstr "Hoofdtekst"
-
-#: 
-msgid "This slug is already in use. Please enter a unique slug."
-msgstr "Deze slug is al in gebruik. Voer een unieke slug in."
-
-#: 
-msgid "Attempt {0} failed. Error ({1}): {2}"
-msgstr "Poging {0} is mislukt. Fout ({1}): {2}"
-
-#: 
-msgid "Failed to send email to: {0}"
-msgstr "Het is niet gelukt om een e-mail te sturen naar: {0}"
-
-#: 
-msgid "Email sent successfully."
-msgstr "E-mail succesvol verzonden."
-
-#: 
-msgid "Registration successful, but there was an issue creating the confirmation link."
-msgstr "Registratie succesvol, maar er is een probleem opgetreden bij het aanmaken van de bevestigingslink."
-
-#: 
-msgid "Queued translation job for batch of {0} messages for locale {1}"
-msgstr "Wachtrij voor vertaalopdracht voor batch van {0} berichten voor landinstelling {1}"
-
-#: 
-msgid "Bulk Upload Images"
-msgstr "Afbeeldingen in bulk uploaden"
-
-#: 
-msgid "Starting image processing job. Path: {0}, Sizes to process: {1}"
-msgstr "Starten van beeldverwerkingstaak. Pad: {0}, Te verwerken formaten: {1}"
-
-#: 
-msgid "Date"
-msgstr "Datum"
-
-#: 
-msgid "User Comments"
-msgstr "Gebruikerscommentaar"
-
-#: 
-msgid "The tag could not be saved. Please, try again."
-msgstr "De tag kon niet worden opgeslagen. Probeer het opnieuw."
-
-#: 
-msgid "The internationalisation could not be saved. Please, try again."
-msgstr "De internationalisatie kon niet worden opgeslagen. Probeer het opnieuw."
-
-#: 
-msgid "Add Slug"
-msgstr "Voeg Slug toe"
-
-#: 
-msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
-msgstr "Hieronder vindt u informatie over de geconfigureerde caches. Klik op de knop om alle caches te wissen of op de individuele cacheknoppen om specifieke caches te wissen."
-
-#: 
-msgid "Password must be at least 8 characters long"
-msgstr "Wachtwoord moet minimaal 8 tekens lang zijn"
-
-#: 
-msgid "Invalid confirmation code. Please contact support."
-msgstr "Ongeldige bevestigingscode. Neem contact op met support."
-
-#: 
-msgid "Unable to add your comment."
-msgstr "Kan uw opmerking niet toevoegen."
-
-#: 
-msgid "Edit Email Template"
-msgstr "E-mailsjabloon bewerken"
-
-#: 
-msgid "No images."
-msgstr "Geen afbeeldingen."
-
-#: 
-msgid "You cannot remove your own admin status."
-msgstr "U kunt uw eigen beheerdersstatus niet verwijderen."
-
-#: 
-msgid "Your account has been confirmed. You can now log in."
-msgstr "Uw account is bevestigd. U kunt nu inloggen."
-
-#: 
-msgid "Picture"
-msgstr "Afbeelding"
-
-#: 
-msgid "This slug is already in use in articles. Please enter a unique slug."
-msgstr "Deze slug wordt al gebruikt in artikelen. Voer een unieke slug in."
-
-#: 
-msgid "Front Site"
-msgstr "Voorzijde site"
-
-#: 
-msgid "Yes"
-msgstr "Ja"
-
-#: 
-msgid "The image could not be saved. Please, try again."
-msgstr "De afbeelding kon niet worden opgeslagen. Probeer het opnieuw."
-
-#: 
-msgid "The tag could not be deleted. Please, try again."
-msgstr "De tag kon niet worden verwijderd. Probeer het opnieuw."
-
-#: 
-msgid "Add Email Template"
-msgstr "E-mailsjabloon toevoegen"
-
-#: 
-msgid "Testing rate limit on URL: {0}"
-msgstr "Testsnelheidslimiet op URL: {0}"
-
-#: 
-msgid "Slugs"
-msgstr "Slakken"
-
-#: 
-msgid "Update Tag"
-msgstr "Tag bijwerken"
-
-#: 
-msgid "The value must be a number."
-msgstr "De waarde moet een getal zijn."
-
-#: 
-msgid "Register New Account"
-msgstr "Registreer een nieuw account"
-
-#: 
-msgid "Show Details"
-msgstr "Details weergeven"
-
-#: 
-msgid "The tag has been saved."
-msgstr "De tag is opgeslagen."
-
-#: 
-msgid "The comment could not be saved. Please, try again."
-msgstr "De opmerking kon niet worden opgeslagen. Probeer het opnieuw."
-
-#: 
-msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
-msgstr "E-mail succesvol verzonden naar: {0}. Sjabloon: {1}, Onderwerp: {2}"
-
-#: 
-msgid "The comment has been saved."
-msgstr "De opmerking is opgeslagen."
-
-#: 
-msgid "By"
-msgstr "Door"
-
-#: 
-msgid "Users"
-msgstr "Gebruikers"
-
-#: 
-msgid "Login"
-msgstr "Login"
-
-#: 
-msgid "Inappropriate Reason"
-msgstr "Ongepaste reden"
-
-#: 
-msgid "Skipped resizing, image already exists. Path: {0}"
-msgstr "Formaatwijziging overgeslagen, afbeelding bestaat al. Pad: {0}"
-
-#: 
-msgid "Update Comment"
-msgstr "Commentaar bijwerken"
-
-#: 
-msgid "Edit Blocked IP"
-msgstr "Bewerken Geblokkeerd IP"
-
-#: 
-msgid "The article could not be saved. Please, try again."
-msgstr "Het artikel kon niet worden opgeslagen. Probeer het opnieuw."
-
-#: 
-msgid "LinkedIn Description"
-msgstr "LinkedIn-beschrijving"
-
-#: 
-msgid "Article SEO update failed. No result returned. Article ID: {0} Title: {1}"
-msgstr "Artikel SEO-update mislukt. Geen resultaat geretourneerd. Artikel-ID: {0} Titel: {1}"
-
-#: 
-msgid "The blocked ip has been saved."
-msgstr "Het geblokkeerde IP-adres is opgeslagen."
-
-#: 
-msgid "Failed to save article tag updates. Article ID: {0} Error: {1}"
-msgstr "Het is niet gelukt om artikeltagupdates op te slaan. Artikel-ID: {0} Fout: {1}"
-
-#: 
-msgid "Article summary update completed successfully. Article ID: {0} Title: {1}"
-msgstr "Artikelsamenvatting-update succesvol voltooid. Artikel-ID: {0} Titel: {1}"
-
-#: 
-msgid "Article"
-msgstr "Artikel"
-
-#: 
-msgid "IP Address"
-msgstr "IP-adres"
-
-#: 
-msgid "Attempting to create user with data: {0}"
-msgstr "Proberen gebruiker met gegevens aan te maken: {0}"
-
-#: 
-msgid "The settings have been saved."
-msgstr "De instellingen zijn opgeslagen."
-
-#: 
-msgid "Block IPs"
-msgstr "IP&#39;s blokkeren"
-
-#: 
-msgid "Add Page"
-msgstr "Pagina toevoegen"
-
-#: 
-msgid "SEO Fields"
-msgstr "SEO-velden"
-
-#: 
-msgid "Article summary update failed. No valid result returned. Article ID: {0} Title: {1}"
-msgstr "Update van artikelsamenvatting mislukt. Geen geldig resultaat geretourneerd. Artikel-ID: {0} Titel: {1}"
-
-#: 
-msgid "Imagick extension is not loaded"
-msgstr "Imagick-extensie is niet geladen"
-
-#: 
-msgid "No tags are linked."
-msgstr "Er zijn geen tags gekoppeld."
-
-#: 
-msgid "Edit Internationalisation"
-msgstr "Bewerken Internationalisering"
-
-#: 
-msgid "New Email Template"
-msgstr "Nieuwe e-mailsjabloon"
-
-#: 
-msgid "New tag created: {0}"
-msgstr "Nieuwe tag aangemaakt: {0}"
-
-#: 
-msgid "All logs with level {0} have been deleted."
-msgstr "Alle logs met niveau {0} zijn verwijderd."
-
-#: 
-msgid "Failed to save tag SEO updates. ID: {0} Title: {1}"
-msgstr "Het is niet gelukt om tag SEO-updates op te slaan. ID: {0} Titel: {1}"
-
-#: 
-msgid "List Email Templates"
-msgstr "Lijst met e-mailsjablonen"
-
-#: 
-msgid "Article SEO update completed successfully. Article ID: {0} Title: {1}"
-msgstr "Artikel SEO-update succesvol voltooid. Artikel-ID: {0} Titel: {1}"
-
-#: 
-msgid "Article tag update failed. No valid result returned. Article ID: {0}"
-msgstr "Artikeltag-update mislukt. Geen geldig resultaat geretourneerd. Artikel-ID: {0}"
-
-#: 
-msgid "Update Article"
-msgstr "Artikel bijwerken"
-
-#: 
-msgid "Admin"
-msgstr "Beheerder"
-
-#: 
-msgid "Are you sure you want to delete all logs?"
-msgstr "Weet u zeker dat u alle logs wilt verwijderen?"
-
-#: 
-msgid "Clear All Cache"
-msgstr "Wis alle cache"
-
-#: 
-msgid "Too many requests. Please try again later."
-msgstr "Te veel verzoeken. Probeer het later opnieuw."
-
-#: 
-msgid "Images"
-msgstr "Afbeeldingen"
-
-#: 
-msgid "Show Full Article"
-msgstr "Toon volledig artikel"
-
-#: 
-msgid "You cannot disable your own account."
-msgstr "U kunt uw eigen account niet uitschakelen."
-
-#: 
-msgid "The user could not be deleted. Please, try again."
-msgstr "De gebruiker kon niet worden verwijderd. Probeer het opnieuw."
-
-#: 
-msgid "Add Article"
-msgstr "Artikel toevoegen"
-
-#: 
-msgid "Edit Your Account"
-msgstr "Bewerk uw account"
-
-#: 
-msgid "Edit Settings"
-msgstr "Instellingen bewerken"
-
-#: 
-msgid "Email sent successfully: {0} to {1}"
-msgstr "E-mail succesvol verzonden: {0} naar {1}"
-
-#: 
-msgid "Logout"
-msgstr "Uitloggen"
-
-#: 
-msgid "No comments yet."
-msgstr "Nog geen reacties."
-
-#: 
-msgid "Logs"
-msgstr "Logboeken"
-
-#: 
-msgid "Add AI Prompt"
-msgstr "AI-prompt toevoegen"
-
-#: 
-msgid "Meta Description"
-msgstr "Metabeschrijving"
-
-#: 
-msgid "The internationalisation has been saved."
-msgstr "De internationalisering is gered."
-
-#: 
-msgid "Edit Aiprompt"
-msgstr "Bewerken AiPrompt"
-
-#: 
-msgid "The blocked ip has been deleted."
-msgstr "Het geblokkeerde IP-adres is verwijderd."
-
-#: 
-msgid "All Levels"
-msgstr "Alle niveaus"
-
-#: 
-msgid "Too Many Requests"
-msgstr "Te veel verzoeken"
-
-#: 
-msgid "Are you sure you want to clear {0}?"
-msgstr "Weet u zeker dat u {0} wilt wissen?"
-
-#: 
-msgid "Submit Comment"
-msgstr "Reactie verzenden"
-
-#: 
-msgid "Not published"
-msgstr "Niet gepubliceerd"
-
-#: 
-msgid "Edit Slug"
-msgstr "Bewerken Slug"
-
-#: 
-msgid "Search comments..."
-msgstr "Reacties zoeken..."
-
-#: 
-msgid "The slug must be unique."
-msgstr "De slak moet uniek zijn."
-
-#: 
-msgid "Image processing job completed successfully. Path: {0}"
-msgstr "Beeldverwerkingstaak succesvol voltooid. Pad: {0}"
-
-#: 
-msgid "Data exported to {0}"
-msgstr "Gegevens geëxporteerd naar {0}"
-
-#: 
-msgid "Received tag SEO update message: ID: {0} Title: {1}"
-msgstr "Ontvangen tag SEO update bericht: ID: {0} Titel: {1}"
-
-#: 
-msgid "Page View Statistics for slug: {0}"
-msgstr "Paginaweergavestatistieken voor slug: {0}"
-
-#: 
-msgid "Delete All Logs"
-msgstr "Alle logboeken verwijderen"
-
-#: 
-msgid "AI Prompts"
-msgstr "AI-aanwijzingen"
-
-#: 
-msgid "Search logs..."
-msgstr "Zoek logs..."
-
-#: 
-msgid "Email Templates"
-msgstr "E-mailsjablonen"
-
-#: 
-msgid "Error loading images:"
-msgstr "Fout bij het laden van afbeeldingen:"
-
-#: 
-msgid "Username"
-msgstr "Gebruikersnaam"
-
-#: 
-msgid "Error saving {0}.{1}: {2}"
-msgstr "Fout bij het opslaan van {0}.{1}: {2}"
+msgid "Edit Comment"
+msgstr "Bewerken Commentaar"
 
 #: 
 msgid "Search articles..."
 msgstr "Artikelen zoeken..."
 
 #: 
-msgid "Failed to save the image"
-msgstr "Het is niet gelukt om de afbeelding op te slaan"
+msgid "All Levels"
+msgstr "Alle niveaus"
 
 #: 
-msgid "Keywords"
-msgstr "Trefwoorden"
+msgid "Message"
+msgstr "Bericht"
 
 #: 
-msgid "Update Image"
-msgstr "Afbeelding bijwerken"
+msgid "Password must be at least 8 characters long"
+msgstr "Wachtwoord moet minimaal 8 tekens lang zijn"
 
 #: 
-msgid "Context"
-msgstr "Context"
+msgid "Task Type"
+msgstr "Taaktype"
 
 #: 
-msgid "The slug could not be deleted. Please, try again."
-msgstr "De slug kon niet worden verwijderd. Probeer het opnieuw."
+msgid "Are you sure you want to delete all {0} logs?"
+msgstr "Weet u zeker dat u alle {0} logs wilt verwijderen?"
 
 #: 
-msgid "Blocked IPs"
-msgstr "Geblokkeerde IP&#39;s"
+msgid "The tag has been saved."
+msgstr "De tag is opgeslagen."
 
 #: 
-msgid "Cache Name"
-msgstr "Cachenaam"
+msgid "Error saving {0}.{1}: {2}"
+msgstr "Fout bij het opslaan van {0}.{1}: {2}"
 
 #: 
-msgid "Received image processing message: Image ID: {0} Path: {1}"
-msgstr "Ontvangen beeldverwerkingsbericht: Afbeeldings-ID: {0} Pad: {1}"
+msgid "Edit"
+msgstr "Bewerking"
 
 #: 
-msgid "Failed to save entity: {0} {1}"
-msgstr "Het is niet gelukt om entiteit op te slaan: {0} {1}"
-
-#: 
-msgid "Failed to save article SEO updates. Article ID: {0} Title: {1}"
-msgstr "Het is niet gelukt om artikel-SEO-updates op te slaan. Artikel-ID: {0} Titel: {1}"
-
-#: 
-msgid "Body HTML"
-msgstr "Hoofd-HTML"
-
-#: 
-msgid "An error occurred while processing your request."
-msgstr "Er is een fout opgetreden tijdens het verwerken van uw verzoek."
-
-#: 
-msgid "Message Id"
-msgstr "Bericht-ID"
-
-#: 
-msgid "Unable to delete all logs."
-msgstr "Niet alle logs kunnen worden verwijderd."
-
-#: 
-msgid "The comment could not be deleted. Please, try again."
-msgstr "De opmerking kon niet worden verwijderd. Probeer het opnieuw."
-
-#: 
-msgid "Email sending failed: {0} to {1}"
-msgstr "E-mail verzenden mislukt: {0} naar {1}"
-
-#: 
-msgid "The slug has been deleted."
-msgstr "De slug is verwijderd."
-
-#: 
-msgid "Number of attempts: {0}"
-msgstr "Aantal pogingen: {0}"
-
-#: 
-msgid "Blocked At"
-msgstr "Geblokkeerd bij"
-
-#: 
-msgid "Select a parent"
-msgstr "Selecteer een ouder"
-
-#: 
-msgid "Views"
-msgstr "Uitzichten"
-
-#: 
-msgid "The blocked ip could not be deleted. Please, try again."
-msgstr "Het geblokkeerde IP kon niet worden verwijderd. Probeer het opnieuw."
-
-#: 
-msgid "Send Email"
-msgstr "E-mail verzenden"
-
-#: 
-msgid "Invalid choice."
-msgstr "Ongeldige keuze."
-
-#: 
-msgid "Referer"
-msgstr "Verwijzer"
-
-#: 
-msgid "Email"
-msgstr "E-mail"
-
-#: 
-msgid "The email template has been deleted."
-msgstr "De e-mailsjabloon is verwijderd."
-
-#: 
-msgid "Additional Images"
-msgstr "Extra afbeeldingen"
-
-#: 
-msgid "Queue tag SEO update job for Tag:{0}"
-msgstr "Wachtrij tag SEO-updatetaak voor tag:{0}"
-
-#: 
-msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
-msgstr "Slug conflicteert met een bestaande SEO-redirect. Kies een andere slug."
-
-#: 
-msgid "Read More"
-msgstr "Lees meer"
-
-#: 
-msgid "No internationalizations found for the provided IDs."
-msgstr "Er zijn geen internationalisaties gevonden voor de opgegeven ID&#39;s."
-
-#: 
-msgid "Article ID:"
-msgstr "Artikel-ID:"
-
-#: 
-msgid "System Prompt"
-msgstr "Systeemprompt"
-
-#: 
-msgid "Registration failed. Please, try again."
-msgstr "Registratie mislukt. Probeer het opnieuw."
-
-#: 
-msgid "Body"
-msgstr "Lichaam"
-
-#: 
-msgid "Received image analysis message: Image ID: {0} Path: {1}"
-msgstr "Ontvangen beeldanalysebericht: Afbeeldings-ID: {0} Pad: {1}"
-
-#: 
-msgid "Search images..."
-msgstr "Afbeeldingen zoeken..."
-
-#: 
-msgid "Created"
-msgstr "Gemaakt"
-
-#: 
-msgid "Deleted all existing records from table: {0}"
-msgstr "Alle bestaande records uit tabel verwijderd: {0}"
+msgid "Unable to delete logs in group {0}."
+msgstr "Kan logboeken in groep {0} niet verwijderen."
 
 #: 
 msgid "Articles"
 msgstr "Artikelen"
 
 #: 
-msgid "Word Count"
-msgstr "Woordentelling"
+msgid "Email"
+msgstr "E-mail"
 
 #: 
-msgid "The email template could not be saved. Please, try again."
-msgstr "De e-mailsjabloon kon niet worden opgeslagen. Probeer het opnieuw."
+msgid "The blocked ip has been deleted."
+msgstr "Het geblokkeerde IP-adres is verwijderd."
+
+#: 
+msgid "You cannot disable your own account."
+msgstr "U kunt uw eigen account niet uitschakelen."
+
+#: 
+msgid "Submit"
+msgstr "Indienen"
+
+#: 
+msgid "Registration successful. Please check your email for confirmation."
+msgstr "Registratie succesvol. Controleer uw e-mail voor bevestiging."
+
+#: 
+msgid "{0} cache could not be cleared."
+msgstr "{0} cache kon niet worden gewist."
+
+#: 
+msgid "Inappropriate Reason"
+msgstr "Ongepaste reden"
+
+#: 
+msgid "Register New Account"
+msgstr "Registreer een nieuw account"
+
+#: 
+msgid "Update Tag"
+msgstr "Tag bijwerken"
+
+#: 
+msgid "New Email Template"
+msgstr "Nieuwe e-mailsjabloon"
+
+#: 
+msgid "Are you sure you want to delete IP {0}?"
+msgstr "Weet u zeker dat u IP {0} wilt verwijderen?"
+
+#: 
+msgid "The internationalisation has been saved."
+msgstr "De internationalisering is gered."
+
+#: 
+msgid "Updated At"
+msgstr "Bijgewerkt op"
+
+#: 
+msgid "The comment could not be saved. Please, try again."
+msgstr "De opmerking kon niet worden opgeslagen. Probeer het opnieuw."
+
+#: 
+msgid "Posted on {date} by {author}"
+msgstr "Geplaatst op {datum} door {auteur}"
+
+#: 
+msgid "Update User"
+msgstr "Gebruiker bijwerken"
+
+#: 
+msgid "Model"
+msgstr "Model"
+
+#: 
+msgid "Registration successful, but there was an issue creating the confirmation link."
+msgstr "Registratie succesvol, maar er is een probleem opgetreden bij het aanmaken van de bevestigingslink."
+
+#: 
+msgid "The image has been deleted."
+msgstr "De afbeelding is verwijderd."
+
+#: 
+msgid "Is Published"
+msgstr "Is gepubliceerd"
+
+#: 
+msgid "Last Cleared"
+msgstr "Laatst gewist"
+
+#: 
+msgid "Summary"
+msgstr "Samenvatting"
+
+#: 
+msgid "Is Inappropriate"
+msgstr "Is ongepast"
+
+#: 
+msgid "No deleting your own account."
+msgstr "U kunt uw eigen account niet verwijderen."
+
+#: 
+msgid "Temperature"
+msgstr "Temperatuur"
+
+#: 
+msgid "All logs have been deleted."
+msgstr "Alle logs zijn verwijderd."
+
+#: 
+msgid "Show Less"
+msgstr "Minder weergeven"
+
+#: 
+msgid "Unable to delete all logs."
+msgstr "Niet alle logs kunnen worden verwijderd."
+
+#: 
+msgid "You cannot remove your own admin status."
+msgstr "U kunt uw eigen beheerdersstatus niet verwijderen."
+
+#: 
+msgid "Add Image"
+msgstr "Afbeelding toevoegen"
+
+#: 
+msgid "Internationalisations"
+msgstr "Internationaliseringen"
+
+#: 
+msgid "Admin"
+msgstr "Beheerder"
+
+#: 
+msgid "Edit Email Template"
+msgstr "E-mailsjabloon bewerken"
+
+#: 
+msgid "The user has been saved."
+msgstr "De gebruiker is opgeslagen."
+
+#: 
+msgid "The value must be a number."
+msgstr "De waarde moet een getal zijn."
+
+#: 
+msgid "Delete {0}"
+msgstr "Verwijderen {0}"
+
+#: 
+msgid "There was an issue confirming your account. Please try again."
+msgstr "Er is een probleem opgetreden bij het bevestigen van uw account. Probeer het opnieuw."
+
+#: 
+msgid "Select a parent"
+msgstr "Selecteer een ouder"
+
+#: 
+msgid "Your account has been confirmed. You can now log in."
+msgstr "Uw account is bevestigd. U kunt nu inloggen."
+
+#: 
+msgid "Block IPs"
+msgstr "IP&#39;s blokkeren"
+
+#: 
+msgid "No pages found."
+msgstr "Geen pagina&#39;s gevonden."
+
+#: 
+msgid "The user could not be saved. Please, try again."
+msgstr "De gebruiker kon niet worden opgeslagen. Probeer het opnieuw."
+
+#: 
+msgid "Edit Image"
+msgstr "Afbeelding bewerken"
+
+#: 
+msgid "Message Id"
+msgstr "Bericht-ID"
+
+#: 
+msgid "Update Comment"
+msgstr "Commentaar bijwerken"
+
+#: 
+msgid "Body HTML"
+msgstr "Hoofd-HTML"
+
+#: 
+msgid "An Internal Error Has Occurred."
+msgstr "Er is een interne fout opgetreden."
+
+#: 
+msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
+msgstr "Pagina {{page}} van {{pages}}, met {{current}} record(s) van in totaal {{count}}"
+
+#: 
+msgid "Not published"
+msgstr "Niet gepubliceerd"
+
+#: 
+msgid "User"
+msgstr "Gebruiker"
+
+#: 
+msgid "Failed to save the image"
+msgstr "Het is niet gelukt om de afbeelding op te slaan"
+
+#: 
+msgid "Email template not found: {0}"
+msgstr "E-mailsjabloon niet gevonden: {0}"
+
+#: 
+msgid "All logs with level {0} have been deleted."
+msgstr "Alle logs met niveau {0} zijn verwijderd."
+
+#: 
+msgid "Access denied. You must be an admin to view this page."
+msgstr "Toegang geweigerd. U moet een beheerder zijn om deze pagina te bekijken."
+
+#: 
+msgid "Are you sure you want to delete {0}?"
+msgstr "Weet u zeker dat u {0} wilt verwijderen?"
+
+#: 
+msgid "Reason"
+msgstr "Reden"
+
+#: 
+msgid "Date"
+msgstr "Datum"
+
+#: 
+msgid "Additional Images"
+msgstr "Extra afbeeldingen"
+
+#: 
+msgid "Meta Description"
+msgstr "Metabeschrijving"
+
+#: 
+msgid "Tag not found"
+msgstr "Tag niet gevonden"
+
+#: 
+msgid "Edit Blocked IP"
+msgstr "Bewerken Geblokkeerd IP"
+
+#: 
+msgid "Yes"
+msgstr "Ja"
+
+#: 
+msgid "Update Image"
+msgstr "Afbeelding bijwerken"
+
+#: 
+msgid "Login"
+msgstr "Login"
+
+#: 
+msgid "Code Coverage"
+msgstr "Codedekking"
+
+#: 
+msgid "The settings have been saved."
+msgstr "De instellingen zijn opgeslagen."
+
+#: 
+msgid "Are you sure you want to delete all logs in group {0}?"
+msgstr "Weet u zeker dat u alle logboeken in groep {0} wilt verwijderen?"
+
+#: 
+msgid "Invalid username or password"
+msgstr "Ongeldige gebruikersnaam of wachtwoord"
+
+#: 
+msgid "Are you sure you want to delete all logs?"
+msgstr "Weet u zeker dat u alle logs wilt verwijderen?"
+
+#: 
+msgid "Message Str"
+msgstr "Bericht Str"
+
+#: 
+msgid "View detailed records for this date"
+msgstr "Bekijk gedetailleerde gegevens voor deze datum"
+
+#: 
+msgid "Error"
+msgstr "Fout"
+
+#: 
+msgid "{0} cache configuration does not exist."
+msgstr "{0} cacheconfiguratie bestaat niet."
+
+#: 
+msgid "You are not authorized to edit this account, stick to your own."
+msgstr "U bent niet bevoegd om dit account te bewerken, blijf bij uw eigen account."
+
+#: 
+msgid "Email sent successfully."
+msgstr "E-mail succesvol verzonden."
+
+#: 
+msgid "Associated Pages"
+msgstr "Geassocieerde pagina&#39;s"
+
+#: 
+msgid "Error loading images:"
+msgstr "Fout bij het laden van afbeeldingen:"
+
+#: 
+msgid "Engine"
+msgstr "Motor"
+
+#: 
+msgid "Unknown User"
+msgstr "Onbekende gebruiker"
+
+#: 
+msgid "Update Aiprompt"
+msgstr "AiPrompt bijwerken"
+
+#: 
+msgid "Cache Management"
+msgstr "Cachebeheer"
+
+#: 
+msgid "Registration failed. Please, try again."
+msgstr "Registratie mislukt. Probeer het opnieuw."
+
+#: 
+msgid "Submit Comment"
+msgstr "Reactie verzenden"
+
+#: 
+msgid "No comments yet."
+msgstr "Nog geen reacties."
+
+#: 
+msgid "Search users..."
+msgstr "Zoek gebruikers..."
+
+#: 
+msgid "Rate limit exceeded for IP: {0} on route: {1}"
+msgstr "Snelheidslimiet overschreden voor IP: {0} op route: {1}"
+
+#: 
+msgid "List Blocked IPs"
+msgstr "Lijst geblokkeerde IP&#39;s"
+
+#: 
+msgid "The image could not be saved. Please, try again."
+msgstr "De afbeelding kon niet worden opgeslagen. Probeer het opnieuw."
+
+#: 
+msgid "Enter a number"
+msgstr "Voer een nummer in"
+
+#: 
+msgid "Slug:"
+msgstr "Naaktslak:"
+
+#: 
+msgid "The blocked ip could not be saved. Please, try again."
+msgstr "Het geblokkeerde IP kon niet worden opgeslagen. Probeer het opnieuw."
+
+#: 
+msgid "Modified"
+msgstr "Gewijzigd"
+
+#: 
+msgid "The image could not be deleted. Please, try again."
+msgstr "De afbeelding kon niet worden verwijderd. Probeer het opnieuw."
+
+#: 
+msgid "Edit Your Account"
+msgstr "Bewerk uw account"
+
+#: 
+msgid "The email template has been deleted."
+msgstr "De e-mailsjabloon is verwijderd."
+
+#: 
+msgid "Error in: "
+msgstr "Fout in: "
+
+#: 
+msgid "Twitter Description"
+msgstr "Twitter-beschrijving"
+
+#: 
+msgid "Content"
+msgstr "Inhoud"
+
+#: 
+msgid "API request failed. Please try again later."
+msgstr "API-verzoek mislukt. Probeer het later opnieuw."
+
+#: 
+msgid "This slug is already in use in articles. Please enter a unique slug."
+msgstr "Deze slug wordt al gebruikt in artikelen. Voer een unieke slug in."
+
+#: 
+msgid "Bulk Upload Images"
+msgstr "Afbeeldingen in bulk uploaden"
+
+#: 
+msgid "Add Slug"
+msgstr "Voeg Slug toe"
+
+#: 
+msgid "Views"
+msgstr "Uitzichten"
 
 #: 
 msgid "The aiprompt has been saved."
 msgstr "De prompt is opgeslagen."
 
 #: 
-msgid "Comment already analyzed. Skipping. Comment ID: {0}"
-msgstr "Commentaar al geanalyseerd. Wordt overgeslagen. Commentaar-ID: {0}"
+msgid "Edit Tag"
+msgstr "Tag bewerken"
 
 #: 
-msgid "Add a Comment"
-msgstr "Voeg een opmerking toe"
-
-#: 
-msgid "Failed to save slug: {0}"
-msgstr "Slug kon niet worden opgeslagen: {0}"
+msgid "Page View Statistics for slug: {0}"
+msgstr "Paginaweergavestatistieken voor slug: {0}"
 
 #: 
 msgid "New {0}"
 msgstr "Nieuw {0}"
 
 #: 
-msgid "Code exported successfully to {0}"
-msgstr "Code succesvol geëxporteerd naar {0}"
+msgid "Too Many Requests"
+msgstr "Te veel verzoeken"
 
 #: 
-msgid "Tag not found"
-msgstr "Tag niet gevonden"
+msgid "Image uploaded successfully"
+msgstr "Afbeelding succesvol geüpload"
+
+#: 
+msgid "Add Blocked IP"
+msgstr "Geblokkeerd IP toevoegen"
+
+#: 
+msgid "Setting not found: {0}.{1}"
+msgstr "Instelling niet gevonden: {0}.{1}"
+
+#: 
+msgid "Id"
+msgstr "Identiteitsbewijs"
+
+#: 
+msgid "The user has been deleted."
+msgstr "De gebruiker is verwijderd."
+
+#: 
+msgid "The slug must be unique."
+msgstr "De slak moet uniek zijn."
+
+#: 
+msgid "Slugs"
+msgstr "Slakken"
+
+#: 
+msgid "Meta Keywords"
+msgstr "Meta-trefwoorden"
+
+#: 
+msgid "The article has been saved."
+msgstr "Het artikel is opgeslagen."
+
+#: 
+msgid "All logs in group {0} have been deleted."
+msgstr "Alle logboeken in groep {0} zijn verwijderd."
+
+#: 
+msgid "Update Slug"
+msgstr "Slug bijwerken"
+
+#: 
+msgid "{0} cache has been cleared successfully."
+msgstr "{0} cache is succesvol gewist."
+
+#: 
+msgid "Add Page"
+msgstr "Pagina toevoegen"
+
+#: 
+msgid "The aiprompt could not be saved. Please, try again."
+msgstr "De aiprompt kon niet worden opgeslagen. Probeer het opnieuw."
+
+#: 
+msgid "Search tags..."
+msgstr "Zoek tags..."
+
+#: 
+msgid "Some settings could not be saved. Please, try again."
+msgstr "Sommige instellingen konden niet worden opgeslagen. Probeer het opnieuw."
+
+#: 
+msgid "Failed to send confirmation email message: {0}"
+msgstr "Het verzenden van het bevestigings-e-mailbericht is mislukt: {0}"
+
+#: 
+msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
+msgstr "De slug moet URL-veilig zijn (alleen kleine letters, cijfers en koppeltekens)"
+
+#: 
+msgid "The slug has been deleted."
+msgstr "De slug is verwijderd."
+
+#: 
+msgid "Name"
+msgstr "Naam"
+
+#: 
+msgid "List {0}"
+msgstr "Lijst {0}"
+
+#: 
+msgid "The blocked ip has been saved."
+msgstr "Het geblokkeerde IP-adres is opgeslagen."
+
+#: 
+msgid "Meta Title"
+msgstr "Meta-titel"
+
+#: 
+msgid "Page Views for {0}"
+msgstr "Paginaweergaven voor {0}"
+
+#: 
+msgid "This message_id must be unique for the given locale."
+msgstr "Deze message_id moet uniek zijn voor de opgegeven landinstelling."
+
+#: 
+msgid "The tag could not be deleted. Please, try again."
+msgstr "De tag kon niet worden verwijderd. Probeer het opnieuw."
+
+#: 
+msgid "SEO Fields"
+msgstr "SEO-velden"
+
+#: 
+msgid "Referer"
+msgstr "Verwijzer"
+
+#: 
+msgid "New Slug"
+msgstr "Nieuwe slak"
+
+#: 
+msgid "Save All Settings"
+msgstr "Alle instellingen opslaan"
+
+#: 
+msgid "Invalid value for the specified type."
+msgstr "Ongeldige waarde voor het opgegeven type."
+
+#: 
+msgid "Toggle SEO Fields"
+msgstr "Schakel SEO-velden in"
+
+#: 
+msgid "Word Count"
+msgstr "Woordentelling"
+
+#: 
+msgid "Register"
+msgstr "Register"
+
+#: 
+msgid "The slug could not be saved. Please, try again."
+msgstr "De slug kon niet worden opgeslagen. Probeer het opnieuw."
+
+#: 
+msgid "The image has been saved."
+msgstr "De afbeelding is opgeslagen."
+
+#: 
+msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
+msgstr "Slug conflicteert met een bestaande SEO-redirect. Kies een andere slug."
+
+#: 
+msgid "The user could not be deleted. Please, try again."
+msgstr "De gebruiker kon niet worden verwijderd. Probeer het opnieuw."
+
+#: 
+msgid "Clear All Cache"
+msgstr "Wis alle cache"
+
+#: 
+msgid "Add Internationalisation"
+msgstr "Internationalisering toevoegen"
+
+#: 
+msgid "Edit {0}"
+msgstr "Bewerken {0}"
+
+#: 
+msgid "The value must not be empty."
+msgstr "De waarde mag niet leeg zijn."
+
+#: 
+msgid "Picture"
+msgstr "Afbeelding"
+
+#: 
+msgid "Article not found."
+msgstr "Artikel niet gevonden."
+
+#: 
+msgid "Display"
+msgstr "Weergave"
+
+#: 
+msgid "Total Views: "
+msgstr "Totaal aantal weergaven: "
+
+#: 
+msgid "Settings"
+msgstr "Instellingen"
+
+#: 
+msgid "Error sending email: {0}"
+msgstr "Fout bij het verzenden van e-mail: {0}"
+
+#: 
+msgid "Details"
+msgstr "Details"
+
+#: 
+msgid "Article ID:"
+msgstr "Artikel-ID:"
+
+#: 
+msgid "Add a Comment"
+msgstr "Voeg een opmerking toe"
+
+#: 
+msgid "New Internationalisation"
+msgstr "Nieuwe internationalisering"
+
+#: 
+msgid "All Locales"
+msgstr "Alle locaties"
+
+#: 
+msgid "Filter"
+msgstr "Filter"
+
+#: 
+msgid "The email template could not be saved. Please, try again."
+msgstr "De e-mailsjabloon kon niet worden opgeslagen. Probeer het opnieuw."
+
+#: 
+msgid "Is Admin"
+msgstr "Is beheerder"
+
+#: 
+msgid "The slug could not be deleted. Please, try again."
+msgstr "De slug kon niet worden verwijderd. Probeer het opnieuw."
+
+#: 
+msgid "Instagram Description"
+msgstr "Instagram-beschrijving"
+
+#: 
+msgid "By"
+msgstr "Door"
+
+#: 
+msgid "Blocked At"
+msgstr "Geblokkeerd bij"
+
+#: 
+msgid "Show Full Article"
+msgstr "Toon volledig artikel"
+
+#: 
+msgid "Is AI Analyzed"
+msgstr "Wordt AI geanalyseerd?"
+
+#: 
+msgid "Unable to delete the log."
+msgstr "Het logboek kan niet worden verwijderd."
+
+#: 
+msgid "Users"
+msgstr "Gebruikers"
+
+#: 
+msgid "Title"
+msgstr "Titel"
+
+#: 
+msgid "The article could not be deleted. Please, try again."
+msgstr "Het artikel kon niet worden verwijderd. Probeer het opnieuw."
+
+#: 
+msgid "An error occurred while processing your request."
+msgstr "Er is een fout opgetreden tijdens het verwerken van uw verzoek."
+
+#: 
+msgid "Edit Internationalisation"
+msgstr "Bewerken Internationalisering"
+
+#: 
+msgid "No tags are linked."
+msgstr "Er zijn geen tags gekoppeld."
+
+#: 
+msgid "Comment for {0}"
+msgstr "Commentaar voor {0}"
+
+#: 
+msgid "No page view data available for this article."
+msgstr "Er zijn geen paginaweergavegegevens beschikbaar voor dit artikel."
+
+#: 
+msgid "Article"
+msgstr "Artikel"
+
+#: 
+msgid "Add User"
+msgstr "Gebruiker toevoegen"
+
+#: 
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: 
+msgid "You must be logged in to add a comment."
+msgstr "U moet ingelogd zijn om een reactie te kunnen plaatsen."
+
+#: 
+msgid "Internationalisation"
+msgstr "Internationalisering"
+
+#: 
+msgid "This slug is already in use. Please enter a unique slug."
+msgstr "Deze slug is al in gebruik. Voer een unieke slug in."
+
+#: 
+msgid "Logout"
+msgstr "Uitloggen"
+
+#: 
+msgid "Add Article"
+msgstr "Artikel toevoegen"
+
+#: 
+msgid "Created At"
+msgstr "Gemaakt op"
+
+#: 
+msgid "LinkedIn Description"
+msgstr "LinkedIn Beschrijving"
+
+#: 
+msgid "Context"
+msgstr "Context"
+
+#: 
+msgid "Unable to delete logs with level {0}."
+msgstr "Kan logs met niveau {0} niet verwijderen."
+
+#: 
+msgid "Facebook Description"
+msgstr "Facebook-beschrijving"
+
+#: 
+msgid "All Tags"
+msgstr "Alle tags"
+
+#: 
+msgid "Your account has been updated."
+msgstr "Uw account is bijgewerkt."
+
+#: 
+msgid "Unknown Author"
+msgstr "Onbekende auteur"
+
+#: 
+msgid "Please upload only images (jpeg, png, gif)."
+msgstr "Upload alleen afbeeldingen (jpeg, png, gif)."
+
+#: 
+msgid "Are you sure you want to delete # {0}?"
+msgstr "Weet u zeker dat u # {0} wilt verwijderen?"
+
+#: 
+msgid "Actions"
+msgstr "Acties"
+
+#: 
+msgid "Some caches were cleared, but the following failed: {0}"
+msgstr "Sommige caches zijn gewist, maar de volgende zijn mislukt: {0}"
+
+#: 
+msgid "The slug has been saved."
+msgstr "De slak is gered."
+
+#: 
+msgid "New Blocked IP"
+msgstr "Nieuw geblokkeerd IP"
+
+#: 
+msgid "No internationalizations found for the provided IDs."
+msgstr "Er zijn geen internationalisaties gevonden voor de opgegeven ID&#39;s."
+
+#: 
+msgid "Bulk Upload"
+msgstr "Bulkupload"
+
+#: 
+msgid "Email Templates"
+msgstr "E-mailsjablonen"
+
+#: 
+msgid "User Comments"
+msgstr "Gebruikerscommentaar"
+
+#: 
+msgid "The internationalisation could not be deleted. Please, try again."
+msgstr "De internationalisatie kon niet worden verwijderd. Probeer het opnieuw."
+
+#: 
+msgid "Locale"
+msgstr "Locatie"
+
+#: 
+msgid "The comment has been deleted."
+msgstr "De reactie is verwijderd."
+
+#: 
+msgid "List Email Templates"
+msgstr "Lijst met e-mailsjablonen"
+
+#: 
+msgid "Invalid confirmation code. Please contact support."
+msgstr "Ongeldige bevestigingscode. Neem contact op met support."
+
+#: 
+msgid "System Logs"
+msgstr "Systeemlogboeken"
+
+#: 
+msgid "Update Article"
+msgstr "Artikel bijwerken"
+
+#: 
+msgid "New Article"
+msgstr "Nieuw artikel"
+
+#: 
+msgid "Read More"
+msgstr "Lees meer"
+
+#: 
+msgid "Too many requests. Please try again later."
+msgstr "Te veel verzoeken. Probeer het later opnieuw."
 
 #: 
 msgid "Edit User"
@@ -1522,70 +954,378 @@ msgid "Add Tag"
 msgstr "Tag toevoegen"
 
 #: 
-msgid "Update User"
-msgstr "Gebruiker bijwerken"
-
-#: 
-msgid "Queued Article Summary update job: {0}"
-msgstr "Wachtrij Artikel Samenvatting update taak: {0}"
-
-#: 
-msgid "Image"
-msgstr "Afbeelding"
-
-#: 
-msgid "Reason"
-msgstr "Reden"
-
-#: 
-msgid "Error during image processing. Path: {0}, Error: {1}"
-msgstr "Fout tijdens beeldverwerking. Pad: {0}, Fout: {1}"
-
-#: 
-msgid "The image could not be deleted. Please, try again."
-msgstr "De afbeelding kon niet worden verwijderd. Probeer het opnieuw."
-
-#: 
-msgid "Back"
-msgstr "Rug"
-
-#: 
-msgid "New Blocked IP"
-msgstr "Nieuw geblokkeerd IP"
-
-#: 
-msgid "Posted on {date} by {author}"
-msgstr "Geplaatst op {datum} door {auteur}"
+msgid "Pages"
+msgstr "Pagina&#39;s"
 
 #: 
 msgid "Failed to send email. Please check your email configuration."
 msgstr "E-mail verzenden mislukt. Controleer uw e-mailconfiguratie."
 
 #: 
-msgid "Locale"
-msgstr "Locatie"
+msgid "Logs"
+msgstr "Logboeken"
 
 #: 
-msgid "You are not authorized to edit this account, stick to your own."
-msgstr "U bent niet bevoegd om dit account te bewerken, blijf bij uw eigen account."
+msgid "Comment"
+msgstr "Opmerking"
 
 #: 
-msgid "Rate limit exceeded for IP: {0} on route: {1}"
-msgstr "Snelheidslimiet overschreden voor IP: {0} op route: {1}"
+msgid "View"
+msgstr "Weergave"
 
 #: 
-msgid "Error resizing image. Original: {0}, Target Width: {1}px, Error: {2}"
-msgstr "Fout bij het aanpassen van de afbeeldingsgrootte. Origineel: {0}, Doelbreedte: {1}px, Fout: {2}"
+msgid "Edit Article"
+msgstr "Artikel bewerken"
+
+#: 
+msgid "Configured Caches"
+msgstr "Geconfigureerde caches"
+
+#: 
+msgid "User Agent"
+msgstr "Gebruikersagent"
+
+#: 
+msgid "Failed to update translation for message ID: {0}"
+msgstr "Het is niet gelukt om de vertaling voor bericht-ID {0} bij te werken"
+
+#: 
+msgid "The article could not be saved. Please, try again."
+msgstr "Het artikel kon niet worden opgeslagen. Probeer het opnieuw."
+
+#: 
+msgid "Body"
+msgstr "Lichaam"
+
+#: 
+msgid "Created"
+msgstr "Gemaakt"
+
+#: 
+msgid "Slug"
+msgstr "Naaktslak"
+
+#: 
+msgid "Blocked IPs"
+msgstr "Geblokkeerde IP&#39;s"
+
+#: 
+msgid "Show Details"
+msgstr "Details weergeven"
+
+#: 
+msgid "The email template has been saved."
+msgstr "De e-mailsjabloon is opgeslagen."
+
+#: 
+msgid "Edit Settings"
+msgstr "Instellingen bewerken"
+
+#: 
+msgid "Are you sure you want to delete this comment?"
+msgstr "Weet u zeker dat u deze opmerking wilt verwijderen?"
+
+#: 
+msgid "Published"
+msgstr "Gepubliceerd"
+
+#: 
+msgid "Please enter your email and password"
+msgstr "Voer uw e-mailadres en wachtwoord in"
+
+#: 
+msgid "Cache Name"
+msgstr "Cachenaam"
+
+#: 
+msgid "Enter text"
+msgstr "Voer tekst in"
+
+#: 
+msgid "Invalid type"
+msgstr "Ongeldig type"
+
+#: 
+msgid "New User"
+msgstr "Nieuwe gebruiker"
+
+#: 
+msgid "Are you sure you want to clear {0}?"
+msgstr "Weet u zeker dat u {0} wilt wissen?"
+
+#: 
+msgid "Are you sure you want to delete this prompt?"
+msgstr "Weet u zeker dat u deze prompt wilt verwijderen?"
+
+#: 
+msgid "All caches have been cleared successfully."
+msgstr "Alle caches zijn succesvol gewist."
+
+#: 
+msgid "The article has been deleted."
+msgstr "Het artikel is verwijderd."
+
+#: 
+msgid "The requested address {0} was not found on this server."
+msgstr "Het gevraagde adres {0} is niet gevonden op deze server."
+
+#: 
+msgid "Add AI Prompt"
+msgstr "AI-prompt toevoegen"
+
+#: 
+msgid "Back"
+msgstr "Rug"
+
+#: 
+msgid "The tag has been deleted."
+msgstr "De tag is verwijderd."
+
+#: 
+msgid "IP Address"
+msgstr "IP-adres"
+
+#: 
+msgid "Expires At"
+msgstr "Verloopt op"
+
+#: 
+msgid "Page Views"
+msgstr "Paginaweergaven"
+
+#: 
+msgid "List View"
+msgstr "Lijstweergave"
+
+#: 
+msgid "Image must be less than 5MB."
+msgstr "De afbeelding moet kleiner zijn dan 5 MB."
+
+#: 
+msgid "Image"
+msgstr "Afbeelding"
+
+#: 
+msgid "Edit Slug"
+msgstr "Bewerken Slug"
+
+#: 
+msgid "Your comment has been added."
+msgstr "Uw opmerking is toegevoegd."
+
+#: 
+msgid "Missing required arguments in the message."
+msgstr "Vereiste argumenten ontbreken in het bericht."
+
+#: 
+msgid "The tag could not be saved. Please, try again."
+msgstr "De tag kon niet worden opgeslagen. Probeer het opnieuw."
+
+#: 
+msgid "The internationalisation has been deleted."
+msgstr "De internationalisering is verwijderd."
+
+#: 
+msgid "AI Prompts"
+msgstr "AI-aanwijzingen"
+
+#: 
+msgid "Send Email"
+msgstr "E-mail verzenden"
 
 #: 
 msgid "Search slugs..."
 msgstr "Zoek slakken..."
 
 #: 
-msgid "Queued Article SEO update job: {0}"
-msgstr "Artikel SEO-update in de wachtrij: {0}"
+msgid "Level"
+msgstr "Niveau"
 
 #: 
-msgid "Available data files:"
-msgstr "Beschikbare databestanden:"
+msgid "Edit Aiprompt"
+msgstr "Bewerken AiPrompt"
+
+#: 
+msgid "New Image"
+msgstr "Nieuwe afbeelding"
+
+#: 
+msgid "Are you sure you want to delete comment by {0}?"
+msgstr "Weet u zeker dat u de opmerking van {0} wilt verwijderen?"
+
+#: 
+msgid "Keywords"
+msgstr "Trefwoorden"
+
+#: 
+msgid "Front Site"
+msgstr "Voorzijde site"
+
+#: 
+msgid "Images"
+msgstr "Afbeeldingen"
+
+#: 
+msgid "Related Tags"
+msgstr "Gerelateerde tags"
+
+#: 
+msgid "The value must be 0 or 1."
+msgstr "De waarde moet 0 of 1 zijn."
+
+#: 
+msgid "Unable to add your comment."
+msgstr "Kan uw opmerking niet toevoegen."
+
+#: 
+msgid "Add Email Template"
+msgstr "E-mailsjabloon toevoegen"
+
+#: 
+msgid "Delete All Logs"
+msgstr "Alle logboeken verwijderen"
+
+#: 
+msgid "Related Articles"
+msgstr "Gerelateerde artikelen"
+
+#: 
+msgid "Search images..."
+msgstr "Afbeeldingen zoeken..."
+
+#: 
+msgid "New AI Prompt"
+msgstr "Nieuwe AI-prompt"
+
+#: 
+msgid "Search logs..."
+msgstr "Zoek logs..."
+
+#: 
+msgid "The log has been deleted."
+msgstr "Het logboek is verwijderd."
+
+#: 
+msgid "Never"
+msgstr "Nooit"
+
+#: 
+msgid "Tags"
+msgstr "Labels"
+
+#: 
+msgid "New Tag"
+msgstr "Nieuwe tag"
+
+#: 
+msgid "The blocked ip could not be deleted. Please, try again."
+msgstr "Het geblokkeerde IP kon niet worden verwijderd. Probeer het opnieuw."
+
+#: 
+msgid "The internationalisation could not be saved. Please, try again."
+msgstr "De internationalisatie kon niet worden opgeslagen. Probeer het opnieuw."
+
+#: 
+msgid "Group Name"
+msgstr "Groepsnaam"
+
+#: 
+msgid "Profile Picture"
+msgstr "Profielfoto"
+
+#: 
+msgid "A value is required"
+msgstr "Er is een waarde vereist"
+
+#: 
+msgid "{0} Views"
+msgstr "{0} Weergaven"
+
+#: 
+msgid "Username"
+msgstr "Gebruikersnaam"
+
+#: 
+msgid "Max Tokens"
+msgstr "Maximale tokens"
+
+#: 
+msgid "Clear"
+msgstr "Duidelijk"
+
+#: 
+msgid "Please log in to add a comment"
+msgstr "Meld u aan om een opmerking toe te voegen"
+
+#: 
+msgid "System Prompt"
+msgstr "Systeemprompt"
+
+#: 
+msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
+msgstr "Hieronder vindt u informatie over de geconfigureerde caches. Klik op de knop om alle caches te wissen of op de individuele cacheknoppen om specifieke caches te wissen."
+
+#: 
+msgid "Body Text"
+msgstr "Hoofdtekst"
+
+#: 
+msgid "The email template could not be deleted. Please, try again."
+msgstr "De e-mailsjabloon kon niet worden verwijderd. Probeer het opnieuw."
+
+#: 
+msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
+msgstr "E-mail succesvol verzonden naar: {0}. Sjabloon: {1}, Onderwerp: {2}"
+
+#: 
+msgid "Subject"
+msgstr "Onderwerp"
+
+#: 
+msgid "Grid View"
+msgstr "Rasterweergave"
+
+#: 
+msgid "No"
+msgstr "Nee"
+
+#: 
+msgid "No images."
+msgstr "Geen afbeeldingen."
+
+#: 
+msgid "Description"
+msgstr "Beschrijving"
+
+#: 
+msgid "Search comments..."
+msgstr "Reacties zoeken..."
+
+#: 
+msgid "Article not found"
+msgstr "Artikel niet gevonden"
+
+#: 
+msgid "No articles found for this tag."
+msgstr "Er zijn geen artikelen gevonden voor deze tag."
+
+#: 
+msgid "Alt Text"
+msgstr "Alt-tekst"
+
+#: 
+msgid "Modified At"
+msgstr "Gewijzigd op"
+
+#: 
+msgid "All Groups"
+msgstr "Alle groepen"
+
+#: 
+msgid "The comment has been saved."
+msgstr "De opmerking is opgeslagen."
+
+#: 
+msgid "The comment could not be deleted. Please, try again."
+msgstr "De opmerking kon niet worden verwijderd. Probeer het opnieuw."
 

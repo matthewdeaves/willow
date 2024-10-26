@@ -16,6 +16,7 @@ declare(strict_types=1);
  */
 namespace App;
 
+use ADmad\I18n\Middleware\I18nMiddleware;
 use App\Middleware\IpBlockerMiddleware;
 use App\Middleware\RateLimitMiddleware;
 use App\Utility\SettingsManager;
@@ -125,7 +126,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             // See https://github.com/CakeDC/cakephp-cached-routing
             ->add(new RoutingMiddleware($this))
 
-            ->add(new \ADmad\I18n\Middleware\I18nMiddleware([
+            ->add(new I18nMiddleware([
                 // If `true` will attempt to get matching languges in "languages" list based
                 // on browser locale and redirect to that when going to site root.
                 'detectLanguage' => true,
@@ -136,10 +137,9 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
                 // in URLs. Based on the language the locale will be also set.
                 'languages' => [
                     'en' => ['locale' => 'en_US'],
-                    'fr' => ['locale' => 'fr_FR']
+                    'fr' => ['locale' => 'fr_FR'],
                 ],
             ]))
-                
 
             // Parse various types of encoded request bodies so that they are
             // available as array through $request->getData()

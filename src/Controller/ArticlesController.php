@@ -9,7 +9,6 @@ use App\Model\Table\Trait\ArticleCacheTrait;
 use Cake\Event\EventInterface;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
-use Cake\I18n\I18n;
 use Cake\Routing\Router;
 
 /**
@@ -164,7 +163,7 @@ class ArticlesController extends AppController
     public function viewBySlug(string $slug): ?Response
     {
         // Try to get the article from cache first
-        $article = $this->getFromCache($slug.$this->request->getParam('language', 'en'));
+        $article = $this->getFromCache($slug . $this->request->getParam('language', 'en'));
 
         if (empty($article)) {
             // If not in cache, we need to check if this is the latest slug
@@ -271,7 +270,7 @@ class ArticlesController extends AppController
 
         return $this->redirect(Router::url([
             '_name' => 'article-by-slug',
-            'slug' => $article->slug
+            'slug' => $article->slug,
         ], true));
     }
 

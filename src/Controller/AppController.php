@@ -16,13 +16,13 @@ declare(strict_types=1);
  */
 namespace App\Controller;
 
+use App\Utility\SettingsManager;
 use Cake\Controller\Controller;
 use Cake\Core\Configure;
 use Cake\Event\EventInterface;
 use Cake\Http\Response;
-use Cake\Log\LogTrait;
-use App\Utility\SettingsManager;
 use Cake\I18n\I18n;
+use Cake\Log\LogTrait;
 
 /**
  * Application Controller
@@ -92,7 +92,7 @@ class AppController extends Controller
         } else {
             I18n::setLocale('en_GB');
         }
-        
+
         if ($this->request->getParam('prefix') === 'Admin') {
             $identity = $this->Authentication->getIdentity();
             if ($identity) {

@@ -85,7 +85,7 @@ class TranslateI18nJob implements JobInterface
             );
 
             // Iterate over the translated messages and update the database
-            foreach ($translatedMessages as $index => $translatedText) {
+            foreach ($translatedMessages['translations'] as $index => $translation) {
                 $originalMessage = $messageStrings[$index];
 
                 // Find the existing translation record for the given locale and original message
@@ -98,7 +98,7 @@ class TranslateI18nJob implements JobInterface
 
                 if ($existingTranslation) {
                     // Update the existing translation record
-                    $existingTranslation->message_str = $translatedText;
+                    $existingTranslation->message_str = $translation['translated'];
                     if (!$i18nTable->save($existingTranslation)) {
                         Log::error(__('Failed to update translation for message ID: {0}', $originalMessage));
                     }

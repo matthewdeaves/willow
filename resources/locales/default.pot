@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2024-10-25 16:30+0100\n"
+"POT-Creation-Date: 2024-10-26 10:09+0100\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -724,7 +724,7 @@ msgstr ""
 msgid "Password must be at least 8 characters long"
 msgstr ""
 
-#: ./src/Service/Api/AbstractApiService.php:105
+#: ./src/Service/Api/AbstractApiService.php:98
 msgid "API request failed. Please try again later."
 msgstr ""
 

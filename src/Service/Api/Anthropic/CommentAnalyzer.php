@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Service\Api\Anthropic;
 
 use App\Model\Table\AipromptsTable;
+use Cake\Log\LogTrait;
 use InvalidArgumentException;
 
 /**
@@ -15,6 +16,8 @@ use InvalidArgumentException;
  */
 class CommentAnalyzer
 {
+    use LogTrait;
+
     /**
      * The Anthropic API service used for sending requests and parsing responses.
      *
@@ -59,8 +62,9 @@ class CommentAnalyzer
         $payload = $this->createPayload($promptData, $comment);
 
         $response = $this->apiService->sendRequest($payload);
+        $result = $this->apiService->parseResponse($response);
 
-        return $this->apiService->parseResponse($response);
+        return $this->ensureExpectedKeys($result);
     }
 
     /**
@@ -109,5 +113,33 @@ class CommentAnalyzer
             'max_tokens' => $prompt->max_tokens,
             'temperature' => $prompt->temperature,
         ];
+    }
+
+    /**
+     * Ensures that the result contains all expected keys, initializing them if necessary.
+     *
+     * @param array $result The result array to check and modify.
+     * @return array The result array with all expected SEO keys initialized.
+     */
+    private function ensureExpectedKeys(array $result): array
+    {
+        $expectedKeys = [
+            'comment',
+            'is_inappropriate',
+            'reason',
+        ];
+
+        foreach ($expectedKeys as $key) {
+            if (!isset($result[$key])) {
+                $result[$key] = '';
+                $this->log(
+                    sprintf('Comment Analyzer did not find expected key: %s', $key),
+                    'error',
+                    ['group_name' => 'anthropic']
+                );
+            }
+        }
+
+        return $result;
     }
 }

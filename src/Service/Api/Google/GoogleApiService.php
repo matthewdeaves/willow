@@ -14,7 +14,7 @@ class GoogleApiService
     /**
      * The Google Cloud Translate client instance.
      *
-     * @var TranslateClient
+     * @var \Google\Cloud\Translate\V2\TranslateClient
      */
     private TranslateClient $translateClient;
 

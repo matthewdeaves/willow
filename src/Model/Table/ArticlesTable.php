@@ -21,8 +21,13 @@ use InvalidArgumentException;
 /**
  * Articles Model
  *
+ * This model handles article content including pages, blog posts, and hierarchical content structures.
+ * It supports features like slugs, tags, image uploads, and SEO optimization.
+ *
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  * @property \App\Model\Table\TagsTable&\Cake\ORM\Association\BelongsToMany $Tags
+ * @property \App\Model\Table\PageViewsTable&\Cake\ORM\Association\HasMany $PageViews
+ * @property \App\Model\Table\SlugsTable&\Cake\ORM\Association\HasMany $Slugs
  * @method \App\Model\Entity\Article newEmptyEntity()
  * @method \App\Model\Entity\Article newEntity(array $data, array $options = [])
  * @method array<\App\Model\Entity\Article> newEntities(array $data, array $options = [])
@@ -37,6 +42,12 @@ use InvalidArgumentException;
  * @method iterable<\App\Model\Entity\Article>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\Article>|false deleteMany(iterable $entities, array $options = [])
  * @method iterable<\App\Model\Entity\Article>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\Article> deleteManyOrFail(iterable $entities, array $options = [])
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
+ * @mixin \App\Model\Behavior\CommentableBehavior
+ * @mixin \Cake\ORM\Behavior\TreeBehavior
+ * @mixin \App\Model\Behavior\SluggableBehavior
+ * @mixin \App\Model\Behavior\ImageAssociableBehavior
+ * @mixin \App\Model\Behavior\QueueableImageBehavior
+ * @mixin \Josegonzalez\Upload\Model\Behavior\UploadBehavior
  */
 class ArticlesTable extends Table
 {
@@ -151,6 +162,13 @@ class ArticlesTable extends Table
     /**
      * Default validation rules.
      *
+     * Sets up validation rules for article fields including:
+     * - user_id: Must be a valid UUID and not empty
+     * - title: Required string, max 255 characters
+     * - body: Optional text content
+     * - slug: Required URL-safe string, must be unique across articles and slugs
+     * - image: Optional file upload with mime type and size restrictions
+     *
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
@@ -223,6 +241,10 @@ class ArticlesTable extends Table
     /**
      * Returns a rules checker object that will be used for validating
      * application integrity.
+     *
+     * Implements the following rules:
+     * - Validates that user_id exists in Users table
+     * - Ensures slug is unique across articles
      *
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
@@ -451,16 +473,15 @@ class ArticlesTable extends Table
     /**
      * Retrieves a hierarchical tree structure of pages.
      *
-     * This method queries the database to fetch articles that are marked as pages
-     * (i.e., where 'Articles.is_page' is set to 1). It selects specific fields such as
-     * 'id', 'parent_id', 'title', 'slug', 'created', and 'modified', and orders the results
-     * by the 'lft' column in ascending order to maintain the tree structure.
+     * Returns a nested array of pages with their relationships and metadata including:
+     * - Basic page information (id, title, slug)
+     * - Publication status
+     * - Creation and modification dates
+     * - Page view counts
+     * - Hierarchical structure (parent-child relationships)
      *
-     * The method utilizes the 'threaded' finder to organize the results into a nested
-     * array format, representing the hierarchical relationships between the pages.
-     *
-     * @return array An array representing the hierarchical tree of pages, with each node
-     *               containing its children in a nested structure.
+     * @param array $additionalConditions Optional additional query conditions
+     * @return array Hierarchical array of pages with nested children
      */
     public function getPageTree(array $additionalConditions = []): array
     {

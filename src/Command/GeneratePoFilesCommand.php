@@ -66,7 +66,7 @@ class GeneratePoFilesCommand extends Command
 
             // Check if there are any translations for the locale
             if ($translations->isEmpty()) {
-                $io->out(__('No translations found for locale: {0}. Skipping...', $locale));
+                $io->out(sprintf('No translations found for locale: %s. Skipping...', $locale));
                 continue;
             }
 
@@ -80,7 +80,7 @@ class GeneratePoFilesCommand extends Command
             }
 
             $filesystem->dumpFile($filePath, $poContent);
-            $io->out(__('Generated default.po for locale: {0}', $locale));
+            $io->out(sprintf('Generated default.po for locale: %s', $locale));
         }
 
         return Command::CODE_SUCCESS;

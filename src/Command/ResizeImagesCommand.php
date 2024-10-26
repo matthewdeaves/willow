@@ -135,7 +135,7 @@ class ResizeImagesCommand extends Command
         try {
             if (!file_exists($folder . $file)) {
                 $this->log(
-                    __('Original image not found for resizing. Path: {0}', [$folder . $file]),
+                    sprintf('Original image not found for resizing. Path: %s', $folder . $file),
                     'error',
                     ['group_name' => 'image_processing']
                 );
@@ -145,9 +145,9 @@ class ResizeImagesCommand extends Command
 
             if (file_exists($sizeFolder . $file)) {
                 $this->log(
-                    __(
-                        'Skipped resizing, image already exists. Path: {0}',
-                        [$sizeFolder . $file]
+                    sprintf(
+                        'Skipped resizing, image already exists. Path: %s',
+                        $sizeFolder . $file
                     ),
                     'info',
                     ['group_name' => 'image_processing']
@@ -162,18 +162,22 @@ class ResizeImagesCommand extends Command
             $imagick->clear();
 
             $this->log(
-                __(
-                    'Successfully resized and saved image. Original: {0}, Resized: {1}, Width: {2}px',
-                    [$folder . $file, $sizeFolder . $file, $width]
+                sprintf(
+                    'Successfully resized and saved image. Original: %s, Resized: %s, Width: %dpx',
+                    $folder . $file,
+                    $sizeFolder . $file,
+                    $width
                 ),
                 'info',
                 ['group_name' => 'image_processing']
             );
         } catch (Exception $e) {
             $this->log(
-                __(
-                    'Error resizing image. Original: {0}, Target Width: {1}px, Error: {2}',
-                    [$folder . $file, $width, $e->getMessage()]
+                sprintf(
+                    'Error resizing image. Original: %s, Target Width: %dpx, Error: %s',
+                    $folder . $file,
+                    $width,
+                    $e->getMessage()
                 ),
                 'error',
                 ['group_name' => 'image_processing']

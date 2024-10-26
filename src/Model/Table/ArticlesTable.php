@@ -324,9 +324,9 @@ class ArticlesTable extends Table
             // Queue a job to update the Article SEO fields
             QueueManager::push('App\Job\ArticleSeoUpdateJob', $data);
             $this->log(
-                __(
-                    'Queued Article SEO update job: {0}',
-                    [$entity->title]
+                sprintf(
+                    'Queued Article SEO update job: %s',
+                    $entity->title
                 ),
                 'info',
                 ['group_name' => 'article_seo_update']
@@ -346,9 +346,9 @@ class ArticlesTable extends Table
             // Queue up an ArticleTagUpdateJob
             QueueManager::push('App\Job\ArticleTagUpdateJob', $data);
             $this->log(
-                __(
-                    'Queued Article Tag update job: {0}',
-                    [$entity->title]
+                sprintf(
+                    'Queued Article Tag update job: %s',
+                    $entity->title
                 ),
                 'info',
                 ['group_name' => 'article_tag_update']
@@ -357,9 +357,9 @@ class ArticlesTable extends Table
             // Queue up an ArticleSummaryUpdateJob
             QueueManager::push('App\Job\ArticleSummaryUpdateJob', $data);
             $this->log(
-                __(
-                    'Queued Article Summary update job: {0}',
-                    [$entity->title]
+                sprintf(
+                    'Queued Article Summary update job: %s',
+                    $entity->title
                 ),
                 'info',
                 ['group_name' => 'article_summary_update']

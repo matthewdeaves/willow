@@ -58,7 +58,7 @@ class ArticleTagUpdateJob implements JobInterface
         $title = $message->getArgument('title');
 
         $this->log(
-            __('Received article tag update message: {0} : {1}', [$id, $title]),
+            sprintf('Received article tag update message: %s : %s', $id, $title),
             'info',
             ['group_name' => 'article_tag_update']
         );
@@ -83,7 +83,7 @@ class ArticleTagUpdateJob implements JobInterface
 
                 if ($tag->isNew()) {
                     $this->log(
-                        __('New tag created: {0}', [$tagTitle]),
+                        sprintf('New tag created: %s', $tagTitle),
                         'info',
                         ['group_name' => 'article_tag_update']
                     );
@@ -95,7 +95,7 @@ class ArticleTagUpdateJob implements JobInterface
 
             if ($articlesTable->save($article, ['validate' => false])) {
                 $this->log(
-                    __('Article tag update completed successfully. Article ID: {0}', [$id]),
+                    sprintf('Article tag update completed successfully. Article ID: %s', $id),
                     'info',
                     ['group_name' => 'article_tag_update']
                 );
@@ -103,12 +103,10 @@ class ArticleTagUpdateJob implements JobInterface
                 return Processor::ACK;
             } else {
                 $this->log(
-                    __(
-                        'Failed to save article tag updates. Article ID: {0} Error: {1}',
-                        [
-                            $id,
-                            json_encode($article->getErrors()),
-                        ]
+                    sprintf(
+                        'Failed to save article tag updates. Article ID: %s Error: %s',
+                        $id,
+                        json_encode($article->getErrors())
                     ),
                     'error',
                     ['group_name' => 'article_tag_update']
@@ -116,7 +114,7 @@ class ArticleTagUpdateJob implements JobInterface
             }
         } else {
             $this->log(
-                __('Article tag update failed. No valid result returned. Article ID: {0}', [$id]),
+                sprintf('Article tag update failed. No valid result returned. Article ID: %s', $id),
                 'error',
                 ['group_name' => 'article_tag_update']
             );

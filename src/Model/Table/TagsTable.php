@@ -104,7 +104,10 @@ class TagsTable extends Table
             QueueManager::push('App\Job\TagSeoUpdateJob', $data);
 
             $this->log(
-                __('Queue tag SEO update job for Tag:{0}', [$entity->title]),
+                sprintf(
+                    'Queue tag SEO update job for Tag: %s',
+                    $entity->title
+                ),
                 'info',
                 ['group_name' => 'tag_seo_update']
             );

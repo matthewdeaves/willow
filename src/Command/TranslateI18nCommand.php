@@ -100,9 +100,10 @@ class TranslateI18nCommand extends Command
         // Queue a job to translate the batch of messages
         if (SettingsManager::read('AI.enabled')) {
             QueueManager::push('App\Job\TranslateI18nJob', $batch);
-            $io->out(__(
-                'Queued translation job for batch of {0} messages for locale {1}',
-                [count($batch['internationalisations']), $batch['locale']]
+            $io->out(sprintf(
+                'Queued translation job for batch of %d messages for locale %s',
+                count($batch['internationalisations']),
+                $batch['locale']
             ));
         }
     }

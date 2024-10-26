@@ -53,8 +53,8 @@ class TestRateLimitCommand extends Command
         $baseUrl = $this->getBaseUrl();
         $fullUrl = $baseUrl . $url;
 
-        $io->out(__('Testing rate limit on URL: {0}', $fullUrl));
-        $io->out(__('Number of attempts: {0}', $attempts));
+        $io->out(sprintf('Testing rate limit on URL: %s', $fullUrl));
+        $io->out(sprintf('Number of attempts: %d', $attempts));
         $io->hr();
 
         for ($i = 0; $i < $attempts; $i++) {
@@ -79,11 +79,11 @@ class TestRateLimitCommand extends Command
             if ($response === false) {
                 $error = curl_error($ch);
                 $errno = curl_errno($ch);
-                $io->error(__('Attempt {0} failed. Error ({1}): {2}', $i + 1, $errno, $error));
+                $io->error(sprintf('Attempt %d failed. Error (%d): %s', $i + 1, $errno, $error));
             } else {
                 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-                $io->out(__('Attempt {0}: HTTP Code: {1}', $i + 1, $httpCode));
-                $io->out(__('Response: {0}', substr($response, 0, 100) . '...')); // Truncate long responses
+                $io->out(sprintf('Attempt %d: HTTP Code: %d', $i + 1, $httpCode));
+                $io->out(sprintf('Response: %s', substr($response, 0, 100) . '...'));
             }
 
             curl_close($ch);

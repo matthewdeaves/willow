@@ -99,7 +99,7 @@ class DefaultDataExportCommand extends Command
         $json = json_encode($data, JSON_PRETTY_PRINT);
         file_put_contents($outputFile, $json);
 
-        $io->success(__('Data exported to {0}', $outputFile));
+        $io->success(sprintf('Data exported to %s', $outputFile));
 
         return Command::CODE_SUCCESS;
     }

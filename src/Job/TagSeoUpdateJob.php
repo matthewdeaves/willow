@@ -58,7 +58,11 @@ class TagSeoUpdateJob implements JobInterface
         $title = $message->getArgument('title');
 
         $this->log(
-            __('Received tag SEO update message: ID: {0} Title: {1}', [$id, $title]),
+            sprintf(
+                'Received tag SEO update message: ID: %s Title: %s',
+                $id,
+                $title
+            ),
             'info',
             ['group_name' => 'tag_seo_update']
         );
@@ -86,7 +90,11 @@ class TagSeoUpdateJob implements JobInterface
 
             if ($tagsTable->save($tag)) {
                 $this->log(
-                    __('Tag SEO update completed successfully. ID: {0} Title: {1}', [$id, $title]),
+                    sprintf(
+                        'Tag SEO update completed successfully. ID: %s Title: %s',
+                        $id,
+                        $title
+                    ),
                     'info',
                     ['group_name' => 'tag_seo_update']
                 );
@@ -94,14 +102,22 @@ class TagSeoUpdateJob implements JobInterface
                 return Processor::ACK;
             } else {
                 $this->log(
-                    __('Failed to save tag SEO updates. ID: {0} Title: {1}', [$id, $title]),
+                    sprintf(
+                        'Failed to save tag SEO updates. ID: %s Title: %s',
+                        $id,
+                        $title
+                    ),
                     'error',
                     ['group_name' => 'tag_seo_update']
                 );
             }
         } else {
             $this->log(
-                __('Tag SEO update failed. No result returned. ID: {0} Title: {1}', [$id, $title]),
+                sprintf(
+                    'Tag SEO update failed. No result returned. ID: %s Title: %s',
+                    $id,
+                    $title
+                ),
                 'error',
                 ['group_name' => 'tag_seo_update']
             );

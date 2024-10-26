@@ -68,7 +68,7 @@ class ArticleSeoUpdateJob implements JobInterface
         $title = $message->getArgument('title');
 
         $this->log(
-            __('Received article SEO update message: {0} : {1}', [$id, $title]),
+            sprintf('Received article SEO update message: %s : %s', $id, $title),
             'info',
             ['group_name' => 'article_seo_update']
         );
@@ -91,7 +91,7 @@ class ArticleSeoUpdateJob implements JobInterface
             // Save the data
             if ($articlesTable->save($article)) {
                 $this->log(
-                    __('Article SEO update completed successfully. Article ID: {0} Title: {1}', [$id, $title]),
+                    sprintf('Article SEO update completed successfully. Article ID: %s Title: %s', $id, $title),
                     'info',
                     ['group_name' => 'article_seo_update']
                 );
@@ -99,14 +99,14 @@ class ArticleSeoUpdateJob implements JobInterface
                 return Processor::ACK;
             } else {
                 $this->log(
-                    __('Failed to save article SEO updates. Article ID: {0} Title: {1}', [$id, $title]),
+                    sprintf('Failed to save article SEO updates. Article ID: %s Title: %s', $id, $title),
                     'error',
                     ['group_name' => 'article_seo_update']
                 );
             }
         } else {
             $this->log(
-                __('Article SEO update failed. No result returned. Article ID: {0} Title: {1}', [$id, $title]),
+                sprintf('Article SEO update failed. No result returned. Article ID: %s Title: %s', $id, $title),
                 'error',
                 ['group_name' => 'article_seo_update']
             );

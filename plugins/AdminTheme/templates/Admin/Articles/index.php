@@ -32,6 +32,7 @@
                 <?php foreach ($articles as $article): ?>
                 <tr>
                     <td>
+                        <?php if (!empty($article->image)) : ?>
                         <div class="position-relative">
                             <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $article->image, 
                                 ['pathPrefix' => 'files/Articles/image/', 
@@ -49,6 +50,7 @@
                                 ]) 
                             ?>
                         </div>
+                        <?php endif; ?>
                     </td>
                     <td>
                         <?php if (isset($article->_matchingData['Users']) && $article->_matchingData['Users']->username): ?>

@@ -41,7 +41,6 @@ RUN apk add --no-cache \
   wget \
   unzip \
   bash && \
-  gettext && \
   rm -rf /var/lib/apt/lists/*
 
 # Configure nginx - http

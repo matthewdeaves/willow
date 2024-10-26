@@ -9,6 +9,7 @@ use Cake\I18n\DateTime;
 use Cake\ORM\Query;
 use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
+use Cake\Event\EventInterface;
 
 /**
  * SitemapController
@@ -33,6 +34,15 @@ class SitemapController extends AppController
     {
         parent::initialize();
         $this->Articles = TableRegistry::getTableLocator()->get('Articles');
+    }
+
+    public function beforeFilter(EventInterface $event): ?Response
+    {
+        parent::beforeFilter($event);
+    
+        $this->Authentication->addUnauthenticatedActions(['index']);
+    
+        return null;
     }
 
     /**

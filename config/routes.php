@@ -23,7 +23,6 @@
 
 use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
-use App\Utility\SettingsManager;
 
 /*
  * This file is loaded in the context of the `Application` class.
@@ -52,50 +51,13 @@ return function (RouteBuilder $routes): void {
 
     $routes->scope('/', function (RouteBuilder $builder): void {
 
-        // Get the enabled translations
-        $translations = SettingsManager::read('Translations', null);
+        $builder->connect('/', ['controller' => 'Articles', 'action' => 'index']);
 
-        // Extract the first two letters of enabled locale keys
-        $enabledLanguages = array_map(function ($locale) {
-            return substr($locale, 0, 2);
-        }, array_keys(array_filter($translations)));
-
-        // Convert the array of enabled languages to a string for use in the route constraint
-        $languageConstraint = implode('|', $enabledLanguages);
 
         $builder->connect('/sitemap', ['controller' => 'Sitemap', 'action' => 'index'])->setExtensions(['xml']);
 
-        $builder->connect('/{language}', ['controller' => 'Articles', 'action' => 'index'], ['language' => $languageConstraint]);
-        $builder->connect('/', ['controller' => 'Articles', 'action' => 'index'], ['language' => 'en']);
 
-        $builder->connect('/users/login', ['controller' => 'Users', 'action' => 'login'], ['language' => 'en']);
-        $builder->connect('/{language}/users/login', ['controller' => 'Users', 'action' => 'login'], ['language' => $languageConstraint]);
-
-        $builder->connect('/users/register', ['controller' => 'Users', 'action' => 'register'], ['language' => 'en']);
-        $builder->connect('/{language}/users/register', ['controller' => 'Users', 'action' => 'register'], ['language' => $languageConstraint]);
-
-        $builder->connect('/users/logout', ['controller' => 'Users', 'action' => 'logout'], ['language' => 'en']);
-        $builder->connect('/{language}/users/logout', ['controller' => 'Users', 'action' => 'logout'], ['language' => $languageConstraint]);
-
-        $builder->connect('/users/confirm-email/*',['controller' => 'Users', 'action' => 'confirmEmail'], ['language' => 'en']);
-        $builder->connect('/{language}/users/confirm-email/*',['controller' => 'Users', 'action' => 'confirmEmail'], ['language' => $languageConstraint]);
-
-        $builder->connect('/users/edit/*', ['controller' => 'Users', 'action' => 'edit'], ['language' => 'en']);
-        $builder->connect('/{language}/users/edit/*', ['controller' => 'Users', 'action' => 'edit'], ['language' => $languageConstraint]);
-
-        $builder->connect('/articles/add-comment/*', ['controller' => 'Articles', 'action' => 'addComment'], ['language' => 'en']);
-        $builder->connect('/{language}/articles/add-comment/*', ['controller' => 'Articles', 'action' => 'addComment'],['language' => $languageConstraint]);
-
-        $builder->connect('/tags', ['controller' => 'Tags', 'action' => 'index'], ['language' => 'en']);
-        $builder->connect('/tags/view-by-slug/*', ['controller' => 'Tags', 'action' => 'view-by-slug'], ['language' => 'en']);
-        $builder->connect('/tags/view-by-slug/*', ['controller' => 'Tags', 'action' => 'viewBySlug'], ['language' => 'en']);
-
-        $builder->connect('/{language}/tags', ['controller' => 'Tags', 'action' => 'index'], ['language' => $languageConstraint]);
-        $builder->connect('/{language}/tags/view-by-slug/*', ['controller' => 'Tags', 'action' => 'view-by-slug'], ['language' => $languageConstraint]);
-        $builder->connect('/{language}/tags/view-by-slug/*', ['controller' => 'Tags', 'action' => 'viewBySlug'], ['language' => $languageConstraint]);
-
-        $builder->connect('/{language}/*', ['prefix' => null, 'controller' => 'Articles', 'action' => 'viewBySlug'], ['pass' => ['slug'], 'language' => $languageConstraint]);
-        $builder->connect('/*', ['prefix' => null, 'controller' => 'Articles', 'action' => 'viewBySlug'], ['pass' => ['slug'], 'language' => 'en']);
+       // $builder->connect('/*', ['prefix' => null, 'controller' => 'Articles', 'action' => 'view-by-slug'], ['pass' => ['slug']]);
 
         /*
          * Connect catchall routes for all controllers.
@@ -110,7 +72,7 @@ return function (RouteBuilder $routes): void {
          * You can remove these routes once you've connected the
          * routes you want in your application.
          */
-        //$builder->fallbacks();
+        $builder->fallbacks();
     });
 
     /*

@@ -12,7 +12,7 @@ function buildMenu($articles, $view) {
         echo '<li>';
         echo $view->Html->link(
             h($page->title),
-            ['prefix' => false, 'controller' => 'Articles', 'action' => 'viewBySlug', $page->slug],
+            ['prefix' => false, 'controller' => 'Articles', 'action' => 'view-by-slug', $page->slug],
             ['class' => 'menu-item']
         );
         if (!empty($page->children)) {

@@ -3,7 +3,7 @@ use Cake\Utility\Inflector;
 
 if (!function_exists('renderTagMenuItem')) {
     function renderTagMenuItem($tag, $Html) {
-        $url = ['controller' => 'Tags', 'action' => 'viewBySlug', $tag->slug];
+        $url = ['controller' => 'Tags', 'action' => 'view-by-slug', $tag->slug];
 
         // Capitalize each word in the title
         $title = Inflector::humanize($tag->title);

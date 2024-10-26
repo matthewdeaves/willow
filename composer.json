@@ -7,6 +7,7 @@
     "require": {
         "php": ">=8.1 <8.4",
         "ext-redis": "*",
+        "admad/cakephp-i18n": "^3.0",
         "cakephp/authentication": "^3.1",
         "cakephp/cakephp": "^5.0",
         "cakephp/migrations": "^4.4",

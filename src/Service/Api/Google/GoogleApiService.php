@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Service\Api\Google;
 
-use Google\Cloud\Translate\V2\TranslateClient;
 use App\Utility\SettingsManager;
+use Google\Cloud\Translate\V2\TranslateClient;
 
 class GoogleApiService
 {
@@ -13,7 +13,7 @@ class GoogleApiService
     public function __construct()
     {
         $this->translateClient = new TranslateClient([
-            'key' => SettingsManager::read('Google.apiKey', '')
+            'key' => SettingsManager::read('Google.apiKey', ''),
         ]);
     }
 
@@ -22,7 +22,7 @@ class GoogleApiService
 
         $results = $this->translateClient->translateBatch($strings, [
             'source' => $localeFrom,
-            'target' => $localeTo
+            'target' => $localeTo,
         ]);
 
         $translatedStrings = [];
@@ -30,7 +30,7 @@ class GoogleApiService
         foreach ($results as $result) {
             $translatedStrings['translations'][] = [
                 'original' => $result['input'],
-                'translated' => $result['text']
+                'translated' => $result['text'],
             ];
         }
 

@@ -11,7 +11,10 @@
         <?php foreach ($tags as $tag): ?>
             <?= $this->Html->link(
                 h($tag),
-                ['action' => 'index', '?' => ['tag' => $tag]],
+                [
+                    '_name' => 'home',
+                    '?' => ['tag' => $tag]
+                ],
                 ['class' => 'btn btn-outline-secondary' . ($selectedTag === $tag ? ' active' : '')]
             ) ?>
         <?php endforeach; ?>

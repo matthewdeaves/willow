@@ -52,26 +52,56 @@ return function (RouteBuilder $routes): void {
     $routes->scope('/', function (RouteBuilder $builder): void {
 
         $builder->connect('/', ['controller' => 'Articles', 'action' => 'index']);
+        $builder->connect(
+            '/',
+            [
+                'controller' => 'Articles',
+                'action' => 'index'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'home'
+            ]
+        );
 
+        $builder->connect('/sitemap', ['controller' => 'Sitemap', 'action' => 'index'], ['routeClass' => 'ADmad/I18n.I18nRoute'])->setExtensions(['xml']);
 
-        $builder->connect('/sitemap', ['controller' => 'Sitemap', 'action' => 'index'])->setExtensions(['xml']);
+        $builder->connect('/users/login', ['controller' => 'Users', 'action' => 'login'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+        $builder->connect('/users/register', ['controller' => 'Users', 'action' => 'register'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+        $builder->connect('/users/logout', ['controller' => 'Users', 'action' => 'logout'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+        $builder->connect('/users/confirm-email/*',['controller' => 'Users', 'action' => 'confirmEmail'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+        $builder->connect('/users/edit/*', ['controller' => 'Users', 'action' => 'edit'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+        $builder->connect('/atricles/add-comment/*', ['controller' => 'Articles', 'action' => 'addComment'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+        $builder->connect('/tags', ['controller' => 'Tags', 'action' => 'index'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+        
+        $builder->connect(
+            'articles/{slug}',
+            [
+                'controller' => 'Articles',
+                'action' => 'view-by-slug'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'article-by-slug',
+                'pass' => ['slug'] 
+            ]
+        );
 
+        $builder->connect(
+            'tags/{slug}',
+            [
+                'controller' => 'Tags',
+                'action' => 'view-by-slug'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'tag-by-slug',
+                'pass' => ['slug'] 
+            ]
+        );
 
-       // $builder->connect('/*', ['prefix' => null, 'controller' => 'Articles', 'action' => 'view-by-slug'], ['pass' => ['slug']]);
+        //$builder->connect('/*', ['prefix' => null, 'controller' => 'Articles', 'action' => 'view-by-slug'], ['pass' => ['slug'], 'routeClass' => 'ADmad/I18n.I18nRoute']);
 
-        /*
-         * Connect catchall routes for all controllers.
-         *
-         * The `fallbacks` method is a shortcut for
-         *
-         * ```
-         * $builder->connect('/{controller}', ['action' => 'index']);
-         * $builder->connect('/{controller}/{action}/*', []);
-         * ```
-         *
-         * You can remove these routes once you've connected the
-         * routes you want in your application.
-         */
         $builder->fallbacks();
     });
 

@@ -76,7 +76,7 @@ class AppController extends Controller
         parent::beforeFilter($event);
 
         // Detect and set language to display site in
-        $language = $this->request->getParam('language', 'en');
+        $language = $this->request->getParam('lang', 'en');
         $translations = SettingsManager::read('Translations', null);
 
         $matchedLocale = null;
@@ -89,6 +89,8 @@ class AppController extends Controller
 
         if ($matchedLocale !== null) {
             I18n::setLocale($matchedLocale);
+        } else {
+            I18n::setLocale('en_GB');
         }
         
         if ($this->request->getParam('prefix') === 'Admin') {

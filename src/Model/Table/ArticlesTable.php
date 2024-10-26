@@ -111,7 +111,7 @@ class ArticlesTable extends Table
         ]);
 
         $this->addBehavior('Translate', [
-            'fields' => ['title', 'body'],
+            'fields' => ['title', 'body', 'summary'],
             'defaultLocale' => 'en_GB',
             'allowEmptyTranslations' => false,
         ]);

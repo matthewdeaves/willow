@@ -10,7 +10,6 @@ use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
 use Interop\Queue\Processor;
 
-
 class TranslateArticleJob implements JobInterface
 {
     use LogTrait;
@@ -44,7 +43,16 @@ class TranslateArticleJob implements JobInterface
         $this->apiService = $googleService ?? new GoogleApiService();
     }
 
-
+    /**
+     * Executes the article translation process based on the received message.
+     *
+     * @param \Cake\Queue\Job\Message $message The message containing the article ID and title.
+     * @return string|null The processing result:
+     *                     - Processor::REQUEUE if the article summary is empty, indicating that the translation should be requeued.
+     *                     - Processor::ACK if the article translation is completed successfully.
+     *                     - Processor::REJECT if the article translation fails.
+     *                     - null if an unexpected error occurs.
+     */
     public function execute(Message $message): ?string
     {
         $id = $message->getArgument('id');
@@ -59,23 +67,38 @@ class TranslateArticleJob implements JobInterface
         $articlesTable = TableRegistry::getTableLocator()->get('Articles');
         $article = $articlesTable->get($id);
 
-        $result = $this->apiService->translateArticle($article->title, $article->body);
+        // Summary is populated by another Job, allow it to have completed before translating
+        if (empty($article->summary)) {
+            return Processor::REQUEUE;
+        }
+
+        $result = $this->apiService->translateArticle($article->title, $article->body, $article->summary);
 
         if ($result) {
-
             foreach ($result as $locale => $translation) {
                 $article->translation($locale)->title = $translation['title'];
                 $article->translation($locale)->body = $translation['body'];
+                $article->translation($locale)->summary = $translation['summary'];
 
                 if ($articlesTable->save($article)) {
                     $this->log(
-                        sprintf('Article translation completed successfully. Locale: %s Article ID: %s Title: %s', $locale, $id, $title),
+                        sprintf(
+                            'Article translation completed successfully. Locale: %s Article ID: %s Title: %s',
+                            $locale,
+                            $id,
+                            $title
+                        ),
                         'info',
                         ['group_name' => 'article_translation']
                     );
                 } else {
                     $this->log(
-                        sprintf('Failed to save article translation. Locale: %s Article ID: %s Title: %s', $locale, $id, $title),
+                        sprintf(
+                            'Failed to save article translation. Locale: %s Article ID: %s Title: %s',
+                            $locale,
+                            $id,
+                            $title
+                        ),
                         'error',
                         ['group_name' => 'article_translation']
                     );

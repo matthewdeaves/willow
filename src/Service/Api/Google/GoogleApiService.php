@@ -76,16 +76,15 @@ class GoogleApiService
      *                   ...
      *               ]
      */
-    public function translateArticle(string $title, string $body): array
+    public function translateArticle(string $title, string $body, string $summary): array
     {
         $locales = SettingsManager::read('Translations', null);
 
         $translations = [];
-        foreach ($locales as $locale => $enabled)
-        {
+        foreach ($locales as $locale => $enabled) {
             if ($enabled) {
                 $translationResult = $this->translateClient->translateBatch(
-                    [$title, $body],
+                    [$title, $body, $summary],
                     [
                         'source' => 'en',
                         'target' => $locale,
@@ -94,6 +93,7 @@ class GoogleApiService
                 );
                 $translations[$locale]['title'] = $translationResult[0]['text'];
                 $translations[$locale]['body'] = $translationResult[1]['text'];
+                $translations[$locale]['summary'] = $translationResult[2]['text'];
             }
         }
 

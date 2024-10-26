@@ -9,6 +9,7 @@ use ArrayObject;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
 use Cake\Log\LogTrait;
+use Cake\ORM\Behavior\Translate\TranslateTrait;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
@@ -17,7 +18,6 @@ use Cake\Utility\Text;
 use Cake\Validation\Validator;
 use DateTime;
 use InvalidArgumentException;
-use Cake\ORM\Behavior\Translate\TranslateTrait;
 
 /**
  * Articles Model

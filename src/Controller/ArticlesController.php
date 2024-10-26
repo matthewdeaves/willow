@@ -117,8 +117,6 @@ class ArticlesController extends AppController
      */
     public function index(): void
     {
-        //I18n::setLocale('en_GB');
-
         $selectedTag = $this->request->getQuery('tag');
 
         $query = $this->Articles->find()
@@ -165,7 +163,7 @@ class ArticlesController extends AppController
     public function viewBySlug(string $slug): ?Response
     {
         // Try to get the article from cache first
-        $article = $this->getFromCache($slug);
+        $article = $this->getFromCache($slug.$this->request->getParam('language', 'en'));
 
         if (empty($article)) {
             // If not in cache, we need to check if this is the latest slug

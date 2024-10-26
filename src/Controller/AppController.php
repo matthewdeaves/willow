@@ -75,6 +75,7 @@ class AppController extends Controller
     {
         parent::beforeFilter($event);
 
+        // Detect and set language to display site in
         $language = $this->request->getParam('language', 'en');
         $translations = SettingsManager::read('Translations', null);
 

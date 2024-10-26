@@ -31,6 +31,7 @@
                 <?php foreach ($users as $user): ?>
                 <tr>
                     <td>
+                        <?php if (!empty($user->picture)) : ?>
                         <div class="position-relative">
                             <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $user->picture, 
                                 ['pathPrefix' => 'files/Users/picture/', 
@@ -48,6 +49,7 @@
                                 ]) 
                             ?>
                         </div>
+                        <?php endif; ?>
                     </td>
                     <td><?= h($user->username) ?></td>
                     <td><?= h($user->email) ?></td>

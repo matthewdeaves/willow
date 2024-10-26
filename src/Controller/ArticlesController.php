@@ -117,7 +117,7 @@ class ArticlesController extends AppController
      */
     public function index(): void
     {
-        I18n::setLocale('en_GB');
+        //I18n::setLocale('en_GB');
 
         $selectedTag = $this->request->getQuery('tag');
 

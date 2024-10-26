@@ -113,6 +113,7 @@ class ArticlesTable extends Table
         $this->addBehavior('Translate', [
             'fields' => ['title', 'body'],
             'defaultLocale' => 'en_GB',
+            'allowEmptyTranslations' => false,
         ]);
 
         $this->addBehavior('Josegonzalez/Upload.Upload', [

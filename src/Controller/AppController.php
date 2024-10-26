@@ -21,6 +21,8 @@ use Cake\Core\Configure;
 use Cake\Event\EventInterface;
 use Cake\Http\Response;
 use Cake\Log\LogTrait;
+use App\Utility\SettingsManager;
+use Cake\I18n\I18n;
 
 /**
  * Application Controller
@@ -73,6 +75,21 @@ class AppController extends Controller
     {
         parent::beforeFilter($event);
 
+        $language = $this->request->getParam('language', 'en');
+        $translations = SettingsManager::read('Translations', null);
+
+        $matchedLocale = null;
+        foreach ($translations as $locale => $enabled) {
+            if ($enabled && substr($locale, 0, 2) === $language) {
+                $matchedLocale = $locale;
+                break;
+            }
+        }
+
+        if ($matchedLocale !== null) {
+            I18n::setLocale($matchedLocale);
+        }
+        
         if ($this->request->getParam('prefix') === 'Admin') {
             $identity = $this->Authentication->getIdentity();
             if ($identity) {

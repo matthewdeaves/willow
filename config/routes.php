@@ -23,6 +23,7 @@
 
 use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
+use App\Utility\SettingsManager;
 
 /*
  * This file is loaded in the context of the `Application` class.
@@ -79,7 +80,7 @@ return function (RouteBuilder $routes): void {
          * @see \Cake\Routing\RouteBuilder::connect()
          * @see \App\Controller\ArticlesController::index()
          */
-        $builder->connect('/', ['controller' => 'Articles', 'action' => 'index']);
+        $builder->connect('/', ['controller' => 'Articles', 'action' => 'index', 'language' => 'en']);
 
         /**
          * Connects a route for the sitemap.
@@ -116,15 +117,51 @@ return function (RouteBuilder $routes): void {
          *
          * @see \App\Controller\UsersController
          */
-        $builder->connect('/users/login', ['controller' => 'Users', 'action' => 'login']);
-        $builder->connect('/users/register', ['controller' => 'Users', 'action' => 'register']);
-        $builder->connect('/users/logout', ['controller' => 'Users', 'action' => 'logout']);
-        $builder->connect('/users/confirm-email/*',['controller' => 'Users', 'action' => 'confirmEmail']);
-        $builder->connect('/users/edit/*', ['controller' => 'Users', 'action' => 'edit']);
-        $builder->connect('/atricles/add-comment/*', ['controller' => 'Articles', 'action' => 'addComment']);
-        $builder->connect('/tags', ['controller' => 'Tags', 'action' => 'index']);
-        $builder->connect('/tags/view-by-slug/*', ['controller' => 'Tags', 'action' => 'viewBySlug']);
-        $builder->connect('/tags/view/*', ['controller' => 'Tags', 'action' => 'view']);
+        $builder->connect('/users/login', ['controller' => 'Users', 'action' => 'login', 'language' => 'en']);
+        $builder->connect('/users/register', ['controller' => 'Users', 'action' => 'register', 'language' => 'en']);
+        $builder->connect('/users/logout', ['controller' => 'Users', 'action' => 'logout', 'language' => 'en']);
+        $builder->connect('/users/confirm-email/*',['controller' => 'Users', 'action' => 'confirmEmail', 'language' => 'en']);
+        $builder->connect('/users/edit/*', ['controller' => 'Users', 'action' => 'edit', 'language' => 'en']);
+        $builder->connect('/articles/add-comment/*', ['controller' => 'Articles', 'action' => 'addComment', 'language' => 'en']);
+        $builder->connect('/articles/*', ['controller' => 'Articles', 'language' => 'en']);
+        $builder->connect('/tags', ['controller' => 'Tags', 'action' => 'index', 'language' => 'en']);
+        $builder->connect('/tags/view-by-slug/*', ['controller' => 'Tags', 'action' => 'viewBySlug', 'language' => 'en']);
+        $builder->connect('/tags/view/*', ['controller' => 'Tags', 'action' => 'view', 'language' => 'en']);
+
+        // Get the enabled translations
+        $translations = SettingsManager::read('Translations', null);
+
+        // Extract the first two letters of enabled locale keys
+        $enabledLanguages = array_map(function ($locale) {
+            return substr($locale, 0, 2);
+        }, array_keys(array_filter($translations)));
+
+        // Convert the array of enabled languages to a string for use in the route constraint
+        $languageConstraint = implode('|', $enabledLanguages);
+        
+        // Connect language-specific routes
+        $builder->connect('/{language}', ['controller' => 'Articles', 'action' => 'index'], ['language' => $languageConstraint])
+        ->setPass(['language']);
+        $builder->connect('/{language}/users/login', ['controller' => 'Users', 'action' => 'login'], ['language' => $languageConstraint])
+        ->setPass(['language']);
+        $builder->connect('/{language}/users/register', ['controller' => 'Users', 'action' => 'register'], ['language' => $languageConstraint])
+        ->setPass(['language']);
+        $builder->connect('/{language}/users/logout', ['controller' => 'Users', 'action' => 'logout'], ['language' => $languageConstraint])
+        ->setPass(['language']);
+        $builder->connect('/{language}/users/confirm-email/*', ['controller' => 'Users', 'action' => 'confirmEmail'], ['language' => $languageConstraint])
+        ->setPass(['language']);
+        $builder->connect('/{language}/users/edit/*', ['controller' => 'Users', 'action' => 'edit'], ['language' => $languageConstraint])
+        ->setPass(['language']);
+        $builder->connect('/{language}/articles/add-comment/*', ['controller' => 'Articles', 'action' => 'addComment'], ['language' => $languageConstraint])
+        ->setPass(['language']);
+        $builder->connect('/{language}/articles/*', ['controller' => 'Articles'], ['language' => $languageConstraint])
+        ->setPass(['language']);
+        $builder->connect('/{language}/tags', ['controller' => 'Tags', 'action' => 'index'], ['language' => $languageConstraint])
+        ->setPass(['language']);
+        $builder->connect('/{language}/tags/view-by-slug/*', ['controller' => 'Tags', 'action' => 'viewBySlug'], ['language' => $languageConstraint])
+        ->setPass(['language']);
+        $builder->connect('/{language}/tags/view/*', ['controller' => 'Tags', 'action' => 'view'], ['language' => $languageConstraint])
+        ->setPass(['language']);
 
         /**
          * Connects a route to the Articles controller's viewBySlug action.

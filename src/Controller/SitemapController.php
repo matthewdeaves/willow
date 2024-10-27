@@ -7,10 +7,9 @@ use App\Model\Table\ArticlesTable;
 use Cake\Event\EventInterface;
 use Cake\Http\Response;
 use Cake\I18n\DateTime;
-use Cake\ORM\Query;
+use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
-use Cake\ORM\Query\SelectQuery;
 
 /**
  * SitemapController

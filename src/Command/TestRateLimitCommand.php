@@ -26,8 +26,8 @@ class TestRateLimitCommand extends Command
         $parser
             ->addOption('url', [
                 'short' => 'u',
-                'help' => 'URL to test (default: /users/login)',
-                'default' => '/users/login',
+                'help' => 'URL to test (default: /en/users/login)',
+                'default' => '/en/users/login',
             ])
             ->addOption('attempts', [
                 'short' => 'a',
@@ -102,7 +102,7 @@ class TestRateLimitCommand extends Command
      */
     private function getBaseUrl(): string
     {
-        return 'http://nginx:80';
+        return 'http://willowcms:80';
     }
 
     /**

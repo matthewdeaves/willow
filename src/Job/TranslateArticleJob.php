@@ -67,18 +67,36 @@ class TranslateArticleJob implements JobInterface
         $articlesTable = TableRegistry::getTableLocator()->get('Articles');
         $article = $articlesTable->get($id);
 
-        // Summary is populated by another Job, allow it to have completed before translating
-        if (empty($article->summary)) {
+        // Summary and SEO texts are populated by another Job, allow it to have completed before translating
+        if (empty($article->summary) || empty($article->twitter_description)) {
             return Processor::REQUEUE;
         }
 
-        $result = $this->apiService->translateArticle($article->title, $article->body, $article->summary);
+        $result = $this->apiService->translateArticle(
+            $article->title,
+            $article->body,
+            $article->summary,
+            $article->meta_title,
+            $article->meta_description,
+            $article->meta_keywords,
+            $article->facebook_description,
+            $article->linkedin_description,
+            $article->instagram_description,
+            $article->twitter_description,
+        );
 
         if ($result) {
             foreach ($result as $locale => $translation) {
                 $article->translation($locale)->title = $translation['title'];
                 $article->translation($locale)->body = $translation['body'];
                 $article->translation($locale)->summary = $translation['summary'];
+                $article->translation($locale)->meta_title = $translation['meta_title'];
+                $article->translation($locale)->meta_description = $translation['meta_description'];
+                $article->translation($locale)->meta_keywords = $translation['meta_keywords'];
+                $article->translation($locale)->facebook_description = $translation['facebook_description'];
+                $article->translation($locale)->linkedin_description = $translation['linkedin_description'];
+                $article->translation($locale)->instagram_description = $translation['instagram_description'];
+                $article->translation($locale)->twitter_description = $translation['twitter_description'];
 
                 if ($articlesTable->save($article)) {
                     $this->log(

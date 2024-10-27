@@ -39,6 +39,7 @@ use Cake\Routing\Middleware\AssetMiddleware;
 use Cake\Routing\Middleware\RoutingMiddleware;
 use Cake\Routing\Router;
 use Psr\Http\Message\ServerRequestInterface;
+use App\Utility\I18nManager;
 
 /**
  * Application setup class.
@@ -98,8 +99,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             );
         }
 
-        // Set locale if needed
-        I18n::setLocale(SettingsManager::read('i18n.locale', 'en_GB'));
+        I18nManager::setEnabledLanguages();
     }
 
     /**

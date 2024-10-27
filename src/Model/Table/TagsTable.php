@@ -119,25 +119,27 @@ class TagsTable extends Table
                 'title' => $entity->title,
             ];
 
-            QueueManager::push('App\Job\TagSeoUpdateJob', $data);
-            $this->log(
-                sprintf(
-                    'Queue tag SEO update job for Tag: %s',
-                    $entity->title
-                ),
-                'info',
-                ['group_name' => 'tag_seo_update']
-            );
+            if (SettingsManager::read('AI.tagSEO')) {
+                $this->queueJob('App\Job\TagSeoUpdateJob', $data);
+            }
 
-            QueueManager::push('App\Job\TranslateTagJob', $data);
-            $this->log(
-                sprintf(
-                    'Queued Tag Translation job: %s',
-                    $entity->title
-                ),
-                'info',
-                ['group_name' => 'tag_translation']
-            );
+            if (SettingsManager::read('AI.tagTranslations')) {
+                $this->queueJob('App\Job\TranslateTagJob', $data);
+            }
         }
+    }
+
+    public function queueJob(string $job, array $data)
+    {
+        QueueManager::push($job, $data);
+        $this->log(
+            sprintf(
+                'Queued a %s with data: %s',
+                $job,
+                json_encode($data),
+            ),
+            'info',
+            ['group_name' => $job]
+        );
     }
 }

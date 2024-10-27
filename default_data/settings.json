@@ -358,5 +358,53 @@
         "value_type": "text",
         "value_obscure": true,
         "data": null
+    },
+    {
+        "category": "AI",
+        "key_name": "articleSummaries",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "AI",
+        "key_name": "articleTags",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "AI",
+        "key_name": "articleTranslations",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "AI",
+        "key_name": "articleSEO",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "AI",
+        "key_name": "tagSEO",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "AI",
+        "key_name": "tagTranslations",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
     }
 ]

@@ -363,26 +363,14 @@ class ArticlesTable extends Table
             ];
 
             // Queue a job to update the Article SEO fields
-            QueueManager::push('App\Job\ArticleSeoUpdateJob', $data);
-            $this->log(
-                sprintf(
-                    'Queued Article SEO update job: %s',
-                    $entity->title
-                ),
-                'info',
-                ['group_name' => 'article_seo_update']
-            );
+            if (SettingsManager::read('AI.articleSEO')) {
+                $this->queueJob('App\Job\ArticleSeoUpdateJob', $data);
+            }
 
-            // Queue a job to update the Article SEO fields
-            QueueManager::push('App\Job\TranslateArticleJob', $data);
-            $this->log(
-                sprintf(
-                    'Queued Article Translation job: %s',
-                    $entity->title
-                ),
-                'info',
-                ['group_name' => 'article_translation']
-            );
+            // Queue a job to translate the Article
+            if (SettingsManager::read('AI.articleTranslations')) {
+                $this->queueJob('App\Job\TranslateArticleJob', $data);
+            }
         }
 
         // All Articles should be tagged from the start
@@ -396,27 +384,29 @@ class ArticlesTable extends Table
             ];
 
             // Queue up an ArticleTagUpdateJob
-            QueueManager::push('App\Job\ArticleTagUpdateJob', $data);
-            $this->log(
-                sprintf(
-                    'Queued Article Tag update job: %s',
-                    $entity->title
-                ),
-                'info',
-                ['group_name' => 'article_tag_update']
-            );
+            if (SettingsManager::read('AI.articleTags')) {
+                $this->queueJob('App\Job\ArticleTagUpdateJob', $data);
+            }
 
             // Queue up an ArticleSummaryUpdateJob
-            QueueManager::push('App\Job\ArticleSummaryUpdateJob', $data);
-            $this->log(
-                sprintf(
-                    'Queued Article Summary update job: %s',
-                    $entity->title
-                ),
-                'info',
-                ['group_name' => 'article_summary_update']
-            );
+            if (SettingsManager::read('AI.articleSummaries')) {
+                $this->queueJob('App\Job\ArticleSummaryUpdateJob', $data);
+            }
         }
+    }
+
+    public function queueJob(string $job, array $data)
+    {
+        QueueManager::push($job, $data);
+        $this->log(
+            sprintf(
+                'Queued a %s with data: %s',
+                $job,
+                json_encode($data),
+            ),
+            'info',
+            ['group_name' => $job]
+        );
     }
 
     /**

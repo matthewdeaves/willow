@@ -15,6 +15,11 @@ use Cake\I18n\I18n;
  */
 class I18nManager
 {
+    /**
+     * @var array $locales
+     * 
+     * An associative array mapping language codes to their respective locale identifiers.
+     */
     public static array $locales = [
         'de' => 'de_DE', // German (Germany)
         'fr' => 'fr_FR', // French (France)
@@ -43,6 +48,11 @@ class I18nManager
         'uk' => 'uk_UA', // Ukrainian (Ukraine)
     ];
 
+    /**
+     * @var array $languages
+     * 
+     * An associative array mapping language codes to their respective language names.
+     */
     public static array $languages = [
         'de' => 'German',
         'fr' => 'French',
@@ -177,6 +187,14 @@ class I18nManager
         return $enabledLocales;
     }
 
+    /**
+     * Get the enabled languages based on the enabled locales.
+     *
+     * This method uses the enabled locales to determine which languages are enabled
+     * and returns an array of these languages.
+     *
+     * @return array An array of enabled languages.
+     */
     public static function getEnabledLanguages(): array
     {
         $locales = self::getEnabledLocales();

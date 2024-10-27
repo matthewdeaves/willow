@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Utility;
 
 use Cake\Core\Configure;
+use Cake\Datasource\ConnectionManager;
 use Cake\I18n\I18n;
 
 /**
@@ -17,19 +18,39 @@ class I18nManager
     /**
      * Set the enabled languages in the application configuration.
      *
-     * This method retrieves the enabled locales using the `getEnabledLocales()`
+     * This method checks if the 'settings' table exists in the database to ensure
+     * that the necessary tables have been loaded, which is crucial during the early
+     * stages of a fresh installation when the database might not yet be fully set up.
+     * If the table exists, it retrieves the enabled locales using the `getEnabledLocales()`
      * method, extracts the language codes, merges them with the default languages,
-     * and sets the merged languages in the application configuration.
+     * and sets the merged languages in the application configuration. If the table
+     * does not exist, it defaults to setting English ('en') as the only enabled language.
+     *
+     * This check is necessary because `I18nManager::setEnabledLanguages()` is called
+     * in the bootstrap of Application.php, and at this point, the database may not
+     * have had the default tables loaded.
      *
      * @return void
      */
     public static function setEnabledLanguages(): void
     {
-        $defaultLanguages = ['en'];
-        $enabledLanguages = array_keys(self::getEnabledLocales());
-        $mergedLanguages = array_merge($defaultLanguages, $enabledLanguages);
+        $dbDatabase = getenv('DB_DATABASE');
+        $query = "SELECT COUNT(*) FROM information_schema.tables 
+                WHERE table_schema = :table_schema
+                AND table_name = 'settings'";
 
-        Configure::write('I18n.languages', $mergedLanguages);
+        $connection = ConnectionManager::get('default');
+        $result = $connection->execute($query, ['table_schema' => $dbDatabase])->fetch('assoc');
+
+        if (!empty(array_values($result)[0])) {
+            $defaultLanguages = ['en'];
+            $enabledLanguages = array_keys(self::getEnabledLocales());
+            $mergedLanguages = array_merge($defaultLanguages, $enabledLanguages);
+            Configure::write('I18n.languages', $mergedLanguages);
+        } else {
+            Configure::write('I18n.languages', ['en']);
+            I18n::setLocale('en_GB');
+        }
     }
 
     /**

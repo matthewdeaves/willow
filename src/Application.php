@@ -97,6 +97,8 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
                 (new TableLocator())->allowFallbackClass(false)
             );
         }
+
+        I18nManager::setEnabledLanguages();
     }
 
     /**
@@ -133,7 +135,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
                 // Languages available in app. The keys should match the language prefix used
                 // in URLs. Based on the language the locale will be also set.
                 'languages' => [
-                    'en' => ['locale' => 'en_US'],
+                    'en' => ['locale' => 'en_GB'],
                     'fr' => ['locale' => 'fr_FR'],
                 ],
             ]))

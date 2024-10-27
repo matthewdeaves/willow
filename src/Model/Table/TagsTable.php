@@ -113,7 +113,9 @@ class TagsTable extends Table
      */
     public function afterSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
-        if (SettingsManager::read('AI.enabled') && $entity->isDirty('title')) {
+        // noMessage flag will be true is save came from a Job (stops looping)
+        $noMessage = $options['noMessage'] ?? false;
+        if (SettingsManager::read('AI.enabled') && !$noMessage) {
             $data = [
                 'id' => $entity->id,
                 'title' => $entity->title,
@@ -129,7 +131,7 @@ class TagsTable extends Table
         }
     }
 
-    public function queueJob(string $job, array $data)
+    public function queueJob(string $job, array $data): void
     {
         QueueManager::push($job, $data);
         $this->log(

@@ -395,7 +395,7 @@ class ArticlesTable extends Table
         }
     }
 
-    public function queueJob(string $job, array $data)
+    public function queueJob(string $job, array $data): void
     {
         QueueManager::push($job, $data);
         $this->log(

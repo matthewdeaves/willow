@@ -65,7 +65,9 @@ class I18nManager
     public static function setLocalForAdminArea() : void
     {
         $adminLocale = SettingsManager::read('i18n.locale', null);
-        I18n::setLocale($adminLocale);
+        if (!empty($adminLocale)){
+            I18n::setLocale($adminLocale);
+        }
     }
 
     /**

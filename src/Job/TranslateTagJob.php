@@ -70,16 +70,17 @@ class TranslateTagJob implements JobInterface
         $tagsTable = TableRegistry::getTableLocator()->get('Tags');
         $tag = $tagsTable->get($id);
 
+        // Ensure any null values are empty strings
         $result = $this->apiService->translateTag(
-            $tag->title,
-            $tag->description,
-            $tag->meta_title,
-            $tag->meta_description,
-            $tag->meta_keywords,
-            $tag->facebook_description,
-            $tag->linkedin_description,
-            $tag->instagram_description,
-            $tag->twitter_description,
+            (string)$tag->title,
+            (string)$tag->description,
+            (string)$tag->meta_title,
+            (string)$tag->meta_description,
+            (string)$tag->meta_keywords,
+            (string)$tag->facebook_description,
+            (string)$tag->linkedin_description,
+            (string)$tag->instagram_description,
+            (string)$tag->twitter_description,
         );
 
         if ($result) {
@@ -109,10 +110,11 @@ class TranslateTagJob implements JobInterface
                 } else {
                     $this->log(
                         sprintf(
-                            'Failed to save Tag translation. Locale: %s Tag ID: %s Title: %s',
+                            'Failed to save Tag translation. Locale: %s Tag ID: %s Title: %s Error: %s',
                             $locale,
                             $id,
-                            $title
+                            $title,
+                            json_encode($tag->getErrors()),
                         ),
                         'error',
                         ['group_name' => 'App\Job\TranslateTagJob']

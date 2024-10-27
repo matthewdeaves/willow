@@ -351,11 +351,14 @@ class ArticlesTable extends Table
             $this->Slugs->ensureSlugExists($entity->id, $entity->slug);
         }
 
+        // noMessage flag will be true is save came from a Job (stops looping)
+        $noMessage = $options['noMessage'] ?? false;
+
         // Published Articles should be SEO ready with translations
         if (
             $entity->is_published
             && SettingsManager::read('AI.enabled')
-            && ($entity->isDirty('title') || $entity->isDirty('body') || $entity->isDirty('is_published'))
+            && !$noMessage
         ) {
             $data = [
                 'id' => $entity->id,
@@ -376,7 +379,7 @@ class ArticlesTable extends Table
         // All Articles should be tagged from the start
         if (
             SettingsManager::read('AI.enabled')
-            && ($entity->isDirty('title') || $entity->isDirty('body'))
+            && !$noMessage
         ) {
             $data = [
                 'id' => $entity->id,

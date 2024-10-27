@@ -70,7 +70,7 @@ class ArticleSeoUpdateJob implements JobInterface
         $this->log(
             sprintf('Received article SEO update message: %s : %s', $id, $title),
             'info',
-            ['group_name' => 'article_seo_update']
+            ['group_name' => 'App\Job\ArticleSeoUpdateJob']
         );
 
         $articlesTable = TableRegistry::getTableLocator()->get('Articles');
@@ -89,26 +89,31 @@ class ArticleSeoUpdateJob implements JobInterface
             $article->instagram_description = $seoResult['instagram_description'];
 
             // Save the data
-            if ($articlesTable->save($article)) {
+            if ($articlesTable->save($article, ['noMessage' => true])) {
                 $this->log(
                     sprintf('Article SEO update completed successfully. Article ID: %s Title: %s', $id, $title),
                     'info',
-                    ['group_name' => 'article_seo_update']
+                    ['group_name' => 'App\Job\ArticleSeoUpdateJob']
                 );
 
                 return Processor::ACK;
             } else {
                 $this->log(
-                    sprintf('Failed to save article SEO updates. Article ID: %s Title: %s', $id, $title),
+                    sprintf(
+                        'Failed to save article SEO updates. Article ID: %s Title: %s Error: %s',
+                        $id,
+                        $title,
+                        json_encode($article->getErrors()),
+                    ),
                     'error',
-                    ['group_name' => 'article_seo_update']
+                    ['group_name' => 'App\Job\ArticleSeoUpdateJob']
                 );
             }
         } else {
             $this->log(
                 sprintf('Article SEO update failed. No result returned. Article ID: %s Title: %s', $id, $title),
                 'error',
-                ['group_name' => 'article_seo_update']
+                ['group_name' => 'App\Job\ArticleSeoUpdateJob']
             );
         }
 

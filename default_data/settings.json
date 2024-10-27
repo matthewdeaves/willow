@@ -1,41 +1,17 @@
 [
     {
-        "category": "ImageSizes",
-        "key_name": "massive",
-        "value": "800",
-        "value_type": "numeric",
+        "category": "Translations",
+        "key_name": "fi_FI",
+        "value": "0",
+        "value_type": "bool",
         "value_obscure": false,
         "data": null
     },
     {
-        "category": "Anthropic",
-        "key_name": "apiKey",
-        "value": "your-api-key-here",
-        "value_type": "text",
-        "value_obscure": true,
-        "data": null
-    },
-    {
-        "category": "Google",
-        "key_name": "apiKey",
-        "value": "your-api-key-here",
-        "value_type": "text",
-        "value_obscure": true,
-        "data": null
-    },
-    {
-        "category": "ImageSizes",
-        "key_name": "tiny",
-        "value": "100",
-        "value_type": "numeric",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Email",
-        "key_name": "reply_email",
-        "value": "noreply@example.com",
-        "value_type": "text",
+        "category": "Translations",
+        "key_name": "et_EE",
+        "value": "0",
+        "value_type": "bool",
         "value_obscure": false,
         "data": null
     },
@@ -43,62 +19,6 @@
         "category": "ImageSizes",
         "key_name": "teeny",
         "value": "50",
-        "value_type": "numeric",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "SEO",
-        "key_name": "siteName",
-        "value": "Willow CMS",
-        "value_type": "text",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "SEO",
-        "key_name": "siteStrapline",
-        "value": "Welcome to Willow CMS",
-        "value_type": "text",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "i18n",
-        "key_name": "locale",
-        "value": "en_GB",
-        "value_type": "select",
-        "value_obscure": false,
-        "data": "{\n  \"de_DE\": \"German\",\n  \"fr_FR\": \"French\",\n  \"es_ES\": \"Spanish\",\n  \"it_IT\": \"Italian\",\n  \"pt_PT\": \"Portuguese\",\n  \"nl_NL\": \"Dutch\",\n  \"pl_PL\": \"Polish\",\n  \"ru_RU\": \"Russian\",\n  \"sv_SE\": \"Swedish\",\n  \"da_DK\": \"Danish\",\n  \"fi_FI\": \"Finnish\",\n  \"no_NO\": \"Norwegian\",\n  \"el_GR\": \"Greek\",\n  \"tr_TR\": \"Turkish\",\n  \"cs_CZ\": \"Czech\",\n  \"hu_HU\": \"Hungarian\",\n  \"ro_RO\": \"Romanian\",\n  \"sk_SK\": \"Slovak\",\n  \"sl_SI\": \"Slovenian\",\n  \"bg_BG\": \"Bulgarian\",\n  \"hr_HR\": \"Croatian\",\n  \"et_EE\": \"Estonian\",\n  \"lv_LV\": \"Latvian\",\n  \"lt_LT\": \"Lithuanian\",\n  \"uk_UA\": \"Ukrainian\",\n  \"en_GB\": \"British English\"\n}"
-    },
-    {
-        "category": "i18n",
-        "key_name": "provider",
-        "value": "google",
-        "value_type": "select",
-        "value_obscure": false,
-        "data": "{\n  \"google\": \"Google\",\n  \"anthropic\": \"Anthropic\"\n}"
-    },
-    {
-        "category": "RateLimit",
-        "key_name": "numberOfSeconds",
-        "value": "60",
-        "value_type": "numeric",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "SEO",
-        "key_name": "siteMetakeywords",
-        "value": "Default site meta keywords",
-        "value_type": "text",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "RateLimit",
-        "key_name": "numberOfRequests",
-        "value": "10",
         "value_type": "numeric",
         "value_obscure": false,
         "data": null
@@ -112,10 +32,18 @@
         "data": null
     },
     {
-        "category": "ImageSizes",
-        "key_name": "extra-large",
-        "value": "500",
-        "value_type": "numeric",
+        "category": "Translations",
+        "key_name": "no_NO",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Email",
+        "key_name": "reply_email",
+        "value": "noreply@example.com",
+        "value_type": "text",
         "value_obscure": false,
         "data": null
     },
@@ -132,182 +60,6 @@
         "key_name": "small",
         "value": "200",
         "value_type": "numeric",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "AI",
-        "key_name": "enabled",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "ImageSizes",
-        "key_name": "large",
-        "value": "400",
-        "value_type": "numeric",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "SEO",
-        "key_name": "siteMetaDescription",
-        "value": "Default site meta description",
-        "value_type": "text",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "de_DE",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "fr_FR",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "es_ES",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "it_IT",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "pt_PT",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "nl_NL",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "pl_PL",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "ru_RU",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "sv_SE",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "da_DK",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "fi_FI",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "no_NO",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "el_GR",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "tr_TR",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "cs_CZ",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "hu_HU",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "ro_RO",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "sk_SK",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "sl_SI",
-        "value": "0",
-        "value_type": "bool",
         "value_obscure": false,
         "data": null
     },
@@ -329,7 +81,47 @@
     },
     {
         "category": "Translations",
-        "key_name": "et_EE",
+        "key_name": "it_IT",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "SEO",
+        "key_name": "siteStrapline",
+        "value": "Welcome to Willow CMS",
+        "value_type": "text",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Anthropic",
+        "key_name": "apiKey",
+        "value": "your-api-key-here",
+        "value_type": "text",
+        "value_obscure": true,
+        "data": null
+    },
+    {
+        "category": "RateLimit",
+        "key_name": "numberOfRequests",
+        "value": "5",
+        "value_type": "numeric",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "SEO",
+        "key_name": "siteMetaDescription",
+        "value": "Default site meta description",
+        "value_type": "text",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "ro_RO",
         "value": "0",
         "value_type": "bool",
         "value_obscure": false,
@@ -337,7 +129,95 @@
     },
     {
         "category": "Translations",
-        "key_name": "lv_LV",
+        "key_name": "tr_TR",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "hu_HU",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "nl_NL",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "sk_SK",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "ImageSizes",
+        "key_name": "massive",
+        "value": "800",
+        "value_type": "numeric",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "ru_RU",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "el_GR",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "RateLimit",
+        "key_name": "numberOfSeconds",
+        "value": "60",
+        "value_type": "numeric",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "SEO",
+        "key_name": "siteMetakeywords",
+        "value": "Default site meta keywords",
+        "value_type": "text",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "ImageSizes",
+        "key_name": "large",
+        "value": "400",
+        "value_type": "numeric",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "da_DK",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "uk_UA",
         "value": "0",
         "value_type": "bool",
         "value_obscure": false,
@@ -353,10 +233,130 @@
     },
     {
         "category": "Translations",
-        "key_name": "uk_UA",
+        "key_name": "fr_FR",
         "value": "0",
         "value_type": "bool",
         "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "sl_SI",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "pt_PT",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "i18n",
+        "key_name": "provider",
+        "value": "google",
+        "value_type": "select",
+        "value_obscure": false,
+        "data": "{\n  \"google\": \"Google\",\n  \"anthropic\": \"Anthropic\"\n}"
+    },
+    {
+        "category": "i18n",
+        "key_name": "locale",
+        "value": "en_GB",
+        "value_type": "select",
+        "value_obscure": false,
+        "data": "{\n  \"de_DE\": \"German\",\n  \"fr_FR\": \"French\",\n  \"es_ES\": \"Spanish\",\n  \"it_IT\": \"Italian\",\n  \"pt_PT\": \"Portuguese\",\n  \"nl_NL\": \"Dutch\",\n  \"pl_PL\": \"Polish\",\n  \"ru_RU\": \"Russian\",\n  \"sv_SE\": \"Swedish\",\n  \"da_DK\": \"Danish\",\n  \"fi_FI\": \"Finnish\",\n  \"no_NO\": \"Norwegian\",\n  \"el_GR\": \"Greek\",\n  \"tr_TR\": \"Turkish\",\n  \"cs_CZ\": \"Czech\",\n  \"hu_HU\": \"Hungarian\",\n  \"ro_RO\": \"Romanian\",\n  \"sk_SK\": \"Slovak\",\n  \"sl_SI\": \"Slovenian\",\n  \"bg_BG\": \"Bulgarian\",\n  \"hr_HR\": \"Croatian\",\n  \"et_EE\": \"Estonian\",\n  \"lv_LV\": \"Latvian\",\n  \"lt_LT\": \"Lithuanian\",\n  \"uk_UA\": \"Ukrainian\",\n  \"en_GB\": \"British English\"\n}"
+    },
+    {
+        "category": "Translations",
+        "key_name": "cs_CZ",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "pl_PL",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "de_DE",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "es_ES",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "sv_SE",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "AI",
+        "key_name": "enabled",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "SEO",
+        "key_name": "siteName",
+        "value": "Willow CMS",
+        "value_type": "text",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "ImageSizes",
+        "key_name": "tiny",
+        "value": "100",
+        "value_type": "numeric",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Translations",
+        "key_name": "lv_LV",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "ImageSizes",
+        "key_name": "extra-large",
+        "value": "500",
+        "value_type": "numeric",
+        "value_obscure": false,
+        "data": null
+    },
+    {
+        "category": "Google",
+        "key_name": "apiKey",
+        "value": "your-api-key-here",
+        "value_type": "text",
+        "value_obscure": true,
         "data": null
     }
 ]

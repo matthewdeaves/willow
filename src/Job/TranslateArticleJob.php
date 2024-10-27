@@ -59,7 +59,7 @@ class TranslateArticleJob implements JobInterface
         $title = $message->getArgument('title');
 
         $this->log(
-            sprintf('Received article translation message: %s : %s', $id, $title),
+            sprintf('Received Article translation message: %s : %s', $id, $title),
             'info',
             ['group_name' => 'article_translation']
         );

@@ -72,7 +72,7 @@ class ArticleSummaryUpdateJob implements JobInterface
         $this->log(
             sprintf('Received article summary update message: %s : %s', $id, $title),
             'info',
-            ['group_name' => 'article_summary_update']
+            ['group_name' => 'App\Job\ArticleSummaryUpdateJob']
         );
 
         $articlesTable = TableRegistry::getTableLocator()->get('Articles');
@@ -80,31 +80,29 @@ class ArticleSummaryUpdateJob implements JobInterface
 
         $summaryResult = $this->summaryGenerator->generateTextSummary('article', strip_tags($article->body));
 
-        if ($summaryResult && isset($summaryResult['summary'])) {
+        if (isset($summaryResult['summary'])) {
             // Set the summary data we got back
             $article->summary = $summaryResult['summary'];
 
-            // We don't do anything with key points for now
-            /*
-            if (isset($summaryResult['key_points'])) {
-                $article->key_points = json_encode($summaryResult['key_points']);
-            }
-            */
-
             // Save the data
-            if ($articlesTable->save($article)) {
+            if ($articlesTable->save($article, ['noMessage' => true])) {
                 $this->log(
                     sprintf('Article summary update completed successfully. Article ID: %s Title: %s', $id, $title),
                     'info',
-                    ['group_name' => 'article_summary_update']
+                    ['group_name' => 'App\Job\ArticleSummaryUpdateJob']
                 );
 
                 return Processor::ACK;
             } else {
                 $this->log(
-                    sprintf('Failed to save article summary updates. Article ID: %s Title: %s', $id, $title),
+                    sprintf(
+                        'Failed to save article summary updates. Article ID: %s Title: %s Error: %s',
+                        $id,
+                        $title,
+                        json_encode($article->getErrors()),
+                    ),
                     'error',
-                    ['group_name' => 'article_summary_update']
+                    ['group_name' => 'App\Job\ArticleSummaryUpdateJob']
                 );
             }
         } else {
@@ -115,7 +113,7 @@ class ArticleSummaryUpdateJob implements JobInterface
                     $title
                 ),
                 'error',
-                ['group_name' => 'article_summary_update']
+                ['group_name' => 'App\Job\ArticleSummaryUpdateJob']
             );
         }
 

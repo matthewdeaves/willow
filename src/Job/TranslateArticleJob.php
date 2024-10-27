@@ -61,28 +61,24 @@ class TranslateArticleJob implements JobInterface
         $this->log(
             sprintf('Received Article translation message: %s : %s', $id, $title),
             'info',
-            ['group_name' => 'article_translation']
+            ['group_name' => 'App\Job\TranslateArticleJob']
         );
 
         $articlesTable = TableRegistry::getTableLocator()->get('Articles');
         $article = $articlesTable->get($id);
 
-        // Summary and SEO texts are populated by another Job, allow it to have completed before translating
-        if (empty($article->summary) || empty($article->twitter_description)) {
-            return Processor::REQUEUE;
-        }
-
+        // Ensure any null values are empty strings
         $result = $this->apiService->translateArticle(
-            $article->title,
-            $article->body,
-            $article->summary,
-            $article->meta_title,
-            $article->meta_description,
-            $article->meta_keywords,
-            $article->facebook_description,
-            $article->linkedin_description,
-            $article->instagram_description,
-            $article->twitter_description,
+            (string)$article->title,
+            (string)$article->body,
+            (string)$article->summary,
+            (string)$article->meta_title,
+            (string)$article->meta_description,
+            (string)$article->meta_keywords,
+            (string)$article->facebook_description,
+            (string)$article->linkedin_description,
+            (string)$article->instagram_description,
+            (string)$article->twitter_description,
         );
 
         if ($result) {
@@ -98,7 +94,7 @@ class TranslateArticleJob implements JobInterface
                 $article->translation($locale)->instagram_description = $translation['instagram_description'];
                 $article->translation($locale)->twitter_description = $translation['twitter_description'];
 
-                if ($articlesTable->save($article)) {
+                if ($articlesTable->save($article, ['noMessage' => true])) {
                     $this->log(
                         sprintf(
                             'Article translation completed successfully. Locale: %s Article ID: %s Title: %s',
@@ -107,18 +103,19 @@ class TranslateArticleJob implements JobInterface
                             $title
                         ),
                         'info',
-                        ['group_name' => 'article_translation']
+                        ['group_name' => 'App\Job\TranslateArticleJob']
                     );
                 } else {
                     $this->log(
                         sprintf(
-                            'Failed to save article translation. Locale: %s Article ID: %s Title: %s',
+                            'Failed to save article translation. Locale: %s Article ID: %s Title: %s Error: %s',
                             $locale,
                             $id,
-                            $title
+                            $title,
+                            json_encode($article->getErrors())
                         ),
                         'error',
-                        ['group_name' => 'article_translation']
+                        ['group_name' => 'App\Job\TranslateArticleJob']
                     );
                 }
             }
@@ -128,7 +125,7 @@ class TranslateArticleJob implements JobInterface
             $this->log(
                 sprintf('Article translation failed. No result returned. Article ID: %s Title: %s', $id, $title),
                 'error',
-                ['group_name' => 'article_translation']
+                ['group_name' => 'App\Job\TranslateArticleJob']
             );
         }
 

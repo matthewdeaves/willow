@@ -63,7 +63,7 @@ class ImageAnalysisJob implements JobInterface
         $this->log(
             sprintf('Received image analysis message: Image ID: %s Path: %s', $id, $folderPath . $file),
             'info',
-            ['group_name' => 'image_analysis']
+            ['group_name' => 'App\Job\ImageAnalysisJob']
         );
 
         $modelTable = TableRegistry::getTableLocator()->get($model);
@@ -81,7 +81,7 @@ class ImageAnalysisJob implements JobInterface
                     $this->log(
                         sprintf('Image analysis completed successfully. Model: %s ID: %s', $model, $id),
                         'info',
-                        ['group_name' => 'image_analysis']
+                        ['group_name' => 'App\Job\ImageAnalysisJob']
                     );
 
                     return Processor::ACK;
@@ -91,13 +91,13 @@ class ImageAnalysisJob implements JobInterface
             $this->log(
                 sprintf('Image analysis failed. Model: %s ID: %s', $model, $id),
                 'error',
-                ['group_name' => 'image_analysis']
+                ['group_name' => 'App\Job\ImageAnalysisJob']
             );
         } catch (Exception $e) {
             $this->log(
                 sprintf('Error during image analysis: %s', $e->getMessage()),
                 'error',
-                ['group_name' => 'image_analysis']
+                ['group_name' => 'App\Job\ImageAnalysisJob']
             );
         }
 

@@ -351,11 +351,14 @@ class ArticlesTable extends Table
             $this->Slugs->ensureSlugExists($entity->id, $entity->slug);
         }
 
+        // noMessage flag will be true if save came from a Job (stops looping)
+        $noMessage = $options['noMessage'] ?? false;
+
         // Published Articles should be SEO ready with translations
         if (
             $entity->is_published
             && SettingsManager::read('AI.enabled')
-            && ($entity->isDirty('title') || $entity->isDirty('body') || $entity->isDirty('is_published'))
+            && !$noMessage
         ) {
             $data = [
                 'id' => $entity->id,
@@ -363,32 +366,20 @@ class ArticlesTable extends Table
             ];
 
             // Queue a job to update the Article SEO fields
-            QueueManager::push('App\Job\ArticleSeoUpdateJob', $data);
-            $this->log(
-                sprintf(
-                    'Queued Article SEO update job: %s',
-                    $entity->title
-                ),
-                'info',
-                ['group_name' => 'article_seo_update']
-            );
+            if (SettingsManager::read('AI.articleSEO')) {
+                $this->queueJob('App\Job\ArticleSeoUpdateJob', $data);
+            }
 
-            // Queue a job to update the Article SEO fields
-            QueueManager::push('App\Job\TranslateArticleJob', $data);
-            $this->log(
-                sprintf(
-                    'Queued Article Translation job: %s',
-                    $entity->title
-                ),
-                'info',
-                ['group_name' => 'article_translation']
-            );
+            // Queue a job to translate the Article
+            if (SettingsManager::read('AI.articleTranslations')) {
+                $this->queueJob('App\Job\TranslateArticleJob', $data);
+            }
         }
 
         // All Articles should be tagged from the start
         if (
             SettingsManager::read('AI.enabled')
-            && ($entity->isDirty('title') || $entity->isDirty('body'))
+            && !$noMessage
         ) {
             $data = [
                 'id' => $entity->id,
@@ -396,27 +387,45 @@ class ArticlesTable extends Table
             ];
 
             // Queue up an ArticleTagUpdateJob
-            QueueManager::push('App\Job\ArticleTagUpdateJob', $data);
-            $this->log(
-                sprintf(
-                    'Queued Article Tag update job: %s',
-                    $entity->title
-                ),
-                'info',
-                ['group_name' => 'article_tag_update']
-            );
+            if (SettingsManager::read('AI.articleTags')) {
+                $this->queueJob('App\Job\ArticleTagUpdateJob', $data);
+            }
 
             // Queue up an ArticleSummaryUpdateJob
-            QueueManager::push('App\Job\ArticleSummaryUpdateJob', $data);
-            $this->log(
-                sprintf(
-                    'Queued Article Summary update job: %s',
-                    $entity->title
-                ),
-                'info',
-                ['group_name' => 'article_summary_update']
-            );
+            if (SettingsManager::read('AI.articleSummaries')) {
+                $this->queueJob('App\Job\ArticleSummaryUpdateJob', $data);
+            }
         }
+    }
+
+    /**
+     * Queues a job with the provided job class and data.
+     *
+     * This method is used to queue jobs for various tasks related to articles, such as updating SEO fields,
+     * translating articles, updating tags, and generating summaries. It uses the QueueManager to push the
+     * job into the queue and logs the queued job with relevant information.
+     *
+     * @param string $job The fully qualified class name of the job to be queued.
+     * @param array $data An associative array of data to be passed to the job. Typically includes:
+     *                    - 'id' (int): The ID of the article associated with the job.
+     *                    - 'title' (string): The title of the article.
+     * @return void
+     * @throws \Exception If there is an error while queueing the job.
+     * @uses \Cake\Queue\QueueManager::push() Pushes the job into the queue.
+     * @uses \Cake\Log\Log::info() Logs the queued job with relevant information.
+     */
+    public function queueJob(string $job, array $data): void
+    {
+        QueueManager::push($job, $data);
+        $this->log(
+            sprintf(
+                'Queued a %s with data: %s',
+                $job,
+                json_encode($data),
+            ),
+            'info',
+            ['group_name' => $job]
+        );
     }
 
     /**

@@ -7,7 +7,11 @@
 ?>
 <div class="tag-articles">
     <h2 class="mb-4 text-primary"><?= htmlspecialchars_decode($tag->title) ?>: <?= __('Associated Pages') ?></h2>
-
+    <div class="card mb-4">
+        <div class="card-body">
+            <p class="card-text"><?= htmlspecialchars_decode($tag->description) ?></p>
+        </div>
+    </div>
     <div class="card mb-4 shadow-sm">
         <div class="card-header bg-primary text-white">
             <h3 class="card-title h5 mb-0"><?= __('Associated Pages') ?></h3>

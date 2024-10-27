@@ -42,6 +42,16 @@ class TagSeoUpdateJob implements JobInterface
     private AnthropicApiService $anthropicService;
 
     /**
+     * Constructor to allow dependency injection for testing.
+     *
+     * @param \App\Service\Api\Anthropic\AnthropicApiService|null $anthropicService The Google API service instance.
+     */
+    public function __construct(?AnthropicApiService $anthropicService = null)
+    {
+        $this->anthropicService = $anthropicService ?? new AnthropicApiService();
+    }
+
+    /**
      * Executes the job to update tag SEO information.
      *
      * This method processes the queued message, retrieves the tag, generates SEO content using the Anthropic API,
@@ -52,8 +62,6 @@ class TagSeoUpdateJob implements JobInterface
      */
     public function execute(Message $message): ?string
     {
-        $this->anthropicService = new AnthropicApiService();
-
         $id = $message->getArgument('id');
         $title = $message->getArgument('title');
 
@@ -64,18 +72,13 @@ class TagSeoUpdateJob implements JobInterface
                 $title
             ),
             'info',
-            ['group_name' => 'tag_seo_update']
+            ['group_name' => 'App\Job\TagSeoUpdateJob']
         );
 
         $tagsTable = TableRegistry::getTableLocator()->get('Tags');
         $tag = $tagsTable->get($id);
 
-        // Convert null description to an empty string
-        if ($tag->description === null) {
-            $tag->description = '';
-        }
-
-        $seoResult = $this->anthropicService->generateTagSeo($title, $tag->description);
+        $seoResult = $this->anthropicService->generateTagSeo($title, (string)$tag->description);
 
         if ($seoResult) {
             // Set the data we got back
@@ -88,7 +91,7 @@ class TagSeoUpdateJob implements JobInterface
             $tag->instagram_description = $seoResult['instagram_description'];
             $tag->description = !empty($seoResult['description']) ? $seoResult['description'] : $tag->description;
 
-            if ($tagsTable->save($tag)) {
+            if ($tagsTable->save($tag, ['noMessage' => true])) {
                 $this->log(
                     sprintf(
                         'Tag SEO update completed successfully. ID: %s Title: %s',
@@ -96,19 +99,20 @@ class TagSeoUpdateJob implements JobInterface
                         $title
                     ),
                     'info',
-                    ['group_name' => 'tag_seo_update']
+                    ['group_name' => 'App\Job\TagSeoUpdateJob']
                 );
 
                 return Processor::ACK;
             } else {
                 $this->log(
                     sprintf(
-                        'Failed to save tag SEO updates. ID: %s Title: %s',
+                        'Failed to save tag SEO updates. ID: %s Title: %s Errors %s',
                         $id,
-                        $title
+                        $title,
+                        json_encode($tag->getErrors()),
                     ),
                     'error',
-                    ['group_name' => 'tag_seo_update']
+                    ['group_name' => 'App\Job\TagSeoUpdateJob']
                 );
             }
         } else {
@@ -119,7 +123,7 @@ class TagSeoUpdateJob implements JobInterface
                     $title
                 ),
                 'error',
-                ['group_name' => 'tag_seo_update']
+                ['group_name' => 'App\Job\TagSeoUpdateJob']
             );
         }
 

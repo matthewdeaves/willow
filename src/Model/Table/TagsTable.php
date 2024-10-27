@@ -113,31 +113,51 @@ class TagsTable extends Table
      */
     public function afterSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
-        if (SettingsManager::read('AI.enabled') && $entity->isDirty('title')) {
+        // noMessage flag will be true if save came from a Job (stops looping)
+        $noMessage = $options['noMessage'] ?? false;
+        if (SettingsManager::read('AI.enabled') && !$noMessage) {
             $data = [
                 'id' => $entity->id,
                 'title' => $entity->title,
             ];
 
-            QueueManager::push('App\Job\TagSeoUpdateJob', $data);
-            $this->log(
-                sprintf(
-                    'Queue tag SEO update job for Tag: %s',
-                    $entity->title
-                ),
-                'info',
-                ['group_name' => 'tag_seo_update']
-            );
+            if (SettingsManager::read('AI.tagSEO')) {
+                $this->queueJob('App\Job\TagSeoUpdateJob', $data);
+            }
 
-            QueueManager::push('App\Job\TranslateTagJob', $data);
-            $this->log(
-                sprintf(
-                    'Queued Tag Translation job: %s',
-                    $entity->title
-                ),
-                'info',
-                ['group_name' => 'tag_translation']
-            );
+            if (SettingsManager::read('AI.tagTranslations')) {
+                $this->queueJob('App\Job\TranslateTagJob', $data);
+            }
         }
+    }
+
+    /**
+     * Queues a job with the provided job class and data.
+     *
+     * This method is used to queue jobs for various tasks related to tags, such as updating SEO fields
+     * and translating tags. It uses the QueueManager to push the job into the queue and logs the queued
+     * job with relevant information.
+     *
+     * @param string $job The fully qualified class name of the job to be queued.
+     * @param array $data An associative array of data to be passed to the job. Typically includes:
+     *                    - 'id' (int): The ID of the tag associated with the job.
+     *                    - 'title' (string): The title of the tag.
+     * @return void
+     * @throws \Exception If there is an error while queueing the job.
+     * @uses \Cake\Queue\QueueManager::push() Pushes the job into the queue.
+     * @uses \Cake\Log\Log::info() Logs the queued job with relevant information.
+     */
+    public function queueJob(string $job, array $data): void
+    {
+        QueueManager::push($job, $data);
+        $this->log(
+            sprintf(
+                'Queued a %s with data: %s',
+                $job,
+                json_encode($data),
+            ),
+            'info',
+            ['group_name' => $job]
+        );
     }
 }

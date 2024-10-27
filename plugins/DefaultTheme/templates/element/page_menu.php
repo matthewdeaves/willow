@@ -7,7 +7,9 @@ if (!function_exists('renderArticleMenuItem')) {
         $hasChildren = !empty($item['children']);
         $indentClass = $level > 0 ? 'ps-' . ($level * 3) : '';
         $rootClass = $level == 0 ? 'bg-secondary' : '';
-        $url = isset($item['slug']) ? '/' . $item['slug'] : '#';
+
+        // Use CakePHP's array-based URL generation
+        $url = isset($item['slug']) ? ['_name' => 'article-by-slug', 'slug' => $item['slug']] : '#';
 
         // Capitalize each word in the title
         $title = Inflector::humanize($item['title']);

@@ -62,10 +62,18 @@ class I18nManager
         }
     }
 
-    public static function setLocalForAdminArea() : void
+    /**
+     * Set the locale for the admin area based on the settings.
+     *
+     * This method retrieves the admin locale from the settings using the `SettingsManager`
+     * class. If an admin locale is found, it sets the locale using `I18n::setLocale()`.
+     *
+     * @return void
+     */
+    public static function setLocalForAdminArea(): void
     {
         $adminLocale = SettingsManager::read('i18n.locale', null);
-        if (!empty($adminLocale)){
+        if (!empty($adminLocale)) {
             I18n::setLocale($adminLocale);
         }
     }

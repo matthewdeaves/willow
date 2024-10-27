@@ -77,7 +77,6 @@ class AppController extends Controller
         I18nManager::setLocaleForLanguage($this->request->getParam('lang', 'en'));
 
         if ($this->request->getParam('prefix') === 'Admin') {
-
             I18nManager::setLocalForAdminArea();
 
             $identity = $this->Authentication->getIdentity();

@@ -59,7 +59,7 @@ class ProcessImageJob implements JobInterface
             $this->log(
                 'Imagick extension is not loaded',
                 'error',
-                ['group_name' => 'image_processing']
+                ['group_name' => 'App\Job\ProcessImageJob']
             );
 
             return Processor::REJECT;
@@ -73,7 +73,7 @@ class ProcessImageJob implements JobInterface
         $this->log(
             sprintf('Received image processing message: Image ID: %s Path: %s', $id, $folderPath . $file),
             'info',
-            ['group_name' => 'image_processing']
+            ['group_name' => 'App\Job\ProcessImageJob']
         );
 
         $imageSizes = SettingsManager::read('ImageSizes');
@@ -85,7 +85,7 @@ class ProcessImageJob implements JobInterface
                 implode(', ', $imageSizes)
             ),
             'info',
-            ['group_name' => 'image_processing']
+            ['group_name' => 'App\Job\ProcessImageJob']
         );
 
         try {
@@ -100,7 +100,7 @@ class ProcessImageJob implements JobInterface
                     $e->getMessage()
                 ),
                 'error',
-                ['group_name' => 'image_processing']
+                ['group_name' => 'App\Job\ProcessImageJob']
             );
 
             return Processor::REJECT;
@@ -109,7 +109,7 @@ class ProcessImageJob implements JobInterface
         $this->log(
             sprintf('Image processing job completed successfully. Path: %s', $folderPath . $file),
             'info',
-            ['group_name' => 'image_processing']
+            ['group_name' => 'App\Job\ProcessImageJob']
         );
 
         return Processor::ACK;
@@ -156,7 +156,7 @@ class ProcessImageJob implements JobInterface
                 $this->log(
                     sprintf('Original image not found for resizing. Path: %s', $folder . $file),
                     'error',
-                    ['group_name' => 'image_processing']
+                    ['group_name' => 'App\Job\ProcessImageJob']
                 );
 
                 return;
@@ -169,7 +169,7 @@ class ProcessImageJob implements JobInterface
                         $sizeFolder . $file
                     ),
                     'info',
-                    ['group_name' => 'image_processing']
+                    ['group_name' => 'App\Job\ProcessImageJob']
                 );
 
                 return;
@@ -188,7 +188,7 @@ class ProcessImageJob implements JobInterface
                     $width
                 ),
                 'info',
-                ['group_name' => 'image_processing']
+                ['group_name' => 'App\Job\ProcessImageJob']
             );
         } catch (Exception $e) {
             $this->log(
@@ -199,7 +199,7 @@ class ProcessImageJob implements JobInterface
                     $e->getMessage()
                 ),
                 'error',
-                ['group_name' => 'image_processing']
+                ['group_name' => 'App\Job\ProcessImageJob']
             );
         }
     }

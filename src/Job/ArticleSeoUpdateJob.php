@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Job;
 
 use App\Service\Api\Anthropic\AnthropicApiService;
+use Cake\Cache\Cache;
 use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
@@ -98,6 +99,8 @@ class ArticleSeoUpdateJob implements JobInterface
                     'info',
                     ['group_name' => 'App\Job\ArticleSeoUpdateJob']
                 );
+
+                Cache::clear('articles');
 
                 return Processor::ACK;
             } else {

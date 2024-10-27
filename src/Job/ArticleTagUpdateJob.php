@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Job;
 
 use App\Service\Api\Anthropic\AnthropicApiService;
+use Cake\Cache\Cache;
 use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
@@ -101,6 +102,8 @@ class ArticleTagUpdateJob implements JobInterface
                     'info',
                     ['group_name' => 'App\Job\ArticleTagUpdateJob']
                 );
+
+                Cache::clear('articles');
 
                 return Processor::ACK;
             } else {

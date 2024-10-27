@@ -111,10 +111,26 @@ class ArticlesTable extends Table
         ]);
 
         $this->addBehavior('Translate', [
-            'fields' => ['title', 'body', 'summary'],
+            'fields' => [
+                'title',
+                'body',
+                'summary',
+                'meta_title',
+                'meta_description',
+                'meta_keywords',
+                'facebook_description',
+                'linkedin_description',
+                'instagram_description',
+                'twitter_description',
+            ],
             'defaultLocale' => 'en_GB',
             'allowEmptyTranslations' => false,
         ]);
+
+
+        
+
+
 
         $this->addBehavior('Josegonzalez/Upload.Upload', [
             'image' => [

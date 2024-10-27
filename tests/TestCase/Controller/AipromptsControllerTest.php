@@ -135,12 +135,12 @@ class AipromptsControllerTest extends AppControllerTestCase
     {
         // Test unauthenticated access
         $this->get('/admin/aiprompts');
-        $this->assertRedirectContains('/users/login');
+        $this->assertRedirectContains('/en/users/login');
 
         // Test non-admin access
         $this->loginUser('6509480c-e7e6-4e65-9c38-1423a8d09d02'); // Non-admin user
         $this->get('/admin/aiprompts');
-        $this->assertRedirect('/users/login');
+        $this->assertRedirect('/en/users/login');
     }
 
     /**

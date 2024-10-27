@@ -15,6 +15,62 @@ use Cake\I18n\I18n;
  */
 class I18nManager
 {
+    public static array $locales = [
+        'de' => 'de_DE', // German (Germany)
+        'fr' => 'fr_FR', // French (France)
+        'es' => 'es_ES', // Spanish (Spain)
+        'it' => 'it_IT', // Italian (Italy)
+        'pt' => 'pt_PT', // Portuguese (Portugal)
+        'nl' => 'nl_NL', // Dutch (Netherlands)
+        'pl' => 'pl_PL', // Polish (Poland)
+        'ru' => 'ru_RU', // Russian (Russia)
+        'sv' => 'sv_SE', // Swedish (Sweden)
+        'da' => 'da_DK', // Danish (Denmark)
+        'fi' => 'fi_FI', // Finnish (Finland)
+        'no' => 'no_NO', // Norwegian (Norway)
+        'el' => 'el_GR', // Greek (Greece)
+        'tr' => 'tr_TR', // Turkish (Turkey)
+        'cs' => 'cs_CZ', // Czech (Czech Republic)
+        'hu' => 'hu_HU', // Hungarian (Hungary)
+        'ro' => 'ro_RO', // Romanian (Romania)
+        'sk' => 'sk_SK', // Slovak (Slovakia)
+        'sl' => 'sl_SI', // Slovenian (Slovenia)
+        'bg' => 'bg_BG', // Bulgarian (Bulgaria)
+        'hr' => 'hr_HR', // Croatian (Croatia)
+        'et' => 'et_EE', // Estonian (Estonia)
+        'lv' => 'lv_LV', // Latvian (Latvia)
+        'lt' => 'lt_LT', // Lithuanian (Lithuania)
+        'uk' => 'uk_UA', // Ukrainian (Ukraine)
+    ];
+
+    public static array $languages = [
+        'de' => 'German',
+        'fr' => 'French',
+        'es' => 'Spanish',
+        'it' => 'Italian',
+        'pt' => 'Portuguese',
+        'nl' => 'Dutch',
+        'pl' => 'Polish',
+        'ru' => 'Russian',
+        'sv' => 'Swedish',
+        'da' => 'Danish',
+        'fi' => 'Finnish',
+        'no' => 'Norwegian',
+        'el' => 'Greek',
+        'tr' => 'Turkish',
+        'cs' => 'Czech',
+        'hu' => 'Hungarian',
+        'ro' => 'Romanian',
+        'sk' => 'Slovak',
+        'sl' => 'Slovenian',
+        'bg' => 'Bulgarian',
+        'hr' => 'Croatian',
+        'et' => 'Estonian',
+        'lv' => 'Latvian',
+        'lt' => 'Lithuanian',
+        'uk' => 'Ukrainian',
+    ];
+    
     /**
      * Set the enabled languages in the application configuration.
      *

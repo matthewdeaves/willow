@@ -136,7 +136,6 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
                 // in URLs. Based on the language the locale will be also set.
                 'languages' => [
                     'en' => ['locale' => 'en_GB'],
-                    'fr' => ['locale' => 'fr_FR'],
                 ],
             ]))
 

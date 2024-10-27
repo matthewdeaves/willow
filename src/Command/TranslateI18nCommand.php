@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use App\Utility\I18nManager;
 use App\Utility\SettingsManager;
 use Cake\Command\Command;
 use Cake\Console\Arguments;
@@ -33,33 +34,7 @@ class TranslateI18nCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io): void
     {
-        $locales = [
-            'de_DE', // German (Germany)
-            'fr_FR', // French (France)
-            'es_ES', // Spanish (Spain)
-            'it_IT', // Italian (Italy)
-            'pt_PT', // Portuguese (Portugal)
-            'nl_NL', // Dutch (Netherlands)
-            'pl_PL', // Polish (Poland)
-            'ru_RU', // Russian (Russia)
-            'sv_SE', // Swedish (Sweden)
-            'da_DK', // Danish (Denmark)
-            'fi_FI', // Finnish (Finland)
-            'no_NO', // Norwegian (Norway)
-            'el_GR', // Greek (Greece)
-            'tr_TR', // Turkish (Turkey)
-            'cs_CZ', // Czech (Czech Republic)
-            'hu_HU', // Hungarian (Hungary)
-            'ro_RO', // Romanian (Romania)
-            'sk_SK', // Slovak (Slovakia)
-            'sl_SI', // Slovenian (Slovenia)
-            'bg_BG', // Bulgarian (Bulgaria)
-            'hr_HR', // Croatian (Croatia)
-            'et_EE', // Estonian (Estonia)
-            'lv_LV', // Latvian (Latvia)
-            'lt_LT', // Lithuanian (Lithuania)
-            'uk_UA', // Ukrainian (Ukraine)
-        ];
+        $locales = I18nManager::$locales;
 
         // Fetch the I18n table
         $i18nTable = TableRegistry::getTableLocator()->get('internationalisations');

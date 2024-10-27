@@ -6,7 +6,7 @@ namespace App\Job;
 use App\Service\Api\Anthropic\AnthropicApiService;
 use App\Service\Api\Google\GoogleApiService;
 use App\Utility\SettingsManager;
-use Cake\Log\Log;
+use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
@@ -21,6 +21,8 @@ use Interop\Queue\Processor;
  */
 class TranslateI18nJob implements JobInterface
 {
+    use LogTrait;
+
     /**
      * @var \App\Service\Api\Anthropic\AnthropicApiService|\App\Service\Api\Google\GoogleApiService The API service instance.
      */
@@ -58,7 +60,11 @@ class TranslateI18nJob implements JobInterface
         $locale = $message->getArgument('locale');
 
         if (empty($internationalisations) || empty($locale)) {
-            Log::warning(__('Missing required arguments in the message.'));
+            $this->log(
+                sprintf('Missing required arguments in the message.'),
+                'error',
+                ['group_name' => 'App\Job\TranslateI18nJob']
+            );
 
             return Processor::REJECT;
         }
@@ -70,7 +76,11 @@ class TranslateI18nJob implements JobInterface
             ->all();
 
         if ($internationalizations->isEmpty()) {
-            Log::warning(__('No internationalizations found for the provided IDs.'));
+            $this->log(
+                sprintf('No internationalizations found for the provided IDs.'),
+                'error',
+                ['group_name' => 'App\Job\TranslateI18nJob']
+            );
 
             return Processor::REJECT;
         }
@@ -100,16 +110,28 @@ class TranslateI18nJob implements JobInterface
                     // Update the existing translation record
                     $existingTranslation->message_str = $translation['translated'];
                     if (!$i18nTable->save($existingTranslation)) {
-                        Log::error(__('Failed to update translation for message ID: {0}', $originalMessage));
+                        $this->log(
+                            sprintf('Failed to update translation for message ID: %s', $originalMessage),
+                            'error',
+                            ['group_name' => 'App\Job\TranslateI18nJob']
+                        );
                     }
                 }
             }
 
-            Log::info('Internationalizations updated successfully.');
+            $this->log(
+                sprintf('Internationalizations updated successfully.'),
+                'info',
+                ['group_name' => 'App\Job\TranslateI18nJob']
+            );
 
             return Processor::ACK;
         } catch (Exception $e) {
-            Log::error('Failed to update internationalizations: ' . $e->getMessage());
+            $this->log(
+                sprintf('Failed to update internationalizations: %s', $e->getMessage()),
+                'error',
+                ['group_name' => 'App\Job\TranslateI18nJob']
+            );
         }
 
         return Processor::REJECT;

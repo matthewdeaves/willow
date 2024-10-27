@@ -62,6 +62,12 @@ class I18nManager
         }
     }
 
+    public static function setLocalForAdminArea() : void
+    {
+        $adminLocale = SettingsManager::read('i18n.locale', null);
+        I18n::setLocale($adminLocale);
+    }
+
     /**
      * Get the enabled locales from the settings.
      *
@@ -73,7 +79,7 @@ class I18nManager
      */
     public static function getEnabledLocales(): array
     {
-        $locales = SettingsManager::read('Translations', null);
+        $locales = SettingsManager::read('Translations', []);
         $enabledLocales = [];
         foreach ($locales as $locale => $enabled) {
             if ($enabled) {

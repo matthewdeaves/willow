@@ -77,6 +77,9 @@ class AppController extends Controller
         I18nManager::setLocaleForLanguage($this->request->getParam('lang', 'en'));
 
         if ($this->request->getParam('prefix') === 'Admin') {
+
+            I18nManager::setLocalForAdminArea();
+
             $identity = $this->Authentication->getIdentity();
             if ($identity) {
                 $usersTable = $this->fetchTable('Users');
@@ -100,7 +103,7 @@ class AppController extends Controller
 
                     $this->Flash->error(__('Access denied. You must be an admin to view this page.'));
 
-                    return $this->redirect(['controller' => 'Users', 'action' => 'login', 'prefix' => false]);
+                    return $this->redirect(['_name' => 'login']);
                 }
             }
         }

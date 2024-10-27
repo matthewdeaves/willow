@@ -73,7 +73,8 @@ class AppController extends Controller
     public function beforeFilter(EventInterface $event): ?Response
     {
         parent::beforeFilter($event);
-
+        
+        I18nManager::setEnabledLanguages();
         I18nManager::setLocaleForLanguage($this->request->getParam('lang', 'en'));
 
         if ($this->request->getParam('prefix') === 'Admin') {

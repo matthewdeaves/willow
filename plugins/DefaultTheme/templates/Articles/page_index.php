@@ -28,7 +28,7 @@ function buildMenu($articles, $view) {
     <?php if ($article) : ?>
     <article>
         <header>
-            <h1 class="article-title"><?= h($article->title) ?></h1>
+            <h1 class="article-title"><?= htmlspecialchars_decode($article->title) ?></h1>
             <time class="article-date" datetime="<?= $article->modified->format('Y-m-d H:i:s') ?>">
                 Last updated: <?= $article->modified->format('F j, Y, g:i a') ?>
             </time>

@@ -8,6 +8,7 @@ use ArrayObject;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
 use Cake\Log\LogTrait;
+use Cake\ORM\Behavior\Translate\TranslateTrait;
 use Cake\ORM\Table;
 use Cake\Queue\QueueManager;
 use Cake\Validation\Validator;
@@ -34,6 +35,7 @@ use Cake\Validation\Validator;
 class TagsTable extends Table
 {
     use LogTrait;
+    use TranslateTrait;
 
     /**
      * Initialize method
@@ -55,6 +57,22 @@ class TagsTable extends Table
             'field' => 'title',
             'slug' => 'slug',
             'maxLength' => 255,
+        ]);
+
+        $this->addBehavior('Translate', [
+            'fields' => [
+                'title',
+                'description',
+                'meta_title',
+                'meta_description',
+                'meta_keywords',
+                'facebook_description',
+                'linkedin_description',
+                'instagram_description',
+                'twitter_description',
+            ],
+            'defaultLocale' => 'en_GB',
+            'allowEmptyTranslations' => false,
         ]);
 
         $this->belongsToMany('Articles', [
@@ -102,7 +120,6 @@ class TagsTable extends Table
             ];
 
             QueueManager::push('App\Job\TagSeoUpdateJob', $data);
-
             $this->log(
                 sprintf(
                     'Queue tag SEO update job for Tag: %s',
@@ -110,6 +127,16 @@ class TagsTable extends Table
                 ),
                 'info',
                 ['group_name' => 'tag_seo_update']
+            );
+
+            QueueManager::push('App\Job\TranslateTagJob', $data);
+            $this->log(
+                sprintf(
+                    'Queued Tag Translation job: %s',
+                    $entity->title
+                ),
+                'info',
+                ['group_name' => 'tag_translation']
             );
         }
     }

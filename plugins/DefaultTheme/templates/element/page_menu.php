@@ -13,7 +13,7 @@ if (!function_exists('renderArticleMenuItem')) {
         $title = Inflector::humanize($item['title']);
 
         echo $Html->link(
-            h($title),
+            htmlspecialchars_decode($title),
             $url,
             [
                 'class' => 'list-group-item list-group-item-action ' . $activeClass . ' ' . $indentClass . ' ' . $rootClass

@@ -7,7 +7,7 @@ use App\Model\Table\ArticlesTable;
 use Cake\Event\EventInterface;
 use Cake\Http\Response;
 use Cake\I18n\DateTime;
-use Cake\ORM\Query;
+use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
 
@@ -67,13 +67,11 @@ class SitemapController extends AppController
         $this->response = $this->response->withDisabledCache();
         $this->response = $this->response->withType('xml');
 
-        /** @var \Cake\ORM\Query $articles */
         $articles = $this->Articles->find('all')
             ->select(['id', 'slug', 'modified', 'published', 'is_page'])
             ->where(['is_page' => false, 'is_published' => true])
             ->orderBy(['created' => 'DESC']);
 
-        /** @var \Cake\ORM\Query $pages */
         $pages = $this->Articles->find('all')
             ->select(['id', 'slug', 'modified', 'published', 'is_page'])
             ->where(['is_page' => true, 'is_published' => true]);
@@ -94,7 +92,7 @@ class SitemapController extends AppController
      * @param \Cake\ORM\Query $pages The query object for pages.
      * @return string The generated sitemap XML content.
      */
-    private function generateSitemapXml(Query $articles, Query $pages): string
+    private function generateSitemapXml(SelectQuery $articles, SelectQuery $pages): string
     {
         $xmlContent = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
         $xmlContent .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";

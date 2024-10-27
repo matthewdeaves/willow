@@ -148,18 +148,6 @@ return function (RouteBuilder $routes): void {
         // will be required when generating URLs for these routes
 
         $routes->connect('/', ['controller' => 'Articles', 'action' => 'index', 'prefix' => 'Admin']);
-
-        $routes->connect(
-            '/users/logout',
-            [
-                'controller' => 'Users',
-                'action' => 'logout'
-            ],
-            [
-                'routeClass' => 'ADmad/I18n.I18nRoute',
-                '_name' => 'admin-logout',
-            ]
-        );
         
         $routes->fallbacks(DashedRoute::class);
     });

@@ -6,7 +6,7 @@
  */
 ?>
 <div class="tag-articles">
-    <h2 class="mb-4 text-primary"><?= h($tag->title) ?>: <?= __('Associated Pages') ?></h2>
+    <h2 class="mb-4 text-primary"><?= htmlspecialchars_decode($tag->title) ?>: <?= __('Associated Pages') ?></h2>
 
     <div class="card mb-4 shadow-sm">
         <div class="card-header bg-primary text-white">
@@ -42,7 +42,7 @@
                                 <div class="d-flex flex-column">
                                     <h4 class="h6 mb-0">
                                         <?= $this->Html->link(
-                                            h($article->title),
+                                            htmlspecialchars_decode($article->title),
                                             [
                                                 '_name' => 'article-by-slug',
                                                 'slug' => $article->slug

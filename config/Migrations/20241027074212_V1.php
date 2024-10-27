@@ -230,9 +230,9 @@ class V1 extends AbstractMigration
                 'limit' => null,
                 'null' => false,
             ])
-            ->addColumn('locale', 'string', [
+            ->addColumn('locale', 'char', [
                 'default' => null,
-                'limit' => 255,
+                'limit' => 5,
                 'null' => false,
             ])
             ->addColumn('title', 'string', [
@@ -246,6 +246,41 @@ class V1 extends AbstractMigration
                 'null' => true,
             ])
             ->addColumn('summary', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('meta_title', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('meta_description', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('meta_keywords', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('facebook_description', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('linkedin_description', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('instagram_description', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('twitter_description', 'text', [
                 'default' => null,
                 'limit' => null,
                 'null' => true,
@@ -756,6 +791,69 @@ class V1 extends AbstractMigration
             ])
             ->create();
 
+        $this->table('tags_translations', ['id' => false, 'primary_key' => ['id', 'locale']])
+            ->addColumn('id', 'uuid', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('locale', 'char', [
+                'default' => null,
+                'limit' => 5,
+                'null' => false,
+            ])
+            ->addColumn('title', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
+            ->addColumn('description', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('summary', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('meta_title', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('meta_description', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('meta_keywords', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('facebook_description', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('linkedin_description', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('instagram_description', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('twitter_description', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->create();
+
         $this->table('user_account_confirmations', ['id' => false, 'primary_key' => ['id']])
             ->addColumn('id', 'uuid', [
                 'default' => null,
@@ -892,6 +990,7 @@ class V1 extends AbstractMigration
         $this->table('slugs')->drop()->save();
         $this->table('system_logs')->drop()->save();
         $this->table('tags')->drop()->save();
+        $this->table('tags_translations')->drop()->save();
         $this->table('user_account_confirmations')->drop()->save();
         $this->table('users')->drop()->save();
     }

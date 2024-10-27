@@ -197,7 +197,15 @@ class ArticlesController extends AppController
 
             // If $slug is not the same as the latestSlug, do a 301 redirect
             if ($latestSlug && $latestSlug->slug !== $slug) {
-                return $this->redirect('/' . $latestSlug->slug, 301);
+                return $this->redirect(
+                    [
+                        'controller' => 'Articles',
+                        'action' => 'view-by-slug',
+                        'slug' => $latestSlug->slug,
+                        '_full' => true,
+                    ],
+                    301
+                );
             }
 
             // Fetch the full article with its associations

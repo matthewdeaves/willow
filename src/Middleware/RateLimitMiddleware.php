@@ -5,7 +5,6 @@ namespace App\Middleware;
 
 use App\Http\Exception\TooManyRequestsException;
 use Cake\Cache\Cache;
-use Cake\Cache\Exception\CacheException;
 use Cake\Log\Log;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -69,42 +68,34 @@ class RateLimitMiddleware implements MiddlewareInterface
         if ($this->isRouteLimited($route)) {
             $key = "rate_limit_{$ip}_{$route}";
 
-            try {
-                $rateData = Cache::read($key, 'rate_limit') ?: ['count' => 0, 'start_time' => time()];
+            $rateData = Cache::read($key, 'rate_limit') ?: ['count' => 0, 'start_time' => time()];
 
-                $currentTime = time();
-                if ($currentTime - $rateData['start_time'] > $this->period) {
-                    $rateData = ['count' => 1, 'start_time' => $currentTime];
-                } else {
-                    $rateData['count']++;
-                }
+            $currentTime = time();
+            if ($currentTime - $rateData['start_time'] > $this->period) {
+                $rateData = ['count' => 1, 'start_time' => $currentTime];
+            } else {
+                $rateData['count']++;
+            }
 
-                Cache::write($key, $rateData, 'rate_limit');
+            Cache::write($key, $rateData, 'rate_limit');
 
-                if ($rateData['count'] > $this->limit) {
-                    Log::warning(__('Rate limit exceeded for IP: {0} on route: {1}', [$ip, $route]), [
-                        'ip' => $ip,
-                        'route' => $route,
-                        'count' => $rateData['count'],
-                        'limit' => $this->limit,
-                        'group_name' => 'rate_limiting',
-                    ]);
-
-                    $response = $handler->handle($request);
-                    $response = $response->withStatus(429)
-                        ->withHeader('Retry-After', (string)$this->period);
-                    throw new TooManyRequestsException(
-                        __('Too many requests. Please try again later.'),
-                        null,
-                        $this->period
-                    );
-                }
-            } catch (CacheException $e) {
-                Log::error('Cache error in rate limiting: ' . $e->getMessage(), [
-                    'exception' => $e,
+            if ($rateData['count'] > $this->limit) {
+                Log::warning(__('Rate limit exceeded for IP: {0} on route: {1}', [$ip, $route]), [
+                    'ip' => $ip,
+                    'route' => $route,
+                    'count' => $rateData['count'],
+                    'limit' => $this->limit,
                     'group_name' => 'rate_limiting',
                 ]);
-                // Allow the request to proceed in case of cache error
+
+                $response = $handler->handle($request);
+                $response = $response->withStatus(429)
+                    ->withHeader('Retry-After', (string)$this->period);
+                throw new TooManyRequestsException(
+                    __('Too many requests. Please try again later.'),
+                    null,
+                    $this->period
+                );
             }
         }
 

@@ -11,7 +11,7 @@
             <div class="d-flex flex-wrap gap-2">
                 <?php foreach ($tags as $tag): ?>
                     <?= $this->Html->link(
-                        h($tag->title),
+                        htmlspecialchars_decode($tag->title),
                         ['action' => 'view-by-slug', $tag->slug],
                         ['class' => 'btn btn-outline-primary']
                     ) ?>

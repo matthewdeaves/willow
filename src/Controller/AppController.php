@@ -16,12 +16,11 @@ declare(strict_types=1);
  */
 namespace App\Controller;
 
-use App\Utility\SettingsManager;
+use App\Utility\I18nManager;
 use Cake\Controller\Controller;
 use Cake\Core\Configure;
 use Cake\Event\EventInterface;
 use Cake\Http\Response;
-use Cake\I18n\I18n;
 use Cake\Log\LogTrait;
 
 /**
@@ -75,25 +74,11 @@ class AppController extends Controller
     {
         parent::beforeFilter($event);
 
-        // Detect and set language to display site in
-        $language = $this->request->getParam('lang', 'en');
-        $translations = SettingsManager::read('Translations', null);
-
-        $matchedLocale = null;
-        foreach ($translations as $locale => $enabled) {
-            if ($enabled && substr($locale, 0, 2) === $language) {
-                $matchedLocale = $locale;
-                break;
-            }
-        }
-
-        if ($matchedLocale !== null) {
-            I18n::setLocale($matchedLocale);
-        } else {
-            I18n::setLocale('en_GB');
-        }
+        I18nManager::setLocaleForLanguage($this->request->getParam('lang', 'en'));
 
         if ($this->request->getParam('prefix') === 'Admin') {
+            I18nManager::setLocalForAdminArea();
+
             $identity = $this->Authentication->getIdentity();
             if ($identity) {
                 $usersTable = $this->fetchTable('Users');
@@ -117,7 +102,7 @@ class AppController extends Controller
 
                     $this->Flash->error(__('Access denied. You must be an admin to view this page.'));
 
-                    return $this->redirect(['controller' => 'Users', 'action' => 'login', 'prefix' => false]);
+                    return $this->redirect(['_name' => 'login']);
                 }
             }
         }

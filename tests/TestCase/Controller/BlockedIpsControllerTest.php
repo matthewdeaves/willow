@@ -178,6 +178,6 @@ class BlockedIpsControllerTest extends AppControllerTestCase
         $this->session(['Auth' => $identity]);
 
         $this->get('/admin/blocked-ips');
-        $this->assertRedirect('/users/login');
+        $this->assertRedirect('/en/users/login');
     }
 }

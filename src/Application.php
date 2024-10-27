@@ -19,6 +19,7 @@ namespace App;
 use ADmad\I18n\Middleware\I18nMiddleware;
 use App\Middleware\IpBlockerMiddleware;
 use App\Middleware\RateLimitMiddleware;
+use App\Utility\I18nManager;
 use App\Utility\SettingsManager;
 use Authentication\AuthenticationService;
 use Authentication\AuthenticationServiceInterface;
@@ -33,7 +34,6 @@ use Cake\Http\BaseApplication;
 use Cake\Http\Middleware\BodyParserMiddleware;
 use Cake\Http\Middleware\CsrfProtectionMiddleware;
 use Cake\Http\MiddlewareQueue;
-use Cake\I18n\I18n;
 use Cake\ORM\Locator\TableLocator;
 use Cake\Routing\Middleware\AssetMiddleware;
 use Cake\Routing\Middleware\RoutingMiddleware;
@@ -98,8 +98,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             );
         }
 
-        // Set locale if needed
-        I18n::setLocale(SettingsManager::read('i18n.locale', 'en_GB'));
+        I18nManager::setEnabledLanguages();
     }
 
     /**

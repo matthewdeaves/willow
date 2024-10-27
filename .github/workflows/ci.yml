@@ -51,7 +51,7 @@ jobs:
       run: cat "config/app_local.php"
 
     - name: Run PHPUnit
-      run: php -d display_errors=on -d error_reporting=E_ALL vendor/bin/phpunit --coverage-text
+      run: php -d display_errors=on -d error_reporting=E_ALL vendor/bin/phpunit
       env:
         XDEBUG_MODE: coverage
 

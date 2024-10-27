@@ -23,7 +23,7 @@
                         <?= $this->Html->image(SettingsManager::read('ImageSizes.teeny') . '/' . $article->image, 
                             [
                                 'pathPrefix' => 'files/Articles/image/', 
-                                'alt' => h($article->alt_text), 
+                                'alt' => htmlspecialchars_decode($article->alt_text), 
                                 'class' => 'img-thumbnail article-image', 
                                 'data-bs-toggle' => 'popover', 
                                 'data-bs-trigger' => 'hover', 
@@ -31,7 +31,7 @@
                                 'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.extra-large') . '/' . $article->image, 
                                 [
                                     'pathPrefix' => 'files/Articles/image/', 
-                                    'alt' => h($article->alt_text), 
+                                    'alt' => htmlspecialchars_decode($article->alt_text), 
                                     'class' => 'img-fluid', 
                                     'style' => 'max-width: 400px; max-height: 400px;'
                                 ])
@@ -41,7 +41,7 @@
                     <?php endif; ?>
                     <h2 class="card-title mb-0">
                         <?= $this->Html->link(
-                            h($article->title),
+                            htmlspecialchars_decode($article->title),
                             [
                                 '_name' => 'article-by-slug',
                                 'slug' => $article->slug
@@ -58,15 +58,15 @@
                 <div class="article-content">
                     <?php if ($hasNonEmptySummary): ?>
                         <div class="article-summary">
-                            <?= $article->summary; ?>
+                            <?= htmlspecialchars_decode($article->summary); ?>
                         </div>
                     <?php elseif ($isSmallArticle): ?>
                         <div class="article-full">
-                            <?= $article->body; ?>
+                            <?= htmlspecialchars_decode($article->body); ?>
                         </div>
                     <?php else: ?>
                         <div class="article-preview">
-                            <?= $this->Text->truncate($article->body, 200, ['ellipsis' => '...', 'exact' => false]); ?>
+                            <?= $this->Text->truncate(htmlspecialchars_decode($article->body), 200, ['ellipsis' => '...', 'exact' => false]); ?>
                         </div>
                         <div class="article-full" style="display: none;">
                             <?= $article->body; ?>

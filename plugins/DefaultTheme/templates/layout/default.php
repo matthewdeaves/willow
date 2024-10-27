@@ -29,15 +29,15 @@
                         <?= $this->Html->link(__('Home'), ['_name' => 'home'], ['class' => 'nav-link']) ?>
                     </li>
                     <li class="nav-item">
-                        <?= $this->Html->link('Tags', ['controller' => 'Tags', 'action' => 'index'], ['class' => 'nav-link']) ?>
+                        <?= $this->Html->link(__('Tags'), ['controller' => 'Tags', 'action' => 'index'], ['class' => 'nav-link']) ?>
                     </li>
                     <?php if ($this->Identity->isLoggedIn()): ?>
                         <li class="nav-item">
-                            <?= $this->Html->link('Account', ['controller' => 'Users', 'action' => 'edit', $this->Identity->get('id')], ['class' => 'nav-link']) ?>
+                            <?= $this->Html->link(__('Account'), ['controller' => 'Users', 'action' => 'edit', $this->Identity->get('id')], ['class' => 'nav-link']) ?>
                         </li>
                         <?php if ($this->Identity->get('is_admin')): ?>
                             <li class="nav-item">
-                                <?= $this->Html->link('Admin', ['prefix' => 'Admin', 'controller' => 'Articles', 'action' => 'index'], ['class' => 'nav-link']) ?>
+                                <?= $this->Html->link(__('Admin'), ['prefix' => 'Admin', 'controller' => 'Articles', 'action' => 'index'], ['class' => 'nav-link']) ?>
                             </li>
                         <?php endif; ?>
                         <li class="nav-item">
@@ -45,10 +45,10 @@
                         </li>
                     <?php else: ?>
                         <li class="nav-item">
-                            <?= $this->Html->link('Login', ['controller' => 'Users', 'action' => 'login'], ['class' => 'nav-link']) ?>
+                            <?= $this->Html->link(__('Login'), ['controller' => 'Users', 'action' => 'login'], ['class' => 'nav-link']) ?>
                         </li>
                         <li class="nav-item">
-                            <?= $this->Html->link('Register', ['controller' => 'Users', 'action' => 'register'], ['class' => 'nav-link']) ?>
+                            <?= $this->Html->link(__('Register'), ['controller' => 'Users', 'action' => 'register'], ['class' => 'nav-link']) ?>
                         </li>
                     <?php endif; ?>
                 </ul>
@@ -73,7 +73,7 @@
 
     <footer class="footer mt-auto py-3 bg-dark">
         <div class="container text-center">
-            <span class="text-white">&copy; <?= date('Y') ?> <?= SettingsManager::read('SEO.siteName', 'Willow CMS') ?>. All rights reserved.</span>
+            <span class="text-white">&copy; <?= date('Y') ?> <?= SettingsManager::read('SEO.siteName', 'Willow CMS') ?>. <?= __('All rights reserved.') ?></span>
         </div>
     </footer>
 

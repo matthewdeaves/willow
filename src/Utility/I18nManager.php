@@ -17,7 +17,7 @@ class I18nManager
 {
     /**
      * @var array $locales
-     * 
+     *
      * An associative array mapping language codes to their respective locale identifiers.
      */
     public static array $locales = [
@@ -50,7 +50,7 @@ class I18nManager
 
     /**
      * @var array $languages
-     * 
+     *
      * An associative array mapping language codes to their respective language names.
      */
     public static array $languages = [

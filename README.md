@@ -33,7 +33,7 @@ On your first run, the development environment will be setup and you can visit [
 
 Login to the Willow CMS admin area at [http://localhost:8080/admin](http://localhost:8080/admin) using `admin@test.com` & `password`.
 
-This is all handled by `./setup_dev_env.sh` which is installing dependencies via [Composer](https://getcomposer.org/), running the database migration, creating a user and importing default data. [View the setup_dev_env.sh script](https://github.com/matthewdeaves/willow/blob/main/setup_dev_env.sh)
+This is all handled by `./setup_dev_env.sh` which is installing dependencies via [Composer](https://getcomposer.org/), running the database migration, creating a user and importing default data all on the docker development environment. [View the setup_dev_env.sh script](https://github.com/matthewdeaves/willow/blob/main/setup_dev_env.sh)
 
 ### Queues and Consumers
 Willow CMS uses queues and consumers to offload heavy duty tasks to background processes. This includes things like image processing/resizing and making calls to the Anthropic API. On the development environment, queue workers are not started automatically. This means if you upload an image or perform a task that offloads a message to the queue for a worker to pick up (like article translation or SEO texts generation), you will need to start a queue worker. You can start a queue worker process like this:

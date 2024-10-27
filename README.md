@@ -35,19 +35,8 @@ Login to the Willow CMS admin area at [http://localhost:8080/admin](http://local
 
 This is all handled by `./setup_dev_env.sh` which is installing dependencies via [Composer](https://getcomposer.org/), running the database migration, creating a user and importing default data. [View the setup_dev_env.sh script](https://github.com/matthewdeaves/willow/blob/main/setup_dev_env.sh)
 
-### Anthropic API Integration
-Willow integrates the [Anthropic API](https://console.anthropic.com/dashboard) for some nice features:
-
-* Generation of image alternate text, keywords, nice file names and descriptions
-* Automatic moderation of comments
-* Generation of SEO related texts for Article/Pages and Tags based on their content
-* Auto Tagging of Articles/Pages (automatically create Tags based on content)
-* A lot more to come...
-
-To use these feautures go to the settings page [http://localhost:8080/admin/settings](http://localhost:8080/admin/settings) to add your API key and enable the AI features.
-
 ### Queues and Consumers
-Willow CMS uses queues and consumers to offload heavy duty tasks to background processes. This includes things like image processing/resizing and making calls to the Anthropic API. On the development environment, queue workers are not started automatically. This means if you upload an image or perform a task that offloads a message to the queue for a worker to pick, you will need to start a queue worker. You can start a queue worker process like this:
+Willow CMS uses queues and consumers to offload heavy duty tasks to background processes. This includes things like image processing/resizing and making calls to the Anthropic API. On the development environment, queue workers are not started automatically. This means if you upload an image or perform a task that offloads a message to the queue for a worker to pick up (like article translation or SEO texts generation), you will need to start a queue worker. You can start a queue worker process like this:
 
 - **Alias Command**: (see [Useful Shell Aliases](https://github.com/matthewdeaves/willow/blob/main/DeveloperGuide.md#useful-shell-aliases))
 ```
@@ -58,6 +47,23 @@ cake_queue_worker
 docker compose exec php bin/cake queue worker --verbose
 ```
 Leave the queue worker running in a terminal to see useful output as it picks up and runs [jobs](https://github.com/matthewdeaves/willow/tree/main/src/Job). Remember to save your Anthropic API key in the settings page.
+
+### Anthropic and Google Translate API Integration
+Willow integrates the [Anthropic API](https://console.anthropic.com/dashboard) and the [Google Translate API](https://cloud.google.com/translate) for some nice features:
+
+* Automatic translation of articles/pages and tags into up to 25 languages
+* Generation of SEO related texts for Article/Pages and Tags based on their content (also translated)
+* Generation of image alternate text, keywords, nice file names, descriptions and keywords
+* Auto Tagging of Articles/Pages (automatically create Tags based on content)
+* Automatic moderation of comments
+* A lot more to come...
+
+To use these feautures go to the settings page [http://localhost:8080/admin/settings](http://localhost:8080/admin/settings) and
+1. add your API keys
+2. enable the AI setting
+3. enable the AI jobs that you want to have run automatically
+4. enable the languages/locales you want for translation
+5. Make sure you have started a queue runner process in your development environment (see above)
 
 ## Development Guide
 

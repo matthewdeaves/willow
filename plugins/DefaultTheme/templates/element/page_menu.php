@@ -33,7 +33,7 @@ if (!function_exists('renderArticleMenuItem')) {
     <?php
     // Add the Home link as the top root node with Bootstrap primary color
     echo $this->Html->link(
-        'Home',
+        __('Home'),
         ['controller' => 'Articles', 'action' => 'index'],
         [
             'class' => 'list-group-item list-group-item-action bg-primary text-white'

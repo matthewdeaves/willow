@@ -3,6 +3,7 @@ namespace DefaultTheme\Controller\Component;
 
 use Cake\Controller\Component;
 use Cake\Event\EventInterface;
+use App\Utility\I18nManager;
 
 /**
  * FrontEndSiteComponent
@@ -49,6 +50,9 @@ class FrontEndSiteComponent extends Component
             $controller->set('articleTreeMenu', $articleTree);
             $controller->set('tagTreeMenu', $tagTree);
         }
+
+        $controller->set('siteLanguages', I18nManager::getEnabledLanguages());
+        $controller->set('selectedSiteLanguage', $controller->getRequest()->getParam('lang', 'en'));
     }
 
     /**

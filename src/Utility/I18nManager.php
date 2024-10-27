@@ -176,4 +176,12 @@ class I18nManager
 
         return $enabledLocales;
     }
+
+    public static function getEnabledLanguages(): array
+    {
+        $locales = self::getEnabledLocales();
+        $languages = array_intersect_key(self::$languages, $locales);
+
+        return $languages;
+    }
 }

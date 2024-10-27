@@ -70,8 +70,10 @@
             </div>
         </div>
     </main>
-
     <footer class="footer mt-auto py-3 bg-dark">
+        <div class="container text-center">
+            <?= $this->element('site_language', ['languages' => $siteLanguages, 'selectedSiteLanguage' => $selectedSiteLanguage]) ?>
+        </div>
         <div class="container text-center">
             <span class="text-white">&copy; <?= date('Y') ?> <?= SettingsManager::read('SEO.siteName', 'Willow CMS') ?>. <?= __('All rights reserved.') ?></span>
         </div>

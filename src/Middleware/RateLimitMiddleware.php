@@ -5,8 +5,8 @@ namespace App\Middleware;
 
 use App\Http\Exception\TooManyRequestsException;
 use Cake\Cache\Cache;
-use Cake\Cache\Exception\CacheException;
 use Cake\Log\Log;
+use Exception;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -99,7 +99,7 @@ class RateLimitMiddleware implements MiddlewareInterface
                         $this->period
                     );
                 }
-            } catch (CacheException $e) {
+            } catch (Exception $e) {
                 Log::error('Cache error in rate limiting: ' . $e->getMessage(), [
                     'exception' => $e,
                     'group_name' => 'rate_limiting',

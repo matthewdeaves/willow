@@ -30,11 +30,11 @@
                     ?>
                 </div>
                 <?php endif; ?>
-                <h1 class="card-title mb-0"><?= h($article->title) ?></h1>
+                <h1 class="card-title mb-0"><?= htmlspecialchars_decode($article->title) ?></h1>
             </div>
             
             <p class="card-text text-muted">
-                <?= __('By') ?> <?= $article->user ? h($article->user->username) : __('Unknown Author') ?> | 
+                <?= __('By') ?> <?= $article->user ? htmlspecialchars_decode($article->user->username) : __('Unknown Author') ?> | 
                 <?php if ($article->published): ?>
                     <?= $article->published->format('F j, Y, g:i a') ?>
                 <?php else: ?>
@@ -70,7 +70,7 @@
             <?php foreach ($article->comments as $comment): ?>
                 <div class="card mb-3">
                     <div class="card-body">
-                        <p class="card-text"><?= h($comment->content) ?></p>
+                        <p class="card-text"><?= htmlspecialchars_decode($comment->content) ?></p>
                         <p class="card-text">
                             <small class="text-muted">
                                 <?= __('Posted on {date} by {author}', [

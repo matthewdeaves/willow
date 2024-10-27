@@ -17,7 +17,7 @@
             ]) ?>
         <?php foreach ($tags as $tag): ?>
             <?= $this->Html->link(
-                h($tag),
+                htmlspecialchars_decode($tag),
                 [
                     '_name' => 'home',
                     '?' => ['tag' => $tag]

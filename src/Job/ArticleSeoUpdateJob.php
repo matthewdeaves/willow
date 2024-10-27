@@ -76,7 +76,10 @@ class ArticleSeoUpdateJob implements JobInterface
         $articlesTable = TableRegistry::getTableLocator()->get('Articles');
         $article = $articlesTable->get($id);
 
-        $seoResult = $this->anthropicService->generateArticleSeo($title, strip_tags($article->body));
+        $seoResult = $this->anthropicService->generateArticleSeo(
+            (string)$title,
+            (string)strip_tags($article->body)
+        );
 
         if ($seoResult) {
             // Set the data we got back

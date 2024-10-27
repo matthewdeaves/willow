@@ -351,7 +351,7 @@ class ArticlesTable extends Table
             $this->Slugs->ensureSlugExists($entity->id, $entity->slug);
         }
 
-        // noMessage flag will be true is save came from a Job (stops looping)
+        // noMessage flag will be true if save came from a Job (stops looping)
         $noMessage = $options['noMessage'] ?? false;
 
         // Published Articles should be SEO ready with translations

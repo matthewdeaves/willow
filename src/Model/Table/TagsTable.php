@@ -113,7 +113,7 @@ class TagsTable extends Table
      */
     public function afterSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
-        // noMessage flag will be true is save came from a Job (stops looping)
+        // noMessage flag will be true if save came from a Job (stops looping)
         $noMessage = $options['noMessage'] ?? false;
         if (SettingsManager::read('AI.enabled') && !$noMessage) {
             $data = [

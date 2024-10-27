@@ -56,7 +56,7 @@ class GoogleApiService
         return $translatedStrings;
     }
 
-/**
+    /**
      * Translates an article title and body into multiple languages using the Google Translate API.
      *
      * @param string $title The title of the article to be translated.

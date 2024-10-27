@@ -6,7 +6,6 @@ namespace App\Middleware;
 use App\Http\Exception\TooManyRequestsException;
 use Cake\Cache\Cache;
 use Cake\Log\Log;
-use Exception;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;

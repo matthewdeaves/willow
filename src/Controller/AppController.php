@@ -16,12 +16,12 @@ declare(strict_types=1);
  */
 namespace App\Controller;
 
+use App\Utility\I18nManager;
 use Cake\Controller\Controller;
 use Cake\Core\Configure;
 use Cake\Event\EventInterface;
 use Cake\Http\Response;
 use Cake\Log\LogTrait;
-use App\Utility\I18nManager;
 
 /**
  * Application Controller

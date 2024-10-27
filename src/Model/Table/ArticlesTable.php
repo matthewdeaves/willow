@@ -127,11 +127,6 @@ class ArticlesTable extends Table
             'allowEmptyTranslations' => false,
         ]);
 
-
-        
-
-
-
         $this->addBehavior('Josegonzalez/Upload.Upload', [
             'image' => [
                 'fields' => [

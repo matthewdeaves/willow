@@ -10,6 +10,13 @@ use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
 use Interop\Queue\Processor;
 
+/**
+ * TranslateTagJob class
+ *
+ * This job is responsible for translating tag data using the Google API service.
+ * It retrieves the tag data from the database, translates the specified fields,
+ * and saves the translated data back to the database.
+ */
 class TranslateTagJob implements JobInterface
 {
     use LogTrait;
@@ -34,16 +41,21 @@ class TranslateTagJob implements JobInterface
     private GoogleApiService $apiService;
 
     /**
-     * Constructor to allow dependency injection for testing
+     * Constructor to allow dependency injection for testing.
      *
-     * @param \App\Service\Api\AnthropicApiService|null $anthropicService
+     * @param \App\Service\Api\Google\GoogleApiService|null $googleService The Google API service instance.
      */
     public function __construct(?GoogleApiService $googleService = null)
     {
         $this->apiService = $googleService ?? new GoogleApiService();
     }
 
-
+    /**
+     * Execute the job.
+     *
+     * @param \Cake\Queue\Job\Message $message The job message.
+     * @return string|null The result of the job execution.
+     */
     public function execute(Message $message): ?string
     {
         $id = $message->getArgument('id');

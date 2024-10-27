@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use App\Utility\I18nManager;
 use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\ORM\ResultSet;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Filesystem;
-use App\Utility\I18nManager;
 
 /**
  * Class GeneratePoFilesCommand

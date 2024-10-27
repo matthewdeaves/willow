@@ -70,7 +70,7 @@ class I18nManager
         'lt' => 'Lithuanian',
         'uk' => 'Ukrainian',
     ];
-    
+
     /**
      * Set the enabled languages in the application configuration.
      *

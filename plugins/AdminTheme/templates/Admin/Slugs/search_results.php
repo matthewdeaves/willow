@@ -6,7 +6,34 @@
 ?>
 <?php foreach ($slugs as $slug): ?>
 <tr>
-    <td><?= h($slug->slug) ?></td>
+    <td>
+        <?php $ruleName = ($slug->article->is_page == 0) ? 'article-by-slug' : 'page-by-slug';?>
+        <?php if ($slug->article->is_published == true): ?>
+
+            <?= $this->Html->link(
+                $slug->slug,
+                [
+                    'controller' => 'Articles',
+                    'action' => 'view-by-slug',
+                    'slug' => $slug->slug,
+                    '_name' => $ruleName,
+                ],
+                ['escape' => false]
+            );
+            ?>
+        <?php else: ?>
+            <?= $this->Html->link(
+                $slug->slug,
+                [
+                    'prefix' => 'Admin',
+                    'controller' => 'Slugs',
+                    'action' => 'view',
+                    $slug->id,
+                ],
+                ['escape' => false]
+            ) ?>
+        <?php endif; ?>
+    </td>
     <td>
         <?= $slug->hasValue('article') ? $this->Html->link($slug->article->title, ['controller' => 'Articles', 'action' => 'view', $slug->article->id]) : '' ?>
     </td>

@@ -37,6 +37,8 @@ class SlugsController extends AppController
                 'Articles.id',
                 'Articles.title',
                 'Articles.slug',
+                'Articles.is_page',
+                'Articles.is_published',
             ])
             ->contain(['Articles'])
             ->orderBy(['Slugs.modified' => 'DESC']);

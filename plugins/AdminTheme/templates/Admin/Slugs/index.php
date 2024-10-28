@@ -19,10 +19,10 @@
         <table class="table table-striped table-hover">
             <thead class="table-primary">
                 <tr>
-                    <th><?= $this->Paginator->sort('slug') ?></th>
-                    <th><?= $this->Paginator->sort('article_id') ?></th>
-                    <th><?= $this->Paginator->sort('modified') ?></th>
-                    <th><?= $this->Paginator->sort('created') ?></th>
+                    <th><?= __('Slug') ?></th>
+                    <th><?= __('Article/Page') ?></th>
+                    <th><?= __('Modified') ?></th>
+                    <th><?= __('Created') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -30,11 +30,32 @@
                 <?php foreach ($slugs as $slug): ?>
                 <tr>
                     <td>
-                        <?= $this->Html->link(
-                            $slug->slug,
-                            '/' . $slug->slug,
-                            ['class' => 'text-primary']
-                        ) ?>
+                        <?php $ruleName = ($slug->article->is_page == 0) ? 'article-by-slug' : 'page-by-slug';?>
+                        <?php if ($slug->article->is_published == true): ?>
+      
+                            <?= $this->Html->link(
+                                $slug->slug,
+                                [
+                                    'controller' => 'Articles',
+                                    'action' => 'view-by-slug',
+                                    'slug' => $slug->slug,
+                                    '_name' => $ruleName,
+                                ],
+                                ['escape' => false]
+                            );
+                            ?>
+                        <?php else: ?>
+                            <?= $this->Html->link(
+                                $slug->slug,
+                                [
+                                    'prefix' => 'Admin',
+                                    'controller' => 'Slugs',
+                                    'action' => 'view',
+                                    $slug->id,
+                                ],
+                                ['escape' => false]
+                            ) ?>
+                        <?php endif; ?>
                     </td>
                     <td><?= $slug->hasValue('article') ? $this->Html->link($slug->article->title, ['controller' => 'Articles', 'action' => 'view', $slug->article->id]) : '' ?></td>
                     <td><?= h($slug->modified->format('Y-m-d H:i')) ?></td>

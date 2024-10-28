@@ -27,7 +27,9 @@
                         </tr>
                         <tr>
                             <th><?= __('Slug') ?></th>
-                            <td><?= h($tag->slug) ?></td>
+                            <td>
+                                <?= $this->Html->link(htmlspecialchars_decode($tag->slug), ['_name' => 'tag-by-slug', 'slug' => $tag->slug]) ?>
+                            </td>
                         </tr>
                         <tr>
                             <th><?= __('Description') ?></th>
@@ -72,10 +74,34 @@
                                     <td><?= h($article->user->username) ?></td>
                                     <td><?= h($article->title) ?></td>
                                     <td>
-                                        <?= $this->Html->link(
-                                            substr($article->slug, 0, 10) . '...',
-                                            '/' . $article->slug
-                                        ) ?>
+                                        <?php $ruleName = ($article->is_page == 0) ? 'article-by-slug' : 'page-by-slug';?>
+
+                                        <?php if ($article->is_published == true): ?>
+                                            <?= $this->Html->link(
+                                                $article->slug,
+                                                [
+                                                    'controller' => 'Articles',
+                                                    'action' => 'view-by-slug',
+                                                    'slug' => $article->slug,
+                                                    '_name' => $ruleName,
+                                                ],
+                                                ['escape' => false]
+                                            );
+                                            ?>
+                                        <?php else: ?>
+                                            <?= $this->Html->link(
+                                                $article->slug,
+                                                [
+                                                    'prefix' => 'Admin',
+                                                    'controller' => 'Articles',
+                                                    'action' => 'view',
+                                                    $article->id
+                                                ],
+                                                ['escape' => false]
+                                            ) ?>
+                                        <?php endif; ?>
+
+
                                     </td>
                                     <td><?= h($article->created) ?></td>
                                     <td><?= h($article->modified) ?></td>

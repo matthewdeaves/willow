@@ -611,6 +611,12 @@ class V1 extends AbstractMigration
                 'limit' => null,
                 'null' => false,
             ])
+            ->addColumn('ordering', 'integer', [
+                'default' => '0',
+                'limit' => null,
+                'null' => false,
+                'signed' => true,
+            ])
             ->addColumn('category', 'string', [
                 'default' => null,
                 'limit' => 255,
@@ -635,6 +641,11 @@ class V1 extends AbstractMigration
                 'default' => false,
                 'limit' => null,
                 'null' => false,
+            ])
+            ->addColumn('description', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
             ])
             ->addColumn('data', 'text', [
                 'default' => null,

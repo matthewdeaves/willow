@@ -1,410 +1,512 @@
 [
     {
-        "category": "Translations",
-        "key_name": "sv_SE",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "pl_PL",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "ro_RO",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "AI",
-        "key_name": "articleTranslations",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "bg_BG",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "fi_FI",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "nl_NL",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "i18n",
-        "key_name": "provider",
-        "value": "google",
-        "value_type": "select",
-        "value_obscure": false,
-        "data": "{\n  \"google\": \"Google\",\n  \"anthropic\": \"Anthropic\"\n}"
-    },
-    {
-        "category": "AI",
-        "key_name": "tagTranslations",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Email",
-        "key_name": "reply_email",
-        "value": "noreply@example.com",
-        "value_type": "text",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "AI",
-        "key_name": "enabled",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "cs_CZ",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "ImageSizes",
-        "key_name": "extra-large",
-        "value": "500",
-        "value_type": "numeric",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "es_ES",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "i18n",
-        "key_name": "locale",
-        "value": "en_GB",
-        "value_type": "select",
-        "value_obscure": false,
-        "data": "{\n  \"de_DE\": \"German\",\n  \"fr_FR\": \"French\",\n  \"es_ES\": \"Spanish\",\n  \"it_IT\": \"Italian\",\n  \"pt_PT\": \"Portuguese\",\n  \"nl_NL\": \"Dutch\",\n  \"pl_PL\": \"Polish\",\n  \"ru_RU\": \"Russian\",\n  \"sv_SE\": \"Swedish\",\n  \"da_DK\": \"Danish\",\n  \"fi_FI\": \"Finnish\",\n  \"no_NO\": \"Norwegian\",\n  \"el_GR\": \"Greek\",\n  \"tr_TR\": \"Turkish\",\n  \"cs_CZ\": \"Czech\",\n  \"hu_HU\": \"Hungarian\",\n  \"ro_RO\": \"Romanian\",\n  \"sk_SK\": \"Slovak\",\n  \"sl_SI\": \"Slovenian\",\n  \"bg_BG\": \"Bulgarian\",\n  \"hr_HR\": \"Croatian\",\n  \"et_EE\": \"Estonian\",\n  \"lv_LV\": \"Latvian\",\n  \"lt_LT\": \"Lithuanian\",\n  \"uk_UA\": \"Ukrainian\",\n  \"en_GB\": \"British English\"\n}"
-    },
-    {
-        "category": "ImageSizes",
-        "key_name": "tiny",
-        "value": "100",
-        "value_type": "numeric",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "AI",
-        "key_name": "tagSEO",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "ImageSizes",
-        "key_name": "teeny",
-        "value": "50",
-        "value_type": "numeric",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "ImageSizes",
-        "key_name": "medium",
-        "value": "300",
-        "value_type": "numeric",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "ImageSizes",
-        "key_name": "micro",
-        "value": "10",
-        "value_type": "numeric",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "AI",
-        "key_name": "articleSEO",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "hu_HU",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "tr_TR",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "de_DE",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "AI",
-        "key_name": "articleTags",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "et_EE",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "ImageSizes",
-        "key_name": "large",
-        "value": "400",
-        "value_type": "numeric",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "RateLimit",
-        "key_name": "numberOfRequests",
-        "value": "5",
-        "value_type": "numeric",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "SEO",
-        "key_name": "siteMetakeywords",
-        "value": "Default site meta keywords",
-        "value_type": "text",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "fr_FR",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "sl_SI",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "SEO",
-        "key_name": "siteMetaDescription",
-        "value": "Default site meta description",
-        "value_type": "text",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "no_NO",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "ru_RU",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "lv_LV",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "SEO",
-        "key_name": "siteStrapline",
-        "value": "Welcome to Willow CMS",
-        "value_type": "text",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "RateLimit",
-        "key_name": "numberOfSeconds",
-        "value": "60",
-        "value_type": "numeric",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Anthropic",
-        "key_name": "apiKey",
-        "value": "your-api-key-here",
-        "value_type": "text",
-        "value_obscure": true,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "el_GR",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "AI",
-        "key_name": "articleSummaries",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "it_IT",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "da_DK",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "hr_HR",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "Google",
-        "key_name": "apiKey",
-        "value": "your-api-key-here",
-        "value_type": "text",
-        "value_obscure": true,
-        "data": null
-    },
-    {
-        "category": "Translations",
-        "key_name": "lt_LT",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "data": null
-    },
-    {
-        "category": "ImageSizes",
-        "key_name": "small",
-        "value": "200",
-        "value_type": "numeric",
-        "value_obscure": false,
-        "data": null
-    },
-    {
+        "ordering": 0,
         "category": "Translations",
         "key_name": "sk_SK",
         "value": "0",
         "value_type": "bool",
         "value_obscure": false,
+        "description": null,
         "data": null
     },
     {
+        "ordering": 0,
         "category": "Translations",
-        "key_name": "pt_PT",
+        "key_name": "hu_HU",
         "value": "0",
         "value_type": "bool",
         "value_obscure": false,
+        "description": null,
         "data": null
     },
     {
-        "category": "SEO",
-        "key_name": "siteName",
-        "value": "Willow CMS",
-        "value_type": "text",
+        "ordering": 0,
+        "category": "Translations",
+        "key_name": "el_GR",
+        "value": "0",
+        "value_type": "bool",
         "value_obscure": false,
+        "description": null,
         "data": null
     },
     {
+        "ordering": 0,
+        "category": "RateLimit",
+        "key_name": "numberOfRequests",
+        "value": "5",
+        "value_type": "numeric",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "Translations",
+        "key_name": "ro_RO",
+        "value": "1",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "Translations",
+        "key_name": "pl_PL",
+        "value": "1",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "Translations",
+        "key_name": "hr_HR",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 1,
+        "category": "AI",
+        "key_name": "enabled",
+        "value": "1",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Harness the power of artificial intelligence to enhance your content creation process. By enabling AI features, you gain access to a range of powerful tools, such as automatic article summarization, SEO metadata generation, and multilingual translation.",
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "Translations",
+        "key_name": "lt_LT",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 2,
+        "category": "AI",
+        "key_name": "articleTranslations",
+        "value": "1",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Automatically translate your articles into any of the 25 languages enabled in the translations settings. When you publish a page or article, the system will generate high-quality translations.",
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "Translations",
+        "key_name": "sl_SI",
+        "value": "1",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "Translations",
+        "key_name": "no_NO",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "Translations",
+        "key_name": "bg_BG",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "Translations",
+        "key_name": "et_EE",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "ImageSizes",
+        "key_name": "micro",
+        "value": "10",
+        "value_type": "numeric",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "Translations",
+        "key_name": "de_DE",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
         "category": "Translations",
         "key_name": "uk_UA",
         "value": "0",
         "value_type": "bool",
         "value_obscure": false,
+        "description": null,
         "data": null
     },
     {
+        "ordering": 0,
+        "category": "ImageSizes",
+        "key_name": "large",
+        "value": "400",
+        "value_type": "numeric",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 6,
+        "category": "AI",
+        "key_name": "articleTags",
+        "value": "1",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Automatically generate relevant tags for your articles and pages based on their content. When you save an article or page, the system will analyze the text and create tags that best represent the main topics and keywords. These tags will then be automatically linked to the corresponding article or page, making it easier for readers to find related content on your website.",
+        "data": null
+    },
+    {
+        "ordering": 0,
         "category": "ImageSizes",
         "key_name": "massive",
         "value": "800",
         "value_type": "numeric",
         "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "Email",
+        "key_name": "reply_email",
+        "value": "noreply@example.com",
+        "value_type": "text",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "RateLimit",
+        "key_name": "numberOfSeconds",
+        "value": "60",
+        "value_type": "numeric",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "Translations",
+        "key_name": "lv_LV",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "ImageSizes",
+        "key_name": "extra-large",
+        "value": "500",
+        "value_type": "numeric",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 4,
+        "category": "AI",
+        "key_name": "articleSEO",
+        "value": "1",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Optimize your articles and pages for search engines and social media by automatically generating SEO metadata. When enabled, the system will create a meta title, meta description, meta keywords, and tailored descriptions for Facebook, LinkedIn, Instagram, and Twitter.",
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "SEO",
+        "key_name": "siteStrapline",
+        "value": "Welcome to Willow CMS",
+        "value_type": "text",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "SEO",
+        "key_name": "siteMetakeywords",
+        "value": "Default site meta keywords",
+        "value_type": "text",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "Anthropic",
+        "key_name": "apiKey",
+        "value": "222",
+        "value_type": "text",
+        "value_obscure": true,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "SEO",
+        "key_name": "siteMetaDescription",
+        "value": "Default site meta description",
+        "value_type": "text",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 7,
+        "category": "AI",
+        "key_name": "articleSummaries",
+        "value": "1",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Automatically generate concise and compelling summaries for your articles and pages. When enabled, the system will analyze the content and create a brief synopsis that captures the key points. These summaries will appear on the article index page and other areas where a short overview is preferable to displaying the full text.",
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "SEO",
+        "key_name": "siteName",
+        "value": "Willow CMS",
+        "value_type": "text",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "ImageSizes",
+        "key_name": "small",
+        "value": "200",
+        "value_type": "numeric",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "Translations",
+        "key_name": "sv_SE",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "ImageSizes",
+        "key_name": "medium",
+        "value": "300",
+        "value_type": "numeric",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "Translations",
+        "key_name": "ru_RU",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "i18n",
+        "key_name": "locale",
+        "value": "en_GB",
+        "value_type": "select",
+        "value_obscure": false,
+        "description": null,
+        "data": "{\n  \"de_DE\": \"German\",\n  \"fr_FR\": \"French\",\n  \"es_ES\": \"Spanish\",\n  \"it_IT\": \"Italian\",\n  \"pt_PT\": \"Portuguese\",\n  \"nl_NL\": \"Dutch\",\n  \"pl_PL\": \"Polish\",\n  \"ru_RU\": \"Russian\",\n  \"sv_SE\": \"Swedish\",\n  \"da_DK\": \"Danish\",\n  \"fi_FI\": \"Finnish\",\n  \"no_NO\": \"Norwegian\",\n  \"el_GR\": \"Greek\",\n  \"tr_TR\": \"Turkish\",\n  \"cs_CZ\": \"Czech\",\n  \"hu_HU\": \"Hungarian\",\n  \"ro_RO\": \"Romanian\",\n  \"sk_SK\": \"Slovak\",\n  \"sl_SI\": \"Slovenian\",\n  \"bg_BG\": \"Bulgarian\",\n  \"hr_HR\": \"Croatian\",\n  \"et_EE\": \"Estonian\",\n  \"lv_LV\": \"Latvian\",\n  \"lt_LT\": \"Lithuanian\",\n  \"uk_UA\": \"Ukrainian\",\n  \"en_GB\": \"British English\"\n}"
+    },
+    {
+        "ordering": 0,
+        "category": "ImageSizes",
+        "key_name": "tiny",
+        "value": "100",
+        "value_type": "numeric",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "Translations",
+        "key_name": "da_DK",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 3,
+        "category": "AI",
+        "key_name": "tagTranslations",
+        "value": "1",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Automatically translate your tags into any of the 25 languages enabled in the translations settings. When you publish a page or article, the system will generate high-quality translations.",
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "ImageSizes",
+        "key_name": "teeny",
+        "value": "50",
+        "value_type": "numeric",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "Google",
+        "key_name": "apiKey",
+        "value": "333",
+        "value_type": "text",
+        "value_obscure": true,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "Translations",
+        "key_name": "es_ES",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "Translations",
+        "key_name": "cs_CZ",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "Translations",
+        "key_name": "fi_FI",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "Translations",
+        "key_name": "nl_NL",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "i18n",
+        "key_name": "provider",
+        "value": "google",
+        "value_type": "select",
+        "value_obscure": false,
+        "description": null,
+        "data": "{\n  \"google\": \"Google\",\n  \"anthropic\": \"Anthropic\"\n}"
+    },
+    {
+        "ordering": 5,
+        "category": "AI",
+        "key_name": "tagSEO",
+        "value": "1",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Optimize your tags for search engines and social media by automatically generating SEO metadata. When enabled, the system will create a meta title, meta description, meta keywords, and tailored descriptions for Facebook, LinkedIn, Instagram, and Twitter.",
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "Translations",
+        "key_name": "pt_PT",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "Translations",
+        "key_name": "tr_TR",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "Translations",
+        "key_name": "fr_FR",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": null,
+        "data": null
+    },
+    {
+        "ordering": 0,
+        "category": "Translations",
+        "key_name": "it_IT",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": null,
         "data": null
     }
 ]

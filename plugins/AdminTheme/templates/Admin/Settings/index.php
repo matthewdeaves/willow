@@ -99,6 +99,25 @@
     ready(function() {
         console.log('DOM fully loaded and parsed');
 
+        // Initialize all obscured fields
+        document.querySelectorAll('.obscured-field').forEach(function(input) {
+            // Set initial type to password for security
+            input.type = 'password';
+            
+            // Add input event listener to capture changes immediately
+            input.addEventListener('input', function(e) {
+                // Update the real value when user types
+                input.setAttribute('data-real-value', e.target.value);
+            });
+
+            // Handle paste events
+            input.addEventListener('paste', function(e) {
+                setTimeout(() => {
+                    input.setAttribute('data-real-value', input.value);
+                }, 0);
+            });
+        });
+
         function toggleObscured(button) {
             console.log('Toggle obscured called');
             const targetId = button.getAttribute('data-target');
@@ -106,12 +125,14 @@
 
             if (input.classList.contains('obscured')) {
                 // Show the real value
+                input.type = 'text';
                 input.value = input.getAttribute('data-real-value');
                 input.classList.remove('obscured');
                 button.textContent = 'Hide';
             } else {
                 // Hide the value
-                input.value = '•'.repeat(input.getAttribute('data-real-value').length);
+                input.type = 'password';
+                input.value = input.getAttribute('data-real-value');
                 input.classList.add('obscured');
                 button.textContent = 'Show';
             }
@@ -124,14 +145,17 @@
             }
         });
 
-        // Ensure the real values are submitted
+        // Handle form submission
         const form = document.querySelector('form');
         if (form) {
             form.addEventListener('submit', function() {
                 document.querySelectorAll('.obscured-field').forEach(function(input) {
-                    if (input.classList.contains('obscured')) {
-                        input.value = input.getAttribute('data-real-value');
+                    // If the field is not obscured, update the real value
+                    if (!input.classList.contains('obscured')) {
+                        input.setAttribute('data-real-value', input.value);
                     }
+                    // Always submit the real value
+                    input.value = input.getAttribute('data-real-value');
                 });
             });
         }

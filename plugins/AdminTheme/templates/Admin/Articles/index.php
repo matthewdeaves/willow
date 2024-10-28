@@ -68,10 +68,18 @@
                         <?php if ($article->is_published == true): ?>
                             <?= $this->Html->link(
                                 substr($article->slug, 0, 15) . '...',
-                                '/' . $article->slug,
+                                [
+                                    'controller' => 'Articles',
+                                    'action' => 'view-by-slug',
+                                    'slug' => $article->slug,
+                                    '_name' => 'article-by-slug'
+                                ],
                                 ['escape' => false]
-                            ) ?>
+                            );
+                            ?>
                         <?php else: ?>
+
+
                             <?= $this->Html->link(
                                 substr($article->slug, 0, 15) . '...',
                                 [
@@ -82,6 +90,8 @@
                                 ],
                                 ['escape' => false]
                             ) ?>
+
+
                         <?php endif; ?>
                     </td>
                     <td>

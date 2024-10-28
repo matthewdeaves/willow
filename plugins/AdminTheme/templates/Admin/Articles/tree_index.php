@@ -44,17 +44,29 @@ $this->Html->script('articles_tree', ['block' => true]);
                         echo '</div>';
                         echo '<div class="btn-group" role="group">';
 
-                        echo $Form->Html->link(
-                            'View',
-                            $article->is_published 
-                                ? '/' . $article->slug 
-                                : [
-                                    'prefix' => 'Admin',
-                                    'action' => 'view',
-                                    $article->id
+                        if ($article->is_published) {
+                            echo $Form->Html->link(
+                                'View',
+                                [
+                                    'controller' => 'Articles',
+                                    'action' => 'view-by-slug',
+                                    'slug' => $article->slug,
+                                    '_name' => 'page-by-slug'
                                 ],
-                            ['class' => 'btn btn-sm btn-outline-info']
-                        );
+                                ['class' => 'btn btn-sm btn-outline-info']
+                            );
+                        } else {
+                            echo $Form->Html->link(
+                                'View',
+                                [
+                                    'prefix' => 'Admin',
+                                    'controller' => 'Articles',
+                                    'action' => 'view',
+                                    $article->id,
+                                ],
+                                ['class' => 'btn btn-sm btn-outline-info']
+                            );
+                        }
                         
                         echo $Form->Html->link('Add', [
                             'prefix' => 'Admin',

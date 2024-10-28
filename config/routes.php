@@ -109,6 +109,19 @@ return function (RouteBuilder $routes): void {
         );
 
         $builder->connect(
+            'pages/{slug}',
+            [
+                'controller' => 'Articles',
+                'action' => 'view-by-slug'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'page-by-slug',
+                'pass' => ['slug'] 
+            ]
+        );
+
+        $builder->connect(
             'tags/{slug}',
             [
                 'controller' => 'Tags',

@@ -11,7 +11,7 @@ unset($currentParams['_matchedRoute']);
 unset($currentParams['pass']);
 ?>
 <div class="mb-3">
-    <div class="d-flex flex-wrap gap-2" role="group" aria-label="Tag filters">
+    <div class="d-flex flex-wrap gap-2" role="group" aria-label="Language filters">
     <?php $currentParams['lang'] = 'en'; ?>
         <?= $this->Html->link(
             __('English'),

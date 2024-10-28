@@ -78,7 +78,24 @@ use Cake\Utility\Inflector;
                             <tbody>
                                 <?php foreach ($user->articles as $article) : ?>
                                 <tr>
-                                    <td><?= h($article->title) ?></td>
+                                    <td>
+                                        <?php $ruleName = ($article->is_page == 0) ? 'article-by-slug' : 'page-by-slug';?>
+                                        <?php if ($article->is_published == true): ?>
+                                            <?= $this->Html->link(
+                                                htmlspecialchars_decode($article->title),
+                                                [
+                                                    'controller' => 'Articles',
+                                                    'action' => 'view-by-slug',
+                                                    'slug' => $article->slug,
+                                                    '_name' => $ruleName
+                                                ],
+                                                ['escape' => false]
+                                            );
+                                            ?>
+                                        <?php else : ?>
+                                            <?= htmlspecialchars_decode($article->title) ?>
+                                        <?php endif; ?>
+                                    </td>
                                     <td><?= h($article->created) ?></td>
                                     <td><?= h($article->modified) ?></td>
                                     <td class="actions">

@@ -10,6 +10,7 @@ $currentParams = $this->request->getAttribute('params');
 unset($currentParams['_matchedRoute']);
 unset($currentParams['pass']);
 ?>
+<?php if (!empty($languages)): ?>
 <div class="mb-3">
     <div class="d-flex flex-wrap gap-2" role="group" aria-label="Language filters">
     <?php $currentParams['lang'] = 'en'; ?>
@@ -29,3 +30,4 @@ unset($currentParams['pass']);
         <?php endforeach; ?>
     </div>
 </div>
+<?php endif; ?>

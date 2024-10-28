@@ -39,7 +39,7 @@
     </div>
     <div class="row mb-3">
         <div class="col-md-6">
-            <div class="btn-group" role="group" aria-label="Group filters">
+            <div class="d-flex flex-wrap gap-2" role="group" aria-label="Group filters">
                 <?= $this->Html->link(__('All Groups'), ['action' => 'index'], ['class' => 'btn btn-outline-secondary' . (!$selectedGroup ? ' active' : '')]) ?>
                 <?php foreach ($groupNames as $group): ?>
                     <?= $this->Html->link(

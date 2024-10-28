@@ -26,7 +26,9 @@
                 <?php foreach ($tags as $tag): ?>
                 <tr>
                     <td><?= h($tag->title) ?></td>
-                    <td><?= h($tag->slug) ?></td>
+                    <td>
+                        <?= $this->Html->link(htmlspecialchars_decode($tag->slug), ['_name' => 'tag-by-slug', 'slug' => $tag->slug]) ?>
+                    </td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $tag->id], ['class' => 'btn btn-sm btn-outline-primary']) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $tag->id], ['class' => 'btn btn-sm btn-outline-secondary']) ?>

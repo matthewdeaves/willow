@@ -33,24 +33,30 @@
     <td><?= $article->is_published ? '<span class="badge bg-success">' . __('Yes') . '</span>' : '<span class="badge bg-secondary">' . __('No') . '</span>' ?></td>
     <td><?= h($article->title) ?></td>
     <td>
-        <?php if ($article->is_published == true): ?>
-            <?= $this->Html->link(
-                substr($article->slug, 0, 15) . '...',
-                '/' . $article->slug,
-                ['escape' => false]
-            ) ?>
-        <?php else: ?>
-            <?= $this->Html->link(
-                substr($article->slug, 0, 15) . '...',
-                [
-                    'prefix' => 'Admin',
-                    'controller' => 'Articles',
-                    'action' => 'view',
-                    $article->id
-                ],
-                ['escape' => false]
-            ) ?>
-        <?php endif; ?>
+    <?php if ($article->is_published == true): ?>
+        <?= $this->Html->link(
+            substr($article->slug, 0, 15) . '...',
+            [
+                'controller' => 'Articles',
+                'action' => 'view-by-slug',
+                'slug' => $article->slug,
+                '_name' => 'article-by-slug'
+            ],
+            ['escape' => false]
+        );
+        ?>
+    <?php else: ?>
+        <?= $this->Html->link(
+            substr($article->slug, 0, 15) . '...',
+            [
+                'prefix' => 'Admin',
+                'controller' => 'Articles',
+                'action' => 'view',
+                $article->id
+            ],
+            ['escape' => false]
+        ) ?>
+    <?php endif; ?>
     </td>
     <td>
         <?= $this->Html->link(

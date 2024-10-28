@@ -43,12 +43,20 @@
                         <tr>
                             <th><?= __('Slug') ?></th>
                             <td>
+                                <?php $ruleName = ($article->is_page == 0) ? 'article-by-slug' : 'page-by-slug';?>
                                 <?php if ($article->is_published == true): ?>
+                                    
                                     <?= $this->Html->link(
                                         $article->slug,
-                                        '/' . $article->slug,
+                                        [
+                                            'controller' => 'Articles',
+                                            'action' => 'view-by-slug',
+                                            'slug' => $article->slug,
+                                            '_name' => $ruleName,
+                                        ],
                                         ['escape' => false]
-                                    ) ?>
+                                    );
+                                    ?>
                                 <?php else: ?>
                                     <?= $this->Html->link(
                                         $article->slug,
@@ -121,6 +129,7 @@
                                     <td><?= h($tag->created) ?></td>
                                     <td><?= h($tag->modified) ?></td>
                                     <td class="actions">
+                                        <?= $this->Html->link(__('Live'), ['_name' => 'tag-by-slug', 'slug' => $tag->slug], ['class' => 'btn btn-sm btn-info']) ?>
                                         <?= $this->Html->link(__('View'), ['controller' => 'Tags', 'action' => 'view', $tag->id], ['class' => 'btn btn-sm btn-info']) ?>
                                         <?= $this->Html->link(__('Edit'), ['controller' => 'Tags', 'action' => 'edit', $tag->id], ['class' => 'btn btn-sm btn-primary']) ?>
                                         <?= $this->Form->postLink(__('Delete'), ['controller' => 'Tags', 'action' => 'delete', $tag->id], ['confirm' => __('Are you sure you want to delete {0}?', $tag->title), 'class' => 'btn btn-sm btn-danger']) ?>

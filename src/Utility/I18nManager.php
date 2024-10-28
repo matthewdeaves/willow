@@ -108,7 +108,7 @@ class I18nManager
         $connection = ConnectionManager::get('default');
         $result = $connection->execute($query, ['table_schema' => $dbDatabase])->fetch('assoc');
 
-        if (!empty(array_values($result)[0]) && $dbDatabase != FALSE) {
+        if (!empty(array_values($result)[0]) && $dbDatabase != false) {
             $defaultLanguages = ['en'];
             $enabledLanguages = array_keys(self::getEnabledLocales());
             $mergedLanguages = array_merge($defaultLanguages, $enabledLanguages);

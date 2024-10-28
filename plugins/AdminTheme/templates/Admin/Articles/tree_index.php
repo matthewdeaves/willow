@@ -46,7 +46,7 @@ $this->Html->script('articles_tree', ['block' => true]);
 
                         if ($article->is_published) {
                             echo $Form->Html->link(
-                                'View',
+                                __('Live'),
                                 [
                                     'controller' => 'Articles',
                                     'action' => 'view-by-slug',
@@ -55,18 +55,18 @@ $this->Html->script('articles_tree', ['block' => true]);
                                 ],
                                 ['class' => 'btn btn-sm btn-outline-info']
                             );
-                        } else {
-                            echo $Form->Html->link(
-                                'View',
-                                [
-                                    'prefix' => 'Admin',
-                                    'controller' => 'Articles',
-                                    'action' => 'view',
-                                    $article->id,
-                                ],
-                                ['class' => 'btn btn-sm btn-outline-info']
-                            );
                         }
+
+                        echo $Form->Html->link(
+                            __('View'),
+                            [
+                                'prefix' => 'Admin',
+                                'controller' => 'Articles',
+                                'action' => 'view',
+                                $article->id,
+                            ],
+                            ['class' => 'btn btn-sm btn-outline-info']
+                        );
                         
                         echo $Form->Html->link('Add', [
                             'prefix' => 'Admin',

@@ -78,8 +78,6 @@
                             );
                             ?>
                         <?php else: ?>
-
-
                             <?= $this->Html->link(
                                 substr($article->slug, 0, 15) . '...',
                                 [
@@ -90,8 +88,6 @@
                                 ],
                                 ['escape' => false]
                             ) ?>
-
-
                         <?php endif; ?>
                     </td>
                     <td>

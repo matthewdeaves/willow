@@ -32,7 +32,7 @@
    - [TranslationGenerator](#8-translationgenerator)
    - [ClassesSummary](#classes-summary)
 
-5. [Google Cloud Translate API Integration]
+5. [Google Cloud Translate API Integration](#google-cloud-translate-api-integration)
    - [GoogleApiService](#1-googleapiservice)
 
 6. [Environment Configuration](#environment-configuration-with-configenvexample)
@@ -377,7 +377,7 @@ The Generator/Analyzer classes use the AipromptsTable to retrieve task-specific 
 
 ## Google Cloud Translate API Integration
 
-Willow CMS leverages Googles Cloud Translate API through a set of specialized classes. These classes are designed to facilitate various tranlsation features and can be extended or customized to build further integrations. Here's an overview of the key classes:
+Willow CMS leverages Googles Cloud Translate API through a specialized class. This classes are designed to facilitate various tranlsation features and can be extended or customized to build further integrations. Here's an overview of the key classes:
 
 ### 1. GoogleApiService
 **Location**: `src/Service/Api/Google/GoogleApiService.php`

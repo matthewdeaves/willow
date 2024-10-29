@@ -14,996 +14,88 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
 #: 
-msgid "Enter a number"
-msgstr "Bir sayı girin"
+msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
+msgstr "Slug mevcut bir SEO yönlendirmesiyle çakışıyor. Lütfen farklı bir slug seçin."
 
 #: 
-msgid "Associated Pages"
-msgstr "İlgili Sayfalar"
-
-#: 
-msgid "Edit Blocked IP"
-msgstr "Engellenen IP&#39;yi Düzenle"
-
-#: 
-msgid "New Internationalisation"
-msgstr "Yeni Uluslararasılaşma"
-
-#: 
-msgid "Related Articles"
-msgstr "İlgili Makaleler"
-
-#: 
-msgid "Locale"
-msgstr "Yerel"
-
-#: 
-msgid "An Internal Error Has Occurred."
-msgstr "Dahili Bir Hata Oluştu."
-
-#: 
-msgid "User Agent"
-msgstr "Kullanıcı Aracısı"
-
-#: 
-msgid "Group Name"
-msgstr "Grup Adı"
-
-#: 
-msgid "The slug could not be deleted. Please, try again."
-msgstr "Slug silinemedi. Lütfen tekrar deneyin."
-
-#: 
-msgid "Slug:"
-msgstr "Salyangoz:"
-
-#: 
-msgid "Are you sure you want to delete # {0}?"
-msgstr "# {0} öğesini silmek istediğinizden emin misiniz?"
-
-#: 
-msgid "Search articles..."
-msgstr "Makalelerde ara..."
-
-#: 
-msgid "Cache Name"
-msgstr "Önbellek Adı"
-
-#: 
-msgid "Unable to delete logs in group {0}."
-msgstr "{0} grubundaki günlükler silinemiyor."
-
-#: 
-msgid "New User"
-msgstr "Yeni Kullanıcı"
-
-#: 
-msgid "Description"
-msgstr "Tanım"
-
-#: 
-msgid "Failed to update translation for message ID: {0}"
-msgstr "Mesaj kimliği için çeviri güncellenemedi: {0}"
-
-#: 
-msgid "Are you sure you want to delete IP {0}?"
-msgstr "IP {0} adresini silmek istediğinizden emin misiniz?"
-
-#: 
-msgid "Edit Your Account"
-msgstr "Hesabınızı Düzenleyin"
-
-#: 
-msgid "Body Text"
-msgstr "Gövde Metni"
-
-#: 
-msgid "List View"
-msgstr "Liste Görünümü"
-
-#: 
-msgid "Pages"
-msgstr "Sayfalar"
-
-#: 
-msgid "The article has been saved."
-msgstr "Makale kaydedildi."
-
-#: 
-msgid "New {0}"
-msgstr "Yeni {0}"
-
-#: 
-msgid "New Slug"
-msgstr "Yeni Sümüklüböcek"
-
-#: 
-msgid "Are you sure you want to delete comment by {0}?"
-msgstr "{0} adlı kullanıcının yorumunu silmek istediğinizden emin misiniz?"
-
-#: 
-msgid "The requested address {0} was not found on this server."
-msgstr "İstenen {0} adresi bu sunucuda bulunamadı."
-
-#: 
-msgid "Are you sure you want to delete this comment?"
-msgstr "Bu yorumu silmek istediğinize emin misiniz?"
-
-#: 
-msgid "Add Page"
-msgstr "Sayfa Ekle"
-
-#: 
-msgid "Registration successful. Please check your email for confirmation."
-msgstr "Kayıt başarılı. Lütfen onay için e-postanızı kontrol edin."
-
-#: 
-msgid "Tags"
-msgstr "Etiketler"
-
-#: 
-msgid "User"
-msgstr "Kullanıcı"
-
-#: 
-msgid "Delete {0}"
-msgstr "{0}&#39;ı sil"
-
-#: 
-msgid "List {0}"
-msgstr "Liste {0}"
-
-#: 
-msgid "Add Blocked IP"
-msgstr "Engellenen IP&#39;yi ekle"
-
-#: 
-msgid "Article not found."
-msgstr "Makale bulunamadı."
-
-#: 
-msgid "The blocked ip has been deleted."
-msgstr "Engellenen ip silindi."
-
-#: 
-msgid "Subject"
-msgstr "Ders"
-
-#: 
-msgid "No images."
-msgstr "Görüntü yok."
+msgid "Edit Comment"
+msgstr "Yorumu Düzenle"
 
 #: 
 msgid "Internationalisation"
 msgstr "Uluslararasılaşma"
 
 #: 
-msgid "The tag could not be deleted. Please, try again."
-msgstr "Etiket silinemedi. Lütfen tekrar deneyin."
-
-#: 
-msgid "Unable to delete the log."
-msgstr "Günlük silinemiyor."
-
-#: 
-msgid "Total Views: "
-msgstr "Toplam Görüntülenme: "
-
-#: 
 msgid "Level"
 msgstr "Seviye"
-
-#: 
-msgid "Keywords"
-msgstr "Anahtar kelimeler"
-
-#: 
-msgid "Confirm Password"
-msgstr "Şifreyi Onayla"
-
-#: 
-msgid "Error saving {0}.{1}: {2}"
-msgstr "{0}.{1} kaydedilirken hata oluştu: {2}"
-
-#: 
-msgid "Bulk Upload"
-msgstr "Toplu Yükleme"
-
-#: 
-msgid "Update Article"
-msgstr "Makaleyi Güncelle"
-
-#: 
-msgid "Toggle SEO Fields"
-msgstr "SEO Alanlarını Değiştir"
-
-#: 
-msgid "Page Views for {0}"
-msgstr "{0} için Sayfa Görüntülemeleri"
-
-#: 
-msgid "The comment has been deleted."
-msgstr "Yorum silindi."
-
-#: 
-msgid "Image must be less than 5MB."
-msgstr "Resim 5MB&#39;den küçük olmalıdır."
-
-#: 
-msgid "Back"
-msgstr "Geri"
-
-#: 
-msgid "Edit Internationalisation"
-msgstr "Uluslararasılaşmayı Düzenle"
-
-#: 
-msgid "Invalid type"
-msgstr "Geçersiz tip"
-
-#: 
-msgid "Error in: "
-msgstr "Hata: "
-
-#: 
-msgid "Edit Settings"
-msgstr "Ayarları Düzenle"
-
-#: 
-msgid "Account"
-msgstr "Hesap"
-
-#: 
-msgid "No pages found."
-msgstr "Sayfa bulunamadı."
-
-#: 
-msgid "Images"
-msgstr "Görüntüler"
-
-#: 
-msgid "Posted on {date} by {author}"
-msgstr "{date} tarihinde {author} tarafından yayınlandı"
-
-#: 
-msgid "Edit Image"
-msgstr "Resmi Düzenle"
-
-#: 
-msgid "LinkedIn Description"
-msgstr "LinkedIn Açıklaması"
-
-#: 
-msgid "The internationalisation could not be deleted. Please, try again."
-msgstr "Uluslararasılaştırma silinemedi. Lütfen tekrar deneyin."
-
-#: 
-msgid "You must be logged in to add a comment."
-msgstr "Yorum eklemek için giriş yapmalısınız."
-
-#: 
-msgid "Body HTML"
-msgstr "Gövde HTML"
-
-#: 
-msgid "New Email Template"
-msgstr "Yeni E-posta Şablonu"
-
-#: 
-msgid "The image could not be saved. Please, try again."
-msgstr "Resim kaydedilemedi. Lütfen tekrar deneyin."
-
-#: 
-msgid "Edit Aiprompt"
-msgstr "Aiprompt&#39;u Düzenle"
-
-#: 
-msgid "No tags are linked."
-msgstr "Hiçbir etiket bağlantılı değil."
-
-#: 
-msgid "AI Prompts"
-msgstr "AI İstemleri"
-
-#: 
-msgid "Message"
-msgstr "Mesaj"
-
-#: 
-msgid "This slug is already in use in articles. Please enter a unique slug."
-msgstr "Bu slug makalelerde zaten kullanılıyor. Lütfen benzersiz bir slug girin."
-
-#: 
-msgid "Blocked At"
-msgstr "Engellendi"
-
-#: 
-msgid "Front Site"
-msgstr "Ön Site"
-
-#: 
-msgid "You are not authorized to edit this account, stick to your own."
-msgstr "Bu hesabı düzenleme yetkiniz yok, kendi hesabınızda kalın."
-
-#: 
-msgid "Search slugs..."
-msgstr "Sümüklü böcekleri ara..."
-
-#: 
-msgid "Modified At"
-msgstr "Değiştirildi"
-
-#: 
-msgid "Page Views"
-msgstr "Sayfa Görüntülemeleri"
-
-#: 
-msgid "Select a parent"
-msgstr "Bir ebeveyn seçin"
-
-#: 
-msgid "Failed to send email to: {0}"
-msgstr "E-posta gönderilemedi: {0}"
-
-#: 
-msgid "User Comments"
-msgstr "Kullanıcı Yorumları"
-
-#: 
-msgid "Update Slug"
-msgstr "Slug&#39;ı güncelle"
-
-#: 
-msgid "Unknown Author"
-msgstr "Bilinmeyen Yazar"
-
-#: 
-msgid "Submit"
-msgstr "Göndermek"
-
-#: 
-msgid "Content"
-msgstr "İçerik"
-
-#: 
-msgid "Created At"
-msgstr "Oluşturuldu"
-
-#: 
-msgid "Context"
-msgstr "Bağlam"
-
-#: 
-msgid "Are you sure you want to delete this prompt?"
-msgstr "Bu istemi silmek istediğinizden emin misiniz?"
-
-#: 
-msgid "Display"
-msgstr "Görüntülemek"
-
-#: 
-msgid "Search logs..."
-msgstr "Arama kayıtları..."
-
-#: 
-msgid "Blocked IPs"
-msgstr "Engellenen IP&#39;ler"
-
-#: 
-msgid "The comment has been saved."
-msgstr "Yorum kaydedildi."
-
-#: 
-msgid "Update User"
-msgstr "Kullanıcıyı Güncelle"
-
-#: 
-msgid "System Logs"
-msgstr "Sistem Günlükleri"
-
-#: 
-msgid "Profile Picture"
-msgstr "Profil Resmi"
-
-#: 
-msgid "Are you sure you want to clear {0}?"
-msgstr "{0} öğesini temizlemek istediğinizden emin misiniz?"
-
-#: 
-msgid "Admin"
-msgstr "Yönetici"
-
-#: 
-msgid "Missing required arguments in the message."
-msgstr "Mesajda gerekli argümanlar eksik."
-
-#: 
-msgid "The slug has been saved."
-msgstr "Salyangoz kurtarıldı."
-
-#: 
-msgid "No view records found for this article."
-msgstr "Bu makale için herhangi bir görüntüleme kaydı bulunamadı."
-
-#: 
-msgid "The log has been deleted."
-msgstr "Günlük silindi."
-
-#: 
-msgid "New Image"
-msgstr "Yeni Görüntü"
-
-#: 
-msgid "Word Count"
-msgstr "Kelime Sayısı"
-
-#: 
-msgid "The internationalisation could not be saved. Please, try again."
-msgstr "Uluslararasılaştırma kaydedilemedi. Lütfen tekrar deneyin."
-
-#: 
-msgid "Edit"
-msgstr "Düzenlemek"
-
-#: 
-msgid "{0} cache could not be cleared."
-msgstr "{0} önbelleği temizlenemedi."
-
-#: 
-msgid "Additional Images"
-msgstr "Ek Resimler"
-
-#: 
-msgid "Your account has been confirmed. You can now log in."
-msgstr "Hesabınız onaylandı. Artık giriş yapabilirsiniz."
-
-#: 
-msgid "Logs"
-msgstr "Günlükler"
-
-#: 
-msgid "Your account has been updated."
-msgstr "Hesabınız güncellendi."
-
-#: 
-msgid "Registration successful, but there was an issue creating the confirmation link."
-msgstr "Kayıt başarılı, ancak onay bağlantısı oluşturulurken bir sorun oluştu."
-
-#: 
-msgid "Article not found"
-msgstr "Makale bulunamadı"
-
-#: 
-msgid "Main Picture"
-msgstr "Ana Resim"
-
-#: 
-msgid "The settings have been saved."
-msgstr "Ayarlar kaydedildi."
-
-#: 
-msgid "The value must be a number."
-msgstr "Değer bir sayı olmalıdır."
-
-#: 
-msgid "The blocked ip has been saved."
-msgstr "Engellenen ip kaydedildi."
-
-#: 
-msgid "Facebook Description"
-msgstr "Facebook Açıklaması"
-
-#: 
-msgid "The internationalisation has been deleted."
-msgstr "Uluslararasılaşma silindi."
-
-#: 
-msgid "There was an issue confirming your account. Please try again."
-msgstr "Hesabınızı onaylarken bir sorun oluştu. Lütfen tekrar deneyin."
-
-#: 
-msgid "The email template has been deleted."
-msgstr "E-posta şablonu silindi."
-
-#: 
-msgid "The article has been deleted."
-msgstr "Makale silindi."
-
-#: 
-msgid "All caches have been cleared successfully."
-msgstr "Tüm önbellekler başarıyla temizlendi."
-
-#: 
-msgid "Comment"
-msgstr "Yorum"
-
-#: 
-msgid "Error loading images:"
-msgstr "Resimler yüklenirken hata oluştu:"
-
-#: 
-msgid "Search images..."
-msgstr "Resimleri ara..."
-
-#: 
-msgid "Temperature"
-msgstr "Sıcaklık"
-
-#: 
-msgid "Email template not found: {0}"
-msgstr "E-posta şablonu bulunamadı: {0}"
-
-#: 
-msgid "Last Cleared"
-msgstr "Son Temizlenen"
-
-#: 
-msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
-msgstr "E-posta başarıyla gönderildi: {0}. Şablon: {1}, Konu: {2}"
-
-#: 
-msgid "Page View Statistics for slug: {0}"
-msgstr "slug için Sayfa Görüntüleme İstatistikleri: {0}"
-
-#: 
-msgid "Are you sure you want to delete all logs in group {0}?"
-msgstr "{0} grubundaki tüm günlükleri silmek istediğinizden emin misiniz?"
-
-#: 
-msgid "Image uploaded successfully"
-msgstr "Resim başarıyla yüklendi"
-
-#: 
-msgid "All Tags"
-msgstr "Tüm Etiketler"
-
-#: 
-msgid "No deleting your own account."
-msgstr "Kendi hesabınızı silmenize gerek yok."
-
-#: 
-msgid "Error"
-msgstr "Hata"
-
-#: 
-msgid "{0} cache has been cleared successfully."
-msgstr "{0} önbelleği başarıyla temizlendi."
 
 #: 
 msgid "Add Image"
 msgstr "Resim Ekle"
 
 #: 
-msgid "Users"
-msgstr "Kullanıcılar"
+msgid "Unable to add your comment."
+msgstr "Yorumunuzu ekleyemiyorum."
 
 #: 
-msgid "The aiprompt could not be saved. Please, try again."
-msgstr "Aiprompt kaydedilemedi. Lütfen tekrar deneyin."
+msgid "Created"
+msgstr "Oluşturuldu"
 
 #: 
-msgid "Task Type"
-msgstr "Görev Türü"
+msgid "LinkedIn Description"
+msgstr "LinkedIn Açıklaması"
 
 #: 
-msgid "Delete All Logs"
-msgstr "Tüm Günlükleri Sil"
-
-#: 
-msgid "Max Tokens"
-msgstr "Maksimum Jetonlar"
-
-#: 
-msgid "Error sending email: {0}"
-msgstr "E-posta gönderilirken hata oluştu: {0}"
+msgid "The log has been deleted."
+msgstr "Günlük silindi."
 
 #: 
 msgid "Edit Slug"
 msgstr "Düzenleme Slug&#39;ı"
 
 #: 
-msgid "The user could not be saved. Please, try again."
-msgstr "Kullanıcı kaydedilemedi. Lütfen tekrar deneyin."
+msgid "Edit"
+msgstr "Düzenlemek"
 
 #: 
-msgid "Model"
-msgstr "Örnek"
+msgid "The value must not be empty."
+msgstr "Değer boş bırakılmamalıdır."
 
 #: 
-msgid "Unknown User"
-msgstr "Bilinmeyen Kullanıcı"
+msgid "Content"
+msgstr "İçerik"
 
 #: 
-msgid "Articles"
-msgstr "Makaleler"
-
-#: 
-msgid "You cannot disable your own account."
-msgstr "Kendi hesabınızı devre dışı bırakamazsınız."
-
-#: 
-msgid "New AI Prompt"
-msgstr "Yeni AI İstemi"
-
-#: 
-msgid "Meta Description"
-msgstr "Meta Açıklama"
-
-#: 
-msgid "Is Published"
-msgstr "Yayımlandı"
-
-#: 
-msgid "The article could not be saved. Please, try again."
-msgstr "Makale kaydedilemedi. Lütfen tekrar deneyin."
-
-#: 
-msgid "No comments yet."
-msgstr "Henüz yorum yapılmadı."
-
-#: 
-msgid "No"
-msgstr "HAYIR"
-
-#: 
-msgid "Submit Comment"
-msgstr "Yorum Gönder"
-
-#: 
-msgid "Show Details"
-msgstr "Ayrıntıları Göster"
-
-#: 
-msgid "Views"
-msgstr "Görünümler"
-
-#: 
-msgid "You cannot remove your own admin status."
-msgstr "Kendi yönetici durumunuzu kaldıramazsınız."
-
-#: 
-msgid "The article could not be deleted. Please, try again."
-msgstr "Makale silinemedi. Lütfen tekrar deneyin."
-
-#: 
-msgid "Edit {0}"
-msgstr "{0} Düzenle"
-
-#: 
-msgid "Some caches were cleared, but the following failed: {0}"
-msgstr "Bazı önbellekler temizlendi, ancak aşağıdakiler başarısız oldu: {0}"
-
-#: 
-msgid "The tag has been saved."
-msgstr "Etiket kaydedildi."
-
-#: 
-msgid "Expires At"
-msgstr "Sona Erme Tarihi"
-
-#: 
-msgid "Password must be at least 8 characters long"
-msgstr "Şifre en az 8 karakter uzunluğunda olmalıdır"
-
-#: 
-msgid "Register"
-msgstr "Kayıt olmak"
-
-#: 
-msgid "Title"
-msgstr "Başlık"
-
-#: 
-msgid "Not published"
-msgstr "Yayımlanmadı"
-
-#: 
-msgid "Too Many Requests"
-msgstr "Çok Fazla İstek"
-
-#: 
-msgid "No page view data available for this article."
-msgstr "Bu makale için sayfa görüntüleme verisi mevcut değil."
-
-#: 
-msgid "Twitter Description"
-msgstr "Twitter Açıklaması"
-
-#: 
-msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
-msgstr "Sayfa {{page}} / {{pages}}, toplam {{count}} kayıttan {{current}} kayıt gösteriliyor"
-
-#: 
-msgid "Details"
-msgstr "Detaylar"
-
-#: 
-msgid "Related Tags"
-msgstr "İlgili Etiketler"
-
-#: 
-msgid "Cache Management"
-msgstr "Önbellek Yönetimi"
-
-#: 
-msgid "Engine"
-msgstr "Motor"
-
-#: 
-msgid "IP Address"
-msgstr "IP Adresi"
-
-#: 
-msgid "List Email Templates"
-msgstr "Liste E-posta Şablonları"
-
-#: 
-msgid "Picture"
-msgstr "Resim"
-
-#: 
-msgid "Slug"
-msgstr "Salyangoz"
-
-#: 
-msgid "All Locales"
-msgstr "Tüm Yerel Ayarlar"
-
-#: 
-msgid "Rate limit exceeded for IP: {0} on route: {1}"
-msgstr "IP: {0} için rota üzerindeki hız sınırı aşıldı: {1}"
+msgid "Front Site"
+msgstr "Ön Site"
 
 #: 
 msgid "The slug could not be saved. Please, try again."
 msgstr "Slug kaydedilemedi. Lütfen tekrar deneyin."
 
 #: 
-msgid "The tag could not be saved. Please, try again."
-msgstr "Etiket kaydedilemedi. Lütfen tekrar deneyin."
+msgid "Article not found."
+msgstr "Makale bulunamadı."
 
 #: 
-msgid "The user has been saved."
-msgstr "Kullanıcı kaydedildi."
+msgid "Is Inappropriate"
+msgstr "Uygunsuz"
 
 #: 
-msgid "Inappropriate Reason"
-msgstr "Uygunsuz Neden"
+msgid "Edit Image"
+msgstr "Resmi Düzenle"
 
 #: 
-msgid "{0} cache configuration does not exist."
-msgstr "{0} önbellek yapılandırması mevcut değil."
+msgid "Add User"
+msgstr "Kullanıcı Ekle"
 
 #: 
-msgid "Save All Settings"
-msgstr "Tüm Ayarları Kaydet"
+msgid "Name"
+msgstr "İsim"
 
 #: 
-msgid "Instagram Description"
-msgstr "Instagram Açıklaması"
-
-#: 
-msgid "Filter"
-msgstr "Filtre"
-
-#: 
-msgid "All logs with level {0} have been deleted."
-msgstr "{0} seviyesindeki tüm günlükler silindi."
-
-#: 
-msgid "An error occurred while processing your request."
-msgstr "Talebiniz işlenirken bir hata oluştu."
-
-#: 
-msgid "A value is required"
-msgstr "Bir değer gerekli"
-
-#: 
-msgid "Search tags..."
-msgstr "Etiketleri ara..."
-
-#: 
-msgid "The slug has been deleted."
-msgstr "Slug silindi."
-
-#: 
-msgid "Some settings could not be saved. Please, try again."
-msgstr "Bazı ayarlar kaydedilemedi. Lütfen tekrar deneyin."
-
-#: 
-msgid "Body"
-msgstr "Vücut"
-
-#: 
-msgid "Date"
-msgstr "Tarih"
-
-#: 
-msgid "View detailed records for this date"
-msgstr "Bu tarihe ait detaylı kayıtları görüntüle"
-
-#: 
-msgid "Too many requests. Please try again later."
-msgstr "Çok fazla istek. Lütfen daha sonra tekrar deneyin."
-
-#: 
-msgid "System Prompt"
-msgstr "Sistem İstemi"
-
-#: 
-msgid "The aiprompt has been saved."
-msgstr "Aiprompt kaydedildi."
-
-#: 
-msgid "Invalid username or password"
-msgstr "Geçersiz kullanıcı adı veya şifre"
-
-#: 
-msgid "The slug must be unique."
-msgstr "Slug&#39;ın benzersiz olması gerekir."
-
-#: 
-msgid "Unable to delete all logs."
-msgstr "Tüm günlükler silinemiyor."
-
-#: 
-msgid "Failed to send email. Please check your email configuration."
-msgstr "E-posta gönderilemedi. Lütfen e-posta yapılandırmanızı kontrol edin."
-
-#: 
-msgid "Access denied. You must be an admin to view this page."
-msgstr "Erişim engellendi. Bu sayfayı görüntülemek için yönetici olmanız gerekir."
-
-#: 
-msgid "Is AI Analyzed"
-msgstr "AI Analiz Edildi mi?"
-
-#: 
-msgid "Add Article"
-msgstr "Makale Ekle"
-
-#: 
-msgid "Are you sure you want to delete {0}?"
-msgstr "{0} öğesini silmek istediğinizden emin misiniz?"
-
-#: 
-msgid "The blocked ip could not be saved. Please, try again."
-msgstr "Engellenen ip kaydedilemedi. Lütfen tekrar deneyin."
-
-#: 
-msgid "Failed to send confirmation email message: {0}"
-msgstr "Onay e-posta mesajı gönderilemedi: {0}"
-
-#: 
-msgid "Add Internationalisation"
-msgstr "Uluslararasılaşmayı Ekle"
-
-#: 
-msgid "Add Tag"
-msgstr "Etiket Ekle"
-
-#: 
-msgid "Please upload only images (jpeg, png, gif)."
-msgstr "Lütfen yalnızca görselleri (jpeg, png, gif) yükleyin."
-
-#: 
-msgid "The image has been deleted."
-msgstr "Resim silindi."
-
-#: 
-msgid "The user could not be deleted. Please, try again."
-msgstr "Kullanıcı silinemedi. Lütfen tekrar deneyin."
-
-#: 
-msgid "The tag has been deleted."
-msgstr "Etiket silindi."
-
-#: 
-msgid "The user has been deleted."
-msgstr "Kullanıcı silindi."
-
-#: 
-msgid "The email template could not be saved. Please, try again."
-msgstr "E-posta şablonu kaydedilemedi. Lütfen tekrar deneyin."
-
-#: 
-msgid "Invalid value for the specified type."
-msgstr "Belirtilen tür için geçersiz değer."
-
-#: 
-msgid "Message Str"
-msgstr "Mesaj Str"
-
-#: 
-msgid "No articles found for this tag."
-msgstr "Bu etiket için hiçbir makale bulunamadı."
-
-#: 
-msgid "New Tag"
-msgstr "Yeni Etiket"
-
-#: 
-msgid "Yes"
-msgstr "Evet"
-
-#: 
-msgid "This slug is already in use. Please enter a unique slug."
-msgstr "Bu slug zaten kullanımda. Lütfen benzersiz bir slug girin."
-
-#: 
-msgid "Registration failed. Please, try again."
-msgstr "Kayıt başarısız. Lütfen tekrar deneyin."
-
-#: 
-msgid "Meta Title"
-msgstr "Meta Başlık"
-
-#: 
-msgid "All Groups"
-msgstr "Tüm Gruplar"
-
-#: 
-msgid "Actions"
-msgstr "Eylemler"
-
-#: 
-msgid "Please enter your email and password"
-msgstr "Lütfen e-postanızı ve şifrenizi girin"
-
-#: 
-msgid "Username"
-msgstr "Kullanıcı adı"
-
-#: 
-msgid "Bulk Upload Images"
-msgstr "Toplu Resim Yükleme"
-
-#: 
-msgid "Home"
-msgstr "Ev"
-
-#: 
-msgid "Edit Email Template"
-msgstr "E-posta Şablonunu Düzenle"
-
-#: 
-msgid "Clear"
-msgstr "Temizlemek"
-
-#: 
-msgid "Invalid confirmation code. Please contact support."
-msgstr "Geçersiz onay kodu. Lütfen destek ile iletişime geçin."
-
-#: 
-msgid "Email sent successfully."
-msgstr "E-posta başarıyla gönderildi."
-
-#: 
-msgid "Image"
-msgstr "Resim"
-
-#: 
-msgid "{0} Views"
-msgstr "{0} Görüntüleme"
-
-#: 
-msgid "SEO Fields"
-msgstr "SEO Alanları"
-
-#: 
-msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
-msgstr "Slug mevcut bir SEO yönlendirmesiyle çakışıyor. Lütfen farklı bir slug seçin."
-
-#: 
-msgid "The comment could not be saved. Please, try again."
-msgstr "Yorum kaydedilemedi. Lütfen tekrar deneyin."
-
-#: 
-msgid "Slugs"
-msgstr "Sümüklü böcek"
-
-#: 
-msgid "Login"
-msgstr "Giriş yapmak"
+msgid "Page Views for {0}"
+msgstr "{0} için Sayfa Görüntülemeleri"
 
 #: 
 msgid "The image has been saved."
@@ -1014,330 +106,1258 @@ msgid "Update Image"
 msgstr "Resmi Güncelle"
 
 #: 
-msgid "New Blocked IP"
-msgstr "Yeni Engellenen IP"
+msgid "Edit Aiprompt"
+msgstr "Aiprompt&#39;u Düzenle"
 
 #: 
-msgid "All logs have been deleted."
-msgstr "Tüm kayıtlar silindi."
-
-#: 
-msgid "Referer"
-msgstr "Yönlendiren"
-
-#: 
-msgid "Message Id"
-msgstr "Mesaj Kimliği"
-
-#: 
-msgid "Comment for {0}"
-msgstr "{0} için yorum"
-
-#: 
-msgid "New Article"
-msgstr "Yeni Makale"
-
-#: 
-msgid "Add Slug"
-msgstr "Slug Ekle"
-
-#: 
-msgid "Alt Text"
-msgstr "Alternatif Metin"
-
-#: 
-msgid "Article ID:"
-msgstr "Makale Kimliği:"
-
-#: 
-msgid "Send Email"
-msgstr "E-posta gönder"
-
-#: 
-msgid "The internationalisation has been saved."
-msgstr "Uluslararasılaşma kurtarıldı."
-
-#: 
-msgid "Edit Tag"
-msgstr "Etiketi Düzenle"
-
-#: 
-msgid "The value must not be empty."
-msgstr "Değer boş bırakılmamalıdır."
-
-#: 
-msgid "Update Aiprompt"
-msgstr "Aiprompt&#39;u güncelle"
-
-#: 
-msgid "View"
-msgstr "Görüş"
-
-#: 
-msgid "Id"
-msgstr "İD"
-
-#: 
-msgid "Unable to add your comment."
-msgstr "Yorumunuzu ekleyemiyorum."
-
-#: 
-msgid "Enter text"
-msgstr "Metin girin"
-
-#: 
-msgid "Is Inappropriate"
-msgstr "Uygunsuz"
-
-#: 
-msgid "Is Admin"
-msgstr "Yönetici mi"
-
-#: 
-msgid "List Blocked IPs"
-msgstr "Engellenen IP&#39;leri Listele"
-
-#: 
-msgid "Tag not found"
-msgstr "Etiket bulunamadı"
-
-#: 
-msgid "Cache"
-msgstr "Önbellek"
-
-#: 
-msgid "The image could not be deleted. Please, try again."
-msgstr "Resim silinemedi. Lütfen tekrar deneyin."
-
-#: 
-msgid "Comments"
-msgstr "Yorumlar"
-
-#: 
-msgid "The email template could not be deleted. Please, try again."
-msgstr "E-posta şablonu silinemedi. Lütfen tekrar deneyin."
-
-#: 
-msgid "Search users..."
-msgstr "Kullanıcıları ara..."
-
-#: 
-msgid "Never"
-msgstr "Asla"
-
-#: 
-msgid "Show Full Article"
-msgstr "Tüm Makaleyi Göster"
-
-#: 
-msgid "Are you sure you want to delete all logs?"
-msgstr "Tüm günlükleri silmek istediğinizden emin misiniz?"
-
-#: 
-msgid "Your comment has been added."
-msgstr "Yorumunuz eklendi."
-
-#: 
-msgid "Add User"
-msgstr "Kullanıcı Ekle"
-
-#: 
-msgid "Internationalisations"
-msgstr "Uluslararasılaşmalar"
-
-#: 
-msgid "Email Templates"
-msgstr "E-posta Şablonları"
-
-#: 
-msgid "All rights reserved."
-msgstr "Her hakkı saklıdır."
-
-#: 
-msgid "Reason"
-msgstr "Sebep"
-
-#: 
-msgid "Clear All Cache"
-msgstr "Tüm Önbelleği Temizle"
-
-#: 
-msgid "Show Less"
-msgstr "Daha Az Göster"
-
-#: 
-msgid "The email template has been saved."
-msgstr "E-posta şablonu kaydedildi."
-
-#: 
-msgid "Unable to delete logs with level {0}."
-msgstr "{0} seviyesindeki günlükler silinemiyor."
-
-#: 
-msgid "Block IPs"
-msgstr "IP&#39;leri engelle"
-
-#: 
-msgid "Settings"
-msgstr "Ayarlar"
-
-#: 
-msgid "The comment could not be deleted. Please, try again."
-msgstr "Yorum silinemedi. Lütfen tekrar deneyin."
-
-#: 
-msgid "Created"
-msgstr "Oluşturuldu"
-
-#: 
-msgid "Add a Comment"
-msgstr "Yorum Ekle"
-
-#: 
-msgid "Are you sure you want to delete all {0} logs?"
-msgstr "Tüm {0} günlüklerini silmek istediğinizden emin misiniz?"
-
-#: 
-msgid "Add AI Prompt"
-msgstr "AI İstemi Ekle"
-
-#: 
-msgid "Summary"
-msgstr "Özet"
+msgid "Group Name"
+msgstr "Grup Adı"
 
 #: 
 msgid "Search comments..."
 msgstr "Yorumları ara..."
 
 #: 
-msgid "Name"
-msgstr "İsim"
+msgid "Summary"
+msgstr "Özet"
 
 #: 
-msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
-msgstr "Aşağıda yapılandırılmış önbellekler hakkında bilgi bulunmaktadır. Tüm önbellekleri temizlemek için düğmeye tıklayın veya belirli önbellekleri temizlemek için ayrı önbellek düğmelerine tıklayın."
+msgid "Meta Title"
+msgstr "Meta Başlık"
 
 #: 
-msgid "Edit User"
-msgstr "Kullanıcıyı Düzenle"
+msgid "Show Full Article"
+msgstr "Tüm Makaleyi Göster"
 
 #: 
-msgid "Please log in to add a comment"
-msgstr "Yorum eklemek için lütfen giriş yapın"
+msgid "Unable to delete the log."
+msgstr "Günlük silinemiyor."
 
 #: 
-msgid "Update Comment"
-msgstr "Yorumu Güncelle"
+msgid "The article has been deleted."
+msgstr "Makale silindi."
 
 #: 
-msgid "Failed to save the image"
-msgstr "Görüntü kaydedilemedi"
+msgid "Clear All Cache"
+msgstr "Tüm Önbelleği Temizle"
 
 #: 
-msgid "Edit Comment"
-msgstr "Yorumu Düzenle"
+msgid "{0} cache could not be cleared."
+msgstr "{0} önbelleği temizlenemedi."
 
 #: 
-msgid "Code Coverage"
-msgstr "Kod Kapsamı"
+msgid "No deleting your own account."
+msgstr "Kendi hesabınızı silmenize gerek yok."
 
 #: 
-msgid "API request failed. Please try again later."
-msgstr "API isteği başarısız oldu. Lütfen daha sonra tekrar deneyin."
+msgid "Title"
+msgstr "Başlık"
 
 #: 
-msgid "Configured Caches"
-msgstr "Yapılandırılmış Önbellekler"
+msgid "Cache Management"
+msgstr "Önbellek Yönetimi"
 
 #: 
-msgid "Modified"
-msgstr "Değiştirilmiş"
-
-#: 
-msgid "Meta Keywords"
-msgstr "Meta Anahtar Sözcükler"
-
-#: 
-msgid "Updated At"
-msgstr "Güncellendi"
-
-#: 
-msgid "Setting not found: {0}.{1}"
-msgstr "Ayar bulunamadı: {0}.{1}"
-
-#: 
-msgid "The blocked ip could not be deleted. Please, try again."
-msgstr "Engellenen ip silinemedi. Lütfen tekrar deneyin."
-
-#: 
-msgid "This message_id must be unique for the given locale."
-msgstr "Bu message_id belirtilen yerel ayar için benzersiz olmalıdır."
-
-#: 
-msgid "Read More"
-msgstr "Devamını oku"
+msgid "Show Details"
+msgstr "Ayrıntıları Göster"
 
 #: 
 msgid "All logs in group {0} have been deleted."
 msgstr "{0} grubundaki tüm günlükler silindi."
 
 #: 
-msgid "Published"
-msgstr "Yayımlandı"
+msgid "Is Admin"
+msgstr "Yönetici mi"
 
 #: 
-msgid "Add Email Template"
-msgstr "E-posta Şablonu Ekle"
+msgid "Context"
+msgstr "Bağlam"
 
 #: 
-msgid "Update Tag"
-msgstr "Etiketi Güncelle"
+msgid "Keywords"
+msgstr "Anahtar kelimeler"
+
+#: 
+msgid "New Slug"
+msgstr "Yeni Sümüklüböcek"
+
+#: 
+msgid "Error loading images:"
+msgstr "Resimler yüklenirken hata oluştu:"
+
+#: 
+msgid "List {0}"
+msgstr "Liste {0}"
+
+#: 
+msgid "Show Less"
+msgstr "Daha Az Göster"
+
+#: 
+msgid "Model"
+msgstr "Örnek"
+
+#: 
+msgid "Description"
+msgstr "Tanım"
+
+#: 
+msgid "Edit User"
+msgstr "Kullanıcıyı Düzenle"
+
+#: 
+msgid "Related Tags"
+msgstr "İlgili Etiketler"
+
+#: 
+msgid "Body"
+msgstr "Vücut"
+
+#: 
+msgid "The user has been deleted."
+msgstr "Kullanıcı silindi."
+
+#: 
+msgid "Please log in to add a comment"
+msgstr "Yorum eklemek için lütfen giriş yapın"
+
+#: 
+msgid "Views"
+msgstr "Görünümler"
+
+#: 
+msgid "Comment"
+msgstr "Yorum"
+
+#: 
+msgid "Are you sure you want to delete all {0} logs?"
+msgstr "Tüm {0} günlüklerini silmek istediğinizden emin misiniz?"
+
+#: 
+msgid "Update Comment"
+msgstr "Yorumu Güncelle"
 
 #: 
 msgid "Logout"
 msgstr "Çıkış Yap"
 
 #: 
-msgid "Delete"
-msgstr "Silmek"
+msgid "Meta Description"
+msgstr "Meta Açıklama"
 
 #: 
-msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
-msgstr "Slug URL güvenli olmalıdır (sadece küçük harfler, sayılar ve tireler)"
+msgid "Reason"
+msgstr "Sebep"
 
 #: 
-msgid "Edit Article"
-msgstr "Makaleyi Düzenle"
+msgid "The slug has been deleted."
+msgstr "Slug silindi."
+
+#: 
+msgid "Edit Blocked IP"
+msgstr "Engellenen IP&#39;yi Düzenle"
+
+#: 
+msgid "The email template has been saved."
+msgstr "E-posta şablonu kaydedildi."
+
+#: 
+msgid "Edit Email Template"
+msgstr "E-posta Şablonunu Düzenle"
+
+#: 
+msgid "The email template could not be deleted. Please, try again."
+msgstr "E-posta şablonu silinemedi. Lütfen tekrar deneyin."
+
+#: 
+msgid "Invalid type"
+msgstr "Geçersiz tip"
+
+#: 
+msgid "Comment for {0}"
+msgstr "{0} için yorum"
+
+#: 
+msgid "The article could not be saved. Please, try again."
+msgstr "Makale kaydedilemedi. Lütfen tekrar deneyin."
+
+#: 
+msgid "Failed to send email. Please check your email configuration."
+msgstr "E-posta gönderilemedi. Lütfen e-posta yapılandırmanızı kontrol edin."
+
+#: 
+msgid "Account"
+msgstr "Hesap"
+
+#: 
+msgid "An error occurred while processing your request."
+msgstr "Talebiniz işlenirken bir hata oluştu."
+
+#: 
+msgid "View"
+msgstr "Görüş"
+
+#: 
+msgid "Please upload only images (jpeg, png, gif)."
+msgstr "Lütfen yalnızca görselleri (jpeg, png, gif) yükleyin."
+
+#: 
+msgid "The tag has been saved."
+msgstr "Etiket kaydedildi."
+
+#: 
+msgid "Edit {0}"
+msgstr "{0} Düzenle"
+
+#: 
+msgid "Configured Caches"
+msgstr "Yapılandırılmış Önbellekler"
+
+#: 
+msgid "Bulk Upload Images"
+msgstr "Toplu Resim Yükleme"
+
+#: 
+msgid "You cannot remove your own admin status."
+msgstr "Kendi yönetici durumunuzu kaldıramazsınız."
+
+#: 
+msgid "Add Tag"
+msgstr "Etiket Ekle"
+
+#: 
+msgid "Delete {0}"
+msgstr "{0}&#39;ı sil"
+
+#: 
+msgid "Submit"
+msgstr "Göndermek"
+
+#: 
+msgid "The internationalisation has been saved."
+msgstr "Uluslararasılaşma kurtarıldı."
 
 #: 
 msgid "The value must be 0 or 1."
 msgstr "Değer 0 veya 1 olmalıdır."
 
 #: 
-msgid "No internationalizations found for the provided IDs."
-msgstr "Verilen kimlikler için uluslararasılaştırma bulunamadı."
+msgid "Missing required arguments in the message."
+msgstr "Mesajda gerekli argümanlar eksik."
 
 #: 
-msgid "All Levels"
-msgstr "Tüm Seviyeler"
+msgid "All Tags"
+msgstr "Tüm Etiketler"
 
 #: 
-msgid "Register New Account"
-msgstr "Yeni Hesap Oluştur"
+msgid "The tag could not be saved. Please, try again."
+msgstr "Etiket kaydedilemedi. Lütfen tekrar deneyin."
+
+#: 
+msgid "Are you sure you want to delete all logs in group {0}?"
+msgstr "{0} grubundaki tüm günlükleri silmek istediğinizden emin misiniz?"
+
+#: 
+msgid "API request failed. Please try again later."
+msgstr "API isteği başarısız oldu. Lütfen daha sonra tekrar deneyin."
+
+#: 
+msgid "Search articles..."
+msgstr "Makalelerde ara..."
+
+#: 
+msgid "Message"
+msgstr "Mesaj"
+
+#: 
+msgid "The slug must be unique."
+msgstr "Slug&#39;ın benzersiz olması gerekir."
+
+#: 
+msgid "The comment has been deleted."
+msgstr "Yorum silindi."
+
+#: 
+msgid "All logs have been deleted."
+msgstr "Tüm kayıtlar silindi."
+
+#: 
+msgid "Not published"
+msgstr "Yayımlanmadı"
+
+#: 
+msgid "Slug:"
+msgstr "Salyangoz:"
+
+#: 
+msgid "Edit Your Account"
+msgstr "Hesabınızı Düzenleyin"
+
+#: 
+msgid "Updated At"
+msgstr "Güncellendi"
+
+#: 
+msgid "Comments"
+msgstr "Yorumlar"
+
+#: 
+msgid "Add Page"
+msgstr "Sayfa Ekle"
+
+#: 
+msgid "Add Article"
+msgstr "Makale Ekle"
+
+#: 
+msgid "Main Picture"
+msgstr "Ana Resim"
+
+#: 
+msgid "Associated Pages"
+msgstr "İlgili Sayfalar"
+
+#: 
+msgid "Pages"
+msgstr "Sayfalar"
+
+#: 
+msgid "Created At"
+msgstr "Oluşturuldu"
+
+#: 
+msgid "Profile Picture"
+msgstr "Profil Resmi"
+
+#: 
+msgid "Article not found"
+msgstr "Makale bulunamadı"
+
+#: 
+msgid "Facebook Description"
+msgstr "Facebook Açıklaması"
+
+#: 
+msgid "Failed to send confirmation email message: {0}"
+msgstr "Onay e-posta mesajı gönderilemedi: {0}"
+
+#: 
+msgid "Update User"
+msgstr "Kullanıcıyı Güncelle"
+
+#: 
+msgid "No images."
+msgstr "Görüntü yok."
+
+#: 
+msgid "Bulk Upload"
+msgstr "Toplu Yükleme"
+
+#: 
+msgid "List View"
+msgstr "Liste Görünümü"
+
+#: 
+msgid "New User"
+msgstr "Yeni Kullanıcı"
+
+#: 
+msgid "Are you sure you want to delete comment by {0}?"
+msgstr "{0} adlı kullanıcının yorumunu silmek istediğinizden emin misiniz?"
+
+#: 
+msgid "Twitter Description"
+msgstr "Twitter Açıklaması"
+
+#: 
+msgid "Internationalisations"
+msgstr "Uluslararasılaşmalar"
+
+#: 
+msgid "Add a Comment"
+msgstr "Yorum Ekle"
+
+#: 
+msgid "Alt Text"
+msgstr "Alternatif Metin"
+
+#: 
+msgid "View detailed records for this date"
+msgstr "Bu tarihe ait detaylı kayıtları görüntüle"
+
+#: 
+msgid "No articles found for this tag."
+msgstr "Bu etiket için hiçbir makale bulunamadı."
+
+#: 
+msgid "Error in: "
+msgstr "Hata: "
+
+#: 
+msgid "Unable to delete logs with level {0}."
+msgstr "{0} seviyesindeki günlükler silinemiyor."
+
+#: 
+msgid "System Logs"
+msgstr "Sistem Günlükleri"
+
+#: 
+msgid "New Internationalisation"
+msgstr "Yeni Uluslararasılaşma"
+
+#: 
+msgid "User Comments"
+msgstr "Kullanıcı Yorumları"
+
+#: 
+msgid "Page View Statistics for slug: {0}"
+msgstr "slug için Sayfa Görüntüleme İstatistikleri: {0}"
+
+#: 
+msgid "The blocked ip could not be saved. Please, try again."
+msgstr "Engellenen ip kaydedilemedi. Lütfen tekrar deneyin."
+
+#: 
+msgid "Confirm Password"
+msgstr "Şifreyi Onayla"
+
+#: 
+msgid "Your account has been updated."
+msgstr "Hesabınız güncellendi."
+
+#: 
+msgid "New Email Template"
+msgstr "Yeni E-posta Şablonu"
+
+#: 
+msgid "Update Tag"
+msgstr "Etiketi Güncelle"
+
+#: 
+msgid "Block IPs"
+msgstr "IP&#39;leri engelle"
+
+#: 
+msgid "Register"
+msgstr "Kayıt olmak"
+
+#: 
+msgid "{0} cache has been cleared successfully."
+msgstr "{0} önbelleği başarıyla temizlendi."
+
+#: 
+msgid "Error"
+msgstr "Hata"
+
+#: 
+msgid "System Prompt"
+msgstr "Sistem İstemi"
+
+#: 
+msgid "All Locales"
+msgstr "Tüm Yerel Ayarlar"
+
+#: 
+msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
+msgstr "Slug URL güvenli olmalıdır (sadece küçük harfler, sayılar ve tireler)"
+
+#: 
+msgid "The user could not be deleted. Please, try again."
+msgstr "Kullanıcı silinemedi. Lütfen tekrar deneyin."
+
+#: 
+msgid "Word Count"
+msgstr "Kelime Sayısı"
+
+#: 
+msgid "Invalid username or password"
+msgstr "Geçersiz kullanıcı adı veya şifre"
+
+#: 
+msgid "The requested address {0} was not found on this server."
+msgstr "İstenen {0} adresi bu sunucuda bulunamadı."
+
+#: 
+msgid "Unknown User"
+msgstr "Bilinmeyen Kullanıcı"
+
+#: 
+msgid "Is AI Analyzed"
+msgstr "AI Analiz Edildi mi?"
 
 #: 
 msgid "By"
 msgstr "İle"
 
 #: 
-msgid "Grid View"
-msgstr "Izgara Görünümü"
+msgid "The user could not be saved. Please, try again."
+msgstr "Kullanıcı kaydedilemedi. Lütfen tekrar deneyin."
+
+#: 
+msgid "Username"
+msgstr "Kullanıcı adı"
+
+#: 
+msgid "{0} cache configuration does not exist."
+msgstr "{0} önbellek yapılandırması mevcut değil."
+
+#: 
+msgid "The email template could not be saved. Please, try again."
+msgstr "E-posta şablonu kaydedilemedi. Lütfen tekrar deneyin."
+
+#: 
+msgid "The blocked ip has been deleted."
+msgstr "Engellenen ip silindi."
+
+#: 
+msgid "Body Text"
+msgstr "Gövde Metni"
+
+#: 
+msgid "Hide"
+msgstr "Saklamak"
+
+#: 
+msgid "No view records found for this article."
+msgstr "Bu makale için herhangi bir görüntüleme kaydı bulunamadı."
+
+#: 
+msgid "List Blocked IPs"
+msgstr "Engellenen IP&#39;leri Listele"
+
+#: 
+msgid "Invalid value for the specified type."
+msgstr "Belirtilen tür için geçersiz değer."
+
+#: 
+msgid "Are you sure you want to delete all logs?"
+msgstr "Tüm günlükleri silmek istediğinizden emin misiniz?"
+
+#: 
+msgid "Expires At"
+msgstr "Sona Erme Tarihi"
+
+#: 
+msgid "Are you sure you want to delete {0}?"
+msgstr "{0} öğesini silmek istediğinizden emin misiniz?"
+
+#: 
+msgid "The blocked ip could not be deleted. Please, try again."
+msgstr "Engellenen ip silinemedi. Lütfen tekrar deneyin."
+
+#: 
+msgid "Invalid confirmation code. Please contact support."
+msgstr "Geçersiz onay kodu. Lütfen destek ile iletişime geçin."
+
+#: 
+msgid "Email Templates"
+msgstr "E-posta Şablonları"
+
+#: 
+msgid "Email template not found: {0}"
+msgstr "E-posta şablonu bulunamadı: {0}"
+
+#: 
+msgid "Update Article"
+msgstr "Makaleyi Güncelle"
+
+#: 
+msgid "Meta Keywords"
+msgstr "Meta Anahtar Sözcükler"
+
+#: 
+msgid "Display"
+msgstr "Görüntülemek"
+
+#: 
+msgid "English"
+msgstr "İngilizce"
+
+#: 
+msgid "Last Cleared"
+msgstr "Son Temizlenen"
+
+#: 
+msgid "Search users..."
+msgstr "Kullanıcıları ara..."
+
+#: 
+msgid "Delete All Logs"
+msgstr "Tüm Günlükleri Sil"
+
+#: 
+msgid "Save All Settings"
+msgstr "Tüm Ayarları Kaydet"
+
+#: 
+msgid "No internationalizations found for the provided IDs."
+msgstr "Verilen kimlikler için uluslararasılaştırma bulunamadı."
+
+#: 
+msgid "Failed to send email to: {0}"
+msgstr "E-posta gönderilemedi: {0}"
+
+#: 
+msgid "The comment could not be saved. Please, try again."
+msgstr "Yorum kaydedilemedi. Lütfen tekrar deneyin."
+
+#: 
+msgid "Add Email Template"
+msgstr "E-posta Şablonu Ekle"
+
+#: 
+msgid "Picture"
+msgstr "Resim"
+
+#: 
+msgid "The settings have been saved."
+msgstr "Ayarlar kaydedildi."
+
+#: 
+msgid "No comments yet."
+msgstr "Henüz yorum yapılmadı."
+
+#: 
+msgid "The image could not be deleted. Please, try again."
+msgstr "Resim silinemedi. Lütfen tekrar deneyin."
+
+#: 
+msgid "Related Articles"
+msgstr "İlgili Makaleler"
+
+#: 
+msgid "Is Published"
+msgstr "Yayımlandı"
+
+#: 
+msgid "Search images..."
+msgstr "Resimleri ara..."
+
+#: 
+msgid "The email template has been deleted."
+msgstr "E-posta şablonu silindi."
+
+#: 
+msgid "This slug is already in use in articles. Please enter a unique slug."
+msgstr "Bu slug makalelerde zaten kullanılıyor. Lütfen benzersiz bir slug girin."
+
+#: 
+msgid "The slug has been saved."
+msgstr "Salyangoz kurtarıldı."
+
+#: 
+msgid "Details"
+msgstr "Detaylar"
+
+#: 
+msgid "The image could not be saved. Please, try again."
+msgstr "Resim kaydedilemedi. Lütfen tekrar deneyin."
+
+#: 
+msgid "The article could not be deleted. Please, try again."
+msgstr "Makale silinemedi. Lütfen tekrar deneyin."
+
+#: 
+msgid "Additional Images"
+msgstr "Ek Resimler"
+
+#: 
+msgid "Password must be at least 8 characters long"
+msgstr "Şifre en az 8 karakter uzunluğunda olmalıdır"
+
+#: 
+msgid "Blocked At"
+msgstr "Engellendi"
+
+#: 
+msgid "The aiprompt could not be saved. Please, try again."
+msgstr "Aiprompt kaydedilemedi. Lütfen tekrar deneyin."
+
+#: 
+msgid "Slug"
+msgstr "Salyangoz"
+
+#: 
+msgid "Rate limit exceeded for IP: {0} on route: {1}"
+msgstr "IP: {0} için rota üzerindeki hız sınırı aşıldı: {1}"
+
+#: 
+msgid "Edit Internationalisation"
+msgstr "Uluslararasılaşmayı Düzenle"
+
+#: 
+msgid "Send Email"
+msgstr "E-posta gönder"
+
+#: 
+msgid "User Agent"
+msgstr "Kullanıcı Aracısı"
+
+#: 
+msgid "Failed to save the image"
+msgstr "Görüntü kaydedilemedi"
+
+#: 
+msgid "Image must be less than 5MB."
+msgstr "Resim 5MB&#39;den küçük olmalıdır."
+
+#: 
+msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
+msgstr "Aşağıda yapılandırılmış önbellekler hakkında bilgi bulunmaktadır. Tüm önbellekleri temizlemek için düğmeye tıklayın veya belirli önbellekleri temizlemek için ayrı önbellek düğmelerine tıklayın."
+
+#: 
+msgid "Are you sure you want to delete # {0}?"
+msgstr "# {0} öğesini silmek istediğinizden emin misiniz?"
+
+#: 
+msgid "Users"
+msgstr "Kullanıcılar"
+
+#: 
+msgid "Cache"
+msgstr "Önbellek"
+
+#: 
+msgid "Edit Tag"
+msgstr "Etiketi Düzenle"
+
+#: 
+msgid "Code Coverage"
+msgstr "Kod Kapsamı"
+
+#: 
+msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
+msgstr "E-posta başarıyla gönderildi: {0}. Şablon: {1}, Konu: {2}"
+
+#: 
+msgid "Body HTML"
+msgstr "Gövde HTML"
+
+#: 
+msgid "Referer"
+msgstr "Yönlendiren"
+
+#: 
+msgid "Your account has been confirmed. You can now log in."
+msgstr "Hesabınız onaylandı. Artık giriş yapabilirsiniz."
+
+#: 
+msgid "The user has been saved."
+msgstr "Kullanıcı kaydedildi."
+
+#: 
+msgid "Inappropriate Reason"
+msgstr "Uygunsuz Neden"
+
+#: 
+msgid "Total Views: "
+msgstr "Toplam Görüntülenme: "
+
+#: 
+msgid "Yes"
+msgstr "Evet"
+
+#: 
+msgid "Toggle SEO Fields"
+msgstr "SEO Alanlarını Değiştir"
+
+#: 
+msgid "AI Prompts"
+msgstr "AI İstemleri"
+
+#: 
+msgid "Search tags..."
+msgstr "Etiketleri ara..."
+
+#: 
+msgid "The tag has been deleted."
+msgstr "Etiket silindi."
+
+#: 
+msgid "Failed to update translation for message ID: {0}"
+msgstr "Mesaj kimliği için çeviri güncellenemedi: {0}"
+
+#: 
+msgid "Articles"
+msgstr "Makaleler"
+
+#: 
+msgid "Too many requests. Please try again later."
+msgstr "Çok fazla istek. Lütfen daha sonra tekrar deneyin."
+
+#: 
+msgid "Subject"
+msgstr "Ders"
+
+#: 
+msgid "Please enter your email and password"
+msgstr "Lütfen e-postanızı ve şifrenizi girin"
+
+#: 
+msgid "Tags"
+msgstr "Etiketler"
+
+#: 
+msgid "Delete"
+msgstr "Silmek"
+
+#: 
+msgid "Unknown Author"
+msgstr "Bilinmeyen Yazar"
+
+#: 
+msgid "Tag not found"
+msgstr "Etiket bulunamadı"
+
+#: 
+msgid "Unable to delete logs in group {0}."
+msgstr "{0} grubundaki günlükler silinemiyor."
+
+#: 
+msgid "Read More"
+msgstr "Devamını oku"
+
+#: 
+msgid "Add Blocked IP"
+msgstr "Engellenen IP&#39;yi ekle"
+
+#: 
+msgid "The image has been deleted."
+msgstr "Resim silindi."
+
+#: 
+msgid "Modified At"
+msgstr "Değiştirildi"
+
+#: 
+msgid "New Tag"
+msgstr "Yeni Etiket"
+
+#: 
+msgid "New AI Prompt"
+msgstr "Yeni AI İstemi"
+
+#: 
+msgid "Are you sure you want to delete this comment?"
+msgstr "Bu yorumu silmek istediğinize emin misiniz?"
+
+#: 
+msgid "Locale"
+msgstr "Yerel"
+
+#: 
+msgid "New Blocked IP"
+msgstr "Yeni Engellenen IP"
+
+#: 
+msgid "You cannot disable your own account."
+msgstr "Kendi hesabınızı devre dışı bırakamazsınız."
+
+#: 
+msgid "Temperature"
+msgstr "Sıcaklık"
+
+#: 
+msgid "A value is required"
+msgstr "Bir değer gerekli"
+
+#: 
+msgid "Registration successful, but there was an issue creating the confirmation link."
+msgstr "Kayıt başarılı, ancak onay bağlantısı oluşturulurken bir sorun oluştu."
+
+#: 
+msgid "SEO Fields"
+msgstr "SEO Alanları"
+
+#: 
+msgid "The slug could not be deleted. Please, try again."
+msgstr "Slug silinemedi. Lütfen tekrar deneyin."
+
+#: 
+msgid "Article/Page"
+msgstr "Makale/Sayfa"
+
+#: 
+msgid "Actions"
+msgstr "Eylemler"
+
+#: 
+msgid "Are you sure you want to clear {0}?"
+msgstr "{0} öğesini temizlemek istediğinizden emin misiniz?"
+
+#: 
+msgid "The blocked ip has been saved."
+msgstr "Engellenen ip kaydedildi."
+
+#: 
+msgid "Image"
+msgstr "Resim"
+
+#: 
+msgid "{0} Views"
+msgstr "{0} Görüntüleme"
+
+#: 
+msgid "Your comment has been added."
+msgstr "Yorumunuz eklendi."
+
+#: 
+msgid "The internationalisation has been deleted."
+msgstr "Uluslararasılaşma silindi."
+
+#: 
+msgid "No pages found."
+msgstr "Sayfa bulunamadı."
+
+#: 
+msgid "No tags are linked."
+msgstr "Hiçbir etiket bağlantılı değil."
+
+#: 
+msgid "Update Aiprompt"
+msgstr "Aiprompt&#39;u güncelle"
+
+#: 
+msgid "Email sent successfully."
+msgstr "E-posta başarıyla gönderildi."
 
 #: 
 msgid "Article"
 msgstr "Madde"
 
 #: 
+msgid "There was an issue confirming your account. Please try again."
+msgstr "Hesabınızı onaylarken bir sorun oluştu. Lütfen tekrar deneyin."
+
+#: 
+msgid "Add Internationalisation"
+msgstr "Uluslararasılaşmayı Ekle"
+
+#: 
+msgid "The internationalisation could not be saved. Please, try again."
+msgstr "Uluslararasılaştırma kaydedilemedi. Lütfen tekrar deneyin."
+
+#: 
+msgid "The value must be a number."
+msgstr "Değer bir sayı olmalıdır."
+
+#: 
+msgid "This message_id must be unique for the given locale."
+msgstr "Bu message_id belirtilen yerel ayar için benzersiz olmalıdır."
+
+#: 
+msgid "IP Address"
+msgstr "IP Adresi"
+
+#: 
+msgid "All caches have been cleared successfully."
+msgstr "Tüm önbellekler başarıyla temizlendi."
+
+#: 
+msgid "Too Many Requests"
+msgstr "Çok Fazla İstek"
+
+#: 
+msgid "The tag could not be deleted. Please, try again."
+msgstr "Etiket silinemedi. Lütfen tekrar deneyin."
+
+#: 
+msgid "Some caches were cleared, but the following failed: {0}"
+msgstr "Bazı önbellekler temizlendi, ancak aşağıdakiler başarısız oldu: {0}"
+
+#: 
+msgid "Search logs..."
+msgstr "Arama kayıtları..."
+
+#: 
+msgid "Add AI Prompt"
+msgstr "AI İstemi Ekle"
+
+#: 
+msgid "Logs"
+msgstr "Günlükler"
+
+#: 
+msgid "Search slugs..."
+msgstr "Sümüklü böcekleri ara..."
+
+#: 
+msgid "All Levels"
+msgstr "Tüm Seviyeler"
+
+#: 
+msgid "This slug is already in use. Please enter a unique slug."
+msgstr "Bu slug zaten kullanımda. Lütfen benzersiz bir slug girin."
+
+#: 
+msgid "Page Views"
+msgstr "Sayfa Görüntülemeleri"
+
+#: 
+msgid "Back"
+msgstr "Geri"
+
+#: 
+msgid "Setting not found: {0}.{1}"
+msgstr "Ayar bulunamadı: {0}.{1}"
+
+#: 
+msgid "Image uploaded successfully"
+msgstr "Resim başarıyla yüklendi"
+
+#: 
+msgid "Home"
+msgstr "Ev"
+
+#: 
+msgid "The internationalisation could not be deleted. Please, try again."
+msgstr "Uluslararasılaştırma silinemedi. Lütfen tekrar deneyin."
+
+#: 
+msgid "Date"
+msgstr "Tarih"
+
+#: 
+msgid "You must be logged in to add a comment."
+msgstr "Yorum eklemek için giriş yapmalısınız."
+
+#: 
+msgid "Modified"
+msgstr "Değiştirilmiş"
+
+#: 
+msgid "Task Type"
+msgstr "Görev Türü"
+
+#: 
+msgid "No page view data available for this article."
+msgstr "Bu makale için sayfa görüntüleme verisi mevcut değil."
+
+#: 
+msgid "Article ID:"
+msgstr "Makale Kimliği:"
+
+#: 
+msgid "Show"
+msgstr "Göstermek"
+
+#: 
+msgid "Edit Settings"
+msgstr "Ayarları Düzenle"
+
+#: 
+msgid "Settings"
+msgstr "Ayarlar"
+
+#: 
+msgid "All Groups"
+msgstr "Tüm Gruplar"
+
+#: 
+msgid "Register New Account"
+msgstr "Yeni Hesap Oluştur"
+
+#: 
 msgid "Email"
 msgstr "E-posta"
+
+#: 
+msgid "Max Tokens"
+msgstr "Maksimum Jetonlar"
+
+#: 
+msgid "Unable to delete all logs."
+msgstr "Tüm günlükler silinemiyor."
+
+#: 
+msgid "Enter a number"
+msgstr "Bir sayı girin"
+
+#: 
+msgid "Engine"
+msgstr "Motor"
+
+#: 
+msgid "New Article"
+msgstr "Yeni Makale"
+
+#: 
+msgid "Submit Comment"
+msgstr "Yorum Gönder"
+
+#: 
+msgid "Edit Article"
+msgstr "Makaleyi Düzenle"
+
+#: 
+msgid "An Internal Error Has Occurred."
+msgstr "Dahili Bir Hata Oluştu."
+
+#: 
+msgid "Login"
+msgstr "Giriş yapmak"
+
+#: 
+msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
+msgstr "Sayfa {{page}} / {{pages}}, toplam {{count}} kayıttan {{current}} kayıt gösteriliyor"
+
+#: 
+msgid "Message Id"
+msgstr "Mesaj Kimliği"
+
+#: 
+msgid "Error sending email: {0}"
+msgstr "E-posta gönderilirken hata oluştu: {0}"
+
+#: 
+msgid "Add Slug"
+msgstr "Slug Ekle"
+
+#: 
+msgid "Registration failed. Please, try again."
+msgstr "Kayıt başarısız. Lütfen tekrar deneyin."
+
+#: 
+msgid "Message Str"
+msgstr "Mesaj Str"
+
+#: 
+msgid "Grid View"
+msgstr "Izgara Görünümü"
+
+#: 
+msgid "Are you sure you want to delete this prompt?"
+msgstr "Bu istemi silmek istediğinizden emin misiniz?"
+
+#: 
+msgid "The comment has been saved."
+msgstr "Yorum kaydedildi."
+
+#: 
+msgid "Are you sure you want to delete IP {0}?"
+msgstr "IP {0} adresini silmek istediğinizden emin misiniz?"
+
+#: 
+msgid "The article has been saved."
+msgstr "Makale kaydedildi."
+
+#: 
+msgid "Id"
+msgstr "İD"
+
+#: 
+msgid "Admin"
+msgstr "Yönetici"
+
+#: 
+msgid "Registration successful. Please check your email for confirmation."
+msgstr "Kayıt başarılı. Lütfen onay için e-postanızı kontrol edin."
+
+#: 
+msgid "Some settings could not be saved. Please, try again."
+msgstr "Bazı ayarlar kaydedilemedi. Lütfen tekrar deneyin."
+
+#: 
+msgid "The aiprompt has been saved."
+msgstr "Aiprompt kaydedildi."
+
+#: 
+msgid "Live"
+msgstr "Canlı"
+
+#: 
+msgid "Published"
+msgstr "Yayımlandı"
+
+#: 
+msgid "The comment could not be deleted. Please, try again."
+msgstr "Yorum silinemedi. Lütfen tekrar deneyin."
+
+#: 
+msgid "Instagram Description"
+msgstr "Instagram Açıklaması"
+
+#: 
+msgid "Clear"
+msgstr "Temizlemek"
+
+#: 
+msgid "All logs with level {0} have been deleted."
+msgstr "{0} seviyesindeki tüm günlükler silindi."
+
+#: 
+msgid "Cache Name"
+msgstr "Önbellek Adı"
+
+#: 
+msgid "No"
+msgstr "HAYIR"
+
+#: 
+msgid "New Image"
+msgstr "Yeni Görüntü"
+
+#: 
+msgid "Access denied. You must be an admin to view this page."
+msgstr "Erişim engellendi. Bu sayfayı görüntülemek için yönetici olmanız gerekir."
+
+#: 
+msgid "Update Slug"
+msgstr "Slug&#39;ı güncelle"
+
+#: 
+msgid "Slugs"
+msgstr "Sümüklü böcek"
+
+#: 
+msgid "Select a parent"
+msgstr "Bir ebeveyn seçin"
+
+#: 
+msgid "You are not authorized to edit this account, stick to your own."
+msgstr "Bu hesabı düzenleme yetkiniz yok, kendi hesabınızda kalın."
+
+#: 
+msgid "All rights reserved."
+msgstr "Her hakkı saklıdır."
+
+#: 
+msgid "Filter"
+msgstr "Filtre"
+
+#: 
+msgid "Enter text"
+msgstr "Metin girin"
+
+#: 
+msgid "Images"
+msgstr "Görüntüler"
+
+#: 
+msgid "Posted on {date} by {author}"
+msgstr "{date} tarihinde {author} tarafından yayınlandı"
+
+#: 
+msgid "Never"
+msgstr "Asla"
+
+#: 
+msgid "Blocked IPs"
+msgstr "Engellenen IP&#39;ler"
+
+#: 
+msgid "Error saving {0}.{1}: {2}"
+msgstr "{0}.{1} kaydedilirken hata oluştu: {2}"
+
+#: 
+msgid "User"
+msgstr "Kullanıcı"
+
+#: 
+msgid "New {0}"
+msgstr "Yeni {0}"
+
+#: 
+msgid "List Email Templates"
+msgstr "Liste E-posta Şablonları"
 

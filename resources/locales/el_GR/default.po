@@ -14,60 +14,244 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
 #: 
-msgid "Are you sure you want to delete this prompt?"
-msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτό το μήνυμα προτροπής;"
+msgid "The email template has been saved."
+msgstr "Το πρότυπο email έχει αποθηκευτεί."
 
 #: 
-msgid "Logs"
-msgstr "κούτσουρα"
+msgid "Failed to send confirmation email message: {0}"
+msgstr "Απέτυχε η αποστολή μηνύματος ηλεκτρονικού ταχυδρομείου επιβεβαίωσης: {0}"
 
 #: 
-msgid "The internationalisation could not be saved. Please, try again."
-msgstr "Η διεθνοποίηση δεν μπορούσε να σωθεί. Παρακαλώ, δοκιμάστε ξανά."
+msgid "Published"
+msgstr "Δημοσιεύθηκε"
 
 #: 
-msgid "Edit Image"
-msgstr "Επεξεργασία εικόνας"
+msgid "Add Page"
+msgstr "Προσθήκη σελίδας"
 
 #: 
-msgid "Task Type"
-msgstr "Τύπος εργασίας"
+msgid "The image could not be deleted. Please, try again."
+msgstr "Δεν ήταν δυνατή η διαγραφή της εικόνας. Παρακαλώ, δοκιμάστε ξανά."
 
 #: 
-msgid "Are you sure you want to delete all logs?"
-msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε όλα τα αρχεία καταγραφής;"
+msgid "A value is required"
+msgstr "Απαιτείται μια τιμή"
 
 #: 
-msgid "Your comment has been added."
-msgstr "Το σχόλιό σας προστέθηκε."
+msgid "Alt Text"
+msgstr "Εναλλακτικό κείμενο"
 
 #: 
-msgid "IP Address"
-msgstr "Διεύθυνση IP"
+msgid "This slug is already in use. Please enter a unique slug."
+msgstr "Αυτός ο γυμνοσάλιαγκας χρησιμοποιείται ήδη. Εισαγάγετε ένα μοναδικό γυμνοσάλιαγκο."
 
 #: 
-msgid "Email Templates"
-msgstr "Πρότυπα email"
+msgid "Access denied. You must be an admin to view this page."
+msgstr "Δεν επιτρέπεται η πρόσβαση. Πρέπει να είστε διαχειριστής για να δείτε αυτήν τη σελίδα."
 
 #: 
-msgid "The internationalisation could not be deleted. Please, try again."
-msgstr "Δεν ήταν δυνατή η διαγραφή της διεθνοποίησης. Παρακαλώ, δοκιμάστε ξανά."
+msgid "System Logs"
+msgstr "Μητρώα Συστήματος"
 
 #: 
-msgid "Actions"
-msgstr "Δράσεις"
+msgid "The slug has been saved."
+msgstr "Ο γυμνοσάλιαγκας σώθηκε."
 
 #: 
-msgid "Add User"
-msgstr "Προσθήκη χρήστη"
+msgid "Article ID:"
+msgstr "Αναγνωριστικό άρθρου:"
+
+#: 
+msgid "Body Text"
+msgstr "Κείμενο σώματος"
+
+#: 
+msgid "Unable to add your comment."
+msgstr "Δεν είναι δυνατή η προσθήκη του σχολίου σας."
+
+#: 
+msgid "Max Tokens"
+msgstr "Max Tokens"
+
+#: 
+msgid "Password must be at least 8 characters long"
+msgstr "Ο κωδικός πρόσβασης πρέπει να αποτελείται από τουλάχιστον 8 χαρακτήρες"
+
+#: 
+msgid "Edit Slug"
+msgstr "Επεξεργασία Slug"
 
 #: 
 msgid "The email template could not be saved. Please, try again."
 msgstr "Δεν ήταν δυνατή η αποθήκευση του προτύπου email. Παρακαλώ, δοκιμάστε ξανά."
 
 #: 
-msgid "View detailed records for this date"
-msgstr "Δείτε αναλυτικά αρχεία για αυτήν την ημερομηνία"
+msgid "Email sent successfully."
+msgstr "Το email στάλθηκε με επιτυχία."
+
+#: 
+msgid "Page Views"
+msgstr "Προβολές σελίδας"
+
+#: 
+msgid "Model"
+msgstr "Μοντέλο"
+
+#: 
+msgid "Context"
+msgstr "Συμφραζόμενα"
+
+#: 
+msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
+msgstr "Ακολουθούν πληροφορίες σχετικά με τις διαμορφωμένες κρυφές μνήμες. Κάντε κλικ στο κουμπί για να διαγράψετε όλες τις κρυφές μνήμες ή μεμονωμένα κουμπιά προσωρινής μνήμης για να διαγράψετε συγκεκριμένες κρυφές μνήμες."
+
+#: 
+msgid "View"
+msgstr "Θέα"
+
+#: 
+msgid "Clear All Cache"
+msgstr "Εκκαθάριση όλης της προσωρινής μνήμης"
+
+#: 
+msgid "Last Cleared"
+msgstr "Τελευταία εκκαθάριση"
+
+#: 
+msgid "Comment"
+msgstr "Σχόλιο"
+
+#: 
+msgid "New Blocked IP"
+msgstr "Νέα αποκλεισμένη IP"
+
+#: 
+msgid "Show Details"
+msgstr "Εμφάνιση λεπτομερειών"
+
+#: 
+msgid "Task Type"
+msgstr "Τύπος εργασίας"
+
+#: 
+msgid "Related Articles"
+msgstr "Σχετικά Άρθρα"
+
+#: 
+msgid "Cache Name"
+msgstr "Όνομα προσωρινής μνήμης"
+
+#: 
+msgid "Register"
+msgstr "Μητρώο"
+
+#: 
+msgid "The value must not be empty."
+msgstr "Η τιμή δεν πρέπει να είναι κενή."
+
+#: 
+msgid "New Email Template"
+msgstr "Νέο πρότυπο email"
+
+#: 
+msgid "The tag has been saved."
+msgstr "Η ετικέτα έχει αποθηκευτεί."
+
+#: 
+msgid "Toggle SEO Fields"
+msgstr "Εναλλαγή πεδίων SEO"
+
+#: 
+msgid "The email template could not be deleted. Please, try again."
+msgstr "Δεν ήταν δυνατή η διαγραφή του προτύπου email. Παρακαλώ, δοκιμάστε ξανά."
+
+#: 
+msgid "You cannot remove your own admin status."
+msgstr "Δεν μπορείτε να καταργήσετε τη δική σας κατάσταση διαχειριστή."
+
+#: 
+msgid "Update Tag"
+msgstr "Ενημέρωση ετικέτας"
+
+#: 
+msgid "Add Email Template"
+msgstr "Προσθήκη προτύπου email"
+
+#: 
+msgid "Delete All Logs"
+msgstr "Διαγραφή όλων των αρχείων καταγραφής"
+
+#: 
+msgid "Yes"
+msgstr "Ναί"
+
+#: 
+msgid "Cache"
+msgstr "Κρύπτη"
+
+#: 
+msgid "Hide"
+msgstr "Κρύβω"
+
+#: 
+msgid "Are you sure you want to delete all logs in group {0}?"
+msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε όλα τα αρχεία καταγραφής στην ομάδα {0};"
+
+#: 
+msgid "Page Views for {0}"
+msgstr "Προβολές σελίδας για {0}"
+
+#: 
+msgid "Save All Settings"
+msgstr "Αποθήκευση όλων των ρυθμίσεων"
+
+#: 
+msgid "Content"
+msgstr "Περιεχόμενο"
+
+#: 
+msgid "{0} cache could not be cleared."
+msgstr "Δεν ήταν δυνατή η εκκαθάριση της προσωρινής μνήμης {0}."
+
+#: 
+msgid "Is Admin"
+msgstr "Είναι Διαχειριστής"
+
+#: 
+msgid "The blocked ip has been saved."
+msgstr "Η μπλοκαρισμένη ip έχει αποθηκευτεί."
+
+#: 
+msgid "User Comments"
+msgstr "Σχόλια χρηστών"
+
+#: 
+msgid "Account"
+msgstr "Λογαριασμός"
+
+#: 
+msgid "Picture"
+msgstr "Εικόνα"
+
+#: 
+msgid "Unable to delete the log."
+msgstr "Δεν είναι δυνατή η διαγραφή του αρχείου καταγραφής."
+
+#: 
+msgid "Show Less"
+msgstr "Εμφάνιση Λιγότερο"
+
+#: 
+msgid "Edit Aiprompt"
+msgstr "Επεξεργασία Aiprompt"
+
+#: 
+msgid "Cache Management"
+msgstr "Διαχείριση προσωρινής μνήμης"
+
+#: 
+msgid "Meta Title"
+msgstr "Μετα Τίτλος"
 
 #: 
 msgid "Comment for {0}"
@@ -78,1266 +262,1102 @@ msgid "List View"
 msgstr "Προβολή λίστας"
 
 #: 
-msgid "Are you sure you want to clear {0}?"
-msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε το {0};"
-
-#: 
-msgid "No"
-msgstr "Οχι"
-
-#: 
-msgid "Clear"
-msgstr "Σαφής"
-
-#: 
-msgid "The requested address {0} was not found on this server."
-msgstr "Η ζητούμενη διεύθυνση {0} δεν βρέθηκε σε αυτόν τον διακομιστή."
-
-#: 
-msgid "Posted on {date} by {author}"
-msgstr "Δημοσιεύτηκε στις {date} από {author}"
-
-#: 
-msgid "A value is required"
-msgstr "Απαιτείται μια τιμή"
-
-#: 
-msgid "The user could not be deleted. Please, try again."
-msgstr "Δεν ήταν δυνατή η διαγραφή του χρήστη. Παρακαλώ, δοκιμάστε ξανά."
-
-#: 
-msgid "Last Cleared"
-msgstr "Τελευταία εκκαθάριση"
-
-#: 
-msgid "Title"
-msgstr "Τίτλος"
-
-#: 
-msgid "Never"
-msgstr "Ποτέ"
-
-#: 
-msgid "Slugs"
-msgstr "γυμνοσάλιαγκες"
-
-#: 
-msgid "{0} cache has been cleared successfully."
-msgstr "Η προσωρινή μνήμη {0} διαγράφηκε με επιτυχία."
-
-#: 
-msgid "The image could not be saved. Please, try again."
-msgstr "Δεν ήταν δυνατή η αποθήκευση της εικόνας. Παρακαλώ, δοκιμάστε ξανά."
-
-#: 
-msgid "LinkedIn Description"
-msgstr "Περιγραφή LinkedIn"
-
-#: 
-msgid "Inappropriate Reason"
-msgstr "Ανάρμοστος λόγος"
-
-#: 
-msgid "{0} cache configuration does not exist."
-msgstr "Δεν υπάρχει διαμόρφωση προσωρινής μνήμης {0}."
-
-#: 
-msgid "This slug is already in use. Please enter a unique slug."
-msgstr "Αυτός ο γυμνοσάλιαγκας χρησιμοποιείται ήδη. Εισαγάγετε ένα μοναδικό γυμνοσάλιαγκο."
-
-#: 
-msgid "{0} cache could not be cleared."
-msgstr "Δεν ήταν δυνατή η εκκαθάριση της προσωρινής μνήμης {0}."
-
-#: 
-msgid "Group Name"
-msgstr "Όνομα ομάδας"
-
-#: 
-msgid "Temperature"
-msgstr "Θερμοκρασία"
-
-#: 
-msgid "You must be logged in to add a comment."
-msgstr "Πρέπει να είστε συνδεδεμένοι για να προσθέσετε ένα σχόλιο."
-
-#: 
-msgid "View"
-msgstr "Θέα"
-
-#: 
-msgid "Show Less"
-msgstr "Εμφάνιση Λιγότερο"
-
-#: 
-msgid "Grid View"
-msgstr "Προβολή πλέγματος"
-
-#: 
-msgid "Reason"
-msgstr "Λόγος"
-
-#: 
-msgid "Add Email Template"
-msgstr "Προσθήκη προτύπου email"
-
-#: 
-msgid "Associated Pages"
-msgstr "Συσχετισμένες σελίδες"
-
-#: 
-msgid "Image must be less than 5MB."
-msgstr "Η εικόνα πρέπει να είναι μικρότερη από 5 MB."
-
-#: 
-msgid "New AI Prompt"
-msgstr "Νέα προτροπή AI"
-
-#: 
-msgid "Alt Text"
-msgstr "Εναλλακτικό κείμενο"
-
-#: 
-msgid "Invalid username or password"
-msgstr "Μη έγκυρο όνομα χρήστη ή κωδικός πρόσβασης"
-
-#: 
-msgid "By"
-msgstr "Με"
-
-#: 
-msgid "Expires At"
-msgstr "Λήγει στις"
-
-#: 
-msgid "Invalid confirmation code. Please contact support."
-msgstr "Μη έγκυρος κωδικός επιβεβαίωσης. Επικοινωνήστε με την υποστήριξη."
-
-#: 
-msgid "Email template not found: {0}"
-msgstr "Το πρότυπο ηλεκτρονικού ταχυδρομείου δεν βρέθηκε: {0}"
-
-#: 
-msgid "No pages found."
-msgstr "Δεν βρέθηκαν σελίδες."
-
-#: 
-msgid "Meta Description"
-msgstr "Meta Περιγραφή"
-
-#: 
-msgid "Referer"
-msgstr "Παραπομπή"
-
-#: 
-msgid "The email template has been saved."
-msgstr "Το πρότυπο email έχει αποθηκευτεί."
-
-#: 
-msgid "Are you sure you want to delete all logs in group {0}?"
-msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε όλα τα αρχεία καταγραφής στην ομάδα {0};"
-
-#: 
-msgid "Related Articles"
-msgstr "Σχετικά Άρθρα"
-
-#: 
-msgid "Search logs..."
-msgstr "Αναζήτηση αρχείων καταγραφής..."
-
-#: 
-msgid "All caches have been cleared successfully."
-msgstr "Όλες οι κρυφές μνήμες έχουν εκκαθαριστεί με επιτυχία."
-
-#: 
-msgid "Articles"
-msgstr "Άρθρα"
-
-#: 
-msgid "AI Prompts"
-msgstr "Προτροπές AI"
-
-#: 
-msgid "No articles found for this tag."
-msgstr "Δεν βρέθηκαν άρθρα για αυτήν την ετικέτα."
-
-#: 
-msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
-msgstr "Το slug πρέπει να είναι ασφαλές για URL (μόνο πεζά γράμματα, αριθμοί και παύλες)"
-
-#: 
-msgid "Admin"
-msgstr "Διαχειρ"
-
-#: 
-msgid "Name"
-msgstr "Ονομα"
-
-#: 
-msgid "Related Tags"
-msgstr "Σχετικές Ετικέτες"
-
-#: 
-msgid "Failed to save the image"
-msgstr "Αποτυχία αποθήκευσης της εικόνας"
-
-#: 
-msgid "Are you sure you want to delete IP {0}?"
-msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε την IP {0};"
-
-#: 
-msgid "Edit User"
-msgstr "Επεξεργασία χρήστη"
-
-#: 
-msgid "Summary"
-msgstr "Περίληψη"
-
-#: 
-msgid "Password must be at least 8 characters long"
-msgstr "Ο κωδικός πρόσβασης πρέπει να αποτελείται από τουλάχιστον 8 χαρακτήρες"
-
-#: 
-msgid "Update Slug"
-msgstr "Ενημέρωση Slug"
-
-#: 
-msgid "Email"
-msgstr "E-mail"
-
-#: 
-msgid "Total Views: "
-msgstr "Συνολικές προβολές: "
-
-#: 
-msgid "The blocked ip could not be deleted. Please, try again."
-msgstr "Δεν ήταν δυνατή η διαγραφή της αποκλεισμένης IP. Παρακαλώ, δοκιμάστε ξανά."
+msgid "Unknown Author"
+msgstr "Άγνωστος συγγραφέας"
 
 #: 
 msgid "Error saving {0}.{1}: {2}"
 msgstr "Σφάλμα κατά την αποθήκευση του {0}.{1}: {2}"
 
 #: 
-msgid "You cannot remove your own admin status."
-msgstr "Δεν μπορείτε να καταργήσετε τη δική σας κατάσταση διαχειριστή."
-
-#: 
-msgid "The image has been deleted."
-msgstr "Η εικόνα έχει διαγραφεί."
-
-#: 
-msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
-msgstr "Ακολουθούν πληροφορίες σχετικά με τις διαμορφωμένες κρυφές μνήμες. Κάντε κλικ στο κουμπί για να διαγράψετε όλες τις κρυφές μνήμες ή μεμονωμένα κουμπιά προσωρινής μνήμης για να διαγράψετε συγκεκριμένες κρυφές μνήμες."
-
-#: 
-msgid "Add Page"
-msgstr "Προσθήκη σελίδας"
-
-#: 
-msgid "Toggle SEO Fields"
-msgstr "Εναλλαγή πεδίων SEO"
-
-#: 
-msgid "Edit {0}"
-msgstr "Επεξεργασία {0}"
-
-#: 
-msgid "Register New Account"
-msgstr "Εγγραφή Νέου Λογαριασμού"
-
-#: 
-msgid "Search slugs..."
-msgstr "Αναζήτηση γυμνοσάλιαγκων..."
-
-#: 
-msgid "Submit Comment"
-msgstr "Υποβολή σχολίου"
-
-#: 
-msgid "Facebook Description"
-msgstr "Περιγραφή Facebook"
-
-#: 
-msgid "System Logs"
-msgstr "Μητρώα Συστήματος"
-
-#: 
-msgid "Please log in to add a comment"
-msgstr "Παρακαλώ συνδεθείτε για να προσθέσετε ένα σχόλιο"
-
-#: 
-msgid "The slug has been deleted."
-msgstr "Ο γυμνοσάλιαγκας έχει διαγραφεί."
-
-#: 
-msgid "The log has been deleted."
-msgstr "Το αρχείο καταγραφής έχει διαγραφεί."
-
-#: 
-msgid "All Groups"
-msgstr "Όλες οι Ομάδες"
-
-#: 
-msgid "The value must be a number."
-msgstr "Η τιμή πρέπει να είναι αριθμός."
-
-#: 
-msgid "Your account has been confirmed. You can now log in."
-msgstr "Ο λογαριασμός σας έχει επιβεβαιωθεί. Τώρα μπορείτε να συνδεθείτε."
-
-#: 
-msgid "Id"
-msgstr "Ταυτότητα"
-
-#: 
-msgid "The blocked ip could not be saved. Please, try again."
-msgstr "Δεν ήταν δυνατή η αποθήκευση της αποκλεισμένης IP. Παρακαλώ, δοκιμάστε ξανά."
-
-#: 
-msgid "Rate limit exceeded for IP: {0} on route: {1}"
-msgstr "Υπέρβαση ορίου τιμής για IP: {0} στη διαδρομή: {1}"
-
-#: 
-msgid "The settings have been saved."
-msgstr "Οι ρυθμίσεις έχουν αποθηκευτεί."
-
-#: 
-msgid "Blocked IPs"
-msgstr "Μπλοκαρισμένες IP"
-
-#: 
-msgid "New Image"
-msgstr "Νέα εικόνα"
-
-#: 
-msgid "Access denied. You must be an admin to view this page."
-msgstr "Δεν επιτρέπεται η πρόσβαση. Πρέπει να είστε διαχειριστής για να δείτε αυτήν τη σελίδα."
-
-#: 
-msgid "Edit Email Template"
-msgstr "Επεξεργασία προτύπου email"
-
-#: 
-msgid "Delete All Logs"
-msgstr "Διαγραφή όλων των αρχείων καταγραφής"
-
-#: 
-msgid "Article not found"
-msgstr "Το άρθρο δεν βρέθηκε"
-
-#: 
-msgid "Add a Comment"
-msgstr "Προσθέστε ένα σχόλιο"
-
-#: 
-msgid "Logout"
-msgstr "Αποσύνδεση"
-
-#: 
-msgid "Are you sure you want to delete comment by {0}?"
-msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε το σχόλιο από τον χρήστη {0};"
-
-#: 
-msgid "Error"
-msgstr "Σφάλμα"
-
-#: 
-msgid "Search users..."
-msgstr "Αναζήτηση χρηστών..."
-
-#: 
-msgid "Show Details"
-msgstr "Εμφάνιση λεπτομερειών"
-
-#: 
-msgid "Edit Slug"
-msgstr "Επεξεργασία Slug"
-
-#: 
-msgid "No page view data available for this article."
-msgstr "Δεν υπάρχουν διαθέσιμα δεδομένα προβολής σελίδας για αυτό το άρθρο."
-
-#: 
-msgid "Show Full Article"
-msgstr "Εμφάνιση πλήρους άρθρου"
-
-#: 
-msgid "Display"
-msgstr "Επίδειξη"
-
-#: 
-msgid "Are you sure you want to delete # {0}?"
-msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε το # {0};"
-
-#: 
-msgid "The image could not be deleted. Please, try again."
-msgstr "Δεν ήταν δυνατή η διαγραφή της εικόνας. Παρακαλώ, δοκιμάστε ξανά."
-
-#: 
-msgid "Description"
-msgstr "Περιγραφή"
-
-#: 
-msgid "Add Internationalisation"
-msgstr "Προσθήκη διεθνοποίησης"
-
-#: 
-msgid "Cache Name"
-msgstr "Όνομα προσωρινής μνήμης"
-
-#: 
-msgid "All Tags"
-msgstr "Όλες οι ετικέτες"
-
-#: 
-msgid "The blocked ip has been saved."
-msgstr "Η μπλοκαρισμένη ip έχει αποθηκευτεί."
-
-#: 
-msgid "Edit Your Account"
-msgstr "Επεξεργαστείτε τον λογαριασμό σας"
-
-#: 
-msgid "Updated At"
-msgstr "Ενημερώθηκε στο"
-
-#: 
-msgid "No comments yet."
-msgstr "Δεν υπάρχουν ακόμη σχόλια."
-
-#: 
-msgid "You cannot disable your own account."
-msgstr "Δεν μπορείτε να απενεργοποιήσετε τον δικό σας λογαριασμό."
-
-#: 
-msgid "Article not found."
-msgstr "Το άρθρο δεν βρέθηκε."
-
-#: 
-msgid "Add Slug"
-msgstr "Προσθήκη Slug"
-
-#: 
-msgid "Add Article"
-msgstr "Προσθήκη άρθρου"
-
-#: 
-msgid "Pages"
-msgstr "Σελίδες"
-
-#: 
-msgid "Back"
-msgstr "Πίσω"
-
-#: 
-msgid "Please upload only images (jpeg, png, gif)."
-msgstr "Ανεβάστε μόνο εικόνες (jpeg, png, gif)."
-
-#: 
-msgid "Modified"
-msgstr "Τροποποιήθηκε"
-
-#: 
-msgid "SEO Fields"
-msgstr "Πεδία SEO"
-
-#: 
-msgid "Enter text"
-msgstr "Εισαγάγετε κείμενο"
-
-#: 
-msgid "Is AI Analyzed"
-msgstr "Αναλύεται το AI"
-
-#: 
-msgid "Delete"
-msgstr "Διαγράφω"
-
-#: 
-msgid "All logs in group {0} have been deleted."
-msgstr "Όλα τα αρχεία καταγραφής στην ομάδα {0} έχουν διαγραφεί."
-
-#: 
-msgid "No deleting your own account."
-msgstr "Όχι διαγραφή του λογαριασμού σας."
-
-#: 
-msgid "The comment has been deleted."
-msgstr "Το σχόλιο έχει διαγραφεί."
-
-#: 
-msgid "Setting not found: {0}.{1}"
-msgstr "Η ρύθμιση δεν βρέθηκε: {0}.{1}"
-
-#: 
-msgid "Unable to delete the log."
-msgstr "Δεν είναι δυνατή η διαγραφή του αρχείου καταγραφής."
-
-#: 
-msgid "No internationalizations found for the provided IDs."
-msgstr "Δεν βρέθηκαν διεθνοποιήσεις για τα παρεχόμενα αναγνωριστικά."
-
-#: 
-msgid "Are you sure you want to delete {0}?"
-msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε το {0};"
-
-#: 
-msgid "Filter"
-msgstr "Φίλτρο"
-
-#: 
-msgid "Body"
-msgstr "Σώμα"
-
-#: 
-msgid "Slug"
-msgstr "Γυμνοσάλιαγκας"
-
-#: 
-msgid "Update Article"
-msgstr "Ενημέρωση άρθρου"
-
-#: 
-msgid "Send Email"
-msgstr "Αποστολή Email"
-
-#: 
-msgid "Home"
-msgstr "Σπίτι"
-
-#: 
-msgid "Tag not found"
-msgstr "Η ετικέτα δεν βρέθηκε"
-
-#: 
-msgid "Image"
-msgstr "Εικών"
-
-#: 
-msgid "No view records found for this article."
-msgstr "Δεν βρέθηκαν εγγραφές προβολής για αυτό το άρθρο."
-
-#: 
-msgid "Failed to send confirmation email message: {0}"
-msgstr "Απέτυχε η αποστολή μηνύματος ηλεκτρονικού ταχυδρομείου επιβεβαίωσης: {0}"
-
-#: 
-msgid "You are not authorized to edit this account, stick to your own."
-msgstr "Δεν είστε εξουσιοδοτημένοι να επεξεργαστείτε αυτόν τον λογαριασμό, μείνετε στον δικό σας."
-
-#: 
-msgid "The user could not be saved. Please, try again."
-msgstr "Δεν ήταν δυνατή η αποθήκευση του χρήστη. Παρακαλώ, δοκιμάστε ξανά."
-
-#: 
-msgid "Front Site"
-msgstr "Μπροστινή τοποθεσία"
-
-#: 
-msgid "Clear All Cache"
-msgstr "Εκκαθάριση όλης της προσωρινής μνήμης"
-
-#: 
-msgid "New Email Template"
-msgstr "Νέο πρότυπο email"
-
-#: 
-msgid "Details"
-msgstr "Καθέκαστα"
-
-#: 
-msgid "Picture"
-msgstr "Εικόνα"
-
-#: 
-msgid "Update Comment"
-msgstr "Ενημέρωση σχολίου"
-
-#: 
-msgid "System Prompt"
-msgstr "Ερώτηση συστήματος"
-
-#: 
-msgid "Yes"
-msgstr "Ναί"
-
-#: 
-msgid "API request failed. Please try again later."
-msgstr "Το αίτημα API απέτυχε. Δοκιμάστε ξανά αργότερα."
-
-#: 
-msgid "Is Published"
-msgstr "Δημοσιεύεται"
-
-#: 
-msgid "Missing required arguments in the message."
-msgstr "Λείπουν τα απαιτούμενα ορίσματα στο μήνυμα."
-
-#: 
-msgid "Edit Comment"
-msgstr "Επεξεργασία σχολίου"
-
-#: 
-msgid "Save All Settings"
-msgstr "Αποθήκευση όλων των ρυθμίσεων"
-
-#: 
-msgid "Cache Management"
-msgstr "Διαχείριση προσωρινής μνήμης"
-
-#: 
-msgid "Edit Internationalisation"
-msgstr "Επεξεργασία Διεθνοποίησης"
-
-#: 
-msgid "The internationalisation has been deleted."
-msgstr "Η διεθνοποίηση έχει διαγραφεί."
-
-#: 
-msgid "An Internal Error Has Occurred."
-msgstr "Παρουσιάστηκε εσωτερικό σφάλμα."
-
-#: 
-msgid "Word Count"
-msgstr "Καταμέτρηση λέξεων"
-
-#: 
-msgid "Bulk Upload"
-msgstr "Μαζική μεταφόρτωση"
-
-#: 
-msgid "Users"
-msgstr "Χρήστες"
-
-#: 
-msgid "The aiprompt has been saved."
-msgstr "Το aiprompt έχει αποθηκευτεί."
-
-#: 
-msgid "Tags"
-msgstr "Ετικέτες"
-
-#: 
 msgid "Registration successful, but there was an issue creating the confirmation link."
 msgstr "Η εγγραφή ήταν επιτυχής, αλλά παρουσιάστηκε πρόβλημα με τη δημιουργία του συνδέσμου επιβεβαίωσης."
-
-#: 
-msgid "Message Id"
-msgstr "Αναγνωριστικό μηνύματος"
-
-#: 
-msgid "Add Tag"
-msgstr "Προσθήκη ετικέτας"
-
-#: 
-msgid "Additional Images"
-msgstr "Πρόσθετες εικόνες"
-
-#: 
-msgid "Edit Blocked IP"
-msgstr "Επεξεργασία αποκλεισμένης IP"
-
-#: 
-msgid "Some caches were cleared, but the following failed: {0}"
-msgstr "Ορισμένες κρυφές μνήμες διαγράφηκαν, αλλά τα ακόλουθα απέτυχαν: {0}"
-
-#: 
-msgid "Profile Picture"
-msgstr "Εικόνα προφίλ"
-
-#: 
-msgid "Your account has been updated."
-msgstr "Ο λογαριασμός σας έχει ενημερωθεί."
-
-#: 
-msgid "Date"
-msgstr "Ημερομηνία"
-
-#: 
-msgid "Invalid value for the specified type."
-msgstr "Μη έγκυρη τιμή για τον καθορισμένο τύπο."
-
-#: 
-msgid "Article"
-msgstr "Αρθρο"
-
-#: 
-msgid "Too many requests. Please try again later."
-msgstr "Πάρα πολλά αιτήματα. Δοκιμάστε ξανά αργότερα."
-
-#: 
-msgid "Message"
-msgstr "Μήνυμα"
-
-#: 
-msgid "Locale"
-msgstr "Μικρός λοβός"
-
-#: 
-msgid "Unable to delete logs with level {0}."
-msgstr "Δεν είναι δυνατή η διαγραφή αρχείων καταγραφής με επίπεδο {0}."
-
-#: 
-msgid "Page View Statistics for slug: {0}"
-msgstr "Στατιστικά προβολής σελίδας για γυμνοσάλιαγκες: {0}"
-
-#: 
-msgid "Code Coverage"
-msgstr "Κάλυψη κωδικού"
-
-#: 
-msgid "Max Tokens"
-msgstr "Max Tokens"
-
-#: 
-msgid "Failed to send email to: {0}"
-msgstr "Απέτυχε η αποστολή email στη διεύθυνση: {0}"
-
-#: 
-msgid "The email template could not be deleted. Please, try again."
-msgstr "Δεν ήταν δυνατή η διαγραφή του προτύπου email. Παρακαλώ, δοκιμάστε ξανά."
-
-#: 
-msgid "Enter a number"
-msgstr "Εισαγάγετε έναν αριθμό"
-
-#: 
-msgid "Page Views for {0}"
-msgstr "Προβολές σελίδας για {0}"
-
-#: 
-msgid "Unable to delete logs in group {0}."
-msgstr "Δεν είναι δυνατή η διαγραφή αρχείων καταγραφής στην ομάδα {0}."
-
-#: 
-msgid "Meta Keywords"
-msgstr "Meta Λέξεις-κλειδιά"
-
-#: 
-msgid "The user has been deleted."
-msgstr "Ο χρήστης έχει διαγραφεί."
-
-#: 
-msgid "All Locales"
-msgstr "Όλοι οι Τοπικοί"
-
-#: 
-msgid "Images"
-msgstr "εικόνες"
-
-#: 
-msgid "Search articles..."
-msgstr "Αναζήτηση άρθρων..."
-
-#: 
-msgid "Add Image"
-msgstr "Προσθήκη εικόνας"
-
-#: 
-msgid "Content"
-msgstr "Περιεχόμενο"
-
-#: 
-msgid "Block IPs"
-msgstr "Αποκλεισμός IP"
-
-#: 
-msgid "Comments"
-msgstr "Σχόλια"
-
-#: 
-msgid "Subject"
-msgstr "Θέμα"
-
-#: 
-msgid "The email template has been deleted."
-msgstr "Το πρότυπο email έχει διαγραφεί."
-
-#: 
-msgid "The tag has been deleted."
-msgstr "Η ετικέτα έχει διαγραφεί."
-
-#: 
-msgid "Add AI Prompt"
-msgstr "Προσθήκη προτροπής AI"
-
-#: 
-msgid "Submit"
-msgstr "Υποτάσσομαι"
-
-#: 
-msgid "Error loading images:"
-msgstr "Σφάλμα κατά τη φόρτωση εικόνων:"
-
-#: 
-msgid "The comment could not be deleted. Please, try again."
-msgstr "Δεν ήταν δυνατή η διαγραφή του σχολίου. Παρακαλώ, δοκιμάστε ξανά."
-
-#: 
-msgid "Are you sure you want to delete all {0} logs?"
-msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε όλα τα αρχεία καταγραφής {0};"
-
-#: 
-msgid "The user has been saved."
-msgstr "Ο χρήστης έχει αποθηκευτεί."
-
-#: 
-msgid "There was an issue confirming your account. Please try again."
-msgstr "Παρουσιάστηκε πρόβλημα με την επιβεβαίωση του λογαριασμού σας. Δοκιμάστε ξανά."
-
-#: 
-msgid "Body Text"
-msgstr "Κείμενο σώματος"
-
-#: 
-msgid "New Blocked IP"
-msgstr "Νέα αποκλεισμένη IP"
-
-#: 
-msgid "Login"
-msgstr "Σύνδεση"
-
-#: 
-msgid "Is Admin"
-msgstr "Είναι Διαχειριστής"
-
-#: 
-msgid "Configured Caches"
-msgstr "Ρυθμισμένες κρυφές μνήμες"
-
-#: 
-msgid "New Article"
-msgstr "Νέο άρθρο"
-
-#: 
-msgid "Bulk Upload Images"
-msgstr "Μαζική μεταφόρτωση εικόνων"
-
-#: 
-msgid "Registration successful. Please check your email for confirmation."
-msgstr "Η εγγραφή επιτυχής. Ελέγξτε το email σας για επιβεβαίωση."
-
-#: 
-msgid "The article has been saved."
-msgstr "Το άρθρο έχει αποθηκευτεί."
-
-#: 
-msgid "Engine"
-msgstr "Μηχανή"
-
-#: 
-msgid "This message_id must be unique for the given locale."
-msgstr "Αυτό το message_id πρέπει να είναι μοναδικό για τη δεδομένη τοπική ρύθμιση."
-
-#: 
-msgid "Internationalisations"
-msgstr "διεθνοποιήσεις"
-
-#: 
-msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
-msgstr "Το email στάλθηκε με επιτυχία στη διεύθυνση: {0}. Πρότυπο: {1}, Θέμα: {2}"
-
-#: 
-msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
-msgstr "Σελίδα {{page}} από {{pages}}, εμφανίζει {{current}} εγγραφές από {{count}} συνολικά"
-
-#: 
-msgid "The tag has been saved."
-msgstr "Η ετικέτα έχει αποθηκευτεί."
-
-#: 
-msgid "Error sending email: {0}"
-msgstr "Σφάλμα κατά την αποστολή email: {0}"
-
-#: 
-msgid "Message Str"
-msgstr "Μήνυμα Στρ"
-
-#: 
-msgid "Search images..."
-msgstr "Αναζήτηση εικόνων..."
-
-#: 
-msgid "Invalid type"
-msgstr "Μη έγκυρος τύπος"
-
-#: 
-msgid "Unknown Author"
-msgstr "Άγνωστος συγγραφέας"
-
-#: 
-msgid "User Agent"
-msgstr "Πράκτορας χρήστη"
-
-#: 
-msgid "Slug:"
-msgstr "Γυμνοσάλιαγκας:"
-
-#: 
-msgid "Is Inappropriate"
-msgstr "Είναι Ακατάλληλο"
-
-#: 
-msgid "New Internationalisation"
-msgstr "Νέα Διεθνοποίηση"
-
-#: 
-msgid "Settings"
-msgstr "Ρυθμίσεις"
-
-#: 
-msgid "Unable to add your comment."
-msgstr "Δεν είναι δυνατή η προσθήκη του σχολίου σας."
-
-#: 
-msgid "Update Aiprompt"
-msgstr "Ενημερώστε το Aiprompt"
-
-#: 
-msgid "Email sent successfully."
-msgstr "Το email στάλθηκε με επιτυχία."
-
-#: 
-msgid "Twitter Description"
-msgstr "Περιγραφή Twitter"
-
-#: 
-msgid "Views"
-msgstr "Απόψεις"
-
-#: 
-msgid "The article could not be deleted. Please, try again."
-msgstr "Δεν ήταν δυνατή η διαγραφή του άρθρου. Παρακαλώ, δοκιμάστε ξανά."
-
-#: 
-msgid "The tag could not be deleted. Please, try again."
-msgstr "Δεν ήταν δυνατή η διαγραφή της ετικέτας. Παρακαλώ, δοκιμάστε ξανά."
-
-#: 
-msgid "The comment has been saved."
-msgstr "Το σχόλιο έχει αποθηκευτεί."
-
-#: 
-msgid "Internationalisation"
-msgstr "Διεθνοποίηση"
-
-#: 
-msgid "Some settings could not be saved. Please, try again."
-msgstr "Δεν ήταν δυνατή η αποθήκευση ορισμένων ρυθμίσεων. Παρακαλώ, δοκιμάστε ξανά."
-
-#: 
-msgid "List Email Templates"
-msgstr "Λίστα προτύπων email"
-
-#: 
-msgid "An error occurred while processing your request."
-msgstr "Παρουσιάστηκε σφάλμα κατά την επεξεργασία του αιτήματός σας."
-
-#: 
-msgid "This slug is already in use in articles. Please enter a unique slug."
-msgstr "Αυτός ο γυμνοσάλιαγκας χρησιμοποιείται ήδη σε άρθρα. Εισαγάγετε ένα μοναδικό γυμνοσάλιαγκο."
-
-#: 
-msgid "All logs have been deleted."
-msgstr "Όλα τα αρχεία καταγραφής έχουν διαγραφεί."
-
-#: 
-msgid "Error in: "
-msgstr "Σφάλμα σε: "
-
-#: 
-msgid "The tag could not be saved. Please, try again."
-msgstr "Δεν ήταν δυνατή η αποθήκευση της ετικέτας. Παρακαλώ, δοκιμάστε ξανά."
-
-#: 
-msgid "The internationalisation has been saved."
-msgstr "Η διεθνοποίηση σώθηκε."
-
-#: 
-msgid "Comment"
-msgstr "Σχόλιο"
-
-#: 
-msgid "Instagram Description"
-msgstr "Περιγραφή Instagram"
-
-#: 
-msgid "Level"
-msgstr "Επίπεδο"
-
-#: 
-msgid "The slug could not be saved. Please, try again."
-msgstr "Δεν ήταν δυνατή η αποθήκευση του γυμνοσάλιαγκου. Παρακαλώ, δοκιμάστε ξανά."
-
-#: 
-msgid "No tags are linked."
-msgstr "Δεν υπάρχουν συνδεδεμένες ετικέτες."
-
-#: 
-msgid "Edit Article"
-msgstr "Επεξεργασία άρθρου"
-
-#: 
-msgid "Modified At"
-msgstr "Τροποποιήθηκε στο"
-
-#: 
-msgid "Created At"
-msgstr "Δημιουργήθηκε στο"
-
-#: 
-msgid "The article has been deleted."
-msgstr "Το άρθρο έχει διαγραφεί."
-
-#: 
-msgid "New Tag"
-msgstr "Νέα ετικέτα"
-
-#: 
-msgid "The aiprompt could not be saved. Please, try again."
-msgstr "Δεν ήταν δυνατή η αποθήκευση του aiprompt. Παρακαλώ, δοκιμάστε ξανά."
-
-#: 
-msgid "The slug has been saved."
-msgstr "Ο γυμνοσάλιαγκας σώθηκε."
-
-#: 
-msgid "Context"
-msgstr "Συμφραζόμενα"
-
-#: 
-msgid "Are you sure you want to delete this comment?"
-msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτό το σχόλιο;"
-
-#: 
-msgid "Account"
-msgstr "Λογαριασμός"
-
-#: 
-msgid "Published"
-msgstr "Δημοσιεύθηκε"
-
-#: 
-msgid "Failed to send email. Please check your email configuration."
-msgstr "Αποτυχία αποστολής email. Ελέγξτε τη διαμόρφωση του email σας."
 
 #: 
 msgid "Delete {0}"
 msgstr "Διαγραφή {0}"
 
 #: 
+msgid "This slug is already in use in articles. Please enter a unique slug."
+msgstr "Αυτός ο γυμνοσάλιαγκας χρησιμοποιείται ήδη σε άρθρα. Εισαγάγετε ένα μοναδικό γυμνοσάλιαγκο."
+
+#: 
+msgid "By"
+msgstr "Με"
+
+#: 
+msgid "Title"
+msgstr "Τίτλος"
+
+#: 
+msgid "Invalid value for the specified type."
+msgstr "Μη έγκυρη τιμή για τον καθορισμένο τύπο."
+
+#: 
+msgid "Please upload only images (jpeg, png, gif)."
+msgstr "Ανεβάστε μόνο εικόνες (jpeg, png, gif)."
+
+#: 
+msgid "Error"
+msgstr "Σφάλμα"
+
+#: 
+msgid "Are you sure you want to delete # {0}?"
+msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε το # {0};"
+
+#: 
+msgid "Failed to send email to: {0}"
+msgstr "Απέτυχε η αποστολή email στη διεύθυνση: {0}"
+
+#: 
+msgid "Add Internationalisation"
+msgstr "Προσθήκη διεθνοποίησης"
+
+#: 
+msgid "{0} cache configuration does not exist."
+msgstr "Δεν υπάρχει διαμόρφωση προσωρινής μνήμης {0}."
+
+#: 
+msgid "The image could not be saved. Please, try again."
+msgstr "Δεν ήταν δυνατή η αποθήκευση της εικόνας. Παρακαλώ, δοκιμάστε ξανά."
+
+#: 
+msgid "Image"
+msgstr "Εικών"
+
+#: 
+msgid "Please log in to add a comment"
+msgstr "Παρακαλώ συνδεθείτε για να προσθέσετε ένα σχόλιο"
+
+#: 
+msgid "Edit Image"
+msgstr "Επεξεργασία εικόνας"
+
+#: 
+msgid "The settings have been saved."
+msgstr "Οι ρυθμίσεις έχουν αποθηκευτεί."
+
+#: 
+msgid "Id"
+msgstr "Ταυτότητα"
+
+#: 
+msgid "Missing required arguments in the message."
+msgstr "Λείπουν τα απαιτούμενα ορίσματα στο μήνυμα."
+
+#: 
 msgid "New {0}"
 msgstr "Νέο {0}"
 
 #: 
-msgid "Article ID:"
-msgstr "Αναγνωριστικό άρθρου:"
+msgid "Slug:"
+msgstr "Γυμνοσάλιαγκας:"
 
 #: 
-msgid "Too Many Requests"
-msgstr "Πάρα πολλά αιτήματα"
-
-#: 
-msgid "Model"
-msgstr "Μοντέλο"
-
-#: 
-msgid "The image has been saved."
-msgstr "Η εικόνα έχει αποθηκευτεί."
-
-#: 
-msgid "User"
-msgstr "Μεταχειριζόμενος"
-
-#: 
-msgid "Please enter your email and password"
-msgstr "Εισαγάγετε το email και τον κωδικό πρόσβασής σας"
-
-#: 
-msgid "Main Picture"
-msgstr "Κύρια εικόνα"
-
-#: 
-msgid "Body HTML"
-msgstr "Σώμα HTML"
-
-#: 
-msgid "List {0}"
-msgstr "Λίστα {0}"
-
-#: 
-msgid "Blocked At"
-msgstr "Αποκλείστηκε στο"
-
-#: 
-msgid "Not published"
-msgstr "Δεν δημοσιεύτηκε"
-
-#: 
-msgid "The slug could not be deleted. Please, try again."
-msgstr "Δεν ήταν δυνατή η διαγραφή του γυμνοσάλιαγκου. Παρακαλώ, δοκιμάστε ξανά."
-
-#: 
-msgid "Update Image"
-msgstr "Ενημέρωση εικόνας"
-
-#: 
-msgid "Cache"
-msgstr "Κρύπτη"
-
-#: 
-msgid "Page Views"
-msgstr "Προβολές σελίδας"
-
-#: 
-msgid "Failed to update translation for message ID: {0}"
-msgstr "Απέτυχε η ενημέρωση της μετάφρασης για το αναγνωριστικό μηνύματος: {0}"
-
-#: 
-msgid "Unknown User"
-msgstr "Άγνωστος Χρήστης"
-
-#: 
-msgid "Search comments..."
-msgstr "Αναζήτηση σχολίων..."
-
-#: 
-msgid "All Levels"
-msgstr "Όλα τα Επίπεδα"
-
-#: 
-msgid "Update User"
-msgstr "Ενημέρωση χρήστη"
+msgid "Posted on {date} by {author}"
+msgstr "Δημοσιεύτηκε στις {date} από {author}"
 
 #: 
 msgid "Username"
 msgstr "Όνομα χρήστη"
 
 #: 
-msgid "Select a parent"
-msgstr "Επιλέξτε έναν γονέα"
+msgid "Updated At"
+msgstr "Ενημερώθηκε στο"
 
 #: 
-msgid "Register"
-msgstr "Μητρώο"
+msgid "Update Aiprompt"
+msgstr "Ενημερώστε το Aiprompt"
 
 #: 
-msgid "The article could not be saved. Please, try again."
-msgstr "Δεν ήταν δυνατή η αποθήκευση του άρθρου. Παρακαλώ, δοκιμάστε ξανά."
+msgid "API request failed. Please try again later."
+msgstr "Το αίτημα API απέτυχε. Δοκιμάστε ξανά αργότερα."
 
 #: 
-msgid "All rights reserved."
-msgstr "Με την επιφύλαξη παντός δικαιώματος."
+msgid "Tags"
+msgstr "Ετικέτες"
 
 #: 
-msgid "Update Tag"
-msgstr "Ενημέρωση ετικέτας"
+msgid "Message Str"
+msgstr "Μήνυμα Στρ"
 
 #: 
-msgid "Edit"
-msgstr "Εκδίδω"
-
-#: 
-msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
-msgstr "Το Slug έρχεται σε διένεξη με μια υπάρχουσα ανακατεύθυνση SEO. Επιλέξτε διαφορετικό γυμνοσάλιαγκο."
-
-#: 
-msgid "All logs with level {0} have been deleted."
-msgstr "Όλα τα αρχεία καταγραφής με το επίπεδο {0} έχουν διαγραφεί."
-
-#: 
-msgid "No images."
-msgstr "Δεν υπάρχουν εικόνες."
-
-#: 
-msgid "The comment could not be saved. Please, try again."
-msgstr "Δεν ήταν δυνατή η αποθήκευση του σχολίου. Παρακαλώ, δοκιμάστε ξανά."
-
-#: 
-msgid "Edit Tag"
-msgstr "Επεξεργασία ετικέτας"
-
-#: 
-msgid "Read More"
-msgstr "Διαβάστε περισσότερα"
-
-#: 
-msgid "New User"
-msgstr "Νέος χρήστης"
-
-#: 
-msgid "The slug must be unique."
-msgstr "Ο γυμνοσάλιαγκας πρέπει να είναι μοναδικός."
-
-#: 
-msgid "Search tags..."
-msgstr "Αναζήτηση ετικετών..."
-
-#: 
-msgid "The blocked ip has been deleted."
-msgstr "Η μπλοκαρισμένη ip έχει διαγραφεί."
-
-#: 
-msgid "The value must be 0 or 1."
-msgstr "Η τιμή πρέπει να είναι 0 ή 1."
-
-#: 
-msgid "Registration failed. Please, try again."
-msgstr "Η εγγραφή απέτυχε. Παρακαλώ, δοκιμάστε ξανά."
-
-#: 
-msgid "User Comments"
-msgstr "Σχόλια χρηστών"
-
-#: 
-msgid "Edit Aiprompt"
-msgstr "Επεξεργασία Aiprompt"
-
-#: 
-msgid "Edit Settings"
-msgstr "Επεξεργασία ρυθμίσεων"
-
-#: 
-msgid "Confirm Password"
-msgstr "Επιβεβαίωση κωδικού πρόσβασης"
-
-#: 
-msgid "Created"
-msgstr "Δημιουργήθηκε"
+msgid "The user has been saved."
+msgstr "Ο χρήστης έχει αποθηκευτεί."
 
 #: 
 msgid "Unable to delete all logs."
 msgstr "Δεν είναι δυνατή η διαγραφή όλων των αρχείων καταγραφής."
 
 #: 
+msgid "Edit Internationalisation"
+msgstr "Επεξεργασία Διεθνοποίησης"
+
+#: 
+msgid "List Email Templates"
+msgstr "Λίστα προτύπων email"
+
+#: 
+msgid "The comment could not be saved. Please, try again."
+msgstr "Δεν ήταν δυνατή η αποθήκευση του σχολίου. Παρακαλώ, δοκιμάστε ξανά."
+
+#: 
+msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
+msgstr "Το Slug έρχεται σε διένεξη με μια υπάρχουσα ανακατεύθυνση SEO. Επιλέξτε διαφορετικό γυμνοσάλιαγκο."
+
+#: 
+msgid "You are not authorized to edit this account, stick to your own."
+msgstr "Δεν είστε εξουσιοδοτημένοι να επεξεργαστείτε αυτόν τον λογαριασμό, μείνετε στον δικό σας."
+
+#: 
+msgid "Description"
+msgstr "Περιγραφή"
+
+#: 
+msgid "Send Email"
+msgstr "Αποστολή Email"
+
+#: 
+msgid "Search logs..."
+msgstr "Αναζήτηση αρχείων καταγραφής..."
+
+#: 
+msgid "Please enter your email and password"
+msgstr "Εισαγάγετε το email και τον κωδικό πρόσβασής σας"
+
+#: 
+msgid "Too many requests. Please try again later."
+msgstr "Πάρα πολλά αιτήματα. Δοκιμάστε ξανά αργότερα."
+
+#: 
+msgid "Configured Caches"
+msgstr "Ρυθμισμένες κρυφές μνήμες"
+
+#: 
+msgid "Users"
+msgstr "Χρήστες"
+
+#: 
 msgid "Keywords"
 msgstr "Λέξεις-κλειδιά"
 
 #: 
-msgid "Add Blocked IP"
-msgstr "Προσθήκη αποκλεισμένης IP"
+msgid "This message_id must be unique for the given locale."
+msgstr "Αυτό το message_id πρέπει να είναι μοναδικό για τη δεδομένη τοπική ρύθμιση."
+
+#: 
+msgid "Email Templates"
+msgstr "Πρότυπα email"
+
+#: 
+msgid "No view records found for this article."
+msgstr "Δεν βρέθηκαν εγγραφές προβολής για αυτό το άρθρο."
+
+#: 
+msgid "The aiprompt could not be saved. Please, try again."
+msgstr "Δεν ήταν δυνατή η αποθήκευση του aiprompt. Παρακαλώ, δοκιμάστε ξανά."
+
+#: 
+msgid "Related Tags"
+msgstr "Σχετικές Ετικέτες"
+
+#: 
+msgid "Bulk Upload"
+msgstr "Μαζική μεταφόρτωση"
+
+#: 
+msgid "Are you sure you want to delete all logs?"
+msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε όλα τα αρχεία καταγραφής;"
+
+#: 
+msgid "User Agent"
+msgstr "Πράκτορας χρήστη"
+
+#: 
+msgid "Not published"
+msgstr "Δεν δημοσιεύτηκε"
+
+#: 
+msgid "Display"
+msgstr "Επίδειξη"
+
+#: 
+msgid "User"
+msgstr "Μεταχειριζόμενος"
+
+#: 
+msgid "Admin"
+msgstr "Διαχειρ"
+
+#: 
+msgid "Too Many Requests"
+msgstr "Πάρα πολλά αιτήματα"
+
+#: 
+msgid "SEO Fields"
+msgstr "Πεδία SEO"
+
+#: 
+msgid "Referer"
+msgstr "Παραπομπή"
+
+#: 
+msgid "The blocked ip has been deleted."
+msgstr "Η μπλοκαρισμένη ip έχει διαγραφεί."
+
+#: 
+msgid "Update User"
+msgstr "Ενημέρωση χρήστη"
+
+#: 
+msgid "Unable to delete logs with level {0}."
+msgstr "Δεν είναι δυνατή η διαγραφή αρχείων καταγραφής με επίπεδο {0}."
+
+#: 
+msgid "Confirm Password"
+msgstr "Επιβεβαίωση κωδικού πρόσβασης"
+
+#: 
+msgid "All logs in group {0} have been deleted."
+msgstr "Όλα τα αρχεία καταγραφής στην ομάδα {0} έχουν διαγραφεί."
+
+#: 
+msgid "Message"
+msgstr "Μήνυμα"
+
+#: 
+msgid "Edit Comment"
+msgstr "Επεξεργασία σχολίου"
+
+#: 
+msgid "Actions"
+msgstr "Δράσεις"
+
+#: 
+msgid "Level"
+msgstr "Επίπεδο"
+
+#: 
+msgid "Message Id"
+msgstr "Αναγνωριστικό μηνύματος"
+
+#: 
+msgid "Temperature"
+msgstr "Θερμοκρασία"
+
+#: 
+msgid "Login"
+msgstr "Σύνδεση"
+
+#: 
+msgid "New AI Prompt"
+msgstr "Νέα προτροπή AI"
+
+#: 
+msgid "Expires At"
+msgstr "Λήγει στις"
+
+#: 
+msgid "Enter a number"
+msgstr "Εισαγάγετε έναν αριθμό"
+
+#: 
+msgid "Total Views: "
+msgstr "Συνολικές προβολές: "
+
+#: 
+msgid "All Groups"
+msgstr "Όλες οι Ομάδες"
+
+#: 
+msgid "Blocked At"
+msgstr "Αποκλείστηκε στο"
+
+#: 
+msgid "Update Comment"
+msgstr "Ενημέρωση σχολίου"
+
+#: 
+msgid "Created"
+msgstr "Δημιουργήθηκε"
+
+#: 
+msgid "Body"
+msgstr "Σώμα"
+
+#: 
+msgid "Views"
+msgstr "Απόψεις"
+
+#: 
+msgid "No tags are linked."
+msgstr "Δεν υπάρχουν συνδεδεμένες ετικέτες."
+
+#: 
+msgid "Logout"
+msgstr "Αποσύνδεση"
+
+#: 
+msgid "The article could not be saved. Please, try again."
+msgstr "Δεν ήταν δυνατή η αποθήκευση του άρθρου. Παρακαλώ, δοκιμάστε ξανά."
+
+#: 
+msgid "Search slugs..."
+msgstr "Αναζήτηση γυμνοσάλιαγκων..."
+
+#: 
+msgid "Add Article"
+msgstr "Προσθήκη άρθρου"
+
+#: 
+msgid "New Tag"
+msgstr "Νέα ετικέτα"
+
+#: 
+msgid "Search articles..."
+msgstr "Αναζήτηση άρθρων..."
+
+#: 
+msgid "Summary"
+msgstr "Περίληψη"
+
+#: 
+msgid "Associated Pages"
+msgstr "Συσχετισμένες σελίδες"
+
+#: 
+msgid "No articles found for this tag."
+msgstr "Δεν βρέθηκαν άρθρα για αυτήν την ετικέτα."
+
+#: 
+msgid "Error in: "
+msgstr "Σφάλμα σε: "
+
+#: 
+msgid "The slug could not be deleted. Please, try again."
+msgstr "Δεν ήταν δυνατή η διαγραφή του γυμνοσάλιαγκου. Παρακαλώ, δοκιμάστε ξανά."
+
+#: 
+msgid "Profile Picture"
+msgstr "Εικόνα προφίλ"
+
+#: 
+msgid "The requested address {0} was not found on this server."
+msgstr "Η ζητούμενη διεύθυνση {0} δεν βρέθηκε σε αυτόν τον διακομιστή."
+
+#: 
+msgid "Show Full Article"
+msgstr "Εμφάνιση πλήρους άρθρου"
+
+#: 
+msgid "New Article"
+msgstr "Νέο άρθρο"
+
+#: 
+msgid "Unknown User"
+msgstr "Άγνωστος Χρήστης"
+
+#: 
+msgid "Add Image"
+msgstr "Προσθήκη εικόνας"
+
+#: 
+msgid "Code Coverage"
+msgstr "Κάλυψη κωδικού"
+
+#: 
+msgid "Logs"
+msgstr "κούτσουρα"
+
+#: 
+msgid "Tag not found"
+msgstr "Η ετικέτα δεν βρέθηκε"
+
+#: 
+msgid "Are you sure you want to delete comment by {0}?"
+msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε το σχόλιο από τον χρήστη {0};"
+
+#: 
+msgid "Failed to save the image"
+msgstr "Αποτυχία αποθήκευσης της εικόνας"
+
+#: 
+msgid "The internationalisation has been saved."
+msgstr "Η διεθνοποίηση σώθηκε."
+
+#: 
+msgid "Is Inappropriate"
+msgstr "Είναι Ακατάλληλο"
+
+#: 
+msgid "Body HTML"
+msgstr "Σώμα HTML"
+
+#: 
+msgid "Is AI Analyzed"
+msgstr "Αναλύεται το AI"
+
+#: 
+msgid "Created At"
+msgstr "Δημιουργήθηκε στο"
+
+#: 
+msgid "Article not found."
+msgstr "Το άρθρο δεν βρέθηκε."
+
+#: 
+msgid "The article has been deleted."
+msgstr "Το άρθρο έχει διαγραφεί."
+
+#: 
+msgid "Word Count"
+msgstr "Καταμέτρηση λέξεων"
+
+#: 
+msgid "Name"
+msgstr "Ονομα"
+
+#: 
+msgid "Add AI Prompt"
+msgstr "Προσθήκη προτροπής AI"
+
+#: 
+msgid "Add User"
+msgstr "Προσθήκη χρήστη"
+
+#: 
+msgid "Group Name"
+msgstr "Όνομα ομάδας"
 
 #: 
 msgid "Image uploaded successfully"
 msgstr "Η εικόνα μεταφορτώθηκε με επιτυχία"
 
 #: 
-msgid "Meta Title"
-msgstr "Μετα Τίτλος"
-
-#: 
-msgid "The value must not be empty."
-msgstr "Η τιμή δεν πρέπει να είναι κενή."
+msgid "Are you sure you want to clear {0}?"
+msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε το {0};"
 
 #: 
 msgid "{0} Views"
 msgstr "{0} Προβολές"
 
 #: 
-msgid "List Blocked IPs"
-msgstr "Λίστα αποκλεισμένων IP"
+msgid "New Image"
+msgstr "Νέα εικόνα"
+
+#: 
+msgid "Enter text"
+msgstr "Εισαγάγετε κείμενο"
+
+#: 
+msgid "English"
+msgstr "αγγλικός"
+
+#: 
+msgid "Setting not found: {0}.{1}"
+msgstr "Η ρύθμιση δεν βρέθηκε: {0}.{1}"
+
+#: 
+msgid "Update Article"
+msgstr "Ενημέρωση άρθρου"
+
+#: 
+msgid "Show"
+msgstr "Επίδειξη"
+
+#: 
+msgid "Some settings could not be saved. Please, try again."
+msgstr "Δεν ήταν δυνατή η αποθήκευση ορισμένων ρυθμίσεων. Παρακαλώ, δοκιμάστε ξανά."
+
+#: 
+msgid "Submit"
+msgstr "Υποτάσσομαι"
+
+#: 
+msgid "Articles"
+msgstr "Άρθρα"
+
+#: 
+msgid "Email template not found: {0}"
+msgstr "Το πρότυπο ηλεκτρονικού ταχυδρομείου δεν βρέθηκε: {0}"
+
+#: 
+msgid "The value must be a number."
+msgstr "Η τιμή πρέπει να είναι αριθμός."
+
+#: 
+msgid "Subject"
+msgstr "Θέμα"
+
+#: 
+msgid "Submit Comment"
+msgstr "Υποβολή σχολίου"
+
+#: 
+msgid "Edit Article"
+msgstr "Επεξεργασία άρθρου"
+
+#: 
+msgid "The log has been deleted."
+msgstr "Το αρχείο καταγραφής έχει διαγραφεί."
+
+#: 
+msgid "The internationalisation could not be deleted. Please, try again."
+msgstr "Δεν ήταν δυνατή η διαγραφή της διεθνοποίησης. Παρακαλώ, δοκιμάστε ξανά."
+
+#: 
+msgid "{0} cache has been cleared successfully."
+msgstr "Η προσωρινή μνήμη {0} διαγράφηκε με επιτυχία."
+
+#: 
+msgid "The article could not be deleted. Please, try again."
+msgstr "Δεν ήταν δυνατή η διαγραφή του άρθρου. Παρακαλώ, δοκιμάστε ξανά."
+
+#: 
+msgid "AI Prompts"
+msgstr "Προτροπές AI"
+
+#: 
+msgid "Twitter Description"
+msgstr "Περιγραφή Twitter"
+
+#: 
+msgid "Comments"
+msgstr "Σχόλια"
+
+#: 
+msgid "Email"
+msgstr "E-mail"
+
+#: 
+msgid "Is Published"
+msgstr "Δημοσιεύεται"
+
+#: 
+msgid "No"
+msgstr "Οχι"
+
+#: 
+msgid "The slug must be unique."
+msgstr "Ο γυμνοσάλιαγκας πρέπει να είναι μοναδικός."
+
+#: 
+msgid "Main Picture"
+msgstr "Κύρια εικόνα"
+
+#: 
+msgid "Edit Email Template"
+msgstr "Επεξεργασία προτύπου email"
+
+#: 
+msgid "Update Slug"
+msgstr "Ενημέρωση Slug"
+
+#: 
+msgid "The comment has been saved."
+msgstr "Το σχόλιο έχει αποθηκευτεί."
+
+#: 
+msgid "Edit {0}"
+msgstr "Επεξεργασία {0}"
+
+#: 
+msgid "Are you sure you want to delete this prompt?"
+msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτό το μήνυμα προτροπής;"
+
+#: 
+msgid "Edit Settings"
+msgstr "Επεξεργασία ρυθμίσεων"
+
+#: 
+msgid "Bulk Upload Images"
+msgstr "Μαζική μεταφόρτωση εικόνων"
+
+#: 
+msgid "The tag could not be saved. Please, try again."
+msgstr "Δεν ήταν δυνατή η αποθήκευση της ετικέτας. Παρακαλώ, δοκιμάστε ξανά."
+
+#: 
+msgid "All Locales"
+msgstr "Όλοι οι Τοπικοί"
+
+#: 
+msgid "Date"
+msgstr "Ημερομηνία"
+
+#: 
+msgid "Your account has been updated."
+msgstr "Ο λογαριασμός σας έχει ενημερωθεί."
+
+#: 
+msgid "Instagram Description"
+msgstr "Περιγραφή Instagram"
+
+#: 
+msgid "Internationalisation"
+msgstr "Διεθνοποίηση"
+
+#: 
+msgid "Rate limit exceeded for IP: {0} on route: {1}"
+msgstr "Υπέρβαση ορίου τιμής για IP: {0} στη διαδρομή: {1}"
+
+#: 
+msgid "Edit"
+msgstr "Εκδίδω"
+
+#: 
+msgid "Front Site"
+msgstr "Μπροστινή τοποθεσία"
+
+#: 
+msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
+msgstr "Το email στάλθηκε με επιτυχία στη διεύθυνση: {0}. Πρότυπο: {1}, Θέμα: {2}"
+
+#: 
+msgid "Read More"
+msgstr "Διαβάστε περισσότερα"
+
+#: 
+msgid "Are you sure you want to delete all {0} logs?"
+msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε όλα τα αρχεία καταγραφής {0};"
+
+#: 
+msgid "Add Blocked IP"
+msgstr "Προσθήκη αποκλεισμένης IP"
+
+#: 
+msgid "Failed to send email. Please check your email configuration."
+msgstr "Αποτυχία αποστολής email. Ελέγξτε τη διαμόρφωση του email σας."
+
+#: 
+msgid "No images."
+msgstr "Δεν υπάρχουν εικόνες."
+
+#: 
+msgid "The blocked ip could not be saved. Please, try again."
+msgstr "Δεν ήταν δυνατή η αποθήκευση της αποκλεισμένης IP. Παρακαλώ, δοκιμάστε ξανά."
+
+#: 
+msgid "The internationalisation could not be saved. Please, try again."
+msgstr "Η διεθνοποίηση δεν μπορούσε να σωθεί. Παρακαλώ, δοκιμάστε ξανά."
+
+#: 
+msgid "The user could not be saved. Please, try again."
+msgstr "Δεν ήταν δυνατή η αποθήκευση του χρήστη. Παρακαλώ, δοκιμάστε ξανά."
+
+#: 
+msgid "Blocked IPs"
+msgstr "Μπλοκαρισμένες IP"
+
+#: 
+msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
+msgstr "Το slug πρέπει να είναι ασφαλές για URL (μόνο πεζά γράμματα, αριθμοί και παύλες)"
+
+#: 
+msgid "Pages"
+msgstr "Σελίδες"
+
+#: 
+msgid "New User"
+msgstr "Νέος χρήστης"
+
+#: 
+msgid "Edit Tag"
+msgstr "Επεξεργασία ετικέτας"
+
+#: 
+msgid "IP Address"
+msgstr "Διεύθυνση IP"
+
+#: 
+msgid "Page View Statistics for slug: {0}"
+msgstr "Στατιστικά προβολής σελίδας για γυμνοσάλιαγκες: {0}"
+
+#: 
+msgid "The blocked ip could not be deleted. Please, try again."
+msgstr "Δεν ήταν δυνατή η διαγραφή της αποκλεισμένης IP. Παρακαλώ, δοκιμάστε ξανά."
+
+#: 
+msgid "You must be logged in to add a comment."
+msgstr "Πρέπει να είστε συνδεδεμένοι για να προσθέσετε ένα σχόλιο."
+
+#: 
+msgid "No pages found."
+msgstr "Δεν βρέθηκαν σελίδες."
+
+#: 
+msgid "The internationalisation has been deleted."
+msgstr "Η διεθνοποίηση έχει διαγραφεί."
+
+#: 
+msgid "Search images..."
+msgstr "Αναζήτηση εικόνων..."
+
+#: 
+msgid "Your comment has been added."
+msgstr "Το σχόλιό σας προστέθηκε."
+
+#: 
+msgid "Facebook Description"
+msgstr "Περιγραφή Facebook"
+
+#: 
+msgid "New Internationalisation"
+msgstr "Νέα Διεθνοποίηση"
+
+#: 
+msgid "The user could not be deleted. Please, try again."
+msgstr "Δεν ήταν δυνατή η διαγραφή του χρήστη. Παρακαλώ, δοκιμάστε ξανά."
+
+#: 
+msgid "Meta Description"
+msgstr "Meta Περιγραφή"
+
+#: 
+msgid "The image has been saved."
+msgstr "Η εικόνα έχει αποθηκευτεί."
+
+#: 
+msgid "No deleting your own account."
+msgstr "Όχι διαγραφή του λογαριασμού σας."
+
+#: 
+msgid "The article has been saved."
+msgstr "Το άρθρο έχει αποθηκευτεί."
+
+#: 
+msgid "Delete"
+msgstr "Διαγράφω"
+
+#: 
+msgid "Details"
+msgstr "Καθέκαστα"
+
+#: 
+msgid "The slug could not be saved. Please, try again."
+msgstr "Δεν ήταν δυνατή η αποθήκευση του γυμνοσάλιαγκου. Παρακαλώ, δοκιμάστε ξανά."
+
+#: 
+msgid "Inappropriate Reason"
+msgstr "Ανάρμοστος λόγος"
+
+#: 
+msgid "Edit Blocked IP"
+msgstr "Επεξεργασία αποκλεισμένης IP"
+
+#: 
+msgid "Modified At"
+msgstr "Τροποποιήθηκε στο"
+
+#: 
+msgid "List {0}"
+msgstr "Λίστα {0}"
+
+#: 
+msgid "The value must be 0 or 1."
+msgstr "Η τιμή πρέπει να είναι 0 ή 1."
+
+#: 
+msgid "The tag has been deleted."
+msgstr "Η ετικέτα έχει διαγραφεί."
+
+#: 
+msgid "An error occurred while processing your request."
+msgstr "Παρουσιάστηκε σφάλμα κατά την επεξεργασία του αιτήματός σας."
+
+#: 
+msgid "The aiprompt has been saved."
+msgstr "Το aiprompt έχει αποθηκευτεί."
+
+#: 
+msgid "Search users..."
+msgstr "Αναζήτηση χρηστών..."
+
+#: 
+msgid "Select a parent"
+msgstr "Επιλέξτε έναν γονέα"
+
+#: 
+msgid "Images"
+msgstr "εικόνες"
+
+#: 
+msgid "Engine"
+msgstr "Μηχανή"
+
+#: 
+msgid "Some caches were cleared, but the following failed: {0}"
+msgstr "Ορισμένες κρυφές μνήμες διαγράφηκαν, αλλά τα ακόλουθα απέτυχαν: {0}"
+
+#: 
+msgid "Meta Keywords"
+msgstr "Meta Λέξεις-κλειδιά"
+
+#: 
+msgid "Error sending email: {0}"
+msgstr "Σφάλμα κατά την αποστολή email: {0}"
+
+#: 
+msgid "Home"
+msgstr "Σπίτι"
+
+#: 
+msgid "The comment has been deleted."
+msgstr "Το σχόλιο έχει διαγραφεί."
+
+#: 
+msgid "LinkedIn Description"
+msgstr "Περιγραφή LinkedIn"
+
+#: 
+msgid "An Internal Error Has Occurred."
+msgstr "Παρουσιάστηκε εσωτερικό σφάλμα."
+
+#: 
+msgid "Invalid username or password"
+msgstr "Μη έγκυρο όνομα χρήστη ή κωδικός πρόσβασης"
+
+#: 
+msgid "The slug has been deleted."
+msgstr "Ο γυμνοσάλιαγκας έχει διαγραφεί."
+
+#: 
+msgid "Grid View"
+msgstr "Προβολή πλέγματος"
+
+#: 
+msgid "Back"
+msgstr "Πίσω"
+
+#: 
+msgid "Invalid confirmation code. Please contact support."
+msgstr "Μη έγκυρος κωδικός επιβεβαίωσης. Επικοινωνήστε με την υποστήριξη."
+
+#: 
+msgid "Are you sure you want to delete {0}?"
+msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε το {0};"
+
+#: 
+msgid "Article/Page"
+msgstr "Άρθρο/Σελίδα"
+
+#: 
+msgid "All logs have been deleted."
+msgstr "Όλα τα αρχεία καταγραφής έχουν διαγραφεί."
+
+#: 
+msgid "Are you sure you want to delete IP {0}?"
+msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε την IP {0};"
 
 #: 
 msgid "New Slug"
 msgstr "Νέος γυμνοσάλιαγκας"
+
+#: 
+msgid "View detailed records for this date"
+msgstr "Δείτε αναλυτικά αρχεία για αυτήν την ημερομηνία"
+
+#: 
+msgid "Error loading images:"
+msgstr "Σφάλμα κατά τη φόρτωση εικόνων:"
+
+#: 
+msgid "All Levels"
+msgstr "Όλα τα Επίπεδα"
+
+#: 
+msgid "Slug"
+msgstr "Γυμνοσάλιαγκας"
+
+#: 
+msgid "Invalid type"
+msgstr "Μη έγκυρος τύπος"
+
+#: 
+msgid "No comments yet."
+msgstr "Δεν υπάρχουν ακόμη σχόλια."
+
+#: 
+msgid "Article"
+msgstr "Αρθρο"
+
+#: 
+msgid "Slugs"
+msgstr "γυμνοσάλιαγκες"
+
+#: 
+msgid "System Prompt"
+msgstr "Ερώτηση συστήματος"
+
+#: 
+msgid "No page view data available for this article."
+msgstr "Δεν υπάρχουν διαθέσιμα δεδομένα προβολής σελίδας για αυτό το άρθρο."
+
+#: 
+msgid "Add Slug"
+msgstr "Προσθήκη Slug"
+
+#: 
+msgid "No internationalizations found for the provided IDs."
+msgstr "Δεν βρέθηκαν διεθνοποιήσεις για τα παρεχόμενα αναγνωριστικά."
+
+#: 
+msgid "All logs with level {0} have been deleted."
+msgstr "Όλα τα αρχεία καταγραφής με το επίπεδο {0} έχουν διαγραφεί."
+
+#: 
+msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
+msgstr "Σελίδα {{page}} από {{pages}}, εμφανίζει {{current}} εγγραφές από {{count}} συνολικά"
+
+#: 
+msgid "Registration failed. Please, try again."
+msgstr "Η εγγραφή απέτυχε. Παρακαλώ, δοκιμάστε ξανά."
+
+#: 
+msgid "All rights reserved."
+msgstr "Με την επιφύλαξη παντός δικαιώματος."
+
+#: 
+msgid "The user has been deleted."
+msgstr "Ο χρήστης έχει διαγραφεί."
+
+#: 
+msgid "Image must be less than 5MB."
+msgstr "Η εικόνα πρέπει να είναι μικρότερη από 5 MB."
+
+#: 
+msgid "Article not found"
+msgstr "Το άρθρο δεν βρέθηκε"
+
+#: 
+msgid "Locale"
+msgstr "Μικρός λοβός"
+
+#: 
+msgid "Add a Comment"
+msgstr "Προσθέστε ένα σχόλιο"
+
+#: 
+msgid "Internationalisations"
+msgstr "διεθνοποιήσεις"
+
+#: 
+msgid "Live"
+msgstr "Ζω"
+
+#: 
+msgid "Clear"
+msgstr "Σαφής"
+
+#: 
+msgid "The tag could not be deleted. Please, try again."
+msgstr "Δεν ήταν δυνατή η διαγραφή της ετικέτας. Παρακαλώ, δοκιμάστε ξανά."
+
+#: 
+msgid "Add Tag"
+msgstr "Προσθήκη ετικέτας"
+
+#: 
+msgid "Never"
+msgstr "Ποτέ"
+
+#: 
+msgid "All caches have been cleared successfully."
+msgstr "Όλες οι κρυφές μνήμες έχουν εκκαθαριστεί με επιτυχία."
+
+#: 
+msgid "Search comments..."
+msgstr "Αναζήτηση σχολίων..."
+
+#: 
+msgid "Reason"
+msgstr "Λόγος"
+
+#: 
+msgid "List Blocked IPs"
+msgstr "Λίστα αποκλεισμένων IP"
+
+#: 
+msgid "Are you sure you want to delete this comment?"
+msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτό το σχόλιο;"
+
+#: 
+msgid "Settings"
+msgstr "Ρυθμίσεις"
+
+#: 
+msgid "There was an issue confirming your account. Please try again."
+msgstr "Παρουσιάστηκε πρόβλημα με την επιβεβαίωση του λογαριασμού σας. Δοκιμάστε ξανά."
+
+#: 
+msgid "Registration successful. Please check your email for confirmation."
+msgstr "Η εγγραφή επιτυχής. Ελέγξτε το email σας για επιβεβαίωση."
+
+#: 
+msgid "Your account has been confirmed. You can now log in."
+msgstr "Ο λογαριασμός σας έχει επιβεβαιωθεί. Τώρα μπορείτε να συνδεθείτε."
+
+#: 
+msgid "The comment could not be deleted. Please, try again."
+msgstr "Δεν ήταν δυνατή η διαγραφή του σχολίου. Παρακαλώ, δοκιμάστε ξανά."
+
+#: 
+msgid "Edit User"
+msgstr "Επεξεργασία χρήστη"
+
+#: 
+msgid "Failed to update translation for message ID: {0}"
+msgstr "Απέτυχε η ενημέρωση της μετάφρασης για το αναγνωριστικό μηνύματος: {0}"
+
+#: 
+msgid "Modified"
+msgstr "Τροποποιήθηκε"
+
+#: 
+msgid "All Tags"
+msgstr "Όλες οι ετικέτες"
+
+#: 
+msgid "Edit Your Account"
+msgstr "Επεξεργαστείτε τον λογαριασμό σας"
+
+#: 
+msgid "Filter"
+msgstr "Φίλτρο"
+
+#: 
+msgid "Search tags..."
+msgstr "Αναζήτηση ετικετών..."
+
+#: 
+msgid "Update Image"
+msgstr "Ενημέρωση εικόνας"
+
+#: 
+msgid "Register New Account"
+msgstr "Εγγραφή Νέου Λογαριασμού"
+
+#: 
+msgid "The email template has been deleted."
+msgstr "Το πρότυπο email έχει διαγραφεί."
+
+#: 
+msgid "The image has been deleted."
+msgstr "Η εικόνα έχει διαγραφεί."
+
+#: 
+msgid "You cannot disable your own account."
+msgstr "Δεν μπορείτε να απενεργοποιήσετε τον δικό σας λογαριασμό."
+
+#: 
+msgid "Block IPs"
+msgstr "Αποκλεισμός IP"
+
+#: 
+msgid "Additional Images"
+msgstr "Πρόσθετες εικόνες"
+
+#: 
+msgid "Unable to delete logs in group {0}."
+msgstr "Δεν είναι δυνατή η διαγραφή αρχείων καταγραφής στην ομάδα {0}."
 

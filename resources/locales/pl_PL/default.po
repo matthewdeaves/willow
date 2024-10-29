@@ -14,1330 +14,1350 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
 #: 
-msgid "Published"
-msgstr "Opublikowany"
-
-#: 
-msgid "Total Views: "
-msgstr "Łączna liczba wyświetleń: "
-
-#: 
-msgid "Search comments..."
-msgstr "Szukaj komentarzy..."
-
-#: 
-msgid "Your comment has been added."
-msgstr "Twój komentarz został dodany."
-
-#: 
-msgid "Block IPs"
-msgstr "Blokuj adresy IP"
-
-#: 
-msgid "Access denied. You must be an admin to view this page."
-msgstr "Dostęp zabroniony. Musisz być administratorem, aby zobaczyć tę stronę."
-
-#: 
-msgid "View"
-msgstr "Pogląd"
-
-#: 
-msgid "List {0}"
-msgstr "Lista {0}"
-
-#: 
-msgid "{0} cache could not be cleared."
-msgstr "Nie można wyczyścić pamięci podręcznej {0}."
-
-#: 
-msgid "Temperature"
-msgstr "Temperatura"
-
-#: 
-msgid "Add Internationalisation"
-msgstr "Dodaj internacjonalizację"
-
-#: 
-msgid "Bulk Upload"
-msgstr "Masowe przesyłanie"
-
-#: 
-msgid "Unable to delete logs with level {0}."
-msgstr "Nie można usunąć dzienników o poziomie {0}."
-
-#: 
-msgid "A value is required"
-msgstr "Wartość jest wymagana"
-
-#: 
-msgid "Show Less"
-msgstr "Pokaż mniej"
-
-#: 
-msgid "By"
-msgstr "Przez"
-
-#: 
-msgid "Failed to save the image"
-msgstr "Nie udało się zapisać obrazu"
-
-#: 
-msgid "Modified"
-msgstr "Zmodyfikowany"
-
-#: 
-msgid "Images"
-msgstr "Obrazy"
-
-#: 
-msgid "Invalid confirmation code. Please contact support."
-msgstr "Nieprawidłowy kod potwierdzający. Skontaktuj się z pomocą techniczną."
-
-#: 
-msgid "Your account has been updated."
-msgstr "Twoje konto zostało zaktualizowane."
-
-#: 
-msgid "Failed to send email to: {0}"
-msgstr "Nie udało się wysłać wiadomości e-mail do: {0}"
-
-#: 
-msgid "Comment"
-msgstr "Komentarz"
-
-#: 
-msgid "Failed to send confirmation email message: {0}"
-msgstr "Nie udało się wysłać wiadomości e-mail z potwierdzeniem: {0}"
-
-#: 
-msgid "Last Cleared"
-msgstr "Ostatnio wyczyszczone"
-
-#: 
-msgid "Engine"
-msgstr "Silnik"
-
-#: 
-msgid "Edit Comment"
-msgstr "Edytuj komentarz"
-
-#: 
-msgid "Search tags..."
-msgstr "Szukaj tagów..."
-
-#: 
-msgid "Actions"
-msgstr "Akcje"
-
-#: 
-msgid "Alt Text"
-msgstr "Tekst alternatywny"
-
-#: 
-msgid "The user has been deleted."
-msgstr "Użytkownik został usunięty."
-
-#: 
-msgid "Tags"
-msgstr "Tagi"
-
-#: 
-msgid "Page Views for {0}"
-msgstr "Wyświetlenia strony dla {0}"
-
-#: 
-msgid "Created At"
-msgstr "Utworzono w"
-
-#: 
-msgid "Edit Email Template"
-msgstr "Edytuj szablon wiadomości e-mail"
-
-#: 
-msgid "No articles found for this tag."
-msgstr "Nie znaleziono artykułów dla tego tagu."
-
-#: 
-msgid "Display"
-msgstr "Wyświetlacz"
-
-#: 
-msgid "Error"
-msgstr "Błąd"
-
-#: 
-msgid "Add Image"
-msgstr "Dodaj obraz"
-
-#: 
-msgid "Views"
-msgstr "Widoki"
-
-#: 
-msgid "Modified At"
-msgstr "Zmodyfikowano w"
-
-#: 
-msgid "Meta Keywords"
-msgstr "Słowa kluczowe meta"
-
-#: 
-msgid "This message_id must be unique for the given locale."
-msgstr "Ten message_id musi być unikalny dla danej lokalizacji."
-
-#: 
-msgid "The internationalisation could not be deleted. Please, try again."
-msgstr "Nie można usunąć internacjonalizacji. Proszę spróbować ponownie."
-
-#: 
-msgid "Title"
-msgstr "Tytuł"
-
-#: 
-msgid "Front Site"
-msgstr "Strona główna"
-
-#: 
-msgid "Meta Description"
-msgstr "Opis meta"
-
-#: 
-msgid "Password must be at least 8 characters long"
-msgstr "Hasło musi mieć co najmniej 8 znaków"
-
-#: 
-msgid "The image has been deleted."
-msgstr "Obraz został usunięty."
-
-#: 
-msgid "Failed to update translation for message ID: {0}"
-msgstr "Nie udało się zaktualizować tłumaczenia dla identyfikatora wiadomości: {0}"
-
-#: 
-msgid "Message Id"
-msgstr "Identyfikator wiadomości"
-
-#: 
-msgid "Details"
-msgstr "Bliższe dane"
-
-#: 
-msgid "Never"
-msgstr "Nigdy"
-
-#: 
-msgid "Submit"
-msgstr "Składać"
-
-#: 
-msgid "New Image"
-msgstr "Nowy obraz"
-
-#: 
-msgid "Are you sure you want to delete this comment?"
-msgstr "Czy na pewno chcesz usunąć ten komentarz?"
-
-#: 
-msgid "The slug must be unique."
-msgstr "Ślimak musi być unikalny."
-
-#: 
-msgid "The email template has been deleted."
-msgstr "Szablon wiadomości e-mail został usunięty."
-
-#: 
-msgid "Grid View"
-msgstr "Widok siatki"
-
-#: 
-msgid "Send Email"
-msgstr "Wyślij e-mail"
-
-#: 
-msgid "Are you sure you want to delete comment by {0}?"
-msgstr "Czy na pewno chcesz usunąć komentarz użytkownika {0}?"
-
-#: 
-msgid "Cache Management"
-msgstr "Zarządzanie pamięcią podręczną"
-
-#: 
-msgid "API request failed. Please try again later."
-msgstr "Żądanie API nie powiodło się. Spróbuj ponownie później."
-
-#: 
-msgid "The blocked ip could not be saved. Please, try again."
-msgstr "Zablokowanego IP nie można zapisać. Proszę spróbować ponownie."
-
-#: 
-msgid "No tags are linked."
-msgstr "Brak powiązanych tagów."
-
-#: 
-msgid "Add User"
-msgstr "Dodaj użytkownika"
-
-#: 
-msgid "Account"
-msgstr "Konto"
-
-#: 
-msgid "Add Page"
-msgstr "Dodaj stronę"
-
-#: 
-msgid "Registration successful. Please check your email for confirmation."
-msgstr "Rejestracja powiodła się. Sprawdź swoją pocztę e-mail w celu potwierdzenia."
-
-#: 
-msgid "An Internal Error Has Occurred."
-msgstr "Wystąpił błąd wewnętrzny."
-
-#: 
-msgid "Add Slug"
-msgstr "Dodaj ślimaka"
-
-#: 
-msgid "Article not found."
-msgstr "Nie znaleziono artykułu."
-
-#: 
-msgid "Model"
-msgstr "Model"
-
-#: 
-msgid "Registration successful, but there was an issue creating the confirmation link."
-msgstr "Rejestracja powiodła się, ale wystąpił problem z utworzeniem linku potwierdzającego."
-
-#: 
-msgid "Edit"
-msgstr "Redagować"
-
-#: 
-msgid "Update Article"
-msgstr "Aktualizacja artykułu"
-
-#: 
-msgid "No internationalizations found for the provided IDs."
-msgstr "Nie znaleziono żadnych internacjonalizacji dla podanych identyfikatorów."
-
-#: 
-msgid "Image"
-msgstr "Obraz"
-
-#: 
-msgid "Update Comment"
-msgstr "Aktualizuj komentarz"
-
-#: 
-msgid "No"
-msgstr "NIE"
-
-#: 
-msgid "Summary"
-msgstr "Streszczenie"
-
-#: 
-msgid "Username"
-msgstr "Nazwa użytkownika"
-
-#: 
-msgid "Email"
-msgstr "E-mail"
-
-#: 
-msgid "Some settings could not be saved. Please, try again."
-msgstr "Niektórych ustawień nie można zapisać. Proszę spróbować ponownie."
-
-#: 
-msgid "Edit Internationalisation"
-msgstr "Edytuj Internacjonalizacja"
-
-#: 
-msgid "All logs with level {0} have been deleted."
-msgstr "Wszystkie logi o poziomie {0} zostały usunięte."
-
-#: 
-msgid "Invalid username or password"
-msgstr "Nieprawidłowa nazwa użytkownika lub hasło"
-
-#: 
-msgid "Subject"
-msgstr "Temat"
-
-#: 
-msgid "The blocked ip has been deleted."
-msgstr "Zablokowany adres IP został usunięty."
-
-#: 
-msgid "Blocked At"
-msgstr "Zablokowany w"
-
-#: 
-msgid "Yes"
-msgstr "Tak"
-
-#: 
-msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
-msgstr "Ślimak musi być bezpieczny dla adresu URL (tylko małe litery, cyfry i myślniki)"
-
-#: 
-msgid "Back"
-msgstr "Z powrotem"
-
-#: 
-msgid "Select a parent"
-msgstr "Wybierz rodzica"
-
-#: 
-msgid "Blocked IPs"
-msgstr "Zablokowane adresy IP"
-
-#: 
-msgid "Are you sure you want to delete this prompt?"
-msgstr "Czy na pewno chcesz usunąć ten monit?"
-
-#: 
-msgid "{0} cache configuration does not exist."
-msgstr "{0} konfiguracja pamięci podręcznej nie istnieje."
-
-#: 
-msgid "Search logs..."
-msgstr "Przeszukaj dzienniki..."
-
-#: 
-msgid "The comment has been deleted."
-msgstr "Komentarz został usunięty."
-
-#: 
-msgid "Are you sure you want to delete IP {0}?"
-msgstr "Czy na pewno chcesz usunąć adres IP {0}?"
-
-#: 
-msgid "Email template not found: {0}"
-msgstr "Nie znaleziono szablonu wiadomości e-mail: {0}"
-
-#: 
-msgid "List Blocked IPs"
-msgstr "Wyświetl listę zablokowanych adresów IP"
-
-#: 
-msgid "Your account has been confirmed. You can now log in."
-msgstr "Twoje konto zostało potwierdzone. Możesz się teraz zalogować."
-
-#: 
-msgid "Slug:"
-msgstr "Ślimak:"
-
-#: 
-msgid "Register New Account"
-msgstr "Zarejestruj nowe konto"
-
-#: 
-msgid "Content"
-msgstr "Treść"
-
-#: 
-msgid "SEO Fields"
-msgstr "Pola SEO"
-
-#: 
-msgid "Invalid type"
-msgstr "Nieprawidłowy typ"
-
-#: 
-msgid "Group Name"
-msgstr "Nazwa grupy"
-
-#: 
-msgid "Delete {0}"
-msgstr "Usuń {0}"
-
-#: 
-msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
-msgstr "Poniżej znajdują się informacje o skonfigurowanych pamięciach podręcznych. Kliknij przycisk, aby wyczyścić wszystkie pamięci podręczne lub przyciski poszczególnych pamięci podręcznych, aby wyczyścić określone pamięci podręczne."
-
-#: 
-msgid "LinkedIn Description"
-msgstr "Opis LinkedIn"
-
-#: 
-msgid "New Slug"
-msgstr "Nowy ślimak"
-
-#: 
-msgid "Search users..."
-msgstr "Wyszukaj użytkowników..."
-
-#: 
-msgid "Too Many Requests"
-msgstr "Zbyt wiele próśb"
-
-#: 
-msgid "Save All Settings"
-msgstr "Zapisz wszystkie ustawienia"
-
-#: 
-msgid "Edit Settings"
-msgstr "Edytuj ustawienia"
-
-#: 
-msgid "Delete"
-msgstr "Usuwać"
-
-#: 
-msgid "Error saving {0}.{1}: {2}"
-msgstr "Błąd podczas zapisywania {0}.{1}: {2}"
-
-#: 
-msgid "The image has been saved."
-msgstr "Obraz został zapisany."
-
-#: 
-msgid "Picture"
-msgstr "Zdjęcie"
-
-#: 
-msgid "Unknown Author"
-msgstr "Nieznany autor"
-
-#: 
-msgid "{0} Views"
-msgstr "{0} Wyświetleń"
-
-#: 
-msgid "The email template could not be deleted. Please, try again."
-msgstr "Szablonu wiadomości e-mail nie można usunąć. Proszę spróbować ponownie."
-
-#: 
-msgid "The tag has been saved."
-msgstr "Tag został zapisany."
-
-#: 
-msgid "Show Details"
-msgstr "Pokaż szczegóły"
-
-#: 
-msgid "Body"
-msgstr "Ciało"
-
-#: 
-msgid "All caches have been cleared successfully."
-msgstr "Wszystkie skrzynki zostały pomyślnie wyczyszczone."
-
-#: 
-msgid "Message Str"
-msgstr "Wiadomość Str"
-
-#: 
-msgid "Confirm Password"
-msgstr "Potwierdź hasło"
-
-#: 
-msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
-msgstr "Strona {{page}} z {{pages}}, wyświetlająca {{current}} rekord(y) z {{count}} całkowitej liczby"
-
-#: 
-msgid "Unable to add your comment."
-msgstr "Nie można dodać komentarza."
-
-#: 
-msgid "Email sent successfully."
-msgstr "E-mail został pomyślnie wysłany."
-
-#: 
-msgid "This slug is already in use in articles. Please enter a unique slug."
-msgstr "Ten slug jest już używany w artykułach. Proszę wpisać unikalny slug."
-
-#: 
-msgid "Are you sure you want to delete all logs in group {0}?"
-msgstr "Czy na pewno chcesz usunąć wszystkie logi w grupie {0}?"
-
-#: 
-msgid "Internationalisation"
-msgstr "Umiędzynarodowienie"
-
-#: 
-msgid "Add Article"
-msgstr "Dodaj artykuł"
-
-#: 
-msgid "Are you sure you want to clear {0}?"
-msgstr "Czy na pewno chcesz wyczyścić {0}?"
-
-#: 
-msgid "Edit Article"
-msgstr "Edytuj artykuł"
-
-#: 
-msgid "Tag not found"
-msgstr "Nie znaleziono tagu"
-
-#: 
-msgid "List View"
-msgstr "Widok listy"
-
-#: 
-msgid "The user could not be deleted. Please, try again."
-msgstr "Użytkownik nie mógł zostać usunięty. Proszę spróbować ponownie."
-
-#: 
-msgid "Keywords"
-msgstr "Słowa kluczowe"
-
-#: 
-msgid "Expires At"
-msgstr "Wygasa o"
-
-#: 
-msgid "The tag has been deleted."
-msgstr "Tag został usunięty."
-
-#: 
-msgid "Main Picture"
-msgstr "Główny obraz"
-
-#: 
-msgid "New Blocked IP"
-msgstr "Nowy zablokowany adres IP"
-
-#: 
-msgid "New Tag"
-msgstr "Nowy tag"
-
-#: 
-msgid "System Prompt"
-msgstr "Monit systemowy"
-
-#: 
-msgid "Edit Blocked IP"
-msgstr "Edytuj zablokowany adres IP"
-
-#: 
-msgid "Filter"
-msgstr "Filtr"
-
-#: 
-msgid "No images."
-msgstr "Brak obrazów."
-
-#: 
-msgid "Max Tokens"
-msgstr "Maksymalna liczba tokenów"
-
-#: 
-msgid "Toggle SEO Fields"
-msgstr "Przełącz pola SEO"
-
-#: 
-msgid "View detailed records for this date"
-msgstr "Zobacz szczegółowe dane dla tej daty"
-
-#: 
-msgid "Is Inappropriate"
-msgstr "Jest nieodpowiedni"
-
-#: 
-msgid "Related Articles"
-msgstr "Powiązane artykuły"
-
-#: 
-msgid "Add a Comment"
-msgstr "Dodaj komentarz"
-
-#: 
-msgid "The slug could not be deleted. Please, try again."
-msgstr "Nie można usunąć ślimaka. Proszę spróbować ponownie."
-
-#: 
-msgid "The value must be 0 or 1."
-msgstr "Wartość musi wynosić 0 lub 1."
-
-#: 
-msgid "Level"
-msgstr "Poziom"
-
-#: 
-msgid "The value must not be empty."
-msgstr "Wartość nie może być pusta."
-
-#: 
-msgid "The article has been deleted."
-msgstr "Artykuł został usunięty."
-
-#: 
-msgid "Rate limit exceeded for IP: {0} on route: {1}"
-msgstr "Przekroczono limit szybkości dla IP: {0} na trasie: {1}"
-
-#: 
-msgid "Additional Images"
-msgstr "Dodatkowe obrazy"
-
-#: 
-msgid "Setting not found: {0}.{1}"
-msgstr "Nie znaleziono ustawienia: {0}.{1}"
-
-#: 
-msgid "Some caches were cleared, but the following failed: {0}"
-msgstr "Niektóre pamięci podręczne zostały wyczyszczone, ale poniższe nie powiodły się: {0}"
-
-#: 
-msgid "Slugs"
-msgstr "Ślimaki"
-
-#: 
-msgid "The email template has been saved."
-msgstr "Szablon wiadomości e-mail został zapisany."
-
-#: 
-msgid "Id"
-msgstr "Id"
-
-#: 
-msgid "The slug has been deleted."
-msgstr "Ślimak został usunięty."
-
-#: 
-msgid "Code Coverage"
-msgstr "Pokrycie kodu"
-
-#: 
-msgid "Are you sure you want to delete {0}?"
-msgstr "Czy na pewno chcesz usunąć {0}?"
-
-#: 
-msgid "The comment could not be deleted. Please, try again."
-msgstr "Komentarz nie mógł zostać usunięty. Proszę spróbować ponownie."
-
-#: 
-msgid "Twitter Description"
-msgstr "Opis na Twitterze"
-
-#: 
-msgid "Is AI Analyzed"
-msgstr "Czy sztuczna inteligencja jest analizowana?"
-
-#: 
-msgid "Unable to delete logs in group {0}."
-msgstr "Nie można usunąć dzienników w grupie {0}."
-
-#: 
-msgid "Error loading images:"
-msgstr "Błąd ładowania obrazów:"
-
-#: 
-msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
-msgstr "Slug koliduje z istniejącym przekierowaniem SEO. Wybierz inny slug."
-
-#: 
-msgid "Add Tag"
-msgstr "Dodaj tag"
-
-#: 
-msgid "The log has been deleted."
-msgstr "Dziennik został usunięty."
-
-#: 
-msgid "The blocked ip has been saved."
-msgstr "Zablokowany adres IP został zapisany."
-
-#: 
-msgid "Search images..."
-msgstr "Szukaj obrazów..."
-
-#: 
-msgid "The tag could not be saved. Please, try again."
-msgstr "Nie można zapisać tagu. Proszę spróbować ponownie."
-
-#: 
-msgid "Please enter your email and password"
-msgstr "Proszę podać swój adres e-mail i hasło"
-
-#: 
-msgid "IP Address"
-msgstr "Adres IP"
-
-#: 
-msgid "Edit Image"
-msgstr "Edytuj obraz"
-
-#: 
-msgid "All logs in group {0} have been deleted."
-msgstr "Wszystkie logi w grupie {0} zostały usunięte."
-
-#: 
-msgid "Search articles..."
-msgstr "Szukaj artykułów..."
-
-#: 
-msgid "Users"
-msgstr "Użytkownicy"
-
-#: 
-msgid "Cache"
-msgstr "Kryjówka"
-
-#: 
-msgid "Date"
-msgstr "Data"
-
-#: 
-msgid "Submit Comment"
-msgstr "Prześlij komentarz"
-
-#: 
-msgid "Logs"
-msgstr "Dzienniki"
-
-#: 
-msgid "All Levels"
-msgstr "Wszystkie poziomy"
-
-#: 
-msgid "Register"
-msgstr "Rejestr"
-
-#: 
-msgid "The internationalisation could not be saved. Please, try again."
-msgstr "Nie można zapisać internacjonalizacji. Proszę spróbować ponownie."
-
-#: 
-msgid "The aiprompt has been saved."
-msgstr "Komunikat został zapisany."
-
-#: 
-msgid "Missing required arguments in the message."
-msgstr "Brak wymaganych argumentów w wiadomości."
-
-#: 
-msgid "Is Admin"
-msgstr "Jest administratorem"
-
-#: 
-msgid "Inappropriate Reason"
-msgstr "Niewłaściwy powód"
-
-#: 
-msgid "Is Published"
-msgstr "Jest opublikowany"
-
-#: 
-msgid "Instagram Description"
-msgstr "Opis Instagrama"
-
-#: 
-msgid "New Article"
-msgstr "Nowy artykuł"
-
-#: 
-msgid "Pages"
-msgstr "Strony"
-
-#: 
-msgid "Related Tags"
-msgstr "Powiązane tagi"
-
-#: 
-msgid "The article could not be deleted. Please, try again."
-msgstr "Nie można usunąć artykułu. Proszę spróbować ponownie."
-
-#: 
-msgid "Are you sure you want to delete all logs?"
-msgstr "Czy na pewno chcesz usunąć wszystkie logi?"
-
-#: 
-msgid "There was an issue confirming your account. Please try again."
-msgstr "Wystąpił problem z potwierdzeniem Twojego konta. Spróbuj ponownie."
-
-#: 
-msgid "Edit Tag"
-msgstr "Edytuj tag"
-
-#: 
-msgid "You cannot remove your own admin status."
-msgstr "Nie możesz usunąć swojego statusu administratora."
-
-#: 
-msgid "Description"
-msgstr "Opis"
-
-#: 
-msgid "Too many requests. Please try again later."
-msgstr "Zbyt wiele próśb. Spróbuj ponownie później."
-
-#: 
-msgid "No view records found for this article."
-msgstr "Nie znaleziono rekordów wyświetleń dla tego artykułu."
-
-#: 
-msgid "All rights reserved."
-msgstr "Wszelkie prawa zastrzeżone."
-
-#: 
-msgid "Word Count"
-msgstr "Liczba słów"
-
-#: 
-msgid "Update Aiprompt"
-msgstr "Aktualizacja Aiprompta"
-
-#: 
-msgid "Enter text"
-msgstr "Wprowadź tekst"
-
-#: 
-msgid "The settings have been saved."
-msgstr "Ustawienia zostały zapisane."
-
-#: 
 msgid "Message"
 msgstr "Wiadomość"
-
-#: 
-msgid "All Groups"
-msgstr "Wszystkie grupy"
-
-#: 
-msgid "Comments"
-msgstr "Uwagi"
-
-#: 
-msgid "Error sending email: {0}"
-msgstr "Błąd podczas wysyłania wiadomości e-mail: {0}"
-
-#: 
-msgid "The email template could not be saved. Please, try again."
-msgstr "Szablonu wiadomości e-mail nie można zapisać. Proszę spróbować ponownie."
-
-#: 
-msgid "Configured Caches"
-msgstr "Skonfigurowane pamięci podręczne"
-
-#: 
-msgid "Cache Name"
-msgstr "Nazwa pamięci podręcznej"
-
-#: 
-msgid "Article not found"
-msgstr "Nie znaleziono artykułu"
-
-#: 
-msgid "You are not authorized to edit this account, stick to your own."
-msgstr "Nie masz uprawnień do edycji tego konta, korzystaj z własnych."
-
-#: 
-msgid "New User"
-msgstr "Nowy użytkownik"
-
-#: 
-msgid "Add Email Template"
-msgstr "Dodaj szablon wiadomości e-mail"
-
-#: 
-msgid "Bulk Upload Images"
-msgstr "Masowe przesyłanie obrazów"
-
-#: 
-msgid "The user has been saved."
-msgstr "Użytkownik został zapisany."
-
-#: 
-msgid "New Email Template"
-msgstr "Nowy szablon e-maila"
-
-#: 
-msgid "Login"
-msgstr "Login"
-
-#: 
-msgid "Email Templates"
-msgstr "Szablony e-maili"
-
-#: 
-msgid "Edit Your Account"
-msgstr "Edytuj swoje konto"
-
-#: 
-msgid "No deleting your own account."
-msgstr "Nie usuwaj własnego konta."
-
-#: 
-msgid "Edit {0}"
-msgstr "Edytuj {0}"
-
-#: 
-msgid "All logs have been deleted."
-msgstr "Wszystkie logi zostały usunięte."
-
-#: 
-msgid "Are you sure you want to delete # {0}?"
-msgstr "Czy na pewno chcesz usunąć # {0}?"
-
-#: 
-msgid "Please log in to add a comment"
-msgstr "Zaloguj się, aby dodać komentarz"
-
-#: 
-msgid "The comment could not be saved. Please, try again."
-msgstr "Komentarz nie mógł zostać zapisany. Proszę spróbować ponownie."
-
-#: 
-msgid "Context"
-msgstr "Kontekst"
-
-#: 
-msgid "Edit Slug"
-msgstr "Edytuj ślimak"
-
-#: 
-msgid "Referer"
-msgstr "Referujący"
-
-#: 
-msgid "Meta Title"
-msgstr "Tytuł meta"
-
-#: 
-msgid "You must be logged in to add a comment."
-msgstr "Musisz się zalogować, aby dodać komentarz."
-
-#: 
-msgid "Reason"
-msgstr "Powód"
-
-#: 
-msgid "Home"
-msgstr "Dom"
-
-#: 
-msgid "Comment for {0}"
-msgstr "Komentarz dla {0}"
-
-#: 
-msgid "The user could not be saved. Please, try again."
-msgstr "Użytkownik nie mógł zostać zapisany. Proszę spróbować ponownie."
-
-#: 
-msgid "The blocked ip could not be deleted. Please, try again."
-msgstr "Zablokowanego IP nie można usunąć. Proszę spróbować ponownie."
-
-#: 
-msgid "Are you sure you want to delete all {0} logs?"
-msgstr "Czy na pewno chcesz usunąć wszystkie {0} dzienniki?"
-
-#: 
-msgid "Admin"
-msgstr "Administracja"
-
-#: 
-msgid "New AI Prompt"
-msgstr "Nowy monit AI"
-
-#: 
-msgid "New Internationalisation"
-msgstr "Nowa internacjonalizacja"
-
-#: 
-msgid "Read More"
-msgstr "Przeczytaj więcej"
-
-#: 
-msgid "New {0}"
-msgstr "Nowy {0}"
-
-#: 
-msgid "Error in: "
-msgstr "Błąd w: "
-
-#: 
-msgid "The requested address {0} was not found on this server."
-msgstr "Żądany adres {0} nie został znaleziony na tym serwerze."
-
-#: 
-msgid "List Email Templates"
-msgstr "Lista szablonów wiadomości e-mail"
-
-#: 
-msgid "Settings"
-msgstr "Ustawienia"
-
-#: 
-msgid "Update User"
-msgstr "Aktualizuj użytkownika"
-
-#: 
-msgid "Unknown User"
-msgstr "Nieznany użytkownik"
-
-#: 
-msgid "Add AI Prompt"
-msgstr "Dodaj monit AI"
-
-#: 
-msgid "Articles"
-msgstr "Artykuły"
-
-#: 
-msgid "Slug"
-msgstr "Ślimak"
-
-#: 
-msgid "Task Type"
-msgstr "Typ zadania"
-
-#: 
-msgid "The tag could not be deleted. Please, try again."
-msgstr "Nie można usunąć tagu. Proszę spróbować ponownie."
-
-#: 
-msgid "Body HTML"
-msgstr "Treść HTML"
-
-#: 
-msgid "The value must be a number."
-msgstr "Wartość musi być liczbą."
-
-#: 
-msgid "No pages found."
-msgstr "Nie znaleziono żadnych stron."
-
-#: 
-msgid "Name"
-msgstr "Nazwa"
-
-#: 
-msgid "Edit Aiprompt"
-msgstr "Edytuj Aiprompt"
-
-#: 
-msgid "Please upload only images (jpeg, png, gif)."
-msgstr "Prosimy o przesyłanie wyłącznie obrazów (jpeg, png, gif)."
-
-#: 
-msgid "Article"
-msgstr "Artykuł"
-
-#: 
-msgid "AI Prompts"
-msgstr "Monity AI"
-
-#: 
-msgid "Show Full Article"
-msgstr "Pokaż cały artykuł"
-
-#: 
-msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
-msgstr "Wiadomość e-mail została pomyślnie wysłana na adres: {0}. Szablon: {1}, Temat: {2}"
-
-#: 
-msgid "User"
-msgstr "Użytkownik"
-
-#: 
-msgid "Created"
-msgstr "Stworzony"
-
-#: 
-msgid "Associated Pages"
-msgstr "Powiązane strony"
-
-#: 
-msgid "The article could not be saved. Please, try again."
-msgstr "Nie można zapisać artykułu. Proszę spróbować ponownie."
-
-#: 
-msgid "Page Views"
-msgstr "Wyświetlenia strony"
-
-#: 
-msgid "User Agent"
-msgstr "Użytkownik Agent"
-
-#: 
-msgid "Update Tag"
-msgstr "Aktualizuj tag"
-
-#: 
-msgid "No page view data available for this article."
-msgstr "Brak danych o liczbie odsłon tego artykułu."
-
-#: 
-msgid "The comment has been saved."
-msgstr "Komentarz został zapisany."
-
-#: 
-msgid "Not published"
-msgstr "Nieopublikowane"
-
-#: 
-msgid "The image could not be saved. Please, try again."
-msgstr "Obraz nie mógł zostać zapisany. Proszę spróbować ponownie."
-
-#: 
-msgid "Search slugs..."
-msgstr "Wyszukaj ślimaki..."
-
-#: 
-msgid "Body Text"
-msgstr "Tekst główny"
 
 #: 
 msgid "Page View Statistics for slug: {0}"
 msgstr "Statystyki wyświetleń strony dla slug: {0}"
 
 #: 
+msgid "Not published"
+msgstr "Nieopublikowane"
+
+#: 
+msgid "Setting not found: {0}.{1}"
+msgstr "Nie znaleziono ustawienia: {0}.{1}"
+
+#: 
+msgid "Edit Settings"
+msgstr "Edytuj ustawienia"
+
+#: 
+msgid "New Image"
+msgstr "Nowy obraz"
+
+#: 
+msgid "LinkedIn Description"
+msgstr "Opis LinkedIn"
+
+#: 
+msgid "Add Tag"
+msgstr "Dodaj tag"
+
+#: 
+msgid "Task Type"
+msgstr "Typ zadania"
+
+#: 
 msgid "System Logs"
 msgstr "Dzienniki systemowe"
 
 #: 
-msgid "Locale"
-msgstr "Widownia"
+msgid "The email template has been deleted."
+msgstr "Szablon wiadomości e-mail został usunięty."
 
 #: 
-msgid "The internationalisation has been deleted."
-msgstr "Usunięto internacjonalizację."
+msgid "The email template could not be deleted. Please, try again."
+msgstr "Szablonu wiadomości e-mail nie można usunąć. Proszę spróbować ponownie."
 
 #: 
-msgid "Unable to delete the log."
-msgstr "Nie można usunąć dziennika."
-
-#: 
-msgid "The article has been saved."
-msgstr "Artykuł został zapisany."
-
-#: 
-msgid "The image could not be deleted. Please, try again."
-msgstr "Obraz nie mógł zostać usunięty. Proszę spróbować ponownie."
-
-#: 
-msgid "Add Blocked IP"
-msgstr "Dodaj zablokowany adres IP"
-
-#: 
-msgid "Internationalisations"
-msgstr "Internacjonalizacje"
-
-#: 
-msgid "The slug has been saved."
-msgstr "Ślimak został zapisany."
-
-#: 
-msgid "The aiprompt could not be saved. Please, try again."
-msgstr "Nie można zapisać aipromptu. Proszę spróbować ponownie."
-
-#: 
-msgid "You cannot disable your own account."
-msgstr "Nie możesz wyłączyć swojego konta."
-
-#: 
-msgid "Failed to send email. Please check your email configuration."
-msgstr "Nie udało się wysłać wiadomości e-mail. Sprawdź konfigurację poczty e-mail."
-
-#: 
-msgid "No comments yet."
-msgstr "Brak komentarzy."
-
-#: 
-msgid "Logout"
-msgstr "Wyloguj"
-
-#: 
-msgid "{0} cache has been cleared successfully."
-msgstr "Pamięć podręczna {0} została pomyślnie wyczyszczona."
-
-#: 
-msgid "Edit User"
-msgstr "Edytuj użytkownika"
-
-#: 
-msgid "Clear All Cache"
-msgstr "Wyczyść całą pamięć podręczną"
-
-#: 
-msgid "All Locales"
-msgstr "Wszystkie ustawienia regionalne"
-
-#: 
-msgid "Image uploaded successfully"
-msgstr "Obraz przesłany pomyślnie"
-
-#: 
-msgid "This slug is already in use. Please enter a unique slug."
-msgstr "Ten slug jest już używany. Proszę wpisać unikalny slug."
-
-#: 
-msgid "Updated At"
-msgstr "Zaktualizowano w"
+msgid "The image could not be saved. Please, try again."
+msgstr "Obraz nie mógł zostać zapisany. Proszę spróbować ponownie."
 
 #: 
 msgid "Delete All Logs"
 msgstr "Usuń wszystkie dzienniki"
 
 #: 
-msgid "Clear"
-msgstr "Jasne"
+msgid "List Blocked IPs"
+msgstr "Wyświetl listę zablokowanych adresów IP"
 
 #: 
-msgid "Registration failed. Please, try again."
-msgstr "Rejestracja nie powiodła się. Proszę spróbować ponownie."
+msgid "All logs in group {0} have been deleted."
+msgstr "Wszystkie logi w grupie {0} zostały usunięte."
 
 #: 
-msgid "Enter a number"
-msgstr "Wprowadź liczbę"
+msgid "This slug is already in use in articles. Please enter a unique slug."
+msgstr "Ten slug jest już używany w artykułach. Proszę wpisać unikalny slug."
 
 #: 
-msgid "The internationalisation has been saved."
-msgstr "Internacjonalizacja została uratowana."
+msgid "By"
+msgstr "Przez"
 
 #: 
-msgid "Posted on {date} by {author}"
-msgstr "Opublikowano {date} przez {author}"
+msgid "You are not authorized to edit this account, stick to your own."
+msgstr "Nie masz uprawnień do edycji tego konta, korzystaj z własnych."
 
 #: 
-msgid "Invalid value for the specified type."
-msgstr "Nieprawidłowa wartość dla określonego typu."
+msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
+msgstr "Wiadomość e-mail została pomyślnie wysłana na adres: {0}. Szablon: {1}, Temat: {2}"
 
 #: 
-msgid "Update Image"
-msgstr "Aktualizuj obraz"
+msgid "Alt Text"
+msgstr "Tekst alternatywny"
 
 #: 
-msgid "Facebook Description"
-msgstr "Opis na Facebooku"
+msgid "Registration successful, but there was an issue creating the confirmation link."
+msgstr "Rejestracja powiodła się, ale wystąpił problem z utworzeniem linku potwierdzającego."
 
 #: 
-msgid "All Tags"
-msgstr "Wszystkie tagi"
+msgid "Summary"
+msgstr "Streszczenie"
 
 #: 
-msgid "An error occurred while processing your request."
-msgstr "Wystąpił błąd podczas przetwarzania Twojego żądania."
+msgid "Search comments..."
+msgstr "Szukaj komentarzy..."
 
 #: 
-msgid "Update Slug"
-msgstr "Aktualizacja ślimaka"
+msgid "The comment has been deleted."
+msgstr "Komentarz został usunięty."
+
+#: 
+msgid "Show"
+msgstr "Pokazywać"
+
+#: 
+msgid "All Levels"
+msgstr "Wszystkie poziomy"
+
+#: 
+msgid "Edit Article"
+msgstr "Edytuj artykuł"
+
+#: 
+msgid "The image has been deleted."
+msgstr "Obraz został usunięty."
+
+#: 
+msgid "No images."
+msgstr "Brak obrazów."
+
+#: 
+msgid "Slugs"
+msgstr "Ślimaki"
+
+#: 
+msgid "You cannot remove your own admin status."
+msgstr "Nie możesz usunąć swojego statusu administratora."
+
+#: 
+msgid "Hide"
+msgstr "Ukrywać"
+
+#: 
+msgid "List Email Templates"
+msgstr "Lista szablonów wiadomości e-mail"
+
+#: 
+msgid "Article not found."
+msgstr "Nie znaleziono artykułu."
+
+#: 
+msgid "Display"
+msgstr "Wyświetlacz"
+
+#: 
+msgid "Description"
+msgstr "Opis"
+
+#: 
+msgid "Edit Email Template"
+msgstr "Edytuj szablon wiadomości e-mail"
+
+#: 
+msgid "Modified At"
+msgstr "Zmodyfikowano w"
+
+#: 
+msgid "The email template has been saved."
+msgstr "Szablon wiadomości e-mail został zapisany."
+
+#: 
+msgid "This message_id must be unique for the given locale."
+msgstr "Ten message_id musi być unikalny dla danej lokalizacji."
+
+#: 
+msgid "API request failed. Please try again later."
+msgstr "Żądanie API nie powiodło się. Spróbuj ponownie później."
+
+#: 
+msgid "Actions"
+msgstr "Akcje"
+
+#: 
+msgid "Message Str"
+msgstr "Wiadomość Str"
+
+#: 
+msgid "The user has been saved."
+msgstr "Użytkownik został zapisany."
+
+#: 
+msgid "Additional Images"
+msgstr "Dodatkowe obrazy"
+
+#: 
+msgid "All rights reserved."
+msgstr "Wszelkie prawa zastrzeżone."
+
+#: 
+msgid "Add Blocked IP"
+msgstr "Dodaj zablokowany adres IP"
 
 #: 
 msgid "Image must be less than 5MB."
 msgstr "Obraz musi być mniejszy niż 5 MB."
 
 #: 
-msgid "User Comments"
-msgstr "Komentarze użytkowników"
+msgid "The image could not be deleted. Please, try again."
+msgstr "Obraz nie mógł zostać usunięty. Proszę spróbować ponownie."
 
 #: 
-msgid "Article ID:"
-msgstr "ID artykułu:"
+msgid "Instagram Description"
+msgstr "Opis Instagrama"
 
 #: 
-msgid "Unable to delete all logs."
-msgstr "Nie można usunąć wszystkich dzienników."
+msgid "Clear All Cache"
+msgstr "Wyczyść całą pamięć podręczną"
+
+#: 
+msgid "Access denied. You must be an admin to view this page."
+msgstr "Dostęp zabroniony. Musisz być administratorem, aby zobaczyć tę stronę."
+
+#: 
+msgid "Max Tokens"
+msgstr "Maksymalna liczba tokenów"
+
+#: 
+msgid "New {0}"
+msgstr "Nowy {0}"
+
+#: 
+msgid "The aiprompt has been saved."
+msgstr "Komunikat został zapisany."
+
+#: 
+msgid "The user could not be saved. Please, try again."
+msgstr "Użytkownik nie mógł zostać zapisany. Proszę spróbować ponownie."
+
+#: 
+msgid "Article"
+msgstr "Artykuł"
+
+#: 
+msgid "Related Tags"
+msgstr "Powiązane tagi"
+
+#: 
+msgid "Blocked At"
+msgstr "Zablokowany w"
+
+#: 
+msgid "Edit Tag"
+msgstr "Edytuj tag"
+
+#: 
+msgid "The value must be a number."
+msgstr "Wartość musi być liczbą."
+
+#: 
+msgid "The log has been deleted."
+msgstr "Dziennik został usunięty."
+
+#: 
+msgid "Edit Blocked IP"
+msgstr "Edytuj zablokowany adres IP"
+
+#: 
+msgid "New Tag"
+msgstr "Nowy tag"
+
+#: 
+msgid "Edit {0}"
+msgstr "Edytuj {0}"
+
+#: 
+msgid "Add a Comment"
+msgstr "Dodaj komentarz"
+
+#: 
+msgid "Error saving {0}.{1}: {2}"
+msgstr "Błąd podczas zapisywania {0}.{1}: {2}"
+
+#: 
+msgid "Twitter Description"
+msgstr "Opis na Twitterze"
+
+#: 
+msgid "Please upload only images (jpeg, png, gif)."
+msgstr "Prosimy o przesyłanie wyłącznie obrazów (jpeg, png, gif)."
+
+#: 
+msgid "Cache Management"
+msgstr "Zarządzanie pamięcią podręczną"
+
+#: 
+msgid "Reason"
+msgstr "Powód"
+
+#: 
+msgid "Password must be at least 8 characters long"
+msgstr "Hasło musi mieć co najmniej 8 znaków"
+
+#: 
+msgid "List {0}"
+msgstr "Lista {0}"
+
+#: 
+msgid "Search users..."
+msgstr "Wyszukaj użytkowników..."
+
+#: 
+msgid "Group Name"
+msgstr "Nazwa grupy"
+
+#: 
+msgid "Edit Aiprompt"
+msgstr "Edytuj Aiprompt"
+
+#: 
+msgid "A value is required"
+msgstr "Wartość jest wymagana"
+
+#: 
+msgid "Are you sure you want to delete this comment?"
+msgstr "Czy na pewno chcesz usunąć ten komentarz?"
+
+#: 
+msgid "Read More"
+msgstr "Przeczytaj więcej"
+
+#: 
+msgid "IP Address"
+msgstr "Adres IP"
+
+#: 
+msgid "Username"
+msgstr "Nazwa użytkownika"
+
+#: 
+msgid "{0} cache could not be cleared."
+msgstr "Nie można wyczyścić pamięci podręcznej {0}."
+
+#: 
+msgid "Date"
+msgstr "Data"
+
+#: 
+msgid "Grid View"
+msgstr "Widok siatki"
+
+#: 
+msgid "The article has been saved."
+msgstr "Artykuł został zapisany."
+
+#: 
+msgid "Email Templates"
+msgstr "Szablony e-maili"
+
+#: 
+msgid "Body Text"
+msgstr "Tekst główny"
+
+#: 
+msgid "Tag not found"
+msgstr "Nie znaleziono tagu"
+
+#: 
+msgid "Are you sure you want to clear {0}?"
+msgstr "Czy na pewno chcesz wyczyścić {0}?"
+
+#: 
+msgid "Word Count"
+msgstr "Liczba słów"
+
+#: 
+msgid "The settings have been saved."
+msgstr "Ustawienia zostały zapisane."
+
+#: 
+msgid "Select a parent"
+msgstr "Wybierz rodzica"
+
+#: 
+msgid "The slug has been deleted."
+msgstr "Ślimak został usunięty."
+
+#: 
+msgid "Meta Title"
+msgstr "Tytuł meta"
+
+#: 
+msgid "The internationalisation has been saved."
+msgstr "Internacjonalizacja została uratowana."
+
+#: 
+msgid "Are you sure you want to delete this prompt?"
+msgstr "Czy na pewno chcesz usunąć ten monit?"
+
+#: 
+msgid "Name"
+msgstr "Nazwa"
+
+#: 
+msgid "Show Less"
+msgstr "Pokaż mniej"
+
+#: 
+msgid "Enter text"
+msgstr "Wprowadź tekst"
+
+#: 
+msgid "Associated Pages"
+msgstr "Powiązane strony"
+
+#: 
+msgid "The internationalisation could not be deleted. Please, try again."
+msgstr "Nie można usunąć internacjonalizacji. Proszę spróbować ponownie."
+
+#: 
+msgid "Code Coverage"
+msgstr "Pokrycie kodu"
+
+#: 
+msgid "Failed to send confirmation email message: {0}"
+msgstr "Nie udało się wysłać wiadomości e-mail z potwierdzeniem: {0}"
+
+#: 
+msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
+msgstr "Poniżej znajdują się informacje o skonfigurowanych pamięciach podręcznych. Kliknij przycisk, aby wyczyścić wszystkie pamięci podręczne lub przyciski poszczególnych pamięci podręcznych, aby wyczyścić określone pamięci podręczne."
+
+#: 
+msgid "Confirm Password"
+msgstr "Potwierdź hasło"
+
+#: 
+msgid "{0} Views"
+msgstr "{0} Wyświetleń"
+
+#: 
+msgid "Comment for {0}"
+msgstr "Komentarz dla {0}"
+
+#: 
+msgid "Update Tag"
+msgstr "Aktualizuj tag"
+
+#: 
+msgid "Error sending email: {0}"
+msgstr "Błąd podczas wysyłania wiadomości e-mail: {0}"
+
+#: 
+msgid "Error in: "
+msgstr "Błąd w: "
+
+#: 
+msgid "No tags are linked."
+msgstr "Brak powiązanych tagów."
+
+#: 
+msgid "New Blocked IP"
+msgstr "Nowy zablokowany adres IP"
+
+#: 
+msgid "Some settings could not be saved. Please, try again."
+msgstr "Niektórych ustawień nie można zapisać. Proszę spróbować ponownie."
+
+#: 
+msgid "Last Cleared"
+msgstr "Ostatnio wyczyszczone"
+
+#: 
+msgid "Updated At"
+msgstr "Zaktualizowano w"
+
+#: 
+msgid "Update Article"
+msgstr "Aktualizacja artykułu"
+
+#: 
+msgid "Never"
+msgstr "Nigdy"
+
+#: 
+msgid "{0} cache has been cleared successfully."
+msgstr "Pamięć podręczna {0} została pomyślnie wyczyszczona."
+
+#: 
+msgid "Subject"
+msgstr "Temat"
+
+#: 
+msgid "Search slugs..."
+msgstr "Wyszukaj ślimaki..."
+
+#: 
+msgid "The value must not be empty."
+msgstr "Wartość nie może być pusta."
+
+#: 
+msgid "The internationalisation could not be saved. Please, try again."
+msgstr "Nie można zapisać internacjonalizacji. Proszę spróbować ponownie."
+
+#: 
+msgid "Please enter your email and password"
+msgstr "Proszę podać swój adres e-mail i hasło"
+
+#: 
+msgid "Home"
+msgstr "Dom"
+
+#: 
+msgid "The comment could not be saved. Please, try again."
+msgstr "Komentarz nie mógł zostać zapisany. Proszę spróbować ponownie."
+
+#: 
+msgid "Enter a number"
+msgstr "Wprowadź liczbę"
 
 #: 
 msgid "Profile Picture"
 msgstr "Zdjęcie profilowe"
 
 #: 
+msgid "The tag could not be saved. Please, try again."
+msgstr "Nie można zapisać tagu. Proszę spróbować ponownie."
+
+#: 
+msgid "The email template could not be saved. Please, try again."
+msgstr "Szablonu wiadomości e-mail nie można zapisać. Proszę spróbować ponownie."
+
+#: 
+msgid "Inappropriate Reason"
+msgstr "Niewłaściwy powód"
+
+#: 
+msgid "The slug could not be deleted. Please, try again."
+msgstr "Nie można usunąć ślimaka. Proszę spróbować ponownie."
+
+#: 
+msgid "Articles"
+msgstr "Artykuły"
+
+#: 
+msgid "Admin"
+msgstr "Administracja"
+
+#: 
+msgid "Context"
+msgstr "Kontekst"
+
+#: 
+msgid "Block IPs"
+msgstr "Blokuj adresy IP"
+
+#: 
+msgid "An error occurred while processing your request."
+msgstr "Wystąpił błąd podczas przetwarzania Twojego żądania."
+
+#: 
+msgid "Edit Your Account"
+msgstr "Edytuj swoje konto"
+
+#: 
+msgid "Image"
+msgstr "Obraz"
+
+#: 
+msgid "Failed to update translation for message ID: {0}"
+msgstr "Nie udało się zaktualizować tłumaczenia dla identyfikatora wiadomości: {0}"
+
+#: 
+msgid "Slug"
+msgstr "Ślimak"
+
+#: 
+msgid "Please log in to add a comment"
+msgstr "Zaloguj się, aby dodać komentarz"
+
+#: 
+msgid "Settings"
+msgstr "Ustawienia"
+
+#: 
+msgid "Tags"
+msgstr "Tagi"
+
+#: 
+msgid "Add Email Template"
+msgstr "Dodaj szablon wiadomości e-mail"
+
+#: 
+msgid "The user could not be deleted. Please, try again."
+msgstr "Użytkownik nie mógł zostać usunięty. Proszę spróbować ponownie."
+
+#: 
+msgid "Related Articles"
+msgstr "Powiązane artykuły"
+
+#: 
+msgid "No comments yet."
+msgstr "Brak komentarzy."
+
+#: 
+msgid "Search tags..."
+msgstr "Szukaj tagów..."
+
+#: 
+msgid "Error loading images:"
+msgstr "Błąd ładowania obrazów:"
+
+#: 
+msgid "The tag could not be deleted. Please, try again."
+msgstr "Nie można usunąć tagu. Proszę spróbować ponownie."
+
+#: 
+msgid "New Article"
+msgstr "Nowy artykuł"
+
+#: 
+msgid "The article could not be saved. Please, try again."
+msgstr "Nie można zapisać artykułu. Proszę spróbować ponownie."
+
+#: 
+msgid "Are you sure you want to delete {0}?"
+msgstr "Czy na pewno chcesz usunąć {0}?"
+
+#: 
+msgid "Unknown Author"
+msgstr "Nieznany autor"
+
+#: 
+msgid "The slug must be unique."
+msgstr "Ślimak musi być unikalny."
+
+#: 
+msgid "Logs"
+msgstr "Dzienniki"
+
+#: 
+msgid "Page Views"
+msgstr "Wyświetlenia strony"
+
+#: 
+msgid "All Tags"
+msgstr "Wszystkie tagi"
+
+#: 
+msgid "Unable to delete logs in group {0}."
+msgstr "Nie można usunąć dzienników w grupie {0}."
+
+#: 
+msgid "Unable to delete all logs."
+msgstr "Nie można usunąć wszystkich dzienników."
+
+#: 
+msgid "Expires At"
+msgstr "Wygasa o"
+
+#: 
+msgid "Registration failed. Please, try again."
+msgstr "Rejestracja nie powiodła się. Proszę spróbować ponownie."
+
+#: 
+msgid "Save All Settings"
+msgstr "Zapisz wszystkie ustawienia"
+
+#: 
+msgid "Email"
+msgstr "E-mail"
+
+#: 
+msgid "Rate limit exceeded for IP: {0} on route: {1}"
+msgstr "Przekroczono limit szybkości dla IP: {0} na trasie: {1}"
+
+#: 
+msgid "Unable to delete logs with level {0}."
+msgstr "Nie można usunąć dzienników o poziomie {0}."
+
+#: 
+msgid "Are you sure you want to delete all {0} logs?"
+msgstr "Czy na pewno chcesz usunąć wszystkie {0} dzienniki?"
+
+#: 
+msgid "No"
+msgstr "NIE"
+
+#: 
+msgid "Body HTML"
+msgstr "Treść HTML"
+
+#: 
+msgid "Add Slug"
+msgstr "Dodaj ślimaka"
+
+#: 
+msgid "English"
+msgstr "angielski"
+
+#: 
+msgid "Model"
+msgstr "Model"
+
+#: 
+msgid "Failed to send email to: {0}"
+msgstr "Nie udało się wysłać wiadomości e-mail do: {0}"
+
+#: 
+msgid "Email template not found: {0}"
+msgstr "Nie znaleziono szablonu wiadomości e-mail: {0}"
+
+#: 
+msgid "Search articles..."
+msgstr "Szukaj artykułów..."
+
+#: 
+msgid "This slug is already in use. Please enter a unique slug."
+msgstr "Ten slug jest już używany. Proszę wpisać unikalny slug."
+
+#: 
+msgid "The tag has been saved."
+msgstr "Tag został zapisany."
+
+#: 
+msgid "The comment could not be deleted. Please, try again."
+msgstr "Komentarz nie mógł zostać usunięty. Proszę spróbować ponownie."
+
+#: 
+msgid "Published"
+msgstr "Opublikowany"
+
+#: 
+msgid "Blocked IPs"
+msgstr "Zablokowane adresy IP"
+
+#: 
+msgid "Content"
+msgstr "Treść"
+
+#: 
+msgid "Are you sure you want to delete all logs in group {0}?"
+msgstr "Czy na pewno chcesz usunąć wszystkie logi w grupie {0}?"
+
+#: 
+msgid "User Agent"
+msgstr "Użytkownik Agent"
+
+#: 
+msgid "No pages found."
+msgstr "Nie znaleziono żadnych stron."
+
+#: 
+msgid "Too Many Requests"
+msgstr "Zbyt wiele próśb"
+
+#: 
+msgid "Update Image"
+msgstr "Aktualizuj obraz"
+
+#: 
+msgid "Meta Description"
+msgstr "Opis meta"
+
+#: 
+msgid "Images"
+msgstr "Obrazy"
+
+#: 
+msgid "The blocked ip could not be saved. Please, try again."
+msgstr "Zablokowanego IP nie można zapisać. Proszę spróbować ponownie."
+
+#: 
+msgid "Internationalisation"
+msgstr "Umiędzynarodowienie"
+
+#: 
+msgid "Article not found"
+msgstr "Nie znaleziono artykułu"
+
+#: 
+msgid "Are you sure you want to delete all logs?"
+msgstr "Czy na pewno chcesz usunąć wszystkie logi?"
+
+#: 
+msgid "Show Details"
+msgstr "Pokaż szczegóły"
+
+#: 
+msgid "Cache"
+msgstr "Kryjówka"
+
+#: 
+msgid "Is Inappropriate"
+msgstr "Jest nieodpowiedni"
+
+#: 
+msgid "Edit User"
+msgstr "Edytuj użytkownika"
+
+#: 
+msgid "There was an issue confirming your account. Please try again."
+msgstr "Wystąpił problem z potwierdzeniem Twojego konta. Spróbuj ponownie."
+
+#: 
+msgid "The blocked ip has been deleted."
+msgstr "Zablokowany adres IP został usunięty."
+
+#: 
+msgid "Add AI Prompt"
+msgstr "Dodaj monit AI"
+
+#: 
+msgid "Level"
+msgstr "Poziom"
+
+#: 
+msgid "Modified"
+msgstr "Zmodyfikowany"
+
+#: 
+msgid "Delete {0}"
+msgstr "Usuń {0}"
+
+#: 
+msgid "The slug has been saved."
+msgstr "Ślimak został zapisany."
+
+#: 
+msgid "No page view data available for this article."
+msgstr "Brak danych o liczbie odsłon tego artykułu."
+
+#: 
+msgid "Submit Comment"
+msgstr "Prześlij komentarz"
+
+#: 
+msgid "All logs with level {0} have been deleted."
+msgstr "Wszystkie logi o poziomie {0} zostały usunięte."
+
+#: 
+msgid "Posted on {date} by {author}"
+msgstr "Opublikowano {date} przez {author}"
+
+#: 
+msgid "The requested address {0} was not found on this server."
+msgstr "Żądany adres {0} nie został znaleziony na tym serwerze."
+
+#: 
+msgid "System Prompt"
+msgstr "Monit systemowy"
+
+#: 
+msgid "Keywords"
+msgstr "Słowa kluczowe"
+
+#: 
+msgid "Search images..."
+msgstr "Szukaj obrazów..."
+
+#: 
+msgid "The user has been deleted."
+msgstr "Użytkownik został usunięty."
+
+#: 
+msgid "Edit Image"
+msgstr "Edytuj obraz"
+
+#: 
+msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
+msgstr "Slug koliduje z istniejącym przekierowaniem SEO. Wybierz inny slug."
+
+#: 
+msgid "SEO Fields"
+msgstr "Pola SEO"
+
+#: 
+msgid "Live"
+msgstr "Na żywo"
+
+#: 
+msgid "Your account has been confirmed. You can now log in."
+msgstr "Twoje konto zostało potwierdzone. Możesz się teraz zalogować."
+
+#: 
+msgid "Back"
+msgstr "Z powrotem"
+
+#: 
+msgid "Update Slug"
+msgstr "Aktualizacja ślimaka"
+
+#: 
+msgid "The internationalisation has been deleted."
+msgstr "Usunięto internacjonalizację."
+
+#: 
+msgid "Your account has been updated."
+msgstr "Twoje konto zostało zaktualizowane."
+
+#: 
+msgid "Error"
+msgstr "Błąd"
+
+#: 
+msgid "New AI Prompt"
+msgstr "Nowy monit AI"
+
+#: 
+msgid "New User"
+msgstr "Nowy użytkownik"
+
+#: 
+msgid "Missing required arguments in the message."
+msgstr "Brak wymaganych argumentów w wiadomości."
+
+#: 
+msgid "New Slug"
+msgstr "Nowy ślimak"
+
+#: 
+msgid "Article/Page"
+msgstr "Artykuł/Strona"
+
+#: 
+msgid "Are you sure you want to delete IP {0}?"
+msgstr "Czy na pewno chcesz usunąć adres IP {0}?"
+
+#: 
+msgid "Add Page"
+msgstr "Dodaj stronę"
+
+#: 
+msgid "No deleting your own account."
+msgstr "Nie usuwaj własnego konta."
+
+#: 
+msgid "Yes"
+msgstr "Tak"
+
+#: 
+msgid "Created"
+msgstr "Stworzony"
+
+#: 
+msgid "No view records found for this article."
+msgstr "Nie znaleziono rekordów wyświetleń dla tego artykułu."
+
+#: 
+msgid "Bulk Upload Images"
+msgstr "Masowe przesyłanie obrazów"
+
+#: 
+msgid "No internationalizations found for the provided IDs."
+msgstr "Nie znaleziono żadnych internacjonalizacji dla podanych identyfikatorów."
+
+#: 
 msgid "The slug could not be saved. Please, try again."
 msgstr "Nie można zapisać ślimaka. Proszę spróbować ponownie."
+
+#: 
+msgid "Search logs..."
+msgstr "Przeszukaj dzienniki..."
+
+#: 
+msgid "Too many requests. Please try again later."
+msgstr "Zbyt wiele próśb. Spróbuj ponownie później."
+
+#: 
+msgid "Views"
+msgstr "Widoki"
+
+#: 
+msgid "All Groups"
+msgstr "Wszystkie grupy"
+
+#: 
+msgid "No articles found for this tag."
+msgstr "Nie znaleziono artykułów dla tego tagu."
+
+#: 
+msgid "Article ID:"
+msgstr "ID artykułu:"
+
+#: 
+msgid "{0} cache configuration does not exist."
+msgstr "{0} konfiguracja pamięci podręcznej nie istnieje."
+
+#: 
+msgid "New Internationalisation"
+msgstr "Nowa internacjonalizacja"
+
+#: 
+msgid "Comments"
+msgstr "Uwagi"
+
+#: 
+msgid "The blocked ip could not be deleted. Please, try again."
+msgstr "Zablokowanego IP nie można usunąć. Proszę spróbować ponownie."
+
+#: 
+msgid "Details"
+msgstr "Bliższe dane"
+
+#: 
+msgid "Locale"
+msgstr "Widownia"
+
+#: 
+msgid "Add Image"
+msgstr "Dodaj obraz"
+
+#: 
+msgid "Cache Name"
+msgstr "Nazwa pamięci podręcznej"
+
+#: 
+msgid "Comment"
+msgstr "Komentarz"
+
+#: 
+msgid "Update Aiprompt"
+msgstr "Aktualizacja Aiprompta"
+
+#: 
+msgid "List View"
+msgstr "Widok listy"
+
+#: 
+msgid "All caches have been cleared successfully."
+msgstr "Wszystkie skrzynki zostały pomyślnie wyczyszczone."
+
+#: 
+msgid "AI Prompts"
+msgstr "Monity AI"
+
+#: 
+msgid "Email sent successfully."
+msgstr "E-mail został pomyślnie wysłany."
+
+#: 
+msgid "Some caches were cleared, but the following failed: {0}"
+msgstr "Niektóre pamięci podręczne zostały wyczyszczone, ale poniższe nie powiodły się: {0}"
+
+#: 
+msgid "Unable to add your comment."
+msgstr "Nie można dodać komentarza."
+
+#: 
+msgid "Register"
+msgstr "Rejestr"
+
+#: 
+msgid "View"
+msgstr "Pogląd"
+
+#: 
+msgid "Send Email"
+msgstr "Wyślij e-mail"
+
+#: 
+msgid "User Comments"
+msgstr "Komentarze użytkowników"
+
+#: 
+msgid "Users"
+msgstr "Użytkownicy"
+
+#: 
+msgid "Body"
+msgstr "Ciało"
+
+#: 
+msgid "Title"
+msgstr "Tytuł"
+
+#: 
+msgid "Facebook Description"
+msgstr "Opis na Facebooku"
+
+#: 
+msgid "Login"
+msgstr "Login"
+
+#: 
+msgid "Temperature"
+msgstr "Temperatura"
+
+#: 
+msgid "Main Picture"
+msgstr "Główny obraz"
+
+#: 
+msgid "Image uploaded successfully"
+msgstr "Obraz przesłany pomyślnie"
+
+#: 
+msgid "Created At"
+msgstr "Utworzono w"
+
+#: 
+msgid "Referer"
+msgstr "Referujący"
+
+#: 
+msgid "New Email Template"
+msgstr "Nowy szablon e-maila"
+
+#: 
+msgid "Edit"
+msgstr "Redagować"
+
+#: 
+msgid "The tag has been deleted."
+msgstr "Tag został usunięty."
+
+#: 
+msgid "Bulk Upload"
+msgstr "Masowe przesyłanie"
+
+#: 
+msgid "Slug:"
+msgstr "Ślimak:"
+
+#: 
+msgid "The blocked ip has been saved."
+msgstr "Zablokowany adres IP został zapisany."
+
+#: 
+msgid "The image has been saved."
+msgstr "Obraz został zapisany."
+
+#: 
+msgid "Engine"
+msgstr "Silnik"
+
+#: 
+msgid "The comment has been saved."
+msgstr "Komentarz został zapisany."
+
+#: 
+msgid "Edit Comment"
+msgstr "Edytuj komentarz"
+
+#: 
+msgid "Edit Internationalisation"
+msgstr "Edytuj Internacjonalizacja"
+
+#: 
+msgid "You cannot disable your own account."
+msgstr "Nie możesz wyłączyć swojego konta."
+
+#: 
+msgid "Edit Slug"
+msgstr "Edytuj ślimak"
+
+#: 
+msgid "Submit"
+msgstr "Składać"
+
+#: 
+msgid "Invalid confirmation code. Please contact support."
+msgstr "Nieprawidłowy kod potwierdzający. Skontaktuj się z pomocą techniczną."
+
+#: 
+msgid "Meta Keywords"
+msgstr "Słowa kluczowe meta"
+
+#: 
+msgid "Account"
+msgstr "Konto"
+
+#: 
+msgid "Id"
+msgstr "Id"
+
+#: 
+msgid "Delete"
+msgstr "Usuwać"
+
+#: 
+msgid "Add Article"
+msgstr "Dodaj artykuł"
+
+#: 
+msgid "Clear"
+msgstr "Jasne"
+
+#: 
+msgid "An Internal Error Has Occurred."
+msgstr "Wystąpił błąd wewnętrzny."
+
+#: 
+msgid "Filter"
+msgstr "Filtr"
+
+#: 
+msgid "The aiprompt could not be saved. Please, try again."
+msgstr "Nie można zapisać aipromptu. Proszę spróbować ponownie."
+
+#: 
+msgid "The value must be 0 or 1."
+msgstr "Wartość musi wynosić 0 lub 1."
+
+#: 
+msgid "Are you sure you want to delete # {0}?"
+msgstr "Czy na pewno chcesz usunąć # {0}?"
+
+#: 
+msgid "Toggle SEO Fields"
+msgstr "Przełącz pola SEO"
+
+#: 
+msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
+msgstr "Ślimak musi być bezpieczny dla adresu URL (tylko małe litery, cyfry i myślniki)"
+
+#: 
+msgid "Invalid value for the specified type."
+msgstr "Nieprawidłowa wartość dla określonego typu."
+
+#: 
+msgid "User"
+msgstr "Użytkownik"
+
+#: 
+msgid "Front Site"
+msgstr "Strona główna"
+
+#: 
+msgid "Total Views: "
+msgstr "Łączna liczba wyświetleń: "
+
+#: 
+msgid "Register New Account"
+msgstr "Zarejestruj nowe konto"
+
+#: 
+msgid "Add Internationalisation"
+msgstr "Dodaj internacjonalizację"
+
+#: 
+msgid "Is Published"
+msgstr "Jest opublikowany"
+
+#: 
+msgid "Pages"
+msgstr "Strony"
+
+#: 
+msgid "Are you sure you want to delete comment by {0}?"
+msgstr "Czy na pewno chcesz usunąć komentarz użytkownika {0}?"
+
+#: 
+msgid "Update User"
+msgstr "Aktualizuj użytkownika"
+
+#: 
+msgid "Unable to delete the log."
+msgstr "Nie można usunąć dziennika."
+
+#: 
+msgid "Page Views for {0}"
+msgstr "Wyświetlenia strony dla {0}"
+
+#: 
+msgid "You must be logged in to add a comment."
+msgstr "Musisz się zalogować, aby dodać komentarz."
+
+#: 
+msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
+msgstr "Strona {{page}} z {{pages}}, wyświetlająca {{current}} rekord(y) z {{count}} całkowitej liczby"
+
+#: 
+msgid "Is AI Analyzed"
+msgstr "Czy sztuczna inteligencja jest analizowana?"
+
+#: 
+msgid "Registration successful. Please check your email for confirmation."
+msgstr "Rejestracja powiodła się. Sprawdź swoją pocztę e-mail w celu potwierdzenia."
+
+#: 
+msgid "Picture"
+msgstr "Zdjęcie"
+
+#: 
+msgid "Failed to send email. Please check your email configuration."
+msgstr "Nie udało się wysłać wiadomości e-mail. Sprawdź konfigurację poczty e-mail."
+
+#: 
+msgid "Configured Caches"
+msgstr "Skonfigurowane pamięci podręczne"
+
+#: 
+msgid "Is Admin"
+msgstr "Jest administratorem"
+
+#: 
+msgid "Show Full Article"
+msgstr "Pokaż cały artykuł"
+
+#: 
+msgid "Unknown User"
+msgstr "Nieznany użytkownik"
+
+#: 
+msgid "Internationalisations"
+msgstr "Internacjonalizacje"
+
+#: 
+msgid "Logout"
+msgstr "Wyloguj"
+
+#: 
+msgid "Update Comment"
+msgstr "Aktualizuj komentarz"
+
+#: 
+msgid "The article could not be deleted. Please, try again."
+msgstr "Nie można usunąć artykułu. Proszę spróbować ponownie."
+
+#: 
+msgid "Add User"
+msgstr "Dodaj użytkownika"
+
+#: 
+msgid "All Locales"
+msgstr "Wszystkie ustawienia regionalne"
+
+#: 
+msgid "Invalid username or password"
+msgstr "Nieprawidłowa nazwa użytkownika lub hasło"
+
+#: 
+msgid "Failed to save the image"
+msgstr "Nie udało się zapisać obrazu"
+
+#: 
+msgid "Message Id"
+msgstr "Identyfikator wiadomości"
+
+#: 
+msgid "Your comment has been added."
+msgstr "Twój komentarz został dodany."
+
+#: 
+msgid "Invalid type"
+msgstr "Nieprawidłowy typ"
+
+#: 
+msgid "All logs have been deleted."
+msgstr "Wszystkie logi zostały usunięte."
+
+#: 
+msgid "View detailed records for this date"
+msgstr "Zobacz szczegółowe dane dla tej daty"
+
+#: 
+msgid "The article has been deleted."
+msgstr "Artykuł został usunięty."
 

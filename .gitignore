@@ -27,23 +27,6 @@ willow_cms_code_Utilities.txt
 # Willow specific files/folders #
 #################################
 /webroot/files/*
-!/webroot/files/Images
-/webroot/files/Images/*
-!/webroot/files/Images/file
-/webroot/files/Images/file/*
-!/webroot/files/Images/file/.gitkeep
-
-!/webroot/files/Users
-/webroot/files/Users/*
-!/webroot/files/Users/picture
-/webroot/files/Users/picture/*
-!/webroot/files/Users/picture/.gitkeep
-
-!/webroot/files/Articles
-/webroot/files/Articles/*
-!/webroot/files/Articles/image
-/webroot/files/Articles/image/*
-!/webroot/files/Articles/image/.gitkeep
 
 # Willow Dev Env Setup  Flag #
 ##############################

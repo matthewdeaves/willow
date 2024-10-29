@@ -18,7 +18,7 @@
                         <h4 class="mb-3 mt-4 text-secondary"><?= h($this->makeHumanReadable($category)) ?></h4>
                         <div class="row">
                         <?php foreach ($settings as $key => $setting): ?>
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-2 mb-1">
                                 <?php
                                 $value = $setting['value'];
                                 $value_type = $setting['value_type'];

@@ -5,6 +5,7 @@
  * @var string|null $selectedTag
  */
 ?>
+<?php if (!empty($tags)) : ?>
 <div class="mb-3">
     <div class="d-flex flex-wrap gap-2" role="group" aria-label="Tag filters">
         <?= $this->Html->link(
@@ -27,3 +28,4 @@
         <?php endforeach; ?>
     </div>
 </div>
+<?php endif; ?>

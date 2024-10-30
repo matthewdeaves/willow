@@ -44,7 +44,7 @@ cake_queue_worker
 ```
 - **Raw Command**: 
 ```
-docker compose exec php bin/cake queue worker --verbose
+docker compose exec willowcms bin/cake queue worker --verbose
 ```
 Leave the queue worker running in a terminal to see useful output as it picks up and runs [jobs](https://github.com/matthewdeaves/willow/tree/main/src/Job). Remember to save your Anthropic API key in the settings page.
 

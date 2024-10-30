@@ -13,9 +13,9 @@ services:
       - .:/var/www/html/
       - ./docker/willowcms/config/app/cms_app_local.php:/var/www/html/config/app_local.php
       - ./logs/nginx:/var/log/nginx/
-    environment:
-      - REDIS_SERVER_USERNAME=root
-      - REDIS_SERVER_PASSWORD=root
+    #environment:
+    #  - REDIS_SERVER_USERNAME=root
+    #  - REDIS_SERVER_PASSWORD=root
 
   mysql:
     image: mysql:5.7
@@ -64,9 +64,9 @@ services:
     environment:
       - REDIS_HOST=willowcms
       - REDIS_PORT=6379
-      - REDIS_PASSWORD=root
-      - HTTP_USER=root
-      - HTTP_PASSWORD=root
+      #- REDIS_PASSWORD=root
+      #- HTTP_USER=root
+      #- HTTP_PASSWORD=root
     ports:
       - "8084:8081"
     depends_on:

@@ -172,7 +172,8 @@ return [
         ] + (env('ARTICLES_CACHE_ENGINE', 'Redis') === 'Redis' ? [
             'host' => env('REDIS_HOST', '127.0.0.1'),
             'port' => env('REDIS_PORT', 6379),
-            'password' => env('REDIS_PASSWORD', 'root'),
+            //'password' => env('REDIS_PASSWORD', 'root'),
+            //'username' => env('REDIS_USERNAME', 'root'),
         ] : []),
 
         'articles_index' => [
@@ -184,7 +185,8 @@ return [
         ] + (env('ARTICLES_INDEX_CACHE_ENGINE', 'Redis') === 'Redis' ? [
             'host' => env('REDIS_HOST', '127.0.0.1'),
             'port' => env('REDIS_PORT', 6379),
-            'password' => env('REDIS_PASSWORD', 'root'),
+            //'password' => env('REDIS_PASSWORD', 'root'),
+            //'username' => env('REDIS_USERNAME', 'root'),
         ] : []),
     ],
 
@@ -479,7 +481,7 @@ return [
     ],
     'Queue' => [
         'default' => [
-            'url' => env('QUEUE_DEFAULT_URL', 'redis://root:root@127.0.0.1:6379'),
+            'url' => env('QUEUE_DEFAULT_URL', 'redis://127.0.0.1:6379'),
             'queue' => 'default',
             'logger' => 'stdout',
             //'listener' => \App\Listener\WorkerListener::class,
@@ -490,7 +492,7 @@ return [
             ],
         ],
         'test' => [
-            'url' => env('QUEUE_TEST_URL', 'redis://root:root@127.0.0.1:6379'),
+            'url' => env('QUEUE_TEST_URL', 'redis://127.0.0.1:6379'),
             'queue' => 'test_queue',
             'logger' => 'stdout',
             //'listener' => \App\Listener\WorkerListener::class,

@@ -27,6 +27,7 @@ willow_cms_code_Utilities.txt
 # Willow specific files/folders #
 #################################
 /webroot/files/*
+/dump.rdb
 
 # Willow Dev Env Setup  Flag #
 ##############################

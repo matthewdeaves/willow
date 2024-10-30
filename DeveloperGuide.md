@@ -224,7 +224,7 @@ Below are the available commands and their purposes:
      ```
    - **Raw Command**: 
      ```bash
-     sudo docker compose exec php php vendor/bin/phpunit
+     sudo docker compose exec willowcms php vendor/bin/phpunit
      ```
 
    This command runs all the unit tests in the application, providing a comprehensive check of the codebase.
@@ -237,7 +237,7 @@ Below are the available commands and their purposes:
      ```
    - **Raw Command**: 
      ```bash
-     sudo docker compose exec php php vendor/bin/phpunit --coverage-text
+     sudo docker compose exec willowcms php vendor/bin/phpunit --coverage-text
      ```
 
    This command generates a code coverage report in text format, allowing developers to see which parts of the code are covered by tests.
@@ -250,7 +250,7 @@ Below are the available commands and their purposes:
      ```
    - **Raw Command**: 
      ```bash
-     sudo docker compose exec php php vendor/bin/phpunit --coverage-html webroot/coverage tests/TestCase/
+     sudo docker compose exec willowcms php vendor/bin/phpunit --coverage-html webroot/coverage tests/TestCase/
      ```
 
    This command generates a detailed HTML code coverage report, which can be viewed in a web browser for a more visual representation of test coverage. This is also published to GitHub Pages and can be viewed [here]().
@@ -265,7 +265,7 @@ Running the Entire Test Case File:To run all the tests in the UsersControllerTes
 bash
 
 ```
-sudo docker compose exec php php vendor/bin/phpunit tests/TestCase/Controller/UsersControllerTest.php
+sudo docker compose exec willowcms php vendor/bin/phpunit tests/TestCase/Controller/UsersControllerTest.php
 ```
 
 This command will execute all the test methods defined in the UsersControllerTest.php file.
@@ -273,7 +273,7 @@ Filtering Specific Test Methods:If you want to run only a subset of tests within
 bash
 
 ```
-sudo docker compose exec php php vendor/bin/phpunit --filter testLogin tests/TestCase/Controller/UsersControllerTest.php
+sudo docker compose exec willowcms php vendor/bin/phpunit --filter testLogin tests/TestCase/Controller/UsersControllerTest.php
 ```
 
 This command will run only the test methods whose names match the pattern testLogin.

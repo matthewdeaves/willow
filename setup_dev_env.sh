@@ -53,6 +53,7 @@ if [ -f "$FIRST_RUN_FLAG" ]; then
             $(needs_sudo) docker compose down -v
             start_docker_containers
             rm -f "$FIRST_RUN_FLAG"
+            rm -rf webroot/files/*
             ;;
         b|B)
             echo "Rebuilding Docker containers..."

@@ -479,7 +479,7 @@ return [
     ],
     'Queue' => [
         'default' => [
-            'url' => env('REDIS_URL', 'redis://root:password@redis:6379'),
+            'url' => env('QUEUE_DEFAULT_URL', 'redis://root:password@redis:6379'),
             'queue' => 'default',
             'logger' => 'stdout',
             //'listener' => \App\Listener\WorkerListener::class,
@@ -490,7 +490,7 @@ return [
             ],
         ],
         'test' => [
-            'url' => env('REDIS_TEST_URL', 'redis://root:password@redis:6379'),
+            'url' => env('QUEUE_TEST_URL', 'redis://root:password@redis:6379'),
             'queue' => 'test_queue',
             'logger' => 'stdout',
             //'listener' => \App\Listener\WorkerListener::class,

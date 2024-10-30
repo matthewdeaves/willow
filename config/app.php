@@ -172,8 +172,6 @@ return [
         ] + (env('ARTICLES_CACHE_ENGINE', 'Redis') === 'Redis' ? [
             'host' => env('REDIS_HOST', '127.0.0.1'),
             'port' => env('REDIS_PORT', 6379),
-            //'password' => env('REDIS_PASSWORD', 'root'),
-            //'username' => env('REDIS_USERNAME', 'root'),
         ] : []),
 
         'articles_index' => [
@@ -185,8 +183,6 @@ return [
         ] + (env('ARTICLES_INDEX_CACHE_ENGINE', 'Redis') === 'Redis' ? [
             'host' => env('REDIS_HOST', '127.0.0.1'),
             'port' => env('REDIS_PORT', 6379),
-            //'password' => env('REDIS_PASSWORD', 'root'),
-            //'username' => env('REDIS_USERNAME', 'root'),
         ] : []),
     ],
 

@@ -46,9 +46,6 @@ RUN apk add --no-cache \
 
 # Configure Redis
 RUN echo "bind 127.0.0.1" >> /etc/redis.conf
-#RUN echo "requirepass ${REDIS_SERVER_PASSWORD}" >> /etc/redis.conf && \
-#    echo "bind 127.0.0.1" >> /etc/redis.conf && \
-#    echo "user ${REDIS_SERVER_USERNAME} on >${REDIS_SERVER_PASSWORD} ~* +@all" >> /etc/redis.conf
 
 # Configure nginx - http
 COPY docker/willowcms/config/nginx/nginx.conf /etc/nginx/nginx.conf

@@ -471,7 +471,7 @@ return [
     ],
     'Queue' => [
         'default' => [
-            'url' => env('REDIS_URL'),
+            'url' => env('REDIS_URL', 'redis://root:root@127.0.0.1:6379/0'),
             'queue' => 'default',
             'logger' => 'stdout',
             //'listener' => \App\Listener\WorkerListener::class,
@@ -482,7 +482,7 @@ return [
             ],
         ],
         'test' => [
-            'url' => env('REDIS_TEST_URL'),
+            'url' => env('REDIS_TEST_URL', 'redis://root:root@127.0.0.1:6379/1'),
             'queue' => 'test_queue',
             'logger' => 'stdout',
             //'listener' => \App\Listener\WorkerListener::class,

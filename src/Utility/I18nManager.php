@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Utility;
 
+use App\Utility\DatabaseUtility;
 use Cake\Core\Configure;
 use Cake\Datasource\ConnectionManager;
 use Cake\I18n\I18n;
@@ -100,15 +101,7 @@ class I18nManager
      */
     public static function setEnabledLanguages(): void
     {
-        $dbDatabase = getenv('DB_DATABASE');
-        $query = "SELECT COUNT(*) FROM information_schema.tables 
-                WHERE table_schema = :table_schema
-                AND table_name = 'settings'";
-
-        $connection = ConnectionManager::get('default');
-        $result = $connection->execute($query, ['table_schema' => $dbDatabase])->fetch('assoc');
-
-        if (!empty(array_values($result)[0]) && $dbDatabase != false) {
+        if (DatabaseUtility::tableExists('settings')) {
             $defaultLanguages = ['en'];
             $enabledLanguages = array_keys(self::getEnabledLocales());
             $mergedLanguages = array_merge($defaultLanguages, $enabledLanguages);

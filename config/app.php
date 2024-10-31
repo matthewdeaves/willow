@@ -164,7 +164,7 @@ return [
         ],
 
         'articles' => [
-            'className' => env('ARTICLES_CACHE_ENGINE', 'File'),
+            'className' => 'File',
             'prefix' => 'cms_articles_',
             'path' => CACHE,
             'duration' => '+1 month',
@@ -172,7 +172,7 @@ return [
         ],
 
         'articles_index' => [
-            'className' => env('ARTICLES_INDEX_CACHE_ENGINE', 'File'),
+            'className' => 'File',
             'prefix' => 'cms_articles_index_',
             'path' => CACHE,
             'duration' => '+1 month',
@@ -471,7 +471,7 @@ return [
     ],
     'Queue' => [
         'default' => [
-            'url' => 'redis://root:root@127.0.0.1:6379',
+            'url' => env('REDIS_URL'),
             'queue' => 'default',
             'logger' => 'stdout',
             //'listener' => \App\Listener\WorkerListener::class,
@@ -482,7 +482,7 @@ return [
             ],
         ],
         'test' => [
-            'url' => 'redis://root:root@127.0.0.1:6379',
+            'url' => env('REDIS_TEST_URL'),
             'queue' => 'test_queue',
             'logger' => 'stdout',
             //'listener' => \App\Listener\WorkerListener::class,

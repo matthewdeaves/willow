@@ -44,10 +44,8 @@ class CheckTableExistsCommand extends Command
         $tableName = $args->getArgument('table');
 
         if (DatabaseUtility::tableExists($tableName)) {
-
             return static::CODE_SUCCESS;
         } else {
-
             return static::CODE_ERROR;
         }
     }

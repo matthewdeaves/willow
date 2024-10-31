@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Utility;
 
 use Cake\Datasource\ConnectionManager;
-use Cake\Core\Configure;
 
 /**
  * Class DatabaseUtility
@@ -26,7 +25,7 @@ class DatabaseUtility
 
         $dbDatabase = null;
 
-        if(!empty($connection->config()['database'])) {
+        if (!empty($connection->config()['database'])) {
             $dbDatabase = $connection->config()['database'];
         } else {
             return false;
@@ -40,7 +39,7 @@ class DatabaseUtility
         // Execute the query with the provided table name and database schema
         $result = $connection->execute($query, [
             'table_schema' => $dbDatabase,
-            'table_name' => $tableName
+            'table_name' => $tableName,
         ])->fetch('assoc');
 
         // Check if the table exists and the database name is valid

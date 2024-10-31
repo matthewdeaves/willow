@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Utility;
 
 use Cake\Datasource\ConnectionManager;
+use Cake\Core\Configure;
 
 /**
  * Class DatabaseUtility
@@ -20,16 +21,21 @@ class DatabaseUtility
      */
     public static function tableExists(string $tableName): bool
     {
-        // Get the database name from environment variables
-        $dbDatabase = getenv('DB_DATABASE');
+        // Get the default database connection
+        $connection = ConnectionManager::get('default');
+
+        $dbDatabase = null;
+
+        if(!empty($connection->config()['database'])) {
+            $dbDatabase = $connection->config()['database'];
+        } else {
+            return false;
+        }
 
         // Define the query to check for the table's existence
         $query = "SELECT COUNT(*) FROM information_schema.tables 
                   WHERE table_schema = :table_schema
                   AND table_name = :table_name";
-
-        // Get the default database connection
-        $connection = ConnectionManager::get('default');
 
         // Execute the query with the provided table name and database schema
         $result = $connection->execute($query, [

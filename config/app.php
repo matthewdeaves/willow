@@ -164,26 +164,20 @@ return [
         ],
 
         'articles' => [
-            'className' => env('ARTICLES_CACHE_ENGINE', 'Redis'),
+            'className' => env('ARTICLES_CACHE_ENGINE', 'File'),
             'prefix' => 'cms_articles_',
             'path' => CACHE,
             'duration' => '+1 month',
             'serialize' => true,
-        ] + (env('ARTICLES_CACHE_ENGINE', 'Redis') === 'Redis' ? [
-            'host' => env('REDIS_HOST', '127.0.0.1'),
-            'port' => env('REDIS_PORT', 6379),
-        ] : []),
+        ],
 
         'articles_index' => [
-            'className' => env('ARTICLES_INDEX_CACHE_ENGINE', 'Redis'),
+            'className' => env('ARTICLES_INDEX_CACHE_ENGINE', 'File'),
             'prefix' => 'cms_articles_index_',
             'path' => CACHE,
             'duration' => '+1 month',
             'serialize' => true,
-        ] + (env('ARTICLES_INDEX_CACHE_ENGINE', 'Redis') === 'Redis' ? [
-            'host' => env('REDIS_HOST', '127.0.0.1'),
-            'port' => env('REDIS_PORT', 6379),
-        ] : []),
+        ],
     ],
 
     /*
@@ -477,7 +471,7 @@ return [
     ],
     'Queue' => [
         'default' => [
-            'url' => env('QUEUE_DEFAULT_URL', 'redis://127.0.0.1:6379'),
+            'url' => 'redis://root:root@127.0.0.1:6379',
             'queue' => 'default',
             'logger' => 'stdout',
             //'listener' => \App\Listener\WorkerListener::class,
@@ -488,7 +482,7 @@ return [
             ],
         ],
         'test' => [
-            'url' => env('QUEUE_TEST_URL', 'redis://127.0.0.1:6379'),
+            'url' => 'redis://root:root@127.0.0.1:6379',
             'queue' => 'test_queue',
             'logger' => 'stdout',
             //'listener' => \App\Listener\WorkerListener::class,

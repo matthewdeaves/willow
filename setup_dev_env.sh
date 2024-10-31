@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Define the flag file in the project root
-FIRST_RUN_FLAG="./config/.first_run_completed"
-
 # Detect the operating system
 OS="$(uname)"
 
@@ -43,8 +40,12 @@ fi
 # Its dev so just be fully open with permissions
 $(needs_sudo) chmod -R 777 logs/ tmp/ webroot/
 
-# Check if this is the first run
-if [ -f "$FIRST_RUN_FLAG" ]; then
+
+# Check if database has been setup (has a settings table)
+$(needs_sudo) docker compose exec willowcms bin/cake check_table_exists settings
+tableExists=$?
+
+if [ "$tableExists" -eq 0 ]; then
     echo "Subsequent container startup detected."
     read -p "Do you want to [W]ipe data, re[B]uild or [R]estart the development environment? (w/b/r): " choice
     case ${choice:0:1} in
@@ -52,7 +53,6 @@ if [ -f "$FIRST_RUN_FLAG" ]; then
             echo "Wiping Docker containers..."
             $(needs_sudo) docker compose down -v
             start_docker_containers
-            rm -f "$FIRST_RUN_FLAG"
             rm -rf webroot/files/*
             ;;
         b|B)
@@ -72,9 +72,12 @@ if [ -f "$FIRST_RUN_FLAG" ]; then
     esac
 fi
 
-# Check if this is the first run
-if [ ! -f "$FIRST_RUN_FLAG" ]; then
-    echo "First time development container startup detected. Running initial setup..."
+# Check if database has been setup (has a settings table) - database may have been wiped
+$(needs_sudo) docker compose exec willowcms bin/cake check_table_exists settings
+tableExists=$?
+
+if [ "$tableExists" -eq 1 ]; then
+    echo "Running initial setup..."
 
     # Composer install dependencies
     $(needs_sudo) docker compose exec willowcms composer install --no-interaction
@@ -87,9 +90,6 @@ if [ ! -f "$FIRST_RUN_FLAG" ]; then
 
     # Import default data
     $(needs_sudo) docker compose exec willowcms bin/cake default_data_import --all
-
-    # Create the flag file in the project root to indicate first run is completed
-    touch "$FIRST_RUN_FLAG"
 
     echo "Initial setup completed."
 fi

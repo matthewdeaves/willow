@@ -103,6 +103,20 @@ class SettingsFixture extends TestFixture
                 'value' => '0',
                 'value_type' => 'bool',
             ],
+            [
+                'id' => Text::uuid(),
+                'category' => 'Comments',
+                'key_name' => 'articlesEnabled',
+                'value' => '1',
+                'value_type' => 'bool',
+            ],
+            [
+                'id' => Text::uuid(),
+                'category' => 'Comments',
+                'key_name' => 'pagesEnabled',
+                'value' => '1',
+                'value_type' => 'bool',
+            ],
         ];
         parent::init();
     }

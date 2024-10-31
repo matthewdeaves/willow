@@ -267,6 +267,15 @@ class ArticlesController extends AppController
             return $this->redirect($this->referer());
         }
 
+        if (
+            (!SettingsManager::read('Comments.articlesEnabled') && !$article->is_page)
+            || (!SettingsManager::read('Comments.pagesEnabled') && $article->is_page)
+        ) {
+            $this->Flash->error(__('Comments are not enabled'));
+
+            return $this->redirect($this->referer());
+        }
+
         $userId = $this->request->getSession()->read('Auth.id');
         $content = $this->request->getData('content');
 

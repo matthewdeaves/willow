@@ -508,5 +508,25 @@
         "value_obscure": false,
         "description": null,
         "data": null
+    },
+    {
+        "ordering": 1,
+        "category": "Comments",
+        "key_name": "articlesEnabled",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Turn this on to enable logged in users to comment on your articles.",
+        "data": null
+    },
+    {
+        "ordering": 2,
+        "category": "Comments",
+        "key_name": "pagesEnabled",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Turn this on to enable logged in users to comment on your pages.",
+        "data": null
     }
 ]

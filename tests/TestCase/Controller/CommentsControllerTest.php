@@ -25,6 +25,7 @@ class CommentsControllerTest extends AppControllerTestCase
         'app.Articles',
         'app.Slugs',
         'app.Comments',
+        'app.Settings',
     ];
 
     /**

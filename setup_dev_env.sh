@@ -80,8 +80,6 @@ tableExists=$?
 if [ "$tableExists" -eq 1 ]; then
     echo "Running initial setup..."
 
-
-
     # Run migrations
     $(needs_sudo) docker compose exec willowcms bin/cake migrations migrate
 

@@ -285,7 +285,9 @@ class UsersController extends AppController
 
                 if ($confirmationsTable->save($confirmation)) {
                     $this->sendPasswordResetEmail($user, $confirmation);
-                    $this->Flash->success(__('If your email is registered, you will receive a link to reset your password.'));
+                    $this->Flash->success(__(
+                        'If your email is registered, you will receive a link to reset your password.'
+                    ));
 
                     return $this->redirect(['action' => 'login']);
                 }

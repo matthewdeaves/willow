@@ -509,7 +509,7 @@ class UsersControllerTest extends AppControllerTestCase
     {
         $this->enableCsrfToken();
 
-        $this->get("/en/users/forgot-password");
+        $this->get('/en/users/forgot-password');
         $this->assertResponseOk();
 
         $this->post('/en/users/forgot-password', [

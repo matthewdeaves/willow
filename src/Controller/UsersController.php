@@ -267,6 +267,10 @@ class UsersController extends AppController
      */
     public function forgotPassword(): ?Response
     {
+        if (!SettingsManager::read('Users.registrationEnabled', false)) {
+            return $this->redirect($this->referer());
+        }
+
         if ($this->request->is('post')) {
             $email = $this->request->getData('email');
             $user = $this->Users->findByEmail($email)->first();
@@ -308,8 +312,7 @@ class UsersController extends AppController
                 'viewVars' => [
                     'username' => $user->username,
                     'reset_password_link' => Router::url([
-                        'controller' => 'Users',
-                        'action' => 'resetPassword',
+                        '_name' => 'reset-password',
                         $confirmation->confirmation_code,
                     ], true),
                 ],
@@ -331,6 +334,9 @@ class UsersController extends AppController
      */
     public function resetPassword(string $confirmationCode): ?Response
     {
+        if (!SettingsManager::read('Users.registrationEnabled', false)) {
+            return $this->redirect($this->referer());
+        }
         $confirmationsTable = $this->fetchTable('UserAccountConfirmations');
         $confirmation = $confirmationsTable->find()
             ->where(['confirmation_code' => $confirmationCode])

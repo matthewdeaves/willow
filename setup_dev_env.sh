@@ -37,6 +37,12 @@ else
     echo "Docker containers are already running."
 fi
 
+# Composer install dependencies
+$(needs_sudo) docker compose exec willowcms composer install --no-interaction
+
+# Its dev so just be fully open with permissions
+$(needs_sudo) chmod -R 777 logs/ tmp/ webroot/
+
 # Check if database has been setup (has a settings table)
 $(needs_sudo) docker compose exec willowcms bin/cake check_table_exists settings
 tableExists=$?
@@ -74,8 +80,7 @@ tableExists=$?
 if [ "$tableExists" -eq 1 ]; then
     echo "Running initial setup..."
 
-    # Composer install dependencies
-    $(needs_sudo) docker compose exec willowcms composer install --no-interaction
+
 
     # Run migrations
     $(needs_sudo) docker compose exec willowcms bin/cake migrations migrate
@@ -92,7 +97,6 @@ fi
 # Clear cache (this will run every time)
 $(needs_sudo) docker compose exec willowcms bin/cake cache clear_all
 
-# Its dev so just be fully open with permissions
-$(needs_sudo) chmod -R 777 logs/ tmp/ webroot/
+
 
 echo "Development environment setup complete."

@@ -30,6 +30,12 @@ class UserAccountConfirmationsFixture extends TestFixture
                 'confirmation_code' => 'CONFIRM123USER', // unique confirmation code for user
                 'created' => '2024-10-06 11:50:16',
             ],
+            [
+                'id' => 'c50e1234-ac60-6354-86a0-d0845798f882',
+                'user_id' => '6509480c-e7e6-4e65-9c38-8574a8d09d02', // regular user ID
+                'confirmation_code' => 'CONFIRM123USER1', // unique confirmation code for user
+                'created' => '2024-11-06 11:50:16',
+            ],
         ];
         parent::init();
     }

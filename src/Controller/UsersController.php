@@ -337,6 +337,7 @@ class UsersController extends AppController
         if (!SettingsManager::read('Users.registrationEnabled', false)) {
             return $this->redirect($this->referer());
         }
+        
         $confirmationsTable = $this->fetchTable('UserAccountConfirmations');
         $confirmation = $confirmationsTable->find()
             ->where(['confirmation_code' => $confirmationCode])

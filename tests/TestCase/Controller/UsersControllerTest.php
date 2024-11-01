@@ -434,4 +434,24 @@ class UsersControllerTest extends AppControllerTestCase
         $this->assertNoRedirect();
         $this->assertNull($this->_controller->Authentication->getIdentity());
     }
+
+    /**
+     * Test password reset with mismatched passwords
+     *
+     * This test ensures that a password reset attempt with mismatched passwords fails.
+     *
+     * @return void
+     */
+    public function testPasswordResetWithMismatchedPasswords(): void
+    {
+        // Assume a valid token is generated and stored in the database
+        $resetToken = 'CONFIRM123USER1';
+        $this->enableCsrfToken();
+        $this->post("/en/users/reset-password/{$resetToken}", [
+            'password' => 'newpassword123',
+            'confirm_password' => 'differentpassword',
+        ]);
+        $this->assertNoRedirect();
+        $this->assertFlashMessage('There was an issue resetting your password. Please try again.');
+    }
 }

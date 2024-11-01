@@ -232,12 +232,12 @@ class UsersControllerTest extends AppControllerTestCase
         // Test confirming email with invalid confirmation code
         $this->get('/en/users/confirm-email/invalidcode');
         $this->assertRedirect(['controller' => 'Users', 'action' => 'register']);
-        $this->assertFlashMessage('Invalid confirmation code. Please contact support.');
+        $this->assertFlashMessage('Invalid confirmation code.');
 
         // Test confirming email with already used confirmation code
         $this->get("/en/users/confirm-email/{$confirmationCode}");
         $this->assertRedirect(['controller' => 'Users', 'action' => 'register']);
-        $this->assertFlashMessage('Invalid confirmation code. Please contact support.');
+        $this->assertFlashMessage('Invalid confirmation code.');
     }
 
     /**

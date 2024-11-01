@@ -27,8 +27,11 @@
                             ]) ?>
                         </div>
                     </fieldset>
-                    <?= $this->Form->submit(__('Login'), ['class' => 'btn btn-primary w-100']) ?>
+                    <?= $this->Form->submit(__('Login'), ['class' => 'btn btn-primary w-100 mb-3']) ?>
                     <?= $this->Form->end() ?>
+                    <div class="text-center">
+                        <?= $this->Html->link(__('Forgot Password?'), ['controller' => 'Users', 'action' => 'forgotPassword'], ['class' => 'text-decoration-none']) ?>
+                    </div>
                 </div>
             </div>
         </div>

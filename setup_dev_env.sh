@@ -49,7 +49,6 @@ if [ "$tableExists" -eq 0 ]; then
             echo "Wiping Docker containers..."
             $(needs_sudo) docker compose down -v
             start_docker_containers
-            rm -rf webroot/files/*
             ;;
         b|B)
             echo "Rebuilding Docker containers..."

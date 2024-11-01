@@ -14,428 +14,1144 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
 #: 
-msgid "Unknown Author"
-msgstr "Неизвестен автор"
+msgid "Expires At"
+msgstr "Изтича на"
 
 #: 
-msgid "{0} cache could not be cleared."
-msgstr "Кешът на {0} не можа да бъде изчистен."
-
-#: 
-msgid "Are you sure you want to delete all logs?"
-msgstr "Сигурни ли сте, че искате да изтриете всички регистрационни файлове?"
-
-#: 
-msgid "Picture"
-msgstr "Снимка"
-
-#: 
-msgid "Update Tag"
-msgstr "Актуализиране на етикет"
-
-#: 
-msgid "Users"
-msgstr "Потребители"
-
-#: 
-msgid "Display"
-msgstr "Дисплей"
-
-#: 
-msgid "Save All Settings"
-msgstr "Запазване на всички настройки"
-
-#: 
-msgid "Referer"
-msgstr "Референт"
-
-#: 
-msgid "All logs have been deleted."
-msgstr "Всички регистрационни файлове са изтрити."
-
-#: 
-msgid "The user has been deleted."
-msgstr "Потребителят е изтрит."
-
-#: 
-msgid "Published"
-msgstr "Публикувано"
-
-#: 
-msgid "Password must be at least 8 characters long"
-msgstr "Паролата трябва да е с дължина поне 8 знака"
-
-#: 
-msgid "Error saving {0}.{1}: {2}"
-msgstr "Грешка при запазване на {0}.{1}: {2}"
-
-#: 
-msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
-msgstr "Страница {{page}} от {{pages}}, показваща {{current}} запис(а) от общо {{count}}"
-
-#: 
-msgid "No images."
-msgstr "Няма изображения."
-
-#: 
-msgid "Failed to send email to: {0}"
-msgstr "Неуспешно изпращане на имейл до: {0}"
-
-#: 
-msgid "Meta Title"
-msgstr "Мета заглавие"
-
-#: 
-msgid "Invalid value for the specified type."
-msgstr "Невалидна стойност за посочения тип."
-
-#: 
-msgid "Id"
-msgstr "Id"
-
-#: 
-msgid "English"
-msgstr "английски"
-
-#: 
-msgid "The slug must be unique."
-msgstr "Охлювът трябва да е уникален."
-
-#: 
-msgid "Add Tag"
-msgstr "Добавяне на етикет"
-
-#: 
-msgid "Please upload only images (jpeg, png, gif)."
-msgstr "Моля, качвайте само изображения (jpeg, png, gif)."
-
-#: 
-msgid "User Comments"
-msgstr "Потребителски коментари"
-
-#: 
-msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
-msgstr "Охлювът е в конфликт със съществуващо SEO пренасочване. Моля, изберете друг плужек."
-
-#: 
-msgid "All rights reserved."
-msgstr "Всички права запазени."
-
-#: 
-msgid "Body HTML"
-msgstr "Основен HTML"
-
-#: 
-msgid "The comment could not be saved. Please, try again."
-msgstr "Коментарът не можа да бъде запазен. Моля, опитайте отново."
-
-#: 
-msgid "Search comments..."
-msgstr "Търсене на коментари..."
-
-#: 
-msgid "Show Less"
-msgstr "Покажи по-малко"
-
-#: 
-msgid "Keywords"
-msgstr "Ключови думи"
-
-#: 
-msgid "Level"
-msgstr "Ниво"
-
-#: 
-msgid "Tags"
-msgstr "Етикети"
-
-#: 
-msgid "Edit Internationalisation"
-msgstr "Редактиране на интернационализацията"
-
-#: 
-msgid "API request failed. Please try again later."
-msgstr "Неуспешна заявка за API. Моля, опитайте отново по-късно."
-
-#: 
-msgid "Date"
-msgstr "Дата"
-
-#: 
-msgid "Comment for {0}"
-msgstr "Коментар за {0}"
-
-#: 
-msgid "The user could not be saved. Please, try again."
-msgstr "Потребителят не можа да бъде запазен. Моля, опитайте отново."
-
-#: 
-msgid "Is Published"
-msgstr "Публикувано е"
-
-#: 
-msgid "Login"
-msgstr "Вход"
-
-#: 
-msgid "Views"
-msgstr "Изгледи"
-
-#: 
-msgid "Edit"
-msgstr "Редактиране"
-
-#: 
-msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
-msgstr "Плъжът трябва да е безопасен за URL (само малки букви, цифри и тирета)"
-
-#: 
-msgid "List {0}"
-msgstr "Списък {0}"
-
-#: 
-msgid "Are you sure you want to delete all logs in group {0}?"
-msgstr "Сигурни ли сте, че искате да изтриете всички регистрационни файлове в групата {0}?"
-
-#: 
-msgid "An error occurred while processing your request."
-msgstr "Възникна грешка при обработката на вашата заявка."
-
-#: 
-msgid "Summary"
-msgstr "Резюме"
-
-#: 
-msgid "The user could not be deleted. Please, try again."
-msgstr "Потребителят не можа да бъде изтрит. Моля, опитайте отново."
-
-#: 
-msgid "Task Type"
-msgstr "Тип задача"
-
-#: 
-msgid "The internationalisation has been deleted."
-msgstr "Интернационализацията е изтрита."
-
-#: 
-msgid "Profile Picture"
-msgstr "Профилна снимка"
-
-#: 
-msgid "Internationalisations"
-msgstr "Интернационализации"
-
-#: 
-msgid "Facebook Description"
-msgstr "Facebook описание"
-
-#: 
-msgid "Invalid username or password"
-msgstr "Невалидно потребителско име или парола"
-
-#: 
-msgid "Failed to update translation for message ID: {0}"
-msgstr "Неуспешно актуализиране на превода за ID на съобщението: {0}"
-
-#: 
-msgid "IP Address"
-msgstr "IP адрес"
-
-#: 
-msgid "The aiprompt could not be saved. Please, try again."
-msgstr "Aiprompt не можа да бъде запазен. Моля, опитайте отново."
-
-#: 
-msgid "List Email Templates"
-msgstr "Избройте имейл шаблони"
-
-#: 
-msgid "Email template not found: {0}"
-msgstr "Шаблонът за имейл не е намерен: {0}"
-
-#: 
-msgid "No deleting your own account."
-msgstr "Без изтриване на собствен акаунт."
-
-#: 
-msgid "Unable to delete the log."
-msgstr "Не може да се изтрие дневникът."
-
-#: 
-msgid "The email template could not be saved. Please, try again."
-msgstr "Шаблонът за имейл не можа да бъде запазен. Моля, опитайте отново."
-
-#: 
-msgid "List Blocked IPs"
-msgstr "Списък на блокираните IP адреси"
-
-#: 
-msgid "Page View Statistics for slug: {0}"
-msgstr "Статистика за показване на страница за охлюв: {0}"
-
-#: 
-msgid "The blocked ip has been deleted."
-msgstr "Блокираният IP е изтрит."
-
-#: 
-msgid "Associated Pages"
-msgstr "Свързани страници"
-
-#: 
-msgid "The article has been deleted."
-msgstr "Статията е изтрита."
-
-#: 
-msgid "Add Blocked IP"
-msgstr "Добавяне на блокиран IP"
-
-#: 
-msgid "The tag has been saved."
-msgstr "Етикетът е запазен."
-
-#: 
-msgid "Cache"
-msgstr "Кеш памет"
-
-#: 
-msgid "Failed to send email. Please check your email configuration."
-msgstr "Неуспешно изпращане на имейл. Моля, проверете вашата имейл конфигурация."
-
-#: 
-msgid "Last Cleared"
-msgstr "Последно изчистено"
-
-#: 
-msgid "The value must not be empty."
-msgstr "Стойността не трябва да е празна."
-
-#: 
-msgid "Settings"
-msgstr "Настройки"
-
-#: 
-msgid "Meta Description"
-msgstr "Мета описание"
-
-#: 
-msgid "User Agent"
-msgstr "Потребителски агент"
-
-#: 
-msgid "Registration failed. Please, try again."
-msgstr "Регистрацията е неуспешна. Моля, опитайте отново."
-
-#: 
-msgid "No view records found for this article."
-msgstr "Няма намерени записи за изгледи за тази статия."
-
-#: 
-msgid "All Locales"
-msgstr "Всички локали"
-
-#: 
-msgid "Toggle SEO Fields"
-msgstr "Превключване на SEO полета"
-
-#: 
-msgid "Account"
-msgstr "акаунт"
-
-#: 
-msgid "{0} cache has been cleared successfully."
-msgstr "Кешът на {0} е изчистен успешно."
-
-#: 
-msgid "No"
-msgstr "не"
-
-#: 
-msgid "Search tags..."
-msgstr "Търсене на етикети..."
-
-#: 
-msgid "Search slugs..."
-msgstr "Търсене на охлюви..."
-
-#: 
-msgid "Max Tokens"
-msgstr "Макс жетони"
-
-#: 
-msgid "Edit Settings"
-msgstr "Редактиране на настройките"
-
-#: 
-msgid "Update Comment"
-msgstr "Коментар за актуализиране"
-
-#: 
-msgid "View"
-msgstr "Преглед"
-
-#: 
-msgid "Image"
-msgstr "Изображение"
-
-#: 
-msgid "Related Articles"
-msgstr "Свързани статии"
-
-#: 
-msgid "Please enter your email and password"
-msgstr "Моля, въведете своя имейл и парола"
-
-#: 
-msgid "New Article"
-msgstr "Нова статия"
-
-#: 
-msgid "Article/Page"
-msgstr "Статия/Страница"
-
-#: 
-msgid "Add a Comment"
-msgstr "Добавяне на коментар"
-
-#: 
-msgid "Edit Your Account"
-msgstr "Редактирайте акаунта си"
-
-#: 
-msgid "Your account has been confirmed. You can now log in."
-msgstr "Вашият акаунт е потвърден. Вече можете да влезете."
-
-#: 
-msgid "Is AI Analyzed"
-msgstr "Анализиран ли е AI"
-
-#: 
-msgid "Add Page"
-msgstr "Добавяне на страница"
-
-#: 
-msgid "Code Coverage"
-msgstr "Покритие на кода"
-
-#: 
-msgid "New Tag"
-msgstr "Нов етикет"
-
-#: 
-msgid "Description"
-msgstr "Описание"
+msgid "Search images..."
+msgstr "Търсене на изображения..."
 
 #: 
 msgid "Is Admin"
 msgstr "Е Админ"
 
 #: 
+msgid "Edit Blocked IP"
+msgstr "Редактиране на блокиран IP"
+
+#: 
+msgid "The user could not be saved. Please, try again."
+msgstr "Потребителят не можа да бъде запазен. Моля, опитайте отново."
+
+#: 
+msgid "Comments"
+msgstr "Коментари"
+
+#: 
+msgid "Additional Images"
+msgstr "Допълнителни изображения"
+
+#: 
+msgid "New Email Template"
+msgstr "Нов имейл шаблон"
+
+#: 
+msgid "Message Id"
+msgstr "Идент. № на съобщението"
+
+#: 
+msgid "The value must be 0 or 1."
+msgstr "Стойността трябва да е 0 или 1."
+
+#: 
+msgid "Engine"
+msgstr "Двигател"
+
+#: 
+msgid "Unable to delete the log."
+msgstr "Не може да се изтрие дневникът."
+
+#: 
+msgid "Edit Settings"
+msgstr "Редактиране на настройките"
+
+#: 
+msgid "No internationalizations found for the provided IDs."
+msgstr "Няма намерени интернационализации за предоставените идентификатори."
+
+#: 
+msgid "Register New Account"
+msgstr "Регистрирайте нов акаунт"
+
+#: 
+msgid "The image could not be saved. Please, try again."
+msgstr "Изображението не можа да бъде запазено. Моля, опитайте отново."
+
+#: 
+msgid "Articles"
+msgstr "Статии"
+
+#: 
+msgid "Invalid username or password"
+msgstr "Невалидно потребителско име или парола"
+
+#: 
+msgid "Temperature"
+msgstr "температура"
+
+#: 
+msgid "Page Views"
+msgstr "Преглеждания на страници"
+
+#: 
+msgid "Front Site"
+msgstr "Преден сайт"
+
+#: 
+msgid "Subject"
+msgstr "Предмет"
+
+#: 
+msgid "Code Coverage"
+msgstr "Покритие на кода"
+
+#: 
+msgid "Live"
+msgstr "На живо"
+
+#: 
+msgid "Page View Statistics for slug: {0}"
+msgstr "Статистика за показване на страница за охлюв: {0}"
+
+#: 
+msgid "Please upload only images (jpeg, png, gif)."
+msgstr "Моля, качвайте само изображения (jpeg, png, gif)."
+
+#: 
+msgid "No tags are linked."
+msgstr "Няма свързани етикети."
+
+#: 
+msgid "Failed to send password reset email: {0}"
+msgstr "Неуспешно изпращане на имейл за повторно задаване на парола: {0}"
+
+#: 
+msgid "Submit Comment"
+msgstr "Изпратете коментар"
+
+#: 
 msgid "Slug"
 msgstr "охлюв"
 
 #: 
+msgid "Name"
+msgstr "Име"
+
+#: 
+msgid "{0} cache has been cleared successfully."
+msgstr "Кешът на {0} е изчистен успешно."
+
+#: 
+msgid "The image could not be deleted. Please, try again."
+msgstr "Изображението не можа да бъде изтрито. Моля, опитайте отново."
+
+#: 
+msgid "The article could not be deleted. Please, try again."
+msgstr "Статията не можа да бъде изтрита. Моля, опитайте отново."
+
+#: 
+msgid "Home"
+msgstr "Начало"
+
+#: 
+msgid "Invalid confirmation code. Please contact support."
+msgstr "Невалиден код за потвърждение. Моля, свържете се с поддръжката."
+
+#: 
+msgid "Add Article"
+msgstr "Добавете статия"
+
+#: 
+msgid "Keywords"
+msgstr "Ключови думи"
+
+#: 
+msgid "The slug has been deleted."
+msgstr "Охлювът е изтрит."
+
+#: 
+msgid "Show"
+msgstr "Покажи"
+
+#: 
+msgid "Delete All Logs"
+msgstr "Изтриване на всички регистрационни файлове"
+
+#: 
+msgid "Edit User"
+msgstr "Редактиране на потребител"
+
+#: 
+msgid "Message"
+msgstr "Съобщение"
+
+#: 
+msgid "Twitter Description"
+msgstr "Описание на Twitter"
+
+#: 
+msgid "User Comments"
+msgstr "Потребителски коментари"
+
+#: 
+msgid "Main Picture"
+msgstr "Основна снимка"
+
+#: 
+msgid "The image has been deleted."
+msgstr "Изображението е изтрито."
+
+#: 
+msgid "Add Email Template"
+msgstr "Добавете имейл шаблон"
+
+#: 
+msgid "This slug is already in use in articles. Please enter a unique slug."
+msgstr "Този плужек вече се използва в статии. Моля, въведете уникален охлюв."
+
+#: 
+msgid "English"
+msgstr "английски"
+
+#: 
+msgid "Body"
+msgstr "Тяло"
+
+#: 
+msgid "Search logs..."
+msgstr "Регистри за търсене..."
+
+#: 
+msgid "Body Text"
+msgstr "Основен текст"
+
+#: 
+msgid "Add Image"
+msgstr "Добавете изображение"
+
+#: 
+msgid "Group Name"
+msgstr "Име на групата"
+
+#: 
+msgid "Please log in to add a comment"
+msgstr "Моля, влезте, за да добавите коментар"
+
+#: 
+msgid "All Groups"
+msgstr "Всички групи"
+
+#: 
+msgid "Comments are not enabled"
+msgstr "Коментарите не са разрешени"
+
+#: 
+msgid "The blocked ip could not be saved. Please, try again."
+msgstr "Блокираният ip не можа да бъде запазен. Моля, опитайте отново."
+
+#: 
+msgid "The email template has been deleted."
+msgstr "Шаблонът за имейл е изтрит."
+
+#: 
+msgid "The comment could not be saved. Please, try again."
+msgstr "Коментарът не можа да бъде запазен. Моля, опитайте отново."
+
+#: 
+msgid "Failed to save the image"
+msgstr "Неуспешно запазване на изображението"
+
+#: 
+msgid "SEO Fields"
+msgstr "SEO полета"
+
+#: 
+msgid "Body HTML"
+msgstr "Основен HTML"
+
+#: 
+msgid "Comment for {0}"
+msgstr "Коментар за {0}"
+
+#: 
+msgid "Meta Title"
+msgstr "Мета заглавие"
+
+#: 
+msgid "Edit Aiprompt"
+msgstr "Редактирайте Aiprompt"
+
+#: 
+msgid "Delete"
+msgstr "Изтриване"
+
+#: 
 msgid "The log has been deleted."
 msgstr "Дневникът е изтрит."
+
+#: 
+msgid "Referer"
+msgstr "Референт"
+
+#: 
+msgid "All logs in group {0} have been deleted."
+msgstr "Всички регистрационни файлове в групата {0} са изтрити."
+
+#: 
+msgid "The slug could not be deleted. Please, try again."
+msgstr "Охлювът не можа да бъде изтрит. Моля, опитайте отново."
+
+#: 
+msgid "System Prompt"
+msgstr "Системен ред"
+
+#: 
+msgid "Edit Email Template"
+msgstr "Редактиране на имейл шаблон"
+
+#: 
+msgid "Update Tag"
+msgstr "Актуализиране на етикет"
+
+#: 
+msgid "Summary"
+msgstr "Резюме"
+
+#: 
+msgid "Please enter your email and password"
+msgstr "Моля, въведете своя имейл и парола"
+
+#: 
+msgid "Blocked At"
+msgstr "Блокиран при"
+
+#: 
+msgid "Failed to update translation for message ID: {0}"
+msgstr "Неуспешно актуализиране на превода за ID на съобщението: {0}"
+
+#: 
+msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
+msgstr "Страница {{page}} от {{pages}}, показваща {{current}} запис(а) от общо {{count}}"
+
+#: 
+msgid "Total Views: "
+msgstr "Общо показвания: "
+
+#: 
+msgid "Tag not found"
+msgstr "Етикетът не е намерен"
+
+#: 
+msgid "Are you sure you want to delete this comment?"
+msgstr "Сигурни ли сте, че искате да изтриете този коментар?"
+
+#: 
+msgid "The aiprompt could not be saved. Please, try again."
+msgstr "Aiprompt не можа да бъде запазен. Моля, опитайте отново."
+
+#: 
+msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
+msgstr "Плъжът трябва да е безопасен за URL (само малки букви, цифри и тирета)"
+
+#: 
+msgid "Confirm Password"
+msgstr "Потвърдете паролата"
+
+#: 
+msgid "Select a parent"
+msgstr "Изберете родител"
+
+#: 
+msgid "Error"
+msgstr "Грешка"
+
+#: 
+msgid "Register"
+msgstr "Регистрирайте се"
+
+#: 
+msgid "The internationalisation has been deleted."
+msgstr "Интернационализацията е изтрита."
+
+#: 
+msgid "Send Reset Link"
+msgstr "Изпратете връзка за нулиране"
+
+#: 
+msgid "Forgot Password?"
+msgstr "Забравена парола?"
+
+#: 
+msgid "Back to Login"
+msgstr "Назад към Вход"
+
+#: 
+msgid "Pages"
+msgstr "Страници"
+
+#: 
+msgid "You cannot remove your own admin status."
+msgstr "Не можете да премахнете собствения си статус на администратор."
+
+#: 
+msgid "Meta Keywords"
+msgstr "Мета ключови думи"
+
+#: 
+msgid "User"
+msgstr "Потребител"
+
+#: 
+msgid "Show Details"
+msgstr "Показване на подробности"
+
+#: 
+msgid "The tag has been deleted."
+msgstr "Етикетът е изтрит."
+
+#: 
+msgid "Clear All Cache"
+msgstr "Изчистване на целия кеш"
+
+#: 
+msgid "System Logs"
+msgstr "Системни регистрационни файлове"
+
+#: 
+msgid "IP Address"
+msgstr "IP адрес"
+
+#: 
+msgid "Search users..."
+msgstr "Търсене на потребители..."
+
+#: 
+msgid "Enter text"
+msgstr "Въведете текст"
+
+#: 
+msgid "The slug must be unique."
+msgstr "Охлювът трябва да е уникален."
+
+#: 
+msgid "Are you sure you want to delete all {0} logs?"
+msgstr "Сигурни ли сте, че искате да изтриете всички {0} регистрационни файлове?"
+
+#: 
+msgid "Related Articles"
+msgstr "Свързани статии"
+
+#: 
+msgid "Please enter your new password"
+msgstr "Моля, въведете новата си парола"
+
+#: 
+msgid "Are you sure you want to delete {0}?"
+msgstr "Сигурни ли сте, че искате да изтриете {0}?"
+
+#: 
+msgid "No images."
+msgstr "Няма изображения."
+
+#: 
+msgid "The internationalisation has been saved."
+msgstr "Интернационализацията е запазена."
+
+#: 
+msgid "Missing required arguments in the message."
+msgstr "Липсват необходимите аргументи в съобщението."
+
+#: 
+msgid "The aiprompt has been saved."
+msgstr "Aiprompt е запазен."
+
+#: 
+msgid "All Tags"
+msgstr "Всички етикети"
+
+#: 
+msgid "Slugs"
+msgstr "Охлюви"
+
+#: 
+msgid "Update Image"
+msgstr "Актуализиране на изображението"
+
+#: 
+msgid "Views"
+msgstr "Изгледи"
+
+#: 
+msgid "Max Tokens"
+msgstr "Макс жетони"
+
+#: 
+msgid "{0} cache configuration does not exist."
+msgstr "Конфигурацията на кеша на {0} не съществува."
+
+#: 
+msgid "The user has been deleted."
+msgstr "Потребителят е изтрит."
+
+#: 
+msgid "The email template has been saved."
+msgstr "Шаблонът за имейл е запазен."
+
+#: 
+msgid "Some settings could not be saved. Please, try again."
+msgstr "Някои настройки не можаха да бъдат запазени. Моля, опитайте отново."
+
+#: 
+msgid "Profile Picture"
+msgstr "Профилна снимка"
+
+#: 
+msgid "Yes"
+msgstr "да"
+
+#: 
+msgid "An error occurred while processing your request."
+msgstr "Възникна грешка при обработката на вашата заявка."
+
+#: 
+msgid "Are you sure you want to delete comment by {0}?"
+msgstr "Сигурни ли сте, че искате да изтриете коментар от {0}?"
+
+#: 
+msgid "Registration failed. Please, try again."
+msgstr "Регистрацията е неуспешна. Моля, опитайте отново."
+
+#: 
+msgid "Facebook Description"
+msgstr "Facebook описание"
+
+#: 
+msgid "The comment could not be deleted. Please, try again."
+msgstr "Коментарът не можа да бъде изтрит. Моля, опитайте отново."
+
+#: 
+msgid "Display"
+msgstr "Дисплей"
+
+#: 
+msgid "View"
+msgstr "Преглед"
+
+#: 
+msgid "All Levels"
+msgstr "Всички нива"
+
+#: 
+msgid "Error in: "
+msgstr "Грешка в: "
+
+#: 
+msgid "List Email Templates"
+msgstr "Избройте имейл шаблони"
+
+#: 
+msgid "Add User"
+msgstr "Добавяне на потребител"
+
+#: 
+msgid "Actions"
+msgstr "Действия"
+
+#: 
+msgid "Some caches were cleared, but the following failed: {0}"
+msgstr "Някои кешове бяха изчистени, но следното не бе успешно: {0}"
+
+#: 
+msgid "This slug is already in use. Please enter a unique slug."
+msgstr "Този плужек вече се използва. Моля, въведете уникален охлюв."
+
+#: 
+msgid "View detailed records for this date"
+msgstr "Вижте подробни записи за тази дата"
+
+#: 
+msgid "Id"
+msgstr "Id"
+
+#: 
+msgid "Edit Article"
+msgstr "Редактиране на статията"
+
+#: 
+msgid "All logs have been deleted."
+msgstr "Всички регистрационни файлове са изтрити."
+
+#: 
+msgid "You must be logged in to add a comment."
+msgstr "Трябва да сте влезли, за да добавите коментар."
+
+#: 
+msgid "Read More"
+msgstr "Прочетете повече"
+
+#: 
+msgid "Your comment has been added."
+msgstr "Вашият коментар е добавен."
+
+#: 
+msgid "Invalid type"
+msgstr "Невалиден тип"
+
+#: 
+msgid "Failed to send email. Please check your email configuration."
+msgstr "Неуспешно изпращане на имейл. Моля, проверете вашата имейл конфигурация."
+
+#: 
+msgid "Related Tags"
+msgstr "Свързани тагове"
+
+#: 
+msgid "Email template not found: {0}"
+msgstr "Шаблонът за имейл не е намерен: {0}"
+
+#: 
+msgid "Search slugs..."
+msgstr "Търсене на охлюви..."
+
+#: 
+msgid "By"
+msgstr "от"
+
+#: 
+msgid "Hide"
+msgstr "Скрий се"
+
+#: 
+msgid "Delete {0}"
+msgstr "Изтриване на {0}"
+
+#: 
+msgid "The email template could not be deleted. Please, try again."
+msgstr "Шаблонът за имейл не можа да бъде изтрит. Моля, опитайте отново."
+
+#: 
+msgid "Edit Comment"
+msgstr "Редактиране на коментар"
+
+#: 
+msgid "There was an issue confirming your account. Please try again."
+msgstr "Възникна проблем при потвърждаването на вашия акаунт. Моля, опитайте отново."
+
+#: 
+msgid "Created"
+msgstr "Създаден"
+
+#: 
+msgid "Unknown User"
+msgstr "Неизвестен потребител"
+
+#: 
+msgid "Level"
+msgstr "Ниво"
+
+#: 
+msgid "Meta Description"
+msgstr "Мета описание"
+
+#: 
+msgid "A value is required"
+msgstr "Изисква се стойност"
+
+#: 
+msgid "Edit Tag"
+msgstr "Редактиране на етикет"
+
+#: 
+msgid "Save All Settings"
+msgstr "Запазване на всички настройки"
+
+#: 
+msgid "Send Email"
+msgstr "Изпратете имейл"
+
+#: 
+msgid "Logout"
+msgstr "Изход"
+
+#: 
+msgid "{0} Views"
+msgstr "{0} показвания"
+
+#: 
+msgid "Modified At"
+msgstr "Модифициран Ат"
+
+#: 
+msgid "Bulk Upload"
+msgstr "Групово качване"
+
+#: 
+msgid "Model"
+msgstr "Модел"
+
+#: 
+msgid "The article has been saved."
+msgstr "Статията е запазена."
+
+#: 
+msgid "Cache"
+msgstr "Кеш памет"
+
+#: 
+msgid "Created At"
+msgstr "Създаден Ат"
+
+#: 
+msgid "Last Cleared"
+msgstr "Последно изчистено"
+
+#: 
+msgid "Failed to send confirmation email message: {0}"
+msgstr "Неуспешно изпращане на имейл съобщение за потвърждение: {0}"
+
+#: 
+msgid "Internationalisation"
+msgstr "Интернационализация"
+
+#: 
+msgid "Unable to delete logs with level {0}."
+msgstr "Не могат да се изтрият регистрационни файлове с ниво {0}."
+
+#: 
+msgid "Date"
+msgstr "Дата"
+
+#: 
+msgid "Update Comment"
+msgstr "Коментар за актуализиране"
+
+#: 
+msgid "Settings"
+msgstr "Настройки"
+
+#: 
+msgid "Block IPs"
+msgstr "Блокиране на IP адреси"
+
+#: 
+msgid "Updated At"
+msgstr "Актуализиран при"
+
+#: 
+msgid "The comment has been deleted."
+msgstr "Коментарът е изтрит."
+
+#: 
+msgid "New Slug"
+msgstr "Нов охлюв"
+
+#: 
+msgid "Email"
+msgstr "Имейл"
+
+#: 
+msgid "The slug could not be saved. Please, try again."
+msgstr "Охлювът не можа да бъде спасен. Моля, опитайте отново."
+
+#: 
+msgid "The requested address {0} was not found on this server."
+msgstr "Заявеният адрес {0} не беше намерен на този сървър."
+
+#: 
+msgid "New User"
+msgstr "Нов потребител"
+
+#: 
+msgid "The user could not be deleted. Please, try again."
+msgstr "Потребителят не можа да бъде изтрит. Моля, опитайте отново."
+
+#: 
+msgid "Are you sure you want to clear {0}?"
+msgstr "Сигурни ли сте, че искате да изчистите {0}?"
+
+#: 
+msgid "Task Type"
+msgstr "Тип задача"
+
+#: 
+msgid "Password must be at least 8 characters long"
+msgstr "Паролата трябва да е с дължина поне 8 знака"
+
+#: 
+msgid "Content"
+msgstr "Съдържание"
+
+#: 
+msgid "Failed to send email to: {0}"
+msgstr "Неуспешно изпращане на имейл до: {0}"
+
+#: 
+msgid "Is Published"
+msgstr "Публикувано е"
+
+#: 
+msgid "The slug has been saved."
+msgstr "Охлювът е спасен."
+
+#: 
+msgid "Search comments..."
+msgstr "Търсене на коментари..."
+
+#: 
+msgid "The settings have been saved."
+msgstr "Настройките са запазени."
+
+#: 
+msgid "No"
+msgstr "не"
+
+#: 
+msgid "List Blocked IPs"
+msgstr "Списък на блокираните IP адреси"
+
+#: 
+msgid "Show Less"
+msgstr "Покажи по-малко"
+
+#: 
+msgid "No articles found for this tag."
+msgstr "Няма намерени статии за този етикет."
+
+#: 
+msgid "Edit"
+msgstr "Редактиране"
+
+#: 
+msgid "Grid View"
+msgstr "Мрежов изглед"
+
+#: 
+msgid "All Locales"
+msgstr "Всички локали"
+
+#: 
+msgid "LinkedIn Description"
+msgstr "Описание на LinkedIn"
+
+#: 
+msgid "Account"
+msgstr "акаунт"
+
+#: 
+msgid "The blocked ip has been saved."
+msgstr "Блокираният ip е запазен."
+
+#: 
+msgid "The user has been saved."
+msgstr "Потребителят е запазен."
+
+#: 
+msgid "All logs with level {0} have been deleted."
+msgstr "Всички регистрационни файлове с ниво {0} са изтрити."
+
+#: 
+msgid "Users"
+msgstr "Потребители"
+
+#: 
+msgid "Invalid value for the specified type."
+msgstr "Невалидна стойност за посочения тип."
+
+#: 
+msgid "Too Many Requests"
+msgstr "Твърде много заявки"
+
+#: 
+msgid "Add a Comment"
+msgstr "Добавяне на коментар"
+
+#: 
+msgid "Email Templates"
+msgstr "Шаблони за имейли"
+
+#: 
+msgid "New AI Prompt"
+msgstr "Нов AI ред"
+
+#: 
+msgid "The email template could not be saved. Please, try again."
+msgstr "Шаблонът за имейл не можа да бъде запазен. Моля, опитайте отново."
+
+#: 
+msgid "Posted on {date} by {author}"
+msgstr "Публикувано на {date} от {author}"
+
+#: 
+msgid "List View"
+msgstr "Списъчен изглед"
+
+#: 
+msgid "Unknown Author"
+msgstr "Неизвестен автор"
+
+#: 
+msgid "Edit Internationalisation"
+msgstr "Редактиране на интернационализацията"
+
+#: 
+msgid "All rights reserved."
+msgstr "Всички права запазени."
+
+#: 
+msgid "Article not found."
+msgstr "Статията не е намерена."
+
+#: 
+msgid "Unable to add your comment."
+msgstr "Не мога да добавя коментара ви."
+
+#: 
+msgid "If your email is registered, you will receive a link to reset your password."
+msgstr "Ако вашият имейл е регистриран, ще получите линк за възстановяване на паролата."
+
+#: 
+msgid "No view records found for this article."
+msgstr "Няма намерени записи за изгледи за тази статия."
+
+#: 
+msgid "Registration successful. Please check your email for confirmation."
+msgstr "Регистрацията е успешна. Моля, проверете имейла си за потвърждение."
+
+#: 
+msgid "Reset Password"
+msgstr "Нулиране на парола"
+
+#: 
+msgid "New Tag"
+msgstr "Нов етикет"
+
+#: 
+msgid "Never"
+msgstr "Никога"
+
+#: 
+msgid "Modified"
+msgstr "Променен"
+
+#: 
+msgid "Invalid confirmation code."
+msgstr "Невалиден код за потвърждение."
+
+#: 
+msgid "Error saving {0}.{1}: {2}"
+msgstr "Грешка при запазване на {0}.{1}: {2}"
+
+#: 
+msgid "Error sending email: {0}"
+msgstr "Грешка при изпращане на имейл: {0}"
+
+#: 
+msgid "Cache Management"
+msgstr "Управление на кеша"
+
+#: 
+msgid "New Blocked IP"
+msgstr "Нов блокиран IP"
+
+#: 
+msgid "Invalid or expired password reset link."
+msgstr "Невалидна или изтекла връзка за повторно задаване на парола."
+
+#: 
+msgid "The value must be a number."
+msgstr "Стойността трябва да е число."
+
+#: 
+msgid "Add Blocked IP"
+msgstr "Добавяне на блокиран IP"
+
+#: 
+msgid "Inappropriate Reason"
+msgstr "Неподходяща причина"
+
+#: 
+msgid "Add Internationalisation"
+msgstr "Добавете интернационализация"
+
+#: 
+msgid "Article/Page"
+msgstr "Статия/Страница"
+
+#: 
+msgid "Picture"
+msgstr "Снимка"
+
+#: 
+msgid "You are not authorized to edit this account, stick to your own."
+msgstr "Нямате право да редактирате този акаунт, придържайте се към своя."
+
+#: 
+msgid "The blocked ip could not be deleted. Please, try again."
+msgstr "Блокираният ip не можа да бъде изтрит. Моля, опитайте отново."
+
+#: 
+msgid "All caches have been cleared successfully."
+msgstr "Всички кеш памети са изчистени успешно."
+
+#: 
+msgid "Instagram Description"
+msgstr "Описание на Instagram"
+
+#: 
+msgid "Submit"
+msgstr "Изпратете"
+
+#: 
+msgid "Too many requests. Please try again later."
+msgstr "Твърде много заявки. Моля, опитайте отново по-късно."
+
+#: 
+msgid "The tag has been saved."
+msgstr "Етикетът е запазен."
+
+#: 
+msgid "Add Slug"
+msgstr "Добавяне на охлюв"
+
+#: 
+msgid "Message Str"
+msgstr "Съобщение Ул"
+
+#: 
+msgid "Article"
+msgstr "статия"
+
+#: 
+msgid "This message_id must be unique for the given locale."
+msgstr "Този message_id трябва да е уникален за дадения локал."
+
+#: 
+msgid "Update Slug"
+msgstr "Актуализиране на Slug"
+
+#: 
+msgid "The article has been deleted."
+msgstr "Статията е изтрита."
+
+#: 
+msgid "Word Count"
+msgstr "Брой думи"
+
+#: 
+msgid "An Internal Error Has Occurred."
+msgstr "Възникна вътрешна грешка."
+
+#: 
+msgid "Context"
+msgstr "Контекст"
+
+#: 
+msgid "Are you sure you want to delete IP {0}?"
+msgstr "Сигурни ли сте, че искате да изтриете IP {0}?"
+
+#: 
+msgid "Published"
+msgstr "Публикувано"
+
+#: 
+msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
+msgstr "По-долу има информация за конфигурираните кешове. Щракнете върху бутона, за да изчистите всички кеши или отделни бутони за кеша, за да изчистите конкретни кеши."
+
+#: 
+msgid "Unable to delete logs in group {0}."
+msgstr "Не могат да се изтрият регистрационни файлове в група {0}."
+
+#: 
+msgid "No deleting your own account."
+msgstr "Без изтриване на собствен акаунт."
+
+#: 
+msgid "Edit {0}"
+msgstr "Редактиране на {0}"
+
+#: 
+msgid "Internationalisations"
+msgstr "Интернационализации"
+
+#: 
+msgid "Comment"
+msgstr "Коментирайте"
+
+#: 
+msgid "No comments yet."
+msgstr "Все още няма коментари."
+
+#: 
+msgid "Update Article"
+msgstr "Актуализиране на статията"
+
+#: 
+msgid "No pages found."
+msgstr "Няма намерени страници."
+
+#: 
+msgid "Image must be less than 5MB."
+msgstr "Изображението трябва да е по-малко от 5 MB."
+
+#: 
+msgid "{0} cache could not be cleared."
+msgstr "Кешът на {0} не можа да бъде изчистен."
+
+#: 
+msgid "Back"
+msgstr "Назад"
+
+#: 
+msgid "Email sent successfully."
+msgstr "Имейлът е изпратен успешно."
+
+#: 
+msgid "API request failed. Please try again later."
+msgstr "Неуспешна заявка за API. Моля, опитайте отново по-късно."
+
+#: 
+msgid "Are you sure you want to delete all logs?"
+msgstr "Сигурни ли сте, че искате да изтриете всички регистрационни файлове?"
+
+#: 
+msgid "Your account has been confirmed. You can now log in."
+msgstr "Вашият акаунт е потвърден. Вече можете да влезете."
+
+#: 
+msgid "New Internationalisation"
+msgstr "Нова интернационализация"
+
+#: 
+msgid "Error loading images:"
+msgstr "Грешка при зареждане на изображения:"
+
+#: 
+msgid "The internationalisation could not be saved. Please, try again."
+msgstr "Интернационализацията не можа да бъде спасена. Моля, опитайте отново."
+
+#: 
+msgid "The comment has been saved."
+msgstr "Коментарът е запазен."
+
+#: 
+msgid "Filter"
+msgstr "Филтър"
+
+#: 
+msgid "Image"
+msgstr "Изображение"
+
+#: 
+msgid "Toggle SEO Fields"
+msgstr "Превключване на SEO полета"
+
+#: 
+msgid "Description"
+msgstr "Описание"
+
+#: 
+msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
+msgstr "Имейлът е изпратен успешно до: {0}. Шаблон: {1}, Тема: {2}"
 
 #: 
 msgid "New {0}"
@@ -446,918 +1162,258 @@ msgid "Username"
 msgstr "Потребителско име"
 
 #: 
-msgid "Send Email"
-msgstr "Изпратете имейл"
-
-#: 
-msgid "Add User"
-msgstr "Добавяне на потребител"
-
-#: 
-msgid "Are you sure you want to delete # {0}?"
-msgstr "Сигурни ли сте, че искате да изтриете # {0}?"
-
-#: 
-msgid "Confirm Password"
-msgstr "Потвърдете паролата"
-
-#: 
-msgid "Error"
-msgstr "Грешка"
-
-#: 
-msgid "Search logs..."
-msgstr "Регистри за търсене..."
-
-#: 
-msgid "Filter"
-msgstr "Филтър"
-
-#: 
-msgid "Meta Keywords"
-msgstr "Мета ключови думи"
-
-#: 
-msgid "Yes"
-msgstr "да"
-
-#: 
-msgid "Engine"
-msgstr "Двигател"
-
-#: 
-msgid "The article has been saved."
-msgstr "Статията е запазена."
-
-#: 
-msgid "Grid View"
-msgstr "Мрежов изглед"
-
-#: 
-msgid "Created At"
-msgstr "Създаден Ат"
-
-#: 
-msgid "Error in: "
-msgstr "Грешка в: "
-
-#: 
-msgid "Update Slug"
-msgstr "Актуализиране на Slug"
-
-#: 
-msgid "Modified At"
-msgstr "Модифициран Ат"
-
-#: 
-msgid "The slug could not be deleted. Please, try again."
-msgstr "Охлювът не можа да бъде изтрит. Моля, опитайте отново."
-
-#: 
-msgid "Details"
-msgstr "Подробности"
-
-#: 
-msgid "Live"
-msgstr "На живо"
-
-#: 
-msgid "Edit Tag"
-msgstr "Редактиране на етикет"
-
-#: 
-msgid "Cache Name"
-msgstr "Име на кеша"
-
-#: 
-msgid "Are you sure you want to delete {0}?"
-msgstr "Сигурни ли сте, че искате да изтриете {0}?"
-
-#: 
-msgid "The image has been saved."
-msgstr "Изображението е запазено."
-
-#: 
-msgid "Article ID:"
-msgstr "ID на статията:"
-
-#: 
-msgid "Are you sure you want to delete all {0} logs?"
-msgstr "Сигурни ли сте, че искате да изтриете всички {0} регистрационни файлове?"
-
-#: 
-msgid "The blocked ip could not be deleted. Please, try again."
-msgstr "Блокираният ip не можа да бъде изтрит. Моля, опитайте отново."
-
-#: 
-msgid "Logs"
-msgstr "трупи"
-
-#: 
-msgid "Email sent successfully."
-msgstr "Имейлът е изпратен успешно."
-
-#: 
-msgid "Article not found"
-msgstr "Статията не е намерена"
-
-#: 
-msgid "Subject"
-msgstr "Предмет"
-
-#: 
-msgid "Unable to add your comment."
-msgstr "Не мога да добавя коментара ви."
-
-#: 
-msgid "A value is required"
-msgstr "Изисква се стойност"
-
-#: 
-msgid "This slug is already in use. Please enter a unique slug."
-msgstr "Този плужек вече се използва. Моля, въведете уникален охлюв."
-
-#: 
-msgid "Inappropriate Reason"
-msgstr "Неподходяща причина"
-
-#: 
-msgid "The article could not be saved. Please, try again."
-msgstr "Статията не можа да бъде запазена. Моля, опитайте отново."
-
-#: 
-msgid "System Logs"
-msgstr "Системни регистрационни файлове"
-
-#: 
-msgid "The settings have been saved."
-msgstr "Настройките са запазени."
-
-#: 
-msgid "Are you sure you want to delete comment by {0}?"
-msgstr "Сигурни ли сте, че искате да изтриете коментар от {0}?"
-
-#: 
-msgid "Enter text"
-msgstr "Въведете текст"
-
-#: 
-msgid "Show Full Article"
-msgstr "Покажи цялата статия"
-
-#: 
-msgid "Registration successful, but there was an issue creating the confirmation link."
-msgstr "Регистрацията е успешна, но възникна проблем при създаването на връзката за потвърждение."
-
-#: 
-msgid "Alt Text"
-msgstr "Алтернативен текст"
-
-#: 
-msgid "Unable to delete logs in group {0}."
-msgstr "Не могат да се изтрият регистрационни файлове в група {0}."
-
-#: 
-msgid "Title"
-msgstr "Заглавие"
-
-#: 
-msgid "Search articles..."
-msgstr "Търсене на статии..."
-
-#: 
-msgid "The internationalisation could not be saved. Please, try again."
-msgstr "Интернационализацията не можа да бъде спасена. Моля, опитайте отново."
-
-#: 
-msgid "All Groups"
-msgstr "Всички групи"
-
-#: 
-msgid "There was an issue confirming your account. Please try again."
-msgstr "Възникна проблем при потвърждаването на вашия акаунт. Моля, опитайте отново."
-
-#: 
-msgid "Delete {0}"
-msgstr "Изтриване на {0}"
-
-#: 
-msgid "Reason"
-msgstr "Причина"
-
-#: 
-msgid "Submit"
-msgstr "Изпратете"
-
-#: 
-msgid "Posted on {date} by {author}"
-msgstr "Публикувано на {date} от {author}"
-
-#: 
-msgid "Delete"
-msgstr "Изтриване"
-
-#: 
-msgid "AI Prompts"
-msgstr "AI подкани"
-
-#: 
-msgid "Cache Management"
-msgstr "Управление на кеша"
-
-#: 
-msgid "Message Id"
-msgstr "Идент. № на съобщението"
-
-#: 
 msgid "Setting not found: {0}.{1}"
 msgstr "Настройката не е намерена: {0}.{1}"
-
-#: 
-msgid "Add Slug"
-msgstr "Добавяне на охлюв"
-
-#: 
-msgid "Unable to delete logs with level {0}."
-msgstr "Не могат да се изтрият регистрационни файлове с ниво {0}."
-
-#: 
-msgid "The image has been deleted."
-msgstr "Изображението е изтрито."
-
-#: 
-msgid "Images"
-msgstr "Изображения"
-
-#: 
-msgid "Edit Comment"
-msgstr "Редактиране на коментар"
-
-#: 
-msgid "Are you sure you want to clear {0}?"
-msgstr "Сигурни ли сте, че искате да изчистите {0}?"
-
-#: 
-msgid "Update Article"
-msgstr "Актуализиране на статията"
-
-#: 
-msgid "You must be logged in to add a comment."
-msgstr "Трябва да сте влезли, за да добавите коментар."
-
-#: 
-msgid "System Prompt"
-msgstr "Системен ред"
-
-#: 
-msgid "The blocked ip could not be saved. Please, try again."
-msgstr "Блокираният ip не можа да бъде запазен. Моля, опитайте отново."
-
-#: 
-msgid "Content"
-msgstr "Съдържание"
-
-#: 
-msgid "You cannot disable your own account."
-msgstr "Не можете да деактивирате собствения си акаунт."
-
-#: 
-msgid "Show"
-msgstr "Покажи"
-
-#: 
-msgid "New Blocked IP"
-msgstr "Нов блокиран IP"
-
-#: 
-msgid "Unknown User"
-msgstr "Неизвестен потребител"
-
-#: 
-msgid "Message"
-msgstr "Съобщение"
-
-#: 
-msgid "Articles"
-msgstr "Статии"
-
-#: 
-msgid "Bulk Upload"
-msgstr "Групово качване"
-
-#: 
-msgid "The email template could not be deleted. Please, try again."
-msgstr "Шаблонът за имейл не можа да бъде изтрит. Моля, опитайте отново."
-
-#: 
-msgid "All Tags"
-msgstr "Всички етикети"
-
-#: 
-msgid "The comment has been saved."
-msgstr "Коментарът е запазен."
-
-#: 
-msgid "LinkedIn Description"
-msgstr "Описание на LinkedIn"
-
-#: 
-msgid "Home"
-msgstr "Начало"
-
-#: 
-msgid "Failed to save the image"
-msgstr "Неуспешно запазване на изображението"
-
-#: 
-msgid "Front Site"
-msgstr "Преден сайт"
-
-#: 
-msgid "View detailed records for this date"
-msgstr "Вижте подробни записи за тази дата"
-
-#: 
-msgid "Access denied. You must be an admin to view this page."
-msgstr "Достъпът е отказан. Трябва да сте администратор, за да видите тази страница."
-
-#: 
-msgid "User"
-msgstr "Потребител"
-
-#: 
-msgid "Add Email Template"
-msgstr "Добавете имейл шаблон"
-
-#: 
-msgid "The tag could not be deleted. Please, try again."
-msgstr "Етикетът не можа да бъде изтрит. Моля, опитайте отново."
-
-#: 
-msgid "Update Image"
-msgstr "Актуализиране на изображението"
-
-#: 
-msgid "Comment"
-msgstr "Коментирайте"
-
-#: 
-msgid "Add Internationalisation"
-msgstr "Добавете интернационализация"
-
-#: 
-msgid "No page view data available for this article."
-msgstr "Няма налични данни за показване на страници за тази статия."
-
-#: 
-msgid "Invalid confirmation code. Please contact support."
-msgstr "Невалиден код за потвърждение. Моля, свържете се с поддръжката."
-
-#: 
-msgid "Error loading images:"
-msgstr "Грешка при зареждане на изображения:"
-
-#: 
-msgid "No articles found for this tag."
-msgstr "Няма намерени статии за този етикет."
-
-#: 
-msgid "The internationalisation has been saved."
-msgstr "Интернационализацията е запазена."
-
-#: 
-msgid "All logs with level {0} have been deleted."
-msgstr "Всички регистрационни файлове с ниво {0} са изтрити."
-
-#: 
-msgid "The value must be a number."
-msgstr "Стойността трябва да е число."
-
-#: 
-msgid "Edit Aiprompt"
-msgstr "Редактирайте Aiprompt"
-
-#: 
-msgid "Model"
-msgstr "Модел"
-
-#: 
-msgid "Update User"
-msgstr "Актуализиране на потребителя"
-
-#: 
-msgid "Article"
-msgstr "статия"
-
-#: 
-msgid "Admin"
-msgstr "Админ"
-
-#: 
-msgid "Slug:"
-msgstr "охлюв:"
-
-#: 
-msgid "Article not found."
-msgstr "Статията не е намерена."
-
-#: 
-msgid "Page Views for {0}"
-msgstr "Показвания на страници за {0}"
-
-#: 
-msgid "New Internationalisation"
-msgstr "Нова интернационализация"
-
-#: 
-msgid "The slug could not be saved. Please, try again."
-msgstr "Охлювът не можа да бъде спасен. Моля, опитайте отново."
-
-#: 
-msgid "Are you sure you want to delete IP {0}?"
-msgstr "Сигурни ли сте, че искате да изтриете IP {0}?"
-
-#: 
-msgid "Hide"
-msgstr "Скрий се"
-
-#: 
-msgid "Back"
-msgstr "Назад"
-
-#: 
-msgid "Additional Images"
-msgstr "Допълнителни изображения"
-
-#: 
-msgid "Page Views"
-msgstr "Преглеждания на страници"
-
-#: 
-msgid "New Slug"
-msgstr "Нов охлюв"
-
-#: 
-msgid "The tag has been deleted."
-msgstr "Етикетът е изтрит."
-
-#: 
-msgid "The tag could not be saved. Please, try again."
-msgstr "Етикетът не можа да бъде запазен. Моля, опитайте отново."
-
-#: 
-msgid "Clear"
-msgstr "ясно"
-
-#: 
-msgid "Tag not found"
-msgstr "Етикетът не е намерен"
-
-#: 
-msgid "Never"
-msgstr "Никога"
-
-#: 
-msgid "All logs in group {0} have been deleted."
-msgstr "Всички регистрационни файлове в групата {0} са изтрити."
-
-#: 
-msgid "The article could not be deleted. Please, try again."
-msgstr "Статията не можа да бъде изтрита. Моля, опитайте отново."
 
 #: 
 msgid "Edit Slug"
 msgstr "Редактиране на охлюв"
 
 #: 
-msgid "Edit Article"
-msgstr "Редактиране на статията"
-
-#: 
-msgid "Body Text"
-msgstr "Основен текст"
-
-#: 
-msgid "New Image"
-msgstr "Ново изображение"
-
-#: 
-msgid "Actions"
-msgstr "Действия"
-
-#: 
-msgid "The email template has been deleted."
-msgstr "Шаблонът за имейл е изтрит."
-
-#: 
-msgid "Registration successful. Please check your email for confirmation."
-msgstr "Регистрацията е успешна. Моля, проверете имейла си за потвърждение."
-
-#: 
-msgid "{0} cache configuration does not exist."
-msgstr "Конфигурацията на кеша на {0} не съществува."
-
-#: 
-msgid "Some caches were cleared, but the following failed: {0}"
-msgstr "Някои кешове бяха изчистени, но следното не бе успешно: {0}"
-
-#: 
-msgid "Submit Comment"
-msgstr "Изпратете коментар"
-
-#: 
-msgid "Your comment has been added."
-msgstr "Вашият коментар е добавен."
-
-#: 
-msgid "Search images..."
-msgstr "Търсене на изображения..."
-
-#: 
-msgid "Updated At"
-msgstr "Актуализиран при"
-
-#: 
-msgid "The value must be 0 or 1."
-msgstr "Стойността трябва да е 0 или 1."
-
-#: 
-msgid "Slugs"
-msgstr "Охлюви"
-
-#: 
-msgid "Main Picture"
-msgstr "Основна снимка"
-
-#: 
-msgid "New AI Prompt"
-msgstr "Нов AI ред"
-
-#: 
-msgid "Blocked IPs"
-msgstr "Блокирани IP адреси"
-
-#: 
-msgid "Blocked At"
-msgstr "Блокиран при"
-
-#: 
-msgid "Edit Blocked IP"
-msgstr "Редактиране на блокиран IP"
-
-#: 
-msgid "Rate limit exceeded for IP: {0} on route: {1}"
-msgstr "Лимитът на скоростта е надвишен за IP: {0} по маршрут: {1}"
-
-#: 
-msgid "Register New Account"
-msgstr "Регистрирайте нов акаунт"
-
-#: 
-msgid "Expires At"
-msgstr "Изтича на"
-
-#: 
-msgid "All Levels"
-msgstr "Всички нива"
-
-#: 
-msgid "Edit {0}"
-msgstr "Редактиране на {0}"
-
-#: 
-msgid "The image could not be saved. Please, try again."
-msgstr "Изображението не можа да бъде запазено. Моля, опитайте отново."
-
-#: 
-msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
-msgstr "По-долу има информация за конфигурираните кешове. Щракнете върху бутона, за да изчистите всички кеши или отделни бутони за кеша, за да изчистите конкретни кеши."
-
-#: 
-msgid "Add Article"
-msgstr "Добавете статия"
-
-#: 
-msgid "Search users..."
-msgstr "Търсене на потребители..."
-
-#: 
-msgid "Update Aiprompt"
-msgstr "Актуализирайте Aiprompt"
-
-#: 
-msgid "By"
-msgstr "от"
-
-#: 
-msgid "Word Count"
-msgstr "Брой думи"
-
-#: 
-msgid "Enter a number"
-msgstr "Въведете номер"
-
-#: 
-msgid "Some settings could not be saved. Please, try again."
-msgstr "Някои настройки не можаха да бъдат запазени. Моля, опитайте отново."
-
-#: 
-msgid "No internationalizations found for the provided IDs."
-msgstr "Няма намерени интернационализации за предоставените идентификатори."
-
-#: 
-msgid "Not published"
-msgstr "Не е публикувано"
-
-#: 
-msgid "List View"
-msgstr "Списъчен изглед"
-
-#: 
-msgid "No comments yet."
-msgstr "Все още няма коментари."
-
-#: 
-msgid "Too Many Requests"
-msgstr "Твърде много заявки"
-
-#: 
-msgid "The email template has been saved."
-msgstr "Шаблонът за имейл е запазен."
-
-#: 
-msgid "Modified"
-msgstr "Променен"
-
-#: 
-msgid "Temperature"
-msgstr "температура"
-
-#: 
-msgid "Email Templates"
-msgstr "Шаблони за имейли"
-
-#: 
-msgid "Body"
-msgstr "Тяло"
-
-#: 
-msgid "You cannot remove your own admin status."
-msgstr "Не можете да премахнете собствения си статус на администратор."
-
-#: 
 msgid "Is Inappropriate"
 msgstr "е неподходящо"
 
 #: 
-msgid "You are not authorized to edit this account, stick to your own."
-msgstr "Нямате право да редактирате този акаунт, придържайте се към своя."
+msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
+msgstr "Охлювът е в конфликт със съществуващо SEO пренасочване. Моля, изберете друг плужек."
 
 #: 
-msgid "Show Details"
-msgstr "Показване на подробности"
+msgid "Images"
+msgstr "Изображения"
 
 #: 
-msgid "Register"
-msgstr "Регистрирайте се"
+msgid "The tag could not be deleted. Please, try again."
+msgstr "Етикетът не можа да бъде изтрит. Моля, опитайте отново."
 
 #: 
-msgid "New User"
-msgstr "Нов потребител"
+msgid "You cannot disable your own account."
+msgstr "Не можете да деактивирате собствения си акаунт."
 
 #: 
-msgid "Failed to send confirmation email message: {0}"
-msgstr "Неуспешно изпращане на имейл съобщение за потвърждение: {0}"
+msgid "Reason"
+msgstr "Причина"
 
 #: 
-msgid "Pages"
-msgstr "Страници"
-
-#: 
-msgid "New Email Template"
-msgstr "Нов имейл шаблон"
-
-#: 
-msgid "Internationalisation"
-msgstr "Интернационализация"
-
-#: 
-msgid "The comment has been deleted."
-msgstr "Коментарът е изтрит."
-
-#: 
-msgid "Delete All Logs"
-msgstr "Изтриване на всички регистрационни файлове"
-
-#: 
-msgid "{0} Views"
-msgstr "{0} показвания"
-
-#: 
-msgid "Are you sure you want to delete this comment?"
-msgstr "Сигурни ли сте, че искате да изтриете този коментар?"
-
-#: 
-msgid "The aiprompt has been saved."
-msgstr "Aiprompt е запазен."
-
-#: 
-msgid "This slug is already in use in articles. Please enter a unique slug."
-msgstr "Този плужек вече се използва в статии. Моля, въведете уникален охлюв."
-
-#: 
-msgid "Group Name"
-msgstr "Име на групата"
-
-#: 
-msgid "Email"
-msgstr "Имейл"
-
-#: 
-msgid "Image uploaded successfully"
-msgstr "Изображението е качено успешно"
-
-#: 
-msgid "Read More"
-msgstr "Прочетете повече"
-
-#: 
-msgid "Block IPs"
-msgstr "Блокиране на IP адреси"
-
-#: 
-msgid "Logout"
-msgstr "Изход"
-
-#: 
-msgid "Too many requests. Please try again later."
-msgstr "Твърде много заявки. Моля, опитайте отново по-късно."
-
-#: 
-msgid "Missing required arguments in the message."
-msgstr "Липсват необходимите аргументи в съобщението."
-
-#: 
-msgid "Edit User"
-msgstr "Редактиране на потребител"
-
-#: 
-msgid "Message Str"
-msgstr "Съобщение Ул"
-
-#: 
-msgid "The comment could not be deleted. Please, try again."
-msgstr "Коментарът не можа да бъде изтрит. Моля, опитайте отново."
-
-#: 
-msgid "No tags are linked."
-msgstr "Няма свързани етикети."
-
-#: 
-msgid "Created"
-msgstr "Създаден"
-
-#: 
-msgid "Add AI Prompt"
-msgstr "Добавете подкана за AI"
-
-#: 
-msgid "Clear All Cache"
-msgstr "Изчистване на целия кеш"
-
-#: 
-msgid "Bulk Upload Images"
-msgstr "Групово качване на изображения"
-
-#: 
-msgid "Context"
-msgstr "Контекст"
-
-#: 
-msgid "The requested address {0} was not found on this server."
-msgstr "Заявеният адрес {0} не беше намерен на този сървър."
-
-#: 
-msgid "Edit Image"
-msgstr "Редактиране на изображение"
-
-#: 
-msgid "The slug has been saved."
-msgstr "Охлювът е спасен."
-
-#: 
-msgid "The internationalisation could not be deleted. Please, try again."
-msgstr "Интернационализацията не можа да бъде изтрита. Моля, опитайте отново."
-
-#: 
-msgid "Select a parent"
-msgstr "Изберете родител"
-
-#: 
-msgid "Twitter Description"
-msgstr "Описание на Twitter"
-
-#: 
-msgid "The slug has been deleted."
-msgstr "Охлювът е изтрит."
-
-#: 
-msgid "Error sending email: {0}"
-msgstr "Грешка при изпращане на имейл: {0}"
-
-#: 
-msgid "Please log in to add a comment"
-msgstr "Моля, влезте, за да добавите коментар"
-
-#: 
-msgid "Add Image"
-msgstr "Добавете изображение"
-
-#: 
-msgid "Unable to delete all logs."
-msgstr "Не могат да се изтрият всички регистрационни файлове."
-
-#: 
-msgid "Configured Caches"
-msgstr "Конфигурирани кешове"
-
-#: 
-msgid "Invalid type"
-msgstr "Невалиден тип"
-
-#: 
-msgid "Your account has been updated."
-msgstr "Вашият акаунт е актуализиран."
-
-#: 
-msgid "No pages found."
-msgstr "Няма намерени страници."
-
-#: 
-msgid "Total Views: "
-msgstr "Общо показвания: "
-
-#: 
-msgid "All caches have been cleared successfully."
-msgstr "Всички кеш памети са изчистени успешно."
-
-#: 
-msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
-msgstr "Имейлът е изпратен успешно до: {0}. Шаблон: {1}, Тема: {2}"
-
-#: 
-msgid "Edit Email Template"
-msgstr "Редактиране на имейл шаблон"
-
-#: 
-msgid "An Internal Error Has Occurred."
-msgstr "Възникна вътрешна грешка."
-
-#: 
-msgid "Are you sure you want to delete this prompt?"
-msgstr "Сигурни ли сте, че искате да изтриете тази подкана?"
-
-#: 
-msgid "SEO Fields"
-msgstr "SEO полета"
-
-#: 
-msgid "The blocked ip has been saved."
-msgstr "Блокираният ip е запазен."
-
-#: 
-msgid "Name"
-msgstr "Име"
-
-#: 
-msgid "Image must be less than 5MB."
-msgstr "Изображението трябва да е по-малко от 5 MB."
-
-#: 
-msgid "Comments"
-msgstr "Коментари"
+msgid "Page Views for {0}"
+msgstr "Показвания на страници за {0}"
 
 #: 
 msgid "Locale"
 msgstr "локал"
 
 #: 
-msgid "Instagram Description"
-msgstr "Описание на Instagram"
+msgid "Rate limit exceeded for IP: {0} on route: {1}"
+msgstr "Лимитът на скоростта е надвишен за IP: {0} по маршрут: {1}"
 
 #: 
-msgid "This message_id must be unique for the given locale."
-msgstr "Този message_id трябва да е уникален за дадения локал."
+msgid "Clear"
+msgstr "ясно"
 
 #: 
-msgid "Related Tags"
-msgstr "Свързани тагове"
+msgid "Enter a number"
+msgstr "Въведете номер"
 
 #: 
-msgid "The image could not be deleted. Please, try again."
-msgstr "Изображението не можа да бъде изтрито. Моля, опитайте отново."
+msgid "No page view data available for this article."
+msgstr "Няма налични данни за показване на страници за тази статия."
 
 #: 
-msgid "The user has been saved."
-msgstr "Потребителят е запазен."
+msgid "Admin"
+msgstr "Админ"
+
+#: 
+msgid "Login"
+msgstr "Вход"
+
+#: 
+msgid "Slug:"
+msgstr "охлюв:"
+
+#: 
+msgid "The tag could not be saved. Please, try again."
+msgstr "Етикетът не можа да бъде запазен. Моля, опитайте отново."
+
+#: 
+msgid "Title"
+msgstr "Заглавие"
+
+#: 
+msgid "Is AI Analyzed"
+msgstr "Анализиран ли е AI"
+
+#: 
+msgid "Image uploaded successfully"
+msgstr "Изображението е качено успешно"
+
+#: 
+msgid "List {0}"
+msgstr "Списък {0}"
+
+#: 
+msgid "Blocked IPs"
+msgstr "Блокирани IP адреси"
+
+#: 
+msgid "Article not found"
+msgstr "Статията не е намерена"
+
+#: 
+msgid "Details"
+msgstr "Подробности"
+
+#: 
+msgid "Add Page"
+msgstr "Добавяне на страница"
+
+#: 
+msgid "Not published"
+msgstr "Не е публикувано"
+
+#: 
+msgid "Logs"
+msgstr "трупи"
+
+#: 
+msgid "Article ID:"
+msgstr "ID на статията:"
+
+#: 
+msgid "Update Aiprompt"
+msgstr "Актуализирайте Aiprompt"
+
+#: 
+msgid "New Image"
+msgstr "Ново изображение"
+
+#: 
+msgid "Are you sure you want to delete this prompt?"
+msgstr "Сигурни ли сте, че искате да изтриете тази подкана?"
+
+#: 
+msgid "The image has been saved."
+msgstr "Изображението е запазено."
+
+#: 
+msgid "Access denied. You must be an admin to view this page."
+msgstr "Достъпът е отказан. Трябва да сте администратор, за да видите тази страница."
+
+#: 
+msgid "The value must not be empty."
+msgstr "Стойността не трябва да е празна."
+
+#: 
+msgid "Bulk Upload Images"
+msgstr "Групово качване на изображения"
+
+#: 
+msgid "New Article"
+msgstr "Нова статия"
+
+#: 
+msgid "Unable to delete all logs."
+msgstr "Не могат да се изтрият всички регистрационни файлове."
+
+#: 
+msgid "Are you sure you want to delete # {0}?"
+msgstr "Сигурни ли сте, че искате да изтриете # {0}?"
+
+#: 
+msgid "Are you sure you want to delete all logs in group {0}?"
+msgstr "Сигурни ли сте, че искате да изтриете всички регистрационни файлове в групата {0}?"
+
+#: 
+msgid "Update User"
+msgstr "Актуализиране на потребителя"
+
+#: 
+msgid "Your account has been updated."
+msgstr "Вашият акаунт е актуализиран."
+
+#: 
+msgid "Add AI Prompt"
+msgstr "Добавете подкана за AI"
+
+#: 
+msgid "Cache Name"
+msgstr "Име на кеша"
+
+#: 
+msgid "Add Tag"
+msgstr "Добавяне на етикет"
+
+#: 
+msgid "Alt Text"
+msgstr "Алтернативен текст"
+
+#: 
+msgid "Edit Your Account"
+msgstr "Редактирайте акаунта си"
+
+#: 
+msgid "There was an issue resetting your password. Please try again."
+msgstr "Възникна проблем при повторното задаване на паролата ви. Моля, опитайте отново."
+
+#: 
+msgid "Tags"
+msgstr "Етикети"
+
+#: 
+msgid "Please enter your email to reset your password"
+msgstr "Моля, въведете вашия имейл, за да нулирате паролата си"
+
+#: 
+msgid "Edit Image"
+msgstr "Редактиране на изображение"
+
+#: 
+msgid "Forgot Password"
+msgstr "Забравена парола"
+
+#: 
+msgid "Show Full Article"
+msgstr "Покажи цялата статия"
+
+#: 
+msgid "Search tags..."
+msgstr "Търсене на етикети..."
+
+#: 
+msgid "Associated Pages"
+msgstr "Свързани страници"
+
+#: 
+msgid "Configured Caches"
+msgstr "Конфигурирани кешове"
+
+#: 
+msgid "Registration successful, but there was an issue creating the confirmation link."
+msgstr "Регистрацията е успешна, но възникна проблем при създаването на връзката за потвърждение."
+
+#: 
+msgid "User Agent"
+msgstr "Потребителски агент"
+
+#: 
+msgid "The internationalisation could not be deleted. Please, try again."
+msgstr "Интернационализацията не можа да бъде изтрита. Моля, опитайте отново."
+
+#: 
+msgid "The blocked ip has been deleted."
+msgstr "Блокираният IP е изтрит."
+
+#: 
+msgid "The article could not be saved. Please, try again."
+msgstr "Статията не можа да бъде запазена. Моля, опитайте отново."
+
+#: 
+msgid "AI Prompts"
+msgstr "AI подкани"
+
+#: 
+msgid "Search articles..."
+msgstr "Търсене на статии..."
+
+#: 
+msgid "Your password has been reset. Please log in with your new password."
+msgstr "Вашата парола е нулирана. Моля, влезте с новата си парола."
 

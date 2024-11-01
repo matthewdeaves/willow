@@ -14,1004 +14,584 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
 #: 
-msgid "All Groups"
-msgstr "Všetky skupiny"
-
-#: 
-msgid "Expires At"
-msgstr "Platnosť vyprší o"
-
-#: 
-msgid "Configured Caches"
-msgstr "Konfigurované vyrovnávacie pamäte"
-
-#: 
-msgid "Invalid confirmation code. Please contact support."
-msgstr "Neplatný potvrdzovací kód. Kontaktujte podporu."
-
-#: 
-msgid "Registration successful, but there was an issue creating the confirmation link."
-msgstr "Registrácia bola úspešná, ale pri vytváraní odkazu na potvrdenie sa vyskytol problém."
-
-#: 
-msgid "Created At"
-msgstr "Vytvorené o"
-
-#: 
-msgid "Edit"
-msgstr "Upraviť"
-
-#: 
-msgid "Registration successful. Please check your email for confirmation."
-msgstr "Registrácia úspešná. Skontrolujte svoj e-mail pre potvrdenie."
-
-#: 
-msgid "Show Less"
-msgstr "Zobraziť menej"
-
-#: 
-msgid "Update Tag"
-msgstr "Aktualizovať značku"
-
-#: 
-msgid "Max Tokens"
-msgstr "Maximálny počet tokenov"
-
-#: 
-msgid "Twitter Description"
-msgstr "Popis na Twitteri"
-
-#: 
-msgid "New Tag"
-msgstr "Nová značka"
-
-#: 
-msgid "Add a Comment"
-msgstr "Pridať komentár"
-
-#: 
-msgid "Article/Page"
-msgstr "Článok/Stránka"
-
-#: 
-msgid "Model"
-msgstr "Model"
-
-#: 
-msgid "Is Inappropriate"
-msgstr "Je nevhodné"
-
-#: 
-msgid "Bulk Upload Images"
-msgstr "Hromadné nahrávanie obrázkov"
-
-#: 
-msgid "Add Page"
-msgstr "Pridať stránku"
-
-#: 
-msgid "An error occurred while processing your request."
-msgstr "Pri spracovaní vašej požiadavky sa vyskytla chyba."
-
-#: 
-msgid "Search users..."
-msgstr "Hľadať používateľov..."
-
-#: 
-msgid "No pages found."
-msgstr "Nenašli sa žiadne stránky."
-
-#: 
-msgid "Unable to add your comment."
-msgstr "Nie je možné pridať váš komentár."
-
-#: 
-msgid "Never"
-msgstr "Nikdy"
-
-#: 
-msgid "Views"
-msgstr "Zobrazenia"
-
-#: 
-msgid "Edit Image"
-msgstr "Upraviť obrázok"
-
-#: 
-msgid "Logs"
-msgstr "Denníky"
-
-#: 
-msgid "The tag could not be saved. Please, try again."
-msgstr "Značku nebolo možné uložiť. Skúste to znova."
-
-#: 
-msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
-msgstr "Slug je v konflikte s existujúcim presmerovaním SEO. Vyberte iný slimák."
-
-#: 
-msgid "Add AI Prompt"
-msgstr "Pridať výzvu AI"
-
-#: 
-msgid "No view records found for this article."
-msgstr "Pre tento článok sa nenašli žiadne záznamy."
-
-#: 
-msgid "Id"
-msgstr "Id"
-
-#: 
-msgid "Read More"
-msgstr "Prečítajte si viac"
-
-#: 
-msgid "Hide"
-msgstr "Skryť"
-
-#: 
-msgid "Too many requests. Please try again later."
-msgstr "Príliš veľa žiadostí. Skúste to znova neskôr."
-
-#: 
-msgid "Total Views: "
-msgstr "Celkový počet zobrazení: "
-
-#: 
-msgid "English"
-msgstr "angličtina"
-
-#: 
-msgid "Updated At"
-msgstr "Aktualizované o"
-
-#: 
-msgid "The email template could not be saved. Please, try again."
-msgstr "Šablónu e-mailu nebolo možné uložiť. Skúste to znova."
-
-#: 
-msgid "Actions"
-msgstr "Akcie"
-
-#: 
-msgid "Message Str"
-msgstr "Správa Str"
-
-#: 
-msgid "New Image"
-msgstr "Nový obrázok"
-
-#: 
-msgid "Word Count"
-msgstr "Počet slov"
-
-#: 
-msgid "Last Cleared"
-msgstr "Naposledy vymazané"
-
-#: 
-msgid "The email template has been deleted."
-msgstr "Šablóna e-mailu bola odstránená."
-
-#: 
-msgid "New Article"
-msgstr "Nový článok"
-
-#: 
-msgid "Add Article"
-msgstr "Pridať článok"
-
-#: 
-msgid "Articles"
-msgstr "články"
-
-#: 
-msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
-msgstr "E-mail bol úspešne odoslaný na adresu: {0}. Šablóna: {1}, Predmet: {2}"
-
-#: 
-msgid "Email"
-msgstr "Email"
-
-#: 
-msgid "Cache Name"
-msgstr "Názov vyrovnávacej pamäte"
-
-#: 
-msgid "Are you sure you want to delete this comment?"
-msgstr "Naozaj chcete odstrániť tento komentár?"
-
-#: 
-msgid "LinkedIn Description"
-msgstr "Popis LinkedIn"
-
-#: 
-msgid "Edit Internationalisation"
-msgstr "Upraviť internacionalizáciu"
-
-#: 
-msgid "Front Site"
-msgstr "Predná stránka"
-
-#: 
-msgid "Blocked At"
-msgstr "Blokované o"
-
-#: 
-msgid "Edit Comment"
-msgstr "Upraviť komentár"
-
-#: 
-msgid "The blocked ip could not be deleted. Please, try again."
-msgstr "Zablokovanú IP nebolo možné odstrániť. Skúste to znova."
-
-#: 
-msgid "Display"
-msgstr "Displej"
-
-#: 
-msgid "Setting not found: {0}.{1}"
-msgstr "Nastavenie sa nenašlo: {0}.{1}"
-
-#: 
-msgid "Delete All Logs"
-msgstr "Odstrániť všetky denníky"
-
-#: 
-msgid "Is AI Analyzed"
-msgstr "Je AI analyzovaná"
-
-#: 
-msgid "The article has been saved."
-msgstr "Článok bol uložený."
-
-#: 
-msgid "Task Type"
-msgstr "Typ úlohy"
-
-#: 
-msgid "Settings"
-msgstr "Nastavenia"
-
-#: 
-msgid "All logs have been deleted."
-msgstr "Všetky denníky boli vymazané."
-
-#: 
-msgid "A value is required"
-msgstr "Vyžaduje sa hodnota"
-
-#: 
-msgid "Are you sure you want to delete all logs in group {0}?"
-msgstr "Naozaj chcete odstrániť všetky denníky v skupine {0}?"
-
-#: 
-msgid "Comment for {0}"
-msgstr "Komentár pre {0}"
-
-#: 
-msgid "Add Image"
-msgstr "Pridať obrázok"
-
-#: 
-msgid "Send Email"
-msgstr "Odoslať e-mail"
-
-#: 
-msgid "Internationalisation"
-msgstr "Internacionalizácia"
-
-#: 
-msgid "Update Slug"
-msgstr "Aktualizovať Slug"
-
-#: 
-msgid "No comments yet."
-msgstr "Zatiaľ žiadne komentáre."
-
-#: 
-msgid "Is Admin"
-msgstr "Je správcom"
-
-#: 
-msgid "Submit Comment"
-msgstr "Odoslať komentár"
-
-#: 
-msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
-msgstr "Nižšie sú uvedené informácie o nakonfigurovaných cache. Kliknutím na tlačidlo vymažete všetky vyrovnávacie pamäte alebo jednotlivé tlačidlá vyrovnávacej pamäte vymažete konkrétne vyrovnávacie pamäte."
-
-#: 
-msgid "The slug could not be deleted. Please, try again."
-msgstr "Slimák sa nepodarilo odstrániť. Skúste to znova."
-
-#: 
-msgid "The article could not be deleted. Please, try again."
-msgstr "Článok sa nepodarilo odstrániť. Skúste to znova."
-
-#: 
-msgid "Referer"
-msgstr "Referent"
-
-#: 
-msgid "Are you sure you want to delete {0}?"
-msgstr "Naozaj chcete odstrániť {0}?"
-
-#: 
-msgid "Your comment has been added."
-msgstr "Váš komentár bol pridaný."
-
-#: 
-msgid "You are not authorized to edit this account, stick to your own."
-msgstr "Nemáte oprávnenie upravovať tento účet, držte sa svojho."
-
-#: 
-msgid "All Locales"
-msgstr "Všetky miestne nastavenia"
-
-#: 
-msgid "Error saving {0}.{1}: {2}"
-msgstr "Chyba pri ukladaní {0}.{1}: {2}"
-
-#: 
-msgid "Edit User"
-msgstr "Upraviť používateľa"
-
-#: 
-msgid "Tag not found"
-msgstr "Značka sa nenašla"
-
-#: 
-msgid "This slug is already in use. Please enter a unique slug."
-msgstr "Tento slimák sa už používa. Zadajte jedinečného slimáka."
-
-#: 
-msgid "New User"
-msgstr "Nový používateľ"
-
-#: 
-msgid "Slug"
-msgstr "Slimák"
-
-#: 
-msgid "Engine"
-msgstr "Motor"
-
-#: 
-msgid "By"
-msgstr "Autor:"
-
-#: 
-msgid "New Slug"
-msgstr "Nový Slimák"
-
-#: 
-msgid "Update Image"
-msgstr "Aktualizovať obrázok"
-
-#: 
-msgid "Invalid username or password"
-msgstr "Neplatné používateľské meno alebo heslo"
-
-#: 
-msgid "The image has been deleted."
-msgstr "Obrázok bol odstránený."
-
-#: 
-msgid "Add Email Template"
-msgstr "Pridať šablónu e-mailu"
-
-#: 
-msgid "Failed to save the image"
-msgstr "Obrázok sa nepodarilo uložiť"
-
-#: 
-msgid "You must be logged in to add a comment."
-msgstr "Ak chcete pridať komentár, musíte byť prihlásený."
-
-#: 
-msgid "Search images..."
-msgstr "Hľadať obrázky..."
-
-#: 
-msgid "The tag has been deleted."
-msgstr "Značka bola odstránená."
-
-#: 
-msgid "The user could not be deleted. Please, try again."
-msgstr "Používateľa sa nepodarilo odstrániť. Skúste to znova."
-
-#: 
-msgid "Unable to delete the log."
-msgstr "Nedá sa odstrániť denník."
-
-#: 
-msgid "Please upload only images (jpeg, png, gif)."
-msgstr "Nahrávajte iba obrázky (jpeg, png, gif)."
-
-#: 
-msgid "Block IPs"
-msgstr "Blokovať adresy IP"
-
-#: 
-msgid "Password must be at least 8 characters long"
-msgstr "Heslo musí mať aspoň 8 znakov"
-
-#: 
-msgid "Meta Description"
-msgstr "Meta popis"
-
-#: 
-msgid "Body HTML"
-msgstr "HTML tela"
-
-#: 
-msgid "Delete {0}"
-msgstr "Odstrániť {0}"
-
-#: 
-msgid "All Levels"
-msgstr "Všetky úrovne"
-
-#: 
-msgid "Add Blocked IP"
-msgstr "Pridať blokovanú IP"
-
-#: 
-msgid "Error"
-msgstr "Chyba"
-
-#: 
-msgid "The internationalisation has been deleted."
-msgstr "Internacionalizácia bola vymazaná."
-
-#: 
-msgid "The slug has been saved."
-msgstr "Slimák bol zachránený."
-
-#: 
-msgid "Article not found"
-msgstr "Článok sa nenašiel"
-
-#: 
-msgid "Body"
-msgstr "Telo"
-
-#: 
-msgid "Bulk Upload"
-msgstr "Hromadné nahrávanie"
-
-#: 
-msgid "Details"
-msgstr "Podrobnosti"
-
-#: 
-msgid "Summary"
-msgstr "Zhrnutie"
-
-#: 
-msgid "Cache Management"
-msgstr "Správa vyrovnávacej pamäte"
-
-#: 
-msgid "No images."
-msgstr "Žiadne obrázky."
-
-#: 
-msgid "Unable to delete logs in group {0}."
-msgstr "Nedajú sa odstrániť denníky v skupine {0}."
-
-#: 
-msgid "{0} Views"
-msgstr "Počet zobrazení: {0}"
-
-#: 
-msgid "API request failed. Please try again later."
-msgstr "Žiadosť API zlyhala. Skúste to znova neskôr."
-
-#: 
-msgid "Date"
-msgstr "Dátum"
-
-#: 
-msgid "Please enter your email and password"
-msgstr "Zadajte svoj e-mail a heslo"
-
-#: 
-msgid "The email template has been saved."
-msgstr "Šablóna e-mailu bola uložená."
-
-#: 
-msgid "Unable to delete all logs."
-msgstr "Nie je možné odstrániť všetky denníky."
-
-#: 
-msgid "Group Name"
-msgstr "Názov skupiny"
-
-#: 
-msgid "Search comments..."
-msgstr "Hľadať komentáre..."
-
-#: 
-msgid "No articles found for this tag."
-msgstr "Pre túto značku sa nenašli žiadne články."
-
-#: 
-msgid "Keywords"
-msgstr "Kľúčové slová"
-
-#: 
-msgid "Unable to delete logs with level {0}."
-msgstr "Nedajú sa odstrániť denníky s úrovňou {0}."
-
-#: 
-msgid "Live"
-msgstr "Naživo"
-
-#: 
-msgid "Email Templates"
-msgstr "Šablóny e-mailov"
-
-#: 
-msgid "Confirm Password"
-msgstr "Potvrďte heslo"
-
-#: 
-msgid "List {0}"
-msgstr "Zoznam {0}"
-
-#: 
-msgid "The blocked ip has been deleted."
-msgstr "Blokovaná ip bola odstránená."
-
-#: 
-msgid "Message Id"
-msgstr "ID správy"
-
-#: 
-msgid "Are you sure you want to clear {0}?"
-msgstr "Naozaj chcete vymazať {0}?"
-
-#: 
-msgid "You cannot remove your own admin status."
-msgstr "Nemôžete odstrániť svoj vlastný status správcu."
-
-#: 
-msgid "The value must not be empty."
-msgstr "Hodnota nesmie byť prázdna."
-
-#: 
-msgid "Comment"
-msgstr "Komentujte"
-
-#: 
-msgid "An Internal Error Has Occurred."
-msgstr "Vyskytla sa interná chyba."
-
-#: 
-msgid "Failed to send email. Please check your email configuration."
-msgstr "Odoslanie e-mailu zlyhalo. Skontrolujte konfiguráciu e-mailu."
-
-#: 
-msgid "Subject"
-msgstr "Predmet"
-
-#: 
-msgid "Name"
-msgstr "Meno"
-
-#: 
-msgid "The blocked ip has been saved."
-msgstr "Zablokovaná ip bola uložená."
+msgid "Error in: "
+msgstr "Chyba v: "
 
 #: 
 msgid "Search tags..."
 msgstr "Hľadať značky..."
 
 #: 
-msgid "Page Views for {0}"
-msgstr "Zobrazenia stránky pre {0}"
+msgid "Failed to send confirmation email message: {0}"
+msgstr "Nepodarilo sa odoslať potvrdzujúci e-mail: {0}"
 
 #: 
-msgid "The comment has been deleted."
-msgstr "Komentár bol odstránený."
+msgid "Missing required arguments in the message."
+msgstr "V správe chýbajú požadované argumenty."
 
 #: 
-msgid "The article has been deleted."
-msgstr "Článok bol zmazaný."
-
-#: 
-msgid "Edit Tag"
-msgstr "Upraviť značku"
-
-#: 
-msgid "Register"
-msgstr "Zaregistrujte sa"
-
-#: 
-msgid "List View"
-msgstr "Zobrazenie zoznamu"
-
-#: 
-msgid "Title"
-msgstr "Názov"
-
-#: 
-msgid "All Tags"
-msgstr "Všetky značky"
-
-#: 
-msgid "Edit Settings"
-msgstr "Upraviť nastavenia"
-
-#: 
-msgid "Your account has been confirmed. You can now log in."
-msgstr "Váš účet bol potvrdený. Teraz sa môžete prihlásiť."
-
-#: 
-msgid "The settings have been saved."
-msgstr "Nastavenia boli uložené."
-
-#: 
-msgid "User Comments"
-msgstr "Komentáre používateľov"
-
-#: 
-msgid "Additional Images"
-msgstr "Ďalšie obrázky"
-
-#: 
-msgid "The value must be a number."
-msgstr "Hodnota musí byť číslo."
-
-#: 
-msgid "Main Picture"
-msgstr "Hlavný obrázok"
-
-#: 
-msgid "Inappropriate Reason"
-msgstr "Nevhodný dôvod"
-
-#: 
-msgid "Code Coverage"
-msgstr "Pokrytie kódu"
-
-#: 
-msgid "All caches have been cleared successfully."
-msgstr "Všetky vyrovnávacie pamäte boli úspešne vymazané."
-
-#: 
-msgid "The image has been saved."
-msgstr "Obrázok bol uložený."
-
-#: 
-msgid "List Email Templates"
-msgstr "Zoznam e-mailových šablón"
-
-#: 
-msgid "Alt Text"
-msgstr "Alternatívny text"
-
-#: 
-msgid "The article could not be saved. Please, try again."
-msgstr "Článok sa nepodarilo uložiť. Skúste to znova."
-
-#: 
-msgid "Search articles..."
-msgstr "Hľadať články..."
-
-#: 
-msgid "Grid View"
-msgstr "Zobrazenie mriežky"
-
-#: 
-msgid "List Blocked IPs"
-msgstr "Zoznam blokovaných adries IP"
-
-#: 
-msgid "The user has been saved."
-msgstr "Používateľ bol uložený."
-
-#: 
-msgid "New AI Prompt"
-msgstr "Nová výzva AI"
-
-#: 
-msgid "The image could not be deleted. Please, try again."
-msgstr "Obrázok sa nepodarilo odstrániť. Skúste to znova."
-
-#: 
-msgid "User Agent"
-msgstr "User Agent"
-
-#: 
-msgid "The slug has been deleted."
-msgstr "Slimák bol vymazaný."
-
-#: 
-msgid "Modified At"
-msgstr "Upravené v"
-
-#: 
-msgid "Temperature"
-msgstr "Teplota"
-
-#: 
-msgid "The user could not be saved. Please, try again."
-msgstr "Používateľa sa nepodarilo uložiť. Skúste to znova."
-
-#: 
-msgid "Edit Article"
-msgstr "Upraviť článok"
-
-#: 
-msgid "Edit Aiprompt"
-msgstr "Upraviť Aiprompt"
-
-#: 
-msgid "Picture"
-msgstr "Obrázok"
-
-#: 
-msgid "Locale"
-msgstr "Miestne nastavenie"
-
-#: 
-msgid "Access denied. You must be an admin to view this page."
-msgstr "Prístup odmietnutý. Ak chcete zobraziť túto stránku, musíte byť správcom."
-
-#: 
-msgid "Invalid value for the specified type."
-msgstr "Neplatná hodnota pre zadaný typ."
-
-#: 
-msgid "All logs in group {0} have been deleted."
-msgstr "Všetky denníky v skupine {0} boli odstránené."
-
-#: 
-msgid "No deleting your own account."
-msgstr "Žiadne vymazanie vlastného účtu."
-
-#: 
-msgid "Clear All Cache"
-msgstr "Vymazať všetku vyrovnávaciu pamäť"
-
-#: 
-msgid "No internationalizations found for the provided IDs."
-msgstr "Pre poskytnuté ID sa nenašli žiadne internacionalizácie."
-
-#: 
-msgid "The comment could not be saved. Please, try again."
-msgstr "Komentár sa nepodarilo uložiť. Skúste to znova."
-
-#: 
-msgid "System Prompt"
-msgstr "Systémová výzva"
-
-#: 
-msgid "Image must be less than 5MB."
-msgstr "Obrázok musí byť menší ako 5 MB."
-
-#: 
-msgid "Not published"
-msgstr "Nezverejnené"
-
-#: 
-msgid "The requested address {0} was not found on this server."
-msgstr "Požadovaná adresa {0} sa na tomto serveri nenašla."
-
-#: 
-msgid "The comment could not be deleted. Please, try again."
-msgstr "Komentár sa nepodarilo odstrániť. Skúste to znova."
-
-#: 
-msgid "Are you sure you want to delete comment by {0}?"
-msgstr "Naozaj chcete odstrániť komentár od používateľa {0}?"
-
-#: 
-msgid "New {0}"
-msgstr "Nové {0}"
-
-#: 
-msgid "Page Views"
-msgstr "Zobrazenia stránky"
-
-#: 
-msgid "This message_id must be unique for the given locale."
-msgstr "Toto message_id musí byť jedinečné pre dané miestne nastavenie."
-
-#: 
-msgid "Delete"
-msgstr "Odstrániť"
-
-#: 
-msgid "Clear"
-msgstr "Jasné"
-
-#: 
-msgid "Article ID:"
-msgstr "ID článku:"
-
-#: 
-msgid "All rights reserved."
-msgstr "Všetky práva vyhradené."
-
-#: 
-msgid "The comment has been saved."
-msgstr "Komentár bol uložený."
-
-#: 
-msgid "Meta Title"
-msgstr "Meta názov"
-
-#: 
-msgid "{0} cache configuration does not exist."
-msgstr "Konfigurácia vyrovnávacej pamäte {0} neexistuje."
-
-#: 
-msgid "The internationalisation could not be deleted. Please, try again."
-msgstr "Internacionalizáciu nebolo možné odstrániť. Skúste to znova."
-
-#: 
-msgid "Username"
-msgstr "Používateľské meno"
-
-#: 
-msgid "Page View Statistics for slug: {0}"
-msgstr "Štatistika zobrazenia stránky pre slug: {0}"
-
-#: 
-msgid "Users"
-msgstr "Používatelia"
-
-#: 
-msgid "Meta Keywords"
-msgstr "Meta kľúčové slová"
-
-#: 
-msgid "Unknown Author"
-msgstr "Neznámy autor"
-
-#: 
-msgid "View detailed records for this date"
-msgstr "Pozrite si podrobné záznamy k tomuto dátumu"
-
-#: 
-msgid "Update Comment"
-msgstr "Aktualizovať komentár"
+msgid "Body HTML"
+msgstr "HTML tela"
 
 #: 
 msgid "The aiprompt could not be saved. Please, try again."
 msgstr "Aiprompt sa nepodarilo uložiť. Skúste to znova."
 
 #: 
-msgid "Are you sure you want to delete all {0} logs?"
-msgstr "Naozaj chcete odstrániť všetky denníky ({0})?"
+msgid "Group Name"
+msgstr "Názov skupiny"
 
 #: 
-msgid "Image uploaded successfully"
-msgstr "Obrázok bol úspešne odovzdaný"
+msgid "Home"
+msgstr "Domov"
 
 #: 
-msgid "Add Slug"
-msgstr "Pridajte Slug"
+msgid "The aiprompt has been saved."
+msgstr "Aiprompt bol uložený."
 
 #: 
-msgid "Account"
-msgstr "účtu"
+msgid "Page Views for {0}"
+msgstr "Zobrazenia stránky pre {0}"
 
 #: 
-msgid "The value must be 0 or 1."
-msgstr "Hodnota musí byť 0 alebo 1."
+msgid "Summary"
+msgstr "Zhrnutie"
 
 #: 
-msgid "Reason"
-msgstr "Dôvod"
+msgid "Engine"
+msgstr "Motor"
 
 #: 
-msgid "Edit Email Template"
-msgstr "Upraviť šablónu e-mailu"
-
-#: 
-msgid "Cache"
-msgstr "Cache"
-
-#: 
-msgid "Email sent successfully."
-msgstr "E-mail bol úspešne odoslaný."
-
-#: 
-msgid "There was an issue confirming your account. Please try again."
-msgstr "Pri potvrdení vášho účtu sa vyskytol problém. Skúste to znova."
-
-#: 
-msgid "Update Article"
-msgstr "Aktualizovať článok"
-
-#: 
-msgid "Search logs..."
-msgstr "Prehľadávať denníky..."
-
-#: 
-msgid "User"
-msgstr "Používateľ"
-
-#: 
-msgid "System Logs"
-msgstr "Systémové denníky"
+msgid "Too many requests. Please try again later."
+msgstr "Príliš veľa žiadostí. Skúste to znova neskôr."
 
 #: 
 msgid "The log has been deleted."
 msgstr "Denník bol vymazaný."
 
 #: 
-msgid "The image could not be saved. Please, try again."
-msgstr "Obrázok sa nepodarilo uložiť. Skúste to znova."
+msgid "Select a parent"
+msgstr "Vyberte rodiča"
+
+#: 
+msgid "No view records found for this article."
+msgstr "Pre tento článok sa nenašli žiadne záznamy."
+
+#: 
+msgid "SEO Fields"
+msgstr "SEO polia"
 
 #: 
 msgid "Images"
 msgstr "Obrázky"
 
 #: 
-msgid "Some settings could not be saved. Please, try again."
-msgstr "Niektoré nastavenia sa nepodarilo uložiť. Skúste to znova."
+msgid "Logs"
+msgstr "Denníky"
 
 #: 
-msgid "Edit Blocked IP"
-msgstr "Upraviť blokovanú IP"
+msgid "Please log in to add a comment"
+msgstr "Ak chcete pridať komentár, prihláste sa"
 
 #: 
-msgid "Slugs"
-msgstr "Slimáky"
+msgid "Show"
+msgstr "Zobraziť"
 
 #: 
-msgid "Facebook Description"
-msgstr "Popis na Facebooku"
+msgid "Setting not found: {0}.{1}"
+msgstr "Nastavenie sa nenašlo: {0}.{1}"
+
+#: 
+msgid "Edit User"
+msgstr "Upraviť používateľa"
+
+#: 
+msgid "Are you sure you want to clear {0}?"
+msgstr "Naozaj chcete vymazať {0}?"
+
+#: 
+msgid "Date"
+msgstr "Dátum"
+
+#: 
+msgid "Are you sure you want to delete comment by {0}?"
+msgstr "Naozaj chcete odstrániť komentár od používateľa {0}?"
+
+#: 
+msgid "The user has been saved."
+msgstr "Používateľ bol uložený."
+
+#: 
+msgid "Password must be at least 8 characters long"
+msgstr "Heslo musí mať aspoň 8 znakov"
+
+#: 
+msgid "Profile Picture"
+msgstr "Profilový obrázok"
+
+#: 
+msgid "Add Article"
+msgstr "Pridať článok"
+
+#: 
+msgid "The internationalisation has been deleted."
+msgstr "Internacionalizácia bola vymazaná."
+
+#: 
+msgid "Page Views"
+msgstr "Zobrazenia stránky"
+
+#: 
+msgid "Subject"
+msgstr "Predmet"
+
+#: 
+msgid "Failed to send email to: {0}"
+msgstr "Odoslanie e-mailu na adresu: {0} zlyhalo"
+
+#: 
+msgid "Expires At"
+msgstr "Platnosť vyprší o"
+
+#: 
+msgid "This message_id must be unique for the given locale."
+msgstr "Toto message_id musí byť jedinečné pre dané miestne nastavenie."
+
+#: 
+msgid "Unable to delete the log."
+msgstr "Nedá sa odstrániť denník."
 
 #: 
 msgid "Add Tag"
 msgstr "Pridať značku"
 
 #: 
-msgid "Update Aiprompt"
-msgstr "Aktualizujte Aiprompt"
+msgid "All caches have been cleared successfully."
+msgstr "Všetky vyrovnávacie pamäte boli úspešne vymazané."
 
 #: 
-msgid "Register New Account"
-msgstr "Zaregistrujte si nový účet"
+msgid "View detailed records for this date"
+msgstr "Pozrite si podrobné záznamy k tomuto dátumu"
 
 #: 
-msgid "Enter text"
-msgstr "Zadajte text"
+msgid "User Comments"
+msgstr "Komentáre používateľov"
 
 #: 
-msgid "Show Full Article"
-msgstr "Zobraziť celý článok"
+msgid "Unable to add your comment."
+msgstr "Nie je možné pridať váš komentár."
 
 #: 
-msgid "Body Text"
-msgstr "Text tela"
+msgid "The email template has been deleted."
+msgstr "Šablóna e-mailu bola odstránená."
 
 #: 
-msgid "{0} cache could not be cleared."
-msgstr "Vyrovnávacia pamäť {0} sa nepodarilo vymazať."
+msgid "No tags are linked."
+msgstr "Nie sú prepojené žiadne značky."
 
 #: 
-msgid "Some caches were cleared, but the following failed: {0}"
-msgstr "Niektoré vyrovnávacie pamäte boli vymazané, ale nasledujúce zlyhali: {0}"
+msgid "New Article"
+msgstr "Nový článok"
+
+#: 
+msgid "Update Tag"
+msgstr "Aktualizovať značku"
+
+#: 
+msgid "All logs in group {0} have been deleted."
+msgstr "Všetky denníky v skupine {0} boli odstránené."
+
+#: 
+msgid "Is Admin"
+msgstr "Je správcom"
+
+#: 
+msgid "Description"
+msgstr "Popis"
+
+#: 
+msgid "Delete All Logs"
+msgstr "Odstrániť všetky denníky"
+
+#: 
+msgid "The value must be a number."
+msgstr "Hodnota musí byť číslo."
+
+#: 
+msgid "The article could not be deleted. Please, try again."
+msgstr "Článok sa nepodarilo odstrániť. Skúste to znova."
+
+#: 
+msgid "Published"
+msgstr "Zverejnené"
+
+#: 
+msgid "Update Image"
+msgstr "Aktualizovať obrázok"
+
+#: 
+msgid "Are you sure you want to delete {0}?"
+msgstr "Naozaj chcete odstrániť {0}?"
+
+#: 
+msgid "Some settings could not be saved. Please, try again."
+msgstr "Niektoré nastavenia sa nepodarilo uložiť. Skúste to znova."
+
+#: 
+msgid "Invalid confirmation code. Please contact support."
+msgstr "Neplatný potvrdzovací kód. Kontaktujte podporu."
+
+#: 
+msgid "Are you sure you want to delete all logs in group {0}?"
+msgstr "Naozaj chcete odstrániť všetky denníky v skupine {0}?"
+
+#: 
+msgid "Main Picture"
+msgstr "Hlavný obrázok"
+
+#: 
+msgid "The blocked ip has been deleted."
+msgstr "Blokovaná ip bola odstránená."
 
 #: 
 msgid "Failed to update translation for message ID: {0}"
 msgstr "Nepodarilo sa aktualizovať preklad pre ID správy: {0}"
 
 #: 
-msgid "Context"
-msgstr "Kontext"
+msgid "Image must be less than 5MB."
+msgstr "Obrázok musí byť menší ako 5 MB."
 
 #: 
-msgid "Image"
-msgstr "Obrázok"
+msgid "Total Views: "
+msgstr "Celkový počet zobrazení: "
+
+#: 
+msgid "Model"
+msgstr "Model"
+
+#: 
+msgid "Edit Tag"
+msgstr "Upraviť značku"
+
+#: 
+msgid "Reason"
+msgstr "Dôvod"
+
+#: 
+msgid "Not published"
+msgstr "Nezverejnené"
+
+#: 
+msgid "Your account has been confirmed. You can now log in."
+msgstr "Váš účet bol potvrdený. Teraz sa môžete prihlásiť."
+
+#: 
+msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
+msgstr "Slim musí byť bezpečný pre adresy URL (iba malé písmená, čísla a spojovníky)"
+
+#: 
+msgid "Internationalisation"
+msgstr "Internacionalizácia"
+
+#: 
+msgid "Enter text"
+msgstr "Zadajte text"
+
+#: 
+msgid "The value must not be empty."
+msgstr "Hodnota nesmie byť prázdna."
+
+#: 
+msgid "The article could not be saved. Please, try again."
+msgstr "Článok sa nepodarilo uložiť. Skúste to znova."
+
+#: 
+msgid "Users"
+msgstr "Používatelia"
+
+#: 
+msgid "List {0}"
+msgstr "Zoznam {0}"
+
+#: 
+msgid "New {0}"
+msgstr "Nové {0}"
+
+#: 
+msgid "Show Less"
+msgstr "Zobraziť menej"
+
+#: 
+msgid "API request failed. Please try again later."
+msgstr "Žiadosť API zlyhala. Skúste to znova neskôr."
+
+#: 
+msgid "Update Article"
+msgstr "Aktualizovať článok"
+
+#: 
+msgid "Settings"
+msgstr "Nastavenia"
+
+#: 
+msgid "Unable to delete logs in group {0}."
+msgstr "Nedajú sa odstrániť denníky v skupine {0}."
+
+#: 
+msgid "The slug could not be saved. Please, try again."
+msgstr "Slimák sa nepodarilo zachrániť. Skúste to znova."
+
+#: 
+msgid "Article not found"
+msgstr "Článok sa nenašiel"
+
+#: 
+msgid "{0} cache has been cleared successfully."
+msgstr "Vyrovnávacia pamäť {0} bola úspešne vymazaná."
+
+#: 
+msgid "Is Published"
+msgstr "Je zverejnené"
+
+#: 
+msgid "Edit Comment"
+msgstr "Upraviť komentár"
+
+#: 
+msgid "The tag could not be deleted. Please, try again."
+msgstr "Značku nebolo možné odstrániť. Skúste to znova."
+
+#: 
+msgid "Block IPs"
+msgstr "Blokovať adresy IP"
+
+#: 
+msgid "Code Coverage"
+msgstr "Pokrytie kódu"
+
+#: 
+msgid "Account"
+msgstr "účtu"
+
+#: 
+msgid "Some caches were cleared, but the following failed: {0}"
+msgstr "Niektoré vyrovnávacie pamäte boli vymazané, ale nasledujúce zlyhali: {0}"
+
+#: 
+msgid "Meta Description"
+msgstr "Meta popis"
+
+#: 
+msgid "Your password has been reset. Please log in with your new password."
+msgstr "Vaše heslo bolo obnovené. Prihláste sa prosím pomocou svojho nového hesla."
+
+#: 
+msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
+msgstr "E-mail bol úspešne odoslaný na adresu: {0}. Šablóna: {1}, Predmet: {2}"
+
+#: 
+msgid "Grid View"
+msgstr "Zobrazenie mriežky"
+
+#: 
+msgid "No comments yet."
+msgstr "Zatiaľ žiadne komentáre."
+
+#: 
+msgid "The email template could not be saved. Please, try again."
+msgstr "Šablónu e-mailu nebolo možné uložiť. Skúste to znova."
+
+#: 
+msgid "{0} Views"
+msgstr "Počet zobrazení: {0}"
+
+#: 
+msgid "Login"
+msgstr "Prihláste sa"
+
+#: 
+msgid "The requested address {0} was not found on this server."
+msgstr "Požadovaná adresa {0} sa na tomto serveri nenašla."
+
+#: 
+msgid "Registration successful, but there was an issue creating the confirmation link."
+msgstr "Registrácia bola úspešná, ale pri vytváraní odkazu na potvrdenie sa vyskytol problém."
+
+#: 
+msgid "Failed to save the image"
+msgstr "Obrázok sa nepodarilo uložiť"
+
+#: 
+msgid "Keywords"
+msgstr "Kľúčové slová"
+
+#: 
+msgid "Please upload only images (jpeg, png, gif)."
+msgstr "Nahrávajte iba obrázky (jpeg, png, gif)."
+
+#: 
+msgid "No deleting your own account."
+msgstr "Žiadne vymazanie vlastného účtu."
+
+#: 
+msgid "All rights reserved."
+msgstr "Všetky práva vyhradené."
+
+#: 
+msgid "Register New Account"
+msgstr "Zaregistrujte si nový účet"
+
+#: 
+msgid "Modified"
+msgstr "Upravené"
+
+#: 
+msgid "The email template could not be deleted. Please, try again."
+msgstr "Šablónu e-mailu nebolo možné odstrániť. Skúste to znova."
+
+#: 
+msgid "Error loading images:"
+msgstr "Chyba pri načítavaní obrázkov:"
+
+#: 
+msgid "Tag not found"
+msgstr "Značka sa nenašla"
+
+#: 
+msgid "Send Email"
+msgstr "Odoslať e-mail"
+
+#: 
+msgid "Add Image"
+msgstr "Pridať obrázok"
+
+#: 
+msgid "The image has been deleted."
+msgstr "Obrázok bol odstránený."
+
+#: 
+msgid "Pages"
+msgstr "Stránky"
+
+#: 
+msgid "There was an issue resetting your password. Please try again."
+msgstr "Pri resetovaní hesla sa vyskytol problém. Skúste to znova."
+
+#: 
+msgid "Please enter your email and password"
+msgstr "Zadajte svoj e-mail a heslo"
+
+#: 
+msgid "Are you sure you want to delete this comment?"
+msgstr "Naozaj chcete odstrániť tento komentár?"
+
+#: 
+msgid "Show Full Article"
+msgstr "Zobraziť celý článok"
+
+#: 
+msgid "Associated Pages"
+msgstr "Pridružené stránky"
+
+#: 
+msgid "The comment could not be deleted. Please, try again."
+msgstr "Komentár sa nepodarilo odstrániť. Skúste to znova."
+
+#: 
+msgid "Are you sure you want to delete this prompt?"
+msgstr "Naozaj chcete odstrániť túto výzvu?"
+
+#: 
+msgid "This slug is already in use. Please enter a unique slug."
+msgstr "Tento slimák sa už používa. Zadajte jedinečného slimáka."
+
+#: 
+msgid "Search images..."
+msgstr "Hľadať obrázky..."
+
+#: 
+msgid "Article/Page"
+msgstr "Článok/Stránka"
+
+#: 
+msgid "Title"
+msgstr "Názov"
+
+#: 
+msgid "Cache Name"
+msgstr "Názov vyrovnávacej pamäte"
+
+#: 
+msgid "Search comments..."
+msgstr "Hľadať komentáre..."
+
+#: 
+msgid "Last Cleared"
+msgstr "Naposledy vymazané"
+
+#: 
+msgid "Bulk Upload"
+msgstr "Hromadné nahrávanie"
+
+#: 
+msgid "No images."
+msgstr "Žiadne obrázky."
+
+#: 
+msgid "No articles found for this tag."
+msgstr "Pre túto značku sa nenašli žiadne články."
+
+#: 
+msgid "The user could not be saved. Please, try again."
+msgstr "Používateľa sa nepodarilo uložiť. Skúste to znova."
+
+#: 
+msgid "You must be logged in to add a comment."
+msgstr "Ak chcete pridať komentár, musíte byť prihlásený."
+
+#: 
+msgid "You cannot remove your own admin status."
+msgstr "Nemôžete odstrániť svoj vlastný status správcu."
+
+#: 
+msgid "User Agent"
+msgstr "User Agent"
+
+#: 
+msgid "Display"
+msgstr "Displej"
+
+#: 
+msgid "Id"
+msgstr "Id"
+
+#: 
+msgid "The comment could not be saved. Please, try again."
+msgstr "Komentár sa nepodarilo uložiť. Skúste to znova."
+
+#: 
+msgid "Max Tokens"
+msgstr "Maximálny počet tokenov"
+
+#: 
+msgid "Delete {0}"
+msgstr "Odstrániť {0}"
+
+#: 
+msgid "Invalid type"
+msgstr "Neplatný typ"
+
+#: 
+msgid "IP Address"
+msgstr "IP adresa"
+
+#: 
+msgid "Yes"
+msgstr "áno"
+
+#: 
+msgid "Error"
+msgstr "Chyba"
 
 #: 
 msgid "Are you sure you want to delete IP {0}?"
@@ -1022,342 +602,818 @@ msgid "Edit Your Account"
 msgstr "Upravte svoj účet"
 
 #: 
-msgid "Tags"
-msgstr "Tagy"
+msgid "Clear"
+msgstr "Jasné"
 
 #: 
-msgid "Login"
-msgstr "Prihláste sa"
+msgid "The tag could not be saved. Please, try again."
+msgstr "Značku nebolo možné uložiť. Skúste to znova."
 
 #: 
-msgid "Message"
-msgstr "Správa"
+msgid "Invalid confirmation code."
+msgstr "Neplatný potvrdzovací kód."
 
 #: 
-msgid "The user has been deleted."
-msgstr "Používateľ bol odstránený."
-
-#: 
-msgid "Search slugs..."
-msgstr "Hľadať slimáky..."
-
-#: 
-msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
-msgstr "Slim musí byť bezpečný pre adresy URL (iba malé písmená, čísla a spojovníky)"
-
-#: 
-msgid "Too Many Requests"
-msgstr "Príliš veľa žiadostí"
-
-#: 
-msgid "Edit Slug"
-msgstr "Edit Slug"
-
-#: 
-msgid "AI Prompts"
-msgstr "Výzvy AI"
-
-#: 
-msgid "Comments"
-msgstr "Komentáre"
-
-#: 
-msgid "Add User"
-msgstr "Pridať používateľa"
-
-#: 
-msgid "{0} cache has been cleared successfully."
-msgstr "Vyrovnávacia pamäť {0} bola úspešne vymazaná."
-
-#: 
-msgid "Missing required arguments in the message."
-msgstr "V správe chýbajú požadované argumenty."
-
-#: 
-msgid "Add Internationalisation"
-msgstr "Pridajte internacionalizáciu"
-
-#: 
-msgid "Are you sure you want to delete # {0}?"
-msgstr "Naozaj chcete odstrániť # {0}?"
-
-#: 
-msgid "Failed to send email to: {0}"
-msgstr "Odoslanie e-mailu na adresu: {0} zlyhalo"
-
-#: 
-msgid "SEO Fields"
-msgstr "SEO polia"
-
-#: 
-msgid "Are you sure you want to delete this prompt?"
-msgstr "Naozaj chcete odstrániť túto výzvu?"
-
-#: 
-msgid "The slug must be unique."
-msgstr "Slimák musí byť jedinečný."
-
-#: 
-msgid "Save All Settings"
-msgstr "Uložiť všetky nastavenia"
-
-#: 
-msgid "You cannot disable your own account."
-msgstr "Nemôžete deaktivovať svoj vlastný účet."
-
-#: 
-msgid "No tags are linked."
-msgstr "Nie sú prepojené žiadne značky."
-
-#: 
-msgid "Internationalisations"
-msgstr "Internacionalizácie"
-
-#: 
-msgid "Yes"
-msgstr "áno"
-
-#: 
-msgid "Error in: "
-msgstr "Chyba v: "
-
-#: 
-msgid "Pages"
-msgstr "Stránky"
-
-#: 
-msgid "Failed to send confirmation email message: {0}"
-msgstr "Nepodarilo sa odoslať potvrdzujúci e-mail: {0}"
-
-#: 
-msgid "Rate limit exceeded for IP: {0} on route: {1}"
-msgstr "Prekročený limit rýchlosti pre IP: {0} na trase: {1}"
-
-#: 
-msgid "Select a parent"
-msgstr "Vyberte rodiča"
-
-#: 
-msgid "Modified"
-msgstr "Upravené"
-
-#: 
-msgid "Email template not found: {0}"
-msgstr "Šablóna e-mailu sa nenašla: {0}"
-
-#: 
-msgid "Profile Picture"
-msgstr "Profilový obrázok"
-
-#: 
-msgid "Registration failed. Please, try again."
-msgstr "Registrácia zlyhala. Skúste to znova."
-
-#: 
-msgid "The blocked ip could not be saved. Please, try again."
-msgstr "Zablokovanú IP nebolo možné uložiť. Skúste to znova."
-
-#: 
-msgid "Error sending email: {0}"
-msgstr "Chyba pri odosielaní e-mailu: {0}"
-
-#: 
-msgid "Invalid type"
-msgstr "Neplatný typ"
-
-#: 
-msgid "Related Tags"
-msgstr "Súvisiace značky"
-
-#: 
-msgid "Is Published"
-msgstr "Je zverejnené"
-
-#: 
-msgid "The tag has been saved."
-msgstr "Značka bola uložená."
-
-#: 
-msgid "The email template could not be deleted. Please, try again."
-msgstr "Šablónu e-mailu nebolo možné odstrániť. Skúste to znova."
-
-#: 
-msgid "Admin"
-msgstr "Admin"
-
-#: 
-msgid "The aiprompt has been saved."
-msgstr "Aiprompt bol uložený."
-
-#: 
-msgid "Posted on {date} by {author}"
-msgstr "Uverejnené dňa {date} autorom {author}"
-
-#: 
-msgid "Enter a number"
-msgstr "Zadajte číslo"
-
-#: 
-msgid "Home"
-msgstr "Domov"
-
-#: 
-msgid "Are you sure you want to delete all logs?"
-msgstr "Naozaj chcete odstrániť všetky denníky?"
-
-#: 
-msgid "Unknown User"
-msgstr "Neznámy používateľ"
-
-#: 
-msgid "Edit {0}"
-msgstr "Upraviť {0}"
+msgid "The email template has been saved."
+msgstr "Šablóna e-mailu bola uložená."
 
 #: 
 msgid "New Blocked IP"
 msgstr "Nová zablokovaná IP"
 
 #: 
-msgid "Update User"
-msgstr "Aktualizovať používateľa"
+msgid "Edit"
+msgstr "Upraviť"
 
 #: 
-msgid "Show Details"
-msgstr "Zobraziť podrobnosti"
+msgid "Are you sure you want to delete all {0} logs?"
+msgstr "Naozaj chcete odstrániť všetky denníky ({0})?"
 
 #: 
-msgid "Related Articles"
-msgstr "Súvisiace články"
+msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
+msgstr "Slug je v konflikte s existujúcim presmerovaním SEO. Vyberte iný slimák."
 
 #: 
-msgid "Your account has been updated."
-msgstr "Váš účet bol aktualizovaný."
+msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
+msgstr "Nižšie sú uvedené informácie o nakonfigurovaných cache. Kliknutím na tlačidlo vymažete všetky vyrovnávacie pamäte alebo jednotlivé tlačidlá vyrovnávacej pamäte vymažete konkrétne vyrovnávacie pamäte."
 
 #: 
-msgid "View"
-msgstr "Zobraziť"
+msgid "{0} cache could not be cleared."
+msgstr "Vyrovnávacia pamäť {0} sa nepodarilo vymazať."
 
 #: 
-msgid "Error loading images:"
-msgstr "Chyba pri načítavaní obrázkov:"
+msgid "Body"
+msgstr "Telo"
 
 #: 
-msgid "All logs with level {0} have been deleted."
-msgstr "Všetky denníky s úrovňou {0} boli odstránené."
+msgid "Registration failed. Please, try again."
+msgstr "Registrácia zlyhala. Skúste to znova."
+
+#: 
+msgid "Name"
+msgstr "Meno"
+
+#: 
+msgid "Forgot Password?"
+msgstr "Zabudli ste heslo?"
+
+#: 
+msgid "Are you sure you want to delete # {0}?"
+msgstr "Naozaj chcete odstrániť # {0}?"
 
 #: 
 msgid "Filter"
 msgstr "Filter"
 
 #: 
-msgid "Created"
-msgstr "Vytvorené"
+msgid "Article ID:"
+msgstr "ID článku:"
 
 #: 
-msgid "Published"
-msgstr "Zverejnené"
+msgid "Comments"
+msgstr "Komentáre"
 
 #: 
-msgid "Blocked IPs"
-msgstr "Blokované adresy IP"
+msgid "New User"
+msgstr "Nový používateľ"
 
 #: 
-msgid "Associated Pages"
-msgstr "Pridružené stránky"
+msgid "New Slug"
+msgstr "Nový Slimák"
 
 #: 
-msgid "Slug:"
-msgstr "Slimák:"
-
-#: 
-msgid "New Internationalisation"
-msgstr "Nová internacionalizácia"
-
-#: 
-msgid "New Email Template"
-msgstr "Nová šablóna e-mailu"
-
-#: 
-msgid "Show"
-msgstr "Zobraziť"
-
-#: 
-msgid "Submit"
-msgstr "Odoslať"
-
-#: 
-msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
-msgstr "Strana {{page}} z {{pages}}, zobrazuje sa {{current}} záznam(ov) z celkového počtu {{count}}"
-
-#: 
-msgid "Instagram Description"
-msgstr "Popis Instagramu"
-
-#: 
-msgid "Please log in to add a comment"
-msgstr "Ak chcete pridať komentár, prihláste sa"
-
-#: 
-msgid "No"
-msgstr "Nie"
-
-#: 
-msgid "Article not found."
-msgstr "Článok sa nenašiel."
-
-#: 
-msgid "Description"
-msgstr "Popis"
-
-#: 
-msgid "No page view data available for this article."
-msgstr "Pre tento článok nie sú k dispozícii žiadne údaje o zobrazení stránky."
-
-#: 
-msgid "The slug could not be saved. Please, try again."
-msgstr "Slimák sa nepodarilo zachrániť. Skúste to znova."
-
-#: 
-msgid "This slug is already in use in articles. Please enter a unique slug."
-msgstr "Tento slimák sa už používa v článkoch. Zadajte jedinečného slimáka."
-
-#: 
-msgid "The internationalisation has been saved."
-msgstr "Internacionalizácia bola uložená."
-
-#: 
-msgid "The internationalisation could not be saved. Please, try again."
-msgstr "Internacionalizáciu sa nepodarilo zachrániť. Skúste to znova."
-
-#: 
-msgid "IP Address"
-msgstr "IP adresa"
+msgid "Message Str"
+msgstr "Správa Str"
 
 #: 
 msgid "Logout"
 msgstr "Odhlásiť sa"
 
 #: 
+msgid "The image could not be deleted. Please, try again."
+msgstr "Obrázok sa nepodarilo odstrániť. Skúste to znova."
+
+#: 
+msgid "Invalid username or password"
+msgstr "Neplatné používateľské meno alebo heslo"
+
+#: 
+msgid "The tag has been saved."
+msgstr "Značka bola uložená."
+
+#: 
+msgid "Body Text"
+msgstr "Text tela"
+
+#: 
+msgid "View"
+msgstr "Zobraziť"
+
+#: 
+msgid "Back to Login"
+msgstr "Späť na Prihlásenie"
+
+#: 
+msgid "Article not found."
+msgstr "Článok sa nenašiel."
+
+#: 
+msgid "Modified At"
+msgstr "Upravené v"
+
+#: 
+msgid "No internationalizations found for the provided IDs."
+msgstr "Pre poskytnuté ID sa nenašli žiadne internacionalizácie."
+
+#: 
+msgid "Slugs"
+msgstr "Slimáky"
+
+#: 
+msgid "All Levels"
+msgstr "Všetky úrovne"
+
+#: 
+msgid "AI Prompts"
+msgstr "Výzvy AI"
+
+#: 
+msgid "Facebook Description"
+msgstr "Popis na Facebooku"
+
+#: 
+msgid "Posted on {date} by {author}"
+msgstr "Uverejnené dňa {date} autorom {author}"
+
+#: 
+msgid "All logs have been deleted."
+msgstr "Všetky denníky boli vymazané."
+
+#: 
+msgid "Access denied. You must be an admin to view this page."
+msgstr "Prístup odmietnutý. Ak chcete zobraziť túto stránku, musíte byť správcom."
+
+#: 
+msgid "Reset Password"
+msgstr "Obnoviť heslo"
+
+#: 
+msgid "Your comment has been added."
+msgstr "Váš komentár bol pridaný."
+
+#: 
+msgid "All Locales"
+msgstr "Všetky miestne nastavenia"
+
+#: 
+msgid "Enter a number"
+msgstr "Zadajte číslo"
+
+#: 
+msgid "Add Blocked IP"
+msgstr "Pridať blokovanú IP"
+
+#: 
+msgid "Add Page"
+msgstr "Pridať stránku"
+
+#: 
+msgid "No pages found."
+msgstr "Nenašli sa žiadne stránky."
+
+#: 
+msgid "Invalid or expired password reset link."
+msgstr "Odkaz na obnovenie hesla je neplatný alebo mu vypršala platnosť."
+
+#: 
+msgid "Please enter your email to reset your password"
+msgstr "Zadajte svoj e-mail na obnovenie hesla"
+
+#: 
+msgid "The image could not be saved. Please, try again."
+msgstr "Obrázok sa nepodarilo uložiť. Skúste to znova."
+
+#: 
+msgid "Configured Caches"
+msgstr "Konfigurované vyrovnávacie pamäte"
+
+#: 
+msgid "Locale"
+msgstr "Miestne nastavenie"
+
+#: 
+msgid "Rate limit exceeded for IP: {0} on route: {1}"
+msgstr "Prekročený limit rýchlosti pre IP: {0} na trase: {1}"
+
+#: 
+msgid "Search users..."
+msgstr "Hľadať používateľov..."
+
+#: 
+msgid "Email template not found: {0}"
+msgstr "Šablóna e-mailu sa nenašla: {0}"
+
+#: 
+msgid "System Prompt"
+msgstr "Systémová výzva"
+
+#: 
+msgid "Additional Images"
+msgstr "Ďalšie obrázky"
+
+#: 
+msgid "Edit Article"
+msgstr "Upraviť článok"
+
+#: 
+msgid "Bulk Upload Images"
+msgstr "Hromadné nahrávanie obrázkov"
+
+#: 
+msgid "Search slugs..."
+msgstr "Hľadať slimáky..."
+
+#: 
+msgid "Comment for {0}"
+msgstr "Komentár pre {0}"
+
+#: 
+msgid "Edit Internationalisation"
+msgstr "Upraviť internacionalizáciu"
+
+#: 
+msgid "The slug has been deleted."
+msgstr "Slimák bol vymazaný."
+
+#: 
+msgid "Referer"
+msgstr "Referent"
+
+#: 
+msgid "Edit Aiprompt"
+msgstr "Upraviť Aiprompt"
+
+#: 
+msgid "The user has been deleted."
+msgstr "Používateľ bol odstránený."
+
+#: 
+msgid "The blocked ip could not be deleted. Please, try again."
+msgstr "Zablokovanú IP nebolo možné odstrániť. Skúste to znova."
+
+#: 
+msgid "You cannot disable your own account."
+msgstr "Nemôžete deaktivovať svoj vlastný účet."
+
+#: 
+msgid "Twitter Description"
+msgstr "Popis na Twitteri"
+
+#: 
+msgid "New Image"
+msgstr "Nový obrázok"
+
+#: 
+msgid "Edit Slug"
+msgstr "Edit Slug"
+
+#: 
+msgid "Invalid value for the specified type."
+msgstr "Neplatná hodnota pre zadaný typ."
+
+#: 
+msgid "Failed to send password reset email: {0}"
+msgstr "Nepodarilo sa odoslať e-mail na obnovenie hesla: {0}"
+
+#: 
+msgid "Cache Management"
+msgstr "Správa vyrovnávacej pamäte"
+
+#: 
+msgid "Slug:"
+msgstr "Slimák:"
+
+#: 
+msgid "The internationalisation could not be deleted. Please, try again."
+msgstr "Internacionalizáciu nebolo možné odstrániť. Skúste to znova."
+
+#: 
+msgid "List Email Templates"
+msgstr "Zoznam e-mailových šablón"
+
+#: 
+msgid "A value is required"
+msgstr "Vyžaduje sa hodnota"
+
+#: 
+msgid "Slug"
+msgstr "Slimák"
+
+#: 
+msgid "Edit {0}"
+msgstr "Upraviť {0}"
+
+#: 
+msgid "Image"
+msgstr "Obrázok"
+
+#: 
+msgid "Updated At"
+msgstr "Aktualizované o"
+
+#: 
+msgid "Add Internationalisation"
+msgstr "Pridajte internacionalizáciu"
+
+#: 
+msgid "Save All Settings"
+msgstr "Uložiť všetky nastavenia"
+
+#: 
+msgid "The slug has been saved."
+msgstr "Slimák bol zachránený."
+
+#: 
+msgid "The image has been saved."
+msgstr "Obrázok bol uložený."
+
+#: 
+msgid "Comment"
+msgstr "Komentujte"
+
+#: 
+msgid "LinkedIn Description"
+msgstr "Popis LinkedIn"
+
+#: 
+msgid "Blocked At"
+msgstr "Blokované o"
+
+#: 
+msgid "Please enter your new password"
+msgstr "Zadajte svoje nové heslo"
+
+#: 
+msgid "Update Slug"
+msgstr "Aktualizovať Slug"
+
+#: 
+msgid "Meta Title"
+msgstr "Meta názov"
+
+#: 
+msgid "The blocked ip has been saved."
+msgstr "Zablokovaná ip bola uložená."
+
+#: 
+msgid "New Internationalisation"
+msgstr "Nová internacionalizácia"
+
+#: 
+msgid "Send Reset Link"
+msgstr "Odoslať odkaz na obnovenie"
+
+#: 
+msgid "Meta Keywords"
+msgstr "Meta kľúčové slová"
+
+#: 
+msgid "{0} cache configuration does not exist."
+msgstr "Konfigurácia vyrovnávacej pamäte {0} neexistuje."
+
+#: 
 msgid "Article"
 msgstr "Článok"
+
+#: 
+msgid "New AI Prompt"
+msgstr "Nová výzva AI"
+
+#: 
+msgid "The slug could not be deleted. Please, try again."
+msgstr "Slimák sa nepodarilo odstrániť. Skúste to znova."
+
+#: 
+msgid "Too Many Requests"
+msgstr "Príliš veľa žiadostí"
+
+#: 
+msgid "Message Id"
+msgstr "ID správy"
+
+#: 
+msgid "Blocked IPs"
+msgstr "Blokované adresy IP"
+
+#: 
+msgid "No"
+msgstr "Nie"
+
+#: 
+msgid "Unknown User"
+msgstr "Neznámy používateľ"
+
+#: 
+msgid "Comments are not enabled"
+msgstr "Komentáre nie sú povolené"
+
+#: 
+msgid "Submit"
+msgstr "Odoslať"
+
+#: 
+msgid "System Logs"
+msgstr "Systémové denníky"
+
+#: 
+msgid "Is Inappropriate"
+msgstr "Je nevhodné"
+
+#: 
+msgid "The value must be 0 or 1."
+msgstr "Hodnota musí byť 0 alebo 1."
+
+#: 
+msgid "Read More"
+msgstr "Prečítajte si viac"
+
+#: 
+msgid "Instagram Description"
+msgstr "Popis Instagramu"
+
+#: 
+msgid "Image uploaded successfully"
+msgstr "Obrázok bol úspešne odovzdaný"
+
+#: 
+msgid "This slug is already in use in articles. Please enter a unique slug."
+msgstr "Tento slimák sa už používa v článkoch. Zadajte jedinečného slimáka."
+
+#: 
+msgid "You are not authorized to edit this account, stick to your own."
+msgstr "Nemáte oprávnenie upravovať tento účet, držte sa svojho."
+
+#: 
+msgid "Front Site"
+msgstr "Predná stránka"
+
+#: 
+msgid "Show Details"
+msgstr "Zobraziť podrobnosti"
+
+#: 
+msgid "Registration successful. Please check your email for confirmation."
+msgstr "Registrácia úspešná. Skontrolujte svoj e-mail pre potvrdenie."
+
+#: 
+msgid "Never"
+msgstr "Nikdy"
+
+#: 
+msgid "Related Tags"
+msgstr "Súvisiace značky"
+
+#: 
+msgid "Submit Comment"
+msgstr "Odoslať komentár"
+
+#: 
+msgid "List Blocked IPs"
+msgstr "Zoznam blokovaných adries IP"
+
+#: 
+msgid "Edit Blocked IP"
+msgstr "Upraviť blokovanú IP"
+
+#: 
+msgid "The tag has been deleted."
+msgstr "Značka bola odstránená."
+
+#: 
+msgid "Confirm Password"
+msgstr "Potvrďte heslo"
+
+#: 
+msgid "No page view data available for this article."
+msgstr "Pre tento článok nie sú k dispozícii žiadne údaje o zobrazení stránky."
+
+#: 
+msgid "Is AI Analyzed"
+msgstr "Je AI analyzovaná"
+
+#: 
+msgid "Your account has been updated."
+msgstr "Váš účet bol aktualizovaný."
+
+#: 
+msgid "Context"
+msgstr "Kontext"
+
+#: 
+msgid "Update Aiprompt"
+msgstr "Aktualizujte Aiprompt"
 
 #: 
 msgid "Back"
 msgstr "Späť"
 
 #: 
-msgid "Content"
-msgstr "Obsah"
+msgid "The comment has been deleted."
+msgstr "Komentár bol odstránený."
+
+#: 
+msgid "If your email is registered, you will receive a link to reset your password."
+msgstr "Ak je váš e-mail zaregistrovaný, dostanete odkaz na obnovenie hesla."
+
+#: 
+msgid "The user could not be deleted. Please, try again."
+msgstr "Používateľa sa nepodarilo odstrániť. Skúste to znova."
+
+#: 
+msgid "The internationalisation has been saved."
+msgstr "Internacionalizácia bola uložená."
+
+#: 
+msgid "Admin"
+msgstr "Admin"
+
+#: 
+msgid "New Tag"
+msgstr "Nová značka"
+
+#: 
+msgid "All Tags"
+msgstr "Všetky značky"
+
+#: 
+msgid "Edit Image"
+msgstr "Upraviť obrázok"
+
+#: 
+msgid "Page View Statistics for slug: {0}"
+msgstr "Štatistika zobrazenia stránky pre slug: {0}"
+
+#: 
+msgid "Register"
+msgstr "Zaregistrujte sa"
+
+#: 
+msgid "The settings have been saved."
+msgstr "Nastavenia boli uložené."
+
+#: 
+msgid "Articles"
+msgstr "články"
+
+#: 
+msgid "Username"
+msgstr "Používateľské meno"
+
+#: 
+msgid "Failed to send email. Please check your email configuration."
+msgstr "Odoslanie e-mailu zlyhalo. Skontrolujte konfiguráciu e-mailu."
+
+#: 
+msgid "Hide"
+msgstr "Skryť"
+
+#: 
+msgid "Inappropriate Reason"
+msgstr "Nevhodný dôvod"
+
+#: 
+msgid "By"
+msgstr "Autor:"
+
+#: 
+msgid "The article has been deleted."
+msgstr "Článok bol zmazaný."
+
+#: 
+msgid "The comment has been saved."
+msgstr "Komentár bol uložený."
+
+#: 
+msgid "The blocked ip could not be saved. Please, try again."
+msgstr "Zablokovanú IP nebolo možné uložiť. Skúste to znova."
+
+#: 
+msgid "Add Email Template"
+msgstr "Pridať šablónu e-mailu"
+
+#: 
+msgid "Unknown Author"
+msgstr "Neznámy autor"
+
+#: 
+msgid "Email sent successfully."
+msgstr "E-mail bol úspešne odoslaný."
+
+#: 
+msgid "Details"
+msgstr "Podrobnosti"
+
+#: 
+msgid "The internationalisation could not be saved. Please, try again."
+msgstr "Internacionalizáciu sa nepodarilo zachrániť. Skúste to znova."
+
+#: 
+msgid "Error sending email: {0}"
+msgstr "Chyba pri odosielaní e-mailu: {0}"
+
+#: 
+msgid "Cache"
+msgstr "Cache"
+
+#: 
+msgid "Email Templates"
+msgstr "Šablóny e-mailov"
+
+#: 
+msgid "An error occurred while processing your request."
+msgstr "Pri spracovaní vašej požiadavky sa vyskytla chyba."
+
+#: 
+msgid "All logs with level {0} have been deleted."
+msgstr "Všetky denníky s úrovňou {0} boli odstránené."
+
+#: 
+msgid "Update User"
+msgstr "Aktualizovať používateľa"
+
+#: 
+msgid "Email"
+msgstr "Email"
+
+#: 
+msgid "Word Count"
+msgstr "Počet slov"
+
+#: 
+msgid "Error saving {0}.{1}: {2}"
+msgstr "Chyba pri ukladaní {0}.{1}: {2}"
+
+#: 
+msgid "Picture"
+msgstr "Obrázok"
+
+#: 
+msgid "Unable to delete all logs."
+msgstr "Nie je možné odstrániť všetky denníky."
+
+#: 
+msgid "Task Type"
+msgstr "Typ úlohy"
+
+#: 
+msgid "New Email Template"
+msgstr "Nová šablóna e-mailu"
+
+#: 
+msgid "Created At"
+msgstr "Vytvorené o"
+
+#: 
+msgid "Views"
+msgstr "Zobrazenia"
+
+#: 
+msgid "All Groups"
+msgstr "Všetky skupiny"
+
+#: 
+msgid "Related Articles"
+msgstr "Súvisiace články"
+
+#: 
+msgid "Clear All Cache"
+msgstr "Vymazať všetku vyrovnávaciu pamäť"
+
+#: 
+msgid "The article has been saved."
+msgstr "Článok bol uložený."
+
+#: 
+msgid "Message"
+msgstr "Správa"
+
+#: 
+msgid "Live"
+msgstr "Naživo"
+
+#: 
+msgid "Add a Comment"
+msgstr "Pridať komentár"
+
+#: 
+msgid "User"
+msgstr "Používateľ"
 
 #: 
 msgid "Level"
 msgstr "úroveň"
 
 #: 
+msgid "Add Slug"
+msgstr "Pridajte Slug"
+
+#: 
+msgid "English"
+msgstr "angličtina"
+
+#: 
+msgid "Created"
+msgstr "Vytvorené"
+
+#: 
 msgid "Toggle SEO Fields"
 msgstr "Prepnúť SEO polia"
 
 #: 
-msgid "The tag could not be deleted. Please, try again."
-msgstr "Značku nebolo možné odstrániť. Skúste to znova."
+msgid "Forgot Password"
+msgstr "Zabudnuté heslo"
+
+#: 
+msgid "Unable to delete logs with level {0}."
+msgstr "Nedajú sa odstrániť denníky s úrovňou {0}."
+
+#: 
+msgid "Temperature"
+msgstr "Teplota"
+
+#: 
+msgid "An Internal Error Has Occurred."
+msgstr "Vyskytla sa interná chyba."
+
+#: 
+msgid "Edit Settings"
+msgstr "Upraviť nastavenia"
+
+#: 
+msgid "Actions"
+msgstr "Akcie"
+
+#: 
+msgid "There was an issue confirming your account. Please try again."
+msgstr "Pri potvrdení vášho účtu sa vyskytol problém. Skúste to znova."
+
+#: 
+msgid "Content"
+msgstr "Obsah"
+
+#: 
+msgid "The slug must be unique."
+msgstr "Slimák musí byť jedinečný."
+
+#: 
+msgid "Alt Text"
+msgstr "Alternatívny text"
+
+#: 
+msgid "Tags"
+msgstr "Tagy"
+
+#: 
+msgid "Are you sure you want to delete all logs?"
+msgstr "Naozaj chcete odstrániť všetky denníky?"
+
+#: 
+msgid "Update Comment"
+msgstr "Aktualizovať komentár"
+
+#: 
+msgid "Add User"
+msgstr "Pridať používateľa"
+
+#: 
+msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
+msgstr "Strana {{page}} z {{pages}}, zobrazuje sa {{current}} záznam(ov) z celkového počtu {{count}}"
+
+#: 
+msgid "Search logs..."
+msgstr "Prehľadávať denníky..."
+
+#: 
+msgid "Search articles..."
+msgstr "Hľadať články..."
+
+#: 
+msgid "Add AI Prompt"
+msgstr "Pridať výzvu AI"
+
+#: 
+msgid "Edit Email Template"
+msgstr "Upraviť šablónu e-mailu"
+
+#: 
+msgid "Internationalisations"
+msgstr "Internacionalizácie"
+
+#: 
+msgid "Delete"
+msgstr "Odstrániť"
+
+#: 
+msgid "List View"
+msgstr "Zobrazenie zoznamu"
 

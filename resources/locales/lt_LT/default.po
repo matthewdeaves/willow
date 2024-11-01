@@ -14,392 +14,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
 #: 
-msgid "Task Type"
-msgstr "Užduoties tipas"
-
-#: 
-msgid "Filter"
-msgstr "Filtruoti"
-
-#: 
-msgid "Body Text"
-msgstr "Kūno tekstas"
-
-#: 
-msgid "The article has been deleted."
-msgstr "Straipsnis ištrintas."
-
-#: 
-msgid "No pages found."
-msgstr "Puslapių nerasta."
-
-#: 
-msgid "No"
-msgstr "Nr"
-
-#: 
-msgid "New Slug"
-msgstr "Naujas šliužas"
-
-#: 
-msgid "English"
-msgstr "anglų kalba"
-
-#: 
-msgid "IP Address"
-msgstr "IP adresas"
-
-#: 
-msgid "Please upload only images (jpeg, png, gif)."
-msgstr "Įkelkite tik vaizdus (jpeg, png, gif)."
-
-#: 
-msgid "List Blocked IPs"
-msgstr "Užblokuotų IP sąrašas"
-
-#: 
-msgid "Are you sure you want to delete # {0}?"
-msgstr "Ar tikrai norite ištrinti # {0}?"
-
-#: 
-msgid "Edit Image"
-msgstr "Redaguoti vaizdą"
-
-#: 
-msgid "The comment has been deleted."
-msgstr "Komentaras ištrintas."
-
-#: 
-msgid "Published"
-msgstr "Paskelbta"
-
-#: 
-msgid "You cannot remove your own admin status."
-msgstr "Negalite pašalinti savo administratoriaus būsenos."
-
-#: 
-msgid "Additional Images"
-msgstr "Papildomi vaizdai"
-
-#: 
-msgid "Edit"
-msgstr "Redaguoti"
-
-#: 
-msgid "Related Tags"
-msgstr "Susijusios žymos"
-
-#: 
-msgid "Page Views for {0}"
-msgstr "{0} puslapio peržiūros"
-
-#: 
-msgid "Your account has been confirmed. You can now log in."
-msgstr "Jūsų paskyra patvirtinta. Dabar galite prisijungti."
-
-#: 
-msgid "Article/Page"
-msgstr "Straipsnis/Puslapis"
-
-#: 
-msgid "Live"
-msgstr "Tiesiogiai"
-
-#: 
-msgid "Date"
-msgstr "Data"
-
-#: 
-msgid "Too Many Requests"
-msgstr "Per daug prašymų"
-
-#: 
-msgid "Send Email"
-msgstr "Siųsti el"
-
-#: 
-msgid "The article could not be deleted. Please, try again."
-msgstr "Straipsnio ištrinti nepavyko. Bandykite dar kartą."
-
-#: 
-msgid "The email template could not be saved. Please, try again."
-msgstr "El. pašto šablono nepavyko išsaugoti. Bandykite dar kartą."
-
-#: 
-msgid "Slugs"
-msgstr "Šliužai"
-
-#: 
-msgid "Add a Comment"
-msgstr "Pridėti komentarą"
-
-#: 
-msgid "Access denied. You must be an admin to view this page."
-msgstr "Prieiga uždrausta. Norėdami peržiūrėti šį puslapį, turite būti administratorius."
-
-#: 
-msgid "Add Article"
-msgstr "Pridėti straipsnį"
-
-#: 
-msgid "Please enter your email and password"
-msgstr "Įveskite savo el. pašto adresą ir slaptažodį"
-
-#: 
-msgid "Admin"
-msgstr "Admin"
-
-#: 
-msgid "The blocked ip could not be saved. Please, try again."
-msgstr "Užblokuoto IP nepavyko išsaugoti. Bandykite dar kartą."
-
-#: 
-msgid "Clear All Cache"
-msgstr "Išvalyti visą talpyklą"
-
-#: 
-msgid "The image could not be deleted. Please, try again."
-msgstr "Nepavyko ištrinti vaizdo. Bandykite dar kartą."
-
-#: 
-msgid "Alt Text"
-msgstr "Alternatyvus tekstas"
-
-#: 
-msgid "Never"
-msgstr "Niekada"
-
-#: 
-msgid "The slug must be unique."
-msgstr "Šliužas turi būti unikalus."
-
-#: 
-msgid "Images"
-msgstr "Vaizdai"
-
-#: 
-msgid "Engine"
-msgstr "Variklis"
-
-#: 
-msgid "All Locales"
-msgstr "Visos vietos"
-
-#: 
-msgid "Edit Your Account"
-msgstr "Redaguokite savo paskyrą"
-
-#: 
-msgid "Cache"
-msgstr "Talpykla"
-
-#: 
-msgid "View detailed records for this date"
-msgstr "Peržiūrėkite išsamius šios datos įrašus"
-
-#: 
-msgid "The image has been saved."
-msgstr "Vaizdas išsaugotas."
-
-#: 
-msgid "LinkedIn Description"
-msgstr "LinkedIn aprašymas"
-
-#: 
-msgid "Reason"
-msgstr "Priežastis"
-
-#: 
-msgid "Id"
-msgstr "Id"
-
-#: 
-msgid "Tag not found"
-msgstr "Žyma nerasta"
-
-#: 
-msgid "Subject"
-msgstr "Tema"
-
-#: 
-msgid "Error saving {0}.{1}: {2}"
-msgstr "Klaida išsaugant {0}.{1}: {2}"
-
-#: 
-msgid "Updated At"
-msgstr "Atnaujinta"
-
-#: 
-msgid "SEO Fields"
-msgstr "SEO laukai"
-
-#: 
-msgid "Show Less"
-msgstr "Rodyti mažiau"
-
-#: 
-msgid "New Tag"
-msgstr "Nauja žyma"
-
-#: 
-msgid "Slug"
-msgstr "Šliužas"
-
-#: 
-msgid "All logs with level {0} have been deleted."
-msgstr "Visi žurnalai su lygiu {0} buvo ištrinti."
-
-#: 
 msgid "Setting not found: {0}.{1}"
 msgstr "Nustatymas nerastas: {0}.{1}"
 
 #: 
-msgid "You cannot disable your own account."
-msgstr "Negalite išjungti savo paskyros."
+msgid "Update Comment"
+msgstr "Atnaujinti komentarą"
 
 #: 
-msgid "Unable to delete logs with level {0}."
-msgstr "Nepavyko ištrinti žurnalų, kurių lygis yra {0}."
+msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
+msgstr "Žemiau pateikiama informacija apie sukonfigūruotas talpyklas. Spustelėkite mygtuką, kad išvalytumėte visas talpyklas, arba atskirus talpyklos mygtukus, kad išvalytumėte konkrečias talpyklas."
 
 #: 
-msgid "Edit Email Template"
-msgstr "Redaguoti el. pašto šabloną"
+msgid "{0} Views"
+msgstr "{0} peržiūros"
 
 #: 
-msgid "Are you sure you want to delete {0}?"
-msgstr "Ar tikrai norite ištrinti {0}?"
+msgid "Update Tag"
+msgstr "Atnaujinti žymą"
 
 #: 
-msgid "Failed to update translation for message ID: {0}"
-msgstr "Nepavyko atnaujinti pranešimo ID vertimo: {0}"
-
-#: 
-msgid "Are you sure you want to delete all {0} logs?"
-msgstr "Ar tikrai norite ištrinti visus {0} žurnalus?"
-
-#: 
-msgid "Message"
-msgstr "Pranešimas"
-
-#: 
-msgid "Article ID:"
-msgstr "Straipsnio ID:"
-
-#: 
-msgid "Word Count"
-msgstr "Žodžių skaičius"
-
-#: 
-msgid "No deleting your own account."
-msgstr "Negalima ištrinti savo paskyros."
-
-#: 
-msgid "Main Picture"
-msgstr "Pagrindinis paveikslas"
-
-#: 
-msgid "New User"
-msgstr "Naujas vartotojas"
-
-#: 
-msgid "Internationalisations"
-msgstr "Internacionalizacijos"
-
-#: 
-msgid "Email sent successfully."
-msgstr "El. laiškas sėkmingai išsiųstas."
-
-#: 
-msgid "Your account has been updated."
-msgstr "Jūsų paskyra atnaujinta."
-
-#: 
-msgid "Add AI Prompt"
-msgstr "Pridėti AI raginimą"
-
-#: 
-msgid "Username"
-msgstr "Vartotojo vardas"
-
-#: 
-msgid "Show Details"
-msgstr "Rodyti išsamią informaciją"
-
-#: 
-msgid "Edit Aiprompt"
-msgstr "Redaguoti „Aiprompt“."
-
-#: 
-msgid "Delete"
-msgstr "Ištrinti"
-
-#: 
-msgid "Failed to send email to: {0}"
-msgstr "Nepavyko išsiųsti el. pašto adresu: {0}"
-
-#: 
-msgid "New Email Template"
-msgstr "Naujas el. pašto šablonas"
-
-#: 
-msgid "The article could not be saved. Please, try again."
-msgstr "Straipsnio išsaugoti nepavyko. Bandykite dar kartą."
-
-#: 
-msgid "Login"
-msgstr "Prisijungti"
-
-#: 
-msgid "Search articles..."
-msgstr "Ieškoti straipsnių..."
-
-#: 
-msgid "Register New Account"
-msgstr "Užregistruoti naują paskyrą"
-
-#: 
-msgid "Back"
-msgstr "Atgal"
-
-#: 
-msgid "All rights reserved."
-msgstr "Visos teisės saugomos."
-
-#: 
-msgid "Facebook Description"
-msgstr "Facebook aprašymas"
-
-#: 
-msgid "The internationalisation could not be deleted. Please, try again."
-msgstr "Internacionalizavimo nepavyko ištrinti. Bandykite dar kartą."
-
-#: 
-msgid "Your comment has been added."
-msgstr "Jūsų komentaras pridėtas."
-
-#: 
-msgid "No articles found for this tag."
-msgstr "Nerasta straipsnių pagal šią žymą."
-
-#: 
-msgid "Are you sure you want to delete all logs?"
-msgstr "Ar tikrai norite ištrinti visus žurnalus?"
-
-#: 
-msgid "Search logs..."
-msgstr "Ieškoti žurnaluose..."
-
-#: 
-msgid "All Levels"
-msgstr "Visi lygiai"
-
-#: 
-msgid "The user has been saved."
-msgstr "Vartotojas buvo išsaugotas."
-
-#: 
-msgid "Add Image"
-msgstr "Pridėti vaizdą"
+msgid "Users"
+msgstr "Vartotojai"
 
 #: 
 msgid "Edit Comment"
@@ -410,48 +46,536 @@ msgid "Are you sure you want to delete comment by {0}?"
 msgstr "Ar tikrai norite ištrinti {0} komentarą?"
 
 #: 
+msgid "The tag has been deleted."
+msgstr "Žyma ištrinta."
+
+#: 
+msgid "The article has been saved."
+msgstr "Straipsnis išsaugotas."
+
+#: 
+msgid "Add Slug"
+msgstr "Pridėti šliužą"
+
+#: 
+msgid "Admin"
+msgstr "Admin"
+
+#: 
+msgid "LinkedIn Description"
+msgstr "LinkedIn aprašymas"
+
+#: 
+msgid "List View"
+msgstr "Sąrašo rodinys"
+
+#: 
+msgid "Profile Picture"
+msgstr "Profilio nuotrauka"
+
+#: 
+msgid "Failed to save the image"
+msgstr "Nepavyko išsaugoti vaizdo"
+
+#: 
+msgid "The blocked ip could not be deleted. Please, try again."
+msgstr "Užblokuoto IP nepavyko ištrinti. Bandykite dar kartą."
+
+#: 
+msgid "All Levels"
+msgstr "Visi lygiai"
+
+#: 
+msgid "Show"
+msgstr "Rodyti"
+
+#: 
+msgid "Alt Text"
+msgstr "Alternatyvus tekstas"
+
+#: 
+msgid "Invalid username or password"
+msgstr "Neteisingas vartotojo vardas arba slaptažodis"
+
+#: 
+msgid "Access denied. You must be an admin to view this page."
+msgstr "Prieiga uždrausta. Norėdami peržiūrėti šį puslapį, turite būti administratorius."
+
+#: 
+msgid "If your email is registered, you will receive a link to reset your password."
+msgstr "Jei jūsų el. paštas yra užregistruotas, gausite nuorodą, kad iš naujo nustatytumėte slaptažodį."
+
+#: 
+msgid "The image could not be deleted. Please, try again."
+msgstr "Nepavyko ištrinti vaizdo. Bandykite dar kartą."
+
+#: 
+msgid "Article ID:"
+msgstr "Straipsnio ID:"
+
+#: 
+msgid "No comments yet."
+msgstr "Komentarų dar nėra."
+
+#: 
+msgid "Title"
+msgstr "Pavadinimas"
+
+#: 
+msgid "Context"
+msgstr "Kontekstas"
+
+#: 
+msgid "Toggle SEO Fields"
+msgstr "Perjungti SEO laukus"
+
+#: 
+msgid "The email template has been deleted."
+msgstr "El. pašto šablonas buvo ištrintas."
+
+#: 
+msgid "Update User"
+msgstr "Atnaujinti vartotoją"
+
+#: 
+msgid "Actions"
+msgstr "Veiksmai"
+
+#: 
 msgid "Not published"
 msgstr "Nepaskelbta"
 
 #: 
-msgid "Unable to delete all logs."
-msgstr "Nepavyko ištrinti visų žurnalų."
+msgid "Unable to delete logs with level {0}."
+msgstr "Nepavyko ištrinti žurnalų, kurių lygis yra {0}."
 
 #: 
-msgid "The tag has been saved."
-msgstr "Žyma išsaugota."
+msgid "Unable to add your comment."
+msgstr "Nepavyko pridėti jūsų komentaro."
 
 #: 
-msgid "The user has been deleted."
-msgstr "Vartotojas buvo ištrintas."
+msgid "Some settings could not be saved. Please, try again."
+msgstr "Kai kurių nustatymų nepavyko išsaugoti. Bandykite dar kartą."
 
 #: 
-msgid "Details"
-msgstr "Detalės"
+msgid "Delete"
+msgstr "Ištrinti"
 
 #: 
-msgid "Too many requests. Please try again later."
-msgstr "Per daug prašymų. Bandykite dar kartą vėliau."
+msgid "Message Id"
+msgstr "Pranešimo ID"
 
 #: 
-msgid "Error loading images:"
-msgstr "Įkeliant vaizdus įvyko klaida:"
+msgid "Please enter your email and password"
+msgstr "Įveskite savo el. pašto adresą ir slaptažodį"
 
 #: 
-msgid "Views"
-msgstr "Peržiūros"
+msgid "Blocked At"
+msgstr "Užblokuota"
+
+#: 
+msgid "Updated At"
+msgstr "Atnaujinta"
+
+#: 
+msgid "The article has been deleted."
+msgstr "Straipsnis ištrintas."
+
+#: 
+msgid "Edit Image"
+msgstr "Redaguoti vaizdą"
+
+#: 
+msgid "The user has been saved."
+msgstr "Vartotojas buvo išsaugotas."
+
+#: 
+msgid "Slugs"
+msgstr "Šliužai"
+
+#: 
+msgid "Article"
+msgstr "Straipsnis"
+
+#: 
+msgid "All Locales"
+msgstr "Visos vietos"
+
+#: 
+msgid "Please enter your email to reset your password"
+msgstr "Įveskite savo el. pašto adresą, kad iš naujo nustatytumėte slaptažodį"
+
+#: 
+msgid "Add Tag"
+msgstr "Pridėti žymą"
+
+#: 
+msgid "Modified At"
+msgstr "Pakeistas adresu"
+
+#: 
+msgid "Pages"
+msgstr "Puslapiai"
+
+#: 
+msgid "Comments are not enabled"
+msgstr "Komentarai neįjungti"
 
 #: 
 msgid "Error in: "
 msgstr "Klaida: "
 
 #: 
-msgid "Comment"
-msgstr "komentuoti"
+msgid "Article not found"
+msgstr "Straipsnis nerastas"
+
+#: 
+msgid "Search logs..."
+msgstr "Ieškoti žurnaluose..."
+
+#: 
+msgid "Delete All Logs"
+msgstr "Ištrinti visus žurnalus"
+
+#: 
+msgid "The email template has been saved."
+msgstr "El. pašto šablonas išsaugotas."
+
+#: 
+msgid "The tag could not be deleted. Please, try again."
+msgstr "Nepavyko ištrinti žymos. Bandykite dar kartą."
+
+#: 
+msgid "New Internationalisation"
+msgstr "Naujoji internacionalizacija"
+
+#: 
+msgid "Inappropriate Reason"
+msgstr "Netinkama Priežastis"
+
+#: 
+msgid "Home"
+msgstr "Pradžia"
+
+#: 
+msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
+msgstr "Puslapis {{page}} iš {{puslapių}}, rodomas {{current}} įrašas (-ai) iš {{count}} viso"
+
+#: 
+msgid "A value is required"
+msgstr "Reikšmė būtina"
+
+#: 
+msgid "Date"
+msgstr "Data"
+
+#: 
+msgid "An Internal Error Has Occurred."
+msgstr "Įvyko vidinė klaida."
+
+#: 
+msgid "All logs have been deleted."
+msgstr "Visi žurnalai buvo ištrinti."
+
+#: 
+msgid "Details"
+msgstr "Detalės"
+
+#: 
+msgid "Search comments..."
+msgstr "Ieškoti komentarų..."
+
+#: 
+msgid "Created At"
+msgstr "Sukurta"
+
+#: 
+msgid "{0} cache configuration does not exist."
+msgstr "{0} talpyklos konfigūracija neegzistuoja."
+
+#: 
+msgid "Comment for {0}"
+msgstr "Komentaras {0}"
+
+#: 
+msgid "Your account has been updated."
+msgstr "Jūsų paskyra atnaujinta."
+
+#: 
+msgid "Are you sure you want to delete this prompt?"
+msgstr "Ar tikrai norite ištrinti šį raginimą?"
+
+#: 
+msgid "Submit"
+msgstr "Pateikti"
+
+#: 
+msgid "The email template could not be deleted. Please, try again."
+msgstr "El. pašto šablono nepavyko ištrinti. Bandykite dar kartą."
+
+#: 
+msgid "Are you sure you want to delete all logs?"
+msgstr "Ar tikrai norite ištrinti visus žurnalus?"
+
+#: 
+msgid "Published"
+msgstr "Paskelbta"
+
+#: 
+msgid "Add Internationalisation"
+msgstr "Pridėti internacionalizaciją"
+
+#: 
+msgid "Image must be less than 5MB."
+msgstr "Vaizdas turi būti mažesnis nei 5 MB."
+
+#: 
+msgid "Related Articles"
+msgstr "Susiję straipsniai"
+
+#: 
+msgid "Additional Images"
+msgstr "Papildomi vaizdai"
+
+#: 
+msgid "The slug could not be deleted. Please, try again."
+msgstr "Šliužo nepavyko ištrinti. Bandykite dar kartą."
+
+#: 
+msgid "Add Blocked IP"
+msgstr "Pridėti užblokuotą IP"
+
+#: 
+msgid "Email Templates"
+msgstr "El. pašto šablonai"
+
+#: 
+msgid "Is Admin"
+msgstr "Yra administratorius"
+
+#: 
+msgid "The value must not be empty."
+msgstr "Vertė neturi būti tuščia."
+
+#: 
+msgid "Twitter Description"
+msgstr "„Twitter“ aprašymas"
+
+#: 
+msgid "Back to Login"
+msgstr "Grįžti į prisijungimą"
+
+#: 
+msgid "English"
+msgstr "anglų kalba"
+
+#: 
+msgid "Is Inappropriate"
+msgstr "Yra Netinkamas"
+
+#: 
+msgid "The slug could not be saved. Please, try again."
+msgstr "Šliužo išgelbėti nepavyko. Bandykite dar kartą."
+
+#: 
+msgid "Edit Blocked IP"
+msgstr "Redaguoti užblokuotą IP"
+
+#: 
+msgid "Slug"
+msgstr "Šliužas"
+
+#: 
+msgid "The settings have been saved."
+msgstr "Nustatymai buvo išsaugoti."
+
+#: 
+msgid "Last Cleared"
+msgstr "Paskutinį kartą išvalyta"
+
+#: 
+msgid "Registration successful. Please check your email for confirmation."
+msgstr "Registracija sėkminga. Patikrinkite savo el. paštą, kad gautumėte patvirtinimo."
+
+#: 
+msgid "Login"
+msgstr "Prisijungti"
+
+#: 
+msgid "Email sent successfully."
+msgstr "El. laiškas sėkmingai išsiųstas."
+
+#: 
+msgid "Article not found."
+msgstr "Straipsnis nerastas."
+
+#: 
+msgid "The slug has been saved."
+msgstr "Šliužas išgelbėtas."
+
+#: 
+msgid "Invalid value for the specified type."
+msgstr "Netinkama nurodyto tipo vertė."
+
+#: 
+msgid "The blocked ip has been saved."
+msgstr "Užblokuotas IP buvo išsaugotas."
+
+#: 
+msgid "Unknown User"
+msgstr "Nežinomas vartotojas"
+
+#: 
+msgid "The article could not be deleted. Please, try again."
+msgstr "Straipsnio ištrinti nepavyko. Bandykite dar kartą."
+
+#: 
+msgid "Is AI Analyzed"
+msgstr "Ar AI analizuojamas"
+
+#: 
+msgid "Account"
+msgstr "sąskaita"
+
+#: 
+msgid "Update Article"
+msgstr "Atnaujinti straipsnį"
+
+#: 
+msgid "View"
+msgstr "Žiūrėti"
+
+#: 
+msgid "Read More"
+msgstr "Skaityti Daugiau"
+
+#: 
+msgid "The user has been deleted."
+msgstr "Vartotojas buvo ištrintas."
+
+#: 
+msgid "The user could not be saved. Please, try again."
+msgstr "Nepavyko išsaugoti vartotojo. Bandykite dar kartą."
 
 #: 
 msgid "The user could not be deleted. Please, try again."
 msgstr "Nepavyko ištrinti vartotojo. Bandykite dar kartą."
+
+#: 
+msgid "The blocked ip could not be saved. Please, try again."
+msgstr "Užblokuoto IP nepavyko išsaugoti. Bandykite dar kartą."
+
+#: 
+msgid "Summary"
+msgstr "Santrauka"
+
+#: 
+msgid "Search slugs..."
+msgstr "Ieškoti šliužų..."
+
+#: 
+msgid "Please upload only images (jpeg, png, gif)."
+msgstr "Įkelkite tik vaizdus (jpeg, png, gif)."
+
+#: 
+msgid "SEO Fields"
+msgstr "SEO laukai"
+
+#: 
+msgid "The internationalisation has been saved."
+msgstr "Internacionalizacija buvo išsaugota."
+
+#: 
+msgid "Word Count"
+msgstr "Žodžių skaičius"
+
+#: 
+msgid "Logout"
+msgstr "Atsijungti"
+
+#: 
+msgid "Search users..."
+msgstr "Ieškoti vartotojų..."
+
+#: 
+msgid "By"
+msgstr "Autorius"
+
+#: 
+msgid "Image uploaded successfully"
+msgstr "Vaizdas sėkmingai įkeltas"
+
+#: 
+msgid "No pages found."
+msgstr "Puslapių nerasta."
+
+#: 
+msgid "Edit"
+msgstr "Redaguoti"
+
+#: 
+msgid "All Tags"
+msgstr "Visos žymos"
+
+#: 
+msgid "The comment could not be deleted. Please, try again."
+msgstr "Komentaro ištrinti nepavyko. Bandykite dar kartą."
+
+#: 
+msgid "Article/Page"
+msgstr "Straipsnis/Puslapis"
+
+#: 
+msgid "An error occurred while processing your request."
+msgstr "Apdorojant jūsų užklausą įvyko klaida."
+
+#: 
+msgid "Error sending email: {0}"
+msgstr "Klaida siunčiant el. laišką: {0}"
+
+#: 
+msgid "Never"
+msgstr "Niekada"
+
+#: 
+msgid "Registration successful, but there was an issue creating the confirmation link."
+msgstr "Registracija sėkminga, tačiau kuriant patvirtinimo nuorodą kilo problema."
+
+#: 
+msgid "Reset Password"
+msgstr "Iš naujo nustatyti slaptažodį"
+
+#: 
+msgid "Confirm Password"
+msgstr "Patvirtinkite slaptažodį"
+
+#: 
+msgid "Clear"
+msgstr "Aišku"
+
+#: 
+msgid "No tags are linked."
+msgstr "Nėra susietų žymų."
+
+#: 
+msgid "Are you sure you want to delete IP {0}?"
+msgstr "Ar tikrai norite ištrinti IP {0}?"
+
+#: 
+msgid "Show Less"
+msgstr "Rodyti mažiau"
+
+#: 
+msgid "Yes"
+msgstr "Taip"
+
+#: 
+msgid "User Agent"
+msgstr "Vartotojo agentas"
+
+#: 
+msgid "Please enter your new password"
+msgstr "Įveskite naują slaptažodį"
 
 #: 
 msgid "Show Full Article"
@@ -462,902 +586,834 @@ msgid "Delete {0}"
 msgstr "Ištrinti {0}"
 
 #: 
-msgid "Settings"
-msgstr "Nustatymai"
+msgid "Enter a number"
+msgstr "Įveskite skaičių"
 
 #: 
-msgid "Content"
-msgstr "Turinys"
+msgid "Id"
+msgstr "Id"
+
+#: 
+msgid "Message"
+msgstr "Pranešimas"
 
 #: 
 msgid "Posted on {date} by {author}"
 msgstr "{date} paskelbė {author}"
 
 #: 
-msgid "Picture"
-msgstr "Paveikslėlis"
-
-#: 
-msgid "Add Internationalisation"
-msgstr "Pridėti internacionalizaciją"
-
-#: 
-msgid "Image uploaded successfully"
-msgstr "Vaizdas sėkmingai įkeltas"
-
-#: 
-msgid "The internationalisation has been saved."
-msgstr "Internacionalizacija buvo išsaugota."
-
-#: 
-msgid "Twitter Description"
-msgstr "„Twitter“ aprašymas"
-
-#: 
-msgid "No images."
-msgstr "Jokių vaizdų."
-
-#: 
-msgid "The aiprompt could not be saved. Please, try again."
-msgstr "Nepavyko išsaugoti užklausos. Bandykite dar kartą."
-
-#: 
-msgid "Inappropriate Reason"
-msgstr "Netinkama Priežastis"
-
-#: 
-msgid "Enter a number"
-msgstr "Įveskite skaičių"
-
-#: 
-msgid "Error sending email: {0}"
-msgstr "Klaida siunčiant el. laišką: {0}"
-
-#: 
-msgid "List View"
-msgstr "Sąrašo rodinys"
-
-#: 
-msgid "Update Aiprompt"
-msgstr "Atnaujinkite „Aiprompt“."
-
-#: 
-msgid "Model"
-msgstr "Modelis"
-
-#: 
-msgid "New Article"
-msgstr "Naujas straipsnis"
-
-#: 
-msgid "Add Page"
-msgstr "Pridėti puslapį"
-
-#: 
-msgid "Slug:"
-msgstr "Šliužas:"
-
-#: 
-msgid "Users"
-msgstr "Vartotojai"
-
-#: 
-msgid "The blocked ip could not be deleted. Please, try again."
-msgstr "Užblokuoto IP nepavyko ištrinti. Bandykite dar kartą."
-
-#: 
-msgid "{0} cache has been cleared successfully."
-msgstr "{0} talpykla sėkmingai išvalyta."
-
-#: 
-msgid "Submit"
-msgstr "Pateikti"
-
-#: 
-msgid "New Blocked IP"
-msgstr "Naujas užblokuotas IP"
-
-#: 
-msgid "Description"
-msgstr "Aprašymas"
-
-#: 
-msgid "The user could not be saved. Please, try again."
-msgstr "Nepavyko išsaugoti vartotojo. Bandykite dar kartą."
-
-#: 
-msgid "Update Tag"
-msgstr "Atnaujinti žymą"
-
-#: 
-msgid "Add Slug"
-msgstr "Pridėti šliužą"
-
-#: 
-msgid "Level"
-msgstr "Lygis"
-
-#: 
-msgid "Some settings could not be saved. Please, try again."
-msgstr "Kai kurių nustatymų nepavyko išsaugoti. Bandykite dar kartą."
-
-#: 
-msgid "Edit Blocked IP"
-msgstr "Redaguoti užblokuotą IP"
-
-#: 
-msgid "This message_id must be unique for the given locale."
-msgstr "Šis pranešimo_id turi būti unikalus nurodytai lokalei."
-
-#: 
-msgid "Max Tokens"
-msgstr "Max žetonai"
-
-#: 
-msgid "Select a parent"
-msgstr "Pasirinkite tėvą"
-
-#: 
-msgid "Home"
-msgstr "Pradžia"
-
-#: 
-msgid "Show"
-msgstr "Rodyti"
-
-#: 
-msgid "Search images..."
-msgstr "Ieškoti vaizdų..."
-
-#: 
-msgid "New {0}"
-msgstr "Naujas {0}"
-
-#: 
-msgid "Comments"
-msgstr "Komentarai"
-
-#: 
-msgid "Submit Comment"
-msgstr "Pateikite komentarą"
-
-#: 
-msgid "A value is required"
-msgstr "Reikšmė būtina"
-
-#: 
-msgid "The aiprompt has been saved."
-msgstr "Skrydis buvo išsaugotas."
-
-#: 
-msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
-msgstr "Sluoksnis turi būti saugus URL (tik mažosios raidės, skaičiai ir brūkšneliai)"
-
-#: 
-msgid "No view records found for this article."
-msgstr "Nerasta šio straipsnio peržiūros įrašų."
-
-#: 
-msgid "Error"
-msgstr "Klaida"
-
-#: 
-msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
-msgstr "El. laiškas sėkmingai išsiųstas: {0}. Šablonas: {1}, tema: {2}"
-
-#: 
-msgid "Last Cleared"
-msgstr "Paskutinį kartą išvalyta"
-
-#: 
-msgid "Edit Settings"
-msgstr "Redaguoti nustatymus"
-
-#: 
-msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
-msgstr "Puslapis {{page}} iš {{puslapių}}, rodomas {{current}} įrašas (-ai) iš {{count}} viso"
-
-#: 
-msgid "New AI Prompt"
-msgstr "Naujas AI raginimas"
-
-#: 
-msgid "Failed to send email. Please check your email configuration."
-msgstr "Nepavyko išsiųsti el. Patikrinkite el. pašto konfigūraciją."
-
-#: 
-msgid "Meta Description"
-msgstr "Meta aprašymas"
-
-#: 
-msgid "The comment has been saved."
-msgstr "Komentaras išsaugotas."
-
-#: 
-msgid "Cache Name"
-msgstr "Talpyklos pavadinimas"
-
-#: 
-msgid "Registration failed. Please, try again."
-msgstr "Registracija nepavyko. Bandykite dar kartą."
-
-#: 
-msgid "Body"
-msgstr "Kūnas"
-
-#: 
-msgid "Add Tag"
-msgstr "Pridėti žymą"
-
-#: 
-msgid "Registration successful, but there was an issue creating the confirmation link."
-msgstr "Registracija sėkminga, tačiau kuriant patvirtinimo nuorodą kilo problema."
-
-#: 
-msgid "Instagram Description"
-msgstr "Instagram aprašymas"
-
-#: 
-msgid "All Tags"
-msgstr "Visos žymos"
-
-#: 
-msgid "The comment could not be saved. Please, try again."
-msgstr "Nepavyko išsaugoti komentaro. Bandykite dar kartą."
-
-#: 
-msgid "Total Views: "
-msgstr "Bendras peržiūrų skaičius: "
-
-#: 
-msgid "Block IPs"
-msgstr "Blokuoti IP"
-
-#: 
-msgid "Toggle SEO Fields"
-msgstr "Perjungti SEO laukus"
-
-#: 
-msgid "Update User"
-msgstr "Atnaujinti vartotoją"
-
-#: 
-msgid "Is Published"
-msgstr "Paskelbtas"
-
-#: 
-msgid "Are you sure you want to delete this comment?"
-msgstr "Ar tikrai norite ištrinti šį komentarą?"
-
-#: 
-msgid "Image must be less than 5MB."
-msgstr "Vaizdas turi būti mažesnis nei 5 MB."
-
-#: 
-msgid "The tag could not be deleted. Please, try again."
-msgstr "Nepavyko ištrinti žymos. Bandykite dar kartą."
-
-#: 
-msgid "Invalid value for the specified type."
-msgstr "Netinkama nurodyto tipo vertė."
-
-#: 
-msgid "The settings have been saved."
-msgstr "Nustatymai buvo išsaugoti."
-
-#: 
-msgid "Context"
-msgstr "Kontekstas"
-
-#: 
-msgid "The value must not be empty."
-msgstr "Vertė neturi būti tuščia."
-
-#: 
-msgid "The slug has been saved."
-msgstr "Šliužas išgelbėtas."
-
-#: 
-msgid "List {0}"
-msgstr "Sąrašas {0}"
-
-#: 
-msgid "All caches have been cleared successfully."
-msgstr "Visos talpyklos buvo sėkmingai išvalytos."
-
-#: 
-msgid "Code Coverage"
-msgstr "Kodo aprėptis"
-
-#: 
-msgid "Add User"
-msgstr "Pridėti naudotoją"
-
-#: 
-msgid "The tag could not be saved. Please, try again."
-msgstr "Žymos nepavyko išsaugoti. Bandykite dar kartą."
-
-#: 
-msgid "Yes"
-msgstr "Taip"
-
-#: 
-msgid "Logout"
-msgstr "Atsijungti"
-
-#: 
-msgid "The article has been saved."
-msgstr "Straipsnis išsaugotas."
-
-#: 
-msgid "No page view data available for this article."
-msgstr "Nėra šio straipsnio puslapio peržiūros duomenų."
-
-#: 
-msgid "The email template has been deleted."
-msgstr "El. pašto šablonas buvo ištrintas."
-
-#: 
-msgid "The value must be a number."
-msgstr "Reikšmė turi būti skaičius."
-
-#: 
-msgid "Email"
-msgstr "El. paštas"
-
-#: 
-msgid "Meta Title"
-msgstr "Meta pavadinimas"
-
-#: 
-msgid "Temperature"
-msgstr "Temperatūra"
-
-#: 
-msgid "Are you sure you want to delete all logs in group {0}?"
-msgstr "Ar tikrai norite ištrinti visus žurnalus grupėje {0}?"
-
-#: 
-msgid "Are you sure you want to delete this prompt?"
-msgstr "Ar tikrai norite ištrinti šį raginimą?"
-
-#: 
-msgid "Summary"
-msgstr "Santrauka"
-
-#: 
-msgid "Related Articles"
-msgstr "Susiję straipsniai"
-
-#: 
-msgid "Clear"
-msgstr "Aišku"
-
-#: 
-msgid "Invalid username or password"
-msgstr "Neteisingas vartotojo vardas arba slaptažodis"
-
-#: 
-msgid "No comments yet."
-msgstr "Komentarų dar nėra."
-
-#: 
-msgid "The internationalisation could not be saved. Please, try again."
-msgstr "Internacionalizavimo nepavyko išsaugoti. Bandykite dar kartą."
-
-#: 
-msgid "The blocked ip has been saved."
-msgstr "Užblokuotas IP buvo išsaugotas."
-
-#: 
-msgid "Edit Article"
-msgstr "Redaguoti straipsnį"
-
-#: 
-msgid "The comment could not be deleted. Please, try again."
-msgstr "Komentaro ištrinti nepavyko. Bandykite dar kartą."
-
-#: 
-msgid "Message Str"
-msgstr "Pranešimas Str"
-
-#: 
-msgid "Unable to add your comment."
-msgstr "Nepavyko pridėti jūsų komentaro."
-
-#: 
-msgid "Are you sure you want to delete IP {0}?"
-msgstr "Ar tikrai norite ištrinti IP {0}?"
-
-#: 
-msgid "By"
-msgstr "Autorius"
-
-#: 
-msgid "All Groups"
-msgstr "Visos grupės"
-
-#: 
-msgid "Configured Caches"
-msgstr "Sukonfigūruotos talpyklos"
-
-#: 
-msgid "Is Inappropriate"
-msgstr "Yra Netinkamas"
-
-#: 
-msgid "Internationalisation"
-msgstr "Internacionalizacija"
-
-#: 
-msgid "AI Prompts"
-msgstr "AI raginimai"
-
-#: 
-msgid "Bulk Upload"
-msgstr "Masinis įkėlimas"
-
-#: 
-msgid "Logs"
-msgstr "Rąstai"
-
-#: 
-msgid "System Logs"
-msgstr "Sistemos žurnalai"
-
-#: 
-msgid "Body HTML"
-msgstr "Turinio HTML"
-
-#: 
-msgid "Page Views"
-msgstr "Puslapių peržiūros"
-
-#: 
-msgid "Tags"
-msgstr "Žymos"
-
-#: 
-msgid "Confirm Password"
-msgstr "Patvirtinkite slaptažodį"
-
-#: 
-msgid "Modified"
-msgstr "Modifikuota"
-
-#: 
-msgid "The tag has been deleted."
-msgstr "Žyma ištrinta."
-
-#: 
-msgid "Cache Management"
-msgstr "Talpyklos valdymas"
-
-#: 
-msgid "The email template could not be deleted. Please, try again."
-msgstr "El. pašto šablono nepavyko ištrinti. Bandykite dar kartą."
-
-#: 
 msgid "User"
 msgstr "Vartotojas"
-
-#: 
-msgid "Add Blocked IP"
-msgstr "Pridėti užblokuotą IP"
-
-#: 
-msgid "Created"
-msgstr "Sukurta"
-
-#: 
-msgid "Edit Internationalisation"
-msgstr "Redaguoti internacionalizavimą"
-
-#: 
-msgid "Locale"
-msgstr "Lokalė"
-
-#: 
-msgid "Delete All Logs"
-msgstr "Ištrinti visus žurnalus"
-
-#: 
-msgid "Email template not found: {0}"
-msgstr "El. pašto šablonas nerastas: {0}"
-
-#: 
-msgid "{0} cache configuration does not exist."
-msgstr "{0} talpyklos konfigūracija neegzistuoja."
-
-#: 
-msgid "Group Name"
-msgstr "Grupės pavadinimas"
-
-#: 
-msgid "Account"
-msgstr "sąskaita"
-
-#: 
-msgid "Unknown Author"
-msgstr "Nežinomas autorius"
-
-#: 
-msgid "Search tags..."
-msgstr "Ieškoti žymų..."
-
-#: 
-msgid "The log has been deleted."
-msgstr "Žurnalas buvo ištrintas."
-
-#: 
-msgid "All logs have been deleted."
-msgstr "Visi žurnalai buvo ištrinti."
-
-#: 
-msgid "New Internationalisation"
-msgstr "Naujoji internacionalizacija"
-
-#: 
-msgid "New Image"
-msgstr "Naujas vaizdas"
-
-#: 
-msgid "System Prompt"
-msgstr "Sistemos raginimas"
 
 #: 
 msgid "Edit User"
 msgstr "Redaguoti naudotoją"
 
 #: 
-msgid "Edit Tag"
-msgstr "Redaguoti žymą"
+msgid "Unknown Author"
+msgstr "Nežinomas autorius"
 
 #: 
-msgid "Update Comment"
-msgstr "Atnaujinti komentarą"
+msgid "Are you sure you want to delete all logs in group {0}?"
+msgstr "Ar tikrai norite ištrinti visus žurnalus grupėje {0}?"
 
 #: 
-msgid "No tags are linked."
-msgstr "Nėra susietų žymų."
+msgid "The email template could not be saved. Please, try again."
+msgstr "El. pašto šablono nepavyko išsaugoti. Bandykite dar kartą."
 
 #: 
-msgid "The slug has been deleted."
-msgstr "Šliužas buvo ištrintas."
-
-#: 
-msgid "Missing required arguments in the message."
-msgstr "Pranešime trūksta būtinų argumentų."
-
-#: 
-msgid "Update Image"
-msgstr "Atnaujinti vaizdą"
-
-#: 
-msgid "Enter text"
-msgstr "Įveskite tekstą"
-
-#: 
-msgid "Add Email Template"
-msgstr "Pridėti el. pašto šabloną"
-
-#: 
-msgid "The email template has been saved."
-msgstr "El. pašto šablonas išsaugotas."
-
-#: 
-msgid "Associated Pages"
-msgstr "Susiję puslapiai"
-
-#: 
-msgid "All logs in group {0} have been deleted."
-msgstr "Visi žurnalai grupėje {0} buvo ištrinti."
-
-#: 
-msgid "Are you sure you want to clear {0}?"
-msgstr "Ar tikrai norite išvalyti {0}?"
-
-#: 
-msgid "Invalid type"
-msgstr "Netinkamas tipas"
-
-#: 
-msgid "The value must be 0 or 1."
-msgstr "Reikšmė turi būti 0 arba 1."
-
-#: 
-msgid "The image could not be saved. Please, try again."
-msgstr "Vaizdo išsaugoti nepavyko. Bandykite dar kartą."
-
-#: 
-msgid "Register"
-msgstr "Registruotis"
-
-#: 
-msgid "The slug could not be deleted. Please, try again."
-msgstr "Šliužo nepavyko ištrinti. Bandykite dar kartą."
-
-#: 
-msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
-msgstr "Žemiau pateikiama informacija apie sukonfigūruotas talpyklas. Spustelėkite mygtuką, kad išvalytumėte visas talpyklas, arba atskirus talpyklos mygtukus, kad išvalytumėte konkrečias talpyklas."
-
-#: 
-msgid "Unable to delete logs in group {0}."
-msgstr "Nepavyko ištrinti žurnalų grupėje {0}."
-
-#: 
-msgid "Failed to save the image"
-msgstr "Nepavyko išsaugoti vaizdo"
-
-#: 
-msgid "Page View Statistics for slug: {0}"
-msgstr "Puslapio peržiūros statistika apie šliužą: {0}"
-
-#: 
-msgid "Expires At"
-msgstr "Galiojimas baigiasi val"
-
-#: 
-msgid "Front Site"
-msgstr "Priekinė svetainė"
-
-#: 
-msgid "Is Admin"
-msgstr "Yra administratorius"
+msgid "Search articles..."
+msgstr "Ieškoti straipsnių..."
 
 #: 
 msgid "The requested address {0} was not found on this server."
 msgstr "Prašomas adresas {0} šiame serveryje nerastas."
 
 #: 
-msgid "Save All Settings"
-msgstr "Išsaugoti visus nustatymus"
-
-#: 
-msgid "Title"
-msgstr "Pavadinimas"
-
-#: 
-msgid "Name"
-msgstr "Vardas"
-
-#: 
-msgid "{0} cache could not be cleared."
-msgstr "Nepavyko išvalyti {0} talpyklos."
-
-#: 
-msgid "Password must be at least 8 characters long"
-msgstr "Slaptažodis turi būti bent 8 simbolių ilgio"
-
-#: 
-msgid "Article"
-msgstr "Straipsnis"
-
-#: 
-msgid "Email Templates"
-msgstr "El. pašto šablonai"
-
-#: 
-msgid "Update Slug"
-msgstr "Atnaujinkite Slug"
-
-#: 
-msgid "There was an issue confirming your account. Please try again."
-msgstr "Patvirtinant paskyrą kilo problema. Bandykite dar kartą."
-
-#: 
-msgid "Read More"
-msgstr "Skaityti Daugiau"
-
-#: 
-msgid "List Email Templates"
-msgstr "El. pašto šablonų sąrašas"
-
-#: 
-msgid "Blocked At"
-msgstr "Užblokuota"
-
-#: 
-msgid "Profile Picture"
-msgstr "Profilio nuotrauka"
-
-#: 
-msgid "Invalid confirmation code. Please contact support."
-msgstr "Neteisingas patvirtinimo kodas. Susisiekite su palaikymo komanda."
-
-#: 
-msgid "Registration successful. Please check your email for confirmation."
-msgstr "Registracija sėkminga. Patikrinkite savo el. paštą, kad gautumėte patvirtinimo."
-
-#: 
-msgid "Message Id"
-msgstr "Pranešimo ID"
-
-#: 
-msgid "Unable to delete the log."
-msgstr "Nepavyko ištrinti žurnalo."
-
-#: 
-msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
-msgstr "Slug nesuderinamas su esamu SEO peradresavimu. Pasirinkite kitą šliužą."
-
-#: 
-msgid "User Comments"
-msgstr "Vartotojo komentarai"
-
-#: 
-msgid "Edit Slug"
-msgstr "Redaguoti Slug"
-
-#: 
-msgid "Meta Keywords"
-msgstr "Meta Raktažodžiai"
-
-#: 
-msgid "Actions"
-msgstr "Veiksmai"
-
-#: 
-msgid "The slug could not be saved. Please, try again."
-msgstr "Šliužo išgelbėti nepavyko. Bandykite dar kartą."
-
-#: 
-msgid "You must be logged in to add a comment."
-msgstr "Norėdami pridėti komentarą, turite būti prisijungę."
-
-#: 
-msgid "An error occurred while processing your request."
-msgstr "Apdorojant jūsų užklausą įvyko klaida."
-
-#: 
-msgid "The internationalisation has been deleted."
-msgstr "Internacionalizavimas buvo ištrintas."
-
-#: 
-msgid "You are not authorized to edit this account, stick to your own."
-msgstr "Jūs neturite teisės redaguoti šios paskyros, laikykitės savo."
-
-#: 
-msgid "Display"
-msgstr "Ekranas"
-
-#: 
-msgid "Edit {0}"
-msgstr "Redaguoti {0}"
-
-#: 
-msgid "Some caches were cleared, but the following failed: {0}"
-msgstr "Kai kurios talpyklos buvo išvalytos, bet nepavyko: {0}"
-
-#: 
-msgid "Pages"
-msgstr "Puslapiai"
-
-#: 
-msgid "Unknown User"
-msgstr "Nežinomas vartotojas"
-
-#: 
-msgid "Is AI Analyzed"
-msgstr "Ar AI analizuojamas"
-
-#: 
-msgid "Grid View"
-msgstr "Tinklelio vaizdas"
-
-#: 
-msgid "Please log in to add a comment"
-msgstr "Jei norite pridėti komentarą, prisijunkite"
-
-#: 
-msgid "Bulk Upload Images"
-msgstr "Masinis vaizdų įkėlimas"
-
-#: 
-msgid "Hide"
-msgstr "Slėpti"
-
-#: 
-msgid "View"
-msgstr "Žiūrėti"
-
-#: 
-msgid "User Agent"
-msgstr "Vartotojo agentas"
-
-#: 
-msgid "Search users..."
-msgstr "Ieškoti vartotojų..."
-
-#: 
-msgid "Failed to send confirmation email message: {0}"
-msgstr "Nepavyko išsiųsti patvirtinimo el. pašto pranešimo: {0}"
-
-#: 
-msgid "Search slugs..."
-msgstr "Ieškoti šliužų..."
-
-#: 
-msgid "This slug is already in use. Please enter a unique slug."
-msgstr "Šis šliužas jau naudojamas. Įveskite unikalų šliužą."
-
-#: 
-msgid "API request failed. Please try again later."
-msgstr "API užklausa nepavyko. Bandykite dar kartą vėliau."
-
-#: 
-msgid "Rate limit exceeded for IP: {0} on route: {1}"
-msgstr "Viršytas IP tarifo limitas: {0} maršrute: {1}"
-
-#: 
-msgid "Blocked IPs"
-msgstr "Užblokuoti IP"
-
-#: 
-msgid "An Internal Error Has Occurred."
-msgstr "Įvyko vidinė klaida."
-
-#: 
-msgid "The blocked ip has been deleted."
-msgstr "Užblokuotas IP buvo ištrintas."
-
-#: 
-msgid "Comment for {0}"
-msgstr "Komentaras {0}"
-
-#: 
-msgid "Article not found."
-msgstr "Straipsnis nerastas."
-
-#: 
-msgid "Modified At"
-msgstr "Pakeistas adresu"
-
-#: 
-msgid "Search comments..."
-msgstr "Ieškoti komentarų..."
-
-#: 
-msgid "Keywords"
-msgstr "Raktažodžiai"
-
-#: 
-msgid "{0} Views"
-msgstr "{0} peržiūros"
+msgid "Internationalisations"
+msgstr "Internacionalizacijos"
 
 #: 
 msgid "Referer"
 msgstr "Referentas"
 
 #: 
-msgid "Article not found"
-msgstr "Straipsnis nerastas"
+msgid "Is Published"
+msgstr "Paskelbtas"
 
 #: 
-msgid "Created At"
-msgstr "Sukurta"
+msgid "No view records found for this article."
+msgstr "Nerasta šio straipsnio peržiūros įrašų."
 
 #: 
-msgid "No internationalizations found for the provided IDs."
-msgstr "Pateiktiems ID internacionalizavimo nerasta."
+msgid "The image has been saved."
+msgstr "Vaizdas išsaugotas."
 
 #: 
-msgid "The image has been deleted."
-msgstr "Vaizdas buvo ištrintas."
+msgid "Edit Article"
+msgstr "Redaguoti straipsnį"
+
+#: 
+msgid "Send Reset Link"
+msgstr "Siųsti Atstatyti nuorodą"
+
+#: 
+msgid "Engine"
+msgstr "Variklis"
+
+#: 
+msgid "Add a Comment"
+msgstr "Pridėti komentarą"
+
+#: 
+msgid "The tag could not be saved. Please, try again."
+msgstr "Žymos nepavyko išsaugoti. Bandykite dar kartą."
+
+#: 
+msgid "Update Image"
+msgstr "Atnaujinti vaizdą"
+
+#: 
+msgid "Email template not found: {0}"
+msgstr "El. pašto šablonas nerastas: {0}"
+
+#: 
+msgid "Bulk Upload Images"
+msgstr "Masinis vaizdų įkėlimas"
+
+#: 
+msgid "You are not authorized to edit this account, stick to your own."
+msgstr "Jūs neturite teisės redaguoti šios paskyros, laikykitės savo."
+
+#: 
+msgid "Images"
+msgstr "Vaizdai"
+
+#: 
+msgid "You cannot remove your own admin status."
+msgstr "Negalite pašalinti savo administratoriaus būsenos."
+
+#: 
+msgid "Send Email"
+msgstr "Siųsti el"
+
+#: 
+msgid "Unable to delete the log."
+msgstr "Nepavyko ištrinti žurnalo."
+
+#: 
+msgid "Unable to delete all logs."
+msgstr "Nepavyko ištrinti visų žurnalų."
+
+#: 
+msgid "Image"
+msgstr "Vaizdas"
+
+#: 
+msgid "No deleting your own account."
+msgstr "Negalima ištrinti savo paskyros."
+
+#: 
+msgid "Invalid confirmation code. Please contact support."
+msgstr "Neteisingas patvirtinimo kodas. Susisiekite su palaikymo komanda."
+
+#: 
+msgid "Body"
+msgstr "Kūnas"
+
+#: 
+msgid "This message_id must be unique for the given locale."
+msgstr "Šis pranešimo_id turi būti unikalus nurodytai lokalei."
+
+#: 
+msgid "Settings"
+msgstr "Nustatymai"
+
+#: 
+msgid "Tags"
+msgstr "Žymos"
+
+#: 
+msgid "Page Views for {0}"
+msgstr "{0} puslapio peržiūros"
+
+#: 
+msgid "Add User"
+msgstr "Pridėti naudotoją"
+
+#: 
+msgid "Add Image"
+msgstr "Pridėti vaizdą"
+
+#: 
+msgid "List Email Templates"
+msgstr "El. pašto šablonų sąrašas"
+
+#: 
+msgid "Missing required arguments in the message."
+msgstr "Pranešime trūksta būtinų argumentų."
+
+#: 
+msgid "There was an issue resetting your password. Please try again."
+msgstr "Iš naujo nustatant slaptažodį kilo problema. Bandykite dar kartą."
+
+#: 
+msgid "Logs"
+msgstr "Rąstai"
+
+#: 
+msgid "Are you sure you want to delete # {0}?"
+msgstr "Ar tikrai norite ištrinti # {0}?"
+
+#: 
+msgid "Task Type"
+msgstr "Užduoties tipas"
+
+#: 
+msgid "Add Article"
+msgstr "Pridėti straipsnį"
+
+#: 
+msgid "Body HTML"
+msgstr "Turinio HTML"
+
+#: 
+msgid "Your account has been confirmed. You can now log in."
+msgstr "Jūsų paskyra patvirtinta. Dabar galite prisijungti."
+
+#: 
+msgid "Enter text"
+msgstr "Įveskite tekstą"
+
+#: 
+msgid "New Tag"
+msgstr "Nauja žyma"
+
+#: 
+msgid "New Article"
+msgstr "Naujas straipsnis"
+
+#: 
+msgid "The internationalisation has been deleted."
+msgstr "Internacionalizavimas buvo ištrintas."
+
+#: 
+msgid "Body Text"
+msgstr "Kūno tekstas"
+
+#: 
+msgid "List Blocked IPs"
+msgstr "Užblokuotų IP sąrašas"
+
+#: 
+msgid "Code Coverage"
+msgstr "Kodo aprėptis"
+
+#: 
+msgid "New Email Template"
+msgstr "Naujas el. pašto šablonas"
+
+#: 
+msgid "Forgot Password"
+msgstr "Pamiršau slaptažodį"
+
+#: 
+msgid "{0} cache has been cleared successfully."
+msgstr "{0} talpykla sėkmingai išvalyta."
+
+#: 
+msgid "Are you sure you want to delete all {0} logs?"
+msgstr "Ar tikrai norite ištrinti visus {0} žurnalus?"
+
+#: 
+msgid "User Comments"
+msgstr "Vartotojo komentarai"
+
+#: 
+msgid "Page Views"
+msgstr "Puslapių peržiūros"
+
+#: 
+msgid "Select a parent"
+msgstr "Pasirinkite tėvą"
+
+#: 
+msgid "Unable to delete logs in group {0}."
+msgstr "Nepavyko ištrinti žurnalų grupėje {0}."
+
+#: 
+msgid "The slug has been deleted."
+msgstr "Šliužas buvo ištrintas."
+
+#: 
+msgid "New User"
+msgstr "Naujas vartotojas"
+
+#: 
+msgid "Tag not found"
+msgstr "Žyma nerasta"
+
+#: 
+msgid "Meta Description"
+msgstr "Meta aprašymas"
+
+#: 
+msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
+msgstr "El. laiškas sėkmingai išsiųstas: {0}. Šablonas: {1}, tema: {2}"
+
+#: 
+msgid "Some caches were cleared, but the following failed: {0}"
+msgstr "Kai kurios talpyklos buvo išvalytos, bet nepavyko: {0}"
+
+#: 
+msgid "Locale"
+msgstr "Lokalė"
+
+#: 
+msgid "New Image"
+msgstr "Naujas vaizdas"
+
+#: 
+msgid "Total Views: "
+msgstr "Bendras peržiūrų skaičius: "
+
+#: 
+msgid "Rate limit exceeded for IP: {0} on route: {1}"
+msgstr "Viršytas IP tarifo limitas: {0} maršrute: {1}"
+
+#: 
+msgid "Edit {0}"
+msgstr "Redaguoti {0}"
+
+#: 
+msgid "The aiprompt could not be saved. Please, try again."
+msgstr "Nepavyko išsaugoti užklausos. Bandykite dar kartą."
+
+#: 
+msgid "Configured Caches"
+msgstr "Sukonfigūruotos talpyklos"
+
+#: 
+msgid "Max Tokens"
+msgstr "Max žetonai"
+
+#: 
+msgid "Failed to send email to: {0}"
+msgstr "Nepavyko išsiųsti el. pašto adresu: {0}"
+
+#: 
+msgid "The internationalisation could not be saved. Please, try again."
+msgstr "Internacionalizavimo nepavyko išsaugoti. Bandykite dar kartą."
+
+#: 
+msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
+msgstr "Sluoksnis turi būti saugus URL (tik mažosios raidės, skaičiai ir brūkšneliai)"
+
+#: 
+msgid "All logs with level {0} have been deleted."
+msgstr "Visi žurnalai su lygiu {0} buvo ištrinti."
+
+#: 
+msgid "The comment has been saved."
+msgstr "Komentaras išsaugotas."
+
+#: 
+msgid "Username"
+msgstr "Vartotojo vardas"
+
+#: 
+msgid "The image could not be saved. Please, try again."
+msgstr "Vaizdo išsaugoti nepavyko. Bandykite dar kartą."
+
+#: 
+msgid "Error"
+msgstr "Klaida"
+
+#: 
+msgid "Filter"
+msgstr "Filtruoti"
+
+#: 
+msgid "New Slug"
+msgstr "Naujas šliužas"
+
+#: 
+msgid "The article could not be saved. Please, try again."
+msgstr "Straipsnio išsaugoti nepavyko. Bandykite dar kartą."
+
+#: 
+msgid "The slug must be unique."
+msgstr "Šliužas turi būti unikalus."
+
+#: 
+msgid "Update Slug"
+msgstr "Atnaujinkite Slug"
+
+#: 
+msgid "Too Many Requests"
+msgstr "Per daug prašymų"
+
+#: 
+msgid "Level"
+msgstr "Lygis"
+
+#: 
+msgid "Are you sure you want to delete {0}?"
+msgstr "Ar tikrai norite ištrinti {0}?"
+
+#: 
+msgid "The aiprompt has been saved."
+msgstr "Skrydis buvo išsaugotas."
+
+#: 
+msgid "All rights reserved."
+msgstr "Visos teisės saugomos."
+
+#: 
+msgid "Cache Management"
+msgstr "Talpyklos valdymas"
+
+#: 
+msgid "Please log in to add a comment"
+msgstr "Jei norite pridėti komentarą, prisijunkite"
+
+#: 
+msgid "New Blocked IP"
+msgstr "Naujas užblokuotas IP"
+
+#: 
+msgid "Comments"
+msgstr "Komentarai"
+
+#: 
+msgid "View detailed records for this date"
+msgstr "Peržiūrėkite išsamius šios datos įrašus"
+
+#: 
+msgid "Edit Email Template"
+msgstr "Redaguoti el. pašto šabloną"
+
+#: 
+msgid "Are you sure you want to clear {0}?"
+msgstr "Ar tikrai norite išvalyti {0}?"
+
+#: 
+msgid "You must be logged in to add a comment."
+msgstr "Norėdami pridėti komentarą, turite būti prisijungę."
+
+#: 
+msgid "Name"
+msgstr "Vardas"
+
+#: 
+msgid "Invalid type"
+msgstr "Netinkamas tipas"
+
+#: 
+msgid "Hide"
+msgstr "Slėpti"
+
+#: 
+msgid "Expires At"
+msgstr "Galiojimas baigiasi val"
+
+#: 
+msgid "Edit Settings"
+msgstr "Redaguoti nustatymus"
+
+#: 
+msgid "You cannot disable your own account."
+msgstr "Negalite išjungti savo paskyros."
+
+#: 
+msgid "Main Picture"
+msgstr "Pagrindinis paveikslas"
+
+#: 
+msgid "Grid View"
+msgstr "Tinklelio vaizdas"
+
+#: 
+msgid "All Groups"
+msgstr "Visos grupės"
+
+#: 
+msgid "Submit Comment"
+msgstr "Pateikite komentarą"
+
+#: 
+msgid "Search images..."
+msgstr "Ieškoti vaizdų..."
+
+#: 
+msgid "Edit Aiprompt"
+msgstr "Redaguoti „Aiprompt“."
+
+#: 
+msgid "Slug:"
+msgstr "Šliužas:"
+
+#: 
+msgid "Message Str"
+msgstr "Pranešimas Str"
+
+#: 
+msgid "Error saving {0}.{1}: {2}"
+msgstr "Klaida išsaugant {0}.{1}: {2}"
+
+#: 
+msgid "Edit Tag"
+msgstr "Redaguoti žymą"
+
+#: 
+msgid "Reason"
+msgstr "Priežastis"
+
+#: 
+msgid "System Logs"
+msgstr "Sistemos žurnalai"
+
+#: 
+msgid "The blocked ip has been deleted."
+msgstr "Užblokuotas IP buvo ištrintas."
+
+#: 
+msgid "Content"
+msgstr "Turinys"
+
+#: 
+msgid "Temperature"
+msgstr "Temperatūra"
+
+#: 
+msgid "API request failed. Please try again later."
+msgstr "API užklausa nepavyko. Bandykite dar kartą vėliau."
+
+#: 
+msgid "Invalid confirmation code."
+msgstr "Neteisingas patvirtinimo kodas."
+
+#: 
+msgid "The comment has been deleted."
+msgstr "Komentaras ištrintas."
+
+#: 
+msgid "Add Email Template"
+msgstr "Pridėti el. pašto šabloną"
+
+#: 
+msgid "Blocked IPs"
+msgstr "Užblokuoti IP"
+
+#: 
+msgid "Failed to send password reset email: {0}"
+msgstr "Nepavyko išsiųsti slaptažodžio nustatymo iš naujo el. laiško: {0}"
+
+#: 
+msgid "Bulk Upload"
+msgstr "Masinis įkėlimas"
+
+#: 
+msgid "No images."
+msgstr "Jokių vaizdų."
+
+#: 
+msgid "Add AI Prompt"
+msgstr "Pridėti AI raginimą"
+
+#: 
+msgid "Forgot Password?"
+msgstr "Pamiršote slaptažodį?"
+
+#: 
+msgid "There was an issue confirming your account. Please try again."
+msgstr "Patvirtinant paskyrą kilo problema. Bandykite dar kartą."
+
+#: 
+msgid "Front Site"
+msgstr "Priekinė svetainė"
+
+#: 
+msgid "Update Aiprompt"
+msgstr "Atnaujinkite „Aiprompt“."
 
 #: 
 msgid "Articles"
 msgstr "Straipsniai"
 
 #: 
+msgid "Show Details"
+msgstr "Rodyti išsamią informaciją"
+
+#: 
+msgid "New AI Prompt"
+msgstr "Naujas AI raginimas"
+
+#: 
+msgid "Meta Keywords"
+msgstr "Meta Raktažodžiai"
+
+#: 
+msgid "All logs in group {0} have been deleted."
+msgstr "Visi žurnalai grupėje {0} buvo ištrinti."
+
+#: 
+msgid "Clear All Cache"
+msgstr "Išvalyti visą talpyklą"
+
+#: 
+msgid "The value must be a number."
+msgstr "Reikšmė turi būti skaičius."
+
+#: 
+msgid "Register New Account"
+msgstr "Užregistruoti naują paskyrą"
+
+#: 
+msgid "Email"
+msgstr "El. paštas"
+
+#: 
+msgid "Failed to send email. Please check your email configuration."
+msgstr "Nepavyko išsiųsti el. Patikrinkite el. pašto konfigūraciją."
+
+#: 
+msgid "Failed to send confirmation email message: {0}"
+msgstr "Nepavyko išsiųsti patvirtinimo el. pašto pranešimo: {0}"
+
+#: 
+msgid "Instagram Description"
+msgstr "Instagram aprašymas"
+
+#: 
+msgid "New {0}"
+msgstr "Naujas {0}"
+
+#: 
+msgid "Description"
+msgstr "Aprašymas"
+
+#: 
+msgid "Edit Internationalisation"
+msgstr "Redaguoti internacionalizavimą"
+
+#: 
+msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
+msgstr "Slug nesuderinamas su esamu SEO peradresavimu. Pasirinkite kitą šliužą."
+
+#: 
+msgid "Add Page"
+msgstr "Pridėti puslapį"
+
+#: 
+msgid "Modified"
+msgstr "Modifikuota"
+
+#: 
 msgid "This slug is already in use in articles. Please enter a unique slug."
 msgstr "Šis šliužas jau naudojamas gaminiuose. Įveskite unikalų šliužą."
 
 #: 
-msgid "Update Article"
-msgstr "Atnaujinti straipsnį"
+msgid "Save All Settings"
+msgstr "Išsaugoti visus nustatymus"
 
 #: 
-msgid "Image"
-msgstr "Vaizdas"
+msgid "Live"
+msgstr "Tiesiogiai"
+
+#: 
+msgid "Register"
+msgstr "Registruotis"
+
+#: 
+msgid "The internationalisation could not be deleted. Please, try again."
+msgstr "Internacionalizavimo nepavyko ištrinti. Bandykite dar kartą."
+
+#: 
+msgid "Associated Pages"
+msgstr "Susiję puslapiai"
+
+#: 
+msgid "The value must be 0 or 1."
+msgstr "Reikšmė turi būti 0 arba 1."
+
+#: 
+msgid "Back"
+msgstr "Atgal"
+
+#: 
+msgid "Block IPs"
+msgstr "Blokuoti IP"
+
+#: 
+msgid "Cache Name"
+msgstr "Talpyklos pavadinimas"
+
+#: 
+msgid "The tag has been saved."
+msgstr "Žyma išsaugota."
+
+#: 
+msgid "Meta Title"
+msgstr "Meta pavadinimas"
+
+#: 
+msgid "No articles found for this tag."
+msgstr "Nerasta straipsnių pagal šią žymą."
+
+#: 
+msgid "Created"
+msgstr "Sukurta"
+
+#: 
+msgid "Subject"
+msgstr "Tema"
+
+#: 
+msgid "Group Name"
+msgstr "Grupės pavadinimas"
+
+#: 
+msgid "Edit Your Account"
+msgstr "Redaguokite savo paskyrą"
+
+#: 
+msgid "Facebook Description"
+msgstr "Facebook aprašymas"
+
+#: 
+msgid "Password must be at least 8 characters long"
+msgstr "Slaptažodis turi būti bent 8 simbolių ilgio"
+
+#: 
+msgid "Picture"
+msgstr "Paveikslėlis"
+
+#: 
+msgid "{0} cache could not be cleared."
+msgstr "Nepavyko išvalyti {0} talpyklos."
+
+#: 
+msgid "All caches have been cleared successfully."
+msgstr "Visos talpyklos buvo sėkmingai išvalytos."
+
+#: 
+msgid "Too many requests. Please try again later."
+msgstr "Per daug prašymų. Bandykite dar kartą vėliau."
+
+#: 
+msgid "Cache"
+msgstr "Talpykla"
+
+#: 
+msgid "Display"
+msgstr "Ekranas"
+
+#: 
+msgid "Error loading images:"
+msgstr "Įkeliant vaizdus įvyko klaida:"
+
+#: 
+msgid "Your comment has been added."
+msgstr "Jūsų komentaras pridėtas."
+
+#: 
+msgid "Model"
+msgstr "Modelis"
+
+#: 
+msgid "No page view data available for this article."
+msgstr "Nėra šio straipsnio puslapio peržiūros duomenų."
+
+#: 
+msgid "Keywords"
+msgstr "Raktažodžiai"
+
+#: 
+msgid "Registration failed. Please, try again."
+msgstr "Registracija nepavyko. Bandykite dar kartą."
+
+#: 
+msgid "Failed to update translation for message ID: {0}"
+msgstr "Nepavyko atnaujinti pranešimo ID vertimo: {0}"
+
+#: 
+msgid "Are you sure you want to delete this comment?"
+msgstr "Ar tikrai norite ištrinti šį komentarą?"
+
+#: 
+msgid "System Prompt"
+msgstr "Sistemos raginimas"
+
+#: 
+msgid "Views"
+msgstr "Peržiūros"
+
+#: 
+msgid "AI Prompts"
+msgstr "AI raginimai"
+
+#: 
+msgid "IP Address"
+msgstr "IP adresas"
+
+#: 
+msgid "The log has been deleted."
+msgstr "Žurnalas buvo ištrintas."
+
+#: 
+msgid "Related Tags"
+msgstr "Susijusios žymos"
+
+#: 
+msgid "The image has been deleted."
+msgstr "Vaizdas buvo ištrintas."
+
+#: 
+msgid "No internationalizations found for the provided IDs."
+msgstr "Pateiktiems ID internacionalizavimo nerasta."
+
+#: 
+msgid "Internationalisation"
+msgstr "Internacionalizacija"
+
+#: 
+msgid "Search tags..."
+msgstr "Ieškoti žymų..."
+
+#: 
+msgid "List {0}"
+msgstr "Sąrašas {0}"
+
+#: 
+msgid "Edit Slug"
+msgstr "Redaguoti Slug"
+
+#: 
+msgid "No"
+msgstr "Nr"
+
+#: 
+msgid "Comment"
+msgstr "komentuoti"
+
+#: 
+msgid "The comment could not be saved. Please, try again."
+msgstr "Nepavyko išsaugoti komentaro. Bandykite dar kartą."
+
+#: 
+msgid "Page View Statistics for slug: {0}"
+msgstr "Puslapio peržiūros statistika apie šliužą: {0}"
+
+#: 
+msgid "Invalid or expired password reset link."
+msgstr "Neteisinga arba pasibaigusio slaptažodžio nustatymo iš naujo nuoroda."
+
+#: 
+msgid "This slug is already in use. Please enter a unique slug."
+msgstr "Šis šliužas jau naudojamas. Įveskite unikalų šliužą."
+
+#: 
+msgid "Your password has been reset. Please log in with your new password."
+msgstr "Jūsų slaptažodis nustatytas iš naujo. Prisijunkite naudodami naują slaptažodį."
 

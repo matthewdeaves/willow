@@ -14,184 +14,1284 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
 #: 
-msgid "Pages"
-msgstr "Strani"
-
-#: 
-msgid "Internationalisations"
-msgstr "Internacionalizacije"
-
-#: 
-msgid "Word Count"
-msgstr "Štetje besed"
-
-#: 
-msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
-msgstr "E-pošta je bila uspešno poslana na: {0}. Predloga: {1}, Zadeva: {2}"
-
-#: 
-msgid "Edit {0}"
-msgstr "Uredi {0}"
-
-#: 
-msgid "All Tags"
-msgstr "Vse oznake"
-
-#: 
-msgid "The slug could not be deleted. Please, try again."
-msgstr "Polža ni bilo mogoče izbrisati. Prosim poskusite znova."
-
-#: 
-msgid "Read More"
-msgstr "Preberi več"
-
-#: 
-msgid "Update Slug"
-msgstr "Posodobite Slug"
-
-#: 
-msgid "Email template not found: {0}"
-msgstr "E-poštna predloga ni bila najdena: {0}"
-
-#: 
-msgid "Name"
-msgstr "Ime"
-
-#: 
-msgid "Failed to send confirmation email message: {0}"
-msgstr "Potrditvenega e-poštnega sporočila ni bilo mogoče poslati: {0}"
-
-#: 
-msgid "Referer"
-msgstr "Napotitelj"
-
-#: 
-msgid "Username"
-msgstr "Uporabniško ime"
-
-#: 
-msgid "Send Email"
-msgstr "Pošlji e-pošto"
-
-#: 
-msgid "Images"
-msgstr "Slike"
-
-#: 
-msgid "Cache"
-msgstr "Predpomnilnik"
+msgid "Modified"
+msgstr "Spremenjeno"
 
 #: 
 msgid "Please upload only images (jpeg, png, gif)."
 msgstr "Naložite samo slike (jpeg, png, gif)."
 
 #: 
-msgid "Rate limit exceeded for IP: {0} on route: {1}"
-msgstr "Omejitev hitrosti je presežena za IP: {0} na poti: {1}"
+msgid "Is Inappropriate"
+msgstr "Je neprimerno"
+
+#: 
+msgid "Forgot Password?"
+msgstr "Ste pozabili geslo?"
+
+#: 
+msgid "Users"
+msgstr "Uporabniki"
+
+#: 
+msgid "New Slug"
+msgstr "Nov polž"
+
+#: 
+msgid "Username"
+msgstr "Uporabniško ime"
 
 #: 
 msgid "Instagram Description"
 msgstr "Instagram Opis"
 
 #: 
-msgid "The blocked ip has been saved."
-msgstr "Blokirani ip je shranjen."
-
-#: 
-msgid "All logs have been deleted."
-msgstr "Vsi dnevniki so bili izbrisani."
-
-#: 
-msgid "Add Tag"
-msgstr "Dodaj oznako"
-
-#: 
-msgid "The comment could not be deleted. Please, try again."
-msgstr "Komentarja ni bilo mogoče izbrisati. Prosim poskusite znova."
-
-#: 
-msgid "Bulk Upload"
-msgstr "Nalaganje v velikem obsegu"
-
-#: 
-msgid "SEO Fields"
-msgstr "SEO polja"
-
-#: 
-msgid "Modified"
-msgstr "Spremenjeno"
-
-#: 
-msgid "The blocked ip has been deleted."
-msgstr "Blokirani ip je bil izbrisan."
-
-#: 
-msgid "Bulk Upload Images"
-msgstr "Množično nalaganje slik"
-
-#: 
-msgid "Title"
-msgstr "Naslov"
-
-#: 
 msgid "The user could not be saved. Please, try again."
 msgstr "Uporabnika ni bilo mogoče shraniti. Prosim poskusite znova."
 
 #: 
-msgid "IP Address"
-msgstr "IP naslov"
+msgid "The internationalisation could not be saved. Please, try again."
+msgstr "Internacionalizacije ni bilo mogoče shraniti. Prosim poskusite znova."
 
 #: 
-msgid "Edit Article"
-msgstr "Uredi članek"
+msgid "Pages"
+msgstr "Strani"
 
 #: 
-msgid "Comment for {0}"
-msgstr "Komentar za {0}"
+msgid "Message"
+msgstr "Sporočilo"
 
 #: 
-msgid "Error loading images:"
-msgstr "Napaka pri nalaganju slik:"
+msgid "Update Article"
+msgstr "Posodobi članek"
 
 #: 
 msgid "Invalid confirmation code. Please contact support."
 msgstr "Neveljavna potrditvena koda. Obrnite se na podporo."
 
 #: 
-msgid "Too Many Requests"
-msgstr "Preveč zahtev"
+msgid "New Article"
+msgstr "Nov članek"
 
 #: 
-msgid "All caches have been cleared successfully."
-msgstr "Vsi predpomnilniki so bili uspešno počiščeni."
+msgid "Are you sure you want to clear {0}?"
+msgstr "Ali ste prepričani, da želite počistiti {0}?"
 
 #: 
-msgid "The blocked ip could not be deleted. Please, try again."
-msgstr "Blokiranega ip-ja ni bilo mogoče izbrisati. Prosim poskusite znova."
+msgid "Level"
+msgstr "Raven"
+
+#: 
+msgid "Articles"
+msgstr "Članki"
+
+#: 
+msgid "Are you sure you want to delete all logs?"
+msgstr "Ali ste prepričani, da želite izbrisati vse dnevnike?"
+
+#: 
+msgid "Word Count"
+msgstr "Štetje besed"
+
+#: 
+msgid "The aiprompt could not be saved. Please, try again."
+msgstr "Aiprompt ni bilo mogoče shraniti. Prosim poskusite znova."
+
+#: 
+msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
+msgstr "Polžek mora biti varen za URL (samo male črke, številke in vezaji)"
+
+#: 
+msgid "Bulk Upload"
+msgstr "Nalaganje v velikem obsegu"
+
+#: 
+msgid "Description"
+msgstr "Opis"
+
+#: 
+msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
+msgstr "E-pošta je bila uspešno poslana na: {0}. Predloga: {1}, Zadeva: {2}"
+
+#: 
+msgid "Associated Pages"
+msgstr "Povezane strani"
+
+#: 
+msgid "The image could not be saved. Please, try again."
+msgstr "Slike ni bilo mogoče shraniti. Prosim poskusite znova."
+
+#: 
+msgid "Meta Keywords"
+msgstr "Meta ključne besede"
+
+#: 
+msgid "The image has been deleted."
+msgstr "Slika je bila izbrisana."
+
+#: 
+msgid "Main Picture"
+msgstr "Glavna slika"
+
+#: 
+msgid "Edit Your Account"
+msgstr "Uredite svoj račun"
+
+#: 
+msgid "Are you sure you want to delete IP {0}?"
+msgstr "Ali ste prepričani, da želite izbrisati IP {0}?"
+
+#: 
+msgid "Reset Password"
+msgstr "Ponastavi geslo"
+
+#: 
+msgid "Clear All Cache"
+msgstr "Počisti ves predpomnilnik"
+
+#: 
+msgid "Live"
+msgstr "V živo"
+
+#: 
+msgid "Add a Comment"
+msgstr "Dodajte komentar"
+
+#: 
+msgid "Search images..."
+msgstr "Iskanje slik ..."
+
+#: 
+msgid "All logs have been deleted."
+msgstr "Vsi dnevniki so bili izbrisani."
+
+#: 
+msgid "Image must be less than 5MB."
+msgstr "Slika mora biti manjša od 5 MB."
+
+#: 
+msgid "Keywords"
+msgstr "Ključne besede"
+
+#: 
+msgid "The email template could not be saved. Please, try again."
+msgstr "E-poštne predloge ni bilo mogoče shraniti. Prosim poskusite znova."
+
+#: 
+msgid "Please enter your email to reset your password"
+msgstr "Za ponastavitev gesla vnesite svoj e-poštni naslov"
+
+#: 
+msgid "You cannot remove your own admin status."
+msgstr "Svojega statusa skrbnika ne morete odstraniti."
+
+#: 
+msgid "Account"
+msgstr "Račun"
+
+#: 
+msgid "Edit Tag"
+msgstr "Uredi oznako"
+
+#: 
+msgid "The user has been deleted."
+msgstr "Uporabnik je bil izbrisan."
+
+#: 
+msgid "Unknown Author"
+msgstr "Neznani avtor"
+
+#: 
+msgid "An error occurred while processing your request."
+msgstr "Med obdelavo vaše zahteve je prišlo do napake."
+
+#: 
+msgid "By"
+msgstr "Avtor:"
+
+#: 
+msgid "Your account has been updated."
+msgstr "Vaš račun je posodobljen."
+
+#: 
+msgid "Some settings could not be saved. Please, try again."
+msgstr "Nekaterih nastavitev ni bilo mogoče shraniti. Prosim poskusite znova."
+
+#: 
+msgid "Model"
+msgstr "Model"
+
+#: 
+msgid "Tags"
+msgstr "Oznake"
+
+#: 
+msgid "Actions"
+msgstr "Dejanja"
+
+#: 
+msgid "Edit Blocked IP"
+msgstr "Uredi blokirani IP"
+
+#: 
+msgid "Posted on {date} by {author}"
+msgstr "{date} objavil {author}"
+
+#: 
+msgid "Article/Page"
+msgstr "Članek/Stran"
+
+#: 
+msgid "The email template has been saved."
+msgstr "E-poštna predloga je shranjena."
+
+#: 
+msgid "No deleting your own account."
+msgstr "Brez izbrisa lastnega računa."
+
+#: 
+msgid "Subject"
+msgstr "Predmet"
+
+#: 
+msgid "The blocked ip has been saved."
+msgstr "Blokirani ip je shranjen."
+
+#: 
+msgid "Block IPs"
+msgstr "Blokiraj IP-je"
+
+#: 
+msgid "Show Details"
+msgstr "Pokaži podrobnosti"
+
+#: 
+msgid "Logs"
+msgstr "Dnevniki"
+
+#: 
+msgid "{0} cache could not be cleared."
+msgstr "Predpomnilnika {0} ni bilo mogoče počistiti."
+
+#: 
+msgid "All Tags"
+msgstr "Vse oznake"
+
+#: 
+msgid "Error sending email: {0}"
+msgstr "Napaka pri pošiljanju e-pošte: {0}"
+
+#: 
+msgid "Views"
+msgstr "Pogledi"
+
+#: 
+msgid "Task Type"
+msgstr "Vrsta naloge"
+
+#: 
+msgid "Hide"
+msgstr "Skrij se"
+
+#: 
+msgid "Toggle SEO Fields"
+msgstr "Preklopi polja SEO"
+
+#: 
+msgid "Max Tokens"
+msgstr "Največ žetonov"
+
+#: 
+msgid "All logs with level {0} have been deleted."
+msgstr "Vsi dnevniki z nivojem {0} so bili izbrisani."
+
+#: 
+msgid "Your password has been reset. Please log in with your new password."
+msgstr "Vaše geslo je bilo ponastavljeno. Prijavite se z novim geslom."
+
+#: 
+msgid "Summary"
+msgstr "Povzetek"
+
+#: 
+msgid "Access denied. You must be an admin to view this page."
+msgstr "Dostop zavrnjen. Za ogled te strani morate biti skrbnik."
+
+#: 
+msgid "The article has been saved."
+msgstr "Članek je shranjen."
+
+#: 
+msgid "Blocked At"
+msgstr "Blokirano pri"
+
+#: 
+msgid "Failed to send password reset email: {0}"
+msgstr "E-poštnega sporočila za ponastavitev gesla ni bilo mogoče poslati: {0}"
+
+#: 
+msgid "Image"
+msgstr "Slika"
+
+#: 
+msgid "Never"
+msgstr "Nikoli"
 
 #: 
 msgid "The email template has been deleted."
 msgstr "E-poštna predloga je bila izbrisana."
 
 #: 
-msgid "Failed to send email. Please check your email configuration."
-msgstr "E-pošte ni bilo mogoče poslati. Preverite konfiguracijo e-pošte."
+msgid "Email"
+msgstr "E-pošta"
+
+#: 
+msgid "Search users..."
+msgstr "Iskanje uporabnikov ..."
+
+#: 
+msgid "Add Email Template"
+msgstr "Dodajte e-poštno predlogo"
+
+#: 
+msgid "Update Image"
+msgstr "Posodobi sliko"
+
+#: 
+msgid "Please enter your new password"
+msgstr "Prosimo vnesite vaše novo geslo"
+
+#: 
+msgid "Failed to update translation for message ID: {0}"
+msgstr "Ni bilo mogoče posodobiti prevoda za ID sporočila: {0}"
+
+#: 
+msgid "Login"
+msgstr "Prijava"
+
+#: 
+msgid "Unable to delete the log."
+msgstr "Dnevnika ni mogoče izbrisati."
+
+#: 
+msgid "Select a parent"
+msgstr "Izberite starša"
+
+#: 
+msgid "Are you sure you want to delete # {0}?"
+msgstr "Ali ste prepričani, da želite izbrisati # {0}?"
+
+#: 
+msgid "Locale"
+msgstr "Locale"
+
+#: 
+msgid "Slug:"
+msgstr "polž:"
+
+#: 
+msgid "Temperature"
+msgstr "Temperatura"
+
+#: 
+msgid "Edit User"
+msgstr "Uredi uporabnika"
+
+#: 
+msgid "User Agent"
+msgstr "Uporabniški agent"
+
+#: 
+msgid "Is Published"
+msgstr "Je objavljeno"
+
+#: 
+msgid "Forgot Password"
+msgstr "Pozabljeno geslo"
+
+#: 
+msgid "Edit Internationalisation"
+msgstr "Uredi internacionalizacijo"
+
+#: 
+msgid "Comments"
+msgstr "Komentarji"
+
+#: 
+msgid "Bulk Upload Images"
+msgstr "Množično nalaganje slik"
+
+#: 
+msgid "Images"
+msgstr "Slike"
+
+#: 
+msgid "New {0}"
+msgstr "Novo {0}"
+
+#: 
+msgid "The comment could not be deleted. Please, try again."
+msgstr "Komentarja ni bilo mogoče izbrisati. Prosim poskusite znova."
+
+#: 
+msgid "The blocked ip could not be saved. Please, try again."
+msgstr "Blokiranega ip-ja ni bilo mogoče shraniti. Prosim poskusite znova."
+
+#: 
+msgid "Engine"
+msgstr "Motor"
+
+#: 
+msgid "Updated At"
+msgstr "Posodobljeno na"
+
+#: 
+msgid "All logs in group {0} have been deleted."
+msgstr "Vsi dnevniki v skupini {0} so bili izbrisani."
+
+#: 
+msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
+msgstr "Stran {{page}} od {{pages}}, prikazuje {{current}} zapis(ov) od {{count}} skupaj"
+
+#: 
+msgid "Invalid or expired password reset link."
+msgstr "Neveljavna ali potekla povezava za ponastavitev gesla."
+
+#: 
+msgid "Filter"
+msgstr "Filter"
+
+#: 
+msgid "Picture"
+msgstr "Slika"
+
+#: 
+msgid "Configured Caches"
+msgstr "Konfigurirani predpomnilniki"
+
+#: 
+msgid "Expires At"
+msgstr "Poteče ob"
+
+#: 
+msgid "Logout"
+msgstr "Odjava"
+
+#: 
+msgid "Modified At"
+msgstr "Spremenjeno At"
+
+#: 
+msgid "Add AI Prompt"
+msgstr "Dodaj poziv AI"
+
+#: 
+msgid "User"
+msgstr "Uporabnik"
+
+#: 
+msgid "Clear"
+msgstr "jasno"
+
+#: 
+msgid "System Logs"
+msgstr "Sistemski dnevniki"
+
+#: 
+msgid "The slug must be unique."
+msgstr "Polž mora biti edinstven."
+
+#: 
+msgid "Registration failed. Please, try again."
+msgstr "Registracija ni uspela. Prosim poskusite znova."
+
+#: 
+msgid "Id"
+msgstr "Id"
+
+#: 
+msgid "System Prompt"
+msgstr "Sistemski poziv"
+
+#: 
+msgid "Back"
+msgstr "Nazaj"
+
+#: 
+msgid "Edit Image"
+msgstr "Uredi sliko"
+
+#: 
+msgid "Registration successful, but there was an issue creating the confirmation link."
+msgstr "Registracija je bila uspešna, vendar je prišlo do težave pri ustvarjanju potrditvene povezave."
+
+#: 
+msgid "Internationalisation"
+msgstr "Internacionalizacija"
+
+#: 
+msgid "Submit Comment"
+msgstr "Oddaj komentar"
+
+#: 
+msgid "The comment could not be saved. Please, try again."
+msgstr "Komentarja ni bilo mogoče shraniti. Prosim poskusite znova."
+
+#: 
+msgid "Related Tags"
+msgstr "Sorodne oznake"
+
+#: 
+msgid "Internationalisations"
+msgstr "Internacionalizacije"
+
+#: 
+msgid "Body HTML"
+msgstr "Telo HTML"
+
+#: 
+msgid "The image could not be deleted. Please, try again."
+msgstr "Slike ni bilo mogoče izbrisati. Prosim poskusite znova."
+
+#: 
+msgid "Unknown User"
+msgstr "Neznani uporabnik"
+
+#: 
+msgid "The slug could not be saved. Please, try again."
+msgstr "Polža ni bilo mogoče rešiti. Prosim poskusite znova."
+
+#: 
+msgid "Unable to delete all logs."
+msgstr "Ni mogoče izbrisati vseh dnevnikov."
+
+#: 
+msgid "Delete"
+msgstr "Izbriši"
+
+#: 
+msgid "Inappropriate Reason"
+msgstr "Neustrezen razlog"
+
+#: 
+msgid "New Tag"
+msgstr "Nova oznaka"
+
+#: 
+msgid "All caches have been cleared successfully."
+msgstr "Vsi predpomnilniki so bili uspešno počiščeni."
+
+#: 
+msgid "The tag has been saved."
+msgstr "Oznaka je shranjena."
+
+#: 
+msgid "View"
+msgstr "Pogled"
+
+#: 
+msgid "Add Blocked IP"
+msgstr "Dodaj blokirani IP"
+
+#: 
+msgid "Last Cleared"
+msgstr "Nazadnje izbrisano"
+
+#: 
+msgid "Read More"
+msgstr "Preberi več"
+
+#: 
+msgid "Article"
+msgstr "člen"
+
+#: 
+msgid "Comments are not enabled"
+msgstr "Komentarji niso omogočeni"
+
+#: 
+msgid "New Internationalisation"
+msgstr "Nova internacionalizacija"
+
+#: 
+msgid "Slug"
+msgstr "Polž"
+
+#: 
+msgid "Cache"
+msgstr "Predpomnilnik"
+
+#: 
+msgid "Invalid username or password"
+msgstr "Neveljavno uporabniško ime ali geslo"
+
+#: 
+msgid "Message Id"
+msgstr "ID sporočila"
+
+#: 
+msgid "Unable to delete logs in group {0}."
+msgstr "Dnevnikov v skupini {0} ni mogoče izbrisati."
+
+#: 
+msgid "Edit Aiprompt"
+msgstr "Uredite Aiprompt"
+
+#: 
+msgid "Add Internationalisation"
+msgstr "Dodajte internacionalizacijo"
+
+#: 
+msgid "Update Aiprompt"
+msgstr "Posodobite Aiprompt"
+
+#: 
+msgid "Delete All Logs"
+msgstr "Izbriši vse dnevnike"
+
+#: 
+msgid "Are you sure you want to delete this prompt?"
+msgstr "Ali ste prepričani, da želite izbrisati ta poziv?"
+
+#: 
+msgid "The requested address {0} was not found on this server."
+msgstr "Zahtevanega naslova {0} ni bilo mogoče najti na tem strežniku."
+
+#: 
+msgid "Search slugs..."
+msgstr "Išči polže..."
+
+#: 
+msgid "Body Text"
+msgstr "Telo besedila"
+
+#: 
+msgid "The blocked ip has been deleted."
+msgstr "Blokirani ip je bil izbrisan."
+
+#: 
+msgid "Email Templates"
+msgstr "E-poštne predloge"
+
+#: 
+msgid "Slugs"
+msgstr "Polži"
+
+#: 
+msgid "Email template not found: {0}"
+msgstr "E-poštna predloga ni bila najdena: {0}"
+
+#: 
+msgid "API request failed. Please try again later."
+msgstr "Zahteva za API ni uspela. Poskusite znova pozneje."
+
+#: 
+msgid "Content"
+msgstr "Vsebina"
+
+#: 
+msgid "Comment"
+msgstr "Komentiraj"
+
+#: 
+msgid "The slug has been deleted."
+msgstr "Polž je bil izbrisan."
+
+#: 
+msgid "No view records found for this article."
+msgstr "Za ta članek ni bilo mogoče najti zapisov o ogledih."
+
+#: 
+msgid "List View"
+msgstr "Pogled seznama"
+
+#: 
+msgid "Missing required arguments in the message."
+msgstr "V sporočilu manjkajo zahtevani argumenti."
+
+#: 
+msgid "Update User"
+msgstr "Posodobi uporabnika"
+
+#: 
+msgid "Title"
+msgstr "Naslov"
+
+#: 
+msgid "No pages found."
+msgstr "Ni najdenih strani."
+
+#: 
+msgid "The blocked ip could not be deleted. Please, try again."
+msgstr "Blokiranega ip-ja ni bilo mogoče izbrisati. Prosim poskusite znova."
+
+#: 
+msgid "No page view data available for this article."
+msgstr "Za ta članek ni podatkov o ogledih strani."
+
+#: 
+msgid "This slug is already in use. Please enter a unique slug."
+msgstr "Ta polž je že v uporabi. Vnesite enolični polž."
+
+#: 
+msgid "English"
+msgstr "angleščina"
+
+#: 
+msgid "Are you sure you want to delete all {0} logs?"
+msgstr "Ali ste prepričani, da želite izbrisati vse dnevnike {0}?"
+
+#: 
+msgid "The log has been deleted."
+msgstr "Dnevnik je bil izbrisan."
+
+#: 
+msgid "Comment for {0}"
+msgstr "Komentar za {0}"
+
+#: 
+msgid "Register New Account"
+msgstr "Registrirajte nov račun"
+
+#: 
+msgid "Add User"
+msgstr "Dodaj uporabnika"
+
+#: 
+msgid "There was an issue resetting your password. Please try again."
+msgstr "Pri ponastavitvi gesla je prišlo do težave. prosim poskusite ponovno"
+
+#: 
+msgid "Blocked IPs"
+msgstr "Blokirani IP-ji"
+
+#: 
+msgid "Tag not found"
+msgstr "Oznake ni mogoče najti"
+
+#: 
+msgid "Related Articles"
+msgstr "Sorodni članki"
+
+#: 
+msgid "No comments yet."
+msgstr "Še ni komentarjev."
+
+#: 
+msgid "Update Slug"
+msgstr "Posodobite Slug"
+
+#: 
+msgid "Update Tag"
+msgstr "Posodobi oznako"
+
+#: 
+msgid "The comment has been saved."
+msgstr "Komentar je shranjen."
+
+#: 
+msgid "Created"
+msgstr "Ustvarjeno"
 
 #: 
 msgid "No articles found for this tag."
 msgstr "Za to oznako ni bilo najdenih člankov."
 
 #: 
+msgid "No internationalizations found for the provided IDs."
+msgstr "Za navedene ID-je ni bilo mogoče najti internacionalizacij."
+
+#: 
+msgid "Your account has been confirmed. You can now log in."
+msgstr "Vaš račun je potrjen. Zdaj se lahko prijavite."
+
+#: 
+msgid "This slug is already in use in articles. Please enter a unique slug."
+msgstr "Ta polž je že v uporabi v člankih. Vnesite enolični polž."
+
+#: 
+msgid "LinkedIn Description"
+msgstr "LinkedIn opis"
+
+#: 
+msgid "Add Slug"
+msgstr "Dodajte polža"
+
+#: 
+msgid "Add Tag"
+msgstr "Dodaj oznako"
+
+#: 
+msgid "Is AI Analyzed"
+msgstr "Ali je AI analiziran"
+
+#: 
+msgid "All Levels"
+msgstr "Vse ravni"
+
+#: 
+msgid "The tag could not be saved. Please, try again."
+msgstr "Oznake ni bilo mogoče shraniti. Prosim poskusite znova."
+
+#: 
+msgid "Registration successful. Please check your email for confirmation."
+msgstr "Registracija uspešna. Preverite svojo e-pošto za potrditev."
+
+#: 
+msgid "Article not found"
+msgstr "Članka ni mogoče najti"
+
+#: 
+msgid "Cache Management"
+msgstr "Upravljanje predpomnilnika"
+
+#: 
+msgid "The value must not be empty."
+msgstr "Vrednost ne sme biti prazna."
+
+#: 
+msgid "Profile Picture"
+msgstr "Slika profila"
+
+#: 
+msgid "List Blocked IPs"
+msgstr "Seznam blokiranih IP-jev"
+
+#: 
+msgid "Confirm Password"
+msgstr "Potrdite geslo"
+
+#: 
+msgid "Register"
+msgstr "Registrirajte se"
+
+#: 
+msgid "The aiprompt has been saved."
+msgstr "Aiprompt je shranjen."
+
+#: 
+msgid "The comment has been deleted."
+msgstr "Komentar je bil izbrisan."
+
+#: 
+msgid "All Locales"
+msgstr "Vsi lokali"
+
+#: 
+msgid "Meta Description"
+msgstr "Meta opis"
+
+#: 
+msgid "Search articles..."
+msgstr "Iskanje člankov ..."
+
+#: 
+msgid "Front Site"
+msgstr "Prednja stran"
+
+#: 
+msgid "Back to Login"
+msgstr "Nazaj na prijavo"
+
+#: 
+msgid "Article ID:"
+msgstr "ID članka:"
+
+#: 
+msgid "Referer"
+msgstr "Napotitelj"
+
+#: 
+msgid "Password must be at least 8 characters long"
+msgstr "Geslo mora biti dolgo vsaj 8 znakov"
+
+#: 
+msgid "An Internal Error Has Occurred."
+msgstr "Prišlo je do notranje napake."
+
+#: 
+msgid "The value must be 0 or 1."
+msgstr "Vrednost mora biti 0 ali 1."
+
+#: 
+msgid "{0} cache has been cleared successfully."
+msgstr "Predpomnilnik {0} je bil uspešno počiščen."
+
+#: 
+msgid "Cache Name"
+msgstr "Ime predpomnilnika"
+
+#: 
+msgid "Email sent successfully."
+msgstr "E-pošta je bila uspešno poslana."
+
+#: 
+msgid "No"
+msgstr "št"
+
+#: 
+msgid "Error loading images:"
+msgstr "Napaka pri nalaganju slik:"
+
+#: 
+msgid "List {0}"
+msgstr "Seznam {0}"
+
+#: 
+msgid "Enter text"
+msgstr "Vnesite besedilo"
+
+#: 
+msgid "You are not authorized to edit this account, stick to your own."
+msgstr "Niste pooblaščeni za urejanje tega računa, držite se svojega."
+
+#: 
+msgid "The email template could not be deleted. Please, try again."
+msgstr "E-poštne predloge ni bilo mogoče izbrisati. Prosim poskusite znova."
+
+#: 
+msgid "Error saving {0}.{1}: {2}"
+msgstr "Napaka pri shranjevanju {0}.{1}: {2}"
+
+#: 
+msgid "Please log in to add a comment"
+msgstr "Prosimo, prijavite se, če želite dodati komentar"
+
+#: 
+msgid "Show Less"
+msgstr "Prikaži manj"
+
+#: 
+msgid "Error in: "
+msgstr "Napaka v: "
+
+#: 
+msgid "If your email is registered, you will receive a link to reset your password."
+msgstr "Če je vaš e-poštni naslov registriran, boste prejeli povezavo za ponastavitev gesla."
+
+#: 
+msgid "Add Image"
+msgstr "Dodaj sliko"
+
+#: 
+msgid "The user could not be deleted. Please, try again."
+msgstr "Uporabnika ni bilo mogoče izbrisati. Prosim poskusite znova."
+
+#: 
+msgid "Details"
+msgstr "Podrobnosti"
+
+#: 
+msgid "A value is required"
+msgstr "Zahtevana je vrednost"
+
+#: 
+msgid "New Blocked IP"
+msgstr "Nov blokiran IP"
+
+#: 
+msgid "Message Str"
+msgstr "Sporočilo Str"
+
+#: 
+msgid "There was an issue confirming your account. Please try again."
+msgstr "Pri potrjevanju vašega računa je prišlo do težave. prosim poskusite ponovno"
+
+#: 
+msgid "Search tags..."
+msgstr "Iskanje oznak ..."
+
+#: 
+msgid "Search logs..."
+msgstr "Dnevniki iskanja ..."
+
+#: 
+msgid "Update Comment"
+msgstr "Posodobi komentar"
+
+#: 
+msgid "The tag could not be deleted. Please, try again."
+msgstr "Oznake ni bilo mogoče izbrisati. Prosim poskusite znova."
+
+#: 
+msgid "Edit Comment"
+msgstr "Uredi komentar"
+
+#: 
+msgid "Add Article"
+msgstr "Dodaj članek"
+
+#: 
+msgid "Meta Title"
+msgstr "Meta naslov"
+
+#: 
+msgid "All rights reserved."
+msgstr "Vse pravice pridržane."
+
+#: 
+msgid "Page Views"
+msgstr "Ogledi strani"
+
+#: 
+msgid "No images."
+msgstr "Brez slik."
+
+#: 
+msgid "Image uploaded successfully"
+msgstr "Slika je bila uspešno naložena"
+
+#: 
+msgid "New User"
+msgstr "Nov uporabnik"
+
+#: 
+msgid "Yes"
+msgstr "ja"
+
+#: 
+msgid "Admin"
+msgstr "skrbnik"
+
+#: 
+msgid "Enter a number"
+msgstr "Vnesite številko"
+
+#: 
+msgid "The image has been saved."
+msgstr "Slika je shranjena."
+
+#: 
+msgid "Failed to send confirmation email message: {0}"
+msgstr "Potrditvenega e-poštnega sporočila ni bilo mogoče poslati: {0}"
+
+#: 
+msgid "Facebook Description"
+msgstr "Facebook Opis"
+
+#: 
+msgid "Page Views for {0}"
+msgstr "Ogledi strani za {0}"
+
+#: 
+msgid "Failed to send email. Please check your email configuration."
+msgstr "E-pošte ni bilo mogoče poslati. Preverite konfiguracijo e-pošte."
+
+#: 
+msgid "Published"
+msgstr "Objavljeno"
+
+#: 
+msgid "Too Many Requests"
+msgstr "Preveč zahtev"
+
+#: 
+msgid "No tags are linked."
+msgstr "Nobena oznaka ni povezana."
+
+#: 
+msgid "The slug has been saved."
+msgstr "Polž je shranjen."
+
+#: 
+msgid "Unable to delete logs with level {0}."
+msgstr "Dnevnikov z nivojem {0} ni mogoče izbrisati."
+
+#: 
+msgid "Error"
+msgstr "Napaka"
+
+#: 
+msgid "Reason"
+msgstr "Razlog"
+
+#: 
+msgid "View detailed records for this date"
+msgstr "Oglejte si podrobne zapise za ta datum"
+
+#: 
+msgid "All Groups"
+msgstr "Vse skupine"
+
+#: 
+msgid "Too many requests. Please try again later."
+msgstr "Preveč zahtev. Poskusite znova pozneje."
+
+#: 
+msgid "Body"
+msgstr "Telo"
+
+#: 
+msgid "Save All Settings"
+msgstr "Shrani vse nastavitve"
+
+#: 
+msgid "Total Views: "
+msgstr "Skupno število ogledov: "
+
+#: 
 msgid "Date"
 msgstr "Datum"
 
 #: 
-msgid "Email"
-msgstr "E-pošta"
+msgid "Rate limit exceeded for IP: {0} on route: {1}"
+msgstr "Omejitev hitrosti je presežena za IP: {0} na poti: {1}"
 
 #: 
-msgid "Clear All Cache"
-msgstr "Počisti ves predpomnilnik"
+msgid "New Image"
+msgstr "Nova slika"
+
+#: 
+msgid "Failed to send email to: {0}"
+msgstr "E-pošte ni bilo mogoče poslati na: {0}"
+
+#: 
+msgid "Search comments..."
+msgstr "Iskanje komentarjev ..."
+
+#: 
+msgid "Edit Article"
+msgstr "Uredi članek"
+
+#: 
+msgid "Submit"
+msgstr "Predloži"
+
+#: 
+msgid "The internationalisation could not be deleted. Please, try again."
+msgstr "Internacionalizacije ni bilo mogoče izbrisati. Prosim poskusite znova."
+
+#: 
+msgid "Show Full Article"
+msgstr "Prikaži celoten članek"
+
+#: 
+msgid "Failed to save the image"
+msgstr "Slike ni bilo mogoče shraniti"
+
+#: 
+msgid "Invalid confirmation code."
+msgstr "Neveljavna potrditvena koda."
+
+#: 
+msgid "This message_id must be unique for the given locale."
+msgstr "Ta message_id mora biti edinstven za dano področno nastavitev."
+
+#: 
+msgid "Edit Settings"
+msgstr "Uredi nastavitve"
+
+#: 
+msgid "Are you sure you want to delete comment by {0}?"
+msgstr "Ali ste prepričani, da želite izbrisati komentar avtorja {0}?"
+
+#: 
+msgid "Edit Slug"
+msgstr "Uredi Polža"
+
+#: 
+msgid "The article could not be saved. Please, try again."
+msgstr "Članka ni bilo mogoče shraniti. Prosim poskusite znova."
+
+#: 
+msgid "Your comment has been added."
+msgstr "Vaš komentar je bil dodan."
+
+#: 
+msgid "Context"
+msgstr "Kontekst"
+
+#: 
+msgid "Edit {0}"
+msgstr "Uredi {0}"
+
+#: 
+msgid "Article not found."
+msgstr "Članka ni mogoče najti."
+
+#: 
+msgid "New Email Template"
+msgstr "Nova e-poštna predloga"
+
+#: 
+msgid "You must be logged in to add a comment."
+msgstr "Za dodajanje komentarja morate biti prijavljeni."
+
+#: 
+msgid "Send Email"
+msgstr "Pošlji e-pošto"
+
+#: 
+msgid "The internationalisation has been deleted."
+msgstr "Internacionalizacija je bila izbrisana."
+
+#: 
+msgid "The value must be a number."
+msgstr "Vrednost mora biti število."
+
+#: 
+msgid "Alt Text"
+msgstr "Nadomestno besedilo"
+
+#: 
+msgid "SEO Fields"
+msgstr "SEO polja"
+
+#: 
+msgid "Grid View"
+msgstr "Mrežni pogled"
+
+#: 
+msgid "The tag has been deleted."
+msgstr "Oznaka je bila izbrisana."
+
+#: 
+msgid "Settings"
+msgstr "nastavitve"
+
+#: 
+msgid "Add Page"
+msgstr "Dodaj stran"
+
+#: 
+msgid "The internationalisation has been saved."
+msgstr "Internacionalizacija je shranjena."
+
+#: 
+msgid "The settings have been saved."
+msgstr "Nastavitve so shranjene."
+
+#: 
+msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
+msgstr "Spodaj so informacije o konfiguriranih predpomnilnikih. Kliknite gumb, da počistite vse predpomnilnike, ali posamezne gumbe predpomnilnika, da počistite določene predpomnilnike."
+
+#: 
+msgid "Show"
+msgstr "Prikaži"
+
+#: 
+msgid "You cannot disable your own account."
+msgstr "Ne morete onemogočiti lastnega računa."
+
+#: 
+msgid "Is Admin"
+msgstr "Je skrbnik"
+
+#: 
+msgid "The slug could not be deleted. Please, try again."
+msgstr "Polža ni bilo mogoče izbrisati. Prosim poskusite znova."
+
+#: 
+msgid "The article could not be deleted. Please, try again."
+msgstr "Članka ni bilo mogoče izbrisati. Prosim poskusite znova."
+
+#: 
+msgid "The user has been saved."
+msgstr "Uporabnik je shranjen."
+
+#: 
+msgid "List Email Templates"
+msgstr "Seznam e-poštnih predlog"
 
 #: 
 msgid "Are you sure you want to delete this comment?"
@@ -202,1162 +1302,118 @@ msgid "Twitter Description"
 msgstr "Twitter Opis"
 
 #: 
-msgid "Blocked IPs"
-msgstr "Blokirani IP-ji"
-
-#: 
-msgid "Inappropriate Reason"
-msgstr "Neustrezen razlog"
-
-#: 
-msgid "New Article"
-msgstr "Nov članek"
-
-#: 
-msgid "The email template could not be saved. Please, try again."
-msgstr "E-poštne predloge ni bilo mogoče shraniti. Prosim poskusite znova."
+msgid "Invalid value for the specified type."
+msgstr "Neveljavna vrednost za navedeno vrsto."
 
 #: 
 msgid "New AI Prompt"
 msgstr "Nov poziv AI"
 
 #: 
-msgid "Unable to delete logs with level {0}."
-msgstr "Dnevnikov z nivojem {0} ni mogoče izbrisati."
-
-#: 
-msgid "The slug has been saved."
-msgstr "Polž je shranjen."
-
-#: 
-msgid "The email template has been saved."
-msgstr "E-poštna predloga je shranjena."
-
-#: 
-msgid "Edit Aiprompt"
-msgstr "Uredite Aiprompt"
-
-#: 
-msgid "Created At"
-msgstr "Ustvarjeno pri"
-
-#: 
-msgid "List Email Templates"
-msgstr "Seznam e-poštnih predlog"
-
-#: 
-msgid "{0} Views"
-msgstr "{0} ogledov"
-
-#: 
-msgid "New Internationalisation"
-msgstr "Nova internacionalizacija"
-
-#: 
-msgid "Page Views for {0}"
-msgstr "Ogledi strani za {0}"
-
-#: 
-msgid "Please log in to add a comment"
-msgstr "Prosimo, prijavite se, če želite dodati komentar"
-
-#: 
-msgid "All rights reserved."
-msgstr "Vse pravice pridržane."
-
-#: 
-msgid "You must be logged in to add a comment."
-msgstr "Za dodajanje komentarja morate biti prijavljeni."
-
-#: 
-msgid "Total Views: "
-msgstr "Skupno število ogledov: "
-
-#: 
-msgid "Tags"
-msgstr "Oznake"
-
-#: 
-msgid "Front Site"
-msgstr "Prednja stran"
-
-#: 
-msgid "Edit Image"
-msgstr "Uredi sliko"
-
-#: 
-msgid "Update Article"
-msgstr "Posodobi članek"
-
-#: 
-msgid "New Email Template"
-msgstr "Nova e-poštna predloga"
-
-#: 
-msgid "Edit Comment"
-msgstr "Uredi komentar"
-
-#: 
-msgid "Edit Tag"
-msgstr "Uredi oznako"
-
-#: 
-msgid "User Comments"
-msgstr "Komentarji uporabnikov"
-
-#: 
-msgid "By"
-msgstr "Avtor:"
-
-#: 
-msgid "Search articles..."
-msgstr "Iskanje člankov ..."
-
-#: 
-msgid "Invalid username or password"
-msgstr "Neveljavno uporabniško ime ali geslo"
-
-#: 
-msgid "The comment has been deleted."
-msgstr "Komentar je bil izbrisan."
-
-#: 
-msgid "Not published"
-msgstr "Ni objavljeno"
-
-#: 
-msgid "The internationalisation has been deleted."
-msgstr "Internacionalizacija je bila izbrisana."
-
-#: 
-msgid "Are you sure you want to clear {0}?"
-msgstr "Ali ste prepričani, da želite počistiti {0}?"
-
-#: 
-msgid "Search slugs..."
-msgstr "Išči polže..."
-
-#: 
-msgid "Add Image"
-msgstr "Dodaj sliko"
-
-#: 
-msgid "The slug has been deleted."
-msgstr "Polž je bil izbrisan."
-
-#: 
-msgid "Slug"
-msgstr "Polž"
-
-#: 
-msgid "API request failed. Please try again later."
-msgstr "Zahteva za API ni uspela. Poskusite znova pozneje."
-
-#: 
-msgid "Summary"
-msgstr "Povzetek"
-
-#: 
-msgid "Edit Slug"
-msgstr "Uredi Polža"
-
-#: 
-msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
-msgstr "Stran {{page}} od {{pages}}, prikazuje {{current}} zapis(ov) od {{count}} skupaj"
-
-#: 
-msgid "Article"
-msgstr "člen"
-
-#: 
-msgid "Show Less"
-msgstr "Prikaži manj"
-
-#: 
-msgid "Unable to delete logs in group {0}."
-msgstr "Dnevnikov v skupini {0} ni mogoče izbrisati."
-
-#: 
-msgid "Unknown User"
-msgstr "Neznani uporabnik"
-
-#: 
-msgid "Filter"
-msgstr "Filter"
-
-#: 
-msgid "Show"
-msgstr "Prikaži"
-
-#: 
-msgid "The tag has been deleted."
-msgstr "Oznaka je bila izbrisana."
-
-#: 
-msgid "Comment"
-msgstr "Komentiraj"
-
-#: 
-msgid "Delete"
-msgstr "Izbriši"
-
-#: 
-msgid "Error in: "
-msgstr "Napaka v: "
-
-#: 
-msgid "Engine"
-msgstr "Motor"
-
-#: 
-msgid "The internationalisation has been saved."
-msgstr "Internacionalizacija je shranjena."
-
-#: 
-msgid "A value is required"
-msgstr "Zahtevana je vrednost"
-
-#: 
-msgid "Registration successful. Please check your email for confirmation."
-msgstr "Registracija uspešna. Preverite svojo e-pošto za potrditev."
-
-#: 
-msgid "Comments"
-msgstr "Komentarji"
-
-#: 
-msgid "Failed to update translation for message ID: {0}"
-msgstr "Ni bilo mogoče posodobiti prevoda za ID sporočila: {0}"
-
-#: 
-msgid "Image"
-msgstr "Slika"
-
-#: 
-msgid "The aiprompt has been saved."
-msgstr "Aiprompt je shranjen."
+msgid "Send Reset Link"
+msgstr "Pošlji povezavo za ponastavitev"
 
 #: 
 msgid "Edit Email Template"
 msgstr "Uredi e-poštno predlogo"
 
 #: 
-msgid "Unable to add your comment."
-msgstr "Vašega komentarja ni mogoče dodati."
+msgid "Delete {0}"
+msgstr "Izbriši {0}"
 
 #: 
-msgid "View"
-msgstr "Pogled"
-
-#: 
-msgid "Are you sure you want to delete this prompt?"
-msgstr "Ali ste prepričani, da želite izbrisati ta poziv?"
-
-#: 
-msgid "Admin"
-msgstr "skrbnik"
-
-#: 
-msgid "Model"
-msgstr "Model"
-
-#: 
-msgid "The aiprompt could not be saved. Please, try again."
-msgstr "Aiprompt ni bilo mogoče shraniti. Prosim poskusite znova."
-
-#: 
-msgid "Hide"
-msgstr "Skrij se"
-
-#: 
-msgid "The tag could not be deleted. Please, try again."
-msgstr "Oznake ni bilo mogoče izbrisati. Prosim poskusite znova."
-
-#: 
-msgid "Facebook Description"
-msgstr "Facebook Opis"
-
-#: 
-msgid "Edit Settings"
-msgstr "Uredi nastavitve"
-
-#: 
-msgid "Setting not found: {0}.{1}"
-msgstr "Nastavitve ni mogoče najti: {0}.{1}"
-
-#: 
-msgid "Clear"
-msgstr "jasno"
-
-#: 
-msgid "Update Image"
-msgstr "Posodobi sliko"
-
-#: 
-msgid "Message"
-msgstr "Sporočilo"
-
-#: 
-msgid "Toggle SEO Fields"
-msgstr "Preklopi polja SEO"
-
-#: 
-msgid "Created"
-msgstr "Ustvarjeno"
-
-#: 
-msgid "You cannot remove your own admin status."
-msgstr "Svojega statusa skrbnika ne morete odstraniti."
-
-#: 
-msgid "All Groups"
-msgstr "Vse skupine"
-
-#: 
-msgid "You are not authorized to edit this account, stick to your own."
-msgstr "Niste pooblaščeni za urejanje tega računa, držite se svojega."
-
-#: 
-msgid "List {0}"
-msgstr "Seznam {0}"
-
-#: 
-msgid "Add AI Prompt"
-msgstr "Dodaj poziv AI"
-
-#: 
-msgid "Too many requests. Please try again later."
-msgstr "Preveč zahtev. Poskusite znova pozneje."
-
-#: 
-msgid "Add Internationalisation"
-msgstr "Dodajte internacionalizacijo"
-
-#: 
-msgid "The user has been saved."
-msgstr "Uporabnik je shranjen."
-
-#: 
-msgid "No"
-msgstr "št"
-
-#: 
-msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
-msgstr "Polž je v sporu z obstoječo preusmeritvijo SEO. Prosimo izberite drugega polža."
-
-#: 
-msgid "Message Id"
-msgstr "ID sporočila"
-
-#: 
-msgid "Description"
-msgstr "Opis"
-
-#: 
-msgid "The tag has been saved."
-msgstr "Oznaka je shranjena."
-
-#: 
-msgid "Account"
-msgstr "Račun"
-
-#: 
-msgid "Body HTML"
-msgstr "Telo HTML"
-
-#: 
-msgid "Slug:"
-msgstr "polž:"
-
-#: 
-msgid "The log has been deleted."
-msgstr "Dnevnik je bil izbrisan."
-
-#: 
-msgid "Is Admin"
-msgstr "Je skrbnik"
-
-#: 
-msgid "The comment could not be saved. Please, try again."
-msgstr "Komentarja ni bilo mogoče shraniti. Prosim poskusite znova."
-
-#: 
-msgid "Cache Name"
-msgstr "Ime predpomnilnika"
-
-#: 
-msgid "Are you sure you want to delete comment by {0}?"
-msgstr "Ali ste prepričani, da želite izbrisati komentar avtorja {0}?"
-
-#: 
-msgid "All Levels"
-msgstr "Vse ravni"
-
-#: 
-msgid "The image has been saved."
-msgstr "Slika je shranjena."
-
-#: 
-msgid "Edit Blocked IP"
-msgstr "Uredi blokirani IP"
-
-#: 
-msgid "The image could not be deleted. Please, try again."
-msgstr "Slike ni bilo mogoče izbrisati. Prosim poskusite znova."
-
-#: 
-msgid "This slug is already in use. Please enter a unique slug."
-msgstr "Ta polž je že v uporabi. Vnesite enolični polž."
-
-#: 
-msgid "Search logs..."
-msgstr "Dnevniki iskanja ..."
-
-#: 
-msgid "Password must be at least 8 characters long"
-msgstr "Geslo mora biti dolgo vsaj 8 znakov"
-
-#: 
-msgid "The internationalisation could not be saved. Please, try again."
-msgstr "Internacionalizacije ni bilo mogoče shraniti. Prosim poskusite znova."
-
-#: 
-msgid "System Prompt"
-msgstr "Sistemski poziv"
-
-#: 
-msgid "The settings have been saved."
-msgstr "Nastavitve so shranjene."
-
-#: 
-msgid "Save All Settings"
-msgstr "Shrani vse nastavitve"
+msgid "Name"
+msgstr "Ime"
 
 #: 
 msgid "Additional Images"
 msgstr "Dodatne slike"
 
 #: 
-msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
-msgstr "Polžek mora biti varen za URL (samo male črke, številke in vezaji)"
-
-#: 
-msgid "No view records found for this article."
-msgstr "Za ta članek ni bilo mogoče najti zapisov o ogledih."
-
-#: 
-msgid "Confirm Password"
-msgstr "Potrdite geslo"
-
-#: 
-msgid "You cannot disable your own account."
-msgstr "Ne morete onemogočiti lastnega računa."
-
-#: 
-msgid "Back"
-msgstr "Nazaj"
-
-#: 
-msgid "Subject"
-msgstr "Predmet"
-
-#: 
-msgid "Posted on {date} by {author}"
-msgstr "{date} objavil {author}"
-
-#: 
-msgid "Are you sure you want to delete all {0} logs?"
-msgstr "Ali ste prepričani, da želite izbrisati vse dnevnike {0}?"
-
-#: 
-msgid "Update Comment"
-msgstr "Posodobi komentar"
-
-#: 
-msgid "This message_id must be unique for the given locale."
-msgstr "Ta message_id mora biti edinstven za dano področno nastavitev."
-
-#: 
-msgid "Unable to delete all logs."
-msgstr "Ni mogoče izbrisati vseh dnevnikov."
-
-#: 
-msgid "System Logs"
-msgstr "Sistemski dnevniki"
-
-#: 
-msgid "Slugs"
-msgstr "Polži"
-
-#: 
-msgid "Body Text"
-msgstr "Telo besedila"
-
-#: 
-msgid "Add Email Template"
-msgstr "Dodajte e-poštno predlogo"
-
-#: 
-msgid "No tags are linked."
-msgstr "Nobena oznaka ni povezana."
-
-#: 
-msgid "Article not found."
-msgstr "Članka ni mogoče najti."
-
-#: 
-msgid "The value must be 0 or 1."
-msgstr "Vrednost mora biti 0 ali 1."
-
-#: 
-msgid "Add User"
-msgstr "Dodaj uporabnika"
-
-#: 
-msgid "No pages found."
-msgstr "Ni najdenih strani."
-
-#: 
-msgid "Home"
-msgstr "domov"
-
-#: 
-msgid "Are you sure you want to delete all logs?"
-msgstr "Ali ste prepričani, da želite izbrisati vse dnevnike?"
-
-#: 
-msgid "Your account has been updated."
-msgstr "Vaš račun je posodobljen."
-
-#: 
-msgid "Message Str"
-msgstr "Sporočilo Str"
-
-#: 
-msgid "This slug is already in use in articles. Please enter a unique slug."
-msgstr "Ta polž je že v uporabi v člankih. Vnesite enolični polž."
-
-#: 
-msgid "Delete {0}"
-msgstr "Izbriši {0}"
-
-#: 
-msgid "Add Slug"
-msgstr "Dodajte polža"
-
-#: 
-msgid "Picture"
-msgstr "Slika"
-
-#: 
-msgid "Published"
-msgstr "Objavljeno"
-
-#: 
-msgid "No images."
-msgstr "Brez slik."
-
-#: 
-msgid "AI Prompts"
-msgstr "Pozivi AI"
-
-#: 
-msgid "The article could not be deleted. Please, try again."
-msgstr "Članka ni bilo mogoče izbrisati. Prosim poskusite znova."
-
-#: 
-msgid "User"
-msgstr "Uporabnik"
-
-#: 
-msgid "Image must be less than 5MB."
-msgstr "Slika mora biti manjša od 5 MB."
-
-#: 
-msgid "Delete All Logs"
-msgstr "Izbriši vse dnevnike"
-
-#: 
-msgid "Error sending email: {0}"
-msgstr "Napaka pri pošiljanju e-pošte: {0}"
-
-#: 
-msgid "No page view data available for this article."
-msgstr "Za ta članek ni podatkov o ogledih strani."
-
-#: 
-msgid "Access denied. You must be an admin to view this page."
-msgstr "Dostop zavrnjen. Za ogled te strani morate biti skrbnik."
-
-#: 
-msgid "Expires At"
-msgstr "Poteče ob"
-
-#: 
-msgid "Meta Keywords"
-msgstr "Meta ključne besede"
-
-#: 
-msgid "Yes"
-msgstr "ja"
-
-#: 
-msgid "Registration successful, but there was an issue creating the confirmation link."
-msgstr "Registracija je bila uspešna, vendar je prišlo do težave pri ustvarjanju potrditvene povezave."
-
-#: 
-msgid "Is Published"
-msgstr "Je objavljeno"
-
-#: 
-msgid "Alt Text"
-msgstr "Nadomestno besedilo"
-
-#: 
-msgid "New Blocked IP"
-msgstr "Nov blokiran IP"
-
-#: 
-msgid "Cache Management"
-msgstr "Upravljanje predpomnilnika"
-
-#: 
-msgid "An error occurred while processing your request."
-msgstr "Med obdelavo vaše zahteve je prišlo do napake."
-
-#: 
-msgid "Submit"
-msgstr "Predloži"
-
-#: 
-msgid "Error"
-msgstr "Napaka"
-
-#: 
-msgid "Add a Comment"
-msgstr "Dodajte komentar"
-
-#: 
-msgid "Are you sure you want to delete IP {0}?"
-msgstr "Ali ste prepričani, da želite izbrisati IP {0}?"
-
-#: 
-msgid "Edit"
-msgstr "Uredi"
-
-#: 
-msgid "Settings"
-msgstr "nastavitve"
-
-#: 
-msgid "No comments yet."
-msgstr "Še ni komentarjev."
-
-#: 
-msgid "All logs with level {0} have been deleted."
-msgstr "Vsi dnevniki z nivojem {0} so bili izbrisani."
-
-#: 
-msgid "Registration failed. Please, try again."
-msgstr "Registracija ni uspela. Prosim poskusite znova."
-
-#: 
-msgid "LinkedIn Description"
-msgstr "LinkedIn opis"
-
-#: 
-msgid "Page Views"
-msgstr "Ogledi strani"
-
-#: 
-msgid "The slug must be unique."
-msgstr "Polž mora biti edinstven."
-
-#: 
-msgid "Login"
-msgstr "Prijava"
-
-#: 
-msgid "Display"
-msgstr "Zaslon"
-
-#: 
-msgid "Email Templates"
-msgstr "E-poštne predloge"
-
-#: 
-msgid "Is AI Analyzed"
-msgstr "Ali je AI analiziran"
-
-#: 
-msgid "Meta Title"
-msgstr "Meta naslov"
-
-#: 
-msgid "All Locales"
-msgstr "Vsi lokali"
-
-#: 
-msgid "Invalid type"
-msgstr "Neveljavna vrsta"
-
-#: 
-msgid "The internationalisation could not be deleted. Please, try again."
-msgstr "Internacionalizacije ni bilo mogoče izbrisati. Prosim poskusite znova."
-
-#: 
-msgid "Users"
-msgstr "Uporabniki"
-
-#: 
-msgid "Profile Picture"
-msgstr "Slika profila"
-
-#: 
-msgid "New {0}"
-msgstr "Novo {0}"
-
-#: 
-msgid "Update Tag"
-msgstr "Posodobi oznako"
-
-#: 
-msgid "Id"
-msgstr "Id"
-
-#: 
-msgid "Article ID:"
-msgstr "ID članka:"
-
-#: 
-msgid "Modified At"
-msgstr "Spremenjeno At"
-
-#: 
-msgid "Select a parent"
-msgstr "Izberite starša"
-
-#: 
-msgid "Your comment has been added."
-msgstr "Vaš komentar je bil dodan."
-
-#: 
-msgid "Email sent successfully."
-msgstr "E-pošta je bila uspešno poslana."
-
-#: 
-msgid "Is Inappropriate"
-msgstr "Je neprimerno"
-
-#: 
-msgid "{0} cache could not be cleared."
-msgstr "Predpomnilnika {0} ni bilo mogoče počistiti."
-
-#: 
-msgid "New Slug"
-msgstr "Nov polž"
-
-#: 
-msgid "List View"
-msgstr "Pogled seznama"
-
-#: 
-msgid "Keywords"
-msgstr "Ključne besede"
-
-#: 
-msgid "Unable to delete the log."
-msgstr "Dnevnika ni mogoče izbrisati."
-
-#: 
-msgid "The image has been deleted."
-msgstr "Slika je bila izbrisana."
-
-#: 
-msgid "Add Blocked IP"
-msgstr "Dodaj blokirani IP"
-
-#: 
-msgid "Live"
-msgstr "V živo"
-
-#: 
-msgid "Edit Your Account"
-msgstr "Uredite svoj račun"
-
-#: 
-msgid "Search tags..."
-msgstr "Iskanje oznak ..."
-
-#: 
-msgid "No deleting your own account."
-msgstr "Brez izbrisa lastnega računa."
-
-#: 
-msgid "Configured Caches"
-msgstr "Konfigurirani predpomnilniki"
-
-#: 
-msgid "Register New Account"
-msgstr "Registrirajte nov račun"
-
-#: 
-msgid "The slug could not be saved. Please, try again."
-msgstr "Polža ni bilo mogoče rešiti. Prosim poskusite znova."
-
-#: 
-msgid "New User"
-msgstr "Nov uporabnik"
-
-#: 
-msgid "Failed to send email to: {0}"
-msgstr "E-pošte ni bilo mogoče poslati na: {0}"
-
-#: 
-msgid "Blocked At"
-msgstr "Blokirano pri"
-
-#: 
-msgid "An Internal Error Has Occurred."
-msgstr "Prišlo je do notranje napake."
-
-#: 
-msgid "Update User"
-msgstr "Posodobi uporabnika"
-
-#: 
-msgid "Associated Pages"
-msgstr "Povezane strani"
-
-#: 
-msgid "Level"
-msgstr "Raven"
-
-#: 
-msgid "List Blocked IPs"
-msgstr "Seznam blokiranih IP-jev"
-
-#: 
-msgid "Article/Page"
-msgstr "Članek/Stran"
-
-#: 
-msgid "The tag could not be saved. Please, try again."
-msgstr "Oznake ni bilo mogoče shraniti. Prosim poskusite znova."
-
-#: 
-msgid "Search images..."
-msgstr "Iskanje slik ..."
-
-#: 
-msgid "Body"
-msgstr "Telo"
-
-#: 
-msgid "Code Coverage"
-msgstr "Pokritost kode"
-
-#: 
-msgid "The user has been deleted."
-msgstr "Uporabnik je bil izbrisan."
-
-#: 
-msgid "The article has been saved."
-msgstr "Članek je shranjen."
-
-#: 
-msgid "Block IPs"
-msgstr "Blokiraj IP-je"
-
-#: 
-msgid "Task Type"
-msgstr "Vrsta naloge"
-
-#: 
-msgid "Related Tags"
-msgstr "Sorodne oznake"
-
-#: 
-msgid "Edit Internationalisation"
-msgstr "Uredi internacionalizacijo"
-
-#: 
-msgid "New Tag"
-msgstr "Nova oznaka"
-
-#: 
-msgid "Article not found"
-msgstr "Članka ni mogoče najti"
-
-#: 
-msgid "Tag not found"
-msgstr "Oznake ni mogoče najti"
-
-#: 
-msgid "Your account has been confirmed. You can now log in."
-msgstr "Vaš račun je potrjen. Zdaj se lahko prijavite."
-
-#: 
-msgid "Grid View"
-msgstr "Mrežni pogled"
-
-#: 
-msgid "{0} cache has been cleared successfully."
-msgstr "Predpomnilnik {0} je bil uspešno počiščen."
-
-#: 
-msgid "English"
-msgstr "angleščina"
-
-#: 
-msgid "No internationalizations found for the provided IDs."
-msgstr "Za navedene ID-je ni bilo mogoče najti internacionalizacij."
-
-#: 
-msgid "Last Cleared"
-msgstr "Nazadnje izbrisano"
-
-#: 
-msgid "Related Articles"
-msgstr "Sorodni članki"
+msgid "IP Address"
+msgstr "IP naslov"
 
 #: 
 msgid "Group Name"
 msgstr "Ime skupine"
 
 #: 
-msgid "The value must not be empty."
-msgstr "Vrednost ne sme biti prazna."
+msgid "User Comments"
+msgstr "Komentarji uporabnikov"
 
 #: 
-msgid "Search comments..."
-msgstr "Iskanje komentarjev ..."
-
-#: 
-msgid "The article has been deleted."
-msgstr "Članek je bil izbrisan."
-
-#: 
-msgid "Failed to save the image"
-msgstr "Slike ni bilo mogoče shraniti"
-
-#: 
-msgid "Enter a number"
-msgstr "Vnesite številko"
-
-#: 
-msgid "Unknown Author"
-msgstr "Neznani avtor"
-
-#: 
-msgid "Meta Description"
-msgstr "Meta opis"
-
-#: 
-msgid "Details"
-msgstr "Podrobnosti"
-
-#: 
-msgid "Logs"
-msgstr "Dnevniki"
-
-#: 
-msgid "Updated At"
-msgstr "Posodobljeno na"
-
-#: 
-msgid "The value must be a number."
-msgstr "Vrednost mora biti število."
-
-#: 
-msgid "User Agent"
-msgstr "Uporabniški agent"
-
-#: 
-msgid "Update Aiprompt"
-msgstr "Posodobite Aiprompt"
-
-#: 
-msgid "Add Article"
-msgstr "Dodaj članek"
-
-#: 
-msgid "The requested address {0} was not found on this server."
-msgstr "Zahtevanega naslova {0} ni bilo mogoče najti na tem strežniku."
-
-#: 
-msgid "Main Picture"
-msgstr "Glavna slika"
-
-#: 
-msgid "Are you sure you want to delete all logs in group {0}?"
-msgstr "Ali ste prepričani, da želite izbrisati vse dnevnike v skupini {0}?"
-
-#: 
-msgid "Edit User"
-msgstr "Uredi uporabnika"
-
-#: 
-msgid "Views"
-msgstr "Pogledi"
+msgid "Not published"
+msgstr "Ni objavljeno"
 
 #: 
 msgid "Please enter your email and password"
 msgstr "Prosimo, vnesite svoj e-poštni naslov in geslo"
 
 #: 
-msgid "The comment has been saved."
-msgstr "Komentar je shranjen."
+msgid "Are you sure you want to delete {0}?"
+msgstr "Ali ste prepričani, da želite izbrisati {0}?"
 
 #: 
-msgid "The article could not be saved. Please, try again."
-msgstr "Članka ni bilo mogoče shraniti. Prosim poskusite znova."
+msgid "Display"
+msgstr "Zaslon"
 
 #: 
-msgid "Enter text"
-msgstr "Vnesite besedilo"
+msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
+msgstr "Polž je v sporu z obstoječo preusmeritvijo SEO. Prosimo izberite drugega polža."
 
 #: 
-msgid "New Image"
-msgstr "Nova slika"
+msgid "{0} Views"
+msgstr "{0} ogledov"
 
 #: 
-msgid "Missing required arguments in the message."
-msgstr "V sporočilu manjkajo zahtevani argumenti."
-
-#: 
-msgid "All logs in group {0} have been deleted."
-msgstr "Vsi dnevniki v skupini {0} so bili izbrisani."
-
-#: 
-msgid "Submit Comment"
-msgstr "Oddaj komentar"
-
-#: 
-msgid "Error saving {0}.{1}: {2}"
-msgstr "Napaka pri shranjevanju {0}.{1}: {2}"
-
-#: 
-msgid "Articles"
-msgstr "Članki"
-
-#: 
-msgid "Search users..."
-msgstr "Iskanje uporabnikov ..."
-
-#: 
-msgid "There was an issue confirming your account. Please try again."
-msgstr "Pri potrjevanju vašega računa je prišlo do težave. prosim poskusite ponovno"
-
-#: 
-msgid "Register"
-msgstr "Registrirajte se"
-
-#: 
-msgid "Show Full Article"
-msgstr "Prikaži celoten članek"
-
-#: 
-msgid "Never"
-msgstr "Nikoli"
-
-#: 
-msgid "Temperature"
-msgstr "Temperatura"
-
-#: 
-msgid "The blocked ip could not be saved. Please, try again."
-msgstr "Blokiranega ip-ja ni bilo mogoče shraniti. Prosim poskusite znova."
-
-#: 
-msgid "Reason"
-msgstr "Razlog"
-
-#: 
-msgid "Max Tokens"
-msgstr "Največ žetonov"
-
-#: 
-msgid "Some caches were cleared, but the following failed: {0}"
-msgstr "Nekateri predpomnilniki so bili izbrisani, toda naslednje ni uspelo: {0}"
-
-#: 
-msgid "Invalid value for the specified type."
-msgstr "Neveljavna vrednost za navedeno vrsto."
-
-#: 
-msgid "Context"
-msgstr "Kontekst"
-
-#: 
-msgid "Internationalisation"
-msgstr "Internacionalizacija"
-
-#: 
-msgid "Are you sure you want to delete # {0}?"
-msgstr "Ali ste prepričani, da želite izbrisati # {0}?"
-
-#: 
-msgid "Actions"
-msgstr "Dejanja"
-
-#: 
-msgid "Image uploaded successfully"
-msgstr "Slika je bila uspešno naložena"
-
-#: 
-msgid "Add Page"
-msgstr "Dodaj stran"
-
-#: 
-msgid "The email template could not be deleted. Please, try again."
-msgstr "E-poštne predloge ni bilo mogoče izbrisati. Prosim poskusite znova."
-
-#: 
-msgid "{0} cache configuration does not exist."
-msgstr "Konfiguracija predpomnilnika {0} ne obstaja."
-
-#: 
-msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
-msgstr "Spodaj so informacije o konfiguriranih predpomnilnikih. Kliknite gumb, da počistite vse predpomnilnike, ali posamezne gumbe predpomnilnika, da počistite določene predpomnilnike."
-
-#: 
-msgid "The image could not be saved. Please, try again."
-msgstr "Slike ni bilo mogoče shraniti. Prosim poskusite znova."
-
-#: 
-msgid "View detailed records for this date"
-msgstr "Oglejte si podrobne zapise za ta datum"
+msgid "Setting not found: {0}.{1}"
+msgstr "Nastavitve ni mogoče najti: {0}.{1}"
 
 #: 
 msgid "Page View Statistics for slug: {0}"
 msgstr "Statistika ogledov strani za polža: {0}"
 
 #: 
-msgid "Some settings could not be saved. Please, try again."
-msgstr "Nekaterih nastavitev ni bilo mogoče shraniti. Prosim poskusite znova."
+msgid "Unable to add your comment."
+msgstr "Vašega komentarja ni mogoče dodati."
 
 #: 
-msgid "Logout"
-msgstr "Odjava"
+msgid "Home"
+msgstr "domov"
 
 #: 
-msgid "Content"
-msgstr "Vsebina"
+msgid "Are you sure you want to delete all logs in group {0}?"
+msgstr "Ali ste prepričani, da želite izbrisati vse dnevnike v skupini {0}?"
 
 #: 
-msgid "Locale"
-msgstr "Locale"
+msgid "Invalid type"
+msgstr "Neveljavna vrsta"
 
 #: 
-msgid "Show Details"
-msgstr "Pokaži podrobnosti"
+msgid "Some caches were cleared, but the following failed: {0}"
+msgstr "Nekateri predpomnilniki so bili izbrisani, toda naslednje ni uspelo: {0}"
 
 #: 
-msgid "The user could not be deleted. Please, try again."
-msgstr "Uporabnika ni bilo mogoče izbrisati. Prosim poskusite znova."
+msgid "The article has been deleted."
+msgstr "Članek je bil izbrisan."
 
 #: 
-msgid "Are you sure you want to delete {0}?"
-msgstr "Ali ste prepričani, da želite izbrisati {0}?"
+msgid "Created At"
+msgstr "Ustvarjeno pri"
+
+#: 
+msgid "AI Prompts"
+msgstr "Pozivi AI"
+
+#: 
+msgid "Edit"
+msgstr "Uredi"
+
+#: 
+msgid "{0} cache configuration does not exist."
+msgstr "Konfiguracija predpomnilnika {0} ne obstaja."
+
+#: 
+msgid "Code Coverage"
+msgstr "Pokritost kode"
 

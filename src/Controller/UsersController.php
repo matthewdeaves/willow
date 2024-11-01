@@ -37,12 +37,13 @@ class UsersController extends AppController
         parent::beforeFilter($event);
 
         $this->Authentication->allowUnauthenticated(
-            ['login',
-            'logout',
-            'register',
-            'confirmEmail',
-            'forgotPassword',
-            'resetPassword',
+            [
+                'login',
+                'logout',
+                'register',
+                'confirmEmail',
+                'forgotPassword',
+                'resetPassword',
             ]
         );
 
@@ -284,7 +285,7 @@ class UsersController extends AppController
 
                 if ($confirmationsTable->save($confirmation)) {
                     $this->sendPasswordResetEmail($user, $confirmation);
-                    $this->Flash->success(__('Please check your email for instructions to reset your password.'));
+                    $this->Flash->success(__('If your email is registered, you will receive a link to reset your password.'));
 
                     return $this->redirect(['action' => 'login']);
                 }
@@ -304,6 +305,10 @@ class UsersController extends AppController
      */
     private function sendPasswordResetEmail(User $user, UserAccountConfirmation $confirmation): void
     {
+        if (env('CAKE_ENV') === 'test') {
+            return;
+        }
+
         try {
             $data = [
                 'template_identifier' => 'reset_password',
@@ -337,7 +342,7 @@ class UsersController extends AppController
         if (!SettingsManager::read('Users.registrationEnabled', false)) {
             return $this->redirect($this->referer());
         }
-        
+
         $confirmationsTable = $this->fetchTable('UserAccountConfirmations');
         $confirmation = $confirmationsTable->find()
             ->where(['confirmation_code' => $confirmationCode])
@@ -352,6 +357,8 @@ class UsersController extends AppController
         $user = $this->Users->get($confirmation->user_id);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
+            $user->setAccess('is_admin', false);
+            $user->setAccess('is_disabled', false);
             $user = $this->Users->patchEntity($user, $this->request->getData(), [
                 'validate' => 'resetPassword',
             ]);

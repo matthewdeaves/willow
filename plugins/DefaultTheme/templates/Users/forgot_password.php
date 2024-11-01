@@ -7,7 +7,7 @@
                 </div>
                 <div class="card-body">
                     <?= $this->Flash->render() ?>
-                    <?= $this->Form->create(null, ['url' => ['action' => 'forgotPassword'], 'class' => 'needs-validation', 'novalidate' => true]) ?>
+                    <?= $this->Form->create(null, ['url' => ['_name' => 'forgot-password'], 'class' => 'needs-validation', 'novalidate' => true]) ?>
                     <fieldset>
                         <legend class="text-center mb-4"><?= __('Please enter your email to reset your password') ?></legend>
                         <div class="mb-3">

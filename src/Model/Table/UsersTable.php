@@ -137,18 +137,20 @@ class UsersTable extends Table
     public function validationResetPassword(Validator $validator): Validator
     {
         $validator
-            ->add('password', [
-                'length' => [
-                    'rule' => ['minLength', 8],
-                    'message' => 'Password must be at least 8 characters long.',
-                ],
-            ])
-            ->add('password_confirm', [
-                'compare' => [
-                    'rule' => ['compareWith', 'password'],
-                    'message' => 'Passwords do not match.',
-                ],
-            ]);
+            ->scalar('password')
+            ->minLength('password', 8, __('Password must be at least 8 characters long'))
+            ->maxLength('password', 255)
+            ->requirePresence('password', 'create')
+            ->allowEmptyString('password', 'update')
+            ->notEmptyString('password', null, 'create');
+
+        $validator
+            ->scalar('confirm_password')
+            ->maxLength('confirm_password', 255)
+            ->requirePresence('confirm_password', 'create')
+            ->allowEmptyString('confirm_password', 'update')
+            ->notEmptyString('confirm_password', null, 'create')
+            ->sameAs('confirm_password', 'password', 'Passwords do not match');
 
         return $validator;
     }

@@ -78,7 +78,17 @@ return function (RouteBuilder $routes): void {
             ]
         );
         $builder->connect('/users/register', ['controller' => 'Users', 'action' => 'register'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
-        $builder->connect('/users/forgot-password', ['controller' => 'Users', 'action' => 'forgot-password'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+        $builder->connect(
+            '/users/forgot-password',
+            [
+                'controller' => 'Users',
+                'action' => 'forgot-password'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'forgot-password',
+            ]
+        );
         $builder->connect(
             '/users/reset-password/{confirmationCode}',
             [

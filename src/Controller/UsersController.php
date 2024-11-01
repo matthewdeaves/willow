@@ -36,7 +36,16 @@ class UsersController extends AppController
     {
         parent::beforeFilter($event);
 
-        $this->Authentication->allowUnauthenticated(['login', 'logout', 'register', 'confirmEmail']);
+        $this->Authentication->allowUnauthenticated(
+            [
+                'login',
+                'logout',
+                'register',
+                'confirmEmail',
+                'forgotPassword',
+                'resetPassword',
+            ]
+        );
 
         return null;
     }
@@ -242,10 +251,131 @@ class UsersController extends AppController
                 return $this->redirect(['action' => 'register']);
             }
         } else {
-            $this->Flash->error(__('Invalid confirmation code. Please contact support.'));
+            $this->Flash->error(__('Invalid confirmation code.'));
 
             return $this->redirect(['action' => 'register']);
         }
+
+        return null;
+    }
+
+    /**
+     * Handles the forgot password functionality.
+     *
+     * Allows users to request a password reset link via email.
+     *
+     * @return \Cake\Http\Response|null Redirects on successful request, or null on failure.
+     */
+    public function forgotPassword(): ?Response
+    {
+        if (!SettingsManager::read('Users.registrationEnabled', false)) {
+            return $this->redirect($this->referer());
+        }
+
+        if ($this->request->is('post')) {
+            $email = $this->request->getData('email');
+            $user = $this->Users->findByEmail($email)->first();
+
+            if ($user) {
+                $confirmationsTable = $this->fetchTable('UserAccountConfirmations');
+                $confirmation = $confirmationsTable->newEntity([
+                    'user_id' => $user->id,
+                    'confirmation_code' => Text::uuid(),
+                ]);
+
+                if ($confirmationsTable->save($confirmation)) {
+                    $this->sendPasswordResetEmail($user, $confirmation);
+                    $this->Flash->success(__(
+                        'If your email is registered, you will receive a link to reset your password.'
+                    ));
+
+                    return $this->redirect(['action' => 'login']);
+                }
+            }
+            $this->Flash->success(__('If your email is registered, you will receive a link to reset your password.'));
+        }
+
+        return null;
+    }
+
+    /**
+     * Sends a password reset email to the user.
+     *
+     * @param \App\Model\Entity\User $user The user entity.
+     * @param \App\Model\Entity\UserAccountConfirmation $confirmation The confirmation entity.
+     * @return void
+     */
+    private function sendPasswordResetEmail(User $user, UserAccountConfirmation $confirmation): void
+    {
+        if (env('CAKE_ENV') === 'test') {
+            return;
+        }
+
+        try {
+            $data = [
+                'template_identifier' => 'reset_password',
+                'from' => SettingsManager::read('Email.reply_email', 'noreply@example.com'),
+                'to' => $user->email,
+                'viewVars' => [
+                    'username' => $user->username,
+                    'reset_password_link' => Router::url([
+                        '_name' => 'reset-password',
+                        $confirmation->confirmation_code,
+                    ], true),
+                ],
+            ];
+
+            QueueManager::push('App\Job\SendEmailJob', $data);
+        } catch (Exception $e) {
+            Log::error(__('Failed to send password reset email: {0}', $e->getMessage()));
+        }
+    }
+
+    /**
+     * Handles the password reset functionality.
+     *
+     * Allows users to reset their password using a valid confirmation code.
+     *
+     * @param string $confirmationCode The confirmation code from the password reset link.
+     * @return \Cake\Http\Response|null Redirects after successful password reset, or null on failure.
+     */
+    public function resetPassword(string $confirmationCode): ?Response
+    {
+        if (!SettingsManager::read('Users.registrationEnabled', false)) {
+            return $this->redirect($this->referer());
+        }
+
+        $confirmationsTable = $this->fetchTable('UserAccountConfirmations');
+        $confirmation = $confirmationsTable->find()
+            ->where(['confirmation_code' => $confirmationCode])
+            ->first();
+
+        if (!$confirmation) {
+            $this->Flash->error(__('Invalid or expired password reset link.'));
+
+            return $this->redirect(['action' => 'login']);
+        }
+
+        $user = $this->Users->get($confirmation->user_id);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $user->setAccess('is_admin', false);
+            $user->setAccess('is_disabled', false);
+            $user = $this->Users->patchEntity($user, $this->request->getData(), [
+                'validate' => 'resetPassword',
+            ]);
+
+            if ($this->Users->save($user)) {
+                $confirmationsTable->delete($confirmation);
+                $this->Flash->success(__('Your password has been reset. Please log in with your new password.'));
+
+                return $this->redirect(['action' => 'login']);
+            } else {
+                $this->Flash->error(__('There was an issue resetting your password. Please try again.'));
+            }
+        }
+
+        $this->set(compact('user', 'confirmationCode'));
 
         return null;
     }

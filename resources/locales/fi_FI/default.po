@@ -14,440 +14,148 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
 #: 
-msgid "Show Full Article"
-msgstr "Näytä koko artikkeli"
-
-#: 
-msgid "Failed to send confirmation email message: {0}"
-msgstr "Vahvistusviestin lähettäminen epäonnistui: {0}"
-
-#: 
-msgid "The image has been saved."
-msgstr "Kuva on tallennettu."
-
-#: 
-msgid "Date"
-msgstr "Päivämäärä"
-
-#: 
-msgid "Article"
-msgstr "Artikla"
-
-#: 
-msgid "All caches have been cleared successfully."
-msgstr "Kaikki välimuistit on tyhjennetty onnistuneesti."
-
-#: 
-msgid "The value must be 0 or 1."
-msgstr "Arvon on oltava 0 tai 1."
-
-#: 
-msgid "The slug has been saved."
-msgstr "Etu on pelastettu."
-
-#: 
-msgid "AI Prompts"
-msgstr "AI-kehotteet"
-
-#: 
-msgid "The internationalisation has been saved."
-msgstr "Kansainvälistyminen on pelastettu."
-
-#: 
-msgid "The blocked ip could not be deleted. Please, try again."
-msgstr "Estettyä IP-osoitetta ei voitu poistaa. Ole hyvä ja yritä uudelleen."
-
-#: 
-msgid "The article has been saved."
-msgstr "Artikkeli on tallennettu."
-
-#: 
-msgid "The article could not be deleted. Please, try again."
-msgstr "Artikkelia ei voitu poistaa. Ole hyvä ja yritä uudelleen."
-
-#: 
-msgid "New AI Prompt"
-msgstr "Uusi AI-kehote"
-
-#: 
-msgid "Is AI Analyzed"
-msgstr "Onko AI analysoitu"
-
-#: 
-msgid "Instagram Description"
-msgstr "Instagram Kuvaus"
-
-#: 
-msgid "Slug"
-msgstr "Etana"
-
-#: 
-msgid "An error occurred while processing your request."
-msgstr "Pyyntöäsi käsiteltäessä tapahtui virhe."
-
-#: 
-msgid "Update Image"
-msgstr "Päivitä kuva"
-
-#: 
-msgid "Delete"
-msgstr "Poistaa"
-
-#: 
-msgid "Article/Page"
-msgstr "Artikkeli/sivu"
-
-#: 
-msgid "Main Picture"
-msgstr "Pääkuva"
-
-#: 
-msgid "The comment could not be saved. Please, try again."
-msgstr "Kommenttia ei voitu tallentaa. Ole hyvä ja yritä uudelleen."
-
-#: 
-msgid "No images."
-msgstr "Ei kuvia."
-
-#: 
-msgid "Unknown Author"
-msgstr "Tuntematon tekijä"
-
-#: 
-msgid "Username"
-msgstr "Käyttäjätunnus"
-
-#: 
-msgid "Clear"
-msgstr "Selkeä"
-
-#: 
-msgid "Image"
-msgstr "Kuva"
-
-#: 
-msgid "Update User"
-msgstr "Päivitä käyttäjä"
-
-#: 
-msgid "Your account has been confirmed. You can now log in."
-msgstr "Tilisi on vahvistettu. Voit nyt kirjautua sisään."
-
-#: 
-msgid "All Levels"
-msgstr "Kaikki tasot"
-
-#: 
-msgid "All Locales"
-msgstr "Kaikki alueet"
-
-#: 
-msgid "All logs in group {0} have been deleted."
-msgstr "Kaikki lokit ryhmästä {0} on poistettu."
-
-#: 
-msgid "Missing required arguments in the message."
-msgstr "Viestistä puuttuu pakolliset argumentit."
-
-#: 
-msgid "Error loading images:"
-msgstr "Virhe ladattaessa kuvia:"
-
-#: 
-msgid "Unable to delete logs with level {0}."
-msgstr "Tason {0} lokeja ei voi poistaa."
-
-#: 
-msgid "Failed to send email. Please check your email configuration."
-msgstr "Sähköpostin lähetys epäonnistui. Tarkista sähköpostisi asetukset."
-
-#: 
-msgid "Referer"
-msgstr "Viittaus"
-
-#: 
-msgid "Live"
-msgstr "Elää"
-
-#: 
-msgid "Edit Your Account"
-msgstr "Muokkaa tiliäsi"
-
-#: 
-msgid "Title"
-msgstr "Otsikko"
-
-#: 
-msgid "This message_id must be unique for the given locale."
-msgstr "Tämän viestin_id:n on oltava yksilöivä tietylle maa-alueelle."
-
-#: 
-msgid "The user has been deleted."
-msgstr "Käyttäjä on poistettu."
-
-#: 
-msgid "Context"
-msgstr "Konteksti"
-
-#: 
-msgid "Are you sure you want to delete comment by {0}?"
-msgstr "Haluatko varmasti poistaa kommentin käyttäjältä {0}?"
-
-#: 
-msgid "Register"
-msgstr "Rekisteröidy"
-
-#: 
-msgid "Edit Blocked IP"
-msgstr "Muokkaa estettyä IP-osoitetta"
-
-#: 
-msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
-msgstr "Sähköposti lähetetty onnistuneesti osoitteeseen: {0}. Malli: {1}, aihe: {2}"
-
-#: 
-msgid "Delete {0}"
-msgstr "Poista {0}"
-
-#: 
-msgid "Unable to delete all logs."
-msgstr "Kaikkia lokeja ei voi poistaa."
-
-#: 
-msgid "Bulk Upload Images"
-msgstr "Kuvien joukkolähetys"
-
-#: 
-msgid "All logs have been deleted."
-msgstr "Kaikki lokit on poistettu."
-
-#: 
-msgid "Search images..."
-msgstr "Hae kuvia..."
-
-#: 
-msgid "Edit Aiprompt"
-msgstr "Muokkaa Airpromptia"
-
-#: 
-msgid "Search logs..."
-msgstr "Haku lokeista..."
-
-#: 
-msgid "The email template has been deleted."
-msgstr "Sähköpostimalli on poistettu."
-
-#: 
-msgid "Are you sure you want to delete all logs in group {0}?"
-msgstr "Haluatko varmasti poistaa kaikki lokit ryhmästä {0}?"
-
-#: 
-msgid "Summary"
-msgstr "Yhteenveto"
-
-#: 
-msgid "Keywords"
-msgstr "Avainsanat"
-
-#: 
-msgid "Tag not found"
-msgstr "Tunnistetta ei löydy"
-
-#: 
-msgid "New Slug"
-msgstr "Uusi Slug"
-
-#: 
-msgid "All Tags"
-msgstr "Kaikki tunnisteet"
-
-#: 
-msgid "Please enter your email and password"
-msgstr "Anna sähköpostiosoitteesi ja salasanasi"
-
-#: 
-msgid "Access denied. You must be an admin to view this page."
-msgstr "Käyttö estetty. Sinun on oltava järjestelmänvalvoja nähdäksesi tämän sivun."
-
-#: 
-msgid "Your account has been updated."
-msgstr "Tilisi on päivitetty."
-
-#: 
-msgid "Updated At"
-msgstr "Päivitetty klo"
-
-#: 
-msgid "Error in: "
-msgstr "Virhe: "
-
-#: 
-msgid "This slug is already in use. Please enter a unique slug."
-msgstr "Tämä etana on jo käytössä. Anna yksilöllinen etana."
-
-#: 
-msgid "No view records found for this article."
-msgstr "Tästä artikkelista ei löytynyt katselutietoja."
-
-#: 
-msgid "Article ID:"
-msgstr "Artikkelin tunnus:"
-
-#: 
-msgid "{0} cache has been cleared successfully."
-msgstr "{0} välimuisti on tyhjennetty onnistuneesti."
-
-#: 
-msgid "Enter text"
-msgstr "Kirjoita teksti"
-
-#: 
-msgid "The tag has been deleted."
-msgstr "Tunniste on poistettu."
-
-#: 
-msgid "Is Admin"
-msgstr "Onko Admin"
-
-#: 
-msgid "Hide"
-msgstr "Piilottaa"
-
-#: 
-msgid "New Image"
-msgstr "Uusi kuva"
-
-#: 
-msgid "All rights reserved."
-msgstr "Kaikki oikeudet pidätetään."
-
-#: 
-msgid "Edit {0}"
-msgstr "Muokkaa {0}"
-
-#: 
-msgid "List Blocked IPs"
-msgstr "Luettele estetyt IP-osoitteet"
-
-#: 
-msgid "Are you sure you want to delete all {0} logs?"
-msgstr "Haluatko varmasti poistaa kaikki {0} lokia?"
-
-#: 
-msgid "Configured Caches"
-msgstr "Määritetyt välimuistit"
-
-#: 
-msgid "Admin"
-msgstr "Admin"
-
-#: 
-msgid "Body Text"
-msgstr "Runkoteksti"
-
-#: 
-msgid "Save All Settings"
-msgstr "Tallenna kaikki asetukset"
-
-#: 
-msgid "The blocked ip could not be saved. Please, try again."
-msgstr "Estettyä IP-osoitetta ei voitu tallentaa. Ole hyvä ja yritä uudelleen."
-
-#: 
-msgid "The internationalisation has been deleted."
-msgstr "Kansainvälistyminen on poistettu."
-
-#: 
-msgid "Inappropriate Reason"
-msgstr "Sopimaton syy"
-
-#: 
-msgid "Are you sure you want to delete {0}?"
-msgstr "Haluatko varmasti poistaa kohteen {0}?"
-
-#: 
-msgid "Created At"
-msgstr "Luotu klo"
+msgid "Tags"
+msgstr "Tunnisteet"
 
 #: 
 msgid "Meta Description"
 msgstr "Meta Kuvaus"
 
 #: 
-msgid "Submit"
-msgstr "Lähetä"
+msgid "User Comments"
+msgstr "Käyttäjien kommentit"
 
 #: 
-msgid "The image has been deleted."
-msgstr "Kuva on poistettu."
+msgid "Unknown Author"
+msgstr "Tuntematon tekijä"
 
 #: 
-msgid "Your comment has been added."
-msgstr "Kommenttisi on lisätty."
+msgid "Search tags..."
+msgstr "Hae tunnisteita..."
 
 #: 
-msgid "The image could not be deleted. Please, try again."
-msgstr "Kuvaa ei voitu poistaa. Ole hyvä ja yritä uudelleen."
+msgid "Update Aiprompt"
+msgstr "Päivitä Airprompt"
+
+#: 
+msgid "The settings have been saved."
+msgstr "Asetukset on tallennettu."
+
+#: 
+msgid "Not published"
+msgstr "Ei julkaistu"
+
+#: 
+msgid "Unable to add your comment."
+msgstr "Kommenttiasi ei voi lisätä."
+
+#: 
+msgid "Please enter your email to reset your password"
+msgstr "Anna sähköpostiosoitteesi nollataksesi salasanasi"
+
+#: 
+msgid "Posted on {date} by {author}"
+msgstr "Lähettänyt {date}, kirjoittaja {author}"
+
+#: 
+msgid "Cache Management"
+msgstr "Välimuistin hallinta"
+
+#: 
+msgid "The email template could not be saved. Please, try again."
+msgstr "Sähköpostimallia ei voitu tallentaa. Ole hyvä ja yritä uudelleen."
+
+#: 
+msgid "All rights reserved."
+msgstr "Kaikki oikeudet pidätetään."
+
+#: 
+msgid "The comment has been deleted."
+msgstr "Kommentti on poistettu."
+
+#: 
+msgid "Show Less"
+msgstr "Näytä vähemmän"
+
+#: 
+msgid "Delete"
+msgstr "Poistaa"
 
 #: 
 msgid "Meta Title"
 msgstr "Meta otsikko"
 
 #: 
-msgid "Email sent successfully."
-msgstr "Sähköposti lähetetty onnistuneesti."
+msgid "Failed to update translation for message ID: {0}"
+msgstr "Viestitunnuksen käännöksen päivittäminen epäonnistui: {0}"
 
 #: 
-msgid "Related Articles"
-msgstr "Aiheeseen liittyvät artikkelit"
+msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
+msgstr "Alla on tietoja määritetyistä välimuistista. Napsauta painiketta tyhjentääksesi kaikki välimuistit tai yksittäisiä välimuistipainikkeita tyhjentääksesi tietyt välimuistit."
 
 #: 
-msgid "Total Views: "
-msgstr "Katselukerrat yhteensä: "
+msgid "Page View Statistics for slug: {0}"
+msgstr "Sivun katselutilastot etanalle: {0}"
 
 #: 
-msgid "Logout"
-msgstr "Kirjaudu ulos"
+msgid "Add Slug"
+msgstr "Lisää Slug"
 
 #: 
-msgid "No comments yet."
-msgstr "Ei vielä kommentteja."
+msgid "Search users..."
+msgstr "Hae käyttäjiä..."
 
 #: 
-msgid "Is Inappropriate"
-msgstr "On sopimatonta"
+msgid "No view records found for this article."
+msgstr "Tästä artikkelista ei löytynyt katselutietoja."
 
 #: 
-msgid "User"
-msgstr "Käyttäjä"
+msgid "Show Full Article"
+msgstr "Näytä koko artikkeli"
 
 #: 
-msgid "Yes"
-msgstr "Kyllä"
+msgid "AI Prompts"
+msgstr "AI-kehotteet"
 
 #: 
-msgid "Email Templates"
-msgstr "Sähköpostimallit"
+msgid "Update Article"
+msgstr "Päivitä artikkeli"
 
 #: 
-msgid "Modified"
-msgstr "Muokattu"
+msgid "Select a parent"
+msgstr "Valitse vanhempi"
 
 #: 
-msgid "Edit Slug"
-msgstr "Muokkaa Slugia"
+msgid "Blocked IPs"
+msgstr "Estetyt IP-osoitteet"
 
 #: 
-msgid "The image could not be saved. Please, try again."
-msgstr "Kuvaa ei voitu tallentaa. Ole hyvä ja yritä uudelleen."
+msgid "Forgot Password"
+msgstr "Salasana unohtunut"
 
 #: 
-msgid "Email"
-msgstr "Sähköposti"
+msgid "Keywords"
+msgstr "Avainsanat"
 
 #: 
-msgid "The tag could not be saved. Please, try again."
-msgstr "Tunnistetta ei voitu tallentaa. Ole hyvä ja yritä uudelleen."
+msgid "Task Type"
+msgstr "Tehtävän tyyppi"
+
+#: 
+msgid "Grid View"
+msgstr "Ruudukkonäkymä"
+
+#: 
+msgid "Are you sure you want to delete IP {0}?"
+msgstr "Haluatko varmasti poistaa IP-osoitteen {0}?"
+
+#: 
+msgid "The email template has been saved."
+msgstr "Sähköpostimalli on tallennettu."
+
+#: 
+msgid "Submit"
+msgstr "Lähetä"
 
 #: 
 msgid "Are you sure you want to delete all logs?"
@@ -458,906 +166,1254 @@ msgid "API request failed. Please try again later."
 msgstr "API-pyyntö epäonnistui. Yritä myöhemmin uudelleen."
 
 #: 
-msgid "Actions"
-msgstr "Toiminnot"
+msgid "Edit Blocked IP"
+msgstr "Muokkaa estettyä IP-osoitetta"
 
 #: 
-msgid "Failed to update translation for message ID: {0}"
-msgstr "Viestitunnuksen käännöksen päivittäminen epäonnistui: {0}"
-
-#: 
-msgid "Articles"
-msgstr "Artikkelit"
-
-#: 
-msgid "Published"
-msgstr "Julkaistu"
-
-#: 
-msgid "Pages"
-msgstr "Sivut"
-
-#: 
-msgid "Last Cleared"
-msgstr "Viimeksi tyhjennetty"
-
-#: 
-msgid "Created"
-msgstr "Luotu"
-
-#: 
-msgid "Register New Account"
-msgstr "Rekisteröi uusi tili"
-
-#: 
-msgid "Facebook Description"
-msgstr "Facebook Kuvaus"
-
-#: 
-msgid "Edit Settings"
-msgstr "Muokkaa asetuksia"
-
-#: 
-msgid "IP Address"
-msgstr "IP-osoite"
-
-#: 
-msgid "Are you sure you want to clear {0}?"
-msgstr "Haluatko varmasti tyhjentää kohteen {0}?"
-
-#: 
-msgid "Block IPs"
-msgstr "Estä IP-osoitteet"
-
-#: 
-msgid "Update Tag"
-msgstr "Päivitä tunniste"
-
-#: 
-msgid "System Logs"
-msgstr "Järjestelmälokit"
-
-#: 
-msgid "Registration failed. Please, try again."
-msgstr "Rekisteröinti epäonnistui. Ole hyvä ja yritä uudelleen."
-
-#: 
-msgid "Registration successful. Please check your email for confirmation."
-msgstr "Rekisteröinti onnistui. Tarkista sähköpostisi vahvistuksen saamiseksi."
-
-#: 
-msgid "Comment for {0}"
-msgstr "Kommentti käyttäjälle {0}"
-
-#: 
-msgid "Page View Statistics for slug: {0}"
-msgstr "Sivun katselutilastot etanalle: {0}"
-
-#: 
-msgid "Edit"
-msgstr "Muokata"
-
-#: 
-msgid "Max Tokens"
-msgstr "Max Tokens"
-
-#: 
-msgid "No"
-msgstr "Ei"
-
-#: 
-msgid "This slug is already in use in articles. Please enter a unique slug."
-msgstr "Tämä etana on jo käytössä artikkeleissa. Anna yksilöllinen etana."
-
-#: 
-msgid "Page Views"
-msgstr "Sivun katselut"
-
-#: 
-msgid "{0} cache could not be cleared."
-msgstr "{0} välimuistia ei voitu tyhjentää."
-
-#: 
-msgid "Article not found."
-msgstr "Artikkelia ei löydy."
-
-#: 
-msgid "Edit Article"
-msgstr "Muokkaa artikkelia"
-
-#: 
-msgid "Show Details"
-msgstr "Näytä tiedot"
-
-#: 
-msgid "Are you sure you want to delete # {0}?"
-msgstr "Haluatko varmasti poistaa # {0}?"
-
-#: 
-msgid "The aiprompt has been saved."
-msgstr "Aiprompt on tallennettu."
-
-#: 
-msgid "Profile Picture"
-msgstr "Profiilikuva"
-
-#: 
-msgid "Associated Pages"
-msgstr "Liittyvät sivut"
-
-#: 
-msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
-msgstr "Alla on tietoja määritetyistä välimuistista. Napsauta painiketta tyhjentääksesi kaikki välimuistit tai yksittäisiä välimuistipainikkeita tyhjentääksesi tietyt välimuistit."
-
-#: 
-msgid "Toggle SEO Fields"
-msgstr "Vaihda SEO-kentät"
-
-#: 
-msgid "Error saving {0}.{1}: {2}"
-msgstr "Virhe tallennettaessa {0}.{1}: {2}"
-
-#: 
-msgid "Too Many Requests"
-msgstr "Liian monta pyyntöä"
-
-#: 
-msgid "Not published"
-msgstr "Ei julkaistu"
-
-#: 
-msgid "Edit User"
-msgstr "Muokkaa käyttäjää"
-
-#: 
-msgid "Are you sure you want to delete this comment?"
-msgstr "Haluatko varmasti poistaa tämän kommentin?"
-
-#: 
-msgid "Some caches were cleared, but the following failed: {0}"
-msgstr "Jotkut välimuistit tyhjennettiin, mutta seuraavat epäonnistuivat: {0}"
-
-#: 
-msgid "Cache"
-msgstr "Välimuisti"
-
-#: 
-msgid "Edit Email Template"
-msgstr "Muokkaa sähköpostimallia"
-
-#: 
-msgid "Display"
-msgstr "Näyttö"
-
-#: 
-msgid "Invalid confirmation code. Please contact support."
-msgstr "Virheellinen vahvistuskoodi. Ota yhteyttä tukeen."
-
-#: 
-msgid "Image must be less than 5MB."
-msgstr "Kuvan on oltava alle 5 Mt."
-
-#: 
-msgid "Search comments..."
-msgstr "Hae kommentteja..."
-
-#: 
-msgid "{0} Views"
-msgstr "{0} katselukertaa"
-
-#: 
-msgid "Add Image"
-msgstr "Lisää kuva"
-
-#: 
-msgid "Unable to delete logs in group {0}."
-msgstr "Lokeja ei voi poistaa ryhmästä {0}."
-
-#: 
-msgid "Expires At"
-msgstr "Päättyy klo"
-
-#: 
-msgid "Additional Images"
-msgstr "Lisäkuvia"
-
-#: 
-msgid "Tags"
-msgstr "Tunnisteet"
-
-#: 
-msgid "The comment has been saved."
-msgstr "Kommentti on tallennettu."
-
-#: 
-msgid "Grid View"
-msgstr "Ruudukkonäkymä"
-
-#: 
-msgid "The article has been deleted."
-msgstr "Artikkeli on poistettu."
-
-#: 
-msgid "Message"
-msgstr "Viesti"
-
-#: 
-msgid "Body HTML"
-msgstr "Body HTML"
-
-#: 
-msgid "Invalid type"
-msgstr "Virheellinen tyyppi"
-
-#: 
-msgid "Reason"
-msgstr "Syy"
-
-#: 
-msgid "You are not authorized to edit this account, stick to your own."
-msgstr "Sinulla ei ole oikeutta muokata tätä tiliä, pysy omassasi."
-
-#: 
-msgid "There was an issue confirming your account. Please try again."
-msgstr "Tilin vahvistamisessa oli ongelma. Yritä uudelleen."
-
-#: 
-msgid "By"
-msgstr "Tekijä:"
-
-#: 
-msgid "The slug could not be saved. Please, try again."
-msgstr "Etanaa ei voitu pelastaa. Ole hyvä ja yritä uudelleen."
-
-#: 
-msgid "Error sending email: {0}"
-msgstr "Virhe sähköpostin lähettämisessä: {0}"
-
-#: 
-msgid "No deleting your own account."
-msgstr "Ei oman tilin poistamista."
-
-#: 
-msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
-msgstr "Slugin on oltava URL-osoiteturvallinen (vain pienet kirjaimet, numerot ja yhdysmerkit)"
-
-#: 
-msgid "Name"
-msgstr "Nimi"
-
-#: 
-msgid "Some settings could not be saved. Please, try again."
-msgstr "Joitakin asetuksia ei voitu tallentaa. Ole hyvä ja yritä uudelleen."
-
-#: 
-msgid "Add User"
-msgstr "Lisää käyttäjä"
-
-#: 
-msgid "Error"
-msgstr "Virhe"
-
-#: 
-msgid "Email template not found: {0}"
-msgstr "Sähköpostimallia ei löydy: {0}"
-
-#: 
-msgid "Password must be at least 8 characters long"
-msgstr "Salasanan tulee olla vähintään 8 merkkiä pitkä"
-
-#: 
-msgid "The value must not be empty."
-msgstr "Arvo ei saa olla tyhjä."
-
-#: 
-msgid "The log has been deleted."
-msgstr "Loki on poistettu."
-
-#: 
-msgid "New Article"
-msgstr "Uusi artikkeli"
-
-#: 
-msgid "Add Internationalisation"
-msgstr "Lisää kansainvälistyminen"
-
-#: 
-msgid "Internationalisations"
-msgstr "Kansainvälistymiset"
-
-#: 
-msgid "Settings"
-msgstr "Asetukset"
-
-#: 
-msgid "Picture"
-msgstr "Kuva"
-
-#: 
-msgid "Search articles..."
-msgstr "Hae artikkeleita..."
-
-#: 
-msgid "Registration successful, but there was an issue creating the confirmation link."
-msgstr "Rekisteröinti onnistui, mutta vahvistuslinkin luomisessa oli ongelma."
-
-#: 
-msgid "The comment could not be deleted. Please, try again."
-msgstr "Kommenttia ei voitu poistaa. Ole hyvä ja yritä uudelleen."
-
-#: 
-msgid "New Blocked IP"
-msgstr "Uusi estetty IP"
-
-#: 
-msgid "The user has been saved."
-msgstr "Käyttäjä on tallennettu."
-
-#: 
-msgid "Add Article"
-msgstr "Lisää artikkeli"
-
-#: 
-msgid "Unknown User"
-msgstr "Tuntematon käyttäjä"
-
-#: 
-msgid "The tag could not be deleted. Please, try again."
-msgstr "Tunnistetta ei voitu poistaa. Ole hyvä ja yritä uudelleen."
-
-#: 
-msgid "Slugs"
-msgstr "Etanat"
-
-#: 
-msgid "No tags are linked."
-msgstr "Tunnisteita ei ole linkitetty."
-
-#: 
-msgid "English"
-msgstr "englanti"
-
-#: 
-msgid "Unable to add your comment."
-msgstr "Kommenttiasi ei voi lisätä."
-
-#: 
-msgid "User Agent"
-msgstr "Käyttäjäagentti"
-
-#: 
-msgid "The internationalisation could not be deleted. Please, try again."
-msgstr "Kansainvälistymistä ei voitu poistaa. Ole hyvä ja yritä uudelleen."
-
-#: 
-msgid "Engine"
-msgstr "Moottori"
-
-#: 
-msgid "You cannot disable your own account."
-msgstr "Et voi poistaa omaa tiliäsi käytöstä."
-
-#: 
-msgid "Comment"
-msgstr "Kommentti"
-
-#: 
-msgid "New Email Template"
-msgstr "Uusi sähköpostimalli"
-
-#: 
-msgid "The email template has been saved."
-msgstr "Sähköpostimalli on tallennettu."
-
-#: 
-msgid "An Internal Error Has Occurred."
-msgstr "Sisäinen virhe on tapahtunut."
-
-#: 
-msgid "Logs"
-msgstr "Lokit"
-
-#: 
-msgid "Add Blocked IP"
-msgstr "Lisää estetty IP"
-
-#: 
-msgid "Content"
-msgstr "Sisältö"
-
-#: 
-msgid "New Internationalisation"
-msgstr "Uusi kansainvälistyminen"
-
-#: 
-msgid "Setting not found: {0}.{1}"
-msgstr "Asetusta ei löydy: {0}.{1}"
-
-#: 
-msgid "Id"
-msgstr "Id"
-
-#: 
-msgid "Cache Name"
-msgstr "Välimuistin nimi"
-
-#: 
-msgid "All Groups"
-msgstr "Kaikki ryhmät"
-
-#: 
-msgid "The slug could not be deleted. Please, try again."
-msgstr "Etanaa ei voitu poistaa. Ole hyvä ja yritä uudelleen."
-
-#: 
-msgid "List View"
-msgstr "Luettelonäkymä"
-
-#: 
-msgid "The slug has been deleted."
-msgstr "Luukku on poistettu."
-
-#: 
-msgid "The comment has been deleted."
-msgstr "Kommentti on poistettu."
-
-#: 
-msgid "The email template could not be deleted. Please, try again."
-msgstr "Sähköpostimallia ei voitu poistaa. Ole hyvä ja yritä uudelleen."
-
-#: 
-msgid "Update Comment"
-msgstr "Päivitä kommentti"
-
-#: 
-msgid "Please upload only images (jpeg, png, gif)."
-msgstr "Lataa vain kuvia (jpeg, png, gif)."
-
-#: 
-msgid "The user could not be deleted. Please, try again."
-msgstr "Käyttäjää ei voitu poistaa. Ole hyvä ja yritä uudelleen."
-
-#: 
-msgid "Blocked IPs"
-msgstr "Estetyt IP-osoitteet"
-
-#: 
-msgid "Internationalisation"
-msgstr "Kansainvälistyminen"
-
-#: 
-msgid "The settings have been saved."
-msgstr "Asetukset on tallennettu."
-
-#: 
-msgid "Filter"
-msgstr "Suodattaa"
-
-#: 
-msgid "New Tag"
-msgstr "Uusi tunniste"
-
-#: 
-msgid "Search users..."
-msgstr "Hae käyttäjiä..."
-
-#: 
-msgid "Bulk Upload"
-msgstr "Joukkolataus"
-
-#: 
-msgid "Posted on {date} by {author}"
-msgstr "Lähettänyt {date}, kirjoittaja {author}"
-
-#: 
-msgid "You must be logged in to add a comment."
-msgstr "Sinun on oltava kirjautuneena sisään voidaksesi lisätä kommentin."
-
-#: 
-msgid "User Comments"
-msgstr "Käyttäjien kommentit"
-
-#: 
-msgid "The user could not be saved. Please, try again."
-msgstr "Käyttäjää ei voitu tallentaa. Ole hyvä ja yritä uudelleen."
-
-#: 
-msgid "Invalid value for the specified type."
-msgstr "Virheellinen arvo määritetylle tyypille."
-
-#: 
-msgid "The tag has been saved."
-msgstr "Tunniste on tallennettu."
-
-#: 
-msgid "Send Email"
-msgstr "Lähetä Sähköposti"
-
-#: 
-msgid "Is Published"
-msgstr "Julkaistu"
-
-#: 
-msgid "Views"
-msgstr "Näkymät"
-
-#: 
-msgid "Show Less"
-msgstr "Näytä vähemmän"
-
-#: 
-msgid "Subject"
-msgstr "Aihe"
-
-#: 
-msgid "Edit Tag"
-msgstr "Muokkaa tunnistetta"
-
-#: 
-msgid "Modified At"
-msgstr "Muokattu klo"
-
-#: 
-msgid "Update Slug"
-msgstr "Päivitä Slug"
-
-#: 
-msgid "Unable to delete the log."
-msgstr "Lokia ei voi poistaa."
-
-#: 
-msgid "Delete All Logs"
-msgstr "Poista kaikki lokit"
-
-#: 
-msgid "Edit Internationalisation"
-msgstr "Muokkaa kansainvälistymistä"
-
-#: 
-msgid "Locale"
-msgstr "Alue"
-
-#: 
-msgid "Update Article"
-msgstr "Päivitä artikkeli"
-
-#: 
-msgid "Images"
-msgstr "Kuvat"
-
-#: 
-msgid "Back"
-msgstr "Takaisin"
-
-#: 
-msgid "Add Tag"
-msgstr "Lisää tunniste"
-
-#: 
-msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
-msgstr "Sivu {{sivu}} / {{sivut}}, näyttää {{current}} tietuetta / {{count}} yhteensä"
-
-#: 
-msgid "Cache Management"
-msgstr "Välimuistin hallinta"
-
-#: 
-msgid "Word Count"
-msgstr "Sanamäärä"
-
-#: 
-msgid "Blocked At"
-msgstr "Estetty klo"
-
-#: 
-msgid "Page Views for {0}"
-msgstr "Sivun katselut kohteelle {0}"
-
-#: 
-msgid "Are you sure you want to delete this prompt?"
-msgstr "Haluatko varmasti poistaa tämän kehotteen?"
-
-#: 
-msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
-msgstr "Slug on ristiriidassa olemassa olevan SEO-uudelleenohjauksen kanssa. Valitse toinen etana."
-
-#: 
-msgid "Alt Text"
-msgstr "Vaihtoehtoinen teksti"
-
-#: 
-msgid "Twitter Description"
-msgstr "Twitter Kuvaus"
-
-#: 
-msgid "View"
-msgstr "Näytä"
-
-#: 
-msgid "Add Email Template"
-msgstr "Lisää sähköpostimalli"
-
-#: 
-msgid "Message Id"
-msgstr "Viestin tunnus"
-
-#: 
-msgid "Description"
-msgstr "Kuvaus"
-
-#: 
-msgid "Never"
-msgstr "Ei koskaan"
-
-#: 
-msgid "New {0}"
-msgstr "Uusi {0}"
-
-#: 
-msgid "Read More"
-msgstr "Lue lisää"
-
-#: 
-msgid "Message Str"
-msgstr "Viesti Str"
-
-#: 
-msgid "Show"
-msgstr "Show"
-
-#: 
-msgid "System Prompt"
-msgstr "Järjestelmäkehote"
-
-#: 
-msgid "Image uploaded successfully"
-msgstr "Kuvan lataus onnistui"
-
-#: 
-msgid "Level"
-msgstr "Taso"
-
-#: 
-msgid "Enter a number"
-msgstr "Syötä numero"
-
-#: 
-msgid "Confirm Password"
-msgstr "Vahvista salasana"
-
-#: 
-msgid "Add Slug"
-msgstr "Lisää Slug"
-
-#: 
-msgid "Rate limit exceeded for IP: {0} on route: {1}"
-msgstr "Hintarajoitus ylitetty IP:lle: {0} reitillä: {1}"
-
-#: 
-msgid "Home"
-msgstr "Kotiin"
-
-#: 
-msgid "Details"
-msgstr "Yksityiskohdat"
-
-#: 
-msgid "Add AI Prompt"
-msgstr "Lisää AI-kehote"
-
-#: 
-msgid "The requested address {0} was not found on this server."
-msgstr "Pyydettyä osoitetta {0} ei löytynyt tältä palvelimelta."
-
-#: 
-msgid "Please log in to add a comment"
-msgstr "Ole hyvä ja kirjaudu sisään lisätäksesi kommentin"
-
-#: 
-msgid "The internationalisation could not be saved. Please, try again."
-msgstr "Kansainvälistymistä ei voitu pelastaa. Ole hyvä ja yritä uudelleen."
-
-#: 
-msgid "Failed to send email to: {0}"
-msgstr "Sähköpostin lähettäminen osoitteeseen {0} epäonnistui"
-
-#: 
-msgid "Login"
-msgstr "Kirjaudu sisään"
-
-#: 
-msgid "Model"
-msgstr "Malli"
-
-#: 
-msgid "Add a Comment"
-msgstr "Lisää kommentti"
-
-#: 
-msgid "Add Page"
-msgstr "Lisää sivu"
-
-#: 
-msgid "Failed to save the image"
-msgstr "Kuvan tallennus epäonnistui"
-
-#: 
-msgid "Account"
-msgstr "Tili"
-
-#: 
-msgid "Edit Image"
-msgstr "Muokkaa kuvaa"
-
-#: 
-msgid "Article not found"
-msgstr "Artikkelia ei löydy"
-
-#: 
-msgid "Select a parent"
-msgstr "Valitse vanhempi"
-
-#: 
-msgid "Front Site"
-msgstr "Etusivu"
+msgid "Bulk Upload Images"
+msgstr "Kuvien joukkolähetys"
 
 #: 
 msgid "Group Name"
 msgstr "Ryhmän nimi"
 
 #: 
-msgid "Task Type"
-msgstr "Tehtävän tyyppi"
+msgid "All Groups"
+msgstr "Kaikki ryhmät"
 
 #: 
-msgid "The aiprompt could not be saved. Please, try again."
-msgstr "Lentoa ei voitu tallentaa. Ole hyvä ja yritä uudelleen."
+msgid "Failed to save the image"
+msgstr "Kuvan tallennus epäonnistui"
 
 #: 
-msgid "The email template could not be saved. Please, try again."
-msgstr "Sähköpostimallia ei voitu tallentaa. Ole hyvä ja yritä uudelleen."
+msgid "Additional Images"
+msgstr "Lisäkuvia"
 
 #: 
-msgid "Slug:"
-msgstr "Etana:"
+msgid "Comment"
+msgstr "Kommentti"
 
 #: 
-msgid "Users"
-msgstr "Käyttäjät"
-
-#: 
-msgid "No internationalizations found for the provided IDs."
-msgstr "Annetuille tunnuksille ei löytynyt kansainvälistymistä."
-
-#: 
-msgid "List {0}"
-msgstr "Luettelo {0}"
-
-#: 
-msgid "New User"
-msgstr "Uusi käyttäjä"
-
-#: 
-msgid "Temperature"
-msgstr "Lämpötila"
-
-#: 
-msgid "Search tags..."
-msgstr "Hae tunnisteita..."
-
-#: 
-msgid "All logs with level {0} have been deleted."
-msgstr "Kaikki lokit, joiden taso on {0}, on poistettu."
-
-#: 
-msgid "Edit Comment"
-msgstr "Muokkaa kommenttia"
-
-#: 
-msgid "A value is required"
-msgstr "Arvo vaaditaan"
-
-#: 
-msgid "Search slugs..."
-msgstr "Etsi etanoita..."
-
-#: 
-msgid "Clear All Cache"
-msgstr "Tyhjennä kaikki välimuisti"
-
-#: 
-msgid "Are you sure you want to delete IP {0}?"
-msgstr "Haluatko varmasti poistaa IP-osoitteen {0}?"
-
-#: 
-msgid "Code Coverage"
-msgstr "Koodin kattavuus"
-
-#: 
-msgid "The blocked ip has been saved."
-msgstr "Estetty IP on tallennettu."
-
-#: 
-msgid "No page view data available for this article."
-msgstr "Tämän artikkelin sivun katselutietoja ei ole saatavilla."
-
-#: 
-msgid "SEO Fields"
-msgstr "SEO-kentät"
-
-#: 
-msgid "The blocked ip has been deleted."
-msgstr "Estetty ip on poistettu."
-
-#: 
-msgid "No pages found."
-msgstr "Sivuja ei löytynyt."
-
-#: 
-msgid "The slug must be unique."
-msgstr "Etanan on oltava ainutlaatuinen."
-
-#: 
-msgid "{0} cache configuration does not exist."
-msgstr "{0}-välimuistimäärityksiä ei ole olemassa."
-
-#: 
-msgid "Related Tags"
-msgstr "Aiheeseen liittyvät tunnisteet"
-
-#: 
-msgid "Submit Comment"
-msgstr "Lähetä kommentti"
-
-#: 
-msgid "The value must be a number."
-msgstr "Arvon on oltava numero."
-
-#: 
-msgid "List Email Templates"
-msgstr "Listaa sähköpostimalleja"
-
-#: 
-msgid "View detailed records for this date"
-msgstr "Katso tämän päivämäärän yksityiskohtaiset tiedot"
-
-#: 
-msgid "No articles found for this tag."
-msgstr "Tälle tunnisteelle ei löytynyt artikkeleita."
-
-#: 
-msgid "You cannot remove your own admin status."
-msgstr "Et voi poistaa omaa järjestelmänvalvojan tilaasi."
-
-#: 
-msgid "The article could not be saved. Please, try again."
-msgstr "Artikkelia ei voitu tallentaa. Ole hyvä ja yritä uudelleen."
-
-#: 
-msgid "Too many requests. Please try again later."
-msgstr "Liikaa pyyntöjä. Yritä myöhemmin uudelleen."
-
-#: 
-msgid "Body"
-msgstr "Runko"
-
-#: 
-msgid "Update Aiprompt"
-msgstr "Päivitä Airprompt"
-
-#: 
-msgid "LinkedIn Description"
-msgstr "LinkedIn Kuvaus"
+msgid "Enter a number"
+msgstr "Syötä numero"
 
 #: 
 msgid "Meta Keywords"
 msgstr "Meta-avainsanat"
 
 #: 
+msgid "No comments yet."
+msgstr "Ei vielä kommentteja."
+
+#: 
+msgid "Edit {0}"
+msgstr "Muokkaa {0}"
+
+#: 
+msgid "Add Internationalisation"
+msgstr "Lisää kansainvälistyminen"
+
+#: 
+msgid "You cannot remove your own admin status."
+msgstr "Et voi poistaa omaa järjestelmänvalvojan tilaasi."
+
+#: 
+msgid "Search comments..."
+msgstr "Hae kommentteja..."
+
+#: 
+msgid "The internationalisation could not be saved. Please, try again."
+msgstr "Kansainvälistymistä ei voitu pelastaa. Ole hyvä ja yritä uudelleen."
+
+#: 
+msgid "Too Many Requests"
+msgstr "Liian monta pyyntöä"
+
+#: 
+msgid "The tag could not be saved. Please, try again."
+msgstr "Tunnistetta ei voitu tallentaa. Ole hyvä ja yritä uudelleen."
+
+#: 
+msgid "New Internationalisation"
+msgstr "Uusi kansainvälistyminen"
+
+#: 
+msgid "An error occurred while processing your request."
+msgstr "Pyyntöäsi käsiteltäessä tapahtui virhe."
+
+#: 
+msgid "Edit Tag"
+msgstr "Muokkaa tunnistetta"
+
+#: 
+msgid "Invalid type"
+msgstr "Virheellinen tyyppi"
+
+#: 
+msgid "Is Admin"
+msgstr "Onko Admin"
+
+#: 
+msgid "New AI Prompt"
+msgstr "Uusi AI-kehote"
+
+#: 
+msgid "Please enter your new password"
+msgstr "Anna uusi salasanasi"
+
+#: 
+msgid "New Image"
+msgstr "Uusi kuva"
+
+#: 
+msgid "Registration failed. Please, try again."
+msgstr "Rekisteröinti epäonnistui. Ole hyvä ja yritä uudelleen."
+
+#: 
 msgid "Invalid username or password"
 msgstr "Virheellinen käyttäjätunnus tai salasana"
 
 #: 
+msgid "You cannot disable your own account."
+msgstr "Et voi poistaa omaa tiliäsi käytöstä."
+
+#: 
 msgid "Comments"
 msgstr "Kommentit"
+
+#: 
+msgid "Level"
+msgstr "Taso"
+
+#: 
+msgid "Word Count"
+msgstr "Sanamäärä"
+
+#: 
+msgid "Message Str"
+msgstr "Viesti Str"
+
+#: 
+msgid "Register"
+msgstr "Rekisteröidy"
+
+#: 
+msgid "New Tag"
+msgstr "Uusi tunniste"
+
+#: 
+msgid "Created At"
+msgstr "Luotu klo"
+
+#: 
+msgid "You are not authorized to edit this account, stick to your own."
+msgstr "Sinulla ei ole oikeutta muokata tätä tiliä, pysy omassasi."
+
+#: 
+msgid "Error saving {0}.{1}: {2}"
+msgstr "Virhe tallennettaessa {0}.{1}: {2}"
+
+#: 
+msgid "Edit Image"
+msgstr "Muokkaa kuvaa"
+
+#: 
+msgid "Last Cleared"
+msgstr "Viimeksi tyhjennetty"
+
+#: 
+msgid "Facebook Description"
+msgstr "Facebook Kuvaus"
+
+#: 
+msgid "Add AI Prompt"
+msgstr "Lisää AI-kehote"
+
+#: 
+msgid "Email Templates"
+msgstr "Sähköpostimallit"
+
+#: 
+msgid "Login"
+msgstr "Kirjaudu sisään"
+
+#: 
+msgid "Modified At"
+msgstr "Muokattu klo"
+
+#: 
+msgid "This slug is already in use. Please enter a unique slug."
+msgstr "Tämä etana on jo käytössä. Anna yksilöllinen etana."
+
+#: 
+msgid "Registration successful, but there was an issue creating the confirmation link."
+msgstr "Rekisteröinti onnistui, mutta vahvistuslinkin luomisessa oli ongelma."
+
+#: 
+msgid "The article could not be deleted. Please, try again."
+msgstr "Artikkelia ei voitu poistaa. Ole hyvä ja yritä uudelleen."
+
+#: 
+msgid "Article"
+msgstr "Artikla"
+
+#: 
+msgid "All Levels"
+msgstr "Kaikki tasot"
+
+#: 
+msgid "Your account has been confirmed. You can now log in."
+msgstr "Tilisi on vahvistettu. Voit nyt kirjautua sisään."
+
+#: 
+msgid "Are you sure you want to delete this prompt?"
+msgstr "Haluatko varmasti poistaa tämän kehotteen?"
+
+#: 
+msgid "The tag has been deleted."
+msgstr "Tunniste on poistettu."
+
+#: 
+msgid "This slug is already in use in articles. Please enter a unique slug."
+msgstr "Tämä etana on jo käytössä artikkeleissa. Anna yksilöllinen etana."
+
+#: 
+msgid "Details"
+msgstr "Yksityiskohdat"
+
+#: 
+msgid "Users"
+msgstr "Käyttäjät"
+
+#: 
+msgid "There was an issue confirming your account. Please try again."
+msgstr "Tilin vahvistamisessa oli ongelma. Yritä uudelleen."
+
+#: 
+msgid "Back to Login"
+msgstr "Takaisin kirjautumiseen"
+
+#: 
+msgid "{0} cache has been cleared successfully."
+msgstr "{0} välimuisti on tyhjennetty onnistuneesti."
+
+#: 
+msgid "Send Email"
+msgstr "Lähetä Sähköposti"
+
+#: 
+msgid "Are you sure you want to clear {0}?"
+msgstr "Haluatko varmasti tyhjentää kohteen {0}?"
+
+#: 
+msgid "Rate limit exceeded for IP: {0} on route: {1}"
+msgstr "Hintarajoitus ylitetty IP:lle: {0} reitillä: {1}"
+
+#: 
+msgid "Context"
+msgstr "Konteksti"
+
+#: 
+msgid "Pages"
+msgstr "Sivut"
+
+#: 
+msgid "Page Views"
+msgstr "Sivun katselut"
+
+#: 
+msgid "Published"
+msgstr "Julkaistu"
+
+#: 
+msgid "Delete {0}"
+msgstr "Poista {0}"
+
+#: 
+msgid "Profile Picture"
+msgstr "Profiilikuva"
+
+#: 
+msgid "The aiprompt has been saved."
+msgstr "Aiprompt on tallennettu."
+
+#: 
+msgid "Setting not found: {0}.{1}"
+msgstr "Asetusta ei löydy: {0}.{1}"
+
+#: 
+msgid "The image has been deleted."
+msgstr "Kuva on poistettu."
+
+#: 
+msgid "Add Email Template"
+msgstr "Lisää sähköpostimalli"
+
+#: 
+msgid "Comment for {0}"
+msgstr "Kommentti käyttäjälle {0}"
+
+#: 
+msgid "Add Blocked IP"
+msgstr "Lisää estetty IP"
+
+#: 
+msgid "Add Tag"
+msgstr "Lisää tunniste"
+
+#: 
+msgid "New Slug"
+msgstr "Uusi Slug"
+
+#: 
+msgid "Total Views: "
+msgstr "Katselukerrat yhteensä: "
+
+#: 
+msgid "Description"
+msgstr "Kuvaus"
+
+#: 
+msgid "The article has been saved."
+msgstr "Artikkeli on tallennettu."
+
+#: 
+msgid "Submit Comment"
+msgstr "Lähetä kommentti"
+
+#: 
+msgid "Error loading images:"
+msgstr "Virhe ladattaessa kuvia:"
+
+#: 
+msgid "The article could not be saved. Please, try again."
+msgstr "Artikkelia ei voitu tallentaa. Ole hyvä ja yritä uudelleen."
+
+#: 
+msgid "The slug has been deleted."
+msgstr "Luukku on poistettu."
+
+#: 
+msgid "If your email is registered, you will receive a link to reset your password."
+msgstr "Jos sähköpostiosoitteesi on rekisteröity, saat linkin salasanan vaihtoon."
+
+#: 
+msgid "Referer"
+msgstr "Viittaus"
+
+#: 
+msgid "Logout"
+msgstr "Kirjaudu ulos"
+
+#: 
+msgid "Failed to send confirmation email message: {0}"
+msgstr "Vahvistusviestin lähettäminen epäonnistui: {0}"
+
+#: 
+msgid "Forgot Password?"
+msgstr "Unohtuiko salasana?"
+
+#: 
+msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
+msgstr "Sähköposti lähetetty onnistuneesti osoitteeseen: {0}. Malli: {1}, aihe: {2}"
+
+#: 
+msgid "No tags are linked."
+msgstr "Tunnisteita ei ole linkitetty."
+
+#: 
+msgid "The slug must be unique."
+msgstr "Etanan on oltava ainutlaatuinen."
+
+#: 
+msgid "Failed to send email. Please check your email configuration."
+msgstr "Sähköpostin lähetys epäonnistui. Tarkista sähköpostisi asetukset."
+
+#: 
+msgid "By"
+msgstr "Tekijä:"
+
+#: 
+msgid "Edit Your Account"
+msgstr "Muokkaa tiliäsi"
+
+#: 
+msgid "You must be logged in to add a comment."
+msgstr "Sinun on oltava kirjautuneena sisään voidaksesi lisätä kommentin."
+
+#: 
+msgid "The tag has been saved."
+msgstr "Tunniste on tallennettu."
+
+#: 
+msgid "Images"
+msgstr "Kuvat"
+
+#: 
+msgid "Edit Comment"
+msgstr "Muokkaa kommenttia"
+
+#: 
+msgid "Email sent successfully."
+msgstr "Sähköposti lähetetty onnistuneesti."
+
+#: 
+msgid "Add Image"
+msgstr "Lisää kuva"
+
+#: 
+msgid "The email template could not be deleted. Please, try again."
+msgstr "Sähköpostimallia ei voitu poistaa. Ole hyvä ja yritä uudelleen."
+
+#: 
+msgid "Invalid confirmation code. Please contact support."
+msgstr "Virheellinen vahvistuskoodi. Ota yhteyttä tukeen."
+
+#: 
+msgid "The image could not be deleted. Please, try again."
+msgstr "Kuvaa ei voitu poistaa. Ole hyvä ja yritä uudelleen."
+
+#: 
+msgid "Edit"
+msgstr "Muokata"
+
+#: 
+msgid "Unable to delete logs with level {0}."
+msgstr "Tason {0} lokeja ei voi poistaa."
+
+#: 
+msgid "SEO Fields"
+msgstr "SEO-kentät"
+
+#: 
+msgid "Failed to send email to: {0}"
+msgstr "Sähköpostin lähettäminen osoitteeseen {0} epäonnistui"
+
+#: 
+msgid "Enter text"
+msgstr "Kirjoita teksti"
+
+#: 
+msgid "Your account has been updated."
+msgstr "Tilisi on päivitetty."
+
+#: 
+msgid "The internationalisation has been deleted."
+msgstr "Kansainvälistyminen on poistettu."
+
+#: 
+msgid "English"
+msgstr "englanti"
+
+#: 
+msgid "Alt Text"
+msgstr "Vaihtoehtoinen teksti"
+
+#: 
+msgid "The internationalisation has been saved."
+msgstr "Kansainvälistyminen on pelastettu."
+
+#: 
+msgid "Are you sure you want to delete {0}?"
+msgstr "Haluatko varmasti poistaa kohteen {0}?"
+
+#: 
+msgid "View"
+msgstr "Näytä"
+
+#: 
+msgid "The internationalisation could not be deleted. Please, try again."
+msgstr "Kansainvälistymistä ei voitu poistaa. Ole hyvä ja yritä uudelleen."
+
+#: 
+msgid "Body"
+msgstr "Runko"
+
+#: 
+msgid "Add a Comment"
+msgstr "Lisää kommentti"
+
+#: 
+msgid "The user has been saved."
+msgstr "Käyttäjä on tallennettu."
+
+#: 
+msgid "Reason"
+msgstr "Syy"
+
+#: 
+msgid "Internationalisation"
+msgstr "Kansainvälistyminen"
+
+#: 
+msgid "Yes"
+msgstr "Kyllä"
+
+#: 
+msgid "Body Text"
+msgstr "Runkoteksti"
+
+#: 
+msgid "No deleting your own account."
+msgstr "Ei oman tilin poistamista."
+
+#: 
+msgid "Image"
+msgstr "Kuva"
+
+#: 
+msgid "Instagram Description"
+msgstr "Instagram Kuvaus"
+
+#: 
+msgid "The user could not be saved. Please, try again."
+msgstr "Käyttäjää ei voitu tallentaa. Ole hyvä ja yritä uudelleen."
+
+#: 
+msgid "Home"
+msgstr "Kotiin"
+
+#: 
+msgid "Please enter your email and password"
+msgstr "Anna sähköpostiosoitteesi ja salasanasi"
+
+#: 
+msgid "Back"
+msgstr "Takaisin"
+
+#: 
+msgid "Search images..."
+msgstr "Hae kuvia..."
+
+#: 
+msgid "The image has been saved."
+msgstr "Kuva on tallennettu."
+
+#: 
+msgid "The user has been deleted."
+msgstr "Käyttäjä on poistettu."
+
+#: 
+msgid "Is AI Analyzed"
+msgstr "Onko AI analysoitu"
+
+#: 
+msgid "No internationalizations found for the provided IDs."
+msgstr "Annetuille tunnuksille ei löytynyt kansainvälistymistä."
+
+#: 
+msgid "Edit Aiprompt"
+msgstr "Muokkaa Airpromptia"
+
+#: 
+msgid "Password must be at least 8 characters long"
+msgstr "Salasanan tulee olla vähintään 8 merkkiä pitkä"
+
+#: 
+msgid "The image could not be saved. Please, try again."
+msgstr "Kuvaa ei voitu tallentaa. Ole hyvä ja yritä uudelleen."
+
+#: 
+msgid "The tag could not be deleted. Please, try again."
+msgstr "Tunnistetta ei voitu poistaa. Ole hyvä ja yritä uudelleen."
+
+#: 
+msgid "Show Details"
+msgstr "Näytä tiedot"
+
+#: 
+msgid "Is Published"
+msgstr "Julkaistu"
+
+#: 
+msgid "Clear All Cache"
+msgstr "Tyhjennä kaikki välimuisti"
+
+#: 
+msgid "Edit Article"
+msgstr "Muokkaa artikkelia"
+
+#: 
+msgid "Save All Settings"
+msgstr "Tallenna kaikki asetukset"
+
+#: 
+msgid "Confirm Password"
+msgstr "Vahvista salasana"
+
+#: 
+msgid "Update User"
+msgstr "Päivitä käyttäjä"
+
+#: 
+msgid "The blocked ip has been saved."
+msgstr "Estetty IP on tallennettu."
+
+#: 
+msgid "Missing required arguments in the message."
+msgstr "Viestistä puuttuu pakolliset argumentit."
+
+#: 
+msgid "Model"
+msgstr "Malli"
+
+#: 
+msgid "Edit Slug"
+msgstr "Muokkaa Slugia"
+
+#: 
+msgid "Error sending email: {0}"
+msgstr "Virhe sähköpostin lähettämisessä: {0}"
+
+#: 
+msgid "Related Tags"
+msgstr "Aiheeseen liittyvät tunnisteet"
+
+#: 
+msgid "Id"
+msgstr "Id"
+
+#: 
+msgid "Content"
+msgstr "Sisältö"
+
+#: 
+msgid "All caches have been cleared successfully."
+msgstr "Kaikki välimuistit on tyhjennetty onnistuneesti."
+
+#: 
+msgid "Invalid value for the specified type."
+msgstr "Virheellinen arvo määritetylle tyypille."
+
+#: 
+msgid "Related Articles"
+msgstr "Aiheeseen liittyvät artikkelit"
+
+#: 
+msgid "The log has been deleted."
+msgstr "Loki on poistettu."
+
+#: 
+msgid "Error in: "
+msgstr "Virhe: "
+
+#: 
+msgid "Slug"
+msgstr "Etana"
+
+#: 
+msgid "Internationalisations"
+msgstr "Kansainvälistymiset"
+
+#: 
+msgid "New {0}"
+msgstr "Uusi {0}"
+
+#: 
+msgid "Page Views for {0}"
+msgstr "Sivun katselut kohteelle {0}"
+
+#: 
+msgid "View detailed records for this date"
+msgstr "Katso tämän päivämäärän yksityiskohtaiset tiedot"
+
+#: 
+msgid "The value must be a number."
+msgstr "Arvon on oltava numero."
+
+#: 
+msgid "Registration successful. Please check your email for confirmation."
+msgstr "Rekisteröinti onnistui. Tarkista sähköpostisi vahvistuksen saamiseksi."
+
+#: 
+msgid "No page view data available for this article."
+msgstr "Tämän artikkelin sivun katselutietoja ei ole saatavilla."
+
+#: 
+msgid "Invalid confirmation code."
+msgstr "Virheellinen vahvistuskoodi."
+
+#: 
+msgid "The user could not be deleted. Please, try again."
+msgstr "Käyttäjää ei voitu poistaa. Ole hyvä ja yritä uudelleen."
+
+#: 
+msgid "Article not found"
+msgstr "Artikkelia ei löydy"
+
+#: 
+msgid "New Blocked IP"
+msgstr "Uusi estetty IP"
+
+#: 
+msgid "The slug could not be deleted. Please, try again."
+msgstr "Etanaa ei voitu poistaa. Ole hyvä ja yritä uudelleen."
+
+#: 
+msgid "Account"
+msgstr "Tili"
+
+#: 
+msgid "The requested address {0} was not found on this server."
+msgstr "Pyydettyä osoitetta {0} ei löytynyt tältä palvelimelta."
+
+#: 
+msgid "Block IPs"
+msgstr "Estä IP-osoitteet"
+
+#: 
+msgid "List Email Templates"
+msgstr "Listaa sähköpostimalleja"
+
+#: 
+msgid "The blocked ip has been deleted."
+msgstr "Estetty ip on poistettu."
+
+#: 
+msgid "Are you sure you want to delete all {0} logs?"
+msgstr "Haluatko varmasti poistaa kaikki {0} lokia?"
+
+#: 
+msgid "Are you sure you want to delete this comment?"
+msgstr "Haluatko varmasti poistaa tämän kommentin?"
+
+#: 
+msgid "Article/Page"
+msgstr "Artikkeli/sivu"
+
+#: 
+msgid "The aiprompt could not be saved. Please, try again."
+msgstr "Lentoa ei voitu tallentaa. Ole hyvä ja yritä uudelleen."
+
+#: 
+msgid "List {0}"
+msgstr "Luettelo {0}"
+
+#: 
+msgid "Is Inappropriate"
+msgstr "On sopimatonta"
+
+#: 
+msgid "{0} Views"
+msgstr "{0} katselukertaa"
+
+#: 
+msgid "Cache Name"
+msgstr "Välimuistin nimi"
+
+#: 
+msgid "Are you sure you want to delete # {0}?"
+msgstr "Haluatko varmasti poistaa # {0}?"
+
+#: 
+msgid "Max Tokens"
+msgstr "Max Tokens"
+
+#: 
+msgid "Some settings could not be saved. Please, try again."
+msgstr "Joitakin asetuksia ei voitu tallentaa. Ole hyvä ja yritä uudelleen."
+
+#: 
+msgid "Actions"
+msgstr "Toiminnot"
+
+#: 
+msgid "The value must be 0 or 1."
+msgstr "Arvon on oltava 0 tai 1."
+
+#: 
+msgid "Inappropriate Reason"
+msgstr "Sopimaton syy"
+
+#: 
+msgid "Associated Pages"
+msgstr "Liittyvät sivut"
+
+#: 
+msgid "LinkedIn Description"
+msgstr "LinkedIn Kuvaus"
+
+#: 
+msgid "Title"
+msgstr "Otsikko"
+
+#: 
+msgid "The comment could not be deleted. Please, try again."
+msgstr "Kommenttia ei voitu poistaa. Ole hyvä ja yritä uudelleen."
+
+#: 
+msgid "The slug has been saved."
+msgstr "Etu on pelastettu."
+
+#: 
+msgid "Filter"
+msgstr "Suodattaa"
+
+#: 
+msgid "Search articles..."
+msgstr "Hae artikkeleita..."
+
+#: 
+msgid "Image must be less than 5MB."
+msgstr "Kuvan on oltava alle 5 Mt."
+
+#: 
+msgid "Unable to delete logs in group {0}."
+msgstr "Lokeja ei voi poistaa ryhmästä {0}."
+
+#: 
+msgid "Error"
+msgstr "Virhe"
+
+#: 
+msgid "Modified"
+msgstr "Muokattu"
+
+#: 
+msgid "No articles found for this tag."
+msgstr "Tälle tunnisteelle ei löytynyt artikkeleita."
+
+#: 
+msgid "Toggle SEO Fields"
+msgstr "Vaihda SEO-kentät"
+
+#: 
+msgid "All logs with level {0} have been deleted."
+msgstr "Kaikki lokit, joiden taso on {0}, on poistettu."
+
+#: 
+msgid "Message"
+msgstr "Viesti"
+
+#: 
+msgid "Image uploaded successfully"
+msgstr "Kuvan lataus onnistui"
+
+#: 
+msgid "No images."
+msgstr "Ei kuvia."
+
+#: 
+msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
+msgstr "Slugin on oltava URL-osoiteturvallinen (vain pienet kirjaimet, numerot ja yhdysmerkit)"
+
+#: 
+msgid "Live"
+msgstr "Elää"
+
+#: 
+msgid "Unable to delete all logs."
+msgstr "Kaikkia lokeja ei voi poistaa."
+
+#: 
+msgid "Locale"
+msgstr "Alue"
+
+#: 
+msgid "Some caches were cleared, but the following failed: {0}"
+msgstr "Jotkut välimuistit tyhjennettiin, mutta seuraavat epäonnistuivat: {0}"
+
+#: 
+msgid "An Internal Error Has Occurred."
+msgstr "Sisäinen virhe on tapahtunut."
+
+#: 
+msgid "The blocked ip could not be deleted. Please, try again."
+msgstr "Estettyä IP-osoitetta ei voitu poistaa. Ole hyvä ja yritä uudelleen."
+
+#: 
+msgid "Articles"
+msgstr "Artikkelit"
+
+#: 
+msgid "Configured Caches"
+msgstr "Määritetyt välimuistit"
+
+#: 
+msgid "Slug:"
+msgstr "Etana:"
+
+#: 
+msgid "Article not found."
+msgstr "Artikkelia ei löydy."
+
+#: 
+msgid "Comments are not enabled"
+msgstr "Kommentit eivät ole käytössä"
+
+#: 
+msgid "Access denied. You must be an admin to view this page."
+msgstr "Käyttö estetty. Sinun on oltava järjestelmänvalvoja nähdäksesi tämän sivun."
+
+#: 
+msgid "Unable to delete the log."
+msgstr "Lokia ei voi poistaa."
+
+#: 
+msgid "Main Picture"
+msgstr "Pääkuva"
+
+#: 
+msgid "Please upload only images (jpeg, png, gif)."
+msgstr "Lataa vain kuvia (jpeg, png, gif)."
+
+#: 
+msgid "Display"
+msgstr "Näyttö"
+
+#: 
+msgid "List Blocked IPs"
+msgstr "Luettele estetyt IP-osoitteet"
+
+#: 
+msgid "Update Comment"
+msgstr "Päivitä kommentti"
+
+#: 
+msgid "Send Reset Link"
+msgstr "Lähetä nollauslinkki"
+
+#: 
+msgid "All logs have been deleted."
+msgstr "Kaikki lokit on poistettu."
+
+#: 
+msgid "The email template has been deleted."
+msgstr "Sähköpostimalli on poistettu."
+
+#: 
+msgid "Body HTML"
+msgstr "Body HTML"
+
+#: 
+msgid "Slugs"
+msgstr "Etanat"
+
+#: 
+msgid "There was an issue resetting your password. Please try again."
+msgstr "Salasanasi nollauksessa oli ongelma. Yritä uudelleen."
+
+#: 
+msgid "Updated At"
+msgstr "Päivitetty klo"
+
+#: 
+msgid "Temperature"
+msgstr "Lämpötila"
+
+#: 
+msgid "Article ID:"
+msgstr "Artikkelin tunnus:"
+
+#: 
+msgid "Edit Internationalisation"
+msgstr "Muokkaa kansainvälistymistä"
+
+#: 
+msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
+msgstr "Slug on ristiriidassa olemassa olevan SEO-uudelleenohjauksen kanssa. Valitse toinen etana."
+
+#: 
+msgid "Read More"
+msgstr "Lue lisää"
+
+#: 
+msgid "Email"
+msgstr "Sähköposti"
+
+#: 
+msgid "Add Page"
+msgstr "Lisää sivu"
+
+#: 
+msgid "Created"
+msgstr "Luotu"
+
+#: 
+msgid "Admin"
+msgstr "Admin"
+
+#: 
+msgid "Update Image"
+msgstr "Päivitä kuva"
+
+#: 
+msgid "Never"
+msgstr "Ei koskaan"
+
+#: 
+msgid "Edit Settings"
+msgstr "Muokkaa asetuksia"
+
+#: 
+msgid "New Email Template"
+msgstr "Uusi sähköpostimalli"
+
+#: 
+msgid "Settings"
+msgstr "Asetukset"
+
+#: 
+msgid "Search slugs..."
+msgstr "Etsi etanoita..."
+
+#: 
+msgid "Code Coverage"
+msgstr "Koodin kattavuus"
+
+#: 
+msgid "Blocked At"
+msgstr "Estetty klo"
+
+#: 
+msgid "Email template not found: {0}"
+msgstr "Sähköpostimallia ei löydy: {0}"
+
+#: 
+msgid "Update Slug"
+msgstr "Päivitä Slug"
+
+#: 
+msgid "Twitter Description"
+msgstr "Twitter Kuvaus"
+
+#: 
+msgid "List View"
+msgstr "Luettelonäkymä"
+
+#: 
+msgid "All logs in group {0} have been deleted."
+msgstr "Kaikki lokit ryhmästä {0} on poistettu."
+
+#: 
+msgid "Picture"
+msgstr "Kuva"
+
+#: 
+msgid "Unknown User"
+msgstr "Tuntematon käyttäjä"
+
+#: 
+msgid "Message Id"
+msgstr "Viestin tunnus"
+
+#: 
+msgid "The slug could not be saved. Please, try again."
+msgstr "Etanaa ei voitu pelastaa. Ole hyvä ja yritä uudelleen."
+
+#: 
+msgid "Please log in to add a comment"
+msgstr "Ole hyvä ja kirjaudu sisään lisätäksesi kommentin"
+
+#: 
+msgid "Edit User"
+msgstr "Muokkaa käyttäjää"
+
+#: 
+msgid "{0} cache configuration does not exist."
+msgstr "{0}-välimuistimäärityksiä ei ole olemassa."
+
+#: 
+msgid "User"
+msgstr "Käyttäjä"
+
+#: 
+msgid "Your comment has been added."
+msgstr "Kommenttisi on lisätty."
+
+#: 
+msgid "The comment has been saved."
+msgstr "Kommentti on tallennettu."
+
+#: 
+msgid "Logs"
+msgstr "Lokit"
+
+#: 
+msgid "Show"
+msgstr "Show"
+
+#: 
+msgid "New Article"
+msgstr "Uusi artikkeli"
+
+#: 
+msgid "System Prompt"
+msgstr "Järjestelmäkehote"
+
+#: 
+msgid "Username"
+msgstr "Käyttäjätunnus"
+
+#: 
+msgid "System Logs"
+msgstr "Järjestelmälokit"
+
+#: 
+msgid "Are you sure you want to delete all logs in group {0}?"
+msgstr "Haluatko varmasti poistaa kaikki lokit ryhmästä {0}?"
+
+#: 
+msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
+msgstr "Sivu {{sivu}} / {{sivut}}, näyttää {{current}} tietuetta / {{count}} yhteensä"
+
+#: 
+msgid "The blocked ip could not be saved. Please, try again."
+msgstr "Estettyä IP-osoitetta ei voitu tallentaa. Ole hyvä ja yritä uudelleen."
+
+#: 
+msgid "Tag not found"
+msgstr "Tunnistetta ei löydy"
+
+#: 
+msgid "Failed to send password reset email: {0}"
+msgstr "Salasanan vaihtosähköpostin lähettäminen epäonnistui: {0}"
+
+#: 
+msgid "No pages found."
+msgstr "Sivuja ei löytynyt."
+
+#: 
+msgid "Front Site"
+msgstr "Etusivu"
+
+#: 
+msgid "Add Article"
+msgstr "Lisää artikkeli"
+
+#: 
+msgid "Edit Email Template"
+msgstr "Muokkaa sähköpostimallia"
+
+#: 
+msgid "A value is required"
+msgstr "Arvo vaaditaan"
+
+#: 
+msgid "{0} cache could not be cleared."
+msgstr "{0} välimuistia ei voitu tyhjentää."
+
+#: 
+msgid "Reset Password"
+msgstr "Palauta salasana"
+
+#: 
+msgid "Expires At"
+msgstr "Päättyy klo"
+
+#: 
+msgid "Summary"
+msgstr "Yhteenveto"
+
+#: 
+msgid "No"
+msgstr "Ei"
+
+#: 
+msgid "Cache"
+msgstr "Välimuisti"
+
+#: 
+msgid "Subject"
+msgstr "Aihe"
+
+#: 
+msgid "Your password has been reset. Please log in with your new password."
+msgstr "Salasanasi on nollattu. Kirjaudu sisään uudella salasanallasi."
+
+#: 
+msgid "Too many requests. Please try again later."
+msgstr "Liikaa pyyntöjä. Yritä myöhemmin uudelleen."
+
+#: 
+msgid "Hide"
+msgstr "Piilottaa"
+
+#: 
+msgid "Update Tag"
+msgstr "Päivitä tunniste"
+
+#: 
+msgid "IP Address"
+msgstr "IP-osoite"
+
+#: 
+msgid "Date"
+msgstr "Päivämäärä"
+
+#: 
+msgid "Delete All Logs"
+msgstr "Poista kaikki lokit"
+
+#: 
+msgid "Clear"
+msgstr "Selkeä"
+
+#: 
+msgid "The value must not be empty."
+msgstr "Arvo ei saa olla tyhjä."
+
+#: 
+msgid "Search logs..."
+msgstr "Haku lokeista..."
+
+#: 
+msgid "This message_id must be unique for the given locale."
+msgstr "Tämän viestin_id:n on oltava yksilöivä tietylle maa-alueelle."
+
+#: 
+msgid "Engine"
+msgstr "Moottori"
+
+#: 
+msgid "All Locales"
+msgstr "Kaikki alueet"
+
+#: 
+msgid "Invalid or expired password reset link."
+msgstr "Virheellinen tai vanhentunut salasanan palautuslinkki."
+
+#: 
+msgid "The article has been deleted."
+msgstr "Artikkeli on poistettu."
+
+#: 
+msgid "Register New Account"
+msgstr "Rekisteröi uusi tili"
+
+#: 
+msgid "Views"
+msgstr "Näkymät"
+
+#: 
+msgid "All Tags"
+msgstr "Kaikki tunnisteet"
+
+#: 
+msgid "Bulk Upload"
+msgstr "Joukkolataus"
+
+#: 
+msgid "The comment could not be saved. Please, try again."
+msgstr "Kommenttia ei voitu tallentaa. Ole hyvä ja yritä uudelleen."
+
+#: 
+msgid "Name"
+msgstr "Nimi"
+
+#: 
+msgid "User Agent"
+msgstr "Käyttäjäagentti"
+
+#: 
+msgid "New User"
+msgstr "Uusi käyttäjä"
+
+#: 
+msgid "Are you sure you want to delete comment by {0}?"
+msgstr "Haluatko varmasti poistaa kommentin käyttäjältä {0}?"
+
+#: 
+msgid "Add User"
+msgstr "Lisää käyttäjä"
 

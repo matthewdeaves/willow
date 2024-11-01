@@ -125,6 +125,37 @@ class UsersTable extends Table
     }
 
     /**
+     * Validation method for resetting passwords.
+     *
+     * This method defines validation rules for the password reset process.
+     * It ensures that the password meets the minimum length requirement
+     * and that the password confirmation matches the password.
+     *
+     * @param \Cake\Validation\Validator $validator The validator instance to which rules will be added.
+     * @return \Cake\Validation\Validator The modified validator instance with the added rules.
+     */
+    public function validationResetPassword(Validator $validator): Validator
+    {
+        $validator
+            ->scalar('password')
+            ->minLength('password', 8, __('Password must be at least 8 characters long'))
+            ->maxLength('password', 255)
+            ->requirePresence('password', 'create')
+            ->allowEmptyString('password', 'update')
+            ->notEmptyString('password', null, 'create');
+
+        $validator
+            ->scalar('confirm_password')
+            ->maxLength('confirm_password', 255)
+            ->requirePresence('confirm_password', 'create')
+            ->allowEmptyString('confirm_password', 'update')
+            ->notEmptyString('confirm_password', null, 'create')
+            ->sameAs('confirm_password', 'password', 'Passwords do not match');
+
+        return $validator;
+    }
+
+    /**
      * Returns a rules checker object that will be used for validating
      * application integrity.
      *

@@ -232,12 +232,12 @@ class UsersControllerTest extends AppControllerTestCase
         // Test confirming email with invalid confirmation code
         $this->get('/en/users/confirm-email/invalidcode');
         $this->assertRedirect(['controller' => 'Users', 'action' => 'register']);
-        $this->assertFlashMessage('Invalid confirmation code. Please contact support.');
+        $this->assertFlashMessage('Invalid confirmation code.');
 
         // Test confirming email with already used confirmation code
         $this->get("/en/users/confirm-email/{$confirmationCode}");
         $this->assertRedirect(['controller' => 'Users', 'action' => 'register']);
-        $this->assertFlashMessage('Invalid confirmation code. Please contact support.');
+        $this->assertFlashMessage('Invalid confirmation code.');
     }
 
     /**
@@ -433,5 +433,90 @@ class UsersControllerTest extends AppControllerTestCase
 
         $this->assertNoRedirect();
         $this->assertNull($this->_controller->Authentication->getIdentity());
+    }
+
+    /**
+     * Test password reset with mismatched passwords
+     *
+     * This test ensures that a password reset attempt with mismatched passwords fails.
+     *
+     * @return void
+     */
+    public function testPasswordResetWithMismatchedPasswords(): void
+    {
+        $this->enableCsrfToken();
+
+        $resetToken = 'CONFIRM123USER1';
+
+        $this->get("/en/users/reset-password/{$resetToken}");
+        $this->assertResponseOk();
+
+        $this->post("/en/users/reset-password/{$resetToken}", [
+            'password' => 'newpassword123',
+            'confirm_password' => 'differentpassword',
+        ]);
+
+        $this->assertNoRedirect();
+        $this->assertResponseContains('There was an issue resetting your password. Please try again.');
+    }
+
+    /**
+     * Test password reset with invalid token
+     *
+     * This test ensures that a password reset attempt with an invalid token fails.
+     *
+     * @return void
+     */
+    public function testPasswordResetWithInvalidToken(): void
+    {
+        $this->enableCsrfToken();
+        $this->post('/en/users/reset-password/invalid-token', [
+            'password' => 'newpassword123',
+            'confirm_password' => 'newpassword123',
+        ]);
+        $this->assertRedirect(['controller' => 'Users', 'action' => 'login']);
+        $this->assertFlashMessage('Invalid or expired password reset link.');
+    }
+
+    /**
+     * Test password reset with valid token
+     *
+     * This test ensures that a user can reset their password using a valid token.
+     *
+     * @return void
+     */
+    public function testPasswordResetWithValidToken(): void
+    {
+        // Assume a valid token is generated and stored in the database
+        $resetToken = 'CONFIRM123USER1';
+        $this->enableCsrfToken();
+        $this->post("/en/users/reset-password/{$resetToken}", [
+            'password' => 'newpassword123',
+            'confirm_password' => 'newpassword123',
+        ]);
+        $this->assertRedirect(['controller' => 'Users', 'action' => 'login']);
+        $this->assertFlashMessage('Your password has been reset. Please log in with your new password.');
+    }
+
+    /**
+     * Test password reset request
+     *
+     * This test verifies that a user can request a password reset and receive a confirmation message.
+     *
+     * @return void
+     */
+    public function testPasswordResetRequest(): void
+    {
+        $this->enableCsrfToken();
+
+        $this->get('/en/users/forgot-password');
+        $this->assertResponseOk();
+
+        $this->post('/en/users/forgot-password', [
+            'email' => 'user1@example.com',
+        ]);
+
+        $this->assertRedirect(['controller' => 'Users', 'action' => 'login']);
+        $this->assertFlashMessage('If your email is registered, you will receive a link to reset your password.');
     }
 }

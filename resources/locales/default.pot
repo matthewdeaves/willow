@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2024-10-29 00:03+0000\n"
+"POT-Creation-Date: 2024-11-01 20:30+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -283,7 +283,7 @@ msgstr ""
 
 #: ./src/Controller/Admin/UsersController.php:106
 #: ./src/Controller/Admin/UsersController.php:152
-#: ./src/Controller/UsersController.php:203
+#: ./src/Controller/UsersController.php:216
 msgid "The user could not be saved. Please, try again."
 msgstr ""
 
@@ -320,10 +320,14 @@ msgid "Article not found."
 msgstr ""
 
 #: ./src/Controller/ArticlesController.php:274
+msgid "Comments are not enabled"
+msgstr ""
+
+#: ./src/Controller/ArticlesController.php:283
 msgid "Your comment has been added."
 msgstr ""
 
-#: ./src/Controller/ArticlesController.php:276
+#: ./src/Controller/ArticlesController.php:285
 msgid "Unable to add your comment."
 msgstr ""
 
@@ -331,44 +335,65 @@ msgstr ""
 msgid "Tag not found"
 msgstr ""
 
-#: ./src/Controller/UsersController.php:66
+#: ./src/Controller/UsersController.php:75
 msgid "Invalid username or password"
 msgstr ""
 
-#: ./src/Controller/UsersController.php:114
+#: ./src/Controller/UsersController.php:127
 msgid "Registration successful. Please check your email for confirmation."
 msgstr ""
 
-#: ./src/Controller/UsersController.php:118
+#: ./src/Controller/UsersController.php:131
 msgid "Registration successful, but there was an issue creating the confirmation link."
 msgstr ""
 
-#: ./src/Controller/UsersController.php:124
+#: ./src/Controller/UsersController.php:137
 msgid "Registration failed. Please, try again."
 msgstr ""
 
-#: ./src/Controller/UsersController.php:165
+#: ./src/Controller/UsersController.php:178
 msgid "Failed to send confirmation email message: {0}"
 msgstr ""
 
-#: ./src/Controller/UsersController.php:188
+#: ./src/Controller/UsersController.php:201
 msgid "You are not authorized to edit this account, stick to your own."
 msgstr ""
 
-#: ./src/Controller/UsersController.php:199
+#: ./src/Controller/UsersController.php:212
 msgid "Your account has been updated."
 msgstr ""
 
-#: ./src/Controller/UsersController.php:232
+#: ./src/Controller/UsersController.php:245
 msgid "Your account has been confirmed. You can now log in."
 msgstr ""
 
-#: ./src/Controller/UsersController.php:236
+#: ./src/Controller/UsersController.php:249
 msgid "There was an issue confirming your account. Please try again."
 msgstr ""
 
-#: ./src/Controller/UsersController.php:241
-msgid "Invalid confirmation code. Please contact support."
+#: ./src/Controller/UsersController.php:254
+msgid "Invalid confirmation code."
+msgstr ""
+
+#: ./src/Controller/UsersController.php:288
+#: ./src/Controller/UsersController.php:295
+msgid "If your email is registered, you will receive a link to reset your password."
+msgstr ""
+
+#: ./src/Controller/UsersController.php:330
+msgid "Failed to send password reset email: {0}"
+msgstr ""
+
+#: ./src/Controller/UsersController.php:354
+msgid "Invalid or expired password reset link."
+msgstr ""
+
+#: ./src/Controller/UsersController.php:370
+msgid "Your password has been reset. Please log in with your new password."
+msgstr ""
+
+#: ./src/Controller/UsersController.php:374
+msgid "There was an issue resetting your password. Please try again."
 msgstr ""
 
 #: ./src/Http/Exception/TooManyRequestsException.php:30
@@ -445,6 +470,7 @@ msgid "The slug must be unique."
 msgstr ""
 
 #: ./src/Model/Table/UsersTable.php:93
+#: ./src/Model/Table/UsersTable.php:141
 msgid "Password must be at least 8 characters long"
 msgstr ""
 
@@ -536,6 +562,7 @@ msgstr ""
 #: ./plugins/AdminTheme/templates/Admin/Users/search_results.php:30
 #: ./plugins/AdminTheme/templates/Admin/Users/view.php:102
 #: ./plugins/AdminTheme/templates/Admin/Users/view.php:138
+#: ./vendor/cakephp/cakephp/src/View/Helper/PaginatorHelper.php:1178
 msgid "View"
 msgstr ""
 
@@ -946,7 +973,7 @@ msgstr ""
 
 #: ./plugins/AdminTheme/templates/Admin/Comments/index.php:10
 #: ./plugins/AdminTheme/templates/layout/default.php:55
-#: ./plugins/DefaultTheme/templates/Articles/view_by_slug.php:68
+#: ./plugins/DefaultTheme/templates/Articles/view_by_slug.php:72
 msgid "Comments"
 msgstr ""
 
@@ -1408,7 +1435,7 @@ msgid "User Comments"
 msgstr ""
 
 #: ./plugins/AdminTheme/templates/Admin/Users/view.php:125
-#: ./plugins/DefaultTheme/templates/Articles/view_by_slug.php:93
+#: ./plugins/DefaultTheme/templates/Articles/view_by_slug.php:97
 msgid "Comment"
 msgstr ""
 
@@ -1543,27 +1570,27 @@ msgstr ""
 msgid "No tags are linked."
 msgstr ""
 
-#: ./plugins/DefaultTheme/templates/Articles/view_by_slug.php:76
+#: ./plugins/DefaultTheme/templates/Articles/view_by_slug.php:80
 msgid "Posted on {date} by {author}"
 msgstr ""
 
-#: ./plugins/DefaultTheme/templates/Articles/view_by_slug.php:86
+#: ./plugins/DefaultTheme/templates/Articles/view_by_slug.php:90
 msgid "No comments yet."
 msgstr ""
 
-#: ./plugins/DefaultTheme/templates/Articles/view_by_slug.php:91
+#: ./plugins/DefaultTheme/templates/Articles/view_by_slug.php:95
 msgid "Add a Comment"
 msgstr ""
 
-#: ./plugins/DefaultTheme/templates/Articles/view_by_slug.php:94
+#: ./plugins/DefaultTheme/templates/Articles/view_by_slug.php:98
 msgid "Submit Comment"
 msgstr ""
 
-#: ./plugins/DefaultTheme/templates/Articles/view_by_slug.php:99
+#: ./plugins/DefaultTheme/templates/Articles/view_by_slug.php:103
 msgid "Please log in to add a comment"
 msgstr ""
 
-#: ./plugins/DefaultTheme/templates/Articles/view_by_slug.php:100
+#: ./plugins/DefaultTheme/templates/Articles/view_by_slug.php:104
 #: ./plugins/DefaultTheme/templates/Users/login.php:30
 #: ./plugins/DefaultTheme/templates/layout/default.php:48
 msgid "Login"
@@ -1582,8 +1609,28 @@ msgstr ""
 msgid "Edit Your Account"
 msgstr ""
 
+#: ./plugins/DefaultTheme/templates/Users/forgot_password.php:6
+msgid "Forgot Password"
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/Users/forgot_password.php:12
+msgid "Please enter your email to reset your password"
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/Users/forgot_password.php:22
+msgid "Send Reset Link"
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/Users/forgot_password.php:26
+msgid "Back to Login"
+msgstr ""
+
 #: ./plugins/DefaultTheme/templates/Users/login.php:12
 msgid "Please enter your email and password"
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/Users/login.php:33
+msgid "Forgot Password?"
 msgstr ""
 
 #: ./plugins/DefaultTheme/templates/Users/register.php:13
@@ -1591,8 +1638,17 @@ msgid "Register New Account"
 msgstr ""
 
 #: ./plugins/DefaultTheme/templates/Users/register.php:40
-#: ./plugins/DefaultTheme/templates/layout/default.php:51
+#: ./plugins/DefaultTheme/templates/layout/default.php:52
 msgid "Register"
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/Users/reset_password.php:6
+#: ./plugins/DefaultTheme/templates/Users/reset_password.php:33
+msgid "Reset Password"
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/Users/reset_password.php:12
+msgid "Please enter your new password"
 msgstr ""
 
 #: ./plugins/DefaultTheme/templates/element/page_menu.php:38
@@ -1604,7 +1660,7 @@ msgstr ""
 msgid "English"
 msgstr ""
 
-#: ./plugins/DefaultTheme/templates/element/tag_filters.php:11
+#: ./plugins/DefaultTheme/templates/element/tag_filters.php:12
 msgid "All Tags"
 msgstr ""
 
@@ -1612,7 +1668,7 @@ msgstr ""
 msgid "Account"
 msgstr ""
 
-#: ./plugins/DefaultTheme/templates/layout/default.php:78
+#: ./plugins/DefaultTheme/templates/layout/default.php:80
 msgid "All rights reserved."
 msgstr ""
 

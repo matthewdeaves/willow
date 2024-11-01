@@ -90,6 +90,10 @@ class UsersController extends AppController
      */
     public function register(): ?Response
     {
+        if (!SettingsManager::read('Users.registrationEnabled', false)) {
+            return $this->redirect($this->referer());
+        }
+
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             $data = $this->request->getData();

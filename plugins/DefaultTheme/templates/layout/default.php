@@ -47,9 +47,11 @@
                         <li class="nav-item">
                             <?= $this->Html->link(__('Login'), ['controller' => 'Users', 'action' => 'login'], ['class' => 'nav-link']) ?>
                         </li>
+                        <?php if (SettingsManager::read('Users.registrationEnabled', false)) :?>
                         <li class="nav-item">
                             <?= $this->Html->link(__('Register'), ['controller' => 'Users', 'action' => 'register'], ['class' => 'nav-link']) ?>
                         </li>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </ul>
             </div>

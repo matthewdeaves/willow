@@ -117,6 +117,13 @@ class SettingsFixture extends TestFixture
                 'value' => '1',
                 'value_type' => 'bool',
             ],
+            [
+                'id' => Text::uuid(),
+                'category' => 'Users',
+                'key_name' => 'registrationEnabled',
+                'value' => '1',
+                'value_type' => 'bool',
+            ],
         ];
         parent::init();
     }

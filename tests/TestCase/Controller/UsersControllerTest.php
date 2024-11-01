@@ -34,6 +34,7 @@ class UsersControllerTest extends AppControllerTestCase
         'app.ArticlesTags',
         'app.BlockedIps',
         'app.UserAccountConfirmations',
+        'app.Settings',
     ];
 
     /**

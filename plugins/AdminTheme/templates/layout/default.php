@@ -63,7 +63,9 @@ use Cake\Core\Configure;
                             <li><?= $this->Html->link(__('Users'), ['prefix' => 'Admin', 'controller' => 'Users', 'action' => 'index'], ['class' => 'dropdown-item']) ?></li>
                             <li><?= $this->Html->link(__('Email Templates'), ['prefix' => 'Admin', 'controller' => 'EmailTemplates', 'action' => 'index'], ['class' => 'dropdown-item']) ?></li>
                             <li><?= $this->Html->link(__('Slugs'), ['prefix' => 'Admin', 'controller' => 'slugs', 'action' => 'index'], ['class' => 'dropdown-item']) ?></li>
+                            <?php if (Configure::read('debug')) : ?>
                             <li><?= $this->Html->link(__('AI Prompts'), ['prefix' => 'Admin', 'controller' => 'Aiprompts', 'action' => 'index'], ['class' => 'dropdown-item']) ?></li>
+                            <?php endif; ?>  
                             <li><?= $this->Html->link(__('Cache'), ['prefix' => 'Admin', 'controller' => 'Cache', 'action' => 'clearAll'], ['class' => 'dropdown-item']) ?></li>
                             <li><?= $this->Html->link(__('Block IPs'), ['prefix' => 'Admin', 'controller' => 'BlockedIps', 'action' => 'index'], ['class' => 'dropdown-item']) ?></li>
                             <li><?= $this->Html->link(__('Logs'), ['prefix' => 'Admin', 'controller' => 'SystemLogs', 'action' => 'index'], ['class' => 'dropdown-item']) ?></li>

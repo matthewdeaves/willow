@@ -11,7 +11,8 @@
                 'modelName' => 'EmailTemplate',
                 'controllerName' => 'EmailTemplates',
                 'entity' => $emailTemplate,
-                'entityDisplayName' => $emailTemplate->name
+                'entityDisplayName' => $emailTemplate->name,
+                'debugOnlyOptions' => ['add', 'delete'],
             ]);
         ?>
         <div class="col-md-9">

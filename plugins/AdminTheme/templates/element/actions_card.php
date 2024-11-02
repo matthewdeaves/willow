@@ -3,7 +3,7 @@ use Cake\Core\Configure;
 use Cake\Utility\Inflector;
 
 $modelNamePlural = Inflector::pluralize($modelName);
-$debugOnlyOptions = $debugOnlyOptions ?: [];
+$debugOnlyOptions = $debugOnlyOptions ?? [];
 ?>
 <div class="col-md-3">
     <div class="card mb-4">

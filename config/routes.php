@@ -64,7 +64,13 @@ return function (RouteBuilder $routes): void {
             ]
         );
 
-        $builder->connect('/sitemap', ['controller' => 'Sitemap', 'action' => 'index'], ['routeClass' => 'ADmad/I18n.I18nRoute'])->setExtensions(['xml']);
+        $builder->connect(
+            '/sitemap',
+            [
+                'controller' => 'Sitemap',
+                'action' => 'index'
+            ]
+        )->setExtensions(['xml']);
 
         $builder->connect(
             '/users/login',

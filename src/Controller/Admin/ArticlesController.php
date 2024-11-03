@@ -258,7 +258,7 @@ class ArticlesController extends AppController
             if ($article->parent_id == $id) {
                 $article->parent_id = $oldParent;
             }
-            
+
             $saveOptions = [];
             if (isset($data['regenerateTags'])) {
                 $saveOptions['regenerateTags'] = $data['regenerateTags'];

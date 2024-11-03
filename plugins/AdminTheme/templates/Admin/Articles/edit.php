@@ -79,7 +79,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <div class="form-check">
-                                <?php if ($article->tags): ?>
+                                <?php if ($article->tags && SettingsManager::read('AI.articleTags')): ?>
                                     <div class="col-md-4 mb-3 d-flex align-items-end">
                                             <div class="form-check">
                                                 <?= $this->Form->checkbox("regenerateTags", [

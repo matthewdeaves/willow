@@ -652,6 +652,12 @@ class V1 extends AbstractMigration
                 'limit' => null,
                 'null' => true,
             ])
+            ->addColumn('column_width', 'integer', [
+                'default' => '2',
+                'limit' => null,
+                'null' => false,
+                'signed' => true,
+            ])
             ->addColumn('created', 'datetime', [
                 'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,

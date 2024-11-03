@@ -10,6 +10,7 @@ use Cake\I18n\DateTime;
 use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
+use Cake\View\XmlView;
 
 /**
  * SitemapController
@@ -63,23 +64,29 @@ class SitemapController extends AppController
      */
     public function index(): Response
     {
+        // Disable auto-rendering of a view template
         $this->autoRender = false;
-        $this->response = $this->response->withDisabledCache();
+    
+        // Set the response type to XML
         $this->response = $this->response->withType('xml');
-
+    
+        // Fetch articles and pages
         $articles = $this->Articles->find('all')
             ->select(['id', 'slug', 'modified', 'published', 'is_page'])
             ->where(['is_page' => false, 'is_published' => true])
             ->orderBy(['created' => 'DESC']);
-
+    
         $pages = $this->Articles->find('all')
             ->select(['id', 'slug', 'modified', 'published', 'is_page'])
             ->where(['is_page' => true, 'is_published' => true]);
-
+    
+        // Generate the sitemap XML content
         $sitemapContent = $this->generateSitemapXml($articles, $pages);
-
+    
+        // Set the response body with the sitemap content
         $this->response = $this->response->withStringBody($sitemapContent);
-
+    
+        // Return the response
         return $this->response;
     }
 

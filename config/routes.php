@@ -64,13 +64,7 @@ return function (RouteBuilder $routes): void {
             ]
         );
 
-        $builder->connect(
-            '/sitemap',
-            [
-                'controller' => 'Sitemap',
-                'action' => 'index'
-            ]
-        )->setExtensions(['xml']);
+        
 
         $builder->connect(
             '/users/login',
@@ -177,7 +171,22 @@ return function (RouteBuilder $routes): void {
 
         //$builder->connect('/*', ['prefix' => null, 'controller' => 'Articles', 'action' => 'view-by-slug'], ['pass' => ['slug'], 'routeClass' => 'ADmad/I18n.I18nRoute']);
 
-        $builder->fallbacks();
+        //$builder->fallbacks();
+    });
+
+    $routes->scope('/', function (RouteBuilder $builder): void {
+        $builder->setExtensions(['xml']);
+        $builder->connect(
+            '/sitemap',
+            [
+                'controller' => 'Sitemap',
+                'action' => 'index'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'sitemap'
+            ]
+        );
     });
 
     /*

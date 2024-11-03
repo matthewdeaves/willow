@@ -54,6 +54,22 @@
                             ]) ?>
                         </div>
                         <div class="col-md-6 mb-3">
+                            <div class="col-md-6 mb-3">
+                                <div>
+                                    <?= $this->Form->label('tags._ids', 'Tags', ['class' => 'form-label']) ?>
+                                </div>
+                                <?= $this->Form->select('tags._ids', $tags, [
+                                    'class' => 'form-select' . ($this->Form->isFieldError('tags._ids') ? ' is-invalid' : ''),
+                                    'multiple' => true,
+                                    'data-live-search' => 'true',
+                                    'data-actions-box' => 'true',
+                                    'id' => 'tags-select',
+                                ]) ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
                             <div class="form-check">
                                 <?= $this->Form->checkbox('is_published', [
                                     'class' => 'form-check-input'
@@ -66,18 +82,6 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <div>
-                                <?= $this->Form->label('tags._ids', 'Tags', ['class' => 'form-label']) ?>
-                            </div>
-                            <?= $this->Form->select('tags._ids', $tags, [
-                                'class' => 'form-select' . ($this->Form->isFieldError('tags._ids') ? ' is-invalid' : ''),
-                                'multiple' => true,
-                                'data-live-search' => 'true',
-                                'data-actions-box' => 'true',
-                                'id' => 'tags-select',
-                            ]) ?>
-                        </div>
                         <div class="col-md-6 mb-3">
                             <?php
                             // Check if 'parent_id' is set in the URL parameters

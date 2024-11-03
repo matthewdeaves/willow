@@ -50,9 +50,26 @@
                             ]) ?>
                         </div>
                         <div class="col-md-6 mb-3">
+                            <div>
+                                <?= $this->Form->label('tags._ids', 'Tags', ['class' => 'form-label']) ?>
+                            </div>
+                            <div>
+                                <?= $this->Form->select('tags._ids', $tags, [
+                                    'class' => 'form-select' . ($this->Form->isFieldError('tags._ids') ? ' is-invalid' : ''),
+                                    'multiple' => true,
+                                    'data-live-search' => 'true',
+                                    'data-actions-box' => 'true',
+                                    'id' => 'tags-select'
+                                ]) ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
                             <div class="form-check">
                                 <?= $this->Form->checkbox('is_published', [
-                                    'class' => 'form-check-input'
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox'
                                 ]) ?>
                                 <?= $this->Form->label('is_published', 'Published', [
                                     'class' => 'form-check-label',
@@ -60,20 +77,26 @@
                                 ]) ?>
                             </div>
                         </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check">
+                                <?php if ($article->tags): ?>
+                                    <div class="col-md-4 mb-3 d-flex align-items-end">
+                                            <div class="form-check">
+                                                <?= $this->Form->checkbox("regenerateTags", [
+                                                    'class' => 'form-check-input',
+                                                    'checked' => false,
+                                                    'type' => 'checkbox'
+                                                ]) ?>
+                                                <label class="form-check-label" for="regenerateTags">
+                                                    <?= __('Regenerate Tags') ?>
+                                                </label>
+                                            </div>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <div>
-                                <?= $this->Form->label('tags._ids', 'Tags', ['class' => 'form-label']) ?>
-                            </div>
-                            <?= $this->Form->select('tags._ids', $tags, [
-                                'class' => 'form-select' . ($this->Form->isFieldError('tags._ids') ? ' is-invalid' : ''),
-                                'multiple' => true,
-                                'data-live-search' => 'true',
-                                'data-actions-box' => 'true',
-                                'id' => 'tags-select'
-                            ]) ?>
-                        </div>
                         <div class="col-md-6 mb-3">
                             <?php
                             // Check if 'parent_id' is set in the URL parameters
@@ -166,3 +189,5 @@ $(document).ready(function() {
     });
 });
 </script>
+
+<?php debug($article->tags); ?>

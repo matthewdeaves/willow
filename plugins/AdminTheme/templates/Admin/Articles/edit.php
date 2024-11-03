@@ -1,5 +1,3 @@
-<?php use App\Utility\SettingsManager; ?>
-<?= $this->element('trumbowyg'); ?>
 <?php
 /**
  * @var \App\View\AppView $this
@@ -8,6 +6,8 @@
  * @var string[]|\Cake\Collection\CollectionInterface $tags
  */
 ?>
+<?php use App\Utility\SettingsManager; ?>
+<?= $this->element('trumbowyg'); ?>
 <div class="container-fluid mt-4">
     <div class="row">
         <?php
@@ -126,6 +126,7 @@
                             <?php endif; ?>
                         </div>
                     </div>
+                    <?php if (SettingsManager::read('PagesAndArticles.additionalImages')) : ?>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <?= $this->element('associated_images_control', [
@@ -134,6 +135,7 @@
                             ]) ?>
                         </div>
                     </div>
+                    <?php endif; ?>
                     <?= $this->element('seo_form_fields', ['model' => $article]) ?>
                     <div class="row">
                         <div class="col-md-12">

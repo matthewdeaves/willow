@@ -600,7 +600,7 @@
         "value": "",
         "value_type": "bool",
         "value_obscure": false,
-        "description": "Enable additional images to uploaded to your Articles and Pages.",
+        "description": "Enable additional image uploads on your Articles and Pages.",
         "data": null,
         "column_width": 2
     }

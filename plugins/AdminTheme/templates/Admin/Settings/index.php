@@ -18,7 +18,7 @@
                         <h4 class="mb-3 mt-4 text-secondary"><?= h($this->makeHumanReadable($category)) ?></h4>
                         <div class="row">
                         <?php foreach ($settings as $key => $setting): ?>
-                            <div class="col-md-2 mb-1">
+                            <div class="col-md-<?= isset($setting['column_width']) ? $setting['column_width'] : 2; ?> mb-1">
                                 <?php
                                 $value = $setting['value'];
                                 $value_type = $setting['value_type'];
@@ -27,7 +27,7 @@
                                 $tooltipAttrs = !empty($description) ? [
                                     'data-bs-toggle' => 'tooltip',
                                     'data-bs-placement' => 'top',
-                                    'title' => h($description)
+                                    'title' => html_entity_decode($description)
                                 ] : [];
                                 ?>
                                 <?php if ($value_type === 'bool'): ?>
@@ -43,6 +43,15 @@
                                             <?= $this->makeHumanReadable($key) ?>
                                         </label>
                                     </div>
+                                <?php elseif ($value_type === 'textarea'): ?>
+                                    <?= $this->Form->control("{$category}.{$key}", array_merge([
+                                        'label' => $this->makeHumanReadable($key),
+                                        'value' => $value,
+                                        'class' => 'form-control',
+                                        'type' => 'textarea',
+                                        'rows' => 8,
+                                        'placeholder' => __('Enter text')
+                                    ], $tooltipAttrs)) ?>
                                 <?php elseif ($value_type === 'select'): ?>
                                     <?php $options = json_decode($setting['data'], true); ?>
                                     <label class="form-check-label" for="<?= "{$category}-{$key}" ?>" 

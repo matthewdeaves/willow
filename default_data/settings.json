@@ -1,363 +1,14 @@
 [
     {
-        "ordering": 0,
-        "category": "i18n",
-        "key_name": "locale",
-        "value": "en_GB",
-        "value_type": "select",
-        "value_obscure": false,
-        "description": null,
-        "data": "{\n  \"de_DE\": \"German\",\n  \"fr_FR\": \"French\",\n  \"es_ES\": \"Spanish\",\n  \"it_IT\": \"Italian\",\n  \"pt_PT\": \"Portuguese\",\n  \"nl_NL\": \"Dutch\",\n  \"pl_PL\": \"Polish\",\n  \"ru_RU\": \"Russian\",\n  \"sv_SE\": \"Swedish\",\n  \"da_DK\": \"Danish\",\n  \"fi_FI\": \"Finnish\",\n  \"no_NO\": \"Norwegian\",\n  \"el_GR\": \"Greek\",\n  \"tr_TR\": \"Turkish\",\n  \"cs_CZ\": \"Czech\",\n  \"hu_HU\": \"Hungarian\",\n  \"ro_RO\": \"Romanian\",\n  \"sk_SK\": \"Slovak\",\n  \"sl_SI\": \"Slovenian\",\n  \"bg_BG\": \"Bulgarian\",\n  \"hr_HR\": \"Croatian\",\n  \"et_EE\": \"Estonian\",\n  \"lv_LV\": \"Latvian\",\n  \"lt_LT\": \"Lithuanian\",\n  \"uk_UA\": \"Ukrainian\",\n  \"en_GB\": \"British English\"\n}"
-    },
-    {
-        "ordering": 23,
+        "ordering": 16,
         "category": "Translations",
-        "key_name": "sv_SE",
+        "key_name": "no_NO",
         "value": "",
         "value_type": "bool",
         "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 0,
-        "category": "SEO",
-        "key_name": "siteMetakeywords",
-        "value": "Default site meta keywords",
-        "value_type": "text",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 21,
-        "category": "Translations",
-        "key_name": "sk_SK",
-        "value": "",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 7,
-        "category": "ImageSizes",
-        "key_name": "teeny",
-        "value": "50",
-        "value_type": "numeric",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 12,
-        "category": "Translations",
-        "key_name": "it_IT",
-        "value": "",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 15,
-        "category": "Translations",
-        "key_name": "nl_NL",
-        "value": "",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 6,
-        "category": "Translations",
-        "key_name": "es_ES",
-        "value": "",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 0,
-        "category": "Google",
-        "key_name": "apiKey",
-        "value": "your-api-key-here",
-        "value_type": "text",
-        "value_obscure": true,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 0,
-        "category": "Email",
-        "key_name": "reply_email",
-        "value": "noreply@example.com",
-        "value_type": "text",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 2,
-        "category": "AI",
-        "key_name": "articleTranslations",
-        "value": "",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": "Automatically translate your articles into any of the 25 languages enabled in the translations settings. When you publish a page or article, the system will generate high-quality translations.",
-        "data": null
-    },
-    {
-        "ordering": 4,
-        "category": "ImageSizes",
-        "key_name": "medium",
-        "value": "300",
-        "value_type": "numeric",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 6,
-        "category": "ImageSizes",
-        "key_name": "tiny",
-        "value": "100",
-        "value_type": "numeric",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 11,
-        "category": "Translations",
-        "key_name": "hu_HU",
-        "value": "",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 0,
-        "category": "RateLimit",
-        "key_name": "numberOfSeconds",
-        "value": "60",
-        "value_type": "numeric",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 6,
-        "category": "AI",
-        "key_name": "articleTags",
-        "value": "",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": "Automatically generate relevant tags for your articles and pages based on their content. When you save an article or page, the system will analyze the text and create tags that best represent the main topics and keywords. These tags will then be automatically linked to the corresponding article or page, making it easier for readers to find related content on your website.",
-        "data": null
-    },
-    {
-        "ordering": 19,
-        "category": "Translations",
-        "key_name": "ro_RO",
-        "value": "",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 1,
-        "category": "Translations",
-        "key_name": "bg_BG",
-        "value": "",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 4,
-        "category": "Translations",
-        "key_name": "de_DE",
-        "value": "",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 25,
-        "category": "Translations",
-        "key_name": "uk_UA",
-        "value": "",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 2,
-        "category": "ImageSizes",
-        "key_name": "extra-large",
-        "value": "500",
-        "value_type": "numeric",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 0,
-        "category": "SEO",
-        "key_name": "siteStrapline",
-        "value": "Welcome to Willow CMS",
-        "value_type": "text",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 10,
-        "category": "Translations",
-        "key_name": "hr_HR",
-        "value": "",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 22,
-        "category": "Translations",
-        "key_name": "sl_SI",
-        "value": "",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 5,
-        "category": "Translations",
-        "key_name": "el_GR",
-        "value": "",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 17,
-        "category": "Translations",
-        "key_name": "pl_PL",
-        "value": "",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 7,
-        "category": "Translations",
-        "key_name": "et_EE",
-        "value": "",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 14,
-        "category": "Translations",
-        "key_name": "lv_LV",
-        "value": "",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 3,
-        "category": "Translations",
-        "key_name": "da_DK",
-        "value": "",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 24,
-        "category": "Translations",
-        "key_name": "tr_TR",
-        "value": "",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 0,
-        "category": "Anthropic",
-        "key_name": "apiKey",
-        "value": "your-api-key-here",
-        "value_type": "text",
-        "value_obscure": true,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 4,
-        "category": "AI",
-        "key_name": "articleSEO",
-        "value": "",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": "Optimize your articles and pages for search engines and social media by automatically generating SEO metadata. When enabled, the system will create a meta title, meta description, meta keywords, and tailored descriptions for Facebook, LinkedIn, Instagram, and Twitter.",
-        "data": null
-    },
-    {
-        "ordering": 18,
-        "category": "Translations",
-        "key_name": "pt_PT",
-        "value": "",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 1,
-        "category": "ImageSizes",
-        "key_name": "massive",
-        "value": "800",
-        "value_type": "numeric",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 5,
-        "category": "AI",
-        "key_name": "tagSEO",
-        "value": "",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": "Optimize your tags for search engines and social media by automatically generating SEO metadata. When enabled, the system will create a meta title, meta description, meta keywords, and tailored descriptions for Facebook, LinkedIn, Instagram, and Twitter.",
-        "data": null
-    },
-    {
-        "ordering": 1,
-        "category": "AI",
-        "key_name": "enabled",
-        "value": "",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": "Harness the power of artificial intelligence to enhance your content creation process. By enabling AI features, you gain access to a range of powerful tools, such as automatic article summarization, SEO metadata generation, and multilingual translation.",
-        "data": null
+        "description": "Enable translations in Norwegian",
+        "data": null,
+        "column_width": 2
     },
     {
         "ordering": 0,
@@ -366,128 +17,9 @@
         "value": "5",
         "value_type": "numeric",
         "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 20,
-        "category": "Translations",
-        "key_name": "ru_RU",
-        "value": "",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 16,
-        "category": "Translations",
-        "key_name": "no_NO",
-        "value": "",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 7,
-        "category": "AI",
-        "key_name": "articleSummaries",
-        "value": "",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": "Automatically generate concise and compelling summaries for your articles and pages. When enabled, the system will analyze the content and create a brief synopsis that captures the key points. These summaries will appear on the article index page and other areas where a short overview is preferable to displaying the full text.",
-        "data": null
-    },
-    {
-        "ordering": 3,
-        "category": "ImageSizes",
-        "key_name": "large",
-        "value": "400",
-        "value_type": "numeric",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 0,
-        "category": "SEO",
-        "key_name": "siteName",
-        "value": "Willow CMS",
-        "value_type": "text",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 8,
-        "category": "ImageSizes",
-        "key_name": "micro",
-        "value": "10",
-        "value_type": "numeric",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 9,
-        "category": "Translations",
-        "key_name": "fr_FR",
-        "value": "",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 8,
-        "category": "Translations",
-        "key_name": "fi_FI",
-        "value": "",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 5,
-        "category": "ImageSizes",
-        "key_name": "small",
-        "value": "200",
-        "value_type": "numeric",
-        "value_obscure": false,
-        "description": null,
-        "data": null
-    },
-    {
-        "ordering": 3,
-        "category": "AI",
-        "key_name": "tagTranslations",
-        "value": "",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": "Automatically translate your tags into any of the 25 languages enabled in the translations settings. When you publish a page or article, the system will generate high-quality translations.",
-        "data": null
-    },
-    {
-        "ordering": 0,
-        "category": "i18n",
-        "key_name": "provider",
-        "value": "google",
-        "value_type": "select",
-        "value_obscure": false,
-        "description": null,
-        "data": "{\n  \"google\": \"Google\",\n  \"anthropic\": \"Anthropic\"\n}"
-    },
-    {
-        "ordering": 0,
-        "category": "SEO",
-        "key_name": "siteMetaDescription",
-        "value": "Default site meta description",
-        "value_type": "text",
-        "value_obscure": false,
-        "description": null,
-        "data": null
+        "description": "This field allows you to set the maximum number of requests an IP address can make to your website within a specified time period. It helps protect your site from excessive traffic, potential abuse, or automated scripts that may overload your server resources. By setting a limit, you can ensure fair usage and maintain the stability and performance of your website. If an IP address exceeds this limit within the defined time frame, they will be temporarily blocked from accessing your site.",
+        "data": null,
+        "column_width": 2
     },
     {
         "ordering": 2,
@@ -496,28 +28,53 @@
         "value": "",
         "value_type": "bool",
         "value_obscure": false,
-        "description": null,
-        "data": null
+        "description": "Enable translations in Czech",
+        "data": null,
+        "column_width": 2
     },
     {
-        "ordering": 13,
+        "ordering": 20,
         "category": "Translations",
-        "key_name": "lt_LT",
+        "key_name": "ru_RU",
         "value": "",
         "value_type": "bool",
         "value_obscure": false,
-        "description": null,
-        "data": null
+        "description": "Enable translations in Russian",
+        "data": null,
+        "column_width": 2
     },
     {
-        "ordering": 1,
-        "category": "Comments",
-        "key_name": "articlesEnabled",
+        "ordering": 9,
+        "category": "Translations",
+        "key_name": "fr_FR",
         "value": "",
         "value_type": "bool",
         "value_obscure": false,
-        "description": "Turn this on to enable logged in users to comment on your articles.",
-        "data": null
+        "description": "Enable translations in French",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 7,
+        "category": "Translations",
+        "key_name": "et_EE",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Enable translations in Estonian",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 0,
+        "category": "Anthropic",
+        "key_name": "apiKey",
+        "value": "your-api-key-here",
+        "value_type": "text",
+        "value_obscure": true,
+        "description": "This field is used to store your Anthropic API key, which grants access to a range of AI-powered features and services provided by Anthropic. These features are designed to enhance your content management system and streamline various tasks. Some of the key functionalities include auto tagging, SEO text generation, image alt text & keyword generation.",
+        "data": null,
+        "column_width": 12
     },
     {
         "ordering": 2,
@@ -527,7 +84,426 @@
         "value_type": "bool",
         "value_obscure": false,
         "description": "Turn this on to enable logged in users to comment on your pages.",
-        "data": null
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 3,
+        "category": "ImageSizes",
+        "key_name": "large",
+        "value": "400",
+        "value_type": "numeric",
+        "value_obscure": false,
+        "description": null,
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 0,
+        "category": "i18n",
+        "key_name": "provider",
+        "value": "google",
+        "value_type": "select",
+        "value_obscure": false,
+        "description": "This setting is used for updating the built-in translations for the Willow CMS interface. Options include Google or Anthropic, with Google generally providing better translations. For auto translation of your website content, see the Translations section to enable languages.",
+        "data": "{\n  \"google\": \"Google\",\n  \"anthropic\": \"Anthropic\"\n}",
+        "column_width": 2
+    },
+    {
+        "ordering": 17,
+        "category": "Translations",
+        "key_name": "pl_PL",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Enable translations in Polish",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 4,
+        "category": "Translations",
+        "key_name": "de_DE",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Enable translations in German",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 1,
+        "category": "ImageSizes",
+        "key_name": "massive",
+        "value": "800",
+        "value_type": "numeric",
+        "value_obscure": false,
+        "description": null,
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 18,
+        "category": "Translations",
+        "key_name": "pt_PT",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Enable translations in Portuguese",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 4,
+        "category": "AI",
+        "key_name": "articleSEO",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Optimize your articles and pages for search engines and social media by automatically generating SEO metadata. When enabled, the system will create a meta title, meta description, meta keywords, and tailored descriptions for Facebook, LinkedIn, Instagram, and Twitter.",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 13,
+        "category": "Translations",
+        "key_name": "lt_LT",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Enable translations in Lithuanian",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 0,
+        "category": "Google",
+        "key_name": "apiKey",
+        "value": "your-api-key-here",
+        "value_type": "text",
+        "value_obscure": true,
+        "description": "This field is used to store your Google API key, which is required to access and utilize the Google Cloud Translation API. The Google Cloud Translation API allows you to integrate machine translation capabilities into your content management system, enabling automatic translation of your website content into different languages.",
+        "data": null,
+        "column_width": 12
+    },
+    {
+        "ordering": 24,
+        "category": "Translations",
+        "key_name": "tr_TR",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Enable translations in Turkish",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 2,
+        "category": "AI",
+        "key_name": "articleTranslations",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Automatically translate your articles into any of the 25 languages enabled in the translations settings. When you publish a page or article, the system will generate high-quality translations.",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 6,
+        "category": "AI",
+        "key_name": "articleTags",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Automatically generate relevant tags for your articles and pages based on their content. When you save an article or page, the system will analyze the text and create tags that best represent the main topics and keywords. These tags will then be automatically linked to the corresponding article or page, making it easier for readers to find related content on your website.",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 11,
+        "category": "Translations",
+        "key_name": "hu_HU",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Enable translations in Hungarian",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 4,
+        "category": "ImageSizes",
+        "key_name": "medium",
+        "value": "300",
+        "value_type": "numeric",
+        "value_obscure": false,
+        "description": null,
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 19,
+        "category": "Translations",
+        "key_name": "ro_RO",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Enable translations in Romanian",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 0,
+        "category": "SEO",
+        "key_name": "siteName",
+        "value": "Willow CMS",
+        "value_type": "text",
+        "value_obscure": false,
+        "description": "This field represents the official name of your website. It is typically displayed in the title bar of web browsers and is used in various places throughout the site to identify your brand or organization. Ensure that the name is concise and accurately reflects the purpose or identity of your site.",
+        "data": null,
+        "column_width": 4
+    },
+    {
+        "ordering": 5,
+        "category": "ImageSizes",
+        "key_name": "small",
+        "value": "200",
+        "value_type": "numeric",
+        "value_obscure": false,
+        "description": null,
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 7,
+        "category": "AI",
+        "key_name": "articleSummaries",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Automatically generate concise and compelling summaries for your articles and pages. When enabled, the system will analyze the content and create a brief synopsis that captures the key points. These summaries will appear on the article index page and other areas where a short overview is preferable to displaying the full text.",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 12,
+        "category": "Translations",
+        "key_name": "it_IT",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Enable translations in Italian",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 7,
+        "category": "ImageSizes",
+        "key_name": "teeny",
+        "value": "50",
+        "value_type": "numeric",
+        "value_obscure": false,
+        "description": null,
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 1,
+        "category": "AI",
+        "key_name": "enabled",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Harness the power of artificial intelligence to enhance your content creation process. By enabling AI features, you gain access to a range of powerful tools, such as automatic article summarization, SEO metadata generation, and multilingual translation.",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 3,
+        "category": "Translations",
+        "key_name": "da_DK",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Enable translations in Danish",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 14,
+        "category": "Translations",
+        "key_name": "lv_LV",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Enable translations in Latvian",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 3,
+        "category": "AI",
+        "key_name": "tagTranslations",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Automatically translate your tags into any of the 25 languages enabled in the translations settings. When you publish a page or article, the system will generate high-quality translations.",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 0,
+        "category": "RateLimit",
+        "key_name": "numberOfSeconds",
+        "value": "60",
+        "value_type": "numeric",
+        "value_obscure": false,
+        "description": "This field complements the \"Rate Limit: Number Of Requests\" setting by specifying the time window in which the request limit is enforced. It determines the duration, in seconds, for which the rate limit is applied. For example, if you set the \"Rate Limit: Number Of Requests\" to 100 and the \"Rate Limit: Number Of Seconds\" to 60, it means that an IP address can make a maximum of 100 requests within a 60-second window. If an IP address exceeds this limit within the specified time frame, they will be blocked for a certain period to prevent further requests and protect your server from potential abuse or overload.",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 0,
+        "category": "Email",
+        "key_name": "reply_email",
+        "value": "noreply@example.com",
+        "value_type": "text",
+        "value_obscure": false,
+        "description": "The \"Reply Email\" field allows you to specify the email address that will be used as the \"Reply-To\" address for outgoing emails sent from Willow CMS. When a recipient receives an email from your website and chooses to reply to it, their response will be directed to the email address specified in this field.",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 23,
+        "category": "Translations",
+        "key_name": "sv_SE",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Enable translations in Swedish",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 0,
+        "category": "SEO",
+        "key_name": "siteStrapline",
+        "value": "Welcome to Willow CMS",
+        "value_type": "textarea",
+        "value_obscure": false,
+        "description": "The site strapline is a brief, catchy phrase or slogan that complements your site name. It provides additional context or a memorable tagline that encapsulates the essence of your website. This strapline is often displayed alongside the site name in headers or footers.",
+        "data": null,
+        "column_width": 4
+    },
+    {
+        "ordering": 2,
+        "category": "ImageSizes",
+        "key_name": "extra-large",
+        "value": "500",
+        "value_type": "numeric",
+        "value_obscure": false,
+        "description": null,
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 6,
+        "category": "Translations",
+        "key_name": "es_ES",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Enable translations in Spanish",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 21,
+        "category": "Translations",
+        "key_name": "sk_SK",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Enable translations in Slovak",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 8,
+        "category": "ImageSizes",
+        "key_name": "micro",
+        "value": "10",
+        "value_type": "numeric",
+        "value_obscure": false,
+        "description": null,
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 0,
+        "category": "i18n",
+        "key_name": "locale",
+        "value": "en_GB",
+        "value_type": "select",
+        "value_obscure": false,
+        "description": "This setting determines the default language for the admin area, allowing users to select languages such as French or German.",
+        "data": "{\n  \"de_DE\": \"German\",\n  \"fr_FR\": \"French\",\n  \"es_ES\": \"Spanish\",\n  \"it_IT\": \"Italian\",\n  \"pt_PT\": \"Portuguese\",\n  \"nl_NL\": \"Dutch\",\n  \"pl_PL\": \"Polish\",\n  \"ru_RU\": \"Russian\",\n  \"sv_SE\": \"Swedish\",\n  \"da_DK\": \"Danish\",\n  \"fi_FI\": \"Finnish\",\n  \"no_NO\": \"Norwegian\",\n  \"el_GR\": \"Greek\",\n  \"tr_TR\": \"Turkish\",\n  \"cs_CZ\": \"Czech\",\n  \"hu_HU\": \"Hungarian\",\n  \"ro_RO\": \"Romanian\",\n  \"sk_SK\": \"Slovak\",\n  \"sl_SI\": \"Slovenian\",\n  \"bg_BG\": \"Bulgarian\",\n  \"hr_HR\": \"Croatian\",\n  \"et_EE\": \"Estonian\",\n  \"lv_LV\": \"Latvian\",\n  \"lt_LT\": \"Lithuanian\",\n  \"uk_UA\": \"Ukrainian\",\n  \"en_GB\": \"British English\"\n}",
+        "column_width": 2
+    },
+    {
+        "ordering": 0,
+        "category": "SEO",
+        "key_name": "siteMetakeywords",
+        "value": "Default site meta keywords",
+        "value_type": "textarea",
+        "value_obscure": false,
+        "description": "Metakeywords are a set of keywords or phrases that describe the content of your website. These keywords are used by search engines to index your site and improve its visibility in search results. Enter relevant and specific keywords that accurately represent the topics and themes of your site content.",
+        "data": null,
+        "column_width": 4
+    },
+    {
+        "ordering": 8,
+        "category": "Translations",
+        "key_name": "fi_FI",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Enable translations in Finnish",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 22,
+        "category": "Translations",
+        "key_name": "sl_SI",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Enable translations in Slovenian",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 1,
+        "category": "Translations",
+        "key_name": "bg_BG",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Enable translations in Bulgarian",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 6,
+        "category": "ImageSizes",
+        "key_name": "tiny",
+        "value": "100",
+        "value_type": "numeric",
+        "value_obscure": false,
+        "description": null,
+        "data": null,
+        "column_width": 2
     },
     {
         "ordering": 1,
@@ -537,6 +513,84 @@
         "value_type": "bool",
         "value_obscure": false,
         "description": "Turn this on to enable users to register accounts on the site.",
-        "data": null
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 1,
+        "category": "Comments",
+        "key_name": "articlesEnabled",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Turn this on to enable logged in users to comment on your articles.",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 0,
+        "category": "SEO",
+        "key_name": "siteMetaDescription",
+        "value": "Default site meta description",
+        "value_type": "textarea",
+        "value_obscure": false,
+        "description": "The site meta description is a brief summary of your website's content and purpose. It appears in search engine results below the page title and URL, providing potential visitors with a snapshot of what your site offers. Craft a compelling and informative description to encourage clicks and improve search engine optimization (SEO).",
+        "data": null,
+        "column_width": 4
+    },
+    {
+        "ordering": 25,
+        "category": "Translations",
+        "key_name": "uk_UA",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Enable translations in Ukrainian",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 10,
+        "category": "Translations",
+        "key_name": "hr_HR",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Enable translations in Croatian",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 15,
+        "category": "Translations",
+        "key_name": "nl_NL",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Enable translations in Dutch",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 5,
+        "category": "Translations",
+        "key_name": "el_GR",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Enable translations in Greek",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 5,
+        "category": "AI",
+        "key_name": "tagSEO",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Optimize your tags for search engines and social media by automatically generating SEO metadata. When enabled, the system will create a meta title, meta description, meta keywords, and tailored descriptions for Facebook, LinkedIn, Instagram, and Twitter.",
+        "data": null,
+        "column_width": 2
     }
 ]

@@ -236,6 +236,7 @@ class ArticlesController extends AppController
     {
         $article = $this->Articles->get($id, contain: ['Tags', 'Images']);
         $oldSlug = $article->slug;
+        $oldParent = $article->parent_id;
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
@@ -251,6 +252,11 @@ class ArticlesController extends AppController
             // Handle image unlinking
             $unlinkedImages = $this->request->getData('unlink_images') ?? [];
             $article->unlinkedImages = $unlinkedImages;
+
+            // Parent can't be child to itself
+            if ($article->parent_id == $id) {
+                $article->parent_id = $oldParent;
+            }
 
             if ($this->Articles->save($article)) {
                 // Clear cache for both old and new slugs

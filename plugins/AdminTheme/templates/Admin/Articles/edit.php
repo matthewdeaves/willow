@@ -18,7 +18,7 @@
                 'entityDisplayName' => $article->title
             ]);
         ?>
-        <div class="col-md-9">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header bg-primary text-white">
                     <h3 class="mb-0"><?= __('Edit Article') ?></h3>
@@ -50,7 +50,22 @@
                             ]) ?>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <?= $this->Form->label('tags._ids', 'Tags', ['class' => 'form-label']) ?>
+                            <div class="form-check">
+                                <?= $this->Form->checkbox('is_published', [
+                                    'class' => 'form-check-input'
+                                ]) ?>
+                                <?= $this->Form->label('is_published', 'Published', [
+                                    'class' => 'form-check-label',
+                                    'style' => 'margin-left: 5px;'  // Adjust this value as needed
+                                ]) ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div>
+                                <?= $this->Form->label('tags._ids', 'Tags', ['class' => 'form-label']) ?>
+                            </div>
                             <?= $this->Form->select('tags._ids', $tags, [
                                 'class' => 'form-select' . ($this->Form->isFieldError('tags._ids') ? ' is-invalid' : ''),
                                 'multiple' => true,
@@ -58,19 +73,6 @@
                                 'data-actions-box' => 'true',
                                 'id' => 'tags-select'
                             ]) ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <div class="form-check">
-                                <?= $this->Form->checkbox('is_published', [
-                                    'class' => 'form-check-input'
-                                ]) ?>
-                                <?= $this->Form->label('is_published', 'Published', [
-                                    'class' => 'form-check-label',
-                                    'style' => 'margin-left: 5px;'
-                                ]) ?>
-                            </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <?php

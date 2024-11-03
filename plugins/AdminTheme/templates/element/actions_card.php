@@ -5,7 +5,7 @@ use Cake\Utility\Inflector;
 $modelNamePlural = Inflector::pluralize($modelName);
 $debugOnlyOptions = $debugOnlyOptions ?? [];
 ?>
-<div class="col-md-3">
+<div class="col-md-2">
     <div class="card mb-4">
         <div class="card-header bg-secondary text-white">
             <h5 class="mb-0"><?= __('Actions') ?></h5>

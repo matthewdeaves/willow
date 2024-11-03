@@ -26,7 +26,7 @@ class TranslateTagJob implements JobInterface
      *
      * @var int|null
      */
-    public static ?int $maxAttempts = 3;
+    public static ?int $maxAttempts = 5;
 
     /**
      * Whether there should be only one instance of a job on the queue at a time.
@@ -69,6 +69,10 @@ class TranslateTagJob implements JobInterface
 
         $tagsTable = TableRegistry::getTableLocator()->get('Tags');
         $tag = $tagsTable->get($id);
+
+        if (empty($tag->description) || empty($tag->twitter_description)) {
+            return Processor::REQUEUE;
+        }
 
         // Ensure any null values are empty strings
         $result = $this->apiService->translateTag(

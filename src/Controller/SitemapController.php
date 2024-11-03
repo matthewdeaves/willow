@@ -37,8 +37,9 @@ class SitemapController extends AppController
             
         // Get all tags
         $tagsTable = $this->fetchTable('Tags');
-        $tags = $tagsTable->find('all')
-            ->orderAsc('title')
+        $tags = $tagsTable->find('translations') // Add translations finder
+            ->select(['Tags.id', 'Tags.title', 'Tags.slug', 'Tags.modified'])
+            ->orderAsc('Tags.title') // Default to main table title
             ->all();
 
         $urls = [];

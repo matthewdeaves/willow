@@ -1,5 +1,3 @@
-<?php use App\Utility\SettingsManager; ?>
-<?= $this->element('trumbowyg'); ?>
 <?php
 /**
  * @var \App\View\AppView $this
@@ -8,6 +6,8 @@
  * @var string[]|\Cake\Collection\CollectionInterface $tags
  */
 ?>
+<?php use App\Utility\SettingsManager; ?>
+<?= $this->element('trumbowyg'); ?>
 <div class="container-fluid mt-4">
     <div class="row">
         <?php
@@ -18,7 +18,7 @@
                 'entityDisplayName' => $article->title
             ]);
         ?>
-        <div class="col-md-9">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header bg-primary text-white">
                     <h3 class="mb-0"><?= __('Edit Article') ?></h3>
@@ -50,28 +50,53 @@
                             ]) ?>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <?= $this->Form->label('tags._ids', 'Tags', ['class' => 'form-label']) ?>
-                            <?= $this->Form->select('tags._ids', $tags, [
-                                'class' => 'form-select' . ($this->Form->isFieldError('tags._ids') ? ' is-invalid' : ''),
-                                'multiple' => true,
-                                'data-live-search' => 'true',
-                                'data-actions-box' => 'true',
-                                'id' => 'tags-select'
-                            ]) ?>
+                            <div>
+                                <?= $this->Form->label('tags._ids', 'Tags', ['class' => 'form-label']) ?>
+                            </div>
+                            <div>
+                                <?= $this->Form->select('tags._ids', $tags, [
+                                    'class' => 'form-select' . ($this->Form->isFieldError('tags._ids') ? ' is-invalid' : ''),
+                                    'multiple' => true,
+                                    'data-live-search' => 'true',
+                                    'data-actions-box' => 'true',
+                                    'id' => 'tags-select'
+                                ]) ?>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <div class="form-check">
                                 <?= $this->Form->checkbox('is_published', [
-                                    'class' => 'form-check-input'
+                                    'class' => 'form-check-input',
+                                    'type' => 'checkbox'
                                 ]) ?>
                                 <?= $this->Form->label('is_published', 'Published', [
                                     'class' => 'form-check-label',
-                                    'style' => 'margin-left: 5px;'
+                                    'style' => 'margin-left: 5px;'  // Adjust this value as needed
                                 ]) ?>
                             </div>
                         </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check">
+                                <?php if ($article->tags && SettingsManager::read('AI.articleTags')): ?>
+                                    <div class="col-md-4 mb-3 d-flex align-items-end">
+                                            <div class="form-check">
+                                                <?= $this->Form->checkbox("regenerateTags", [
+                                                    'class' => 'form-check-input',
+                                                    'checked' => false,
+                                                    'type' => 'checkbox'
+                                                ]) ?>
+                                                <label class="form-check-label" for="regenerateTags">
+                                                    <?= __('Regenerate Tags') ?>
+                                                </label>
+                                            </div>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-6 mb-3">
                             <?php
                             // Check if 'parent_id' is set in the URL parameters
@@ -126,6 +151,7 @@
                             <?php endif; ?>
                         </div>
                     </div>
+                    <?php if (SettingsManager::read('PagesAndArticles.additionalImages')) : ?>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <?= $this->element('associated_images_control', [
@@ -134,6 +160,7 @@
                             ]) ?>
                         </div>
                     </div>
+                    <?php endif; ?>
                     <?= $this->element('seo_form_fields', ['model' => $article]) ?>
                     <div class="row">
                         <div class="col-md-12">

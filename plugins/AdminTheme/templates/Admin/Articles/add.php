@@ -1,4 +1,3 @@
-<?= $this->element('trumbowyg'); ?>
 <?php
 /**
  * @var \App\View\AppView $this
@@ -7,6 +6,8 @@
  * @var \Cake\Collection\CollectionInterface|string[] $tags
  */
 ?>
+<?= $this->element('trumbowyg'); ?>
+<?php use App\Utility\SettingsManager; ?>
 <div class="container-fluid mt-4">
     <div class="row">
         <?php
@@ -16,7 +17,7 @@
                 'entity' => $article
             ]);
         ?>
-        <div class="col-md-9">
+        <div class="col-md-10">
             <div class="card">
                 <?php
                     $isPage = $this->request->getQuery('is_page') == '1';
@@ -53,14 +54,18 @@
                             ]) ?>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <?= $this->Form->label('tags._ids', 'Tags', ['class' => 'form-label']) ?>
-                            <?= $this->Form->select('tags._ids', $tags, [
-                                'class' => 'form-select' . ($this->Form->isFieldError('tags._ids') ? ' is-invalid' : ''),
-                                'multiple' => true,
-                                'data-live-search' => 'true',
-                                'data-actions-box' => 'true',
-                                'id' => 'tags-select'
-                            ]) ?>
+                            <div class="col-md-6 mb-3">
+                                <div>
+                                    <?= $this->Form->label('tags._ids', 'Tags', ['class' => 'form-label']) ?>
+                                </div>
+                                <?= $this->Form->select('tags._ids', $tags, [
+                                    'class' => 'form-select' . ($this->Form->isFieldError('tags._ids') ? ' is-invalid' : ''),
+                                    'multiple' => true,
+                                    'data-live-search' => 'true',
+                                    'data-actions-box' => 'true',
+                                    'id' => 'tags-select',
+                                ]) ?>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -75,6 +80,8 @@
                                 ]) ?>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-6 mb-3">
                             <?php
                             // Check if 'parent_id' is set in the URL parameters
@@ -111,12 +118,14 @@
                             ]) ?>
                         </div>
                     </div>
+                    <?php if (SettingsManager::read('PagesAndArticles.additionalImages')) : ?>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <?= $this->Form->label('image_uploads[]', __('Additional Images')) ?>
                             <?= $this->Form->file('image_uploads[]', ['multiple' => true, 'class' => 'form-control-file']) ?>
                         </div>
                     </div>
+                    <?php endif; ?>
                     <?= $this->element('seo_form_fields') ?>
                     <div class="row">
                         <div class="col-md-12">

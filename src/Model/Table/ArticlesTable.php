@@ -386,9 +386,14 @@ class ArticlesTable extends Table
                 'title' => $entity->title,
             ];
 
-            // Queue up an ArticleTagUpdateJob
-            if (SettingsManager::read('AI.articleTags')) {
-                $this->queueJob('App\Job\ArticleTagUpdateJob', $data);
+            if (
+                (isset($options['regenerateTags']) && $options['regenerateTags'] == 1)
+                || !isset($options['regenerateTags'])
+            ) {
+                // Queue up an ArticleTagUpdateJob
+                if (SettingsManager::read('AI.articleTags')) {
+                    $this->queueJob('App\Job\ArticleTagUpdateJob', $data);
+                }
             }
 
             // Queue up an ArticleSummaryUpdateJob

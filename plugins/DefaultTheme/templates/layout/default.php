@@ -61,7 +61,7 @@
     <main class="container-fluid pt-3">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-3 mb-4">
                     <?= $this->element('page_menu', ['articleTreeMenu' => $articleTreeMenu]) ?>
                     <?= $this->element('tag_menu', ['tags' => $tagTreeMenu]) ?>
                 </div>

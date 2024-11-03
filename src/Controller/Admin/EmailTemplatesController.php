@@ -244,7 +244,14 @@ class EmailTemplatesController extends AppController
             strpos($emailTemplate->body_html, '{confirm_email_link}') !== false ||
             strpos($emailTemplate->body_plain, '{confirm_email_link}') !== false
         ) {
-            $variables['confirm_email_link'] = $this->generateConfirmationLink($user);
+            $variables['confirm_email_link'] = $this->generateLink($user, 'confirm_email_link');
+        }
+
+        if (
+            strpos($emailTemplate->body_html, '{reset_password_link}') !== false ||
+            strpos($emailTemplate->body_plain, '{reset_password_link}') !== false
+        ) {
+            $variables['reset_password_link'] = $this->generateLink($user, 'reset_password_link');
         }
 
         return $variables;
@@ -261,7 +268,7 @@ class EmailTemplatesController extends AppController
      * @param \App\Model\Entity\User $user The user entity for whom the confirmation link is generated.
      * @return string The generated confirmation link URL.
      */
-    private function generateConfirmationLink(User $user): string
+    private function generateLink(User $user, string $emailTemplateId): string
     {
         $userAccountConfirmationsTable = TableRegistry::getTableLocator()->get('UserAccountConfirmations');
         $confirmation = $userAccountConfirmationsTable->find()
@@ -279,11 +286,20 @@ class EmailTemplatesController extends AppController
             $userAccountConfirmationsTable->save($newConfirmation);
         }
 
-        return Router::url([
-            'prefix' => false,
-            'controller' => 'Users',
-            'action' => 'confirm',
-            $confirmationCode,
-        ], true);
+        switch ($emailTemplateId) {
+            case 'reset_password_link':
+                return Router::url([
+                    '_name' => 'reset-password',
+                    $confirmationCode,
+                ], true);
+
+            case 'confirm_email_link':
+                return Router::url([
+                    '_name' => 'confirm-email',
+                    $confirmationCode,
+                ], true);
+        }
+
+        return false;
     }
 }

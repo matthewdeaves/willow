@@ -9,7 +9,7 @@ if (!function_exists('renderArticleMenuItem')) {
         $rootClass = $level == 0 ? 'bg-secondary' : '';
 
         // Use CakePHP's array-based URL generation
-        $url = isset($item['slug']) ? ['_name' => 'article-by-slug', 'slug' => $item['slug']] : '#';
+        $url = isset($item['slug']) ? ['_name' => 'page-by-slug', 'slug' => $item['slug']] : '#';
 
         // Capitalize each word in the title
         $title = Inflector::humanize($item['title']);

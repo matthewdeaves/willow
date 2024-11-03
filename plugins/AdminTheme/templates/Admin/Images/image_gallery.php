@@ -32,7 +32,8 @@
                             [
                                 'hiddenField' => false,
                                 'id' => $image->id . '_size',
-                                'class' => 'form-select'
+                                'class' => 'form-select',
+                                'value' => SettingsManager::read('ImageSizes.medium')
                             ]
                         );
                         ?>

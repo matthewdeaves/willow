@@ -3,12 +3,16 @@
  * @var \App\View\AppView $this
  * @var iterable<\App\Model\Entity\EmailTemplate> $emailTemplates
  */
+
+use Cake\Core\Configure;
 ?>
 <div class="emailTemplates index content">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="mb-0"><?= __('Email Templates') ?></h3>
         <div>
+            <?php if (Configure::read('debug')) : ?>
             <?= $this->Html->link(__('New Email Template'), ['action' => 'add'], ['class' => 'btn btn-primary my-3 ms-2']) ?>
+            <?php endif ?>
             <?= $this->Html->link(__('Send Email'), ['action' => 'sendEmail'], ['class' => 'btn btn-secondary my-3 ms-2']) ?>
         </div>
     </div>
@@ -33,7 +37,9 @@
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $emailTemplate->id], ['class' => 'btn btn-sm btn-outline-primary']) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $emailTemplate->id], ['class' => 'btn btn-sm btn-outline-secondary']) ?>
+                        <?php if (Configure::read('debug')) : ?>
                         <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $emailTemplate->id], ['confirm' => __('Are you sure you want to delete {0}?', $emailTemplate->subject), 'class' => 'btn btn-sm btn-outline-danger']) ?>
+                        <?php endif; ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>

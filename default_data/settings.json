@@ -592,5 +592,16 @@
         "description": "Optimize your tags for search engines and social media by automatically generating SEO metadata. When enabled, the system will create a meta title, meta description, meta keywords, and tailored descriptions for Facebook, LinkedIn, Instagram, and Twitter.",
         "data": null,
         "column_width": 2
+    },
+    {
+        "ordering": 0,
+        "category": "PagesAndArticles",
+        "key_name": "additionalImages",
+        "value": "",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Enable additional images to uploaded to your Articles and Pages.",
+        "data": null,
+        "column_width": 2
     }
 ]

@@ -94,7 +94,7 @@
         "value": "400",
         "value_type": "numeric",
         "value_obscure": false,
-        "description": null,
+        "description": "The width for the large image size.",
         "data": null,
         "column_width": 2
     },
@@ -138,7 +138,7 @@
         "value": "800",
         "value_type": "numeric",
         "value_obscure": false,
-        "description": null,
+        "description": "The width for the massive image size.",
         "data": null,
         "column_width": 2
     },
@@ -237,7 +237,7 @@
         "value": "300",
         "value_type": "numeric",
         "value_obscure": false,
-        "description": null,
+        "description": "The width for the medium image size.",
         "data": null,
         "column_width": 2
     },
@@ -270,7 +270,7 @@
         "value": "200",
         "value_type": "numeric",
         "value_obscure": false,
-        "description": null,
+        "description": "The width for the small image size.",
         "data": null,
         "column_width": 2
     },
@@ -303,7 +303,7 @@
         "value": "50",
         "value_type": "numeric",
         "value_obscure": false,
-        "description": null,
+        "description": "The width for the teeny image size.",
         "data": null,
         "column_width": 2
     },
@@ -402,7 +402,7 @@
         "value": "500",
         "value_type": "numeric",
         "value_obscure": false,
-        "description": null,
+        "description": "The width for the extra-large image size.",
         "data": null,
         "column_width": 2
     },
@@ -435,7 +435,7 @@
         "value": "10",
         "value_type": "numeric",
         "value_obscure": false,
-        "description": null,
+        "description": "The width for the micro image size.",
         "data": null,
         "column_width": 2
     },
@@ -501,7 +501,7 @@
         "value": "100",
         "value_type": "numeric",
         "value_obscure": false,
-        "description": null,
+        "description": "The width for the tiny image size.",
         "data": null,
         "column_width": 2
     },

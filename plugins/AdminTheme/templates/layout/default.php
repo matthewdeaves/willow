@@ -29,7 +29,16 @@ use Cake\Core\Configure;
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><?= SettingsManager::read('SEO.siteName', 'Willow CMS') ?></a>
+            <?= $this->Html->image('willow-icon.png', [
+                'alt' => __('Willow Logo'),
+                'class' => 'navbar-logo me-2',
+                'url' => ['prefix' => 'Admin', 'controller' => 'Articles', 'action' => 'index'],
+                'width' => 30,
+                'height' => 30
+            ]) ?>
+            <a class="navbar-brand" href="<?= $this->Url->build(['prefix' => 'Admin', 'controller' => 'Articles', 'action' => 'index']) ?>">
+                <?= SettingsManager::read('SEO.siteName', __('Willow CMS')) ?>
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

@@ -168,10 +168,6 @@ return function (RouteBuilder $routes): void {
                 'pass' => ['slug'] 
             ]
         );
-
-        //$builder->connect('/*', ['prefix' => null, 'controller' => 'Articles', 'action' => 'view-by-slug'], ['pass' => ['slug'], 'routeClass' => 'ADmad/I18n.I18nRoute']);
-
-        //$builder->fallbacks();
     });
 
     $routes->scope('/', function (RouteBuilder $builder): void {

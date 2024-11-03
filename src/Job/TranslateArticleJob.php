@@ -19,7 +19,7 @@ class TranslateArticleJob implements JobInterface
      *
      * @var int|null
      */
-    public static ?int $maxAttempts = 3;
+    public static ?int $maxAttempts = 5;
 
     /**
      * Whether there should be only one instance of a job on the queue at a time.
@@ -66,6 +66,10 @@ class TranslateArticleJob implements JobInterface
 
         $articlesTable = TableRegistry::getTableLocator()->get('Articles');
         $article = $articlesTable->get($id);
+
+        if (empty($article->summary) || empty($article->twitter_description)) {
+            return Processor::REQUEUE;
+        }
 
         // Ensure any null values are empty strings
         $result = $this->apiService->translateArticle(

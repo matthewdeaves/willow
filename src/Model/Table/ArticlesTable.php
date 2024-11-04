@@ -379,7 +379,7 @@ class ArticlesTable extends Table
                 $this->queueJob('App\Job\ArticleSummaryUpdateJob', $data);
             }
         }
-        
+
         // Published Articles should be SEO ready with translations
         if (
             $entity->is_published

@@ -354,28 +354,6 @@ class ArticlesTable extends Table
         // noMessage flag will be true if save came from a Job (stops looping)
         $noMessage = $options['noMessage'] ?? false;
 
-        // Published Articles should be SEO ready with translations
-        if (
-            $entity->is_published
-            && SettingsManager::read('AI.enabled')
-            && !$noMessage
-        ) {
-            $data = [
-                'id' => $entity->id,
-                'title' => $entity->title,
-            ];
-
-            // Queue a job to update the Article SEO fields
-            if (SettingsManager::read('AI.articleSEO') && !empty($this->emptySeoFields($entity))) {
-                $this->queueJob('App\Job\ArticleSeoUpdateJob', $data);
-            }
-
-            // Queue a job to translate the Article
-            if (SettingsManager::read('AI.articleTranslations')) {
-                $this->queueJob('App\Job\TranslateArticleJob', $data);
-            }
-        }
-
         // All Articles should be tagged from the start
         if (
             SettingsManager::read('AI.enabled')
@@ -399,6 +377,28 @@ class ArticlesTable extends Table
             // Queue up an ArticleSummaryUpdateJob
             if (SettingsManager::read('AI.articleSummaries') && empty($entity->summary)) {
                 $this->queueJob('App\Job\ArticleSummaryUpdateJob', $data);
+            }
+        }
+        
+        // Published Articles should be SEO ready with translations
+        if (
+            $entity->is_published
+            && SettingsManager::read('AI.enabled')
+            && !$noMessage
+        ) {
+            $data = [
+                'id' => $entity->id,
+                'title' => $entity->title,
+            ];
+
+            // Queue a job to update the Article SEO fields
+            if (SettingsManager::read('AI.articleSEO') && !empty($this->emptySeoFields($entity))) {
+                $this->queueJob('App\Job\ArticleSeoUpdateJob', $data);
+            }
+
+            // Queue a job to translate the Article
+            if (SettingsManager::read('AI.articleTranslations')) {
+                $this->queueJob('App\Job\TranslateArticleJob', $data);
             }
         }
     }

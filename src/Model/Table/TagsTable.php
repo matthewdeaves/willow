@@ -139,6 +139,7 @@ class TagsTable extends Table
     public function emptySeoFields(EntityInterface $entity): array
     {
         $seoFields = [
+            'description',
             'meta_title',
             'meta_description',
             'meta_keywords',

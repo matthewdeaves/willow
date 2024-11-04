@@ -10,6 +10,7 @@
     <?= $this->Html->meta('icon') ?>
 
     <?= $this->Html->css(['https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css']) ?>
+    <?= $this->Html->css('/DefaultTheme/css/willow.css') ?>
     <?= $this->Html->script(['https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js']) ?>
 
     <?= $this->fetch('meta') ?>

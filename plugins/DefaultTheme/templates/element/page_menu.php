@@ -2,14 +2,16 @@
 use Cake\Utility\Inflector;
 
 if (!function_exists('renderArticleMenuItem')) {
-    function renderArticleMenuItem($item, $Html, $level = 0) {
-        $activeClass = isset($item['active']) && $item['active'] ? 'active' : '';
+    function renderArticleMenuItem($item, $Html, $currentUrl, $level = 0) {
         $hasChildren = !empty($item['children']);
         $indentClass = $level > 0 ? 'ps-' . ($level * 3) : '';
-        $rootClass = $level == 0 ? 'bg-secondary' : '';
-
+        
         // Use CakePHP's array-based URL generation
         $url = isset($item['slug']) ? ['_name' => 'page-by-slug', 'slug' => $item['slug']] : '#';
+
+        // Check if the current URL matches the item's URL
+        $isActive = $currentUrl === $Html->Url->build($url);
+        $activeClass = $isActive ? 'active-light-grey' : ''; // Updated class name
 
         // Capitalize each word in the title
         $title = Inflector::humanize($item['title']);
@@ -18,13 +20,13 @@ if (!function_exists('renderArticleMenuItem')) {
             htmlspecialchars_decode($title),
             $url,
             [
-                'class' => 'list-group-item list-group-item-action ' . $activeClass . ' ' . $indentClass . ' ' . $rootClass
+                'class' => 'list-group-item list-group-item-action ' . $activeClass . ' ' . $indentClass
             ]
         );
 
         if ($hasChildren) {
             foreach ($item['children'] as $child) {
-                renderArticleMenuItem($child, $Html, $level + 1);
+                renderArticleMenuItem($child, $Html, $currentUrl, $level + 1);
             }
         }
     }
@@ -33,6 +35,9 @@ if (!function_exists('renderArticleMenuItem')) {
 
 <div class="list-group">
     <?php
+    // Get the current URL
+    $currentUrl = $this->request->getPath();
+
     // Add the Home link as the top root node with Bootstrap primary color
     echo $this->Html->link(
         __('Home'),
@@ -43,6 +48,6 @@ if (!function_exists('renderArticleMenuItem')) {
     );
     ?>
     <?php foreach ($articleTreeMenu as $item): ?>
-        <?php renderArticleMenuItem($item, $this->Html); ?>
+        <?php renderArticleMenuItem($item, $this->Html, $currentUrl); ?>
     <?php endforeach; ?>
 </div>

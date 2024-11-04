@@ -93,20 +93,6 @@ class ArticleTagUpdateJob implements JobInterface
                     $tag->description = $tagResult['descriptions'][$key] ?? '';
                     $tag->slug = '';
                     $tagsTable->save($tag);
-
-                    // Queue jobs to translate & update SEO for the new tag
-                    $data = [
-                        'id' => $tag->id,
-                        'title' => $tag->title,
-                    ];
-
-                    if (SettingsManager::read('AI.tagSEO')) {
-                        $this->queueJob('App\Job\TagSeoUpdateJob', $data);
-                    }
-
-                    if (SettingsManager::read('AI.tagTranslations')) {
-                        $this->queueJob('App\Job\TranslateTagJob', $data);
-                    }
                 }
                 $newTags[] = $tag;
             }

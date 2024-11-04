@@ -54,22 +54,23 @@ class QueueableImageBehavior extends Behavior
     public function afterSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
         $config = $this->getConfig();
-        if ($entity->isDirty($config['field'])) {
-            $data = [
-                'folder_path' => WWW_ROOT . $config['folder_path'],
-                'file' => $entity->{$config['field']},
-                'id' => $entity->id,
-            ];
 
+        $data = [
+            'folder_path' => WWW_ROOT . $config['folder_path'],
+            'file' => $entity->{$config['field']},
+            'id' => $entity->id,
+        ];
+
+        if ($entity->isDirty($config['field'])) {
             // Queue up an image processing job
             QueueManager::push('App\Job\ProcessImageJob', $data);
+        }
 
-            if (SettingsManager::read('AI.enabled')) {
-                $data['model'] = $event->getSubject()->getAlias();
+        if (SettingsManager::read('AI.enabled')) {
+            $data['model'] = $event->getSubject()->getAlias();
 
-                // Queue up an image analysis job
-                QueueManager::push('App\Job\ImageAnalysisJob', $data);
-            }
+            // Queue up an image analysis job
+            QueueManager::push('App\Job\ImageAnalysisJob', $data);
         }
     }
 }

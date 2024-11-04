@@ -33,7 +33,7 @@ class ArticleSummaryUpdateJob implements JobInterface
      *
      * @var bool
      */
-    public static bool $shouldBeUnique = false;
+    public static bool $shouldBeUnique = true;
 
     /**
      * Instance of the TextSummaryGenerator service.
@@ -78,7 +78,25 @@ class ArticleSummaryUpdateJob implements JobInterface
         $articlesTable = TableRegistry::getTableLocator()->get('Articles');
         $article = $articlesTable->get($id);
 
-        $summaryResult = $this->summaryGenerator->generateTextSummary('article', strip_tags($article->body));
+        try {
+            $summaryResult = $this->summaryGenerator->generateTextSummary(
+                'article',
+                (string)strip_tags($article->body)
+            );
+        } catch (Exception $e) {
+            $this->log(
+                sprintf(
+                    'Article Summary update failed. ID: %s Title: %s Error: %s',
+                    $id,
+                    $title,
+                    $e->getMessage(),
+                ),
+                'error',
+                ['group_name' => 'App\Job\ArticleSummaryUpdateJob']
+            );
+
+            return Processor::REJECT;
+        }
 
         if (isset($summaryResult['summary'])) {
             // Set the summary data we got back

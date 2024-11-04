@@ -6,7 +6,6 @@ namespace App\Service\Api;
 use Cake\Http\Client;
 use Cake\Http\Client\Response;
 use Cake\Http\Exception\ServiceUnavailableException;
-use Cake\Log\Log;
 
 /**
  * AbstractApiService Class
@@ -94,8 +93,13 @@ abstract class AbstractApiService
     {
         $errorBody = $response->getStringBody();
         $statusCode = $response->getStatusCode();
-        Log::error("API error: Status Code: {$statusCode}, Body: {$errorBody}");
-        throw new ServiceUnavailableException(__('API request failed. Please try again later.'));
+
+        throw new ServiceUnavailableException(sprintf(
+            'API request error: Status Code %s Body: %s Reason: %s',
+            $statusCode,
+            $errorBody,
+            $response->getReasonPhrase(),
+        ));
     }
 
     /**

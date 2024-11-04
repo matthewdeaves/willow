@@ -35,7 +35,7 @@ class CommentAnalysisJob implements JobInterface
      *
      * @var bool
      */
-    public static bool $shouldBeUnique = false;
+    public static bool $shouldBeUnique = true;
 
     /**
      * Instance of the Anthropic API service.
@@ -87,7 +87,21 @@ class CommentAnalysisJob implements JobInterface
             return Processor::ACK;
         }
 
-        $analysisResult = $this->anthropicService->analyzeComment($content);
+        try {
+            $analysisResult = $this->anthropicService->analyzeComment($content);
+        } catch (Exception $e) {
+            $this->log(
+                sprintf(
+                    'Comment Analysis Job failed. ID: %s Error: %s',
+                    $commentId,
+                    $e->getMessage(),
+                ),
+                'error',
+                ['group_name' => 'App\Job\CommentAnalysisJob']
+            );
+
+            return Processor::REJECT;
+        }
 
         if ($analysisResult) {
             $this->updateCommentStatus($comment, $analysisResult);

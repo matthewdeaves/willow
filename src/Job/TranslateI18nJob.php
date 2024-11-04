@@ -24,6 +24,20 @@ class TranslateI18nJob implements JobInterface
     use LogTrait;
 
     /**
+     * Maximum number of attempts for the job.
+     *
+     * @var int|null
+     */
+    public static ?int $maxAttempts = 3;
+
+    /**
+     * Whether there should be only one instance of a job on the queue at a time.
+     *
+     * @var bool
+     */
+    public static bool $shouldBeUnique = true;
+
+    /**
      * @var \App\Service\Api\Anthropic\AnthropicApiService|\App\Service\Api\Google\GoogleApiService The API service instance.
      */
     private AnthropicApiService|GoogleApiService $apiService;

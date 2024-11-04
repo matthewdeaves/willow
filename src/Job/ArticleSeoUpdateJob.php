@@ -33,7 +33,7 @@ class ArticleSeoUpdateJob implements JobInterface
      *
      * @var bool
      */
-    public static bool $shouldBeUnique = false;
+    public static bool $shouldBeUnique = true;
 
     /**
      * Instance of the Anthropic API service.
@@ -77,22 +77,30 @@ class ArticleSeoUpdateJob implements JobInterface
         $articlesTable = TableRegistry::getTableLocator()->get('Articles');
         $article = $articlesTable->get($id);
 
-        $seoResult = $this->anthropicService->generateArticleSeo(
-            (string)$title,
-            (string)strip_tags($article->body)
-        );
+        try {
+            $seoResult = $this->anthropicService->generateArticleSeo(
+                (string)$title,
+                (string)strip_tags($article->body)
+            );
+        } catch (Exception $e) {
+            $this->log(
+                sprintf(
+                    'Article SEO update failed. ID: %s Title: %s Error: %s',
+                    $id,
+                    $title,
+                    $e->getMessage(),
+                ),
+                'error',
+                ['group_name' => 'App\Job\ArticleSeoUpdateJob']
+            );
+
+            return Processor::REJECT;
+        }
 
         if ($seoResult) {
-            // Set the data we got back
-            $article->meta_title = $seoResult['meta_title'];
-            $article->meta_description = $seoResult['meta_description'];
-            $article->meta_keywords = $seoResult['meta_keywords'];
-            $article->facebook_description = $seoResult['facebook_description'];
-            $article->linkedin_description = $seoResult['linkedin_description'];
-            $article->twitter_description = $seoResult['twitter_description'];
-            $article->instagram_description = $seoResult['instagram_description'];
+            $emptyFields = $articlesTable->emptySeoFields($article);
+            array_map(fn ($field) => $article->{$field} = $seoResult[$field], $emptyFields);
 
-            // Save the data
             if ($articlesTable->save($article, ['noMessage' => true])) {
                 $this->log(
                     sprintf('Article SEO update completed successfully. Article ID: %s Title: %s', $id, $title),

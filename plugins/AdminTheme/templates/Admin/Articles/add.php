@@ -110,6 +110,16 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <?= $this->Form->control('summary', [
+                                'type' => 'textarea',
+                                'id' => 'article-summary',
+                                'rows' => '10',
+                                'class' => 'form-control' . ($this->Form->isFieldError('summary') ? ' is-invalid' : ''),
+                            ]) ?>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-6 mb-3">
                             <?= $this->Form->control('image', [
                                 'type' => 'file',

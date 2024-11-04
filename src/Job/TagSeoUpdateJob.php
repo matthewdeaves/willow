@@ -8,6 +8,7 @@ use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
+use Exception;
 use Interop\Queue\Processor;
 
 /**
@@ -32,7 +33,7 @@ class TagSeoUpdateJob implements JobInterface
      *
      * @var bool
      */
-    public static bool $shouldBeUnique = false;
+    public static bool $shouldBeUnique = true;
 
     /**
      * The Anthropic API service used for generating SEO content.
@@ -78,18 +79,29 @@ class TagSeoUpdateJob implements JobInterface
         $tagsTable = TableRegistry::getTableLocator()->get('Tags');
         $tag = $tagsTable->get($id);
 
-        $seoResult = $this->anthropicService->generateTagSeo($title, (string)$tag->description);
+        try {
+            $seoResult = $this->anthropicService->generateTagSeo(
+                (string)$title,
+                (string)$tag->description
+            );
+        } catch (Exception $e) {
+            $this->log(
+                sprintf(
+                    'Tag SEO update failed. ID: %s Title: %s Error: %s',
+                    $id,
+                    $title,
+                    $e->getMessage(),
+                ),
+                'error',
+                ['group_name' => 'App\Job\TagSeoUpdateJob']
+            );
+
+            return Processor::REJECT;
+        }
 
         if ($seoResult) {
-            // Set the data we got back
-            $tag->meta_title = $seoResult['meta_title'];
-            $tag->meta_description = $seoResult['meta_description'];
-            $tag->meta_keywords = $seoResult['meta_keywords'];
-            $tag->facebook_description = $seoResult['facebook_description'];
-            $tag->linkedin_description = $seoResult['linkedin_description'];
-            $tag->twitter_description = $seoResult['twitter_description'];
-            $tag->instagram_description = $seoResult['instagram_description'];
-            $tag->description = !empty($seoResult['description']) ? $seoResult['description'] : $tag->description;
+            $emptyFields = $tagsTable->emptySeoFields($tag);
+            array_map(fn ($field) => $tag->{$field} = $seoResult[$field], $emptyFields);
 
             if ($tagsTable->save($tag, ['noMessage' => true])) {
                 $this->log(

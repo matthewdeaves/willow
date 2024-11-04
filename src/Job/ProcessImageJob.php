@@ -34,7 +34,7 @@ class ProcessImageJob implements JobInterface
      *
      * @var bool
      */
-    public static bool $shouldBeUnique = false;
+    public static bool $shouldBeUnique = true;
 
     /**
      * Executes the image processing task.

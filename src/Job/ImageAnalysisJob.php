@@ -33,7 +33,7 @@ class ImageAnalysisJob implements JobInterface
      *
      * @var bool
      */
-    public static bool $shouldBeUnique = false;
+    public static bool $shouldBeUnique = true;
 
     /**
      * Instance of the Anthropic API service.
@@ -71,35 +71,37 @@ class ImageAnalysisJob implements JobInterface
 
         try {
             $analysisResult = $this->anthropicService->analyzeImage($folderPath . $file);
-
-            if ($analysisResult) {
-                $image->name = $analysisResult['name'];
-                $image->alt_text = $analysisResult['alt_text'];
-                $image->keywords = $analysisResult['keywords'];
-
-                if ($modelTable->save($image)) {
-                    $this->log(
-                        sprintf('Image analysis completed successfully. Model: %s ID: %s', $model, $id),
-                        'info',
-                        ['group_name' => 'App\Job\ImageAnalysisJob']
-                    );
-
-                    return Processor::ACK;
-                }
-            }
-
-            $this->log(
-                sprintf('Image analysis failed. Model: %s ID: %s', $model, $id),
-                'error',
-                ['group_name' => 'App\Job\ImageAnalysisJob']
-            );
         } catch (Exception $e) {
             $this->log(
                 sprintf('Error during image analysis: %s', $e->getMessage()),
                 'error',
                 ['group_name' => 'App\Job\ImageAnalysisJob']
             );
+
+            return Processor::REJECT;
         }
+
+        if ($analysisResult) {
+            $image->name = $analysisResult['name'];
+            $image->alt_text = $analysisResult['alt_text'];
+            $image->keywords = $analysisResult['keywords'];
+
+            if ($modelTable->save($image)) {
+                $this->log(
+                    sprintf('Image analysis completed successfully. Model: %s ID: %s', $model, $id),
+                    'info',
+                    ['group_name' => 'App\Job\ImageAnalysisJob']
+                );
+
+                return Processor::ACK;
+            }
+        }
+
+        $this->log(
+            sprintf('Image analysis failed. Model: %s ID: %s', $model, $id),
+            'error',
+            ['group_name' => 'App\Job\ImageAnalysisJob']
+        );
 
         return Processor::REJECT;
     }

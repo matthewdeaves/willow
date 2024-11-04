@@ -19,14 +19,14 @@ class TranslateArticleJob implements JobInterface
      *
      * @var int|null
      */
-    public static ?int $maxAttempts = 5;
+    public static ?int $maxAttempts = 3;
 
     /**
      * Whether there should be only one instance of a job on the queue at a time.
      *
      * @var bool
      */
-    public static bool $shouldBeUnique = false;
+    public static bool $shouldBeUnique = true;
 
     /**
      * @var \App\Service\Api\Google\GoogleApiService The API service instance.
@@ -67,23 +67,42 @@ class TranslateArticleJob implements JobInterface
         $articlesTable = TableRegistry::getTableLocator()->get('Articles');
         $article = $articlesTable->get($id);
 
-        if (empty($article->summary) || empty($article->twitter_description)) {
+        // If there are any empy fields to be translated, wait 10 seconds and requeue
+        // there could be a job in the queue to generate those fields and in production
+        // we have 3 queue consumers
+        if (!empty($articlesTable->emptySeoFields($article))) {
+            sleep(10);
+
             return Processor::REQUEUE;
         }
 
-        // Ensure any null values are empty strings
-        $result = $this->apiService->translateArticle(
-            (string)$article->title,
-            (string)$article->body,
-            (string)$article->summary,
-            (string)$article->meta_title,
-            (string)$article->meta_description,
-            (string)$article->meta_keywords,
-            (string)$article->facebook_description,
-            (string)$article->linkedin_description,
-            (string)$article->instagram_description,
-            (string)$article->twitter_description,
-        );
+        try {
+            $result = $this->apiService->translateArticle(
+                (string)$article->title,
+                (string)$article->body,
+                (string)$article->summary,
+                (string)$article->meta_title,
+                (string)$article->meta_description,
+                (string)$article->meta_keywords,
+                (string)$article->facebook_description,
+                (string)$article->linkedin_description,
+                (string)$article->instagram_description,
+                (string)$article->twitter_description,
+            );
+        } catch (Exception $e) {
+            $this->log(
+                sprintf(
+                    'Translate Article Job failed. ID: %s Title: %s Error: %s',
+                    $id,
+                    $title,
+                    $e->getMessage(),
+                ),
+                'error',
+                ['group_name' => 'App\Job\TranslateArticleJob']
+            );
+
+            return Processor::REJECT;
+        }
 
         if ($result) {
             foreach ($result as $locale => $translation) {

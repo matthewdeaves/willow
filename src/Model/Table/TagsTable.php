@@ -121,7 +121,7 @@ class TagsTable extends Table
                 'title' => $entity->title,
             ];
 
-            if (SettingsManager::read('AI.tagSEO')) {
+            if (SettingsManager::read('AI.tagSEO') && !empty($this->emptySeoFields($entity))) {
                 $this->queueJob('App\Job\TagSeoUpdateJob', $data);
             }
 
@@ -129,6 +129,43 @@ class TagsTable extends Table
                 $this->queueJob('App\Job\TranslateTagJob', $data);
             }
         }
+    }
+
+    /**
+     * Checks if any of the SEO fields are empty.
+     *
+     * @return array Returns an array of empty SEO fields.
+     */
+    public function emptySeoFields(EntityInterface $entity): array
+    {
+        $seoFields = [
+            'meta_title',
+            'meta_description',
+            'meta_keywords',
+            'facebook_description',
+            'linkedin_description',
+            'twitter_description',
+            'instagram_description',
+        ];
+
+        return array_filter($seoFields, fn ($field) => empty($entity->{$field}));
+    }
+
+    /**
+     * Checks if any of the original language fields for translation are empty.
+     *
+     * @return array Returns an array of empty SEO fields.
+     */
+    public function emptyTranslationFields(EntityInterface $entity): array
+    {
+        if ($this->behaviors()->has('Translate')) {
+            // Get the configuration of the Timestamp behavior
+            $config = $this->behaviors()->get('Translate')->getConfig();
+
+            return array_filter($config['fields'], fn ($field) => empty($entity->{$field}));
+        }
+
+        return [];
     }
 
     /**

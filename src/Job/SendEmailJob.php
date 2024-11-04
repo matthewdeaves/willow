@@ -39,7 +39,7 @@ class SendEmailJob implements JobInterface
      *
      * @var bool
      */
-    public static bool $shouldBeUnique = false;
+    public static bool $shouldBeUnique = true;
 
     /**
      * Executes the email sending process using the provided message data.

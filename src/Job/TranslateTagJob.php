@@ -26,14 +26,14 @@ class TranslateTagJob implements JobInterface
      *
      * @var int|null
      */
-    public static ?int $maxAttempts = 5;
+    public static ?int $maxAttempts = 3;
 
     /**
      * Whether there should be only one instance of a job on the queue at a time.
      *
      * @var bool
      */
-    public static bool $shouldBeUnique = false;
+    public static bool $shouldBeUnique = true;
 
     /**
      * @var \App\Service\Api\Google\GoogleApiService The API service instance.
@@ -70,22 +70,41 @@ class TranslateTagJob implements JobInterface
         $tagsTable = TableRegistry::getTableLocator()->get('Tags');
         $tag = $tagsTable->get($id);
 
-        if (empty($tag->description) || empty($tag->twitter_description)) {
+        // If there are any empy fields to be translated, wait 10 seconds and requeue
+        // there could be a job in the queue to generate those fields and in production
+        // we have 3 queue consumers
+        if (!empty($tagsTable->emptySeoFields($tag))) {
+            sleep(10);
+
             return Processor::REQUEUE;
         }
 
-        // Ensure any null values are empty strings
-        $result = $this->apiService->translateTag(
-            (string)$tag->title,
-            (string)$tag->description,
-            (string)$tag->meta_title,
-            (string)$tag->meta_description,
-            (string)$tag->meta_keywords,
-            (string)$tag->facebook_description,
-            (string)$tag->linkedin_description,
-            (string)$tag->instagram_description,
-            (string)$tag->twitter_description,
-        );
+        try {
+            $result = $this->apiService->translateTag(
+                (string)$tag->title,
+                (string)$tag->description,
+                (string)$tag->meta_title,
+                (string)$tag->meta_description,
+                (string)$tag->meta_keywords,
+                (string)$tag->facebook_description,
+                (string)$tag->linkedin_description,
+                (string)$tag->instagram_description,
+                (string)$tag->twitter_description,
+            );
+        } catch (Exception $e) {
+            $this->log(
+                sprintf(
+                    'Translate Tag Job failed. ID: %s Title: %s Error: %s',
+                    $id,
+                    $title,
+                    $e->getMessage(),
+                ),
+                'error',
+                ['group_name' => 'App\Job\TranslateTagJob']
+            );
+
+            return Processor::REJECT;
+        }
 
         if ($result) {
             foreach ($result as $locale => $translation) {

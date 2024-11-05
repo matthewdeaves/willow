@@ -20,6 +20,5 @@
             </div>
         </div>
     </div>
-    <?= $this->element('pagination', ['recordCount' => count($tags)]) ?>
     <?php endif; ?>
 </div>

@@ -2,7 +2,7 @@
 /**
  * @var \App\View\AppView $this
  * @var array $tags
- * @var string|null $selectedTag
+ * @var string|null $selectedTagId
  */
 ?>
 <?php if (!empty($tags)) : ?>
@@ -14,16 +14,16 @@
                 '_name' => 'home',
             ],
             [
-                'class' => 'btn btn-outline-secondary' . (!$selectedTag ? ' active' : '')
+                'class' => 'btn btn-outline-secondary px-3 py-2' . (!$selectedTagId ? ' active' : '')
             ]) ?>
-        <?php foreach ($tags as $tag): ?>
+        <?php foreach ($tags as $id => $title): ?>
             <?= $this->Html->link(
-                htmlspecialchars_decode($tag),
+                htmlspecialchars_decode($title),
                 [
                     '_name' => 'home',
-                    '?' => ['tag' => $tag]
+                    '?' => ['tag' => $id]
                 ],
-                ['class' => 'btn btn-outline-secondary' . ($selectedTag === $tag ? ' active' : '')]
+                ['class' => 'btn btn-outline-secondary px-3 py-2' . ($selectedTagId == $id ? ' active' : '')]
             ) ?>
         <?php endforeach; ?>
     </div>

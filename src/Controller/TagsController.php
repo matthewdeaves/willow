@@ -37,9 +37,7 @@ class TagsController extends AppController
      */
     public function index(): void
     {
-        $query = $this->Tags->find();
-        $tags = $this->paginate($query);
-
+        $tags = $this->Tags->find()->all();
         $this->set(compact('tags'));
     }
 

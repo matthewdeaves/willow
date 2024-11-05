@@ -58,15 +58,18 @@
             </div>
         </div>
     </nav>
-
     <div class="bg-light d-lg-none">
         <button class="btn btn-secondary w-100 toggle-menu-button" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-expanded="false" aria-controls="sidebarMenu">
             <?= __('Navigation') ?>
         </button>
     </div>
-
     <main class="container-fluid pt-3">
         <div class="container-fluid">
+            <?php if(!empty($filterTags)) : ?>
+                <div class="collapse d-lg-block" id="sidebarMenu">
+                    <?= $this->element('tag_filters', ['tags' => $filterTags, 'selectedTagId' => $selectedTagId]) ?>
+                </div>
+            <?php endif; ?>
             <div class="row">
                 <div class="col-lg-3 mb-4">
                     <div class="collapse d-lg-block" id="sidebarMenu">

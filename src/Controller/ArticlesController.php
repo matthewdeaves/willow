@@ -6,11 +6,11 @@ namespace App\Controller;
 use App\Model\Table\PageViewsTable;
 use App\Model\Table\SlugsTable;
 use App\Model\Table\Trait\ArticleCacheTrait;
+use App\Utility\SettingsManager;
 use Cake\Event\EventInterface;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
 use Cake\Routing\Router;
-use App\Utility\SettingsManager;
 
 /**
  * Articles Controller
@@ -119,7 +119,7 @@ class ArticlesController extends AppController
     public function index(): void
     {
         $selectedTagId = $this->request->getQuery('tag');
-    
+
         $query = $this->Articles->find()
             ->where([
                 'Articles.kind' => 'article',
@@ -127,15 +127,15 @@ class ArticlesController extends AppController
             ])
             ->contain(['Users', 'Tags'])
             ->orderBy(['Articles.published' => 'DESC']);
-    
+
         if ($selectedTagId) {
             $query->matching('Tags', function ($q) use ($selectedTagId) {
                 return $q->where(['Tags.id' => $selectedTagId]);
             });
         }
-    
+
         $articles = $this->paginate($query);
-    
+
         $tagsQuery = $this->Articles->Tags->find()
             ->matching('Articles', function ($q) {
                 return $q->where([
@@ -146,9 +146,9 @@ class ArticlesController extends AppController
             ->select(['Tags.id', 'Tags.title'])
             ->groupBy(['Tags.id', 'Tags.title'])
             ->orderBy(['Tags.title' => 'ASC']);
-    
+
         $filterTags = $tagsQuery->all()->combine('id', 'title')->toArray();
-    
+
         $this->set(compact('articles', 'filterTags', 'selectedTagId'));
     }
 

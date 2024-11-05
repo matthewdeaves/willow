@@ -98,7 +98,7 @@ class ArticlesController extends AppController
         $article = $this->Articles->find()
             ->orderBy(['lft' => 'ASC'])
             ->where([
-                'Articles.is_page' => 1,
+                'Articles.kind' => 'page',
                 'Articles.is_published' => 1,
             ])
             ->first();
@@ -121,7 +121,7 @@ class ArticlesController extends AppController
 
         $query = $this->Articles->find()
             ->where([
-                'Articles.is_page' => 0,
+                'Articles.kind' => 'article',
                 'Articles.is_published' => 1,
             ])
             ->contain(['Users', 'Tags'])
@@ -138,7 +138,7 @@ class ArticlesController extends AppController
         $tagsQuery = $this->Articles->Tags->find()
             ->matching('Articles', function ($q) {
                 return $q->where([
-                    'Articles.is_page' => 0,
+                    'Articles.kind' => 'article',
                     'Articles.is_published' => 1,
                 ]);
             })
@@ -268,8 +268,8 @@ class ArticlesController extends AppController
         }
 
         if (
-            (!SettingsManager::read('Comments.articlesEnabled') && !$article->is_page)
-            || (!SettingsManager::read('Comments.pagesEnabled') && $article->is_page)
+            (!SettingsManager::read('Comments.articlesEnabled') && $article->kind == 'article')
+            || (!SettingsManager::read('Comments.pagesEnabled') && $article->kind == 'page')
         ) {
             $this->Flash->error(__('Comments are not enabled'));
 

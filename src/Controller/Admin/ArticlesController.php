@@ -91,7 +91,7 @@ class ArticlesController extends AppController
             ])
             ->leftJoinWith('Users')
             ->leftJoinWith('PageViews')
-            ->where(['Articles.is_page' => false])
+            ->where(['Articles.kind' => 'article'])
             ->groupBy([
                 'Articles.id',
                 'Articles.user_id',
@@ -184,7 +184,7 @@ class ArticlesController extends AppController
         $article = $this->Articles->newEmptyEntity();
         if ($this->request->is('post')) {
             $data = $this->request->getData();
-            $data['is_page'] = $this->request->getQuery('is_page', 0);
+            $data['kind'] = $this->request->getQuery('kind', 'article');
             $article = $this->Articles->patchEntity($article, $data);
 
             // Handle image uploads
@@ -199,8 +199,8 @@ class ArticlesController extends AppController
 
                 $this->Flash->success(__('The article has been saved.'));
 
-                // Redirect to treeIndex if is_page is true, otherwise to index
-                if ($article->is_page) {
+                // Redirect to treeIndex if is page, otherwise to index
+                if ($article->kind == 'page') {
                     return $this->redirect(['action' => 'treeIndex']);
                 } else {
                     return $this->redirect(['action' => 'index']);
@@ -209,11 +209,11 @@ class ArticlesController extends AppController
             $this->Flash->error(__('The article could not be saved. Please, try again.'));
         }
 
-        // Fetch parent articles if 'is_page' is set
+        // Fetch parent articles if 'kind' is page
         $parentArticles = [];
-        if ($this->request->getQuery('is_page')) {
+        if ($this->request->getQuery('kind') == 'page') {
             $parentArticles = $this->Articles->find('list')
-                ->where(['is_page' => true])
+                ->where(['kind' => 'page'])
                 ->all();
         }
 
@@ -241,7 +241,7 @@ class ArticlesController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
 
-            $data['is_page'] = $this->request->getQuery('is_page', 0);
+            $data['kind'] = $this->request->getQuery('kind', 'article');
             $article = $this->Articles->patchEntity($article, $data);
 
             // Handle image uploads
@@ -271,8 +271,8 @@ class ArticlesController extends AppController
 
                 $this->Flash->success(__('The article has been saved.'));
 
-                // Redirect to treeIndex if is_page is true, otherwise to index
-                if ($article->is_page) {
+                // Redirect to treeIndex if kind is page, otherwise to index
+                if ($article->kind == 'page') {
                     return $this->redirect(['action' => 'treeIndex']);
                 } else {
                     return $this->redirect(['action' => 'index']);
@@ -281,11 +281,11 @@ class ArticlesController extends AppController
             $this->Flash->error(__('The article could not be saved. Please, try again.'));
         }
 
-        // Fetch parent articles if 'is_page' is set
+        // Fetch parent articles if 'kind' is page
         $parentArticles = [];
-        if ($this->request->getQuery('is_page')) {
+        if ($this->request->getQuery('kind') == 'page') {
             $parentArticles = $this->Articles->find('list')
-                ->where(['is_page' => true])
+                ->where(['kind' => 'page'])
                 ->all();
         }
 
@@ -316,8 +316,8 @@ class ArticlesController extends AppController
             $this->Flash->error(__('The article could not be deleted. Please, try again.'));
         }
 
-        // Check if 'is_page' is in the request parameters
-        if ($this->request->getData('is_page')) {
+        // Check if 'kind' is in the request parameters
+        if ($this->request->getData('kind') == 'page') {
             return $this->redirect(['action' => 'treeIndex']);
         }
 

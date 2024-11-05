@@ -70,6 +70,11 @@ class V1 extends AbstractMigration
                 'limit' => null,
                 'null' => false,
             ])
+            ->addColumn('kind', 'string', [
+                'default' => 'article',
+                'limit' => 10,
+                'null' => false,
+            ])
             ->addColumn('title', 'string', [
                 'default' => null,
                 'limit' => 255,
@@ -203,11 +208,6 @@ class V1 extends AbstractMigration
                 'limit' => null,
                 'null' => false,
                 'signed' => true,
-            ])
-            ->addColumn('is_page', 'boolean', [
-                'default' => false,
-                'limit' => null,
-                'null' => false,
             ])
             ->create();
 

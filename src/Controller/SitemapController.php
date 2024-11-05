@@ -76,7 +76,7 @@ class SitemapController extends AppController
         // Get published hierarchical pages
         $pages = $articlesTable->find('threaded')
             ->where([
-                'is_page' => 1,
+                'kind' => 'page',
                 'is_published' => 1,
             ])
             ->orderAsc('lft')
@@ -85,7 +85,7 @@ class SitemapController extends AppController
         // Get published regular articles
         $articles = $articlesTable->find('all')
             ->where([
-                'is_page' => 0,
+                'kind' => 'article',
                 'is_published' => 1,
             ])
             ->orderDesc('modified')

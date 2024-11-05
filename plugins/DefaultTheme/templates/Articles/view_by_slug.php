@@ -64,8 +64,8 @@
         </div>
     </div>
     <?php if(
-            (SettingsManager::read('Comments.articlesEnabled') && !$article->is_page)
-            || (SettingsManager::read('Comments.pagesEnabled') && $article->is_page)
+            (SettingsManager::read('Comments.articlesEnabled') && $article->kind == 'article')
+            || (SettingsManager::read('Comments.pagesEnabled') && $article->kind == 'page')
         ):
     ?>
         <section class="comments mb-4">

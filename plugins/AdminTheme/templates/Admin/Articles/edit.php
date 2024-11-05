@@ -101,7 +101,7 @@
                             <?php
                             // Check if 'parent_id' is set in the URL parameters
                             $parentId = $this->request->getQuery('parent_id');
-                            if ($this->request->getQuery('is_page') || $parentId) {
+                            if ($this->request->getQuery('kind') == 'page' || $parentId) {
                                 echo $this->Form->control('parent_id', [
                                     'type' => 'select',
                                     'options' => $parentArticles,

@@ -58,14 +58,13 @@ class FrontEndSiteComponent extends Component
     /**
      * Retrieves the tree of published articles that are marked as pages.
      *
-     * This method fetches all published articles with is_page = 1
+     * This method fetches all published articles with kind = page
      * and organizes them into a hierarchical tree structure.
      *
      * @return \Cake\ORM\Query The query result containing the article tree.
      */
     protected function getArticleTree()
     {
-        // Fetch and return the tree of published articles with is_page = 1
         $articlesTable = $this->getController()->fetchTable('Articles');
 
         $conditions = [

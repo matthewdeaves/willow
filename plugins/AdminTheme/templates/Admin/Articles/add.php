@@ -20,7 +20,7 @@
         <div class="col-md-10">
             <div class="card">
                 <?php
-                    $isPage = $this->request->getQuery('is_page') == '1';
+                    $isPage = $this->request->getQuery('kind') == 'page';
                     $headerText = $isPage ? __('Add Page') : __('Add Article');
                 ?>
                 <div class="card-header bg-primary text-white">
@@ -86,7 +86,7 @@
                             <?php
                             // Check if 'parent_id' is set in the URL parameters
                             $parentId = $this->request->getQuery('parent_id');
-                            if ($this->request->getQuery('is_page') || $parentId) {
+                            if ($this->request->getQuery('kind') == 'page' || $parentId) {
                                 echo $this->Form->control('parent_id', [
                                     'type' => 'select',
                                     'options' => $parentArticles,

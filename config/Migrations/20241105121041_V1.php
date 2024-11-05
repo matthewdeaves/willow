@@ -829,11 +829,6 @@ class V1 extends AbstractMigration
                 'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('summary', 'text', [
-                'default' => null,
-                'limit' => null,
-                'null' => true,
-            ])
             ->addColumn('meta_title', 'text', [
                 'default' => null,
                 'limit' => null,

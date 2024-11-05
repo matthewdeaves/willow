@@ -36,8 +36,17 @@ class ImagesController extends AppController
      */
     public function index(): Response
     {
+        $session = $this->request->getSession();
+        $viewType = $this->request->getQuery('view');
+
+        // Check if view type is provided in the query, otherwise use session value or default to 'list'
+        if ($viewType) {
+            $session->write('Images.viewType', $viewType);
+        } else {
+            $viewType = $session->read('Images.viewType', 'list');
+        }
+
         $query = $this->Images->find();
-        $viewType = $this->request->getQuery('view', 'list');
 
         if ($this->request->is('ajax')) {
             $search = $this->request->getQuery('search');

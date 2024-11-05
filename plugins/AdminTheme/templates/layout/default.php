@@ -58,7 +58,7 @@ use Cake\Core\Configure;
                     </li>
                     <li class="nav-item">
                         <?= $this->Html->link(__('Images'),
-                        ['prefix' => 'Admin', 'controller' => 'Images', 'action' => 'index', '?' => ['view' => 'grid']], ['class' => 'nav-link']) ?>
+                        ['prefix' => 'Admin', 'controller' => 'Images', 'action' => 'index'], ['class' => 'nav-link']) ?>
                     </li>
                     <li class="nav-item">
                         <?= $this->Html->link(__('Comments'),

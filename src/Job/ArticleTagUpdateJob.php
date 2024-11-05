@@ -79,7 +79,7 @@ class ArticleTagUpdateJob implements JobInterface
             $tagResult = $this->anthropicService->generateArticleTags(
                 $allTags,
                 (string)$article->title,
-                (string)$article->body
+                (string)strip_tags($article->body),
             );
         } catch (Exception $e) {
             $this->log(

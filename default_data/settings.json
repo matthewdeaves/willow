@@ -603,5 +603,16 @@
         "description": "Enable additional image uploads on your Articles and Pages.",
         "data": null,
         "column_width": 2
+    },
+    {
+        "ordering": 8,
+        "category": "AI",
+        "key_name": "imageAnalysis",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Enable or disable the automatic image analysis feature to enhance your content's accessibility. When activated, the system will examine each images to generate relevant keywords and descriptive alt text. This functionality ensures that images are appropriately tagged, improving SEO and providing a better experience for users who rely on screen readers.",
+        "data": null,
+        "column_width": 2
     }
 ]

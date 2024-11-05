@@ -67,8 +67,9 @@ class QueueableImageBehavior extends Behavior
             if (SettingsManager::read('AI.enabled')) {
                 $data['model'] = $event->getSubject()->getAlias();
 
-                // Queue up an image analysis job
-                QueueManager::push('App\Job\ImageAnalysisJob', $data);
+                if (SettingsManager::read('AI.imageAnalysis')) {
+                    QueueManager::push('App\Job\ImageAnalysisJob', $data);
+                }
             }
         }
     }

@@ -4,14 +4,15 @@ use Cake\Utility\Inflector;
 if (!function_exists('renderArticleMenuItem')) {
     function renderArticleMenuItem($item, $Html, $currentUrl, $level = 0) {
         $hasChildren = !empty($item['children']);
-        $indentClass = $level > 0 ? 'ps-' . ($level * 3) : '';
+        // Adjust the indentation to reflect a tab width (e.g., 4 spaces)
+        $indentClass = $level > 0 ? 'ps-' . ($level * 4) : '';
         
         // Use CakePHP's array-based URL generation
         $url = isset($item['slug']) ? ['_name' => 'page-by-slug', 'slug' => $item['slug']] : '#';
 
         // Check if the current URL matches the item's URL
         $isActive = $currentUrl === $Html->Url->build($url);
-        $activeClass = $isActive ? 'active-light-grey' : ''; // Updated class name
+        $activeClass = $isActive ? 'active-light-grey' : '';
 
         // Capitalize each word in the title
         $title = Inflector::humanize($item['title']);

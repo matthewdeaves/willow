@@ -13,7 +13,7 @@
         <div class="col-md-9">
             <div class="card">
                 <div class="card-header bg-<?= strtolower($systemLog->level) ?>">
-                    <h3 class="card-title <?= strtolower($systemLog->level) == 'error' ? 'text-dark' : 'text-white' ?> mb-0"><?= h($systemLog->level) ?></h3>
+                    <h3 class="card-title text-white mb-0"><?= h($systemLog->level) ?></h3>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">

@@ -16,6 +16,7 @@ use Cake\Core\Configure;
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
 
     <?= $this->Html->css(['https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css']) ?>
+    <?= $this->Html->css('AdminTheme.willow-admin') ?>
     <?= $this->Html->script(['https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js']) ?>
     <?= $this->Html->script('AdminTheme.image-preview') ?>
     <?= $this->fetch('meta') ?>

@@ -1,0 +1,9 @@
+.bg-debug {
+    background-color: rgb(72, 133, 102);
+}
+.bg-error {
+    background-color: rgb(255, 0, 0);
+}
+.bg-notice {
+    background-color: rgb(255, 153, 0);
+}

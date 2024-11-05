@@ -67,6 +67,20 @@ class TranslateTagJob implements JobInterface
             ['group_name' => 'App\Job\TranslateTagJob']
         );
 
+        if (empty(array_filter(SettingsManager::read('Translations', [])))) {
+            $this->log(
+                sprintf(
+                    'Received Tag translation message but there are no languages enabled for translation: %s : %s',
+                    $id,
+                    $title
+                ),
+                'warning',
+                ['group_name' => 'App\Job\TranslateArticleJob']
+            );
+
+            return Processor::REJECT;
+        }
+
         $tagsTable = TableRegistry::getTableLocator()->get('Tags');
         $tag = $tagsTable->get($id);
 

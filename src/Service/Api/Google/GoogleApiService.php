@@ -84,41 +84,39 @@ class GoogleApiService
         string $instagram_description,
         string $twitter_description
     ): array {
-        $locales = SettingsManager::read('Translations', null);
+        $locales = array_filter(SettingsManager::read('Translations', []));
 
         $translations = [];
         foreach ($locales as $locale => $enabled) {
-            if ($enabled) {
-                $translationResult = $this->translateClient->translateBatch(
-                    [
-                        $title,
-                        $body,
-                        $summary,
-                        $meta_title,
-                        $meta_description,
-                        $meta_keywords,
-                        $facebook_description,
-                        $linkedin_description,
-                        $instagram_description,
-                        $twitter_description,
-                    ],
-                    [
-                        'source' => 'en',
-                        'target' => $locale,
-                        'format' => 'html',
-                    ]
-                );
-                $translations[$locale]['title'] = $translationResult[0]['text'];
-                $translations[$locale]['body'] = $translationResult[1]['text'];
-                $translations[$locale]['summary'] = $translationResult[2]['text'];
-                $translations[$locale]['meta_title'] = $translationResult[3]['text'];
-                $translations[$locale]['meta_description'] = $translationResult[4]['text'];
-                $translations[$locale]['meta_keywords'] = $translationResult[5]['text'];
-                $translations[$locale]['facebook_description'] = $translationResult[6]['text'];
-                $translations[$locale]['linkedin_description'] = $translationResult[7]['text'];
-                $translations[$locale]['instagram_description'] = $translationResult[8]['text'];
-                $translations[$locale]['twitter_description'] = $translationResult[9]['text'];
-            }
+            $translationResult = $this->translateClient->translateBatch(
+                [
+                    $title,
+                    $body,
+                    $summary,
+                    $meta_title,
+                    $meta_description,
+                    $meta_keywords,
+                    $facebook_description,
+                    $linkedin_description,
+                    $instagram_description,
+                    $twitter_description,
+                ],
+                [
+                    'source' => 'en',
+                    'target' => $locale,
+                    'format' => 'html',
+                ]
+            );
+            $translations[$locale]['title'] = $translationResult[0]['text'];
+            $translations[$locale]['body'] = $translationResult[1]['text'];
+            $translations[$locale]['summary'] = $translationResult[2]['text'];
+            $translations[$locale]['meta_title'] = $translationResult[3]['text'];
+            $translations[$locale]['meta_description'] = $translationResult[4]['text'];
+            $translations[$locale]['meta_keywords'] = $translationResult[5]['text'];
+            $translations[$locale]['facebook_description'] = $translationResult[6]['text'];
+            $translations[$locale]['linkedin_description'] = $translationResult[7]['text'];
+            $translations[$locale]['instagram_description'] = $translationResult[8]['text'];
+            $translations[$locale]['twitter_description'] = $translationResult[9]['text'];
         }
 
         return $translations;
@@ -150,38 +148,36 @@ class GoogleApiService
         string $instagram_description,
         string $twitter_description
     ): array {
-        $locales = SettingsManager::read('Translations', null);
+        $locales = array_filter(SettingsManager::read('Translations', []));
 
         $translations = [];
         foreach ($locales as $locale => $enabled) {
-            if ($enabled) {
-                $translationResult = $this->translateClient->translateBatch(
-                    [
-                        $title,
-                        $description,
-                        $meta_title,
-                        $meta_description,
-                        $meta_keywords,
-                        $facebook_description,
-                        $linkedin_description,
-                        $instagram_description,
-                        $twitter_description,
-                    ],
-                    [
-                        'source' => 'en',
-                        'target' => $locale,
-                    ]
-                );
-                $translations[$locale]['title'] = $translationResult[0]['text'];
-                $translations[$locale]['description'] = $translationResult[1]['text'];
-                $translations[$locale]['meta_title'] = $translationResult[2]['text'];
-                $translations[$locale]['meta_description'] = $translationResult[3]['text'];
-                $translations[$locale]['meta_keywords'] = $translationResult[4]['text'];
-                $translations[$locale]['facebook_description'] = $translationResult[5]['text'];
-                $translations[$locale]['linkedin_description'] = $translationResult[6]['text'];
-                $translations[$locale]['instagram_description'] = $translationResult[7]['text'];
-                $translations[$locale]['twitter_description'] = $translationResult[8]['text'];
-            }
+            $translationResult = $this->translateClient->translateBatch(
+                [
+                    $title,
+                    $description,
+                    $meta_title,
+                    $meta_description,
+                    $meta_keywords,
+                    $facebook_description,
+                    $linkedin_description,
+                    $instagram_description,
+                    $twitter_description,
+                ],
+                [
+                    'source' => 'en',
+                    'target' => $locale,
+                ]
+            );
+            $translations[$locale]['title'] = $translationResult[0]['text'];
+            $translations[$locale]['description'] = $translationResult[1]['text'];
+            $translations[$locale]['meta_title'] = $translationResult[2]['text'];
+            $translations[$locale]['meta_description'] = $translationResult[3]['text'];
+            $translations[$locale]['meta_keywords'] = $translationResult[4]['text'];
+            $translations[$locale]['facebook_description'] = $translationResult[5]['text'];
+            $translations[$locale]['linkedin_description'] = $translationResult[6]['text'];
+            $translations[$locale]['instagram_description'] = $translationResult[7]['text'];
+            $translations[$locale]['twitter_description'] = $translationResult[8]['text'];
         }
 
         return $translations;

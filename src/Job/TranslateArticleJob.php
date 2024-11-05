@@ -64,6 +64,20 @@ class TranslateArticleJob implements JobInterface
             ['group_name' => 'App\Job\TranslateArticleJob']
         );
 
+        if (empty(array_filter(SettingsManager::read('Translations', [])))) {
+            $this->log(
+                sprintf(
+                    'Received Article translation message but there are no languages enabled for translation: %s : %s',
+                    $id,
+                    $title
+                ),
+                'warning',
+                ['group_name' => 'App\Job\TranslateArticleJob']
+            );
+
+            return Processor::REJECT;
+        }
+
         $articlesTable = TableRegistry::getTableLocator()->get('Articles');
         $article = $articlesTable->get($id);
 

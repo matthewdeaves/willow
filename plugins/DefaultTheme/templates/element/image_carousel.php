@@ -7,25 +7,18 @@
  */
 ?>
 <?php if (!empty($images)): ?>
+<div class="col-md-6 mb-4">
 <h4><?= __('Images') ?></h4>
 <div id="<?= $carouselId ?>" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
         <?php foreach ($images as $index => $image): ?>
             <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
-                <?= $this->Html->image(SettingsManager::read('ImageSizes.large', '200') . '/' . $image->file, 
+                <?= $this->Html->image(SettingsManager::read('ImageSizes.medium', '200') . '/' . $image->file, 
                 [
                     'pathPrefix' => 'files/Images/file/',
                     'class' => 'd-block w-100',
                     'alt' => $image->alt_text,
                 ]) ?>
-                <div class="carousel-caption d-none d-md-block">
-                    <?= $this->Form->control('unlink_images[]', [
-                        'type' => 'checkbox',
-                        'label' => 'Unlink this image',
-                        'value' => $image->id,
-                        'class' => 'form-check-input'
-                    ]) ?>
-                </div>
             </div>
         <?php endforeach; ?>
     </div>
@@ -39,3 +32,4 @@
     </button>
 </div>
 <?php endif; ?>
+</div>

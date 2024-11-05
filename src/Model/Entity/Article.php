@@ -24,7 +24,7 @@ use Cake\ORM\Entity;
  * @property string|null $twitter_description
  * @property string|null $instagram_description
  * @property int|null $word_count
- * @property bool $is_page
+ * @property string $kind
  * @property string|null $parent_id
  * @property int|null $lft
  * @property int|null $rght
@@ -63,7 +63,7 @@ class Article extends Entity
         'twitter_description' => true,
         'instagram_description' => true,
         'word_count' => true,
-        'is_page' => true,
+        'kind' => true,
         'parent_id' => true,
         'lft' => true,
         'rght' => true,

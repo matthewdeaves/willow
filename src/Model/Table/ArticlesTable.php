@@ -567,7 +567,7 @@ class ArticlesTable extends Table
     public function getPageTree(array $additionalConditions = []): array
     {
         $conditions = [
-            'Articles.is_page' => 1,
+            'Articles.kind' => 'page',
         ];
 
         // Merge the default conditions with any additional conditions provided

@@ -74,7 +74,7 @@
                                     <td><?= h($article->user->username) ?></td>
                                     <td><?= h($article->title) ?></td>
                                     <td>
-                                        <?php $ruleName = ($article->is_page == 0) ? 'article-by-slug' : 'page-by-slug';?>
+                                        <?php $ruleName = ($article->kind == 'article') ? 'article-by-slug' : 'page-by-slug';?>
 
                                         <?php if ($article->is_published == true): ?>
                                             <?= $this->Html->link(

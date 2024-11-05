@@ -7,7 +7,7 @@
 <?php foreach ($slugs as $slug): ?>
 <tr>
     <td>
-        <?php $ruleName = ($slug->article->is_page == 0) ? 'article-by-slug' : 'page-by-slug';?>
+        <?php $ruleName = ($slug->article->kind == 'article') ? 'article-by-slug' : 'page-by-slug';?>
         <?php if ($slug->article->is_published == true): ?>
 
             <?= $this->Html->link(

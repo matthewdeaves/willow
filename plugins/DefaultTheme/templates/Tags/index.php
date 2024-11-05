@@ -6,6 +6,7 @@
 ?>
 <div class="tags">
     <h2 class="mb-4 text-primary"><?= __('Tags') ?></h2>
+    <?php if (!empty($tags->toArray())) : ?>
     <div class="card mb-4 shadow-sm">
         <div class="card-body">
             <div class="d-flex flex-wrap gap-2">
@@ -19,5 +20,5 @@
             </div>
         </div>
     </div>
-    <?= $this->element('pagination', ['recordCount' => count($tags)]) ?>
+    <?php endif; ?>
 </div>

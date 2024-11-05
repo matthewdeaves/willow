@@ -94,7 +94,7 @@ class ArticleTest extends TestCase
             'user_id' => '6509480c-e7e6-4e65-9c38-1423a8d09d0f', // Using an existing user ID from fixtures
             'body' => 'This is a new test article.',
             'slug' => '',
-            'is_page' => 0,
+            'kind' => 'article',
         ]);
         $this->Articles->save($article);
 
@@ -106,7 +106,7 @@ class ArticleTest extends TestCase
             'user_id' => '6509480c-e7e6-4e65-9c38-1423a8d09d0f',
             'body' => 'This is another test article with the same title as an existing one.',
             'slug' => '',
-            'is_page' => 0,
+            'kind' => 'article',
         ]);
         $result = $this->Articles->save($duplicateArticle);
         $this->assertFalse($result, 'Save operation should fail due to duplicate slug');
@@ -124,7 +124,7 @@ class ArticleTest extends TestCase
             'user_id' => '6509480c-e7e6-4e65-9c38-1423a8d09d0f',
             'body' => 'This is a test article with special characters in the title.',
             'slug' => '',
-            'is_page' => 0,
+            'kind' => 'article',
         ]);
         $this->Articles->save($specialCharArticle);
 
@@ -137,7 +137,7 @@ class ArticleTest extends TestCase
             'user_id' => '6509480c-e7e6-4e65-9c38-1423a8d09d0f',
             'body' => 'This is a test article with a very long title.',
             'slug' => '',
-            'is_page' => 0,
+            'kind' => 'article',
         ]);
         $result = $this->Articles->save($longTitleArticle);
 

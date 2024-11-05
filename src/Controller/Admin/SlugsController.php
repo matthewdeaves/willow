@@ -37,7 +37,7 @@ class SlugsController extends AppController
                 'Articles.id',
                 'Articles.title',
                 'Articles.slug',
-                'Articles.is_page',
+                'Articles.kind',
                 'Articles.is_published',
             ])
             ->contain(['Articles'])

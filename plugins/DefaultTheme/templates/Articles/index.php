@@ -8,8 +8,6 @@
  */
 ?>
 <div class="articles">
-    <?= $this->element('tag_filters', ['tags' => $tags, 'selectedTag' => $selectedTag]) ?>
-
     <?php foreach ($articles as $article): ?>
         <?php 
         $hasNonEmptySummary = !empty($article->summary);

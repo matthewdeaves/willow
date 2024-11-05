@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Model\Table\PageViewsTable;
 use App\Model\Table\SlugsTable;
 use App\Model\Table\Trait\ArticleCacheTrait;
+use App\Utility\SettingsManager;
 use Cake\Event\EventInterface;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
@@ -98,7 +99,7 @@ class ArticlesController extends AppController
         $article = $this->Articles->find()
             ->orderBy(['lft' => 'ASC'])
             ->where([
-                'Articles.is_page' => 1,
+                'Articles.kind' => 'page',
                 'Articles.is_published' => 1,
             ])
             ->first();
@@ -117,19 +118,19 @@ class ArticlesController extends AppController
      */
     public function index(): void
     {
-        $selectedTag = $this->request->getQuery('tag');
+        $selectedTagId = $this->request->getQuery('tag');
 
         $query = $this->Articles->find()
             ->where([
-                'Articles.is_page' => 0,
+                'Articles.kind' => 'article',
                 'Articles.is_published' => 1,
             ])
             ->contain(['Users', 'Tags'])
             ->orderBy(['Articles.published' => 'DESC']);
 
-        if ($selectedTag) {
-            $query->matching('Tags', function ($q) use ($selectedTag) {
-                return $q->where(['Tags.title' => $selectedTag]);
+        if ($selectedTagId) {
+            $query->matching('Tags', function ($q) use ($selectedTagId) {
+                return $q->where(['Tags.id' => $selectedTagId]);
             });
         }
 
@@ -138,7 +139,7 @@ class ArticlesController extends AppController
         $tagsQuery = $this->Articles->Tags->find()
             ->matching('Articles', function ($q) {
                 return $q->where([
-                    'Articles.is_page' => 0,
+                    'Articles.kind' => 'article',
                     'Articles.is_published' => 1,
                 ]);
             })
@@ -146,9 +147,9 @@ class ArticlesController extends AppController
             ->groupBy(['Tags.id', 'Tags.title'])
             ->orderBy(['Tags.title' => 'ASC']);
 
-        $tags = $tagsQuery->all()->extract('title')->toList();
+        $filterTags = $tagsQuery->all()->combine('id', 'title')->toArray();
 
-        $this->set(compact('articles', 'tags', 'selectedTag'));
+        $this->set(compact('articles', 'filterTags', 'selectedTagId'));
     }
 
     /**
@@ -268,8 +269,8 @@ class ArticlesController extends AppController
         }
 
         if (
-            (!SettingsManager::read('Comments.articlesEnabled') && !$article->is_page)
-            || (!SettingsManager::read('Comments.pagesEnabled') && $article->is_page)
+            (!SettingsManager::read('Comments.articlesEnabled') && $article->kind == 'article')
+            || (!SettingsManager::read('Comments.pagesEnabled') && $article->kind == 'page')
         ) {
             $this->Flash->error(__('Comments are not enabled'));
 

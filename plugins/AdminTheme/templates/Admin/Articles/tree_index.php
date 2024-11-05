@@ -9,7 +9,7 @@ $this->Html->script('articles_tree', ['block' => true]);
             <h3><?= __('Pages') ?></h3>
         </div>
         <div class="col-auto">
-            <?= $this->Html->link(__('Add Page'), ['prefix' => 'Admin', 'action' => 'add', '?' => ['is_page' => 1]], ['class' => 'btn btn-primary']) ?>
+            <?= $this->Html->link(__('Add Page'), ['prefix' => 'Admin', 'action' => 'add', '?' => ['kind' => 'page']], ['class' => 'btn btn-primary']) ?>
         </div>
     </div>
 
@@ -71,14 +71,14 @@ $this->Html->script('articles_tree', ['block' => true]);
                         echo $Form->Html->link('Add', [
                             'prefix' => 'Admin',
                             'action' => 'add',
-                            '?' => ['is_page' => 1, 'parent_id' => $article['id']]
+                            '?' => ['kind' => 'page', 'parent_id' => $article['id']]
                         ], ['class' => 'btn btn-sm btn-outline-primary']);
                 
                         echo $Form->Html->link('Edit', [
                             'prefix' => 'Admin',
                             'action' => 'edit',
                             $article['id'],
-                            '?' => ['is_page' => 1, 'parent_id' => $article['parent_id']]
+                            '?' => ['kind' => 'page', 'parent_id' => $article['parent_id']]
                         ], ['class' => 'btn btn-sm btn-outline-secondary']);
                 
                         echo $Form->postLink(
@@ -86,7 +86,7 @@ $this->Html->script('articles_tree', ['block' => true]);
                             ['prefix' => 'Admin', 'action' => 'delete', $article['id']],
                             [
                                 'confirm' => __('Are you sure you want to delete {0}?', $article['title']),
-                                'data' => ['is_page' => 1],
+                                'data' => ['kind' => 'page'],
                                 'class' => 'btn btn-sm btn-outline-danger'
                             ]
                         );

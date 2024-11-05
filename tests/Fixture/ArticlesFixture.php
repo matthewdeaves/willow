@@ -24,7 +24,7 @@ class ArticlesFixture extends TestFixture
                 'parent_id' => null,
                 'lft' => 1,
                 'rght' => 10,
-                'is_page' => 1,
+                'kind' => 'page',
             ],
             [
                 'id' => 'ce6794a2-b191-445c-99ed-de93f6e7eeb1',
@@ -39,7 +39,7 @@ class ArticlesFixture extends TestFixture
                 'parent_id' => '630fe0f3-7d68-472f-a1b1-c73ed3fe0c8e',
                 'lft' => 2,
                 'rght' => 3,
-                'is_page' => 1,
+                'kind' => 'page',
             ],
             [
                 'id' => 'de7894a3-c292-556d-00ee-ef04g7f8ffc2',
@@ -54,7 +54,7 @@ class ArticlesFixture extends TestFixture
                 'parent_id' => '630fe0f3-7d68-472f-a1b1-c73ed3fe0c8e',
                 'lft' => 4,
                 'rght' => 5,
-                'is_page' => 1,
+                'kind' => 'page',
             ],
             [
                 'id' => 'mn6783j2-l111-445m-99nn-no93p6o7ppk1',
@@ -69,7 +69,7 @@ class ArticlesFixture extends TestFixture
                 'parent_id' => '630fe0f3-7d68-472f-a1b1-c73ed3fe0c8e',
                 'lft' => 6,
                 'rght' => 7,
-                'is_page' => 1,
+                'kind' => 'page',
             ],
             [
                 'id' => 'ef8905b4-d393-667e-11ff-fg15h8g9ggd3',
@@ -84,7 +84,7 @@ class ArticlesFixture extends TestFixture
                 'parent_id' => null,
                 'lft' => 11,
                 'rght' => 16,
-                'is_page' => 1,
+                'kind' => 'page',
             ],
             [
                 'id' => '5119fb0c-ff60-4c16-9e25-aba3d32d5d5c',
@@ -99,7 +99,7 @@ class ArticlesFixture extends TestFixture
                 'parent_id' => 'ef8905b4-d393-667e-11ff-fg15h8g9ggd3',
                 'lft' => 12,
                 'rght' => 15,
-                'is_page' => 1,
+                'kind' => 'page',
             ],
             [
                 'id' => 'e98aaafa-415a-4911-8ff2-25f76b326ea4',
@@ -114,7 +114,7 @@ class ArticlesFixture extends TestFixture
                 'parent_id' => '5119fb0c-ff60-4c16-9e25-aba3d32d5d5c',
                 'lft' => 13,
                 'rght' => 14,
-                'is_page' => 1,
+                'kind' => 'page',
             ],
             // Articles
             [
@@ -130,7 +130,7 @@ class ArticlesFixture extends TestFixture
                 'parent_id' => null,
                 'lft' => 17,
                 'rght' => 18,
-                'is_page' => 0,
+                'kind' => 'article',
             ],
             [
                 'id' => 'ij2349f8-h707-001i-55jj-jk59l2k3kkg7',
@@ -145,7 +145,7 @@ class ArticlesFixture extends TestFixture
                 'parent_id' => null,
                 'lft' => 19,
                 'rght' => 20,
-                'is_page' => 0,
+                'kind' => 'article',
             ],
             [
                 'id' => '42655115-cb43-4ba5-bae7-292443b9ce21',
@@ -160,7 +160,7 @@ class ArticlesFixture extends TestFixture
                 'parent_id' => null,
                 'lft' => 21,
                 'rght' => 22,
-                'is_page' => 0,
+                'kind' => 'article',
             ],
             [
                 'id' => 'kl4561h0-j909-223k-77ll-lm71n4m5mmi9',
@@ -175,7 +175,7 @@ class ArticlesFixture extends TestFixture
                 'parent_id' => null,
                 'lft' => 23,
                 'rght' => 24,
-                'is_page' => 0,
+                'kind' => 'article',
             ],
             [
                 'id' => 'fef07ae2-1b1a-4653-a444-d093e35c6e2f',
@@ -190,7 +190,7 @@ class ArticlesFixture extends TestFixture
                 'parent_id' => null,
                 'lft' => 25,
                 'rght' => 26,
-                'is_page' => 0,
+                'kind' => 'article',
             ],
             [
                 'id' => '224310b4-96ad-4d58-a0a9-af6dc7253c4f',
@@ -205,7 +205,7 @@ class ArticlesFixture extends TestFixture
                 'parent_id' => null,
                 'lft' => 27,
                 'rght' => 28,
-                'is_page' => 0,
+                'kind' => 'article',
             ],
         ];
         parent::init();

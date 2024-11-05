@@ -14,576 +14,972 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
 #: 
-msgid "User Agent"
-msgstr "Brugeragent"
+msgid "Are you sure you want to delete comment by {0}?"
+msgstr "Er du sikker på, at du vil slette kommentar fra {0}?"
 
 #: 
-msgid "Error"
-msgstr "Fejl"
+msgid "Regenerate Tags"
+msgstr "Gendan tags"
 
 #: 
-msgid "Article"
-msgstr "Artikel"
-
-#: 
-msgid "Message"
-msgstr "Besked"
-
-#: 
-msgid "Article not found."
-msgstr "Artikel ikke fundet."
-
-#: 
-msgid "Account"
-msgstr "Konto"
-
-#: 
-msgid "All Tags"
-msgstr "Alle tags"
-
-#: 
-msgid "Created"
-msgstr "Oprettet"
-
-#: 
-msgid "Pages"
-msgstr "Sider"
-
-#: 
-msgid "Add Email Template"
-msgstr "Tilføj e-mail-skabelon"
-
-#: 
-msgid "Associated Pages"
-msgstr "Tilknyttede sider"
-
-#: 
-msgid "Read More"
-msgstr "Læs mere"
-
-#: 
-msgid "Bulk Upload"
-msgstr "Bulk upload"
-
-#: 
-msgid "No articles found for this tag."
-msgstr "Ingen artikler fundet for dette tag."
-
-#: 
-msgid "Enter text"
-msgstr "Indtast tekst"
-
-#: 
-msgid "Slugs"
-msgstr "Snegle"
-
-#: 
-msgid "The tag has been saved."
-msgstr "Tagget er blevet gemt."
-
-#: 
-msgid "Is Admin"
-msgstr "er admin"
-
-#: 
-msgid "Edit Article"
-msgstr "Rediger artikel"
-
-#: 
-msgid "Add Article"
-msgstr "Tilføj artikel"
+msgid "Edit Aiprompt"
+msgstr "Rediger Aiprompt"
 
 #: 
 msgid "Cache Management"
 msgstr "Cachestyring"
 
 #: 
-msgid "Comments are not enabled"
-msgstr "Kommentarer er ikke aktiveret"
-
-#: 
-msgid "Alt Text"
-msgstr "Alt tekst"
-
-#: 
-msgid "Unknown User"
-msgstr "Ukendt bruger"
-
-#: 
-msgid "The comment could not be saved. Please, try again."
-msgstr "Kommentaren kunne ikke gemmes. Prøv igen."
-
-#: 
-msgid "Delete All Logs"
-msgstr "Slet alle logfiler"
-
-#: 
-msgid "This slug is already in use in articles. Please enter a unique slug."
-msgstr "Denne snegl er allerede i brug i artikler. Indtast venligst en unik snegl."
-
-#: 
-msgid "Update Comment"
-msgstr "Opdater kommentar"
-
-#: 
-msgid "Front Site"
-msgstr "Forside"
-
-#: 
-msgid "Please enter your email and password"
-msgstr "Indtast venligst din e-mail og adgangskode"
-
-#: 
-msgid "Edit Image"
-msgstr "Rediger billede"
-
-#: 
-msgid "Add Slug"
-msgstr "Tilføj Slug"
-
-#: 
-msgid "Please enter your new password"
-msgstr "Indtast venligst din nye adgangskode"
-
-#: 
-msgid "Max Tokens"
-msgstr "Max Tokens"
-
-#: 
-msgid "Register"
-msgstr "Register"
-
-#: 
-msgid "Rate limit exceeded for IP: {0} on route: {1}"
-msgstr "Satsgrænse overskredet for IP: {0} på rute: {1}"
-
-#: 
-msgid "Edit"
-msgstr "Redigere"
-
-#: 
-msgid "Show"
-msgstr "Vise"
-
-#: 
-msgid "Keywords"
-msgstr "Nøgleord"
-
-#: 
-msgid "Date"
-msgstr "Dato"
-
-#: 
-msgid "The tag has been deleted."
-msgstr "Tagget er blevet slettet."
-
-#: 
-msgid "IP Address"
-msgstr "IP-adresse"
-
-#: 
-msgid "All caches have been cleared successfully."
-msgstr "Alle caches er blevet ryddet."
-
-#: 
-msgid "Are you sure you want to delete all logs?"
-msgstr "Er du sikker på, at du vil slette alle logfiler?"
+msgid "Invalid confirmation code. Please contact support."
+msgstr "Ugyldig bekræftelseskode. Kontakt venligst support."
 
 #: 
 msgid "Your comment has been added."
 msgstr "Din kommentar er blevet tilføjet."
 
 #: 
-msgid "Password must be at least 8 characters long"
-msgstr "Adgangskoden skal være på mindst 8 tegn"
+msgid "Add Tag"
+msgstr "Tilføj tag"
 
 #: 
-msgid "Delete {0}"
-msgstr "Slet {0}"
+msgid "Show Full Article"
+msgstr "Vis hele artiklen"
 
 #: 
-msgid "Username"
-msgstr "Brugernavn"
+msgid "Add Page"
+msgstr "Tilføj side"
 
 #: 
-msgid "User"
-msgstr "Bruger"
+msgid "Not published"
+msgstr "Ikke offentliggjort"
 
 #: 
-msgid "Body HTML"
-msgstr "Body HTML"
+msgid "Meta Keywords"
+msgstr "Meta søgeord"
 
 #: 
-msgid "The blocked ip could not be saved. Please, try again."
-msgstr "Den blokerede ip kunne ikke gemmes. Prøv igen."
-
-#: 
-msgid "Missing required arguments in the message."
-msgstr "Mangler påkrævede argumenter i meddelelsen."
-
-#: 
-msgid "Are you sure you want to clear {0}?"
-msgstr "Er du sikker på, at du vil rydde {0}?"
-
-#: 
-msgid "The slug must be unique."
-msgstr "Sneglen skal være unik."
-
-#: 
-msgid "Forgot Password"
-msgstr "Glemt adgangskode"
-
-#: 
-msgid "New Blocked IP"
-msgstr "Ny blokeret IP"
-
-#: 
-msgid "Search images..."
-msgstr "Søg billeder..."
-
-#: 
-msgid "Unable to delete logs in group {0}."
-msgstr "Kan ikke slette logfiler i gruppen {0}."
-
-#: 
-msgid "Access denied. You must be an admin to view this page."
-msgstr "Adgang nægtet. Du skal være administrator for at se denne side."
-
-#: 
-msgid "Search logs..."
-msgstr "Søg i logfiler..."
-
-#: 
-msgid "Tag not found"
-msgstr "Tag ikke fundet"
-
-#: 
-msgid "Registration successful, but there was an issue creating the confirmation link."
-msgstr "Registreringen lykkedes, men der var et problem med at oprette bekræftelseslinket."
-
-#: 
-msgid "This message_id must be unique for the given locale."
-msgstr "Dette message_id skal være unikt for den givne lokalitet."
+msgid "Blocked At"
+msgstr "Blokeret kl"
 
 #: 
 msgid "Image"
 msgstr "Billede"
 
 #: 
-msgid "User Comments"
-msgstr "Brugerkommentarer"
-
-#: 
-msgid "Details"
-msgstr "Detaljer"
-
-#: 
-msgid "Are you sure you want to delete IP {0}?"
-msgstr "Er du sikker på, at du vil slette IP {0}?"
-
-#: 
-msgid "The tag could not be deleted. Please, try again."
-msgstr "Tagget kunne ikke slettes. Prøv igen."
-
-#: 
-msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
-msgstr "E-mail sendt til: {0}. Skabelon: {1}, Emne: {2}"
-
-#: 
-msgid "Body Text"
-msgstr "Brødtekst"
-
-#: 
-msgid "System Logs"
-msgstr "Systemlogs"
-
-#: 
-msgid "Internationalisations"
-msgstr "Internationaliseringer"
-
-#: 
-msgid "Show Less"
-msgstr "Vis mindre"
-
-#: 
-msgid "Facebook Description"
-msgstr "Facebook beskrivelse"
-
-#: 
-msgid "Profile Picture"
-msgstr "Profilbillede"
-
-#: 
-msgid "Message Id"
-msgstr "Meddelelses-id"
-
-#: 
-msgid "Name"
-msgstr "Navn"
-
-#: 
-msgid "Block IPs"
-msgstr "Bloker IP&#39;er"
-
-#: 
-msgid "Update Slug"
-msgstr "Opdater Slug"
-
-#: 
-msgid "The email template has been saved."
-msgstr "E-mail-skabelonen er blevet gemt."
-
-#: 
-msgid "The settings have been saved."
-msgstr "Indstillingerne er blevet gemt."
-
-#: 
-msgid "New Internationalisation"
-msgstr "Ny internationalisering"
-
-#: 
-msgid "Home"
-msgstr "Hjem"
-
-#: 
-msgid "Total Views: "
-msgstr "Samlet antal visninger: "
-
-#: 
-msgid "Tags"
-msgstr "Tags"
-
-#: 
-msgid "Edit Settings"
-msgstr "Rediger indstillinger"
-
-#: 
-msgid "Add Blocked IP"
-msgstr "Tilføj blokeret IP"
-
-#: 
-msgid "Send Email"
-msgstr "Send e-mail"
-
-#: 
-msgid "Reason"
-msgstr "Årsag"
-
-#: 
-msgid "Please enter your email to reset your password"
-msgstr "Indtast venligst din e-mail for at nulstille din adgangskode"
-
-#: 
-msgid "Engine"
-msgstr "Motor"
-
-#: 
-msgid "The image could not be deleted. Please, try again."
-msgstr "Billedet kunne ikke slettes. Prøv igen."
-
-#: 
-msgid "The article has been saved."
-msgstr "Artiklen er blevet gemt."
-
-#: 
-msgid "Add a Comment"
-msgstr "Tilføj en kommentar"
-
-#: 
-msgid "The user could not be deleted. Please, try again."
-msgstr "Brugeren kunne ikke slettes. Prøv igen."
-
-#: 
-msgid "Edit Internationalisation"
-msgstr "Rediger internationalisering"
-
-#: 
-msgid "Back to Login"
-msgstr "Tilbage til Login"
-
-#: 
-msgid "Unable to delete logs with level {0}."
-msgstr "Kan ikke slette logfiler med niveau {0}."
-
-#: 
-msgid "Image must be less than 5MB."
-msgstr "Billedet skal være mindre end 5 MB."
-
-#: 
-msgid "Locale"
-msgstr "Lokalitet"
-
-#: 
-msgid "The email template could not be deleted. Please, try again."
-msgstr "E-mailskabelonen kunne ikke slettes. Prøv igen."
-
-#: 
-msgid "Modified At"
-msgstr "Ændret kl"
-
-#: 
-msgid "Add User"
-msgstr "Tilføj bruger"
-
-#: 
-msgid "New Tag"
-msgstr "Nyt tag"
-
-#: 
-msgid "Add Internationalisation"
-msgstr "Tilføj internationalisering"
-
-#: 
 msgid "Toggle SEO Fields"
 msgstr "Skift SEO-felter"
-
-#: 
-msgid "Unable to delete all logs."
-msgstr "Kan ikke slette alle logfiler."
-
-#: 
-msgid "Comment"
-msgstr "Kommentar"
-
-#: 
-msgid "Article/Page"
-msgstr "Artikel/side"
-
-#: 
-msgid "Register New Account"
-msgstr "Registrer ny konto"
-
-#: 
-msgid "The value must not be empty."
-msgstr "Værdien må ikke være tom."
-
-#: 
-msgid "Error loading images:"
-msgstr "Fejl ved indlæsning af billeder:"
-
-#: 
-msgid "Images"
-msgstr "Billeder"
-
-#: 
-msgid "Summary"
-msgstr "Oversigt"
 
 #: 
 msgid "The article has been deleted."
 msgstr "Artiklen er blevet slettet."
 
 #: 
-msgid "View detailed records for this date"
-msgstr "Se detaljerede optegnelser for denne dato"
+msgid "Some caches were cleared, but the following failed: {0}"
+msgstr "Nogle caches blev ryddet, men følgende mislykkedes: {0}"
 
 #: 
-msgid "Are you sure you want to delete all {0} logs?"
-msgstr "Er du sikker på, at du vil slette alle {0} logfiler?"
+msgid "Body"
+msgstr "Legeme"
 
 #: 
-msgid "An error occurred while processing your request."
-msgstr "Der opstod en fejl under behandlingen af din anmodning."
+msgid "Unable to delete all logs."
+msgstr "Kan ikke slette alle logfiler."
 
 #: 
-msgid "Unable to add your comment."
-msgstr "Kan ikke tilføje din kommentar."
+msgid "The internationalisation has been saved."
+msgstr "Internationaliseringen er reddet."
 
 #: 
-msgid "Referer"
-msgstr "Henviser"
+msgid "Back"
+msgstr "Tilbage"
 
 #: 
-msgid "Are you sure you want to delete this comment?"
-msgstr "Er du sikker på, at du vil slette denne kommentar?"
+msgid "Edit {0}"
+msgstr "Rediger {0}"
 
 #: 
-msgid "Description"
-msgstr "Beskrivelse"
+msgid "Slug:"
+msgstr "Snegl:"
 
 #: 
-msgid "Actions"
-msgstr "Handlinger"
+msgid "New Blocked IP"
+msgstr "Ny blokeret IP"
 
 #: 
-msgid "Code Coverage"
-msgstr "Kodedækning"
+msgid "Settings"
+msgstr "Indstillinger"
 
 #: 
-msgid "Twitter Description"
-msgstr "Twitter beskrivelse"
+msgid "Image uploaded successfully"
+msgstr "Billedet blev uploadet"
 
 #: 
-msgid "Reset Password"
-msgstr "Nulstil adgangskode"
+msgid "Comment"
+msgstr "Kommentar"
 
 #: 
-msgid "Update Aiprompt"
-msgstr "Opdater Aiprompt"
+msgid "Date"
+msgstr "Dato"
 
 #: 
-msgid "LinkedIn Description"
-msgstr "LinkedIn beskrivelse"
+msgid "Total Views: "
+msgstr "Samlet antal visninger: "
 
 #: 
-msgid "Slug"
-msgstr "Snegl"
+msgid "Bulk Upload"
+msgstr "Bulk upload"
 
 #: 
-msgid "The comment has been deleted."
-msgstr "Kommentaren er blevet slettet."
+msgid "Edit User"
+msgstr "Rediger bruger"
 
 #: 
-msgid "Clear"
-msgstr "Klar"
+msgid "Message Id"
+msgstr "Meddelelses-id"
 
 #: 
-msgid "No comments yet."
-msgstr "Ingen kommentarer endnu."
+msgid "API request failed. Please try again later."
+msgstr "API-anmodning mislykkedes. Prøv venligst igen senere."
 
 #: 
-msgid "Page Views"
-msgstr "Sidevisninger"
+msgid "Error in: "
+msgstr "Fejl i: "
 
 #: 
-msgid "Clear All Cache"
-msgstr "Ryd alle cache"
+msgid "The email template has been deleted."
+msgstr "E-mail-skabelonen er blevet slettet."
 
 #: 
-msgid "The requested address {0} was not found on this server."
-msgstr "Den anmodede adresse {0} blev ikke fundet på denne server."
+msgid "Are you sure you want to delete IP {0}?"
+msgstr "Er du sikker på, at du vil slette IP {0}?"
 
 #: 
-msgid "No internationalizations found for the provided IDs."
-msgstr "Der blev ikke fundet nogen internationaliseringer for de angivne id&#39;er."
-
-#: 
-msgid "Users"
-msgstr "Brugere"
-
-#: 
-msgid "Send Reset Link"
-msgstr "Send Reset Link"
-
-#: 
-msgid "{0} cache configuration does not exist."
-msgstr "{0} cache-konfiguration findes ikke."
-
-#: 
-msgid "All Locales"
-msgstr "Alle lokaliteter"
+msgid "{0} Views"
+msgstr "{0} Visninger"
 
 #: 
 msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
 msgstr "Nedenfor er information om de konfigurerede caches. Klik på knappen for at rydde alle caches eller individuelle cache-knapper for at rydde specifikke caches."
 
 #: 
-msgid "Update User"
-msgstr "Opdater bruger"
+msgid "Level"
+msgstr "Niveau"
+
+#: 
+msgid "Body HTML"
+msgstr "Body HTML"
+
+#: 
+msgid "This message_id must be unique for the given locale."
+msgstr "Dette message_id skal være unikt for den givne lokalitet."
+
+#: 
+msgid "Picture"
+msgstr "Billede"
+
+#: 
+msgid "{0} cache configuration does not exist."
+msgstr "{0} cache-konfiguration findes ikke."
+
+#: 
+msgid "Update Article"
+msgstr "Opdater artikel"
+
+#: 
+msgid "Word Count"
+msgstr "Ordtælling"
+
+#: 
+msgid "Email template not found: {0}"
+msgstr "E-mailskabelon blev ikke fundet: {0}"
+
+#: 
+msgid "Failed to send email to: {0}"
+msgstr "Kunne ikke sende e-mail til: {0}"
+
+#: 
+msgid "The comment could not be deleted. Please, try again."
+msgstr "Kommentaren kunne ikke slettes. Prøv igen."
+
+#: 
+msgid "Forgot Password?"
+msgstr "Glemt adgangskode?"
+
+#: 
+msgid "Email sent successfully."
+msgstr "E-mail blev sendt."
+
+#: 
+msgid "You cannot remove your own admin status."
+msgstr "Du kan ikke fjerne din egen administratorstatus."
+
+#: 
+msgid "Block IPs"
+msgstr "Bloker IP&#39;er"
+
+#: 
+msgid "Willow CMS"
+msgstr "Willow CMS"
+
+#: 
+msgid "Context"
+msgstr "Sammenhæng"
+
+#: 
+msgid "Comment for {0}"
+msgstr "Kommentar til {0}"
+
+#: 
+msgid "Search images..."
+msgstr "Søg billeder..."
+
+#: 
+msgid "Content"
+msgstr "Tilfreds"
+
+#: 
+msgid "Unknown User"
+msgstr "Ukendt bruger"
+
+#: 
+msgid "User Comments"
+msgstr "Brugerkommentarer"
+
+#: 
+msgid "Failed to send email. Please check your email configuration."
+msgstr "Kunne ikke sende e-mail. Tjek venligst din e-mail-konfiguration."
+
+#: 
+msgid "Please log in to add a comment"
+msgstr "Log venligst ind for at tilføje en kommentar"
+
+#: 
+msgid "The user has been deleted."
+msgstr "Brugeren er blevet slettet."
+
+#: 
+msgid "Comments"
+msgstr "Kommentarer"
+
+#: 
+msgid "Password must be at least 8 characters long"
+msgstr "Adgangskoden skal være på mindst 8 tegn"
+
+#: 
+msgid "Email Templates"
+msgstr "Email skabeloner"
+
+#: 
+msgid "Comments are not enabled"
+msgstr "Kommentarer er ikke aktiveret"
+
+#: 
+msgid "Associated Pages"
+msgstr "Tilknyttede sider"
+
+#: 
+msgid "The blocked ip has been deleted."
+msgstr "Den blokerede ip er blevet slettet."
+
+#: 
+msgid "The comment could not be saved. Please, try again."
+msgstr "Kommentaren kunne ikke gemmes. Prøv igen."
+
+#: 
+msgid "Last Cleared"
+msgstr "Sidst ryddet"
+
+#: 
+msgid "Edit Image"
+msgstr "Rediger billede"
+
+#: 
+msgid "No view records found for this article."
+msgstr "Ingen visningsposter fundet for denne artikel."
+
+#: 
+msgid "This slug is already in use in articles. Please enter a unique slug."
+msgstr "Denne snegl er allerede i brug i artikler. Indtast venligst en unik snegl."
+
+#: 
+msgid "Some settings could not be saved. Please, try again."
+msgstr "Nogle indstillinger kunne ikke gemmes. Prøv igen."
+
+#: 
+msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
+msgstr "Sneglen skal være URL-sikker (kun små bogstaver, tal og bindestreger)"
+
+#: 
+msgid "The tag could not be saved. Please, try again."
+msgstr "Tagget kunne ikke gemmes. Prøv igen."
+
+#: 
+msgid "Main Picture"
+msgstr "Hovedbillede"
+
+#: 
+msgid "Access denied. You must be an admin to view this page."
+msgstr "Adgang nægtet. Du skal være administrator for at se denne side."
+
+#: 
+msgid "Search users..."
+msgstr "Søg efter brugere..."
+
+#: 
+msgid "Profile Picture"
+msgstr "Profilbillede"
+
+#: 
+msgid "An Internal Error Has Occurred."
+msgstr "Der er opstået en intern fejl."
+
+#: 
+msgid "Unable to delete logs in group {0}."
+msgstr "Kan ikke slette logfiler i gruppen {0}."
+
+#: 
+msgid "Rate limit exceeded for IP: {0} on route: {1}"
+msgstr "Satsgrænse overskredet for IP: {0} på rute: {1}"
+
+#: 
+msgid "Facebook Description"
+msgstr "Facebook beskrivelse"
+
+#: 
+msgid "Delete {0}"
+msgstr "Slet {0}"
+
+#: 
+msgid "An error occurred while processing your request."
+msgstr "Der opstod en fejl under behandlingen af din anmodning."
+
+#: 
+msgid "Meta Title"
+msgstr "Meta titel"
+
+#: 
+msgid "Are you sure you want to delete this comment?"
+msgstr "Er du sikker på, at du vil slette denne kommentar?"
+
+#: 
+msgid "Show Less"
+msgstr "Vis mindre"
+
+#: 
+msgid "Users"
+msgstr "Brugere"
+
+#: 
+msgid "Account"
+msgstr "Konto"
+
+#: 
+msgid "List Blocked IPs"
+msgstr "Liste over blokerede IP&#39;er"
+
+#: 
+msgid "The blocked ip has been saved."
+msgstr "Den blokerede ip er blevet gemt."
+
+#: 
+msgid "Clear"
+msgstr "Klar"
+
+#: 
+msgid "Article ID:"
+msgstr "Artikel-id:"
+
+#: 
+msgid "Home"
+msgstr "Hjem"
+
+#: 
+msgid "Keywords"
+msgstr "Nøgleord"
+
+#: 
+msgid "Live"
+msgstr "Levende"
+
+#: 
+msgid "Instagram Description"
+msgstr "Instagram beskrivelse"
+
+#: 
+msgid "Details"
+msgstr "Detaljer"
+
+#: 
+msgid "All rights reserved."
+msgstr "Alle rettigheder forbeholdes."
+
+#: 
+msgid "Article"
+msgstr "Artikel"
 
 #: 
 msgid "Invalid username or password"
 msgstr "Ugyldigt brugernavn eller adgangskode"
+
+#: 
+msgid "Page View Statistics for slug: {0}"
+msgstr "Sidevisningsstatistikker for slug: {0}"
+
+#: 
+msgid "The blocked ip could not be deleted. Please, try again."
+msgstr "Den blokerede ip kunne ikke slettes. Prøv igen."
+
+#: 
+msgid "Add Slug"
+msgstr "Tilføj Slug"
+
+#: 
+msgid "Alt Text"
+msgstr "Alt tekst"
+
+#: 
+msgid "Admin"
+msgstr "Admin"
+
+#: 
+msgid "SEO Fields"
+msgstr "SEO felter"
+
+#: 
+msgid "The comment has been deleted."
+msgstr "Kommentaren er blevet slettet."
+
+#: 
+msgid "Your account has been updated."
+msgstr "Din konto er blevet opdateret."
+
+#: 
+msgid "Edit Your Account"
+msgstr "Rediger din konto"
+
+#: 
+msgid "Unknown Author"
+msgstr "Ukendt forfatter"
+
+#: 
+msgid "Your account has been confirmed. You can now log in."
+msgstr "Din konto er blevet bekræftet. Du kan nu logge ind."
+
+#: 
+msgid "Edit Comment"
+msgstr "Rediger kommentar"
+
+#: 
+msgid "Logout"
+msgstr "Log ud"
+
+#: 
+msgid "Back to Login"
+msgstr "Tilbage til Login"
+
+#: 
+msgid "There was an issue resetting your password. Please try again."
+msgstr "Der var et problem med at nulstille din adgangskode. Prøv venligst igen."
+
+#: 
+msgid "Update Aiprompt"
+msgstr "Opdater Aiprompt"
+
+#: 
+msgid "Username"
+msgstr "Brugernavn"
+
+#: 
+msgid "Add Image"
+msgstr "Tilføj billede"
+
+#: 
+msgid "Hide"
+msgstr "Skjule"
+
+#: 
+msgid "Expires At"
+msgstr "Udløber kl"
+
+#: 
+msgid "List View"
+msgstr "Listevisning"
+
+#: 
+msgid "Published"
+msgstr "Udgivet"
+
+#: 
+msgid "If your email is registered, you will receive a link to reset your password."
+msgstr "Hvis din e-mail er registreret, vil du modtage et link til at nulstille din adgangskode."
+
+#: 
+msgid "All logs in group {0} have been deleted."
+msgstr "Alle logfiler i gruppe {0} er blevet slettet."
+
+#: 
+msgid "Page Views"
+msgstr "Sidevisninger"
+
+#: 
+msgid "Registration successful. Please check your email for confirmation."
+msgstr "Registreringen lykkedes. Tjek venligst din e-mail for bekræftelse."
+
+#: 
+msgid "English"
+msgstr "engelsk"
+
+#: 
+msgid "The slug could not be saved. Please, try again."
+msgstr "Sneglen kunne ikke reddes. Prøv igen."
+
+#: 
+msgid "Created At"
+msgstr "Oprettet kl"
+
+#: 
+msgid "Confirm Password"
+msgstr "Bekræft adgangskode"
+
+#: 
+msgid "View detailed records for this date"
+msgstr "Se detaljerede optegnelser for denne dato"
+
+#: 
+msgid "Enter a number"
+msgstr "Indtast et tal"
+
+#: 
+msgid "Logs"
+msgstr "Logs"
+
+#: 
+msgid "No internationalizations found for the provided IDs."
+msgstr "Der blev ikke fundet nogen internationaliseringer for de angivne id&#39;er."
+
+#: 
+msgid "Edit"
+msgstr "Redigere"
+
+#: 
+msgid "Blocked IPs"
+msgstr "Blokerede IP&#39;er"
+
+#: 
+msgid "Update Slug"
+msgstr "Opdater Slug"
+
+#: 
+msgid "New Image"
+msgstr "Nyt billede"
+
+#: 
+msgid "The image could not be saved. Please, try again."
+msgstr "Billedet kunne ikke gemmes. Prøv igen."
+
+#: 
+msgid "The slug has been deleted."
+msgstr "Sneglen er blevet slettet."
+
+#: 
+msgid "Add Internationalisation"
+msgstr "Tilføj internationalisering"
+
+#: 
+msgid "Add Email Template"
+msgstr "Tilføj e-mail-skabelon"
+
+#: 
+msgid "Are you sure you want to delete all logs in group {0}?"
+msgstr "Er du sikker på, at du vil slette alle logfiler i gruppen {0}?"
+
+#: 
+msgid "Please enter your new password"
+msgstr "Indtast venligst din nye adgangskode"
+
+#: 
+msgid "Invalid or expired password reset link."
+msgstr "Ugyldigt eller udløbet link til nulstilling af adgangskode."
+
+#: 
+msgid "Locale"
+msgstr "Lokalitet"
+
+#: 
+msgid "No images."
+msgstr "Ingen billeder."
+
+#: 
+msgid "Send Reset Link"
+msgstr "Send Reset Link"
+
+#: 
+msgid "The image has been deleted."
+msgstr "Billedet er blevet slettet."
+
+#: 
+msgid "Group Name"
+msgstr "Gruppenavn"
+
+#: 
+msgid "The requested address {0} was not found on this server."
+msgstr "Den anmodede adresse {0} blev ikke fundet på denne server."
+
+#: 
+msgid "Modified"
+msgstr "Ændret"
+
+#: 
+msgid "No tags are linked."
+msgstr "Ingen tags er linket."
+
+#: 
+msgid "Please enter your email and password"
+msgstr "Indtast venligst din e-mail og adgangskode"
+
+#: 
+msgid "Internationalisations"
+msgstr "Internationaliseringer"
+
+#: 
+msgid "List Email Templates"
+msgstr "Liste e-mail skabeloner"
+
+#: 
+msgid "All Levels"
+msgstr "Alle niveauer"
+
+#: 
+msgid "Is Published"
+msgstr "Er udgivet"
+
+#: 
+msgid "Failed to update translation for message ID: {0}"
+msgstr "Kunne ikke opdatere oversættelsen for meddelelses-id: {0}"
+
+#: 
+msgid "New Tag"
+msgstr "Nyt tag"
+
+#: 
+msgid "Too Many Requests"
+msgstr "For mange anmodninger"
+
+#: 
+msgid "Forgot Password"
+msgstr "Glemt adgangskode"
+
+#: 
+msgid "New Slug"
+msgstr "Ny Slug"
+
+#: 
+msgid "Display"
+msgstr "Vise"
+
+#: 
+msgid "Update Comment"
+msgstr "Opdater kommentar"
+
+#: 
+msgid "The settings have been saved."
+msgstr "Indstillingerne er blevet gemt."
+
+#: 
+msgid "No pages found."
+msgstr "Ingen sider fundet."
+
+#: 
+msgid "Internationalisation"
+msgstr "Internationalisering"
+
+#: 
+msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
+msgstr "Slug er i konflikt med en eksisterende SEO-omdirigering. Vælg venligst en anden slug."
+
+#: 
+msgid "Unable to delete the log."
+msgstr "Kunne ikke slette loggen."
+
+#: 
+msgid "Never"
+msgstr "Aldrig"
+
+#: 
+msgid "The slug must be unique."
+msgstr "Sneglen skal være unik."
+
+#: 
+msgid "No page view data available for this article."
+msgstr "Ingen sidevisningsdata tilgængelige for denne artikel."
+
+#: 
+msgid "Edit Blocked IP"
+msgstr "Rediger blokeret IP"
+
+#: 
+msgid "Meta Description"
+msgstr "Meta beskrivelse"
+
+#: 
+msgid "LinkedIn Description"
+msgstr "LinkedIn beskrivelse"
+
+#: 
+msgid "Invalid type"
+msgstr "Ugyldig type"
+
+#: 
+msgid "Edit Slug"
+msgstr "Rediger Slug"
+
+#: 
+msgid "Cache"
+msgstr "Cache"
+
+#: 
+msgid "Tags"
+msgstr "Tags"
+
+#: 
+msgid "View"
+msgstr "Udsigt"
+
+#: 
+msgid "Add a Comment"
+msgstr "Tilføj en kommentar"
+
+#: 
+msgid "Is Inappropriate"
+msgstr "er upassende"
+
+#: 
+msgid "Unable to delete logs with level {0}."
+msgstr "Kan ikke slette logfiler med niveau {0}."
+
+#: 
+msgid "Model"
+msgstr "Model"
+
+#: 
+msgid "You are not authorized to edit this account, stick to your own."
+msgstr "Du er ikke autoriseret til at redigere denne konto, hold dig til din egen."
+
+#: 
+msgid "This slug is already in use. Please enter a unique slug."
+msgstr "Denne snegl er allerede i brug. Indtast venligst en unik snegl."
+
+#: 
+msgid "The value must be a number."
+msgstr "Værdien skal være et tal."
+
+#: 
+msgid "Clear All Cache"
+msgstr "Ryd alle cache"
+
+#: 
+msgid "Articles"
+msgstr "Artikler"
+
+#: 
+msgid "Error"
+msgstr "Fejl"
+
+#: 
+msgid "The internationalisation has been deleted."
+msgstr "Internationaliseringen er blevet slettet."
+
+#: 
+msgid "Edit Article"
+msgstr "Rediger artikel"
+
+#: 
+msgid "New Internationalisation"
+msgstr "Ny internationalisering"
+
+#: 
+msgid "The article could not be deleted. Please, try again."
+msgstr "Artiklen kunne ikke slettes. Prøv igen."
+
+#: 
+msgid "The tag has been deleted."
+msgstr "Tagget er blevet slettet."
+
+#: 
+msgid "No deleting your own account."
+msgstr "Ingen sletning af din egen konto."
+
+#: 
+msgid "Summary"
+msgstr "Oversigt"
+
+#: 
+msgid "Page Views for {0}"
+msgstr "Sidevisninger for {0}"
+
+#: 
+msgid "Image must be less than 5MB."
+msgstr "Billedet skal være mindre end 5 MB."
+
+#: 
+msgid "Add Blocked IP"
+msgstr "Tilføj blokeret IP"
+
+#: 
+msgid "Setting not found: {0}.{1}"
+msgstr "Indstillingen blev ikke fundet: {0}.{1}"
+
+#: 
+msgid "Twitter Description"
+msgstr "Twitter beskrivelse"
+
+#: 
+msgid "Failed to send confirmation email message: {0}"
+msgstr "Kunne ikke sende bekræftelses-e-mail: {0}"
+
+#: 
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: 
+msgid "Are you sure you want to delete this prompt?"
+msgstr "Er du sikker på, at du vil slette denne prompt?"
+
+#: 
+msgid "All logs have been deleted."
+msgstr "Alle logfiler er blevet slettet."
+
+#: 
+msgid "You must be logged in to add a comment."
+msgstr "Du skal være logget ind for at tilføje en kommentar."
+
+#: 
+msgid "Search articles..."
+msgstr "Søg i artikler..."
+
+#: 
+msgid "Navigation"
+msgstr "Navigation"
+
+#: 
+msgid "Invalid confirmation code."
+msgstr "Ugyldig bekræftelseskode."
+
+#: 
+msgid "Registration failed. Please, try again."
+msgstr "Registreringen mislykkedes. Prøv igen."
+
+#: 
+msgid "Yes"
+msgstr "Ja"
+
+#: 
+msgid "Pages"
+msgstr "Sider"
+
+#: 
+msgid "There was an issue confirming your account. Please try again."
+msgstr "Der opstod et problem med at bekræfte din konto. Prøv venligst igen."
+
+#: 
+msgid "By"
+msgstr "Ved"
+
+#: 
+msgid "The comment has been saved."
+msgstr "Kommentaren er blevet gemt."
+
+#: 
+msgid "System Prompt"
+msgstr "Systemprompt"
+
+#: 
+msgid "Are you sure you want to delete all {0} logs?"
+msgstr "Er du sikker på, at du vil slette alle {0} logfiler?"
+
+#: 
+msgid "All Tags"
+msgstr "Alle tags"
+
+#: 
+msgid "The value must be 0 or 1."
+msgstr "Værdien skal være 0 eller 1."
+
+#: 
+msgid "Cache Name"
+msgstr "Cache navn"
+
+#: 
+msgid "Is Admin"
+msgstr "er admin"
+
+#: 
+msgid "Are you sure you want to delete all logs?"
+msgstr "Er du sikker på, at du vil slette alle logfiler?"
+
+#: 
+msgid "Inappropriate Reason"
+msgstr "Upassende grund"
+
+#: 
+msgid "The email template could not be deleted. Please, try again."
+msgstr "E-mailskabelonen kunne ikke slettes. Prøv igen."
+
+#: 
+msgid "{0} cache could not be cleared."
+msgstr "{0} cache kunne ikke ryddes."
+
+#: 
+msgid "The article has been saved."
+msgstr "Artiklen er blevet gemt."
+
+#: 
+msgid "Temperature"
+msgstr "Temperatur"
+
+#: 
+msgid "Filter"
+msgstr "Filter"
+
+#: 
+msgid "Modified At"
+msgstr "Ændret kl"
+
+#: 
+msgid "The tag could not be deleted. Please, try again."
+msgstr "Tagget kunne ikke slettes. Prøv igen."
+
+#: 
+msgid "Are you sure you want to delete {0}?"
+msgstr "Er du sikker på, at du vil slette {0}?"
+
+#: 
+msgid "Configured Caches"
+msgstr "Konfigurerede caches"
+
+#: 
+msgid "The internationalisation could not be saved. Please, try again."
+msgstr "Internationaliseringen kunne ikke reddes. Prøv igen."
+
+#: 
+msgid "Update Image"
+msgstr "Opdater billede"
+
+#: 
+msgid "Register"
+msgstr "Register"
+
+#: 
+msgid "The internationalisation could not be deleted. Please, try again."
+msgstr "Internationaliseringen kunne ikke slettes. Prøv igen."
+
+#: 
+msgid "No"
+msgstr "Ingen"
+
+#: 
+msgid "Are you sure you want to clear {0}?"
+msgstr "Er du sikker på, at du vil rydde {0}?"
 
 #: 
 msgid "Update Tag"
@@ -594,826 +990,446 @@ msgid "New Email Template"
 msgstr "Ny e-mail skabelon"
 
 #: 
-msgid "Modified"
-msgstr "Ændret"
+msgid "New AI Prompt"
+msgstr "Ny AI-prompt"
 
 #: 
-msgid "Search slugs..."
-msgstr "Søg efter snegle..."
-
-#: 
-msgid "Meta Keywords"
-msgstr "Meta søgeord"
-
-#: 
-msgid "Published"
-msgstr "Udgivet"
-
-#: 
-msgid "The image has been saved."
-msgstr "Billedet er blevet gemt."
-
-#: 
-msgid "Meta Title"
-msgstr "Meta titel"
-
-#: 
-msgid "Model"
-msgstr "Model"
-
-#: 
-msgid "Message Str"
-msgstr "Meddelelse Str"
-
-#: 
-msgid "Configured Caches"
-msgstr "Konfigurerede caches"
-
-#: 
-msgid "{0} cache could not be cleared."
-msgstr "{0} cache kunne ikke ryddes."
-
-#: 
-msgid "The aiprompt could not be saved. Please, try again."
-msgstr "Aiprompten kunne ikke gemmes. Prøv igen."
-
-#: 
-msgid "Is AI Analyzed"
-msgstr "Er AI analyseret"
-
-#: 
-msgid "Article ID:"
-msgstr "Artikel-id:"
-
-#: 
-msgid "Settings"
-msgstr "Indstillinger"
-
-#: 
-msgid "The log has been deleted."
-msgstr "Loggen er blevet slettet."
-
-#: 
-msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
-msgstr "Side {{page}} af {{pages}}, viser {{current}} registrering(er) ud af {{count}} i alt"
-
-#: 
-msgid "Search articles..."
-msgstr "Søg i artikler..."
-
-#: 
-msgid "No view records found for this article."
-msgstr "Ingen visningsposter fundet for denne artikel."
-
-#: 
-msgid "The internationalisation could not be saved. Please, try again."
-msgstr "Internationaliseringen kunne ikke reddes. Prøv igen."
-
-#: 
-msgid "Slug:"
-msgstr "Snegl:"
-
-#: 
-msgid "Your password has been reset. Please log in with your new password."
-msgstr "Din adgangskode er blevet nulstillet. Log venligst ind med din nye adgangskode."
-
-#: 
-msgid "Logs"
-msgstr "Logs"
-
-#: 
-msgid "Setting not found: {0}.{1}"
-msgstr "Indstillingen blev ikke fundet: {0}.{1}"
-
-#: 
-msgid "Internationalisation"
-msgstr "Internationalisering"
-
-#: 
-msgid "Failed to send password reset email: {0}"
-msgstr "Kunne ikke sende e-mail til nulstilling af adgangskode: {0}"
-
-#: 
-msgid "Articles"
-msgstr "Artikler"
-
-#: 
-msgid "Yes"
-msgstr "Ja"
-
-#: 
-msgid "The blocked ip has been deleted."
-msgstr "Den blokerede ip er blevet slettet."
-
-#: 
-msgid "The slug has been saved."
-msgstr "Sneglen er blevet reddet."
-
-#: 
-msgid "Page View Statistics for slug: {0}"
-msgstr "Sidevisningsstatistikker for slug: {0}"
-
-#: 
-msgid "Created At"
-msgstr "Oprettet kl"
-
-#: 
-msgid "Invalid confirmation code."
-msgstr "Ugyldig bekræftelseskode."
-
-#: 
-msgid "The slug could not be deleted. Please, try again."
-msgstr "Sneglen kunne ikke slettes. Prøv igen."
-
-#: 
-msgid "Are you sure you want to delete {0}?"
-msgstr "Er du sikker på, at du vil slette {0}?"
-
-#: 
-msgid "The value must be 0 or 1."
-msgstr "Værdien skal være 0 eller 1."
-
-#: 
-msgid "Blocked At"
-msgstr "Blokeret kl"
-
-#: 
-msgid "Display"
-msgstr "Vise"
-
-#: 
-msgid "List Email Templates"
-msgstr "Liste e-mail skabeloner"
-
-#: 
-msgid "Page Views for {0}"
-msgstr "Sidevisninger for {0}"
-
-#: 
-msgid "The user has been deleted."
-msgstr "Brugeren er blevet slettet."
-
-#: 
-msgid "API request failed. Please try again later."
-msgstr "API-anmodning mislykkedes. Prøv venligst igen senere."
-
-#: 
-msgid "Your account has been confirmed. You can now log in."
-msgstr "Din konto er blevet bekræftet. Du kan nu logge ind."
-
-#: 
-msgid "The blocked ip could not be deleted. Please, try again."
-msgstr "Den blokerede ip kunne ikke slettes. Prøv igen."
-
-#: 
-msgid "Registration successful. Please check your email for confirmation."
-msgstr "Registreringen lykkedes. Tjek venligst din e-mail for bekræftelse."
-
-#: 
-msgid "Failed to send confirmation email message: {0}"
-msgstr "Kunne ikke sende bekræftelses-e-mail: {0}"
-
-#: 
-msgid "View"
-msgstr "Udsigt"
-
-#: 
-msgid "The internationalisation has been saved."
-msgstr "Internationaliseringen er reddet."
-
-#: 
-msgid "Hide"
-msgstr "Skjule"
-
-#: 
-msgid "Never"
-msgstr "Aldrig"
-
-#: 
-msgid "The article could not be deleted. Please, try again."
-msgstr "Artiklen kunne ikke slettes. Prøv igen."
-
-#: 
-msgid "Posted on {date} by {author}"
-msgstr "Udgivet den {date} af {author}"
-
-#: 
-msgid "New Slug"
-msgstr "Ny Slug"
-
-#: 
-msgid "The comment has been saved."
-msgstr "Kommentaren er blevet gemt."
-
-#: 
-msgid "The email template has been deleted."
-msgstr "E-mail-skabelonen er blevet slettet."
-
-#: 
-msgid "Your account has been updated."
-msgstr "Din konto er blevet opdateret."
-
-#: 
-msgid "All Levels"
-msgstr "Alle niveauer"
-
-#: 
-msgid "Bulk Upload Images"
-msgstr "Bulk upload billeder"
-
-#: 
-msgid "Updated At"
-msgstr "Opdateret kl"
-
-#: 
-msgid "The tag could not be saved. Please, try again."
-msgstr "Tagget kunne ikke gemmes. Prøv igen."
-
-#: 
-msgid "The slug could not be saved. Please, try again."
-msgstr "Sneglen kunne ikke reddes. Prøv igen."
-
-#: 
-msgid "The image could not be saved. Please, try again."
-msgstr "Billedet kunne ikke gemmes. Prøv igen."
-
-#: 
-msgid "Id"
-msgstr "Id"
-
-#: 
-msgid "Additional Images"
-msgstr "Yderligere billeder"
-
-#: 
-msgid "Add Image"
-msgstr "Tilføj billede"
-
-#: 
-msgid "Cache"
-msgstr "Cache"
-
-#: 
-msgid "Invalid or expired password reset link."
-msgstr "Ugyldigt eller udløbet link til nulstilling af adgangskode."
-
-#: 
-msgid "Is Published"
-msgstr "Er udgivet"
-
-#: 
-msgid "Back"
-msgstr "Tilbage"
-
-#: 
-msgid "Some caches were cleared, but the following failed: {0}"
-msgstr "Nogle caches blev ryddet, men følgende mislykkedes: {0}"
-
-#: 
-msgid "List {0}"
-msgstr "Liste {0}"
-
-#: 
-msgid "You cannot disable your own account."
-msgstr "Du kan ikke deaktivere din egen konto."
-
-#: 
-msgid "Cache Name"
-msgstr "Cache navn"
-
-#: 
-msgid "New Image"
-msgstr "Nyt billede"
-
-#: 
-msgid "You are not authorized to edit this account, stick to your own."
-msgstr "Du er ikke autoriseret til at redigere denne konto, hold dig til din egen."
-
-#: 
-msgid "There was an issue confirming your account. Please try again."
-msgstr "Der opstod et problem med at bekræfte din konto. Prøv venligst igen."
-
-#: 
-msgid "Views"
-msgstr "Visninger"
-
-#: 
-msgid "Last Cleared"
-msgstr "Sidst ryddet"
-
-#: 
-msgid "Some settings could not be saved. Please, try again."
-msgstr "Nogle indstillinger kunne ikke gemmes. Prøv igen."
-
-#: 
-msgid "Meta Description"
-msgstr "Meta beskrivelse"
-
-#: 
-msgid "Related Articles"
-msgstr "Relaterede artikler"
-
-#: 
-msgid "This slug is already in use. Please enter a unique slug."
-msgstr "Denne snegl er allerede i brug. Indtast venligst en unik snegl."
-
-#: 
-msgid "Task Type"
-msgstr "Opgavetype"
-
-#: 
-msgid "Failed to send email. Please check your email configuration."
-msgstr "Kunne ikke sende e-mail. Tjek venligst din e-mail-konfiguration."
-
-#: 
-msgid "Failed to send email to: {0}"
-msgstr "Kunne ikke sende e-mail til: {0}"
-
-#: 
-msgid "Edit Comment"
-msgstr "Rediger kommentar"
-
-#: 
-msgid "Search users..."
-msgstr "Søg efter brugere..."
-
-#: 
-msgid "Are you sure you want to delete all logs in group {0}?"
-msgstr "Er du sikker på, at du vil slette alle logfiler i gruppen {0}?"
-
-#: 
-msgid "Registration failed. Please, try again."
-msgstr "Registreringen mislykkedes. Prøv igen."
-
-#: 
-msgid "Logout"
-msgstr "Log ud"
-
-#: 
-msgid "Edit Blocked IP"
-msgstr "Rediger blokeret IP"
-
-#: 
-msgid "Email Templates"
-msgstr "Email skabeloner"
-
-#: 
-msgid "Delete"
-msgstr "Slet"
+msgid "Tag not found"
+msgstr "Tag ikke fundet"
 
 #: 
 msgid "New {0}"
 msgstr "Ny {0}"
 
 #: 
-msgid "All logs with level {0} have been deleted."
-msgstr "Alle logfiler med niveau {0} er blevet slettet."
+msgid "A value is required"
+msgstr "En værdi er påkrævet"
 
 #: 
-msgid "New Article"
-msgstr "Ny artikel"
+msgid "The email template has been saved."
+msgstr "E-mail-skabelonen er blevet gemt."
 
 #: 
-msgid "Are you sure you want to delete # {0}?"
-msgstr "Er du sikker på, at du vil slette # {0}?"
+msgid "Search logs..."
+msgstr "Søg i logfiler..."
 
 #: 
-msgid "Edit Tag"
-msgstr "Rediger tag"
+msgid "Related Articles"
+msgstr "Relaterede artikler"
 
 #: 
-msgid "Add Page"
-msgstr "Tilføj side"
+msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
+msgstr "Side {{page}} af {{pages}}, viser {{current}} registrering(er) ud af {{count}} i alt"
 
 #: 
-msgid "System Prompt"
-msgstr "Systemprompt"
-
-#: 
-msgid "Search tags..."
-msgstr "Søg tags..."
-
-#: 
-msgid "There was an issue resetting your password. Please try again."
-msgstr "Der var et problem med at nulstille din adgangskode. Prøv venligst igen."
-
-#: 
-msgid "You must be logged in to add a comment."
-msgstr "Du skal være logget ind for at tilføje en kommentar."
-
-#: 
-msgid "Inappropriate Reason"
-msgstr "Upassende grund"
-
-#: 
-msgid "Please upload only images (jpeg, png, gif)."
-msgstr "Upload kun billeder (jpeg, png, gif)."
-
-#: 
-msgid "Subject"
-msgstr "Emne"
-
-#: 
-msgid "Live"
-msgstr "Levende"
-
-#: 
-msgid "Edit Email Template"
-msgstr "Rediger e-mail-skabelon"
-
-#: 
-msgid "Show Details"
-msgstr "Vis detaljer"
-
-#: 
-msgid "New AI Prompt"
-msgstr "Ny AI-prompt"
-
-#: 
-msgid "If your email is registered, you will receive a link to reset your password."
-msgstr "Hvis din e-mail er registreret, vil du modtage et link til at nulstille din adgangskode."
-
-#: 
-msgid "Expires At"
-msgstr "Udløber kl"
-
-#: 
-msgid "The blocked ip has been saved."
-msgstr "Den blokerede ip er blevet gemt."
-
-#: 
-msgid "Admin"
-msgstr "Admin"
+msgid "Search slugs..."
+msgstr "Søg efter snegle..."
 
 #: 
 msgid "The user could not be saved. Please, try again."
 msgstr "Brugeren kunne ikke gemmes. Prøv igen."
 
 #: 
-msgid "Add Tag"
-msgstr "Tilføj tag"
+msgid "The blocked ip could not be saved. Please, try again."
+msgstr "Den blokerede ip kunne ikke gemmes. Prøv igen."
 
 #: 
-msgid "The image has been deleted."
-msgstr "Billedet er blevet slettet."
+msgid "Message"
+msgstr "Besked"
 
 #: 
-msgid "Content"
-msgstr "Tilfreds"
+msgid "Show Details"
+msgstr "Vis detaljer"
 
 #: 
-msgid "Invalid type"
-msgstr "Ugyldig type"
-
-#: 
-msgid "An Internal Error Has Occurred."
-msgstr "Der er opstået en intern fejl."
-
-#: 
-msgid "Group Name"
-msgstr "Gruppenavn"
-
-#: 
-msgid "Edit Slug"
-msgstr "Rediger Slug"
-
-#: 
-msgid "The internationalisation could not be deleted. Please, try again."
-msgstr "Internationaliseringen kunne ikke slettes. Prøv igen."
-
-#: 
-msgid "Update Image"
-msgstr "Opdater billede"
-
-#: 
-msgid "Not published"
-msgstr "Ikke offentliggjort"
+msgid "Are you sure you want to delete # {0}?"
+msgstr "Er du sikker på, at du vil slette # {0}?"
 
 #: 
 msgid "New User"
 msgstr "Ny bruger"
 
 #: 
-msgid "All logs have been deleted."
-msgstr "Alle logfiler er blevet slettet."
+msgid "Id"
+msgstr "Id"
 
 #: 
-msgid "Please log in to add a comment"
-msgstr "Log venligst ind for at tilføje en kommentar"
+msgid "Error loading images:"
+msgstr "Fejl ved indlæsning af billeder:"
 
 #: 
-msgid "You cannot remove your own admin status."
-msgstr "Du kan ikke fjerne din egen administratorstatus."
+msgid "Engine"
+msgstr "Motor"
 
 #: 
-msgid "No"
-msgstr "Ingen"
+msgid "{0} cache has been cleared successfully."
+msgstr "{0} cache er blevet ryddet."
 
 #: 
-msgid "A value is required"
-msgstr "En værdi er påkrævet"
-
-#: 
-msgid "Error in: "
-msgstr "Fejl i: "
-
-#: 
-msgid "Submit"
-msgstr "Indsend"
-
-#: 
-msgid "Email template not found: {0}"
-msgstr "E-mailskabelon blev ikke fundet: {0}"
-
-#: 
-msgid "The aiprompt has been saved."
-msgstr "Aiprompten er blevet gemt."
-
-#: 
-msgid "Invalid confirmation code. Please contact support."
-msgstr "Ugyldig bekræftelseskode. Kontakt venligst support."
-
-#: 
-msgid "The slug has been deleted."
-msgstr "Sneglen er blevet slettet."
-
-#: 
-msgid "Invalid value for the specified type."
-msgstr "Ugyldig værdi for den angivne type."
-
-#: 
-msgid "Search comments..."
-msgstr "Søg i kommentarer..."
-
-#: 
-msgid "Main Picture"
-msgstr "Hovedbillede"
-
-#: 
-msgid "The comment could not be deleted. Please, try again."
-msgstr "Kommentaren kunne ikke slettes. Prøv igen."
-
-#: 
-msgid "Is Inappropriate"
-msgstr "er upassende"
-
-#: 
-msgid "Grid View"
-msgstr "Gittervisning"
-
-#: 
-msgid "Are you sure you want to delete comment by {0}?"
-msgstr "Er du sikker på, at du vil slette kommentar fra {0}?"
-
-#: 
-msgid "Edit Your Account"
-msgstr "Rediger din konto"
-
-#: 
-msgid "AI Prompts"
-msgstr "AI-prompter"
-
-#: 
-msgid "Unable to delete the log."
-msgstr "Kunne ikke slette loggen."
-
-#: 
-msgid "Filter"
-msgstr "Filter"
-
-#: 
-msgid "The user has been saved."
-msgstr "Brugeren er blevet gemt."
-
-#: 
-msgid "Level"
-msgstr "Niveau"
-
-#: 
-msgid "No pages found."
-msgstr "Ingen sider fundet."
-
-#: 
-msgid "All logs in group {0} have been deleted."
-msgstr "Alle logfiler i gruppe {0} er blevet slettet."
-
-#: 
-msgid "Comments"
-msgstr "Kommentarer"
-
-#: 
-msgid "Comment for {0}"
-msgstr "Kommentar til {0}"
-
-#: 
-msgid "Confirm Password"
-msgstr "Bekræft adgangskode"
-
-#: 
-msgid "Failed to update translation for message ID: {0}"
-msgstr "Kunne ikke opdatere oversættelsen for meddelelses-id: {0}"
-
-#: 
-msgid "By"
-msgstr "Ved"
-
-#: 
-msgid "Login"
-msgstr "Log ind"
-
-#: 
-msgid "Error sending email: {0}"
-msgstr "Fejl ved afsendelse af e-mail: {0}"
-
-#: 
-msgid "Word Count"
-msgstr "Ordtælling"
-
-#: 
-msgid "Forgot Password?"
-msgstr "Glemt adgangskode?"
-
-#: 
-msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
-msgstr "Slug er i konflikt med en eksisterende SEO-omdirigering. Vælg venligst en anden slug."
-
-#: 
-msgid "Add AI Prompt"
-msgstr "Tilføj AI-prompt"
-
-#: 
-msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
-msgstr "Sneglen skal være URL-sikker (kun små bogstaver, tal og bindestreger)"
-
-#: 
-msgid "Context"
-msgstr "Sammenhæng"
-
-#: 
-msgid "Submit Comment"
-msgstr "Send kommentar"
-
-#: 
-msgid "The email template could not be saved. Please, try again."
-msgstr "E-mail-skabelonen kunne ikke gemmes. Prøv igen."
-
-#: 
-msgid "Article not found"
-msgstr "Artikel ikke fundet"
-
-#: 
-msgid "No images."
-msgstr "Ingen billeder."
-
-#: 
-msgid "The article could not be saved. Please, try again."
-msgstr "Artiklen kunne ikke gemmes. Prøv igen."
-
-#: 
-msgid "Blocked IPs"
-msgstr "Blokerede IP&#39;er"
-
-#: 
-msgid "Save All Settings"
-msgstr "Gem alle indstillinger"
-
-#: 
-msgid "All rights reserved."
-msgstr "Alle rettigheder forbeholdes."
-
-#: 
-msgid "Too Many Requests"
-msgstr "For mange anmodninger"
-
-#: 
-msgid "Failed to save the image"
-msgstr "Billedet kunne ikke gemmes"
-
-#: 
-msgid "All Groups"
-msgstr "Alle grupper"
-
-#: 
-msgid "The value must be a number."
-msgstr "Værdien skal være et tal."
-
-#: 
-msgid "SEO Fields"
-msgstr "SEO felter"
-
-#: 
-msgid "Picture"
-msgstr "Billede"
-
-#: 
-msgid "Show Full Article"
-msgstr "Vis hele artiklen"
-
-#: 
-msgid "List View"
-msgstr "Listevisning"
-
-#: 
-msgid "The internationalisation has been deleted."
-msgstr "Internationaliseringen er blevet slettet."
-
-#: 
-msgid "No page view data available for this article."
-msgstr "Ingen sidevisningsdata tilgængelige for denne artikel."
-
-#: 
-msgid "List Blocked IPs"
-msgstr "Liste over blokerede IP&#39;er"
-
-#: 
-msgid "Edit User"
-msgstr "Rediger bruger"
-
-#: 
-msgid "Edit Aiprompt"
-msgstr "Rediger Aiprompt"
-
-#: 
-msgid "Are you sure you want to delete this prompt?"
-msgstr "Er du sikker på, at du vil slette denne prompt?"
-
-#: 
-msgid "No deleting your own account."
-msgstr "Ingen sletning af din egen konto."
-
-#: 
-msgid "Image uploaded successfully"
-msgstr "Billedet blev uploadet"
-
-#: 
-msgid "Update Article"
-msgstr "Opdater artikel"
-
-#: 
-msgid "Too many requests. Please try again later."
-msgstr "For mange anmodninger. Prøv venligst igen senere."
+msgid "All logs with level {0} have been deleted."
+msgstr "Alle logfiler med niveau {0} er blevet slettet."
 
 #: 
 msgid "Error saving {0}.{1}: {2}"
 msgstr "Fejl ved lagring af {0}.{1}: {2}"
 
 #: 
-msgid "No tags are linked."
-msgstr "Ingen tags er linket."
+msgid "Is AI Analyzed"
+msgstr "Er AI analyseret"
 
 #: 
-msgid "Enter a number"
-msgstr "Indtast et tal"
+msgid "Read More"
+msgstr "Læs mere"
 
 #: 
-msgid "English"
-msgstr "engelsk"
+msgid "Updated At"
+msgstr "Opdateret kl"
 
 #: 
-msgid "Instagram Description"
-msgstr "Instagram beskrivelse"
+msgid "Error sending email: {0}"
+msgstr "Fejl ved afsendelse af e-mail: {0}"
+
+#: 
+msgid "Enter text"
+msgstr "Indtast tekst"
+
+#: 
+msgid "Add AI Prompt"
+msgstr "Tilføj AI-prompt"
+
+#: 
+msgid "Submit"
+msgstr "Indsend"
+
+#: 
+msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
+msgstr "E-mail sendt til: {0}. Skabelon: {1}, Emne: {2}"
+
+#: 
+msgid "Views"
+msgstr "Visninger"
+
+#: 
+msgid "Show"
+msgstr "Vise"
+
+#: 
+msgid "Edit Settings"
+msgstr "Rediger indstillinger"
+
+#: 
+msgid "Task Type"
+msgstr "Opgavetype"
+
+#: 
+msgid "User"
+msgstr "Bruger"
+
+#: 
+msgid "Max Tokens"
+msgstr "Max Tokens"
+
+#: 
+msgid "Grid View"
+msgstr "Gittervisning"
+
+#: 
+msgid "Submit Comment"
+msgstr "Send kommentar"
 
 #: 
 msgid "Related Tags"
 msgstr "Relaterede tags"
 
 #: 
-msgid "Title"
-msgstr "Titel"
+msgid "Subject"
+msgstr "Emne"
 
 #: 
-msgid "Select a parent"
-msgstr "Vælg en forælder"
+msgid "Edit Email Template"
+msgstr "Rediger e-mail-skabelon"
 
 #: 
-msgid "{0} Views"
-msgstr "{0} Visninger"
+msgid "Created"
+msgstr "Oprettet"
 
 #: 
-msgid "Temperature"
-msgstr "Temperatur"
+msgid "IP Address"
+msgstr "IP-adresse"
 
 #: 
-msgid "Body"
-msgstr "Legeme"
+msgid "Invalid value for the specified type."
+msgstr "Ugyldig værdi for den angivne type."
+
+#: 
+msgid "Slug"
+msgstr "Snegl"
+
+#: 
+msgid "The image could not be deleted. Please, try again."
+msgstr "Billedet kunne ikke slettes. Prøv igen."
+
+#: 
+msgid "Reason"
+msgstr "Årsag"
+
+#: 
+msgid "The article could not be saved. Please, try again."
+msgstr "Artiklen kunne ikke gemmes. Prøv igen."
+
+#: 
+msgid "Bulk Upload Images"
+msgstr "Bulk upload billeder"
+
+#: 
+msgid "Failed to save the image"
+msgstr "Billedet kunne ikke gemmes"
+
+#: 
+msgid "Edit Internationalisation"
+msgstr "Rediger internationalisering"
+
+#: 
+msgid "Delete"
+msgstr "Slet"
+
+#: 
+msgid "All caches have been cleared successfully."
+msgstr "Alle caches er blevet ryddet."
+
+#: 
+msgid "Referer"
+msgstr "Henviser"
+
+#: 
+msgid "All Groups"
+msgstr "Alle grupper"
+
+#: 
+msgid "Article not found."
+msgstr "Artikel ikke fundet."
+
+#: 
+msgid "Images"
+msgstr "Billeder"
 
 #: 
 msgid "Email"
 msgstr "E-mail"
 
 #: 
-msgid "Email sent successfully."
-msgstr "E-mail blev sendt."
+msgid "Missing required arguments in the message."
+msgstr "Mangler påkrævede argumenter i meddelelsen."
 
 #: 
-msgid "Unknown Author"
-msgstr "Ukendt forfatter"
+msgid "Too many requests. Please try again later."
+msgstr "For mange anmodninger. Prøv venligst igen senere."
 
 #: 
-msgid "Edit {0}"
-msgstr "Rediger {0}"
+msgid "The aiprompt could not be saved. Please, try again."
+msgstr "Aiprompten kunne ikke gemmes. Prøv igen."
 
 #: 
-msgid "{0} cache has been cleared successfully."
-msgstr "{0} cache er blevet ryddet."
+msgid "The email template could not be saved. Please, try again."
+msgstr "E-mail-skabelonen kunne ikke gemmes. Prøv igen."
+
+#: 
+msgid "Article/Page"
+msgstr "Artikel/side"
+
+#: 
+msgid "The slug could not be deleted. Please, try again."
+msgstr "Sneglen kunne ikke slettes. Prøv igen."
+
+#: 
+msgid "Message Str"
+msgstr "Meddelelse Str"
+
+#: 
+msgid "Your password has been reset. Please log in with your new password."
+msgstr "Din adgangskode er blevet nulstillet. Log venligst ind med din nye adgangskode."
+
+#: 
+msgid "Article not found"
+msgstr "Artikel ikke fundet"
+
+#: 
+msgid "Code Coverage"
+msgstr "Kodedækning"
+
+#: 
+msgid "Failed to send password reset email: {0}"
+msgstr "Kunne ikke sende e-mail til nulstilling af adgangskode: {0}"
+
+#: 
+msgid "Login"
+msgstr "Log ind"
+
+#: 
+msgid "Please upload only images (jpeg, png, gif)."
+msgstr "Upload kun billeder (jpeg, png, gif)."
+
+#: 
+msgid "The slug has been saved."
+msgstr "Sneglen er blevet reddet."
+
+#: 
+msgid "Willow Logo"
+msgstr "Willow logo"
+
+#: 
+msgid "The aiprompt has been saved."
+msgstr "Aiprompten er blevet gemt."
+
+#: 
+msgid "The value must not be empty."
+msgstr "Værdien må ikke være tom."
+
+#: 
+msgid "All Locales"
+msgstr "Alle lokaliteter"
+
+#: 
+msgid "Register New Account"
+msgstr "Registrer ny konto"
+
+#: 
+msgid "System Logs"
+msgstr "Systemlogs"
+
+#: 
+msgid "Search comments..."
+msgstr "Søg i kommentarer..."
+
+#: 
+msgid "No comments yet."
+msgstr "Ingen kommentarer endnu."
+
+#: 
+msgid "Send Email"
+msgstr "Send e-mail"
+
+#: 
+msgid "Add Article"
+msgstr "Tilføj artikel"
+
+#: 
+msgid "Edit Tag"
+msgstr "Rediger tag"
+
+#: 
+msgid "Add User"
+msgstr "Tilføj bruger"
+
+#: 
+msgid "Save All Settings"
+msgstr "Gem alle indstillinger"
+
+#: 
+msgid "Actions"
+msgstr "Handlinger"
+
+#: 
+msgid "Body Text"
+msgstr "Brødtekst"
+
+#: 
+msgid "Slugs"
+msgstr "Snegle"
+
+#: 
+msgid "Delete All Logs"
+msgstr "Slet alle logfiler"
+
+#: 
+msgid "The user has been saved."
+msgstr "Brugeren er blevet gemt."
+
+#: 
+msgid "Front Site"
+msgstr "Forside"
+
+#: 
+msgid "Name"
+msgstr "Navn"
+
+#: 
+msgid "The log has been deleted."
+msgstr "Loggen er blevet slettet."
+
+#: 
+msgid "Please enter your email to reset your password"
+msgstr "Indtast venligst din e-mail for at nulstille din adgangskode"
+
+#: 
+msgid "AI Prompts"
+msgstr "AI-prompter"
+
+#: 
+msgid "List {0}"
+msgstr "Liste {0}"
+
+#: 
+msgid "Update User"
+msgstr "Opdater bruger"
+
+#: 
+msgid "Title"
+msgstr "Titel"
+
+#: 
+msgid "Additional Images"
+msgstr "Yderligere billeder"
+
+#: 
+msgid "Reset Password"
+msgstr "Nulstil adgangskode"
+
+#: 
+msgid "The image has been saved."
+msgstr "Billedet er blevet gemt."
+
+#: 
+msgid "Search tags..."
+msgstr "Søg tags..."
+
+#: 
+msgid "No articles found for this tag."
+msgstr "Ingen artikler fundet for dette tag."
+
+#: 
+msgid "You cannot disable your own account."
+msgstr "Du kan ikke deaktivere din egen konto."
+
+#: 
+msgid "The tag has been saved."
+msgstr "Tagget er blevet gemt."
+
+#: 
+msgid "Unable to add your comment."
+msgstr "Kan ikke tilføje din kommentar."
+
+#: 
+msgid "New Article"
+msgstr "Ny artikel"
+
+#: 
+msgid "Registration successful, but there was an issue creating the confirmation link."
+msgstr "Registreringen lykkedes, men der var et problem med at oprette bekræftelseslinket."
+
+#: 
+msgid "The user could not be deleted. Please, try again."
+msgstr "Brugeren kunne ikke slettes. Prøv igen."
+
+#: 
+msgid "User Agent"
+msgstr "Brugeragent"
+
+#: 
+msgid "Select a parent"
+msgstr "Vælg en forælder"
+
+#: 
+msgid "Posted on {date} by {author}"
+msgstr "Udgivet den {date} af {author}"
 

@@ -92,7 +92,6 @@
             <span class="text-white">&copy; <?= date('Y') ?> <?= SettingsManager::read('SEO.siteName', 'Willow CMS') ?>. <?= __('All rights reserved.') ?></span>
         </div>
     </footer>
-
     <?= $this->fetch('script') ?>
 </body>
 </html>

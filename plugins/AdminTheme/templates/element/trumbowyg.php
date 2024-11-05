@@ -4,6 +4,7 @@
 <?= $this->Html->script('https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/trumbowyg.min.js'); ?>
 <?= $this->Html->script('https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/plugins/upload/trumbowyg.upload.min.js'); ?>
 <?= $this->Html->script('https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/plugins/table/trumbowyg.table.min.js'); ?>
+<?= $this->Html->script('https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/plugins/preformatted/trumbowyg.preformatted.min.js'); ?>
 <meta name="csrfToken" content="<?= $this->request->getAttribute('csrfToken') ?>">
 <style>
 .images-grid {
@@ -126,6 +127,7 @@ $(document).ready(function() {
     $('#article-body').trumbowyg({
         btns: [
             ['viewHTML'],
+            ['preformatted'],
             ['formatting'],
             ['bold', 'italic', 'underline', 'strikethrough'],
             ['superscript', 'subscript'],

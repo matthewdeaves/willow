@@ -6,11 +6,6 @@
 <?= $this->Html->script('https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/plugins/table/trumbowyg.table.min.js'); ?>
 <meta name="csrfToken" content="<?= $this->request->getAttribute('csrfToken') ?>">
 <style>
-.trumbowyg-modal-box {
-    width: 1000px; /* Set your desired width */
-    height: 700px; /* Set your desired height */
-    overflow: auto; /* Add scroll if content exceeds modal size */
-}
 .images-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Adjust minmax values as needed */

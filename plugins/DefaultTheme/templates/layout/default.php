@@ -71,13 +71,13 @@
                 </div>
             <?php endif; ?>
             <div class="row">
-                <div class="col-lg-3 mb-4">
+                <div class="col-lg-2 mb-4">
                     <div class="collapse d-lg-block" id="sidebarMenu">
                         <?= $this->element('page_menu', ['articleTreeMenu' => $articleTreeMenu]) ?>
                         <?= $this->element('tag_menu', ['tags' => $tagTreeMenu]) ?>
                     </div>
                 </div>
-                <div class="col-lg-9">
+                <div class="col-lg-10">
                     <?= $this->Flash->render() ?>
                     <?= $this->fetch('content') ?>
                 </div>

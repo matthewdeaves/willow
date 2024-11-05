@@ -43,7 +43,7 @@ class ImagesController extends AppController
         if ($viewType) {
             $session->write('Images.viewType', $viewType);
         } else {
-            $viewType = $session->read('Images.viewType', 'list');
+            $viewType = $session->read('Images.viewType', 'grid');
         }
 
         $query = $this->Images->find();

@@ -9,6 +9,7 @@
     <meta property="og:url" content="<?= $this->Url->build('/' . $model->slug, ['fullBase' => true]) ?>">
     <meta property="og:title" content="<?= h($model->meta_title ?: $model->title) ?>">
     <meta property="og:description" content="<?= h($model->facebook_description ?: $model->meta_description) ?>">
+    <meta property="og:image" content="<?= isset($model->dir) ? $this->Url->build($model->dir . $model->image, ['fullBase' => true])  : '' ?>">
     <meta property="article:published_time" content="<?= isset($model->published) ? $model->published->format('c') : $model->modified->format('c') ?>">
     <meta property="article:modified_time" content="<?= $model->modified->format('c') ?>">
     

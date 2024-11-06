@@ -18,15 +18,16 @@
     <?= $this->fetch('script') ?>
 </head>
 <body class="d-flex flex-column min-vh-100 bg-light">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
         <div class="container-fluid">
             <?= $this->Html->link(SettingsManager::read('SEO.siteStrapline', 'Default strapline'), '/', ['class' => 'navbar-brand']) ?>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <?= $this->element('page_main_menu', ['articleTreeMenu' => $articleTreeMenu]) ?>
-                <ul class="navbar-nav">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                
+                <ul class="navbar-nav ms-auto">
+                    <?= $this->element('page_main_menu', ['articleTreeMenu' => $articleTreeMenu]) ?>
                     <li class="nav-item">
                         <?= $this->Html->link(__('Tags'), ['controller' => 'Tags', 'action' => 'index'], ['class' => 'nav-link']) ?>
                     </li>

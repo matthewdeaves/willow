@@ -16,17 +16,29 @@
     display: block;
 }
 
+.root-menu-item {
+    color: #ffffff;
+}
+
+.root-menu-item:hover {
+    color: #ffffff;
+}
+
+.root-menu-item.active {
+    color: #ffffff;
+}
+
 .child-menu-item {
-    color: #212529; /* Set the text color to a dark color for better contrast */
-    background-color: #f8f9fa; /* Set a light background color for the child menu items */
+    color: #212529 !important;
+    background-color: #f8f9fa;
 }
 
 .child-menu-item:hover {
-    color: #212529; /* Keep the text color dark on hover */
-    background-color: #e9ecef; /* Change the background color on hover for visual feedback */
+    color: #212529 !important;
+    background-color: #e9ecef;
 }
 
 .child-menu-item.active {
-    color: #212529; /* Keep the text color dark for the active item */
-    background-color: #dee2e6; /* Set a different background color for the active item */
+    color: #212529 !important;
+    background-color: #dee2e6;
 }

@@ -24,15 +24,23 @@ if (!function_exists('renderArticleMainMenuItem')) {
                     'class' => 'nav-link dropdown-toggle ' . $activeClass,
                     'id' => 'navbarDropdown' . $item['id'],
                     'role' => 'button',
+                    'data-bs-toggle' => 'dropdown',
                     'aria-expanded' => 'false',
                     'escape' => false
                 ]
             );
             echo '<ul class="dropdown-menu" aria-labelledby="navbarDropdown' . $item['id'] . '">';
             foreach ($item['children'] as $child) {
-                echo '<li>'; // Add the <li> element here
-                renderArticleMainMenuItem($child, $Html, $currentUrl);
-                echo '</li>'; // Close the <li> element
+                $childUrl = isset($child['slug']) ? ['_name' => 'page-by-slug', 'slug' => $child['slug']] : '#';
+                echo '<li>';
+                echo $Html->link(
+                    htmlspecialchars_decode($child['title']),
+                    $childUrl,
+                    [
+                        'class' => 'dropdown-item ' . ($currentUrl === $Html->Url->build($childUrl) ? 'active' : '')
+                    ]
+                );
+                echo '</li>';
             }
             echo '</ul>';
             echo '</li>';
@@ -42,7 +50,7 @@ if (!function_exists('renderArticleMainMenuItem')) {
                 htmlspecialchars_decode($title),
                 $url,
                 [
-                    'class' => 'nav-link child-menu-item ' . $activeClass // Add the 'child-menu-item' class
+                    'class' => 'nav-link ' . $activeClass
                 ]
             );
             echo '</li>';

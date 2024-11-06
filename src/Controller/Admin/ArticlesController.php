@@ -159,6 +159,8 @@ class ArticlesController extends AppController
                 'Articles.modified',
                 'Articles.published',
                 'Articles.is_published',
+                'Articles.image',
+                'Articles.dir',
                 'Users.id',
                 'Users.username',
                 'Users.email',

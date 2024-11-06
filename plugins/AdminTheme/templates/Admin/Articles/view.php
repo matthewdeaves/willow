@@ -4,6 +4,7 @@
  * @var \App\Model\Entity\Article $article
  */
 ?>
+<?php use App\Utility\SettingsManager; ?>
 <div class="container-fluid mt-4">
     <div class="row">
         <?php
@@ -68,6 +69,30 @@
                                         ],
                                         ['escape' => false]
                                     ) ?>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><?= __('Image') ?></th>
+                            <td>
+                                <?php if (!empty($article->image)) : ?>
+                                <div class="position-relative">
+                                    <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $article->image, 
+                                        ['pathPrefix' => 'files/Articles/image/', 
+                                        'alt' => $article->alt_text, 
+                                        'class' => 'img-thumbnail', 
+                                        'width' => '50',
+                                        'data-bs-toggle' => 'popover',
+                                        'data-bs-trigger' => 'hover',
+                                        'data-bs-html' => 'true',
+                                        'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $article->image, 
+                                            ['pathPrefix' => 'files/Articles/image/', 
+                                            'alt' => $article->alt_text, 
+                                            'class' => 'img-fluid', 
+                                            'style' => 'max-width: 300px; max-height: 300px;'])
+                                        ]) 
+                                    ?>
+                                </div>
                                 <?php endif; ?>
                             </td>
                         </tr>
@@ -145,3 +170,19 @@
         </div>
     </div>
 </div>
+
+<?php $this->Html->scriptStart(['block' => true]); ?>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize popovers on page load
+    const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+    popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl);
+    });
+
+    $('#tags-select').selectpicker({
+        liveSearch: true,
+        actionsBox: true,
+        selectedTextFormat: 'count > 3'
+    });
+});
+<?php $this->Html->scriptEnd(); ?>

@@ -20,7 +20,7 @@
                     <h3 class="mb-0"><?= __('Add Tag') ?></h3>
                 </div>
                 <div class="card-body">
-                    <?= $this->Form->create($tag, ['class' => 'needs-validation', 'novalidate' => true]) ?>
+                    <?= $this->Form->create($tag, ['type' => 'file', 'class' => 'needs-validation', 'novalidate' => true, 'enctype' => 'multipart/form-data']) ?>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <?= $this->Form->control('title', [
@@ -46,10 +46,10 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 mb-3">
-                            <?= $this->Form->label('articles._ids', 'Associated Articles') ?>
+                            <?= $this->Form->label('articles._ids', __('Associated Articles/Pages')) ?>
                             <div class="input-group">
                                 <input type="text" class="form-control" id="articleSearch" placeholder="Search articles...">
-                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Select Articles</button>
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><?= __('Select...') ?></button>
                                 <ul class="dropdown-menu dropdown-menu-end" style="max-height: 300px; overflow-y: auto;">
                                     <?php foreach ($articles as $value => $label): ?>
                                         <li>
@@ -61,6 +61,15 @@
                                     <?php endforeach; ?>
                                 </ul>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <?= $this->Form->control('image', [
+                                'type' => 'file',
+                                'class' => 'form-control-file' . ($this->Form->isFieldError('image') ? ' is-invalid' : ''),
+                                'label' => __('Main Picture')
+                            ]) ?>
                         </div>
                     </div>
                     <?= $this->element('seo_form_fields', ['hideWordCount' => true]) ?>

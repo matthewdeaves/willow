@@ -235,6 +235,10 @@ class ArticlesController extends AppController
             $this->setToCache($article->slug, $article);
         }
 
+        // Get the child pages for the current article
+        $childPages = $this->Articles->find('children', for: $article->id)->toArray();
+        $this->set('childPages', $childPages);
+
         $this->recordPageView($article->id);
 
         $this->set(compact('article'));

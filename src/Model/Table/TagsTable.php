@@ -11,6 +11,7 @@ use Cake\Log\LogTrait;
 use Cake\ORM\Behavior\Translate\TranslateTrait;
 use Cake\ORM\Table;
 use Cake\Queue\QueueManager;
+use Cake\Utility\Text;
 use Cake\Validation\Validator;
 
 /**
@@ -79,6 +80,40 @@ class TagsTable extends Table
             'foreignKey' => 'tag_id',
             'targetForeignKey' => 'article_id',
             'joinTable' => 'articles_tags',
+        ]);
+
+        $this->addBehavior('QueueableImage', [
+            'folder_path' => 'files/Tags/image/',
+            'field' => 'image',
+        ]);
+
+        $this->addBehavior('Josegonzalez/Upload.Upload', [
+            'image' => [
+                'fields' => [
+                    'dir' => 'dir',
+                    'size' => 'size',
+                    'type' => 'mime',
+                ],
+                'nameCallback' => function ($table, $entity, $data, $field, $settings) {
+                    $file = $entity->{$field};
+                    $clientFilename = $file->getClientFilename();
+                    $ext = pathinfo($clientFilename, PATHINFO_EXTENSION);
+
+                    return Text::uuid() . '.' . strtolower($ext);
+                },
+                'deleteCallback' => function ($path, $entity, $field, $settings) {
+                    $paths = [
+                        $path . $entity->{$field},
+                    ];
+
+                    foreach (SettingsManager::read('ImageSizes') as $width) {
+                        $paths[] = $path . $width . DS . $entity->{$field};
+                    }
+
+                    return $paths;
+                },
+                'keepFilesOnDelete' => false,
+            ],
         ]);
     }
 

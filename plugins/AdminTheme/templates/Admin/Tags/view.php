@@ -4,6 +4,7 @@
  * @var \App\Model\Entity\Tag $tag
  */
 ?>
+<?php use App\Utility\SettingsManager; ?>
 <div class="container-fluid mt-4">
     <div class="row">
         <?php
@@ -29,6 +30,30 @@
                             <th><?= __('Slug') ?></th>
                             <td>
                                 <?= $this->Html->link(htmlspecialchars_decode($tag->slug), ['_name' => 'tag-by-slug', 'slug' => $tag->slug]) ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><?= __('Image') ?></th>
+                            <td>
+                                <?php if (!empty($tag->image)) : ?>
+                                <div class="position-relative">
+                                    <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $tag->image, 
+                                        ['pathPrefix' => 'files/Tags/image/', 
+                                        'alt' => $tag->alt_text, 
+                                        'class' => 'img-thumbnail', 
+                                        'width' => '50',
+                                        'data-bs-toggle' => 'popover',
+                                        'data-bs-trigger' => 'hover',
+                                        'data-bs-html' => 'true',
+                                        'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $tag->image, 
+                                            ['pathPrefix' => 'files/Tags/image/', 
+                                            'alt' => $tag->alt_text, 
+                                            'class' => 'img-fluid', 
+                                            'style' => 'max-width: 300px; max-height: 300px;'])
+                                        ]) 
+                                    ?>
+                                </div>
+                                <?php endif; ?>
                             </td>
                         </tr>
                         <tr>
@@ -121,3 +146,19 @@
         </div>
     </div>
 </div>
+
+<?php $this->Html->scriptStart(['block' => true]); ?>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize popovers on page load
+    const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+    popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl);
+    });
+
+    $('#tags-select').selectpicker({
+        liveSearch: true,
+        actionsBox: true,
+        selectedTextFormat: 'count > 3'
+    });
+});
+<?php $this->Html->scriptEnd(); ?>

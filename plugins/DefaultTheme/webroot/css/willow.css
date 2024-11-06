@@ -12,7 +12,7 @@
     border: none;
 }
 
-.dropdown:hover .dropdown-menu {
+.nav-item.dropdown:hover > .dropdown-menu {
     display: block;
 }
 

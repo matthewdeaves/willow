@@ -5,6 +5,7 @@
  * @var iterable<\App\Model\Entity\Tag> $tags
  */
 ?>
+<?php use App\Utility\SettingsManager; ?>
 <div class="tags index content">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="mb-0"><?= __('Tags') ?></h3>
@@ -17,6 +18,7 @@
         <table class="table table-striped table-hover">
             <thead class="table-primary">
                 <tr>
+                    <th><?= __('Picture') ?></th>
                     <th><?= $this->Paginator->sort('title') ?></th>
                     <th><?= $this->Paginator->sort('slug') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
@@ -25,6 +27,27 @@
             <tbody>
                 <?php foreach ($tags as $tag): ?>
                 <tr>
+                    <td>
+                        <?php if (!empty($tag->image)) : ?>
+                            <div class="position-relative">
+                                <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $tag->image, 
+                                    ['pathPrefix' => 'files/Tags/image/', 
+                                    'alt' => $tag->alt_text, 
+                                    'class' => 'img-thumbnail', 
+                                    'width' => '50',
+                                    'data-bs-toggle' => 'popover',
+                                    'data-bs-trigger' => 'hover',
+                                    'data-bs-html' => 'true',
+                                    'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $tag->image, 
+                                        ['pathPrefix' => 'files/Tags/image/', 
+                                        'alt' => $tag->alt_text, 
+                                        'class' => 'img-fluid', 
+                                        'style' => 'max-width: 300px; max-height: 300px;'])
+                                    ]) 
+                                ?>
+                            </div>
+                        <?php endif; ?>
+                    </td>
                     <td><?= h($tag->title) ?></td>
                     <td>
                         <?= $this->Html->link(htmlspecialchars_decode($tag->slug), ['_name' => 'tag-by-slug', 'slug' => $tag->slug]) ?>
@@ -63,12 +86,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(response => response.text())
                 .then(html => {
                     resultsContainer.innerHTML = html;
+                    // Re-initialize popovers after updating the content
+                    const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+                    popoverTriggerList.map(function (popoverTriggerEl) {
+                        return new bootstrap.Popover(popoverTriggerEl);
+                    });
                 })
                 .catch(error => console.error('Error:', error));
             } else {
+                // If search is empty, you might want to reload all results or clear the table
                 location.reload();
             }
-        }, 300);
+        }, 300); // Debounce for 300ms
+    });
+
+    // Initialize popovers on page load
+    const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+    popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl);
     });
 });
 <?php $this->Html->scriptEnd(); ?>

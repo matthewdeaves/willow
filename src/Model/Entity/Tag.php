@@ -43,5 +43,25 @@ class Tag extends Entity
         'linkedin_description' => true,
         'twitter_description' => true,
         'instagram_description' => true,
+        'dir' => true,
+        'alt_text' => true,
+        'keywords' => true,
+        'size' => true,
+        'mime' => true,
+        'name' => true,
+        'image' => true,
     ];
+
+    /**
+     * Retrieves the URL for an image by removing the 'webroot/' prefix from the directory path.
+     *
+     * This method constructs the image URL by concatenating the directory and image name,
+     * and then removes the 'webroot/' part from the path to generate a relative URL.
+     *
+     * @return string The relative URL of the image.
+     */
+    protected function _getImageUrl(): string
+    {
+        return str_replace('webroot/', '', $this->dir . $this->image);
+    }
 }

@@ -56,6 +56,17 @@
             </div>
         </div>
     </nav>
+
+    <!--
+    <?php if (!empty($childPages)) : ?>
+        <nav class="navbar navbar-expand-md navbar-dark bg-secondary d-block d-md-none">
+            <div class="navbar-collapse justify-content-center" id="navbarNav">
+                <?= $this->element('child_page_menu', ['childPages' => $childPages]) ?>
+            </div>
+        </nav>
+    <?php endif; ?>
+    -->
+
     <main class="container-fluid pt-3">
         <div class="container-fluid">
             <?php if(!empty($filterTags)) : ?>
@@ -66,8 +77,12 @@
             <div class="row">
                 <div class="col-lg-2 mb-4">
                     <div class="collapse d-none d-lg-block" id="sidebarMenu">
-                        <?= $this->element('page_menu', ['articleTreeMenu' => $articleTreeMenu]) ?>
-                        <?= $this->element('tag_menu', ['tags' => $tagTreeMenu]) ?>
+                        <?php if (in_array($this->request->getParam('_name'), ['page-by-slug'])): ?>
+                            <?= $this->element('page_menu', ['articleTreeMenu' => $articleTreeMenu]) ?>
+                        <?php endif; ?>
+                        <?php if (in_array($this->request->getParam('_name'), ['home', 'article-by-slug', 'tag-by-slug'])): ?>
+                            <?= $this->element('tag_menu', ['tags' => $tagTreeMenu]) ?>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="col-lg-10">

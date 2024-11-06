@@ -1,10 +1,10 @@
-<?php use App\Utility\SettingsManager; ?>
 <?php
 /**
  * @var \App\View\AppView $this
  * @var iterable<\App\Model\Entity\Article> $articles
  */
 ?>
+<?php use App\Utility\SettingsManager; ?>
 <div class="articles index content">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="mb-0"><?= __('Articles') ?></h3>

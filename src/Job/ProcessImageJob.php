@@ -147,6 +147,11 @@ class ProcessImageJob implements JobInterface
         // Check if the directory exists, if not, create it
         if (!is_dir($sizeFolder)) {
             if (!mkdir($sizeFolder, 0755, true)) {
+                $this->log(
+                    sprintf('Failed to create directory: %s', $sizeFolder),
+                    'error',
+                    ['group_name' => 'App\Job\ProcessImageJob']
+                );
                 throw new Exception("Failed to create directory: $sizeFolder");
             }
         }

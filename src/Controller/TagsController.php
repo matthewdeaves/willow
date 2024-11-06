@@ -56,7 +56,10 @@ class TagsController extends AppController
         $query = $this->Tags->find()
             ->contain(['Articles' => function ($q) {
                 return $q->select(['id', 'title', 'slug', 'user_id', 'image', 'created'])
-                    ->where(['Articles.is_published' => true])
+                    ->where([
+                        'Articles.is_published' => true,
+                        'Articles.kind' => 'article',
+                        ])
                     ->contain(['Users' => function ($q) {
                         return $q->select(['id', 'username']);
                     }]);

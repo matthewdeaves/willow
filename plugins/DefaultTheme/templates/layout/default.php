@@ -25,10 +25,8 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <?= $this->element('page_main_menu', ['articleTreeMenu' => $articleTreeMenu]) ?>
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <?= $this->Html->link(__('Home'), ['_name' => 'home'], ['class' => 'nav-link']) ?>
-                    </li>
                     <li class="nav-item">
                         <?= $this->Html->link(__('Tags'), ['controller' => 'Tags', 'action' => 'index'], ['class' => 'nav-link']) ?>
                     </li>
@@ -58,21 +56,16 @@
             </div>
         </div>
     </nav>
-    <div class="bg-light d-lg-none">
-        <button class="btn btn-secondary w-100 toggle-menu-button" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-expanded="false" aria-controls="sidebarMenu">
-            <?= __('Navigation') ?>
-        </button>
-    </div>
     <main class="container-fluid pt-3">
         <div class="container-fluid">
             <?php if(!empty($filterTags)) : ?>
-                <div class="collapse d-lg-block" id="sidebarMenu">
+                <div class="collapse d-none d-lg-block" id="sidebarMenu">
                     <?= $this->element('tag_filters', ['tags' => $filterTags, 'selectedTagId' => $selectedTagId]) ?>
                 </div>
             <?php endif; ?>
             <div class="row">
                 <div class="col-lg-2 mb-4">
-                    <div class="collapse d-lg-block" id="sidebarMenu">
+                    <div class="collapse d-none d-lg-block" id="sidebarMenu">
                         <?= $this->element('page_menu', ['articleTreeMenu' => $articleTreeMenu]) ?>
                         <?= $this->element('tag_menu', ['tags' => $tagTreeMenu]) ?>
                     </div>

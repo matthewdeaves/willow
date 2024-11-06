@@ -11,3 +11,22 @@
     background-color: grey;
     border: none;
 }
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.child-menu-item {
+    color: #212529; /* Set the text color to a dark color for better contrast */
+    background-color: #f8f9fa; /* Set a light background color for the child menu items */
+}
+
+.child-menu-item:hover {
+    color: #212529; /* Keep the text color dark on hover */
+    background-color: #e9ecef; /* Change the background color on hover for visual feedback */
+}
+
+.child-menu-item.active {
+    color: #212529; /* Keep the text color dark for the active item */
+    background-color: #dee2e6; /* Set a different background color for the active item */
+}

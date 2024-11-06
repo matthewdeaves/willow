@@ -3,9 +3,19 @@
 # This hook script runs PHPUnit tests before allowing a push.
 # If the tests fail, the push is aborted.
 
+# Function to determine if sudo is needed
+needs_sudo() {
+    if [ "$OS" = "Linux" ]; then
+        echo "sudo"
+    else
+        echo ""
+    fi
+}
+
 # Run PHPUnit tests
 echo "Running PHPUnit tests..."
-willowcms_exec php vendor/bin/phpunit
+pwd
+$(needs_sudo) docker compose exec willowcms php vendor/bin/phpunit
 
 # Check the exit status of PHPUnit
 if [ $? -ne 0 ]; then

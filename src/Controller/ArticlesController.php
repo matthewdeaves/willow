@@ -150,7 +150,7 @@ class ArticlesController extends AppController
      *
      * @return array An associative array where the keys are tag IDs and the values are tag titles.
      */
-    private function getFilterTags()
+    private function getFilterTags(): array
     {
         $tagsQuery = $this->Articles->Tags->find()
             ->matching('Articles', function ($q) {
@@ -249,7 +249,7 @@ class ArticlesController extends AppController
             $this->setToCache($article->slug, $article);
         }
 
-        $filterTags = $filterTags = $this->getFilterTags();
+        $filterTags = $this->getFilterTags();
         $selectedTagId = false;
 
         // Get the child pages for the current article

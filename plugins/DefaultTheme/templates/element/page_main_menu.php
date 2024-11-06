@@ -29,7 +29,10 @@ if (!function_exists('renderArticleMainMenuItem')) {
 
 <ul class="navbar-nav ms-auto">
     <li class="nav-item">
-        <?= $this->Html->link(__('Blog'), ['controller' => 'Articles', 'action' => 'index'], ['class' => 'nav-link']) ?>
+        <?= $this->Html->link(__('Blog'), ['_name' => 'home'], ['class' => 'nav-link']) ?>
+    </li>
+    <li class="nav-item">
+        <?= $this->Html->link(__('Tags'), ['_name' => 'tags-index'], ['class' => 'nav-link']) ?>
     </li>
     <?php
     // Get the current URL

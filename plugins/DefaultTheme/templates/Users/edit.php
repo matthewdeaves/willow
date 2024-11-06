@@ -5,7 +5,7 @@
  * @var \App\Model\Entity\User $user
  */
 ?>
-<div class="users">
+<div class="users d-flex justify-content-center align-items-center">
     <div class="card mb-4 shadow-sm">
         <div class="card-header bg-primary text-white">
             <h3 class="mb-0"><?= __('Edit Your Account') ?></h3>

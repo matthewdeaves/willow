@@ -136,6 +136,22 @@ class ArticlesController extends AppController
 
         $articles = $this->paginate($query);
 
+        $filterTags = $this->getFilterTags();
+
+        $this->set(compact('articles', 'filterTags', 'selectedTagId'));
+    }
+
+    /**
+     * Retrieves a list of tags associated with published articles of kind 'article'.
+     *
+     * This method constructs a query to find tags that are linked to articles
+     * which are of the type 'article' and are published. The tags are selected
+     * and grouped by their ID and title, and ordered alphabetically by title.
+     *
+     * @return array An associative array where the keys are tag IDs and the values are tag titles.
+     */
+    private function getFilterTags()
+    {
         $tagsQuery = $this->Articles->Tags->find()
             ->matching('Articles', function ($q) {
                 return $q->where([
@@ -147,9 +163,7 @@ class ArticlesController extends AppController
             ->groupBy(['Tags.id', 'Tags.title'])
             ->orderBy(['Tags.title' => 'ASC']);
 
-        $filterTags = $tagsQuery->all()->combine('id', 'title')->toArray();
-
-        $this->set(compact('articles', 'filterTags', 'selectedTagId'));
+        return $tagsQuery->all()->combine('id', 'title')->toArray();
     }
 
     /**
@@ -235,13 +249,15 @@ class ArticlesController extends AppController
             $this->setToCache($article->slug, $article);
         }
 
+        $filterTags = $filterTags = $this->getFilterTags();
+        $selectedTagId = false;
+
         // Get the child pages for the current article
         $childPages = $this->Articles->find('children', for: $article->id)->toArray();
-        $this->set('childPages', $childPages);
 
         $this->recordPageView($article->id);
 
-        $this->set(compact('article'));
+        $this->set(compact('article', 'filterTags', 'childPages', 'selectedTagId'));
 
         return null;
     }

@@ -27,9 +27,6 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <?= $this->element('page_main_menu', ['articleTreeMenu' => $articleTreeMenu]) ?>
                 <ul class="navbar-nav ms-right">
-                    <li class="nav-item">
-                        <?= $this->Html->link(__('Tags'), ['controller' => 'Tags', 'action' => 'index'], ['class' => 'nav-link']) ?>
-                    </li>
                     <?php if ($this->Identity->isLoggedIn()): ?>
                         <li class="nav-item">
                             <?= $this->Html->link(__('Account'), ['controller' => 'Users', 'action' => 'edit', $this->Identity->get('id')], ['class' => 'nav-link']) ?>
@@ -80,7 +77,7 @@
                         <?php if (in_array($this->request->getParam('_name'), ['page-by-slug'])): ?>
                             <?= $this->element('page_menu', ['articleTreeMenu' => $articleTreeMenu]) ?>
                         <?php endif; ?>
-                        <?php if (in_array($this->request->getParam('_name'), ['home', 'article-by-slug', 'tag-by-slug'])): ?>
+                        <?php if (in_array($this->request->getParam('_name'), ['home', 'article-by-slug', 'tag-by-slug', 'tags-index'])): ?>
                             <?= $this->element('tag_menu', ['tags' => $tagTreeMenu]) ?>
                         <?php endif; ?>
                     </div>

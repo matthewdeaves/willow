@@ -128,7 +128,14 @@ return function (RouteBuilder $routes): void {
 
         $builder->connect('/users/edit/*', ['controller' => 'Users', 'action' => 'edit'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
         $builder->connect('/atricles/add-comment/*', ['controller' => 'Articles', 'action' => 'addComment'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
-        $builder->connect('/tags', ['controller' => 'Tags', 'action' => 'index'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+        $builder->connect(
+            '/tags',
+            ['controller' => 'Tags', 'action' => 'index'],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'tags-index',
+            ]
+        );
         
         $builder->connect(
             'articles/{slug}',

@@ -25,9 +25,8 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                
-                <ul class="navbar-nav ms-auto">
-                    <?= $this->element('page_main_menu', ['articleTreeMenu' => $articleTreeMenu]) ?>
+                <?= $this->element('page_main_menu', ['articleTreeMenu' => $articleTreeMenu]) ?>
+                <ul class="navbar-nav ms-right">
                     <li class="nav-item">
                         <?= $this->Html->link(__('Tags'), ['controller' => 'Tags', 'action' => 'index'], ['class' => 'nav-link']) ?>
                     </li>

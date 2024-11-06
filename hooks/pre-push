@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# This hook script runs PHPUnit tests before allowing a push.
+# If the tests fail, the push is aborted.
+
+# Run PHPUnit tests
+echo "Running PHPUnit tests..."
+willowcms_exec php vendor/bin/phpunit
+
+# Check the exit status of PHPUnit
+if [ $? -ne 0 ]; then
+    echo "PHPUnit tests failed. Aborting push."
+    exit 1
+fi
+
+echo "PHPUnit tests passed. Proceeding with push."
+
+# Continue with the push
+exit 0

@@ -45,7 +45,7 @@
 
 To help developers dive into the Willow CMS codebase, this section provides an overview of key components and resources. For a comprehensive understanding of CakePHP, which Willow CMS is built upon, refer to the [CakePHP Book](https://book.cakephp.org/5/en/index.html).
 
-### Useful Shell Aliases
+### Useful Shell Aliases and Git Hooks
 If you build on Willow CMS you should make life easier with some shell aliases. You can auto set them (zshrc/bashrc detection included) by running `./setup_dev_aliases.sh` from the project root. [setup_dev_aliases.sh](https://raw.githubusercontent.com/matthewdeaves/willow/refs/heads/main/setup_dev_aliases.sh) will add a statement to simply load the aliases from [dev_aliases.txt](https://raw.githubusercontent.com/matthewdeaves/willow/refs/heads/main/dev_aliases.txt) when you start a new shell. Or you can manually add the aliases:
 
 1. Copy the contents of `dev_aliases.sh`
@@ -53,6 +53,9 @@ If you build on Willow CMS you should make life easier with some shell aliases. 
 3. Paste the contents at the end of the file
 4. Save and close the file
 5. Run `source ~/.bashrc` or `source ~/.zshrc` or restart your terminal
+
+#### Git Push Hook
+The `./setup_dev_aliases.sh` will also setup a Git Hook for your development environment which runs the PHPUnit tests prior to allowing a push. See [.git/hooks/pre-push](https://github.com/matthewdeaves/willow/blob/main/hooks/pre-push).
 
 ### Key Code Folders
 

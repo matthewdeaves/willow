@@ -15,7 +15,7 @@ needs_sudo() {
 # Run PHPUnit tests
 echo "Running PHPUnit tests..."
 pwd
-$(needs_sudo) docker compose exec willowcms php vendor/bin/phpunit
+$(needs_sudo) docker compose exec -T willowcms php vendor/bin/phpunit
 
 # Check the exit status of PHPUnit
 if [ $? -ne 0 ]; then

@@ -107,6 +107,10 @@ class AppController extends Controller
             }
         }
 
+        // Usefulf for setting active menu items
+        $this->set('activeCtl', $this->request->getParam('controller'));
+        $this->set('activeAct', $this->request->getParam('action'));
+
         return null;
     }
 

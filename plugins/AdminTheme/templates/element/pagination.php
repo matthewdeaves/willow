@@ -1,36 +1,26 @@
-<div class="row">
-    <div class="col-12">
-        <nav aria-label="Page navigation">
-            <ul class="pagination pagination-sm justify-content-center mt-2">
-                <?php
-                echo $this->Paginator->numbers([
-                    'before' => '',
-                    'after' => '',
-                    'modulus' => 2,
-                    'templates' => [
-                        'number' => '<li class="page-item mx-1"><a class="page-link" href="{{url}}">{{text}}</a></li>',
-                        'current' => '<li class="page-item active mx-1"><a class="page-link" href="{{url}}">{{text}}</a></li>',
-                    ]
-                ]);
-                ?>
-            </ul>
-            <ul class="pagination pagination-sm justify-content-center">
-                <?php if ($this->Paginator->hasPrev()): ?>
-                    <li class="page-item mx-1"><?= $this->Paginator->first('« First') ?></li>
-                    <li class="page-item mx-1"><?= $this->Paginator->prev('‹ Previous') ?></li>
-                <?php endif; ?>
-                <?php if ($this->Paginator->hasNext()): ?>
-                    <li class="page-item mx-1"><?= $this->Paginator->next('Next ›') ?></li>
-                    <li class="page-item mx-1"><?= $this->Paginator->last('Last »') ?></li>
-                <?php endif; ?>
-            </ul>
-        </nav>
-    </div>
+<?php
+$this->Paginator->setTemplates([
+    'nextActive' => '<li class="page-item"><a class="page-link" rel="next" aria-label="Next" href="{{url}}">&raquo;</a></li>',
+    'nextDisabled' => '<li class="page-item disabled"><a class="page-link" aria-label="Next" href="" onclick="return false;">&raquo;</a></li>',
+    'prevActive' => '<li class="page-item"><a class="page-link" rel="prev" aria-label="Previous" href="{{url}}">&laquo;</a></li>',
+    'prevDisabled' => '<li class="page-item disabled"><a class="page-link" aria-label="Previous" href="" onclick="return false;">&laquo;</a></li>',
+    'number' => '<li class="page-item"><a class="page-link" href="{{url}}">{{text}}</a></li>',
+    'current' => '<li class="page-item active"><a class="page-link" href="">{{text}}</a></li>',
+    'counterRange' => 'Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total',
+    'counterPages' => 'Page {{page}} of {{pages}}',
+]);
+?>
+<div class="d-flex justify-content-center">
+    <nav aria-label="Standard pagination example">
+        <ul class="pagination">
+            <?= $this->Paginator->prev('&laquo;', ['escape' => false]) ?>
+            <?= $this->Paginator->numbers() ?>
+            <?= $this->Paginator->next('&raquo;', ['escape' => false]) ?>
+        </ul>
+    </nav>
+</div>
+<div class="d-flex justify-content-center">
     <?php if ($this->Paginator->total() > 0): ?>
-    <div class="col-12 text-center">
-        <p class="pagination-counter mb-0">
-            <?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?>
-        </p>
-    </div>
+        <?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?>
     <?php endif; ?>
 </div>

@@ -23,42 +23,51 @@
 {% set fieldsData = Bake.getViewFieldsData(fields, schema, associations) %}
 {% set associationFields = fieldsData.associationFields %}
 {% set groupedFields = fieldsData.groupedFields %}
-{% set pK = '$' ~ singularVar ~ '->' ~ primaryKey1 %}
-<div class="container-fluid mt-4">
+{% set pK = '$' ~ singularVar ~ '->' ~ primaryKey[0] %}
+<div class="container my-4">
     <div class="row">
-        <?php
-        echo $this->element('actions_card', [
-            'modelName' => '{{ singularHumanName }}',
-            'controllerName' => '{{ pluralHumanName }}',
-            'entity' => ${{ singularVar }},
-            'entityDisplayName' => ${{ singularVar }}->{{ displayField }}
-        ]);
-        ?>
-        <div class="col-md-9">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0"><?= h(${{ singularVar }}->{{ displayField }}) ?></h3>
-                </div>
+        <aside class="col-lg-3">
+            <div class="card mb-4">
                 <div class="card-body">
-                    <table class="table table-bordered">
-{% for field, value in groupedFields %}
-{% if field != 'number' %}
-{% for fieldName in value %}
-{% if associationFields[fieldName] is defined %}
-{% set details = associationFields[fieldName] %}
+                    <h4 class="card-title"><?= __('Actions') ?></h4>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><?= $this->Html->link(__('Edit {{ singularHumanName }}'), ['action' => 'edit', {{ pK|raw }}], ['class' => 'btn btn-primary btn-sm']) ?></li>
+                        <li class="list-group-item"><?= $this->Form->postLink(__('Delete {{ singularHumanName }}'), ['action' => 'delete', {{ pK|raw }}], ['confirm' => __('Are you sure you want to delete # {0}?', {{ pK|raw }}), 'class' => 'btn btn-danger btn-sm']) ?></li>
+                        <li class="list-group-item"><?= $this->Html->link(__('List {{ pluralHumanName }}'), ['action' => 'index'], ['class' => 'btn btn-secondary btn-sm']) ?></li>
+                        <li class="list-group-item"><?= $this->Html->link(__('New {{ singularHumanName }}'), ['action' => 'add'], ['class' => 'btn btn-success btn-sm']) ?></li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+        <div class="col-lg-9">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title"><?= h(${{ singularVar }}->{{ displayField }}) ?></h2>
+                    <table class="table table-striped">
+{% if groupedFields['string'] %}
+{% for field in groupedFields['string'] %}
+{% if associationFields[field] is defined %}
+{% set details = associationFields[field] %}
                         <tr>
                             <th><?= __('{{ details.property|humanize }}') ?></th>
-                            <td><?= ${{ singularVar }}->hasValue('{{ details.property }}') ? $this->Html->link(${{ singularVar }}->{{ details.property }}->{{ details.displayField }}, ['controller' => '{{ details.controller }}', 'action' => 'view', ${{ singularVar }}->{{ details.property }}->{{ details.primaryKey[0] }}]) : '' ?></td>
+                            <td><?= ${{ singularVar }}->hasValue('{{ details.property }}') ? $this->Html->link(${{ singularVar }}->{{ details.property }}->{{ details.displayField }}, ['controller' => '{{ details.controller }}', 'action' => 'view', ${{ singularVar }}->{{ details.property }}->{{ details.primaryKey[0] }}], ['class' => 'btn btn-link']) : '' ?></td>
                         </tr>
 {% else %}
                         <tr>
-                            <th><?= __('{{ fieldName|humanize }}') ?></th>
-                            <td><?= h(${{ singularVar }}->{{ fieldName }}) ?></td>
+                            <th><?= __('{{ field|humanize }}') ?></th>
+                            <td><?= h(${{ singularVar }}->{{ field }}) ?></td>
                         </tr>
 {% endif %}
 {% endfor %}
 {% endif %}
+{% if associations.HasOne %}
+{% for alias, details in associations.HasOne %}
+                        <tr>
+                            <th><?= __('{{ alias|underscore|singularize|humanize }}') ?></th>
+                            <td><?= ${{ singularVar }}->hasValue('{{ details.property }}') ? $this->Html->link(${{ singularVar }}->{{ details.property }}->{{ details.displayField }}, ['controller' => '{{ details.controller }}', 'action' => 'view', ${{ singularVar }}->{{ details.property }}->{{ details.primaryKey[0] }}], ['class' => 'btn btn-link']) : '' ?></td>
+                        </tr>
 {% endfor %}
+{% endif %}
 {% if groupedFields.number %}
 {% for field in groupedFields.number %}
                         <tr>
@@ -72,51 +81,88 @@
                         </tr>
 {% endfor %}
 {% endif %}
+{% if groupedFields.enum %}
+{% for field in groupedFields.enum %}
+                        <tr>
+                            <th><?= __('{{ field|humanize }}') ?></th>
+{% set columnData = Bake.columnData(field, schema) %}
+{% set supportsLabel = Bake.enumSupportsLabel(field, schema) %}
+{% if columnData.null %}
+                            <td><?= ${{ singularVar }}->{{ field }} === null ? '' : h(${{ singularVar }}->{{ field }}->{% if supportsLabel %}label(){% else %}value{% endif %}) ?></td>
+{% else %}
+                            <td><?= h(${{ singularVar }}->{{ field }}->{% if supportsLabel %}label(){% else %}value{% endif %}) ?></td>
+{% endif %}
+                        </tr>
+{% endfor %}
+{% endif %}
+{% if groupedFields.date %}
+{% for field in groupedFields.date %}
+                        <tr>
+                            <th><?= __('{{ field|humanize }}') ?></th>
+                            <td><?= h(${{ singularVar }}->{{ field }}) ?></td>
+                        </tr>
+{% endfor %}
+{% endif %}
+{% if groupedFields.boolean %}
+{% for field in groupedFields.boolean %}
+                        <tr>
+                            <th><?= __('{{ field|humanize }}') ?></th>
+                            <td><?= ${{ singularVar }}->{{ field }} ? '<span class="badge bg-success">' . __('Yes') . '</span>' : '<span class="badge bg-danger">' . __('No') . '</span>'; ?></td>
+                        </tr>
+{% endfor %}
+{% endif %}
                     </table>
-                </div>
-            </div>
-
+{% if groupedFields.text %}
+{% for field in groupedFields.text %}
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= __('{{ field|humanize }}') ?></h5>
+                            <p class="card-text"><?= $this->Text->autoParagraph(h(${{ singularVar }}->{{ field }})); ?></p>
+                        </div>
+                    </div>
+{% endfor %}
+{% endif %}
 {% set relations = associations.BelongsToMany|merge(associations.HasMany) %}
 {% for alias, details in relations %}
 {% set otherSingularVar = alias|singularize|variable %}
 {% set otherPluralHumanName = details.controller|underscore|humanize %}
-            <div class="card mt-4">
-                <div class="card-header bg-secondary text-white">
-                    <h4 class="mb-0"><?= __('Related {{ otherPluralHumanName }}') ?></h4>
-                </div>
-                <div class="card-body">
-                    <?php if (!empty(${{ singularVar }}->{{ details.property }})) : ?>
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h4 class="card-title"><?= __('Related {{ otherPluralHumanName }}') ?></h4>
+                            <?php if (!empty(${{ singularVar }}->{{ details.property }})) : ?>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
 {% for field in details.fields %}
-                                    <th><?= __('{{ field|humanize }}') ?></th>
+                                            <th><?= __('{{ field|humanize }}') ?></th>
 {% endfor %}
-                                    <th class="actions"><?= __('Actions') ?></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach (${{ singularVar }}->{{ details.property }} as ${{ otherSingularVar }}) : ?>
-                                <tr>
+                                            <th class="actions"><?= __('Actions') ?></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach (${{ singularVar }}->{{ details.property }} as ${{ otherSingularVar }}) : ?>
+                                        <tr>
 {% for field in details.fields %}
-                                    <td><?= h(${{ otherSingularVar }}->{{ field }}) ?></td>
+                                            <td><?= h(${{ otherSingularVar }}->{{ field }}) ?></td>
 {% endfor %}
-{% set otherPk = '$' ~ otherSingularVar ~ '->' ~ details.primaryKey1 %}
-                                    <td class="actions">
-                                        <?= $this->Html->link(__('View'), ['controller' => '{{ details.controller }}', 'action' => 'view', {{ otherPk|raw }}], ['class' => 'btn btn-sm btn-info']) ?>
-                                        <?= $this->Html->link(__('Edit'), ['controller' => '{{ details.controller }}', 'action' => 'edit', {{ otherPk|raw }}], ['class' => 'btn btn-sm btn-primary']) ?>
-                                        <?= $this->Form->postLink(__('Delete'), ['controller' => '{{ details.controller }}', 'action' => 'delete', {{ otherPk|raw }}], ['confirm' => __('Are you sure you want to delete # {0}?', {{ otherPk|raw }}), 'class' => 'btn btn-sm btn-danger']) ?>
-                                    </td>
-                                </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+{% set otherPk = '$' ~ otherSingularVar ~ '->' ~ details.primaryKey[0] %}
+                                            <td class="actions">
+                                                <?= $this->Html->link(__('View'), ['controller' => '{{ details.controller }}', 'action' => 'view', {{ otherPk|raw }}], ['class' => 'btn btn-info btn-sm']) ?>
+                                                <?= $this->Html->link(__('Edit'), ['controller' => '{{ details.controller }}', 'action' => 'edit', {{ otherPk|raw }}], ['class' => 'btn btn-warning btn-sm']) ?>
+                                                <?= $this->Form->postLink(__('Delete'), ['controller' => '{{ details.controller }}', 'action' => 'delete', {{ otherPk|raw }}], ['confirm' => __('Are you sure you want to delete # {0}?', {{ otherPk|raw }}), 'class' => 'btn btn-danger btn-sm']) ?>
+                                            </td>
+                                        </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <?php endif; ?>
+                        </div>
                     </div>
-                    <?php endif; ?>
+{% endfor %}
                 </div>
             </div>
-{% endfor %}
         </div>
     </div>
 </div>

@@ -17,36 +17,19 @@
 /**
  * @var \{{ namespace }}\View\AppView $this
  * @var \{{ entityClass }} ${{ singularVar }}
+        {{- "\n" }}
 {%- if associations.BelongsTo is defined %}
     {%- for assocName, assocData in associations.BelongsTo %}
  * @var \Cake\Collection\CollectionInterface|string[] ${{ assocData.variable }}
+        {{- "\n" }}
     {%- endfor %}
 {% endif %}
 {%- if associations.BelongsToMany is defined %}
     {%- for assocName, assocData in associations.BelongsToMany %}
  * @var \Cake\Collection\CollectionInterface|string[] ${{ assocData.variable }}
+        {{- "\n" }}
     {%- endfor %}
 {% endif %}
  */
 ?>
-<div class="container-fluid mt-4">
-    <div class="row">
-        <?php
-        echo $this->element('actions_card', [
-            'modelName' => '{{ singularHumanName }}',
-            'controllerName' => '{{ pluralHumanName }}',
-            'entity' => ${{ singularVar }}
-        ]);
-        ?>
-        <div class="col-md-9">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0"><?= __('{{ action|humanize }} {{ singularHumanName }}') ?></h3>
-                </div>
-                <div class="card-body">
-                    {{ element('Bake.form') }}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+{{ element('Bake.form') }}

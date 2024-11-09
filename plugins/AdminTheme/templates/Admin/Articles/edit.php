@@ -21,7 +21,11 @@
         <div class="col-md-9">
             <div class="card mb-4">
                 <div class="card-header">
-                    <h5 class="card-title"><?= __('Edit Article') ?></h5>
+                    <?php
+                        $isPage = $this->request->getQuery('kind') == 'page';
+                        $headerText = $isPage ? __('Edit Page') : __('Edit Article');
+                    ?>
+                    <h5 class="card-title"><?= $headerText ?></h5>
                 </div>
                 <div class="card-body">
                     <?= $this->Form->create($article,

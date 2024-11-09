@@ -41,7 +41,7 @@
 </div>
 <div class="mb-3 d-flex align-items-center">
     <div class="me-3">
-        <?php echo $this->Form->label('tags._ids', 'Select Tags', ['class' => 'form-label']); ?>
+        <?php echo $this->Form->label('tags._ids', __('Select Tags'), ['class' => 'form-label']); ?>
         <?php echo $this->Form->select('tags._ids', $tags, [
             'multiple' => true,
             'data-live-search' => 'true',

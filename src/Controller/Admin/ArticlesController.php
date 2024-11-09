@@ -29,13 +29,13 @@ class ArticlesController extends AppController
     {
         $statusFilter = $this->request->getQuery('status');
         $conditions = [];
-    
+
         if ($statusFilter === '1') {
             $conditions['Articles.is_published'] = '1';
         } elseif ($statusFilter === '0') {
             $conditions['Articles.is_published'] = '0';
         }
-    
+
         if ($this->request->is('ajax')) {
             $search = $this->request->getQuery('search');
             if (!empty($search)) {
@@ -51,13 +51,13 @@ class ArticlesController extends AppController
             $articles = $this->Articles->getPageTree($conditions);
             $this->set(compact('articles'));
             $this->viewBuilder()->setLayout('ajax');
-    
+
             return $this->render('tree_index_search_results');
         }
-    
+
         $articles = $this->Articles->getPageTree($conditions);
         $this->set(compact('articles'));
-    
+
         return null;
     }
 
@@ -135,10 +135,10 @@ class ArticlesController extends AppController
                 'Users.username',
             ]);
 
-        if (null !== $statusFilter) {
+        if ($statusFilter !== null) {
             $query->where(['Articles.is_published' => (int)$statusFilter]);
         }
-        
+
         if ($this->request->is('ajax')) {
             $search = $this->request->getQuery('search');
             if (!empty($search)) {
@@ -185,8 +185,14 @@ class ArticlesController extends AppController
      */
     public function view(?string $id = null): void
     {
-        $article = $this->Articles->get($id, contain: ['Users', 'PageViews', 'Tags', 'Images']);
-
+        $article = $this->Articles->get($id, contain: [
+            'Users',
+            'PageViews',
+            'Tags',
+            'Images',
+            'Slugs',
+            'Comments',
+        ]);
 
         if (!$article) {
             throw new RecordNotFoundException(__('Article not found'));

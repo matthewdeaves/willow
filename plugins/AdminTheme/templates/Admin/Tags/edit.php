@@ -2,85 +2,33 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Tag $tag
+ * @var string[]|\Cake\Collection\CollectionInterface $articles
  */
 ?>
-<?php use App\Utility\SettingsManager; ?>
-<div class="container-fluid mt-4">
+<?= $this->Html->script('https://code.jquery.com/jquery-3.6.0.min.js'); ?>
+<div class="container mt-4">
     <div class="row">
         <?php
-            echo $this->element('actions_card', [
-                'modelName' => 'Tag',
-                'controllerName' => 'Tags',
-                'entity' => $tag,
-                'entityDisplayName' => $tag->title
-            ]);
+        echo $this->element('actions_card', [
+            'modelName' => 'Tag',
+            'controllerName' => 'Tags',
+            'entity' => $tag,
+            'entityDisplayName' => $tag->title
+        ]);
         ?>
         <div class="col-md-9">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0"><?= __('Edit Tag') ?></h3>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title"><?= __('Edit Tag') ?></h5>
                 </div>
                 <div class="card-body">
-                    <?= $this->Form->create($tag, ['type' => 'file', 'class' => 'needs-validation', 'novalidate' => true, 'enctype' => 'multipart/form-data']) ?>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <?= $this->Form->control('title', [
-                                'class' => 'form-control' . ($this->Form->isFieldError('title') ? ' is-invalid' : ''),
-                                'required' => true
-                            ]) ?>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <?= $this->Form->control('slug', [
-                                'class' => 'form-control' . ($this->Form->isFieldError('slug') ? ' is-invalid' : ''),
-                                'required' => true
-                            ]) ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 mb-3">
-                            <?= $this->Form->control('description', [
-                                'type' => 'textarea',
-                                'rows' => '3',
-                                'class' => 'form-control' . ($this->Form->isFieldError('description') ? ' is-invalid' : ''),
-                            ]) ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <?= $this->Form->control('image', [
-                                'type' => 'file',
-                                'class' => 'form-control-file' . ($this->Form->isFieldError('image') ? ' is-invalid' : ''),
-                                'label' => __('Main Picture')
-                            ]) ?>
-                        </div>
-                        <div class="col-md-4">
-                            <?php if (!empty($tag->image)): ?>
-                                <?= $this->Html->image(SettingsManager::read('ImageSizes.teeny', '200') . '/' . $tag->image, 
-                                    [
-                                        'pathPrefix' => 'files/Tags/image/',
-                                        'alt' => $tag->alt_text,
-                                        'class' => 'img-thumbnail',
-                                        'data-bs-toggle' => 'popover',
-                                        'data-bs-trigger' => 'hover',
-                                        'data-bs-html' => 'true',
-                                        'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.extra-large', '400') . '/' . $tag->image,
-                                            ['pathPrefix' => 'files/Tags/image/',
-                                            'alt' => $tag->alt_text,
-                                            'class' => 'img-fluid',
-                                            'style' => 'max-width: 300px; max-height: 300px;'
-                                    ])]) ?>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                    <?= $this->element('seo_form_fields', ['hideWordCount' => true]) ?>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="mt-4 mb-3">
-                                <?= $this->Form->button(__('Update Tag'), [
-                                    'class' => 'btn btn-primary'
-                                ]) ?>
-                            </div>
-                        </div>
+                <?= $this->Form->create($tag, ['type' => 'file', 'class' => 'needs-validation', 'novalidate' => true, 'enctype' => 'multipart/form-data']) ?>
+                    <fieldset>
+                        <?= $this->element('tag_form_fields') ?>
+                        <?= $this->element('seo_form_fields', ['hideWordCount' => true]) ?>                                              
+                    </fieldset>
+                    <div class="form-group">
+                        <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-primary']) ?>
                     </div>
                     <?= $this->Form->end() ?>
                 </div>
@@ -88,12 +36,14 @@
         </div>
     </div>
 </div>
-<?php $this->Html->scriptStart(['block' => true]); ?>
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize popovers on page load
-    const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
-    popoverTriggerList.map(function (popoverTriggerEl) {
-        return new bootstrap.Popover(popoverTriggerEl);
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css">
+<script>
+$(document).ready(function() {
+    $('#articles-select').selectpicker({
+        liveSearch: true,
+        actionsBox: true,
+        selectedTextFormat: 'count > 3'
     });
 });
-<?php $this->Html->scriptEnd(); ?>
+</script>

@@ -7,7 +7,7 @@
 <?php use App\Utility\SettingsManager; ?>
 <div class="container my-4">
     <div class="row">
-    <?php
+        <?php
         echo $this->element('actions_card', [
             'modelName' => 'Article',
             'controllerName' => 'Articles',
@@ -22,7 +22,9 @@
                     <table class="table table-striped">
                         <tr>
                             <th><?= __('User') ?></th>
-                            <td><?= $article->hasValue('user') ? $this->Html->link($article->user->username, ['controller' => 'Users', 'action' => 'view', $article->user->id], ['class' => 'btn btn-link']) : '' ?></td>
+                            <td>
+                                <?= $article->hasValue('user') ? $this->Html->link($article->user->username, ['controller' => 'Users', 'action' => 'view', $article->user->id], ['class' => 'btn btn-link']) : '' ?>
+                            </td>
                         </tr>
                         <tr>
                             <th><?= __('Kind') ?></th>
@@ -101,7 +103,9 @@
                         </tr>
                         <tr>
                             <th><?= __('Is Published') ?></th>
-                            <td><?= $article->is_published ? '<span class="badge bg-success">' . __('Yes') . '</span>' : '<span class="badge bg-danger">' . __('No') . '</span>'; ?></td>
+                            <td>
+                                <?= $article->is_published ? '<span class="badge bg-success">' . __('Yes') . '</span>' : '<span class="badge bg-danger">' . __('No') . '</span>'; ?>
+                            </td>
                         </tr>
                     </table>
                     <div class="card mt-4">
@@ -116,42 +120,11 @@
                             <p class="card-text"><?= html_entity_decode($article->summary); ?></p>
                         </div>
                     </div>
-                    <div class="card mt-4">
-                        <div class="card-body">
-                            <h5 class="card-title"><?= __('Meta Description') ?></h5>
-                            <p class="card-text"><?= html_entity_decode($article->meta_description); ?></p>
-                        </div>
+                    
+                    <div class="mt-4">
+                    <?= $this->element('seo_display_fields', ['model' => $article]); ?>
                     </div>
-                    <div class="card mt-4">
-                        <div class="card-body">
-                            <h5 class="card-title"><?= __('Meta Keywords') ?></h5>
-                            <p class="card-text"><?= html_entity_decode($article->meta_keywords); ?></p>
-                        </div>
-                    </div>
-                    <div class="card mt-4">
-                        <div class="card-body">
-                            <h5 class="card-title"><?= __('Facebook Description') ?></h5>
-                            <p class="card-text"><?= html_entity_decode($article->facebook_description); ?></p>
-                        </div>
-                    </div>
-                    <div class="card mt-4">
-                        <div class="card-body">
-                            <h5 class="card-title"><?= __('Linkedin Description') ?></h5>
-                            <p class="card-text"><?= html_entity_decode($article->linkedin_description); ?></p>
-                        </div>
-                    </div>
-                    <div class="card mt-4">
-                        <div class="card-body">
-                            <h5 class="card-title"><?= __('Instagram Description') ?></h5>
-                            <p class="card-text"><?= html_entity_decode($article->instagram_description); ?></p>
-                        </div>
-                    </div>
-                    <div class="card mt-4">
-                        <div class="card-body">
-                            <h5 class="card-title"><?= __('Twitter Description') ?></h5>
-                            <p class="card-text"><?= html_entity_decode($article->twitter_description); ?></p>
-                        </div>
-                    </div>
+
                     <div class="card mt-4">
                         <div class="card-body">
                             <h4 class="card-title"><?= __('Related Tags') ?></h4>
@@ -168,12 +141,10 @@
                                     <tbody>
                                         <?php foreach ($article->tags as $tag) : ?>
                                         <tr>
-                                            <td><?= h($tag->title) ?></td>
+                                            <td><?= html_entity_decode($tag->title) ?></td>
                                             <td><?= h($tag->slug) ?></td>
                                             <td class="actions">
-                                                <?= $this->Html->link(__('View'), ['controller' => 'Tags', 'action' => 'view', $tag->id], ['class' => 'btn btn-info btn-sm']) ?>
-                                                <?= $this->Html->link(__('Edit'), ['controller' => 'Tags', 'action' => 'edit', $tag->id], ['class' => 'btn btn-warning btn-sm']) ?>
-                                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Tags', 'action' => 'delete', $tag->id], ['confirm' => __('Are you sure you want to delete {0}?', $tag->title), 'class' => 'btn btn-danger btn-sm']) ?>
+                                                <?= $this->element('evd_dropdown', ['controller' => 'Tags', 'model' => $tag, 'display' => 'title']); ?>
                                             </td>
                                         </tr>
                                         <?php endforeach; ?>
@@ -204,38 +175,26 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th><?= __('Id') ?></th>
-                                            <th><?= __('Foreign Key') ?></th>
-                                            <th><?= __('Model') ?></th>
-                                            <th><?= __('User Id') ?></th>
+                                            <th><?= __('User') ?></th>
                                             <th><?= __('Content') ?></th>
                                             <th><?= __('Display') ?></th>
-                                            <th><?= __('Is Inappropriate') ?></th>
-                                            <th><?= __('Is Analyzed') ?></th>
-                                            <th><?= __('Inappropriate Reason') ?></th>
+                                            <th><?= __('Inappropriate') ?></th>
+                                            <th><?= __('Reason') ?></th>
                                             <th><?= __('Created') ?></th>
-                                            <th><?= __('Modified') ?></th>
                                             <th class="actions"><?= __('Actions') ?></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php foreach ($article->comments as $comment) : ?>
                                         <tr>
-                                            <td><?= h($comment->id) ?></td>
-                                            <td><?= h($comment->foreign_key) ?></td>
-                                            <td><?= h($comment->model) ?></td>
-                                            <td><?= h($comment->user_id) ?></td>
+                                            <td><?= $article->hasValue('user') ? $this->Html->link($article->user->username, ['controller' => 'Users', 'action' => 'view', $article->user->id], ['class' => 'btn btn-link']) : '' ?></td>
                                             <td><?= h($comment->content) ?></td>
-                                            <td><?= h($comment->display) ?></td>
-                                            <td><?= h($comment->is_inappropriate) ?></td>
-                                            <td><?= h($comment->is_analyzed) ?></td>
+                                            <td><?= $comment->display ? '<span class="badge bg-success">' . __('Yes') . '</span>' : '<span class="badge bg-danger">' . __('No') . '</span>'; ?></td>
+                                            <td><?= $comment->is_inappropriate ? '<span class="badge bg-danger">' . __('Yes') . '</span>' : '<span class="badge bg-success">' . __('No') . '</span>'; ?></td>
                                             <td><?= h($comment->inappropriate_reason) ?></td>
                                             <td><?= h($comment->created) ?></td>
-                                            <td><?= h($comment->modified) ?></td>
                                             <td class="actions">
-                                                <?= $this->Html->link(__('View'), ['controller' => 'Comments', 'action' => 'view', $comment->id], ['class' => 'btn btn-info btn-sm']) ?>
-                                                <?= $this->Html->link(__('Edit'), ['controller' => 'Comments', 'action' => 'edit', $comment->id], ['class' => 'btn btn-warning btn-sm']) ?>
-                                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Comments', 'action' => 'delete', $comment->id], ['confirm' => __('Are you sure you want to delete # {0}?', $comment->id), 'class' => 'btn btn-danger btn-sm']) ?>
+                                                <?= $this->element('evd_dropdown', ['controller' => 'Comments', 'model' => $comment, 'display' => 'id']); ?>
                                             </td>
                                         </tr>
                                         <?php endforeach; ?>
@@ -253,8 +212,6 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th><?= __('Id') ?></th>
-                                            <th><?= __('Article Id') ?></th>
                                             <th><?= __('Slug') ?></th>
                                             <th><?= __('Created') ?></th>
                                             <th><?= __('Modified') ?></th>
@@ -264,15 +221,11 @@
                                     <tbody>
                                         <?php foreach ($article->slugs as $slug) : ?>
                                         <tr>
-                                            <td><?= h($slug->id) ?></td>
-                                            <td><?= h($slug->article_id) ?></td>
                                             <td><?= h($slug->slug) ?></td>
                                             <td><?= h($slug->created) ?></td>
                                             <td><?= h($slug->modified) ?></td>
                                             <td class="actions">
-                                                <?= $this->Html->link(__('View'), ['controller' => 'Slugs', 'action' => 'view', $slug->id], ['class' => 'btn btn-info btn-sm']) ?>
-                                                <?= $this->Html->link(__('Edit'), ['controller' => 'Slugs', 'action' => 'edit', $slug->id], ['class' => 'btn btn-warning btn-sm']) ?>
-                                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Slugs', 'action' => 'delete', $slug->id], ['confirm' => __('Are you sure you want to delete # {0}?', $slug->id), 'class' => 'btn btn-danger btn-sm']) ?>
+                                                <?= $this->element('evd_dropdown', ['controller' => 'Slugs', 'model' => $slug, 'display' => 'slug']); ?>
                                             </td>
                                         </tr>
                                         <?php endforeach; ?>

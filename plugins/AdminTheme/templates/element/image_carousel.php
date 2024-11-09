@@ -18,6 +18,7 @@
                     'class' => 'd-block w-100',
                     'alt' => $image->alt_text,
                 ]) ?>
+                <?php if (empty($hideRemove)) :?>
                 <div class="carousel-caption">
                     <?= $this->Form->control('unlink_images[]', [
                         'type' => 'checkbox',
@@ -26,6 +27,7 @@
                         'class' => 'form-check-input'
                     ]) ?>
                 </div>
+                <?php endif; ?>
             </div>
         <?php endforeach; ?>
     </div>

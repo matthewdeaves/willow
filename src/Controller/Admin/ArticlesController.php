@@ -165,34 +165,8 @@ class ArticlesController extends AppController
      */
     public function view(?string $id = null): void
     {
-        $article = $this->Articles->find()
-            ->select([
-                'Articles.id',
-                'Articles.title',
-                'Articles.slug',
-                'Articles.body',
-                'Articles.summary',
-                'Articles.meta_title',
-                'Articles.meta_description',
-                'Articles.meta_keywords',
-                'Articles.facebook_description',
-                'Articles.linkedin_description',
-                'Articles.twitter_description',
-                'Articles.instagram_description',
-                'Articles.word_count',
-                'Articles.created',
-                'Articles.modified',
-                'Articles.published',
-                'Articles.is_published',
-                'Articles.image',
-                'Articles.dir',
-                'Users.id',
-                'Users.username',
-                'Users.email',
-            ])
-            ->where(['Articles.id' => $id])
-            ->contain(['Users', 'PageViews', 'Tags'])
-            ->first();
+        $article = $this->Articles->get($id, contain: ['Users', 'PageViews', 'Tags', 'Images']);
+
 
         if (!$article) {
             throw new RecordNotFoundException(__('Article not found'));

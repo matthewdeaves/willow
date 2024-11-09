@@ -24,7 +24,12 @@
                     <h5 class="card-title"><?= __('Edit Article') ?></h5>
                 </div>
                 <div class="card-body">
-                    <?= $this->Form->create($article, ['class' => 'needs-validation', 'novalidate' => true]) ?>
+                    <?= $this->Form->create($article,
+                    [
+                        'type' => 'file',
+                        'enctype' => 'multipart/form-data',
+                        'class' => 'needs-validation', 'novalidate' => true
+                    ]) ?>
                     <fieldset>
                         <?= $this->element('article_form_fields') ?>
                         <?= $this->element('seo_form_fields') ?>                                          

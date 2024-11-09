@@ -9,15 +9,24 @@
       <div class="d-flex align-items-center me-auto">
         <ul class="navbar-nav me-3">
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false"><?= __('Status') ?></a>
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false"><?= __('Filter') ?></a>
             <ul class="dropdown-menu">
               <?php $activeFilter = $this->request->getQuery('filter');  ?>
+              <li>
+                <?= $this->Html->link(
+                    __('All'), 
+                    ['action' => 'index', 'id' => '{{ pk|raw }}', '?' => ['filter' => 1]], 
+                    [
+                      'class' => 'dropdown-item' . (null === $activeFilter ? ' active' : '')
+                    ]
+                ) ?>
+              </li>
               <li>
                 <?= $this->Html->link(
                     __('Filter 1'), 
                     ['action' => 'index', 'id' => '{{ pk|raw }}', '?' => ['filter' => 1]], 
                     [
-                      'class' => 'dropdown-item' . ($activeFilter === null || $activeFilter === '1' ? ' active' : '')
+                      'class' => 'dropdown-item' . ('1' === $activeFilter ? ' active' : '')
                     ]
                 ) ?>
               </li>
@@ -26,7 +35,7 @@
                     __('Filter 2'), 
                     ['action' => 'index', 'id' => '{{ pk|raw }}', '?' => ['filter' => 2]], 
                     [
-                      'class' => 'dropdown-item' . ($activeFilter === '2' ? ' active' : '')
+                      'class' => 'dropdown-item' . ('2' === $activeFilter ? ' active' : '')
                     ]
                 ) ?>
               </li>
@@ -54,31 +63,31 @@
   <tbody>
     <?php foreach (${{ pluralVar }} as ${{ singularVar }}): ?>
     <tr>
-        {% for field in fields %}
-        {% set isKey = false %}
-        {% if associations.BelongsTo is defined %}
-        {% for alias, details in associations.BelongsTo %}
-        {% if field == details.foreignKey %}
-        {% set isKey = true %}
-        <td><?= ${{ singularVar }}->hasValue('{{ details.property }}') ? $this->Html->link(${{ singularVar }}->{{ details.property }}->{{ details.displayField }}, ['controller' => '{{ details.controller }}', 'action' => 'view', ${{ singularVar }}->{{ details.property }}->{{ details.primaryKey[0] }}]) : '' ?></td>
-        {% endif %}
-        {% endfor %}
-        {% endif %}
-        {% if isKey is not same as(true) %}
-        {% set columnData = Bake.columnData(field, schema) %}
-        {% set supportsLabel = Bake.enumSupportsLabel(field, schema) %}
-        {% if columnData.type starts with 'enum-' %}
-        <td><?= ${{ singularVar }}->{{ field }} === null ? '' : h(${{ singularVar }}->{{ field }}->{% if supportsLabel %}label(){% else %}value{% endif %}) ?></td>
-        {% elseif columnData.type not in ['integer', 'float', 'decimal', 'biginteger', 'smallinteger', 'tinyinteger'] %}
-        <td><?= h(${{ singularVar }}->{{ field }}) ?></td>
-        {% elseif columnData.null %}
-        <td><?= ${{ singularVar }}->{{ field }} === null ? '' : $this->Number->format(${{ singularVar }}->{{ field }}) ?></td>
-        {% else %}
-        <td><?= $this->Number->format(${{ singularVar }}->{{ field }}) ?></td>
-        {% endif %}
-        {% endif %}
-        {% endfor %}
-        {% set pk = '$' ~ singularVar ~ '->' ~ primaryKey[0] %}
+  {% for field in fields %}
+  {% set isKey = false %}
+  {% if associations.BelongsTo is defined %}
+  {% for alias, details in associations.BelongsTo %}
+  {% if field == details.foreignKey %}
+  {% set isKey = true %}
+  <td><?= ${{ singularVar }}->hasValue('{{ details.property }}') ? $this->Html->link(${{ singularVar }}->{{ details.property }}->{{ details.displayField }}, ['controller' => '{{ details.controller }}', 'action' => 'view', ${{ singularVar }}->{{ details.property }}->{{ details.primaryKey[0] }}]) : '' ?></td>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+  {% if isKey is not same as(true) %}
+  {% set columnData = Bake.columnData(field, schema) %}
+  {% set supportsLabel = Bake.enumSupportsLabel(field, schema) %}
+  {% if columnData.type starts with 'enum-' %}
+  <td><?= ${{ singularVar }}->{{ field }} === null ? '' : h(${{ singularVar }}->{{ field }}->{% if supportsLabel %}label(){% else %}value{% endif %}) ?></td>
+  {% elseif columnData.type not in ['integer', 'float', 'decimal', 'biginteger', 'smallinteger', 'tinyinteger'] %}
+  <td><?= h(${{ singularVar }}->{{ field }}) ?></td>
+  {% elseif columnData.null %}
+  <td><?= ${{ singularVar }}->{{ field }} === null ? '' : $this->Number->format(${{ singularVar }}->{{ field }}) ?></td>
+  {% else %}
+  <td><?= $this->Number->format(${{ singularVar }}->{{ field }}) ?></td>
+  {% endif %}
+  {% endif %}
+  {% endfor %}
+  {% set pk = '$' ~ singularVar ~ '->' ~ primaryKey[0] %}
         <td>
             <div class="btn-group w-100 align-items-center justify-content-between flex-wrap">
                 <div class="dropdown">
@@ -105,13 +114,11 @@
   </tbody>
 </table>
 
-
 <?= $this->element('pagination', ['recordCount' => count(${{ pluralVar }})]) ?>
-
 
 <?php $this->Html->scriptStart(['block' => true]); ?>
 document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('{{ singularVar }}Search');
+    const searchInput = document.getElementById('articleSearch');
     const resultsContainer = document.querySelector('tbody');
 
     let debounceTimer;
@@ -120,9 +127,16 @@ document.addEventListener('DOMContentLoaded', function() {
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(() => {
             const searchTerm = this.value.trim();
+            
+            let url = `<?= $this->Url->build(['action' => 'index']) ?>`;
+
+            <?php if (null !== $activeFilter): ?>
+            url += `?status=<?= urlencode($activeFilter) ?>`;
+            <?php endif; ?>
 
             if (searchTerm.length > 0) {
-                fetch(`<?= $this->Url->build(['action' => 'index']) ?>?search=${encodeURIComponent(searchTerm)}`, {
+                url += (url.includes('?') ? '&' : '?') + `search=${encodeURIComponent(searchTerm)}`;
+                fetch(url, {
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest'
                     }
@@ -130,12 +144,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(response => response.text())
                 .then(html => {
                     resultsContainer.innerHTML = html;
+                    // Re-initialize popovers after updating the content
+                    const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+                    popoverTriggerList.map(function (popoverTriggerEl) {
+                        return new bootstrap.Popover(popoverTriggerEl);
+                    });
                 })
                 .catch(error => console.error('Error:', error));
             } else {
+                // If search is empty, you might want to reload all results or clear the table
                 location.reload();
             }
         }, 300); // Debounce for 300ms
+    });
+
+    // Initialize popovers on page load
+    const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+    popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl);
     });
 });
 <?php $this->Html->scriptEnd(); ?>

@@ -27,7 +27,7 @@
                     __('Un-Published'), 
                     ['action' => 'index', '?' => ['status' => 0]], 
                     [
-                      'class' => 'dropdown-item' . ($activeFilter === '0' ? ' active' : '')
+                      'class' => 'dropdown-item' . ('0' === $activeFilter ? ' active' : '')
                     ]
                 ) ?>
               </li>
@@ -36,7 +36,7 @@
                     __('Published'), 
                     ['action' => 'index', '?' => ['status' => 1]], 
                     [
-                      'class' => 'dropdown-item' . ($activeFilter === '1' ? ' active' : '')
+                      'class' => 'dropdown-item' . ('1' === $activeFilter ? ' active' : '')
                     ]
                 ) ?>
               </li>
@@ -59,7 +59,9 @@
       <th scope="col"><?= $this->Paginator->sort('user_id', 'Author') ?></th>
       <th scope="col"><?= $this->Paginator->sort('title') ?></th>
 
-      <?php if ('1' === $activeFilter) :?>
+      <?php if (null === $activeFilter) :?>
+      <th scope="col"><?= $this->Paginator->sort('is_published', 'Status') ?></th>
+      <?php elseif ('1' === $activeFilter) :?>
       <th scope="col"><?= $this->Paginator->sort('published') ?></th>
       <?php elseif ('0' === $activeFilter) :?>
       <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
@@ -131,7 +133,9 @@
             ) ?>
         <?php endif; ?>
       </td>
-      <?php if ('1' === $activeFilter) :?>
+      <?php if (null === $activeFilter) :?>
+      <td><?= $article->is_published ? '<span class="badge bg-success">' . __('Published') . '</span>' : '<span class="badge bg-warning">' . __('Un-Published') . '</span>'; ?></td>
+      <?php elseif ('1' === $activeFilter) :?>
       <td><?= h($article->published) ?></td>
       <?php elseif ('0' === $activeFilter) :?>
       <td><?= h($article->modified) ?></td>
@@ -175,9 +179,16 @@ document.addEventListener('DOMContentLoaded', function() {
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(() => {
             const searchTerm = this.value.trim();
+            
+            let url = `<?= $this->Url->build(['action' => 'index']) ?>`;
+
+            <?php if (null !== $activeFilter): ?>
+            url += `?status=<?= urlencode($activeFilter) ?>`;
+            <?php endif; ?>
 
             if (searchTerm.length > 0) {
-                fetch(`<?= $this->Url->build(['action' => 'index']) ?>?search=${encodeURIComponent(searchTerm)}`, {
+                url += (url.includes('?') ? '&' : '?') + `search=${encodeURIComponent(searchTerm)}`;
+                fetch(url, {
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest'
                     }

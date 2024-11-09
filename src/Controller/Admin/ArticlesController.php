@@ -25,20 +25,40 @@ class ArticlesController extends AppController
      *
      * @return void
      */
-    public function treeIndex(): void
+    public function treeIndex(): ?Response
     {
         $statusFilter = $this->request->getQuery('status');
         $conditions = [];
-
+    
         if ($statusFilter === '1') {
             $conditions['Articles.is_published'] = '1';
         } elseif ($statusFilter === '0') {
             $conditions['Articles.is_published'] = '0';
         }
-
+    
+        if ($this->request->is('ajax')) {
+            $search = $this->request->getQuery('search');
+            if (!empty($search)) {
+                $conditions['OR'] = [
+                    'Articles.title LIKE' => '%' . $search . '%',
+                    'Articles.slug LIKE' => '%' . $search . '%',
+                    'Articles.body LIKE' => '%' . $search . '%',
+                    'Articles.meta_title LIKE' => '%' . $search . '%',
+                    'Articles.meta_description LIKE' => '%' . $search . '%',
+                    'Articles.meta_keywords LIKE' => '%' . $search . '%',
+                ];
+            }
+            $articles = $this->Articles->getPageTree($conditions);
+            $this->set(compact('articles'));
+            $this->viewBuilder()->setLayout('ajax');
+    
+            return $this->render('tree_index_search_results');
+        }
+    
         $articles = $this->Articles->getPageTree($conditions);
-
         $this->set(compact('articles'));
+    
+        return null;
     }
 
     /**

@@ -43,7 +43,7 @@ if ($activeFilter === null) {
           </li>
         </ul>
         <form class="d-flex-grow-1 me-3" role="search">
-          <input id="articleSearch" type="search" class="form-control" placeholder="<?= __('Search Pages...') ?>" aria-label="Search">
+          <input id="pageSearch" type="search" class="form-control" placeholder="<?= __('Search Pages...') ?>" aria-label="Search">
         </form>
       </div>
       <div class="flex-shrink-0">
@@ -51,6 +51,7 @@ if ($activeFilter === null) {
       </div>
     </div>
 </header>
+<span class="results">
 <?php
     if (!empty($articles)) {
         echo $this->element('page_tree', ['articles' => $articles, 'level' => 0]);
@@ -58,3 +59,51 @@ if ($activeFilter === null) {
         echo $this->Html->tag('p', __('No pages found.'));
     }
 ?>
+</span>
+
+<?php $this->Html->scriptStart(['block' => true]); ?>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('pageSearch');
+    const resultsContainer = document.querySelector('span.results');
+
+    let debounceTimer;
+
+    searchInput.addEventListener('input', function() {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            const searchTerm = this.value.trim();
+            let url = `<?= $this->Url->build(['action' => 'treeIndex']) ?>`;
+            <?php if (null !== $activeFilter): ?>
+            url += `?status=<?= urlencode($activeFilter) ?>`;
+            <?php endif; ?>
+            if (searchTerm.length > 0) {
+                url += (url.includes('?') ? '&' : '?') + `search=${encodeURIComponent(searchTerm)}`;
+                fetch(url, {
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.text())
+                .then(html => {
+                    resultsContainer.innerHTML = html;
+                    // Re-initialize popovers after updating the content
+                    const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+                    popoverTriggerList.map(function (popoverTriggerEl) {
+                        return new bootstrap.Popover(popoverTriggerEl);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+            } else {
+                // If search is empty, you might want to reload all results or clear the table
+                location.reload();
+            }
+        }, 300); // Debounce for 300ms
+    });
+
+    // Initialize popovers on page load
+    const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+    popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl);
+    });
+});
+<?php $this->Html->scriptEnd(); ?>

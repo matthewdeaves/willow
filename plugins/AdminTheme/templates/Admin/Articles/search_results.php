@@ -5,6 +5,7 @@
  */
 ?>
 <?php use App\Utility\SettingsManager; ?>
+<?php $activeFilter = $this->request->getQuery('status'); ?>
 <?php foreach ($articles as $article): ?>
     <tr>
       <td>
@@ -67,9 +68,11 @@
             ) ?>
         <?php endif; ?>
       </td>
-      <?php if(!empty($activeFilter)) :?>
+      <?php if (null === $activeFilter) :?>
+      <td><?= $article->is_published ? '<span class="badge bg-success">' . __('Published') . '</span>' : '<span class="badge bg-warning">' . __('Un-Published') . '</span>'; ?></td>
+      <?php elseif ('1' === $activeFilter) :?>
       <td><?= h($article->published) ?></td>
-      <?php else: ?>
+      <?php elseif ('0' === $activeFilter) :?>
       <td><?= h($article->modified) ?></td>
       <?php endif; ?>
       <td>
@@ -94,4 +97,4 @@
         </div>
       </td>
     </tr>
-    <?php endforeach; ?>
+<?php endforeach; ?>

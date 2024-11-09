@@ -11,18 +11,23 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false"><?= __('Status') ?></a>
             <ul class="dropdown-menu">
+              <?php $activeFilter = $this->request->getQuery('filter');  ?>
               <li>
                 <?= $this->Html->link(
                     __('Filter 1'), 
                     ['action' => 'index', 'id' => '{{ pk|raw }}', '?' => ['filter' => 1]], 
-                    ['class' => 'dropdown-item']
+                    [
+                      'class' => 'dropdown-item' . ($activeFilter === null || $activeFilter === '1' ? ' active' : '')
+                    ]
                 ) ?>
               </li>
               <li>
                 <?= $this->Html->link(
                     __('Filter 2'), 
                     ['action' => 'index', 'id' => '{{ pk|raw }}', '?' => ['filter' => 2]], 
-                    ['class' => 'dropdown-item']
+                    [
+                      'class' => 'dropdown-item' . ($activeFilter === '2' ? ' active' : '')
+                    ]
                 ) ?>
               </li>
             </ul>
@@ -89,7 +94,7 @@
                     </li>
                     <li><hr class="dropdown-divider"></li>
                     <li>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', {{ pk|raw }}], ['confirm' => __('Are you sure you want to delete # {0}?', {{ pk|raw }}), 'class' => 'dropdown-item']) ?>
+                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', {{ pk|raw }}], ['confirm' => __('Are you sure you want to delete # {0}?', {{ pk|raw }}), 'class' => 'dropdown-item text-danger']) ?>
                     </li>
                 </ul>
                 </div>

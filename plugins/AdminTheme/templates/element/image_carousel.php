@@ -18,7 +18,7 @@
                     'class' => 'd-block w-100',
                     'alt' => $image->alt_text,
                 ]) ?>
-                <div class="carousel-caption d-none d-md-block">
+                <div class="carousel-caption">
                     <?= $this->Form->control('unlink_images[]', [
                         'type' => 'checkbox',
                         'label' => 'Unlink this image',

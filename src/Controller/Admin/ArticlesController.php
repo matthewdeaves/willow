@@ -27,7 +27,17 @@ class ArticlesController extends AppController
      */
     public function treeIndex(): void
     {
-        $articles = $this->Articles->getPageTree();
+        $statusFilter = $this->request->getQuery('status');
+        $conditions = [];
+
+        if ($statusFilter === '1') {
+            $conditions['Articles.is_published'] = '1';
+        } elseif ($statusFilter === '0') {
+            $conditions['Articles.is_published'] = '0';
+        }
+
+        $articles = $this->Articles->getPageTree($conditions);
+
         $this->set(compact('articles'));
     }
 
@@ -60,6 +70,8 @@ class ArticlesController extends AppController
      */
     public function index(): ?Response
     {
+        $statusFilter = $this->request->getQuery('status');
+
         $query = $this->Articles->find()
             ->select([
                 'Articles.id',
@@ -101,9 +113,12 @@ class ArticlesController extends AppController
                 'Articles.modified',
                 'Users.id',
                 'Users.username',
-            ])
-            ->orderBy(['Articles.created' => 'DESC']);
+            ]);
 
+        if (null !== $statusFilter) {
+            $query->where(['Articles.is_published' => (int)$statusFilter]);
+        }
+        
         if ($this->request->is('ajax')) {
             $search = $this->request->getQuery('search');
             if (!empty($search)) {
@@ -124,6 +139,16 @@ class ArticlesController extends AppController
 
             return $this->render('search_results');
         }
+
+        $this->paginate = [
+            'sortableFields' => [
+                'user_id',
+                'title',
+                'published',
+                'modified',
+            ],
+            'order' => ['Articles.created' => 'DESC'],
+        ];
 
         $articles = $this->paginate($query);
         $this->set(compact('articles'));

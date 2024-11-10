@@ -91,6 +91,7 @@ class CreateUserCommand extends Command
             'confirm_password' => $args->getOption('password'),
             'email' => $args->getOption('email'),
             'is_admin' => (bool)$args->getOption('is_admin'),
+            'active' => 1,
         ];
 
         // don't log passwords
@@ -105,6 +106,7 @@ class CreateUserCommand extends Command
 
         $user = $usersTable->newEmptyEntity();
         $user->setAccess('is_admin', true);
+        $user->setAccess('active', true);
         $user = $usersTable->patchEntity($user, $data);
 
         if ($usersTable->save($user)) {

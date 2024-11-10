@@ -77,6 +77,8 @@ class SlugsController extends AppController
         }
         $articles = $this->Slugs->Articles->find('list', limit: 200)->all();
         $this->set(compact('slug', 'articles'));
+
+        return null;
     }
 
     /**
@@ -100,6 +102,8 @@ class SlugsController extends AppController
         }
         $articles = $this->Slugs->Articles->find('list', limit: 200)->all();
         $this->set(compact('slug', 'articles'));
+
+        return null;
     }
 
     /**

@@ -321,7 +321,7 @@ class V1 extends AbstractMigration
                 'limit' => null,
                 'null' => false,
             ])
-            ->addColumn('expires_at', 'timestamp', [
+            ->addColumn('expires_at', 'date', [
                 'default' => null,
                 'limit' => null,
                 'null' => true,

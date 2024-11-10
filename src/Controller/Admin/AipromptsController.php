@@ -120,6 +120,8 @@ class AipromptsController extends AppController
             $this->Flash->error(__('The aiprompt could not be saved. Please, try again.'));
         }
         $this->set(compact('aiprompt'));
+
+        return null;
     }
 
     /**

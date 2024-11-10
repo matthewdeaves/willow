@@ -95,6 +95,8 @@ class BlockedIpsController extends AppController
             $this->Flash->error(__('The blocked ip could not be saved. Please, try again.'));
         }
         $this->set(compact('blockedIp'));
+
+        return null;
     }
 
     /**
@@ -118,6 +120,8 @@ class BlockedIpsController extends AppController
             $this->Flash->error(__('The blocked ip could not be saved. Please, try again.'));
         }
         $this->set(compact('blockedIp'));
+
+        return null;
     }
 
     /**
@@ -133,6 +137,7 @@ class BlockedIpsController extends AppController
         $blockedIp = $this->BlockedIps->get($id);
         if ($this->BlockedIps->delete($blockedIp)) {
             $this->Flash->success(__('The blocked ip has been deleted.'));
+            Cache::clear('ip_blocker');
         } else {
             $this->Flash->error(__('The blocked ip could not be deleted. Please, try again.'));
         }

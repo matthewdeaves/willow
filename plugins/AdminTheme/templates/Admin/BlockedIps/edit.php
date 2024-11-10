@@ -4,45 +4,60 @@
  * @var \App\Model\Entity\BlockedIp $blockedIp
  */
 ?>
-<div class="container-fluid mt-4">
+<div class="container mt-4">
     <div class="row">
-        <div class="col-md-3">
-            <div class="card mb-3">
-                <div class="card-header bg-primary text-white">
-                    <h4 class="card-title mb-0"><?= __('Actions') ?></h4>
-                </div>
-                <div class="list-group list-group-flush">
-                    <?= $this->Form->postLink(
-                        __('Delete'),
-                        ['action' => 'delete', $blockedIp->id],
-                        ['confirm' => __('Are you sure you want to delete {0}?', $blockedIp->ip_address), 'class' => 'list-group-item list-group-item-action text-danger']
-                    ) ?>
-                    <?= $this->Html->link(__('List Blocked IPs'), ['action' => 'index'], ['class' => 'list-group-item list-group-item-action']) ?>
-                </div>
-            </div>
-        </div>
+        <?php
+        echo $this->element('actions_card', [
+            'modelName' => 'Blocked Ip',
+            'controllerName' => 'Blocked Ips',
+            'entity' => $blockedIp,
+            'entityDisplayName' => $blockedIp->ip_address
+        ]);
+        ?>
         <div class="col-md-9">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="card-title mb-0"><?= __('Edit Blocked IP') ?></h3>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title"><?= __('Edit Blocked Ip') ?></h5>
                 </div>
                 <div class="card-body">
                     <?= $this->Form->create($blockedIp, ['class' => 'needs-validation', 'novalidate' => true]) ?>
                     <fieldset>
-                        <div class="mb-3">
-                            <?= $this->Form->control('ip_address', ['class' => 'form-control']) ?>
+                    <div class="mb-3">
+                            <?php echo $this->Form->control('ip_address', ['class' => 'form-control' . ($this->Form->isFieldError('ip_address') ? ' is-invalid' : '')]); ?>
+                                                                                        <?php if ($this->Form->isFieldError('ip_address')): ?>
+                                <div class="invalid-feedback">
+                                    <?= $this->Form->error('ip_address') ?>
+                                </div>
+                            <?php endif; ?>
                         </div>
-                        <div class="mb-3">
-                            <?= $this->Form->control('reason', ['class' => 'form-control']) ?>
+                                        <div class="mb-3">
+                            <?php echo $this->Form->control('reason', ['class' => 'form-control' . ($this->Form->isFieldError('reason') ? ' is-invalid' : '')]); ?>
+                                                                                        <?php if ($this->Form->isFieldError('reason')): ?>
+                                <div class="invalid-feedback">
+                                    <?= $this->Form->error('reason') ?>
+                                </div>
+                            <?php endif; ?>
                         </div>
-                        <div class="mb-3">
-                            <?= $this->Form->control('blocked_at', ['class' => 'form-control']) ?>
+                                        <div class="mb-3">
+                            <?php echo $this->Form->control('blocked_at', ['class' => 'form-control' . ($this->Form->isFieldError('blocked_at') ? ' is-invalid' : '')]); ?>
+                                                                                        <?php if ($this->Form->isFieldError('blocked_at')): ?>
+                                <div class="invalid-feedback">
+                                    <?= $this->Form->error('blocked_at') ?>
+                                </div>
+                            <?php endif; ?>
                         </div>
-                        <div class="mb-3">
-                            <?= $this->Form->control('expires_at', ['class' => 'form-control']) ?>
-                        </div>
+                                        <div class="mb-3">
+                            <?php echo $this->Form->control('expires_at', ['class' => 'form-control' . ($this->Form->isFieldError('expires_at') ? ' is-invalid' : '')]); ?>
+                                                                                        <?php if ($this->Form->isFieldError('expires_at')): ?>
+                                <div class="invalid-feedback">
+                                    <?= $this->Form->error('expires_at') ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>                                                                   
                     </fieldset>
-                    <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-primary']) ?>
+                    <div class="form-group">
+                        <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-primary']) ?>
+                    </div>
                     <?= $this->Form->end() ?>
                 </div>
             </div>

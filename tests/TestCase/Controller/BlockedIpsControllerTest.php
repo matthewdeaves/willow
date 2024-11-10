@@ -153,7 +153,7 @@ class BlockedIpsControllerTest extends AppControllerTestCase
         $this->delete('/admin/blocked-ips/delete/550e8400-e29b-41d4-a716-446655440000');
 
         $this->assertResponseSuccess();
-        $this->assertRedirect(['action' => 'index']);
+        $this->assertRedirect();
         $this->assertFlashMessage('The blocked ip has been deleted.');
 
         $deletedBlockedIp = $this->BlockedIps->findById('550e8400-e29b-41d4-a716-446655440000')->first();

@@ -52,7 +52,7 @@ class SlugsController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view(?string $id = null): ?Response
+    public function view(?string $id = null): void
     {
         $slug = $this->Slugs->get($id, contain: ['Articles']);
         $this->set(compact('slug'));

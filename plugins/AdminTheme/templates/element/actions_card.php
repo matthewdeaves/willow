@@ -24,7 +24,7 @@ $debugOnlyOptions = $debugOnlyOptions ?? [];
                     ) ?>
                 </li>
 
-                <?php if (!in_array($this->request->getParam('action'), ['add', 'view', 'bulkUpload'])): ?>
+                <?php if (!in_array($this->request->getParam('action'), ['add', 'view', 'bulkUpload', 'sendEmail'])): ?>
                     <?php if (!isset($hideView)) : ?>
                     <li class="list-group-item">
                         <?= $this->Html->link(__('View {0}', [$modelName]), ['controller' => $controllerName, 'action' => 'view', $entity->id], ['class' => 'list-group-item list-group-item-action']) ?>
@@ -43,7 +43,7 @@ $debugOnlyOptions = $debugOnlyOptions ?? [];
                     <?php endif; ?>
                 <?php endif; ?>
 
-                <?php if (!in_array($this->request->getParam('action'), ['add', 'edit', 'bulkUpload'])): ?>
+                <?php if (!in_array($this->request->getParam('action'), ['add', 'edit', 'bulkUpload', 'sendEmail'])): ?>
                     <?php if (!isset($hideEdit)) : ?>
                     <li class="list-group-item">
                         <?= $this->Html->link(__('Edit {0}', [$modelName]), ['controller' => $controllerName, 'action' => 'edit', $entity->id], ['class' => 'list-group-item list-group-item-action']) ?>
@@ -52,7 +52,7 @@ $debugOnlyOptions = $debugOnlyOptions ?? [];
                 <?php endif; ?>
 
 
-                <?php if (!in_array($this->request->getParam('action'), ['add', 'bulkUpload'])): ?>
+                <?php if (!in_array($this->request->getParam('action'), ['add', 'bulkUpload', 'sendEmail'])): ?>
                     <?php if (!isset($hideDelete)) : ?>
                         <?php
                             $customConfirm = __('Are you sure you want to delete {0}?', $entityDisplayName);

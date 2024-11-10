@@ -27,12 +27,45 @@ class EmailTemplatesController extends AppController
      *
      * @return void
      */
-    public function index(): void
+    public function index(): ?Response
     {
-        $query = $this->EmailTemplates->find();
-        $emailTemplates = $this->paginate($query);
+        $statusFilter = $this->request->getQuery('status');
+        $query = $this->EmailTemplates->find()
+            ->select([
+                'EmailTemplates.id',
+                'EmailTemplates.template_identifier',
+                'EmailTemplates.name',
+                'EmailTemplates.subject',
+                'EmailTemplates.body_html',
+                'EmailTemplates.body_plain',
+                'EmailTemplates.created',
+                'EmailTemplates.modified',
+            ]);
 
+        if ($this->request->is('ajax')) {
+            $search = $this->request->getQuery('search');
+            if (!empty($search)) {
+                $query->where([
+                    'OR' => [
+                        'EmailTemplates.template_identifier LIKE' => '%' . $search . '%',
+                        'EmailTemplates.name LIKE' => '%' . $search . '%',
+                        'EmailTemplates.subject LIKE' => '%' . $search . '%',
+                        'EmailTemplates.body_html LIKE' => '%' . $search . '%',
+                        'EmailTemplates.body_plain LIKE' => '%' . $search . '%',
+                    ],
+                ]);
+            }
+            $emailTemplates = $query->all();
+            $this->set(compact('emailTemplates', 'search'));
+            $this->viewBuilder()->setLayout('ajax');
+
+            return $this->render('search_results');
+        }
+
+        $emailTemplates = $this->paginate($query);
         $this->set(compact('emailTemplates'));
+
+        return null;
     }
 
     /**
@@ -158,6 +191,7 @@ class EmailTemplatesController extends AppController
 
         if ($this->request->is('post')) {
             $data = $this->request->getData();
+
             $variables = $this->prepareEmailVariables($data['email_template_id'], $data['user_id']);
             $emailTemplate = $this->EmailTemplates->get($data['email_template_id']);
             $user = $usersTable->get($data['user_id']);

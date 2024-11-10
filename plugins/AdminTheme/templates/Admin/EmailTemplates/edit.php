@@ -1,67 +1,92 @@
-<?= $this->element('trumbowyg'); ?>
 <?php
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\EmailTemplate $emailTemplate
  */
 ?>
-<div class="container-fluid mt-4">
+<div class="container mt-4">
     <div class="row">
-        <aside class="col-md-3">
-            <div class="card">
-                <div class="card-header bg-secondary text-white">
-                    <h4 class="mb-0"><?= __('Actions') ?></h4>
-                </div>
-                <div class="card-body">
-                    <?= $this->Form->postLink(
-                        __('Delete'),
-                        ['action' => 'delete', $emailTemplate->id],
-                        ['confirm' => __('Are you sure you want to delete # {0}?', $emailTemplate->id), 'class' => 'btn btn-danger btn-block']
-                    ) ?>
-                    <?= $this->Html->link(__('List Email Templates'), ['action' => 'index'], ['class' => 'btn btn-secondary btn-block']) ?>
-                </div>
-            </div>
-        </aside>
+        <?php
+        echo $this->element('actions_card', [
+            'modelName' => 'Email Template',
+            'controllerName' => 'Email Templates',
+            'entity' => $emailTemplate,
+            'entityDisplayName' => $emailTemplate->name
+        ]);
+        ?>
         <div class="col-md-9">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0"><?= __('Edit Email Template') ?></h3>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title"><?= __('Edit Email Template') ?></h5>
                 </div>
                 <div class="card-body">
                     <?= $this->Form->create($emailTemplate, ['class' => 'needs-validation', 'novalidate' => true]) ?>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <?= $this->Form->control('name', [
-                                'class' => 'form-control' . ($this->Form->isFieldError('name') ? ' is-invalid' : ''),
-                                'required' => true
-                            ]) ?>
+                    <fieldset>
+
+                        <div class="mb-3">
+                            <?php echo $this->Form->control('template_identifier', ['class' => 'form-control' . ($this->Form->isFieldError('template_identifier') ? ' is-invalid' : '')]); ?>
+                            <?php if ($this->Form->isFieldError('template_identifier')): ?>
+                                <div class="invalid-feedback">
+                                    <?= $this->Form->error('template_identifier') ?>
+                                </div>
+                            <?php endif; ?>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <?= $this->Form->control('subject', [
-                                'class' => 'form-control' . ($this->Form->isFieldError('subject') ? ' is-invalid' : ''),
-                                'required' => true
-                            ]) ?>
+
+                        <div class="mb-3">
+                            <?php echo $this->Form->control('name', ['class' => 'form-control' . ($this->Form->isFieldError('name') ? ' is-invalid' : '')]); ?>
+                            <?php if ($this->Form->isFieldError('name')): ?>
+                                <div class="invalid-feedback">
+                                    <?= $this->Form->error('name') ?>
+                                </div>
+                            <?php endif; ?>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 mb-3">
-                            <?= $this->Form->control('body_html', [
-                                'type' => 'textarea',
-                                'id' => 'email-body-html',
-                                'rows' => '10',
-                                'class' => 'form-control trumbowyg-editor' . ($this->Form->isFieldError('body_html') ? ' is-invalid' : ''),
-                                'required' => true
-                            ]) ?>
+
+                        <div class="mb-3">
+                            <?php echo $this->Form->control('subject', ['class' => 'form-control' . ($this->Form->isFieldError('subject') ? ' is-invalid' : '')]); ?>
+                            <?php if ($this->Form->isFieldError('subject')): ?>
+                                <div class="invalid-feedback">
+                                    <?= $this->Form->error('subject') ?>
+                                </div>
+                            <?php endif; ?>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="mt-4 mb-3">
-                                <?= $this->Form->button(__('Submit'), [
-                                    'class' => 'btn btn-primary'
-                                ]) ?>
-                            </div>
+
+                        <div class="mb-3">
+                            <?php echo $this->Form->control('body_html', ['class' => 'form-control' . ($this->Form->isFieldError('body_html') ? ' is-invalid' : '')]); ?>
+                            <?php if ($this->Form->isFieldError('body_html')): ?>
+                                <div class="invalid-feedback">
+                                    <?= $this->Form->error('body_html') ?>
+                                </div>
+                            <?php endif; ?>
                         </div>
+
+                        <div class="mb-3">
+                            <?php echo $this->Form->control('body_plain', ['class' => 'form-control' . ($this->Form->isFieldError('body_plain') ? ' is-invalid' : '')]); ?>
+                            <?php if ($this->Form->isFieldError('body_plain')): ?>
+                                <div class="invalid-feedback">
+                                    <?= $this->Form->error('body_plain') ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+
+                        <div class="mb-3">
+                            <?php if ($this->Form->isFieldError('created')): ?>
+                                <div class="invalid-feedback">
+                                    <?= $this->Form->error('created') ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <?php if ($this->Form->isFieldError('modified')): ?>
+                                <div class="invalid-feedback">
+                                    <?= $this->Form->error('modified') ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                                                                                                    
+                    </fieldset>
+                    <div class="form-group">
+                        <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-primary']) ?>
                     </div>
                     <?= $this->Form->end() ?>
                 </div>
@@ -69,9 +94,3 @@
         </div>
     </div>
 </div>
-
-<script>
-$(document).ready(function() {
-    $('#email-body-html').trumbowyg();
-});
-</script>

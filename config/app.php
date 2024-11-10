@@ -274,12 +274,12 @@ return [
              */
             'host' => env('EMAIL_HOST', 'mailhog'),
             'port' => env('EMAIL_PORT', 1025),
-            'timeout' => env('EMAIL_TIMEOUT'),
+            'timeout' => env('EMAIL_TIMEOUT', 30),
             /*
              * It is recommended to set these options through your environment or app_local.php
              */
-            //'username' => null,
-            //'password' => null,
+            'username' => env('EMAIL_USERNAME', ''),
+            'password' => env('EMAIL_PASSWORD', ''),
             'client' => null,
             'tls' => false,
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),

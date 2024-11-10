@@ -114,7 +114,7 @@ class ImagesController extends AppController
     public function trumbowygSelect(): void
     {
         $this->paginate = [
-            'maxLimit' => 8,
+            'maxLimit' => 6,
         ];
         $query = $this->Images->find();
         $search = $this->request->getQuery('search');

@@ -8,10 +8,11 @@
 <div class="container-fluid mt-4">
     <div class="row">
         <div class="col-md-12">
-            <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="card-title mb-0"><?= __('Edit Settings') ?></h3>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title"><?= __('Settings') ?></h5>
                 </div>
+
                 <div class="card-body">
                     <?= $this->Form->create(null, ['url' => ['action' => 'saveSettings'], 'class' => 'needs-validation', 'novalidate' => true]) ?>
                     <?php foreach ($groupedSettings as $category => $settings): ?>
@@ -101,6 +102,8 @@
                     </div>
                     <?= $this->Form->end() ?>
                 </div>
+
+
             </div>
         </div>
     </div>

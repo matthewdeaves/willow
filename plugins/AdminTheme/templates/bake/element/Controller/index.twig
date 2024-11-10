@@ -46,7 +46,7 @@
                 ]);
             }
             ${{ pluralName }} = $query->all();
-            $this->set(compact('{{ pluralName }}'));
+            $this->set(compact('{{ pluralName }}', 'search'));
             $this->viewBuilder()->setLayout('ajax');
 
             return $this->render('search_results');

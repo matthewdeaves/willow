@@ -148,7 +148,7 @@
   </tbody>
 </table>
 
-<?= $this->element('pagination', ['recordCount' => count($articles)]) ?>
+<?= $this->element('pagination', ['recordCount' => count($articles), 'search' => $search ?? '']) ?>
 
 <?php $this->Html->scriptStart(['block' => true]); ?>
 document.addEventListener('DOMContentLoaded', function() {

@@ -154,21 +154,11 @@ class ArticlesController extends AppController
                 ]);
             }
             $articles = $query->all();
-            $this->set(compact('articles'));
+            $this->set(compact('articles', 'search'));
             $this->viewBuilder()->setLayout('ajax');
 
             return $this->render('search_results');
         }
-
-        $this->paginate = [
-            'sortableFields' => [
-                'user_id',
-                'title',
-                'published',
-                'modified',
-            ],
-            'order' => ['Articles.created' => 'DESC'],
-        ];
 
         $articles = $this->paginate($query);
         $this->set(compact('articles'));

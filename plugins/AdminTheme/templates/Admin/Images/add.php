@@ -4,76 +4,73 @@
  * @var \App\Model\Entity\Image $image
  */
 ?>
-<div class="container-fluid mt-4">
+<div class="container mt-4">
     <div class="row">
         <?php
         echo $this->element('actions_card', [
             'modelName' => 'Image',
             'controllerName' => 'Images',
             'entity' => $image,
-            'entityDisplayName' => __('Add Image')
+            'entityDisplayName' => $image->name
         ]);
         ?>
         <div class="col-md-9">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0"><?= __('Add Image') ?></h3>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title"><?= __('Add Image') ?></h5>
                 </div>
                 <div class="card-body">
-                    <?= $this->Form->create($image, ['type' => 'file', 'class' => 'needs-validation', 'novalidate' => true]) ?>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <?= $this->Form->control('name', [
-                                'class' => 'form-control' . ($this->Form->isFieldError('name') ? ' is-invalid' : ''),
-                                'required' => true
-                            ]) ?>
+                    <?= $this->Form->create($image,
+                    [
+                        'type' => 'file',
+                        'enctype' => 'multipart/form-data',
+                        'class' => 'needs-validation', 'novalidate' => true
+                    ]) ?>
+                    <fieldset>
+                        <div class="mb-3">
+                            <?php echo $this->Form->control('name', ['class' => 'form-control' . ($this->Form->isFieldError('name') ? ' is-invalid' : '')]); ?>
                             <?php if ($this->Form->isFieldError('name')): ?>
                                 <div class="invalid-feedback">
                                     <?= $this->Form->error('name') ?>
                                 </div>
                             <?php endif; ?>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <?= $this->Form->control('alt_text', [
-                                'class' => 'form-control' . ($this->Form->isFieldError('alt_text') ? ' is-invalid' : ''),
-                                'required' => true
-                            ]) ?>
+                        <div class="mb-3">
+                            <?php echo $this->Form->control('alt_text', ['class' => 'form-control' . ($this->Form->isFieldError('alt_text') ? ' is-invalid' : '')]); ?>
                             <?php if ($this->Form->isFieldError('alt_text')): ?>
                                 <div class="invalid-feedback">
                                     <?= $this->Form->error('alt_text') ?>
                                 </div>
                             <?php endif; ?>
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                            <?= $this->Form->control('keywords', [
-                                'class' => 'form-control' . ($this->Form->isFieldError('keywords') ? ' is-invalid' : ''),
-                                'required' => false
-                            ]) ?>
+                        <div class="mb-3">
+                            <?php echo $this->Form->control('keywords', ['class' => 'form-control' . ($this->Form->isFieldError('keywords') ? ' is-invalid' : '')]); ?>
                             <?php if ($this->Form->isFieldError('keywords')): ?>
                                 <div class="invalid-feedback">
                                     <?= $this->Form->error('keywords') ?>
                                 </div>
                             <?php endif; ?>
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-md-6">
+                        <div class="mb-3">
                             <?= $this->Form->control('file', [
                                 'type' => 'file',
-                                'class' => 'form-control-file' . ($this->Form->isFieldError('file') ? ' is-invalid' : ''),
-                                'label' => 'Image',
-                                'error' => false,
+                                'label' => [
+                                    'text' => __('Image'),
+                                    'class' => 'form-label'
+                                ],
+                                'class' => 'form-control' . ($this->Form->isFieldError('file') ? ' is-invalid' : ''),
+                                'id' => 'customFile'
                             ]) ?>
                             <?php if ($this->Form->isFieldError('file')): ?>
-                                <div class="invalid-feedback d-block">
+                                <div class="invalid-feedback">
                                     <?= $this->Form->error('file') ?>
                                 </div>
                             <?php endif; ?>
-                        </div>
+                        </div>                                                                     
+                    </fieldset>
+                    <div class="form-group">
+                        <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-primary']) ?>
                     </div>
-                    <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-primary']) ?>
                     <?= $this->Form->end() ?>
                 </div>
             </div>

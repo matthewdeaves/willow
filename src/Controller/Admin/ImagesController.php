@@ -46,7 +46,17 @@ class ImagesController extends AppController
             $viewType = $session->read('Images.viewType', 'grid');
         }
 
-        $query = $this->Images->find();
+        $query = $this->Images->find()
+            ->select([
+                'Images.id',
+                'Images.name',
+                'Images.file',
+                'Images.dir',
+                'Images.alt_text',
+                'Images.keywords',
+                'Images.created',
+                'Images.modified',
+            ]);
 
         if ($this->request->is('ajax')) {
             $search = $this->request->getQuery('search');
@@ -60,15 +70,11 @@ class ImagesController extends AppController
                 ]);
             }
             $images = $query->all();
-            $this->set(compact('images', 'viewType'));
+            $this->set(compact('images', 'viewType', 'search'));
             $this->viewBuilder()->setLayout('ajax');
 
             return $this->render('search_results');
         }
-
-        $this->paginate = [
-            'limit' => $viewType === 'grid' ? 20 : 10,
-        ];
 
         $images = $this->paginate($query);
         $this->set(compact('images', 'viewType'));

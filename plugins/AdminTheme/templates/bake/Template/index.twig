@@ -114,7 +114,7 @@
   </tbody>
 </table>
 
-<?= $this->element('pagination', ['recordCount' => count(${{ pluralVar }})]) ?>
+<?= $this->element('pagination', ['recordCount' => count(${{ pluralVar }}), 'search' => $search ?? '']) ?>
 
 <?php $this->Html->scriptStart(['block' => true]); ?>
 document.addEventListener('DOMContentLoaded', function() {

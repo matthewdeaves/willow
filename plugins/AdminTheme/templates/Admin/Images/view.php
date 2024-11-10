@@ -1,34 +1,40 @@
-<?php use App\Utility\SettingsManager; ?>
 <?php
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Image $image
  */
 ?>
-<div class="container-fluid mt-4">
+<?php use App\Utility\SettingsManager; ?>
+<div class="container my-4">
     <div class="row">
         <?php
-            echo $this->element('actions_card', [
-                'modelName' => 'Image',
-                'controllerName' => 'Images',
-                'entity' => $image,
-                'entityDisplayName' => $image->name,
-                'urlParams' => ['view' => 'grid'],
-            ]);
+        echo $this->element('actions_card', [
+            'modelName' => 'Image',
+            'controllerName' => 'Images',
+            'entity' => $image,
+            'entityDisplayName' => $image->name
+        ]);
         ?>
-        <div class="col-md-9">
+        <div class="col-lg-9">
             <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0"><?= h($image->name) ?></h3>
-                </div>
                 <div class="card-body">
-                    <table class="table table-bordered">
+                    <h2 class="card-title"><?= h($image->name) ?></h2>
+                    <table class="table table-striped">
                         <tr>
-                            <th class="w-25"><?= __('Image') ?></th>
-                            <td>
-                                <?= $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $image->file, 
-                                ['pathPrefix' => 'files/Images/file/', 'alt' => $image->alt_text, 'class' => 'img-fluid']) ?>
-                            </td>
+                            <th><?= __('Name') ?></th>
+                            <td><?= h($image->name) ?></td>
+                        </tr>
+                        <tr>
+                            <?php if (!empty($image->file)): ?>
+                                <div class="mb-3">
+                                <?= $this->Html->image(SettingsManager::read('ImageSizes.large', '200') . '/' . $image->file, 
+                                    [
+                                        'pathPrefix' => 'files/Images/file/',
+                                        'alt' => $image->alt_text,
+                                        'class' => 'img-thumbnail',
+                                    ])?>
+                                </div>
+                            <?php endif; ?>
                         </tr>
                         <tr>
                             <th><?= __('Alt Text') ?></th>

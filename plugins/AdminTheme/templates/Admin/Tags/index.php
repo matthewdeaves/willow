@@ -60,7 +60,7 @@
   </tbody>
 </table>
 
-<?= $this->element('pagination', ['recordCount' => count($tags)]) ?>
+<?= $this->element('pagination', ['recordCount' => count($tags), 'search' => $search ?? '']) ?>
 
 <?php $this->Html->scriptStart(['block' => true]); ?>
 document.addEventListener('DOMContentLoaded', function() {

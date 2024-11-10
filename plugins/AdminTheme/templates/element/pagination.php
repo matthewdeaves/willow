@@ -9,13 +9,28 @@ $this->Paginator->setTemplates([
     'counterRange' => 'Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total',
     'counterPages' => 'Page {{page}} of {{pages}}',
 ]);
+
+// Get the current search query from the request
+$search = $this->request->getQuery('search');
+
+// Add the search query to the pagination URL options
+$paginationOptions = [
+    'url' => [
+        'controller' => $this->request->getParam('controller'),
+        'action' => $this->request->getParam('action'),
+    ],
+];
+
+if (!empty($search)) {
+    $paginationOptions['url']['?']['search'] = $search;
+}
 ?>
 <div class="d-flex justify-content-center">
     <nav aria-label="Standard pagination example">
         <ul class="pagination">
-            <?= $this->Paginator->prev('&laquo;', ['escape' => false]) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next('&raquo;', ['escape' => false]) ?>
+            <?= $this->Paginator->prev('&laquo;', ['escape' => false], null, ['class' => 'page-link'], $paginationOptions) ?>
+            <?= $this->Paginator->numbers([], ['class' => 'page-link'], $paginationOptions) ?>
+            <?= $this->Paginator->next('&raquo;', ['escape' => false], null, ['class' => 'page-link'], $paginationOptions) ?>
         </ul>
     </nav>
 </div>

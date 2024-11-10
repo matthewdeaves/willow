@@ -27,7 +27,18 @@ class TagsController extends AppController
     public function index(): ?Response
     {
         $query = $this->Tags->find()
-            ->orderBy(['Tags.title' => 'ASC']);
+            ->select([
+                'Tags.id',
+                'Tags.title',
+                'Tags.slug',
+                'Tags.image',
+                'Tags.alt_text',
+                'Tags.created',
+                'Tags.modified',
+                'Tags.meta_title',
+                'Tags.meta_description',
+                'Tags.meta_keywords',
+            ]);
 
         if ($this->request->is('ajax')) {
             $search = $this->request->getQuery('search');
@@ -35,12 +46,15 @@ class TagsController extends AppController
                 $query->where([
                     'OR' => [
                         'Tags.title LIKE' => '%' . $search . '%',
-                        'Tags.description LIKE' => '%' . $search . '%',
+                        'Tags.slug LIKE' => '%' . $search . '%',
+                        'Tags.meta_title LIKE' => '%' . $search . '%',
+                        'Tags.meta_description LIKE' => '%' . $search . '%',
+                        'Tags.meta_keywords LIKE' => '%' . $search . '%',
                     ],
                 ]);
             }
             $tags = $query->all();
-            $this->set(compact('tags'));
+            $this->set(compact('tags', 'search'));
             $this->viewBuilder()->setLayout('ajax');
 
             return $this->render('search_results');

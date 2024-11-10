@@ -48,7 +48,7 @@
                     </li>
                     <li><hr class="dropdown-divider"></li>
                     <li>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $blockedIp->id], ['confirm' => __('Are you sure you want to delete # {0}?', $blockedIp->id), 'class' => 'dropdown-item text-danger']) ?>
+                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $blockedIp->id], ['confirm' => __('Are you sure you want to delete {0}?', $blockedIp->ip_address), 'class' => 'dropdown-item text-danger']) ?>
                     </li>
                 </ul>
                 </div>

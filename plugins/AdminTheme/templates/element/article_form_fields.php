@@ -168,7 +168,11 @@
 <?php endif; ?>
 
 <div class="mb-3">
-    <?php echo $this->Form->control('user_id', ['options' => $users, 'class' => 'form-select' . ($this->Form->isFieldError('user_id') ? ' is-invalid' : '')]); ?>
+    <?php echo $this->Form->control('user_id', [
+        'default' => $this->Identity->get('id'),
+        'options' => $users,
+        'class' => 'form-select' . ($this->Form->isFieldError('user_id') ? ' is-invalid' : '')
+    ]); ?>
     <?php if ($this->Form->isFieldError('user_id')): ?>
         <div class="invalid-feedback">
             <?= $this->Form->error('user_id') ?>

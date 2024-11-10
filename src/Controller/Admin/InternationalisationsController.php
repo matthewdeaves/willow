@@ -53,7 +53,7 @@ class InternationalisationsController extends AppController
 
             return $this->render('search_results');
         }
-        
+
         $internationalisations = $this->paginate($query);
 
         // Get unique locales for the locale filter
@@ -75,7 +75,7 @@ class InternationalisationsController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view(?string $id = null): void
     {
         $internationalisation = $this->Internationalisations->get($id, contain: []);
         $this->set(compact('internationalisation'));
@@ -86,11 +86,14 @@ class InternationalisationsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add(): ?Response
     {
         $internationalisation = $this->Internationalisations->newEmptyEntity();
         if ($this->request->is('post')) {
-            $internationalisation = $this->Internationalisations->patchEntity($internationalisation, $this->request->getData());
+            $internationalisation = $this->Internationalisations->patchEntity(
+                $internationalisation,
+                $this->request->getData()
+            );
             if ($this->Internationalisations->save($internationalisation)) {
                 $this->Flash->success(__('The internationalisation has been saved.'));
 
@@ -99,6 +102,8 @@ class InternationalisationsController extends AppController
             $this->Flash->error(__('The internationalisation could not be saved. Please, try again.'));
         }
         $this->set(compact('internationalisation'));
+
+        return null;
     }
 
     /**
@@ -108,11 +113,14 @@ class InternationalisationsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit(?string $id = null): ?Response
     {
         $internationalisation = $this->Internationalisations->get($id, contain: []);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $internationalisation = $this->Internationalisations->patchEntity($internationalisation, $this->request->getData());
+            $internationalisation = $this->Internationalisations->patchEntity(
+                $internationalisation,
+                $this->request->getData()
+            );
             if ($this->Internationalisations->save($internationalisation)) {
                 $this->Flash->success(__('The internationalisation has been saved.'));
 
@@ -121,6 +129,8 @@ class InternationalisationsController extends AppController
             $this->Flash->error(__('The internationalisation could not be saved. Please, try again.'));
         }
         $this->set(compact('internationalisation'));
+
+        return null;
     }
 
     /**
@@ -130,7 +140,7 @@ class InternationalisationsController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete(?string $id = null): Response
     {
         $this->request->allowMethod(['post', 'delete']);
         $internationalisation = $this->Internationalisations->get($id);

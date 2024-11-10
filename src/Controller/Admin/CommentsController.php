@@ -92,6 +92,7 @@ class CommentsController extends AppController
     {
         $comment = $this->Comments->get($id, contain: ['Articles']);
         if ($this->request->is(['patch', 'post', 'put'])) {
+            $comment->setAccess('is_inappropriate', true);
             $comment = $this->Comments->patchEntity($comment, $this->request->getData());
             if ($this->Comments->save($comment)) {
                 if ($comment->article) {

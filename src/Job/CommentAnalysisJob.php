@@ -141,6 +141,7 @@ class CommentAnalysisJob implements JobInterface
         $isInappropriate = $analysisResult['is_inappropriate'] ?? false;
         $reason = $analysisResult['reason'] ?? [];
 
+        $comment->setAccess('is_inappropriate', true);
         $comment->is_analyzed = true;
         $comment->display = !$isInappropriate;
         $comment->is_inappropriate = $isInappropriate;

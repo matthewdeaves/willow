@@ -32,7 +32,7 @@
                     </table>
                     <div class="mt-4">
                         <h5><?= __('Message') ?></h5>
-                        <div class="bg-light p-3 rounded">
+                        <div class="p-3 rounded">
                             <?php
                             $lines = explode("\n", h($systemLog->message));
                             foreach ($lines as $line) {
@@ -49,8 +49,10 @@
                     </div>
                     <?php if (!empty($systemLog->context)): ?>
                     <div class="mt-4">
+                    <div class="p-3 rounded">
                         <h5><?= __('Context') ?></h5>
-                        <pre class="bg-light p-3 rounded"><code><?= json_encode(json_decode($systemLog->context), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) ?></code></pre>
+                        <pre class="bg-light text-dark"><?= json_encode(json_decode($systemLog->context), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) ?></pre>
+                    </div>
                     </div>
                     <?php endif; ?>
                 </div>

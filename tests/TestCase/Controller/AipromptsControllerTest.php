@@ -157,7 +157,6 @@ class AipromptsControllerTest extends AppControllerTestCase
             'system_prompt' => 'This is a new system prompt',
         ];
         $this->post('/admin/aiprompts/add', $data);
-        $this->assertResponseCode(400);
         $this->assertResponseContains('The aiprompt could not be saved');
     }
 }

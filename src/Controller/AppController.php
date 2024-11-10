@@ -76,34 +76,38 @@ class AppController extends Controller
 
         I18nManager::setLocaleForLanguage($this->request->getParam('lang', 'en'));
 
-        if ($this->request->getParam('prefix') === 'Admin') {
+        $identity = $this->Authentication->getIdentity();
+
+        if ($identity) {
+            $profilePic = $identity->picture;
+            $this->set(compact('profilePic'));
+        }
+
+        if ($this->request->getParam('prefix') === 'Admin' && null != $identity) {
             I18nManager::setLocalForAdminArea();
 
-            $identity = $this->Authentication->getIdentity();
-            if ($identity) {
-                $usersTable = $this->fetchTable('Users');
-                $user = $usersTable->find()
-                    ->select(['is_admin'])
-                    ->where(['id' => $identity->getIdentifier()])
-                    ->first();
+            $usersTable = $this->fetchTable('Users');
+            $user = $usersTable->find()
+                ->select(['is_admin'])
+                ->where(['id' => $identity->getIdentifier()])
+                ->first();
 
-                if (!$user || empty($user->is_admin)) {
-                    $this->log(
-                        'Unauthorized access attempt to admin area',
-                        'warning',
-                        [
-                            'group_name' => 'unauthorized_admin_access_attempt',
-                            'user_id' => $identity->getIdentifier(),
-                            'url' => $this->request->getRequestTarget(),
-                            'ip' => $this->request->clientIp(),
-                            'scope' => ['system'],
-                        ]
-                    );
+            if (!$user || empty($user->is_admin)) {
+                $this->log(
+                    'Unauthorized access attempt to admin area',
+                    'warning',
+                    [
+                        'group_name' => 'unauthorized_admin_access_attempt',
+                        'user_id' => $identity->getIdentifier(),
+                        'url' => $this->request->getRequestTarget(),
+                        'ip' => $this->request->clientIp(),
+                        'scope' => ['system'],
+                    ]
+                );
 
-                    $this->Flash->error(__('Access denied. You must be an admin to view this page.'));
+                $this->Flash->error(__('Access denied. You must be an admin to view this page.'));
 
-                    return $this->redirect(['_name' => 'login']);
-                }
+                return $this->redirect(['_name' => 'login']);
             }
         }
 

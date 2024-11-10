@@ -12,8 +12,8 @@ use Cake\ORM\Entity;
  * @property string $locale
  * @property string $message_id
  * @property string|null $message_str
- * @property \Cake\I18n\DateTime $created_at
- * @property \Cake\I18n\DateTime $updated_at
+ * @property \Cake\I18n\DateTime $created
+ * @property \Cake\I18n\DateTime $modified
  */
 class Internationalisation extends Entity
 {
@@ -30,7 +30,7 @@ class Internationalisation extends Entity
         'locale' => true,
         'message_id' => true,
         'message_str' => true,
-        'created_at' => true,
-        'updated_at' => true,
+        'created' => true,
+        'modified' => true,
     ];
 }

@@ -76,12 +76,12 @@ class AipromptsTable extends Table
             ->notEmptyString('temperature');
 
         $validator
-            ->dateTime('created_at')
-            ->notEmptyDateTime('created_at');
+            ->dateTime('created')
+            ->notEmptyDateTime('created');
 
         $validator
-            ->dateTime('modified_at')
-            ->notEmptyDateTime('modified_at');
+            ->dateTime('modified')
+            ->notEmptyDateTime('modified');
 
         return $validator;
     }

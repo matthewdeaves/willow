@@ -14,19 +14,6 @@ class V1 extends AbstractMigration
      */
     public function up(): void
     {
-        $this->table('addresses', ['id' => false, 'primary_key' => ['id']])
-            ->addColumn('id', 'uuid', [
-                'default' => null,
-                'limit' => null,
-                'null' => false,
-            ])
-            ->addColumn('address', 'text', [
-                'default' => null,
-                'limit' => null,
-                'null' => true,
-            ])
-            ->create();
-
         $this->table('aiprompts', ['id' => false, 'primary_key' => ['id']])
             ->addColumn('id', 'uuid', [
                 'default' => null,
@@ -60,12 +47,12 @@ class V1 extends AbstractMigration
                 'null' => false,
                 'signed' => true,
             ])
-            ->addColumn('created_at', 'timestamp', [
+            ->addColumn('created', 'datetime', [
                 'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => false,
             ])
-            ->addColumn('modified_at', 'timestamp', [
+            ->addColumn('modified', 'datetime', [
                 'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => false,
@@ -338,81 +325,6 @@ class V1 extends AbstractMigration
             ])
             ->create();
 
-        $this->table('bodymetrics', ['id' => false, 'primary_key' => ['id']])
-            ->addColumn('id', 'uuid', [
-                'default' => null,
-                'limit' => null,
-                'null' => false,
-            ])
-            ->addColumn('weight', 'decimal', [
-                'default' => null,
-                'null' => false,
-                'precision' => 5,
-                'scale' => 2,
-                'signed' => true,
-            ])
-            ->addColumn('height', 'decimal', [
-                'default' => null,
-                'null' => false,
-                'precision' => 4,
-                'scale' => 1,
-                'signed' => true,
-            ])
-            ->addColumn('bmi', 'decimal', [
-                'default' => null,
-                'null' => false,
-                'precision' => 4,
-                'scale' => 2,
-                'signed' => true,
-            ])
-            ->addColumn('blood_pressure_systolic', 'smallinteger', [
-                'default' => null,
-                'limit' => null,
-                'null' => false,
-                'signed' => true,
-            ])
-            ->addColumn('blood_pressure_diastolic', 'smallinteger', [
-                'default' => null,
-                'limit' => null,
-                'null' => false,
-                'signed' => true,
-            ])
-            ->addColumn('heart_rate', 'tinyinteger', [
-                'default' => null,
-                'limit' => null,
-                'null' => false,
-                'signed' => true,
-            ])
-            ->addColumn('body_fat_percentage', 'decimal', [
-                'default' => null,
-                'null' => false,
-                'precision' => 4,
-                'scale' => 2,
-                'signed' => true,
-            ])
-            ->addColumn('muscle_mass', 'decimal', [
-                'default' => null,
-                'null' => false,
-                'precision' => 5,
-                'scale' => 2,
-                'signed' => true,
-            ])
-            ->addColumn('bone_density', 'decimal', [
-                'default' => null,
-                'null' => false,
-                'precision' => 4,
-                'scale' => 2,
-                'signed' => true,
-            ])
-            ->addColumn('hydration_level', 'decimal', [
-                'default' => null,
-                'null' => false,
-                'precision' => 4,
-                'scale' => 2,
-                'signed' => true,
-            ])
-            ->create();
-
         $this->table('comments', ['id' => false, 'primary_key' => ['id']])
             ->addColumn('id', 'uuid', [
                 'default' => null,
@@ -468,74 +380,6 @@ class V1 extends AbstractMigration
                 'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => true,
-            ])
-            ->create();
-
-        $this->table('dogs', ['id' => false, 'primary_key' => ['id']])
-            ->addColumn('id', 'uuid', [
-                'default' => null,
-                'limit' => null,
-                'null' => false,
-            ])
-            ->addColumn('name', 'string', [
-                'default' => null,
-                'limit' => 255,
-                'null' => false,
-            ])
-            ->addColumn('breed', 'string', [
-                'default' => null,
-                'limit' => 255,
-                'null' => true,
-            ])
-            ->addColumn('age', 'tinyinteger', [
-                'default' => null,
-                'limit' => null,
-                'null' => true,
-                'signed' => true,
-            ])
-            ->addColumn('weight', 'decimal', [
-                'default' => null,
-                'null' => true,
-                'precision' => 5,
-                'scale' => 2,
-                'signed' => true,
-            ])
-            ->addColumn('height', 'decimal', [
-                'default' => null,
-                'null' => true,
-                'precision' => 5,
-                'scale' => 2,
-                'signed' => true,
-            ])
-            ->addColumn('color', 'string', [
-                'default' => null,
-                'limit' => 100,
-                'null' => true,
-            ])
-            ->addColumn('vaccinated', 'boolean', [
-                'default' => null,
-                'limit' => null,
-                'null' => true,
-            ])
-            ->addColumn('description', 'text', [
-                'default' => null,
-                'limit' => null,
-                'null' => true,
-            ])
-            ->addColumn('owner_email', 'string', [
-                'default' => null,
-                'limit' => 255,
-                'null' => true,
-            ])
-            ->addColumn('adopted_date', 'date', [
-                'default' => null,
-                'limit' => null,
-                'null' => true,
-            ])
-            ->addColumn('last_checkup', 'timestamp', [
-                'default' => 'CURRENT_TIMESTAMP',
-                'limit' => null,
-                'null' => false,
             ])
             ->create();
 
@@ -666,12 +510,12 @@ class V1 extends AbstractMigration
                 'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('created_at', 'timestamp', [
+            ->addColumn('created', 'datetime', [
                 'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => false,
             ])
-            ->addColumn('updated_at', 'timestamp', [
+            ->addColumn('modified', 'datetime', [
                 'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => false,
@@ -1179,15 +1023,12 @@ class V1 extends AbstractMigration
      */
     public function down(): void
     {
-        $this->table('addresses')->drop()->save();
         $this->table('aiprompts')->drop()->save();
         $this->table('articles')->drop()->save();
         $this->table('articles_tags')->drop()->save();
         $this->table('articles_translations')->drop()->save();
         $this->table('blocked_ips')->drop()->save();
-        $this->table('bodymetrics')->drop()->save();
         $this->table('comments')->drop()->save();
-        $this->table('dogs')->drop()->save();
         $this->table('email_templates')->drop()->save();
         $this->table('images')->drop()->save();
         $this->table('internationalisations')->drop()->save();

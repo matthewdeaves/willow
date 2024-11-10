@@ -28,8 +28,8 @@ class AipromptsController extends AppController
                 'Aiprompts.model',
                 'Aiprompts.max_tokens',
                 'Aiprompts.temperature',
-                'Aiprompts.created_at',
-                'Aiprompts.modified_at',
+                'Aiprompts.created',
+                'Aiprompts.modified',
             ]);
 
         if ($this->request->is('ajax')) {

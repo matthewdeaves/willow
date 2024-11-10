@@ -14,784 +14,240 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
 #: 
-msgid "Word Count"
-msgstr "Количество слов"
+msgid "Login"
+msgstr "Авторизоваться"
 
 #: 
-msgid "Email template not found: {0}"
-msgstr "Шаблон электронной почты не найден: {0}"
-
-#: 
-msgid "Search slugs..."
-msgstr "Поиск слагов..."
-
-#: 
-msgid "All logs with level {0} have been deleted."
-msgstr "Все журналы с уровнем {0} удалены."
-
-#: 
-msgid "Regenerate Tags"
-msgstr "Регенерировать теги"
-
-#: 
-msgid "Are you sure you want to delete all logs?"
-msgstr "Вы уверены, что хотите удалить все журналы?"
-
-#: 
-msgid "IP Address"
-msgstr "IP-адрес"
-
-#: 
-msgid "New Image"
-msgstr "Новое изображение"
-
-#: 
-msgid "Add Blocked IP"
-msgstr "Добавить заблокированный IP"
-
-#: 
-msgid "Date"
-msgstr "Дата"
-
-#: 
-msgid "Referer"
-msgstr "Реферер"
-
-#: 
-msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
-msgstr "Ниже приведена информация о настроенных кэшах. Нажмите кнопку, чтобы очистить все кэши, или отдельные кнопки кэша, чтобы очистить определенные кэши."
-
-#: 
-msgid "System Logs"
-msgstr "Системные журналы"
-
-#: 
-msgid "Invalid value for the specified type."
-msgstr "Недопустимое значение для указанного типа."
-
-#: 
-msgid "Hide"
-msgstr "Скрывать"
-
-#: 
-msgid "No"
-msgstr "Нет"
-
-#: 
-msgid "Failed to send confirmation email message: {0}"
-msgstr "Не удалось отправить подтверждающее сообщение по электронной почте: {0}"
-
-#: 
-msgid "Page View Statistics for slug: {0}"
-msgstr "Статистика просмотров страниц для слага: {0}"
-
-#: 
-msgid "Update Article"
-msgstr "Обновить статью"
-
-#: 
-msgid "Clear All Cache"
-msgstr "Очистить весь кэш"
-
-#: 
-msgid "Body"
-msgstr "Тело"
-
-#: 
-msgid "Comment"
-msgstr "Комментарий"
-
-#: 
-msgid "Comment for {0}"
-msgstr "Комментарий для {0}"
-
-#: 
-msgid "Live"
-msgstr "Жить"
-
-#: 
-msgid "The email template has been deleted."
-msgstr "Шаблон электронного письма был удален."
-
-#: 
-msgid "Settings"
-msgstr "Настройки"
-
-#: 
-msgid "Front Site"
-msgstr "Передний участок"
-
-#: 
-msgid "Are you sure you want to delete # {0}?"
-msgstr "Вы уверены, что хотите удалить # {0}?"
-
-#: 
-msgid "Invalid or expired password reset link."
-msgstr "Неверная или просроченная ссылка для сброса пароля."
-
-#: 
-msgid "View"
-msgstr "Вид"
-
-#: 
-msgid "Your account has been confirmed. You can now log in."
-msgstr "Ваша учетная запись подтверждена. Теперь вы можете войти."
-
-#: 
-msgid "Failed to send email to: {0}"
-msgstr "Не удалось отправить электронное письмо на адрес: {0}"
-
-#: 
-msgid "Summary"
-msgstr "Краткое содержание"
-
-#: 
-msgid "SEO Fields"
-msgstr "Поля SEO"
+msgid "Add Email Template"
+msgstr "Добавить шаблон электронной почты"
 
 #: 
 msgid "Facebook Description"
 msgstr "Описание на фейсбуке"
 
 #: 
-msgid "User Comments"
-msgstr "Комментарии пользователей"
+msgid "On"
+msgstr "На"
 
 #: 
-msgid "Edit Email Template"
-msgstr "Изменить шаблон электронного письма"
+msgid "Show Full Article"
+msgstr "Показать полную статью"
 
 #: 
-msgid "Are you sure you want to delete all logs in group {0}?"
-msgstr "Вы уверены, что хотите удалить все журналы в группе {0}?"
+msgid "Search Comments..."
+msgstr "Поиск комментариев..."
 
 #: 
-msgid "Your account has been updated."
-msgstr "Ваш аккаунт обновлен."
-
-#: 
-msgid "Access denied. You must be an admin to view this page."
-msgstr "Доступ запрещен. Для просмотра этой страницы вам необходимо быть администратором."
-
-#: 
-msgid "Failed to send password reset email: {0}"
-msgstr "Не удалось отправить электронное письмо для сброса пароля: {0}"
-
-#: 
-msgid "Registration failed. Please, try again."
-msgstr "Регистрация не удалась. Попробуйте еще раз."
-
-#: 
-msgid "Id"
-msgstr "Идентификатор"
-
-#: 
-msgid "There was an issue confirming your account. Please try again."
-msgstr "Возникла проблема с подтверждением вашего аккаунта. Попробуйте еще раз."
-
-#: 
-msgid "Locale"
-msgstr "Локаль"
-
-#: 
-msgid "No images."
-msgstr "Нет изображений."
-
-#: 
-msgid "New Email Template"
-msgstr "Новый шаблон электронного письма"
-
-#: 
-msgid "New Tag"
-msgstr "Новый тег"
-
-#: 
-msgid "An Internal Error Has Occurred."
-msgstr "Произошла внутренняя ошибка."
-
-#: 
-msgid "Content"
-msgstr "Содержание"
-
-#: 
-msgid "The aiprompt has been saved."
-msgstr "AIprompt сохранен."
-
-#: 
-msgid "Related Tags"
-msgstr "Связанные теги"
-
-#: 
-msgid "Delete All Logs"
-msgstr "Удалить все журналы"
-
-#: 
-msgid "Subject"
-msgstr "Предмет"
-
-#: 
-msgid "Some settings could not be saved. Please, try again."
-msgstr "Некоторые настройки не удалось сохранить. Попробуйте еще раз."
-
-#: 
-msgid "Edit Image"
-msgstr "Редактировать изображение"
-
-#: 
-msgid "Actions"
-msgstr "Действия"
-
-#: 
-msgid "No tags are linked."
-msgstr "Теги не привязаны."
-
-#: 
-msgid "The slug has been deleted."
-msgstr "Слаг был удален."
-
-#: 
-msgid "Bulk Upload"
-msgstr "Массовая загрузка"
-
-#: 
-msgid "Invalid type"
-msgstr "Неверный тип"
-
-#: 
-msgid "Yes"
-msgstr "Да"
-
-#: 
-msgid "Twitter Description"
-msgstr "Описание в Твиттере"
-
-#: 
-msgid "Your comment has been added."
-msgstr "Ваш комментарий добавлен."
-
-#: 
-msgid "All caches have been cleared successfully."
-msgstr "Все кэши успешно очищены."
-
-#: 
-msgid "LinkedIn Description"
-msgstr "Описание в LinkedIn"
-
-#: 
-msgid "The user could not be saved. Please, try again."
-msgstr "Не удалось сохранить пользователя. Попробуйте еще раз."
-
-#: 
-msgid "Rate limit exceeded for IP: {0} on route: {1}"
-msgstr "Превышен предел скорости для IP: {0} на маршруте: {1}"
-
-#: 
-msgid "The article could not be deleted. Please, try again."
-msgstr "Статья не может быть удалена. Пожалуйста, попробуйте еще раз."
-
-#: 
-msgid "Password must be at least 8 characters long"
-msgstr "Пароль должен быть длиной не менее 8 символов."
-
-#: 
-msgid "The settings have been saved."
-msgstr "Настройки сохранены."
-
-#: 
-msgid "Update Slug"
-msgstr "Обновление слага"
-
-#: 
-msgid "Edit Tag"
-msgstr "Редактировать тег"
-
-#: 
-msgid "New AI Prompt"
-msgstr "Новая подсказка ИИ"
-
-#: 
-msgid "Users"
-msgstr "Пользователи"
-
-#: 
-msgid "Enter a number"
-msgstr "Введите число"
-
-#: 
-msgid "Missing required arguments in the message."
-msgstr "В сообщении отсутствуют обязательные аргументы."
-
-#: 
-msgid "Unknown User"
-msgstr "Неизвестный пользователь"
-
-#: 
-msgid "Submit"
-msgstr "Представлять на рассмотрение"
-
-#: 
-msgid "Code Coverage"
-msgstr "Покрытие кода"
-
-#: 
-msgid "The comment could not be deleted. Please, try again."
-msgstr "Комментарий не может быть удален. Пожалуйста, попробуйте еще раз."
-
-#: 
-msgid "Are you sure you want to delete this comment?"
-msgstr "Вы уверены, что хотите удалить этот комментарий?"
-
-#: 
-msgid "This message_id must be unique for the given locale."
-msgstr "Этот message_id должен быть уникальным для данной локали."
-
-#: 
-msgid "Admin"
-msgstr "Админ"
-
-#: 
-msgid "Please log in to add a comment"
-msgstr "Пожалуйста, войдите в систему, чтобы добавить комментарий"
-
-#: 
-msgid "The value must not be empty."
-msgstr "Значение не должно быть пустым."
-
-#: 
-msgid "Reset Password"
-msgstr "Сбросить пароль"
-
-#: 
-msgid "Unable to delete all logs."
-msgstr "Невозможно удалить все журналы."
-
-#: 
-msgid "Invalid confirmation code."
-msgstr "Неверный код подтверждения."
-
-#: 
-msgid "Last Cleared"
-msgstr "Последний раз очищено"
-
-#: 
-msgid "Comments"
-msgstr "Комментарии"
-
-#: 
-msgid "Logs"
-msgstr "Журналы"
-
-#: 
-msgid "All Levels"
-msgstr "Все уровни"
-
-#: 
-msgid "All logs have been deleted."
-msgstr "Все журналы удалены."
-
-#: 
-msgid "Login"
-msgstr "Авторизоваться"
-
-#: 
-msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
-msgstr "Письмо успешно отправлено на адрес: {0}. Шаблон: {1}, Тема: {2}"
-
-#: 
-msgid "Edit Internationalisation"
-msgstr "Редактировать Интернационализация"
-
-#: 
-msgid "Is Inappropriate"
-msgstr "Неприемлемо"
-
-#: 
-msgid "The email template could not be saved. Please, try again."
-msgstr "Шаблон письма не удалось сохранить. Попробуйте еще раз."
-
-#: 
-msgid "The internationalisation has been deleted."
-msgstr "Интернационализация удалена."
-
-#: 
-msgid "Page Views for {0}"
-msgstr "Просмотры страниц для {0}"
-
-#: 
-msgid "The value must be 0 or 1."
-msgstr "Значение должно быть 0 или 1."
-
-#: 
-msgid "Delete"
-msgstr "Удалить"
-
-#: 
-msgid "Unable to delete logs in group {0}."
-msgstr "Невозможно удалить журналы в группе {0}."
-
-#: 
-msgid "No pages found."
-msgstr "Страницы не найдены."
-
-#: 
-msgid "Engine"
-msgstr "Двигатель"
-
-#: 
-msgid "Too many requests. Please try again later."
-msgstr "Слишком много запросов. Попробуйте еще раз позже."
-
-#: 
-msgid "Comments are not enabled"
-msgstr "Комментарии не включены"
-
-#: 
-msgid "Message Str"
-msgstr "Сообщение Str"
-
-#: 
-msgid "Toggle SEO Fields"
-msgstr "Переключить поля SEO"
-
-#: 
-msgid "Some caches were cleared, but the following failed: {0}"
-msgstr "Некоторые кэши были очищены, но следующее не удалось: {0}"
-
-#: 
-msgid "The slug could not be deleted. Please, try again."
-msgstr "Не удалось удалить слаг. Попробуйте еще раз."
-
-#: 
-msgid "Grid View"
-msgstr "Вид сетки"
-
-#: 
-msgid "Are you sure you want to delete IP {0}?"
-msgstr "Вы уверены, что хотите удалить IP {0}?"
-
-#: 
-msgid "You cannot remove your own admin status."
-msgstr "Вы не можете удалить свой собственный статус администратора."
-
-#: 
-msgid "You are not authorized to edit this account, stick to your own."
-msgstr "У вас нет прав на редактирование этой учетной записи, придерживайтесь своей собственной."
-
-#: 
-msgid "Not published"
-msgstr "Не опубликовано"
-
-#: 
-msgid "Unable to add your comment."
-msgstr "Не удалось добавить ваш комментарий."
-
-#: 
-msgid "Additional Images"
-msgstr "Дополнительные изображения"
-
-#: 
-msgid "Select a parent"
-msgstr "Выберите родителя"
-
-#: 
-msgid "The article has been deleted."
-msgstr "Статья удалена."
-
-#: 
-msgid "The user could not be deleted. Please, try again."
-msgstr "Не удалось удалить пользователя. Попробуйте еще раз."
-
-#: 
-msgid "The aiprompt could not be saved. Please, try again."
-msgstr "Не удалось сохранить aiprompt. Пожалуйста, попробуйте еще раз."
-
-#: 
-msgid "Main Picture"
-msgstr "Основная фотография"
-
-#: 
-msgid "Update User"
-msgstr "Обновление пользователя"
-
-#: 
-msgid "Expires At"
-msgstr "Истекает в"
-
-#: 
-msgid "Edit Your Account"
-msgstr "Редактировать свой аккаунт"
-
-#: 
-msgid "Edit Article"
-msgstr "Редактировать статью"
-
-#: 
-msgid "Image uploaded successfully"
-msgstr "Изображение успешно загружено"
-
-#: 
-msgid "Failed to update translation for message ID: {0}"
-msgstr "Не удалось обновить перевод для идентификатора сообщения: {0}"
-
-#: 
-msgid "Show Less"
-msgstr "Показать меньше"
-
-#: 
-msgid "Logout"
-msgstr "Выйти"
-
-#: 
-msgid "Search logs..."
-msgstr "Журналы поиска..."
-
-#: 
-msgid "Account"
-msgstr "Счет"
-
-#: 
-msgid "Submit Comment"
-msgstr "Отправить комментарий"
-
-#: 
-msgid "You must be logged in to add a comment."
-msgstr "Чтобы добавить комментарий, вам необходимо войти в систему."
-
-#: 
-msgid "The article could not be saved. Please, try again."
-msgstr "Статья не может быть сохранена. Пожалуйста, попробуйте еще раз."
-
-#: 
-msgid "Email Templates"
-msgstr "Шаблоны электронных писем"
-
-#: 
-msgid "Body Text"
-msgstr "Основной текст"
-
-#: 
-msgid "Please enter your new password"
-msgstr "Введите новый пароль."
-
-#: 
-msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
-msgstr "Страница {{page}} из {{pages}}, показывающая {{current}} записи из {{count}} общего количества"
-
-#: 
-msgid "No comments yet."
-msgstr "Пока нет комментариев."
-
-#: 
-msgid "Bulk Upload Images"
-msgstr "Массовая загрузка изображений"
-
-#: 
-msgid "Related Articles"
-msgstr "Похожие статьи"
-
-#: 
-msgid "This slug is already in use in articles. Please enter a unique slug."
-msgstr "Этот слаг уже используется в статьях. Введите уникальный слаг."
-
-#: 
-msgid "Email sent successfully."
-msgstr "Письмо успешно отправлено."
-
-#: 
-msgid "Invalid confirmation code. Please contact support."
-msgstr "Неверный код подтверждения. Обратитесь в службу поддержки."
-
-#: 
-msgid "New Article"
-msgstr "Новая статья"
-
-#: 
-msgid "AI Prompts"
-msgstr "Подсказки ИИ"
-
-#: 
-msgid "New Slug"
-msgstr "Новый слизень"
-
-#: 
-msgid "Add Internationalisation"
-msgstr "Добавить интернационализацию"
-
-#: 
-msgid "Level"
-msgstr "Уровень"
-
-#: 
-msgid "Block IPs"
-msgstr "Блокировать IP-адреса"
-
-#: 
-msgid "The comment has been deleted."
-msgstr "Комментарий был удален."
-
-#: 
-msgid "Is AI Analyzed"
-msgstr "Анализируется ли ИИ?"
-
-#: 
-msgid "The log has been deleted."
-msgstr "Журнал удален."
-
-#: 
-msgid "Article/Page"
-msgstr "Статья/Страница"
-
-#: 
-msgid "The requested address {0} was not found on this server."
-msgstr "Запрошенный адрес {0} не найден на этом сервере."
-
-#: 
-msgid "Task Type"
-msgstr "Тип задачи"
-
-#: 
-msgid "Profile Picture"
-msgstr "Изображение профиля"
-
-#: 
-msgid "Edit Comment"
-msgstr "Редактировать комментарий"
-
-#: 
-msgid "Filter"
-msgstr "Фильтр"
-
-#: 
-msgid "The image could not be deleted. Please, try again."
-msgstr "Изображение не может быть удалено. Пожалуйста, попробуйте еще раз."
+msgid "Failed to save the image"
+msgstr "Не удалось сохранить изображение."
 
 #: 
 msgid "Home"
 msgstr "Дом"
 
 #: 
-msgid "Title"
-msgstr "Заголовок"
+msgid "Name"
+msgstr "Имя"
 
 #: 
-msgid "Edit"
-msgstr "Редактировать"
+msgid "Comment"
+msgstr "Комментарий"
 
 #: 
-msgid "Search comments..."
-msgstr "Поиск комментариев..."
+msgid "New Article"
+msgstr "Новая статья"
 
 #: 
-msgid "Edit Aiprompt"
-msgstr "Редактировать Aiprompt"
+msgid "Comments"
+msgstr "Комментарии"
 
 #: 
-msgid "Edit User"
-msgstr "Редактировать пользователя"
+msgid "Task Type"
+msgstr "Тип задачи"
 
 #: 
-msgid "Instagram Description"
-msgstr "Описание в Instagram"
+msgid "Total Views: "
+msgstr "Всего просмотров: "
 
 #: 
-msgid "Send Email"
-msgstr "Отправить электронное письмо"
+msgid "New Aiprompt"
+msgstr "Новый Aiprompt"
 
 #: 
-msgid "This slug is already in use. Please enter a unique slug."
-msgstr "Этот слаг уже используется. Введите уникальный слаг."
+msgid "Info"
+msgstr "Информация"
 
 #: 
-msgid "The slug could not be saved. Please, try again."
-msgstr "Не удалось сохранить слаг. Попробуйте еще раз."
+msgid "Kind"
+msgstr "Добрый"
 
 #: 
-msgid "Add Page"
-msgstr "Добавить страницу"
+msgid "Is Published"
+msgstr "Опубликовано"
 
 #: 
-msgid "Navigation"
-msgstr "Навигация"
+msgid "Back"
+msgstr "Назад"
 
 #: 
-msgid "Display"
-msgstr "Отображать"
+msgid "Registration failed. Please, try again."
+msgstr "Регистрация не удалась. Попробуйте еще раз."
 
 #: 
-msgid "Model"
-msgstr "Модель"
+msgid "The comment has been deleted."
+msgstr "Комментарий был удален."
 
 #: 
-msgid "The tag has been deleted."
-msgstr "Тег был удален."
+msgid "No articles found for this tag."
+msgstr "Статьи по этому тегу не найдены."
 
 #: 
-msgid "The email template has been saved."
-msgstr "Шаблон электронного письма сохранен."
+msgid "Front Site"
+msgstr "Передний участок"
+
+#: 
+msgid "By"
+msgstr "К"
+
+#: 
+msgid "The tag could not be deleted. Please, try again."
+msgstr "Тег не может быть удален. Пожалуйста, попробуйте еще раз."
+
+#: 
+msgid "New Email Template"
+msgstr "Новый шаблон электронного письма"
+
+#: 
+msgid "Search Blocked Ips..."
+msgstr "Поиск заблокированных IP-адресов..."
 
 #: 
 msgid "Register"
 msgstr "Зарегистрироваться"
 
 #: 
-msgid "Pages"
-msgstr "Страницы"
+msgid "SEO Fields"
+msgstr "Поля SEO"
 
 #: 
-msgid "Image"
-msgstr "Изображение"
+msgid "Delete {0}"
+msgstr "Удалить {0}"
 
 #: 
-msgid "{0} Views"
-msgstr "{0} Просмотров"
+msgid "System Logs"
+msgstr "Системные журналы"
 
 #: 
-msgid "The user has been saved."
-msgstr "Пользователь сохранен."
+msgid "{0} cache configuration does not exist."
+msgstr "Конфигурация кэша {0} не существует."
 
 #: 
-msgid "Article not found"
-msgstr "Статья не найдена"
+msgid "Edit Slug"
+msgstr "Редактировать слаг"
 
 #: 
-msgid "Inappropriate Reason"
-msgstr "Неподходящая причина"
+msgid "You are not authorized to edit this account, stick to your own."
+msgstr "У вас нет прав на редактирование этой учетной записи, придерживайтесь своей собственной."
 
 #: 
-msgid "{0} cache could not be cleared."
-msgstr "Кэш {0} не может быть очищен."
+msgid "An Internal Error Has Occurred."
+msgstr "Произошла внутренняя ошибка."
 
 #: 
-msgid "Picture"
-msgstr "Картина"
+msgid "Displayed"
+msgstr "Отображается"
 
 #: 
-msgid "Created At"
-msgstr "Создано в"
+msgid "No tags are linked."
+msgstr "Теги не привязаны."
 
 #: 
-msgid "The tag could not be saved. Please, try again."
-msgstr "Тег не удалось сохранить. Пожалуйста, попробуйте еще раз."
+msgid "The email template has been saved."
+msgstr "Шаблон электронного письма сохранен."
 
 #: 
 msgid "Error sending email: {0}"
 msgstr "Ошибка отправки электронного письма: {0}"
 
 #: 
-msgid "List Blocked IPs"
-msgstr "Список заблокированных IP-адресов"
+msgid "The blocked ip has been deleted."
+msgstr "Заблокированный IP-адрес был удален."
+
+#: 
+msgid "The comment has been saved."
+msgstr "Комментарий сохранен."
+
+#: 
+msgid "A value is required"
+msgstr "Требуется значение"
+
+#: 
+msgid "Active"
+msgstr "Активный"
+
+#: 
+msgid "Unknown Author"
+msgstr "Неизвестный автор"
+
+#: 
+msgid "My Account"
+msgstr "Мой счет"
+
+#: 
+msgid "Are you sure you want to clear {0}?"
+msgstr "Вы уверены, что хотите очистить {0}?"
+
+#: 
+msgid "You cannot remove your own admin status."
+msgstr "Вы не можете удалить свой собственный статус администратора."
+
+#: 
+msgid "Are you sure you want to delete  {0}?"
+msgstr "Вы уверены, что хотите удалить {0}?"
+
+#: 
+msgid "Too Many Requests"
+msgstr "Слишком много запросов"
+
+#: 
+msgid "Are you sure you want to delete # {0}?"
+msgstr "Вы уверены, что хотите удалить # {0}?"
+
+#: 
+msgid "Bulk Upload Images"
+msgstr "Массовая загрузка изображений"
 
 #: 
 msgid "Modified"
 msgstr "Измененный"
 
 #: 
-msgid "Are you sure you want to delete {0}?"
-msgstr "Вы уверены, что хотите удалить {0}?"
+msgid "Tag not found"
+msgstr "Тег не найден"
 
 #: 
-msgid "By"
-msgstr "К"
+msgid "Edit Email Template"
+msgstr "Изменить шаблон электронного письма"
+
+#: 
+msgid "Description"
+msgstr "Описание"
+
+#: 
+msgid "Unable to delete all logs."
+msgstr "Невозможно удалить все журналы."
+
+#: 
+msgid "Add"
+msgstr "Добавлять"
+
+#: 
+msgid "Email template not found: {0}"
+msgstr "Шаблон электронной почты не найден: {0}"
+
+#: 
+msgid "New Slug"
+msgstr "Новый слизень"
 
 #: 
 msgid "The image has been deleted."
@@ -802,634 +258,1154 @@ msgid "No view records found for this article."
 msgstr "Для этой статьи не найдено записей просмотров."
 
 #: 
-msgid "Add AI Prompt"
-msgstr "Добавить подсказку ИИ"
-
-#: 
-msgid "Add Article"
-msgstr "Добавить статью"
-
-#: 
-msgid "Modified At"
-msgstr "Изменено в"
-
-#: 
-msgid "View detailed records for this date"
-msgstr "Просмотреть подробные записи на эту дату"
-
-#: 
-msgid "Meta Description"
-msgstr "Мета-описание"
-
-#: 
-msgid "Search tags..."
-msgstr "Поиск тегов..."
-
-#: 
-msgid "Back"
-msgstr "Назад"
-
-#: 
-msgid "Add a Comment"
-msgstr "Добавить комментарий"
-
-#: 
-msgid "Article"
-msgstr "Статья"
-
-#: 
-msgid "No deleting your own account."
-msgstr "Не удаляйте свой аккаунт."
-
-#: 
-msgid "Too Many Requests"
-msgstr "Слишком много запросов"
-
-#: 
-msgid "Unknown Author"
-msgstr "Неизвестный автор"
-
-#: 
-msgid "Are you sure you want to delete all {0} logs?"
-msgstr "Вы уверены, что хотите удалить все {0} журналов?"
-
-#: 
-msgid "Context"
-msgstr "Контекст"
-
-#: 
-msgid "Add User"
-msgstr "Добавить пользователя"
-
-#: 
-msgid "Keywords"
-msgstr "Ключевые слова"
-
-#: 
-msgid "Message Id"
-msgstr "Идентификатор сообщения"
-
-#: 
-msgid "All Tags"
-msgstr "Все теги"
-
-#: 
-msgid "The slug has been saved."
-msgstr "Слизень был сохранен."
-
-#: 
-msgid "Reason"
-msgstr "Причина"
-
-#: 
-msgid "Back to Login"
-msgstr "Вернуться к входу"
-
-#: 
-msgid "The email template could not be deleted. Please, try again."
-msgstr "Шаблон письма не может быть удален. Пожалуйста, попробуйте еще раз."
-
-#: 
-msgid "{0} cache configuration does not exist."
-msgstr "Конфигурация кэша {0} не существует."
-
-#: 
-msgid "Confirm Password"
-msgstr "Подтвердите пароль"
-
-#: 
-msgid "Add Image"
-msgstr "Добавить изображение"
-
-#: 
-msgid "Forgot Password"
-msgstr "Забыли пароль"
-
-#: 
-msgid "The image could not be saved. Please, try again."
-msgstr "Изображение не удалось сохранить. Пожалуйста, попробуйте еще раз."
-
-#: 
-msgid "Edit Settings"
-msgstr "Изменить настройки"
-
-#: 
-msgid "Alt Text"
-msgstr "Альтернативный текст"
-
-#: 
-msgid "Unable to delete logs with level {0}."
-msgstr "Невозможно удалить журналы с уровнем {0}."
-
-#: 
-msgid "The article has been saved."
-msgstr "Статья сохранена."
+msgid "Password must be at least 8 characters long"
+msgstr "Пароль должен быть длиной не менее 8 символов."
 
 #: 
 msgid "The blocked ip has been saved."
 msgstr "Заблокированный IP-адрес сохранен."
 
 #: 
-msgid "Article ID:"
-msgstr "Идентификатор статьи:"
+msgid "Code Coverage"
+msgstr "Покрытие кода"
 
 #: 
-msgid "Created"
-msgstr "Созданный"
+msgid "All logs with level {0} have been deleted."
+msgstr "Все журналы с уровнем {0} удалены."
 
 #: 
-msgid "Delete {0}"
-msgstr "Удалить {0}"
+msgid "Message Id"
+msgstr "Идентификатор сообщения"
 
 #: 
-msgid "The value must be a number."
-msgstr "Значение должно быть числом."
+msgid "The email template could not be saved. Please, try again."
+msgstr "Шаблон письма не удалось сохранить. Попробуйте еще раз."
 
 #: 
-msgid "System Prompt"
-msgstr "Системная подсказка"
+msgid "New Page"
+msgstr "Новая страница"
 
 #: 
-msgid "Forgot Password?"
-msgstr "Забыли пароль?"
+msgid "Clear All Cache"
+msgstr "Очистить весь кэш"
 
 #: 
-msgid "Internationalisation"
-msgstr "Интернационализация"
-
-#: 
-msgid "Temperature"
-msgstr "Температура"
-
-#: 
-msgid "The internationalisation has been saved."
-msgstr "Интернационализация сохранена."
-
-#: 
-msgid "Email"
-msgstr "Электронная почта"
-
-#: 
-msgid "Internationalisations"
-msgstr "Интернационализации"
-
-#: 
-msgid "Search articles..."
-msgstr "Поиск статей..."
-
-#: 
-msgid "Message"
-msgstr "Сообщение"
-
-#: 
-msgid "All logs in group {0} have been deleted."
-msgstr "Все журналы в группе {0} удалены."
-
-#: 
-msgid "The comment could not be saved. Please, try again."
-msgstr "Комментарий не удалось сохранить. Попробуйте еще раз."
-
-#: 
-msgid "English"
-msgstr "Английский"
-
-#: 
-msgid "User Agent"
-msgstr "Пользовательский агент"
-
-#: 
-msgid "Articles"
-msgstr "Статьи"
-
-#: 
-msgid "Are you sure you want to delete comment by {0}?"
-msgstr "Вы уверены, что хотите удалить комментарий пользователя {0}?"
-
-#: 
-msgid "Failed to send email. Please check your email configuration."
-msgstr "Не удалось отправить письмо. Проверьте конфигурацию электронной почты."
-
-#: 
-msgid "Article not found."
-msgstr "Статья не найдена."
-
-#: 
-msgid "An error occurred while processing your request."
-msgstr "При обработке вашего запроса произошла ошибка."
-
-#: 
-msgid "The blocked ip could not be deleted. Please, try again."
-msgstr "Заблокированный ip не может быть удален. Пожалуйста, попробуйте еще раз."
-
-#: 
-msgid "Registration successful. Please check your email for confirmation."
-msgstr "Регистрация прошла успешно. Проверьте почту для подтверждения."
-
-#: 
-msgid "Page Views"
-msgstr "Просмотры страниц"
-
-#: 
-msgid "Cache Name"
-msgstr "Имя кэша"
-
-#: 
-msgid "Add Email Template"
-msgstr "Добавить шаблон электронной почты"
-
-#: 
-msgid "Name"
-msgstr "Имя"
-
-#: 
-msgid "Save All Settings"
-msgstr "Сохранить все настройки"
-
-#: 
-msgid "{0} cache has been cleared successfully."
-msgstr "Кэш {0} успешно очищен."
+msgid "The tag could not be saved. Please, try again."
+msgstr "Тег не удалось сохранить. Пожалуйста, попробуйте еще раз."
 
 #: 
 msgid "Is Admin"
 msgstr "Является администратором"
 
 #: 
-msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
-msgstr "Слаг конфликтует с существующим перенаправлением SEO. Выберите другой слаг."
-
-#: 
-msgid "All Groups"
-msgstr "Все группы"
-
-#: 
-msgid "Error in: "
-msgstr "Ошибка в: "
-
-#: 
-msgid "Please enter your email and password"
-msgstr "Введите адрес электронной почты и пароль."
-
-#: 
-msgid "Description"
-msgstr "Описание"
-
-#: 
-msgid "Setting not found: {0}.{1}"
-msgstr "Настройка не найдена: {0}.{1}"
-
-#: 
-msgid "Image must be less than 5MB."
-msgstr "Изображение должно быть менее 5 МБ."
-
-#: 
-msgid "Enter text"
-msgstr "Введите текст"
-
-#: 
-msgid "Max Tokens"
-msgstr "Макс. количество токенов"
-
-#: 
-msgid "Slug:"
-msgstr "Слизень:"
-
-#: 
-msgid "The comment has been saved."
-msgstr "Комментарий сохранен."
-
-#: 
-msgid "Please enter your email to reset your password"
-msgstr "Пожалуйста, введите свой адрес электронной почты, чтобы сбросить пароль"
-
-#: 
-msgid "Meta Title"
-msgstr "Мета-заголовок"
-
-#: 
-msgid "New Blocked IP"
-msgstr "Новый заблокированный IP"
-
-#: 
-msgid "Willow CMS"
-msgstr "Ива CMS"
-
-#: 
-msgid "The blocked ip has been deleted."
-msgstr "Заблокированный IP-адрес был удален."
-
-#: 
-msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
-msgstr "Слаг должен быть безопасным для URL (только строчные буквы, цифры и дефисы)"
+msgid "Updated At"
+msgstr "Обновлено в"
 
 #: 
 msgid "Edit {0}"
 msgstr "Редактировать {0}"
 
 #: 
-msgid "Update Comment"
-msgstr "Обновить комментарий"
-
-#: 
-msgid "The blocked ip could not be saved. Please, try again."
-msgstr "Заблокированный IP не может быть сохранен. Пожалуйста, попробуйте еще раз."
-
-#: 
-msgid "Show Details"
-msgstr "Показать подробности"
-
-#: 
-msgid "List View"
-msgstr "Вид списка"
-
-#: 
-msgid "The tag has been saved."
-msgstr "Тег сохранен."
-
-#: 
-msgid "Failed to save the image"
-msgstr "Не удалось сохранить изображение."
-
-#: 
-msgid "Registration successful, but there was an issue creating the confirmation link."
-msgstr "Регистрация прошла успешно, но возникла проблема с созданием ссылки подтверждения."
-
-#: 
-msgid "A value is required"
-msgstr "Требуется значение"
-
-#: 
-msgid "Slug"
-msgstr "Слизень"
-
-#: 
-msgid "Willow Logo"
-msgstr "Логотип Ивы"
-
-#: 
-msgid "Is Published"
-msgstr "Опубликовано"
-
-#: 
-msgid "Body HTML"
-msgstr "HTML-код тела"
-
-#: 
-msgid "Show"
-msgstr "Показывать"
-
-#: 
-msgid "Register New Account"
-msgstr "Зарегистрировать новую учетную запись"
-
-#: 
-msgid "Posted on {date} by {author}"
-msgstr "Опубликовано {дата} пользователем {автор}"
-
-#: 
-msgid "No internationalizations found for the provided IDs."
-msgstr "Для предоставленных идентификаторов не найдено интернационализаций."
-
-#: 
-msgid "New Internationalisation"
-msgstr "Новая интернационализация"
-
-#: 
-msgid "If your email is registered, you will receive a link to reset your password."
-msgstr "Если ваш адрес электронной почты зарегистрирован, вы получите ссылку для сброса пароля."
-
-#: 
-msgid "Send Reset Link"
-msgstr "Отправить ссылку сброса"
-
-#: 
-msgid "Read More"
-msgstr "Читать далее"
-
-#: 
-msgid "Views"
-msgstr "Просмотры"
-
-#: 
-msgid "Cache"
-msgstr "Кэш"
-
-#: 
-msgid "New User"
-msgstr "Новый пользователь"
-
-#: 
-msgid "No page view data available for this article."
-msgstr "Данные о просмотрах страниц для этой статьи отсутствуют."
-
-#: 
-msgid "Edit Blocked IP"
-msgstr "Изменить заблокированный IP"
-
-#: 
-msgid "Your password has been reset. Please log in with your new password."
-msgstr "Ваш пароль был сброшен. Пожалуйста, войдите с новым паролем."
-
-#: 
-msgid "The image has been saved."
-msgstr "Изображение сохранено."
-
-#: 
-msgid "Details"
-msgstr "Подробности"
-
-#: 
-msgid "Update Tag"
-msgstr "Обновить тег"
-
-#: 
-msgid "Tags"
-msgstr "Теги"
-
-#: 
-msgid "The tag could not be deleted. Please, try again."
-msgstr "Тег не может быть удален. Пожалуйста, попробуйте еще раз."
-
-#: 
-msgid "Published"
-msgstr "Опубликовано"
-
-#: 
-msgid "Error loading images:"
-msgstr "Ошибка загрузки изображений:"
-
-#: 
-msgid "Please upload only images (jpeg, png, gif)."
-msgstr "Пожалуйста, загружайте только изображения (jpeg, png, gif)."
-
-#: 
-msgid "You cannot disable your own account."
-msgstr "Вы не можете отключить свою учетную запись."
-
-#: 
-msgid "Meta Keywords"
-msgstr "Мета ключевые слова"
-
-#: 
-msgid "Error saving {0}.{1}: {2}"
-msgstr "Ошибка сохранения {0}.{1}: {2}"
-
-#: 
-msgid "The slug must be unique."
-msgstr "Слаг должен быть уникальным."
-
-#: 
-msgid "No articles found for this tag."
-msgstr "Статьи по этому тегу не найдены."
-
-#: 
-msgid "Username"
-msgstr "Имя пользователя"
-
-#: 
-msgid "Total Views: "
-msgstr "Всего просмотров: "
-
-#: 
-msgid "List Email Templates"
-msgstr "Список шаблонов электронной почты"
-
-#: 
-msgid "API request failed. Please try again later."
-msgstr "Запрос API не удался. Попробуйте еще раз позже."
-
-#: 
-msgid "Are you sure you want to delete this prompt?"
-msgstr "Вы уверены, что хотите удалить это приглашение?"
-
-#: 
-msgid "Updated At"
-msgstr "Обновлено в"
-
-#: 
-msgid "Configured Caches"
-msgstr "Настроенные кэши"
-
-#: 
-msgid "Search users..."
-msgstr "Поиск пользователей..."
-
-#: 
-msgid "Group Name"
-msgstr "Название группы"
-
-#: 
-msgid "Error"
-msgstr "Ошибка"
-
-#: 
-msgid "Edit Slug"
-msgstr "Редактировать слаг"
+msgid "Rate limit exceeded for IP: {0} on route: {1}"
+msgstr "Превышен предел скорости для IP: {0} на маршруте: {1}"
 
 #: 
 msgid "Search images..."
 msgstr "Поиск изображений..."
 
 #: 
-msgid "Never"
-msgstr "Никогда"
+msgid "Add Tag"
+msgstr "Добавить тег"
 
 #: 
-msgid "Blocked At"
-msgstr "Заблокировано в"
+msgid "Reset Password"
+msgstr "Сбросить пароль"
 
 #: 
-msgid "There was an issue resetting your password. Please try again."
-msgstr "Возникла проблема со сбросом пароля. Попробуйте еще раз."
+msgid "Users"
+msgstr "Пользователи"
 
 #: 
-msgid "Update Image"
-msgstr "Обновить изображение"
+msgid "Edit"
+msgstr "Редактировать"
 
 #: 
-msgid "Update Aiprompt"
-msgstr "Обновление Aiprompt"
+msgid "Delete"
+msgstr "Удалить"
 
 #: 
-msgid "List {0}"
-msgstr "Список {0}"
+msgid "Twitter Description"
+msgstr "Описание в Твиттере"
 
 #: 
-msgid "User"
-msgstr "Пользователь"
+msgid "Are you sure you want to delete all {0} logs?"
+msgstr "Вы уверены, что хотите удалить все {0} журналов?"
 
 #: 
-msgid "Show Full Article"
-msgstr "Показать полную статью"
+msgid "English"
+msgstr "Английский"
 
 #: 
-msgid "The user has been deleted."
-msgstr "Пользователь был удален."
+msgid "Alt Text"
+msgstr "Альтернативный текст"
 
 #: 
-msgid "Invalid username or password"
-msgstr "Неверное имя пользователя или пароль"
+msgid "Access denied. You must be an admin to view this page."
+msgstr "Доступ запрещен. Для просмотра этой страницы вам необходимо быть администратором."
 
 #: 
-msgid "Are you sure you want to clear {0}?"
-msgstr "Вы уверены, что хотите очистить {0}?"
+msgid "The image could not be saved. Please, try again."
+msgstr "Изображение не удалось сохранить. Пожалуйста, попробуйте еще раз."
 
 #: 
-msgid "Unable to delete the log."
-msgstr "Не удалось удалить журнал."
+msgid "Date"
+msgstr "Дата"
 
 #: 
-msgid "Tag not found"
-msgstr "Тег не найден"
+msgid "Inactive"
+msgstr "Неактивный"
 
 #: 
-msgid "The internationalisation could not be deleted. Please, try again."
-msgstr "Интернационализация не может быть удалена. Пожалуйста, попробуйте еще раз."
+msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
+msgstr "Страница {{page}} из {{pages}}, показывающая {{current}} записи из {{count}} общего количества"
 
 #: 
-msgid "Images"
-msgstr "Изображения"
+msgid "Add Internationalisation"
+msgstr "Добавить интернационализацию"
 
 #: 
-msgid "Associated Pages"
-msgstr "Связанные страницы"
-
-#: 
-msgid "Slugs"
-msgstr "Слизни"
-
-#: 
-msgid "All rights reserved."
-msgstr "Все права защищены."
-
-#: 
-msgid "Clear"
-msgstr "Прозрачный"
-
-#: 
-msgid "All Locales"
-msgstr "Все локации"
-
-#: 
-msgid "Blocked IPs"
-msgstr "Заблокированные IP-адреса"
+msgid "Registration successful, but there was an issue creating the confirmation link."
+msgstr "Регистрация прошла успешно, но возникла проблема с созданием ссылки подтверждения."
 
 #: 
 msgid "New {0}"
 msgstr "Новый {0}"
 
 #: 
-msgid "Add Slug"
-msgstr "Добавить слаг"
+msgid "Message Str"
+msgstr "Сообщение Str"
+
+#: 
+msgid "Flagged"
+msgstr "Помечено"
+
+#: 
+msgid "Please log in to add a comment"
+msgstr "Пожалуйста, войдите в систему, чтобы добавить комментарий"
+
+#: 
+msgid "Tag Articles/Pages"
+msgstr "Теги Статьи/Страницы"
+
+#: 
+msgid "Add a Comment"
+msgstr "Добавить комментарий"
+
+#: 
+msgid "Actions"
+msgstr "Действия"
+
+#: 
+msgid "Invalid type"
+msgstr "Неверный тип"
+
+#: 
+msgid "Forgot Password?"
+msgstr "Забыли пароль?"
+
+#: 
+msgid "Save All Settings"
+msgstr "Сохранить все настройки"
+
+#: 
+msgid "The slug must be unique."
+msgstr "Слаг должен быть уникальным."
+
+#: 
+msgid "List View"
+msgstr "Вид списка"
+
+#: 
+msgid "The slug has been deleted."
+msgstr "Слаг был удален."
+
+#: 
+msgid "Article ID:"
+msgstr "Идентификатор статьи:"
+
+#: 
+msgid "The internationalisation has been deleted."
+msgstr "Интернационализация удалена."
+
+#: 
+msgid "If your email is registered, you will receive a link to reset your password."
+msgstr "Если ваш адрес электронной почты зарегистрирован, вы получите ссылку для сброса пароля."
+
+#: 
+msgid "Grid View"
+msgstr "Вид сетки"
+
+#: 
+msgid "Page Views"
+msgstr "Просмотры страниц"
+
+#: 
+msgid "Your account has been updated."
+msgstr "Ваш аккаунт обновлен."
+
+#: 
+msgid "Hide"
+msgstr "Скрывать"
+
+#: 
+msgid "Body"
+msgstr "Тело"
+
+#: 
+msgid "AI Prompts"
+msgstr "Подсказки ИИ"
+
+#: 
+msgid "Main Image"
+msgstr "Основное изображение"
+
+#: 
+msgid "Unable to delete the log."
+msgstr "Не удалось удалить журнал."
+
+#: 
+msgid "Submit"
+msgstr "Представлять на рассмотрение"
+
+#: 
+msgid "The log has been deleted."
+msgstr "Журнал удален."
+
+#: 
+msgid "Body Plain"
+msgstr "Тело простое"
+
+#: 
+msgid "Created"
+msgstr "Созданный"
+
+#: 
+msgid "Related Tags"
+msgstr "Связанные теги"
+
+#: 
+msgid "{0} cache has been cleared successfully."
+msgstr "Кэш {0} успешно очищен."
+
+#: 
+msgid "Add Page"
+msgstr "Добавить страницу"
+
+#: 
+msgid "The slug could not be deleted. Please, try again."
+msgstr "Не удалось удалить слаг. Попробуйте еще раз."
+
+#: 
+msgid "Image must be less than 5MB."
+msgstr "Изображение должно быть менее 5 МБ."
+
+#: 
+msgid "Submit Comment"
+msgstr "Отправить комментарий"
+
+#: 
+msgid "Search Articles..."
+msgstr "Поиск статей..."
+
+#: 
+msgid "Referer"
+msgstr "Реферер"
+
+#: 
+msgid "The requested address {0} was not found on this server."
+msgstr "Запрошенный адрес {0} не найден на этом сервере."
+
+#: 
+msgid "Send Email"
+msgstr "Отправить электронное письмо"
+
+#: 
+msgid "Edit Internationalisation"
+msgstr "Редактировать Интернационализация"
+
+#: 
+msgid "Tags"
+msgstr "Теги"
+
+#: 
+msgid "Cache"
+msgstr "Кэш"
+
+#: 
+msgid "Article not found"
+msgstr "Статья не найдена"
+
+#: 
+msgid "Blog"
+msgstr "Блог"
+
+#: 
+msgid "Search logs..."
+msgstr "Журналы поиска..."
+
+#: 
+msgid "Created At"
+msgstr "Создано в"
+
+#: 
+msgid "The article could not be saved. Please, try again."
+msgstr "Статья не может быть сохранена. Пожалуйста, попробуйте еще раз."
+
+#: 
+msgid "Enter a number"
+msgstr "Введите число"
+
+#: 
+msgid "Edit User"
+msgstr "Редактировать пользователя"
+
+#: 
+msgid "Pages"
+msgstr "Страницы"
+
+#: 
+msgid "Logout"
+msgstr "Выйти"
+
+#: 
+msgid "You cannot disable your own account."
+msgstr "Вы не можете отключить свою учетную запись."
+
+#: 
+msgid "Edit Tag"
+msgstr "Редактировать тег"
+
+#: 
+msgid "The aiprompt has been deleted."
+msgstr "AIprompt был удален."
+
+#: 
+msgid "Enter text"
+msgstr "Введите текст"
+
+#: 
+msgid "Yes"
+msgstr "Да"
+
+#: 
+msgid "Please enter your email and password"
+msgstr "Введите адрес электронной почты и пароль."
+
+#: 
+msgid "Image"
+msgstr "Изображение"
+
+#: 
+msgid "Some settings could not be saved. Please, try again."
+msgstr "Некоторые настройки не удалось сохранить. Пожалуйста, попробуйте еще раз."
+
+#: 
+msgid "Delete All Logs"
+msgstr "Удалить все журналы"
+
+#: 
+msgid "System Prompt"
+msgstr "Системная подсказка"
+
+#: 
+msgid "Failed to send confirmation email message: {0}"
+msgstr "Не удалось отправить подтверждающее сообщение по электронной почте: {0}"
+
+#: 
+msgid "Edit Page"
+msgstr "Редактировать страницу"
+
+#: 
+msgid "Admin"
+msgstr "Админ"
+
+#: 
+msgid "Not Displayed"
+msgstr "Не отображается"
+
+#: 
+msgid "The comment could not be saved. Please, try again."
+msgstr "Комментарий не удалось сохранить. Попробуйте еще раз."
+
+#: 
+msgid "Slug"
+msgstr "Слизень"
+
+#: 
+msgid "Expires At"
+msgstr "Истекает в"
+
+#: 
+msgid "Slugs"
+msgstr "Слизни"
+
+#: 
+msgid "Meta Description"
+msgstr "Мета-описание"
+
+#: 
+msgid "Last Cleared"
+msgstr "Последний раз очищено"
+
+#: 
+msgid "Group Name"
+msgstr "Название группы"
+
+#: 
+msgid "No"
+msgstr "Нет"
+
+#: 
+msgid "Add Article"
+msgstr "Добавить статью"
+
+#: 
+msgid "All Groups"
+msgstr "Все группы"
+
+#: 
+msgid "New User"
+msgstr "Новый пользователь"
+
+#: 
+msgid "The aiprompt could not be saved. Please, try again."
+msgstr "Не удалось сохранить aiprompt. Пожалуйста, попробуйте еще раз."
+
+#: 
+msgid "Model"
+msgstr "Модель"
+
+#: 
+msgid "Add Image"
+msgstr "Добавить изображение"
+
+#: 
+msgid "New Image"
+msgstr "Новое изображение"
+
+#: 
+msgid "Image uploaded successfully"
+msgstr "Изображение успешно загружено"
+
+#: 
+msgid "All caches have been cleared successfully."
+msgstr "Все кэши успешно очищены."
+
+#: 
+msgid "No deleting your own account."
+msgstr "Не удаляйте свой аккаунт."
+
+#: 
+msgid "Page View Statistics for slug: {0}"
+msgstr "Статистика просмотров страниц для слага: {0}"
+
+#: 
+msgid "Add Blocked Ip"
+msgstr "Добавить заблокированный IP"
+
+#: 
+msgid "The blocked ip could not be deleted. Please, try again."
+msgstr "Заблокированный ip не может быть удален. Пожалуйста, попробуйте еще раз."
+
+#: 
+msgid "New Tag"
+msgstr "Новый тег"
+
+#: 
+msgid "Word Count"
+msgstr "Количество слов"
+
+#: 
+msgid "Send Reset Link"
+msgstr "Отправить ссылку сброса"
+
+#: 
+msgid "Edit Article"
+msgstr "Редактировать статью"
+
+#: 
+msgid "The article could not be deleted. Please, try again."
+msgstr "Статья не может быть удалена. Пожалуйста, попробуйте еще раз."
+
+#: 
+msgid "Invalid value for the specified type."
+msgstr "Недопустимое значение для указанного типа."
+
+#: 
+msgid "Image Uploads"
+msgstr "Загрузка изображений"
+
+#: 
+msgid "Id"
+msgstr "Идентификатор"
+
+#: 
+msgid "The user could not be saved. Please, try again."
+msgstr "Не удалось сохранить пользователя. Попробуйте еще раз."
+
+#: 
+msgid "Template Identifier"
+msgstr "Идентификатор шаблона"
+
+#: 
+msgid "The email template could not be deleted. Please, try again."
+msgstr "Шаблон письма не может быть удален. Пожалуйста, попробуйте еще раз."
+
+#: 
+msgid "This slug is already in use. Please enter a unique slug."
+msgstr "Этот слаг уже используется. Введите уникальный слаг."
+
+#: 
+msgid "The user could not be deleted. Please, try again."
+msgstr "Не удалось удалить пользователя. Попробуйте еще раз."
+
+#: 
+msgid "All logs in group {0} have been deleted."
+msgstr "Все журналы в группе {0} удалены."
+
+#: 
+msgid "The user has been saved."
+msgstr "Пользователь сохранен."
+
+#: 
+msgid "Status"
+msgstr "Статус"
+
+#: 
+msgid "Temperature"
+msgstr "Температура"
+
+#: 
+msgid "Context"
+msgstr "Контекст"
+
+#: 
+msgid "Settings"
+msgstr "Настройки"
+
+#: 
+msgid "Invalid confirmation code."
+msgstr "Неверный код подтверждения."
+
+#: 
+msgid "Related Slugs"
+msgstr "Связанные слаги"
+
+#: 
+msgid "Configured Caches"
+msgstr "Настроенные кэши"
+
+#: 
+msgid "Search Slugs..."
+msgstr "Поиск слизней..."
+
+#: 
+msgid "The aiprompt could not be deleted. Please, try again."
+msgstr "Не удалось удалить aiprompt. Попробуйте еще раз."
+
+#: 
+msgid "The comment could not be deleted. Please, try again."
+msgstr "Комментарий не может быть удален. Пожалуйста, попробуйте еще раз."
+
+#: 
+msgid "{0} cache could not be cleared."
+msgstr "Кэш {0} не может быть очищен."
+
+#: 
+msgid "Views"
+msgstr "Просмотры"
+
+#: 
+msgid "Edit Blocked Ip"
+msgstr "Изменить заблокированный IP"
+
+#: 
+msgid "Articles/Pages"
+msgstr "Статьи/Страницы"
+
+#: 
+msgid "Show Less"
+msgstr "Показать меньше"
+
+#: 
+msgid "User"
+msgstr "Пользователь"
+
+#: 
+msgid "Some caches were cleared, but the following failed: {0}"
+msgstr "Некоторые кэши были очищены, но следующее не удалось: {0}"
+
+#: 
+msgid "Never"
+msgstr "Никогда"
+
+#: 
+msgid "Meta Keywords"
+msgstr "Мета ключевые слова"
+
+#: 
+msgid "Filter"
+msgstr "Фильтр"
+
+#: 
+msgid "Your password has been reset. Please log in with your new password."
+msgstr "Ваш пароль был сброшен. Пожалуйста, войдите с новым паролем."
+
+#: 
+msgid "View {0}"
+msgstr "Посмотреть {0}"
+
+#: 
+msgid "Slug:"
+msgstr "Слизень:"
+
+#: 
+msgid "Search Email Templates..."
+msgstr "Поиск шаблонов электронной почты..."
+
+#: 
+msgid "Summary"
+msgstr "Краткое содержание"
+
+#: 
+msgid "The article has been saved."
+msgstr "Статья сохранена."
+
+#: 
+msgid "Display"
+msgstr "Отображать"
+
+#: 
+msgid "Your account has been confirmed. You can now log in."
+msgstr "Ваша учетная запись подтверждена. Теперь вы можете войти."
+
+#: 
+msgid "Message"
+msgstr "Сообщение"
+
+#: 
+msgid "Not published"
+msgstr "Не опубликовано"
+
+#: 
+msgid "The internationalisation could not be deleted. Please, try again."
+msgstr "Интернационализация не может быть удалена. Пожалуйста, попробуйте еще раз."
+
+#: 
+msgid "Show"
+msgstr "Показывать"
+
+#: 
+msgid "The tag has been saved."
+msgstr "Тег сохранен."
+
+#: 
+msgid "All"
+msgstr "Все"
+
+#: 
+msgid "Max Tokens"
+msgstr "Макс. количество токенов"
+
+#: 
+msgid "Search Tags..."
+msgstr "Поиск по тегам..."
+
+#: 
+msgid "Linkedin Description"
+msgstr "Описание в LinkedIn"
+
+#: 
+msgid "Search Aiprompts..."
+msgstr "Поиск подсказок AI..."
+
+#: 
+msgid "Reason"
+msgstr "Причина"
+
+#: 
+msgid "Logs"
+msgstr "Журналы"
+
+#: 
+msgid "Edit Image"
+msgstr "Редактировать изображение"
+
+#: 
+msgid "The value must be 0 or 1."
+msgstr "Значение должно быть 0 или 1."
+
+#: 
+msgid "Email"
+msgstr "Электронная почта"
+
+#: 
+msgid "Failed to send email to: {0}"
+msgstr "Не удалось отправить электронное письмо на адрес: {0}"
+
+#: 
+msgid "Select Tags"
+msgstr "Выберите теги"
+
+#: 
+msgid "The slug could not be saved. Please, try again."
+msgstr "Слизень не удалось сохранить. Пожалуйста, попробуйте еще раз."
+
+#: 
+msgid "New Blocked Ip"
+msgstr "Новый заблокированный IP"
+
+#: 
+msgid "The user has been deleted."
+msgstr "Пользователь был удален."
+
+#: 
+msgid "Invalid or expired password reset link."
+msgstr "Неверная или просроченная ссылка для сброса пароля."
+
+#: 
+msgid "{0} Views"
+msgstr "{0} Просмотров"
+
+#: 
+msgid "Are you sure you want to delete {0}?"
+msgstr "Вы уверены, что хотите удалить {0}?"
+
+#: 
+msgid "This message_id must be unique for the given locale."
+msgstr "Этот message_id должен быть уникальным для данной локали."
+
+#: 
+msgid "Username"
+msgstr "Имя пользователя"
+
+#: 
+msgid "Failed to send password reset email: {0}"
+msgstr "Не удалось отправить электронное письмо для сброса пароля: {0}"
+
+#: 
+msgid "The internationalisation has been saved."
+msgstr "Интернационализация сохранена."
+
+#: 
+msgid "Setting not found: {0}.{1}"
+msgstr "Настройка не найдена: {0}.{1}"
+
+#: 
+msgid "Add Aiprompt"
+msgstr "Добавить Aiprompt"
+
+#: 
+msgid "Is Inappropriate"
+msgstr "Неприемлемо"
+
+#: 
+msgid "You must be logged in to add a comment."
+msgstr "Чтобы добавить комментарий, вам необходимо войти в систему."
+
+#: 
+msgid "Unable to delete logs in group {0}."
+msgstr "Невозможно удалить журналы в группе {0}."
+
+#: 
+msgid "Keywords"
+msgstr "Ключевые слова"
+
+#: 
+msgid "Published"
+msgstr "Опубликовано"
+
+#: 
+msgid "Internationalisations"
+msgstr "Интернационализации"
+
+#: 
+msgid "Search..."
+msgstr "Поиск..."
+
+#: 
+msgid "Edit Your Account"
+msgstr "Редактировать свой аккаунт"
+
+#: 
+msgid "Inappropriate Reason"
+msgstr "Неподходящая причина"
+
+#: 
+msgid "Email Templates"
+msgstr "Шаблоны электронных писем"
+
+#: 
+msgid "User Agent"
+msgstr "Пользовательский агент"
+
+#: 
+msgid "Required"
+msgstr "Необходимый"
+
+#: 
+msgid "View detailed records for this date"
+msgstr "Просмотреть подробные записи на эту дату"
+
+#: 
+msgid "Are you sure you want to delete all logs in group {0}?"
+msgstr "Вы уверены, что хотите удалить все журналы в группе {0}?"
+
+#: 
+msgid "Too many requests. Please try again later."
+msgstr "Слишком много запросов. Попробуйте еще раз позже."
+
+#: 
+msgid "Related Articles/Pages"
+msgstr "Похожие статьи/страницы"
+
+#: 
+msgid "Willow Logo"
+msgstr "Логотип Ивы"
+
+#: 
+msgid "There was an issue confirming your account. Please try again."
+msgstr "Возникла проблема с подтверждением вашего аккаунта. Попробуйте еще раз."
+
+#: 
+msgid "Search Pages..."
+msgstr "Поиск страниц..."
+
+#: 
+msgid "Content"
+msgstr "Содержание"
 
 #: 
 msgid "The internationalisation could not be saved. Please, try again."
 msgstr "Интернационализация не может быть сохранена. Пожалуйста, попробуйте еще раз."
 
 #: 
-msgid "Add Tag"
-msgstr "Добавить тег"
+msgid "The aiprompt has been saved."
+msgstr "AIprompt сохранен."
 
 #: 
-msgid "Cache Management"
-msgstr "Управление кэшем"
+msgid "Edit Aiprompt"
+msgstr "Редактировать Aiprompt"
+
+#: 
+msgid "Locale"
+msgstr "Локаль"
+
+#: 
+msgid "Ip Address"
+msgstr "IP-адрес"
+
+#: 
+msgid "Error"
+msgstr "Ошибка"
+
+#: 
+msgid "Your comment has been added."
+msgstr "Ваш комментарий добавлен."
+
+#: 
+msgid "View"
+msgstr "Вид"
+
+#: 
+msgid "All Locales"
+msgstr "Все локации"
+
+#: 
+msgid "Un-Published"
+msgstr "Неопубликовано"
+
+#: 
+msgid "All rights reserved."
+msgstr "Все права защищены."
+
+#: 
+msgid "Add User"
+msgstr "Добавить пользователя"
+
+#: 
+msgid "Clear"
+msgstr "Прозрачный"
+
+#: 
+msgid "Account"
+msgstr "Счет"
+
+#: 
+msgid "Posted on {date} by {author}"
+msgstr "Опубликовано {дата} пользователем {автор}"
+
+#: 
+msgid "The tag has been deleted."
+msgstr "Тег был удален."
+
+#: 
+msgid "Related Comments"
+msgstr "Связанные комментарии"
+
+#: 
+msgid "No pages found."
+msgstr "Страницы не найдены."
+
+#: 
+msgid "Inappropriate"
+msgstr "Неприличный"
+
+#: 
+msgid "Bulk Upload"
+msgstr "Массовая загрузка"
+
+#: 
+msgid "List {0}"
+msgstr "Список {0}"
+
+#: 
+msgid "Blocked At"
+msgstr "Заблокировано в"
+
+#: 
+msgid "Register New Account"
+msgstr "Зарегистрировать новую учетную запись"
+
+#: 
+msgid "The article has been deleted."
+msgstr "Статья удалена."
+
+#: 
+msgid "Subject"
+msgstr "Предмет"
+
+#: 
+msgid "Article"
+msgstr "Статья"
+
+#: 
+msgid "Picture"
+msgstr "Картина"
+
+#: 
+msgid "All logs have been deleted."
+msgstr "Все журналы удалены."
+
+#: 
+msgid "The image could not be deleted. Please, try again."
+msgstr "Изображение не может быть удалено. Пожалуйста, попробуйте еще раз."
+
+#: 
+msgid "Error saving {0}.{1}: {2}"
+msgstr "Ошибка сохранения {0}.{1}: {2}"
+
+#: 
+msgid "The slug has been saved."
+msgstr "Слизень был сохранен."
+
+#: 
+msgid "The image has been saved."
+msgstr "Изображение сохранено."
+
+#: 
+msgid "Article not found."
+msgstr "Статья не найдена."
+
+#: 
+msgid "The value must be a number."
+msgstr "Значение должно быть числом."
+
+#: 
+msgid "Read More"
+msgstr "Читать далее"
+
+#: 
+msgid "New Internationalisation"
+msgstr "Новая интернационализация"
+
+#: 
+msgid "Registration successful. Please check your email for confirmation."
+msgstr "Регистрация прошла успешно. Проверьте почту для подтверждения."
+
+#: 
+msgid "Willow CMS"
+msgstr "Ива CMS"
+
+#: 
+msgid "Email sent successfully."
+msgstr "Письмо успешно отправлено."
+
+#: 
+msgid "Auto Tag"
+msgstr "Автоматический тег"
+
+#: 
+msgid "No comments yet."
+msgstr "Пока нет комментариев."
+
+#: 
+msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
+msgstr "Ниже приведена информация о настроенных кэшах. Нажмите кнопку, чтобы очистить все кэши, или отдельные кнопки кэша, чтобы очистить определенные кэши."
+
+#: 
+msgid "Error in: "
+msgstr "Ошибка в: "
+
+#: 
+msgid "An error occurred while processing your request."
+msgstr "При обработке вашего запроса произошла ошибка."
+
+#: 
+msgid "Comments are not enabled"
+msgstr "Комментарии не включены"
+
+#: 
+msgid "Edit Comment"
+msgstr "Редактировать комментарий"
+
+#: 
+msgid "Please enter your new password"
+msgstr "Введите новый пароль."
+
+#: 
+msgid "Back to Login"
+msgstr "Вернуться к входу"
+
+#: 
+msgid "Error loading images:"
+msgstr "Ошибка загрузки изображений:"
+
+#: 
+msgid "The email template has been deleted."
+msgstr "Шаблон электронного письма был удален."
+
+#: 
+msgid "There was an issue resetting your password. Please try again."
+msgstr "Возникла проблема со сбросом пароля. Попробуйте еще раз."
+
+#: 
+msgid "This slug is already in use in articles. Please enter a unique slug."
+msgstr "Этот слаг уже используется в статьях. Введите уникальный слаг."
+
+#: 
+msgid "Failed to send email. Please check your email configuration."
+msgstr "Не удалось отправить письмо. Проверьте конфигурацию электронной почты."
+
+#: 
+msgid "Body Html"
+msgstr "Тело HTML"
+
+#: 
+msgid "Please upload only images (jpeg, png, gif)."
+msgstr "Пожалуйста, загружайте только изображения (jpeg, png, gif)."
+
+#: 
+msgid "Page Views for {0}"
+msgstr "Просмотры страниц для {0}"
+
+#: 
+msgid "No page view data available for this article."
+msgstr "Данные о просмотрах страниц для этой статьи отсутствуют."
+
+#: 
+msgid "Invalid username or password"
+msgstr "Неверное имя пользователя или пароль"
+
+#: 
+msgid "Unable to add your comment."
+msgstr "Не удалось добавить ваш комментарий."
+
+#: 
+msgid "The settings have been saved."
+msgstr "Настройки сохранены."
+
+#: 
+msgid "Instagram Description"
+msgstr "Описание в Instagram"
+
+#: 
+msgid "The blocked ip could not be saved. Please, try again."
+msgstr "Заблокированный IP не может быть сохранен. Пожалуйста, попробуйте еще раз."
+
+#: 
+msgid "Cache Name"
+msgstr "Имя кэша"
+
+#: 
+msgid "Articles"
+msgstr "Статьи"
+
+#: 
+msgid "Unable to delete logs with level {0}."
+msgstr "Невозможно удалить журналы с уровнем {0}."
+
+#: 
+msgid "Please enter your email to reset your password"
+msgstr "Пожалуйста, введите свой адрес электронной почты, чтобы сбросить пароль"
+
+#: 
+msgid "All Tags"
+msgstr "Все теги"
+
+#: 
+msgid "Search Users..."
+msgstr "Поиск пользователей..."
+
+#: 
+msgid "Forgot Password"
+msgstr "Забыли пароль"
+
+#: 
+msgid "Add Slug"
+msgstr "Добавить слаг"
+
+#: 
+msgid "All Levels"
+msgstr "Все уровни"
+
+#: 
+msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
+msgstr "Письмо успешно отправлено на адрес: {0}. Шаблон: {1}, Тема: {2}"
+
+#: 
+msgid "Are you sure you want to delete all logs?"
+msgstr "Вы уверены, что хотите удалить все журналы?"
+
+#: 
+msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
+msgstr "Слаг должен быть безопасным для URL (только строчные буквы, цифры и дефисы)"
+
+#: 
+msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
+msgstr "Слаг конфликтует с существующим перенаправлением SEO. Выберите другой слаг."
+
+#: 
+msgid "Images"
+msgstr "Изображения"
+
+#: 
+msgid "Block IPs"
+msgstr "Блокировать IP-адреса"
+
+#: 
+msgid "Modified At"
+msgstr "Изменено в"
+
+#: 
+msgid "The value must not be empty."
+msgstr "Значение не должно быть пустым."
+
+#: 
+msgid "Level"
+msgstr "Уровень"
+
+#: 
+msgid "Title"
+msgstr "Заголовок"
 

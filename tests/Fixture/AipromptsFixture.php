@@ -31,8 +31,8 @@ Respond in valid JSON with these data items. Use your best judgment for ambiguou
                 'model' => 'claude-3-haiku-20240307',
                 'max_tokens' => 1000,
                 'temperature' => 0.2,
-                'created_at' => 1728732013,
-                'modified_at' => 1728732013,
+                'created' => 1728732013,
+                'modified' => 1728732013,
             ],
             [
                 'id' => '5f1a33b2-a011-444d-bb26-1ea290395ae1',
@@ -47,8 +47,8 @@ Respond in valid JSON format with these elements.',
                 'model' => 'gpt-4-1106-preview',
                 'max_tokens' => 1500,
                 'temperature' => 0.3,
-                'created_at' => 1728732014,
-                'modified_at' => 1728732014,
+                'created' => 1728732014,
+                'modified' => 1728732014,
             ],
         ];
         parent::init();

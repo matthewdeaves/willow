@@ -74,12 +74,12 @@ class InternationalisationsTable extends Table
             ->allowEmptyString('message_str');
 
         $validator
-            ->dateTime('created_at')
-            ->notEmptyDateTime('created_at');
+            ->dateTime('created')
+            ->notEmptyDateTime('created');
 
         $validator
-            ->dateTime('updated_at')
-            ->notEmptyDateTime('updated_at');
+            ->dateTime('modified')
+            ->notEmptyDateTime('modified');
 
         return $validator;
     }

@@ -20,7 +20,7 @@ class InternationalisationsController extends AppController
      */
     public function index(): ?Response
     {
-        $selectedLocale = $this->request->getQuery('locale');
+        $statusFilter = $this->request->getQuery('locale');
 
         $query = $this->Internationalisations->find()
             ->select([
@@ -28,12 +28,12 @@ class InternationalisationsController extends AppController
                 'Internationalisations.locale',
                 'Internationalisations.message_id',
                 'Internationalisations.message_str',
-                'Internationalisations.created_at',
-                'Internationalisations.updated_at',
+                'Internationalisations.created',
+                'Internationalisations.modified',
             ]);
 
-        if ($selectedLocale) {
-            $query->where(['Internationalisations.locale' => $selectedLocale]);
+        if ($statusFilter !== null) {
+            $query->where(['Internationalisations.locale' => $statusFilter]);
         }
 
         if ($this->request->is('ajax')) {
@@ -48,23 +48,22 @@ class InternationalisationsController extends AppController
                 ]);
             }
             $internationalisations = $query->all();
-            $this->set(compact('internationalisations'));
+            $this->set(compact('internationalisations', 'search'));
             $this->viewBuilder()->setLayout('ajax');
 
             return $this->render('search_results');
         }
-
+        
         $internationalisations = $this->paginate($query);
 
-        // Get unique locales for the filter buttons
+        // Get unique locales for the locale filter
         $localesQuery = $this->Internationalisations->find()
             ->select(['Internationalisations.locale'])
             ->distinct(['Internationalisations.locale'])
             ->orderBy(['Internationalisations.locale' => 'ASC']);
 
         $locales = $localesQuery->all()->extract('locale')->toList();
-
-        $this->set(compact('internationalisations', 'locales', 'selectedLocale'));
+        $this->set(compact('internationalisations', 'locales'));
 
         return null;
     }
@@ -76,7 +75,7 @@ class InternationalisationsController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view(?string $id = null): void
+    public function view($id = null)
     {
         $internationalisation = $this->Internationalisations->get($id, contain: []);
         $this->set(compact('internationalisation'));
@@ -87,14 +86,11 @@ class InternationalisationsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add(): ?Response
+    public function add()
     {
         $internationalisation = $this->Internationalisations->newEmptyEntity();
         if ($this->request->is('post')) {
-            $internationalisation = $this->Internationalisations->patchEntity(
-                $internationalisation,
-                $this->request->getData()
-            );
+            $internationalisation = $this->Internationalisations->patchEntity($internationalisation, $this->request->getData());
             if ($this->Internationalisations->save($internationalisation)) {
                 $this->Flash->success(__('The internationalisation has been saved.'));
 
@@ -103,8 +99,6 @@ class InternationalisationsController extends AppController
             $this->Flash->error(__('The internationalisation could not be saved. Please, try again.'));
         }
         $this->set(compact('internationalisation'));
-
-        return null;
     }
 
     /**
@@ -114,14 +108,11 @@ class InternationalisationsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit(?string $id = null): ?Response
+    public function edit($id = null)
     {
         $internationalisation = $this->Internationalisations->get($id, contain: []);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $internationalisation = $this->Internationalisations->patchEntity(
-                $internationalisation,
-                $this->request->getData()
-            );
+            $internationalisation = $this->Internationalisations->patchEntity($internationalisation, $this->request->getData());
             if ($this->Internationalisations->save($internationalisation)) {
                 $this->Flash->success(__('The internationalisation has been saved.'));
 
@@ -130,8 +121,6 @@ class InternationalisationsController extends AppController
             $this->Flash->error(__('The internationalisation could not be saved. Please, try again.'));
         }
         $this->set(compact('internationalisation'));
-
-        return null;
     }
 
     /**
@@ -141,7 +130,7 @@ class InternationalisationsController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete(?string $id = null): ?Response
+    public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
         $internationalisation = $this->Internationalisations->get($id);
@@ -151,6 +140,6 @@ class InternationalisationsController extends AppController
             $this->Flash->error(__('The internationalisation could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect($this->referer());
     }
 }

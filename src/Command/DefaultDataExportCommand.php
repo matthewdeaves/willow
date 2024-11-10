@@ -15,7 +15,7 @@ use Cake\Utility\Inflector;
  * DefaultDataExportCommand
  *
  * This command allows exporting data from a selected database table to a JSON file.
- * It excludes timestamp columns (created, modified, created_at, modified_at) and the ID column from the export.
+ * It excludes timestamp columns (created, modified, created, modified) and the ID column from the export.
  */
 class DefaultDataExportCommand extends Command
 {
@@ -86,10 +86,10 @@ class DefaultDataExportCommand extends Command
         $table = TableRegistry::getTableLocator()->get($tableName);
         $query = $table->find();
 
-        // Get all columns except 'id', 'created', 'modified', 'created_at', and 'modified_at'
+        // Get all columns except 'id', 'created', 'modified', 'created', and 'modified'
         $schema = $table->getSchema();
         $columns = $schema->columns();
-        $columnsToExclude = ['id', 'created', 'modified', 'created_at', 'modified_at'];
+        $columnsToExclude = ['id', 'created', 'modified'];
         $columns = array_diff($columns, $columnsToExclude);
 
         $query->select($columns);

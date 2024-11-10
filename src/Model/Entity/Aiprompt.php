@@ -14,8 +14,8 @@ use Cake\ORM\Entity;
  * @property string $model
  * @property int $max_tokens
  * @property float $temperature
- * @property \Cake\I18n\DateTime $created_at
- * @property \Cake\I18n\DateTime $modified_at
+ * @property \Cake\I18n\DateTime $created
+ * @property \Cake\I18n\DateTime $modified
  */
 class Aiprompt extends Entity
 {
@@ -34,7 +34,7 @@ class Aiprompt extends Entity
         'model' => true,
         'max_tokens' => true,
         'temperature' => true,
-        'created_at' => true,
-        'modified_at' => true,
+        'created' => true,
+        'modified' => true,
     ];
 }

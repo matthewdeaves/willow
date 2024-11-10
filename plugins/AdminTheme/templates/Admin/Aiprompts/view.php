@@ -37,11 +37,11 @@
                         </tr>
                         <tr>
                             <th><?= __('Created At') ?></th>
-                            <td><?= h($aiprompt->created_at) ?></td>
+                            <td><?= h($aiprompt->created) ?></td>
                         </tr>
                         <tr>
                             <th><?= __('Modified At') ?></th>
-                            <td><?= h($aiprompt->modified_at) ?></td>
+                            <td><?= h($aiprompt->modified) ?></td>
                         </tr>
                     </table>
                     <div class="card mt-4">

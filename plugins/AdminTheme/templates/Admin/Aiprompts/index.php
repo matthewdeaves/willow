@@ -23,8 +23,8 @@
           <th scope="col"><?= $this->Paginator->sort('model') ?></th>
           <th scope="col"><?= $this->Paginator->sort('max_tokens') ?></th>
           <th scope="col"><?= $this->Paginator->sort('temperature') ?></th>
-          <th scope="col"><?= $this->Paginator->sort('created_at') ?></th>
-          <th scope="col"><?= $this->Paginator->sort('modified_at') ?></th>
+          <th scope="col"><?= $this->Paginator->sort('created') ?></th>
+          <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
           <th scope="col"><?= __('Actions') ?></th>
     </tr>
   </thead>
@@ -35,8 +35,8 @@
         <td><?= h($aiprompt->model) ?></td>
         <td><?= $this->Number->format($aiprompt->max_tokens) ?></td>
         <td><?= $this->Number->format($aiprompt->temperature) ?></td>
-        <td><?= h($aiprompt->created_at) ?></td>
-        <td><?= h($aiprompt->modified_at) ?></td>
+        <td><?= h($aiprompt->created) ?></td>
+        <td><?= h($aiprompt->modified) ?></td>
         <td>
             <div class="btn-group w-100 align-items-center justify-content-between flex-wrap">
                 <div class="dropdown">

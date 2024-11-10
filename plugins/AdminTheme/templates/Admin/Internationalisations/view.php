@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\Internationalisation $internationalisation
  */
 ?>
-<div class="container-fluid mt-4">
+<div class="container my-4">
     <div class="row">
         <?php
         echo $this->element('actions_card', [
@@ -14,41 +14,38 @@
             'entityDisplayName' => $internationalisation->message_id
         ]);
         ?>
-        <div class="col-md-9">
+        <div class="col-lg-9">
             <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0"><?= h($internationalisation->message_id) ?></h3>
-                </div>
                 <div class="card-body">
-                    <table class="table table-bordered">
-                        <tr>
-                            <th><?= __('Id') ?></th>
-                            <td><?= h($internationalisation->id) ?></td>
-                        </tr>
+                    <h2 class="card-title"><?= h($internationalisation->message_id) ?></h2>
+                    <table class="table table-striped">
                         <tr>
                             <th><?= __('Locale') ?></th>
                             <td><?= h($internationalisation->locale) ?></td>
                         </tr>
                         <tr>
-                            <th><?= __('Message Id') ?></th>
-                            <td><?= h($internationalisation->message_id) ?></td>
-                        </tr>
-                        <tr>
-                            <th><?= __('Message Str') ?></th>
-                            <td><?= h($internationalisation->message_str) ?></td>
-                        </tr>
-                        <tr>
                             <th><?= __('Created At') ?></th>
-                            <td><?= h($internationalisation->created_at) ?></td>
+                            <td><?= h($internationalisation->created) ?></td>
                         </tr>
                         <tr>
                             <th><?= __('Updated At') ?></th>
-                            <td><?= h($internationalisation->updated_at) ?></td>
+                            <td><?= h($internationalisation->modified) ?></td>
                         </tr>
                     </table>
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= __('Message Id') ?></h5>
+                            <p class="card-text"><?= $this->Text->autoParagraph(h($internationalisation->message_id)); ?></p>
+                        </div>
+                    </div>
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= __('Message Str') ?></h5>
+                            <p class="card-text"><?= $this->Text->autoParagraph(h($internationalisation->message_str)); ?></p>
+                        </div>
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

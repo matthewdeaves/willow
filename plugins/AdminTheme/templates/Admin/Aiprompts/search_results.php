@@ -10,8 +10,8 @@
         <td><?= h($aiprompt->model) ?></td>
         <td><?= $this->Number->format($aiprompt->max_tokens) ?></td>
         <td><?= $this->Number->format($aiprompt->temperature) ?></td>
-        <td><?= h($aiprompt->created_at) ?></td>
-        <td><?= h($aiprompt->modified_at) ?></td>
+        <td><?= h($aiprompt->created) ?></td>
+        <td><?= h($aiprompt->modified) ?></td>
         <td>
             <div class="btn-group w-100 align-items-center justify-content-between flex-wrap">
                 <div class="dropdown">

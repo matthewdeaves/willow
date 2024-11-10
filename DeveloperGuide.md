@@ -11,6 +11,7 @@
 
 2. [Feature Development and Database Migrations](#feature-development-and-database-migrations)
    - [Development Process](#development-process)
+   - [Using Cake Bake](#using-cake-bake)
    - [Applying Changes to Production](#applying-changes-to-production)
    - [Best Practices](#best-practices)
    - [Coding Standards via PHP CodeSniffer](#coding-standards-via-php-codesniffer)
@@ -154,6 +155,44 @@ When developing new features for Willow CMS that require changes to the database
      bin/cake migrations migrate
      ```
    - CakePHP will handle the schema upgrade process.
+
+### Using Cake Bake
+
+Willow CMS uses [Bootstrap](https://getbootstrap.com/) and has support for code generation using cake bake with custom bake templates as part of the [AdminTheme](https://github.com/matthewdeaves/willow/tree/main/plugins/AdminTheme). If you have created your database table and followed CakePHP conventions you are ready to use bake to generate your model, view and controller code for the admin area.
+
+For example, if you create a table to stored records about dogs:
+
+```
+CREATE TABLE `dogs` (
+  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `breed` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `age` tinyint(11) DEFAULT NULL,
+  `weight` decimal(5,2) DEFAULT NULL,
+  `height` decimal(5,2) DEFAULT NULL,
+  `color` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `vaccinated` tinyint(1) DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `owner_email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `adopted_date` date DEFAULT NULL,
+  `last_checkup` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+```
+
+You can then use the CakePHP bake command to generate your model view controller code by specifying to use the AdminTheme templates:
+
+```
+# Using developer aliases
+cake_shell bake model Dogs --theme AdminTheme
+cake_shell bake controler Dogs --theme AdminTheme
+cake_shell bake template Dogs --theme AdminTheme
+
+# or the raw commands
+
+docker compose exec willowcms bin/cake bake model Dogs --theme AdminTheme
+docker compose exec willowcms bin/cake bake controler Dogs --theme AdminTheme
+docker compose exec willowcms bin/cake bake template Dogs --theme AdminTheme
+```
 
 ### Best Practices
 

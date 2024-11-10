@@ -29,7 +29,6 @@ class EmailTemplatesController extends AppController
      */
     public function index(): ?Response
     {
-        $statusFilter = $this->request->getQuery('status');
         $query = $this->EmailTemplates->find()
             ->select([
                 'EmailTemplates.id',

@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 
 use App\Controller\AppController;
 use Cake\Http\Response;
+use Cake\ORM\Query;
 
 /**
  * Comments Controller
@@ -38,9 +39,9 @@ class CommentsController extends AppController
         $query = $this->Comments->find()
             ->contain([
                 'Users',
-                'Articles' => function (\Cake\ORM\Query $q) {
+                'Articles' => function (Query $q) {
                     return $q->select(['Articles.id', 'Articles.title', 'Articles.slug', 'Articles.kind']);
-                }
+                },
             ]);
 
         if ($statusFilter !== null) {

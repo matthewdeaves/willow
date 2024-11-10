@@ -20,7 +20,6 @@ class AipromptsController extends AppController
      */
     public function index(): ?Response
     {
-        $statusFilter = $this->request->getQuery('status');
         $query = $this->Aiprompts->find()
             ->select([
                 'Aiprompts.id',
@@ -53,11 +52,11 @@ class AipromptsController extends AppController
 
         $this->paginate = [
             'sortableFields' => [
-'task_type',
-'system_prompt',
-'model',
+        'task_type',
+        'system_prompt',
+        'model',
             ],
-            'order' => ['Articles.created' => 'DESC']
+            'order' => ['Articles.created' => 'DESC'],
         ];
 
         $aiprompts = $this->paginate($query);
@@ -73,7 +72,7 @@ class AipromptsController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view(?string $id = null): ?Response
     {
         $aiprompt = $this->Aiprompts->get($id, contain: []);
         $this->set(compact('aiprompt'));
@@ -84,7 +83,7 @@ class AipromptsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add(): ?Response
     {
         $aiprompt = $this->Aiprompts->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -106,7 +105,7 @@ class AipromptsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit(?string $id = null): ?Response
     {
         $aiprompt = $this->Aiprompts->get($id, contain: []);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -128,7 +127,7 @@ class AipromptsController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete(?string $id = null): ?Response
     {
         $this->request->allowMethod(['post', 'delete']);
         $aiprompt = $this->Aiprompts->get($id);

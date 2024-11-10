@@ -83,7 +83,7 @@ class AppController extends Controller
             $this->set(compact('profilePic'));
         }
 
-        if ($this->request->getParam('prefix') === 'Admin' && null != $identity) {
+        if ($this->request->getParam('prefix') === 'Admin' && $identity != null) {
             I18nManager::setLocalForAdminArea();
 
             $usersTable = $this->fetchTable('Users');

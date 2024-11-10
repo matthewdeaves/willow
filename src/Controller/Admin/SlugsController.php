@@ -9,39 +9,20 @@ use Cake\Http\Response;
 /**
  * Slugs Controller
  *
- * Handles CRUD operations for slugs and their associated articles.
- *
  * @property \App\Model\Table\SlugsTable $Slugs
  */
 class SlugsController extends AppController
 {
     /**
-     * Index method for retrieving and displaying slugs and associated articles.
+     * Index method
      *
-     * Handles both standard and AJAX requests. For AJAX requests, it supports
-     * searching through slugs and articles based on a search query. The results are rendered
-     * using an AJAX-specific layout. For standard requests, it paginates the results and
-     * renders them using the default layout.
-     *
-     * @return \Cake\Http\Response|null Returns Response for AJAX requests, null for standard requests
+     * @return \Cake\Http\Response|null|void Renders view
      */
     public function index(): ?Response
     {
+        $statusFilter = $this->request->getQuery('status');
         $query = $this->Slugs->find()
-            ->select([
-                'Slugs.id',
-                'Slugs.slug',
-                'Slugs.article_id',
-                'Slugs.created',
-                'Slugs.modified',
-                'Articles.id',
-                'Articles.title',
-                'Articles.slug',
-                'Articles.kind',
-                'Articles.is_published',
-            ])
-            ->contain(['Articles'])
-            ->orderBy(['Slugs.modified' => 'DESC']);
+            ->contain(['Articles']);
 
         if ($this->request->is('ajax')) {
             $search = $this->request->getQuery('search');
@@ -49,18 +30,22 @@ class SlugsController extends AppController
                 $query->where([
                     'OR' => [
                         'Slugs.slug LIKE' => '%' . $search . '%',
-                        'Articles.title LIKE' => '%' . $search . '%',
-                        'Articles.body LIKE' => '%' . $search . '%',
-                        'Articles.slug LIKE' => '%' . $search . '%',
                     ],
                 ]);
             }
             $slugs = $query->all();
-            $this->set(compact('slugs'));
+            $this->set(compact('slugs', 'search'));
             $this->viewBuilder()->setLayout('ajax');
 
             return $this->render('search_results');
         }
+
+        $this->paginate = [
+            'sortableFields' => [
+'slug',
+            ],
+            'order' => ['Articles.created' => 'DESC']
+        ];
 
         $slugs = $this->paginate($query);
         $this->set(compact('slugs'));
@@ -71,13 +56,11 @@ class SlugsController extends AppController
     /**
      * View method
      *
-     * Displays details of a specific slug and its associated article.
-     *
      * @param string|null $id Slug id.
-     * @return void
+     * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view(?string $id = null): void
+    public function view($id = null)
     {
         $slug = $this->Slugs->get($id, contain: ['Articles']);
         $this->set(compact('slug'));
@@ -86,11 +69,9 @@ class SlugsController extends AppController
     /**
      * Add method
      *
-     * Handles the creation of a new slug.
-     *
-     * @return \Cake\Http\Response|null Redirects on successful add, null otherwise.
+     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add(): ?Response
+    public function add()
     {
         $slug = $this->Slugs->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -102,22 +83,18 @@ class SlugsController extends AppController
             }
             $this->Flash->error(__('The slug could not be saved. Please, try again.'));
         }
-        $articles = $this->Slugs->Articles->find('list')->all();
+        $articles = $this->Slugs->Articles->find('list', limit: 200)->all();
         $this->set(compact('slug', 'articles'));
-
-        return null;
     }
 
     /**
      * Edit method
      *
-     * Handles the editing of an existing slug.
-     *
      * @param string|null $id Slug id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, null otherwise.
+     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit(?string $id = null): ?Response
+    public function edit($id = null)
     {
         $slug = $this->Slugs->get($id, contain: []);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -131,21 +108,16 @@ class SlugsController extends AppController
         }
         $articles = $this->Slugs->Articles->find('list', limit: 200)->all();
         $this->set(compact('slug', 'articles'));
-
-        return null;
     }
 
     /**
      * Delete method
      *
-     * Handles the deletion of a slug.
-     *
      * @param string|null $id Slug id.
-     * @return \Cake\Http\Response Redirects to index.
+     * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     * @throws \Cake\Http\Exception\MethodNotAllowedException When invalid method is used.
      */
-    public function delete(?string $id = null): Response
+    public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
         $slug = $this->Slugs->get($id);
@@ -155,6 +127,6 @@ class SlugsController extends AppController
             $this->Flash->error(__('The slug could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect($this->referer());
     }
 }

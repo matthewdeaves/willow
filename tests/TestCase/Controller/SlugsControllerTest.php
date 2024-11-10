@@ -133,7 +133,7 @@ class SlugsControllerTest extends AppControllerTestCase
         $this->enableCsrfToken();
         $this->post('/admin/slugs/delete/' . $slug->id);
 
-        $this->assertRedirect(['action' => 'index']);
+        $this->assertRedirect();
         $this->assertNull($this->Slugs->find()->where(['id' => $slug->id])->first());
     }
 

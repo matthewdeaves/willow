@@ -25,7 +25,7 @@
                     </li>
                     <li><hr class="dropdown-divider"></li>
                     <li>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $slug->id], ['confirm' => __('Are you sure you want to delete # {0}?', $slug->id), 'class' => 'dropdown-item text-danger']) ?>
+                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $slug->id], ['confirm' => __('Are you sure you want to delete {0}?', $slug->slug), 'class' => 'dropdown-item text-danger']) ?>
                     </li>
                 </ul>
                 </div>

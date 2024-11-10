@@ -16,12 +16,11 @@ class AipromptsController extends AppController
     /**
      * Index method
      *
-     * Lists all AI prompts and handles search functionality.
-     *
-     * @return \Cake\Http\Response|null
+     * @return \Cake\Http\Response|null|void Renders view
      */
     public function index(): ?Response
     {
+        $statusFilter = $this->request->getQuery('status');
         $query = $this->Aiprompts->find()
             ->select([
                 'Aiprompts.id',
@@ -46,11 +45,20 @@ class AipromptsController extends AppController
                 ]);
             }
             $aiprompts = $query->all();
-            $this->set(compact('aiprompts'));
+            $this->set(compact('aiprompts', 'search'));
             $this->viewBuilder()->setLayout('ajax');
 
             return $this->render('search_results');
         }
+
+        $this->paginate = [
+            'sortableFields' => [
+'task_type',
+'system_prompt',
+'model',
+            ],
+            'order' => ['Articles.created' => 'DESC']
+        ];
 
         $aiprompts = $this->paginate($query);
         $this->set(compact('aiprompts'));
@@ -61,13 +69,11 @@ class AipromptsController extends AppController
     /**
      * View method
      *
-     * Displays details of a specific AI prompt.
-     *
      * @param string|null $id Aiprompt id.
-     * @return void
+     * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view(?string $id = null): void
+    public function view($id = null)
     {
         $aiprompt = $this->Aiprompts->get($id, contain: []);
         $this->set(compact('aiprompt'));
@@ -76,11 +82,9 @@ class AipromptsController extends AppController
     /**
      * Add method
      *
-     * Creates a new AI prompt.
-     *
-     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add(): ?Response
+    public function add()
     {
         $aiprompt = $this->Aiprompts->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -91,23 +95,18 @@ class AipromptsController extends AppController
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The aiprompt could not be saved. Please, try again.'));
-            $this->setResponse($this->getResponse()->withStatus(400));
         }
         $this->set(compact('aiprompt'));
-
-        return null;
     }
 
     /**
      * Edit method
      *
-     * Modifies an existing AI prompt.
-     *
      * @param string|null $id Aiprompt id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
+     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit(?string $id = null): ?Response
+    public function edit($id = null)
     {
         $aiprompt = $this->Aiprompts->get($id, contain: []);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -118,10 +117,27 @@ class AipromptsController extends AppController
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The aiprompt could not be saved. Please, try again.'));
-            $this->setResponse($this->getResponse()->withStatus(400));
         }
         $this->set(compact('aiprompt'));
+    }
 
-        return null;
+    /**
+     * Delete method
+     *
+     * @param string|null $id Aiprompt id.
+     * @return \Cake\Http\Response|null Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function delete($id = null)
+    {
+        $this->request->allowMethod(['post', 'delete']);
+        $aiprompt = $this->Aiprompts->get($id);
+        if ($this->Aiprompts->delete($aiprompt)) {
+            $this->Flash->success(__('The aiprompt has been deleted.'));
+        } else {
+            $this->Flash->error(__('The aiprompt could not be deleted. Please, try again.'));
+        }
+
+        return $this->redirect($this->referer());
     }
 }

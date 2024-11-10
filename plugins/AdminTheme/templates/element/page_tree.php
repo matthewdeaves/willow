@@ -48,7 +48,7 @@
                                 <li><?= $this->Html->link(__('Edit'), ['action' => 'edit', $article['id'], '?' => ['kind' => 'page', 'parent_id' => $article['parent_id']]], ['class' => 'dropdown-item']) ?></li>
                                 <li><?= $this->Html->link(__('View'), ['action' => 'view', $article['id']], ['class' => 'dropdown-item']) ?></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $article['id']], ['confirm' => __('Are you sure you want to delete # {0}?', $article->id), 'class' => 'dropdown-item text-danger']) ?></li>
+                                <li><?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $article['id']], ['confirm' => __('Are you sure you want to delete {0}?', $article->title), 'class' => 'dropdown-item text-danger']) ?></li>
                             </ul>
                         </div>
                     </div>

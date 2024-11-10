@@ -4,24 +4,21 @@
  * @var \App\Model\Entity\Aiprompt $aiprompt
  */
 ?>
-<div class="container-fluid mt-4">
+<div class="container my-4">
     <div class="row">
         <?php
-            echo $this->element('actions_card', [
-                'modelName' => 'Aiprompt',
-                'controllerName' => 'Aiprompts',
-                'entity' => $aiprompt,
-                'entityDisplayName' => $aiprompt->task_type,
-                'hideDelete' => true,
-            ]);
+        echo $this->element('actions_card', [
+            'modelName' => 'Aiprompt',
+            'controllerName' => 'Aiprompts',
+            'entity' => $aiprompt,
+            'entityDisplayName' => $aiprompt->task_type
+        ]);
         ?>
-        <div class="col-md-9">
+        <div class="col-lg-9">
             <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0"><?= h($aiprompt->task_type) ?></h3>
-                </div>
                 <div class="card-body">
-                    <table class="table table-bordered">
+                    <h2 class="card-title"><?= h($aiprompt->task_type) ?></h2>
+                    <table class="table table-striped">
                         <tr>
                             <th><?= __('Task Type') ?></th>
                             <td><?= h($aiprompt->task_type) ?></td>
@@ -47,10 +44,10 @@
                             <td><?= h($aiprompt->modified_at) ?></td>
                         </tr>
                     </table>
-                    <div class="mt-4">
-                        <h5><?= __('System Prompt') ?></h5>
-                        <div class="border p-3 bg-light">
-                            <?= $this->Text->autoParagraph(h($aiprompt->system_prompt)); ?>
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= __('System Prompt') ?></h5>
+                            <p class="card-text"><?= $this->Text->autoParagraph(h($aiprompt->system_prompt)); ?></p>
                         </div>
                     </div>
                 </div>

@@ -48,69 +48,7 @@
                     <?= $this->element('seo_display_fields', ['model' => $tag, 'hideWordCount' => true]); ?>
                     </div>
 
-                    <div class="card mt-4">
-                        <div class="card-body">
-                            <h4 class="card-title"><?= __('Related Articles/Pages') ?></h4>
-                            <?php if (!empty($tag->articles)) : ?>
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th><?= __('User') ?></th>
-                                            <th><?= __('Kind') ?></th>
-                                            <th><?= __('Title') ?></th>
-                                            <th><?= __('Published') ?></th>
-                                            <th class="actions"><?= __('Actions') ?></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($tag->articles as $article) : ?>
-                                        <tr>
-                                            <?php $ruleName = ($article->kind == 'article') ? 'article-by-slug' : 'page-by-slug';?>
-                                            <td>
-                                                <?= $article->hasValue('user') ? $this->Html->link($article->user->username, ['controller' => 'Users', 'action' => 'view', $article->user->id], ['class' => 'btn btn-link']) : '' ?>
-                                            </td>
-                                            <td><?= h($article->kind) ?></td>
-                                            <td>
-                                                <?php if ($article->is_published == true): ?>
-                                                    <?= $this->Html->link(
-                                                        $article->title,
-                                                        [
-                                                            'controller' => 'Articles',
-                                                            'action' => 'view-by-slug',
-                                                            'slug' => $article->slug,
-                                                            '_name' => $ruleName,
-                                                        ],
-                                                        ['escape' => false]
-                                                    );
-                                                    ?>
-                                                <?php else: ?>
-                                                    <?= $this->Html->link(
-                                                        $article->title,
-                                                        [
-                                                            'prefix' => 'Admin',
-                                                            'controller' => 'Articles',
-                                                            'action' => 'view',
-                                                            $article->id
-                                                        ],
-                                                        ['escape' => false]
-                                                    ) ?>
-                                                <?php endif; ?>
-                                            </td>
-                                            <td>
-                                                <?= $article->is_published ? '<span class="badge bg-success">' . __('Yes') . '</span>' : '<span class="badge bg-danger">' . __('No') . '</span>'; ?>
-                                            </td>
-                                            <td class="actions">
-                                                <?= $this->element('evd_dropdown', ['controller' => 'Articles', 'model' => $article, 'display' => 'title']); ?>
-                                            </td>
-                                        </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <?php endif; ?>
-                        </div>
-                    </div>
+                    <?= $this->element('related/articles', ['articles' => $tag->articles]) ?>
                 </div>
             </div>
         </div>

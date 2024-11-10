@@ -24,6 +24,14 @@ $debugOnlyOptions = $debugOnlyOptions ?? [];
                     ) ?>
                 </li>
 
+                <?php if (!in_array($this->request->getParam('action'), ['add', 'view', 'bulkUpload'])): ?>
+                    <?php if (!isset($hideView)) : ?>
+                    <li class="list-group-item">
+                        <?= $this->Html->link(__('View {0}', [$modelName]), ['controller' => $controllerName, 'action' => 'view', $entity->id], ['class' => 'list-group-item list-group-item-action']) ?>
+                    </li>
+                    <?php endif; ?>
+                <?php endif; ?>
+
                 <?php if (!isset($hideNew)) : ?>
                     <?php if (
                         (Configure::read('debug') && in_array('add', $debugOnlyOptions))
@@ -34,7 +42,6 @@ $debugOnlyOptions = $debugOnlyOptions ?? [];
                     </li>
                     <?php endif; ?>
                 <?php endif; ?>
-
 
                 <?php if (!in_array($this->request->getParam('action'), ['add', 'edit', 'bulkUpload'])): ?>
                     <?php if (!isset($hideEdit)) : ?>

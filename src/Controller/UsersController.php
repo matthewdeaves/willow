@@ -113,8 +113,8 @@ class UsersController extends AppController
             // Be super certain is_admin is false for new registrations
             $user->is_admin = false;
             $user->setAccess('is_admin', false);
-            $user->is_disabled = true;
-            $user->setAccess('is_disabled', true);
+            $user->active = true;
+            $user->setAccess('active', true);
 
             if ($this->Users->save($user)) {
                 $confirmationsTable = $this->fetchTable('UserAccountConfirmations');
@@ -206,7 +206,7 @@ class UsersController extends AppController
         $user = $this->Users->get($id, contain: []);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user->setAccess('is_admin', false);
-            $user->setAccess('is_disabled', false);
+            $user->setAccess('active', false);
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Your account has been updated.'));
@@ -237,8 +237,8 @@ class UsersController extends AppController
 
         if ($confirmation) {
             $user = $this->Users->get($confirmation->user_id);
-            $user->setAccess('is_disabled', true);
-            $user->is_disabled = false;
+            $user->setAccess('active', true);
+            $user->active = false;
 
             if ($this->Users->save($user)) {
                 $confirmationsTable->delete($confirmation);
@@ -360,7 +360,7 @@ class UsersController extends AppController
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user->setAccess('is_admin', false);
-            $user->setAccess('is_disabled', false);
+            $user->setAccess('active', false);
             $user = $this->Users->patchEntity($user, $this->request->getData(), [
                 'validate' => 'resetPassword',
             ]);

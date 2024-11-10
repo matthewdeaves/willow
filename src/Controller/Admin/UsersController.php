@@ -40,17 +40,22 @@ class UsersController extends AppController
      */
     public function index(): ?Response
     {
+        $statusFilter = $this->request->getQuery('status');
         $query = $this->Users->find()
             ->select([
                 'Users.id',
                 'Users.username',
                 'Users.email',
                 'Users.is_admin',
-                'Users.is_disabled',
+                'Users.active',
                 'Users.created',
                 'Users.modified',
                 'Users.picture',
             ]);
+
+        if ($statusFilter !== null) {
+            $query->where(['Users.active' => (int)$statusFilter]);
+        }
 
         if ($this->request->is('ajax')) {
             $search = $this->request->getQuery('search');
@@ -126,7 +131,7 @@ class UsersController extends AppController
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user->setAccess('is_admin', true);
-            $user->setAccess('is_disabled', true);
+            $user->setAccess('active', true);
 
             $data = $this->request->getData();
 

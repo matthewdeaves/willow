@@ -136,7 +136,7 @@ class UserTest extends TestCase
         $user = new User(['id' => '1']);
 
         // Test trying to set is_admin false for your own account
-        $result = $user->lockAdminAccountError('1', ['is_disabled' => true]);
+        $result = $user->lockEnabledAccountError('1', ['active' => false]);
         $this->assertTrue($result);
     }
 }

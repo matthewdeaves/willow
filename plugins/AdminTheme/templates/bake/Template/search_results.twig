@@ -4,6 +4,7 @@
  * @var iterable<\{{ entityClass }}> ${{ pluralVar }}
  */
 ?>
+<?php $activeFilter = $this->request->getQuery('status'); ?>
 <?php foreach (${{ pluralVar }} as ${{ singularVar }}): ?>
     <tr>
         {% for field in fields %}

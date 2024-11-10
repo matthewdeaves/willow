@@ -11,11 +11,11 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false"><?= __('Filter') ?></a>
             <ul class="dropdown-menu">
-              <?php $activeFilter = $this->request->getQuery('filter');  ?>
+              <?php $activeFilter = $this->request->getQuery('status');  ?>
               <li>
                 <?= $this->Html->link(
                     __('All'), 
-                    ['action' => 'index', 'id' => '{{ pk|raw }}', '?' => ['filter' => 1]], 
+                    ['action' => 'index'], 
                     [
                       'class' => 'dropdown-item' . (null === $activeFilter ? ' active' : '')
                     ]
@@ -24,18 +24,18 @@
               <li>
                 <?= $this->Html->link(
                     __('Filter 1'), 
-                    ['action' => 'index', 'id' => '{{ pk|raw }}', '?' => ['filter' => 1]], 
+                    ['action' => 'index', '?' => ['status' => 0]],
                     [
-                      'class' => 'dropdown-item' . ('1' === $activeFilter ? ' active' : '')
+                      'class' => 'dropdown-item' . ('0' === $activeFilter ? ' active' : '')
                     ]
                 ) ?>
               </li>
               <li>
                 <?= $this->Html->link(
                     __('Filter 2'), 
-                    ['action' => 'index', 'id' => '{{ pk|raw }}', '?' => ['filter' => 2]], 
+                    ['action' => 'index', '?' => ['status' => 1]],
                     [
-                      'class' => 'dropdown-item' . ('2' === $activeFilter ? ' active' : '')
+                      'class' => 'dropdown-item' . ('1' === $activeFilter ? ' active' : '')
                     ]
                 ) ?>
               </li>

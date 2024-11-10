@@ -34,9 +34,18 @@ class CommentsController extends AppController
      */
     public function index(): ?Response
     {
+        $statusFilter = $this->request->getQuery('status');
         $query = $this->Comments->find()
-            ->contain(['Users'])
-            ->orderBy(['Comments.created' => 'DESC']);
+            ->contain([
+                'Users',
+                'Articles' => function (\Cake\ORM\Query $q) {
+                    return $q->select(['Articles.id', 'Articles.title', 'Articles.slug', 'Articles.kind']);
+                }
+            ]);
+
+        if ($statusFilter !== null) {
+            $query->where(['Comments.display' => (int)$statusFilter]);
+        }
 
         if ($this->request->is('ajax')) {
             $search = $this->request->getQuery('search');
@@ -67,7 +76,7 @@ class CommentsController extends AppController
      */
     public function view(?string $id = null): void
     {
-        $comment = $this->Comments->get($id, contain: ['Users']);
+        $comment = $this->Comments->get($id, contain: ['Users', 'Articles']);
         $this->set(compact('comment'));
     }
 

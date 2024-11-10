@@ -16,7 +16,7 @@
               <li>
                 <?= $this->Html->link(
                     __('All'), 
-                    ['action' => 'index',], 
+                    ['action' => 'index'],
                     [
                       'class' => 'dropdown-item' . (null === $activeFilter ? ' active' : '')
                     ]
@@ -25,7 +25,7 @@
               <li>
                 <?= $this->Html->link(
                     __('Un-Published'), 
-                    ['action' => 'index', '?' => ['status' => 0]], 
+                    ['action' => 'index', '?' => ['status' => 0]],
                     [
                       'class' => 'dropdown-item' . ('0' === $activeFilter ? ' active' : '')
                     ]
@@ -34,7 +34,7 @@
               <li>
                 <?= $this->Html->link(
                     __('Published'), 
-                    ['action' => 'index', '?' => ['status' => 1]], 
+                    ['action' => 'index', '?' => ['status' => 1]],
                     [
                       'class' => 'dropdown-item' . ('1' === $activeFilter ? ' active' : '')
                     ]

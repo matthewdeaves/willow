@@ -5,117 +5,150 @@
  */
 ?>
 <?php use App\Utility\SettingsManager; ?>
-<div class="articles index content">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h3 class="mb-0"><?= __('Articles') ?></h3>
-        <?= $this->Html->link(__('New Article'), ['prefix' => 'Admin', 'action' => 'add'], ['class' => 'btn btn-primary my-3 ms-2']) ?>
+<header class="py-3 mb-3 border-bottom">
+    <div class="container-fluid d-flex align-items-center articles">
+      <div class="d-flex align-items-center me-auto">
+        <ul class="navbar-nav me-3">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false"><?= __('Status') ?></a>
+            <ul class="dropdown-menu">
+              <?php $activeFilter = $this->request->getQuery('status'); ?>
+              <li>
+                <?= $this->Html->link(
+                    __('All'), 
+                    ['action' => 'index'],
+                    [
+                      'class' => 'dropdown-item' . (null === $activeFilter ? ' active' : '')
+                    ]
+                ) ?>
+              </li>
+              <li>
+                <?= $this->Html->link(
+                    __('Un-Published'), 
+                    ['action' => 'index', '?' => ['status' => 0]],
+                    [
+                      'class' => 'dropdown-item' . ('0' === $activeFilter ? ' active' : '')
+                    ]
+                ) ?>
+              </li>
+              <li>
+                <?= $this->Html->link(
+                    __('Published'), 
+                    ['action' => 'index', '?' => ['status' => 1]],
+                    [
+                      'class' => 'dropdown-item' . ('1' === $activeFilter ? ' active' : '')
+                    ]
+                ) ?>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <form class="d-flex-grow-1 me-3" role="search">
+          <input id="articleSearch" type="search" class="form-control" placeholder="<?= __('Search Articles...') ?>" aria-label="Search">
+        </form>
+      </div>
+      <div class="flex-shrink-0">
+        <?= $this->Html->link(__('New Article'), ['action' => 'add'], ['class' => 'btn btn-primary']) ?>
+      </div>
     </div>
-    <div class="mb-3">
-        <input type="text" id="articleSearch" class="form-control" placeholder="<?= __('Search articles...') ?>">
-    </div>
-    <div class="table-responsive">
-        <table class="table table-striped table-hover">
-            <thead class="table-primary">
-                <tr>
-                    <th><?= __('Picture') ?></th>
-                    <th><?= $this->Paginator->sort('user_id', 'Author') ?></th>
-                    <th><?= $this->Paginator->sort('is_published', 'Published') ?></th>
-                    <th><?= $this->Paginator->sort('title') ?></th>
-                    <th><?= $this->Paginator->sort('slug') ?></th>
-                    <th><?= $this->Paginator->sort('pageview_count', 'Views') ?></th>
-                    <th><?= $this->Paginator->sort('created') ?></th>
-                    <th><?= $this->Paginator->sort('modified') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($articles as $article): ?>
-                <tr>
-                    <td>
-                        <?php if (!empty($article->image)) : ?>
-                        <div class="position-relative">
-                            <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $article->image, 
-                                ['pathPrefix' => 'files/Articles/image/', 
-                                'alt' => $article->alt_text, 
-                                'class' => 'img-thumbnail', 
-                                'width' => '50',
-                                'data-bs-toggle' => 'popover',
-                                'data-bs-trigger' => 'hover',
-                                'data-bs-html' => 'true',
-                                'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $article->image, 
-                                    ['pathPrefix' => 'files/Articles/image/', 
-                                    'alt' => $article->alt_text, 
-                                    'class' => 'img-fluid', 
-                                    'style' => 'max-width: 300px; max-height: 300px;'])
-                                ]) 
-                            ?>
-                        </div>
-                        <?php endif; ?>
-                    </td>
-                    <td>
-                        <?php if (isset($article->_matchingData['Users']) && $article->_matchingData['Users']->username): ?>
-                            <?= $this->Html->link(
-                                h($article->_matchingData['Users']->username),
-                                ['controller' => 'Users', 'action' => 'view', $article->_matchingData['Users']->id]
-                            ) ?>
-                        <?php else: ?>
-                            <?= h(__('Unknown Author')) ?>
-                        <?php endif; ?>
-                    </td>
-                    <td><?= $article->is_published ? '<span class="badge bg-success">' . __('Yes') . '</span>' : '<span class="badge bg-secondary">' . __('No') . '</span>' ?></td>
-                    <td><?= h($article->title) ?></td>
-                    <td>
-                        <?php if ($article->is_published == true): ?>
-                            <?= $this->Html->link(
-                                substr($article->slug, 0, 15) . '...',
-                                [
-                                    'controller' => 'Articles',
-                                    'action' => 'view-by-slug',
-                                    'slug' => $article->slug,
-                                    '_name' => 'article-by-slug'
-                                ],
-                                ['escape' => false]
-                            );
-                            ?>
-                        <?php else: ?>
-                            <?= $this->Html->link(
-                                substr($article->slug, 0, 15) . '...',
-                                [
-                                    'prefix' => 'Admin',
-                                    'controller' => 'Articles',
-                                    'action' => 'view',
-                                    $article->id
-                                ],
-                                ['escape' => false]
-                            ) ?>
-                        <?php endif; ?>
-                    </td>
-                    <td>
-                        <?= $this->Html->link(
-                            h($article->pageview_count), 
-                            [
-                                'prefix' => 'Admin', 
-                                'controller' => 'PageViews', 
-                                'action' => 'pageViewStats', 
-                                $article->id
-                            ],
-                            ['class' => 'btn btn-sm btn-outline-info']
-                        ) ?>
-                    </td>
-                    <td><?= h($article->created->format('Y-m-d H:i')) ?></td>
-                    <td><?= h($article->modified->format('Y-m-d H:i')) ?></td>
-                    <td class="actions">
-                        <?= $this->Html->link(__('View'), ['prefix' => 'Admin', 'action' => 'view', $article->id], ['class' => 'btn btn-sm btn-outline-primary']) ?>
-                        <?= $this->Html->link(__('Edit'), ['prefix' => 'Admin', 'action' => 'edit', $article->id], ['class' => 'btn btn-sm btn-outline-secondary']) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['prefix' => 'Admin', 'action' => 'delete', $article->id], ['confirm' => __('Are you sure you want to delete {0}?', $article->title), 'class' => 'btn btn-sm btn-outline-danger']) ?>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-    <?= $this->element('pagination', ['recordCount' => count($articles)]) ?>
-</div>
+</header>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col"><?= __('Picture') ?></th>
+      <th scope="col"><?= $this->Paginator->sort('user_id', 'Author') ?></th>
+      <th scope="col"><?= $this->Paginator->sort('title') ?></th>
+
+      <?php if (null === $activeFilter) :?>
+      <th scope="col"><?= $this->Paginator->sort('is_published', 'Status') ?></th>
+      <?php elseif ('1' === $activeFilter) :?>
+      <th scope="col"><?= $this->Paginator->sort('published') ?></th>
+      <?php elseif ('0' === $activeFilter) :?>
+      <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
+      <?php endif; ?>
+
+      <th scope="col"><?= __('Actions') ?></th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach ($articles as $article): ?>
+    <tr>
+      <td>
+        <?php if (!empty($article->image)) : ?>
+        <div class="position-relative">
+          <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $article->image, 
+            [
+              'pathPrefix' => 'files/Articles/image/', 
+              'alt' => $article->alt_text, 
+              'class' => 'img-thumbnail', 
+              'width' => '50',
+              'data-bs-toggle' => 'popover',
+              'data-bs-trigger' => 'hover',
+              'data-bs-html' => 'true',
+              'data-bs-content' => $this->Html->image(
+                SettingsManager::read('ImageSizes.large', '400') . '/' . $article->image, 
+                [
+                  'pathPrefix' => 'files/Articles/image/', 
+                  'alt' => $article->alt_text, 
+                  'class' => 'img-fluid', 
+                  'style' => 'max-width: 300px; max-height: 300px;'
+                ])
+            ])?>
+        </div>
+        <?php endif; ?>
+      </td>
+      <td>
+        <?php if (isset($article->_matchingData['Users']) && $article->_matchingData['Users']->username): ?>
+            <?= $this->Html->link(
+                h($article->_matchingData['Users']->username),
+                ['controller' => 'Users', 'action' => 'view', $article->_matchingData['Users']->id]
+            ) ?>
+        <?php else: ?>
+            <?= h(__('Unknown Author')) ?>
+        <?php endif; ?>
+      </td>
+      <td>
+        <?php if ($article->is_published == true): ?>
+            <?= $this->Html->link(
+                html_entity_decode($article->title),
+                [
+                    'controller' => 'Articles',
+                    'action' => 'view-by-slug',
+                    'slug' => $article->slug,
+                    '_name' => 'article-by-slug'
+                ],
+                ['escape' => false]
+            );
+            ?>
+        <?php else: ?>
+            <?= $this->Html->link(
+                html_entity_decode($article->title),
+                [
+                    'prefix' => 'Admin',
+                    'controller' => 'Articles',
+                    'action' => 'view',
+                    $article->id
+                ],
+                ['escape' => false]
+            ) ?>
+        <?php endif; ?>
+      </td>
+      <?php if (null === $activeFilter) :?>
+      <td><?= $article->is_published ? '<span class="badge bg-success">' . __('Published') . '</span>' : '<span class="badge bg-warning">' . __('Un-Published') . '</span>'; ?></td>
+      <?php elseif ('1' === $activeFilter) :?>
+      <td><?= h($article->published) ?></td>
+      <?php elseif ('0' === $activeFilter) :?>
+      <td><?= h($article->modified) ?></td>
+      <?php endif; ?>
+      <td>
+        <?= $this->element('evd_dropdown', ['model' => $article, 'display' => 'title']); ?>
+      </td>
+    </tr>
+    <?php endforeach; ?>
+  </tbody>
+</table>
+
+<?= $this->element('pagination', ['recordCount' => count($articles), 'search' => $search ?? '']) ?>
 
 <?php $this->Html->scriptStart(['block' => true]); ?>
 document.addEventListener('DOMContentLoaded', function() {
@@ -128,9 +161,16 @@ document.addEventListener('DOMContentLoaded', function() {
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(() => {
             const searchTerm = this.value.trim();
+            
+            let url = `<?= $this->Url->build(['action' => 'index']) ?>`;
+
+            <?php if (null !== $activeFilter): ?>
+            url += `?status=<?= urlencode($activeFilter) ?>`;
+            <?php endif; ?>
 
             if (searchTerm.length > 0) {
-                fetch(`<?= $this->Url->build(['action' => 'index']) ?>?search=${encodeURIComponent(searchTerm)}`, {
+                url += (url.includes('?') ? '&' : '?') + `search=${encodeURIComponent(searchTerm)}`;
+                fetch(url, {
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest'
                     }

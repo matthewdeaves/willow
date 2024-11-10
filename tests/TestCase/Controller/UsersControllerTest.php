@@ -362,7 +362,7 @@ class UsersControllerTest extends AppControllerTestCase
         $result = $this->Users->find('auth')->toArray();
         $this->assertNotEmpty($result);
         foreach ($result as $user) {
-            $this->assertEquals(0, $user->is_disabled);
+            $this->assertEquals(1, $user->active);
         }
     }
 
@@ -406,12 +406,12 @@ class UsersControllerTest extends AppControllerTestCase
         $this->post("/admin/users/edit/{$userId}", [
             'username' => 'user@example.com',
             'email' => 'user@example.com',
-            'is_disabled' => true,
+            'active' => true,
         ]);
         $this->assertResponseSuccess();
         $user = $this->Users->get($userId);
 
-        $this->assertTrue($user->is_disabled);
+        $this->assertTrue($user->active);
     }
 
     /**

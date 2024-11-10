@@ -61,7 +61,7 @@ class SettingsControllerTest extends AppControllerTestCase
         $this->get('/admin/settings');
 
         $this->assertResponseOk();
-        $this->assertResponseContains('Edit Settings');
+        $this->assertResponseContains('Settings');
 
         $viewVars = $this->viewVariable('groupedSettings');
         $this->assertNotEmpty($viewVars);

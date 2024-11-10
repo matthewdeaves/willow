@@ -4,26 +4,27 @@
  * @var \App\Model\Entity\EmailTemplate $emailTemplate
  */
 ?>
-<div class="container-fluid mt-4">
+<div class="container my-4">
     <div class="row">
         <?php
-            echo $this->element('actions_card', [
-                'modelName' => 'EmailTemplate',
-                'controllerName' => 'EmailTemplates',
-                'entity' => $emailTemplate,
-                'entityDisplayName' => $emailTemplate->name,
-                'debugOnlyOptions' => ['add', 'delete'],
-            ]);
+        echo $this->element('actions_card', [
+            'modelName' => 'Email Template',
+            'controllerName' => 'Email Templates',
+            'entity' => $emailTemplate,
+            'entityDisplayName' => $emailTemplate->name
+        ]);
         ?>
-        <div class="col-md-9">
+        <div class="col-lg-9">
             <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0"><?= h($emailTemplate->name) ?></h3>
-                </div>
                 <div class="card-body">
-                    <table class="table table-bordered">
+                    <h2 class="card-title"><?= h($emailTemplate->name) ?></h2>
+                    <table class="table table-striped">
                         <tr>
-                            <th class="w-25"><?= __('Name') ?></th>
+                            <th><?= __('Template Identifier') ?></th>
+                            <td><?= h($emailTemplate->template_identifier) ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= __('Name') ?></th>
                             <td><?= h($emailTemplate->name) ?></td>
                         </tr>
                         <tr>
@@ -39,16 +40,16 @@
                             <td><?= h($emailTemplate->modified) ?></td>
                         </tr>
                     </table>
-                    <div class="mt-4">
-                        <h5><?= __('Body HTML') ?></h5>
-                        <div class="border p-3 bg-light">
-                            <?= $emailTemplate->body_html; ?>
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= __('Body Html') ?></h5>
+                            <p class="card-text"><?= $this->Text->autoParagraph(h($emailTemplate->body_html)); ?></p>
                         </div>
                     </div>
-                    <div class="mt-4">
-                        <h5><?= __('Body Text') ?></h5>
-                        <div class="border p-3 bg-light">
-                            <?= nl2br(h($emailTemplate->body_text)); ?>
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= __('Body Plain') ?></h5>
+                            <p class="card-text"><?= $this->Text->autoParagraph(h($emailTemplate->body_plain)); ?></p>
                         </div>
                     </div>
                 </div>

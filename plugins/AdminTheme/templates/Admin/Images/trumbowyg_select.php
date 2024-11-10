@@ -11,7 +11,7 @@
     <input type="text" id="imageSearch" class="form-control" placeholder="<?= __('Search images...') ?>" value="<?= h($searchQuery) ?>">
 </div>
 <?php endif; ?>
-<div id="image-gallery">
+<div id="image-gallery" class="flex-shrink-0">
     <?php include 'image_gallery.php'; ?>
 </div>
 <script>

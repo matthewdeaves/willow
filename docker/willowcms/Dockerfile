@@ -37,8 +37,9 @@ RUN apk add --no-cache \
   php83-intl \
   php83-cli \
   php83-pdo_sqlite \
-  supervisor \
   php83-simplexml \
+  php83-pecl-xdebug \
+  supervisor \
   wget \
   unzip \
   bash && \

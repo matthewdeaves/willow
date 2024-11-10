@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 
 use App\Controller\AppController;
 use Cake\Http\Response;
+use Cake\ORM\Query;
 
 /**
  * Comments Controller
@@ -34,9 +35,18 @@ class CommentsController extends AppController
      */
     public function index(): ?Response
     {
+        $statusFilter = $this->request->getQuery('status');
         $query = $this->Comments->find()
-            ->contain(['Users'])
-            ->orderBy(['Comments.created' => 'DESC']);
+            ->contain([
+                'Users',
+                'Articles' => function (Query $q) {
+                    return $q->select(['Articles.id', 'Articles.title', 'Articles.slug', 'Articles.kind']);
+                },
+            ]);
+
+        if ($statusFilter !== null) {
+            $query->where(['Comments.display' => (int)$statusFilter]);
+        }
 
         if ($this->request->is('ajax')) {
             $search = $this->request->getQuery('search');
@@ -67,7 +77,7 @@ class CommentsController extends AppController
      */
     public function view(?string $id = null): void
     {
-        $comment = $this->Comments->get($id, contain: ['Users']);
+        $comment = $this->Comments->get($id, contain: ['Users', 'Articles']);
         $this->set(compact('comment'));
     }
 
@@ -82,6 +92,7 @@ class CommentsController extends AppController
     {
         $comment = $this->Comments->get($id, contain: ['Articles']);
         if ($this->request->is(['patch', 'post', 'put'])) {
+            $comment->setAccess('is_inappropriate', true);
             $comment = $this->Comments->patchEntity($comment, $this->request->getData());
             if ($this->Comments->save($comment)) {
                 if ($comment->article) {
@@ -120,6 +131,6 @@ class CommentsController extends AppController
             $this->Flash->error(__('The comment could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect($this->referer());
     }
 }

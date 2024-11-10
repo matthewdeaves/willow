@@ -69,7 +69,7 @@ class BlockedIpsTable extends Table
             ->notEmptyDateTime('blocked_at');
 
         $validator
-            ->dateTime('expires_at')
+            ->date('expires_at')
             ->allowEmptyDateTime('expires_at');
 
         return $validator;

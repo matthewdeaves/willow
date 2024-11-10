@@ -14,85 +14,70 @@
  */
 #}
 {% set fields = Bake.filterFields(fields, schema, modelObject) %}
-<?= $this->Form->create(${{ singularVar }}, ['class' => 'needs-validation', 'novalidate' => true]) ?>
-<div class="row">
+<div class="container mt-4">
+    <div class="row">
+        <?php
+        echo $this->element('actions_card', [
+            'modelName' => '{{ singularHumanName }}',
+            'controllerName' => '{{ pluralHumanName }}',
+            'entity' => ${{ singularVar }},
+            'entityDisplayName' => ${{ singularVar }}->{{ displayField }}
+        ]);
+        ?>
+        <div class="col-md-9">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title"><?= __('{{ action|humanize }} {{ singularHumanName }}') ?></h5>
+                </div>
+                <div class="card-body">
+                    <?= $this->Form->create(${{ singularVar }}, ['class' => 'needs-validation', 'novalidate' => true]) ?>
+                    <fieldset>
 {% for field in fields %}
-{% if field not in primaryKey %}
-    {% if loop.index0 % 2 == 0 %}
-    <div class="col-md-6 mb-3">
-    {% else %}
-    <div class="col-md-6 mb-3">
-    {% endif %}
-    {% set fieldData = Bake.columnData(field, schema) %}
-    {% if keyFields[field] is defined %}
-        {% if fieldData.null %}
-        <?= $this->Form->control('{{ field }}', [
-            'options' => ${{ keyFields[field] }},
-            'empty' => true,
-            'class' => 'form-control' . ($this->Form->isFieldError('{{ field }}') ? ' is-invalid' : ''),
-            'required' => {{ fieldData.null ? 'false' : 'true' }}
-        ]) ?>
-        {% else %}
-        <?= $this->Form->control('{{ field }}', [
-            'options' => ${{ keyFields[field] }},
-            'class' => 'form-control' . ($this->Form->isFieldError('{{ field }}') ? ' is-invalid' : ''),
-            'required' => {{ fieldData.null ? 'false' : 'true' }}
-        ]) ?>
-        {% endif %}
-    {% elseif field not in ['created', 'modified', 'updated'] %}
-        {% if fieldData.type in ['date', 'datetime', 'time'] and fieldData.null %}
-        <?= $this->Form->control('{{ field }}', [
-            'empty' => true,
-            'class' => 'form-control' . ($this->Form->isFieldError('{{ field }}') ? ' is-invalid' : ''),
-            'required' => false
-        ]) ?>
-        {% elseif fieldData.type == 'boolean' %}
-        <?= $this->Form->control('{{ field }}', [
-            'class' => 'form-check-input' . ($this->Form->isFieldError('{{ field }}') ? ' is-invalid' : ''),
-            'required' => {{ fieldData.null ? 'false' : 'true' }}
-        ]) ?>
-        {% else %}
-        <?= $this->Form->control('{{ field }}', [
-            'class' => 'form-control' . ($this->Form->isFieldError('{{ field }}') ? ' is-invalid' : ''),
-            'required' => {{ fieldData.null ? 'false' : 'true' }}
-        ]) ?>
-        {% endif %}
-    {% endif %}
-    </div>
+{%- if field not in primaryKey -%}
+                        <div class="mb-3">
+{% if keyFields[field] is defined %}
+{% set fieldData = Bake.columnData(field, schema) %}
+{% if fieldData.null %}
+                            <?php echo $this->Form->control('{{ field }}', ['options' => ${{ keyFields[field] }}, 'empty' => true, 'class' => 'form-select' . ($this->Form->isFieldError('{{ field }}') ? ' is-invalid' : '')]); ?>
+{% else %}
+                            <?php echo $this->Form->control('{{ field }}', ['options' => ${{ keyFields[field] }}, 'class' => 'form-select' . ($this->Form->isFieldError('{{ field }}') ? ' is-invalid' : '')]); ?>
 {% endif %}
-{% endfor %}
-</div>
-
-{% if associations.BelongsToMany is defined %}
-{% for assocName, assocData in associations.BelongsToMany %}
-<div class="row">
-    <div class="col-md-12 mb-3">
-        <?= $this->Form->label('{{ assocData.property }}._ids', __('Associated {{ assocData.alias }}')) ?>
-        <div class="input-group">
-            <input type="text" class="form-control" id="{{ assocData.variable }}Search" placeholder="Search {{ assocData.alias }}...">
-            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Select {{ assocData.alias }}</button>
-            <ul class="dropdown-menu dropdown-menu-end" style="max-height: 300px; overflow-y: auto;">
-                <?php foreach (${{ assocData.variable }} as $value => $label): ?>
-                    <li>
-                        <label class="dropdown-item">
-                            <input type="checkbox" name="{{ assocData.property }}[_ids][]" value="<?= h($value) ?>" class="me-2">
-                            <?= h($label) ?>
-                        </label>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
+{% elseif field not in ['created', 'modified', 'updated'] %}
+{% set fieldData = Bake.columnData(field, schema) %}
+                                {%- if fieldData.type in ['date', 'datetime', 'time'] and fieldData.null %}
+                            <?php echo $this->Form->control('{{ field }}', ['empty' => true, 'class' => 'form-control' . ($this->Form->isFieldError('{{ field }}') ? ' is-invalid' : '')]); ?>
+{% else %}
+                            <?php echo $this->Form->control('{{ field }}', ['class' => 'form-control' . ($this->Form->isFieldError('{{ field }}') ? ' is-invalid' : '')]); ?>
+                                {% endif %}
+                            {% endif %}
+                            <?php if ($this->Form->isFieldError('{{ field }}')): ?>
+                                <div class="invalid-feedback">
+                                    <?= $this->Form->error('{{ field }}') ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    {% endif %}
+                    {% endfor %}
+                    {% if associations.BelongsToMany is defined %}
+                    {% for assocName, assocData in associations.BelongsToMany %}
+                        <div class="mb-3">
+                            <?php echo $this->Form->control('{{ assocData.property }}._ids', ['options' => ${{ assocData.variable }}, 'class' => 'form-select' . ($this->Form->isFieldError('{{ assocData.property }}._ids') ? ' is-invalid' : '')]); ?>
+                            <?php if ($this->Form->isFieldError('{{ assocData.property }}._ids')): ?>
+                                <div class="invalid-feedback">
+                                    <?= $this->Form->error('{{ assocData.property }}._ids') ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    {% endfor %}
+                    {% endif %}
+                                        
+                    </fieldset>
+                    <div class="form-group">
+                        <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-primary']) ?>
+                    </div>
+                    <?= $this->Form->end() ?>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-{% endfor %}
-{% endif %}
-<div class="row">
-    <div class="col-md-12">
-        <div class="mt-4 mb-3">
-            <?= $this->Form->button(__('{{ action|humanize }} {{ singularHumanName }}'), [
-                'class' => 'btn btn-primary'
-            ]) ?>
-        </div>
-    </div>
-</div>
-<?= $this->Form->end() ?>

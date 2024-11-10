@@ -25,10 +25,40 @@ class ArticlesController extends AppController
      *
      * @return void
      */
-    public function treeIndex(): void
+    public function treeIndex(): ?Response
     {
-        $articles = $this->Articles->getPageTree();
+        $statusFilter = $this->request->getQuery('status');
+        $conditions = [];
+
+        if ($statusFilter === '1') {
+            $conditions['Articles.is_published'] = '1';
+        } elseif ($statusFilter === '0') {
+            $conditions['Articles.is_published'] = '0';
+        }
+
+        if ($this->request->is('ajax')) {
+            $search = $this->request->getQuery('search');
+            if (!empty($search)) {
+                $conditions['OR'] = [
+                    'Articles.title LIKE' => '%' . $search . '%',
+                    'Articles.slug LIKE' => '%' . $search . '%',
+                    'Articles.body LIKE' => '%' . $search . '%',
+                    'Articles.meta_title LIKE' => '%' . $search . '%',
+                    'Articles.meta_description LIKE' => '%' . $search . '%',
+                    'Articles.meta_keywords LIKE' => '%' . $search . '%',
+                ];
+            }
+            $articles = $this->Articles->getPageTree($conditions);
+            $this->set(compact('articles'));
+            $this->viewBuilder()->setLayout('ajax');
+
+            return $this->render('tree_index_search_results');
+        }
+
+        $articles = $this->Articles->getPageTree($conditions);
         $this->set(compact('articles'));
+
+        return null;
     }
 
     /**
@@ -60,6 +90,8 @@ class ArticlesController extends AppController
      */
     public function index(): ?Response
     {
+        $statusFilter = $this->request->getQuery('status');
+
         $query = $this->Articles->find()
             ->select([
                 'Articles.id',
@@ -101,8 +133,11 @@ class ArticlesController extends AppController
                 'Articles.modified',
                 'Users.id',
                 'Users.username',
-            ])
-            ->orderBy(['Articles.created' => 'DESC']);
+            ]);
+
+        if ($statusFilter !== null) {
+            $query->where(['Articles.is_published' => (int)$statusFilter]);
+        }
 
         if ($this->request->is('ajax')) {
             $search = $this->request->getQuery('search');
@@ -119,7 +154,7 @@ class ArticlesController extends AppController
                 ]);
             }
             $articles = $query->all();
-            $this->set(compact('articles'));
+            $this->set(compact('articles', 'search'));
             $this->viewBuilder()->setLayout('ajax');
 
             return $this->render('search_results');
@@ -140,34 +175,14 @@ class ArticlesController extends AppController
      */
     public function view(?string $id = null): void
     {
-        $article = $this->Articles->find()
-            ->select([
-                'Articles.id',
-                'Articles.title',
-                'Articles.slug',
-                'Articles.body',
-                'Articles.summary',
-                'Articles.meta_title',
-                'Articles.meta_description',
-                'Articles.meta_keywords',
-                'Articles.facebook_description',
-                'Articles.linkedin_description',
-                'Articles.twitter_description',
-                'Articles.instagram_description',
-                'Articles.word_count',
-                'Articles.created',
-                'Articles.modified',
-                'Articles.published',
-                'Articles.is_published',
-                'Articles.image',
-                'Articles.dir',
-                'Users.id',
-                'Users.username',
-                'Users.email',
-            ])
-            ->where(['Articles.id' => $id])
-            ->contain(['Users', 'PageViews', 'Tags'])
-            ->first();
+        $article = $this->Articles->get($id, contain: [
+            'Users',
+            'PageViews',
+            'Tags',
+            'Images',
+            'Slugs',
+            'Comments',
+        ]);
 
         if (!$article) {
             throw new RecordNotFoundException(__('Article not found'));

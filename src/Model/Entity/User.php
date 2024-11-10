@@ -41,7 +41,7 @@ class User extends Entity
         'size' => true,
         'mime' => true,
         'is_admin' => false,
-        'is_disabled' => false,
+        'active' => false,
     ];
 
     /**
@@ -76,12 +76,12 @@ class User extends Entity
     /**
      * Checks if the account associated with the given user ID is being disabled by the user themselves.
      *
-     * This method evaluates whether the 'is_disabled' flag is set to true in the provided data array
+     * This method evaluates whether the 'active' flag is set to true in the provided data array
      * and if the current object's ID matches the provided user ID. If both conditions are met, it returns true,
      * indicating that the user is attempting to disable their own account.
      *
      * @param string $userId The ID of the user whose account is being checked.
-     * @param array $data An associative array containing account data, including the 'is_disabled' flag.
+     * @param array $data An associative array containing account data, including the 'active' flag.
      * @return bool|null Returns true if the account is being disabled by the user themselves, false otherwise.
      *                   (Note: The method always returns a boolean, so the null part of the return type
      *                   is not utilized in the current implementation.)
@@ -112,8 +112,8 @@ class User extends Entity
      */
     public function lockEnabledAccountError(string $userId, array $data): ?bool
     {
-        //Setting is_disabled to 1 for your own account
-        if (isset($data['is_disabled']) && $data['is_disabled'] && $this->id == $userId) {
+        //Setting active to 0 for your own account
+        if (isset($data['active']) && !$data['active'] && $this->id == $userId) {
             return true;
         }
 

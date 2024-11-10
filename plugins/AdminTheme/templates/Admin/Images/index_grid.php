@@ -6,43 +6,70 @@
  * @var string $viewType
  */
 ?>
-<div class="images index content">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h3 class="mb-0"><?= __('Images') ?></h3>
-        <div>
-            <?= $this->Html->link(__('New Image'), ['action' => 'add'], ['class' => 'btn btn-primary me-2']) ?>
+<header class="py-3 mb-3 border-bottom">
+    <div class="container-fluid d-flex align-items-center images">
+        <div class="d-flex align-items-center me-auto">
+            <div class="btn-group me-3">
+                <?= $this->Html->link('
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"></path>
+                    </svg>
+                    <span class="visually-hidden">' . __('List View') . '</span>
+                ', ['action' => 'index', '?' => ['view' => 'list']], [
+                    'class' => 'btn btn-outline-secondary',
+                    'escape' => false,
+                ]) ?>
+                <?= $this->Html->link('
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grid-3x2" viewBox="0 0 16 16">
+                        <path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h13A1.5 1.5 0 0 1 16 3.5v8a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 11.5zM1.5 3a.5.5 0 0 0-.5.5V7h4V3zM5 8H1v3.5a.5.5 0 0 0 .5.5H5zm1 0v4h4V8zm4-1V3H6v4zm1 1v4h3.5a.5.5 0 0 0 .5-.5V8zm0-1h4V3.5a.5.5 0 0 0-.5-.5H11z"></path>
+                    </svg>
+                    <span class="visually-hidden">' . __('Grid View') . '</span>
+                ', ['action' => 'index', '?' => ['view' => 'grid']], [
+                    'class' => 'btn btn-secondary',
+                    'escape' => false,
+                ]) ?>
+            </div>
+            <form class="d-flex-grow-1 me-3" role="search">
+                <input id="imageSearch" type="search" class="form-control" placeholder="<?= __('Search...') ?>" aria-label="Search">
+            </form>
+        </div>
+        <div class="flex-shrink-0">
+            <?= $this->Html->link(__('New Image'), ['action' => 'add'], ['class' => 'btn btn-primary']) ?>
             <?= $this->Html->link(__('Bulk Upload'), ['action' => 'bulkUpload'], ['class' => 'btn btn-primary']) ?>
         </div>
     </div>
-    <div class="mb-3">
-        <?= $this->Html->link(__('List View'), ['action' => 'index', '?' => ['view' => 'list']], ['class' => 'btn btn-outline-secondary']) ?>
-        <?= $this->Html->link(__('Grid View'), ['action' => 'index', '?' => ['view' => 'grid']], ['class' => 'btn btn-secondary']) ?>
-    </div>
-    <div class="mb-3">
-        <input type="text" id="imageSearch" class="form-control" placeholder="Search images...">
-    </div>
-    <div class="row row-cols-2 row-cols-md-4 row-cols-lg-5 g-4" id="imageResults">
-        <?php foreach ($images as $image): ?>
-            <div class="col">
-                <div class="card h-100">
-                    <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $image->file, 
-                        ['pathPrefix' => 'files/Images/file/', 'alt' => $image->alt_text, 'class' => 'card-img-top']) ?>
-                    <div class="card-body">
-                        <h6 class="card-title"><?= h($image->name) ?></h6>
-                    </div>
-                    <div class="card-footer">
-                        <div class="btn-group btn-group-sm" role="group">
-                            <?= $this->Html->link(__('View'), ['action' => 'view', $image->id], ['class' => 'btn btn-outline-primary']) ?>
-                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $image->id], ['class' => 'btn btn-outline-secondary']) ?>
-                            <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $image->id], ['confirm' => __('Are you sure you want to delete {0}?', $image->name), 'class' => 'btn btn-outline-danger']) ?>
+</header>
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+        <div id="imageResults" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <?php foreach ($images as $image): ?>
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <?= $this->Html->image(
+                                SettingsManager::read('ImageSizes.medium', '200') . '/' . $image->file, [
+                                    'pathPrefix' => 'files/Images/file/',
+                                    'alt' => $image->alt_text,
+                                    'class' => 'card-img-top'
+                            ]) ?>
+                            
+                            <div class="card-body">
+                                <p class="card-text"><?= h($image->name) ?></p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <?= $this->Html->link(__('View'), ['action' => 'view', $image->id], ['class' => 'btn btn-sm btn-outline-secondary']) ?>
+                                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $image->id], ['class' => 'btn btn-sm btn-outline-secondary']) ?>
+                                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $image->id], ['confirm' => __('Are you sure you want to delete {0}?', $image->name), 'class' => 'btn btn-sm btn-outline-secondary text-danger']) ?>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        <?php endforeach; ?>
+            <?php endforeach; ?>
+        </div>
     </div>
-    <?= $this->element('pagination', ['recordCount' => count($images)]) ?>
 </div>
+<?= $this->element('pagination', ['recordCount' => count($images)]) ?>
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {

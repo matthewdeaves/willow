@@ -10,30 +10,64 @@ use Cake\Http\Response;
 /**
  * BlockedIps Controller
  *
- * Manages CRUD operations for blocked IP addresses.
- *
  * @property \App\Model\Table\BlockedIpsTable $BlockedIps
  */
 class BlockedIpsController extends AppController
 {
     /**
-     * Displays a paginated list of blocked IP addresses.
+     * Index method
      *
-     * @return void
+     * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index(): void
+    public function index(): ?Response
     {
-        $query = $this->BlockedIps->find();
-        $blockedIps = $this->paginate($query);
+        $query = $this->BlockedIps->find()
+            ->select([
+                'BlockedIps.id',
+                'BlockedIps.ip_address',
+                'BlockedIps.reason',
+                'BlockedIps.blocked_at',
+                'BlockedIps.expires_at',
+                'BlockedIps.created',
+                'BlockedIps.modified',
+            ]);
 
+        if ($this->request->is('ajax')) {
+            $search = $this->request->getQuery('search');
+            if (!empty($search)) {
+                $query->where([
+                    'OR' => [
+                        'BlockedIps.ip_address LIKE' => '%' . $search . '%',
+                        'BlockedIps.reason LIKE' => '%' . $search . '%',
+                    ],
+                ]);
+            }
+            $blockedIps = $query->all();
+            $this->set(compact('blockedIps', 'search'));
+            $this->viewBuilder()->setLayout('ajax');
+
+            return $this->render('search_results');
+        }
+
+        $this->paginate = [
+            'sortableFields' => [
+        'ip_address',
+        'reason',
+            ],
+            'order' => ['Articles.created' => 'DESC'],
+        ];
+
+        $blockedIps = $this->paginate($query);
         $this->set(compact('blockedIps'));
+
+        return null;
     }
 
     /**
-     * Displays details of a specific blocked IP address.
+     * View method
      *
-     * @param string|null $id Blocked IP id.
-     * @return void
+     * @param string|null $id Blocked Ip id.
+     * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view(?string $id = null): void
@@ -43,9 +77,9 @@ class BlockedIpsController extends AppController
     }
 
     /**
-     * Adds a new blocked IP address.
+     * Add method
      *
-     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
     public function add(): ?Response
     {
@@ -66,10 +100,10 @@ class BlockedIpsController extends AppController
     }
 
     /**
-     * Edits an existing blocked IP address.
+     * Edit method
      *
-     * @param string|null $id Blocked IP id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
+     * @param string|null $id Blocked Ip id.
+     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function edit(?string $id = null): ?Response
@@ -91,23 +125,23 @@ class BlockedIpsController extends AppController
     }
 
     /**
-     * Deletes a blocked IP address.
+     * Delete method
      *
-     * @param string|null $id Blocked IP id.
-     * @return \Cake\Http\Response Redirects to index.
+     * @param string|null $id Blocked Ip id.
+     * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete(?string $id = null): Response
+    public function delete(?string $id = null): ?Response
     {
         $this->request->allowMethod(['post', 'delete']);
         $blockedIp = $this->BlockedIps->get($id);
         if ($this->BlockedIps->delete($blockedIp)) {
-            Cache::clear('ip_blocker');
             $this->Flash->success(__('The blocked ip has been deleted.'));
+            Cache::clear('ip_blocker');
         } else {
             $this->Flash->error(__('The blocked ip could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect($this->referer());
     }
 }

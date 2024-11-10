@@ -23,9 +23,21 @@ class AppView extends View
 
         // Set Bootstrap-friendly form templates
         $this->Form->setTemplates([
-            'inputContainer' => '<div class="form-group {{type}}{{required}}">{{content}}</div>',
-            'inputContainerError' => '<div class="form-group {{type}}{{required}} has-error">{{content}}{{error}}</div>',
-            'error' => '<div class="invalid-feedback d-block">{{content}}</div>'
+            'inputContainer' => '<div class="{{type}}{{required}}">{{content}}</div>',
+            'inputContainerError' => '<div class="{{type}}{{required}} has-validation">{{content}}{{error}}</div>',
+            'error' => '<div class="invalid-feedback">{{content}}</div>',
+            'label' => '<label{{attrs}} class="form-label">{{text}}</label>',
+            'input' => '<input type="{{type}}" name="{{name}}" class="form-control {{attrs.class}}" {{attrs}}>',
+            'textarea' => '<textarea name="{{name}}" class="form-control {{attrs.class}}" {{attrs}}>{{value}}</textarea>',
+            'select' => '<select name="{{name}}" class="form-select {{attrs.class}}" {{attrs}}>{{content}}</select>',
+            'checkbox' => '<input type="checkbox" name="{{name}}" class="form-check-input {{attrs.class}}" {{attrs}}>',
+            'nestingLabel' => '{{hidden}}{{input}}<label{{attrs}} class="form-check-label">{{text}}</label>',
+            'radioContainer' => '<div class="form-check">{{content}}</div>',
+            'radio' => '<input type="radio" name="{{name}}" class="form-check-input"{{attrs}}>',
+            'formGroup' => '{{label}}{{input}}',
+            'inputGroupContainer' => '<div class="input-group {{type}}{{required}}">{{content}}</div>',
+            'inputGroupText' => '<span class="input-group-text">{{content}}</span>',
+            'inputGroupTextError' => '<span class="input-group-text">{{content}}</span>',
         ]);
 
         // Add any other view initialization code here

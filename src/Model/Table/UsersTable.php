@@ -93,14 +93,14 @@ class UsersTable extends Table
             ->minLength('password', 8, __('Password must be at least 8 characters long'))
             ->maxLength('password', 255)
             ->requirePresence('password', 'create')
-            ->allowEmptyString('password', 'update')
+            ->allowEmptyString('password', __('Required'))
             ->notEmptyString('password', null, 'create');
 
         $validator
             ->scalar('confirm_password')
             ->maxLength('confirm_password', 255)
             ->requirePresence('confirm_password', 'create')
-            ->allowEmptyString('confirm_password', 'update')
+            ->allowEmptyString('confirm_password', __('Required'))
             ->notEmptyString('confirm_password', null, 'create')
             ->sameAs('confirm_password', 'password', 'Passwords do not match');
 
@@ -202,15 +202,15 @@ class UsersTable extends Table
     /**
      * Custom finder method to retrieve only enabled records.
      *
-     * This method modifies the query to filter out any records where the 'is_disabled'
+     * This method modifies the query to filter out any records where the 'active'
      * field is set to 1, effectively returning only those records that are enabled.
      *
      * @param \Cake\ORM\Query $query The query object to modify.
      * @param array $options An array of options that can be used to customize the query.
-     * @return \Cake\ORM\Query The modified query object with the 'is_disabled' condition applied.
+     * @return \Cake\ORM\Query The modified query object with the 'active' condition applied.
      */
     public function findAuth(Query $query, array $options): Query
     {
-        return $query->where(['is_disabled' => 0]);
+        return $query->where(['active' => 1]);
     }
 }

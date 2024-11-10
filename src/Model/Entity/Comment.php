@@ -35,6 +35,7 @@ class Comment extends Entity
         'user_id' => true,
         'content' => true,
         'display' => true,
+        'is_inappropriate' => false,
         'created' => true,
         'modified' => true,
         'user' => true,

@@ -5,82 +5,30 @@
  * @var \Cake\Collection\CollectionInterface|string[] $articles
  */
 ?>
-<div class="container-fluid mt-4">
+<?= $this->Html->script('https://code.jquery.com/jquery-3.6.0.min.js'); ?>
+<div class="container mt-4">
     <div class="row">
         <?php
         echo $this->element('actions_card', [
             'modelName' => 'Tag',
             'controllerName' => 'Tags',
-            'entity' => $tag
+            'entity' => $tag,
+            'entityDisplayName' => $tag->title
         ]);
         ?>
         <div class="col-md-9">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0"><?= __('Add Tag') ?></h3>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title"><?= __('Add Tag') ?></h5>
                 </div>
                 <div class="card-body">
                     <?= $this->Form->create($tag, ['type' => 'file', 'class' => 'needs-validation', 'novalidate' => true, 'enctype' => 'multipart/form-data']) ?>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <?= $this->Form->control('title', [
-                                'class' => 'form-control' . ($this->Form->isFieldError('title') ? ' is-invalid' : ''),
-                                'required' => true
-                            ]) ?>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <?= $this->Form->control('slug', [
-                                'class' => 'form-control' . ($this->Form->isFieldError('slug') ? ' is-invalid' : ''),
-                                'required' => true
-                            ]) ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 mb-3">
-                            <?= $this->Form->control('description', [
-                                'type' => 'textarea',
-                                'rows' => '3',
-                                'class' => 'form-control' . ($this->Form->isFieldError('description') ? ' is-invalid' : ''),
-                            ]) ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 mb-3">
-                            <?= $this->Form->label('articles._ids', __('Associated Articles/Pages')) ?>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="articleSearch" placeholder="Search articles...">
-                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><?= __('Select...') ?></button>
-                                <ul class="dropdown-menu dropdown-menu-end" style="max-height: 300px; overflow-y: auto;">
-                                    <?php foreach ($articles as $value => $label): ?>
-                                        <li>
-                                            <label class="dropdown-item">
-                                                <input type="checkbox" name="articles[_ids][]" value="<?= h($value) ?>" class="me-2">
-                                                <?= h($label) ?>
-                                            </label>
-                                        </li>
-                                    <?php endforeach; ?>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <?= $this->Form->control('image', [
-                                'type' => 'file',
-                                'class' => 'form-control-file' . ($this->Form->isFieldError('image') ? ' is-invalid' : ''),
-                                'label' => __('Main Picture')
-                            ]) ?>
-                        </div>
-                    </div>
-                    <?= $this->element('seo_form_fields', ['hideWordCount' => true]) ?>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="mt-4 mb-3">
-                                <?= $this->Form->button(__('Add Tag'), [
-                                    'class' => 'btn btn-primary'
-                                ]) ?>
-                            </div>
-                        </div>
+                    <fieldset>
+                        <?= $this->element('tag_form_fields') ?>
+                        <?= $this->element('seo_form_fields', ['hideWordCount' => true]) ?>                                              
+                    </fieldset>
+                    <div class="form-group">
+                        <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-primary']) ?>
                     </div>
                     <?= $this->Form->end() ?>
                 </div>
@@ -88,17 +36,14 @@
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css">
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('articleSearch');
-    const dropdownItems = document.querySelectorAll('.dropdown-menu li');
-
-    searchInput.addEventListener('input', function() {
-        const searchTerm = this.value.toLowerCase();
-        dropdownItems.forEach(item => {
-            const text = item.textContent.toLowerCase();
-            item.style.display = text.includes(searchTerm) ? '' : 'none';
-        });
+$(document).ready(function() {
+    $('#articles-select').selectpicker({
+        liveSearch: true,
+        actionsBox: true,
+        selectedTextFormat: 'count > 3'
     });
 });
 </script>

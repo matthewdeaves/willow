@@ -53,6 +53,12 @@ class EmailTemplatesTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
+            ->scalar('template_identifier')
+            ->maxLength('template_identifier', 255)
+            ->requirePresence('template_identifier', 'create')
+            ->notEmptyString('template_identifier');
+
+        $validator
             ->scalar('name')
             ->maxLength('name', 255)
             ->requirePresence('name', 'create')

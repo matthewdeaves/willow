@@ -9,22 +9,27 @@
 
 <?php if ($viewType === 'grid'): ?>
     <?php foreach ($images as $image): ?>
-        <div class="col">
-            <div class="card h-100">
-                <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $image->file, 
-                    ['pathPrefix' => 'files/Images/file/', 'alt' => $image->alt_text, 'class' => 'card-img-top']) ?>
-                <div class="card-body">
-                    <h6 class="card-title"><?= h($image->name) ?></h6>
-                </div>
-                <div class="card-footer">
-                    <div class="btn-group btn-group-sm" role="group">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $image->id], ['class' => 'btn btn-outline-primary']) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $image->id], ['class' => 'btn btn-outline-secondary']) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $image->id], ['confirm' => __('Are you sure you want to delete {0}?', $image->name), 'class' => 'btn btn-outline-danger']) ?>
+            <div class="col">
+                <div class="card shadow-sm">
+                    <?= $this->Html->image(
+                        SettingsManager::read('ImageSizes.medium', '200') . '/' . $image->file, [
+                            'pathPrefix' => 'files/Images/file/',
+                            'alt' => $image->alt_text,
+                            'class' => 'card-img-top'
+                    ]) ?>
+                    
+                    <div class="card-body">
+                        <p class="card-text"><?= h($image->name) ?></p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <?= $this->Html->link(__('View'), ['action' => 'view', $image->id], ['class' => 'btn btn-sm btn-outline-secondary']) ?>
+                                <?= $this->Html->link(__('Edit'), ['action' => 'edit', $image->id], ['class' => 'btn btn-sm btn-outline-secondary']) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $image->id], ['confirm' => __('Are you sure you want to delete {0}?', $image->name), 'class' => 'btn btn-sm btn-outline-secondary text-danger']) ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
     <?php endforeach; ?>
 <?php else: ?>
     <?php foreach ($images as $image): ?>

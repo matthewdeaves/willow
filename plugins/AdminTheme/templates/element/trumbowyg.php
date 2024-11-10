@@ -26,6 +26,9 @@
 #imageSelectModal {
     z-index: 99999 !important;
 }
+.trumbowyg-fullscreen .trumbowyg-editor {
+    color: black !important;
+}
 </style>
 <script>
 $(document).ready(function() {

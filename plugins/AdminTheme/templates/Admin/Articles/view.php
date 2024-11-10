@@ -5,7 +5,7 @@
  */
 ?>
 <?php use App\Utility\SettingsManager; ?>
-<div class="container-fluid mt-4">
+<div class="container my-4">
     <div class="row">
         <?php
         echo $this->element('actions_card', [
@@ -15,27 +15,20 @@
             'entityDisplayName' => $article->title
         ]);
         ?>
-        <div class="col-md-9">
+        <div class="col-lg-9">
             <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0"><?= h($article->title) ?></h3>
-                </div>
                 <div class="card-body">
-                    <table class="table table-bordered">
+                    <h2 class="card-title"><?= h($article->title) ?></h2>
+                    <table class="table table-striped">
                         <tr>
-                            <th class="w-25"><?= __('User') ?></th>
+                            <th><?= __('User') ?></th>
                             <td>
-                                <?php if (isset($article->user->username)): ?>
-                                    <?= $this->Html->link(h($article->user->username), 
-                                        ['controller' => 'Users',
-                                        'action' => 'view',
-                                        $article->user->id],
-                                        ['class' => 'text-primary']) 
-                                    ?>
-                                <?php else: ?>
-                                    <?= __('Unknown User') ?>
-                                <?php endif; ?>
+                                <?= $article->hasValue('user') ? $this->Html->link($article->user->username, ['controller' => 'Users', 'action' => 'view', $article->user->id], ['class' => 'btn btn-link']) : '' ?>
                             </td>
+                        </tr>
+                        <tr>
+                            <th><?= __('Kind') ?></th>
+                            <td><?= h($article->kind) ?></td>
                         </tr>
                         <tr>
                             <th><?= __('Title') ?></th>
@@ -97,14 +90,6 @@
                             </td>
                         </tr>
                         <tr>
-                            <th><?= __('Is Published') ?></th>
-                            <td><?= $article->is_published ? __('Yes') : __('No') ?></td>
-                        </tr>
-                        <tr>
-                            <th><?= __('Published') ?></th>
-                            <td><?= h($article->published) ?></td>
-                        </tr>
-                        <tr>
                             <th><?= __('Created') ?></th>
                             <td><?= h($article->created) ?></td>
                         </tr>
@@ -112,77 +97,111 @@
                             <th><?= __('Modified') ?></th>
                             <td><?= h($article->modified) ?></td>
                         </tr>
+                        <tr>
+                            <th><?= __('Published') ?></th>
+                            <td><?= h($article->published) ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= __('Is Published') ?></th>
+                            <td>
+                                <?= $article->is_published ? '<span class="badge bg-success">' . __('Yes') . '</span>' : '<span class="badge bg-danger">' . __('No') . '</span>'; ?>
+                            </td>
+                        </tr>
                     </table>
-                    <div class="mt-4">
-                        <h5><?= __('Summary') ?></h5>
-                        <div class="border p-3 bg-light">
-                            <?= $article->summary; ?>
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= __('Body') ?></h5>
+                            <p class="card-text"><?= html_entity_decode($article->body); ?>
                         </div>
                     </div>
-                    <div class="mt-4">
-                        <h5><?= __('Body') ?></h5>
-                        <div class="border p-3 bg-light">
-                            <?= $article->body; ?>
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= __('Summary') ?></h5>
+                            <p class="card-text"><?= html_entity_decode($article->summary); ?></p>
                         </div>
                     </div>
+                    
                     <div class="mt-4">
-                        <?= $this->element('seo_fields', ['model' => $article]) ?>
+                    <?= $this->element('seo_display_fields', ['model' => $article]); ?>
                     </div>
-                </div>
-            </div>
 
-            <?php if (!empty($article->tags)) : ?>
-            <div class="card mt-4">
-                <div class="card-header bg-secondary text-white">
-                    <h4 class="mb-0"><?= __('Related Tags') ?></h4>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th><?= __('Title') ?></th>
-                                    <th><?= __('Created') ?></th>
-                                    <th><?= __('Modified') ?></th>
-                                    <th class="actions"><?= __('Actions') ?></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($article->tags as $tag) : ?>
-                                <tr>
-                                    <td><?= h($tag->title) ?></td>
-                                    <td><?= h($tag->created) ?></td>
-                                    <td><?= h($tag->modified) ?></td>
-                                    <td class="actions">
-                                        <?= $this->Html->link(__('Live'), ['_name' => 'tag-by-slug', 'slug' => $tag->slug], ['class' => 'btn btn-sm btn-info']) ?>
-                                        <?= $this->Html->link(__('View'), ['controller' => 'Tags', 'action' => 'view', $tag->id], ['class' => 'btn btn-sm btn-info']) ?>
-                                        <?= $this->Html->link(__('Edit'), ['controller' => 'Tags', 'action' => 'edit', $tag->id], ['class' => 'btn btn-sm btn-primary']) ?>
-                                        <?= $this->Form->postLink(__('Delete'), ['controller' => 'Tags', 'action' => 'delete', $tag->id], ['confirm' => __('Are you sure you want to delete {0}?', $tag->title), 'class' => 'btn btn-sm btn-danger']) ?>
-                                    </td>
-                                </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h4 class="card-title"><?= __('Related Tags') ?></h4>
+                            <?php if (!empty($article->tags)) : ?>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th><?= __('Title') ?></th>
+                                            <th><?= __('Slug') ?></th>
+                                            <th class="actions"><?= __('Actions') ?></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($article->tags as $tag) : ?>
+                                        <tr>
+                                            <td><?= html_entity_decode($tag->title) ?></td>
+                                            <td><?= h($tag->slug) ?></td>
+                                            <td class="actions">
+                                                <?= $this->element('evd_dropdown', ['controller' => 'Tags', 'model' => $tag, 'display' => 'title']); ?>
+                                            </td>
+                                        </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
+                    <div class="card mt-4">
+                    <?php if (!empty($article->images)) : ?>
+                        <div class="mb-3">
+                        <?= $this->element('image_carousel', [
+                            'images' => $article->images,
+                            'carouselId' => $carouselId ?? 'imageCarouselID',
+                            'hideRemove' => true,
+                        ]) ?>
+                        </div>
+                    <?php endif; ?>
+                    </div>
+                    
+                    <?= $this->element('related/comments', ['comments' => $article->comments, 'model' => $article]) ?>
+
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h4 class="card-title"><?= __('Related Slugs') ?></h4>
+                            <?php if (!empty($article->slugs)) : ?>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th><?= __('Slug') ?></th>
+                                            <th><?= __('Created') ?></th>
+                                            <th><?= __('Modified') ?></th>
+                                            <th class="actions"><?= __('Actions') ?></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($article->slugs as $slug) : ?>
+                                        <tr>
+                                            <td><?= h($slug->slug) ?></td>
+                                            <td><?= h($slug->created) ?></td>
+                                            <td><?= h($slug->modified) ?></td>
+                                            <td class="actions">
+                                                <?= $this->element('evd_dropdown', ['controller' => 'Slugs', 'model' => $slug, 'display' => 'slug']); ?>
+                                            </td>
+                                        </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <?php endif; ?>
+                        </div>
                     </div>
                 </div>
             </div>
-            <?php endif; ?>
         </div>
     </div>
 </div>
-
-<?php $this->Html->scriptStart(['block' => true]); ?>
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize popovers on page load
-    const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
-    popoverTriggerList.map(function (popoverTriggerEl) {
-        return new bootstrap.Popover(popoverTriggerEl);
-    });
-
-    $('#tags-select').selectpicker({
-        liveSearch: true,
-        actionsBox: true,
-        selectedTextFormat: 'count > 3'
-    });
-});
-<?php $this->Html->scriptEnd(); ?>

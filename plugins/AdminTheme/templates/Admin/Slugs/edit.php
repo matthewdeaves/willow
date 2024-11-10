@@ -5,46 +5,58 @@
  * @var string[]|\Cake\Collection\CollectionInterface $articles
  */
 ?>
-<div class="container-fluid mt-4">
+<div class="container mt-4">
     <div class="row">
         <?php
-            echo $this->element('actions_card', [
-                'modelName' => 'Slug',
-                'controllerName' => 'Slugs',
-                'entity' => $slug,
-                'entityDisplayName' => $slug->slug
-            ]);
+        echo $this->element('actions_card', [
+            'modelName' => 'Slug',
+            'controllerName' => 'Slugs',
+            'entity' => $slug,
+            'entityDisplayName' => $slug->slug
+        ]);
         ?>
         <div class="col-md-9">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0"><?= __('Edit Slug') ?></h3>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title"><?= __('Edit Slug') ?></h5>
                 </div>
                 <div class="card-body">
                     <?= $this->Form->create($slug, ['class' => 'needs-validation', 'novalidate' => true]) ?>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <?= $this->Form->control('article_id', [
-                                'options' => $articles,
-                                'class' => 'form-control' . ($this->Form->isFieldError('article_id') ? ' is-invalid' : ''),
-                                'required' => true
-                            ]) ?>
+                    <fieldset>
+                    <div class="mb-3">
+                            <?php echo $this->Form->control('article_id', ['options' => $articles, 'class' => 'form-select' . ($this->Form->isFieldError('article_id') ? ' is-invalid' : '')]); ?>
+                            <?php if ($this->Form->isFieldError('article_id')): ?>
+                                <div class="invalid-feedback">
+                                    <?= $this->Form->error('article_id') ?>
+                                </div>
+                            <?php endif; ?>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <?= $this->Form->control('slug', [
-                                'class' => 'form-control' . ($this->Form->isFieldError('slug') ? ' is-invalid' : ''),
-                                'required' => true
-                            ]) ?>
+                                        <div class="mb-3">
+                            <?php echo $this->Form->control('slug', ['class' => 'form-control' . ($this->Form->isFieldError('slug') ? ' is-invalid' : '')]); ?>
+                                                                                        <?php if ($this->Form->isFieldError('slug')): ?>
+                                <div class="invalid-feedback">
+                                    <?= $this->Form->error('slug') ?>
+                                </div>
+                            <?php endif; ?>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="mt-4 mb-3">
-                                <?= $this->Form->button(__('Update Slug'), [
-                                    'class' => 'btn btn-primary'
-                                ]) ?>
-                            </div>
+                                        <div class="mb-3">
+                            <?php if ($this->Form->isFieldError('created')): ?>
+                                <div class="invalid-feedback">
+                                    <?= $this->Form->error('created') ?>
+                                </div>
+                            <?php endif; ?>
                         </div>
+                                        <div class="mb-3">
+                            <?php if ($this->Form->isFieldError('modified')): ?>
+                                <div class="invalid-feedback">
+                                    <?= $this->Form->error('modified') ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                                                                                                    
+                    </fieldset>
+                    <div class="form-group">
+                        <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-primary']) ?>
                     </div>
                     <?= $this->Form->end() ?>
                 </div>

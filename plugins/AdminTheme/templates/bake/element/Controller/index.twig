@@ -45,7 +45,7 @@
                     ],
                 ]);
             }
-            ${{ pluralName }} = $query->all();
+            ${{ pluralName }} = $this->paginate($query);
             $this->set(compact('{{ pluralName }}', 'search'));
             $this->viewBuilder()->setLayout('ajax');
 
@@ -55,14 +55,6 @@
         $query = $this->Authorization->applyScope($query);
 {% endif %}
 
-        $this->paginate = [
-            'sortableFields' => [
-{% for field in searchFields %}
-'{{ field }}',
-{% endfor %}
-            ],
-            'order' => ['Articles.created' => 'DESC']
-        ];
 
         ${{ pluralName }} = $this->paginate($query);
         $this->set(compact('{{ pluralName }}'));

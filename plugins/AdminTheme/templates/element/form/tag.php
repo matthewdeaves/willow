@@ -62,7 +62,23 @@
     </div>
 <?php endif; ?>
 
-<div class="me-3">
+<div class="mb-3">
+    <?php $parentId = $this->request->getQuery('parent_id'); ?>
+        <?php echo $this->Form->control('parent_id',
+            [
+                'empty' => __('None'),
+                'options' => $parentTags,
+                'default' => $parentId,
+                'class' => 'form-control' . ($this->Form->isFieldError('parent_id') ? ' is-invalid' : '')
+            ]); ?>
+        <?php if ($this->Form->isFieldError('parent_id')): ?>
+        <div class="invalid-feedback">
+            <?= $this->Form->error('parent_id') ?>
+        </div>
+        <?php endif; ?>
+</div>
+
+<div class="mb-3">
     <?php echo $this->Form->label('articles._ids', __('Tag Articles/Pages'), ['class' => 'form-label']); ?>
     <?php echo $this->Form->select('articles._ids', $articles, [
         'multiple' => true,

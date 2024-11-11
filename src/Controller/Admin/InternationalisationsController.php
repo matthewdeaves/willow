@@ -36,25 +36,23 @@ class InternationalisationsController extends AppController
             $query->where(['Internationalisations.locale' => $statusFilter]);
         }
 
+        $search = $this->request->getQuery('search');
+        if (!empty($search)) {
+            $query->where([
+                'OR' => [
+                    'Internationalisations.locale LIKE' => '%' . $search . '%',
+                    'Internationalisations.message_id LIKE' => '%' . $search . '%',
+                    'Internationalisations.message_str LIKE' => '%' . $search . '%',
+                ],
+            ]);
+        }
+        $internationalisations = $this->paginate($query);
         if ($this->request->is('ajax')) {
-            $search = $this->request->getQuery('search');
-            if (!empty($search)) {
-                $query->where([
-                    'OR' => [
-                        'Internationalisations.locale LIKE' => '%' . $search . '%',
-                        'Internationalisations.message_id LIKE' => '%' . $search . '%',
-                        'Internationalisations.message_str LIKE' => '%' . $search . '%',
-                    ],
-                ]);
-            }
-            $internationalisations = $query->all();
             $this->set(compact('internationalisations', 'search'));
             $this->viewBuilder()->setLayout('ajax');
 
             return $this->render('search_results');
         }
-
-        $internationalisations = $this->paginate($query);
 
         // Get unique locales for the locale filter
         $localesQuery = $this->Internationalisations->find()

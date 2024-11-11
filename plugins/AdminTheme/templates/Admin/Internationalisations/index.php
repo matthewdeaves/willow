@@ -37,7 +37,7 @@
           </li>
         </ul>
         <form class="d-flex-grow-1 me-3" role="search">
-          <input id="internationalisationSearch" type="search" class="form-control" placeholder="<?= __('Search Internationalisations...') ?>" aria-label="Search">
+          <input id="internationalisationSearch" type="search" class="form-control" placeholder="<?= __('Search Internationalisations...') ?>" aria-label="Search" value="<?= $this->request->getQuery('search') ?>">
         </form>
       </div>
       <div class="flex-shrink-0">
@@ -45,53 +45,53 @@
       </div>
     </div>
 </header>
-<table class="table table-striped">
-  <thead>
-    <tr>
-          <th scope="col"><?= $this->Paginator->sort('locale') ?></th>
-          <th scope="col"><?= $this->Paginator->sort('message_id') ?></th>
-          <th scope="col"><?= $this->Paginator->sort('message_str') ?></th>
-          <th scope="col"><?= __('Actions') ?></th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php foreach ($internationalisations as $internationalisation): ?>
-    <tr>
-                    <td><?= h($internationalisation->locale) ?></td>
-                    <td><?= h($internationalisation->message_id) ?></td>
-                    <td><?= h($internationalisation->message_str) ?></td>
-                <td>
-            <div class="btn-group w-100 align-items-center justify-content-between flex-wrap">
-                <div class="dropdown">
-                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <?= __('Actions') ?>
-                </button>
-                <ul class="dropdown-menu">
-                    <li>
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $internationalisation->id], ['class' => 'dropdown-item']) ?>
-                    </li>
-                    <li>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $internationalisation->id], ['class' => 'dropdown-item']) ?>
-                    </li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $internationalisation->id], ['confirm' => __('Are you sure you want to delete {0}?', $internationalisation->message_id), 'class' => 'dropdown-item text-danger']) ?>
-                    </li>
-                </ul>
-                </div>
-            </div>
-        </td>
-    </tr>
-    <?php endforeach; ?>
-  </tbody>
-</table>
-
-<?= $this->element('pagination', ['recordCount' => count($internationalisations), 'search' => $search ?? '']) ?>
-
+<div id="ajax-target">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+            <th scope="col"><?= $this->Paginator->sort('locale') ?></th>
+            <th scope="col"><?= $this->Paginator->sort('message_id') ?></th>
+            <th scope="col"><?= $this->Paginator->sort('message_str') ?></th>
+            <th scope="col"><?= __('Actions') ?></th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php foreach ($internationalisations as $internationalisation): ?>
+      <tr>
+                      <td><?= h($internationalisation->locale) ?></td>
+                      <td><?= h($internationalisation->message_id) ?></td>
+                      <td><?= h($internationalisation->message_str) ?></td>
+                  <td>
+              <div class="btn-group w-100 align-items-center justify-content-between flex-wrap">
+                  <div class="dropdown">
+                  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <?= __('Actions') ?>
+                  </button>
+                  <ul class="dropdown-menu">
+                      <li>
+                          <?= $this->Html->link(__('View'), ['action' => 'view', $internationalisation->id], ['class' => 'dropdown-item']) ?>
+                      </li>
+                      <li>
+                          <?= $this->Html->link(__('Edit'), ['action' => 'edit', $internationalisation->id], ['class' => 'dropdown-item']) ?>
+                      </li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li>
+                          <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $internationalisation->id], ['confirm' => __('Are you sure you want to delete {0}?', $internationalisation->message_id), 'class' => 'dropdown-item text-danger']) ?>
+                      </li>
+                  </ul>
+                  </div>
+              </div>
+          </td>
+      </tr>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
+  <?= $this->element('pagination', ['recordCount' => count($internationalisations), 'search' => $search ?? '']) ?>
+</div>
 <?php $this->Html->scriptStart(['block' => true]); ?>
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('internationalisationSearch');
-    const resultsContainer = document.querySelector('tbody');
+    const resultsContainer = document.querySelector('#ajax-target');
 
     let debounceTimer;
 
@@ -108,25 +108,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (searchTerm.length > 0) {
                 url += (url.includes('?') ? '&' : '?') + `search=${encodeURIComponent(searchTerm)}`;
-                fetch(url, {
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => response.text())
-                .then(html => {
-                    resultsContainer.innerHTML = html;
-                    // Re-initialize popovers after updating the content
-                    const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
-                    popoverTriggerList.map(function (popoverTriggerEl) {
-                        return new bootstrap.Popover(popoverTriggerEl);
-                    });
-                })
-                .catch(error => console.error('Error:', error));
-            } else {
-                // If search is empty, you might want to reload all results or clear the table
-                location.reload();
             }
+            fetch(url, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.text())
+            .then(html => {
+                resultsContainer.innerHTML = html;
+                // Re-initialize popovers after updating the content
+                const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+                popoverTriggerList.map(function (popoverTriggerEl) {
+                    return new bootstrap.Popover(popoverTriggerEl);
+                });
+            })
+            .catch(error => console.error('Error:', error));
         }, 300); // Debounce for 300ms
     });
 

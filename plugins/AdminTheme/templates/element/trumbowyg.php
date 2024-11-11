@@ -1,4 +1,4 @@
-<?= $this->Html->script('https://code.jquery.com/jquery-3.6.0.min.js'); ?>
+<?= $this->Html->script('https://code.jquery.com/jquery-3.7.1.min.js'); ?>
 <?= $this->Html->css('https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/ui/trumbowyg.min.css'); ?>
 <?= $this->Html->css('https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/plugins/table/ui/trumbowyg.table.min.css'); ?>
 <?= $this->Html->script('https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/trumbowyg.min.js'); ?>

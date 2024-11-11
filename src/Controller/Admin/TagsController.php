@@ -27,40 +27,28 @@ class TagsController extends AppController
     public function index(): ?Response
     {
         $query = $this->Tags->find()
-            ->select([
-                'Tags.id',
-                'Tags.title',
-                'Tags.slug',
-                'Tags.image',
-                'Tags.alt_text',
-                'Tags.created',
-                'Tags.modified',
-                'Tags.meta_title',
-                'Tags.meta_description',
-                'Tags.meta_keywords',
-            ]);
+            ->contain(['ParentTag'])
+            ->select();
 
+        $search = $this->request->getQuery('search');
+        if (!empty($search)) {
+            $query->where([
+                'OR' => [
+                    'Tags.title LIKE' => '%' . $search . '%',
+                    'Tags.slug LIKE' => '%' . $search . '%',
+                    'Tags.meta_title LIKE' => '%' . $search . '%',
+                    'Tags.meta_description LIKE' => '%' . $search . '%',
+                    'Tags.meta_keywords LIKE' => '%' . $search . '%',
+                ],
+            ]);
+        }
+        $tags = $this->paginate($query);
         if ($this->request->is('ajax')) {
-            $search = $this->request->getQuery('search');
-            if (!empty($search)) {
-                $query->where([
-                    'OR' => [
-                        'Tags.title LIKE' => '%' . $search . '%',
-                        'Tags.slug LIKE' => '%' . $search . '%',
-                        'Tags.meta_title LIKE' => '%' . $search . '%',
-                        'Tags.meta_description LIKE' => '%' . $search . '%',
-                        'Tags.meta_keywords LIKE' => '%' . $search . '%',
-                    ],
-                ]);
-            }
-            $tags = $query->all();
             $this->set(compact('tags', 'search'));
             $this->viewBuilder()->setLayout('ajax');
 
             return $this->render('search_results');
         }
-
-        $tags = $this->paginate($query);
         $this->set(compact('tags'));
 
         return null;
@@ -101,7 +89,9 @@ class TagsController extends AppController
             $this->Flash->error(__('The tag could not be saved. Please, try again.'));
         }
         $articles = $this->Tags->Articles->find('list', limit: 200)->all();
-        $this->set(compact('tag', 'articles'));
+        $parentTags = $this->Tags->find('list')->all();
+
+        $this->set(compact('tag', 'articles', 'parentTags'));
 
         return null;
     }
@@ -128,7 +118,11 @@ class TagsController extends AppController
             $this->Flash->error(__('The tag could not be saved. Please, try again.'));
         }
         $articles = $this->Tags->Articles->find('list', limit: 200)->all();
-        $this->set(compact('tag', 'articles'));
+        $parentTags = $this->Tags->find('list')
+        ->where(['id NOT IN' => $id])
+        ->all();
+
+        $this->set(compact('tag', 'articles', 'parentTags'));
 
         return null;
     }

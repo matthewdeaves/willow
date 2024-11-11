@@ -30,7 +30,7 @@
                 ]) ?>
             </div>
             <form class="d-flex-grow-1 me-3" role="search">
-                <input id="imageSearch" type="search" class="form-control" placeholder="<?= __('Search...') ?>" aria-label="Search">
+                <input id="imageSearch" type="search" class="form-control" placeholder="<?= __('Search...') ?>" aria-label="Search" value="<?= $this->request->getQuery('search') ?>">
             </form>
         </div>
         <div class="flex-shrink-0">
@@ -39,42 +39,43 @@
         </div>
     </div>
 </header>
-<div class="album py-5 bg-body-tertiary">
-    <div class="container">
-        <div id="imageResults" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            <?php foreach ($images as $image): ?>
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <?= $this->Html->image(
-                                SettingsManager::read('ImageSizes.medium', '200') . '/' . $image->file, [
-                                    'pathPrefix' => 'files/Images/file/',
-                                    'alt' => $image->alt_text,
-                                    'class' => 'card-img-top'
-                            ]) ?>
-                            
-                            <div class="card-body">
-                                <p class="card-text"><?= h($image->name) ?></p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <?= $this->Html->link(__('View'), ['action' => 'view', $image->id], ['class' => 'btn btn-sm btn-outline-secondary']) ?>
-                                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $image->id], ['class' => 'btn btn-sm btn-outline-secondary']) ?>
-                                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $image->id], ['confirm' => __('Are you sure you want to delete {0}?', $image->name), 'class' => 'btn btn-sm btn-outline-secondary text-danger']) ?>
+<div id="ajax-target">
+    <div class="album py-5 bg-body-tertiary">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                <?php foreach ($images as $image): ?>
+                        <div class="col">
+                            <div class="card shadow-sm">
+                                <?= $this->Html->image(
+                                    SettingsManager::read('ImageSizes.medium', '200') . '/' . $image->file, [
+                                        'pathPrefix' => 'files/Images/file/',
+                                        'alt' => $image->alt_text,
+                                        'class' => 'card-img-top'
+                                ]) ?>
+                                
+                                <div class="card-body">
+                                    <p class="card-text"><?= h($image->name) ?></p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <?= $this->Html->link(__('View'), ['action' => 'view', $image->id], ['class' => 'btn btn-sm btn-outline-secondary']) ?>
+                                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $image->id], ['class' => 'btn btn-sm btn-outline-secondary']) ?>
+                                            <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $image->id], ['confirm' => __('Are you sure you want to delete {0}?', $image->name), 'class' => 'btn btn-sm btn-outline-secondary text-danger']) ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
+            </div>
         </div>
     </div>
+    <?= $this->element('pagination', ['recordCount' => count($images)]) ?>
 </div>
-<?= $this->element('pagination', ['recordCount' => count($images)]) ?>
 
-
-<script>
+<?php $this->Html->scriptStart(['block' => true]); ?>
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('imageSearch');
-    const resultsContainer = document.getElementById('imageResults');
+    const resultsContainer = document.querySelector('#ajax-target');
 
     let debounceTimer;
 
@@ -82,22 +83,29 @@ document.addEventListener('DOMContentLoaded', function() {
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(() => {
             const searchTerm = this.value.trim();
+            
+            let url = `<?= $this->Url->build(['action' => 'index']) ?>`;
 
             if (searchTerm.length > 0) {
-                fetch(`<?= $this->Url->build(['action' => 'index']) ?>?search=${encodeURIComponent(searchTerm)}&view=grid`, {
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => response.text())
-                .then(html => {
-                    resultsContainer.innerHTML = html;
-                })
-                .catch(error => console.error('Error:', error));
-            } else {
-                location.reload();
+                url += (url.includes('?') ? '&' : '?') + `search=${encodeURIComponent(searchTerm)}`;
             }
-        }, 300);
+            fetch(url, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.text())
+            .then(html => {
+                resultsContainer.innerHTML = html;
+            })
+            .catch(error => console.error('Error:', error));
+        }, 300); // Debounce for 300ms
+    });
+
+    // Initialize popovers on page load
+    const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+    popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl);
     });
 });
-</script>
+<?php $this->Html->scriptEnd(); ?>

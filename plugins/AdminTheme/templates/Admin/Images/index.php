@@ -29,7 +29,7 @@
                 ]) ?>
             </div>
             <form class="d-flex-grow-1 me-3" role="search">
-                <input id="imageSearch" type="search" class="form-control" placeholder="<?= __('Search...') ?>" aria-label="Search">
+                <input id="imageSearch" type="search" class="form-control" placeholder="<?= __('Search...') ?>" aria-label="Search" value="<?= $this->request->getQuery('search') ?>">
             </form>
         </div>
         <div class="flex-shrink-0">
@@ -38,6 +38,7 @@
         </div>
     </div>
 </header>
+<div id="ajax-target">
 <table class="table table-striped">
   <thead>
     <tr>
@@ -98,13 +99,12 @@
     <?php endforeach; ?>
   </tbody>
 </table>
-
 <?= $this->element('pagination', ['recordCount' => count($images), 'search' => $search ?? '']) ?>
-
+</div>
 <?php $this->Html->scriptStart(['block' => true]); ?>
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('imageSearch');
-    const resultsContainer = document.querySelector('tbody');
+    const resultsContainer = document.querySelector('#ajax-target');
 
     let debounceTimer;
 
@@ -117,25 +117,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (searchTerm.length > 0) {
                 url += (url.includes('?') ? '&' : '?') + `search=${encodeURIComponent(searchTerm)}`;
-                fetch(url, {
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => response.text())
-                .then(html => {
-                    resultsContainer.innerHTML = html;
-                    // Re-initialize popovers after updating the content
-                    const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
-                    popoverTriggerList.map(function (popoverTriggerEl) {
-                        return new bootstrap.Popover(popoverTriggerEl);
-                    });
-                })
-                .catch(error => console.error('Error:', error));
-            } else {
-                // If search is empty, you might want to reload all results or clear the table
-                location.reload();
             }
+            fetch(url, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.text())
+            .then(html => {
+                resultsContainer.innerHTML = html;
+                // Re-initialize popovers after updating the content
+                const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+                popoverTriggerList.map(function (popoverTriggerEl) {
+                    return new bootstrap.Popover(popoverTriggerEl);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+
         }, 300); // Debounce for 300ms
     });
 

@@ -32,32 +32,23 @@ class BlockedIpsController extends AppController
                 'BlockedIps.modified',
             ]);
 
+        $search = $this->request->getQuery('search');
+        if (!empty($search)) {
+            $query->where([
+                'OR' => [
+                    'BlockedIps.ip_address LIKE' => '%' . $search . '%',
+                    'BlockedIps.reason LIKE' => '%' . $search . '%',
+                ],
+            ]);
+        }
+
+        $blockedIps = $this->paginate($query);
         if ($this->request->is('ajax')) {
-            $search = $this->request->getQuery('search');
-            if (!empty($search)) {
-                $query->where([
-                    'OR' => [
-                        'BlockedIps.ip_address LIKE' => '%' . $search . '%',
-                        'BlockedIps.reason LIKE' => '%' . $search . '%',
-                    ],
-                ]);
-            }
-            $blockedIps = $query->all();
             $this->set(compact('blockedIps', 'search'));
             $this->viewBuilder()->setLayout('ajax');
 
             return $this->render('search_results');
         }
-
-        $this->paginate = [
-            'sortableFields' => [
-        'ip_address',
-        'reason',
-            ],
-            'order' => ['Articles.created' => 'DESC'],
-        ];
-
-        $blockedIps = $this->paginate($query);
         $this->set(compact('blockedIps'));
 
         return null;

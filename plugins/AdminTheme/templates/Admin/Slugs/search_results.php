@@ -4,7 +4,18 @@
  * @var iterable<\App\Model\Entity\Slug> $slugs
  */
 ?>
-<?php foreach ($slugs as $slug): ?>
+<table class="table table-striped">
+  <thead>
+    <tr>
+          <th scope="col"><?= $this->Paginator->sort('article_id') ?></th>
+          <th scope="col"><?= $this->Paginator->sort('slug') ?></th>
+          <th scope="col"><?= $this->Paginator->sort('created') ?></th>
+          <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
+          <th scope="col"><?= __('Actions') ?></th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach ($slugs as $slug): ?>
     <tr>
         <td><?= $slug->hasValue('article') ? $this->Html->link($slug->article->title, ['controller' => 'Articles', 'action' => 'view', $slug->article->id]) : '' ?></td>
         <td><?= h($slug->slug) ?></td>
@@ -32,4 +43,7 @@
             </div>
         </td>
     </tr>
-<?php endforeach; ?>
+    <?php endforeach; ?>
+  </tbody>
+</table>
+<?= $this->element('pagination', ['recordCount' => count($slugs), 'search' => $search ?? '']) ?>

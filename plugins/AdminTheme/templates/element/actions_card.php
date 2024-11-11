@@ -4,6 +4,8 @@ use Cake\Utility\Inflector;
 
 $modelNamePlural = Inflector::pluralize($modelName);
 $debugOnlyOptions = $debugOnlyOptions ?? [];
+$controllerIndexAction = $controllerIndexAction ?? 'index';
+$entityDisplayName = $entityDisplayName ?? '';
 ?>
 
 <aside class="col-lg-3">
@@ -17,8 +19,8 @@ $debugOnlyOptions = $debugOnlyOptions ?? [];
                         [$modelNamePlural]),
                         [
                             'controller' => $controllerName,
-                            'action' => 'index',
-                            '?' => isset($urlParams) ? $urlParams : []
+                            'action' => $controllerIndexAction,
+                            '?' => isset($urlParams) ? $urlParams : [],
                         ],
                         ['class' => 'list-group-item list-group-item-action']
                     ) ?>
@@ -27,7 +29,13 @@ $debugOnlyOptions = $debugOnlyOptions ?? [];
                 <?php if (!in_array($this->request->getParam('action'), ['add', 'view', 'bulkUpload', 'sendEmail'])): ?>
                     <?php if (!isset($hideView)) : ?>
                     <li class="list-group-item">
-                        <?= $this->Html->link(__('View {0}', [$modelName]), ['controller' => $controllerName, 'action' => 'view', $entity->id], ['class' => 'list-group-item list-group-item-action']) ?>
+                        <?= $this->Html->link(__('View {0}', [$modelName]), [
+                            'controller' => $controllerName,
+                            'action' => 'view',
+                            $entity->id,
+                            '?' => isset($urlParams) ? $urlParams : [],
+                        ],
+                        ['class' => 'list-group-item list-group-item-action']) ?>
                     </li>
                     <?php endif; ?>
                 <?php endif; ?>
@@ -38,7 +46,14 @@ $debugOnlyOptions = $debugOnlyOptions ?? [];
                         || !in_array('add', $debugOnlyOptions)
                         ) : ?>
                     <li class="list-group-item">
-                        <?= $this->Html->link(__('New {0}', [$modelName]), ['controller' => $controllerName, 'action' => 'add'], ['class' => 'list-group-item list-group-item-action']) ?>
+                        <?= $this->Html->link(__('New {0}', [$modelName]), [
+                            'controller' => $controllerName,
+                            'action' => 'add',
+                            '?' => isset($urlParams) ? $urlParams : []
+                            ],
+                            [
+                                'class' => 'list-group-item list-group-item-action'
+                            ]) ?>
                     </li>
                     <?php endif; ?>
                 <?php endif; ?>
@@ -46,7 +61,13 @@ $debugOnlyOptions = $debugOnlyOptions ?? [];
                 <?php if (!in_array($this->request->getParam('action'), ['add', 'edit', 'bulkUpload', 'sendEmail'])): ?>
                     <?php if (!isset($hideEdit)) : ?>
                     <li class="list-group-item">
-                        <?= $this->Html->link(__('Edit {0}', [$modelName]), ['controller' => $controllerName, 'action' => 'edit', $entity->id], ['class' => 'list-group-item list-group-item-action']) ?>
+                        <?= $this->Html->link(__('Edit {0}', [$modelName]), [
+                                'controller' => $controllerName,
+                                'action' => 'edit',
+                                $entity->id,
+                                '?' => isset($urlParams) ? $urlParams : []
+                            ],
+                            ['class' => 'list-group-item list-group-item-action']) ?>
                     </li>
                     <?php endif; ?>
                 <?php endif; ?>
@@ -65,7 +86,12 @@ $debugOnlyOptions = $debugOnlyOptions ?? [];
                         <li class="list-group-item">
                             <?= $this->Form->postLink(
                                 __('Delete {0}', [$modelName]),
-                                ['controller' => $controllerName, 'action' => 'delete', $entity->id],
+                                [
+                                    'controller' => $controllerName,
+                                    'action' => 'delete',
+                                    $entity->id,
+                                    '?' => isset($urlParams) ? $urlParams : []
+                                ],
                                 ['confirm' => $customConfirm, 'class' => 'list-group-item list-group-item-action text-danger']
                             ) ?>
                         </li>

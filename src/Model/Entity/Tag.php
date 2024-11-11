@@ -50,6 +50,9 @@ class Tag extends Entity
         'mime' => true,
         'name' => true,
         'image' => true,
+        'parent_id' => true,
+        'lft' => true,
+        'rght' => true,
     ];
 
     /**

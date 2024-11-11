@@ -54,6 +54,13 @@ class TagsTable extends Table
 
         $this->addBehavior('Timestamp');
 
+        $this->addBehavior('Tree');
+
+        $this->belongsTo('ParentTag', [
+            'className' => 'Tags',
+            'foreignKey' => 'parent_id',
+        ]);
+
         $this->addBehavior('Sluggable', [
             'field' => 'title',
             'slug' => 'slug',

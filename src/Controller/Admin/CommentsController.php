@@ -48,21 +48,19 @@ class CommentsController extends AppController
             $query->where(['Comments.display' => (int)$statusFilter]);
         }
 
+        $search = $this->request->getQuery('search');
+        if (!empty($search)) {
+            $query->where([
+                'content LIKE' => '%' . $search . '%',
+            ]);
+        }
+        $comments = $this->paginate($query);
         if ($this->request->is('ajax')) {
-            $search = $this->request->getQuery('search');
-            if (!empty($search)) {
-                $query->where([
-                    'content LIKE' => '%' . $search . '%',
-                ]);
-            }
-            $comments = $query->all();
             $this->set(compact('comments'));
             $this->viewBuilder()->setLayout('ajax');
 
             return $this->render('search_results');
         }
-
-        $comments = $this->paginate($query);
         $this->set(compact('comments'));
 
         return null;

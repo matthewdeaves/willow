@@ -47,7 +47,7 @@
             'data-live-search' => 'true',
             'data-actions-box' => 'true',
             'id' => 'tags-select',
-            'class' => 'w-100 form-select' . ($this->Form->isFieldError('tags._ids') ? ' is-invalid' : '')
+            'class' => 'form-select' . ($this->Form->isFieldError('tags._ids') ? ' is-invalid' : '')
         ]); ?>
         <?php if ($this->Form->isFieldError('tags._ids')): ?>
             <div class="invalid-feedback">
@@ -94,6 +94,7 @@
     <?php if ($this->request->getQuery('kind') == 'page' || $parentId) : ?>
         <?php echo $this->Form->control('parent_id',
             [
+                'empty' => __('None'),
                 'options' => $parentArticles,
                 'default' => $parentId,
                 'class' => 'form-control' . ($this->Form->isFieldError('parent_id') ? ' is-invalid' : '')

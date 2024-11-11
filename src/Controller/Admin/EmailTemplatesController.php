@@ -41,27 +41,25 @@ class EmailTemplatesController extends AppController
                 'EmailTemplates.modified',
             ]);
 
+        $search = $this->request->getQuery('search');
+        if (!empty($search)) {
+            $query->where([
+                'OR' => [
+                    'EmailTemplates.template_identifier LIKE' => '%' . $search . '%',
+                    'EmailTemplates.name LIKE' => '%' . $search . '%',
+                    'EmailTemplates.subject LIKE' => '%' . $search . '%',
+                    'EmailTemplates.body_html LIKE' => '%' . $search . '%',
+                    'EmailTemplates.body_plain LIKE' => '%' . $search . '%',
+                ],
+            ]);
+        }
+        $emailTemplates = $this->paginate($query);
         if ($this->request->is('ajax')) {
-            $search = $this->request->getQuery('search');
-            if (!empty($search)) {
-                $query->where([
-                    'OR' => [
-                        'EmailTemplates.template_identifier LIKE' => '%' . $search . '%',
-                        'EmailTemplates.name LIKE' => '%' . $search . '%',
-                        'EmailTemplates.subject LIKE' => '%' . $search . '%',
-                        'EmailTemplates.body_html LIKE' => '%' . $search . '%',
-                        'EmailTemplates.body_plain LIKE' => '%' . $search . '%',
-                    ],
-                ]);
-            }
-            $emailTemplates = $query->all();
             $this->set(compact('emailTemplates', 'search'));
             $this->viewBuilder()->setLayout('ajax');
 
             return $this->render('search_results');
         }
-
-        $emailTemplates = $this->paginate($query);
         $this->set(compact('emailTemplates'));
 
         return null;

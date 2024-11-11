@@ -797,16 +797,6 @@ class V1 extends AbstractMigration
                 'limit' => 255,
                 'null' => true,
             ])
-            ->addColumn('created', 'datetime', [
-                'default' => null,
-                'limit' => null,
-                'null' => true,
-            ])
-            ->addColumn('modified', 'datetime', [
-                'default' => null,
-                'limit' => null,
-                'null' => true,
-            ])
             ->addColumn('meta_title', 'string', [
                 'default' => null,
                 'limit' => 255,
@@ -838,6 +828,33 @@ class V1 extends AbstractMigration
                 'null' => true,
             ])
             ->addColumn('twitter_description', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('parent_id', 'uuid', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('lft', 'integer', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+                'signed' => true,
+            ])
+            ->addColumn('rght', 'integer', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+                'signed' => true,
+            ])
+            ->addColumn('modified', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('created', 'datetime', [
                 'default' => null,
                 'limit' => null,
                 'null' => true,

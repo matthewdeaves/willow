@@ -24,8 +24,8 @@
                 <div class="card-body">
                     <?= $this->Form->create($tag, ['type' => 'file', 'class' => 'needs-validation', 'novalidate' => true, 'enctype' => 'multipart/form-data']) ?>
                     <fieldset>
-                        <?= $this->element('tag_form_fields') ?>
-                        <?= $this->element('seo_form_fields', ['hideWordCount' => true]) ?>                                              
+                        <?= $this->element('form/tag') ?>
+                        <?= $this->element('form/seo', ['hideWordCount' => true]) ?>                                              
                     </fieldset>
                     <div class="form-group">
                         <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-primary']) ?>
@@ -36,14 +36,4 @@
         </div>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css">
-<script>
-$(document).ready(function() {
-    $('#articles-select').selectpicker({
-        liveSearch: true,
-        actionsBox: true,
-        selectedTextFormat: 'count > 3'
-    });
-});
-</script>
+<?= $this->element('js/semanticui/dropdown', ['selector' => '#articles-select']); ?>

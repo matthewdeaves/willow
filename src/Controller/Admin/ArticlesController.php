@@ -139,28 +139,26 @@ class ArticlesController extends AppController
             $query->where(['Articles.is_published' => (int)$statusFilter]);
         }
 
+        $search = $this->request->getQuery('search');
+        if (!empty($search)) {
+            $query->where([
+                'OR' => [
+                    'Articles.title LIKE' => '%' . $search . '%',
+                    'Articles.slug LIKE' => '%' . $search . '%',
+                    'Articles.body LIKE' => '%' . $search . '%',
+                    'Articles.meta_title LIKE' => '%' . $search . '%',
+                    'Articles.meta_description LIKE' => '%' . $search . '%',
+                    'Articles.meta_keywords LIKE' => '%' . $search . '%',
+                ],
+            ]);
+        }
+        $articles = $this->paginate($query);
         if ($this->request->is('ajax')) {
-            $search = $this->request->getQuery('search');
-            if (!empty($search)) {
-                $query->where([
-                    'OR' => [
-                        'Articles.title LIKE' => '%' . $search . '%',
-                        'Articles.slug LIKE' => '%' . $search . '%',
-                        'Articles.body LIKE' => '%' . $search . '%',
-                        'Articles.meta_title LIKE' => '%' . $search . '%',
-                        'Articles.meta_description LIKE' => '%' . $search . '%',
-                        'Articles.meta_keywords LIKE' => '%' . $search . '%',
-                    ],
-                ]);
-            }
-            $articles = $query->all();
             $this->set(compact('articles', 'search'));
             $this->viewBuilder()->setLayout('ajax');
 
             return $this->render('search_results');
         }
-
-        $articles = $this->paginate($query);
         $this->set(compact('articles'));
 
         return null;
@@ -338,6 +336,8 @@ class ArticlesController extends AppController
             return $this->redirect(['action' => 'treeIndex']);
         }
 
-        return $this->redirect(['action' => 'index']);
+        $action = $this->request->getQuery('kind') == 'page' ? 'tree-index' : 'index';
+
+        return $this->redirect(['action' => $action]);
     }
 }

@@ -23,23 +23,21 @@ class SlugsController extends AppController
         $query = $this->Slugs->find()
             ->contain(['Articles']);
 
+        $search = $this->request->getQuery('search');
+        if (!empty($search)) {
+            $query->where([
+                'OR' => [
+                    'Slugs.slug LIKE' => '%' . $search . '%',
+                ],
+            ]);
+        }
+        $slugs = $this->paginate($query);
         if ($this->request->is('ajax')) {
-            $search = $this->request->getQuery('search');
-            if (!empty($search)) {
-                $query->where([
-                    'OR' => [
-                        'Slugs.slug LIKE' => '%' . $search . '%',
-                    ],
-                ]);
-            }
-            $slugs = $query->all();
             $this->set(compact('slugs', 'search'));
             $this->viewBuilder()->setLayout('ajax');
 
             return $this->render('search_results');
         }
-
-        $slugs = $this->paginate($query);
         $this->set(compact('slugs'));
 
         return null;

@@ -44,7 +44,7 @@
           </li>
         </ul>
         <form class="d-flex-grow-1 me-3" role="search">
-          <input id="userSearch" type="search" class="form-control" placeholder="<?= __('Search Users...') ?>" aria-label="Search">
+          <input id="userSearch" type="search" class="form-control" placeholder="<?= __('Search Users...') ?>" aria-label="Search" value="<?= $this->request->getQuery('search') ?>">
         </form>
       </div>
       <div class="flex-shrink-0">
@@ -52,79 +52,79 @@
       </div>
     </div>
 </header>
-<table class="table table-striped">
-  <thead>
-    <tr>
-          <th><?= __('Image') ?></th>
-          <th scope="col"><?= $this->Paginator->sort('email') ?></th>
-          <th scope="col"><?= $this->Paginator->sort('is_admin', __('Admin')) ?></th>
-          <th scope="col"><?= $this->Paginator->sort('active', __('Active')) ?></th>
-          <th scope="col"><?= __('Actions') ?></th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php foreach ($users as $user): ?>
-    <tr>
-        <td>
-          <?php if (!empty($user->picture)) : ?>
-          <div class="position-relative">
-              <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $user->picture, 
-                  ['pathPrefix' => 'files/Users/picture/', 
-                  'alt' => $user->alt_text, 
-                  'class' => 'img-thumbnail', 
-                  'width' => '50',
-                  'data-bs-toggle' => 'popover',
-                  'data-bs-trigger' => 'hover',
-                  'data-bs-html' => 'true',
-                  'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $user->picture, 
-                      ['pathPrefix' => 'files/Users/picture/', 
-                      'alt' => $user->alt_text, 
-                      'class' => 'img-fluid', 
-                      'style' => 'max-width: 300px; max-height: 300px;'])
-                  ]) 
-              ?>
-          </div>
-          <?php endif; ?>
-        </td>
-        <td><?= $this->Html->link(h($user->email), 'mailto:' . h($user->email)) ?></td>
-        <td>
-          <?= $user->is_admin ? '<span class="badge bg-success">' . __('Yes') . '</span>' : '<span class="badge bg-warning">' . __('No') . '</span>'; ?>
-        </td>
-        <td>
-          <?= $user->active ? '<span class="badge bg-success">' . __('Yes') . '</span>' : '<span class="badge bg-warning">' . __('No') . '</span>'; ?>
-        </td>
-        <td>
-            <div class="btn-group w-100 align-items-center justify-content-between flex-wrap">
-                <div class="dropdown">
-                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <?= __('Actions') ?>
-                </button>
-                <ul class="dropdown-menu">
-                    <li>
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $user->id], ['class' => 'dropdown-item']) ?>
-                    </li>
-                    <li>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id], ['class' => 'dropdown-item']) ?>
-                    </li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete {0}?', $user->email), 'class' => 'dropdown-item text-danger']) ?>
-                    </li>
-                </ul>
-                </div>
+<div id="ajax-target">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+            <th><?= __('Image') ?></th>
+            <th scope="col"><?= $this->Paginator->sort('email') ?></th>
+            <th scope="col"><?= $this->Paginator->sort('is_admin', __('Admin')) ?></th>
+            <th scope="col"><?= $this->Paginator->sort('active', __('Active')) ?></th>
+            <th scope="col"><?= __('Actions') ?></th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php foreach ($users as $user): ?>
+      <tr>
+          <td>
+            <?php if (!empty($user->picture)) : ?>
+            <div class="position-relative">
+                <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $user->picture, 
+                    ['pathPrefix' => 'files/Users/picture/', 
+                    'alt' => $user->alt_text, 
+                    'class' => 'img-thumbnail', 
+                    'width' => '50',
+                    'data-bs-toggle' => 'popover',
+                    'data-bs-trigger' => 'hover',
+                    'data-bs-html' => 'true',
+                    'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $user->picture, 
+                        ['pathPrefix' => 'files/Users/picture/', 
+                        'alt' => $user->alt_text, 
+                        'class' => 'img-fluid', 
+                        'style' => 'max-width: 300px; max-height: 300px;'])
+                    ]) 
+                ?>
             </div>
-        </td>
-    </tr>
-    <?php endforeach; ?>
-  </tbody>
-</table>
-
-<?= $this->element('pagination', ['recordCount' => count($users), 'search' => $search ?? '']) ?>
-
+            <?php endif; ?>
+          </td>
+          <td><?= $this->Html->link(h($user->email), 'mailto:' . h($user->email)) ?></td>
+          <td>
+            <?= $user->is_admin ? '<span class="badge bg-success">' . __('Yes') . '</span>' : '<span class="badge bg-warning">' . __('No') . '</span>'; ?>
+          </td>
+          <td>
+            <?= $user->active ? '<span class="badge bg-success">' . __('Yes') . '</span>' : '<span class="badge bg-warning">' . __('No') . '</span>'; ?>
+          </td>
+          <td>
+              <div class="btn-group w-100 align-items-center justify-content-between flex-wrap">
+                  <div class="dropdown">
+                  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <?= __('Actions') ?>
+                  </button>
+                  <ul class="dropdown-menu">
+                      <li>
+                          <?= $this->Html->link(__('View'), ['action' => 'view', $user->id], ['class' => 'dropdown-item']) ?>
+                      </li>
+                      <li>
+                          <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id], ['class' => 'dropdown-item']) ?>
+                      </li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li>
+                          <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete {0}?', $user->email), 'class' => 'dropdown-item text-danger']) ?>
+                      </li>
+                  </ul>
+                  </div>
+              </div>
+          </td>
+      </tr>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
+  <?= $this->element('pagination', ['recordCount' => count($users), 'search' => $search ?? '']) ?>
+</div>
 <?php $this->Html->scriptStart(['block' => true]); ?>
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('userSearch');
-    const resultsContainer = document.querySelector('tbody');
+    const resultsContainer = document.querySelector('#ajax-target');
 
     let debounceTimer;
 
@@ -141,25 +141,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (searchTerm.length > 0) {
                 url += (url.includes('?') ? '&' : '?') + `search=${encodeURIComponent(searchTerm)}`;
-                fetch(url, {
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => response.text())
-                .then(html => {
-                    resultsContainer.innerHTML = html;
-                    // Re-initialize popovers after updating the content
-                    const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
-                    popoverTriggerList.map(function (popoverTriggerEl) {
-                        return new bootstrap.Popover(popoverTriggerEl);
-                    });
-                })
-                .catch(error => console.error('Error:', error));
-            } else {
-                // If search is empty, you might want to reload all results or clear the table
-                location.reload();
             }
+            fetch(url, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.text())
+            .then(html => {
+                resultsContainer.innerHTML = html;
+                // Re-initialize popovers after updating the content
+                const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+                popoverTriggerList.map(function (popoverTriggerEl) {
+                    return new bootstrap.Popover(popoverTriggerEl);
+                });
+            })
+            .catch(error => console.error('Error:', error));
         }, 300); // Debounce for 300ms
     });
 

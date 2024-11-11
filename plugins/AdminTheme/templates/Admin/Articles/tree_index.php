@@ -47,11 +47,11 @@ if ($activeFilter === null) {
         </form>
       </div>
       <div class="flex-shrink-0">
-        <?= $this->Html->link(__('New Page'), ['action' => 'add'], ['class' => 'btn btn-primary']) ?>
+        <?= $this->Html->link(__('New Page'), ['action' => 'add', '?' => ['kind' => 'page']], ['class' => 'btn btn-primary']) ?>
       </div>
     </div>
 </header>
-<span class="results">
+<span id="ajax-target">
 <?php
     if (!empty($articles)) {
         echo $this->element('page_tree', ['articles' => $articles, 'level' => 0]);
@@ -64,7 +64,7 @@ if ($activeFilter === null) {
 <?php $this->Html->scriptStart(['block' => true]); ?>
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('pageSearch');
-    const resultsContainer = document.querySelector('span.results');
+    const resultsContainer = document.querySelector('#ajax-target');
 
     let debounceTimer;
 

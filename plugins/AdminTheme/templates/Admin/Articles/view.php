@@ -8,12 +8,14 @@
 <div class="container my-4">
     <div class="row">
         <?php
-        echo $this->element('actions_card', [
-            'modelName' => 'Article',
-            'controllerName' => 'Articles',
-            'entity' => $article,
-            'entityDisplayName' => $article->title
-        ]);
+            echo $this->element('actions_card', [
+                'modelName' => ($article->kind == 'page') ? 'Page' : 'Article',
+                'controllerName' => 'Articles',
+                'controllerIndexAction' => ($article->kind == 'page') ? 'tree-index' : 'index',
+                'entity' => $article,
+                'entityDisplayName' => $article->title,
+                'urlParams' => ($article->kind == 'page') ? ['kind' => 'page'] : [],
+            ]);
         ?>
         <div class="col-lg-9">
             <div class="card">

@@ -58,25 +58,23 @@ class ImagesController extends AppController
                 'Images.modified',
             ]);
 
+        $search = $this->request->getQuery('search');
+        if (!empty($search)) {
+            $query->where([
+                'OR' => [
+                    'name LIKE' => '%' . $search . '%',
+                    'alt_text LIKE' => '%' . $search . '%',
+                    'keywords LIKE' => '%' . $search . '%',
+                ],
+            ]);
+        }
+        $images = $this->paginate($query);
         if ($this->request->is('ajax')) {
-            $search = $this->request->getQuery('search');
-            if (!empty($search)) {
-                $query->where([
-                    'OR' => [
-                        'name LIKE' => '%' . $search . '%',
-                        'alt_text LIKE' => '%' . $search . '%',
-                        'keywords LIKE' => '%' . $search . '%',
-                    ],
-                ]);
-            }
-            $images = $query->all();
             $this->set(compact('images', 'viewType', 'search'));
             $this->viewBuilder()->setLayout('ajax');
 
             return $this->render('search_results');
         }
-
-        $images = $this->paginate($query);
         $this->set(compact('images', 'viewType'));
 
         return $this->render($viewType === 'grid' ? 'index_grid' : 'index');

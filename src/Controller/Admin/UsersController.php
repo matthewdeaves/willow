@@ -57,24 +57,22 @@ class UsersController extends AppController
             $query->where(['Users.active' => (int)$statusFilter]);
         }
 
+        $search = $this->request->getQuery('search');
+        if (!empty($search)) {
+            $query->where([
+                'OR' => [
+                    'Users.username LIKE' => '%' . $search . '%',
+                    'Users.email LIKE' => '%' . $search . '%',
+                ],
+            ]);
+        }
+        $users = $this->paginate($query);
         if ($this->request->is('ajax')) {
-            $search = $this->request->getQuery('search');
-            if (!empty($search)) {
-                $query->where([
-                    'OR' => [
-                        'Users.username LIKE' => '%' . $search . '%',
-                        'Users.email LIKE' => '%' . $search . '%',
-                    ],
-                ]);
-            }
-            $users = $query->all();
             $this->set(compact('users'));
             $this->viewBuilder()->setLayout('ajax');
 
             return $this->render('search_results');
         }
-
-        $users = $this->paginate($query);
         $this->set(compact('users'));
 
         return null;

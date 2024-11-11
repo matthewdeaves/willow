@@ -32,34 +32,23 @@ class AipromptsController extends AppController
                 'Aiprompts.modified',
             ]);
 
+        $search = $this->request->getQuery('search');
+        if (!empty($search)) {
+            $query->where([
+                'OR' => [
+                    'Aiprompts.task_type LIKE' => '%' . $search . '%',
+                    'Aiprompts.system_prompt LIKE' => '%' . $search . '%',
+                    'Aiprompts.model LIKE' => '%' . $search . '%',
+                ],
+            ]);
+        }
+        $aiprompts = $this->paginate($query);
         if ($this->request->is('ajax')) {
-            $search = $this->request->getQuery('search');
-            if (!empty($search)) {
-                $query->where([
-                    'OR' => [
-                        'Aiprompts.task_type LIKE' => '%' . $search . '%',
-                        'Aiprompts.system_prompt LIKE' => '%' . $search . '%',
-                        'Aiprompts.model LIKE' => '%' . $search . '%',
-                    ],
-                ]);
-            }
-            $aiprompts = $query->all();
             $this->set(compact('aiprompts', 'search'));
             $this->viewBuilder()->setLayout('ajax');
 
             return $this->render('search_results');
         }
-
-        $this->paginate = [
-            'sortableFields' => [
-        'task_type',
-        'system_prompt',
-        'model',
-            ],
-            'order' => ['Articles.created' => 'DESC'],
-        ];
-
-        $aiprompts = $this->paginate($query);
         $this->set(compact('aiprompts'));
 
         return null;

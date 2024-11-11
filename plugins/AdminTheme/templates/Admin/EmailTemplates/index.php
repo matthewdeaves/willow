@@ -49,10 +49,13 @@
                         <li>
                             <?= $this->Html->link(__('Edit'), ['action' => 'edit', $emailTemplate->id], ['class' => 'dropdown-item']) ?>
                         </li>
+
+                        <?php if (Configure::read('debug')) : ?>
                         <li><hr class="dropdown-divider"></li>
                         <li>
                             <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $emailTemplate->id], ['confirm' => __('Are you sure you want to delete {0}?', $emailTemplate->name), 'class' => 'dropdown-item text-danger']) ?>
                         </li>
+                        <?php endif; ?>
                     </ul>
                     </div>
                 </div>

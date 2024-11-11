@@ -34,18 +34,19 @@
             ]);
 {% endif %}
 
-        if ($this->request->is('ajax')) {
-            $search = $this->request->getQuery('search');
-            if (!empty($search)) {
-                $query->where([
-                    'OR' => [
+        
+        $search = $this->request->getQuery('search');
+        if (!empty($search)) {
+            $query->where([
+                'OR' => [
 {% for field in searchFields %}
-                        '{{ name }}.{{ field }} LIKE' => '%' . $search . '%',
+                    '{{ name }}.{{ field }} LIKE' => '%' . $search . '%',
 {% endfor %}
-                    ],
-                ]);
-            }
-            ${{ pluralName }} = $this->paginate($query);
+                ],
+            ]);
+        }
+        ${{ pluralName }} = $this->paginate($query);
+        if ($this->request->is('ajax')) {
             $this->set(compact('{{ pluralName }}', 'search'));
             $this->viewBuilder()->setLayout('ajax');
 
@@ -54,9 +55,6 @@
 {% if Bake.hasPlugin('Authorization') %}
         $query = $this->Authorization->applyScope($query);
 {% endif %}
-
-
-        ${{ pluralName }} = $this->paginate($query);
         $this->set(compact('{{ pluralName }}'));
 
         return null;

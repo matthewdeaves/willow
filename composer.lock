@@ -193,16 +193,16 @@
         },
         {
             "name": "cakephp/cakephp",
-            "version": "5.1.1",
+            "version": "5.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/cakephp.git",
-                "reference": "b7ac799b88cd751cdbe8ce808767a0e8fbf474bb"
+                "reference": "2baf44432ba6e8cde600b5cbb573f9539f5f899f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/b7ac799b88cd751cdbe8ce808767a0e8fbf474bb",
-                "reference": "b7ac799b88cd751cdbe8ce808767a0e8fbf474bb",
+                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/2baf44432ba6e8cde600b5cbb573f9539f5f899f",
+                "reference": "2baf44432ba6e8cde600b5cbb573f9539f5f899f",
                 "shasum": ""
             },
             "require": {
@@ -256,7 +256,7 @@
                 "mockery/mockery": "^1.6",
                 "paragonie/csp-builder": "^2.3 || ^3.0",
                 "phpstan/extension-installer": "^1.3",
-                "phpstan/phpstan": "1.12.3",
+                "phpstan/phpstan": "1.12.7",
                 "phpunit/phpunit": "^10.5.5 || ^11.1.3",
                 "symplify/phpstan-rules": "^12.4"
             },
@@ -309,7 +309,7 @@
                 "issues": "https://github.com/cakephp/cakephp/issues",
                 "source": "https://github.com/cakephp/cakephp"
             },
-            "time": "2024-10-04T02:50:14+00:00"
+            "time": "2024-11-10T03:39:46+00:00"
         },
         {
             "name": "cakephp/chronos",
@@ -541,16 +541,16 @@
         },
         {
             "name": "composer/ca-bundle",
-            "version": "1.5.2",
+            "version": "1.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/ca-bundle.git",
-                "reference": "48a792895a2b7a6ee65dd5442c299d7b835b6137"
+                "reference": "3b1fc3f0be055baa7c6258b1467849c3e8204eb2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/48a792895a2b7a6ee65dd5442c299d7b835b6137",
-                "reference": "48a792895a2b7a6ee65dd5442c299d7b835b6137",
+                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/3b1fc3f0be055baa7c6258b1467849c3e8204eb2",
+                "reference": "3b1fc3f0be055baa7c6258b1467849c3e8204eb2",
                 "shasum": ""
             },
             "require": {
@@ -597,7 +597,7 @@
             "support": {
                 "irc": "irc://irc.freenode.org/composer",
                 "issues": "https://github.com/composer/ca-bundle/issues",
-                "source": "https://github.com/composer/ca-bundle/tree/1.5.2"
+                "source": "https://github.com/composer/ca-bundle/tree/1.5.3"
             },
             "funding": [
                 {
@@ -613,7 +613,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-25T07:49:53+00:00"
+            "time": "2024-11-04T10:15:26+00:00"
         },
         {
             "name": "enqueue/dsn",
@@ -2084,16 +2084,16 @@
         },
         {
             "name": "league/container",
-            "version": "4.2.3",
+            "version": "4.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/container.git",
-                "reference": "72f9bebe7bd623007782a40f5ec305661ab706d8"
+                "reference": "7ea728b013b9a156c409c6f0fc3624071b742dec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/container/zipball/72f9bebe7bd623007782a40f5ec305661ab706d8",
-                "reference": "72f9bebe7bd623007782a40f5ec305661ab706d8",
+                "url": "https://api.github.com/repos/thephpleague/container/zipball/7ea728b013b9a156c409c6f0fc3624071b742dec",
+                "reference": "7ea728b013b9a156c409c6f0fc3624071b742dec",
                 "shasum": ""
             },
             "require": {
@@ -2154,7 +2154,7 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/container/issues",
-                "source": "https://github.com/thephpleague/container/tree/4.2.3"
+                "source": "https://github.com/thephpleague/container/tree/4.2.4"
             },
             "funding": [
                 {
@@ -2162,7 +2162,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-10-23T12:06:58+00:00"
+            "time": "2024-11-10T12:42:13+00:00"
         },
         {
             "name": "league/flysystem",
@@ -8340,14 +8340,14 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=8.1 <8.4",
         "ext-redis": "*"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "platform-overrides": {
         "php": "8.1.0"
     },

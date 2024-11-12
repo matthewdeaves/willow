@@ -162,6 +162,8 @@ use Cake\Core\Configure;
                 ])
               ?>
             </li>
+            <?php if(SettingsManager::read('Comments.pagesEnabled', false)
+              || SettingsManager::read('Comments.articlesEnabled', false)) : ?>
             <li class="nav-item">
               <?= $this->Html->link(__('Comments'),
                 [
@@ -174,6 +176,7 @@ use Cake\Core\Configure;
                 ])
               ?>
             </li>
+            <?php endif; ?>
             <li>
               <?= $this->Html->link(__('Users'),
               [
@@ -192,7 +195,7 @@ use Cake\Core\Configure;
             </li>
             -->
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle<?= (in_array($activeCtl,['Settings','EmailTemplates', 'Slugs', 'Aiprompts', 'Cache', 'BlockedIps', 'SystemLogs']) ? ' active' : '') ?>" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link dropdown-toggle<?= (in_array($activeCtl,['Settings','EmailTemplates', 'Slugs', 'Aiprompts', 'Cache', 'BlockedIps', 'SystemLogs', 'Internationalisations']) ? ' active' : '') ?>" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                 <?= __('Admin') ?>
               </a>
               <ul class="dropdown-menu">
@@ -201,13 +204,11 @@ use Cake\Core\Configure;
                 <li><?= $this->Html->link(__('Slugs'), ['prefix' => 'Admin', 'controller' => 'Slugs', 'action' => 'index'], ['class' => 'dropdown-item' . ($activeCtl == 'Slugs' ? ' active' : '')]) ?></li>
                 <?php if (Configure::read('debug')) : ?>
                 <li><?= $this->Html->link(__('AI Prompts'), ['prefix' => 'Admin', 'controller' => 'Aiprompts', 'action' => 'index'], ['class' => 'dropdown-item' . ($activeCtl == 'Aiprompts' ? ' active' : '')]) ?></li>
+                <li><?= $this->Html->link(__('Internationalisation'), ['prefix' => 'Admin', 'controller' => 'Internationalisations', 'action' => 'index'], ['class' => 'dropdown-item' . ($activeCtl == 'Internationalisations' ? ' active' : '')]) ?></li>
                 <?php endif; ?>  
                 <li><?= $this->Html->link(__('Cache'), ['prefix' => 'Admin', 'controller' => 'Cache', 'action' => 'clearAll'], ['class' => 'dropdown-item' . ($activeCtl == 'Cache' ? ' active' : '')]) ?></li>
                 <li><?= $this->Html->link(__('Block IPs'), ['prefix' => 'Admin', 'controller' => 'BlockedIps', 'action' => 'index'], ['class' => 'dropdown-item' . ($activeCtl == 'BlockedIps' ? ' active' : '')]) ?></li>
-                <li><?= $this->Html->link(__('Logs'), ['prefix' => 'Admin', 'controller' => 'SystemLogs', 'action' => 'index'], ['class' => 'dropdown-item' . ($activeCtl == 'SystemLogs' ? ' active' : '')]) ?></li>
-                <?php if (Configure::read('debug')) : ?>
-                <li><?= $this->Html->link(__('Code Coverage'), 'coverage/src/index.html', ['class' => 'dropdown-item']) ?></li>
-                <?php endif; ?>  
+                <li><?= $this->Html->link(__('Logs'), ['prefix' => 'Admin', 'controller' => 'SystemLogs', 'action' => 'index'], ['class' => 'dropdown-item' . ($activeCtl == 'SystemLogs' ? ' active' : '')]) ?></li> 
               </ul>
             </li>
           </ul>
@@ -243,7 +244,6 @@ use Cake\Core\Configure;
         </div>
       </div>
     </nav>
-
     <div class="my-3 container-fluid">
       <div class="m-0 border-0">
         <?= $this->Flash->render() ?>

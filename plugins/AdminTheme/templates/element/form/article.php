@@ -47,7 +47,7 @@
     </div>
     <?php endif; ?>
 </div>
-<div class="mb-3 d-flex align-items-center">
+<div class="mb-3">
     <div class="me-3">
         <?php echo $this->Form->label('tags._ids', __('Select Tags'), ['class' => 'form-label']); ?>
         <?php echo $this->Form->select('tags._ids', $tags, [
@@ -63,7 +63,8 @@
             </div>
         <?php endif; ?>
     </div>
-
+</div>
+<div class="mb-3">
     <?php if ($article->tags && SettingsManager::read('AI.enabled') && SettingsManager::read('AI.articleTags')): ?>
     <div class="form-check d-flex align-items-center">
         <?= $this->Form->checkbox("regenerateTags", [
@@ -80,9 +81,7 @@
         <?php endif; ?>
     </div>
     <?php endif; ?>
-</div>
-
-<div class="mb-3">
+    
     <div class="form-check">
         <?php echo $this->Form->checkbox('is_published', [
             'class' => 'form-check-input' . ($this->Form->isFieldError('is_published') ? ' is-invalid' : '')

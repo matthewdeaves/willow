@@ -99,7 +99,6 @@ class ArticleSummaryUpdateJob implements JobInterface
         }
 
         if (isset($summaryResult['summary'])) {
-
             if (empty($article->summary)) {
                 $article->summary = $summaryResult['summary'];
             }

@@ -26,9 +26,19 @@ class TagsController extends AppController
      */
     public function index(): ?Response
     {
+        $statusFilter = $this->request->getQuery('level');
+
         $query = $this->Tags->find()
             ->contain(['ParentTag'])
             ->select();
+
+        if ($statusFilter == '0') {
+            $query->where(['Tags.parent_id IS' => null]);
+        }
+
+        if ($statusFilter == '1') {
+            $query->where(['Tags.parent_id IS NOT' => null]);
+        }
 
         $search = $this->request->getQuery('search');
         if (!empty($search)) {

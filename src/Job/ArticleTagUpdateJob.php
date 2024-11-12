@@ -6,6 +6,8 @@ namespace App\Job;
 use App\Service\Api\Anthropic\AnthropicApiService;
 use Cake\Cache\Cache;
 use Cake\Log\LogTrait;
+use Cake\ORM\Entity;
+use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
@@ -73,7 +75,7 @@ class ArticleTagUpdateJob implements JobInterface
             contain: ['Tags' => ['fields' => ['id']]]
         );
 
-        $allTags = $tagsTable->find()->select(['title'])->all()->extract('title')->toArray();
+        $allTags = $tagsTable->getSimpleThreadedArray();
 
         try {
             $tagResult = $this->anthropicService->generateArticleTags(
@@ -98,16 +100,20 @@ class ArticleTagUpdateJob implements JobInterface
 
         if (isset($tagResult['tags']) && is_array($tagResult['tags'])) {
             $newTags = [];
-            foreach ($tagResult['tags'] as $key => $tagTitle) {
-                $tag = $tagsTable->find()->where(['title' => $tagTitle])->first();
-                if (!$tag) {
-                    $tag = $tagsTable->newEmptyEntity();
-                    $tag->title = $tagTitle;
-                    $tag->description = $tagResult['descriptions'][$key] ?? '';
-                    $tag->slug = '';
-                    $tagsTable->save($tag);
+            foreach ($tagResult['tags'] as $rootTag) {
+                $parentTag = $this->findOrSaveTag($tagsTable, $rootTag['tag'], $rootTag['description']);
+                $newTags[] = $parentTag;
+                if (isset($rootTag['children']) && is_array($rootTag['children'])) {
+                    foreach ($rootTag['children'] as $childTag) {
+                        $child = $this->findOrSaveTag(
+                            $tagsTable,
+                            $childTag['tag'],
+                            $childTag['description'],
+                            $parentTag->id
+                        );
+                        $newTags[] = $child;
+                    }
                 }
-                $newTags[] = $tag;
             }
 
             $article->tags = $newTags;
@@ -142,5 +148,37 @@ class ArticleTagUpdateJob implements JobInterface
         }
 
         return Processor::REJECT;
+    }
+
+    /**
+     * Finds an existing tag by title or creates a new one if it does not exist.
+     *
+     * This method searches for a tag in the provided tags table using the specified title.
+     * If a tag with the given title is not found, it creates a new tag entity with the provided
+     * title, description, and optional parent ID, and saves it to the database.
+     *
+     * @param \Cake\ORM\Table $tagsTable The table instance to search for or save the tag.
+     * @param string $tagTitle The title of the tag to find or create.
+     * @param string $tagDescription The description of the tag to create if it does not exist.
+     * @param int|null $parentId The optional parent ID for the tag, default is null.
+     * @return \Cake\ORM\Entity The found or newly created tag entity.
+     */
+    private function findOrSaveTag(
+        Table $tagsTable,
+        string $tagTitle,
+        string $tagDescription,
+        ?string $parentId = null
+    ): Entity {
+        $tag = $tagsTable->find()->where(['title' => $tagTitle])->first();
+        if (!$tag) {
+            $tag = $tagsTable->newEmptyEntity();
+            $tag->title = $tagTitle;
+            $tag->description = $tagDescription;
+            $tag->slug = '';
+            $tag->parent_id = $parentId;
+            $tagsTable->save($tag);
+        }
+
+        return $tag;
     }
 }

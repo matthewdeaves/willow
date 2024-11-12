@@ -28,7 +28,8 @@ alias phpcs_fix='willowcms_exec php vendor/bin/phpcbf'
 alias phpstan_analyse='willowcms_exec php vendor/bin/phpstan analyse src/'
 
 # Queue Worker
-alias cake_queue_worker='willowcms_exec bin/cake queue worker --verbose'
+alias cake_queue_worker='willowcms_exec bin/cake queue worker'
+alias cake_queue_worker_verbose='willowcms_exec bin/cake queue worker --verbose'
 
 # Set permissions for specific directories
 alias set_permissions='willowcms_exec chmod -R 777 tmp logs webroot'

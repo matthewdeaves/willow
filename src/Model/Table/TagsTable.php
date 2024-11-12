@@ -240,4 +240,30 @@ class TagsTable extends Table
             ['group_name' => $job]
         );
     }
+
+    /**
+     * Retrieves a simple threaded array of tags.
+     *
+     * This method performs a 'threaded' find operation on the current model, selecting
+     * the 'id', 'title', and 'parent_id' fields. It then processes the result set to
+     * create an associative array where each key is a tag title and its value is an
+     * array of titles of its direct children.
+     *
+     * @return array An associative array where keys are tag titles and values are arrays
+     *               of titles of their direct children.
+     */
+    public function getSimpleThreadedArray(): array
+    {
+        return $this->find('threaded')
+        ->select(['id', 'title', 'parent_id'])
+        ->all()
+        ->reduce(function ($accumulator, $tag) {
+            $childrenTitles = array_map(function ($child) {
+                return $child->title;
+            }, $tag->children);
+            $accumulator[$tag->title] = $childrenTitles;
+
+            return $accumulator;
+        }, []);
+    }
 }

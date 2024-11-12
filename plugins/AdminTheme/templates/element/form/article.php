@@ -29,6 +29,14 @@
     <?php endif; ?>
 </div>
 <div class="mb-3">
+    <?php echo $this->Form->control('lead', ['class' => 'form-control' . ($this->Form->isFieldError('lead') ? ' is-invalid' : '')]); ?>
+        <?php if ($this->Form->isFieldError('lead')): ?>
+        <div class="invalid-feedback">
+            <?= $this->Form->error('lead') ?>
+        </div>
+    <?php endif; ?>
+</div>
+<div class="mb-3">
     <?php echo $this->Form->control('summary',
         [
             'class' => 'form-control' . ($this->Form->isFieldError('summary') ? ' is-invalid' : '')

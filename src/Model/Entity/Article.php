@@ -50,6 +50,7 @@ class Article extends Entity
     protected array $_accessible = [
         'user_id' => true,
         'title' => true,
+        'lead' => true,
         'slug' => true,
         'body' => true,
         'summary' => true,

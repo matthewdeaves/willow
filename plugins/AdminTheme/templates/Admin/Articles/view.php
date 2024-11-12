@@ -118,11 +118,16 @@
                     </div>
                     <div class="card mt-4">
                         <div class="card-body">
+                            <h5 class="card-title"><?= __('Lead') ?></h5>
+                            <p class="card-text"><?= html_entity_decode($article->lead); ?></p>
+                        </div>
+                    </div>
+                    <div class="card mt-4">
+                        <div class="card-body">
                             <h5 class="card-title"><?= __('Summary') ?></h5>
                             <p class="card-text"><?= html_entity_decode($article->summary); ?></p>
                         </div>
                     </div>
-                    
                     <div class="mt-4">
                     <?= $this->element('seo_display_fields', ['model' => $article]); ?>
                     </div>

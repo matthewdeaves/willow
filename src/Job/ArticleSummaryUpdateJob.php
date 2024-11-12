@@ -99,8 +99,14 @@ class ArticleSummaryUpdateJob implements JobInterface
         }
 
         if (isset($summaryResult['summary'])) {
-            // Set the summary data we got back
-            $article->summary = $summaryResult['summary'];
+
+            if (empty($article->summary)) {
+                $article->summary = $summaryResult['summary'];
+            }
+
+            if (empty($article->lead)) {
+                $article->lead = $summaryResult['lead'];
+            }
 
             // Save the data
             if ($articlesTable->save($article, ['noMessage' => true])) {

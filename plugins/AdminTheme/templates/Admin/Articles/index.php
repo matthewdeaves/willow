@@ -77,22 +77,7 @@
         <td>
           <?php if (!empty($article->image)) : ?>
           <div class="position-relative">
-          <?= $this->Html->image($article->teenyImageUrl, 
-            [
-              'pathPrefix' => '', 
-              'alt' => $article->alt_text, 
-              'class' => 'img-thumbnail', 
-              'data-bs-toggle' => 'popover',
-              'data-bs-trigger' => 'hover',
-              'data-bs-html' => 'true',
-              'data-bs-content' => $this->Html->image(
-                $article->largeImageUrl, 
-                [
-                  'pathPrefix' => '', 
-                  'alt' => $article->alt_text, 
-                  'class' => 'img-fluid', 
-                ])
-            ])?>
+            <?= $this->element('image/icon',  ['model' => $article, 'icon' => $article->teenyImageUrl, 'preview' => $article->largeImageUrl ]); ?>
           </div>
           <?php endif; ?>
         </td>

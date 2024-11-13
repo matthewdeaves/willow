@@ -75,6 +75,11 @@ class V1 extends AbstractMigration
                 'limit' => 10,
                 'null' => false,
             ])
+            ->addColumn('featured', 'boolean', [
+                'default' => false,
+                'limit' => null,
+                'null' => false,
+            ])
             ->addColumn('title', 'string', [
                 'default' => null,
                 'limit' => 255,

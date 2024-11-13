@@ -11,23 +11,30 @@ unset($currentParams['_matchedRoute']);
 unset($currentParams['pass']);
 ?>
 <?php if (!empty($languages)): ?>
-<div class="mb-3">
-    <div class="d-flex flex-wrap gap-2" role="group" aria-label="Language filters">
     <?php $currentParams['lang'] = 'en'; ?>
-        <?= $this->Html->link(
-            __('English'),
-            $currentParams,
-            [
-                'class' => 'btn btn-outline-secondary' . ($selectedSiteLanguage === 'en' ? ' active' : '')
-            ]) ?>
-        <?php foreach ($languages as $code => $name): ?>
-            <?php $currentParams['lang'] = $code; ?>
-            <?= $this->Html->link(
-                h($name),
+    <ul class="navbar-nav me-3">
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false"><?= __('Status') ?></a>
+        <ul class="dropdown-menu">
+            <li>
+                <?= $this->Html->link(
+                __('English'),
                 $currentParams,
-                ['class' => 'btn btn-outline-secondary' . ($selectedSiteLanguage == $code ? ' active' : '')]
-            ) ?>
-        <?php endforeach; ?>
-    </div>
-</div>
+                [
+                    'class' => 'dropdown-item' . ($selectedSiteLanguage === 'en' ? ' active' : '')
+                ]) ?>
+            </li>
+            <?php foreach ($languages as $code => $name): ?>
+                <?php $currentParams['lang'] = $code; ?>
+                <li>
+                <?= $this->Html->link(
+                    h($name),
+                    $currentParams,
+                    ['class' => 'dropdown-item' . ($selectedSiteLanguage == $code ? ' active' : '')]
+                ) ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+        </li>
+    </ul>
 <?php endif; ?>

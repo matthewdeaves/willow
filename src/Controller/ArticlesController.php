@@ -137,15 +137,15 @@ class ArticlesController extends AppController
         $articles = $this->paginate($query);
         $featuredArticles = $this->Articles->getFeatured();
         $rootTags = $this->Articles->Tags->getRootTags();
-        $rootPages = $this->Articles->getRootPages();
 
         $this->set(compact(
             'articles',
             'selectedTagId',
             'rootTags',
             'featuredArticles',
-            'rootPages',
         ));
+
+        $this->viewBuilder()->setLayout('article_index');
     }
 
     /**
@@ -256,6 +256,8 @@ class ArticlesController extends AppController
             $this->setToCache($article->slug, $article);
         }
 
+        $this->viewBuilder()->setLayout($article->kind);
+
         $filterTags = $this->getFilterTags();
         $selectedTagId = false;
 
@@ -266,7 +268,7 @@ class ArticlesController extends AppController
 
         $this->set(compact('article', 'filterTags', 'childPages', 'selectedTagId'));
 
-        return null;
+        return $this->render($article->kind);
     }
 
     /**

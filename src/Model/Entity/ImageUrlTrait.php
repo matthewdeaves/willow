@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace App\Model\Entity;
 
 use App\Utility\SettingsManager;
@@ -35,13 +37,14 @@ trait ImageUrlTrait
             $imageSizes = SettingsManager::read('ImageSizes');
             if (isset($imageSizes[$size])) {
                 $url = $this->getImageUrlBySize($size);
+
                 return $url;
             }
         }
-    
+
         return parent::__get($field);
     }
-    
+
     /**
      * Retrieves the URL for an image of a specified size.
      *

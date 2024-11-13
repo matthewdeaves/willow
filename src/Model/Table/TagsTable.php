@@ -9,6 +9,7 @@ use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
 use Cake\Log\LogTrait;
 use Cake\ORM\Behavior\Translate\TranslateTrait;
+use Cake\ORM\Query;
 use Cake\ORM\Table;
 use Cake\Queue\QueueManager;
 use Cake\Utility\Text;
@@ -267,9 +268,26 @@ class TagsTable extends Table
         }, []);
     }
 
-    public function getRootTags() {
-        return $this->find()
-        ->where(['Tags.parent_id IS' => null])
-        ->order(['Tags.lft' => 'ASC']);
+    /**
+     * Retrieves the root tags from the database.
+     *
+     * This method finds all tags that do not have a parent, indicating they are root tags.
+     * The results are ordered by the 'lft' field in ascending order.
+     *
+     * @return array An array of containing the root tags taht match the conditions.
+     */
+    public function getRootTags(array $additionalConditions = []): array
+    {
+        $conditions = [
+            'Tags.parent_id IS' => null
+        ];
+        $conditions = array_merge($conditions, $additionalConditions);
+        $query = $this->find()
+            ->where($conditions)
+            ->orderBy(['lft' => 'ASC']);
+
+        $results = $query->all()->toList();
+
+        return $results;
     }
 }

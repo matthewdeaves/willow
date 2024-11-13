@@ -31,5 +31,5 @@
         <span class="visually-hidden">Next</span>
     </button>
 </div>
-<?php endif; ?>
 </div>
+<?php endif; ?>

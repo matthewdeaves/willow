@@ -44,11 +44,17 @@ class FrontEndSiteComponent extends Component
 
         // Check if we're not in the admin area
         if ($controller->getRequest()->getParam('prefix') !== 'Admin') {
+            /*
             $articleTree = $this->getArticleTree();
             $tagTree = $this->getTags();
 
             $controller->set('articleTreeMenu', $articleTree);
-            $controller->set('tagTreeMenu', $tagTree);
+            $controller->set('tagTreeMenu', $tagTree);*/
+
+            $articlesTable = $this->getController()->fetchTable('Articles');
+            $rootPages = $articlesTable->getRootPages();
+            $featuredArticles = $articlesTable->getFeatured();
+            $controller->set(compact('rootPages', 'featuredArticles'));
         }
 
         $controller->set('siteLanguages', I18nManager::getEnabledLanguages());

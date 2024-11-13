@@ -613,12 +613,23 @@ class ArticlesTable extends Table
         $query = $this->find()
             ->where($conditions)
             ->orderBy(['lft' => 'ASC']);
-        
+
         $results = $query->all()->toList();
-        
+
         return $results;
     }
 
+    /**
+     * Retrieves a list of root pages from the Articles table.
+     *
+     * This method fetches articles that are categorized as 'page', have no parent (i.e., root pages),
+     * and are published. Additional conditions can be provided to further filter the results.
+     *
+     * @param array $additionalConditions An associative array of additional conditions to apply to the query.
+     *                                    These conditions will be merged with the default conditions.
+     * @return array An array of root pages that match the specified conditions,
+     * ordered by the 'lft' field in ascending order.
+     */
     public function getRootPages(array $additionalConditions = []): array
     {
         $conditions = [
@@ -630,10 +641,9 @@ class ArticlesTable extends Table
         $query = $this->find()
             ->where($conditions)
             ->orderBy(['lft' => 'ASC']);
-        
+
         $results = $query->all()->toList();
 
         return $results;
-
     }
 }

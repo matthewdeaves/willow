@@ -101,7 +101,7 @@
     </div>
   </header>
   <!-- Main Menu (blog and pages) -->
-  <div class="nav-scroller py-1 border-bottom">
+  <div class="nav-scroller py-1 mb-3 border-bottom">
     <nav class="nav nav-underline justify-content-center">
         <?= $this->Html->link(__('Blog'), ['_name' => 'home'], ['class' => 'nav-item nav-link link-body-emphasis active']) ?>
         <?php foreach ($rootPages as $rootPage) : ?>
@@ -119,29 +119,6 @@
         <a class="nav-item nav-link link-body-emphasis" href="www.github.com/matthewdeaves/willow">GitHub</a>
     </nav>
   </div>
-  <!-- Tags -->
-  <div class="nav-scroller py-1 mb-3 border-bottom">
-    <nav class="nav nav-underline justify-content-between">
-    <?= $this->Html->link(
-    __('All'),
-    [
-        '_name' => 'home',
-    ],
-    [
-        'class' => 'nav-item nav-link link-body-emphasis' . (!$selectedTagId ? ' active' : '')
-    ]) ?>
-    <?php foreach ($rootTags as $rootTag) : ?>
-        <?= $this->Html->link(
-            htmlspecialchars_decode($rootTag->title),
-            [
-                '_name' => 'home',
-                '?' => ['tag' => $rootTag->id]
-            ],
-            ['class' => 'nav-item nav-link link-body-emphasis' . ($selectedTagId == $rootTag->id ? ' active' : '')]
-        ) ?>
-    <?php endforeach; ?>
-    </nav>
-  </div>
 </div>
 <main class="container">
   <div class="row g-5">
@@ -149,16 +126,10 @@
     <div class="col-md-8">
         <?= $this->Flash->render() ?>
         <?= $this->fetch('content') ?>
-        <?= $this->element('pagination', ['recordCount' => count($articles)]) ?>
     </div>
 
     <div class="col-md-4">
         <div class="position-sticky" style="top: 2rem;">
-
-            <div class="p-4 mb-3 bg-body-tertiary rounded">
-            <h4 class="fst-italic"><?= __('About') ?></h4>
-            <p class="mb-0"><?= __("I'm building a content management system called Willow and I blog about related software development, features and how you can use it too.") ?></p>
-            </div>
 
             <?php if (!empty($recentArticles)) : ?>
             <div>
@@ -197,17 +168,6 @@
               </ul>
             </div>
             <?php endif; ?>
-
-            <div class="p-4">
-            <h4 class="fst-italic"><?= __('Archives') ?></h4>
-            <ol class="list-unstyled mb-0">
-                <li><a href="#">March 2021</a></li>
-                <li><a href="#">February 2021</a></li>
-                <li><a href="#">January 2021</a></li>
-                <li><a href="#">December 2020</a></li>
-                <li><a href="#">November 2020</a></li>
-            </ol>
-            </div>
 
             <div class="p-4">
             <h4 class="fst-italic"><?= __('Elsewhere') ?></h4>

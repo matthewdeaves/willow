@@ -9,7 +9,6 @@ use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
 use Cake\Log\LogTrait;
 use Cake\ORM\Behavior\Translate\TranslateTrait;
-use Cake\ORM\Query;
 use Cake\ORM\Table;
 use Cake\Queue\QueueManager;
 use Cake\Utility\Text;
@@ -279,7 +278,7 @@ class TagsTable extends Table
     public function getRootTags(array $additionalConditions = []): array
     {
         $conditions = [
-            'Tags.parent_id IS' => null
+            'Tags.parent_id IS' => null,
         ];
         $conditions = array_merge($conditions, $additionalConditions);
         $query = $this->find()

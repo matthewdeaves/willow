@@ -244,8 +244,6 @@ class ArticlesController extends AppController
                 ])
                 ->first();
 
-            
-
             if (!$article) {
                 throw new NotFoundException(__('Article not found'));
             }

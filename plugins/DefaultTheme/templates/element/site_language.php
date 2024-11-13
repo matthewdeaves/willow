@@ -14,7 +14,7 @@ unset($currentParams['pass']);
     <?php $currentParams['lang'] = 'en'; ?>
     <ul class="navbar-nav me-3">
         <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false"><?= __('Status') ?></a>
+        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false"><?= __('Language') ?></a>
         <ul class="dropdown-menu">
             <li>
                 <?= $this->Html->link(

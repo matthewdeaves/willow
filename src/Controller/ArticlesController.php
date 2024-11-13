@@ -248,6 +248,8 @@ class ArticlesController extends AppController
                 ])
                 ->first();
 
+            
+
             if (!$article) {
                 throw new NotFoundException(__('Article not found'));
             }
@@ -261,12 +263,13 @@ class ArticlesController extends AppController
         $filterTags = $this->getFilterTags();
         $selectedTagId = false;
 
-        // Get the child pages for the current article
+        // Get the child pages and breadcrumbs for the current article
         $childPages = $this->Articles->find('children', for: $article->id)->toArray();
+        $crumbs = $this->Articles->find('path', for: $article->id)->all();
 
         $this->recordPageView($article->id);
 
-        $this->set(compact('article', 'filterTags', 'childPages', 'selectedTagId'));
+        $this->set(compact('article', 'filterTags', 'childPages', 'selectedTagId', 'crumbs'));
 
         return $this->render($article->kind);
     }

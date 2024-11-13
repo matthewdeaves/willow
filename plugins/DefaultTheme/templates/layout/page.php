@@ -131,6 +131,28 @@
     <div class="col-md-4">
         <div class="position-sticky" style="top: 2rem;">
 
+          <?php if (!empty($childPages)) : ?>
+          <div>
+              <h4 class="fst-italic"><?= __('Related pages') ?></h4>
+              <ul class="list-unstyled">
+                <?php foreach ($childPages as $childPage) : ?>
+                  <li>
+                    <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="<?= $this->Url->build(['_name' => 'page-by-slug', 'slug' => $childPage->slug]) ?>">
+                      <?php if (!empty($childPage->image)) : ?>
+                      <?= $this->Html->image($childPage->tinyImageUrl, ['pathPrefix' => '', 'alt' => $childPage->alt_text]) ?>
+                      <?php endif; ?>
+                      <div class="col-lg-8">
+                      <h6 class="mb-0"><?= $childPage->title ?></h6>
+                      <small class="text-body-secondary"><?= $childPage->lead ?></small>
+                      </div>
+                  </a>
+                  </li>
+                <?php endforeach; ?>
+              </ul>
+            </div>
+            <?php endif; ?>
+
+
             <?php if (!empty($recentArticles)) : ?>
             <div>
               <h4 class="fst-italic"><?= __('Recent posts') ?></h4>

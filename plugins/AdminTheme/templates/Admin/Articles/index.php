@@ -77,12 +77,11 @@
         <td>
           <?php if (!empty($article->image)) : ?>
           <div class="position-relative">
-          <?= $this->Html->image($article->smallImageUrl, 
+          <?= $this->Html->image($article->teenyImageUrl, 
             [
               'pathPrefix' => '', 
               'alt' => $article->alt_text, 
               'class' => 'img-thumbnail', 
-              'width' => '50',
               'data-bs-toggle' => 'popover',
               'data-bs-trigger' => 'hover',
               'data-bs-html' => 'true',

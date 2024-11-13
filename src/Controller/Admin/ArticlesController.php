@@ -99,6 +99,7 @@ class ArticlesController extends AppController
                 'Articles.title',
                 'Articles.slug',
                 'Articles.image',
+                'Articles.dir',
                 'Articles.alt_text',
                 'Articles.created',
                 'Articles.modified',

@@ -72,21 +72,7 @@
                             <td>
                                 <?php if (!empty($article->image)) : ?>
                                 <div class="position-relative">
-                                    <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $article->image, 
-                                        ['pathPrefix' => 'files/Articles/image/', 
-                                        'alt' => $article->alt_text, 
-                                        'class' => 'img-thumbnail', 
-                                        'width' => '50',
-                                        'data-bs-toggle' => 'popover',
-                                        'data-bs-trigger' => 'hover',
-                                        'data-bs-html' => 'true',
-                                        'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $article->image, 
-                                            ['pathPrefix' => 'files/Articles/image/', 
-                                            'alt' => $article->alt_text, 
-                                            'class' => 'img-fluid', 
-                                            'style' => 'max-width: 300px; max-height: 300px;'])
-                                        ]) 
-                                    ?>
+                                    <?= $this->element('image/icon', ['model' => $article, 'icon' => $article->smallImageUrl, 'preview' => $article->largeImageUrl]); ?>
                                 </div>
                                 <?php endif; ?>
                             </td>

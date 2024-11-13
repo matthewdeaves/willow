@@ -11,23 +11,7 @@
             <div class="d-flex align-items-start mb-3">
                 <?php if (!empty($article->image)) : ?>
                 <div class="me-3">
-                    <?= $this->Html->image(SettingsManager::read('ImageSizes.teeny') . '/' . $article->image, 
-                        [
-                            'pathPrefix' => 'files/Articles/image/', 
-                            'alt' => $article->alt_text, 
-                            'class' => 'img-thumbnail', 
-                            'data-bs-toggle' => 'popover', 
-                            'data-bs-trigger' => 'hover', 
-                            'data-bs-html' => 'true', 
-                            'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.extraLarge') . '/' . $article->image, 
-                            [
-                                'pathPrefix' => 'files/Articles/image/', 
-                                'alt' => $article->alt_text, 
-                                'class' => 'img-fluid', 
-                                'style' => 'max-width: 400px; max-height: 400px;'
-                            ])
-                        ]) 
-                    ?>
+                    <?= $this->element('image/icon', ['model' => $article, 'icon' => $article->smallImageUrl, 'preview' => $article->largeImageUrl]); ?>
                 </div>
                 <?php endif; ?>
                 <h1 class="card-title mb-0"><?= htmlspecialchars_decode($article->title) ?></h1>

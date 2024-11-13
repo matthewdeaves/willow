@@ -74,20 +74,7 @@
 
                         <?php if (!empty($user->picture)): ?>
                             <div class="mb-3">
-                            <?= $this->Html->image(SettingsManager::read('ImageSizes.teeny', '200') . '/' . $user->picture, 
-                                [
-                                    'pathPrefix' => 'files/Users/picture/',
-                                    'alt' => $user->alt_text,
-                                    'class' => 'img-thumbnail',
-                                    'data-bs-toggle' => 'popover',
-                                    'data-bs-trigger' => 'hover',
-                                    'data-bs-html' => 'true',
-                                    'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.extraLarge', '400') . '/' . $user->picture,
-                                        ['pathPrefix' => 'files/Users/picture/',
-                                        'alt' => $user->alt_text,
-                                        'class' => 'img-fluid',
-                                        'style' => 'max-width: 300px; max-height: 300px;'
-                                ])]) ?>
+                                <?= $this->element('image/icon', ['model' => $user, 'icon' => $user->teenyImageUrl, 'preview' => $user->extraLargeImageUrl]); ?>
                             </div>
                         <?php endif; ?>
 

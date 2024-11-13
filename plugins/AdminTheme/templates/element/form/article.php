@@ -146,20 +146,7 @@
 
 <?php if (!empty($article->image)): ?>
     <div class="mb-3">
-    <?= $this->Html->image(SettingsManager::read('ImageSizes.teeny', '200') . '/' . $article->image, 
-        [
-            'pathPrefix' => 'files/Articles/image/',
-            'alt' => $article->alt_text,
-            'class' => 'img-thumbnail',
-            'data-bs-toggle' => 'popover',
-            'data-bs-trigger' => 'hover',
-            'data-bs-html' => 'true',
-            'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.extraLarge', '400') . '/' . $article->image,
-                ['pathPrefix' => 'files/Articles/image/',
-                'alt' => $article->alt_text,
-                'class' => 'img-fluid',
-                'style' => 'max-width: 300px; max-height: 300px;'
-        ])]) ?>
+        <?= $this->element('image/icon', ['model' => $article, 'icon' => $article->teenyImageUrl, 'preview' => $article->extraLargeImageUrl]); ?>
     </div>
 <?php endif; ?>
 

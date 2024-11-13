@@ -266,4 +266,10 @@ class TagsTable extends Table
             return $accumulator;
         }, []);
     }
+
+    public function getRootTags() {
+        return $this->find()
+        ->where(['Tags.parent_id IS' => null])
+        ->order(['Tags.lft' => 'ASC']);
+    }
 }

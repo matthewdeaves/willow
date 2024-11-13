@@ -51,6 +51,7 @@ class Article extends Entity
         'user_id' => true,
         'title' => true,
         'lead' => true,
+        'featured' => true,
         'slug' => true,
         'body' => true,
         'summary' => true,

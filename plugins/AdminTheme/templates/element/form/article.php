@@ -95,6 +95,20 @@
             </div>
         <?php endif; ?>
     </div>
+
+    <div class="form-check">
+        <?php echo $this->Form->checkbox('featured', [
+            'class' => 'form-check-input' . ($this->Form->isFieldError('featured') ? ' is-invalid' : '')
+        ]); ?>
+        <label class="form-check-label" for="featured">
+            <?= __('Featured') ?>
+        </label>
+        <?php if ($this->Form->isFieldError('featured')): ?>
+            <div class="invalid-feedback">
+                <?= $this->Form->error('featured') ?>
+            </div>
+        <?php endif; ?>
+    </div>
 </div>
 <div class="mb-3">
     <?php $parentId = $this->request->getQuery('parent_id'); ?>

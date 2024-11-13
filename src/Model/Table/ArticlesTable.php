@@ -569,7 +569,6 @@ class ArticlesTable extends Table
         $conditions = [
             'Articles.kind' => 'page',
         ];
-
         // Merge the default conditions with any additional conditions provided
         $conditions = array_merge($conditions, $additionalConditions);
 
@@ -592,5 +591,49 @@ class ArticlesTable extends Table
             ->orderBy(['lft' => 'ASC']);
 
         return $query->find('threaded')->toArray();
+    }
+
+    /**
+     * Retrieves a list of featured articles with optional additional conditions.
+     *
+     * This method constructs a query to find articles that are marked as featured.
+     * Additional conditions can be provided to further filter the results.
+     * The results are ordered by the 'lft' field in ascending order.
+     *
+     * @param array $additionalConditions An array of additional conditions to apply to the query.
+     * @return array A list of featured articles that match the specified conditions.
+     */
+    public function getFeatured(array $additionalConditions = []): array
+    {
+        $conditions = [
+            'Articles.featured' => 1,
+            'Articles.is_published' => 1,
+        ];
+        $conditions = array_merge($conditions, $additionalConditions);
+        $query = $this->find()
+            ->where($conditions)
+            ->orderBy(['lft' => 'ASC']);
+        
+        $results = $query->all()->toList();
+        
+        return $results;
+    }
+
+    public function getRootPages(array $additionalConditions = []): array
+    {
+        $conditions = [
+            'Articles.kind' => 'page',
+            'Articles.parent_id IS' => null,
+            'Articles.is_published' => 1,
+        ];
+        $conditions = array_merge($conditions, $additionalConditions);
+        $query = $this->find()
+            ->where($conditions)
+            ->orderBy(['lft' => 'ASC']);
+        
+        $results = $query->all()->toList();
+
+        return $results;
+
     }
 }

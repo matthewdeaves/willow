@@ -167,7 +167,9 @@
                 <?php foreach ($recentArticles as $recentArticle) : ?>
                   <li>
                   <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                      <?php if (!empty($recentArticle->image)) : ?>
                       <?= $this->Html->image($recentArticle->tinyImageUrl, ['pathPrefix' => '', 'alt' => $recentArticle->alt_text]) ?>
+                      <?php endif; ?>
                       <div class="col-lg-8">
                       <h6 class="mb-0"><?= $recentArticle->title ?></h6>
                       <small class="text-body-secondary"><?= $recentArticle->published->format('F j, Y') ?></small>
@@ -186,7 +188,9 @@
                   <?php foreach ($featuredArticles as $featuredArticle) : ?>
                   <li>
                   <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                      <?php if (!empty($featuredArticle->image)) : ?>
                       <?= $this->Html->image($featuredArticle->tinyImageUrl, ['pathPrefix' => '', 'alt' => $featuredArticle->alt_text]) ?>
+                      <?php endif; ?>
                       <div class="col-lg-8">
                       <h6 class="mb-0"><?= $featuredArticle->title ?></h6>
                       <small class="text-body-secondary"><?= $featuredArticle->published->format('F j, Y') ?></small>

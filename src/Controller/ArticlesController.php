@@ -264,7 +264,9 @@ class ArticlesController extends AppController
         $selectedTagId = false;
 
         // Get the child pages and breadcrumbs for the current article
-        $childPages = $this->Articles->find('children', for: $article->id)->toArray();
+        $childPages = $this->Articles->find('children', for: $article->id)
+            ->order(['lft' => 'ASC'])
+            ->toArray();
         $crumbs = $this->Articles->find('path', for: $article->id)->all();
 
         $this->recordPageView($article->id);

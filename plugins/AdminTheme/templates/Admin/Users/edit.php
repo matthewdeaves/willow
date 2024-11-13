@@ -82,7 +82,7 @@
                                     'data-bs-toggle' => 'popover',
                                     'data-bs-trigger' => 'hover',
                                     'data-bs-html' => 'true',
-                                    'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.extra-large', '400') . '/' . $user->picture,
+                                    'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.extraLarge', '400') . '/' . $user->picture,
                                         ['pathPrefix' => 'files/Users/picture/',
                                         'alt' => $user->alt_text,
                                         'class' => 'img-fluid',

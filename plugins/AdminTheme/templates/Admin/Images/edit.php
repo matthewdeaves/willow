@@ -78,7 +78,7 @@
                                     'data-bs-toggle' => 'popover',
                                     'data-bs-trigger' => 'hover',
                                     'data-bs-html' => 'true',
-                                    'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.extra-large', '400') . '/' . $image->file,
+                                    'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.extraLarge', '400') . '/' . $image->file,
                                         ['pathPrefix' => 'files/Images/file/',
                                         'alt' => $image->alt_text,
                                         'class' => 'img-fluid',

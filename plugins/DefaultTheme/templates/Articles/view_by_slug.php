@@ -19,7 +19,7 @@
                             'data-bs-toggle' => 'popover', 
                             'data-bs-trigger' => 'hover', 
                             'data-bs-html' => 'true', 
-                            'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.extra-large') . '/' . $article->image, 
+                            'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.extraLarge') . '/' . $article->image, 
                             [
                                 'pathPrefix' => 'files/Articles/image/', 
                                 'alt' => $article->alt_text, 

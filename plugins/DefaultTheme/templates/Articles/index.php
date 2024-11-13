@@ -9,20 +9,23 @@
 ?>
 <?php foreach ($articles as $article): ?>
 <article class="blog-post">
-    <?= $this->Html->image(SettingsManager::read('ImageSizes.teeny') . '/' . $article->image, 
+    <?= $this->Html->image($article->smallImageUrl, 
+    [
+        'pathPrefix' => '', 
+        'alt' => $article->alt_text, 
+        'class' => 'img-thumbnail', 
+        'width' => '50',
+        'data-bs-toggle' => 'popover',
+        'data-bs-trigger' => 'hover',
+        'data-bs-html' => 'true',
+        'data-bs-content' => $this->Html->image(
+        $article->largeImageUrl, 
         [
-            'pathPrefix' => 'files/Articles/image/', 
-            'alt' => htmlspecialchars_decode($article->alt_text), 
-            'class' => 'img-thumbnail article-image', 
-            'data-bs-toggle' => 'popover', 
-            'data-bs-trigger' => 'hover', 
-            'data-bs-html' => 'true', 
-            'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.extra-large') . '/' . $article->image, [
-                'pathPrefix' => 'files/Articles/image/', 
-                'alt' => htmlspecialchars_decode($article->alt_text), 
-                'class' => 'img-fluid', 
-                'style' => 'max-width: 400px; max-height: 400px;'
-    ])]) ?>
+            'pathPrefix' => '', 
+            'alt' => $article->alt_text, 
+            'class' => 'img-fluid', 
+        ])
+    ])?>
     <h2 class="display-5 link-body-emphasis mb-1"><?= $article->title ?></h2>
     <p class="blog-post-meta">
     <?= $article->published->format('F j, Y') ?> <?= h($article->user->username) ?>

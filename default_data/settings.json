@@ -398,7 +398,7 @@
     {
         "ordering": 2,
         "category": "ImageSizes",
-        "key_name": "extra-large",
+        "key_name": "extraLarge",
         "value": "500",
         "value_type": "numeric",
         "value_obscure": false,

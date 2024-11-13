@@ -53,7 +53,7 @@
             'data-bs-toggle' => 'popover',
             'data-bs-trigger' => 'hover',
             'data-bs-html' => 'true',
-            'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.extra-large', '400') . '/' . $tag->image,
+            'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.extraLarge', '400') . '/' . $tag->image,
                 ['pathPrefix' => 'files/Tags/image/',
                 'alt' => $tag->alt_text,
                 'class' => 'img-fluid',

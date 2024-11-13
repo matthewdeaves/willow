@@ -139,8 +139,6 @@ class ArticlesController extends AppController
         $this->set(compact(
             'articles',
             'selectedTagId',
-            'rootTags',
-            'featuredArticles',
         ));
 
         $this->viewBuilder()->setLayout('article_index');

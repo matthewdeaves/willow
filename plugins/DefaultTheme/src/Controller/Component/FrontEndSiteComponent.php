@@ -52,9 +52,13 @@ class FrontEndSiteComponent extends Component
             $controller->set('tagTreeMenu', $tagTree);*/
 
             $articlesTable = $this->getController()->fetchTable('Articles');
+            $tagsTable = $this->getController()->fetchTable('Tags');
+
             $rootPages = $articlesTable->getRootPages();
             $featuredArticles = $articlesTable->getFeatured();
-            $controller->set(compact('rootPages', 'featuredArticles'));
+            $rootTags = $tagsTable->getRootTags();
+
+            $controller->set(compact('rootPages', 'rootTags', 'featuredArticles'));
         }
 
         $controller->set('siteLanguages', I18nManager::getEnabledLanguages());

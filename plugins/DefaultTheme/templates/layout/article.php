@@ -101,7 +101,7 @@
     </div>
   </header>
   <!-- Main Menu (blog and pages) -->
-  <div class="nav-scroller py-1 mb-3 border-bottom">
+  <div class="nav-scroller py-1 border-bottom">
     <nav class="nav nav-underline justify-content-center">
         <?= $this->Html->link(__('Blog'), ['_name' => 'home'], ['class' => 'nav-item nav-link link-body-emphasis active']) ?>
         <?php foreach ($rootPages as $rootPage) : ?>
@@ -119,6 +119,29 @@
         <a class="nav-item nav-link link-body-emphasis" href="www.github.com/matthewdeaves/willow">GitHub</a>
     </nav>
   </div>
+  <!-- Tags -->
+  <div class="nav-scroller py-1 mb-3 border-bottom">
+    <nav class="nav nav-underline justify-content-between">
+    <?= $this->Html->link(
+    __('All'),
+    [
+        '_name' => 'home',
+    ],
+    [
+        'class' => 'nav-item nav-link link-body-emphasis' . (!$selectedTagId ? ' active' : '')
+    ]) ?>
+    <?php foreach ($rootTags as $rootTag) : ?>
+        <?= $this->Html->link(
+            htmlspecialchars_decode($rootTag->title),
+            [
+                '_name' => 'home',
+                '?' => ['tag' => $rootTag->id]
+            ],
+            ['class' => 'nav-item nav-link link-body-emphasis' . ($selectedTagId == $rootTag->id ? ' active' : '')]
+        ) ?>
+    <?php endforeach; ?>
+    </nav>
+  </div>
 </div>
 <main class="container">
   <div class="row g-5">
@@ -131,26 +154,10 @@
     <div class="col-md-4">
         <div class="position-sticky" style="top: 2rem;">
 
-          <?php if (!empty($childPages)) : ?>
-          <div>
-              <h4 class="fst-italic"><?= __('Related pages') ?></h4>
-              <ul class="list-unstyled">
-                <?php foreach ($childPages as $childPage) : ?>
-                  <li>
-                    <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="<?= $this->Url->build(['_name' => 'page-by-slug', 'slug' => $childPage->slug]) ?>">
-                      <?php if (!empty($childPage->image)) : ?>
-                      <?= $this->Html->image($childPage->tinyImageUrl, ['pathPrefix' => '', 'alt' => $childPage->alt_text]) ?>
-                      <?php endif; ?>
-                      <div class="col-lg-8">
-                      <h6 class="mb-0"><?= $childPage->title ?></h6>
-                      <small class="text-body-secondary"><?= $childPage->lead ?></small>
-                      </div>
-                  </a>
-                  </li>
-                <?php endforeach; ?>
-              </ul>
+            <div class="p-4 mb-3 bg-body-tertiary rounded">
+            <h4 class="fst-italic"><?= __('About') ?></h4>
+            <p class="mb-0"><?= __("I'm building a content management system called Willow and I blog about related software development, features and how you can use it too.") ?></p>
             </div>
-            <?php endif; ?>
 
             <?php if (!empty($recentArticles)) : ?>
             <div>
@@ -158,7 +165,7 @@
               <ul class="list-unstyled">
                 <?php foreach ($recentArticles as $recentArticle) : ?>
                   <li>
-                  <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="<?= $this->Url->build(['_name' => 'article-by-slug', 'slug' => $recentArticle->slug]) ?>">
+                  <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
                       <?php if (!empty($recentArticle->image)) : ?>
                       <?= $this->Html->image($recentArticle->tinyImageUrl, ['pathPrefix' => '', 'alt' => $recentArticle->alt_text]) ?>
                       <?php endif; ?>
@@ -179,8 +186,10 @@
               <ul class="list-unstyled">
                   <?php foreach ($featuredArticles as $featuredArticle) : ?>
                   <li>
-                  <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="<?= $this->Url->build(['_name' => 'article-by-slug', 'slug' => $featuredArticle->slug]) ?>">
+                  <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                      <?php if (!empty($featuredArticle->image)) : ?>
                       <?= $this->Html->image($featuredArticle->tinyImageUrl, ['pathPrefix' => '', 'alt' => $featuredArticle->alt_text]) ?>
+                      <?php endif; ?>
                       <div class="col-lg-8">
                       <h6 class="mb-0"><?= $featuredArticle->title ?></h6>
                       <small class="text-body-secondary"><?= $featuredArticle->published->format('F j, Y') ?></small>
@@ -191,6 +200,17 @@
               </ul>
             </div>
             <?php endif; ?>
+
+            <div class="p-4">
+            <h4 class="fst-italic"><?= __('Archives') ?></h4>
+            <ol class="list-unstyled mb-0">
+                <li><a href="#">March 2021</a></li>
+                <li><a href="#">February 2021</a></li>
+                <li><a href="#">January 2021</a></li>
+                <li><a href="#">December 2020</a></li>
+                <li><a href="#">November 2020</a></li>
+            </ol>
+            </div>
 
             <div class="p-4">
             <h4 class="fst-italic"><?= __('Elsewhere') ?></h4>

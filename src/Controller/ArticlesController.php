@@ -135,8 +135,6 @@ class ArticlesController extends AppController
         }
 
         $articles = $this->paginate($query);
-        $featuredArticles = $this->Articles->getFeatured();
-        $rootTags = $this->Articles->Tags->getRootTags();
 
         $this->set(compact(
             'articles',

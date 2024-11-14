@@ -263,9 +263,9 @@ class ArticlesController extends AppController
             ->toArray();
 
         // Breadcrumbs
-        $crumbs = $this->Articles->find('path', ['for' => $article->id])
+        $crumbs = $this->Articles->find('path', for: $article->id)
         ->select(['slug', 'title', 'id'])
-        ->toArray();
+        ->all();
 
         $this->recordPageView($article->id);
 

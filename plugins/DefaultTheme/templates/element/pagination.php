@@ -14,8 +14,10 @@ $this->Paginator->setTemplates([
 $this->Paginator->options([
     'url' => [
         'lang' => $this->request->getParam('lang'),
-        '_name' => 'home'
-        //'?' => $this->request->getQuery()
+        '_name' => 'home',
+        '?' => [
+            'tag' => $this->request->getQuery('tag'),
+        ]
     ]
 ]);
 ?>

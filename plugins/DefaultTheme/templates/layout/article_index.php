@@ -5,7 +5,7 @@
     <?= $this->Html->script('AdminTheme.color-modes') ?>
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?= $this->element('meta_tags', ['model' => $article ?? $tag ?? null]) ?>
+    <?= $this->element('site/meta_tags', ['model' => $article ?? $tag ?? null]) ?>
     <title><?= SettingsManager::read('SEO.siteName', 'Willow CMS') ?>: <?= $this->fetch('title') ?></title>
     <link rel="canonical" href=""> <!-- do we need this -->
     <?= $this->Html->meta('icon') ?>

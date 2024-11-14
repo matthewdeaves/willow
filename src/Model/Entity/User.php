@@ -21,6 +21,7 @@ use Cake\ORM\Entity;
 class User extends Entity
 {
     use ImageUrlTrait;
+
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *

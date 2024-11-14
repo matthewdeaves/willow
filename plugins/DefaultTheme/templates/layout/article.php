@@ -97,6 +97,9 @@
       </div>
       <div class="col-4 d-flex justify-content-end align-items-center">
         <?= $this->Html->link(__('Log In'), ['controller' => 'Users', 'action' => 'login'], ['class' => 'btn btn-sm btn-outline-secondary']) ?>
+        <?php if (SettingsManager::read('Users.registrationEnabled', false)) :?>
+          <?= $this->Html->link(__('Register'), ['controller' => 'Users', 'action' => 'register'], ['class' => 'btn btn-sm btn-outline-secondary']) ?>
+        <?php endif; ?>
       </div>
     </div>
   </header>

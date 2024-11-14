@@ -138,3 +138,19 @@ h1, h2, h3, h4, h5, h6 {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+/*
+ * Breadcrumbs
+ */
+.breadcrumb {
+  margin-bottom: 0.2rem; /* Adjust as needed for spacing */
+}
+
+.breadcrumb-item {
+  font-size: 0.875rem; /* Matches the size in your original CSS */
+}
+
+/* If you want to customize the separator, you can use this: */
+.breadcrumb-item + .breadcrumb-item::before {
+  content: ">";
+}

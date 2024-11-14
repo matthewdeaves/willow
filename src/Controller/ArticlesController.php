@@ -261,7 +261,11 @@ class ArticlesController extends AppController
         $childPages = $this->Articles->find('children', for: $article->id)
             ->order(['lft' => 'ASC'])
             ->toArray();
-        $crumbs = $this->Articles->find('path', for: $article->id)->all();
+
+        // Breadcrumbs
+        $crumbs = $this->Articles->find('path', ['for' => $article->id])
+        ->select(['slug', 'title', 'id'])
+        ->toArray();
 
         $this->recordPageView($article->id);
 

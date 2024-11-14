@@ -21,6 +21,10 @@
             'carouselId' => 'articleImagesCarousel'
         ]) ?>
     </div>
+
+    <div>
+            <?= $this->element('article/tags', ['article' => $article]) ?>
+    </div>
 </article>
 
 

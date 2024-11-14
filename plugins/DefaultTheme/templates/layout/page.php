@@ -27,7 +27,7 @@
 
   <?= $this->element('site/header'); ?>
 
-  <?= $this->element('site/main_menu'); ?>
+  <?= $this->element('site/main_menu', ['mbAmount' => 3]); ?>
 
   </div>
   <main class="container">

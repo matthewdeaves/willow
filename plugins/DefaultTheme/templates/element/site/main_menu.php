@@ -1,4 +1,5 @@
-<div class="nav-scroller py-1 mb-3 border-bottom">
+<?php $mbAmount = $mbAmount ?? 0; ?>
+<div class="nav-scroller py-1 mb-<?= $mbAmount ?> border-bottom">
     <nav class="nav nav-underline justify-content-center">
         <?= $this->Html->link(__('Blog'), ['_name' => 'home'], ['class' => 'nav-item nav-link link-body-emphasis active']) ?>
         <?php foreach ($rootPages as $rootPage) : ?>

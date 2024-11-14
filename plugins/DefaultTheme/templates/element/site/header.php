@@ -11,10 +11,10 @@
       <?php if ($this->Identity->isLoggedIn()): ?>
 
         <?php if ($this->Identity->get('is_admin')): ?>
-          <?= $this->Html->link(__('Admin'), ['prefix' => 'Admin', 'controller' => 'Articles', 'action' => 'index'], ['class' => 'nav-link']) ?>
+          <?= $this->Html->link(__('Admin'), ['prefix' => 'Admin', 'controller' => 'Articles', 'action' => 'index'], ['class' => 'btn btn-sm btn-outline-secondary']) ?>
         <?php endif; ?>
 
-        <?= $this->Html->link(__('Logout'), ['_name' => 'logout'], ['class' => 'nav-link']) ?>
+        <?= $this->Html->link(__('Logout'), ['_name' => 'logout'], ['class' => 'btn btn-sm btn-outline-secondary']) ?>
 
       <?php else: ?>
 

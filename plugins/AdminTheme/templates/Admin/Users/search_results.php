@@ -22,7 +22,7 @@
           <td>
             <?php if (!empty($user->image)) : ?>
             <div class="position-relative">
-                <?= $this->element('image/icon', ['model' => $user, 'icon' => $user->smallImageUrl, 'preview' => $user->largeImageUrl]); ?>
+                <?= $this->element('image/icon', ['model' => $user, 'icon' => $user->tennyImageUrl, 'preview' => $user->largeImageUrl]); ?>
             </div>
             <?php endif; ?>
           </td>

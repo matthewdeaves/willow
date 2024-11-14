@@ -3,12 +3,15 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use App\Model\Entity\Article;
+use App\Model\Table\ArticlesTable;
 use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 use Cake\I18n\DateTime;
 use Cake\ORM\TableRegistry;
+use RuntimeException;
 
 /**
  * GenerateArticles command.
@@ -23,7 +26,7 @@ class GenerateArticlesCommand extends Command
     /**
      * @var \App\Model\Table\ArticlesTable
      */
-    private $Articles;
+    private ArticlesTable $Articles;
 
     /**
      * Initialize method
@@ -70,7 +73,7 @@ class GenerateArticlesCommand extends Command
 
         for ($i = 0; $i < $count; $i++) {
             $article = $this->generateArticle();
-            
+
             if ($this->Articles->save($article, ['associated' => ['Tags']])) {
                 $io->out(__('Generated article: {0}', $article->title));
                 $successCount++;
@@ -99,11 +102,11 @@ class GenerateArticlesCommand extends Command
      *
      * @return \App\Model\Entity\Article
      */
-    private function generateArticle()
+    private function generateArticle(): Article
     {
         $title = __('Generated Article {0}', uniqid());
         $content = __('This is a generated article content. {0}', uniqid());
-        
+
         // Generate a random date between 2000 and now
         $year = rand(2000, (int)date('Y'));
         $month = str_pad((string)rand(1, 12), 2, '0', STR_PAD_LEFT);
@@ -134,7 +137,7 @@ class GenerateArticlesCommand extends Command
             // Randomly select between 1 and 3 tags
             $numTags = min(rand(1, 3), count($allTags));
             $selectedIndices = array_rand($allTags, $numTags);
-            
+
             // Convert to array if only one tag selected
             if (!is_array($selectedIndices)) {
                 $selectedIndices = [$selectedIndices];
@@ -170,7 +173,7 @@ class GenerateArticlesCommand extends Command
         if ($adminUser) {
             $this->adminUserId = $adminUser->id;
         } else {
-            throw new \RuntimeException(__('No admin user found.'));
+            throw new RuntimeException(__('No admin user found.'));
         }
     }
 }

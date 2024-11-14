@@ -217,7 +217,7 @@ use Cake\Core\Configure;
                 <?php if (isset($profilePic)) : ?>
                 <?= $this->Html->image(
                   SettingsManager::read('ImageSizes.teeny', '200') . '/' . $profilePic, [
-                    'pathPrefix' => 'files/Users/picture/',
+                    'pathPrefix' => 'files/Users/image/',
                     'class' => 'rounded-circle',
                     'width' => '32',
                     'height' => '32',

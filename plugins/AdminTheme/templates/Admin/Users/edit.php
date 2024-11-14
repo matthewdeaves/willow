@@ -72,25 +72,25 @@
                             <?php endif; ?>
                         </div>
 
-                        <?php if (!empty($user->picture)): ?>
+                        <?php if (!empty($user->image)): ?>
                             <div class="mb-3">
                                 <?= $this->element('image/icon', ['model' => $user, 'icon' => $user->teenyImageUrl, 'preview' => $user->extraLargeImageUrl]); ?>
                             </div>
                         <?php endif; ?>
 
                         <div class="mb-3">
-                            <?= $this->Form->control('picture', [
+                            <?= $this->Form->control('image', [
                                 'type' => 'file',
                                 'label' => [
                                     'text' => __('Image'),
                                     'class' => 'form-label'
                                 ],
-                                'class' => 'form-control' . ($this->Form->isFieldError('picture') ? ' is-invalid' : ''),
+                                'class' => 'form-control' . ($this->Form->isFieldError('image') ? ' is-invalid' : ''),
                                 'id' => 'customFile'
                             ]) ?>
-                            <?php if ($this->Form->isFieldError('picture')): ?>
+                            <?php if ($this->Form->isFieldError('image')): ?>
                                 <div class="invalid-feedback">
-                                    <?= $this->Form->error('picture') ?>
+                                    <?= $this->Form->error('image') ?>
                                 </div>
                             <?php endif; ?>
                         </div>

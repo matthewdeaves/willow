@@ -31,7 +31,7 @@
                         <tr>
                             <th><?= __('Image') ?></th>
                             <td>
-                                <?php if (!empty($user->picture)): ?>
+                                <?php if (!empty($user->image)): ?>
                                     <div class="mb-3">
                                         <?= $this->element('image/icon', ['model' => $user, 'icon' => $user->teenyImageUrl, 'preview' => $user->extraLargeImageUrl]); ?>
                                     </div>

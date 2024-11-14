@@ -79,7 +79,7 @@ class AppController extends Controller
         $identity = $this->Authentication->getIdentity();
 
         if ($identity) {
-            $profilePic = $identity->picture;
+            $profilePic = $identity->image;
             $this->set(compact('profilePic'));
         }
 

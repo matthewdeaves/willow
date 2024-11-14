@@ -66,13 +66,13 @@ class ImagesTableTest extends TestCase
         // Remove the QueueableImage behavior, dont want to trigger this for now
         $this->ImagesTable->removeBehavior('QueueableImage');
 
-        $oldImagePath = WWW_ROOT . 'files/Images/file/old_image.jpg';
+        $oldImagePath = WWW_ROOT . 'files/Images/image/old_image.jpg';
         file_put_contents($oldImagePath, 'dummy content');
 
         $entity = $this->ImagesTable->newEntity([
             'name' => 'Test Image',
             'file' => 'old_image.jpg',
-            'dir' => 'files/Images/file/',
+            'dir' => 'files/Images/image/',
             'size' => 1024,
             'mime' => 'image/jpeg',
         ]);

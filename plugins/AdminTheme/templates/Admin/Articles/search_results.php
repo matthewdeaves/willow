@@ -30,7 +30,7 @@
         <td>
           <?php if (!empty($article->image)) : ?>
           <div class="position-relative">
-            <?= $this->element('image/icon', ['model' => $article, 'icon' => $article->smallImageUrl, 'preview' => $article->largeImageUrl]); ?>
+            <?= $this->element('image/icon',  ['model' => $article, 'icon' => $article->teenyImageUrl, 'preview' => $article->largeImageUrl ]); ?>
           </div>
           <?php endif; ?>
         </td>

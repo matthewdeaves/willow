@@ -29,12 +29,12 @@
                     <?= $this->Form->control('email', ['class' => 'form-control', 'label' => ['class' => 'form-label']]) ?>
                 </div>
                 <div class="mb-3">
-                    <?= $this->Form->control('picture', ['type' => 'file', 'class' => 'form-control', 'label' => ['text' => 'Upload Profile Picture', 'class' => 'form-label']]) ?>
+                    <?= $this->Form->control('image', ['type' => 'file', 'class' => 'form-control', 'label' => ['text' => 'Upload Profile Picture', 'class' => 'form-label']]) ?>
                 </div>
-                <?php if (!empty($user->picture)): ?>
+                <?php if (!empty($user->image)): ?>
                     <div class="mb-3">
-                        <?= $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $user->picture, 
-                            ['pathPrefix' => 'files/Users/picture/',
+                        <?= $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $user->image, 
+                            ['pathPrefix' => 'files/Users/image/',
                             'alt' => $user->alt_text,
                             'class' => 'img-thumbnail'
                         ]) ?>

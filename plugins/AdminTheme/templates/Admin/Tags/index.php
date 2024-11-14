@@ -69,7 +69,7 @@
         <td>
           <?php if (!empty($tag->image)) : ?>
               <div class="position-relative">
-                <?= $this->element('image/icon', ['model' => $tag, 'icon' => $tag->smallImageUrl, 'preview' => $tag->largeImageUrl]); ?>
+                <?= $this->element('image/icon', ['model' => $tag, 'icon' => $tag->teenyImageUrl, 'preview' => $tag->largeImageUrl]); ?>
               </div>
           <?php endif; ?>
         </td>

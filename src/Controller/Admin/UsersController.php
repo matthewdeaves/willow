@@ -50,7 +50,7 @@ class UsersController extends AppController
                 'Users.active',
                 'Users.created',
                 'Users.modified',
-                'Users.picture',
+                'Users.image',
             ]);
 
         if ($statusFilter !== null) {

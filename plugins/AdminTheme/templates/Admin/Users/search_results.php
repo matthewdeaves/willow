@@ -20,9 +20,9 @@
       <?php foreach ($users as $user): ?>
       <tr>
           <td>
-            <?php if (!empty($user->picture)) : ?>
+            <?php if (!empty($user->image)) : ?>
             <div class="position-relative">
-                <?= $this->element('image/icon', ['model' => $image, 'icon' => $image->smallImageUrl, 'preview' => $image->largeImageUrl]); ?>
+                <?= $this->element('image/icon', ['model' => $user, 'icon' => $user->smallImageUrl, 'preview' => $user->largeImageUrl]); ?>
             </div>
             <?php endif; ?>
           </td>

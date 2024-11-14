@@ -36,7 +36,7 @@ class User extends Entity
         'created' => true,
         'modified' => true,
         'articles' => true,
-        'picture' => true,
+        'image' => true,
         'dir' => true,
         'size' => true,
         'mime' => true,

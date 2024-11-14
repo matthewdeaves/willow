@@ -16,6 +16,8 @@ use Cake\ORM\Entity;
  */
 class Image extends Entity
 {
+    use ImageUrlTrait;
+
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *
@@ -29,7 +31,7 @@ class Image extends Entity
         'name' => true,
         'alt_text' => true,
         'keywords' => true,
-        'file' => true,
+        'image' => true,
         'dir' => true,
         'size' => true,
         'mime' => true,

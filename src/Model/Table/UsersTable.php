@@ -30,14 +30,14 @@ class UsersTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('QueueableImage', [
-            'folder_path' => 'files/Users/picture/',
-            'field' => 'picture',
+            'folder_path' => 'files/Users/image/',
+            'field' => 'image',
         ]);
 
         $this->addBehavior('Timestamp');
 
         $this->addBehavior('Josegonzalez/Upload.Upload', [
-            'picture' => [
+            'image' => [
                 'fields' => [
                     'dir' => 'dir',
                     'size' => 'size',
@@ -109,8 +109,8 @@ class UsersTable extends Table
             ->notEmptyString('email');
 
         $validator
-            ->allowEmptyFile('picture')
-            ->add('picture', [
+            ->allowEmptyFile('image')
+            ->add('image', [
                 'mimeType' => [
                     'rule' => ['mimeType', ['image/jpeg', 'image/png', 'image/gif']],
                     'message' => 'Please upload only images (jpeg, png, gif).',
@@ -181,9 +181,9 @@ class UsersTable extends Table
      */
     public function beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): bool
     {
-        if (!$entity->isNew() && $entity->isDirty('picture')) {
-            $originalFilePath = $entity->getOriginal('picture');
-            $fullOriginalFilePath = WWW_ROOT . 'files/Users/picture/' . $originalFilePath;
+        if (!$entity->isNew() && $entity->isDirty('image')) {
+            $originalFilePath = $entity->getOriginal('image');
+            $fullOriginalFilePath = WWW_ROOT . 'files/Users/image/' . $originalFilePath;
             // Delete the old file if it exists
             if ($originalFilePath && file_exists($fullOriginalFilePath)) {
                 unlink($fullOriginalFilePath);

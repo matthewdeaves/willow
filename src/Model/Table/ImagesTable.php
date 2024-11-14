@@ -46,14 +46,14 @@ class ImagesTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('QueueableImage', [
-            'folder_path' => 'files/Images/file/',
-            'field' => 'file',
+            'folder_path' => 'files/Images/image/',
+            'field' => 'image',
         ]);
 
         $this->addBehavior('Timestamp');
 
         $this->addBehavior('Josegonzalez/Upload.Upload', [
-            'file' => [
+            'image' => [
                 'fields' => [
                     'dir' => 'dir',
                     'size' => 'size',
@@ -109,9 +109,9 @@ class ImagesTable extends Table
     {
         $validator = $this->validationDefault($validator);
         $validator
-            ->requirePresence('file', 'create')
-            ->notEmptyFile('file', 'An image file is required')
-            ->add('file', [
+            ->requirePresence('image', 'create')
+            ->notEmptyFile('image', 'An image file is required')
+            ->add('image', [
                 'mimeType' => [
                     'rule' => ['mimeType', ['image/jpeg', 'image/png', 'image/gif']],
                     'message' => 'Please upload only jpeg, png, or gif images.',
@@ -140,14 +140,14 @@ class ImagesTable extends Table
     {
         $validator = $this->validationDefault($validator);
         $validator
-            ->allowEmptyFile('file')
-            ->add('file', [
+            ->allowEmptyFile('image')
+            ->add('image', [
                 'mimeType' => [
                     'rule' => ['mimeType', ['image/jpeg', 'image/png', 'image/gif']],
                     'message' => 'Please upload only jpeg, png, or gif images.',
                     'on' => function ($context) {
-                        return !empty($context['data']['file'])
-                        && $context['data']['file']->getError() === UPLOAD_ERR_OK;
+                        return !empty($context['data']['image'])
+                        && $context['data']['image']->getError() === UPLOAD_ERR_OK;
                     },
                 ],
                 'fileSize' => [
@@ -171,9 +171,9 @@ class ImagesTable extends Table
     public function beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): bool
     {
         //if editing an Image with new upload
-        if (!$entity->isNew() && $entity->isDirty('file')) {
-            $originalFilePath = $entity->getOriginal('file');
-            $fullOriginalFilePath = WWW_ROOT . 'files/Images/file/' . $originalFilePath;
+        if (!$entity->isNew() && $entity->isDirty('image')) {
+            $originalFilePath = $entity->getOriginal('image');
+            $fullOriginalFilePath = WWW_ROOT . 'files/Images/image/' . $originalFilePath;
             // Delete the old file if it exists
             if ($originalFilePath && file_exists($fullOriginalFilePath)) {
                 unlink($fullOriginalFilePath);

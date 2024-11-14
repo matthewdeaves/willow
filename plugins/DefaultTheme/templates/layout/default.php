@@ -116,7 +116,7 @@
                 );
             ?>
         <?php endforeach ?>
-        <a class="nav-item nav-link link-body-emphasis" href="www.github.com/matthewdeaves/willow">GitHub</a>
+        <a class="nav-item nav-link link-body-emphasis" href="https://www.github.com/matthewdeaves/willow">GitHub</a>
     </nav>
   </div>
 </div>

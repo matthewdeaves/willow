@@ -53,12 +53,7 @@
             <?= $this->element('site/articles_list', ['articles' => $recentArticles, 'title' => __('Recent posts')]) ?>
             <?php endif; ?>
 
-            <div class="p-4">
-            <h4 class="fst-italic"><?= __('Elsewhere') ?></h4>
-            <ol class="list-unstyled">
-                <li><a href="https://www.github.com/matthewdeaves/willow">GitHub</a></li>
-            </ol>
-            </div>
+            <?= $this->element('site/elsewhere') ?>
 
           </div>
       </div>

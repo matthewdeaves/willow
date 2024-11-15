@@ -134,6 +134,15 @@ class ArticlesController extends AppController
             });
         }
 
+        $year = $this->request->getQuery('year');
+        $month = $this->request->getQuery('month');
+        if ($year && $month) {
+            $query->where([
+                'YEAR(Articles.published)' => $year,
+                'MONTH(Articles.published)' => $month,
+            ]);
+        }
+
         $articles = $this->paginate($query);
 
         $this->set(compact(

@@ -625,5 +625,5 @@
         "description": "This setting controls if articles on the blog index show their Summary or Body text.",
         "data": "{\n  \"summary\": \"Summary\",\n  \"body\": \"Body\"\n}",
         "column_width": 2
-    },
+    }
 ]

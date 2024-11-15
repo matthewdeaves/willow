@@ -44,7 +44,7 @@
           </li>
         </ul>
         <form class="d-flex-grow-1 me-3" role="search">
-          <input id="articleSearch" type="search" class="form-control" placeholder="<?= __('Search Articles...') ?>" aria-label="Search" value="<?= $this->request->getQuery('search') ?>">
+          <input id="articleSearch" type="search" class="form-control" placeholder="<?= __('Search Blogs...') ?>" aria-label="Search" value="<?= $this->request->getQuery('search') ?>">
         </form>
       </div>
       <div class="flex-shrink-0">

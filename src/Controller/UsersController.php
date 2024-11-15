@@ -238,7 +238,7 @@ class UsersController extends AppController
         if ($confirmation) {
             $user = $this->Users->get($confirmation->user_id);
             $user->setAccess('active', true);
-            $user->active = false;
+            $user->active = true;
 
             if ($this->Users->save($user)) {
                 $confirmationsTable->delete($confirmation);

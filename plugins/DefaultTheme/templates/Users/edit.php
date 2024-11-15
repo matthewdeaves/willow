@@ -8,7 +8,7 @@
             'enctype' => 'multipart/form-data',
             'class' => 'needs-validation', 'novalidate' => true
         ]) ?>
-        <h1 class="h3 mb-3 fw-normal text-center"><?= __('Edit Your Account') ?></h1>
+        <h1 class="h3 mb-3 fw-normal text-center"><?= __('Edit your Account') ?></h1>
 
         <fieldset>
 

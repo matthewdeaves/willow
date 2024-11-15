@@ -2,7 +2,7 @@
 <div class="form-signin w-100 m-auto">
     <?= $this->Flash->render() ?>
     <?= $this->Form->create(null, ['class' => 'needs-validation', 'novalidate' => true]) ?>
-        <h1 class="h3 mb-3 fw-normal"><?= __('Enter your login') ?></h1>
+        <h1 class="h3 mb-3 fw-normal"><?= __('Log In') ?></h1>
 
         <div class="form-floating">
             <?= $this->Form->input('email', [

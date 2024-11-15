@@ -712,8 +712,9 @@ class ArticlesTable extends Table
             ->where($conditions)
             ->contain(['Users', 'Tags'])
             ->orderBy(['Articles.published' => 'DESC'])
-            ->limit(3);
-    
+            ->limit(3)
+            ->cache('recent_articles', 'articles');
+
         return $query->all()->toArray();
     }
 }

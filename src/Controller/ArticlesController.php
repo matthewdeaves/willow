@@ -23,12 +23,25 @@ use Cake\Routing\Router;
  */
 class ArticlesController extends AppController
 {
+    /**
+     * Provides caching functionality for articles.
+     *
+     * This trait handles caching operations for article-related data including
+     * invalidation and retrieval of cached content.
+     */
+    use ArticleCacheTrait;
 
+    /**
+     * Default pagination configuration.
+     *
+     * Defines the default settings for paginating article records.
+     * The limit determines how many articles are displayed per page.
+     *
+     * @var array<string, mixed> $paginate Configuration array for pagination
+     */
     protected array $paginate = [
         'limit' => 6,
     ];
-
-    use ArticleCacheTrait;
 
     /**
      * PageViews Table
@@ -154,7 +167,7 @@ class ArticlesController extends AppController
         if ($this->request->getQuery('page') > 1) {
             $recentArticles = $this->Articles->getRecentArticles();
         }
-        
+
         $this->set(compact(
             'articles',
             'selectedTagId',

@@ -1,4 +1,5 @@
 
+<?php if (!empty($model->image)) : ?>
 <?= $this->Html->image($icon, 
 [
     'pathPrefix' => '', 
@@ -15,3 +16,4 @@
         'class' => 'img-fluid', 
     ])
 ])?>
+<?php endif; ?>

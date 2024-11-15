@@ -23,6 +23,11 @@ use Cake\Routing\Router;
  */
 class ArticlesController extends AppController
 {
+
+    protected array $paginate = [
+        'limit' => 6,
+    ];
+
     use ArticleCacheTrait;
 
     /**
@@ -145,9 +150,15 @@ class ArticlesController extends AppController
 
         $articles = $this->paginate($query);
 
+        $recentArticles = [];
+        if ($this->request->getQuery('page') > 1) {
+            $recentArticles = $this->Articles->getRecentArticles();
+        }
+        
         $this->set(compact(
             'articles',
             'selectedTagId',
+            'recentArticles',
         ));
 
         $this->viewBuilder()->setLayout('article_index');
@@ -276,9 +287,18 @@ class ArticlesController extends AppController
         ->select(['slug', 'title', 'id'])
         ->all();
 
+        $recentArticles = $this->Articles->getRecentArticles(['Articles.id NOT IN' => [$article->id]]);
+
         $this->recordPageView($article->id);
 
-        $this->set(compact('article', 'filterTags', 'childPages', 'selectedTagId', 'crumbs'));
+        $this->set(compact(
+            'article',
+            'filterTags',
+            'childPages',
+            'selectedTagId',
+            'crumbs',
+            'recentArticles'
+        ));
 
         return $this->render($article->kind);
     }

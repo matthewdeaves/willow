@@ -41,17 +41,11 @@
       <div class="col-md-4">
           <div class="position-sticky" style="top: 2rem;">
 
-            <?php if (!empty($childPages)) : ?>
             <?= $this->element('site/articles_list', ['articles' => $childPages, 'title' => __('Related pages')]) ?>
-            <?php endif; ?>
 
-            <?php if (!empty($featuredArticles)) : ?>
-              <?= $this->element('site/articles_list', ['articles' => $featuredArticles, 'title' => __('Featured posts')]) ?>
-            <?php endif; ?>
+            <?= $this->element('site/articles_list', ['articles' => $featuredArticles, 'title' => __('Featured posts')]) ?>
 
-            <?php if (!empty($recentArticles)) : ?>
             <?= $this->element('site/articles_list', ['articles' => $recentArticles, 'title' => __('Recent posts')]) ?>
-            <?php endif; ?>
 
             <?= $this->element('site/elsewhere') ?>
 

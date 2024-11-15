@@ -16,11 +16,20 @@
         <?= $article->published->format('F j, Y') ?> <?= h($article->user->username) ?>
         </p>
     </a>
-    <p><?= $article->lead ?></p>
-    <hr>
-    <?= htmlspecialchars_decode($article->summary); ?>
-    <hr>
-    <?= htmlspecialchars_decode($article->body); ?>
+
+    <?php $displayMode = SettingsManager::read('Blog.articleDisplayMode', 'summary') ?>
+
+    <?php if ($displayMode == 'lead') : ?>
+        <p><?= htmlspecialchars_decode($article->lead) ?></p>
+        <hr>
+    <?php elseif ($displayMode == 'summary') : ?>
+        <?= htmlspecialchars_decode($article->summary); ?>
+        <hr>
+    <?php elseif ($displayMode == 'body') : ?>
+        <?= htmlspecialchars_decode($article->body); ?>
+        <hr>
+    <?php endif; ?>
+
 </article>
 <?php endforeach; ?>
 <script>

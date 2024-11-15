@@ -45,17 +45,13 @@
         <div class="position-sticky" style="top: 2rem;">
 
             <div class="p-4 mb-3 bg-body-tertiary rounded">
-            <h4 class="fst-italic"><?= __('About') ?></h4>
-            <p class="mb-0"><?= __("I'm building a content management system called Willow and I blog about related software development, features and how you can use it too.") ?></p>
+              <h4 class="fst-italic"><?= __('About') ?></h4>
+              <p class="mb-0"><?= __("I'm building a content management system called Willow and I blog about related software development, features and how you can use it too.") ?></p>
             </div>
 
-            <?php if (!empty($featuredArticles)) : ?>
-              <?= $this->element('site/articles_list', ['articles' => $featuredArticles, 'title' => __('Featured posts')]) ?>
-            <?php endif; ?>
+            <?= $this->element('site/articles_list', ['articles' => $featuredArticles, 'title' => __('Featured posts')]) ?>
 
-            <?php if (!empty($recentArticles)) : ?>
             <?= $this->element('site/articles_list', ['articles' => $recentArticles, 'title' => __('Recent posts')]) ?>
-            <?php endif; ?>
 
             <?= $this->element('site/archives') ?>
 

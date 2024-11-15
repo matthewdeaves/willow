@@ -690,4 +690,30 @@ class ArticlesTable extends Table
 
         return $dates;
     }
+
+    /**
+     * Retrieves the most recent published articles.
+     *
+     * This method queries the Articles table to find articles that are of kind 'article' and are published.
+     * It includes associated Users and Tags data, orders the results by the published date in descending order,
+     * and limits the results to the top 3 most recent articles.
+     *
+     * @return array An array of the most recent published articles, including associated Users and Tags data.
+     */
+    public function getRecentArticles(array $additionalConditions = []): array
+    {
+        $conditions = [
+            'Articles.kind' => 'article',
+            'Articles.is_published' => 1,
+        ];
+        $conditions = array_merge($conditions, $additionalConditions);
+
+        $query = $this->find()
+            ->where($conditions)
+            ->contain(['Users', 'Tags'])
+            ->orderBy(['Articles.published' => 'DESC'])
+            ->limit(3);
+    
+        return $query->all()->toArray();
+    }
 }

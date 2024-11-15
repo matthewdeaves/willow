@@ -1,3 +1,4 @@
+<?php if (!empty($articles)) : ?>
 <div>
     <h4 class="fst-italic"><?= $title ?></h4>
     <ul class="list-unstyled">
@@ -21,3 +22,4 @@
     <?php endforeach; ?>
     </ul>
 </div>
+<?php endif; ?>

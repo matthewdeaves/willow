@@ -10,14 +10,10 @@
 
     <h2 class="display-5 link-body-emphasis mb-1"><?= htmlspecialchars_decode($article->title) ?></h2>
 
-
     <?= $this->element('site/crumbs') ?>
 
+    <?= $this->element('image/icon', ['model' => $article, 'icon' => $article->smallImageUrl, 'preview' => $article->largeImageUrl]); ?>
 
-    <?php if (!empty($article->image)) : ?>
-        <?= $this->element('image/icon', ['model' => $article, 'icon' => $article->smallImageUrl, 'preview' => $article->largeImageUrl]); ?>
-    <?php endif; ?>
-    
     <?= htmlspecialchars_decode($article->body) ?>
 
     <div>

@@ -7,15 +7,16 @@
 ?>
 
 <article class="blog-post">
-    <h2 class="display-5 link-body-emphasis mb-1"><?= htmlspecialchars_decode($article->title) ?></h2>
 
-    <?php if (!empty($article->image)) : ?>
-        <?= $this->element('image/icon', ['model' => $article, 'icon' => $article->smallImageUrl, 'preview' => $article->largeImageUrl]); ?>
-    <?php endif; ?>
-    
+    <h2 class="display-5 link-body-emphasis mb-1"><?= htmlspecialchars_decode($article->title) ?></h2>
+    <?= $this->element('image/icon',  ['model' => $article, 'icon' => $article->teenyImageUrl, 'preview' => $article->largeImageUrl ]); ?>
+    <p class="blog-post-meta">
+    <?= $article->published->format('F j, Y') ?> <?= h($article->user->username) ?>
+    </p>
+
     <?= htmlspecialchars_decode($article->body) ?>
 
-    <div>
+    <div class="mb-3">
         <?= $this->element('image_carousel', [
             'images' => $article->images,
             'carouselId' => 'articleImagesCarousel'
@@ -27,8 +28,6 @@
     </div>
 </article>
 
-
-  
 <?php if(
         (SettingsManager::read('Comments.articlesEnabled') && $article->kind == 'article')
         || (SettingsManager::read('Comments.pagesEnabled') && $article->kind == 'page')

@@ -185,7 +185,6 @@ class UsersController extends AppController
      * @param string|null $id The ID of the user to be edited.
      * @return \Cake\Http\Response|null Redirects after editing, or null on GET requests.
      */
-
     public function edit(?string $id = null): ?Response
     {
         $currentUserId = $this->Authentication->getIdentity()->getIdentifier();
@@ -213,7 +212,7 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $data);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Your account has been updated.'));
-            } else{
+            } else {
                 $this->Flash->error(__('Your account could not be updated.'));
             }
         }

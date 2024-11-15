@@ -199,12 +199,12 @@ class UsersController extends AppController
                 'ip' => $this->request->clientIp(),
                 'scope' => ['user'],
             ]);
-            $this->Flash->error(__('You are not authorized to edit this account, stick to your own.'));
+            $this->Flash->error(__('We were unable to find that account.'));
 
             return $this->redirect(['_name' => 'account', $currentUserId]);
         }
 
-        $user = $this->Users->get($id, contain: []);
+        $user = $this->Users->get($this->Authentication->getIdentity()->getIdentifier(), contain: []);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user->setAccess('is_admin', false);

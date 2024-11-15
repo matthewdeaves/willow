@@ -69,21 +69,7 @@
         <td>
           <?php if (!empty($tag->image)) : ?>
               <div class="position-relative">
-                  <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $tag->image, 
-                      ['pathPrefix' => 'files/Tags/image/', 
-                      'alt' => $tag->alt_text, 
-                      'class' => 'img-thumbnail', 
-                      'width' => '50',
-                      'data-bs-toggle' => 'popover',
-                      'data-bs-trigger' => 'hover',
-                      'data-bs-html' => 'true',
-                      'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $tag->image, 
-                          ['pathPrefix' => 'files/Tags/image/', 
-                          'alt' => $tag->alt_text, 
-                          'class' => 'img-fluid', 
-                          'style' => 'max-width: 300px; max-height: 300px;'])
-                      ]) 
-                  ?>
+                <?= $this->element('image/icon', ['model' => $tag, 'icon' => $tag->teenyImageUrl, 'preview' => $tag->largeImageUrl]); ?>
               </div>
           <?php endif; ?>
         </td>

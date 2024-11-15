@@ -37,6 +37,7 @@ use Cake\ORM\Entity;
 class Article extends Entity
 {
     use TranslateTrait;
+    use ImageUrlTrait;
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -51,6 +52,7 @@ class Article extends Entity
         'user_id' => true,
         'title' => true,
         'lead' => true,
+        'featured' => true,
         'slug' => true,
         'body' => true,
         'summary' => true,
@@ -78,17 +80,4 @@ class Article extends Entity
         'size' => true,
         'mime' => true,
     ];
-
-    /**
-     * Retrieves the URL for an image by removing the 'webroot/' prefix from the directory path.
-     *
-     * This method constructs the image URL by concatenating the directory and image name,
-     * and then removes the 'webroot/' part from the path to generate a relative URL.
-     *
-     * @return string The relative URL of the image.
-     */
-    protected function _getImageUrl(): string
-    {
-        return str_replace('webroot/', '', $this->dir . $this->image);
-    }
 }

@@ -95,6 +95,20 @@
             </div>
         <?php endif; ?>
     </div>
+
+    <div class="form-check">
+        <?php echo $this->Form->checkbox('featured', [
+            'class' => 'form-check-input' . ($this->Form->isFieldError('featured') ? ' is-invalid' : '')
+        ]); ?>
+        <label class="form-check-label" for="featured">
+            <?= __('Featured') ?>
+        </label>
+        <?php if ($this->Form->isFieldError('featured')): ?>
+            <div class="invalid-feedback">
+                <?= $this->Form->error('featured') ?>
+            </div>
+        <?php endif; ?>
+    </div>
 </div>
 <div class="mb-3">
     <?php $parentId = $this->request->getQuery('parent_id'); ?>
@@ -132,20 +146,7 @@
 
 <?php if (!empty($article->image)): ?>
     <div class="mb-3">
-    <?= $this->Html->image(SettingsManager::read('ImageSizes.teeny', '200') . '/' . $article->image, 
-        [
-            'pathPrefix' => 'files/Articles/image/',
-            'alt' => $article->alt_text,
-            'class' => 'img-thumbnail',
-            'data-bs-toggle' => 'popover',
-            'data-bs-trigger' => 'hover',
-            'data-bs-html' => 'true',
-            'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.extra-large', '400') . '/' . $article->image,
-                ['pathPrefix' => 'files/Articles/image/',
-                'alt' => $article->alt_text,
-                'class' => 'img-fluid',
-                'style' => 'max-width: 300px; max-height: 300px;'
-        ])]) ?>
+        <?= $this->element('image/icon', ['model' => $article, 'icon' => $article->teenyImageUrl, 'preview' => $article->extraLargeImageUrl]); ?>
     </div>
 <?php endif; ?>
 

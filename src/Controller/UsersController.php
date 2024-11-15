@@ -198,24 +198,23 @@ class UsersController extends AppController
                 'ip' => $this->request->clientIp(),
                 'scope' => ['user'],
             ]);
-            $this->Flash->error(__('You are not authorized to edit this account, stick to your own.'));
+            $this->Flash->error(__('We were unable to find that account.'));
 
-            return $this->redirect(['action' => 'edit', $currentUserId]);
+            return $this->redirect(['_name' => 'account', $currentUserId]);
         }
 
-        $user = $this->Users->get($id, contain: []);
+        $user = $this->Users->get($this->Authentication->getIdentity()->getIdentifier(), contain: []);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user->setAccess('is_admin', false);
             $user->setAccess('active', false);
-            $user = $this->Users->patchEntity($user, $this->request->getData());
+            $data = $this->request->getData();
+            $user = $this->Users->patchEntity($user, $data);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Your account has been updated.'));
-
-                return $this->redirect(['action' => 'edit', $user->id]);
+            } else {
+                $this->Flash->error(__('Your account could not be updated.'));
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
-
-            return $this->response->withStatus(403);
         }
         $this->set(compact('user'));
 
@@ -238,7 +237,7 @@ class UsersController extends AppController
         if ($confirmation) {
             $user = $this->Users->get($confirmation->user_id);
             $user->setAccess('active', true);
-            $user->active = false;
+            $user->active = true;
 
             if ($this->Users->save($user)) {
                 $confirmationsTable->delete($confirmation);

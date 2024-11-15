@@ -50,7 +50,3 @@
         </div>
     </div>
 </div>
-
-<?= $this->Html->script('https://code.jquery.com/jquery-3.5.1.slim.min.js') ?>
-<?= $this->Html->script('https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js') ?>
-<?= $this->Html->script('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js') ?>

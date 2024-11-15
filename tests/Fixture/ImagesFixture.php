@@ -23,7 +23,7 @@ class ImagesFixture extends TestFixture
                 'name' => 'Lorem ipsum dolor sit amet',
                 'alt_text' => 'Lorem ipsum dolor sit amet',
                 'keywords' => 'Lorem ipsum dolor sit amet',
-                'file' => '',
+                'image' => '',
                 'dir' => 'Lorem ipsum dolor sit amet',
                 'size' => 1024,
                 'mime' => 'image/png',

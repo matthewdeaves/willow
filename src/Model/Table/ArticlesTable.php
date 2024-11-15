@@ -569,7 +569,6 @@ class ArticlesTable extends Table
         $conditions = [
             'Articles.kind' => 'page',
         ];
-
         // Merge the default conditions with any additional conditions provided
         $conditions = array_merge($conditions, $additionalConditions);
 
@@ -589,8 +588,133 @@ class ArticlesTable extends Table
                     ]),
             ])
             ->where($conditions)
-            ->orderBy(['lft' => 'ASC']);
+            ->orderBy(['lft' => 'ASC'])
+            ->cache('article_page_tree', 'articles');
 
         return $query->find('threaded')->toArray();
+    }
+
+    /**
+     * Retrieves a list of featured articles with optional additional conditions.
+     *
+     * This method constructs a query to find articles that are marked as featured.
+     * Additional conditions can be provided to further filter the results.
+     * The results are ordered by the 'lft' field in ascending order.
+     *
+     * @param array $additionalConditions An array of additional conditions to apply to the query.
+     * @return array A list of featured articles that match the specified conditions.
+     */
+    public function getFeatured(array $additionalConditions = []): array
+    {
+        $conditions = [
+            'Articles.featured' => 1,
+            'Articles.is_published' => 1,
+        ];
+        $conditions = array_merge($conditions, $additionalConditions);
+        $query = $this->find()
+            ->where($conditions)
+            ->orderBy(['lft' => 'ASC'])
+            ->cache('featured_articles', 'articles');
+
+        $results = $query->all()->toList();
+
+        return $results;
+    }
+
+    /**
+     * Retrieves a list of root pages from the Articles table.
+     *
+     * This method fetches articles that are categorized as 'page', have no parent (i.e., root pages),
+     * and are published. Additional conditions can be provided to further filter the results.
+     *
+     * @param array $additionalConditions An associative array of additional conditions to apply to the query.
+     *                                    These conditions will be merged with the default conditions.
+     * @return array An array of root pages that match the specified conditions,
+     * ordered by the 'lft' field in ascending order.
+     */
+    public function getRootPages(array $additionalConditions = []): array
+    {
+        $conditions = [
+            'Articles.kind' => 'page',
+            'Articles.parent_id IS' => null,
+            'Articles.is_published' => 1,
+        ];
+        $conditions = array_merge($conditions, $additionalConditions);
+        $query = $this->find()
+            ->where($conditions)
+            ->orderBy(['lft' => 'ASC'])
+            ->cache('root_pages', 'articles');
+
+        $results = $query->all()->toList();
+
+        return $results;
+    }
+
+    /**
+     * Gets an array of years and months that have published articles.
+     *
+     * This method queries the articles table to find all unique year/month combinations
+     * where articles were published, organizing them in a hierarchical array structure
+     * with years as keys and months as values. Results are cached using the 'articles'
+     * cache configuration to improve performance.
+     *
+     * @return array An array where keys are years and values are arrays of month numbers
+     *              that have published articles, sorted in descending order.
+     */
+    public function getArchiveDates(): array
+    {
+        $query = $this->find()
+            ->select([
+                'year' => 'YEAR(published)',
+                'month' => 'MONTH(published)',
+            ])
+            ->where([
+                'Articles.is_published' => 1,
+                'Articles.published IS NOT' => null,
+            ])
+            ->group(['year', 'month'])
+            ->orderBy([
+                'year' => 'DESC',
+                'month' => 'DESC',
+            ])
+            ->cache('archive_dates', 'articles');
+
+        $dates = [];
+        foreach ($query as $result) {
+            $year = $result->year;
+            if (!isset($dates[$year])) {
+                $dates[$year] = [];
+            }
+            $dates[$year][] = (int)$result->month;
+        }
+
+        return $dates;
+    }
+
+    /**
+     * Retrieves the most recent published articles.
+     *
+     * This method queries the Articles table to find articles that are of kind 'article' and are published.
+     * It includes associated Users and Tags data, orders the results by the published date in descending order,
+     * and limits the results to the top 3 most recent articles.
+     *
+     * @return array An array of the most recent published articles, including associated Users and Tags data.
+     */
+    public function getRecentArticles(array $additionalConditions = []): array
+    {
+        $conditions = [
+            'Articles.kind' => 'article',
+            'Articles.is_published' => 1,
+        ];
+        $conditions = array_merge($conditions, $additionalConditions);
+
+        $query = $this->find()
+            ->where($conditions)
+            ->contain(['Users', 'Tags'])
+            ->orderBy(['Articles.published' => 'DESC'])
+            ->limit(3)
+            ->cache('recent_articles', 'articles');
+
+        return $query->all()->toArray();
     }
 }

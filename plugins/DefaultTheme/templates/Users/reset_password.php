@@ -1,39 +1,43 @@
-<div class="users reset-password">
-    <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-4">
-            <div class="card mb-4 shadow-sm">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0"><?= __('Reset Password') ?></h3>
-                </div>
-                <div class="card-body">
-                    <?= $this->Flash->render() ?>
-                    <?= $this->Form->create($user, ['url' => ['_name' => 'reset-password', $confirmationCode], 'class' => 'needs-validation', 'novalidate' => true]) ?>
-                    <fieldset>
-                        <legend class="text-center mb-4"><?= __('Please enter your new password') ?></legend>
-                        <div class="mb-3">
-                            <?= $this->Form->control('password', [
-                                'required' => true,
-                                'class' => 'form-control',
-                                'placeholder' => 'Enter your new password',
-                                'label' => false,
-                                'value' => '',
-                            ]) ?>
-                        </div>
-                        <div class="mb-3">
-                            <?= $this->Form->control('password_confirm', [
-                                'type' => 'password',
-                                'required' => true,
-                                'class' => 'form-control',
-                                'placeholder' => 'Confirm your new password',
-                                'label' => false,
-                                'value' => '',
-                            ]) ?>
-                        </div>
-                    </fieldset>
-                    <?= $this->Form->submit(__('Reset Password'), ['class' => 'btn btn-primary w-100']) ?>
-                    <?= $this->Form->end() ?>
-                </div>
+<?php use App\Utility\SettingsManager; ?>
+<div class="col-md-6 container mt-4 mb-3">
+    <div class="row">
+        <?= $this->Flash->render() ?>
+        <?= $this->Form->create($user, ['url' => ['_name' => 'reset-password', $confirmationCode], 'class' => 'needs-validation', 'novalidate' => true]) ?>
+        <h1 class="h3 mb-3 fw-normal text-center"><?= __('Reset Your Password') ?></h1>
+
+        <fieldset>
+
+            <div class="mb-3">
+                <?php echo $this->Form->control('password',
+                    [
+                        'value' => '',
+                        'class' => 'form-control' . ($this->Form->isFieldError('password') ? ' is-invalid' : '')
+                    ]); ?>
+                <?php if ($this->Form->isFieldError('password')): ?>
+                    <div class="invalid-feedback">
+                        <?= $this->Form->error('password') ?>
+                    </div>
+                <?php endif; ?>
             </div>
+
+            <div class="mb-3">
+                <?php echo $this->Form->control('confirm_password',
+                    [
+                        'value' => '',
+                        'type' => 'password',
+                        'class' => 'form-control' . ($this->Form->isFieldError('confirm_password') ? ' is-invalid' : '')
+                    ]); ?>
+                <?php if ($this->Form->isFieldError('confirm_password')): ?>
+                    <div class="invalid-feedback">
+                        <?= $this->Form->error('confirm_password') ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+
+        </fieldset>
+        <div class="form-group">
+            <?= $this->Form->button(__('Reset Password'), ['class' => 'btn btn-primary']) ?>
         </div>
+        <?= $this->Form->end() ?>
     </div>
 </div>

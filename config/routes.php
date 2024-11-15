@@ -126,7 +126,17 @@ return function (RouteBuilder $routes): void {
             ]
         );
 
-        $builder->connect('/users/edit/*', ['controller' => 'Users', 'action' => 'edit'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+        $builder->connect('/users/edit/{id}',
+        [
+            'controller' => 'Users',
+            'action' => 'edit'
+        ],
+        [
+            '_name' => 'account',
+            'routeClass' => 'ADmad/I18n.I18nRoute',
+            'pass' => ['id'],
+        ]);
+
         $builder->connect('/atricles/add-comment/*', ['controller' => 'Articles', 'action' => 'addComment'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
         $builder->connect(
             '/tags',

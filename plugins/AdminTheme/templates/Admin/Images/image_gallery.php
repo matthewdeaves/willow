@@ -11,12 +11,12 @@
             <?php foreach ($images as $image): ?>
                 <div class="col">
                     <div class="card shadow-sm">
-                        <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $image->file, 
+                        <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $image->image, 
                             [
-                                'pathPrefix' => 'files/Images/file/',
+                                'pathPrefix' => 'files/Images/image/',
                                 'alt' => $image->alt_text,
                                 'class' => 'card-img-top insert-image',
-                                'data-src' => $image->file,
+                                'data-src' => $image->image,
                                 'data-id' => $image->id,
                                 'data-alt' => $image->alt_text
                             ]

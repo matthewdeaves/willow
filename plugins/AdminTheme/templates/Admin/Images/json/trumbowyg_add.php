@@ -1,3 +1,3 @@
 <?php
-echo json_encode(array('success'=> 'true', 'file' => $img['file']));
+echo json_encode(array('success'=> 'true', 'file' => $img['image']));
 ?>

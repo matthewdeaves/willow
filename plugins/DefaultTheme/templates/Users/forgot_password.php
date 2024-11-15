@@ -1,31 +1,28 @@
-<div class="users forgot-password">
-    <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-4">
-            <div class="card mb-4 shadow-sm">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0"><?= __('Forgot Password') ?></h3>
-                </div>
-                <div class="card-body">
-                    <?= $this->Flash->render() ?>
-                    <?= $this->Form->create(null, ['url' => ['_name' => 'forgot-password'], 'class' => 'needs-validation', 'novalidate' => true]) ?>
-                    <fieldset>
-                        <legend class="text-center mb-4"><?= __('Please enter your email to reset your password') ?></legend>
-                        <div class="mb-3">
-                            <?= $this->Form->control('email', [
-                                'required' => true,
-                                'class' => 'form-control',
-                                'placeholder' => 'Enter your email',
-                                'label' => false
-                            ]) ?>
-                        </div>
-                    </fieldset>
-                    <?= $this->Form->submit(__('Send Reset Link'), ['class' => 'btn btn-primary w-100']) ?>
-                    <?= $this->Form->end() ?>
-                </div>
-                <div class="card-footer text-center">
-                    <?= $this->Html->link(__('Back to Login'), ['action' => 'login'], ['class' => 'text-muted']) ?>
-                </div>
+<?php use App\Utility\SettingsManager; ?>
+<div class="col-md-6 container mt-4 mb-3">
+    <div class="row">
+        <?= $this->Flash->render() ?>
+        <?= $this->Form->create(null, ['url' => ['_name' => 'forgot-password'], 'class' => 'needs-validation', 'novalidate' => true]) ?>
+        <h1 class="h3 mb-3 fw-normal text-center"><?= __('Reset your password') ?></h1>
+
+        <fieldset>
+
+            <div class="mb-3">
+                <?php echo $this->Form->control('email', ['class' => 'form-control' . ($this->Form->isFieldError('email') ? ' is-invalid' : '')]); ?>
+                <?php if ($this->Form->isFieldError('email')): ?>
+                    <div class="invalid-feedback">
+                        <?= $this->Form->error('email') ?>
+                    </div>
+                <?php endif; ?>
             </div>
+
+        </fieldset>
+        <div class="form-group">
+            <?= $this->Form->button(__('Send Reset Link'), ['class' => 'btn btn-primary']) ?>
+        </div>
+        <?= $this->Form->end() ?>
+        <div class="text-center">
+            <?= $this->Html->link(__('Back to Login'), ['action' => 'login'], ['class' => 'text-muted']) ?>
         </div>
     </div>
 </div>

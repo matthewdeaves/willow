@@ -52,18 +52,18 @@
                             <?php endif; ?>
                         </div>
                         <div class="mb-3">
-                            <?= $this->Form->control('file', [
+                            <?= $this->Form->control('image', [
                                 'type' => 'file',
                                 'label' => [
                                     'text' => __('Image'),
                                     'class' => 'form-label'
                                 ],
-                                'class' => 'form-control' . ($this->Form->isFieldError('file') ? ' is-invalid' : ''),
+                                'class' => 'form-control' . ($this->Form->isFieldError('image') ? ' is-invalid' : ''),
                                 'id' => 'customFile'
                             ]) ?>
-                            <?php if ($this->Form->isFieldError('file')): ?>
+                            <?php if ($this->Form->isFieldError('image')): ?>
                                 <div class="invalid-feedback">
-                                    <?= $this->Form->error('file') ?>
+                                    <?= $this->Form->error('image') ?>
                                 </div>
                             <?php endif; ?>
                         </div>                                                                     

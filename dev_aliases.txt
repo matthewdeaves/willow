@@ -21,11 +21,14 @@ alias phpunit_cov='willowcms_exec php vendor/bin/phpunit --coverage-text'
 alias phpunit_cov_html='willowcms_exec php vendor/bin/phpunit --coverage-html webroot/coverage tests/TestCase/'
 
 # Code Quality Commands
-alias composer_cs_check='willowcms_exec php composer cs-check'
-alias composer_cs_fix='willowcms_exec php composer cs-fix'
+alias composer_cs_check='willowcms_exec composer cs-check'
+alias composer_cs_fix='willowcms_exec composer cs-fix'
 alias phpcs_sniff='willowcms_exec php vendor/bin/phpcs --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/'
 alias phpcs_fix='willowcms_exec php vendor/bin/phpcbf'
 alias phpstan_analyse='willowcms_exec php vendor/bin/phpstan analyse src/'
+
+# Composer Commands
+alias composer_update='willowcms_exec composer update'
 
 # Queue Worker
 alias cake_queue_worker='willowcms_exec bin/cake queue worker'

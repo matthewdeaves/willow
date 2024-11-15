@@ -20,23 +20,9 @@
       <?php foreach ($users as $user): ?>
       <tr>
           <td>
-            <?php if (!empty($user->picture)) : ?>
+            <?php if (!empty($user->image)) : ?>
             <div class="position-relative">
-                <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $user->picture, 
-                    ['pathPrefix' => 'files/Users/picture/', 
-                    'alt' => $user->alt_text, 
-                    'class' => 'img-thumbnail', 
-                    'width' => '50',
-                    'data-bs-toggle' => 'popover',
-                    'data-bs-trigger' => 'hover',
-                    'data-bs-html' => 'true',
-                    'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.large', '400') . '/' . $user->picture, 
-                        ['pathPrefix' => 'files/Users/picture/', 
-                        'alt' => $user->alt_text, 
-                        'class' => 'img-fluid', 
-                        'style' => 'max-width: 300px; max-height: 300px;'])
-                    ]) 
-                ?>
+                <?= $this->element('image/icon', ['model' => $user, 'icon' => $user->tennyImageUrl, 'preview' => $user->largeImageUrl]); ?>
             </div>
             <?php endif; ?>
           </td>

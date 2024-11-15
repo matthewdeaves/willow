@@ -12,9 +12,9 @@
     <div class="carousel-inner">
         <?php foreach ($images as $index => $image): ?>
             <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
-                <?= $this->Html->image(SettingsManager::read('ImageSizes.large', '200') . '/' . $image->file, 
+                <?= $this->Html->image(SettingsManager::read('ImageSizes.large', '200') . '/' . $image->image, 
                 [
-                    'pathPrefix' => 'files/Images/file/',
+                    'pathPrefix' => 'files/Images/image/',
                     'class' => 'd-block w-100',
                     'alt' => $image->alt_text,
                 ]) ?>

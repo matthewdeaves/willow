@@ -47,8 +47,8 @@
                         <div class="col">
                             <div class="card shadow-sm">
                                 <?= $this->Html->image(
-                                    SettingsManager::read('ImageSizes.medium', '200') . '/' . $image->file, [
-                                        'pathPrefix' => 'files/Images/file/',
+                                    SettingsManager::read('ImageSizes.medium', '200') . '/' . $image->image, [
+                                        'pathPrefix' => 'files/Images/image/',
                                         'alt' => $image->alt_text,
                                         'class' => 'card-img-top'
                                 ]) ?>

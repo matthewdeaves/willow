@@ -28,18 +28,24 @@ class ResizeImagesCommand extends Command
      */
     protected array $modelsWithImages = [
         'Users' => [
-            'file' => 'picture',
+            'file' => 'image',
             'dir' => 'dir',
             'size' => 'size',
             'type' => 'mime',
         ],
         'Images' => [
-            'file' => 'file',
+            'file' => 'image',
             'dir' => 'dir',
             'size' => 'size',
             'type' => 'mime',
         ],
         'Articles' => [
+            'file' => 'image',
+            'dir' => 'dir',
+            'size' => 'size',
+            'type' => 'mime',
+        ],
+        'Tags' => [
             'file' => 'image',
             'dir' => 'dir',
             'size' => 'size',
@@ -86,16 +92,16 @@ class ResizeImagesCommand extends Command
         foreach ($this->modelsWithImages as $model => $columns) {
             $imagesTable = $this->fetchTable($model);
             $images = $imagesTable->find('all')
-            ->select(['id', $columns['file'], $columns['dir']])
-            ->where([$columns['file'] . ' IS NOT' => null])
+            ->select(['id', $columns['image'], $columns['dir']])
+            ->where([$columns['image'] . ' IS NOT' => null])
             ->toArray();
 
             foreach ($images as $image) {
                 $folder = ROOT . DS . $image->dir;
-                $original = $folder . $image->{$columns['file']};
+                $original = $folder . $image->{$columns['image']};
                 if (file_exists($original)) {
                     foreach (SettingsManager::read('ImageSizes') as $width) {
-                        $this->createImage($folder, $image->{$columns['file']}, intval($width));
+                        $this->createImage($folder, $image->{$columns['image']}, intval($width));
                     }
                 }
             }

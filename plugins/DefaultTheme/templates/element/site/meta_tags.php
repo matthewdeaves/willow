@@ -3,6 +3,10 @@
     <title><?= h($model->meta_title ?: $model->title) ?></title>
     <meta name="description" content="<?= h($model->meta_description ?: substr(strip_tags($model->description ?? $model->body ?? ''), 0, 160)) ?>">
     <meta name="keywords" content="<?= h($model->meta_keywords) ?>">
+
+    <!-- todo -- do we need this -->
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.122.0">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">

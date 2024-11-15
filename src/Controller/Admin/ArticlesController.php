@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 
 use App\Controller\AppController;
 use App\Model\Table\Trait\ArticleCacheTrait;
+use Cake\Cache\Cache;
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Http\Response;
 use Exception;
@@ -99,6 +100,7 @@ class ArticlesController extends AppController
                 'Articles.title',
                 'Articles.slug',
                 'Articles.image',
+                'Articles.dir',
                 'Articles.alt_text',
                 'Articles.created',
                 'Articles.modified',
@@ -211,6 +213,7 @@ class ArticlesController extends AppController
             if ($this->Articles->save($article)) {
                 // Clear the cache for this new article
                 $this->clearFromCache($article->slug);
+                Cache::clear('articles');
 
                 $this->Flash->success(__('The article has been saved.'));
 
@@ -283,6 +286,7 @@ class ArticlesController extends AppController
                 // Clear cache for both old and new slugs
                 $this->clearFromCache($oldSlug);
                 $this->clearFromCache($article->slug);
+                Cache::clear('articles');
 
                 $this->Flash->success(__('The article has been saved.'));
 

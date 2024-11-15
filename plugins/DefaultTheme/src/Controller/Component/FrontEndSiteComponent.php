@@ -44,84 +44,18 @@ class FrontEndSiteComponent extends Component
 
         // Check if we're not in the admin area
         if ($controller->getRequest()->getParam('prefix') !== 'Admin') {
-            $articleTree = $this->getArticleTree();
-            $tagTree = $this->getTags();
+            $articlesTable = $this->getController()->fetchTable('Articles');
+            $tagsTable = $this->getController()->fetchTable('Tags');
 
-            $controller->set('articleTreeMenu', $articleTree);
-            $controller->set('tagTreeMenu', $tagTree);
+            $rootPages = $articlesTable->getRootPages();
+            $featuredArticles = $articlesTable->getFeatured();
+            $rootTags = $tagsTable->getRootTags();
+            $articleArchives = $articlesTable->getArchiveDates();
+
+            $controller->set(compact('rootPages', 'rootTags', 'featuredArticles', 'articleArchives'));
         }
 
         $controller->set('siteLanguages', I18nManager::getEnabledLanguages());
         $controller->set('selectedSiteLanguage', $controller->getRequest()->getParam('lang', 'en'));
-    }
-
-    /**
-     * Retrieves the tree of published articles that are marked as pages.
-     *
-     * This method fetches all published articles with kind = page
-     * and organizes them into a hierarchical tree structure.
-     *
-     * @return \Cake\ORM\Query The query result containing the article tree.
-     */
-    protected function getArticleTree()
-    {
-        $articlesTable = $this->getController()->fetchTable('Articles');
-
-        $conditions = [
-            'Articles.is_published' => 1,
-        ];
-
-        return $articlesTable->getPageTree($conditions);
-    }
-
-    /**
-     * Retrieves all tags with their associated articles.
-     *
-     * This method fetches all tags, ordered alphabetically, along with
-     * their associated articles. For each article, it selects only
-     * specific fields and orders them by creation date.
-     *
-     * @return \Cake\ORM\ResultSet The result set containing all tags with their articles.
-     */
-    protected function getTags()
-    {
-        $tagsTable = $this->getController()->fetchTable('Tags');
-        $query = $tagsTable->find()
-            ->select([
-                'Tags.id',
-                'Tags.title',
-                'Tags.slug',
-                'Tags.description',
-                'Tags.created',
-                'Tags.modified',
-                'Tags.meta_title',
-                'Tags.meta_description',
-                'Tags.meta_keywords',
-                'Tags.facebook_description',
-                'Tags.linkedin_description',
-                'Tags.instagram_description',
-                'Tags.twitter_description'
-            ])
-            ->innerJoinWith('Articles', function ($q) {
-                return $q->where(['Articles.is_published' => true]);
-            })
-            ->groupBy([
-                'Tags.id',
-                'Tags.title',
-                'Tags.slug',
-                'Tags.description',
-                'Tags.created',
-                'Tags.modified',
-                'Tags.meta_title',
-                'Tags.meta_description',
-                'Tags.meta_keywords',
-                'Tags.facebook_description',
-                'Tags.linkedin_description',
-                'Tags.instagram_description',
-                'Tags.twitter_description'
-            ])
-            ->orderBy(['Tags.title' => 'ASC']);
-    
-        return $query->all();
     }
 }

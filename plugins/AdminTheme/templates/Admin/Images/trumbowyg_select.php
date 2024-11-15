@@ -23,7 +23,7 @@ $(document).ready(function() {
             var imageAlt = $(this).data('alt');
             var imageSize = $('#' + imageId + '_size').val();
 
-            var imageHtml = '<img src="/files/Images/file/' + imageSize + '/' + imageSrc + '" alt="' + imageAlt + '" class="img-fluid" />';
+            var imageHtml = '<img src="/files/Images/image/' + imageSize + '/' + imageSrc + '" alt="' + imageAlt + '" class="img-fluid" />';
 
             var trumbowyg = $('#article-body').data('trumbowyg');
             if (trumbowyg) {

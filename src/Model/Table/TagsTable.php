@@ -266,4 +266,27 @@ class TagsTable extends Table
             return $accumulator;
         }, []);
     }
+
+    /**
+     * Retrieves the root tags from the database.
+     *
+     * This method finds all tags that do not have a parent, indicating they are root tags.
+     * The results are ordered by the 'lft' field in ascending order.
+     *
+     * @return array An array of containing the root tags taht match the conditions.
+     */
+    public function getRootTags(array $additionalConditions = []): array
+    {
+        $conditions = [
+            'Tags.parent_id IS' => null,
+        ];
+        $conditions = array_merge($conditions, $additionalConditions);
+        $query = $this->find()
+            ->where($conditions)
+            ->orderBy(['lft' => 'ASC']);
+
+        $results = $query->all()->toList();
+
+        return $results;
+    }
 }

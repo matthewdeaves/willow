@@ -10,10 +10,10 @@ use Cake\Core\Configure;
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= SettingsManager::read('SEO.siteName', 'Willow CMS') ?>: <?= $this->fetch('title') ?></title>
     <?= $this->Html->meta('icon') ?>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <?= $this->Html->css('AdminTheme.willow-admin') ?>
     <?= $this->Html->script('AdminTheme.image-preview') ?>
+    <?= $this->Html->script('https://code.jquery.com/jquery-3.7.1.min.js'); ?>
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
@@ -115,7 +115,7 @@ use Cake\Core\Configure;
         <div class="collapse navbar-collapse" id="navbarsExample03">
           <ul class="navbar-nav me-auto mb-2 mb-sm-0">
             <li class="nav-item">
-                <?= $this->Html->link(__('Articles'),
+                <?= $this->Html->link(__('Blogs'),
                   [
                     'prefix' => 'Admin',
                     'controller' => 'Articles',
@@ -213,33 +213,7 @@ use Cake\Core\Configure;
             </li>
           </ul>
           <div class="d-flex align-items-center">
-            <div class="flex-shrink-0 dropdown ms-auto">
-              <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <?php if (isset($profilePic)) : ?>
-                <?= $this->Html->image(
-                  SettingsManager::read('ImageSizes.teeny', '200') . '/' . $profilePic, [
-                    'pathPrefix' => 'files/Users/picture/',
-                    'class' => 'rounded-circle',
-                    'width' => '32',
-                    'height' => '32',
-                  ]); ?>
-                <?php else: ?>
-                  <img src="/img/willow-icon.png" width="32" height="32" class="rounded-circle">
-                <?php endif; ?>
-              </a>
-              <ul class="dropdown-menu dropdown-menu-end text-small shadow">
-                <li>
-                <?= $this->Html->link(__('Front Site'), '/', ['class' => 'dropdown-item']) ?>
-                </li>
-                <li>
-                <?= $this->Html->link(__('My Account'), ['prefix' => 'Admin', 'controller' => 'Users', 'action' => 'view', $this->Identity->get('id')], ['class' => 'dropdown-item']) ?>
-                </li>
-                <li><hr class="dropdown-divider"></li>
-                <li>
-                    <?= $this->Html->link(__('Logout'), ['prefix' => 'Admin', 'controller' => 'Users', 'action' => 'logout'], ['class' => 'dropdown-item']) ?>
-                </li>
-              </ul>
-            </div>
+            <?= $this->element('user_actions') ?>
           </div>
         </div>
       </div>

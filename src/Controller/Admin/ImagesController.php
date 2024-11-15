@@ -50,7 +50,7 @@ class ImagesController extends AppController
             ->select([
                 'Images.id',
                 'Images.name',
-                'Images.file',
+                'Images.image',
                 'Images.dir',
                 'Images.alt_text',
                 'Images.keywords',
@@ -176,12 +176,12 @@ class ImagesController extends AppController
     public function bulkUpload(): ?Response
     {
         if ($this->request->is('ajax')) {
-            $uploadedFile = $this->request->getUploadedFile('file');
+            $uploadedFile = $this->request->getUploadedFile('image');
             if ($uploadedFile && $uploadedFile->getError() === UPLOAD_ERR_OK) {
                 $image = $this->Images->newEmptyEntity();
                 $originalFilename = $uploadedFile->getClientFilename();
                 $data = [
-                    'file' => $uploadedFile,
+                    'image' => $uploadedFile,
                     'name' => pathinfo($originalFilename, PATHINFO_FILENAME),
                 ];
                 $image = $this->Images->patchEntity($image, $data, ['validate' => 'create']);

@@ -398,7 +398,7 @@
     {
         "ordering": 2,
         "category": "ImageSizes",
-        "key_name": "extra-large",
+        "key_name": "extraLarge",
         "value": "500",
         "value_type": "numeric",
         "value_obscure": false,
@@ -613,6 +613,17 @@
         "value_obscure": false,
         "description": "Enable or disable the automatic image analysis feature to enhance your content's accessibility. When activated, the system will examine each images to generate relevant keywords and descriptive alt text. This functionality ensures that images are appropriately tagged, improving SEO and providing a better experience for users who rely on screen readers.",
         "data": null,
+        "column_width": 2
+    },
+    {
+        "ordering": 0,
+        "category": "Blog",
+        "key_name": "articleDisplayMode",
+        "value": "summary",
+        "value_type": "select",
+        "value_obscure": false,
+        "description": "This setting controls if articles on the blog index show their Summary or Body text.",
+        "data": "{\n  \"summary\": \"Summary\",\n  \"body\": \"Body\"\n}",
         "column_width": 2
     }
 ]

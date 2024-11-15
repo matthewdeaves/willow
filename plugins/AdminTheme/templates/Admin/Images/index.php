@@ -54,21 +54,7 @@
     <tr>
             <td>
                 <div class="position-relative">
-                    <?= $this->Html->image(SettingsManager::read('ImageSizes.teeny', '200') . '/' . $image->file, 
-                        [
-                            'pathPrefix' => 'files/Images/file/', 
-                            'alt' => $image->alt_text, 
-                            'class' => 'img-thumbnail', 
-                            'data-bs-toggle' => 'popover', 
-                            'data-bs-trigger' => 'hover', 
-                            'data-bs-html' => 'true', 
-                            'data-bs-content' => $this->Html->image(SettingsManager::read('ImageSizes.extra-large', '400') . '/' . $image->file, 
-                            [
-                                'pathPrefix' => 'files/Images/file/', 
-                                'alt' => $image->alt_text, 
-                                'class' => 'img-fluid', 
-                                'style' => 'max-width: 300px; max-height: 300px;'
-                            ])]) ?>
+                    <?= $this->element('image/icon', ['model' => $image, 'icon' => $image->teenyImageUrl, 'preview' => $image->extraLargeImageUrl]); ?>
                 </div>
             </td>
             <td><?= h($image->name) ?></td>

@@ -75,6 +75,11 @@ class V1 extends AbstractMigration
                 'limit' => 10,
                 'null' => false,
             ])
+            ->addColumn('featured', 'boolean', [
+                'default' => false,
+                'limit' => null,
+                'null' => false,
+            ])
             ->addColumn('title', 'string', [
                 'default' => null,
                 'limit' => 255,
@@ -461,7 +466,7 @@ class V1 extends AbstractMigration
                 'limit' => 255,
                 'null' => true,
             ])
-            ->addColumn('file', 'string', [
+            ->addColumn('image', 'string', [
                 'default' => null,
                 'limit' => 255,
                 'null' => false,
@@ -977,7 +982,7 @@ class V1 extends AbstractMigration
                 'limit' => 255,
                 'null' => false,
             ])
-            ->addColumn('picture', 'string', [
+            ->addColumn('image', 'string', [
                 'default' => null,
                 'limit' => 255,
                 'null' => true,

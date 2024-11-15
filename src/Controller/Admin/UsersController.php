@@ -50,7 +50,8 @@ class UsersController extends AppController
                 'Users.active',
                 'Users.created',
                 'Users.modified',
-                'Users.picture',
+                'Users.image',
+                'Users.dir',
             ]);
 
         if ($statusFilter !== null) {
@@ -73,6 +74,7 @@ class UsersController extends AppController
 
             return $this->render('search_results');
         }
+
         $this->set(compact('users'));
 
         return null;

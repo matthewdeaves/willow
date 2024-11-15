@@ -23,7 +23,25 @@ use Cake\Routing\Router;
  */
 class ArticlesController extends AppController
 {
+    /**
+     * Provides caching functionality for articles.
+     *
+     * This trait handles caching operations for article-related data including
+     * invalidation and retrieval of cached content.
+     */
     use ArticleCacheTrait;
+
+    /**
+     * Default pagination configuration.
+     *
+     * Defines the default settings for paginating article records.
+     * The limit determines how many articles are displayed per page.
+     *
+     * @var array<string, mixed> $paginate Configuration array for pagination
+     */
+    protected array $paginate = [
+        'limit' => 6,
+    ];
 
     /**
      * PageViews Table
@@ -134,11 +152,31 @@ class ArticlesController extends AppController
             });
         }
 
+        $year = $this->request->getQuery('year');
+        $month = $this->request->getQuery('month');
+
+        if ($year) {
+            $conditions = ['YEAR(Articles.published)' => $year];
+            if ($month) {
+                $conditions['MONTH(Articles.published)'] = $month;
+            }
+            $query->where($conditions);
+        }
+
         $articles = $this->paginate($query);
 
-        $filterTags = $this->getFilterTags();
+        $recentArticles = [];
+        if ($this->request->getQuery('page') > 1) {
+            $recentArticles = $this->Articles->getRecentArticles();
+        }
 
-        $this->set(compact('articles', 'filterTags', 'selectedTagId'));
+        $this->set(compact(
+            'articles',
+            'selectedTagId',
+            'recentArticles',
+        ));
+
+        $this->viewBuilder()->setLayout('article_index');
     }
 
     /**
@@ -249,17 +287,35 @@ class ArticlesController extends AppController
             $this->setToCache($article->slug, $article);
         }
 
+        $this->viewBuilder()->setLayout($article->kind);
+
         $filterTags = $this->getFilterTags();
         $selectedTagId = false;
 
-        // Get the child pages for the current article
-        $childPages = $this->Articles->find('children', for: $article->id)->toArray();
+        // Get the child pages and breadcrumbs for the current article
+        $childPages = $this->Articles->find('children', for: $article->id)
+            ->order(['lft' => 'ASC'])
+            ->toArray();
+
+        // Breadcrumbs
+        $crumbs = $this->Articles->find('path', for: $article->id)
+        ->select(['slug', 'title', 'id'])
+        ->all();
+
+        $recentArticles = $this->Articles->getRecentArticles(['Articles.id NOT IN' => [$article->id]]);
 
         $this->recordPageView($article->id);
 
-        $this->set(compact('article', 'filterTags', 'childPages', 'selectedTagId'));
+        $this->set(compact(
+            'article',
+            'filterTags',
+            'childPages',
+            'selectedTagId',
+            'crumbs',
+            'recentArticles'
+        ));
 
-        return null;
+        return $this->render($article->kind);
     }
 
     /**

@@ -1,102 +1,46 @@
 <?php use App\Utility\SettingsManager; ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+  <head>
+    <?= $this->Html->script('AdminTheme.color-modes') ?>
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <?= $this->element('meta_tags', ['model' => $article ?? $tag ?? null]) ?>
-    
+    <?= $this->element('site/meta_tags', ['model' => $article ?? $tag ?? null]) ?>
+    <title><?= SettingsManager::read('SEO.siteName', 'Willow CMS') ?>: <?= $this->fetch('title') ?></title>
+    <link rel="canonical" href=""> <!-- do we need this -->
     <?= $this->Html->meta('icon') ?>
-
-    <?= $this->Html->css(['https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css']) ?>
-    <?= $this->Html->css('/DefaultTheme/css/willow.css') ?>
-    <?= $this->Html->script(['https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js']) ?>
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <?= $this->Html->css('DefaultTheme.willow') ?>
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
+    <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
+    <?= $this->Html->scriptBlock(sprintf(
+        'var csrfToken = %s;',
+        json_encode($this->request->getAttribute('csrfToken'))
+    )); ?>
 </head>
-<body class="d-flex flex-column min-vh-100 bg-light">
-    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
-        <div class="container-fluid">
-            <?= $this->Html->link(SettingsManager::read('SEO.siteStrapline', 'Default strapline'), '/', ['class' => 'navbar-brand']) ?>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <?= $this->element('page_main_menu', ['articleTreeMenu' => $articleTreeMenu]) ?>
-                <ul class="navbar-nav ms-right">
-                    <?php if ($this->Identity->isLoggedIn()): ?>
-                        <li class="nav-item">
-                            <?= $this->Html->link(__('Account'), ['controller' => 'Users', 'action' => 'edit', $this->Identity->get('id')], ['class' => 'nav-link']) ?>
-                        </li>
-                        <?php if ($this->Identity->get('is_admin')): ?>
-                            <li class="nav-item">
-                                <?= $this->Html->link(__('Admin'), ['prefix' => 'Admin', 'controller' => 'Articles', 'action' => 'index'], ['class' => 'nav-link']) ?>
-                            </li>
-                        <?php endif; ?>
-                        <li class="nav-item">
-                            <?= $this->Html->link(__('Logout'), ['_name' => 'logout'], ['class' => 'nav-link']) ?>
-                        </li>
-                    <?php else: ?>
-                        <li class="nav-item">
-                            <?= $this->Html->link(__('Login'), ['controller' => 'Users', 'action' => 'login'], ['class' => 'nav-link']) ?>
-                        </li>
-                        <?php if (SettingsManager::read('Users.registrationEnabled', false)) :?>
-                        <li class="nav-item">
-                            <?= $this->Html->link(__('Register'), ['controller' => 'Users', 'action' => 'register'], ['class' => 'nav-link']) ?>
-                        </li>
-                        <?php endif; ?>
-                    <?php endif; ?>
-                </ul>
-            </div>
-        </div>
-    </nav>
+  <body>
+  <?= $this->element('site/bootstrap') ?>
 
-    <!--
-    <?php if (!empty($childPages)) : ?>
-        <nav class="navbar navbar-expand-md navbar-dark bg-secondary d-block d-md-none">
-            <div class="navbar-collapse justify-content-center" id="navbarNav">
-                <?= $this->element('child_page_menu', ['childPages' => $childPages]) ?>
-            </div>
-        </nav>
-    <?php endif; ?>
-    -->
+<div class="container">
 
-    <main class="container-fluid pt-3">
-        <div class="container-fluid">
-            <?php if(!empty($filterTags)) : ?>
-                <div class="collapse d-none d-lg-block" id="sidebarMenu">
-                    <?= $this->element('tag_filters', ['tags' => $filterTags, 'selectedTagId' => $selectedTagId]) ?>
-                </div>
-            <?php endif; ?>
-            <div class="row">
-                <div class="col-lg-2 mb-4">
-                    <div class="collapse d-none d-lg-block" id="sidebarMenu">
-                        <?php if (in_array($this->request->getParam('_name'), ['page-by-slug'])): ?>
-                            <?= $this->element('page_menu', ['articleTreeMenu' => $articleTreeMenu]) ?>
-                        <?php endif; ?>
-                        <?php if (in_array($this->request->getParam('_name'), ['home', 'article-by-slug', 'tag-by-slug', 'tags-index'])): ?>
-                            <?= $this->element('tag_menu', ['tags' => $tagTreeMenu]) ?>
-                        <?php endif; ?>
-                    </div>
-                </div>
-                <div class="col-lg-10">
-                    <?= $this->Flash->render() ?>
-                    <?= $this->fetch('content') ?>
-                </div>
-            </div>
-        </div>
-    </main>
-    <footer class="footer mt-auto py-3 bg-dark">
-        <div class="container text-center">
-            <?= $this->element('site_language', ['languages' => $siteLanguages, 'selectedSiteLanguage' => $selectedSiteLanguage]) ?>
-        </div>
-        <div class="container text-center">
-            <span class="text-white">&copy; <?= date('Y') ?> <?= SettingsManager::read('SEO.siteName', 'Willow CMS') ?>. <?= __('All rights reserved.') ?></span>
-        </div>
-    </footer>
-    <?= $this->fetch('script') ?>
-</body>
+  <?= $this->element('site/header'); ?>
+
+  <?= $this->element('site/main_menu', ['mbAmount' => 3]); ?>
+
+</div>
+<main class="container">
+  <div class="row g-5">
+    <div class="col-md-12">
+        <?= $this->Flash->render() ?>
+        <?= $this->fetch('content') ?>
+    </div>
+  </div>
+</main>
+
+<?= $this->element('site/footer'); ?>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    </body>
 </html>

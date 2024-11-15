@@ -25,11 +25,11 @@
                             <td><?= h($image->name) ?></td>
                         </tr>
                         <tr>
-                            <?php if (!empty($image->file)): ?>
+                            <?php if (!empty($image->image)): ?>
                                 <div class="mb-3">
-                                <?= $this->Html->image(SettingsManager::read('ImageSizes.large', '200') . '/' . $image->file, 
+                                <?= $this->Html->image(SettingsManager::read('ImageSizes.large', '200') . '/' . $image->image, 
                                     [
-                                        'pathPrefix' => 'files/Images/file/',
+                                        'pathPrefix' => 'files/Images/image/',
                                         'alt' => $image->alt_text,
                                         'class' => 'img-thumbnail',
                                     ])?>

@@ -44,7 +44,7 @@
           </li>
         </ul>
         <form class="d-flex-grow-1 me-3" role="search">
-          <input id="articleSearch" type="search" class="form-control" placeholder="<?= __('Search Articles...') ?>" aria-label="Search" value="<?= $this->request->getQuery('search') ?>">
+          <input id="articleSearch" type="search" class="form-control" placeholder="<?= __('Search Blogs...') ?>" aria-label="Search" value="<?= $this->request->getQuery('search') ?>">
         </form>
       </div>
       <div class="flex-shrink-0">
@@ -77,24 +77,7 @@
         <td>
           <?php if (!empty($article->image)) : ?>
           <div class="position-relative">
-            <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $article->image, 
-              [
-                'pathPrefix' => 'files/Articles/image/', 
-                'alt' => $article->alt_text, 
-                'class' => 'img-thumbnail', 
-                'width' => '50',
-                'data-bs-toggle' => 'popover',
-                'data-bs-trigger' => 'hover',
-                'data-bs-html' => 'true',
-                'data-bs-content' => $this->Html->image(
-                  SettingsManager::read('ImageSizes.large', '400') . '/' . $article->image, 
-                  [
-                    'pathPrefix' => 'files/Articles/image/', 
-                    'alt' => $article->alt_text, 
-                    'class' => 'img-fluid', 
-                    'style' => 'max-width: 300px; max-height: 300px;'
-                  ])
-              ])?>
+            <?= $this->element('image/icon',  ['model' => $article, 'icon' => $article->teenyImageUrl, 'preview' => $article->largeImageUrl ]); ?>
           </div>
           <?php endif; ?>
         </td>

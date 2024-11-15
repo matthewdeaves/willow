@@ -185,6 +185,7 @@ class UsersController extends AppController
      * @param string|null $id The ID of the user to be edited.
      * @return \Cake\Http\Response|null Redirects after editing, or null on GET requests.
      */
+
     public function edit(?string $id = null): ?Response
     {
         $currentUserId = $this->Authentication->getIdentity()->getIdentifier();
@@ -200,22 +201,21 @@ class UsersController extends AppController
             ]);
             $this->Flash->error(__('You are not authorized to edit this account, stick to your own.'));
 
-            return $this->redirect(['action' => 'edit', $currentUserId]);
+            return $this->redirect(['_name' => 'account', $currentUserId]);
         }
 
         $user = $this->Users->get($id, contain: []);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user->setAccess('is_admin', false);
             $user->setAccess('active', false);
-            $user = $this->Users->patchEntity($user, $this->request->getData());
+            $data = $this->request->getData();
+            $user = $this->Users->patchEntity($user, $data);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Your account has been updated.'));
-
-                return $this->redirect(['action' => 'edit', $user->id]);
+            } else{
+                $this->Flash->error(__('Your account could not be updated.'));
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
-
-            return $this->response->withStatus(403);
         }
         $this->set(compact('user'));
 

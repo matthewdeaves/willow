@@ -10,14 +10,15 @@ $this->Paginator->setTemplates([
     'counterPages' => __('Page {{page}} of {{pages}}'),
 ]);
 
-// Set the correct URL options for pagination
 $this->Paginator->options([
     'url' => [
         'lang' => $this->request->getParam('lang'),
         '_name' => 'home',
-        '?' => [
+        '?' => array_filter([
             'tag' => $this->request->getQuery('tag'),
-        ]
+            'year' => $this->request->getQuery('year'),
+            'month' => $this->request->getQuery('month'),
+        ])
     ]
 ]);
 ?>

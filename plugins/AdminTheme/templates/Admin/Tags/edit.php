@@ -5,7 +5,6 @@
  * @var string[]|\Cake\Collection\CollectionInterface $articles
  */
 ?>
-<?= $this->Html->script('https://code.jquery.com/jquery-3.6.0.min.js'); ?>
 <div class="container mt-4">
     <div class="row">
         <?php

@@ -51,6 +51,9 @@ class GenerateArticlesCommand extends Command
         $parser->addArgument('count', [
             'help' => __('Number of articles to generate'),
             'required' => true,
+        ])->addOption('delete', [
+            'help' => __('Delete all articles before generating new ones'),
+            'boolean' => true,
         ]);
 
         return $parser;
@@ -65,6 +68,11 @@ class GenerateArticlesCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io): ?int
     {
+        if ($args->getOption('delete')) {
+            $this->Articles->deleteAll([]);
+            $io->out(__('All articles have been deleted.'));
+        }
+
         $count = (int)$args->getArgument('count');
         $io->out(__('Generating {0} articles...', $count));
 
@@ -74,7 +82,11 @@ class GenerateArticlesCommand extends Command
         for ($i = 0; $i < $count; $i++) {
             $article = $this->generateArticle();
 
+            $publishedDate = $article->published;
+
             if ($this->Articles->save($article, ['associated' => ['Tags']])) {
+                $article->punlished = $publishedDate;
+                $this->Articles->save($article);
                 $io->out(__('Generated article: {0}', $article->title));
                 $successCount++;
             } else {
@@ -104,8 +116,11 @@ class GenerateArticlesCommand extends Command
      */
     private function generateArticle(): Article
     {
-        $title = __('Generated Article {0}', uniqid());
-        $content = __('This is a generated article content. {0}', uniqid());
+        // Generate shorter content to ensure it fits database constraints
+        $title = $this->generateRandomText(100);
+        $lead = $this->generateRandomText(200);
+        $summary = $this->generateRandomText(50, true);
+        $body = $this->generateRandomText(200, true);
 
         // Generate a random date between 2000 and now
         $year = rand(2000, (int)date('Y'));
@@ -120,10 +135,12 @@ class GenerateArticlesCommand extends Command
         // Create new article entity
         $article = $this->Articles->newEmptyEntity();
         $article->title = $title;
+        $article->lead = $lead;
+        $article->summary = $summary;
+        $article->body = $body;
         $article->slug = ''; // Will be auto-generated
         $article->user_id = $this->adminUserId;
         $article->kind = 'article';
-        $article->body = $content;
         $article->is_published = true;
         $article->published = $publishedDate;
 
@@ -154,6 +171,64 @@ class GenerateArticlesCommand extends Command
         }
 
         return $article;
+    }
+
+    /**
+     * Generate random text
+     *
+     * @param int $maxLength Maximum length of the text
+     * @param bool $isWordCount Whether the length is in words
+     * @return string Random text
+     */
+    private function generateRandomText(int $maxLength, bool $isWordCount = false): string
+    {
+        if ($isWordCount) {
+            // Generate by word count
+            $words = [];
+            for ($i = 0; $i < $maxLength; $i++) {
+                $wordLength = rand(3, 10);
+                $word = '';
+                for ($j = 0; $j < $wordLength; $j++) {
+                    $word .= chr(rand(97, 122));
+                }
+                $words[] = $word;
+            }
+
+            return implode(' ', $words);
+        }
+
+        // Generate by character count
+        $text = '';
+        $currentLength = 0;
+
+        while ($currentLength < $maxLength) {
+            // Calculate remaining space
+            $remainingSpace = $maxLength - $currentLength;
+
+            // If we have very limited space left, just add a few characters
+            if ($remainingSpace <= 4) {
+                $text .= substr(str_shuffle('abcdefghijklmnopqrstuvwxyz'), 0, $remainingSpace);
+                break;
+            }
+
+            // Generate a word that will fit in remaining space (including a space character)
+            $maxWordLength = min(10, $remainingSpace - 1);
+            $wordLength = rand(3, $maxWordLength);
+            $word = '';
+            for ($j = 0; $j < $wordLength; $j++) {
+                $word .= chr(rand(97, 122));
+            }
+
+            // Add word and space if it fits
+            if (strlen($text . $word . ' ') <= $maxLength) {
+                $text .= $word . ' ';
+                $currentLength = strlen($text);
+            } else {
+                break;
+            }
+        }
+
+        return trim($text);
     }
 
     /**

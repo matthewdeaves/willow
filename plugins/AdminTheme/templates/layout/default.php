@@ -115,7 +115,7 @@ use Cake\Core\Configure;
         <div class="collapse navbar-collapse" id="navbarsExample03">
           <ul class="navbar-nav me-auto mb-2 mb-sm-0">
             <li class="nav-item">
-                <?= $this->Html->link(__('Blogs'),
+                <?= $this->Html->link(__('Posts'),
                   [
                     'prefix' => 'Admin',
                     'controller' => 'Articles',

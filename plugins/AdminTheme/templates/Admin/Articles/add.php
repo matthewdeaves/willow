@@ -24,7 +24,7 @@
         <div class="col-md-9">
             <div class="card mb-4">
                 <div class="card-header">
-                    <h5 class="card-title"><?= ($kind == 'page') ? __('Add Page') : __('Add Article') ?></h5>
+                    <h5 class="card-title"><?= ($kind == 'page') ? __('Add Page') : __('Add Post') ?></h5>
                 </div>
                 <div class="card-body">
                     <?= $this->Form->create($article,

@@ -9,7 +9,7 @@
     <div class="row">
         <?php
             echo $this->element('actions_card', [
-                'modelName' => ($article->kind == 'page') ? 'Page' : 'Article',
+                'modelName' => ($article->kind == 'page') ? 'Page' : 'Post',
                 'controllerName' => 'Articles',
                 'controllerIndexAction' => ($article->kind == 'page') ? 'tree-index' : 'index',
                 'entity' => $article,

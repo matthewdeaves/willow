@@ -44,11 +44,11 @@
           </li>
         </ul>
         <form class="d-flex-grow-1 me-3" role="search">
-          <input id="articleSearch" type="search" class="form-control" placeholder="<?= __('Search Blogs...') ?>" aria-label="Search" value="<?= $this->request->getQuery('search') ?>">
+          <input id="articleSearch" type="search" class="form-control" placeholder="<?= __('Search Posts...') ?>" aria-label="Search" value="<?= $this->request->getQuery('search') ?>">
         </form>
       </div>
       <div class="flex-shrink-0">
-        <?= $this->Html->link(__('New Article'), ['action' => 'add'], ['class' => 'btn btn-primary']) ?>
+        <?= $this->Html->link(__('New Post'), ['action' => 'add'], ['class' => 'btn btn-primary']) ?>
       </div>
     </div>
 </header>

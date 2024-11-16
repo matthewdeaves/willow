@@ -25,7 +25,7 @@ class GoogleApiService
     public function __construct()
     {
         $this->translateClient = new TranslateClient([
-            'key' => SettingsManager::read('Google.apiKey', ''),
+            'key' => SettingsManager::read('Google.translateApiKey', ''),
         ]);
     }
 

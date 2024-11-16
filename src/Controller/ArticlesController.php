@@ -180,31 +180,6 @@ class ArticlesController extends AppController
     }
 
     /**
-     * Retrieves a list of tags associated with published articles of kind 'article'.
-     *
-     * This method constructs a query to find tags that are linked to articles
-     * which are of the type 'article' and are published. The tags are selected
-     * and grouped by their ID and title, and ordered alphabetically by title.
-     *
-     * @return array An associative array where the keys are tag IDs and the values are tag titles.
-     */
-    private function getFilterTags(): array
-    {
-        $tagsQuery = $this->Articles->Tags->find()
-            ->matching('Articles', function ($q) {
-                return $q->where([
-                    'Articles.kind' => 'article',
-                    'Articles.is_published' => 1,
-                ]);
-            })
-            ->select(['Tags.id', 'Tags.title'])
-            ->groupBy(['Tags.id', 'Tags.title'])
-            ->orderBy(['Tags.title' => 'ASC']);
-
-        return $tagsQuery->all()->combine('id', 'title')->toArray();
-    }
-
-    /**
      * Displays an article by its slug.
      *
      * Retrieves an article using the provided slug, handling caching and redirects.
@@ -289,7 +264,6 @@ class ArticlesController extends AppController
 
         $this->viewBuilder()->setLayout($article->kind);
 
-        $filterTags = $this->getFilterTags();
         $selectedTagId = false;
 
         // Get the child pages and breadcrumbs for the current article
@@ -308,7 +282,6 @@ class ArticlesController extends AppController
 
         $this->set(compact(
             'article',
-            'filterTags',
             'childPages',
             'selectedTagId',
             'crumbs',

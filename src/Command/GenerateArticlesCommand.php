@@ -73,6 +73,9 @@ class GenerateArticlesCommand extends Command
             $io->out(__('All articles have been deleted.'));
         }
 
+        // Check and create top-level tags if needed
+        $this->ensureTopLevelTags($io);
+
         $count = (int)$args->getArgument('count');
         $io->out(__('Generating {0} articles...', $count));
 
@@ -107,6 +110,51 @@ class GenerateArticlesCommand extends Command
         }
 
         return static::CODE_SUCCESS;
+    }
+
+    /**
+     * Ensures there are at least 10 top-level tags in the system
+     *
+     * @param \Cake\Console\ConsoleIo $io The console IO object
+     * @return void
+     */
+    private function ensureTopLevelTags(ConsoleIo $io): void
+    {
+        $tagsTable = TableRegistry::getTableLocator()->get('Tags');
+        
+        // Count existing top-level tags
+        $existingCount = $tagsTable->find()
+            ->where(['parent_id IS' => null])
+            ->count();
+
+        if ($existingCount >= 10) {
+            return;
+        }
+
+        $tagsToCreate = 10 - $existingCount;
+        $io->out(__('Creating {0} new top-level tags...', $tagsToCreate));
+
+        for ($i = 0; $i < $tagsToCreate; $i++) {
+            $tag = $tagsTable->newEmptyEntity();
+            
+            // Generate a single word for name (max 10 characters)
+            $tag->title = substr($this->generateRandomText(10), 0, 10);
+            
+            // Generate description (max 10 words)
+            $tag->description = $this->generateRandomText(10, true);
+            
+            if ($tagsTable->save($tag)) {
+                $io->out(__('Created tag: {0}', $tag->name));
+            } else {
+                $io->error(__('Failed to create tag: {0}', $tag->name));
+                $errors = $tag->getErrors();
+                foreach ($errors as $field => $fieldErrors) {
+                    foreach ($fieldErrors as $error) {
+                        $io->error(__('Error in {0}: {1}', $field, $error));
+                    }
+                }
+            }
+        }
     }
 
     /**

@@ -393,6 +393,80 @@ class V1 extends AbstractMigration
             ])
             ->create();
 
+        $this->table('cookie_consents', ['id' => false, 'primary_key' => ['id']])
+            ->addColumn('id', 'uuid', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('user_id', 'uuid', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('session_id', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
+            ->addColumn('analytics_consent', 'boolean', [
+                'default' => false,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('functional_consent', 'boolean', [
+                'default' => false,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('marketing_consent', 'boolean', [
+                'default' => false,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('essential_consent', 'boolean', [
+                'default' => true,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('ip_address', 'string', [
+                'default' => null,
+                'limit' => 45,
+                'null' => false,
+            ])
+            ->addColumn('user_agent', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => false,
+            ])
+            ->addColumn('created', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('updated', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addIndex(
+                [
+                    'session_id',
+                ],
+                [
+                    'name' => 'idx_session',
+                ]
+            )
+            ->addIndex(
+                [
+                    'user_id',
+                ],
+                [
+                    'name' => 'idx_user',
+                ]
+            )
+            ->create();
+
         $this->table('email_templates', ['id' => false, 'primary_key' => ['id']])
             ->addColumn('id', 'uuid', [
                 'default' => null,
@@ -1056,6 +1130,7 @@ class V1 extends AbstractMigration
         $this->table('articles_translations')->drop()->save();
         $this->table('blocked_ips')->drop()->save();
         $this->table('comments')->drop()->save();
+        $this->table('cookie_consents')->drop()->save();
         $this->table('email_templates')->drop()->save();
         $this->table('images')->drop()->save();
         $this->table('internationalisations')->drop()->save();

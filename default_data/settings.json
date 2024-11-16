@@ -176,7 +176,7 @@
         "column_width": 2
     },
     {
-        "ordering": 0,
+        "ordering": 3,
         "category": "Google",
         "key_name": "translateApiKey",
         "value": "your-api-key-here",
@@ -627,7 +627,7 @@
         "column_width": 2
     },
     {
-        "ordering": 0,
+        "ordering": 1,
         "category": "Google",
         "key_name": "tagManagerHead",
         "value": "",
@@ -638,7 +638,7 @@
         "column_width": 8
     },
     {
-        "ordering": 0,
+        "ordering": 2,
         "category": "Google",
         "key_name": "tagManagerBody",
         "value": "",

@@ -64,8 +64,6 @@ return function (RouteBuilder $routes): void {
             ]
         );
 
-        
-
         $builder->connect(
             '/users/login',
             [
@@ -183,6 +181,18 @@ return function (RouteBuilder $routes): void {
                 'routeClass' => 'ADmad/I18n.I18nRoute',
                 '_name' => 'tag-by-slug',
                 'pass' => ['slug'] 
+            ]
+        );
+
+        $builder->connect(
+            'cookie-consents/edit',
+            [
+                'controller' => 'CookieConsents',
+                'action' => 'edit'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'cookie-consent',
             ]
         );
     });

@@ -25,6 +25,9 @@
         <li>
             <?= $this->Html->link(__('My Account'), ['controller' => 'Users', 'action' => 'edit', $this->Identity->get('id')], ['class' => 'dropdown-item']) ?>
         </li>
+        <li>
+            <?= $this->Html->link(__('Cookies'), ['_name' => 'cookie-consent'], ['class' => 'dropdown-item']) ?>
+        </li>
         <li><hr class="dropdown-divider"></li>
         <li>
             <?= $this->Html->link(__('Logout'), ['controller' => 'Users', 'action' => 'logout'], ['class' => 'dropdown-item']) ?>

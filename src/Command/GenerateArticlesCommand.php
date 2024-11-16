@@ -121,7 +121,7 @@ class GenerateArticlesCommand extends Command
     private function ensureTopLevelTags(ConsoleIo $io): void
     {
         $tagsTable = TableRegistry::getTableLocator()->get('Tags');
-        
+
         // Count existing top-level tags
         $existingCount = $tagsTable->find()
             ->where(['parent_id IS' => null])
@@ -136,13 +136,13 @@ class GenerateArticlesCommand extends Command
 
         for ($i = 0; $i < $tagsToCreate; $i++) {
             $tag = $tagsTable->newEmptyEntity();
-            
+
             // Generate a single word for name (max 10 characters)
             $tag->title = substr($this->generateRandomText(10), 0, 10);
-            
+
             // Generate description (max 10 words)
             $tag->description = $this->generateRandomText(10, true);
-            
+
             if ($tagsTable->save($tag)) {
                 $io->out(__('Created tag: {0}', $tag->name));
             } else {

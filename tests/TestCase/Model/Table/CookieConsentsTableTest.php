@@ -71,15 +71,16 @@ class CookieConsentsTableTest extends TestCase
         ];
 
         $cookieConsent = $this->CookieConsents->newEntity($data);
+        $errors = $cookieConsent->getErrors();
         
-        $this->assertTrue($cookieConsent->hasErrors('user_id'), 'user_id should require integer');
-        $this->assertTrue($cookieConsent->hasErrors('session_id'), 'session_id should respect maxLength');
-        $this->assertTrue($cookieConsent->hasErrors('analytics_consent'), 'analytics_consent should be boolean');
-        $this->assertTrue($cookieConsent->hasErrors('functional_consent'), 'functional_consent should not be empty');
-        $this->assertTrue($cookieConsent->hasErrors('marketing_consent'), 'marketing_consent should not be empty');
-        $this->assertTrue($cookieConsent->hasErrors('essential_consent'), 'essential_consent should not be empty');
-        $this->assertTrue($cookieConsent->hasErrors('ip_address'), 'ip_address should not be empty');
-        $this->assertTrue($cookieConsent->hasErrors('user_agent'), 'user_agent should not be empty');
+        $this->assertArrayHasKey('user_id', $errors, 'user_id should require integer');
+        $this->assertArrayHasKey('session_id', $errors, 'session_id should respect maxLength');
+        $this->assertArrayHasKey('analytics_consent', $errors, 'analytics_consent should be boolean');
+        $this->assertArrayHasKey('functional_consent', $errors, 'functional_consent should not be empty');
+        $this->assertArrayHasKey('marketing_consent', $errors, 'marketing_consent should not be empty');
+        $this->assertArrayHasKey('essential_consent', $errors, 'essential_consent should not be empty');
+        $this->assertArrayHasKey('ip_address', $errors, 'ip_address should not be empty');
+        $this->assertArrayHasKey('user_agent', $errors, 'user_agent should not be empty');
     }
 
     /**

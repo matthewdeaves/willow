@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use App\Model\Entity\CookieConsent;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -163,7 +164,7 @@ class CookieConsentsTable extends Table
      * @param string|null $userId The user ID
      * @return \App\Model\Entity\CookieConsent|null
      */
-    public function getLatestConsent(?string $sessionId = null, ?string $userId = null): ?\App\Model\Entity\CookieConsent
+    public function getLatestConsent(?string $sessionId = null, ?string $userId = null): ?CookieConsent
     {
         $query = $this->find();
 

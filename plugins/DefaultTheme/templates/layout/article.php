@@ -3,7 +3,7 @@
 <html lang="en" data-bs-theme="auto">
   <head>
     <?= SettingsManager::read('Google.tagManagerHead', '') ?>
-    <?= $this->Html->script('AdminTheme.color-modes') ?>
+    <?= $this->Html->script('DefaultTheme.color-modes') ?>
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= $this->element('site/meta_tags', ['model' => $article ?? $tag ?? null]) ?>

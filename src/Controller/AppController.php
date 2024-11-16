@@ -109,9 +109,16 @@ class AppController extends Controller
 
                 return $this->redirect(['_name' => 'login']);
             }
+        } elseif ($this->request->getParam('prefix') !== 'Admin' && $identity != null) {
+            // Set the latest cookie consent record for the user to the view
+            $sessionId = $this->request->getSession()->id();
+            $cookieConsent = $this->fetchTable('CookieConsents')
+            ->getLatestConsent($sessionId, $identity->getIdentifier());
+
+            $this->set('cookieConsent', $cookieConsent);
         }
 
-        // Usefulf for setting active menu items
+        // Useful for setting active menu items
         $this->set('activeCtl', $this->request->getParam('controller'));
         $this->set('activeAct', $this->request->getParam('action'));
 

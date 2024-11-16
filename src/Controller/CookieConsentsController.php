@@ -100,7 +100,7 @@ class CookieConsentsController extends AppController
                 return $this->response->withType('application/json')
                     ->withStringBody(json_encode([
                         'success' => false,
-                        'errors' => $cookieConsent->getErrors()
+                        'errors' => $cookieConsent->getErrors(),
                     ]));
             }
 
@@ -110,7 +110,6 @@ class CookieConsentsController extends AppController
         $this->set(compact('cookieConsent'));
 
         if ($this->request->is('ajax')) {
-
             $this->viewBuilder()->setLayout('ajax');
 
             return $this->render('edit');

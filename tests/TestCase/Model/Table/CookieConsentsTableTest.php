@@ -72,7 +72,7 @@ class CookieConsentsTableTest extends TestCase
 
         $cookieConsent = $this->CookieConsents->newEntity($data);
         $errors = $cookieConsent->getErrors();
-        
+
         $this->assertArrayHasKey('user_id', $errors, 'user_id should require integer');
         $this->assertArrayHasKey('session_id', $errors, 'session_id should respect maxLength');
         $this->assertArrayHasKey('analytics_consent', $errors, 'analytics_consent should be boolean');
@@ -102,7 +102,7 @@ class CookieConsentsTableTest extends TestCase
 
         $cookieConsent = $this->CookieConsents->newEntity($data);
         $result = $this->CookieConsents->save($cookieConsent);
-        
+
         $this->assertFalse($result);
         $this->assertTrue($cookieConsent->hasErrors());
     }
@@ -184,7 +184,7 @@ class CookieConsentsTableTest extends TestCase
             'marketing_consent' => true,
             'essential_consent' => true,
         ];
-        
+
         $consent = $this->CookieConsents->newEntity($data);
         $this->CookieConsents->save($consent);
 
@@ -218,7 +218,7 @@ class CookieConsentsTableTest extends TestCase
             'marketing_consent' => true,
             'essential_consent' => true,
         ];
-        
+
         $consent = $this->CookieConsents->newEntity($data);
         $this->CookieConsents->save($consent);
 

@@ -31,50 +31,51 @@
 
     <?= $this->element('site/bootstrap') ?>
 
-<div class="container">
+    <div class="container">
 
-  <?= $this->element('site/header'); ?>
+      <?= $this->element('site/header'); ?>
 
-  <?= $this->element('site/main_menu'); ?>
+      <?= $this->element('site/main_menu'); ?>
 
-  <?= $this->element('site/tags'); ?>
+      <?= $this->element('site/tags'); ?>
 
-</div>
-<main class="container">
-  <div class="row g-5">
-    
-    <div class="col-md-8">
-        <?= $this->Flash->render() ?>
-        <?= $this->fetch('content') ?>
-        <?= $this->element('pagination', ['recordCount' => count($articles)]) ?>
     </div>
 
-    <div class="col-md-4">
-        <div class="position-sticky" style="top: 2rem;">
-
-            <div class="p-4 mb-3 bg-body-tertiary rounded">
-              <h4 class="fst-italic"><?= __('About') ?></h4>
-              <p class="mb-0"><?= __("Welcome to Willow, a content management system I'm building in the open. Here you'll find development updates, feature highlights, and guides on using Willow for your own sites.") ?></p>
-            </div>
-
-            <?= $this->element('site/articles_list', ['articles' => $featuredArticles, 'title' => __('Featured posts')]) ?>
-
-            <?= $this->element('site/articles_list', ['articles' => $recentArticles, 'title' => __('Recent posts')]) ?>
-
-            <?= $this->element('site/archives') ?>
-
-            <?= $this->element('site/elsewhere') ?>
-
+    <main class="container">
+      <div class="row g-5">
+        
+        <div class="col-md-8">
+            <?= $this->Flash->render() ?>
+            <?= $this->fetch('content') ?>
+            <?= $this->element('pagination', ['recordCount' => count($articles)]) ?>
         </div>
-    </div>
-  </div>
 
-</main>
+        <div class="col-md-4">
+            <div class="position-sticky" style="top: 2rem;">
 
-<?= $this->element('site/footer'); ?>
+                <div class="p-4 mb-3 bg-body-tertiary rounded">
+                  <h4 class="fst-italic"><?= __('About') ?></h4>
+                  <p class="mb-0"><?= __("Welcome to Willow, a content management system I'm building in the open. Here you'll find development updates, feature highlights, and guides on using Willow for your own sites.") ?></p>
+                </div>
 
-<?= $this->element('site/cookie_prefs'); ?>
+                <?= $this->element('site/articles_list', ['articles' => $featuredArticles, 'title' => __('Featured posts')]) ?>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+                <?= $this->element('site/articles_list', ['articles' => $recentArticles, 'title' => __('Recent posts')]) ?>
+
+                <?= $this->element('site/archives') ?>
+
+                <?= $this->element('site/elsewhere') ?>
+
+            </div>
+        </div>
+      </div>
+
+    </main>
+
+    <?= $this->element('site/footer'); ?>
+
+    <?= $this->element('site/cookie_prefs'); ?>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     </body>
 </html>

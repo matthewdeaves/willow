@@ -96,7 +96,7 @@ class CookieConsentsControllerTest extends AppControllerTestCase
     public function testEditSubmitUnauthenticated(): void
     {
         $this->enableCsrfToken();
-        
+
         $data = [
             'analytics_consent' => true,
             'functional_consent' => true,
@@ -163,7 +163,7 @@ class CookieConsentsControllerTest extends AppControllerTestCase
     public function testEditAjaxGet(): void
     {
         $this->configRequest([
-            'headers' => ['X-Requested-With' => 'XMLHttpRequest']
+            'headers' => ['X-Requested-With' => 'XMLHttpRequest'],
         ]);
 
         $this->get('/en/cookie-consents/edit');
@@ -183,7 +183,7 @@ class CookieConsentsControllerTest extends AppControllerTestCase
     {
         $this->enableCsrfToken();
         $this->configRequest([
-            'headers' => ['X-Requested-With' => 'XMLHttpRequest']
+            'headers' => ['X-Requested-With' => 'XMLHttpRequest'],
         ]);
 
         $data = [

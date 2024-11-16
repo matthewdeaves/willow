@@ -29,27 +29,27 @@
     <?= SettingsManager::read('Google.tagManagerBody', '') ?>
     <?php endif; ?>
 
-  <?= $this->element('site/bootstrap') ?>
+    <?= $this->element('site/bootstrap') ?>
 
-<div class="container">
+    <div class="container">
 
-  <?= $this->element('site/header'); ?>
+      <?= $this->element('site/header'); ?>
 
-  <?= $this->element('site/main_menu', ['mbAmount' => 3]); ?>
+      <?= $this->element('site/main_menu', ['mbAmount' => 3]); ?>
 
-</div>
-<main class="container">
-  <div class="row g-5">
-    <div class="col-md-12">
-        <?= $this->Flash->render() ?>
-        <?= $this->fetch('content') ?>
     </div>
-  </div>
-</main>
+    <main class="container">
+      <div class="row g-5">
+        <div class="col-md-12">
+            <?= $this->Flash->render() ?>
+            <?= $this->fetch('content') ?>
+        </div>
+      </div>
+    </main>
 
-<?= $this->element('site/footer'); ?>
-<?= $this->element('site/cookie_prefs'); ?>
+    <?= $this->element('site/footer'); ?>
+    <?= $this->element('site/cookie_prefs'); ?>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
 </html>

@@ -37,6 +37,11 @@ class AppController extends Controller
 {
     use LogTrait;
 
+    private function isAdminRequest(): bool
+    {
+        return $this->request->getParam('prefix') === 'Admin';
+    }
+
     /**
      * Initialization hook method.
      *
@@ -76,14 +81,16 @@ class AppController extends Controller
 
         I18nManager::setLocaleForLanguage($this->request->getParam('lang', 'en'));
 
+        $identity = null;
+        if ($this->components()->has('Authentication')) {
         $identity = $this->Authentication->getIdentity();
-
+        }
         if ($identity) {
             $profilePic = $identity->image;
             $this->set(compact('profilePic'));
         }
 
-        if ($this->request->getParam('prefix') === 'Admin') {
+        if ($this->isAdminRequest()) {
             if (!$identity) {
                 return $this->redirect(['_name' => 'login']);
             }

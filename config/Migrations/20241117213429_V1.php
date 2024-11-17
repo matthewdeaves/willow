@@ -444,11 +444,6 @@ class V1 extends AbstractMigration
                 'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('updated', 'datetime', [
-                'default' => null,
-                'limit' => null,
-                'null' => true,
-            ])
             ->addIndex(
                 [
                     'session_id',

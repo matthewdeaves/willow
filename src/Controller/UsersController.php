@@ -15,6 +15,7 @@ use Cake\Queue\QueueManager;
 use Cake\Routing\Router;
 use Cake\Utility\Text;
 use Exception;
+use Authentication\IdentityInterface;
 
 /**
  * Users Controller
@@ -63,57 +64,9 @@ class UsersController extends AppController
         $result = $this->Authentication->getResult();
         if ($result != null && $result->isValid()) {
             $user = $this->Authentication->getIdentity();
-            $sessionId = $this->request->getSession()->id();
+            $this->handleCookieConsent($user);
 
-            $consentCookie = $this->request->getCookie('consent_cookie');
-            if ($consentCookie) {
-                $consentCookie = json_decode($consentCookie, true);
-            }
-
-            // Get a consent record for user_id (primary) or session_id (secondary)
-            $consentTable = $this->fetchTable('CookieConsents');
-            $consent = $consentTable->getLatestConsent($sessionId, $user->getIdentifier());
-
-            if ($consent) {
-                if ($consent['user_id'] == null && $consentCookie['user_id'] == null) {
-                    // We have consent cookie and consent record of an unauthenticated user
-                    // and their unauthenticated consent will follow them as authenticated user
-                    $consent['user_id'] = $user->getIdentifier();
-                    $consent = $consentTable->newEntity($consent);
-                    $consentTable->save($consent);
-
-                    // Update the cookie to have user_id now
-                    $cookie = $consentTable->createConsentCookie($consent);
-                    $this->response = $this->response->withCookie($cookie);
-                    $consentCookie = $this->request->getCookie('consent_cookie');
-                    // Set the cookie data to the view
-                    $consentData = json_decode($consentCookie, true);
-                    $this->set('consentData', $consentData);
-                } elseif ($consent['user_id'] != $consentCookie['user_id']) {
-                    // We have a different user logging into the user id in the cookie
-                    // but they have given consent previously so set their preference
-                    $consent = $consentTable->newEntity($consent);
-                    $cookie = $consentTable->createConsentCookie($consent);
-                    $this->response = $this->response->withCookie($cookie);
-                    $consentCookie = $this->request->getCookie('consent_cookie');
-                    // Set the cookie data to the view
-                    $consentData = json_decode($consentCookie, true);
-                    $this->set('consentData', $consentData);
-                }
-            } elseif (!$consent || $consentCookie['user_id'] != $user->getIdentifier()) {
-                // We have a different user logging in to the user_id in the cookie
-                // and they have not given consent before so unset the cookie and view var (triggers consent popup)
-                $this->response = $this->response->withExpiredCookie(new Cookie('consent_cookie'));
-                $this->set('consentData', null);
-            }
-
-            if ($user->is_admin) {
-                return $this->redirect('/admin/articles');
-            }
-
-            $target = $this->Authentication->getLoginRedirect() ?? '/';
-
-            return $this->redirect($target);
+            return $this->getRedirectResponse($user);
         }
 
         if ($this->request->is('post')) {
@@ -121,6 +74,68 @@ class UsersController extends AppController
         }
 
         return null;
+    }
+
+    private function getRedirectResponse($user): Response
+    {
+        // Send admin users to admin area
+        if ($user->is_admin) {
+            return $this->redirect('/admin/articles');
+        }
+        // send everyone else to non admin
+        $target = $this->Authentication->getLoginRedirect() ?? '/';
+        return $this->redirect($target);
+    }
+
+
+
+    /**
+     * Handles cookie consent management on login for users.
+     * 
+     * This method manages the cookie consent process by:
+     * - Checking for existing consent cookies
+     * - Validating consent against the current user
+     * - Updating consent records when user IDs don't match
+     * - Setting or expiring consent cookies as needed
+     * - Making consent data available to the view
+     *
+     * @param \Authentication\IdentityInterface $user The authenticated user entity
+     * @return void
+     * @throws \Cake\Database\Exception\DatabaseException When database operations fail
+     * @throws \Cake\Http\Exception\InvalidCsrfTokenException When CSRF validation fails
+     * @throws \RuntimeException When cookie operations fail
+     */
+    private function handleCookieConsent(IdentityInterface $user): void
+    {
+        $sessionId = $this->request->getSession()->id();
+        $consentTable = $this->fetchTable('CookieConsents');
+        $consentCookie = $this->request->getCookie('consent_cookie');
+        $consentData = null;
+
+        if ($consentCookie) {
+            $consentCookie = json_decode($consentCookie, true);
+            if ($consentCookie['user_id'] != $user->getIdentifier()) {
+                $consent = $consentTable->getLatestConsent($sessionId, $user->getIdentifier());
+                if ($consent) {
+                    $consent['user_id'] = $user->getIdentifier();
+                    $consent = $consentTable->newEntity($consent);
+                    if ($consentCookie['user_id'] == null) {
+                        $consentTable->save($consent);
+                    }
+                    $cookie = $consentTable->createConsentCookie($consent);
+                    $this->response = $this->response->withCookie($cookie);
+                    $consentCookie = $this->request->getCookie('consent_cookie');
+                    // Set the cookie data to the view
+                    $consentData = json_decode($consentCookie, true);
+                    $this->set('consentData', $consentData);
+                } else {
+                    $this->response = $this->response->withExpiredCookie(new Cookie('consent_cookie'));
+                    $this->set('consentData', null);
+                }
+            }
+        } else{
+            $this->set('consentData', null);
+        }
     }
 
     /**

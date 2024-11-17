@@ -168,7 +168,7 @@ class CookieConsentsControllerTest extends AppControllerTestCase
 
         $this->get('/en/cookie-consents/edit');
         $this->assertResponseOk();
-        $this->assertResponseContains('Cookie Preferences');
+        $this->assertResponseContains('Please select your cookie preferences below. Essential cookies are required for the website to function and cannot be disabled.');
         $this->assertResponseNotContains('<!DOCTYPE html>'); // Should use ajax layout
     }
 

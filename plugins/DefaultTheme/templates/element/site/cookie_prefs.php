@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
         static: true,
         closeable: false,
         reload: true,
-        dialogClass: 'modal-dialog-scrollable'
+        dialogClass: 'modal-dialog-scrollable modal-lg'
     });
 });
 </script>

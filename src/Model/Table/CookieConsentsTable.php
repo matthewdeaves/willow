@@ -4,9 +4,11 @@ declare(strict_types=1);
 namespace App\Model\Table;
 
 use App\Model\Entity\CookieConsent;
+use Cake\Http\Cookie\Cookie;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use DateTime;
 
 /**
  * CookieConsents Model
@@ -59,7 +61,7 @@ class CookieConsentsTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->integer('user_id')
+            ->uuid('user_id')
             ->allowEmptyString('user_id');
 
         $validator
@@ -113,110 +115,81 @@ class CookieConsentsTable extends Table
     }
 
     /**
-     * Check if analytics cookies are allowed based on consent.
+     * Creates a consent cookie from a consent entity
+     * getLatestConsent($sessionId, $user->getIdentifier())
      *
-     * @param \App\Model\Entity\CookieConsent|null $cookieConsent The cookie consent entity
-     * @return bool True if analytics cookies are allowed
+     * @param \App\Model\Entity\CookieConsent $consent The consent entity to create cookie from
+     * @return \Cake\Http\Cookie\Cookie The configured cookie object
      */
-    public function hasAnalyticsConsent(?CookieConsent $cookieConsent): bool
+    public function createConsentCookie(CookieConsent $consent): Cookie
     {
-        if ($cookieConsent === null) {
-            return false;
-        }
-
-        return (bool)$cookieConsent->analytics_consent;
+        return (new Cookie('consent_cookie'))
+            ->withValue(json_encode([
+                'user_id' => $consent->user_id,
+                'analytics_consent' => $consent->analytics_consent,
+                'functional_consent' => $consent->functional_consent,
+                'marketing_consent' => $consent->marketing_consent,
+                'essential_consent' => true,
+                'created' => time(),
+            ]))
+            ->withExpiry(new DateTime('+1 year'))
+            ->withPath('/')
+            ->withSecure(true)
+            ->withHttpOnly(true);
     }
 
     /**
-     * Check if functional cookies are allowed based on consent.
+     * Gets the latest consent record prioritizing user_id over session_id
      *
-     * @param \App\Model\Entity\CookieConsent|null $cookieConsent The cookie consent entity
-     * @return bool True if functional cookies are allowed
+     * @param string|null $sessionId The session ID to search for
+     * @param string|null $userId The user ID to search for
+     * @return array|null Array of consent data or null if no match found
      */
-    public function hasFunctionalConsent(?CookieConsent $cookieConsent): bool
+    public function getLatestConsent(?string $sessionId = null, ?string $userId = null): ?array
     {
-        if ($cookieConsent === null) {
-            return false;
-        }
+        $fields = [
+            'user_id',
+            'session_id',
+            'analytics_consent',
+            'functional_consent',
+            'marketing_consent',
+            'essential_consent',
+            'ip_address',
+            'user_agent',
+        ];
 
-        return (bool)$cookieConsent->functional_consent;
-    }
-
-    /**
-     * Check if marketing cookies are allowed based on consent.
-     *
-     * @param \App\Model\Entity\CookieConsent|null $cookieConsent The cookie consent entity
-     * @return bool True if marketing cookies are allowed
-     */
-    public function hasMarketingConsent(?CookieConsent $cookieConsent): bool
-    {
-        if ($cookieConsent === null) {
-            return false;
-        }
-
-        return (bool)$cookieConsent->marketing_consent;
-    }
-
-    /**
-     * Get the latest consent record for a session or user.
-     *
-     * @param string|null $sessionId The session ID
-     * @param string|null $userId The user ID
-     * @return \App\Model\Entity\CookieConsent|null
-     */
-    public function getLatestConsent(?string $sessionId = null, ?string $userId = null): ?CookieConsent
-    {
-        $query = $this->find();
-
-        if ($userId !== null) {
-            $query->where(['user_id' => $userId]);
-        } elseif ($sessionId !== null) {
-            $query->where(['session_id' => $sessionId]);
-        } else {
+        // If both parameters are null, return early
+        if ($sessionId === null && $userId === null) {
             return null;
         }
 
-        return $query->order(['created' => 'DESC'])->first();
-    }
+        // First try to find by user_id if provided
+        if ($userId !== null) {
+            $result = $this->find()
+                ->select($fields)
+                ->where(['user_id' => $userId])
+                ->order(['created' => 'DESC'])
+                ->first();
 
-    /**
-     * Check if any consent record exists for a session or user.
-     *
-     * @param string|null $sessionId The session ID
-     * @param string|null $userId The user ID
-     * @return bool
-     */
-    public function hasConsentRecord(?string $sessionId = null, ?string $userId = null): bool
-    {
-        return $this->getLatestConsent($sessionId, $userId) !== null;
-    }
-
-    /**
-     * Get all consent types that are currently allowed.
-     *
-     * @param \App\Model\Entity\CookieConsent|null $cookieConsent The cookie consent entity
-     * @return array<string> Array of allowed consent types
-     */
-    public function getAllowedConsentTypes(?CookieConsent $cookieConsent): array
-    {
-        $allowed = ['essential'];
-
-        if ($cookieConsent === null) {
-            return $allowed;
+            if ($result !== null) {
+                return $result->toArray();
+            }
         }
 
-        if ($this->hasAnalyticsConsent($cookieConsent)) {
-            $allowed[] = 'analytics';
+        // If no result found by user_id and session_id is provided, try finding by session_id
+        if ($sessionId !== null) {
+            $result = $this->find()
+                ->select($fields)
+                ->where(['session_id' => $sessionId])
+                ->order(['created' => 'DESC'])
+                ->first();
+
+            if ($result !== null) {
+                return $result->toArray();
+            }
         }
 
-        if ($this->hasFunctionalConsent($cookieConsent)) {
-            $allowed[] = 'functional';
-        }
-
-        if ($this->hasMarketingConsent($cookieConsent)) {
-            $allowed[] = 'marketing';
-        }
-
-        return $allowed;
+        // No matching record found
+        return null;
     }
 }

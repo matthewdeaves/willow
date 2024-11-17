@@ -83,7 +83,11 @@ class AppController extends Controller
             $this->set(compact('profilePic'));
         }
 
-        if ($this->request->getParam('prefix') === 'Admin' && $identity != null) {
+        if ($this->request->getParam('prefix') === 'Admin') {
+            if (!$identity) {
+                return $this->redirect(['_name' => 'login']);
+            }
+
             I18nManager::setLocalForAdminArea();
 
             $usersTable = $this->fetchTable('Users');
@@ -93,36 +97,46 @@ class AppController extends Controller
                 ->first();
 
             if (!$user || empty($user->is_admin)) {
-                $this->log(
-                    'Unauthorized access attempt to admin area',
-                    'warning',
-                    [
-                        'group_name' => 'unauthorized_admin_access_attempt',
-                        'user_id' => $identity->getIdentifier(),
-                        'url' => $this->request->getRequestTarget(),
-                        'ip' => $this->request->clientIp(),
-                        'scope' => ['system'],
-                    ]
-                );
-
                 $this->Flash->error(__('Access denied. You must be an admin to view this page.'));
 
                 return $this->redirect(['_name' => 'login']);
             }
-        } elseif ($this->request->getParam('prefix') !== 'Admin' && $identity != null) {
-            // Set the latest cookie consent record for the user to the view
-            $sessionId = $this->request->getSession()->id();
-            $cookieConsent = $this->fetchTable('CookieConsents')
-            ->getLatestConsent($sessionId, $identity->getIdentifier());
-
-            $this->set('cookieConsent', $cookieConsent);
         }
+
+        $this->handleConsent();
 
         // Useful for setting active menu items
         $this->set('activeCtl', $this->request->getParam('controller'));
         $this->set('activeAct', $this->request->getParam('action'));
 
         return null;
+    }
+
+    /**
+     * Handles user consent data processing and view variable setting.
+     *
+     * This method:
+     * - Starts a session if not already started
+     * - For non-admin requests:
+     *   - Gets the user ID if authenticated
+     *   - Gets the current session ID
+     *   - Retrieves and decodes the consent cookie if present
+     * - Sets session ID and consent data for view access
+     *
+     * @return void The method sets view variables but does not return a value
+     * @throws \RuntimeException If session cannot be started
+     * @throws \InvalidArgumentException If cookie data cannot be decoded
+     */
+    private function handleConsent(): void
+    {
+        $this->getRequest()->getSession()->start();
+        $sessionId = $this->request->getSession()->id();
+        $consentData = null;
+        $consentCookie = $this->request->getCookie('consent_cookie');
+        if ($consentCookie) {
+            $consentData = json_decode($consentCookie, true);
+        }
+        $this->set(compact('sessionId', 'consentData'));
     }
 
     /**

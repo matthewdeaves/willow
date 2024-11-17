@@ -45,6 +45,9 @@
             <?= $this->Html->link(__('Log In'), ['controller' => 'Users', 'action' => 'login'], ['class' => 'dropdown-item']) ?>
         </li>
         <li>
+            <?= $this->Html->link(__('Cookies'), ['_name' => 'cookie-consent'], ['class' => 'dropdown-item']) ?>
+        </li>
+        <li>
             <?php if (SettingsManager::read('Users.registrationEnabled', false)) :?>
             <?= $this->Html->link(__('Register'), ['controller' => 'Users', 'action' => 'register'], ['class' => 'dropdown-item']) ?>
             <?php endif; ?>

@@ -2,7 +2,7 @@
 <!doctype html>
   <html lang="en" data-bs-theme="auto">
     <head>
-      <?php if (!empty($cookieConsent) && $cookieConsent->hasAnalyticsConsent()) :?>
+      <?php if (!empty($consentData) && $consentData['analytics_consent']) :?>
       <?= SettingsManager::read('Google.tagManagerHead', '') ?>
       <?php endif; ?>
       <?= $this->Html->script('DefaultTheme.willow-modal') ?>
@@ -25,7 +25,7 @@
       )); ?>
   </head>
   <body>
-      <?php if (!empty($cookieConsent) && $cookieConsent->hasAnalyticsConsent()) :?>
+  <?php if (!empty($consentData) && $consentData['analytics_consent']) :?>
       <?= SettingsManager::read('Google.tagManagerBody', '') ?>
       <?php endif; ?>
 

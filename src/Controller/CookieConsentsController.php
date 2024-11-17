@@ -49,44 +49,32 @@ class CookieConsentsController extends AppController
      */
     public function edit(): ?Response
     {
-        $sessionId = $this->request->getSession()->id();
         $userId = $this->request->getAttribute('identity') ?
             $this->request->getAttribute('identity')->getIdentifier() : null;
 
-        // Try to find the record by session ID first
-        $cookieConsent = $this->CookieConsents->find()
-            ->where(['session_id' => $sessionId])
-            ->order(['created' => 'DESC'])
-            ->first();
-
-        // If not found by session ID and user is logged in, try by user ID
-        if (!$cookieConsent && $userId) {
-            $cookieConsent = $this->CookieConsents->find()
-                ->where(['user_id' => $userId])
-                ->order(['created' => 'DESC'])
-                ->first();
-        }
-
-        // If no record exists, create a new one
-        if (!$cookieConsent) {
-            $cookieConsent = $this->CookieConsents->newEmptyEntity();
-            $cookieConsent->session_id = $sessionId;
-            $cookieConsent->user_id = $userId;
-            // Set IP and User Agent for GDPR compliance
-            $cookieConsent->ip_address = $this->request->clientIp();
-            $cookieConsent->user_agent = $this->request->getHeaderLine('User-Agent');
+        $cookieConsent = null;
+        $consentCookie = $this->request->getCookie('consent_cookie');
+        if ($consentCookie) {
+            $consentData = json_decode($consentCookie, true);
+            $cookieConsent = $this->CookieConsents->newEntity($consentData);
+            $cookieConsent->session_id = $this->request->getSession()->id();
         }
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             // Always create a new record for GDPR audit trail
             $newConsent = $this->CookieConsents->newEntity($this->request->getData());
-            $newConsent->session_id = $sessionId;
+
+            $newConsent->session_id = $this->request->getSession()->id();
             $newConsent->user_id = $userId;
             $newConsent->ip_address = $this->request->clientIp();
             $newConsent->user_agent = $this->request->getHeaderLine('User-Agent');
 
             if ($this->CookieConsents->save($newConsent)) {
                 $this->Flash->success(__('Your cookie preferences have been saved.'));
+
+                // Save a cookie with the consent information
+                $cookie = $this->CookieConsents->createConsentCookie($newConsent);
+                $this->response = $this->response->withCookie($cookie);
 
                 if ($this->request->is('ajax')) {
                     return $this->response->withType('application/json')

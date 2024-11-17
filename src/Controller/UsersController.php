@@ -7,6 +7,7 @@ use App\Model\Entity\User;
 use App\Model\Entity\UserAccountConfirmation;
 use App\Utility\SettingsManager;
 use Cake\Event\EventInterface;
+use Cake\Http\Cookie\Cookie;
 use Cake\Http\Response;
 use Cake\Log\Log;
 use Cake\Log\LogTrait;
@@ -62,6 +63,50 @@ class UsersController extends AppController
         $result = $this->Authentication->getResult();
         if ($result != null && $result->isValid()) {
             $user = $this->Authentication->getIdentity();
+            $sessionId = $this->request->getSession()->id();
+
+            $consentCookie = $this->request->getCookie('consent_cookie');
+            if ($consentCookie) {
+                $consentCookie = json_decode($consentCookie, true);
+            }
+
+            // Get a consent record for user_id (primary) or session_id (secondary)
+            $consentTable = $this->fetchTable('CookieConsents');
+            $consent = $consentTable->getLatestConsent($sessionId, $user->getIdentifier());
+
+            if ($consent) {
+                if ($consent['user_id'] == null && $consentCookie['user_id'] == null) {
+                    // We have consent cookie and consent record of an unauthenticated user
+                    // and their unauthenticated consent will follow them as authenticated user
+                    $consent['user_id'] = $user->getIdentifier();
+                    $consent = $consentTable->newEntity($consent);
+                    $consentTable->save($consent);
+
+                    // Update the cookie to have user_id now
+                    $cookie = $consentTable->createConsentCookie($consent);
+                    $this->response = $this->response->withCookie($cookie);
+                    $consentCookie = $this->request->getCookie('consent_cookie');
+                    // Set the cookie data to the view
+                    $consentData = json_decode($consentCookie, true);
+                    $this->set('consentData', $consentData);
+                } elseif ($consent['user_id'] != $consentCookie['user_id']) {
+                    // We have a different user logging into the user id in the cookie
+                    // but they have given consent previously so set their preference
+                    $consent = $consentTable->newEntity($consent);
+                    $cookie = $consentTable->createConsentCookie($consent);
+                    $this->response = $this->response->withCookie($cookie);
+                    $consentCookie = $this->request->getCookie('consent_cookie');
+                    // Set the cookie data to the view
+                    $consentData = json_decode($consentCookie, true);
+                    $this->set('consentData', $consentData);
+                }
+            } elseif (!$consent || $consentCookie['user_id'] != $user->getIdentifier()) {
+                // We have a different user logging in to the user_id in the cookie
+                // and they have not given consent before so unset the cookie and view var (triggers consent popup)
+                $this->response = $this->response->withExpiredCookie(new Cookie('consent_cookie'));
+                $this->set('consentData', null);
+            }
+
             if ($user->is_admin) {
                 return $this->redirect('/admin/articles');
             }

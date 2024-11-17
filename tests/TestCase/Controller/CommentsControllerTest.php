@@ -210,6 +210,5 @@ class CommentsControllerTest extends AppControllerTestCase
         $this->get('/admin/comments');
         $this->assertRedirectContains('/en/users/login');
         $this->assertResponseCode(302);
-        $this->assertHeader('Location', '/en/users/login?redirect=%2Fadmin%2Fcomments');
     }
 }

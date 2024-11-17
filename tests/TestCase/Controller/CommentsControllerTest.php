@@ -123,7 +123,7 @@ class CommentsControllerTest extends AppControllerTestCase
         $this->enableCsrfToken();
         $this->enableSecurityToken();
         $this->loginUser('6509480c-e7e6-4e65-9c38-1423a8d09d02'); // Non-admin user
-        
+
         $this->post('/admin/comments/edit/550e8400-e29b-41d4-a716-446655440000', [
             'content' => 'Unauthorized update',
             'display' => 0,

@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Model\Entity\User;
 use App\Model\Entity\UserAccountConfirmation;
 use App\Utility\SettingsManager;
+use Authentication\IdentityInterface;
 use Cake\Event\EventInterface;
 use Cake\Http\Cookie\Cookie;
 use Cake\Http\Response;
@@ -15,7 +16,6 @@ use Cake\Queue\QueueManager;
 use Cake\Routing\Router;
 use Cake\Utility\Text;
 use Exception;
-use Authentication\IdentityInterface;
 
 /**
  * Users Controller
@@ -63,8 +63,9 @@ class UsersController extends AppController
     {
         $result = $this->Authentication->getResult();
         if ($result != null && $result->isValid()) {
-            $user = $this->Authentication->getIdentity();
-            $this->handleCookieConsent($user);
+            $identity = $this->Authentication->getIdentity();
+            $this->handleCookieConsent($identity);
+            $user = $this->Users->get($identity->getIdentifier());
 
             return $this->getRedirectResponse($user);
         }
@@ -76,7 +77,17 @@ class UsersController extends AppController
         return null;
     }
 
-    private function getRedirectResponse($user): Response
+    /**
+     * Determines and returns the appropriate redirect response based on user role.
+     *
+     * This method handles post-login redirection by checking if the user is an admin.
+     * Admin users are redirected to the admin articles section, while regular users
+     * are redirected to either their intended destination or the homepage.
+     *
+     * @param \App\Model\Entity\User $user The authenticated user entity
+     * @return \Cake\Http\Response The redirect response object
+     */
+    private function getRedirectResponse(User $user): Response
     {
         // Send admin users to admin area
         if ($user->is_admin) {
@@ -84,14 +95,13 @@ class UsersController extends AppController
         }
         // send everyone else to non admin
         $target = $this->Authentication->getLoginRedirect() ?? '/';
+
         return $this->redirect($target);
     }
 
-
-
     /**
      * Handles cookie consent management on login for users.
-     * 
+     *
      * This method manages the cookie consent process by:
      * - Checking for existing consent cookies
      * - Validating consent against the current user
@@ -133,7 +143,7 @@ class UsersController extends AppController
                     $this->set('consentData', null);
                 }
             }
-        } else{
+        } else {
             $this->set('consentData', null);
         }
     }

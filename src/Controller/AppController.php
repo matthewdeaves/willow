@@ -37,6 +37,14 @@ class AppController extends Controller
 {
     use LogTrait;
 
+    /**
+     * Checks if the current request is an admin request.
+     *
+     * This method determines whether the request is intended for the admin section
+     * of the application by checking if the 'prefix' routing parameter is set to 'Admin'.
+     *
+     * @return bool Returns true if the request is for the admin section, false otherwise.
+     */
     private function isAdminRequest(): bool
     {
         return $this->request->getParam('prefix') === 'Admin';
@@ -83,7 +91,7 @@ class AppController extends Controller
 
         $identity = null;
         if ($this->components()->has('Authentication')) {
-        $identity = $this->Authentication->getIdentity();
+            $identity = $this->Authentication->getIdentity();
         }
         if ($identity) {
             $profilePic = $identity->image;

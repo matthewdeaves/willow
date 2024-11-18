@@ -36,16 +36,38 @@ window.WillowModal = {
                 // Handle form submission if present
                 const form = modalEl.querySelector('form');
                 if (form && options.handleForm !== false) {
+                    let lastClickedButton = null;
+
+                    // Handle any button clicks within the form
+                    form.addEventListener('click', function(e) {
+                        if (e.target.matches('button[type="submit"]')) {
+                            lastClickedButton = e.target;
+                        }
+                    });
+
                     form.addEventListener('submit', function(e) {
                         e.preventDefault();
                         
+                        const formData = new FormData(form);
+                        
+                        // Add any data attributes from the clicked button to the form data
+                        if (lastClickedButton) {
+                            Object.entries(lastClickedButton.dataset).forEach(([key, value]) => {
+                                formData.append(key, value);
+                            });
+                            // Also add the button's name and value if present
+                            if (lastClickedButton.name && lastClickedButton.value) {
+                                formData.append(lastClickedButton.name, lastClickedButton.value);
+                            }
+                        }
+
                         fetch(form.action, {
                             method: 'POST',
                             headers: {
-                                'X-Requested-With': 'XMLHttpRequest', // Add here too
+                                'X-Requested-With': 'XMLHttpRequest',
                                 'X-CSRF-Token': csrfToken
                             },
-                            body: new FormData(form)
+                            body: formData
                         })
                         .then(response => response.json())
                         .then(data => {

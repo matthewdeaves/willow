@@ -116,17 +116,20 @@
                     <?= $this->Form->button(__('Essential'), [
                         'class' => 'btn btn-secondary my-1 me-1',
                         'name' => 'consent_type',
-                        'value' => 'essential'
+                        'value' => 'essential',
+                        'data-consent-type' => 'essential',
                         ]) ?>
                     <?= $this->Form->button(__('Selected'), [
                         'class' => 'btn btn-secondary my-1 me-1',
                         'name' => 'consent_type',
-                        'value' => 'selected'
+                        'value' => 'selected',
+                        'data-consent-type' => 'selected',
                         ]) ?>
                     <?= $this->Form->button(__('All'), [
                         'class' => 'btn btn-primary my-1 me-1',
                         'name' => 'consent_type',
                         'value' => 'all',
+                        'data-consent-type' => 'all',
                         ]) ?>
                 </div>
                 <?= $this->Form->end() ?>

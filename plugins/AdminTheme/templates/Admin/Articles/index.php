@@ -4,7 +4,6 @@
  * @var iterable<\App\Model\Entity\Article> $articles
  */
 ?>
-<?php use App\Utility\SettingsManager; ?>
 <header class="py-3 mb-3 border-bottom">
     <div class="container-fluid d-flex align-items-center articles">
       <div class="d-flex align-items-center me-auto">

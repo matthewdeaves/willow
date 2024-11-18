@@ -9,11 +9,11 @@
             'class' => 'nav-item nav-link link-body-emphasis' . (($currentUrl == $url) ? ' active' : '')
         ]) ?>
 
-        <?php foreach ($rootPages as $rootPage) : ?>
-            <?php $url = $this->Html->Url->build(['_name' => 'page-by-slug', 'slug' => $rootPage['slug']]); ?>
+        <?php foreach ($menuPages as $menuPage) : ?>
+            <?php $url = $this->Html->Url->build(['_name' => 'page-by-slug', 'slug' => $menuPage['slug']]); ?>
             <?=
                 $this->Html->link(
-                    htmlspecialchars_decode($rootPage['title']),
+                    htmlspecialchars_decode($menuPage['title']),
                     $url,
                     [
                         'class' => 'nav-item nav-link link-body-emphasis' . (($currentUrl == $url) ? ' active' : ''),

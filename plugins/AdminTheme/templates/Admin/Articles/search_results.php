@@ -4,7 +4,6 @@
  * @var iterable<\App\Model\Entity\Article> $articles
  */
 ?>
-<?php use App\Utility\SettingsManager; ?>
 <?php $activeFilter = $this->request->getQuery('status'); ?>
 <table class="table table-striped">
     <thead>

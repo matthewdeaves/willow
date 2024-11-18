@@ -4,7 +4,6 @@
  * @var \App\Model\Entity\Article $article
  */
 ?>
-<?php use App\Utility\SettingsManager; ?>
 <div class="container my-4">
     <div class="row">
         <?php

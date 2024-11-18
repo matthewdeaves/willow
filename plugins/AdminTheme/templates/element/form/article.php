@@ -47,6 +47,7 @@
     </div>
     <?php endif; ?>
 </div>
+<?php if ($kind == 'article') : ?>
 <div class="mb-3">
     <div class="me-3">
         <?php echo $this->Form->label('tags._ids', __('Select Tags'), ['class' => 'form-label']); ?>
@@ -64,22 +65,25 @@
         <?php endif; ?>
     </div>
 </div>
+<?php endif; ?>
 <div class="mb-3">
     <?php if ($article->tags && SettingsManager::read('AI.enabled') && SettingsManager::read('AI.articleTags')): ?>
-    <div class="form-check d-flex align-items-center">
-        <?= $this->Form->checkbox("regenerateTags", [
-            'checked' => false,
-            'class' => 'form-check-input' . ($this->Form->isFieldError('regenerateTags') ? ' is-invalid' : '')
-        ]) ?>
-        <label class="form-check-label ms-2" for="regenerate-tags">
-            <?= __('Auto Tag') ?>
-        </label>
-        <?php if ($this->Form->isFieldError('regenerateTags')): ?>
-            <div class="invalid-feedback">
-                <?= $this->Form->error('regenerateTags') ?>
-            </div>
+        <?php if ($kind == 'article') : ?>
+        <div class="form-check d-flex align-items-center">
+            <?= $this->Form->checkbox("regenerateTags", [
+                'checked' => false,
+                'class' => 'form-check-input' . ($this->Form->isFieldError('regenerateTags') ? ' is-invalid' : '')
+            ]) ?>
+            <label class="form-check-label ms-2" for="regenerate-tags">
+                <?= __('Auto Tag') ?>
+            </label>
+            <?php if ($this->Form->isFieldError('regenerateTags')): ?>
+                <div class="invalid-feedback">
+                    <?= $this->Form->error('regenerateTags') ?>
+                </div>
+            <?php endif; ?>
+        </div>
         <?php endif; ?>
-    </div>
     <?php endif; ?>
     
     <div class="form-check">
@@ -106,6 +110,20 @@
         <?php if ($this->Form->isFieldError('featured')): ?>
             <div class="invalid-feedback">
                 <?= $this->Form->error('featured') ?>
+            </div>
+        <?php endif; ?>
+    </div>
+
+    <div class="form-check">
+        <?php echo $this->Form->checkbox('main_menu', [
+            'class' => 'form-check-input' . ($this->Form->isFieldError('main_menu') ? ' is-invalid' : '')
+        ]); ?>
+        <label class="form-check-label" for="main_menu">
+            <?= __('Main Menu') ?>
+        </label>
+        <?php if ($this->Form->isFieldError('main_menu')): ?>
+            <div class="invalid-feedback">
+                <?= $this->Form->error('main_menu') ?>
             </div>
         <?php endif; ?>
     </div>

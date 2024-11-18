@@ -25,8 +25,8 @@
       )); ?>
   </head>
   <body>
-  <?php if (!empty($consentData) && $consentData['analytics_consent']) :?>
-      <?= SettingsManager::read('Google.tagManagerBody', '') ?>
+      <?php if (!empty($consentData) && $consentData['marketing_consent']) :?>
+        <?= $this->element('site/facebook/sdk') ?>
       <?php endif; ?>
 
     <?= $this->element('site/bootstrap') ?>

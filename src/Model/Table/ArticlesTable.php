@@ -651,6 +651,39 @@ class ArticlesTable extends Table
     }
 
     /**
+     * Retrieves published pages marked for display in the main menu.
+     *
+     * This method fetches articles that meet the following criteria:
+     * - Are of type 'page'
+     * - Are published (is_published = 1)
+     * - Are marked for main menu display (main_menu = 1)
+     * Results are ordered by the 'lft' field for proper tree structure display.
+     * Results are cached using the 'main_menu_pages' key in the 'articles' cache config.
+     *
+     * @param array $additionalConditions Additional conditions to merge with the default query conditions
+     * @return array List of Article entities matching the criteria
+     * @throws \Cake\Database\Exception\DatabaseException When the database query fails
+     * @throws \Cake\Cache\Exception\InvalidArgumentException When cache configuration is invalid
+     */
+    public function getMainMenuPages(array $additionalConditions = []): array
+    {
+        $conditions = [
+            'Articles.kind' => 'page',
+            'Articles.is_published' => 1,
+            'Articles.main_menu' => 1,
+        ];
+        $conditions = array_merge($conditions, $additionalConditions);
+        $query = $this->find()
+            ->where($conditions)
+            ->orderBy(['lft' => 'ASC'])
+            ->cache('main_menu_pages', 'articles');
+
+        $results = $query->all()->toList();
+
+        return $results;
+    }
+
+    /**
      * Gets an array of years and months that have published articles.
      *
      * This method queries the articles table to find all unique year/month combinations

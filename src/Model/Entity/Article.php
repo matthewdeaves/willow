@@ -53,6 +53,7 @@ class Article extends Entity
         'title' => true,
         'lead' => true,
         'featured' => true,
+        'main_menu' => true,
         'slug' => true,
         'body' => true,
         'summary' => true,

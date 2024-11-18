@@ -11,11 +11,10 @@
     <h2 class="display-5 link-body-emphasis mb-1"><?= htmlspecialchars_decode($article->title) ?></h2>
     <?= $this->element('image/icon',  ['model' => $article, 'icon' => $article->teenyImageUrl, 'preview' => $article->largeImageUrl ]); ?>
     <p class="blog-post-meta">
-    <?= $article->published->format('F j, Y') ?> <?= h($article->user->username) ?>
+        <?= $article->published->format('F j, Y') ?> <?= h($article->user->username) ?>
     </p>
-
     <?= htmlspecialchars_decode($article->body) ?>
-
+    <?= $this->element('site/facebook/share_button') ?>
     <div class="mb-3">
         <?= $this->element('image_carousel', [
             'images' => $article->images,

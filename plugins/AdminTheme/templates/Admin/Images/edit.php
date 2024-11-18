@@ -4,7 +4,6 @@
  * @var \App\Model\Entity\Image $image
  */
 ?>
-<?php use App\Utility\SettingsManager; ?>
 <div class="container mt-4">
     <div class="row">
         <?php

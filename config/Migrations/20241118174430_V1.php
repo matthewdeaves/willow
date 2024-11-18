@@ -713,7 +713,7 @@ class V1 extends AbstractMigration
             ])
             ->addColumn('value_type', 'string', [
                 'default' => 'text',
-                'limit' => 10,
+                'limit' => 20,
                 'null' => true,
             ])
             ->addColumn('value_obscure', 'boolean', [

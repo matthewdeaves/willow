@@ -34,7 +34,7 @@
                         'class' => 'needs-validation', 'novalidate' => true
                     ]) ?>
                     <fieldset>
-                        <?= $this->element('form/article') ?>
+                        <?= $this->element('form/article', ['kind' => $article->kind]) ?>
                         <?= $this->element('form/seo') ?>                                          
                     </fieldset>
                     <div class="form-group">

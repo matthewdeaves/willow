@@ -304,7 +304,10 @@ class ArticlesController extends AppController
         $parentArticles = [];
         if ($this->request->getQuery('kind') == 'page') {
             $parentArticles = $this->Articles->find('list')
-                ->where(['kind' => 'page'])
+                ->where([
+                    'kind' => 'page',
+                    'id !=' => $id,
+                    ])
                 ->all();
         }
 
@@ -329,6 +332,7 @@ class ArticlesController extends AppController
         if ($this->Articles->delete($article)) {
             // Clear the cache for this article
             $this->clearFromCache($article->slug);
+            Cache::clear('articles');
 
             $this->Flash->success(__('The article has been deleted.'));
         } else {

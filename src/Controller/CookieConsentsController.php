@@ -29,23 +29,19 @@ class CookieConsentsController extends AppController
     }
 
     /**
-     * Edit or create cookie consent preferences with GDPR compliance.
+     * Edit cookie consent preferences and manage GDPR compliance.
+     * 
+     * Handles both GET and POST/PUT/PATCH requests for cookie consent management.
+     * For GET requests, displays the current consent settings if they exist.
+     * For POST/PUT/PATCH requests, creates a new consent record for GDPR audit trail
+     * and updates the user's cookie preferences. Supports both regular and AJAX requests.
      *
-     * This method handles both logged-in and non-logged-in users' cookie preferences.
-     * It maintains a complete audit trail by creating new records rather than updating existing ones.
-     * The method first attempts to find an existing consent record by the current session ID.
-     * If no record is found and the user is logged in, it searches for their most recent consent record.
-     * For new visitors or those without existing records, a new empty consent record is created.
+     * The method handles two types of consent:
+     * - Essential only: Basic cookies required for site functionality
+     * - Essential and Analytics: Includes analytics tracking consent
      *
-     * The method stores required GDPR compliance data including:
-     * - Session ID for tracking anonymous users
-     * - User ID for authenticated users
-     * - IP address of the request
-     * - User Agent string
-     *
-     * @return \Cake\Http\Response|null Redirects to edit action on successful save, null otherwise
-     * @throws \Cake\Http\Exception\NotFoundException When invalid parameters are passed
-     * @throws \Cake\Database\Exception\DatabaseException When database operations fail
+     * @return \Cake\Http\Response|null Returns Response object for redirects/AJAX or null for normal view render
+     * @throws \RuntimeException When cookie creation fails
      */
     public function edit(): ?Response
     {
@@ -68,6 +64,18 @@ class CookieConsentsController extends AppController
             $newConsent->user_id = $userId;
             $newConsent->ip_address = $this->request->clientIp();
             $newConsent->user_agent = $this->request->getHeaderLine('User-Agent');
+
+            $consentType = $this->request->getData('consent_type');
+            if ($consentType === 'essential') {
+                $newConsent->analytics_consent = 0;
+                $newConsent->functional_consent = 0;
+                $newConsent->marketing_consent = 0;
+            }
+            if ($consentType === 'all') {
+                $newConsent->analytics_consent = 1;
+                $newConsent->functional_consent = 1;
+                $newConsent->marketing_consent = 1;
+            }
 
             if ($this->CookieConsents->save($newConsent)) {
                 $this->Flash->success(__('Your cookie preferences have been saved.'));

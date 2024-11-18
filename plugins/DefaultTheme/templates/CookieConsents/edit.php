@@ -20,7 +20,20 @@
                 ]) ?>
                 <fieldset>
                     <p class="mb-4"><?= __('Please select your cookie preferences below. Essential cookies are required for the website to function and cannot be disabled.') ?></p>
-
+                    <?php if (!empty($sitePrivacyPolicy)) : ?>
+                    <p>
+                        <?= __(
+                            'To understand how we handle your personal information, including the use of cookies and other tracking technologies, please review our {0}.',
+                            $this->Html->link(
+                                __('Privacy Policy'),
+                                [
+                                    '_name' => 'page-by-slug',
+                                    'slug' => $sitePrivacyPolicy['slug']
+                                ]
+                            )
+                        ); ?>
+                    </p>
+                    <?php endif; ?>
                     <div class="mb-3">
                         <div class="form-check">
                             <?= $this->Form->checkbox('essential_consent', [
@@ -89,7 +102,7 @@
                                 <?= __('Marketing Cookies') ?>
                             </label>
                             <div class="form-text">
-                                <?= __('Used to deliver personalized advertisements.') ?>
+                                <?= __('Used to deliver personalized advertisements and enable the facebook share button.') ?>
                             </div>
                             <?php if ($this->Form->isFieldError('marketing_consent')): ?>
                                 <div class="invalid-feedback">
@@ -100,7 +113,21 @@
                     </div>
                 </fieldset>
                 <div class="form-group">
-                    <?= $this->Form->button(__('Save Preferences'), ['class' => 'btn btn-primary']) ?>
+                    <?= $this->Form->button(__('Essential'), [
+                        'class' => 'btn btn-secondary my-1 me-1',
+                        'name' => 'consent_type',
+                        'value' => 'essential'
+                        ]) ?>
+                    <?= $this->Form->button(__('Selected'), [
+                        'class' => 'btn btn-secondary my-1 me-1',
+                        'name' => 'consent_type',
+                        'value' => 'selected'
+                        ]) ?>
+                    <?= $this->Form->button(__('All'), [
+                        'class' => 'btn btn-primary my-1 me-1',
+                        'name' => 'consent_type',
+                        'value' => 'all',
+                        ]) ?>
                 </div>
                 <?= $this->Form->end() ?>
                 

@@ -4,6 +4,7 @@ namespace DefaultTheme\Controller\Component;
 use Cake\Controller\Component;
 use Cake\Event\EventInterface;
 use App\Utility\I18nManager;
+use App\Utility\SettingsManager;
 
 /**
  * FrontEndSiteComponent
@@ -31,8 +32,8 @@ class FrontEndSiteComponent extends Component
      * Before render callback.
      *
      * This method is automatically called before the view is rendered
-     * for non-admin pages. It prepares and sets the article tree and tag list
-     * for use in the non admin themed views.
+     * using the DefaultTheme. It prepares and sets data
+     * for use in the views.
      *
      * @param \Cake\Event\EventInterface $event The beforeRender event that was fired.
      * @return void
@@ -42,19 +43,40 @@ class FrontEndSiteComponent extends Component
         /** @var \Cake\Controller\Controller $controller */
         $controller = $event->getSubject();
 
-        // Check if we're not in the admin area
-        if ($controller->getRequest()->getParam('prefix') !== 'Admin') {
-            $articlesTable = $this->getController()->fetchTable('Articles');
-            $tagsTable = $this->getController()->fetchTable('Tags');
+        $articlesTable = $this->getController()->fetchTable('Articles');
+        $tagsTable = $this->getController()->fetchTable('Tags');
 
-            $rootPages = $articlesTable->getRootPages();
-            $featuredArticles = $articlesTable->getFeatured();
-            $rootTags = $tagsTable->getRootTags();
-            $articleArchives = $articlesTable->getArchiveDates();
-
-            $controller->set(compact('rootPages', 'rootTags', 'featuredArticles', 'articleArchives'));
+        $menuPages = [];
+        switch(SettingsManager::read('SitePages.mainMenuShow', 'root')) {
+            case "root":
+                $menuPages = $articlesTable->getRootPages();
+            break;
+            case "selected":
+                $menuPages = $articlesTable->getMainMenuPages();
+            break;
         }
 
+        $featuredArticles = $articlesTable->getFeatured();
+        $rootTags = $tagsTable->getRootTags();
+        $articleArchives = $articlesTable->getArchiveDates();
+
+        $privacyPolicyId = SettingsManager::read('SitePages.privacyPolicy', null);
+        if ($privacyPolicyId && $privacyPolicyId != 'None') {
+            $sitePrivacyPolicy = $articlesTable->find()
+                ->select(['id', 'title', 'slug'])
+                ->where(['id' => $privacyPolicyId])
+                ->cache('priv_page', 'articles')
+                ->first()->toArray();
+            $controller->set('sitePrivacyPolicy', $sitePrivacyPolicy);
+        }
+        
+        $controller->set(compact(
+            'menuPages',
+            'rootTags',
+            'featuredArticles',
+            'articleArchives',
+        ));
+        
         $controller->set('siteLanguages', I18nManager::getEnabledLanguages());
         $controller->set('selectedSiteLanguage', $controller->getRequest()->getParam('lang', 'en'));
     }

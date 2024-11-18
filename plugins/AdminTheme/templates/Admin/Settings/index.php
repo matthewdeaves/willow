@@ -44,6 +44,16 @@
                                             <?= $this->makeHumanReadable($key) ?>
                                         </label>
                                     </div>
+                                <?php elseif ($value_type === 'select-page'): ?>
+                                    <label class="form-check-label" for="<?= "{$category}-{$key}" ?>" 
+                                        <?= $this->Html->templater()->formatAttributes($tooltipAttrs) ?>>
+                                        <?= $this->makeHumanReadable($key) ?>
+                                    </label>
+                                    <?= $this->Form->select("{$category}.{$key}", $sitePages, [
+                                        'label' => $this->makeHumanReadable($key),
+                                        'value' => $value,
+                                        'class' => 'form-control',
+                                    ]) ?>
                                 <?php elseif ($value_type === 'textarea'): ?>
                                     <?= $this->Form->control("{$category}.{$key}", array_merge([
                                         'label' => $this->makeHumanReadable($key),

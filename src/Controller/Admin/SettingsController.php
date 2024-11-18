@@ -29,6 +29,14 @@ class SettingsController extends AppController
      */
     public function index(): ?Response
     {
+        $articlesTable = $this->fetchTable('Articles');
+        $sitePages = $articlesTable->find('treeList')
+            ->where(['kind' => 'page'])
+            ->toArray();
+
+        $noneItem = ['None' => 'None'];
+        $sitePages = $noneItem + $sitePages;
+
         $settings = $this->Settings->find('all')
             ->orderBy(['category' => 'ASC', 'ordering' => 'ASC'])
             ->toArray();
@@ -45,7 +53,7 @@ class SettingsController extends AppController
             ];
         }
 
-        $this->set(compact('groupedSettings'));
+        $this->set(compact('groupedSettings', 'sitePages'));
 
         return null;
     }

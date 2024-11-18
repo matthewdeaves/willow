@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2024-11-10 21:08+0000\n"
+"POT-Creation-Date: 2024-11-18 20:31+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -14,21 +14,74 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: ./src/Controller/Admin/AipromptsController.php:92
-#: ./src/Controller/Admin/AipromptsController.php:116
+#: ./src/Command/GenerateArticlesCommand.php:52
+msgid "Number of articles to generate"
+msgstr ""
+
+#: ./src/Command/GenerateArticlesCommand.php:55
+msgid "Delete all articles before generating new ones"
+msgstr ""
+
+#: ./src/Command/GenerateArticlesCommand.php:73
+msgid "All articles have been deleted."
+msgstr ""
+
+#: ./src/Command/GenerateArticlesCommand.php:80
+msgid "Generating {0} articles..."
+msgstr ""
+
+#: ./src/Command/GenerateArticlesCommand.php:93
+msgid "Generated article: {0}"
+msgstr ""
+
+#: ./src/Command/GenerateArticlesCommand.php:96
+msgid "Failed to generate article: {0}"
+msgstr ""
+
+#: ./src/Command/GenerateArticlesCommand.php:100
+#: ./src/Command/GenerateArticlesCommand.php:153
+msgid "Error in {0}: {1}"
+msgstr ""
+
+#: ./src/Command/GenerateArticlesCommand.php:107
+msgid "Generated {0} articles successfully."
+msgstr ""
+
+#: ./src/Command/GenerateArticlesCommand.php:109
+msgid "Failed to generate {0} articles."
+msgstr ""
+
+#: ./src/Command/GenerateArticlesCommand.php:135
+msgid "Creating {0} new top-level tags..."
+msgstr ""
+
+#: ./src/Command/GenerateArticlesCommand.php:147
+msgid "Created tag: {0}"
+msgstr ""
+
+#: ./src/Command/GenerateArticlesCommand.php:149
+msgid "Failed to create tag: {0}"
+msgstr ""
+
+#: ./src/Command/GenerateArticlesCommand.php:299
+msgid "No admin user found."
+msgstr ""
+
+#: ./src/Controller/Admin/AipromptsController.php:81
+#: ./src/Controller/Admin/AipromptsController.php:105
 msgid "The aiprompt has been saved."
 msgstr ""
 
-#: ./src/Controller/Admin/AipromptsController.php:96
-#: ./src/Controller/Admin/AipromptsController.php:120
+#: ./src/Controller/Admin/AipromptsController.php:85
+#: ./src/Controller/Admin/AipromptsController.php:109
 msgid "The aiprompt could not be saved. Please, try again."
 msgstr ""
 
-#: ./src/Controller/Admin/AipromptsController.php:139
+#: ./src/Controller/Admin/AipromptsController.php:128
 msgid "The aiprompt has been deleted."
 msgstr ""
 
-#: ./src/Controller/Admin/AipromptsController.php:141
+#: ./src/Controller/Admin/AipromptsController.php:130
 msgid "The aiprompt could not be deleted. Please, try again."
 msgstr ""
 
@@ -36,44 +89,44 @@ msgstr ""
 #: ./src/Controller/Admin/PageViewsController.php:66
 #: ./src/Controller/Admin/PageViewsController.php:101
 #: ./src/Controller/Admin/PageViewsController.php:141
-#: ./src/Controller/ArticlesController.php:198
-#: ./src/Controller/ArticlesController.php:245
+#: ./src/Controller/ArticlesController.php:211
+#: ./src/Controller/ArticlesController.php:258
 msgid "Article not found"
 msgstr ""
 
-#: ./src/Controller/Admin/ArticlesController.php:217
-#: ./src/Controller/Admin/ArticlesController.php:289
+#: ./src/Controller/Admin/ArticlesController.php:218
+#: ./src/Controller/Admin/ArticlesController.php:291
 msgid "The article has been saved."
 msgstr ""
 
-#: ./src/Controller/Admin/ArticlesController.php:226
-#: ./src/Controller/Admin/ArticlesController.php:298
+#: ./src/Controller/Admin/ArticlesController.php:227
+#: ./src/Controller/Admin/ArticlesController.php:300
 msgid "The article could not be saved. Please, try again."
 msgstr ""
 
-#: ./src/Controller/Admin/ArticlesController.php:331
+#: ./src/Controller/Admin/ArticlesController.php:337
 msgid "The article has been deleted."
 msgstr ""
 
-#: ./src/Controller/Admin/ArticlesController.php:333
+#: ./src/Controller/Admin/ArticlesController.php:339
 msgid "The article could not be deleted. Please, try again."
 msgstr ""
 
-#: ./src/Controller/Admin/BlockedIpsController.php:91
-#: ./src/Controller/Admin/BlockedIpsController.php:116
+#: ./src/Controller/Admin/BlockedIpsController.php:82
+#: ./src/Controller/Admin/BlockedIpsController.php:107
 msgid "The blocked ip has been saved."
 msgstr ""
 
-#: ./src/Controller/Admin/BlockedIpsController.php:95
-#: ./src/Controller/Admin/BlockedIpsController.php:120
+#: ./src/Controller/Admin/BlockedIpsController.php:86
+#: ./src/Controller/Admin/BlockedIpsController.php:111
 msgid "The blocked ip could not be saved. Please, try again."
 msgstr ""
 
-#: ./src/Controller/Admin/BlockedIpsController.php:139
+#: ./src/Controller/Admin/BlockedIpsController.php:130
 msgid "The blocked ip has been deleted."
 msgstr ""
 
-#: ./src/Controller/Admin/BlockedIpsController.php:142
+#: ./src/Controller/Admin/BlockedIpsController.php:133
 msgid "The blocked ip could not be deleted. Please, try again."
 msgstr ""
 
@@ -97,102 +150,102 @@ msgstr ""
 msgid "{0} cache configuration does not exist."
 msgstr ""
 
-#: ./src/Controller/Admin/CommentsController.php:101
+#: ./src/Controller/Admin/CommentsController.php:99
 msgid "The comment has been saved."
 msgstr ""
 
-#: ./src/Controller/Admin/CommentsController.php:105
+#: ./src/Controller/Admin/CommentsController.php:103
 msgid "The comment could not be saved. Please, try again."
 msgstr ""
 
-#: ./src/Controller/Admin/CommentsController.php:129
+#: ./src/Controller/Admin/CommentsController.php:127
 msgid "The comment has been deleted."
 msgstr ""
 
-#: ./src/Controller/Admin/CommentsController.php:131
+#: ./src/Controller/Admin/CommentsController.php:129
 msgid "The comment could not be deleted. Please, try again."
 msgstr ""
 
-#: ./src/Controller/Admin/EmailTemplatesController.php:97
-#: ./src/Controller/Admin/EmailTemplatesController.php:124
+#: ./src/Controller/Admin/EmailTemplatesController.php:95
+#: ./src/Controller/Admin/EmailTemplatesController.php:122
 msgid "The email template has been saved."
 msgstr ""
 
-#: ./src/Controller/Admin/EmailTemplatesController.php:101
-#: ./src/Controller/Admin/EmailTemplatesController.php:128
+#: ./src/Controller/Admin/EmailTemplatesController.php:99
+#: ./src/Controller/Admin/EmailTemplatesController.php:126
 msgid "The email template could not be saved. Please, try again."
 msgstr ""
 
-#: ./src/Controller/Admin/EmailTemplatesController.php:161
+#: ./src/Controller/Admin/EmailTemplatesController.php:159
 msgid "The email template has been deleted."
 msgstr ""
 
-#: ./src/Controller/Admin/EmailTemplatesController.php:163
+#: ./src/Controller/Admin/EmailTemplatesController.php:161
 msgid "The email template could not be deleted. Please, try again."
 msgstr ""
 
-#: ./src/Controller/Admin/EmailTemplatesController.php:223
+#: ./src/Controller/Admin/EmailTemplatesController.php:221
 msgid "Email sent successfully."
 msgstr ""
 
-#: ./src/Controller/Admin/EmailTemplatesController.php:225
+#: ./src/Controller/Admin/EmailTemplatesController.php:223
 msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
 msgstr ""
 
-#: ./src/Controller/Admin/EmailTemplatesController.php:234
+#: ./src/Controller/Admin/EmailTemplatesController.php:232
 msgid "Failed to send email. Please check your email configuration."
 msgstr ""
 
-#: ./src/Controller/Admin/EmailTemplatesController.php:236
+#: ./src/Controller/Admin/EmailTemplatesController.php:234
 msgid "Failed to send email to: {0}"
 msgstr ""
 
+#: ./src/Controller/Admin/EmailTemplatesController.php:239
 #: ./src/Controller/Admin/EmailTemplatesController.php:241
-#: ./src/Controller/Admin/EmailTemplatesController.php:243
 msgid "Error sending email: {0}"
 msgstr ""
 
-#: ./src/Controller/Admin/ImagesController.php:158
-#: ./src/Controller/Admin/ImagesController.php:224
+#: ./src/Controller/Admin/ImagesController.php:156
+#: ./src/Controller/Admin/ImagesController.php:222
 msgid "The image has been saved."
 msgstr ""
 
-#: ./src/Controller/Admin/ImagesController.php:162
-#: ./src/Controller/Admin/ImagesController.php:228
+#: ./src/Controller/Admin/ImagesController.php:160
+#: ./src/Controller/Admin/ImagesController.php:226
 msgid "The image could not be saved. Please, try again."
 msgstr ""
 
-#: ./src/Controller/Admin/ImagesController.php:195
+#: ./src/Controller/Admin/ImagesController.php:193
 msgid "Image uploaded successfully"
 msgstr ""
 
-#: ./src/Controller/Admin/ImagesController.php:201
+#: ./src/Controller/Admin/ImagesController.php:199
 msgid "Failed to save the image"
 msgstr ""
 
-#: ./src/Controller/Admin/ImagesController.php:247
+#: ./src/Controller/Admin/ImagesController.php:245
 msgid "The image has been deleted."
 msgstr ""
 
-#: ./src/Controller/Admin/ImagesController.php:249
+#: ./src/Controller/Admin/ImagesController.php:247
 msgid "The image could not be deleted. Please, try again."
 msgstr ""
 
-#: ./src/Controller/Admin/InternationalisationsController.php:99
-#: ./src/Controller/Admin/InternationalisationsController.php:126
+#: ./src/Controller/Admin/InternationalisationsController.php:96
+#: ./src/Controller/Admin/InternationalisationsController.php:123
 msgid "The internationalisation has been saved."
 msgstr ""
 
-#: ./src/Controller/Admin/InternationalisationsController.php:103
-#: ./src/Controller/Admin/InternationalisationsController.php:130
+#: ./src/Controller/Admin/InternationalisationsController.php:100
+#: ./src/Controller/Admin/InternationalisationsController.php:127
 msgid "The internationalisation could not be saved. Please, try again."
 msgstr ""
 
-#: ./src/Controller/Admin/InternationalisationsController.php:149
+#: ./src/Controller/Admin/InternationalisationsController.php:146
 msgid "The internationalisation has been deleted."
 msgstr ""
 
-#: ./src/Controller/Admin/InternationalisationsController.php:151
+#: ./src/Controller/Admin/InternationalisationsController.php:148
 msgid "The internationalisation could not be deleted. Please, try again."
 msgstr ""
 
@@ -200,37 +253,37 @@ msgstr ""
 msgid "An error occurred while processing your request."
 msgstr ""
 
-#: ./src/Controller/Admin/SettingsController.php:82
+#: ./src/Controller/Admin/SettingsController.php:90
 msgid "Setting not found: {0}.{1}"
 msgstr ""
 
-#: ./src/Controller/Admin/SettingsController.php:92
+#: ./src/Controller/Admin/SettingsController.php:100
 msgid "Error saving {0}.{1}: {2}"
 msgstr ""
 
-#: ./src/Controller/Admin/SettingsController.php:100
+#: ./src/Controller/Admin/SettingsController.php:108
 msgid "The settings have been saved."
 msgstr ""
 
-#: ./src/Controller/Admin/SettingsController.php:104
+#: ./src/Controller/Admin/SettingsController.php:112
 msgid "Some settings could not be saved. Please, try again."
 msgstr ""
 
-#: ./src/Controller/Admin/SlugsController.php:72
-#: ./src/Controller/Admin/SlugsController.php:97
+#: ./src/Controller/Admin/SlugsController.php:70
+#: ./src/Controller/Admin/SlugsController.php:95
 msgid "The slug has been saved."
 msgstr ""
 
-#: ./src/Controller/Admin/SlugsController.php:76
-#: ./src/Controller/Admin/SlugsController.php:101
+#: ./src/Controller/Admin/SlugsController.php:74
+#: ./src/Controller/Admin/SlugsController.php:99
 msgid "The slug could not be saved. Please, try again."
 msgstr ""
 
-#: ./src/Controller/Admin/SlugsController.php:121
+#: ./src/Controller/Admin/SlugsController.php:119
 msgid "The slug has been deleted."
 msgstr ""
 
-#: ./src/Controller/Admin/SlugsController.php:123
+#: ./src/Controller/Admin/SlugsController.php:121
 msgid "The slug could not be deleted. Please, try again."
 msgstr ""
 
@@ -266,141 +319,152 @@ msgstr ""
 msgid "Unable to delete the log."
 msgstr ""
 
-#: ./src/Controller/Admin/TagsController.php:97
+#: ./src/Controller/Admin/TagsController.php:95
 #: ./src/Controller/Admin/TagsController.php:124
 msgid "The tag has been saved."
 msgstr ""
 
-#: ./src/Controller/Admin/TagsController.php:101
+#: ./src/Controller/Admin/TagsController.php:99
 #: ./src/Controller/Admin/TagsController.php:128
 msgid "The tag could not be saved. Please, try again."
 msgstr ""
 
-#: ./src/Controller/Admin/TagsController.php:151
+#: ./src/Controller/Admin/TagsController.php:155
 msgid "The tag has been deleted."
 msgstr ""
 
-#: ./src/Controller/Admin/TagsController.php:153
+#: ./src/Controller/Admin/TagsController.php:157
 msgid "The tag could not be deleted. Please, try again."
 msgstr ""
 
-#: ./src/Controller/Admin/UsersController.php:107
-#: ./src/Controller/Admin/UsersController.php:153
+#: ./src/Controller/Admin/UsersController.php:109
+#: ./src/Controller/Admin/UsersController.php:155
 msgid "The user has been saved."
 msgstr ""
 
-#: ./src/Controller/Admin/UsersController.php:111
-#: ./src/Controller/Admin/UsersController.php:157
-#: ./src/Controller/UsersController.php:216
+#: ./src/Controller/Admin/UsersController.php:113
+#: ./src/Controller/Admin/UsersController.php:159
 msgid "The user could not be saved. Please, try again."
 msgstr ""
 
-#: ./src/Controller/Admin/UsersController.php:140
+#: ./src/Controller/Admin/UsersController.php:142
 msgid "You cannot remove your own admin status."
 msgstr ""
 
-#: ./src/Controller/Admin/UsersController.php:146
+#: ./src/Controller/Admin/UsersController.php:148
 msgid "You cannot disable your own account."
 msgstr ""
 
-#: ./src/Controller/Admin/UsersController.php:178
+#: ./src/Controller/Admin/UsersController.php:180
 msgid "No deleting your own account."
 msgstr ""
 
-#: ./src/Controller/Admin/UsersController.php:183
+#: ./src/Controller/Admin/UsersController.php:185
 msgid "The user has been deleted."
 msgstr ""
 
-#: ./src/Controller/Admin/UsersController.php:185
+#: ./src/Controller/Admin/UsersController.php:187
 msgid "The user could not be deleted. Please, try again."
 msgstr ""
 
-#: ./src/Controller/AppController.php:108
+#: ./src/Controller/AppController.php:115
 msgid "Access denied. You must be an admin to view this page."
 msgstr ""
 
-#: ./src/Controller/ArticlesController.php:274
+#: ./src/Controller/ArticlesController.php:303
 msgid "You must be logged in to add a comment."
 msgstr ""
 
-#: ./src/Controller/ArticlesController.php:286
+#: ./src/Controller/ArticlesController.php:315
 msgid "Article not found."
 msgstr ""
 
-#: ./src/Controller/ArticlesController.php:295
+#: ./src/Controller/ArticlesController.php:324
 msgid "Comments are not enabled"
 msgstr ""
 
-#: ./src/Controller/ArticlesController.php:304
+#: ./src/Controller/ArticlesController.php:333
 msgid "Your comment has been added."
 msgstr ""
 
-#: ./src/Controller/ArticlesController.php:306
+#: ./src/Controller/ArticlesController.php:335
 msgid "Unable to add your comment."
+msgstr ""
+
+#: ./src/Controller/CookieConsentsController.php:81
+msgid "Your cookie preferences have been saved."
+msgstr ""
+
+#: ./src/Controller/CookieConsentsController.php:103
+msgid "Your cookie preferences could not be saved. Please, try again."
 msgstr ""
 
 #: ./src/Controller/TagsController.php:73
 msgid "Tag not found"
 msgstr ""
 
-#: ./src/Controller/UsersController.php:75
+#: ./src/Controller/UsersController.php:74
 msgid "Invalid username or password"
 msgstr ""
 
-#: ./src/Controller/UsersController.php:127
+#: ./src/Controller/UsersController.php:197
 msgid "Registration successful. Please check your email for confirmation."
 msgstr ""
 
-#: ./src/Controller/UsersController.php:131
+#: ./src/Controller/UsersController.php:201
 msgid "Registration successful, but there was an issue creating the confirmation link."
 msgstr ""
 
-#: ./src/Controller/UsersController.php:137
+#: ./src/Controller/UsersController.php:207
 msgid "Registration failed. Please, try again."
 msgstr ""
 
-#: ./src/Controller/UsersController.php:178
+#: ./src/Controller/UsersController.php:248
 msgid "Failed to send confirmation email message: {0}"
 msgstr ""
 
-#: ./src/Controller/UsersController.php:201
-msgid "You are not authorized to edit this account, stick to your own."
+#: ./src/Controller/UsersController.php:271
+msgid "We were unable to find that account."
 msgstr ""
 
-#: ./src/Controller/UsersController.php:212
+#: ./src/Controller/UsersController.php:284
 msgid "Your account has been updated."
 msgstr ""
 
-#: ./src/Controller/UsersController.php:245
+#: ./src/Controller/UsersController.php:286
+msgid "Your account could not be updated."
+msgstr ""
+
+#: ./src/Controller/UsersController.php:314
 msgid "Your account has been confirmed. You can now log in."
 msgstr ""
 
-#: ./src/Controller/UsersController.php:249
+#: ./src/Controller/UsersController.php:318
 msgid "There was an issue confirming your account. Please try again."
 msgstr ""
 
-#: ./src/Controller/UsersController.php:254
+#: ./src/Controller/UsersController.php:323
 msgid "Invalid confirmation code."
 msgstr ""
 
-#: ./src/Controller/UsersController.php:288
-#: ./src/Controller/UsersController.php:295
+#: ./src/Controller/UsersController.php:357
+#: ./src/Controller/UsersController.php:364
 msgid "If your email is registered, you will receive a link to reset your password."
 msgstr ""
 
-#: ./src/Controller/UsersController.php:330
+#: ./src/Controller/UsersController.php:399
 msgid "Failed to send password reset email: {0}"
 msgstr ""
 
-#: ./src/Controller/UsersController.php:354
+#: ./src/Controller/UsersController.php:423
 msgid "Invalid or expired password reset link."
 msgstr ""
 
-#: ./src/Controller/UsersController.php:370
+#: ./src/Controller/UsersController.php:439
 msgid "Your password has been reset. Please log in with your new password."
 msgstr ""
 
-#: ./src/Controller/UsersController.php:374
+#: ./src/Controller/UsersController.php:443
 msgid "There was an issue resetting your password. Please try again."
 msgstr ""
 
@@ -494,22 +558,25 @@ msgstr ""
 #: ./plugins/AdminTheme/templates/Admin/Aiprompts/add.php:67
 #: ./plugins/AdminTheme/templates/Admin/Aiprompts/edit.php:67
 #: ./plugins/AdminTheme/templates/Admin/Articles/add.php:41
-#: ./plugins/AdminTheme/templates/Admin/Articles/edit.php:42
+#: ./plugins/AdminTheme/templates/Admin/Articles/edit.php:41
 #: ./plugins/AdminTheme/templates/Admin/BlockedIps/add.php:59
 #: ./plugins/AdminTheme/templates/Admin/BlockedIps/edit.php:59
 #: ./plugins/AdminTheme/templates/Admin/Comments/edit.php:71
 #: ./plugins/AdminTheme/templates/Admin/EmailTemplates/add.php:82
-#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/edit.php:89
+#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/edit.php:90
 #: ./plugins/AdminTheme/templates/Admin/EmailTemplates/send_email.php:45
 #: ./plugins/AdminTheme/templates/Admin/Images/add.php:72
-#: ./plugins/AdminTheme/templates/Admin/Images/edit.php:91
+#: ./plugins/AdminTheme/templates/Admin/Images/edit.php:77
+#: ./plugins/AdminTheme/templates/Admin/Internationalisations/add.php:51
+#: ./plugins/AdminTheme/templates/Admin/Internationalisations/edit.php:51
 #: ./plugins/AdminTheme/templates/Admin/Slugs/add.php:59
 #: ./plugins/AdminTheme/templates/Admin/Slugs/edit.php:59
-#: ./plugins/AdminTheme/templates/Admin/Tags/add.php:31
-#: ./plugins/AdminTheme/templates/Admin/Tags/edit.php:31
+#: ./plugins/AdminTheme/templates/Admin/Tags/add.php:30
+#: ./plugins/AdminTheme/templates/Admin/Tags/edit.php:30
 #: ./plugins/AdminTheme/templates/Admin/Users/add.php:119
-#: ./plugins/AdminTheme/templates/Admin/Users/edit.php:146
-#: ./plugins/DefaultTheme/templates/Users/edit.php:44
+#: ./plugins/AdminTheme/templates/Admin/Users/edit.php:133
+#: ./plugins/DefaultTheme/templates/Users/edit.php:85
+#: ./plugins/DefaultTheme/templates/Users/register.php:52
 msgid "Submit"
 msgstr ""
 
@@ -525,35 +592,47 @@ msgstr ""
 msgid "New Aiprompt"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Aiprompts/index.php:28
-#: ./plugins/AdminTheme/templates/Admin/Aiprompts/index.php:44
-#: ./plugins/AdminTheme/templates/Admin/Aiprompts/search_results.php:19
+#: ./plugins/AdminTheme/templates/Admin/Aiprompts/index.php:29
+#: ./plugins/AdminTheme/templates/Admin/Aiprompts/index.php:45
+#: ./plugins/AdminTheme/templates/Admin/Aiprompts/search_results.php:16
+#: ./plugins/AdminTheme/templates/Admin/Aiprompts/search_results.php:32
 #: ./plugins/AdminTheme/templates/Admin/Articles/index.php:70
-#: ./plugins/AdminTheme/templates/Admin/Articles/search_results.php:82
-#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:138
-#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:183
-#: ./plugins/AdminTheme/templates/Admin/BlockedIps/index.php:26
-#: ./plugins/AdminTheme/templates/Admin/BlockedIps/index.php:40
-#: ./plugins/AdminTheme/templates/Admin/BlockedIps/search_results.php:17
+#: ./plugins/AdminTheme/templates/Admin/Articles/search_results.php:23
+#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:130
+#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:175
+#: ./plugins/AdminTheme/templates/Admin/BlockedIps/index.php:27
+#: ./plugins/AdminTheme/templates/Admin/BlockedIps/index.php:41
+#: ./plugins/AdminTheme/templates/Admin/BlockedIps/search_results.php:14
+#: ./plugins/AdminTheme/templates/Admin/BlockedIps/search_results.php:28
 #: ./plugins/AdminTheme/templates/Admin/Cache/clear_all.php:39
-#: ./plugins/AdminTheme/templates/Admin/Comments/index.php:64
-#: ./plugins/AdminTheme/templates/Admin/Comments/index.php:91
-#: ./plugins/AdminTheme/templates/Admin/Comments/search_results.php:31
-#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/index.php:29
-#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/index.php:42
-#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/search_results.php:16
-#: ./plugins/AdminTheme/templates/Admin/Images/index.php:48
-#: ./plugins/AdminTheme/templates/Admin/Images/index.php:80
-#: ./plugins/AdminTheme/templates/Admin/Internationalisations/index.php:27
-#: ./plugins/AdminTheme/templates/Admin/Slugs/index.php:26
-#: ./plugins/AdminTheme/templates/Admin/Slugs/index.php:40
-#: ./plugins/AdminTheme/templates/Admin/Slugs/search_results.php:17
+#: ./plugins/AdminTheme/templates/Admin/Comments/index.php:65
+#: ./plugins/AdminTheme/templates/Admin/Comments/index.php:92
+#: ./plugins/AdminTheme/templates/Admin/Comments/search_results.php:21
+#: ./plugins/AdminTheme/templates/Admin/Comments/search_results.php:48
+#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/index.php:30
+#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/index.php:43
+#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/search_results.php:13
+#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/search_results.php:26
+#: ./plugins/AdminTheme/templates/Admin/Images/index.php:49
+#: ./plugins/AdminTheme/templates/Admin/Images/index.php:67
+#: ./plugins/AdminTheme/templates/Admin/Images/search_results.php:49
+#: ./plugins/AdminTheme/templates/Admin/Images/search_results.php:67
+#: ./plugins/AdminTheme/templates/Admin/Internationalisations/index.php:55
+#: ./plugins/AdminTheme/templates/Admin/Internationalisations/index.php:68
+#: ./plugins/AdminTheme/templates/Admin/Internationalisations/search_results.php:14
+#: ./plugins/AdminTheme/templates/Admin/Internationalisations/search_results.php:27
+#: ./plugins/AdminTheme/templates/Admin/Slugs/index.php:27
+#: ./plugins/AdminTheme/templates/Admin/Slugs/index.php:41
+#: ./plugins/AdminTheme/templates/Admin/Slugs/search_results.php:14
+#: ./plugins/AdminTheme/templates/Admin/Slugs/search_results.php:28
 #: ./plugins/AdminTheme/templates/Admin/SystemLogs/index.php:67
-#: ./plugins/AdminTheme/templates/Admin/Tags/index.php:26
-#: ./plugins/AdminTheme/templates/Admin/Users/index.php:62
-#: ./plugins/AdminTheme/templates/Admin/Users/index.php:100
-#: ./plugins/AdminTheme/templates/Admin/Users/search_results.php:43
-#: ./plugins/AdminTheme/templates/element/actions_card.php:12
+#: ./plugins/AdminTheme/templates/Admin/Tags/index.php:63
+#: ./plugins/AdminTheme/templates/Admin/Tags/search_results.php:15
+#: ./plugins/AdminTheme/templates/Admin/Users/index.php:63
+#: ./plugins/AdminTheme/templates/Admin/Users/index.php:87
+#: ./plugins/AdminTheme/templates/Admin/Users/search_results.php:16
+#: ./plugins/AdminTheme/templates/Admin/Users/search_results.php:40
+#: ./plugins/AdminTheme/templates/element/actions_card.php:14
 #: ./plugins/AdminTheme/templates/element/evd_dropdown.php:4
 #: ./plugins/AdminTheme/templates/element/page_tree.php:44
 #: ./plugins/AdminTheme/templates/element/related/articles.php:16
@@ -561,97 +640,97 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Aiprompts/index.php:48
-#: ./plugins/AdminTheme/templates/Admin/Aiprompts/search_results.php:23
-#: ./plugins/AdminTheme/templates/Admin/Articles/search_results.php:89
-#: ./plugins/AdminTheme/templates/Admin/BlockedIps/index.php:44
-#: ./plugins/AdminTheme/templates/Admin/BlockedIps/search_results.php:21
-#: ./plugins/AdminTheme/templates/Admin/Comments/index.php:95
-#: ./plugins/AdminTheme/templates/Admin/Comments/search_results.php:35
-#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/index.php:46
-#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/search_results.php:20
-#: ./plugins/AdminTheme/templates/Admin/Images/index.php:84
-#: ./plugins/AdminTheme/templates/Admin/Images/index_grid.php:59
-#: ./plugins/AdminTheme/templates/Admin/Images/search_results.php:25
-#: ./plugins/AdminTheme/templates/Admin/Images/search_results.php:61
-#: ./plugins/AdminTheme/templates/Admin/Internationalisations/index.php:39
-#: ./plugins/AdminTheme/templates/Admin/Internationalisations/search_results.php:15
-#: ./plugins/AdminTheme/templates/Admin/Slugs/index.php:44
-#: ./plugins/AdminTheme/templates/Admin/Slugs/search_results.php:21
+#: ./plugins/AdminTheme/templates/Admin/Aiprompts/index.php:49
+#: ./plugins/AdminTheme/templates/Admin/Aiprompts/search_results.php:36
+#: ./plugins/AdminTheme/templates/Admin/BlockedIps/index.php:45
+#: ./plugins/AdminTheme/templates/Admin/BlockedIps/search_results.php:32
+#: ./plugins/AdminTheme/templates/Admin/Comments/index.php:96
+#: ./plugins/AdminTheme/templates/Admin/Comments/search_results.php:52
+#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/index.php:47
+#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/search_results.php:30
+#: ./plugins/AdminTheme/templates/Admin/Images/index.php:71
+#: ./plugins/AdminTheme/templates/Admin/Images/index_grid.php:60
+#: ./plugins/AdminTheme/templates/Admin/Images/search_results.php:28
+#: ./plugins/AdminTheme/templates/Admin/Images/search_results.php:71
+#: ./plugins/AdminTheme/templates/Admin/Internationalisations/index.php:72
+#: ./plugins/AdminTheme/templates/Admin/Internationalisations/search_results.php:31
+#: ./plugins/AdminTheme/templates/Admin/Slugs/index.php:45
+#: ./plugins/AdminTheme/templates/Admin/Slugs/search_results.php:32
 #: ./plugins/AdminTheme/templates/Admin/SystemLogs/index.php:87
 #: ./plugins/AdminTheme/templates/Admin/SystemLogs/search_results.php:23
-#: ./plugins/AdminTheme/templates/Admin/Users/index.php:104
-#: ./plugins/AdminTheme/templates/Admin/Users/search_results.php:47
+#: ./plugins/AdminTheme/templates/Admin/Users/index.php:91
+#: ./plugins/AdminTheme/templates/Admin/Users/search_results.php:44
 #: ./plugins/AdminTheme/templates/element/evd_dropdown.php:16
 #: ./plugins/AdminTheme/templates/element/page_tree.php:49
 #: ./vendor/cakephp/cakephp/src/View/Helper/PaginatorHelper.php:1178
 msgid "View"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Aiprompts/index.php:51
-#: ./plugins/AdminTheme/templates/Admin/Aiprompts/search_results.php:26
-#: ./plugins/AdminTheme/templates/Admin/Articles/search_results.php:86
-#: ./plugins/AdminTheme/templates/Admin/BlockedIps/index.php:47
-#: ./plugins/AdminTheme/templates/Admin/BlockedIps/search_results.php:24
-#: ./plugins/AdminTheme/templates/Admin/Comments/index.php:98
-#: ./plugins/AdminTheme/templates/Admin/Comments/search_results.php:38
-#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/index.php:49
-#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/search_results.php:23
-#: ./plugins/AdminTheme/templates/Admin/Images/index.php:87
-#: ./plugins/AdminTheme/templates/Admin/Images/index_grid.php:60
-#: ./plugins/AdminTheme/templates/Admin/Images/search_results.php:26
-#: ./plugins/AdminTheme/templates/Admin/Images/search_results.php:62
-#: ./plugins/AdminTheme/templates/Admin/Internationalisations/index.php:40
-#: ./plugins/AdminTheme/templates/Admin/Internationalisations/search_results.php:16
-#: ./plugins/AdminTheme/templates/Admin/Slugs/index.php:47
-#: ./plugins/AdminTheme/templates/Admin/Slugs/search_results.php:24
-#: ./plugins/AdminTheme/templates/Admin/Users/index.php:107
-#: ./plugins/AdminTheme/templates/Admin/Users/search_results.php:50
+#: ./plugins/AdminTheme/templates/Admin/Aiprompts/index.php:52
+#: ./plugins/AdminTheme/templates/Admin/Aiprompts/search_results.php:39
+#: ./plugins/AdminTheme/templates/Admin/BlockedIps/index.php:48
+#: ./plugins/AdminTheme/templates/Admin/BlockedIps/search_results.php:35
+#: ./plugins/AdminTheme/templates/Admin/Comments/index.php:99
+#: ./plugins/AdminTheme/templates/Admin/Comments/search_results.php:55
+#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/index.php:50
+#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/search_results.php:33
+#: ./plugins/AdminTheme/templates/Admin/Images/index.php:74
+#: ./plugins/AdminTheme/templates/Admin/Images/index_grid.php:61
+#: ./plugins/AdminTheme/templates/Admin/Images/search_results.php:29
+#: ./plugins/AdminTheme/templates/Admin/Images/search_results.php:74
+#: ./plugins/AdminTheme/templates/Admin/Internationalisations/index.php:75
+#: ./plugins/AdminTheme/templates/Admin/Internationalisations/search_results.php:34
+#: ./plugins/AdminTheme/templates/Admin/Slugs/index.php:48
+#: ./plugins/AdminTheme/templates/Admin/Slugs/search_results.php:35
+#: ./plugins/AdminTheme/templates/Admin/Users/index.php:94
+#: ./plugins/AdminTheme/templates/Admin/Users/search_results.php:47
 #: ./plugins/AdminTheme/templates/element/evd_dropdown.php:9
 #: ./plugins/AdminTheme/templates/element/page_tree.php:48
 msgid "Edit"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Aiprompts/index.php:55
-#: ./plugins/AdminTheme/templates/Admin/Aiprompts/search_results.php:30
-#: ./plugins/AdminTheme/templates/Admin/Articles/search_results.php:93
-#: ./plugins/AdminTheme/templates/Admin/BlockedIps/index.php:51
-#: ./plugins/AdminTheme/templates/Admin/BlockedIps/search_results.php:28
-#: ./plugins/AdminTheme/templates/Admin/Comments/index.php:102
-#: ./plugins/AdminTheme/templates/Admin/Comments/search_results.php:42
-#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/index.php:53
-#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/search_results.php:27
-#: ./plugins/AdminTheme/templates/Admin/Images/index.php:91
-#: ./plugins/AdminTheme/templates/Admin/Images/index_grid.php:61
-#: ./plugins/AdminTheme/templates/Admin/Images/search_results.php:27
-#: ./plugins/AdminTheme/templates/Admin/Images/search_results.php:63
-#: ./plugins/AdminTheme/templates/Admin/Internationalisations/index.php:41
-#: ./plugins/AdminTheme/templates/Admin/Internationalisations/search_results.php:17
-#: ./plugins/AdminTheme/templates/Admin/Slugs/index.php:51
-#: ./plugins/AdminTheme/templates/Admin/Slugs/search_results.php:28
+#: ./plugins/AdminTheme/templates/Admin/Aiprompts/index.php:56
+#: ./plugins/AdminTheme/templates/Admin/Aiprompts/search_results.php:43
+#: ./plugins/AdminTheme/templates/Admin/BlockedIps/index.php:52
+#: ./plugins/AdminTheme/templates/Admin/BlockedIps/search_results.php:39
+#: ./plugins/AdminTheme/templates/Admin/Comments/index.php:103
+#: ./plugins/AdminTheme/templates/Admin/Comments/search_results.php:59
+#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/index.php:56
+#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/search_results.php:37
+#: ./plugins/AdminTheme/templates/Admin/Images/index.php:78
+#: ./plugins/AdminTheme/templates/Admin/Images/index_grid.php:62
+#: ./plugins/AdminTheme/templates/Admin/Images/search_results.php:30
+#: ./plugins/AdminTheme/templates/Admin/Images/search_results.php:78
+#: ./plugins/AdminTheme/templates/Admin/Internationalisations/index.php:79
+#: ./plugins/AdminTheme/templates/Admin/Internationalisations/search_results.php:38
+#: ./plugins/AdminTheme/templates/Admin/Slugs/index.php:52
+#: ./plugins/AdminTheme/templates/Admin/Slugs/search_results.php:39
 #: ./plugins/AdminTheme/templates/Admin/SystemLogs/index.php:88
 #: ./plugins/AdminTheme/templates/Admin/SystemLogs/search_results.php:24
-#: ./plugins/AdminTheme/templates/Admin/Users/index.php:111
-#: ./plugins/AdminTheme/templates/Admin/Users/search_results.php:54
+#: ./plugins/AdminTheme/templates/Admin/Users/index.php:98
+#: ./plugins/AdminTheme/templates/Admin/Users/search_results.php:51
 #: ./plugins/AdminTheme/templates/element/evd_dropdown.php:24
 #: ./plugins/AdminTheme/templates/element/page_tree.php:51
 msgid "Delete"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Aiprompts/index.php:55
-#: ./plugins/AdminTheme/templates/Admin/Aiprompts/search_results.php:30
-#: ./plugins/AdminTheme/templates/Admin/Articles/search_results.php:93
-#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/index.php:53
-#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/search_results.php:27
-#: ./plugins/AdminTheme/templates/Admin/Images/index.php:91
-#: ./plugins/AdminTheme/templates/Admin/Images/index_grid.php:61
-#: ./plugins/AdminTheme/templates/Admin/Images/search_results.php:27
-#: ./plugins/AdminTheme/templates/Admin/Images/search_results.php:63
-#: ./plugins/AdminTheme/templates/Admin/Internationalisations/search_results.php:17
-#: ./plugins/AdminTheme/templates/Admin/Slugs/index.php:51
-#: ./plugins/AdminTheme/templates/Admin/Slugs/search_results.php:28
-#: ./plugins/AdminTheme/templates/Admin/Users/index.php:111
-#: ./plugins/AdminTheme/templates/element/actions_card.php:58
+#: ./plugins/AdminTheme/templates/Admin/Aiprompts/index.php:56
+#: ./plugins/AdminTheme/templates/Admin/Aiprompts/search_results.php:43
+#: ./plugins/AdminTheme/templates/Admin/BlockedIps/index.php:52
+#: ./plugins/AdminTheme/templates/Admin/BlockedIps/search_results.php:39
+#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/index.php:56
+#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/search_results.php:37
+#: ./plugins/AdminTheme/templates/Admin/Images/index.php:78
+#: ./plugins/AdminTheme/templates/Admin/Images/index_grid.php:62
+#: ./plugins/AdminTheme/templates/Admin/Images/search_results.php:30
+#: ./plugins/AdminTheme/templates/Admin/Images/search_results.php:78
+#: ./plugins/AdminTheme/templates/Admin/Internationalisations/index.php:79
+#: ./plugins/AdminTheme/templates/Admin/Internationalisations/search_results.php:38
+#: ./plugins/AdminTheme/templates/Admin/Slugs/index.php:52
+#: ./plugins/AdminTheme/templates/Admin/Slugs/search_results.php:39
+#: ./plugins/AdminTheme/templates/Admin/Users/index.php:98
+#: ./plugins/AdminTheme/templates/Admin/Users/search_results.php:51
+#: ./plugins/AdminTheme/templates/element/actions_card.php:79
 #: ./plugins/AdminTheme/templates/element/evd_dropdown.php:26
 #: ./plugins/AdminTheme/templates/element/page_tree.php:51
 msgid "Are you sure you want to delete {0}?"
@@ -674,7 +753,7 @@ msgid "Temperature"
 msgstr ""
 
 #: ./plugins/AdminTheme/templates/Admin/Aiprompts/view.php:39
-#: ./plugins/AdminTheme/templates/Admin/Internationalisations/view.php:41
+#: ./plugins/AdminTheme/templates/Admin/Internationalisations/view.php:27
 msgid "Created At"
 msgstr ""
 
@@ -686,67 +765,72 @@ msgstr ""
 msgid "System Prompt"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Articles/add.php:25
+#: ./plugins/AdminTheme/templates/Admin/Articles/add.php:27
 msgid "Add Page"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Articles/add.php:25
-msgid "Add Article"
+#: ./plugins/AdminTheme/templates/Admin/Articles/add.php:27
+msgid "Add Post"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Articles/edit.php:26
+#: ./plugins/AdminTheme/templates/Admin/Articles/edit.php:27
 msgid "Edit Page"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Articles/edit.php:26
-msgid "Edit Article"
+#: ./plugins/AdminTheme/templates/Admin/Articles/edit.php:27
+msgid "Edit Post"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Articles/index.php:13
+#: ./plugins/AdminTheme/templates/Admin/Articles/index.php:12
 #: ./plugins/AdminTheme/templates/Admin/Articles/tree_index.php:13
 msgid "Status"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Articles/index.php:18
+#: ./plugins/AdminTheme/templates/Admin/Articles/index.php:17
 #: ./plugins/AdminTheme/templates/Admin/Articles/tree_index.php:17
 #: ./plugins/AdminTheme/templates/Admin/Comments/index.php:17
+#: ./plugins/AdminTheme/templates/Admin/Internationalisations/index.php:18
+#: ./plugins/AdminTheme/templates/Admin/Tags/index.php:18
 #: ./plugins/AdminTheme/templates/Admin/Users/index.php:18
+#: ./plugins/DefaultTheme/templates/CookieConsents/edit.php:126
+#: ./plugins/DefaultTheme/templates/element/site/tags.php:4
 msgid "All"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Articles/index.php:27
-#: ./plugins/AdminTheme/templates/Admin/Articles/index.php:137
-#: ./plugins/AdminTheme/templates/Admin/Articles/search_results.php:72
+#: ./plugins/AdminTheme/templates/Admin/Articles/index.php:26
+#: ./plugins/AdminTheme/templates/Admin/Articles/index.php:120
+#: ./plugins/AdminTheme/templates/Admin/Articles/search_results.php:73
 #: ./plugins/AdminTheme/templates/Admin/Articles/tree_index.php:26
 msgid "Un-Published"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Articles/index.php:36
-#: ./plugins/AdminTheme/templates/Admin/Articles/index.php:137
-#: ./plugins/AdminTheme/templates/Admin/Articles/search_results.php:72
+#: ./plugins/AdminTheme/templates/Admin/Articles/index.php:35
+#: ./plugins/AdminTheme/templates/Admin/Articles/index.php:120
+#: ./plugins/AdminTheme/templates/Admin/Articles/search_results.php:73
 #: ./plugins/AdminTheme/templates/Admin/Articles/tree_index.php:35
-#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:101
-#: ./plugins/AdminTheme/templates/element/article_form_fields.php:83
+#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:88
+#: ./plugins/AdminTheme/templates/element/form/article.php:94
 #: ./plugins/AdminTheme/templates/element/related/articles.php:15
 msgid "Published"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Articles/index.php:47
-msgid "Search Articles..."
+#: ./plugins/AdminTheme/templates/Admin/Articles/index.php:46
+msgid "Search Posts..."
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Articles/index.php:51
-msgid "New Article"
+#: ./plugins/AdminTheme/templates/Admin/Articles/index.php:50
+msgid "New Post"
 msgstr ""
 
 #: ./plugins/AdminTheme/templates/Admin/Articles/index.php:58
-#: ./plugins/AdminTheme/templates/Admin/Tags/index.php:23
+#: ./plugins/AdminTheme/templates/Admin/Articles/search_results.php:11
+#: ./plugins/AdminTheme/templates/Admin/Tags/index.php:59
+#: ./plugins/AdminTheme/templates/Admin/Tags/search_results.php:11
 msgid "Picture"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Articles/index.php:107
-#: ./plugins/AdminTheme/templates/Admin/Articles/search_results.php:42
-#: ./plugins/DefaultTheme/templates/Articles/view_by_slug.php:37
+#: ./plugins/AdminTheme/templates/Admin/Articles/index.php:90
+#: ./plugins/AdminTheme/templates/Admin/Articles/search_results.php:43
 msgid "Unknown Author"
 msgstr ""
 
@@ -763,125 +847,132 @@ msgstr ""
 msgid "No pages found."
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:24
+#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:25
 #: ./plugins/AdminTheme/templates/Admin/Comments/view.php:27
 #: ./plugins/AdminTheme/templates/element/related/articles.php:11
 #: ./plugins/AdminTheme/templates/element/related/comments.php:11
 msgid "User"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:30
+#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:31
 #: ./plugins/AdminTheme/templates/element/related/articles.php:13
 msgid "Kind"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:34
-#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:136
+#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:35
+#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:128
 #: ./plugins/AdminTheme/templates/Admin/Tags/view.php:23
 #: ./plugins/AdminTheme/templates/element/related/articles.php:14
 msgid "Title"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:38
-#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:137
-#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:180
+#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:39
+#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:129
+#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:172
 #: ./plugins/AdminTheme/templates/Admin/Slugs/view.php:27
 #: ./plugins/AdminTheme/templates/Admin/Tags/view.php:27
 msgid "Slug"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:69
+#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:70
 #: ./plugins/AdminTheme/templates/Admin/Images/add.php:58
-#: ./plugins/AdminTheme/templates/Admin/Images/edit.php:59
-#: ./plugins/AdminTheme/templates/Admin/Images/index.php:44
+#: ./plugins/AdminTheme/templates/Admin/Images/edit.php:58
+#: ./plugins/AdminTheme/templates/Admin/Images/index.php:45
+#: ./plugins/AdminTheme/templates/Admin/Images/search_results.php:45
 #: ./plugins/AdminTheme/templates/Admin/Users/add.php:71
-#: ./plugins/AdminTheme/templates/Admin/Users/edit.php:98
-#: ./plugins/AdminTheme/templates/Admin/Users/index.php:58
+#: ./plugins/AdminTheme/templates/Admin/Users/edit.php:85
+#: ./plugins/AdminTheme/templates/Admin/Users/index.php:59
+#: ./plugins/AdminTheme/templates/Admin/Users/search_results.php:12
 #: ./plugins/AdminTheme/templates/Admin/Users/view.php:32
+#: ./plugins/DefaultTheme/templates/Users/edit.php:70
 msgid "Image"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:93
-#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:181
+#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:80
+#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:173
 #: ./plugins/AdminTheme/templates/Admin/BlockedIps/view.php:35
 #: ./plugins/AdminTheme/templates/Admin/Comments/view.php:35
-#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/view.php:35
+#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/view.php:36
 #: ./plugins/AdminTheme/templates/Admin/Images/view.php:48
 #: ./plugins/AdminTheme/templates/Admin/Slugs/view.php:31
 #: ./plugins/AdminTheme/templates/Admin/SystemLogs/index.php:66
 #: ./plugins/AdminTheme/templates/Admin/SystemLogs/view.php:29
 #: ./plugins/AdminTheme/templates/Admin/Tags/view.php:31
-#: ./plugins/AdminTheme/templates/Admin/Users/view.php:55
+#: ./plugins/AdminTheme/templates/Admin/Users/view.php:42
 #: ./plugins/AdminTheme/templates/element/related/comments.php:17
 msgid "Created"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:97
-#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:182
+#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:84
+#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:174
 #: ./plugins/AdminTheme/templates/Admin/BlockedIps/view.php:39
-#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/view.php:39
+#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/view.php:40
 #: ./plugins/AdminTheme/templates/Admin/Images/view.php:52
 #: ./plugins/AdminTheme/templates/Admin/Slugs/view.php:35
 #: ./plugins/AdminTheme/templates/Admin/Tags/view.php:35
-#: ./plugins/AdminTheme/templates/Admin/Users/view.php:59
+#: ./plugins/AdminTheme/templates/Admin/Users/view.php:46
 msgid "Modified"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:105
+#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:92
 msgid "Is Published"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:107
-#: ./plugins/AdminTheme/templates/Admin/Comments/index.php:76
-#: ./plugins/AdminTheme/templates/Admin/Comments/index.php:82
-#: ./plugins/AdminTheme/templates/Admin/Comments/search_results.php:16
-#: ./plugins/AdminTheme/templates/Admin/Comments/search_results.php:22
+#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:94
+#: ./plugins/AdminTheme/templates/Admin/Comments/index.php:77
+#: ./plugins/AdminTheme/templates/Admin/Comments/index.php:83
+#: ./plugins/AdminTheme/templates/Admin/Comments/search_results.php:33
+#: ./plugins/AdminTheme/templates/Admin/Comments/search_results.php:39
 #: ./plugins/AdminTheme/templates/Admin/Comments/view.php:40
 #: ./plugins/AdminTheme/templates/Admin/Comments/view.php:44
-#: ./plugins/AdminTheme/templates/Admin/Users/index.php:91
-#: ./plugins/AdminTheme/templates/Admin/Users/index.php:94
+#: ./plugins/AdminTheme/templates/Admin/Users/index.php:78
+#: ./plugins/AdminTheme/templates/Admin/Users/index.php:81
+#: ./plugins/AdminTheme/templates/Admin/Users/search_results.php:31
 #: ./plugins/AdminTheme/templates/Admin/Users/search_results.php:34
-#: ./plugins/AdminTheme/templates/Admin/Users/search_results.php:37
-#: ./plugins/AdminTheme/templates/Admin/Users/view.php:64
-#: ./plugins/AdminTheme/templates/Admin/Users/view.php:68
+#: ./plugins/AdminTheme/templates/Admin/Users/view.php:51
+#: ./plugins/AdminTheme/templates/Admin/Users/view.php:55
 #: ./plugins/AdminTheme/templates/element/related/articles.php:56
 #: ./plugins/AdminTheme/templates/element/related/comments.php:28
 #: ./plugins/AdminTheme/templates/element/related/comments.php:29
 msgid "Yes"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:107
-#: ./plugins/AdminTheme/templates/Admin/Comments/index.php:76
-#: ./plugins/AdminTheme/templates/Admin/Comments/index.php:82
-#: ./plugins/AdminTheme/templates/Admin/Comments/search_results.php:16
-#: ./plugins/AdminTheme/templates/Admin/Comments/search_results.php:22
+#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:94
+#: ./plugins/AdminTheme/templates/Admin/Comments/index.php:77
+#: ./plugins/AdminTheme/templates/Admin/Comments/index.php:83
+#: ./plugins/AdminTheme/templates/Admin/Comments/search_results.php:33
+#: ./plugins/AdminTheme/templates/Admin/Comments/search_results.php:39
 #: ./plugins/AdminTheme/templates/Admin/Comments/view.php:40
 #: ./plugins/AdminTheme/templates/Admin/Comments/view.php:44
-#: ./plugins/AdminTheme/templates/Admin/Users/index.php:91
-#: ./plugins/AdminTheme/templates/Admin/Users/index.php:94
+#: ./plugins/AdminTheme/templates/Admin/Users/index.php:78
+#: ./plugins/AdminTheme/templates/Admin/Users/index.php:81
+#: ./plugins/AdminTheme/templates/Admin/Users/search_results.php:31
 #: ./plugins/AdminTheme/templates/Admin/Users/search_results.php:34
-#: ./plugins/AdminTheme/templates/Admin/Users/search_results.php:37
-#: ./plugins/AdminTheme/templates/Admin/Users/view.php:64
-#: ./plugins/AdminTheme/templates/Admin/Users/view.php:68
+#: ./plugins/AdminTheme/templates/Admin/Users/view.php:51
+#: ./plugins/AdminTheme/templates/Admin/Users/view.php:55
 #: ./plugins/AdminTheme/templates/element/related/articles.php:56
 #: ./plugins/AdminTheme/templates/element/related/comments.php:28
 #: ./plugins/AdminTheme/templates/element/related/comments.php:29
 msgid "No"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:113
+#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:100
 msgid "Body"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:119
+#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:106
+msgid "Lead"
+msgstr ""
+
+#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:112
 msgid "Summary"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:130
+#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:122
 msgid "Related Tags"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:174
+#: ./plugins/AdminTheme/templates/Admin/Articles/view.php:166
 msgid "Related Slugs"
 msgstr ""
 
@@ -899,16 +990,6 @@ msgstr ""
 
 #: ./plugins/AdminTheme/templates/Admin/BlockedIps/index.php:15
 msgid "New Blocked Ip"
-msgstr ""
-
-#: ./plugins/AdminTheme/templates/Admin/BlockedIps/index.php:51
-#: ./plugins/AdminTheme/templates/Admin/BlockedIps/search_results.php:28
-#: ./plugins/AdminTheme/templates/Admin/Comments/index.php:102
-#: ./plugins/AdminTheme/templates/Admin/Comments/search_results.php:42
-#: ./plugins/AdminTheme/templates/Admin/Internationalisations/index.php:41
-#: ./plugins/AdminTheme/templates/Admin/SystemLogs/index.php:88
-#: ./plugins/AdminTheme/templates/Admin/SystemLogs/search_results.php:24
-msgid "Are you sure you want to delete # {0}?"
 msgstr ""
 
 #: ./plugins/AdminTheme/templates/Admin/BlockedIps/view.php:23
@@ -933,7 +1014,7 @@ msgid "Never"
 msgstr ""
 
 #: ./plugins/AdminTheme/templates/Admin/Cache/clear_all.php:23
-#: ./plugins/AdminTheme/templates/layout/default.php:205
+#: ./plugins/AdminTheme/templates/layout/default.php:209
 msgid "Cache"
 msgstr ""
 
@@ -971,7 +1052,7 @@ msgstr ""
 
 #: ./plugins/AdminTheme/templates/Admin/Cache/clear_all.php:63
 #: ./plugins/AdminTheme/templates/Admin/Settings/index.php:13
-#: ./plugins/AdminTheme/templates/layout/default.php:199
+#: ./plugins/AdminTheme/templates/layout/default.php:202
 msgid "Settings"
 msgstr ""
 
@@ -980,7 +1061,8 @@ msgid "Edit Comment"
 msgstr ""
 
 #: ./plugins/AdminTheme/templates/Admin/Comments/edit.php:43
-#: ./plugins/AdminTheme/templates/Admin/Comments/index.php:58
+#: ./plugins/AdminTheme/templates/Admin/Comments/index.php:59
+#: ./plugins/AdminTheme/templates/Admin/Comments/search_results.php:15
 #: ./plugins/AdminTheme/templates/Admin/Comments/view.php:39
 #: ./plugins/AdminTheme/templates/element/related/comments.php:14
 msgid "Display"
@@ -992,6 +1074,7 @@ msgid "Inappropriate"
 msgstr ""
 
 #: ./plugins/AdminTheme/templates/Admin/Comments/index.php:12
+#: ./plugins/AdminTheme/templates/Admin/Internationalisations/index.php:13
 #: ./plugins/AdminTheme/templates/Admin/PageViews/page_view_stats.php:16
 #: ./plugins/AdminTheme/templates/Admin/Users/index.php:13
 msgid "Filter"
@@ -1009,16 +1092,26 @@ msgstr ""
 msgid "Search Comments..."
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Comments/index.php:54
+#: ./plugins/AdminTheme/templates/Admin/Comments/index.php:55
+#: ./plugins/AdminTheme/templates/Admin/Comments/search_results.php:11
 msgid "On"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Comments/index.php:61
+#: ./plugins/AdminTheme/templates/Admin/Comments/index.php:62
+#: ./plugins/AdminTheme/templates/Admin/Comments/search_results.php:18
 msgid "Flagged"
 msgstr ""
 
+#: ./plugins/AdminTheme/templates/Admin/Comments/index.php:103
+#: ./plugins/AdminTheme/templates/Admin/Comments/search_results.php:59
+#: ./plugins/AdminTheme/templates/Admin/SystemLogs/index.php:88
+#: ./plugins/AdminTheme/templates/Admin/SystemLogs/search_results.php:24
+msgid "Are you sure you want to delete # {0}?"
+msgstr ""
+
 #: ./plugins/AdminTheme/templates/Admin/Comments/view.php:20
-#: ./plugins/DefaultTheme/templates/Articles/view_by_slug.php:97
+#: ./plugins/DefaultTheme/templates/Articles/article.php:61
+#: ./plugins/DefaultTheme/templates/Articles/page.php:60
 msgid "Comment"
 msgstr ""
 
@@ -1044,7 +1137,7 @@ msgstr ""
 msgid "Add Email Template"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/edit.php:20
+#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/edit.php:21
 msgid "Edit Email Template"
 msgstr ""
 
@@ -1061,24 +1154,24 @@ msgstr ""
 msgid "Send Email"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/view.php:23
+#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/view.php:24
 msgid "Template Identifier"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/view.php:27
+#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/view.php:28
 #: ./plugins/AdminTheme/templates/Admin/Images/view.php:24
 msgid "Name"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/view.php:31
+#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/view.php:32
 msgid "Subject"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/view.php:45
+#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/view.php:46
 msgid "Body Html"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/view.php:51
+#: ./plugins/AdminTheme/templates/Admin/EmailTemplates/view.php:52
 msgid "Body Plain"
 msgstr ""
 
@@ -1091,7 +1184,7 @@ msgstr ""
 msgid "Bulk Upload Images"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Images/edit.php:21
+#: ./plugins/AdminTheme/templates/Admin/Images/edit.php:20
 msgid "Edit Image"
 msgstr ""
 
@@ -1136,42 +1229,36 @@ msgstr ""
 msgid "Keywords"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Internationalisations/add.php:18
-#: ./plugins/AdminTheme/templates/Admin/Internationalisations/add.php:50
-#: ./plugins/AdminTheme/templates/Admin/Internationalisations/edit.php:51
+#: ./plugins/AdminTheme/templates/Admin/Internationalisations/add.php:20
 msgid "Add Internationalisation"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Internationalisations/edit.php:19
+#: ./plugins/AdminTheme/templates/Admin/Internationalisations/edit.php:20
 msgid "Edit Internationalisation"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Internationalisations/index.php:9
-msgid "Internationalisations"
+#: ./plugins/AdminTheme/templates/Admin/Internationalisations/index.php:40
+msgid "Search Internationalisations..."
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Internationalisations/index.php:10
+#: ./plugins/AdminTheme/templates/Admin/Internationalisations/index.php:44
 msgid "New Internationalisation"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Internationalisations/view.php:25
-msgid "Id"
-msgstr ""
-
-#: ./plugins/AdminTheme/templates/Admin/Internationalisations/view.php:29
+#: ./plugins/AdminTheme/templates/Admin/Internationalisations/view.php:23
 msgid "Locale"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Internationalisations/view.php:33
-msgid "Message Id"
+#: ./plugins/AdminTheme/templates/Admin/Internationalisations/view.php:31
+msgid "Updated At"
 msgstr ""
 
 #: ./plugins/AdminTheme/templates/Admin/Internationalisations/view.php:37
-msgid "Message Str"
+msgid "Message Id"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Internationalisations/view.php:45
-msgid "Updated At"
+#: ./plugins/AdminTheme/templates/Admin/Internationalisations/view.php:43
+msgid "Message Str"
 msgstr ""
 
 #: ./plugins/AdminTheme/templates/Admin/PageViews/page_view_stats.php:9
@@ -1231,25 +1318,25 @@ msgstr ""
 msgid "No view records found for this article."
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Settings/index.php:54
-#: ./plugins/AdminTheme/templates/Admin/Settings/index.php:93
+#: ./plugins/AdminTheme/templates/Admin/Settings/index.php:64
+#: ./plugins/AdminTheme/templates/Admin/Settings/index.php:103
 msgid "Enter text"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Settings/index.php:82
-#: ./plugins/AdminTheme/templates/Admin/Settings/index.php:159
+#: ./plugins/AdminTheme/templates/Admin/Settings/index.php:92
+#: ./plugins/AdminTheme/templates/Admin/Settings/index.php:169
 msgid "Show"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Settings/index.php:93
+#: ./plugins/AdminTheme/templates/Admin/Settings/index.php:103
 msgid "Enter a number"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Settings/index.php:101
+#: ./plugins/AdminTheme/templates/Admin/Settings/index.php:111
 msgid "Save All Settings"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Settings/index.php:154
+#: ./plugins/AdminTheme/templates/Admin/Settings/index.php:164
 msgid "Hide"
 msgstr ""
 
@@ -1291,7 +1378,7 @@ msgstr ""
 
 #: ./plugins/AdminTheme/templates/Admin/SystemLogs/index.php:35
 #: ./plugins/AdminTheme/templates/Admin/SystemLogs/index.php:55
-#: ./plugins/AdminTheme/templates/element/actions_card.php:67
+#: ./plugins/AdminTheme/templates/element/actions_card.php:88
 msgid "Delete {0}"
 msgstr ""
 
@@ -1309,6 +1396,7 @@ msgstr ""
 
 #: ./plugins/AdminTheme/templates/Admin/SystemLogs/index.php:63
 #: ./plugins/AdminTheme/templates/Admin/SystemLogs/view.php:21
+#: ./plugins/AdminTheme/templates/Admin/Tags/index.php:13
 msgid "Level"
 msgstr ""
 
@@ -1322,24 +1410,37 @@ msgstr ""
 msgid "Message"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/SystemLogs/view.php:52
+#: ./plugins/AdminTheme/templates/Admin/SystemLogs/view.php:53
 msgid "Context"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Tags/add.php:22
+#: ./plugins/AdminTheme/templates/Admin/Tags/add.php:21
 msgid "Add Tag"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Tags/edit.php:22
+#: ./plugins/AdminTheme/templates/Admin/Tags/edit.php:21
 msgid "Edit Tag"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Tags/index.php:12
+#: ./plugins/AdminTheme/templates/Admin/Tags/index.php:27
+msgid "Root"
+msgstr ""
+
+#: ./plugins/AdminTheme/templates/Admin/Tags/index.php:36
+msgid "Child"
+msgstr ""
+
+#: ./plugins/AdminTheme/templates/Admin/Tags/index.php:47
 msgid "Search Tags..."
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Tags/index.php:16
+#: ./plugins/AdminTheme/templates/Admin/Tags/index.php:51
 msgid "New Tag"
+msgstr ""
+
+#: ./plugins/AdminTheme/templates/Admin/Tags/index.php:62
+#: ./plugins/AdminTheme/templates/Admin/Tags/search_results.php:14
+msgid "Parent"
 msgstr ""
 
 #: ./plugins/AdminTheme/templates/Admin/Tags/view.php:42
@@ -1351,18 +1452,20 @@ msgid "Add User"
 msgstr ""
 
 #: ./plugins/AdminTheme/templates/Admin/Users/add.php:90
-#: ./plugins/AdminTheme/templates/Admin/Users/edit.php:117
-#: ./plugins/AdminTheme/templates/Admin/Users/index.php:60
-#: ./plugins/AdminTheme/templates/layout/default.php:196
-#: ./plugins/DefaultTheme/templates/layout/default.php:36
+#: ./plugins/AdminTheme/templates/Admin/Users/edit.php:104
+#: ./plugins/AdminTheme/templates/Admin/Users/index.php:61
+#: ./plugins/AdminTheme/templates/Admin/Users/search_results.php:14
+#: ./plugins/AdminTheme/templates/layout/default.php:199
+#: ./plugins/DefaultTheme/templates/element/site/user_actions.php:22
 msgid "Admin"
 msgstr ""
 
 #: ./plugins/AdminTheme/templates/Admin/Users/add.php:107
-#: ./plugins/AdminTheme/templates/Admin/Users/edit.php:134
+#: ./plugins/AdminTheme/templates/Admin/Users/edit.php:121
 #: ./plugins/AdminTheme/templates/Admin/Users/index.php:27
-#: ./plugins/AdminTheme/templates/Admin/Users/index.php:61
-#: ./plugins/AdminTheme/templates/Admin/Users/view.php:67
+#: ./plugins/AdminTheme/templates/Admin/Users/index.php:62
+#: ./plugins/AdminTheme/templates/Admin/Users/search_results.php:15
+#: ./plugins/AdminTheme/templates/Admin/Users/view.php:54
 msgid "Active"
 msgstr ""
 
@@ -1382,10 +1485,6 @@ msgstr ""
 msgid "New User"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Users/search_results.php:54
-msgid "Are you sure you want to delete  {0}?"
-msgstr ""
-
 #: ./plugins/AdminTheme/templates/Admin/Users/view.php:24
 msgid "Email"
 msgstr ""
@@ -1394,41 +1493,63 @@ msgstr ""
 msgid "Username"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/Admin/Users/view.php:63
+#: ./plugins/AdminTheme/templates/Admin/Users/view.php:50
 msgid "Is Admin"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/element/actions_card.php:16
+#: ./plugins/AdminTheme/templates/element/actions_card.php:18
 msgid "List {0}"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/element/actions_card.php:30
+#: ./plugins/AdminTheme/templates/element/actions_card.php:32
 msgid "View {0}"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/element/actions_card.php:41
+#: ./plugins/AdminTheme/templates/element/actions_card.php:49
 msgid "New {0}"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/element/actions_card.php:49
+#: ./plugins/AdminTheme/templates/element/actions_card.php:64
 msgid "Edit {0}"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/element/article_form_fields.php:44
+#: ./plugins/AdminTheme/templates/element/form/article.php:53
 msgid "Select Tags"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/element/article_form_fields.php:66
+#: ./plugins/AdminTheme/templates/element/form/article.php:78
 msgid "Auto Tag"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/element/article_form_fields.php:112
-#: ./plugins/AdminTheme/templates/element/tag_form_fields.php:33
+#: ./plugins/AdminTheme/templates/element/form/article.php:108
+msgid "Featured"
+msgstr ""
+
+#: ./plugins/AdminTheme/templates/element/form/article.php:122
+msgid "Main Menu"
+msgstr ""
+
+#: ./plugins/AdminTheme/templates/element/form/article.php:136
+#: ./plugins/AdminTheme/templates/element/form/tag.php:56
+msgid "None"
+msgstr ""
+
+#: ./plugins/AdminTheme/templates/element/form/article.php:152
+#: ./plugins/AdminTheme/templates/element/form/tag.php:33
 msgid "Main Image"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/element/article_form_fields.php:146
+#: ./plugins/AdminTheme/templates/element/form/article.php:173
 msgid "Image Uploads"
+msgstr ""
+
+#: ./plugins/AdminTheme/templates/element/form/seo.php:5
+#: ./plugins/AdminTheme/templates/element/seo_display_fields.php:5
+msgid "SEO Fields"
+msgstr ""
+
+#: ./plugins/AdminTheme/templates/element/form/tag.php:69
+msgid "Tag Articles/Pages"
 msgstr ""
 
 #: ./plugins/AdminTheme/templates/element/image_carousel.php:10
@@ -1450,7 +1571,8 @@ msgid "Add"
 msgstr ""
 
 #: ./plugins/AdminTheme/templates/element/pagination.php:39
-#: ./plugins/DefaultTheme/templates/element/pagination.php:32
+#: ./plugins/DefaultTheme/templates/element/pagination.php:9
+#: ./plugins/DefaultTheme/templates/element/pagination.php:36
 msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
 msgstr ""
 
@@ -1460,11 +1582,6 @@ msgstr ""
 
 #: ./plugins/AdminTheme/templates/element/related/comments.php:4
 msgid "Related Comments"
-msgstr ""
-
-#: ./plugins/AdminTheme/templates/element/seo_display_fields.php:5
-#: ./plugins/AdminTheme/templates/element/seo_form_fields.php:5
-msgid "SEO Fields"
 msgstr ""
 
 #: ./plugins/AdminTheme/templates/element/seo_display_fields.php:12
@@ -1495,8 +1612,18 @@ msgstr ""
 msgid "Word Count"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/element/tag_form_fields.php:66
-msgid "Tag Articles/Pages"
+#: ./plugins/AdminTheme/templates/element/user_actions.php:18
+msgid "Front Site"
+msgstr ""
+
+#: ./plugins/AdminTheme/templates/element/user_actions.php:21
+#: ./plugins/DefaultTheme/templates/element/site/user_actions.php:26
+msgid "My Account"
+msgstr ""
+
+#: ./plugins/AdminTheme/templates/element/user_actions.php:25
+#: ./plugins/DefaultTheme/templates/element/site/user_actions.php:33
+msgid "Logout"
 msgstr ""
 
 #: ./plugins/AdminTheme/templates/layout/default.php:105
@@ -1508,7 +1635,7 @@ msgid "Willow CMS"
 msgstr ""
 
 #: ./plugins/AdminTheme/templates/layout/default.php:118
-msgid "Articles"
+msgid "Posts"
 msgstr ""
 
 #: ./plugins/AdminTheme/templates/layout/default.php:130
@@ -1516,188 +1643,270 @@ msgid "Pages"
 msgstr ""
 
 #: ./plugins/AdminTheme/templates/layout/default.php:142
-#: ./plugins/DefaultTheme/templates/Articles/view_by_slug.php:58
 #: ./plugins/DefaultTheme/templates/Tags/index.php:8
-#: ./plugins/DefaultTheme/templates/element/page_main_menu.php:35
+#: ./plugins/DefaultTheme/templates/element/article/tags.php:7
 msgid "Tags"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/layout/default.php:166
-#: ./plugins/DefaultTheme/templates/Articles/view_by_slug.php:72
+#: ./plugins/AdminTheme/templates/layout/default.php:168
+#: ./plugins/DefaultTheme/templates/Articles/article.php:36
+#: ./plugins/DefaultTheme/templates/Articles/page.php:35
 msgid "Comments"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/layout/default.php:178
+#: ./plugins/AdminTheme/templates/layout/default.php:181
 msgid "Users"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/layout/default.php:200
+#: ./plugins/AdminTheme/templates/layout/default.php:203
 msgid "Email Templates"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/layout/default.php:201
+#: ./plugins/AdminTheme/templates/layout/default.php:204
 msgid "Slugs"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/layout/default.php:203
+#: ./plugins/AdminTheme/templates/layout/default.php:206
 msgid "AI Prompts"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/layout/default.php:206
+#: ./plugins/AdminTheme/templates/layout/default.php:207
+msgid "Internationalisation"
+msgstr ""
+
+#: ./plugins/AdminTheme/templates/layout/default.php:210
 msgid "Block IPs"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/layout/default.php:207
+#: ./plugins/AdminTheme/templates/layout/default.php:211
 msgid "Logs"
 msgstr ""
 
-#: ./plugins/AdminTheme/templates/layout/default.php:209
-msgid "Code Coverage"
-msgstr ""
-
-#: ./plugins/AdminTheme/templates/layout/default.php:231
-msgid "Front Site"
-msgstr ""
-
-#: ./plugins/AdminTheme/templates/layout/default.php:234
-msgid "My Account"
-msgstr ""
-
-#: ./plugins/AdminTheme/templates/layout/default.php:238
-#: ./plugins/DefaultTheme/templates/layout/default.php:40
-msgid "Logout"
-msgstr ""
-
-#: ./plugins/DefaultTheme/templates/Articles/index.php:52
-#: ./plugins/DefaultTheme/templates/Articles/view_by_slug.php:37
-#: ./plugins/DefaultTheme/templates/Tags/view_by_slug.php:57
-msgid "By"
-msgstr ""
-
-#: ./plugins/DefaultTheme/templates/Articles/index.php:76
-#: ./plugins/DefaultTheme/templates/Articles/index.php:117
-msgid "Show Full Article"
-msgstr ""
-
-#: ./plugins/DefaultTheme/templates/Articles/index.php:80
-msgid "Read More"
-msgstr ""
-
-#: ./plugins/DefaultTheme/templates/Articles/index.php:113
-msgid "Show Less"
-msgstr ""
-
-#: ./plugins/DefaultTheme/templates/Articles/view_by_slug.php:41
-msgid "Not published"
-msgstr ""
-
-#: ./plugins/DefaultTheme/templates/Articles/view_by_slug.php:62
-msgid "No tags are linked."
-msgstr ""
-
-#: ./plugins/DefaultTheme/templates/Articles/view_by_slug.php:80
+#: ./plugins/DefaultTheme/templates/Articles/article.php:44
+#: ./plugins/DefaultTheme/templates/Articles/page.php:43
 msgid "Posted on {date} by {author}"
 msgstr ""
 
-#: ./plugins/DefaultTheme/templates/Articles/view_by_slug.php:90
+#: ./plugins/DefaultTheme/templates/Articles/article.php:54
+#: ./plugins/DefaultTheme/templates/Articles/page.php:53
 msgid "No comments yet."
 msgstr ""
 
-#: ./plugins/DefaultTheme/templates/Articles/view_by_slug.php:95
+#: ./plugins/DefaultTheme/templates/Articles/article.php:59
+#: ./plugins/DefaultTheme/templates/Articles/page.php:58
 msgid "Add a Comment"
 msgstr ""
 
-#: ./plugins/DefaultTheme/templates/Articles/view_by_slug.php:98
+#: ./plugins/DefaultTheme/templates/Articles/article.php:62
+#: ./plugins/DefaultTheme/templates/Articles/page.php:61
 msgid "Submit Comment"
 msgstr ""
 
-#: ./plugins/DefaultTheme/templates/Articles/view_by_slug.php:103
+#: ./plugins/DefaultTheme/templates/Articles/article.php:67
+#: ./plugins/DefaultTheme/templates/Articles/page.php:66
 msgid "Please log in to add a comment"
 msgstr ""
 
-#: ./plugins/DefaultTheme/templates/Articles/view_by_slug.php:104
-#: ./plugins/DefaultTheme/templates/Users/login.php:31
-#: ./plugins/DefaultTheme/templates/layout/default.php:44
+#: ./plugins/DefaultTheme/templates/Articles/article.php:68
+#: ./plugins/DefaultTheme/templates/Articles/page.php:67
 msgid "Login"
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/CookieConsents/edit.php:12
+#: ./plugins/DefaultTheme/templates/element/site/cookie_prefs.php:6
+msgid "Cookie Preferences"
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/CookieConsents/edit.php:22
+msgid "Please select your cookie preferences below. Essential cookies are required for the website to function and cannot be disabled."
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/CookieConsents/edit.php:25
+msgid "To understand how we handle your personal information, including the use of cookies and other tracking technologies, please review our {0}."
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/CookieConsents/edit.php:28
+#: ./plugins/DefaultTheme/templates/element/site/footer.php:7
+msgid "Privacy Policy"
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/CookieConsents/edit.php:45
+msgid "Essential Cookies"
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/CookieConsents/edit.php:48
+msgid "Required for the website to function properly. These cannot be disabled."
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/CookieConsents/edit.php:64
+msgid "Functional Cookies"
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/CookieConsents/edit.php:67
+msgid "Enable enhanced functionality and personalization."
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/CookieConsents/edit.php:83
+msgid "Analytics Cookies"
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/CookieConsents/edit.php:86
+msgid "Help us understand how visitors interact with our website."
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/CookieConsents/edit.php:102
+msgid "Marketing Cookies"
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/CookieConsents/edit.php:105
+msgid "Used to deliver personalized advertisements and enable the facebook share button."
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/CookieConsents/edit.php:116
+msgid "Essential"
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/CookieConsents/edit.php:121
+msgid "Selected"
 msgstr ""
 
 #: ./plugins/DefaultTheme/templates/Tags/view_by_slug.php:17
 msgid "Articles/Pages"
 msgstr ""
 
-#: ./plugins/DefaultTheme/templates/Tags/view_by_slug.php:65
+#: ./plugins/DefaultTheme/templates/Tags/view_by_slug.php:41
+msgid "By"
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/Tags/view_by_slug.php:49
 msgid "No articles found for this tag."
 msgstr ""
 
 #: ./plugins/DefaultTheme/templates/Users/edit.php:11
-msgid "Edit Your Account"
+msgid "Edit your Account"
 msgstr ""
 
 #: ./plugins/DefaultTheme/templates/Users/forgot_password.php:6
-msgid "Forgot Password"
+msgid "Reset your password"
 msgstr ""
 
-#: ./plugins/DefaultTheme/templates/Users/forgot_password.php:12
-msgid "Please enter your email to reset your password"
-msgstr ""
-
-#: ./plugins/DefaultTheme/templates/Users/forgot_password.php:22
+#: ./plugins/DefaultTheme/templates/Users/forgot_password.php:21
 msgid "Send Reset Link"
 msgstr ""
 
-#: ./plugins/DefaultTheme/templates/Users/forgot_password.php:26
+#: ./plugins/DefaultTheme/templates/Users/forgot_password.php:25
 msgid "Back to Login"
 msgstr ""
 
-#: ./plugins/DefaultTheme/templates/Users/login.php:13
-msgid "Please enter your email and password"
+#: ./plugins/DefaultTheme/templates/Users/login.php:5
+#: ./plugins/DefaultTheme/templates/Users/login.php:37
+#: ./plugins/DefaultTheme/templates/element/site/user_actions.php:45
+msgid "Log In"
 msgstr ""
 
-#: ./plugins/DefaultTheme/templates/Users/login.php:35
+#: ./plugins/DefaultTheme/templates/Users/login.php:41
 msgid "Forgot Password?"
 msgstr ""
 
-#: ./plugins/DefaultTheme/templates/Users/register.php:13
-msgid "Register New Account"
-msgstr ""
-
-#: ./plugins/DefaultTheme/templates/Users/register.php:40
-#: ./plugins/DefaultTheme/templates/layout/default.php:48
-msgid "Register"
+#: ./plugins/DefaultTheme/templates/Users/register.php:10
+msgid "Create an Account"
 msgstr ""
 
 #: ./plugins/DefaultTheme/templates/Users/reset_password.php:6
-#: ./plugins/DefaultTheme/templates/Users/reset_password.php:33
+msgid "Reset Your Password"
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/Users/reset_password.php:39
 msgid "Reset Password"
 msgstr ""
 
-#: ./plugins/DefaultTheme/templates/Users/reset_password.php:12
-msgid "Please enter your new password"
+#: ./plugins/DefaultTheme/templates/element/pagination.php:10
+msgid "Page {{page}} of {{pages}}"
 msgstr ""
 
-#: ./plugins/DefaultTheme/templates/element/page_main_menu.php:32
-#: ./plugins/DefaultTheme/templates/element/tag_menu.php:36
+#: ./plugins/DefaultTheme/templates/element/site/archives.php:3
+msgid "Archives"
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/element/site/bootstrap.php:25
+msgid "Toggle theme"
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/element/site/bootstrap.php:31
+msgid "Light"
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/element/site/bootstrap.php:38
+msgid "Dark"
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/element/site/bootstrap.php:45
+msgid "Auto"
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/element/site/elsewhere.php:2
+msgid "Elsewhere"
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/element/site/facebook/share_button.php:13
+msgid "Share"
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/element/site/footer.php:3
+msgid "All rights reserved."
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/element/site/footer.php:16
+msgid "Back to top"
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/element/site/main_menu.php:8
 msgid "Blog"
 msgstr ""
 
-#: ./plugins/DefaultTheme/templates/element/page_menu.php:44
-msgid "Home"
+#: ./plugins/DefaultTheme/templates/element/site/site_language.php:17
+msgid "Language"
 msgstr ""
 
-#: ./plugins/DefaultTheme/templates/element/site_language.php:18
+#: ./plugins/DefaultTheme/templates/element/site/site_language.php:21
 msgid "English"
 msgstr ""
 
-#: ./plugins/DefaultTheme/templates/element/tag_filters.php:12
-msgid "All Tags"
+#: ./plugins/DefaultTheme/templates/element/site/user_actions.php:29
+#: ./plugins/DefaultTheme/templates/element/site/user_actions.php:48
+msgid "Cookies"
 msgstr ""
 
-#: ./plugins/DefaultTheme/templates/layout/default.php:32
+#: ./plugins/DefaultTheme/templates/element/site/user_actions.php:42
 msgid "Account"
 msgstr ""
 
-#: ./plugins/DefaultTheme/templates/layout/default.php:97
-msgid "All rights reserved."
+#: ./plugins/DefaultTheme/templates/element/site/user_actions.php:52
+msgid "Register"
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/layout/article.php:53
+#: ./plugins/DefaultTheme/templates/layout/article_index.php:61
+#: ./plugins/DefaultTheme/templates/layout/page.php:54
+msgid "Featured posts"
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/layout/article.php:55
+#: ./plugins/DefaultTheme/templates/layout/article_index.php:63
+#: ./plugins/DefaultTheme/templates/layout/page.php:56
+msgid "Recent posts"
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/layout/article_index.php:57
+msgid "About"
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/layout/article_index.php:58
+msgid "Welcome to Willow, a content management system I'm building in the open. Here you'll find development updates, feature highlights, and guides on using Willow for your own sites."
+msgstr ""
+
+#: ./plugins/DefaultTheme/templates/layout/page.php:52
+msgid "Related pages"
 msgstr ""
 
 #: ./templates/Error/error400.php:25

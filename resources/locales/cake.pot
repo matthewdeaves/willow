@@ -4,8 +4,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: CakePHP 5.1.1\n"
-"POT-Creation-Date: 2024-11-01 20:30+0000\n"
+"Project-Id-Version: CakePHP 5.1.2\n"
+"POT-Creation-Date: 2024-11-18 20:31+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -35,7 +35,7 @@ msgstr ""
 msgid "You have exceeded the rate limit. Please try again later."
 msgstr ""
 
-#: ./vendor/cakephp/cakephp/src/Command/PluginListCommand.php:57
+#: ./vendor/cakephp/cakephp/src/Command/PluginListCommand.php:65
 msgid "No plugins have been found."
 msgstr ""
 
@@ -64,11 +64,11 @@ msgstr ""
 msgid "Missing or incorrect CSRF session key"
 msgstr ""
 
-#: ./vendor/cakephp/cakephp/src/Http/Response.php:1429
+#: ./vendor/cakephp/cakephp/src/Http/Response.php:1431
 msgid "The requested file contains `..` and will not be read."
 msgstr ""
 
-#: ./vendor/cakephp/cakephp/src/Http/Response.php:1437
+#: ./vendor/cakephp/cakephp/src/Http/Response.php:1439
 msgid "The requested file was not found"
 msgstr ""
 

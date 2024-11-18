@@ -14,1398 +14,1566 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
 #: 
-msgid "The email template has been saved."
-msgstr "E-pasta veidne ir saglabāta."
+msgid "Marketing Cookies"
+msgstr "Mārketinga sīkfaili"
 
 #: 
-msgid "Subject"
-msgstr "Priekšmets"
-
-#: 
-msgid "On"
-msgstr "Ieslēgts"
-
-#: 
-msgid "Reset Password"
-msgstr "Atiestatīt paroli"
-
-#: 
-msgid "Description"
-msgstr "Apraksts"
-
-#: 
-msgid "The image has been saved."
-msgstr "Attēls ir saglabāts."
-
-#: 
-msgid "This slug is already in use in articles. Please enter a unique slug."
-msgstr "Šis gliemezis jau tiek izmantots rakstos. Lūdzu, ievadiet unikālu gliemežnīcu."
-
-#: 
-msgid "No view records found for this article."
-msgstr "Šim rakstam nav atrasts neviens skatīšanas ieraksts."
-
-#: 
-msgid "Referer"
-msgstr "Referents"
-
-#: 
-msgid "Never"
-msgstr "Nekad"
-
-#: 
-msgid "The comment has been deleted."
-msgstr "Komentārs ir izdzēsts."
-
-#: 
-msgid "Articles"
-msgstr "Raksti"
-
-#: 
-msgid "Submit"
-msgstr "Iesniegt"
-
-#: 
-msgid "New Aiprompt"
-msgstr "Jauns Aiprompt"
-
-#: 
-msgid "Select Tags"
-msgstr "Atlasiet Tags"
-
-#: 
-msgid "The blocked ip could not be deleted. Please, try again."
-msgstr "Bloķēto IP nevarēja izdzēst. Lūdzu, mēģiniet vēlreiz."
-
-#: 
-msgid "Context"
-msgstr "Konteksts"
-
-#: 
-msgid "The image has been deleted."
-msgstr "Attēls ir izdzēsts."
-
-#: 
-msgid "Setting not found: {0}.{1}"
-msgstr "Iestatījums nav atrasts: {0}.{1}"
-
-#: 
-msgid "Body"
-msgstr "Ķermenis"
-
-#: 
-msgid "The value must be a number."
-msgstr "Vērtībai ir jābūt skaitlim."
-
-#: 
-msgid "Home"
-msgstr "Sākums"
-
-#: 
-msgid "Comments are not enabled"
-msgstr "Komentāri nav iespējoti"
-
-#: 
-msgid "Article not found."
-msgstr "Raksts nav atrasts."
-
-#: 
-msgid "Are you sure you want to delete  {0}?"
-msgstr "Vai tiešām vēlaties dzēst {0}?"
-
-#: 
-msgid "Account"
-msgstr "Konts"
-
-#: 
-msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
-msgstr "Lapa {{page}} no {{pages}}, rāda {{current}} ierakstu(-i) no {{count}} kopā"
-
-#: 
-msgid "Edit Your Account"
-msgstr "Rediģējiet savu kontu"
-
-#: 
-msgid "Email"
-msgstr "E-pasts"
-
-#: 
-msgid "Add Article"
-msgstr "Pievienot rakstu"
-
-#: 
-msgid "New Page"
-msgstr "Jauna lapa"
-
-#: 
-msgid "Search Pages..."
-msgstr "Meklēt lapās..."
-
-#: 
-msgid "The user could not be saved. Please, try again."
-msgstr "Lietotāju nevarēja saglabāt. Lūdzu, mēģiniet vēlreiz."
-
-#: 
-msgid "User"
-msgstr "Lietotājs"
-
-#: 
-msgid "Unable to delete logs with level {0}."
-msgstr "Nevar izdzēst žurnālus ar līmeni {0}."
-
-#: 
-msgid "Page Views"
-msgstr "Lapu skatījumi"
-
-#: 
-msgid "Edit Article"
-msgstr "Rediģēt rakstu"
-
-#: 
-msgid "Is Inappropriate"
-msgstr "Ir Nepiemērots"
-
-#: 
-msgid "You cannot remove your own admin status."
-msgstr "Jūs nevarat noņemt savu administratora statusu."
-
-#: 
-msgid "System Prompt"
-msgstr "Sistēmas uzvedne"
-
-#: 
-msgid "Inappropriate Reason"
-msgstr "Nepiemērots iemesls"
-
-#: 
-msgid "Ip Address"
-msgstr "IP adrese"
-
-#: 
-msgid "The aiprompt could not be saved. Please, try again."
-msgstr "Aiprompt nevarēja saglabāt. Lūdzu, mēģiniet vēlreiz."
-
-#: 
-msgid "Failed to send email to: {0}"
-msgstr "Neizdevās nosūtīt e-pastu uz: {0}"
-
-#: 
-msgid "You must be logged in to add a comment."
-msgstr "Lai pievienotu komentāru, jums ir jāpiesakās."
-
-#: 
-msgid "Auto Tag"
-msgstr "Automātiskais tags"
-
-#: 
-msgid "Content"
-msgstr "Saturs"
-
-#: 
-msgid "Search Tags..."
-msgstr "Meklēt tagus..."
-
-#: 
-msgid "Error loading images:"
-msgstr "Ielādējot attēlus, radās kļūda:"
-
-#: 
-msgid "All Tags"
-msgstr "Visas atzīmes"
-
-#: 
-msgid "Search logs..."
-msgstr "Meklēt žurnālos..."
-
-#: 
-msgid "Registration failed. Please, try again."
-msgstr "Reģistrācija neizdevās. Lūdzu, mēģiniet vēlreiz."
-
-#: 
-msgid "Some settings could not be saved. Please, try again."
-msgstr "Dažus iestatījumus nevarēja saglabāt. Lūdzu, mēģiniet vēlreiz."
-
-#: 
-msgid "The article has been deleted."
-msgstr "Raksts ir dzēsts."
-
-#: 
-msgid "Edit Internationalisation"
-msgstr "Rediģēt internacionalizāciju"
-
-#: 
-msgid "Willow CMS"
-msgstr "Vītola CMS"
-
-#: 
-msgid "The user has been saved."
-msgstr "Lietotājs ir saglabāts."
-
-#: 
-msgid "Linkedin Description"
-msgstr "Linkedin apraksts"
-
-#: 
-msgid "Block IPs"
-msgstr "Bloķēt IP"
-
-#: 
-msgid "If your email is registered, you will receive a link to reset your password."
-msgstr "Ja jūsu e-pasts ir reģistrēts, jūs saņemsit saiti paroles atiestatīšanai."
-
-#: 
-msgid "Comment"
-msgstr "komentēt"
-
-#: 
-msgid "Displayed"
-msgstr "Parādīts"
-
-#: 
-msgid "Total Views: "
-msgstr "Kopējais skatījumu skaits: "
-
-#: 
-msgid "Hide"
-msgstr "Slēpt"
-
-#: 
-msgid "The user has been deleted."
-msgstr "Lietotājs ir izdzēsts."
-
-#: 
-msgid "Logs"
-msgstr "Baļķi"
-
-#: 
-msgid "Edit Page"
-msgstr "Rediģēt lapu"
-
-#: 
-msgid "New Article"
-msgstr "Jauns raksts"
-
-#: 
-msgid "Error in: "
-msgstr "Kļūda: "
-
-#: 
-msgid "Required"
-msgstr "Obligāti"
-
-#: 
-msgid "Error"
-msgstr "Kļūda"
-
-#: 
-msgid "New Tag"
-msgstr "Jauns tags"
-
-#: 
-msgid "The settings have been saved."
-msgstr "Iestatījumi ir saglabāti."
-
-#: 
-msgid "Front Site"
-msgstr "Priekšējā vietne"
-
-#: 
-msgid "Actions"
-msgstr "Darbības"
-
-#: 
-msgid "Image uploaded successfully"
-msgstr "Attēls ir veiksmīgi augšupielādēts"
-
-#: 
-msgid "Clear"
-msgstr "Skaidrs"
-
-#: 
-msgid "Failed to send confirmation email message: {0}"
-msgstr "Neizdevās nosūtīt apstiprinājuma e-pasta ziņojumu: {0}"
-
-#: 
-msgid "Articles/Pages"
-msgstr "Raksti/lapas"
-
-#: 
-msgid "Modified At"
-msgstr "Pārveidots plkst"
-
-#: 
-msgid "Un-Published"
-msgstr "Nepublicēts"
-
-#: 
-msgid "Forgot Password"
-msgstr "Aizmirsu paroli"
-
-#: 
-msgid "All Groups"
-msgstr "Visas grupas"
-
-#: 
-msgid "Level"
-msgstr "Līmenis"
-
-#: 
-msgid "Modified"
-msgstr "Pārveidots"
-
-#: 
-msgid "Failed to send password reset email: {0}"
-msgstr "Neizdevās nosūtīt paroles atiestatīšanas e-pastu: {0}"
-
-#: 
-msgid "Error saving {0}.{1}: {2}"
-msgstr "Saglabājot {0}, radās kļūda.{1}: {2}"
-
-#: 
-msgid "All rights reserved."
-msgstr "Visas tiesības paturētas."
-
-#: 
-msgid "The tag has been saved."
-msgstr "Atzīme ir saglabāta."
-
-#: 
-msgid "Add Email Template"
-msgstr "Pievienojiet e-pasta veidni"
-
-#: 
-msgid "Comments"
-msgstr "komentāri"
-
-#: 
-msgid "{0} cache has been cleared successfully."
-msgstr "{0} kešatmiņa ir veiksmīgi iztīrīta."
-
-#: 
-msgid "Code Coverage"
-msgstr "Koda pārklājums"
-
-#: 
-msgid "Show"
-msgstr "Rādīt"
-
-#: 
-msgid "English"
-msgstr "angļu valoda"
-
-#: 
-msgid "Is Published"
-msgstr "Ir publicēts"
-
-#: 
-msgid "No articles found for this tag."
-msgstr "Šai atzīmei nav atrasts neviens raksts."
-
-#: 
-msgid "Unable to delete all logs."
-msgstr "Nevar izdzēst visus žurnālus."
-
-#: 
-msgid "The email template has been deleted."
-msgstr "E-pasta veidne ir izdzēsta."
-
-#: 
-msgid "Kind"
-msgstr "Laipni"
-
-#: 
-msgid "Are you sure you want to delete # {0}?"
-msgstr "Vai tiešām vēlaties dzēst # {0}?"
-
-#: 
-msgid "Invalid type"
-msgstr "Nederīgs veids"
-
-#: 
-msgid "Body Html"
-msgstr "Ķermeņa HTML"
-
-#: 
-msgid "Admin"
-msgstr "Administrators"
-
-#: 
-msgid "Twitter Description"
-msgstr "Twitter apraksts"
-
-#: 
-msgid "Article not found"
-msgstr "Raksts nav atrasts"
-
-#: 
-msgid "Please enter your email and password"
-msgstr "Lūdzu, ievadiet savu e-pastu un paroli"
-
-#: 
-msgid "Too many requests. Please try again later."
-msgstr "Pārāk daudz pieprasījumu. Lūdzu, vēlāk mēģiniet vēlreiz."
-
-#: 
-msgid "Yes"
-msgstr "Jā"
-
-#: 
-msgid "Blocked At"
-msgstr "Bloķēts plkst"
-
-#: 
-msgid "Task Type"
-msgstr "Uzdevuma veids"
-
-#: 
-msgid "The email template could not be deleted. Please, try again."
-msgstr "E-pasta veidni nevarēja izdzēst. Lūdzu, mēģiniet vēlreiz."
-
-#: 
-msgid "Word Count"
-msgstr "Vārdu skaits"
-
-#: 
-msgid "Add Page"
-msgstr "Pievienot lapu"
-
-#: 
-msgid "Main Image"
-msgstr "Galvenais attēls"
-
-#: 
-msgid "Image Uploads"
-msgstr "Attēlu augšupielāde"
-
-#: 
-msgid "Created At"
-msgstr "Izveidots plkst"
-
-#: 
-msgid "List View"
-msgstr "Saraksta skats"
-
-#: 
-msgid "Related Tags"
-msgstr "Saistītie tagi"
-
-#: 
-msgid "Date"
-msgstr "Datums"
-
-#: 
-msgid "This message_id must be unique for the given locale."
-msgstr "Šim ziņojuma_id ir jābūt unikālam norādītajā lokalizācijā."
-
-#: 
-msgid "SEO Fields"
-msgstr "SEO lauki"
-
-#: 
-msgid "Invalid username or password"
-msgstr "Nederīgs lietotājvārds vai parole"
-
-#: 
-msgid "Registration successful, but there was an issue creating the confirmation link."
-msgstr "Reģistrācija bija veiksmīga, taču, izveidojot apstiprinājuma saiti, radās problēma."
-
-#: 
-msgid "Access denied. You must be an admin to view this page."
-msgstr "Piekļuve liegta. Lai skatītu šo lapu, jums ir jābūt administratoram."
-
-#: 
-msgid "Too Many Requests"
-msgstr "Pārāk daudz pieprasījumu"
-
-#: 
-msgid "Email sent successfully."
-msgstr "E-pasts veiksmīgi nosūtīts."
-
-#: 
-msgid "Your account has been updated."
-msgstr "Jūsu konts ir atjaunināts."
-
-#: 
-msgid "The tag could not be saved. Please, try again."
-msgstr "Tagu nevarēja saglabāt. Lūdzu, mēģiniet vēlreiz."
-
-#: 
-msgid "Meta Description"
-msgstr "Meta apraksts"
-
-#: 
-msgid "By"
-msgstr "Autors"
-
-#: 
-msgid "Unable to delete logs in group {0}."
-msgstr "Nevar izdzēst žurnālus grupā {0}."
-
-#: 
-msgid "Temperature"
-msgstr "Temperatūra"
-
-#: 
-msgid "Id"
-msgstr "Id"
-
-#: 
-msgid "Slugs"
-msgstr "Gliemeži"
-
-#: 
-msgid "Image"
-msgstr "Attēls"
-
-#: 
-msgid "The internationalisation could not be saved. Please, try again."
-msgstr "Internacionalizāciju nevarēja glābt. Lūdzu, mēģiniet vēlreiz."
-
-#: 
-msgid "All logs have been deleted."
-msgstr "Visi žurnāli ir izdzēsti."
-
-#: 
-msgid "Register New Account"
-msgstr "Reģistrēt jaunu kontu"
-
-#: 
-msgid "{0} cache could not be cleared."
-msgstr "{0} kešatmiņu nevarēja notīrīt."
-
-#: 
-msgid "A value is required"
-msgstr "Jānorāda vērtība"
-
-#: 
-msgid "User Agent"
-msgstr "Lietotāja aģents"
-
-#: 
-msgid "There was an issue resetting your password. Please try again."
-msgstr "Atiestatot paroli, radās problēma. Lūdzu, mēģiniet vēlreiz."
-
-#: 
-msgid "Article ID:"
-msgstr "Raksta ID:"
-
-#: 
-msgid "Some caches were cleared, but the following failed: {0}"
-msgstr "Dažas kešatmiņas tika notīrītas, taču neizdevās: {0}"
-
-#: 
-msgid "Login"
-msgstr "Pieteikties"
-
-#: 
-msgid "Please upload only images (jpeg, png, gif)."
-msgstr "Lūdzu, augšupielādējiet tikai attēlus (jpeg, png, gif)."
-
-#: 
-msgid "Are you sure you want to clear {0}?"
-msgstr "Vai tiešām vēlaties notīrīt {0}?"
-
-#: 
-msgid "The slug has been deleted."
-msgstr "Glieme ir izdzēsta."
-
-#: 
-msgid "Add Image"
-msgstr "Pievienot attēlu"
-
-#: 
-msgid "All logs in group {0} have been deleted."
-msgstr "Visi žurnāli grupā {0} ir dzēsti."
-
-#: 
-msgid "Related Articles/Pages"
-msgstr "Saistītie raksti/lapas"
-
-#: 
-msgid "Reason"
-msgstr "Iemesls"
-
-#: 
-msgid "Not Displayed"
-msgstr "Nav parādīts"
-
-#: 
-msgid "Facebook Description"
-msgstr "Facebook apraksts"
-
-#: 
-msgid "Keywords"
-msgstr "Atslēgvārdi"
-
-#: 
-msgid "Edit"
-msgstr "Rediģēt"
-
-#: 
-msgid "Picture"
-msgstr "Attēls"
-
-#: 
-msgid "The requested address {0} was not found on this server."
-msgstr "Pieprasītā adrese {0} netika atrasta šajā serverī."
-
-#: 
-msgid "Add Internationalisation"
-msgstr "Pievienojiet internacionalizāciju"
-
-#: 
-msgid "The internationalisation could not be deleted. Please, try again."
-msgstr "Internacionalizāciju nevarēja izdzēst. Lūdzu, mēģiniet vēlreiz."
-
-#: 
-msgid "Are you sure you want to delete {0}?"
-msgstr "Vai tiešām vēlaties dzēst {0}?"
-
-#: 
-msgid "All"
-msgstr "Visi"
-
-#: 
-msgid "Edit Email Template"
-msgstr "Rediģēt e-pasta veidni"
-
-#: 
-msgid "Search Blocked Ips..."
-msgstr "Meklēt bloķētos IP..."
-
-#: 
-msgid "Unable to add your comment."
-msgstr "Nevar pievienot jūsu komentāru."
-
-#: 
-msgid "View"
-msgstr "Skatīt"
-
-#: 
-msgid "The image could not be saved. Please, try again."
-msgstr "Attēlu nevarēja saglabāt. Lūdzu, mēģiniet vēlreiz."
-
-#: 
-msgid "All Locales"
-msgstr "Visas lokalizācijas"
-
-#: 
-msgid "Add"
-msgstr "Pievienot"
-
-#: 
-msgid "Expires At"
-msgstr "Derīguma termiņš beidzas plkst"
-
-#: 
-msgid "All Levels"
-msgstr "Visi līmeņi"
-
-#: 
-msgid "Add User"
-msgstr "Pievienot lietotāju"
-
-#: 
-msgid "Title"
-msgstr "Nosaukums"
-
-#: 
-msgid "Search Aiprompts..."
-msgstr "Meklēt Aiprompts..."
-
-#: 
-msgid "Submit Comment"
-msgstr "Iesniegt komentāru"
-
-#: 
-msgid "Search images..."
-msgstr "Meklēt attēlus..."
-
-#: 
-msgid "Message"
-msgstr "Ziņa"
-
-#: 
-msgid "Bulk Upload Images"
-msgstr "Lielapjoma attēlu augšupielāde"
-
-#: 
-msgid "You cannot disable your own account."
-msgstr "Jūs nevarat atspējot savu kontu."
-
-#: 
-msgid "Please log in to add a comment"
-msgstr "Lūdzu, piesakieties, lai pievienotu komentāru"
-
-#: 
-msgid "The article could not be saved. Please, try again."
-msgstr "Rakstu nevarēja saglabāt. Lūdzu, mēģiniet vēlreiz."
-
-#: 
-msgid "Your account has been confirmed. You can now log in."
-msgstr "Jūsu konts ir apstiprināts. Tagad varat pieteikties."
-
-#: 
-msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
-msgstr "Slug konfliktē ar esošu SEO novirzīšanu. Lūdzu, izvēlieties citu gliemežnīcu."
-
-#: 
-msgid "The slug has been saved."
-msgstr "Gliemeža ir izglābta."
-
-#: 
-msgid "Published"
-msgstr "Publicēts"
-
-#: 
-msgid "Is Admin"
-msgstr "Ir administrators"
-
-#: 
-msgid "Display"
-msgstr "Displejs"
-
-#: 
-msgid "Please enter your new password"
-msgstr "Lūdzu, ievadiet savu jauno paroli"
-
-#: 
-msgid "Meta Keywords"
-msgstr "Meta Atslēgvārdi"
-
-#: 
-msgid "No"
-msgstr "Nē"
-
-#: 
-msgid "Send Email"
-msgstr "Sūtīt e-pastu"
-
-#: 
-msgid "All logs with level {0} have been deleted."
-msgstr "Visi žurnāli ar līmeni {0} ir izdzēsti."
-
-#: 
-msgid "An Internal Error Has Occurred."
-msgstr "Ir notikusi iekšēja kļūda."
-
-#: 
-msgid "Email template not found: {0}"
-msgstr "E-pasta veidne nav atrasta: {0}"
-
-#: 
-msgid "Cache Name"
-msgstr "Kešatmiņas nosaukums"
-
-#: 
-msgid "Delete"
-msgstr "Dzēst"
-
-#: 
-msgid "Password must be at least 8 characters long"
-msgstr "Parolei jābūt vismaz 8 rakstzīmēm garai"
-
-#: 
-msgid "Your password has been reset. Please log in with your new password."
-msgstr "Jūsu parole ir atiestatīta. Lūdzu, piesakieties ar savu jauno paroli."
-
-#: 
-msgid "Locale"
-msgstr "Lokalizācija"
-
-#: 
-msgid "Message Str"
-msgstr "Ziņojums Str"
-
-#: 
-msgid "The slug must be unique."
-msgstr "Gliemežam ir jābūt unikālam."
-
-#: 
-msgid "Slug:"
-msgstr "Gliemeži:"
-
-#: 
-msgid "Cache"
-msgstr "Kešatmiņa"
-
-#: 
-msgid "Page Views for {0}"
-msgstr "Lapas skatījumi {0}"
-
-#: 
-msgid "Send Reset Link"
-msgstr "Nosūtīt atiestatīšanas saiti"
-
-#: 
-msgid "Last Cleared"
-msgstr "Pēdējā notīrīta"
-
-#: 
-msgid "Page View Statistics for slug: {0}"
-msgstr "Lapas skatījuma statistika par gliemežiem: {0}"
-
-#: 
-msgid "Your comment has been added."
-msgstr "Jūsu komentārs ir pievienots."
-
-#: 
-msgid "Edit Slug"
-msgstr "Rediģēt Slug"
-
-#: 
-msgid "The slug could not be saved. Please, try again."
-msgstr "Gliemežu glābt nevarēja. Lūdzu, mēģiniet vēlreiz."
-
-#: 
-msgid "Body Plain"
-msgstr "Body Plain"
-
-#: 
-msgid "Pages"
-msgstr "Lapas"
-
-#: 
-msgid "Edit {0}"
-msgstr "Rediģēt {0}"
-
-#: 
-msgid "Back to Login"
-msgstr "Atgriezties uz pieteikšanos"
-
-#: 
-msgid "List {0}"
-msgstr "Saraksts {0}"
-
-#: 
-msgid "New Image"
-msgstr "Jauns attēls"
-
-#: 
-msgid "All caches have been cleared successfully."
-msgstr "Visas kešatmiņas ir veiksmīgi notīrītas."
-
-#: 
-msgid "The comment could not be deleted. Please, try again."
-msgstr "Komentāru nevarēja izdzēst. Lūdzu, mēģiniet vēlreiz."
-
-#: 
-msgid "Not published"
-msgstr "Nav publicēts"
-
-#: 
-msgid "AI Prompts"
-msgstr "AI uzvednes"
-
-#: 
-msgid "Back"
-msgstr "Atpakaļ"
-
-#: 
-msgid "Edit User"
-msgstr "Rediģēt lietotāju"
-
-#: 
-msgid "Tag Articles/Pages"
-msgstr "Atzīmējiet rakstus/lapas"
-
-#: 
-msgid "New User"
-msgstr "Jauns lietotājs"
-
-#: 
-msgid "Edit Comment"
-msgstr "Rediģēt komentāru"
-
-#: 
-msgid "The user could not be deleted. Please, try again."
-msgstr "Lietotāju nevarēja izdzēst. Lūdzu, mēģiniet vēlreiz."
-
-#: 
-msgid "Configured Caches"
-msgstr "Konfigurētas kešatmiņas"
-
-#: 
-msgid "The article has been saved."
-msgstr "Raksts ir saglabāts."
-
-#: 
-msgid "Rate limit exceeded for IP: {0} on route: {1}"
-msgstr "Pārsniegts tarifa ierobežojums IP: {0} maršrutā: {1}"
-
-#: 
-msgid "Settings"
-msgstr "Iestatījumi"
-
-#: 
-msgid "The comment could not be saved. Please, try again."
-msgstr "Komentāru nevarēja saglabāt. Lūdzu, mēģiniet vēlreiz."
-
-#: 
-msgid "Image must be less than 5MB."
-msgstr "Attēlam ir jābūt mazākam par 5 MB."
-
-#: 
-msgid "Unable to delete the log."
-msgstr "Nevar izdzēst žurnālu."
-
-#: 
-msgid "You are not authorized to edit this account, stick to your own."
-msgstr "Jums nav tiesību rediģēt šo kontu, pieturieties pie sava."
-
-#: 
-msgid "Info"
-msgstr "Informācija"
-
-#: 
-msgid "Email Templates"
-msgstr "E-pasta veidnes"
-
-#: 
-msgid "The slug could not be deleted. Please, try again."
-msgstr "Gliemežu nevarēja izdzēst. Lūdzu, mēģiniet vēlreiz."
-
-#: 
-msgid "Failed to send email. Please check your email configuration."
-msgstr "Neizdevās nosūtīt e-pastu. Lūdzu, pārbaudiet savu e-pasta konfigurāciju."
-
-#: 
-msgid "Invalid confirmation code."
-msgstr "Nederīgs apstiprinājuma kods."
-
-#: 
-msgid "Edit Tag"
-msgstr "Rediģēt tagu"
-
-#: 
-msgid "View detailed records for this date"
-msgstr "Skatiet detalizētus šī datuma ierakstus"
-
-#: 
-msgid "The email template could not be saved. Please, try again."
-msgstr "E-pasta veidni nevarēja saglabāt. Lūdzu, mēģiniet vēlreiz."
-
-#: 
-msgid "Save All Settings"
-msgstr "Saglabāt visus iestatījumus"
-
-#: 
-msgid "Search Email Templates..."
-msgstr "Meklēt e-pasta veidnēs..."
-
-#: 
-msgid "System Logs"
-msgstr "Sistēmas žurnāli"
-
-#: 
-msgid "Name"
-msgstr "Vārds"
-
-#: 
-msgid "Add Slug"
-msgstr "Pievienot plēksni"
-
-#: 
-msgid "Search Slugs..."
-msgstr "Meklēt gliemežus..."
-
-#: 
-msgid "The value must be 0 or 1."
-msgstr "Vērtībai ir jābūt 0 vai 1."
-
-#: 
-msgid "Created"
-msgstr "Izveidots"
-
-#: 
-msgid "Posted on {date} by {author}"
-msgstr "{author} ievietoja {date}"
-
-#: 
-msgid "{0} Views"
-msgstr "{0} skatījumi"
-
-#: 
-msgid "Read More"
-msgstr "Lasīt vairāk"
-
-#: 
-msgid "Filter"
-msgstr "Filtrs"
-
-#: 
-msgid "The aiprompt has been saved."
-msgstr "Aiprompt ir saglabāts."
-
-#: 
-msgid "Add a Comment"
-msgstr "Pievienot komentāru"
-
-#: 
-msgid "The aiprompt could not be deleted. Please, try again."
-msgstr "Aiprompt nevarēja izdzēst. Lūdzu, mēģiniet vēlreiz."
-
-#: 
-msgid "Please enter your email to reset your password"
-msgstr "Lūdzu, ievadiet savu e-pastu, lai atiestatītu paroli"
-
-#: 
-msgid "Article"
-msgstr "Raksts"
-
-#: 
-msgid "Search..."
-msgstr "Meklēt..."
+msgid "Help us understand how visitors interact with our website."
+msgstr "Palīdziet mums saprast, kā apmeklētāji mijiedarbojas ar mūsu vietni."
 
 #: 
 msgid "Error sending email: {0}"
 msgstr "Sūtot e-pasta ziņojumu, radās kļūda: {0}"
 
 #: 
-msgid "Username"
-msgstr "Lietotājvārds"
+msgid "The internationalisation could not be saved. Please, try again."
+msgstr "Internacionalizāciju nevarēja glābt. Lūdzu, mēģiniet vēlreiz."
 
 #: 
-msgid "Search Articles..."
-msgstr "Meklēt rakstus..."
+msgid "Edit User"
+msgstr "Rediģēt lietotāju"
 
 #: 
-msgid "There was an issue confirming your account. Please try again."
-msgstr "Apstiprinot jūsu kontu, radās problēma. Lūdzu, mēģiniet vēlreiz."
+msgid "Internationalisation"
+msgstr "Internacionalizācija"
 
 #: 
-msgid "Edit Aiprompt"
-msgstr "Rediģēt Aiprompt"
-
-#: 
-msgid "Forgot Password?"
-msgstr "Aizmirsāt paroli?"
-
-#: 
-msgid "Willow Logo"
-msgstr "Vītola logotips"
-
-#: 
-msgid "Related Slugs"
-msgstr "Saistītie gliemeži"
-
-#: 
-msgid "The tag could not be deleted. Please, try again."
-msgstr "Tagu nevarēja izdzēst. Lūdzu, mēģiniet vēlreiz."
-
-#: 
-msgid "New Slug"
-msgstr "Jauns gliemezis"
-
-#: 
-msgid "Bulk Upload"
-msgstr "Lielapjoma augšupielāde"
-
-#: 
-msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
-msgstr "E-pasts veiksmīgi nosūtīts uz: {0}. Veidne: {1}, tēma: {2}"
-
-#: 
-msgid "Summary"
-msgstr "Kopsavilkums"
-
-#: 
-msgid "Are you sure you want to delete all logs in group {0}?"
-msgstr "Vai tiešām vēlaties dzēst visus žurnālus grupā {0}?"
-
-#: 
-msgid "Inactive"
-msgstr "Neaktīvs"
-
-#: 
-msgid "Search Comments..."
-msgstr "Meklēt komentāros..."
-
-#: 
-msgid "Show Less"
-msgstr "Rādīt mazāk"
-
-#: 
-msgid "Users"
-msgstr "Lietotāji"
-
-#: 
-msgid "The aiprompt has been deleted."
-msgstr "Aiprompt ir izdzēsts."
-
-#: 
-msgid "An error occurred while processing your request."
-msgstr "Apstrādājot jūsu pieprasījumu, radās kļūda."
-
-#: 
-msgid "The tag has been deleted."
-msgstr "Atzīme ir izdzēsta."
-
-#: 
-msgid "The blocked ip has been saved."
-msgstr "Bloķētais IP ir saglabāts."
-
-#: 
-msgid "{0} cache configuration does not exist."
-msgstr "{0} kešatmiņas konfigurācija nepastāv."
-
-#: 
-msgid "The article could not be deleted. Please, try again."
-msgstr "Rakstu nevarēja izdzēst. Lūdzu, mēģiniet vēlreiz."
-
-#: 
-msgid "Views"
-msgstr "Skati"
-
-#: 
-msgid "Register"
-msgstr "Reģistrēties"
-
-#: 
-msgid "Add Blocked Ip"
-msgstr "Pievienojiet bloķēto IP"
-
-#: 
-msgid "Enter text"
-msgstr "Ievadiet tekstu"
-
-#: 
-msgid "New Blocked Ip"
-msgstr "Jauns bloķēts IP"
-
-#: 
-msgid "Images"
-msgstr "Attēli"
-
-#: 
-msgid "My Account"
-msgstr "Mans konts"
-
-#: 
-msgid "Blog"
-msgstr "Emuārs"
-
-#: 
-msgid "The image could not be deleted. Please, try again."
-msgstr "Attēlu nevarēja izdzēst. Lūdzu, mēģiniet vēlreiz."
-
-#: 
-msgid "Internationalisations"
-msgstr "Internacionalizācijas"
-
-#: 
-msgid "This slug is already in use. Please enter a unique slug."
-msgstr "Šis lode jau tiek izmantots. Lūdzu, ievadiet unikālu gliemežnīcu."
-
-#: 
-msgid "No page view data available for this article."
-msgstr "Šim rakstam nav pieejami lapas skatījumu dati."
-
-#: 
-msgid "Enter a number"
-msgstr "Ievadiet numuru"
-
-#: 
-msgid "The internationalisation has been deleted."
-msgstr "Internacionalizācija ir dzēsta."
-
-#: 
-msgid "Add Tag"
-msgstr "Pievienot tagu"
-
-#: 
-msgid "Logout"
-msgstr "Atteikties"
-
-#: 
-msgid "Status"
-msgstr "Statuss"
-
-#: 
-msgid "The log has been deleted."
-msgstr "Žurnāls ir izdzēsts."
-
-#: 
-msgid "Active"
-msgstr "Aktīvs"
-
-#: 
-msgid "The internationalisation has been saved."
-msgstr "Internacionalizācija ir saglabāta."
-
-#: 
-msgid "No deleting your own account."
-msgstr "Nedrīkst dzēst savu kontu."
-
-#: 
-msgid "No comments yet."
-msgstr "Komentāru vēl nav."
-
-#: 
-msgid "Alt Text"
-msgstr "Alternatīvais teksts"
-
-#: 
-msgid "Related Comments"
-msgstr "Saistītie komentāri"
-
-#: 
-msgid "No tags are linked."
-msgstr "Neviena atzīme nav saistīta."
-
-#: 
-msgid "Group Name"
-msgstr "Grupas nosaukums"
-
-#: 
-msgid "Model"
-msgstr "Modelis"
-
-#: 
-msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
-msgstr "Sliņķim ir jābūt drošam URL (tikai mazie burti, cipari un defises)"
-
-#: 
-msgid "Tag not found"
-msgstr "Tags nav atrasts"
-
-#: 
-msgid "Inappropriate"
-msgstr "Nepiemērots"
-
-#: 
-msgid "Template Identifier"
-msgstr "Veidnes identifikators"
-
-#: 
-msgid "No pages found."
-msgstr "Nav atrasta neviena lapa."
-
-#: 
-msgid "Invalid value for the specified type."
-msgstr "Nederīga vērtība norādītajam veidam."
-
-#: 
-msgid "Search Users..."
-msgstr "Meklēt lietotājus..."
-
-#: 
-msgid "The blocked ip has been deleted."
-msgstr "Bloķētais IP ir izdzēsts."
-
-#: 
-msgid "New {0}"
-msgstr "Jauns {0}"
-
-#: 
-msgid "New Internationalisation"
-msgstr "Jauna internacionalizācija"
-
-#: 
-msgid "Grid View"
-msgstr "Režģa skats"
-
-#: 
-msgid "Edit Blocked Ip"
-msgstr "Rediģēt bloķēto IP"
-
-#: 
-msgid "Message Id"
-msgstr "Ziņojuma ID"
-
-#: 
-msgid "Are you sure you want to delete all logs?"
-msgstr "Vai tiešām vēlaties dzēst visus žurnālus?"
-
-#: 
-msgid "Instagram Description"
-msgstr "Instagram apraksts"
-
-#: 
-msgid "Flagged"
-msgstr "Atzīmēts ar karodziņu"
-
-#: 
-msgid "Delete All Logs"
-msgstr "Dzēst visus žurnālus"
-
-#: 
-msgid "Tags"
-msgstr "Tagi"
-
-#: 
-msgid "Are you sure you want to delete all {0} logs?"
-msgstr "Vai tiešām vēlaties dzēst visus {0} žurnālus?"
-
-#: 
-msgid "Show Full Article"
-msgstr "Rādīt pilnu rakstu"
-
-#: 
-msgid "New Email Template"
-msgstr "Jauna e-pasta veidne"
-
-#: 
-msgid "Clear All Cache"
-msgstr "Notīrīt visu kešatmiņu"
-
-#: 
-msgid "Registration successful. Please check your email for confirmation."
-msgstr "Reģistrācija veiksmīga. Lūdzu, pārbaudiet savu e-pastu, lai saņemtu apstiprinājumu."
-
-#: 
-msgid "View {0}"
-msgstr "Skatīt {0}"
-
-#: 
-msgid "The comment has been saved."
-msgstr "Komentārs ir saglabāts."
-
-#: 
-msgid "Delete {0}"
-msgstr "Dzēst {0}"
-
-#: 
-msgid "Updated At"
-msgstr "Atjaunināts plkst"
-
-#: 
-msgid "Failed to save the image"
-msgstr "Neizdevās saglabāt attēlu"
-
-#: 
-msgid "Invalid or expired password reset link."
-msgstr "Nederīga vai beidzies paroles atiestatīšanas saite."
-
-#: 
-msgid "The value must not be empty."
-msgstr "Vērtība nedrīkst būt tukša."
-
-#: 
-msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
-msgstr "Tālāk ir sniegta informācija par konfigurētajām kešatmiņām. Noklikšķiniet uz pogas, lai notīrītu visu kešatmiņu, vai atsevišķas kešatmiņas pogas, lai notīrītu noteiktas kešatmiņas."
+msgid "Tag Articles/Pages"
+msgstr "Atzīmējiet rakstus/lapas"
 
 #: 
 msgid "Slug"
 msgstr "Gliemezis"
 
 #: 
-msgid "Max Tokens"
-msgstr "Max Tokens"
+msgid "Facebook Description"
+msgstr "Facebook apraksts"
 
 #: 
-msgid "Unknown Author"
-msgstr "Nezināms autors"
+msgid "The tag has been deleted."
+msgstr "Atzīme ir izdzēsta."
 
 #: 
-msgid "Add Aiprompt"
-msgstr "Pievienojiet Aiprompt"
+msgid "Your account has been updated."
+msgstr "Jūsu konts ir atjaunināts."
+
+#: 
+msgid "Generating {0} articles..."
+msgstr "Notiek {0} rakstu ģenerēšana..."
+
+#: 
+msgid "Auto Tag"
+msgstr "Automātiskais tags"
+
+#: 
+msgid "Message"
+msgstr "Ziņojums"
+
+#: 
+msgid "New User"
+msgstr "Jauns lietotājs"
+
+#: 
+msgid "The article could not be saved. Please, try again."
+msgstr "Rakstu nevarēja saglabāt. Lūdzu, mēģiniet vēlreiz."
+
+#: 
+msgid "Unable to delete logs with level {0}."
+msgstr "Nevar izdzēst žurnālus ar līmeni {0}."
+
+#: 
+msgid "Inactive"
+msgstr "Neaktīvs"
+
+#: 
+msgid "Add"
+msgstr "Pievienot"
+
+#: 
+msgid "Elsewhere"
+msgstr "Citur"
+
+#: 
+msgid "Subject"
+msgstr "Priekšmets"
 
 #: 
 msgid "The blocked ip could not be saved. Please, try again."
 msgstr "Bloķēto IP nevarēja saglabāt. Lūdzu, mēģiniet vēlreiz."
 
 #: 
+msgid "All caches have been cleared successfully."
+msgstr "Visas kešatmiņas ir veiksmīgi iztīrītas."
+
+#: 
+msgid "Add Blocked Ip"
+msgstr "Pievienot bloķēto IP"
+
+#: 
+msgid "Show"
+msgstr "Rādīt"
+
+#: 
+msgid "The slug could not be deleted. Please, try again."
+msgstr "Gliemežu nevarēja izdzēst. Lūdzu, mēģiniet vēlreiz."
+
+#: 
+msgid "Send Email"
+msgstr "Sūtīt e-pastu"
+
+#: 
+msgid "Un-Published"
+msgstr "Nepublicēts"
+
+#: 
+msgid "The comment could not be deleted. Please, try again."
+msgstr "Komentāru nevarēja izdzēst. Lūdzu, mēģiniet vēlreiz."
+
+#: 
+msgid "Unable to delete the log."
+msgstr "Nevar izdzēst žurnālu."
+
+#: 
+msgid "Username"
+msgstr "Lietotājvārds"
+
+#: 
+msgid "Enter text"
+msgstr "Ievadiet tekstu"
+
+#: 
+msgid "This slug is already in use in articles. Please enter a unique slug."
+msgstr "Šis gliemezis jau tiek izmantots rakstos. Lūdzu, ievadiet unikālu gliemežnīcu."
+
+#: 
+msgid "Creating {0} new top-level tags..."
+msgstr "Notiek {0} jaunu augstākā līmeņa tagu izveide..."
+
+#: 
+msgid "The aiprompt has been saved."
+msgstr "Aiprompt ir saglabāts."
+
+#: 
+msgid "Related Articles/Pages"
+msgstr "Saistītie raksti/lapas"
+
+#: 
+msgid "Search images..."
+msgstr "Meklēt attēlus..."
+
+#: 
+msgid "Is Inappropriate"
+msgstr "Ir Nepiemērots"
+
+#: 
+msgid "System Logs"
+msgstr "Sistēmas žurnāli"
+
+#: 
+msgid "Submit"
+msgstr "Iesniegt"
+
+#: 
+msgid "Functional Cookies"
+msgstr "Funkcionālās sīkdatnes"
+
+#: 
+msgid "Displayed"
+msgstr "Parādīts"
+
+#: 
+msgid "Invalid or expired password reset link."
+msgstr "Nederīga vai beidzies paroles atiestatīšanas saite."
+
+#: 
+msgid "Display"
+msgstr "Displejs"
+
+#: 
+msgid "Failed to save the image"
+msgstr "Neizdevās saglabāt attēlu"
+
+#: 
+msgid "Some caches were cleared, but the following failed: {0}"
+msgstr "Dažas kešatmiņas tika notīrītas, taču neizdevās: {0}"
+
+#: 
+msgid "Created"
+msgstr "Izveidots"
+
+#: 
+msgid "The comment has been saved."
+msgstr "Komentārs ir saglabāts."
+
+#: 
+msgid "The value must not be empty."
+msgstr "Vērtība nedrīkst būt tukša."
+
+#: 
+msgid "Search logs..."
+msgstr "Meklēt žurnālos..."
+
+#: 
+msgid "Unable to delete all logs."
+msgstr "Nevar izdzēst visus žurnālus."
+
+#: 
+msgid "Invalid type"
+msgstr "Nederīgs veids"
+
+#: 
+msgid "Selected"
+msgstr "Atlasīts"
+
+#: 
+msgid "Dark"
+msgstr "Tumšs"
+
+#: 
+msgid "Page View Statistics for slug: {0}"
+msgstr "Lapas skatījuma statistika par gliemežiem: {0}"
+
+#: 
+msgid "There was an issue resetting your password. Please try again."
+msgstr "Atiestatot paroli, radās problēma. Lūdzu, mēģiniet vēlreiz."
+
+#: 
+msgid "Front Site"
+msgstr "Priekšējā vietne"
+
+#: 
+msgid "Registration successful, but there was an issue creating the confirmation link."
+msgstr "Reģistrācija bija veiksmīga, taču, izveidojot apstiprinājuma saiti, radās problēma."
+
+#: 
+msgid "Toggle theme"
+msgstr "Pārslēgt motīvu"
+
+#: 
+msgid "The user has been saved."
+msgstr "Lietotājs ir saglabāts."
+
+#: 
+msgid "Not Displayed"
+msgstr "Nav parādīts"
+
+#: 
+msgid "Email Templates"
+msgstr "E-pasta veidnes"
+
+#: 
+msgid "Inappropriate"
+msgstr "Nepiemērots"
+
+#: 
+msgid "Add Aiprompt"
+msgstr "Pievienojiet Aiprompt"
+
+#: 
+msgid "The email template has been deleted."
+msgstr "E-pasta veidne ir izdzēsta."
+
+#: 
+msgid "None"
+msgstr "Nav"
+
+#: 
+msgid "Account"
+msgstr "Konts"
+
+#: 
+msgid "Willow Logo"
+msgstr "Vītola logotips"
+
+#: 
+msgid "Content"
+msgstr "Saturs"
+
+#: 
+msgid "Analytics Cookies"
+msgstr "Analytics sīkfaili"
+
+#: 
+msgid "Essential Cookies"
+msgstr "Būtiski sīkfaili"
+
+#: 
+msgid "Cookies"
+msgstr "Sīkdatnes"
+
+#: 
+msgid "List View"
+msgstr "Saraksta skats"
+
+#: 
+msgid "The internationalisation has been saved."
+msgstr "Internacionalizācija ir saglabāta."
+
+#: 
+msgid "Delete {0}"
+msgstr "Dzēst {0}"
+
+#: 
+msgid "If your email is registered, you will receive a link to reset your password."
+msgstr "Ja jūsu e-pasts ir reģistrēts, jūs saņemsit saiti paroles atiestatīšanai."
+
+#: 
+msgid "Required"
+msgstr "Obligāti"
+
+#: 
+msgid "Article"
+msgstr "Raksts"
+
+#: 
+msgid "Modified"
+msgstr "Pārveidots"
+
+#: 
+msgid "Setting not found: {0}.{1}"
+msgstr "Iestatījums nav atrasts: {0}.{1}"
+
+#: 
+msgid "Yes"
+msgstr "Jā"
+
+#: 
+msgid "Invalid value for the specified type."
+msgstr "Nederīga vērtība norādītajam veidam."
+
+#: 
+msgid "Edit Comment"
+msgstr "Rediģēt komentāru"
+
+#: 
+msgid "Unable to add your comment."
+msgstr "Nevar pievienot jūsu komentāru."
+
+#: 
+msgid "No deleting your own account."
+msgstr "Nedrīkst dzēst savu kontu."
+
+#: 
+msgid "Back"
+msgstr "Atpakaļ"
+
+#: 
+msgid "Add User"
+msgstr "Pievienot lietotāju"
+
+#: 
+msgid "Are you sure you want to delete # {0}?"
+msgstr "Vai tiešām vēlaties dzēst # {0}?"
+
+#: 
+msgid "Context"
+msgstr "Konteksts"
+
+#: 
+msgid "Send Reset Link"
+msgstr "Nosūtīt atiestatīšanas saiti"
+
+#: 
 msgid "Edit Image"
 msgstr "Rediģēt attēlu"
+
+#: 
+msgid "Failed to generate {0} articles."
+msgstr "Neizdevās ģenerēt {0} rakstus."
+
+#: 
+msgid "Linkedin Description"
+msgstr "Linkedin apraksts"
+
+#: 
+msgid "The article could not be deleted. Please, try again."
+msgstr "Rakstu nevarēja izdzēst. Lūdzu, mēģiniet vēlreiz."
+
+#: 
+msgid "The user could not be saved. Please, try again."
+msgstr "Lietotāju nevarēja saglabāt. Lūdzu, mēģiniet vēlreiz."
+
+#: 
+msgid "My Account"
+msgstr "Mans konts"
+
+#: 
+msgid "Add a Comment"
+msgstr "Pievienot komentāru"
+
+#: 
+msgid "User"
+msgstr "Lietotājs"
+
+#: 
+msgid "Your account could not be updated."
+msgstr "Jūsu kontu nevarēja atjaunināt."
+
+#: 
+msgid "Add Internationalisation"
+msgstr "Pievienojiet internacionalizāciju"
+
+#: 
+msgid "Locale"
+msgstr "Lokalizācija"
+
+#: 
+msgid "Kind"
+msgstr "Laipni"
+
+#: 
+msgid "The email template could not be saved. Please, try again."
+msgstr "E-pasta veidni nevarēja saglabāt. Lūdzu, mēģiniet vēlreiz."
+
+#: 
+msgid "Search Aiprompts..."
+msgstr "Meklēt Aiprompts..."
+
+#: 
+msgid "Temperature"
+msgstr "Temperatūra"
+
+#: 
+msgid "New Slug"
+msgstr "Jauns gliemezis"
+
+#: 
+msgid "Add Page"
+msgstr "Pievienot lapu"
+
+#: 
+msgid "Your account has been confirmed. You can now log in."
+msgstr "Jūsu konts ir apstiprināts. Tagad varat pieteikties."
+
+#: 
+msgid "All Locales"
+msgstr "Visas lokalizācijas"
+
+#: 
+msgid "Featured posts"
+msgstr "Piedāvātās ziņas"
+
+#: 
+msgid "The slug could not be saved. Please, try again."
+msgstr "Gliemežu nevarēja izglābt. Lūdzu, mēģiniet vēlreiz."
+
+#: 
+msgid "Ip Address"
+msgstr "IP adrese"
+
+#: 
+msgid "Page Views"
+msgstr "Lapu skatījumi"
+
+#: 
+msgid "Unknown Author"
+msgstr "Nezināms autors"
+
+#: 
+msgid "Search Pages..."
+msgstr "Meklēt lapas..."
+
+#: 
+msgid "All Levels"
+msgstr "Visi līmeņi"
+
+#: 
+msgid "An error occurred while processing your request."
+msgstr "Apstrādājot jūsu pieprasījumu, radās kļūda."
+
+#: 
+msgid "Save All Settings"
+msgstr "Saglabāt visus iestatījumus"
+
+#: 
+msgid "Failed to send confirmation email message: {0}"
+msgstr "Neizdevās nosūtīt apstiprinājuma e-pasta ziņojumu: {0}"
+
+#: 
+msgid "Please select your cookie preferences below. Essential cookies are required for the website to function and cannot be disabled."
+msgstr "Lūdzu, tālāk atlasiet sīkfailu preferences. Lai vietne darbotos, ir nepieciešami būtiski sīkfaili, un tos nevar atspējot."
+
+#: 
+msgid "The internationalisation could not be deleted. Please, try again."
+msgstr "Internacionalizāciju nevarēja izdzēst. Lūdzu, mēģiniet vēlreiz."
+
+#: 
+msgid "Your cookie preferences could not be saved. Please, try again."
+msgstr "Jūsu sīkfailu preferences nevarēja saglabāt. Lūdzu, mēģiniet vēlreiz."
+
+#: 
+msgid "The internationalisation has been deleted."
+msgstr "Internacionalizācija ir dzēsta."
+
+#: 
+msgid "Hide"
+msgstr "Slēpt"
+
+#: 
+msgid "Tag not found"
+msgstr "Tags nav atrasts"
+
+#: 
+msgid "Edit Aiprompt"
+msgstr "Rediģēt Aiprompt"
+
+#: 
+msgid "Logout"
+msgstr "Atteikties"
+
+#: 
+msgid "Search Tags..."
+msgstr "Meklēt tagus..."
+
+#: 
+msgid "Light"
+msgstr "Gaisma"
+
+#: 
+msgid "Recent posts"
+msgstr "Jaunākie ieraksti"
+
+#: 
+msgid "Reset Password"
+msgstr "Atiestatīt paroli"
+
+#: 
+msgid "SEO Fields"
+msgstr "SEO lauki"
+
+#: 
+msgid "Level"
+msgstr "Līmenis"
+
+#: 
+msgid "Edit"
+msgstr "Rediģēt"
+
+#: 
+msgid "Body"
+msgstr "Ķermenis"
+
+#: 
+msgid "Access denied. You must be an admin to view this page."
+msgstr "Piekļuve liegta. Lai skatītu šo lapu, jums ir jābūt administratoram."
+
+#: 
+msgid "The comment has been deleted."
+msgstr "Komentārs ir izdzēsts."
+
+#: 
+msgid "All"
+msgstr "Visi"
+
+#: 
+msgid "Article not found."
+msgstr "Raksts nav atrasts."
+
+#: 
+msgid "Your password has been reset. Please log in with your new password."
+msgstr "Jūsu parole ir atiestatīta. Lūdzu, piesakieties ar savu jauno paroli."
+
+#: 
+msgid "You cannot remove your own admin status."
+msgstr "Jūs nevarat noņemt savu administratora statusu."
+
+#: 
+msgid "Search Blocked Ips..."
+msgstr "Meklēt bloķētos IP..."
+
+#: 
+msgid "We were unable to find that account."
+msgstr "Mēs nevarējām atrast šo kontu."
+
+#: 
+msgid "The article has been saved."
+msgstr "Raksts ir saglabāts."
+
+#: 
+msgid "Modified At"
+msgstr "Pārveidots plkst"
+
+#: 
+msgid "Registration failed. Please, try again."
+msgstr "Reģistrācija neizdevās. Lūdzu, mēģiniet vēlreiz."
+
+#: 
+msgid "Alt Text"
+msgstr "Alternatīvais teksts"
+
+#: 
+msgid "Failed to generate article: {0}"
+msgstr "Neizdevās ģenerēt rakstu: {0}"
+
+#: 
+msgid "{0} Views"
+msgstr "{0} skatījumi"
+
+#: 
+msgid "The tag could not be saved. Please, try again."
+msgstr "Tagu nevarēja saglabāt. Lūdzu, mēģiniet vēlreiz."
+
+#: 
+msgid "Image Uploads"
+msgstr "Attēlu augšupielāde"
+
+#: 
+msgid "New Email Template"
+msgstr "Jauna e-pasta veidne"
+
+#: 
+msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
+msgstr "E-pasts veiksmīgi nosūtīts uz: {0}. Veidne: {1}, tēma: {2}"
+
+#: 
+msgid "The comment could not be saved. Please, try again."
+msgstr "Komentāru nevarēja saglabāt. Lūdzu, mēģiniet vēlreiz."
+
+#: 
+msgid "The blocked ip has been deleted."
+msgstr "Bloķētais IP ir izdzēsts."
+
+#: 
+msgid "Essential"
+msgstr "Būtiski"
+
+#: 
+msgid "Search..."
+msgstr "Meklēt..."
+
+#: 
+msgid "You cannot disable your own account."
+msgstr "Jūs nevarat atspējot savu kontu."
+
+#: 
+msgid "{0} cache configuration does not exist."
+msgstr "{0} kešatmiņas konfigurācija nepastāv."
+
+#: 
+msgid "The user has been deleted."
+msgstr "Lietotājs ir izdzēsts."
+
+#: 
+msgid "Auto"
+msgstr "Auto"
+
+#: 
+msgid "Group Name"
+msgstr "Grupas nosaukums"
+
+#: 
+msgid "The tag has been saved."
+msgstr "Atzīme ir saglabāta."
+
+#: 
+msgid "The user could not be deleted. Please, try again."
+msgstr "Lietotāju nevarēja izdzēst. Lūdzu, mēģiniet vēlreiz."
+
+#: 
+msgid "No pages found."
+msgstr "Nav atrasta neviena lapa."
+
+#: 
+msgid "Active"
+msgstr "Aktīvs"
+
+#: 
+msgid "Pages"
+msgstr "Lapas"
+
+#: 
+msgid "No comments yet."
+msgstr "Komentāru vēl nav."
+
+#: 
+msgid "Search Email Templates..."
+msgstr "Meklēt e-pasta veidnes..."
+
+#: 
+msgid "Lead"
+msgstr "Svins"
+
+#: 
+msgid "Name"
+msgstr "Vārds"
+
+#: 
+msgid "Settings"
+msgstr "Iestatījumi"
+
+#: 
+msgid "Clear All Cache"
+msgstr "Notīrīt visu kešatmiņu"
+
+#: 
+msgid "Expires At"
+msgstr "Derīguma termiņš beidzas plkst"
+
+#: 
+msgid "Cache"
+msgstr "Kešatmiņa"
+
+#: 
+msgid "Your comment has been added."
+msgstr "Jūsu komentārs ir pievienots."
+
+#: 
+msgid "Too Many Requests"
+msgstr "Pārāk daudz pieprasījumu"
+
+#: 
+msgid "Status"
+msgstr "Statuss"
+
+#: 
+msgid "Register"
+msgstr "Reģistrēties"
+
+#: 
+msgid "AI Prompts"
+msgstr "AI uzvednes"
+
+#: 
+msgid "Submit Comment"
+msgstr "Iesniegt komentāru"
+
+#: 
+msgid "View detailed records for this date"
+msgstr "Skatiet detalizētus šī datuma ierakstus"
+
+#: 
+msgid "Add Image"
+msgstr "Pievienot attēlu"
+
+#: 
+msgid "Edit your Account"
+msgstr "Rediģējiet savu kontu"
+
+#: 
+msgid "Delete"
+msgstr "Dzēst"
+
+#: 
+msgid "Are you sure you want to delete all logs in group {0}?"
+msgstr "Vai tiešām vēlaties dzēst visus žurnālus grupā {0}?"
+
+#: 
+msgid "You must be logged in to add a comment."
+msgstr "Lai pievienotu komentāru, jums ir jāpiesakās."
+
+#: 
+msgid "On"
+msgstr "Ieslēgts"
+
+#: 
+msgid "Email"
+msgstr "E-pasts"
+
+#: 
+msgid "The article has been deleted."
+msgstr "Raksts ir dzēsts."
+
+#: 
+msgid "New Aiprompt"
+msgstr "Jauns Aiprompt"
+
+#: 
+msgid "Page {{page}} of {{pages}}"
+msgstr "Lapa {{page}} no {{pages}}"
+
+#: 
+msgid "Forgot Password?"
+msgstr "Aizmirsāt paroli?"
+
+#: 
+msgid "English"
+msgstr "angļu valoda"
+
+#: 
+msgid "Summary"
+msgstr "Kopsavilkums"
+
+#: 
+msgid "Search Comments..."
+msgstr "Meklēt komentāros..."
+
+#: 
+msgid "Too many requests. Please try again later."
+msgstr "Pārāk daudz pieprasījumu. Lūdzu, vēlāk mēģiniet vēlreiz."
+
+#: 
+msgid "Max Tokens"
+msgstr "Max Tokens"
+
+#: 
+msgid "Are you sure you want to delete all logs?"
+msgstr "Vai tiešām vēlaties dzēst visus žurnālus?"
+
+#: 
+msgid "Are you sure you want to clear {0}?"
+msgstr "Vai tiešām vēlaties notīrīt {0}?"
+
+#: 
+msgid "The aiprompt could not be saved. Please, try again."
+msgstr "Aiprompt nevarēja saglabāt. Lūdzu, mēģiniet vēlreiz."
+
+#: 
+msgid "Page Views for {0}"
+msgstr "Lapas skatījumi {0}"
+
+#: 
+msgid "List {0}"
+msgstr "Saraksts {0}"
+
+#: 
+msgid "All logs with level {0} have been deleted."
+msgstr "Visi žurnāli ar līmeni {0} ir izdzēsti."
+
+#: 
+msgid "Never"
+msgstr "Nekad"
+
+#: 
+msgid "Willow CMS"
+msgstr "Vītola CMS"
+
+#: 
+msgid "The tag could not be deleted. Please, try again."
+msgstr "Tagu nevarēja izdzēst. Lūdzu, mēģiniet vēlreiz."
+
+#: 
+msgid "Related pages"
+msgstr "Saistītās lapas"
+
+#: 
+msgid "Total Views: "
+msgstr "Kopējais skatījumu skaits: "
+
+#: 
+msgid "The value must be a number."
+msgstr "Vērtībai ir jābūt skaitlim."
+
+#: 
+msgid "Meta Description"
+msgstr "Meta apraksts"
+
+#: 
+msgid "Bulk Upload Images"
+msgstr "Lielapjoma attēlu augšupielāde"
+
+#: 
+msgid "Edit Internationalisation"
+msgstr "Rediģēt internacionalizāciju"
+
+#: 
+msgid "Admin"
+msgstr "Administrators"
+
+#: 
+msgid "Create an Account"
+msgstr "Izveidojiet kontu"
+
+#: 
+msgid "Block IPs"
+msgstr "Bloķēt IP"
+
+#: 
+msgid "The email template could not be deleted. Please, try again."
+msgstr "E-pasta veidni nevarēja izdzēst. Lūdzu, mēģiniet vēlreiz."
+
+#: 
+msgid "Views"
+msgstr "Skati"
+
+#: 
+msgid "Delete all articles before generating new ones"
+msgstr "Pirms jaunu ģenerēšanas izdzēsiet visus rakstus"
+
+#: 
+msgid "New Blocked Ip"
+msgstr "Jauns bloķēts IP"
+
+#: 
+msgid "No admin user found."
+msgstr "Nav atrasts neviens administrators lietotājs."
+
+#: 
+msgid "There was an issue confirming your account. Please try again."
+msgstr "Apstiprinot jūsu kontu, radās problēma. Lūdzu, mēģiniet vēlreiz."
+
+#: 
+msgid "Are you sure you want to delete all {0} logs?"
+msgstr "Vai tiešām vēlaties dzēst visus {0} žurnālus?"
+
+#: 
+msgid "Comment"
+msgstr "komentēt"
+
+#: 
+msgid "Description"
+msgstr "Apraksts"
+
+#: 
+msgid "Reason"
+msgstr "Iemesls"
+
+#: 
+msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
+msgstr "Sliņķim ir jābūt drošam URL (tikai mazie burti, cipari un defises)"
+
+#: 
+msgid "The blocked ip could not be deleted. Please, try again."
+msgstr "Bloķēto IP nevarēja izdzēst. Lūdzu, mēģiniet vēlreiz."
+
+#: 
+msgid "Instagram Description"
+msgstr "Instagram apraksts"
+
+#: 
+msgid "The requested address {0} was not found on this server."
+msgstr "Pieprasītā adrese {0} netika atrasta šajā serverī."
+
+#: 
+msgid "Failed to send email to: {0}"
+msgstr "Neizdevās nosūtīt e-pastu uz: {0}"
+
+#: 
+msgid "Parent"
+msgstr "Vecāks"
+
+#: 
+msgid "Failed to create tag: {0}"
+msgstr "Neizdevās izveidot tagu: {0}"
+
+#: 
+msgid "Add Tag"
+msgstr "Pievienot tagu"
+
+#: 
+msgid "The image has been saved."
+msgstr "Attēls ir saglabāts."
+
+#: 
+msgid "This message_id must be unique for the given locale."
+msgstr "Šim ziņojuma_id ir jābūt unikālam norādītajā lokalizācijā."
+
+#: 
+msgid "New Internationalisation"
+msgstr "Jauna internacionalizācija"
+
+#: 
+msgid "Edit {0}"
+msgstr "Rediģēt {0}"
+
+#: 
+msgid "Registration successful. Please check your email for confirmation."
+msgstr "Reģistrācija veiksmīga. Lūdzu, pārbaudiet savu e-pastu, lai saņemtu apstiprinājumu."
+
+#: 
+msgid "Info"
+msgstr "Informācija"
+
+#: 
+msgid "Message Str"
+msgstr "Ziņojums Str"
+
+#: 
+msgid "Invalid username or password"
+msgstr "Nederīgs lietotājvārds vai parole"
+
+#: 
+msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
+msgstr "Tālāk ir sniegta informācija par konfigurētajām kešatmiņām. Noklikšķiniet uz pogas, lai notīrītu visu kešatmiņu, vai atsevišķas kešatmiņas pogas, lai notīrītu noteiktas kešatmiņas."
+
+#: 
+msgid "The slug has been saved."
+msgstr "Gliemeža ir izglābta."
+
+#: 
+msgid "Last Cleared"
+msgstr "Pēdējā notīrīta"
+
+#: 
+msgid "Title"
+msgstr "Nosaukums"
+
+#: 
+msgid "Please log in to add a comment"
+msgstr "Lūdzu, piesakieties, lai pievienotu komentāru"
+
+#: 
+msgid "Picture"
+msgstr "Attēls"
+
+#: 
+msgid "Updated At"
+msgstr "Atjaunināts plkst"
+
+#: 
+msgid "Article not found"
+msgstr "Raksts nav atrasts"
+
+#: 
+msgid "Actions"
+msgstr "Darbības"
+
+#: 
+msgid "Twitter Description"
+msgstr "Twitter apraksts"
+
+#: 
+msgid "Flagged"
+msgstr "Atzīmēts ar karodziņu"
+
+#: 
+msgid "All Groups"
+msgstr "Visas grupas"
+
+#: 
+msgid "The slug has been deleted."
+msgstr "Gliemeža ir izdzēsta."
+
+#: 
+msgid "New {0}"
+msgstr "Jauns {0}"
+
+#: 
+msgid "Body Plain"
+msgstr "Body Plain"
+
+#: 
+msgid "Slug:"
+msgstr "Gliemeži:"
+
+#: 
+msgid "New Post"
+msgstr "Jauna ziņa"
+
+#: 
+msgid "Search Posts..."
+msgstr "Meklēt ziņas..."
+
+#: 
+msgid "Image"
+msgstr "Attēls"
+
+#: 
+msgid "Published"
+msgstr "Publicēts"
+
+#: 
+msgid "Share"
+msgstr "Dalīties"
+
+#: 
+msgid "Add Post"
+msgstr "Pievienot ziņu"
+
+#: 
+msgid "Archives"
+msgstr "Arhīvi"
+
+#: 
+msgid "Error in: "
+msgstr "Kļūda: "
+
+#: 
+msgid "Main Image"
+msgstr "Galvenais attēls"
+
+#: 
+msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
+msgstr "Lapa {{page}} no {{pages}}, rāda {{current}} ierakstu(-i) no {{count}} kopā"
+
+#: 
+msgid "{0} cache has been cleared successfully."
+msgstr "{0} kešatmiņa ir veiksmīgi iztīrīta."
+
+#: 
+msgid "The blocked ip has been saved."
+msgstr "Bloķētais IP ir saglabāts."
+
+#: 
+msgid "Tags"
+msgstr "Tagi"
+
+#: 
+msgid "Failed to send email. Please check your email configuration."
+msgstr "Neizdevās nosūtīt e-pastu. Lūdzu, pārbaudiet savu e-pasta konfigurāciju."
+
+#: 
+msgid "Search Internationalisations..."
+msgstr "Meklēt internacionalizācijas..."
+
+#: 
+msgid "Related Tags"
+msgstr "Saistītie tagi"
+
+#: 
+msgid "Meta Keywords"
+msgstr "Meta Atslēgvārdi"
+
+#: 
+msgid "An Internal Error Has Occurred."
+msgstr "Ir notikusi iekšēja kļūda."
+
+#: 
+msgid "Article ID:"
+msgstr "Raksta ID:"
+
+#: 
+msgid "The image could not be saved. Please, try again."
+msgstr "Attēlu nevarēja saglabāt. Lūdzu, mēģiniet vēlreiz."
+
+#: 
+msgid "Delete All Logs"
+msgstr "Dzēst visus žurnālus"
+
+#: 
+msgid "Invalid confirmation code."
+msgstr "Nederīgs apstiprinājuma kods."
+
+#: 
+msgid "System Prompt"
+msgstr "Sistēmas uzvedne"
+
+#: 
+msgid "Articles/Pages"
+msgstr "Raksti/lapas"
+
+#: 
+msgid "Keywords"
+msgstr "Atslēgvārdi"
+
+#: 
+msgid "The aiprompt could not be deleted. Please, try again."
+msgstr "Aiprompt nevarēja izdzēst. Lūdzu, mēģiniet vēlreiz."
+
+#: 
+msgid "Blocked At"
+msgstr "Bloķēts plkst"
+
+#: 
+msgid "The slug must be unique."
+msgstr "Gliemežam ir jābūt unikālam."
+
+#: 
+msgid "Edit Page"
+msgstr "Rediģēt lapu"
+
+#: 
+msgid "No"
+msgstr "Nē"
+
+#: 
+msgid "Main Menu"
+msgstr "Galvenā izvēlne"
+
+#: 
+msgid "Reset your password"
+msgstr "Atiestatiet savu paroli"
+
+#: 
+msgid "Task Type"
+msgstr "Uzdevuma veids"
+
+#: 
+msgid "Cookie Preferences"
+msgstr "Sīkfailu preferences"
+
+#: 
+msgid "Root"
+msgstr "Sakne"
+
+#: 
+msgid "The log has been deleted."
+msgstr "Žurnāls ir izdzēsts."
+
+#: 
+msgid "Is Admin"
+msgstr "Ir administrators"
+
+#: 
+msgid "Featured"
+msgstr "Piedāvātie"
+
+#: 
+msgid "To understand how we handle your personal information, including the use of cookies and other tracking technologies, please review our {0}."
+msgstr "Lai saprastu, kā mēs apstrādājam jūsu personas informāciju, tostarp sīkfailu un citu izsekošanas tehnoloģiju izmantošanu, lūdzu, pārskatiet mūsu {0}."
+
+#: 
+msgid "Edit Post"
+msgstr "Rediģēt ziņu"
+
+#: 
+msgid "Your cookie preferences have been saved."
+msgstr "Jūsu sīkfailu preferences ir saglabātas."
+
+#: 
+msgid "No view records found for this article."
+msgstr "Šim rakstam nav atrasts neviens skatīšanas ieraksts."
+
+#: 
+msgid "Related Comments"
+msgstr "Saistītie komentāri"
+
+#: 
+msgid "Child"
+msgstr "Bērns"
+
+#: 
+msgid "{0} cache could not be cleared."
+msgstr "{0} kešatmiņu nevarēja notīrīt."
+
+#: 
+msgid "No page view data available for this article."
+msgstr "Šim rakstam nav pieejami lapas skatījumu dati."
+
+#: 
+msgid "Log In"
+msgstr "Pieteikties"
+
+#: 
+msgid "About"
+msgstr "Par"
+
+#: 
+msgid "New Page"
+msgstr "Jauna lapa"
+
+#: 
+msgid "Bulk Upload"
+msgstr "Lielapjoma augšupielāde"
+
+#: 
+msgid "Are you sure you want to delete {0}?"
+msgstr "Vai tiešām vēlaties dzēst {0}?"
+
+#: 
+msgid "Add Slug"
+msgstr "Pievienot plēksni"
+
+#: 
+msgid "Body Html"
+msgstr "Ķermeņa HTML"
+
+#: 
+msgid "Message Id"
+msgstr "Ziņojuma ID"
+
+#: 
+msgid "Login"
+msgstr "Pieteikties"
+
+#: 
+msgid "Search Users..."
+msgstr "Meklēt lietotājus..."
+
+#: 
+msgid "Number of articles to generate"
+msgstr "Ģenerējamo rakstu skaits"
+
+#: 
+msgid "This slug is already in use. Please enter a unique slug."
+msgstr "Šis lode jau tiek izmantots. Lūdzu, ievadiet unikālu gliemežnīcu."
+
+#: 
+msgid "Rate limit exceeded for IP: {0} on route: {1}"
+msgstr "Pārsniegts tarifa ierobežojums IP: {0} maršrutā: {1}"
+
+#: 
+msgid "Generated {0} articles successfully."
+msgstr "Veiksmīgi ģenerēti {0} raksti."
+
+#: 
+msgid "Clear"
+msgstr "Skaidrs"
+
+#: 
+msgid "No articles found for this tag."
+msgstr "Šai atzīmei nav atrasts neviens raksts."
+
+#: 
+msgid "Logs"
+msgstr "Baļķi"
+
+#: 
+msgid "Model"
+msgstr "Modelis"
+
+#: 
+msgid "Edit Blocked Ip"
+msgstr "Rediģēt bloķēto IP"
+
+#: 
+msgid "The image could not be deleted. Please, try again."
+msgstr "Attēlu nevarēja izdzēst. Lūdzu, mēģiniet vēlreiz."
+
+#: 
+msgid "Search Slugs..."
+msgstr "Meklēt gliemežus..."
+
+#: 
+msgid "Image uploaded successfully"
+msgstr "Attēls ir veiksmīgi augšupielādēts"
+
+#: 
+msgid "The value must be 0 or 1."
+msgstr "Vērtībai ir jābūt 0 vai 1."
+
+#: 
+msgid "Created At"
+msgstr "Izveidots plkst"
+
+#: 
+msgid "Error loading images:"
+msgstr "Ielādējot attēlus, radās kļūda:"
+
+#: 
+msgid "Grid View"
+msgstr "Režģa skats"
+
+#: 
+msgid "Unable to delete logs in group {0}."
+msgstr "Nevar izdzēst žurnālus grupā {0}."
+
+#: 
+msgid "User Agent"
+msgstr "Lietotāja aģents"
+
+#: 
+msgid "Edit Email Template"
+msgstr "Rediģēt e-pasta veidni"
+
+#: 
+msgid "Referer"
+msgstr "Referents"
+
+#: 
+msgid "Users"
+msgstr "Lietotāji"
+
+#: 
+msgid "Template Identifier"
+msgstr "Veidnes identifikators"
+
+#: 
+msgid "The aiprompt has been deleted."
+msgstr "Aiprompt ir izdzēsts."
+
+#: 
+msgid "Language"
+msgstr "Valoda"
+
+#: 
+msgid "Posts"
+msgstr "Ziņas"
+
+#: 
+msgid "The settings have been saved."
+msgstr "Iestatījumi ir saglabāti."
+
+#: 
+msgid "The image has been deleted."
+msgstr "Attēls ir izdzēsts."
+
+#: 
+msgid "Cache Name"
+msgstr "Kešatmiņas nosaukums"
+
+#: 
+msgid "Comments are not enabled"
+msgstr "Komentāri nav iespējoti"
+
+#: 
+msgid "All rights reserved."
+msgstr "Visas tiesības paturētas."
+
+#: 
+msgid "Image must be less than 5MB."
+msgstr "Attēlam ir jābūt mazākam par 5 MB."
+
+#: 
+msgid "Used to deliver personalized advertisements and enable the facebook share button."
+msgstr "Izmanto, lai piegādātu personalizētus sludinājumus un iespējotu Facebook kopīgošanas pogu."
+
+#: 
+msgid "Back to top"
+msgstr "Atpakaļ uz augšu"
+
+#: 
+msgid "Posted on {date} by {author}"
+msgstr "{author} ievietoja {date}"
+
+#: 
+msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
+msgstr "Slug konfliktē ar esošu SEO novirzīšanu. Lūdzu, izvēlieties citu gliemežnīcu."
+
+#: 
+msgid "Privacy Policy"
+msgstr "Privātuma politika"
+
+#: 
+msgid "All logs have been deleted."
+msgstr "Visi žurnāli ir izdzēsti."
+
+#: 
+msgid "Blog"
+msgstr "Emuārs"
+
+#: 
+msgid "View"
+msgstr "Skatīt"
+
+#: 
+msgid "Error"
+msgstr "Kļūda"
+
+#: 
+msgid "Error saving {0}.{1}: {2}"
+msgstr "Saglabājot {0}, radās kļūda.{1}: {2}"
+
+#: 
+msgid "Add Email Template"
+msgstr "Pievienojiet e-pasta veidni"
+
+#: 
+msgid "Error in {0}: {1}"
+msgstr "Kļūda {0}: {1}"
+
+#: 
+msgid "Back to Login"
+msgstr "Atgriezties uz pieteikšanos"
+
+#: 
+msgid "Comments"
+msgstr "komentāri"
+
+#: 
+msgid "Failed to send password reset email: {0}"
+msgstr "Neizdevās nosūtīt paroles atiestatīšanas e-pastu: {0}"
+
+#: 
+msgid "Password must be at least 8 characters long"
+msgstr "Parolei jābūt vismaz 8 rakstzīmēm garai"
+
+#: 
+msgid "Configured Caches"
+msgstr "Konfigurētas kešatmiņas"
+
+#: 
+msgid "The email template has been saved."
+msgstr "E-pasta veidne ir saglabāta."
+
+#: 
+msgid "Enter a number"
+msgstr "Ievadiet numuru"
+
+#: 
+msgid "Word Count"
+msgstr "Vārdu skaits"
+
+#: 
+msgid "Welcome to Willow, a content management system I'm building in the open. Here you'll find development updates, feature highlights, and guides on using Willow for your own sites."
+msgstr "Laipni lūdzam Willow — satura pārvaldības sistēmā, kuru veidoju atklāti. Šeit jūs atradīsiet izstrādes atjauninājumus, svarīgākās funkcijas un ceļvežus par Willow izmantošanu savām vietnēm."
+
+#: 
+msgid "Generated article: {0}"
+msgstr "Ģenerēts raksts: {0}"
+
+#: 
+msgid "Date"
+msgstr "Datums"
+
+#: 
+msgid "Edit Slug"
+msgstr "Rediģēt Slug"
+
+#: 
+msgid "Slugs"
+msgstr "Gliemeži"
+
+#: 
+msgid "All logs in group {0} have been deleted."
+msgstr "Visi žurnāli grupā {0} ir dzēsti."
+
+#: 
+msgid "Edit Tag"
+msgstr "Rediģēt tagu"
+
+#: 
+msgid "Images"
+msgstr "Attēli"
+
+#: 
+msgid "Filter"
+msgstr "Filtrs"
+
+#: 
+msgid "All articles have been deleted."
+msgstr "Visi raksti ir izdzēsti."
+
+#: 
+msgid "Please upload only images (jpeg, png, gif)."
+msgstr "Lūdzu, augšupielādējiet tikai attēlus (jpeg, png, gif)."
+
+#: 
+msgid "Email sent successfully."
+msgstr "E-pasts veiksmīgi nosūtīts."
+
+#: 
+msgid "Enable enhanced functionality and personalization."
+msgstr "Iespējojiet uzlabotu funkcionalitāti un personalizāciju."
+
+#: 
+msgid "Created tag: {0}"
+msgstr "Izveidots tags: {0}"
+
+#: 
+msgid "Is Published"
+msgstr "Ir publicēts"
+
+#: 
+msgid "Email template not found: {0}"
+msgstr "E-pasta veidne nav atrasta: {0}"
+
+#: 
+msgid "A value is required"
+msgstr "Jānorāda vērtība"
+
+#: 
+msgid "By"
+msgstr "Autors"
+
+#: 
+msgid "Inappropriate Reason"
+msgstr "Nepiemērots iemesls"
+
+#: 
+msgid "Select Tags"
+msgstr "Atlasiet Tags"
+
+#: 
+msgid "Some settings could not be saved. Please, try again."
+msgstr "Dažus iestatījumus nevarēja saglabāt. Lūdzu, mēģiniet vēlreiz."
+
+#: 
+msgid "New Image"
+msgstr "Jauns attēls"
+
+#: 
+msgid "Required for the website to function properly. These cannot be disabled."
+msgstr "Nepieciešams, lai vietne darbotos pareizi. Tos nevar atspējot."
+
+#: 
+msgid "New Tag"
+msgstr "Jauns tags"
+
+#: 
+msgid "View {0}"
+msgstr "Skatīt {0}"
+
+#: 
+msgid "Related Slugs"
+msgstr "Saistītie gliemeži"
 

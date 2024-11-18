@@ -30,7 +30,7 @@ class CookieConsentsController extends AppController
 
     /**
      * Edit cookie consent preferences and manage GDPR compliance.
-     * 
+     *
      * Handles both GET and POST/PUT/PATCH requests for cookie consent management.
      * For GET requests, displays the current consent settings if they exist.
      * For POST/PUT/PATCH requests, creates a new consent record for GDPR audit trail

@@ -703,6 +703,7 @@ class ArticlesTable extends Table
             ])
             ->where([
                 'Articles.is_published' => 1,
+                'Articles.kind' => 'article',
                 'Articles.published IS NOT' => null,
             ])
             ->group(['year', 'month'])

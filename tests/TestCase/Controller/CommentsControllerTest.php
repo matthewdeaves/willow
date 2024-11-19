@@ -73,7 +73,7 @@ class CommentsControllerTest extends AppControllerTestCase
     {
         $this->loginUser('6509480c-e7e6-4e65-9c38-1423a8d09d02'); // Non-admin user
         $this->get('/admin/comments');
-        $this->assertRedirect('/en/users/login'); // Assuming non-admins are redirected to home
+        $this->assertRedirect('/en');
     }
 
     /**
@@ -129,7 +129,7 @@ class CommentsControllerTest extends AppControllerTestCase
             'display' => 0,
         ]);
 
-        $this->assertRedirect('/en/users/login'); // Assuming non-admins are redirected to home
+        $this->assertRedirect('/en');
     }
 
     /**
@@ -165,7 +165,7 @@ class CommentsControllerTest extends AppControllerTestCase
 
         $this->post('/admin/comments/delete/550e8400-e29b-41d4-a716-446655440000');
 
-        $this->assertRedirect('/en/users/login'); // Assuming non-admins are redirected to home
+        $this->assertRedirect('/en');
         $this->assertTrue($this->Comments->exists(['id' => '550e8400-e29b-41d4-a716-446655440000']));
     }
 
@@ -209,7 +209,7 @@ class CommentsControllerTest extends AppControllerTestCase
     public function testAccessAdminWithoutAuth(): void
     {
         $this->get('/admin/comments');
-        $this->assertRedirectContains('/en/users/login');
+        $this->assertRedirect('/en');
         $this->assertResponseCode(302);
     }
 }

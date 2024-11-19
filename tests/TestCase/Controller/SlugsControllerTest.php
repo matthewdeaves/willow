@@ -146,14 +146,14 @@ class SlugsControllerTest extends AppControllerTestCase
     {
         // Test access without authentication
         $this->get('/admin/slugs');
-        $this->assertRedirectContains('/users/login');
+        $this->assertRedirect('/en');
 
         // Test access with non-admin user
         $nonAdminId = '6509480c-e7e6-4e65-9c38-1423a8d09d02'; // Assuming this is a non-admin user ID
         $this->loginUser($nonAdminId);
         $this->get('/admin/slugs');
         $this->assertResponseCode(302);
-        $this->assertRedirectContains('/users/login');
+        $this->assertRedirect('/en');
 
         $adminID = '6509480c-e7e6-4e65-9c38-1423a8d09d0f'; /// admin id
         $this->loginUser($adminID);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
+use Cake\Cache\Cache;
 use Cake\Http\Response;
 use Cake\ORM\Query;
 
@@ -94,7 +95,7 @@ class CommentsController extends AppController
             $comment = $this->Comments->patchEntity($comment, $this->request->getData());
             if ($this->Comments->save($comment)) {
                 if ($comment->article) {
-                    $this->Articles->clearFromCache($comment->article->slug);
+                    Cache::clear('articles');
                 }
                 $this->Flash->success(__('The comment has been saved.'));
 
@@ -121,7 +122,7 @@ class CommentsController extends AppController
         $comment = $this->Comments->get($id);
         if ($this->Comments->delete($comment)) {
             if ($comment->article) {
-                $this->Articles->clearFromCache($comment->article->slug);
+                Cache::clear('articles');
             }
 
             $this->Flash->success(__('The comment has been deleted.'));

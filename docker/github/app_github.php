@@ -170,14 +170,6 @@ return [
             'serialize' => true,
             'duration' => '+1 month',
         ],
-
-        'articles_index' => [
-            'className' => FileEngine::class,
-            'prefix' => 'cms_articles_index_',
-            'path' => CACHE . 'articles_index' . DS,
-            'serialize' => true,
-            'duration' => '+1 month',
-        ],
     ],
 
     /*

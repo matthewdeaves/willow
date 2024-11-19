@@ -103,6 +103,32 @@ class UsersControllerTest extends AppControllerTestCase
     }
 
     /**
+     * Test non-admin user access to admin area
+     *
+     * This test verifies that a non-admin user cannot access the admin area
+     * and is redirected to the site homepage.
+     *
+     * @return void
+     */
+    public function testNonAdminUserAccessToAdminArea(): void
+    {
+        $this->enableCsrfToken();
+
+        // Log in as a non-admin user
+        $this->post('/en/users/login', [
+            'email' => 'user@example.com',
+            'password' => 'password',
+        ]);
+        $this->assertRedirect('/');
+
+        // Attempt to access the admin area
+        $this->get('/admin');
+
+        // Assert that the user is redirected to the site homepage
+        $this->assertRedirect('/en');
+    }
+
+    /**
      * Test successful login for admin users
      *
      * This test verifies that an admin user can log in and be redirected to the admin articles page.

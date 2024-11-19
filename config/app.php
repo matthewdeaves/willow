@@ -170,14 +170,6 @@ return [
             'duration' => '+1 month',
             'serialize' => true,
         ],
-
-        'articles_index' => [
-            'className' => 'File',
-            'prefix' => 'cms_articles_index_',
-            'path' => CACHE,
-            'duration' => '+1 month',
-            'serialize' => true,
-        ],
     ],
 
     /*

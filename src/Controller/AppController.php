@@ -100,7 +100,7 @@ class AppController extends Controller
 
         if ($this->isAdminRequest()) {
             if (!$identity) {
-                return $this->redirect(['_name' => 'login']);
+                return $this->redirect(['_name' => 'home']);
             }
 
             I18nManager::setLocalForAdminArea();
@@ -114,7 +114,7 @@ class AppController extends Controller
             if (!$user || empty($user->is_admin)) {
                 $this->Flash->error(__('Access denied. You must be an admin to view this page.'));
 
-                return $this->redirect(['_name' => 'login']);
+                return $this->redirect(['_name' => 'home']);
             }
         }
 

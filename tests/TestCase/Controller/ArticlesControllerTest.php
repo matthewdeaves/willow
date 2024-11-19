@@ -199,7 +199,7 @@ class ArticlesControllerTest extends AppControllerTestCase
     {
         $this->loginUser('6509480c-e7e6-4e65-9c38-1423a8d09d02'); // Non-admin user ID
         $this->get('/admin/articles');
-        $this->assertRedirectContains('/users/login'); // Assuming non-admins are redirected to home
+        $this->assertRedirect('/en');
     }
 
     /**

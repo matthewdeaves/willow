@@ -5,8 +5,8 @@ namespace App\Controller;
 
 use App\Model\Table\PageViewsTable;
 use App\Model\Table\SlugsTable;
-use App\Model\Table\Trait\ArticleCacheTrait;
 use App\Utility\SettingsManager;
+use Cake\Cache\Cache;
 use Cake\Event\EventInterface;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
@@ -23,14 +23,6 @@ use Cake\Routing\Router;
  */
 class ArticlesController extends AppController
 {
-    /**
-     * Provides caching functionality for articles.
-     *
-     * This trait handles caching operations for article-related data including
-     * invalidation and retrieval of cached content.
-     */
-    use ArticleCacheTrait;
-
     /**
      * Default pagination configuration.
      *
@@ -136,34 +128,39 @@ class ArticlesController extends AppController
      */
     public function index(): void
     {
+        $cacheKey = hash('xxh3', json_encode($this->request->getAttribute('params')));
+        $articles = Cache::read($cacheKey, 'articles');
         $selectedTagId = $this->request->getQuery('tag');
 
-        $query = $this->Articles->find()
-            ->where([
-                'Articles.kind' => 'article',
-                'Articles.is_published' => 1,
-            ])
-            ->contain(['Users', 'Tags'])
-            ->orderBy(['Articles.published' => 'DESC']);
+        if (!$articles) {
+            $query = $this->Articles->find()
+                ->where([
+                    'Articles.kind' => 'article',
+                    'Articles.is_published' => 1,
+                ])
+                ->contain(['Users', 'Tags'])
+                ->orderBy(['Articles.published' => 'DESC']);
 
-        if ($selectedTagId) {
-            $query->matching('Tags', function ($q) use ($selectedTagId) {
-                return $q->where(['Tags.id' => $selectedTagId]);
-            });
-        }
-
-        $year = $this->request->getQuery('year');
-        $month = $this->request->getQuery('month');
-
-        if ($year) {
-            $conditions = ['YEAR(Articles.published)' => $year];
-            if ($month) {
-                $conditions['MONTH(Articles.published)'] = $month;
+            if ($selectedTagId) {
+                $query->matching('Tags', function ($q) use ($selectedTagId) {
+                    return $q->where(['Tags.id' => $selectedTagId]);
+                });
             }
-            $query->where($conditions);
-        }
 
-        $articles = $this->paginate($query);
+            $year = $this->request->getQuery('year');
+            $month = $this->request->getQuery('month');
+
+            if ($year) {
+                $conditions = ['YEAR(Articles.published)' => $year];
+                if ($month) {
+                    $conditions['MONTH(Articles.published)'] = $month;
+                }
+                $query->where($conditions);
+            }
+
+            $articles = $this->paginate($query);
+            Cache::write($cacheKey, $articles, 'articles');
+        }
 
         $recentArticles = [];
         if ($this->request->getQuery('page') > 1) {
@@ -190,8 +187,8 @@ class ArticlesController extends AppController
      */
     public function viewBySlug(string $slug): ?Response
     {
-        // Try to get the article from cache first
-        $article = $this->getFromCache($slug . $this->request->getParam('language', 'en'));
+        $cacheKey = $slug . $this->request->getParam('language', 'en');
+        $article = Cache::read($cacheKey, 'articles');
 
         if (empty($article)) {
             // If not in cache, we need to check if this is the latest slug
@@ -258,8 +255,7 @@ class ArticlesController extends AppController
                 throw new NotFoundException(__('Article not found'));
             }
 
-            // Cache the article using the current (latest) slug
-            $this->setToCache($article->slug, $article);
+            Cache::write($cacheKey, $article, 'articles');
         }
 
         $this->viewBuilder()->setLayout($article->kind);
@@ -269,12 +265,14 @@ class ArticlesController extends AppController
         // Get the child pages and breadcrumbs for the current article
         $childPages = $this->Articles->find('children', for: $article->id)
             ->order(['lft' => 'ASC'])
+            ->cache($cacheKey . '_children', 'articles')
             ->toArray();
 
         // Breadcrumbs
         $crumbs = $this->Articles->find('path', for: $article->id)
-        ->select(['slug', 'title', 'id'])
-        ->all();
+            ->cache($cacheKey . '_crumbs', 'articles')
+            ->select(['slug', 'title', 'id'])
+            ->all();
 
         $recentArticles = $this->Articles->getRecentArticles(['Articles.id NOT IN' => [$article->id]]);
 

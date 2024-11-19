@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
-use App\Model\Table\Trait\ArticleCacheTrait;
 use App\Utility\SettingsManager;
 use ArrayObject;
 use Cake\Datasource\EntityInterface;
@@ -20,10 +19,11 @@ use DateTime;
 use InvalidArgumentException;
 
 /**
- * Articles Model
+ * ArticlesTable class
  *
- * This model handles article content including pages, blog posts, and hierarchical content structures.
- * It supports features like slugs, tags, image uploads, and SEO optimization.
+ * Represents the Articles table in the database and provides methods for managing article content.
+ * Handles article creation, modification, validation, and relationships with other entities.
+ * Implements behaviors for timestamps, comments, hierarchical structure, slugs, images, translations and uploads.
  *
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  * @property \App\Model\Table\TagsTable&\Cake\ORM\Association\BelongsToMany $Tags
@@ -31,28 +31,30 @@ use InvalidArgumentException;
  * @property \App\Model\Table\SlugsTable&\Cake\ORM\Association\HasMany $Slugs
  * @method \App\Model\Entity\Article newEmptyEntity()
  * @method \App\Model\Entity\Article newEntity(array $data, array $options = [])
- * @method array<\App\Model\Entity\Article> newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Article get(mixed $primaryKey, array|string $finder = 'all', \Psr\SimpleCache\CacheInterface|string|null $cache = null, \Closure|string|null $cacheKey = null, mixed ...$args)
- * @method \App\Model\Entity\Article findOrCreate($search, ?callable $callback = null, array $options = [])
+ * @method \App\Model\Entity\Article[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\Article get($primaryKey, $options = [])
+ * @method \App\Model\Entity\Article findOrCreate($search, ?callable $callback = null, $options = [])
  * @method \App\Model\Entity\Article patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method array<\App\Model\Entity\Article> patchEntities(iterable $entities, array $data, array $options = [])
- * @method \App\Model\Entity\Article|false save(\Cake\Datasource\EntityInterface $entity, array $options = [])
- * @method \App\Model\Entity\Article saveOrFail(\Cake\Datasource\EntityInterface $entity, array $options = [])
- * @method iterable<\App\Model\Entity\Article>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\Article>|false saveMany(iterable $entities, array $options = [])
- * @method iterable<\App\Model\Entity\Article>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\Article> saveManyOrFail(iterable $entities, array $options = [])
- * @method iterable<\App\Model\Entity\Article>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\Article>|false deleteMany(iterable $entities, array $options = [])
- * @method iterable<\App\Model\Entity\Article>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\Article> deleteManyOrFail(iterable $entities, array $options = [])
+ * @method \App\Model\Entity\Article[] patchEntities(iterable $entities, array $data, array $options = [])
+ * @method \App\Model\Entity\Article|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Article saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Article[]|\Cake\Datasource\ResultSetInterface|false saveMany(iterable $entities, $options = [])
+ * @method \App\Model\Entity\Article[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
+ * @method \App\Model\Entity\Article[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
+ * @method \App\Model\Entity\Article[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  * @mixin \App\Model\Behavior\CommentableBehavior
  * @mixin \Cake\ORM\Behavior\TreeBehavior
  * @mixin \App\Model\Behavior\SluggableBehavior
  * @mixin \App\Model\Behavior\ImageAssociableBehavior
  * @mixin \App\Model\Behavior\QueueableImageBehavior
+ * @mixin \Cake\ORM\Behavior\TranslateBehavior
  * @mixin \Josegonzalez\Upload\Model\Behavior\UploadBehavior
+ * @uses \App\Model\Trait\LogTrait
+ * @uses \App\Model\Trait\TranslateTrait
  */
 class ArticlesTable extends Table
 {
-    use ArticleCacheTrait;
     use LogTrait;
     use TranslateTrait;
 
@@ -490,7 +492,6 @@ class ArticlesTable extends Table
         }
 
         $article = $this->get($data['id']);
-        $oldParentId = $article->parent_id;
 
         if ($data['newParentId'] === 'root') {
             // Moving to root level
@@ -526,26 +527,6 @@ class ArticlesTable extends Table
             } else {
                 $this->moveUp($article, $currentPosition - $newPosition);
             }
-        }
-
-        // Clear cache for the moved article
-        $this->clearFromCache($article->slug);
-
-        // Clear cache for the old parent (if it exists)
-        if ($oldParentId) {
-            $oldParent = $this->get($oldParentId);
-            $this->clearFromCache($oldParent->slug);
-        }
-
-        // Clear cache for the new parent (if it's not root)
-        if ($article->parent_id) {
-            $newParent = $this->get($article->parent_id);
-            $this->clearFromCache($newParent->slug);
-        }
-
-        // Clear cache for affected siblings
-        foreach ($siblings as $sibling) {
-            $this->clearFromCache($sibling->slug);
         }
 
         return true;

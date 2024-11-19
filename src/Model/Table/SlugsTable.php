@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
-use App\Model\Table\Trait\ArticleCacheTrait;
 use ArrayObject;
+use Cake\Cache\Cache;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
 use Cake\Log\LogTrait;
@@ -35,7 +35,6 @@ use Cake\Validation\Validator;
  */
 class SlugsTable extends Table
 {
-    use ArticleCacheTrait;
     use LogTrait;
 
     /**
@@ -121,8 +120,7 @@ class SlugsTable extends Table
             ]);
 
             if ($this->save($newSlug)) {
-                // Clear the cache for this new slug
-                $this->clearFromCache($slug);
+                Cache::clear('articles');
             } else {
                 $this->log(
                     sprintf(
@@ -149,15 +147,7 @@ class SlugsTable extends Table
      */
     public function afterSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
-        if (!$entity->isNew()) {
-            // Clear cache for both old and new slugs if the slug was changed
-            if ($entity->isDirty('slug')) {
-                $this->clearFromCache($entity->getOriginal('slug'));
-                $this->clearFromCache($entity->slug);
-            } else {
-                $this->clearFromCache($entity->slug);
-            }
-        }
+        Cache::clear('articles');
     }
 
     /**
@@ -172,6 +162,6 @@ class SlugsTable extends Table
      */
     public function afterDelete(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
-        $this->clearFromCache($entity->slug);
+        Cache::clear('articles');
     }
 }

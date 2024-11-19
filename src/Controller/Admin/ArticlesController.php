@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
-use App\Model\Table\Trait\ArticleCacheTrait;
 use Cake\Cache\Cache;
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Http\Response;
@@ -19,8 +18,6 @@ use Exception;
  */
 class ArticlesController extends AppController
 {
-    use ArticleCacheTrait;
-
     /**
      * Retrieves a hierarchical list of articles that are marked as pages.
      *
@@ -75,6 +72,7 @@ class ArticlesController extends AppController
 
         try {
             $result = $this->Articles->reorder($data);
+            Cache::clear('articles');
 
             return $this->response->withType('application/json')
                 ->withStringBody(json_encode(['success' => true, 'result' => $result]));
@@ -211,10 +209,7 @@ class ArticlesController extends AppController
             }
 
             if ($this->Articles->save($article)) {
-                // Clear the cache for this new article
-                $this->clearFromCache($article->slug);
                 Cache::clear('articles');
-
                 $this->Flash->success(__('The article has been saved.'));
 
                 // Redirect to treeIndex if is page, otherwise to index
@@ -253,7 +248,6 @@ class ArticlesController extends AppController
     public function edit(?string $id = null): ?Response
     {
         $article = $this->Articles->get($id, contain: ['Tags', 'Images']);
-        $oldSlug = $article->slug;
         $oldParent = $article->parent_id;
 
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -283,11 +277,7 @@ class ArticlesController extends AppController
             }
 
             if ($this->Articles->save($article, $saveOptions)) {
-                // Clear cache for both old and new slugs
-                $this->clearFromCache($oldSlug);
-                $this->clearFromCache($article->slug);
                 Cache::clear('articles');
-
                 $this->Flash->success(__('The article has been saved.'));
 
                 // Redirect to treeIndex if kind is page, otherwise to index
@@ -330,8 +320,6 @@ class ArticlesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $article = $this->Articles->get($id);
         if ($this->Articles->delete($article)) {
-            // Clear the cache for this article
-            $this->clearFromCache($article->slug);
             Cache::clear('articles');
 
             $this->Flash->success(__('The article has been deleted.'));

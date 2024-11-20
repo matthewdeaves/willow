@@ -93,7 +93,7 @@ $(document).ready(function() {
                             $('body').append($modal);
 
                             $.ajax({
-                                url: '/admin/images/trumbowygSelect',
+                                url: '/admin/images/image_select',
                                 method: 'GET',
                                 success: function(data) {
                                     $('#selectImageWindow').html(data);

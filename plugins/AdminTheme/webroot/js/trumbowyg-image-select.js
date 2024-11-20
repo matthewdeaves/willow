@@ -1,20 +1,3 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var iterable<\App\Model\Entity\Image> $images
- */
-?>
-<?php use Cake\Core\Configure; ?>
-<?php if (!$this->request->getQuery('gallery_only')): ?>
-<div class="mb-3">
-    <?php $searchQuery = $this->request->getQuery('search', ''); ?>
-    <input type="text" id="imageSearch" class="form-control" placeholder="<?= __('Search images...') ?>" value="<?= h($searchQuery) ?>">
-</div>
-<?php endif; ?>
-<div id="image-gallery" class="flex-shrink-0">
-    <?php include 'image_gallery.php'; ?>
-</div>
-<script>
 $(document).ready(function() {
     function bindImageInsertEvents() {
         $('.insert-image').off('click').on('click', function() {
@@ -84,4 +67,3 @@ $(document).ready(function() {
     bindPaginationEvents();
     bindSearchBoxEvents();
 });
-</script>

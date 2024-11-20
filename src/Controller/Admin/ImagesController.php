@@ -10,7 +10,7 @@ use Cake\View\JsonView;
 /**
  * Images Controller
  *
- * Manages CRUD operations for images and handles image selection for the Trumbowyg editor.
+ * Manages CRUD operations for images and handles image selection for the Trumbowyg and Markdown-It editors.
  *
  * @property \App\Model\Table\ImagesTable $Images
  */
@@ -109,7 +109,7 @@ class ImagesController extends AppController
      *
      * @return void
      */
-    public function trumbowygSelect(): void
+    public function imageSelect(): void
     {
         $this->paginate = [
             'maxLimit' => 6,

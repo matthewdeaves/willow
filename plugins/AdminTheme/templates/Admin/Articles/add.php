@@ -7,7 +7,7 @@
  * @var \Cake\Collection\CollectionInterface|string[] $tags
  */
 ?>
-<?= $this->element('trumbowyg'); ?>
+<?= $this->element('editors/chooser') ?>
 <?php $kind = $this->request->getQuery('kind'); ?>
 <div class="container mt-4">
     <div class="row">

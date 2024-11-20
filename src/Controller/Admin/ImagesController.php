@@ -165,18 +165,23 @@ class ImagesController extends AppController
     }
 
     /**
-     * Handles bulk upload of images via AJAX request.
+     * Handles bulk upload of images, showing the upload form for GET requests
+     * and processing AJAX uploads for POST requests.
      *
-     * This method processes an AJAX file upload, creates a new image entity,
-     * and saves it to the database. It uses the 'create' validation ruleset
-     * and sets the image name to the original filename (without extension).
-     *
-     * * @return \Cake\Http\Response|null JSON response for AJAX requests, null otherwise.
+     * @return \Cake\Http\Response|null|void Returns Response for AJAX requests, void for GET
      */
     public function bulkUpload(): ?Response
     {
-        if ($this->request->is('ajax')) {
+        // For GET requests, just render the form
+        if ($this->request->is('get')) {
+            return null;  // This will render the default view template
+        }
+
+        // For AJAX POST requests, handle the upload
+        if ($this->request->is(['ajax', 'post'])) {
+            $this->viewBuilder()->setClassName('Json');
             $uploadedFile = $this->request->getUploadedFile('image');
+            
             if ($uploadedFile && $uploadedFile->getError() === UPLOAD_ERR_OK) {
                 $image = $this->Images->newEmptyEntity();
                 $originalFilename = $uploadedFile->getClientFilename();
@@ -187,23 +192,33 @@ class ImagesController extends AppController
                 $image = $this->Images->patchEntity($image, $data, ['validate' => 'create']);
 
                 if ($this->Images->save($image)) {
-                    return $this->response->withType('application/json')
-                        ->withStringBody(json_encode([
-                            'success' => true,
-                            'message' => __('Image uploaded successfully'),
-                        ]));
+                    $this->set([
+                        'success' => true,
+                        'message' => __('Image uploaded successfully'),
+                        '_serialize' => ['success', 'message']
+                    ]);
+                    return null;
                 } else {
-                    return $this->response->withType('application/json')
-                        ->withStringBody(json_encode([
-                            'success' => false,
-                            'message' => __('Failed to save the image'),
-                            'errors' => $image->getErrors(),
-                        ]));
+                    $this->set([
+                        'success' => false,
+                        'message' => __('Failed to save the image'),
+                        'errors' => $image->getErrors(),
+                        '_serialize' => ['success', 'message', 'errors']
+                    ]);
+                    return null;
                 }
             }
+
+            $this->set([
+                'success' => false,
+                'message' => __('No file uploaded or upload error'),
+                '_serialize' => ['success', 'message']
+            ]);
+            return null;
         }
 
-        return null;
+        // If we get here, it's not a GET or AJAX POST request
+        throw new MethodNotAllowedException(__('Method not allowed'));
     }
 
     /**

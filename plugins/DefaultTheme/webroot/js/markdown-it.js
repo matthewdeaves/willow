@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Get the article content
     const articleBody = document.getElementById('article-body-content');
-    const markdownContent = articleBody.textContent;
+    const markdownContent = articleBody.innerHTML;
     
     // Render the markdown and update the content
     articleBody.innerHTML = md.render(markdownContent);

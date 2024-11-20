@@ -1,5 +1,3 @@
-// plugins/AdminTheme/webroot/js/markdown-it-image-select.js
-
 const MarkdownImageSelect = {
     init: function() {
         document.getElementById('insertImageBtn').addEventListener('click', function() {

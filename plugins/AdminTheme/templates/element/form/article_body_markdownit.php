@@ -1,3 +1,4 @@
+<?php $this->Html->script('AdminTheme.markdown-it-image-select', ['block' => true]); ?>
 <ul class="nav nav-tabs" id="editorTabs" role="tablist">
     <li class="nav-item">
         <a class="nav-link active" id="editor-tab" data-bs-toggle="tab" href="#editor" role="tab" 
@@ -14,6 +15,11 @@
 </ul>
 <div class="tab-content" id="editorTabContent">
     <div class="tab-pane show active" id="editor" role="tabpanel" aria-labelledby="editor-tab">
+        <div class="mb-3">
+            <button type="button" class="btn btn-secondary" id="insertImageBtn">
+                <i class="fas fa-image"></i> <?= __('Insert Image') ?>
+            </button>
+        </div>
         <div class="mb-3">
             <?php echo $this->Form->control('body',
                 [
@@ -37,3 +43,18 @@
         </div>
     </div>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('insertImageBtn').addEventListener('click', function() {
+        WillowModal.show('/admin/images/imageSelect', {
+            title: <?= json_encode(__('Select Image')) ?>,
+            closeable: true,
+            dialogClass: 'modal-lg',
+            handleForm: true,
+            onSuccess: function(data) {
+
+            }
+        });
+    });
+});
+</script>

@@ -5,7 +5,7 @@
     <?php if (!empty($consentData) && $consentData['analytics_consent']) :?>
       <?= SettingsManager::read('Google.tagManagerHead', '') ?>
       <?php endif; ?>
-      <?= $this->Html->script('DefaultTheme.willow-modal') ?>
+      <?= $this->Html->script('willow-modal') ?>
       <?= $this->Html->script('DefaultTheme.color-modes') ?>
       <?= $this->Html->charset() ?>
       <meta name="viewport" content="width=device-width, initial-scale=1">

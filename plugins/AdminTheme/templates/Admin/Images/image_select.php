@@ -16,9 +16,3 @@
 <div id="image-gallery" class="flex-shrink-0">
     <?php include 'image_gallery.php'; ?>
 </div>
-
-<?php if(SettingsManager::read('Editing.editor') == 'trumbowyg') : ?>
-    <?= $this->Html->script('AdminTheme.trumbowyg-image-select') ?>
-<?php elseif(SettingsManager::read('Editing.editor') == 'markdownit') : ?>
-    <?= $this->Html->script('AdminTheme.makrdown-it-image-select') ?>
-<?php endif; ?>

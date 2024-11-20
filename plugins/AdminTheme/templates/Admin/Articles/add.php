@@ -7,7 +7,16 @@
  * @var \Cake\Collection\CollectionInterface|string[] $tags
  */
 ?>
-<?= $this->element('editors/chooser') ?>
+<?php use App\Utility\SettingsManager; ?>
+
+<?php if(SettingsManager::read('Editing.editor') == 'trumbowyg') : ?>
+<?= $this->element('editors/trumbowyg'); ?>
+<?php endif; ?>
+
+<?php if(SettingsManager::read('Editing.editor') == 'markdownit') : ?>
+<?= $this->element('editors/markdown-it'); ?>
+<?php endif; ?>
+
 <?php $kind = $this->request->getQuery('kind'); ?>
 <div class="container mt-4">
     <div class="row">

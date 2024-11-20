@@ -174,14 +174,14 @@ class ImagesController extends AppController
     {
         // For GET requests, just render the form
         if ($this->request->is('get')) {
-            return null;  // This will render the default view template
+            return null;
         }
 
         // For AJAX POST requests, handle the upload
         if ($this->request->is(['ajax', 'post'])) {
             $this->viewBuilder()->setClassName('Json');
             $uploadedFile = $this->request->getUploadedFile('image');
-            
+
             if ($uploadedFile && $uploadedFile->getError() === UPLOAD_ERR_OK) {
                 $image = $this->Images->newEmptyEntity();
                 $originalFilename = $uploadedFile->getClientFilename();
@@ -195,16 +195,18 @@ class ImagesController extends AppController
                     $this->set([
                         'success' => true,
                         'message' => __('Image uploaded successfully'),
-                        '_serialize' => ['success', 'message']
+                        '_serialize' => ['success', 'message'],
                     ]);
+
                     return null;
                 } else {
                     $this->set([
                         'success' => false,
                         'message' => __('Failed to save the image'),
                         'errors' => $image->getErrors(),
-                        '_serialize' => ['success', 'message', 'errors']
+                        '_serialize' => ['success', 'message', 'errors'],
                     ]);
+
                     return null;
                 }
             }
@@ -212,8 +214,9 @@ class ImagesController extends AppController
             $this->set([
                 'success' => false,
                 'message' => __('No file uploaded or upload error'),
-                '_serialize' => ['success', 'message']
+                '_serialize' => ['success', 'message'],
             ]);
+
             return null;
         }
 

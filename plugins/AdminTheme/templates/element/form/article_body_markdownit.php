@@ -15,9 +15,13 @@
 </ul>
 <div class="tab-content" id="editorTabContent">
     <div class="tab-pane show active" id="editor" role="tabpanel" aria-labelledby="editor-tab">
-        <div class="mb-3">
-            <button type="button" class="btn btn-secondary" id="insertImageBtn">
-                <i class="fas fa-image"></i> <?= __('Insert Image') ?>
+        <div class="">
+            <button type="button" class="btn my-1 btn-secondary" id="insertImageBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
+                    <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/>
+                    <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2M14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1M2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1z"/>
+                </svg>
+                <?= __('Insert Image') ?>
             </button>
         </div>
         <div class="mb-3">
@@ -25,7 +29,7 @@
                 [
                     'id' => 'article-body',
                     'rows' => '30',
-                    'class' => 'my-3 form-control' . ($this->Form->isFieldError('body') ? ' is-invalid' : ''),
+                    'class' => 'form-control' . ($this->Form->isFieldError('body') ? ' is-invalid' : ''),
                     'label' => false,
                 ]); ?>
                 <?php if ($this->Form->isFieldError('body')): ?>
@@ -36,7 +40,7 @@
         </div>
     </div>
     <div class="tab-pane" id="preview" role="tabpanel" aria-labelledby="preview-tab">
-        <div class="mb-3">
+        <div class="">
             <div class="card-body border rounded my-3" id="markdown-preview">
 
             </div>

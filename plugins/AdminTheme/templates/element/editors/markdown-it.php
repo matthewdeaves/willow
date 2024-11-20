@@ -1,4 +1,3 @@
-<script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const md = new markdownit({

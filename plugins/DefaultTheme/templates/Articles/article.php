@@ -13,7 +13,9 @@
     <p class="blog-post-meta">
         <?= $article->published->format('F j, Y') ?> <?= h($article->user->username) ?>
     </p>
+    <div id="article-body-content">
     <?= htmlspecialchars_decode($article->body) ?>
+    </div>
     <?= $this->element('site/facebook/share_button') ?>
     <div class="mb-3">
         <?= $this->element('image_carousel', [

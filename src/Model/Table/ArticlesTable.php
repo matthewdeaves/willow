@@ -367,8 +367,10 @@ class ArticlesTable extends Table
             ];
 
             if (
-                (isset($options['regenerateTags']) && $options['regenerateTags'] == 1)
-                || !isset($options['regenerateTags'])
+                $entity->kind == 'article' &&
+                ((isset($options['regenerateTags']) &&
+                $options['regenerateTags'] == 1) ||
+                !isset($options['regenerateTags']))
             ) {
                 // Queue up an ArticleTagUpdateJob
                 if (SettingsManager::read('AI.articleTags')) {

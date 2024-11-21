@@ -12,11 +12,33 @@
   }
 }
 
+:root {
+    --background-color: #ffffff;
+    --text-color: #212529;
+    --code-bg: #f8f9fa;
+    --code-color: #212529;
+    --pre-bg: #f8f9fa;
+    --pre-border: #dee2e6;
+    --blockquote-border: #dee2e6;
+    --meta-color: #727272;
+}
+
+[data-bs-theme="dark"] {
+    --background-color: #1e2124;
+    --text-color: #e9ecef;
+    --code-bg: #2d2d2d;
+    --code-color: #e9ecef;
+    --pre-bg: #1e1e1e;
+    --pre-border: #373b3e;
+    --blockquote-border: #373b3e;
+    --meta-color: #a0a0a0;
+}
+
 .b-example-divider {
   width: 100%;
   height: 3rem;
-  background-color: rgba(0, 0, 0, .1);
-  border: solid rgba(0, 0, 0, .15);
+  background-color: var(--pre-border);
+  border: solid var(--pre-border);
   border-width: 1px 0;
   box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
 }
@@ -53,7 +75,6 @@
 .btn-bd-primary {
   --bd-violet-bg: #712cf9;
   --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
-
   --bs-btn-font-weight: 600;
   --bs-btn-color: var(--bs-white);
   --bs-btn-bg: var(--bd-violet-bg);
@@ -75,8 +96,7 @@
   display: block !important;
 }
 
-/* stylelint-disable @stylistic/selector-list-comma-newline-after */
-
+/* Blog header and typography */
 .blog-header-logo {
   font-family: "Playfair Display", Georgia, "Times New Roman", serif/*rtl:Amiri, Georgia, "Times New Roman", serif*/;
   font-size: 2.25rem;
@@ -104,20 +124,18 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 4rem;
 }
 
-/*
- * Blog posts
- */
+/* Blog posts */
 .blog-post {
   margin-bottom: 4rem;
-}
-.blog-post-meta {
-  margin-bottom: 1.25rem;
-  color: #727272;
+  line-height: 1.6;
 }
 
-/*
- * Log in
- */
+.blog-post-meta {
+  margin-bottom: 1.25rem;
+  color: var(--meta-color);
+}
+
+/* Login form */
 .form-signin {
   max-width: 330px;
   padding: 1rem;
@@ -139,18 +157,110 @@ h1, h2, h3, h4, h5, h6 {
   border-top-right-radius: 0;
 }
 
-/*
- * Breadcrumbs
- */
+/* Breadcrumbs */
 .breadcrumb {
-  margin-bottom: 0.2rem; /* Adjust as needed for spacing */
+  margin-bottom: 0.2rem;
 }
 
 .breadcrumb-item {
-  font-size: 0.875rem; /* Matches the size in your original CSS */
+  font-size: 0.875rem;
 }
 
-/* If you want to customize the separator, you can use this: */
 .breadcrumb-item + .breadcrumb-item::before {
   content: ">";
+}
+
+/* Markdown content styles */
+.blog-post h1,
+.blog-post h2,
+.blog-post h3,
+.blog-post h4,
+.blog-post h5,
+.blog-post h6 {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+}
+
+.blog-post code {
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-family: monospace;
+  background-color: var(--code-bg);
+  color: var(--code-color);
+}
+
+.blog-post pre {
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+  background-color: var(--pre-bg);
+  border: 1px solid var(--pre-border);
+  overflow-x: auto;
+}
+
+.blog-post pre code {
+  padding: 0;
+  background-color: transparent;
+  border-radius: 0;
+  color: inherit;
+}
+
+.blog-post blockquote {
+  padding-left: 1rem;
+  margin: 1rem 0;
+  border-left: 4px solid var(--blockquote-border);
+}
+
+.blog-post ul,
+.blog-post ol {
+  padding-left: 2rem;
+  margin-bottom: 1rem;
+}
+
+.blog-post li {
+  margin-bottom: 0.25rem;
+}
+
+.blog-post table {
+  width: 100%;
+  margin-bottom: 1rem;
+  border-collapse: collapse;
+}
+
+.blog-post th,
+.blog-post td {
+  padding: 0.5rem;
+  border: 1px solid var(--pre-border);
+}
+
+.blog-post th {
+  background-color: var(--code-bg);
+}
+
+.blog-post img {
+  max-width: 100%;
+  height: auto;
+  margin: 1rem 0;
+}
+
+.blog-post hr {
+  margin: 2rem 0;
+  border: 0;
+  border-top: 1px solid var(--pre-border);
+}
+
+.blog-post a {
+  color: var(--bs-link-color);
+  text-decoration: none;
+}
+
+.blog-post a:hover {
+  color: var(--bs-link-hover-color);
+  text-decoration: underline;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
 }

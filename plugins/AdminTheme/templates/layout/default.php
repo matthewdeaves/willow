@@ -14,8 +14,7 @@ use Cake\Core\Configure;
     <?= $this->Html->css('AdminTheme.willow-admin') ?>
     <?= $this->Html->script('AdminTheme.image-preview') ?>
     <?= $this->Html->script('willow-modal') ?>
-    <?= $this->Html->script('https://code.jquery.com/jquery-3.7.1.min.js'); ?>
-
+    <?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js'); ?>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/components/dropdown.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/components/transition.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/components/label.min.css">

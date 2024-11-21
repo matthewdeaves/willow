@@ -28,10 +28,15 @@ class Setting extends Entity
      * @var array<string, bool>
      */
     protected array $_accessible = [
+        'ordering' => true,
         'category' => true,
         'key_name' => true,
         'value' => true,
         'value_type' => true,
+        'value_obscure' => true,
+        'description' => true,
+        'data' => true,
+        'column_width' => true,
         'created' => true,
         'modified' => true,
     ];

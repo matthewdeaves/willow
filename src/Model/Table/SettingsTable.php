@@ -73,7 +73,7 @@ class SettingsTable extends Table
             ->scalar('value_type')
             ->requirePresence('value_type', 'create')
             ->notEmptyString('value_type')
-            ->inList('value_type', ['text', 'numeric', 'bool'], __('Invalid type'));
+            ->inList('value_type', ['text', 'numeric', 'bool', 'textarea', 'select', 'select-page'], __('Invalid type'));
 
         $validator
             ->requirePresence('value', 'create')

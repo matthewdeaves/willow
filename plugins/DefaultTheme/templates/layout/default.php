@@ -5,8 +5,10 @@
   <?php if (!empty($consentData) && $consentData['analytics_consent']) :?>
     <?= SettingsManager::read('Google.tagManagerHead', '') ?>
     <?php endif; ?>
-    <?= $this->Html->script('DefaultTheme.willow-modal') ?>
+    <?= $this->Html->script('willow-modal') ?>
     <?= $this->Html->script('DefaultTheme.color-modes') ?>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
+    <?= $this->Html->script('DefaultTheme.markdown-it') ?>
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= $this->element('site/meta_tags', ['model' => $article ?? $tag ?? null]) ?>
@@ -51,5 +53,6 @@
     <?= $this->element('site/cookie_prefs'); ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <?= $this->fetch('scriptBottom') ?>
   </body>
 </html>

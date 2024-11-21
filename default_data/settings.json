@@ -658,5 +658,16 @@
         "description": "Enable or disable the automatic image analysis feature to enhance your content's accessibility. When activated, the system will examine each images to generate relevant keywords and descriptive alt text. This functionality ensures that images are appropriately tagged, improving SEO and providing a better experience for users who rely on screen readers.",
         "data": null,
         "column_width": 2
+    },
+    {
+        "ordering": 0,
+        "category": "Editing",
+        "key_name": "editor",
+        "value": "trumbowyg",
+        "value_type": "select",
+        "value_obscure": false,
+        "description": "Chose your default editor for posts and pages content. Trumbowyg is good for HTML whilst Markdown-It supports Markdown.",
+        "data": "{\n  \"trumbowyg\": \"Trumbowyg\",\n  \"markdownit\": \"Markdown-It\"\n}",
+        "column_width": 2
     }
 ]

@@ -1,9 +1,16 @@
 <?= $this->Html->css('https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/ui/trumbowyg.min.css'); ?>
 <?= $this->Html->css('https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/plugins/table/ui/trumbowyg.table.min.css'); ?>
+<?= $this->Html->css('https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/ui/trumbowyg.min.css'); ?>
+<?= $this->Html->css('https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/plugins/table/ui/trumbowyg.table.min.css'); ?>
+<?= $this->Html->css('https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/plugins/colors/ui/trumbowyg.colors.min.css'); ?>
+
 <?= $this->Html->script('https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/trumbowyg.min.js'); ?>
+<?= $this->Html->script('https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/plugins/colors/trumbowyg.colors.min.js'); ?>
 <?= $this->Html->script('https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/plugins/upload/trumbowyg.upload.min.js'); ?>
 <?= $this->Html->script('https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/plugins/table/trumbowyg.table.min.js'); ?>
 <?= $this->Html->script('https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/plugins/preformatted/trumbowyg.preformatted.min.js'); ?>
+
+
 <meta name="csrfToken" content="<?= $this->request->getAttribute('csrfToken') ?>">
 <style>
 .images-grid {
@@ -93,7 +100,7 @@ $(document).ready(function() {
                             $('body').append($modal);
 
                             $.ajax({
-                                url: '/admin/images/trumbowygSelect',
+                                url: '/admin/images/image_select',
                                 method: 'GET',
                                 success: function(data) {
                                     $('#selectImageWindow').html(data);
@@ -143,28 +150,9 @@ $(document).ready(function() {
             ['fullscreen'],
         ],
         plugins: {
-            insertImageFromLibrary: {}
-        }
-    });
-
-    $('#summary').trumbowyg({
-        btns: [
-            ['viewHTML'],
-            ['preformatted'],
-            ['formatting'],
-            ['bold', 'italic', 'underline', 'strikethrough'],
-            ['superscript', 'subscript'],
-            ['link'],
-            ['insertImageFromLibrary'],
-            ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
-            ['unorderedList', 'orderedList'],
-            ['table'],
-            ['tableCellBackgroundColor', 'tableBorderColor'],
-            ['removeformat'],
-            ['fullscreen'],
-        ],
-        plugins: {
-            insertImageFromLibrary: {}
+            insertImageFromLibrary: {},
+            table: {},
+            colors: {}
         }
     });
 });

@@ -1,4 +1,5 @@
 <?php use App\Utility\SettingsManager; ?>
+<?php $kind = $this->request->getQuery('kind', 'article'); ?>
 <div class="mb-3">
     <?php echo $this->Form->control('title', ['class' => 'form-control' . ($this->Form->isFieldError('title') ? ' is-invalid' : '')]); ?>
         <?php if ($this->Form->isFieldError('title')): ?>
@@ -15,19 +16,26 @@
         </div>
     <?php endif; ?>
 </div>
-<div class="mb-3">
-    <?php echo $this->Form->control('body',
-        [
-            'id' => 'article-body',
-            'rows' => '30',
-            'class' => 'form-control' . ($this->Form->isFieldError('body') ? ' is-invalid' : '')
-        ]); ?>
-        <?php if ($this->Form->isFieldError('body')): ?>
-        <div class="invalid-feedback">
-            <?= $this->Form->error('body') ?>
+
+
+<?php if(SettingsManager::read('Editing.editor') == 'markdownit') : ?>
+    <?= $this->element('form/article_body_markdownit'); ?>
+<?php else: ?>
+    <div class="mb-3">
+            <?php echo $this->Form->control('body',
+                [
+                    'id' => 'article-body',
+                    'rows' => '30',
+                    'class' => 'form-control' . ($this->Form->isFieldError('body') ? ' is-invalid' : '')
+                ]); ?>
+                <?php if ($this->Form->isFieldError('body')): ?>
+                <div class="invalid-feedback">
+                    <?= $this->Form->error('body') ?>
+                </div>
+            <?php endif; ?>
         </div>
-    <?php endif; ?>
-</div>
+<?php endif; ?>
+
 <div class="mb-3">
     <?php echo $this->Form->control('lead', ['class' => 'form-control' . ($this->Form->isFieldError('lead') ? ' is-invalid' : '')]); ?>
         <?php if ($this->Form->isFieldError('lead')): ?>
@@ -130,7 +138,7 @@
 </div>
 <div class="mb-3">
     <?php $parentId = $this->request->getQuery('parent_id'); ?>
-    <?php if ($this->request->getQuery('kind') == 'page' || $parentId) : ?>
+    <?php if ($kind == 'page' || $parentId) : ?>
         <?php echo $this->Form->control('parent_id',
             [
                 'empty' => __('None'),

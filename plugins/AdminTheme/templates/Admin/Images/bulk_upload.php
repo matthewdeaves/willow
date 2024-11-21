@@ -36,16 +36,13 @@
 
 <script>
 Dropzone.options.imageUploadDropzone = {
-    paramName: "file",
-    maxFilesize: 2, // Max filesize in MB
+    paramName: "image", // Changed from "file" to match the controller
+    maxFilesize: 5,
     acceptedFiles: "image/*",
     headers: {
         'X-CSRF-Token': document.querySelector('meta[name="csrfToken"]').getAttribute('content')
     },
     init: function() {
-        this.on("sending", function(file, xhr, formData) {
-            // CSRF token is now added in headers, so we don't need to add it here
-        });
         this.on("complete", function(file) {
             if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
                 location.reload();
@@ -57,7 +54,14 @@ Dropzone.options.imageUploadDropzone = {
         });
     },
     success: function(file, response) {
-        console.log("Upload success:", response);
+        if (response.success) {
+            console.log("Upload success:", response.message);
+        } else {
+            console.error("Upload failed:", response.message);
+            if (response.errors) {
+                console.error("Validation errors:", response.errors);
+            }
+        }
     }
 };
 </script>

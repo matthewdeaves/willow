@@ -75,7 +75,7 @@
                 clearTimeout(debounceTimer);
                 debounceTimer = setTimeout(() => {
                     const searchTerm = this.value.trim();
-                    let url = '/admin/images/trumbowygSelect';
+                    let url = '/admin/images/imageSelect';
                     if (searchTerm.length > 0) {
                         url += '?search=' + encodeURIComponent(searchTerm);
                     }

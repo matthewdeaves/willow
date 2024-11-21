@@ -37,7 +37,7 @@
 <script>
 Dropzone.options.imageUploadDropzone = {
     paramName: "image", // Changed from "file" to match the controller
-    maxFilesize: 2,
+    maxFilesize: 5,
     acceptedFiles: "image/*",
     headers: {
         'X-CSRF-Token': document.querySelector('meta[name="csrfToken"]').getAttribute('content')

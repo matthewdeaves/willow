@@ -123,7 +123,9 @@ class CookieConsentsTable extends Table
      */
     public function createConsentCookie(CookieConsent $consent): Cookie
     {
-        return (new Cookie('consent_cookie'))
+        $isHttps = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on';
+
+        $cookie = (new Cookie('consent_cookie'))
             ->withValue(json_encode([
                 'user_id' => $consent->user_id,
                 'analytics_consent' => $consent->analytics_consent,
@@ -134,8 +136,15 @@ class CookieConsentsTable extends Table
             ]))
             ->withExpiry(new DateTime('+1 year'))
             ->withPath('/')
-            ->withSecure(true)
-            ->withHttpOnly(true);
+            ->withHttpOnly(true)
+            ->withSameSite('Lax');
+
+        // Only set Secure flag if we're actually on HTTPS
+        if ($isHttps) {
+            $cookie = $cookie->withSecure(true);
+        }
+
+        return $cookie;
     }
 
     /**

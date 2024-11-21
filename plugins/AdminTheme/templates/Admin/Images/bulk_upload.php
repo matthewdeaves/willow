@@ -3,8 +3,8 @@
  * @var \App\View\AppView $this
  */
 ?>
-<?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.css') ?>
-<?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js') ?>
+<?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/basic.min.css') ?>
+<?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.js') ?>
 <meta name="csrfToken" content="<?= $this->request->getAttribute('csrfToken') ?>">
 
 <div class="container-fluid mt-4">
@@ -36,9 +36,10 @@
 
 <script>
 Dropzone.options.imageUploadDropzone = {
-    paramName: "image", // Changed from "file" to match the controller
+    paramName: "image",
     maxFilesize: 5,
-    acceptedFiles: "image/*",
+    maxFiles: 30,
+    acceptedFiles: `image/*`,
     headers: {
         'X-CSRF-Token': document.querySelector('meta[name="csrfToken"]').getAttribute('content')
     },

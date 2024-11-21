@@ -249,6 +249,10 @@ class ArticlesController extends AppController
     {
         $article = $this->Articles->get($id, contain: ['Tags', 'Images']);
 
+        if (!empty($article->body) && empty($article->markdown)) {
+            $article->markdown = $article->body;
+        }
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
 

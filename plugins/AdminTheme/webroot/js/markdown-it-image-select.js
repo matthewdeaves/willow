@@ -24,13 +24,16 @@ const MarkdownImageSelect = {
             var imageSrc = $(this).data('src');
             var imageId = $(this).data('id');
             var imageAlt = $(this).data('alt');
+            var imageName = $(this).data('name');
             var imageSize = $('#' + imageId + '_size').val();
             
+            var altText = imageAlt || imageName;
+
             // Get the textarea element
             var textarea = document.getElementById('article-body');
             
             // Create markdown syntax for the image
-            var markdownImage = '![' + imageAlt + '](/files/Images/image/' + imageSize + '/' + imageSrc + ')';
+            var markdownImage = '![' + altText + '](/files/Images/image/' + imageSize + '/' + imageSrc + ')';
     
             // Insert at cursor position or at end if no cursor
             var startPos = textarea.selectionStart;

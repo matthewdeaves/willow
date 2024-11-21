@@ -17,6 +17,7 @@
                                 'alt' => $image->alt_text,
                                 'class' => 'card-img-top insert-image',
                                 'data-src' => $image->image,
+                                'data-name' => $image->name,
                                 'data-id' => $image->id,
                                 'data-alt' => $image->alt_text
                             ]

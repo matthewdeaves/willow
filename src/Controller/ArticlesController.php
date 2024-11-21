@@ -128,7 +128,7 @@ class ArticlesController extends AppController
      */
     public function index(): void
     {
-        $cacheKey = hash('xxh3', json_encode($this->request->getAttribute('params')));
+        $cacheKey = $this->cacheKey;
         $articles = Cache::read($cacheKey, 'articles');
         $selectedTagId = $this->request->getQuery('tag');
 
@@ -187,7 +187,7 @@ class ArticlesController extends AppController
      */
     public function viewBySlug(string $slug): ?Response
     {
-        $cacheKey = $slug . hash('xxh3', json_encode($this->request->getAttribute('params')));
+        $cacheKey = $slug . $this->cacheKey;
         $article = Cache::read($cacheKey, 'articles');
 
         if (empty($article)) {
@@ -274,7 +274,7 @@ class ArticlesController extends AppController
             ->select(['slug', 'title', 'id'])
             ->all();
 
-        $recentArticles = $this->Articles->getRecentArticles(['Articles.id NOT IN' => [$article->id]]);
+        $recentArticles = $this->Articles->getRecentArticles($this->cacheKey, ['Articles.id NOT IN' => [$article->id]]);
 
         $this->recordPageView($article->id);
 

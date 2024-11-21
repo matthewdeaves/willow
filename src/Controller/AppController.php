@@ -38,6 +38,14 @@ class AppController extends Controller
     use LogTrait;
 
     /**
+     * Store a cache key available for all controllers to use
+     * Created in the initialize method
+     *
+     * @var string
+     */
+    public string $cacheKey;
+
+    /**
      * Checks if the current request is an admin request.
      *
      * This method determines whether the request is intended for the admin section
@@ -62,6 +70,8 @@ class AppController extends Controller
     public function initialize(): void
     {
         parent::initialize();
+
+        $this->cacheKey = hash('xxh3', json_encode($this->request->getAttribute('params')));
 
         $this->loadComponent('Flash');
         $this->loadComponent('Authentication.Authentication');

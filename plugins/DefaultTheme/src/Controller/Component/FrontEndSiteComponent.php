@@ -43,29 +43,31 @@ class FrontEndSiteComponent extends Component
         /** @var \Cake\Controller\Controller $controller */
         $controller = $event->getSubject();
 
+        $cacheKey = $this->getController()->cacheKey;
+
         $articlesTable = $this->getController()->fetchTable('Articles');
         $tagsTable = $this->getController()->fetchTable('Tags');
 
         $menuPages = [];
         switch(SettingsManager::read('SitePages.mainMenuShow', 'root')) {
             case "root":
-                $menuPages = $articlesTable->getRootPages();
+                $menuPages = $articlesTable->getRootPages($cacheKey);
             break;
             case "selected":
-                $menuPages = $articlesTable->getMainMenuPages();
+                $menuPages = $articlesTable->getMainMenuPages($cacheKey);
             break;
         }
 
-        $featuredArticles = $articlesTable->getFeatured();
+        $featuredArticles = $articlesTable->getFeatured($cacheKey);
         $rootTags = $tagsTable->getRootTags();
-        $articleArchives = $articlesTable->getArchiveDates();
+        $articleArchives = $articlesTable->getArchiveDates($cacheKey);
 
         $privacyPolicyId = SettingsManager::read('SitePages.privacyPolicy', null);
         if ($privacyPolicyId && $privacyPolicyId != 'None') {
             $sitePrivacyPolicy = $articlesTable->find()
                 ->select(['id', 'title', 'slug'])
                 ->where(['id' => $privacyPolicyId])
-                ->cache('priv_page', 'articles')
+                ->cache($cacheKey . 'priv_page', 'articles')
                 ->first()->toArray();
             $controller->set('sitePrivacyPolicy', $sitePrivacyPolicy);
         }

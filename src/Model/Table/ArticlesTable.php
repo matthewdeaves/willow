@@ -585,7 +585,7 @@ class ArticlesTable extends Table
      * @param array $additionalConditions An array of additional conditions to apply to the query.
      * @return array A list of featured articles that match the specified conditions.
      */
-    public function getFeatured(array $additionalConditions = []): array
+    public function getFeatured(string $cacheKey, array $additionalConditions = []): array
     {
         $conditions = [
             'Articles.featured' => 1,
@@ -595,7 +595,7 @@ class ArticlesTable extends Table
         $query = $this->find()
             ->where($conditions)
             ->orderBy(['lft' => 'ASC'])
-            ->cache('featured_articles', 'articles');
+            ->cache($cacheKey . 'featured_articles', 'articles');
 
         $results = $query->all()->toList();
 
@@ -613,7 +613,7 @@ class ArticlesTable extends Table
      * @return array An array of root pages that match the specified conditions,
      * ordered by the 'lft' field in ascending order.
      */
-    public function getRootPages(array $additionalConditions = []): array
+    public function getRootPages(string $cacheKey, array $additionalConditions = []): array
     {
         $conditions = [
             'Articles.kind' => 'page',
@@ -624,7 +624,7 @@ class ArticlesTable extends Table
         $query = $this->find()
             ->where($conditions)
             ->orderBy(['lft' => 'ASC'])
-            ->cache('root_pages', 'articles');
+            ->cache($cacheKey . 'root_pages', 'articles');
 
         $results = $query->all()->toList();
 
@@ -646,7 +646,7 @@ class ArticlesTable extends Table
      * @throws \Cake\Database\Exception\DatabaseException When the database query fails
      * @throws \Cake\Cache\Exception\InvalidArgumentException When cache configuration is invalid
      */
-    public function getMainMenuPages(array $additionalConditions = []): array
+    public function getMainMenuPages(string $cacheKey, array $additionalConditions = []): array
     {
         $conditions = [
             'Articles.kind' => 'page',
@@ -657,7 +657,7 @@ class ArticlesTable extends Table
         $query = $this->find()
             ->where($conditions)
             ->orderBy(['lft' => 'ASC'])
-            ->cache('main_menu_pages', 'articles');
+            ->cache($cacheKey . 'main_menu_pages', 'articles');
 
         $results = $query->all()->toList();
 
@@ -675,7 +675,7 @@ class ArticlesTable extends Table
      * @return array An array where keys are years and values are arrays of month numbers
      *              that have published articles, sorted in descending order.
      */
-    public function getArchiveDates(): array
+    public function getArchiveDates(string $cacheKey): array
     {
         $query = $this->find()
             ->select([
@@ -692,7 +692,7 @@ class ArticlesTable extends Table
                 'year' => 'DESC',
                 'month' => 'DESC',
             ])
-            ->cache('archive_dates', 'articles');
+            ->cache($cacheKey . 'archive_dates', 'articles');
 
         $dates = [];
         foreach ($query as $result) {
@@ -715,7 +715,7 @@ class ArticlesTable extends Table
      *
      * @return array An array of the most recent published articles, including associated Users and Tags data.
      */
-    public function getRecentArticles(array $additionalConditions = []): array
+    public function getRecentArticles(string $cacheKey, array $additionalConditions = []): array
     {
         $conditions = [
             'Articles.kind' => 'article',
@@ -728,7 +728,7 @@ class ArticlesTable extends Table
             ->contain(['Users', 'Tags'])
             ->orderBy(['Articles.published' => 'DESC'])
             ->limit(3)
-            ->cache('recent_articles', 'articles');
+            ->cache($cacheKey . 'recent_articles', 'articles');
 
         return $query->all()->toArray();
     }

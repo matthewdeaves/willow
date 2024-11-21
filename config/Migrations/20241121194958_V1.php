@@ -100,6 +100,11 @@ class V1 extends AbstractMigration
                 'limit' => null,
                 'null' => true,
             ])
+            ->addColumn('markdown', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
             ->addColumn('summary', 'text', [
                 'default' => null,
                 'limit' => null,

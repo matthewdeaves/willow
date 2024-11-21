@@ -794,7 +794,7 @@ msgid "We were unable to find that account."
 msgstr "Nu am putut găsi acel cont."
 
 #: 
-msgid "Welcome to Willow, a content management system I'm building in the open. Here you'll find development updates, feature highlights, and guides on using Willow for your own sites."
+msgid "Welcome to willowcms.app. This site uses Willow - a content management system I'm building in the open. Here you'll find development updates, feature highlights, and guides on using Willow for your own sites."
 msgstr "Bun venit la Willow, un sistem de management al conținutului pe care îl construiesc în aer liber. Aici veți găsi actualizări de dezvoltare, caracteristici evidențiate și ghiduri despre utilizarea Willow pentru propriile site-uri."
 
 #: 

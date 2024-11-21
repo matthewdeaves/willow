@@ -7,7 +7,6 @@
 ?>
 
 <article class="blog-post">
-
     <h2 class="display-5 link-body-emphasis mb-1"><?= htmlspecialchars_decode($article->title) ?></h2>
     <?= $this->element('image/icon',  ['model' => $article, 'icon' => $article->teenyImageUrl, 'preview' => $article->largeImageUrl ]); ?>
     <p class="blog-post-meta">
@@ -23,7 +22,7 @@
     </div>
 
     <div>
-            <?= $this->element('article/tags', ['article' => $article]) ?>
+        <?= $this->element('article/tags', ['article' => $article]) ?>
     </div>
 </article>
 

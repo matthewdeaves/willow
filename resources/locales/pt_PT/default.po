@@ -1002,7 +1002,7 @@ msgid "Invalid confirmation code."
 msgstr "Código de confirmação inválido."
 
 #: 
-msgid "Welcome to Willow, a content management system I'm building in the open. Here you'll find development updates, feature highlights, and guides on using Willow for your own sites."
+msgid "Welcome to willowcms.app. This site uses Willow - a content management system I'm building in the open. Here you'll find development updates, feature highlights, and guides on using Willow for your own sites."
 msgstr "Bem-vindo ao Willow, um sistema de gerenciamento de conteúdo que estou construindo em aberto. Aqui você encontrará atualizações de desenvolvimento, destaques de recursos e guias sobre como usar o Willow em seus próprios sites."
 
 #: 

@@ -7,8 +7,6 @@
       <?php endif; ?>
       <?= $this->Html->script('willow-modal') ?>
       <?= $this->Html->script('DefaultTheme.color-modes') ?>
-      <script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
-      <?= $this->Html->script('DefaultTheme.markdown-it') ?>
       <?= $this->Html->charset() ?>
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <?= $this->element('site/meta_tags', ['model' => $article ?? $tag ?? null]) ?>

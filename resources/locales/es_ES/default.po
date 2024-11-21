@@ -806,7 +806,7 @@ msgid "Below is information about the configured caches. Click the button to cle
 msgstr "A continuación se muestra información sobre los cachés configurados. Haga clic en el botón para borrar todos los cachés o en los botones de caché individuales para borrar cachés específicos."
 
 #: 
-msgid "Welcome to Willow, a content management system I'm building in the open. Here you'll find development updates, feature highlights, and guides on using Willow for your own sites."
+msgid "Welcome to willowcms.app. This site uses Willow - a content management system I'm building in the open. Here you'll find development updates, feature highlights, and guides on using Willow for your own sites."
 msgstr "Bienvenido a Willow, un sistema de gestión de contenido que estoy desarrollando de forma abierta. Aquí encontrará actualizaciones de desarrollo, características destacadas y guías sobre cómo usar Willow para sus propios sitios."
 
 #: 

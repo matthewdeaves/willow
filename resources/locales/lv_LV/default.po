@@ -1474,7 +1474,7 @@ msgid "Word Count"
 msgstr "Vārdu skaits"
 
 #: 
-msgid "Welcome to Willow, a content management system I'm building in the open. Here you'll find development updates, feature highlights, and guides on using Willow for your own sites."
+msgid "Welcome to willowcms.app. This site uses Willow - a content management system I'm building in the open. Here you'll find development updates, feature highlights, and guides on using Willow for your own sites."
 msgstr "Laipni lūdzam Willow — satura pārvaldības sistēmā, kuru veidoju atklāti. Šeit jūs atradīsiet izstrādes atjauninājumus, svarīgākās funkcijas un ceļvežus par Willow izmantošanu savām vietnēm."
 
 #: 

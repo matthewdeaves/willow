@@ -42,7 +42,7 @@ msgid "Slug conflicts with an existing SEO redirect. Please choose a different s
 msgstr "Slug je v konflikte s existujúcim presmerovaním SEO. Vyberte si iného slimáka."
 
 #: 
-msgid "Welcome to Willow, a content management system I'm building in the open. Here you'll find development updates, feature highlights, and guides on using Willow for your own sites."
+msgid "Welcome to willowcms.app. This site uses Willow - a content management system I'm building in the open. Here you'll find development updates, feature highlights, and guides on using Willow for your own sites."
 msgstr "Vitajte vo Willow, redakčnom systéme, ktorý staviam pod holým nebom. Tu nájdete aktualizácie vývoja, najdôležitejšie funkcie a návody na používanie Willow pre vaše vlastné stránky."
 
 #: 

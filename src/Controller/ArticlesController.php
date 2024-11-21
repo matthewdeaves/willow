@@ -187,7 +187,7 @@ class ArticlesController extends AppController
      */
     public function viewBySlug(string $slug): ?Response
     {
-        $cacheKey = $slug . $this->request->getParam('language', 'en');
+        $cacheKey = $slug . hash('xxh3', json_encode($this->request->getAttribute('params')));
         $article = Cache::read($cacheKey, 'articles');
 
         if (empty($article)) {

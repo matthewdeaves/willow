@@ -150,7 +150,7 @@ msgid "The blocked ip could not be deleted. Please, try again."
 msgstr "Den blokkerte IP-en kunne ikke slettes. Vennligst prøv igjen."
 
 #: 
-msgid "Welcome to Willow, a content management system I'm building in the open. Here you'll find development updates, feature highlights, and guides on using Willow for your own sites."
+msgid "Welcome to willowcms.app. This site uses Willow - a content management system I'm building in the open. Here you'll find development updates, feature highlights, and guides on using Willow for your own sites."
 msgstr "Velkommen til Willow, et innholdsstyringssystem jeg bygger i det fri. Her finner du utviklingsoppdateringer, funksjonshøydepunkter og veiledninger for bruk av Willow for dine egne nettsteder."
 
 #: 

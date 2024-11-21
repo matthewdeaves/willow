@@ -7,14 +7,13 @@
 ?>
 
 <article class="blog-post">
-
     <h2 class="display-5 link-body-emphasis mb-1"><?= htmlspecialchars_decode($article->title) ?></h2>
 
     <?= $this->element('site/crumbs') ?>
 
     <?= $this->element('image/icon', ['model' => $article, 'icon' => $article->smallImageUrl, 'preview' => $article->largeImageUrl]); ?>
 
-    <?= htmlspecialchars_decode($article->body) ?>
+    <div id="article-body-content"><?= htmlspecialchars_decode($article->body) ?></div>
 
     <div>
         <?= $this->element('image_carousel', [
@@ -24,8 +23,6 @@
     </div>
 </article>
 
-
-  
 <?php if(
         (SettingsManager::read('Comments.articlesEnabled') && $article->kind == 'article')
         || (SettingsManager::read('Comments.pagesEnabled') && $article->kind == 'page')

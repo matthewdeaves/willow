@@ -1242,7 +1242,7 @@ msgid "New User"
 msgstr "Новый пользователь"
 
 #: 
-msgid "Welcome to Willow, a content management system I'm building in the open. Here you'll find development updates, feature highlights, and guides on using Willow for your own sites."
+msgid "Welcome to willowcms.app. This site uses Willow - a content management system I'm building in the open. Here you'll find development updates, feature highlights, and guides on using Willow for your own sites."
 msgstr "Добро пожаловать в Willow, систему управления контентом, которую я создаю в открытом доступе. Здесь вы найдете обновления разработки, обзоры функций и руководства по использованию Willow для ваших собственных сайтов."
 
 #: 

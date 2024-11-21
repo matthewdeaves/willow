@@ -247,8 +247,6 @@ class ArticlesController extends AppController
      */
     public function edit(?string $id = null): ?Response
     {
-        //debug(1);
-
         $article = $this->Articles->get($id, contain: ['Tags', 'Images']);
 
         if ($this->request->is(['patch', 'post', 'put'])) {

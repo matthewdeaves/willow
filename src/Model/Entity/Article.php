@@ -56,6 +56,7 @@ class Article extends Entity
         'main_menu' => true,
         'slug' => true,
         'body' => true,
+        'markdown' => true,
         'summary' => true,
         'created' => true,
         'modified' => true,

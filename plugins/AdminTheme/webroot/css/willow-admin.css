@@ -192,8 +192,6 @@ pre {
     border-top: 1px solid var(--md-pre-border);
 }
 
-/* Add these styles to your admin CSS */
-
 /* Semantic UI Dropdown Theme Support */
 [data-bs-theme="dark"] .ui.dropdown {
     background-color: #2b3035 !important;
@@ -273,4 +271,27 @@ pre {
 .ui.selection.dropdown .ui.label,
 .ui.selection.dropdown .ui.label .delete.icon {
     text-decoration: none !important;
+}
+
+.images-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 5px;
+}
+
+.image-item {
+    border: 1px solid #ccc;
+    padding: 5px;
+    text-align: center;
+}
+
+.image-item img {
+    max-width: 100%;
+    height: auto;
+}
+#imageSelectModal {
+    z-index: 99999 !important;
+}
+.trumbowyg-fullscreen .trumbowyg-editor {
+    color: black !important;
 }

@@ -52,18 +52,4 @@
         </div>
     </div>
 </div>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('insertImageBtn').addEventListener('click', function() {
-        WillowModal.show('/admin/images/imageSelect', {
-            title: <?= json_encode(__('Select Image')) ?>,
-            closeable: true,
-            dialogClass: 'modal-lg',
-            handleForm: true,
-            onSuccess: function(data) {
-
-            }
-        });
-    });
-});
-</script>
+<?= $this->Html->script('AdminTheme.markdown-it-insert-image') ?>

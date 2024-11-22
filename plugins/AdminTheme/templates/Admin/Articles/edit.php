@@ -10,12 +10,26 @@
 <?php use App\Utility\SettingsManager; ?>
 
 <?php if(SettingsManager::read('Editing.editor') == 'trumbowyg') : ?>
-<?= $this->element('editors/trumbowyg'); ?>
+<?= $this->Html->css('https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/ui/trumbowyg.min.css'); ?>
+<?= $this->Html->css('https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/plugins/table/ui/trumbowyg.table.min.css'); ?>
+<?= $this->Html->css('https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/ui/trumbowyg.min.css'); ?>
+<?= $this->Html->css('https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/plugins/table/ui/trumbowyg.table.min.css'); ?>
+<?= $this->Html->css('https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/plugins/colors/ui/trumbowyg.colors.min.css'); ?>
+
+<?= $this->Html->script('https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/trumbowyg.min.js'); ?>
+<?= $this->Html->script('https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/plugins/colors/trumbowyg.colors.min.js'); ?>
+<?= $this->Html->script('https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/plugins/upload/trumbowyg.upload.min.js'); ?>
+<?= $this->Html->script('https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/plugins/table/trumbowyg.table.min.js'); ?>
+<?= $this->Html->script('https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/plugins/preformatted/trumbowyg.preformatted.min.js'); ?>
+
+<?= $this->Html->script('AdminTheme.trumbowyg-edit') ?>
 <?php endif; ?>
 
 <?php if(SettingsManager::read('Editing.editor') == 'markdownit') : ?>
-<?= $this->element('editors/markdown-it'); ?>
+<?= $this->Html->script('AdminTheme.markdown-it-edit') ?>
 <?php endif; ?>
+
+<meta name="csrfToken" content="<?= $this->request->getAttribute('csrfToken') ?>">
 
 <?php $kind = $this->request->getQuery('kind'); ?>
 <div class="container mt-4">

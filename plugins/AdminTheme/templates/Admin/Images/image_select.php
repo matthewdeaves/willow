@@ -2,10 +2,22 @@
 /**
  * @var \App\View\AppView $this
  * @var iterable<\App\Model\Entity\Image> $images
+ * 
+ * This view is loaded in a popup either by Trumbowyg using its own popup system
+ * or via the willowModal system.
+ * 
+ * Trumbowyg:
+ * - Uses its own built-in popup system to load the view.
+ * - Integrates with the Trumbowyg editor to allow image selection directly within the editor interface.
+ * - Requires the 'AdminTheme.trumbowyg-image-select' script to be included for image selection functionality.
+ * 
+ * Markdown-it:
+ * - Does not have a built-in popup system like Trumbowyg.
+ * - Relies on external modal systems such as willowModal to display the view.
+ * - Image selection and insertion might require additional custom handling or plugins.
  */
 ?>
 <?php use App\Utility\SettingsManager; ?>
-<?php use Cake\Core\Configure; ?>
 
 <?php if (!$this->request->getQuery('gallery_only')): ?>
 <div class="mb-3">
@@ -18,75 +30,5 @@
 </div>
 
 <?php if(SettingsManager::read('Editing.editor') == 'trumbowyg') : ?>
-    <script>
-    $(document).ready(function() {
-        function bindImageInsertEvents() {
-            $('.insert-image').off('click').on('click', function() {
-                var imageSrc = $(this).data('src');
-                var imageId = $(this).data('id');
-                var imageAlt = $(this).data('alt');
-                var imageSize = $('#' + imageId + '_size').val();
-
-                var imageHtml = '<img src="/files/Images/image/' + imageSize + '/' + imageSrc + '" alt="' + imageAlt + '" class="img-fluid" />';
-
-                var trumbowyg = $('#article-body').data('trumbowyg');
-                if (trumbowyg) {
-                    trumbowyg.execCmd('insertHTML', imageHtml);
-                    trumbowyg.closeModal();
-                }
-
-                $('.modal').modal('hide');
-                $('.trumbowyg-modal-box').hide();
-                $('.trumbowyg-modal-overlay').hide();
-
-                return false;
-            });
-        }
-
-        function loadImages(url) {
-            $.ajax({
-                url: url,
-                type: 'GET',
-                data: { gallery_only: true },
-                success: function(response) {
-                    $('#image-gallery').html(response);
-                    bindImageInsertEvents();
-                    bindPaginationEvents();
-                },
-                error: function(xhr, status, error) {
-                    console.error("<?= __('Error loading images:') ?>", error);
-                }
-            });
-        }
-
-        function bindPaginationEvents() {
-            $('.pagination a').off('click').on('click', function(e) {
-                e.preventDefault();
-                var url = $(this).attr('href');
-                loadImages(url);
-            });
-        }
-
-        function bindSearchBoxEvents() {
-            const searchInput = document.getElementById('imageSearch');
-            let debounceTimer;
-
-            searchInput.addEventListener('input', function() {
-                clearTimeout(debounceTimer);
-                debounceTimer = setTimeout(() => {
-                    const searchTerm = this.value.trim();
-                    let url = '/admin/images/imageSelect';
-                    if (searchTerm.length > 0) {
-                        url += '?search=' + encodeURIComponent(searchTerm);
-                    }
-                    loadImages(url);
-                }, 300);
-            });
-        }
-        
-        bindImageInsertEvents();
-        bindPaginationEvents();
-        bindSearchBoxEvents();
-    });
-    </script>
+    <?= $this->Html->script('AdminTheme.trumbowyg-image-select') ?>
 <?php endif; ?>

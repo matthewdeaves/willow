@@ -1,14 +1,23 @@
-$(document).ready(function() {
-    function bindImageInsertEvents() {
+const TrumbowygImageSelect = {
+    init: function() {
+        $(document).ready(() => {
+            this.bindImageInsertEvents();
+            this.bindPaginationEvents();
+            this.bindSearchBoxEvents();
+        });
+    },
+
+    bindImageInsertEvents: function() {
         $('.insert-image').off('click').on('click', function() {
-            var imageSrc = $(this).data('src');
-            var imageId = $(this).data('id');
-            var imageAlt = $(this).data('alt');
-            var imageSize = $('#' + imageId + '_size').val();
+            const imageSrc = $(this).data('src');
+            const imageId = $(this).data('id');
+            const imageAlt = $(this).data('alt');
+            const imageSize = $('#' + imageId + '_size').val();
 
-            var imageHtml = '<img src="/files/Images/image/' + imageSize + '/' + imageSrc + '" alt="' + imageAlt + '" class="img-fluid" />';
+            const imageHtml = '<img src="/files/Images/image/' + imageSize + '/' + 
+                imageSrc + '" alt="' + imageAlt + '" class="img-fluid" />';
 
-            var trumbowyg = $('#article-body').data('trumbowyg');
+            const trumbowyg = $('#article-body').data('trumbowyg');
             if (trumbowyg) {
                 trumbowyg.execCmd('insertHTML', imageHtml);
                 trumbowyg.closeModal();
@@ -20,50 +29,50 @@ $(document).ready(function() {
 
             return false;
         });
-    }
+    },
 
-    function loadImages(url) {
+    loadImages: function(url) {
         $.ajax({
             url: url,
             type: 'GET',
             data: { gallery_only: true },
-            success: function(response) {
+            success: (response) => {
                 $('#image-gallery').html(response);
-                bindImageInsertEvents();
-                bindPaginationEvents();
+                this.bindImageInsertEvents();
+                this.bindPaginationEvents();
             },
             error: function(xhr, status, error) {
-                console.error("<?= __('Error loading images:') ?>", error);
+                console.error("Error loading images:", error);
             }
         });
-    }
+    },
 
-    function bindPaginationEvents() {
-        $('.pagination a').off('click').on('click', function(e) {
+    bindPaginationEvents: function() {
+        $('.pagination a').off('click').on('click', (e) => {
             e.preventDefault();
-            var url = $(this).attr('href');
-            loadImages(url);
+            const url = $(e.currentTarget).attr('href');
+            this.loadImages(url);
         });
-    }
+    },
 
-    function bindSearchBoxEvents() {
+    bindSearchBoxEvents: function() {
         const searchInput = document.getElementById('imageSearch');
-        let debounceTimer;
+        if (!searchInput) return;
 
-        searchInput.addEventListener('input', function() {
+        let debounceTimer;
+        searchInput.addEventListener('input', () => {
             clearTimeout(debounceTimer);
             debounceTimer = setTimeout(() => {
-                const searchTerm = this.value.trim();
+                const searchTerm = searchInput.value.trim();
                 let url = '/admin/images/imageSelect';
                 if (searchTerm.length > 0) {
                     url += '?search=' + encodeURIComponent(searchTerm);
                 }
-                loadImages(url);
+                this.loadImages(url);
             }, 300);
         });
     }
-    
-    bindImageInsertEvents();
-    bindPaginationEvents();
-    bindSearchBoxEvents();
-});
+};
+
+// Auto-initialize
+TrumbowygImageSelect.init();

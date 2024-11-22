@@ -1,88 +1,26 @@
+/**
+ * MarkdownImageSelect - Handles image selection for markdown-it editor
+ */
 const MarkdownImageSelect = {
+    /**
+     * Initialize the image selection functionality
+     */
     init: function() {
-        document.getElementById('insertImageBtn').addEventListener('click', function() {
-            WillowModal.show('/admin/images/imageSelect', {
-                title: modalTitle, // This should be set in your view as a global var
-                closeable: true,
-                dialogClass: 'modal-lg',
-                handleForm: false,
-                onSuccess: function(data) {
-                    // Not used since we're handling clicks directly
-                }
-            });
-        });
+        this.bindEvents();
     },
 
+    /**
+     * Bind event handlers for image selection
+     */
     bindEvents: function() {
-        this.bindImageInsertEvents();
-        this.bindPaginationEvents();
         this.bindSearchBoxEvents();
+        this.bindImageSelectEvents();
+        this.bindPaginationEvents();
     },
 
-    bindImageInsertEvents: function() {
-        $('.insert-image').off('click').on('click', function() {
-            var imageSrc = $(this).data('src');
-            var imageId = $(this).data('id');
-            var imageAlt = $(this).data('alt');
-            var imageName = $(this).data('name');
-            var imageSize = $('#' + imageId + '_size').val();
-            
-            var altText = imageAlt || imageName;
-
-            // Get the textarea element
-            var textarea = document.getElementById('article-body');
-            
-            // Create markdown syntax for the image
-            var markdownImage = '![' + altText + '](/files/Images/image/' + imageSize + '/' + imageSrc + ')';
-    
-            // Insert at cursor position or at end if no cursor
-            var startPos = textarea.selectionStart;
-            var endPos = textarea.selectionEnd;
-    
-            textarea.value = textarea.value.substring(0, startPos) + 
-                            markdownImage + 
-                            textarea.value.substring(endPos);
-    
-            // Trigger the input event to update preview
-            textarea.dispatchEvent(new Event('input'));
-    
-            // Update cursor position after insert
-            var newCursorPos = startPos + markdownImage.length;
-            textarea.setSelectionRange(newCursorPos, newCursorPos);
-    
-            // Close the modal
-            const modal = bootstrap.Modal.getInstance(document.querySelector('.modal'));
-            if (modal) {
-                modal.hide();
-            }
-    
-            return false;
-        });
-    },
-
-    loadImages: function(url) {
-        $.ajax({
-            url: url,
-            type: 'GET',
-            data: { gallery_only: true },
-            success: function(response) {
-                $('#dynamicModalContent').html(response);
-                MarkdownImageSelect.bindEvents();
-            },
-            error: function(xhr, status, error) {
-                console.error("Error loading images:", error);
-            }
-        });
-    },
-
-    bindPaginationEvents: function() {
-        $('.pagination a').off('click').on('click', function(e) {
-            e.preventDefault();
-            var url = $(this).attr('href');
-            MarkdownImageSelect.loadImages(url);
-        });
-    },
-
+    /**
+     * Bind search box events with debouncing
+     */
     bindSearchBoxEvents: function() {
         const searchInput = document.getElementById('imageSearch');
         if (!searchInput) return;
@@ -99,17 +37,89 @@ const MarkdownImageSelect = {
                 MarkdownImageSelect.loadImages(url);
             }, 300);
         });
+    },
+
+    /**
+     * Bind image selection events
+     */
+    bindImageSelectEvents: function() {
+        const images = document.querySelectorAll('.insert-image');
+        images.forEach(image => {
+            image.addEventListener('click', this.handleImageSelect.bind(this));
+        });
+    },
+
+    /**
+     * Bind pagination events
+     */
+    bindPaginationEvents: function() {
+        const paginationLinks = document.querySelectorAll('.pagination a');
+        paginationLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.loadImages(link.href);
+            });
+        });
+    },
+
+    /**
+     * Load images via AJAX
+     * @param {string} url - The URL to load images from
+     */
+    loadImages: function(url) {
+        fetch(url, {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.text())
+        .then(html => {
+            const gallery = document.getElementById('image-gallery');
+            if (gallery) {
+                gallery.innerHTML = html;
+                this.bindEvents();
+            }
+        })
+        .catch(error => {
+            console.error('Error loading images:', error);
+        });
+    },
+
+    /**
+     * Handle image selection and insertion
+     * @param {Event} event - The click event
+     */
+    handleImageSelect: function(event) {
+        const img = event.target;
+        const sizeSelect = document.getElementById(img.dataset.id + '_size');
+        const size = sizeSelect ? sizeSelect.value : '';
+        
+        const altText = img.dataset.alt || img.dataset.name || '';
+        const imagePath = `/files/Images/image/${size}/${img.dataset.src}`;
+        
+        // Create markdown image syntax
+        const markdownImage = `![${altText}](${imagePath})`;
+        
+        // Insert at cursor position in the markdown textarea
+        const textarea = document.getElementById('article-markdown');
+        if (textarea) {
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+            const text = textarea.value;
+            
+            textarea.value = text.substring(0, start) + markdownImage + text.substring(end);
+            
+            // Trigger input event to update preview
+            textarea.dispatchEvent(new Event('input'));
+        }
+
+        // Close the modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById('dynamicModal'));
+        if (modal) {
+            modal.hide();
+        }
     }
 };
 
-// Initialize when document is ready
-$(document).ready(function() {
-    MarkdownImageSelect.init();
-});
-
-// Add a listener for when modal content is loaded
-document.addEventListener('shown.bs.modal', function(event) {
-    if (event.target.id === 'dynamicModal') {
-        MarkdownImageSelect.bindEvents();
-    }
-});
+// Export for use in other scripts
+window.MarkdownImageSelect = MarkdownImageSelect;

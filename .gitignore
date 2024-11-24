@@ -44,9 +44,9 @@ willow_cms_code_Utilities.txt
 !/webroot/files/Articles/image/.gitkeep
 /dump.rdb
 
-# Willow Dev Env Setup  Flag #
-##############################
-/config/.first_run_completed
+# Willow Dev Env Setup #
+########################
+/wait-for-it.sh
 
 # OS generated files #
 ######################

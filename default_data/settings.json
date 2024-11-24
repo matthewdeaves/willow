@@ -634,7 +634,7 @@
         "value_type": "select",
         "value_obscure": false,
         "description": "This setting controls if articles on the blog index show their Summary or Body text.",
-        "data": "{\n  \"summary\": \"Summary\",\n  \"body\": \"Body\"\n}",
+        "data": "{\n  \"summary\": \"Summary\",\n  \"lede\": \"Lede\",\n  \"body\": \"Body\"\n}",
         "column_width": 2
     },
     {

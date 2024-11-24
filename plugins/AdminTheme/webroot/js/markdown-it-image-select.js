@@ -6,16 +6,33 @@ const MarkdownImageSelect = {
      * Initialize the image selection functionality
      */
     init: function() {
+        this.removeExistingListeners();
         this.bindEvents();
     },
 
     /**
-     * Bind event handlers for image selection
+     * Remove existing event listeners to prevent duplicates
+     */
+    removeExistingListeners: function() {
+        const searchInput = document.getElementById('imageSearch');
+        const gallery = document.getElementById('image-gallery');
+
+        if (searchInput) {
+            searchInput.replaceWith(searchInput.cloneNode(true));
+        }
+
+        if (gallery) {
+            const newGallery = gallery.cloneNode(true);
+            gallery.parentNode.replaceChild(newGallery, gallery);
+        }
+    },
+
+    /**
+     * Bind all event handlers for image selection
      */
     bindEvents: function() {
         this.bindSearchBoxEvents();
-        this.bindImageSelectEvents();
-        this.bindPaginationEvents();
+        this.bindGalleryEvents();
     },
 
     /**
@@ -26,39 +43,45 @@ const MarkdownImageSelect = {
         if (!searchInput) return;
 
         let debounceTimer;
-        searchInput.addEventListener('input', function() {
+        const handleSearch = (event) => {
             clearTimeout(debounceTimer);
             debounceTimer = setTimeout(() => {
-                const searchTerm = this.value.trim();
-                let url = '/admin/images/imageSelect';
+                const searchTerm = event.target.value.trim();
+                let url = '/admin/images/imageSelect?gallery_only=1';
                 if (searchTerm.length > 0) {
-                    url += '?search=' + encodeURIComponent(searchTerm);
+                    url += '&search=' + encodeURIComponent(searchTerm);
                 }
-                MarkdownImageSelect.loadImages(url);
+                this.loadImages(url);
             }, 300);
-        });
+        };
+
+        searchInput.addEventListener('input', handleSearch, { passive: true });
     },
 
     /**
-     * Bind image selection events
+     * Bind gallery events using event delegation
      */
-    bindImageSelectEvents: function() {
-        const images = document.querySelectorAll('.insert-image');
-        images.forEach(image => {
-            image.addEventListener('click', this.handleImageSelect.bind(this));
-        });
-    },
+    bindGalleryEvents: function() {
+        const gallery = document.getElementById('image-gallery');
+        if (!gallery) return;
 
-    /**
-     * Bind pagination events
-     */
-    bindPaginationEvents: function() {
-        const paginationLinks = document.querySelectorAll('.pagination a');
-        paginationLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
+        gallery.addEventListener('click', (e) => {
+            // Handle pagination links
+            const paginationLink = e.target.closest('.pagination a');
+            if (paginationLink) {
                 e.preventDefault();
-                this.loadImages(link.href);
-            });
+                const url = new URL(paginationLink.href);
+                url.searchParams.set('gallery_only', '1');
+                this.loadImages(url.toString());
+                return;
+            }
+
+            // Handle image selection
+            const image = e.target.closest('.insert-image');
+            if (image) {
+                e.preventDefault();
+                this.handleImageSelect(e, image);
+            }
         });
     },
 
@@ -67,17 +90,26 @@ const MarkdownImageSelect = {
      * @param {string} url - The URL to load images from
      */
     loadImages: function(url) {
-        fetch(url, {
+        // Ensure gallery_only=1 is always present
+        const urlObj = new URL(url, window.location.origin);
+        urlObj.searchParams.set('gallery_only', '1');
+
+        fetch(urlObj.toString(), {
             headers: {
-                'X-Requested-With': 'XMLHttpRequest'
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-Token': csrfToken
             }
         })
-        .then(response => response.text())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
         .then(html => {
             const gallery = document.getElementById('image-gallery');
             if (gallery) {
                 gallery.innerHTML = html;
-                this.bindEvents();
             }
         })
         .catch(error => {
@@ -88,14 +120,17 @@ const MarkdownImageSelect = {
     /**
      * Handle image selection and insertion
      * @param {Event} event - The click event
+     * @param {HTMLElement} imageElement - The clicked image element
      */
-    handleImageSelect: function(event) {
-        const img = event.target;
-        const sizeSelect = document.getElementById(img.dataset.id + '_size');
+    handleImageSelect: function(event, imageElement) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const sizeSelect = document.getElementById(imageElement.dataset.id + '_size');
         const size = sizeSelect ? sizeSelect.value : '';
         
-        const altText = img.dataset.alt || img.dataset.name || '';
-        const imagePath = `/files/Images/image/${size}/${img.dataset.src}`;
+        const altText = imageElement.dataset.alt || imageElement.dataset.name || '';
+        const imagePath = `/files/Images/image/${size}/${imageElement.dataset.src}`;
         
         // Create markdown image syntax
         const markdownImage = `![${altText}](${imagePath})`;
@@ -108,9 +143,14 @@ const MarkdownImageSelect = {
             const text = textarea.value;
             
             textarea.value = text.substring(0, start) + markdownImage + text.substring(end);
+            textarea.focus();
+            textarea.setSelectionRange(start + markdownImage.length, start + markdownImage.length);
             
             // Trigger input event to update preview
-            textarea.dispatchEvent(new Event('input'));
+            textarea.dispatchEvent(new Event('input', {
+                bubbles: true,
+                cancelable: true
+            }));
         }
 
         // Close the modal

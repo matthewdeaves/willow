@@ -56,7 +56,7 @@
             </div>
             <div class="children-container">
                 <?php if (!empty($article['children'])): ?>
-                    <?= $this->element('page_tree', ['articles' => $article['children'], 'level' => $level + 1]) ?>
+                    <?= $this->element('tree/page_tree', ['articles' => $article['children'], 'level' => $level + 1]) ?>
                 <?php else: ?>
                     <ul class="list-group sortable-list"></ul>
                 <?php endif; ?>

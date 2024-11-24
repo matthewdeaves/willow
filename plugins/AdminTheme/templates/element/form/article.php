@@ -37,10 +37,10 @@
 <?php endif; ?>
 
 <div class="mb-3">
-    <?php echo $this->Form->control('lead', ['class' => 'form-control' . ($this->Form->isFieldError('lead') ? ' is-invalid' : '')]); ?>
-        <?php if ($this->Form->isFieldError('lead')): ?>
+    <?php echo $this->Form->control('lede', ['class' => 'form-control' . ($this->Form->isFieldError('lede') ? ' is-invalid' : '')]); ?>
+        <?php if ($this->Form->isFieldError('lede')): ?>
         <div class="invalid-feedback">
-            <?= $this->Form->error('lead') ?>
+            <?= $this->Form->error('lede') ?>
         </div>
     <?php endif; ?>
 </div>

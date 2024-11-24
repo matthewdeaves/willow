@@ -103,8 +103,8 @@ class ArticleSummaryUpdateJob implements JobInterface
                 $article->summary = $summaryResult['summary'];
             }
 
-            if (empty($article->lead)) {
-                $article->lead = $summaryResult['lead'];
+            if (empty($article->lede)) {
+                $article->lede = $summaryResult['lede'];
             }
 
             // Save the data

@@ -19,8 +19,8 @@
 
     <?php $displayMode = SettingsManager::read('Blog.articleDisplayMode', 'summary') ?>
 
-    <?php if ($displayMode == 'lead') : ?>
-        <p><?= htmlspecialchars_decode($article->lead) ?></p>
+    <?php if ($displayMode == 'lede') : ?>
+        <p><?= htmlspecialchars_decode($article->lede) ?></p>
         <hr>
     <?php elseif ($displayMode == 'summary') : ?>
         <?= htmlspecialchars_decode($article->summary); ?>

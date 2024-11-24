@@ -11,7 +11,7 @@
             <div class="col-lg-8">
                 <h6 class="mb-0"><?= $article->title ?></h6>
                 <div>
-                    <small class="text-body-secondary"><?= $article->lead ?></small>
+                    <small class="text-body-secondary"><?= $article->lede ?></small>
                 </div>
                 <div>
                     <small class="text-body-tertiary"><?= $article->published->format('F j, Y') ?></small>

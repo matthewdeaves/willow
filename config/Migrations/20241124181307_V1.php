@@ -85,7 +85,7 @@ class V1 extends AbstractMigration
                 'limit' => 255,
                 'null' => false,
             ])
-            ->addColumn('lead', 'string', [
+            ->addColumn('lede', 'string', [
                 'default' => null,
                 'limit' => 400,
                 'null' => true,

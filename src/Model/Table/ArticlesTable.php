@@ -555,6 +555,8 @@ class ArticlesTable extends Table
         // Merge the default conditions with any additional conditions provided
         $conditions = array_merge($conditions, $additionalConditions);
 
+        $cacheKey = hash('xxh3', json_encode($conditions));
+
         $query = $this->find()
             ->select([
                 'id',
@@ -572,7 +574,7 @@ class ArticlesTable extends Table
             ])
             ->where($conditions)
             ->orderBy(['lft' => 'ASC'])
-            ->cache('article_page_tree', 'articles');
+            ->cache($cacheKey . 'article_page_tree', 'articles');
 
         return $query->find('threaded')->toArray();
     }

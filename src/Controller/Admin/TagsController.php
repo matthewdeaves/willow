@@ -17,6 +17,73 @@ use Cake\Http\Response;
 class TagsController extends AppController
 {
     /**
+     * Retrieves a hierarchical list of tags.
+     *
+     * @return void
+     */
+    public function treeIndex(): ?Response
+    {
+        $session = $this->request->getSession();
+        $session->write('Tags.indexAction', 'treeIndex');
+
+        $statusFilter = $this->request->getQuery('status');
+        $conditions = [];
+
+        if ($statusFilter === '1') {
+            //$conditions['Articles.is_published'] = '1';
+        } elseif ($statusFilter === '0') {
+            //$conditions['Articles.is_published'] = '0';
+        }
+
+        if ($this->request->is('ajax')) {
+            $search = $this->request->getQuery('search');
+            if (!empty($search)) {
+                $conditions['OR'] = [
+                    'Tags.title LIKE' => '%' . $search . '%',
+                    'Tags.slug LIKE' => '%' . $search . '%',
+                    'Tags.description LIKE' => '%' . $search . '%',
+                    'Tags.meta_title LIKE' => '%' . $search . '%',
+                    'Tags.meta_description LIKE' => '%' . $search . '%',
+                    'Tags.meta_keywords LIKE' => '%' . $search . '%',
+                ];
+            }
+            $tags = $this->Tags->getTagTree($conditions);
+            $this->set(compact('tags'));
+            $this->viewBuilder()->setLayout('ajax');
+
+            return $this->render('tree_index_search_results');
+        }
+
+        $tags = $this->Tags->getTagTree($conditions);
+        $this->set(compact('tags'));
+
+        return null;
+    }
+
+    /**
+     * Updates the tree structure of articles.
+     *
+     * @return \Cake\Http\Response|null The JSON response indicating success or failure.
+     * @throws \Exception If an error occurs during the reordering process.
+     */
+    public function updateTree(): ?Response
+    {
+        $this->request->allowMethod(['post', 'put']);
+        $data = $this->request->getData();
+
+        try {
+            $result = $this->Tags->reorder($data);
+            Cache::clear('articles');
+
+            return $this->response->withType('application/json')
+                ->withStringBody(json_encode(['success' => true, 'result' => $result]));
+        } catch (Exception $e) {
+            return $this->response->withType('application/json')
+                ->withStringBody(json_encode(['success' => false, 'error' => $e->getMessage()]));
+        }
+    }
+
+    /**
      * Index method for Tags Controller
      *
      * Handles the display of tags. Supports both standard and AJAX requests.
@@ -27,6 +94,8 @@ class TagsController extends AppController
      */
     public function index(): ?Response
     {
+        $session = $this->request->getSession();
+        $session->write('Tags.indexAction', 'index');
         $statusFilter = $this->request->getQuery('level');
 
         $query = $this->Tags->find()
@@ -89,6 +158,7 @@ class TagsController extends AppController
      */
     public function add(): ?Response
     {
+        $session = $this->request->getSession();
         $tag = $this->Tags->newEmptyEntity();
         if ($this->request->is('post')) {
             $tag = $this->Tags->patchEntity($tag, $this->request->getData());
@@ -96,7 +166,7 @@ class TagsController extends AppController
                 Cache::clear('articles');
                 $this->Flash->success(__('The tag has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => $session->read('Tags.indexAction', 'treeIndex')]);
             }
             $this->Flash->error(__('The tag could not be saved. Please, try again.'));
         }
@@ -119,6 +189,7 @@ class TagsController extends AppController
      */
     public function edit(?string $id = null): ?Response
     {
+        $session = $this->request->getSession();
         $tag = $this->Tags->get($id, contain: ['Articles']);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $tag = $this->Tags->patchEntity($tag, $this->request->getData());
@@ -126,7 +197,7 @@ class TagsController extends AppController
                 Cache::clear('articles');
                 $this->Flash->success(__('The tag has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => $session->read('Tags.indexAction', 'treeIndex')]);
             }
             $this->Flash->error(__('The tag could not be saved. Please, try again.'));
         }
@@ -153,6 +224,7 @@ class TagsController extends AppController
     public function delete(?string $id = null): Response
     {
         $this->request->allowMethod(['post', 'delete']);
+        $session = $this->request->getSession();
         $tag = $this->Tags->get($id);
         if ($this->Tags->delete($tag)) {
             Cache::clear('articles');
@@ -161,6 +233,6 @@ class TagsController extends AppController
             $this->Flash->error(__('The tag could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['action' => $session->read('Tags.indexAction', 'treeIndex')]);
     }
 }

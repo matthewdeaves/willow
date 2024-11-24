@@ -103,8 +103,8 @@
                     </div>
                     <div class="card mt-4">
                         <div class="card-body">
-                            <h5 class="card-title"><?= __('Lead') ?></h5>
-                            <p class="card-text"><?= html_entity_decode($article->lead); ?></p>
+                            <h5 class="card-title"><?= __('Lede') ?></h5>
+                            <p class="card-text"><?= html_entity_decode($article->lede); ?></p>
                         </div>
                     </div>
                     <div class="card mt-4">

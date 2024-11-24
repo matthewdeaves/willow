@@ -124,7 +124,7 @@ class TextSummaryGenerator
         $expectedKeys = [
             'summary',
             'key_points',
-            'lead',
+            'lede',
         ];
 
         foreach ($expectedKeys as $key) {

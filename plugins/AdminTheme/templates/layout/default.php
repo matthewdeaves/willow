@@ -1,6 +1,8 @@
 <?php 
 use App\Utility\SettingsManager;
 use Cake\Core\Configure;
+
+$session = $this->request->getSession();
 ?>
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
@@ -152,7 +154,7 @@ use Cake\Core\Configure;
                 [
                   'prefix' => 'Admin',
                   'controller' => 'Tags',
-                  'action' => 'index'
+                  'action' => $session->read('Tags.indexAction', 'treeIndex'),
                 ],
                 [
                   'class' => 'nav-link' . ($activeCtl == 'Tags' ? ' active' : '')

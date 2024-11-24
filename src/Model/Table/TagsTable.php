@@ -325,6 +325,25 @@ class TagsTable extends Table
         return $results;
     }
 
+    /**
+     * Retrieves a hierarchical tree structure of tags.
+     *
+     * This method fetches tags from the database and organizes them into a nested tree structure.
+     * Results are cached for performance using a hash of the conditions as the cache key.
+     * The tree is ordered by the 'lft' column to maintain proper hierarchical ordering.
+     *
+     * @param array $additionalConditions Additional WHERE conditions to filter the tags query
+     * @return array Nested array representing the tag hierarchy with each tag containing:
+     *               - id: int The tag ID
+     *               - parent_id: int|null The parent tag ID
+     *               - title: string The tag title
+     *               - slug: string URL-friendly version of title
+     *               - created: \Cake\I18n\DateTime Creation timestamp
+     *               - modified: \Cake\I18n\DateTime Last modified timestamp
+     *               - children: array Nested child tags
+     * @throws \Cake\Database\Exception\DatabaseException When the database query fails
+     * @throws \RuntimeException When cache writing fails
+     */
     public function getTagTree(array $additionalConditions = []): array
     {
         $conditions = [];

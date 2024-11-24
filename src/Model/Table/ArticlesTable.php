@@ -590,6 +590,7 @@ class ArticlesTable extends Table
     public function getFeatured(string $cacheKey, array $additionalConditions = []): array
     {
         $conditions = [
+            'Articles.kind' => 'article',
             'Articles.featured' => 1,
             'Articles.is_published' => 1,
         ];

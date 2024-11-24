@@ -224,6 +224,11 @@ class V1 extends AbstractMigration
                 'null' => false,
                 'signed' => true,
             ])
+            ->addColumn('main_menu', 'boolean', [
+                'default' => false,
+                'limit' => null,
+                'null' => false,
+            ])
             ->create();
 
         $this->table('articles_tags', ['id' => false, 'primary_key' => ['article_id', 'tag_id']])
@@ -920,6 +925,11 @@ class V1 extends AbstractMigration
                 'default' => null,
                 'limit' => null,
                 'null' => true,
+            ])
+            ->addColumn('main_menu', 'boolean', [
+                'default' => false,
+                'limit' => null,
+                'null' => false,
             ])
             ->addColumn('lft', 'integer', [
                 'default' => null,

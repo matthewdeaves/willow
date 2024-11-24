@@ -108,6 +108,7 @@
         <?php endif; ?>
     </div>
 
+    <?php if ($kind == 'article') : ?>
     <div class="form-check">
         <?php echo $this->Form->checkbox('featured', [
             'class' => 'form-check-input' . ($this->Form->isFieldError('featured') ? ' is-invalid' : '')
@@ -121,7 +122,9 @@
             </div>
         <?php endif; ?>
     </div>
+    <?php endif; ?>
 
+    <?php if ($kind == 'page' && SettingsManager::read('SitePages.mainMenuShow') == 'selected') : ?>
     <div class="form-check">
         <?php echo $this->Form->checkbox('main_menu', [
             'class' => 'form-check-input' . ($this->Form->isFieldError('main_menu') ? ' is-invalid' : '')
@@ -135,6 +138,8 @@
             </div>
         <?php endif; ?>
     </div>
+    <?php endif; ?>
+
 </div>
 <div class="mb-3">
     <?php $parentId = $this->request->getQuery('parent_id'); ?>

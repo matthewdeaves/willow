@@ -268,14 +268,19 @@ class TagsTable extends Table
     }
 
     /**
-     * Retrieves the root tags from the database.
+     * Retrieves root tags from the database.
      *
-     * This method finds all tags that do not have a parent, indicating they are root tags.
-     * The results are ordered by the 'lft' field in ascending order.
+     * This method fetches tags that have no parent (i.e., root tags) and allows for additional conditions
+     * to be applied to the query. The results are ordered by the 'lft' field in ascending order and cached
+     * using the specified cache key.
      *
-     * @return array An array of containing the root tags taht match the conditions.
+     * @param string $cacheKey The key used for caching the query results. The cache key is appended with 'root_tags'.
+     * @param array $additionalConditions Optional array of additional query conditions to apply
+     * @return array<\App\Model\Entity\Tag> List of Tag entities that are root level (no parent)
+     * @throws \Cake\Database\Exception\DatabaseException When there is a database error
+     * @throws \RuntimeException When the cache engine is not properly configured
      */
-    public function getRootTags(array $additionalConditions = []): array
+    public function getRootTags(string $cacheKey, array $additionalConditions = []): array
     {
         $conditions = [
             'Tags.parent_id IS' => null,
@@ -283,7 +288,37 @@ class TagsTable extends Table
         $conditions = array_merge($conditions, $additionalConditions);
         $query = $this->find()
             ->where($conditions)
-            ->orderBy(['lft' => 'ASC']);
+            ->orderBy(['lft' => 'ASC'])
+            ->cache($cacheKey . 'root_tags', 'articles');
+
+        $results = $query->all()->toList();
+
+        return $results;
+    }
+
+    /**
+     * Retrieves tags that are marked for display in the main menu.
+     *
+     * This method fetches all tags that have main_menu flag set to true, ordered by their
+     * tree position (lft). Results are cached using the provided cache key. Additional
+     * conditions can be merged with the base conditions if needed.
+     *
+     * @param string $cacheKey The base cache key to use for caching the results
+     * @param array $additionalConditions Optional array of additional query conditions to apply
+     * @return array<\App\Model\Entity\Tag> List of Tag entities matching the criteria
+     * @throws \Cake\Database\Exception\DatabaseException When there is a database error
+     * @throws \RuntimeException When the cache engine is not properly configured
+     */
+    public function getMainMenuTags(string $cacheKey, array $additionalConditions = []): array
+    {
+        $conditions = [
+            'Tags.main_menu' => 1,
+        ];
+        $conditions = array_merge($conditions, $additionalConditions);
+        $query = $this->find()
+            ->where($conditions)
+            ->orderBy(['lft' => 'ASC'])
+            ->cache($cacheKey . 'main_menu_tags', 'articles');
 
         $results = $query->all()->toList();
 

@@ -65,6 +65,22 @@
         <?php endif; ?>
 </div>
 
+<?php if (SettingsManager::read('SitePages.mainTagMenuShow') == 'selected') : ?>
+<div class="form-check">
+    <?php echo $this->Form->checkbox('main_menu', [
+        'class' => 'form-check-input' . ($this->Form->isFieldError('main_menu') ? ' is-invalid' : '')
+    ]); ?>
+    <label class="form-check-label" for="main_menu">
+        <?= __('Main Menu') ?>
+    </label>
+    <?php if ($this->Form->isFieldError('main_menu')): ?>
+        <div class="invalid-feedback">
+            <?= $this->Form->error('main_menu') ?>
+        </div>
+    <?php endif; ?>
+</div>
+<?php endif; ?>
+
 <div class="mb-3">
     <?php echo $this->Form->label('articles._ids', __('Tag Articles/Pages'), ['class' => 'form-label']); ?>
     <?php echo $this->Form->select('articles._ids', $articles, [

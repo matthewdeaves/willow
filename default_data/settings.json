@@ -513,7 +513,7 @@
         "value_type": "select",
         "value_obscure": false,
         "description": "Should the main menu show all root pages or only selected pages?",
-        "data": "{\n  \"root\": \"Top Level Pages\",\n  \"selected\": \"Selected\"\n}",
+        "data": "{\n  \"root\": \"Top Level Pages\",\n  \"selected\": \"Selected Pages\"\n}",
         "column_width": 2
     },
     {
@@ -668,6 +668,17 @@
         "value_obscure": false,
         "description": "Chose your default editor for posts and pages content. Trumbowyg is good for HTML whilst Markdown-It supports Markdown.",
         "data": "{\n  \"trumbowyg\": \"Trumbowyg\",\n  \"markdownit\": \"Markdown-It\"\n}",
+        "column_width": 2
+    },
+    {
+        "ordering": 3,
+        "category": "SitePages",
+        "key_name": "mainTagMenuShow",
+        "value": "root",
+        "value_type": "select",
+        "value_obscure": false,
+        "description": "Should the main tag menu show all root tags or only selected tags?",
+        "data": "{\n  \"root\": \"Top Level Tags\",\n  \"selected\": \"Selected Tags\"\n}",
         "column_width": 2
     }
 ]

@@ -40,9 +40,6 @@ class FrontEndSiteComponent extends Component
      */
     public function beforeRender(EventInterface $event)
     {
-        /** @var \Cake\Controller\Controller $controller */
-        $controller = $event->getSubject();
-
         $cacheKey = $this->getController()->cacheKey;
 
         $articlesTable = $this->getController()->fetchTable('Articles');
@@ -58,8 +55,18 @@ class FrontEndSiteComponent extends Component
             break;
         }
 
+        $rootTags = [];
+        switch(SettingsManager::read('SitePages.mainTagMenuShow', 'root')) {
+            case "root":
+                $rootTags = $tagsTable->getRootTags($cacheKey);
+            break;
+            case "selected":
+                $rootTags = $tagsTable->getMainMenuTags($cacheKey);
+            break;
+        }
+
         $featuredArticles = $articlesTable->getFeatured($cacheKey);
-        $rootTags = $tagsTable->getRootTags();
+        
         $articleArchives = $articlesTable->getArchiveDates($cacheKey);
 
         $privacyPolicyId = SettingsManager::read('SitePages.privacyPolicy', null);
@@ -69,17 +76,17 @@ class FrontEndSiteComponent extends Component
                 ->where(['id' => $privacyPolicyId])
                 ->cache($cacheKey . 'priv_page', 'articles')
                 ->first()->toArray();
-            $controller->set('sitePrivacyPolicy', $sitePrivacyPolicy);
+                $this->getController()->set('sitePrivacyPolicy', $sitePrivacyPolicy);
         }
         
-        $controller->set(compact(
+        $this->getController()->set(compact(
             'menuPages',
             'rootTags',
             'featuredArticles',
             'articleArchives',
         ));
         
-        $controller->set('siteLanguages', I18nManager::getEnabledLanguages());
-        $controller->set('selectedSiteLanguage', $controller->getRequest()->getParam('lang', 'en'));
+        $this->getController()->set('siteLanguages', I18nManager::getEnabledLanguages());
+        $this->getController()->set('selectedSiteLanguage', $this->getController()->getRequest()->getParam('lang', 'en'));
     }
 }

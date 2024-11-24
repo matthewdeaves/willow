@@ -52,6 +52,7 @@ class Tag extends Entity
         'name' => true,
         'image' => true,
         'parent_id' => true,
+        'main_menu' => true,
         'lft' => true,
         'rght' => true,
     ];

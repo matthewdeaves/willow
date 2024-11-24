@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
+use Cake\Cache\Cache;
 use Cake\Http\Response;
 
 /**
@@ -92,6 +93,7 @@ class TagsController extends AppController
         if ($this->request->is('post')) {
             $tag = $this->Tags->patchEntity($tag, $this->request->getData());
             if ($this->Tags->save($tag)) {
+                Cache::clear('articles');
                 $this->Flash->success(__('The tag has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
@@ -121,6 +123,7 @@ class TagsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $tag = $this->Tags->patchEntity($tag, $this->request->getData());
             if ($this->Tags->save($tag)) {
+                Cache::clear('articles');
                 $this->Flash->success(__('The tag has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
@@ -152,6 +155,7 @@ class TagsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $tag = $this->Tags->get($id);
         if ($this->Tags->delete($tag)) {
+            Cache::clear('articles');
             $this->Flash->success(__('The tag has been deleted.'));
         } else {
             $this->Flash->error(__('The tag could not be deleted. Please, try again.'));

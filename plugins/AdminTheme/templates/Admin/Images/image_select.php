@@ -28,7 +28,3 @@
 <div id="image-gallery" class="flex-shrink-0">
     <?php include 'image_gallery.php'; ?>
 </div>
-
-<?php if(SettingsManager::read('Editing.editor') == 'trumbowyg') : ?>
-    <?= $this->Html->script('AdminTheme.trumbowyg-image-select') ?>
-<?php endif; ?>

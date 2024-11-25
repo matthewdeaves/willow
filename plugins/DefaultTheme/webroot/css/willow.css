@@ -21,6 +21,10 @@
     --pre-border: #dee2e6;
     --blockquote-border: #dee2e6;
     --meta-color: #727272;
+    --table-header-bg: #f8f9fa;
+    --table-border: #dee2e6;
+    --blockquote-bg: rgba(0, 0, 0, 0.03);
+    --inline-code-color: #d63384;
 }
 
 [data-bs-theme="dark"] {
@@ -32,21 +36,10 @@
     --pre-border: #373b3e;
     --blockquote-border: #373b3e;
     --meta-color: #a0a0a0;
-}
-
-.b-example-divider {
-  width: 100%;
-  height: 3rem;
-  background-color: var(--pre-border);
-  border: solid var(--pre-border);
-  border-width: 1px 0;
-  box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-}
-
-.b-example-vr {
-  flex-shrink: 0;
-  width: 1.5rem;
-  height: 100vh;
+    --table-header-bg: #2d2d2d;
+    --table-border: #373b3e;
+    --blockquote-bg: rgba(255, 255, 255, 0.05);
+    --inline-code-color: #e685b5;
 }
 
 .bi {
@@ -127,7 +120,8 @@ h1, h2, h3, h4, h5, h6 {
 /* Blog posts */
 .blog-post {
   margin-bottom: 4rem;
-  line-height: 1.6;
+  line-height: 1.8;
+  font-size: 1.1rem;
 }
 
 .blog-post-meta {
@@ -170,30 +164,39 @@ h1, h2, h3, h4, h5, h6 {
   content: ">";
 }
 
-/* Markdown content styles */
+/* Enhanced Markdown content styles */
 .blog-post h1,
 .blog-post h2,
 .blog-post h3,
 .blog-post h4,
 .blog-post h5,
 .blog-post h6 {
-  margin-top: 1.5rem;
+  margin-top: 2rem;
   margin-bottom: 1rem;
   color: var(--text-color);
+  line-height: 1.3;
 }
 
+.blog-post h1 { font-size: 2.5rem; }
+.blog-post h2 { font-size: 2rem; }
+.blog-post h3 { font-size: 1.75rem; }
+.blog-post h4 { font-size: 1.5rem; }
+.blog-post h5 { font-size: 1.25rem; }
+.blog-post h6 { font-size: 1.1rem; }
+
 .blog-post code {
-  padding: 2px 4px;
+  padding: 0.2em 0.4em;
   border-radius: 4px;
-  font-family: monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.9em;
   background-color: var(--code-bg);
-  color: var(--code-color);
+  color: var(--inline-code-color);
 }
 
 .blog-post pre {
   padding: 1rem;
-  margin: 1rem 0;
-  border-radius: 4px;
+  margin: 1.5rem 0;
+  border-radius: 6px;
   background-color: var(--pre-bg);
   border: 1px solid var(--pre-border);
   overflow-x: auto;
@@ -203,49 +206,61 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0;
   background-color: transparent;
   border-radius: 0;
-  color: inherit;
+  color: var(--code-color);
+  font-size: 0.9rem;
+  line-height: 1.5;
 }
 
 .blog-post blockquote {
-  padding-left: 1rem;
-  margin: 1rem 0;
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
   border-left: 4px solid var(--blockquote-border);
+  background-color: var(--blockquote-bg);
+  font-style: italic;
 }
 
 .blog-post ul,
 .blog-post ol {
   padding-left: 2rem;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
 }
 
 .blog-post li {
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
 }
 
 .blog-post table {
   width: 100%;
-  margin-bottom: 1rem;
+  margin: 1.5rem 0;
   border-collapse: collapse;
+  border: 1px solid var(--table-border);
 }
 
 .blog-post th,
 .blog-post td {
-  padding: 0.5rem;
-  border: 1px solid var(--pre-border);
+  padding: 0.75rem;
+  border: 1px solid var(--table-border);
 }
 
 .blog-post th {
-  background-color: var(--code-bg);
+  background-color: var(--table-header-bg);
+  font-weight: 600;
+}
+
+.blog-post tr:nth-child(even) {
+  background-color: var(--blockquote-bg);
 }
 
 .blog-post img {
   max-width: 100%;
   height: auto;
-  margin: 1rem 0;
+  margin: 1.5rem 0;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .blog-post hr {
-  margin: 2rem 0;
+  margin: 2.5rem 0;
   border: 0;
   border-top: 1px solid var(--pre-border);
 }
@@ -253,14 +268,34 @@ h1, h2, h3, h4, h5, h6 {
 .blog-post a {
   color: var(--bs-link-color);
   text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
 }
 
 .blog-post a:hover {
   color: var(--bs-link-hover-color);
-  text-decoration: underline;
+  border-bottom-color: currentColor;
+  text-decoration: none;
+}
+
+.blog-post p {
+  margin: 1.5rem 0;
 }
 
 body {
   background-color: var(--background-color);
   color: var(--text-color);
+}
+
+/* Code block language label */
+.blog-post pre[class*="language-"]::before {
+  content: attr(class);
+  display: block;
+  background-color: var(--blockquote-bg);
+  padding: 0.3em 0.6em;
+  font-size: 0.8em;
+  color: var(--meta-color);
+  border-bottom: 1px solid var(--pre-border);
+  margin-bottom: 0.5em;
+  border-radius: 3px;
 }

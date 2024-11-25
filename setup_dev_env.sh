@@ -54,7 +54,7 @@ tableExists=$?
 
 if [ "$tableExists" -eq 0 ]; then
     echo "Subsequent container startup detected."
-    read -p "Do you want to [W]ipe data, re[B]uild or [R]estart the development environment? (w/b/r): " choice
+    read -p "Do you want to [W]ipe data, re[B]uild, [R]estart the development environment or [C]ontinue? (w/b/r/c): " choice
     case ${choice:0:1} in
         w|W)
             echo "Wiping Docker containers..."
@@ -75,8 +75,8 @@ if [ "$tableExists" -eq 0 ]; then
             start_docker_containers
             wait_for_mysql
             ;;
-        *)
-            echo "Invalid option. Continuing with normal startup..."
+        c|C|*)
+            echo "Continuing with normal startup..."
             ;;
     esac
 fi

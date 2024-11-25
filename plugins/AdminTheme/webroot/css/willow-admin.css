@@ -1,64 +1,73 @@
 @media (min-width: 768px) {
-.bd-placeholder-img-lg {
-font-size: 3.5rem;
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
 }
-}
+
 .bi {
-vertical-align: -.125em;
-fill: currentColor;
+    vertical-align: -.125em;
+    fill: currentColor;
 }
+
 .btn-bd-primary {
---bd-violet-bg: #712cf9;
---bd-violet-rgb: 112.520718, 44.062154, 249.437846;
---bs-btn-font-weight: 600;
---bs-btn-color: var(--bs-white);
---bs-btn-bg: var(--bd-violet-bg);
---bs-btn-border-color: var(--bd-violet-bg);
---bs-btn-hover-color: var(--bs-white);
---bs-btn-hover-bg: #6528e0;
---bs-btn-hover-border-color: #6528e0;
---bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
---bs-btn-active-color: var(--bs-btn-hover-color);
---bs-btn-active-bg: #5a23c8;
---bs-btn-active-border-color: #5a23c8;
+    --bd-violet-bg: #712cf9;
+    --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+    --bs-btn-font-weight: 600;
+    --bs-btn-color: var(--bs-white);
+    --bs-btn-bg: var(--bd-violet-bg);
+    --bs-btn-border-color: var(--bd-violet-bg);
+    --bs-btn-hover-color: var(--bs-white);
+    --bs-btn-hover-bg: #6528e0;
+    --bs-btn-hover-border-color: #6528e0;
+    --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+    --bs-btn-active-color: var(--bs-btn-hover-color);
+    --bs-btn-active-bg: #5a23c8;
+    --bs-btn-active-border-color: #5a23c8;
 }
+
 .bd-mode-toggle {
-z-index: 1500;
+    z-index: 1500;
 }
 
 .bd-mode-toggle .dropdown-menu .active .bi {
-display: block !important;
+    display: block !important;
 }
+
 .form-control-dark {
-border-color: var(--bs-gray);
+    border-color: var(--bs-gray);
 }
+
 .form-control-dark:focus {
-border-color: #fff;
-box-shadow: 0 0 0 .25rem rgba(255, 255, 255, .25);
+    border-color: #fff;
+    box-shadow: 0 0 0 .25rem rgba(255, 255, 255, .25);
 }
 
 .text-small {
-font-size: 85%;
+    font-size: 85%;
 }
 
 .dropdown-toggle:not(:focus) {
-outline: 0;
+    outline: 0;
 }
 
 .bg-debug {
     background-color: rgb(72, 133, 102);
 }
+
 .bg-error {
     background-color: rgb(255, 0, 0);
 }
+
 .bg-notice {
     background-color: rgb(255, 153, 0);
 }
+
 code {
     padding: 2px 4px;
     border-radius: 4px;
     font-family: monospace;
 }
+
 pre {
     background-color: #f5f5f5;
     padding: 10px;
@@ -289,9 +298,101 @@ pre {
     max-width: 100%;
     height: auto;
 }
+
 #imageSelectModal {
     z-index: 99999 !important;
 }
+
+/* Trumbowyg Dark Mode Support */
+[data-bs-theme="dark"] .trumbowyg-box,
+[data-bs-theme="dark"] .trumbowyg-editor {
+    background: #212529;
+    color: #f8f9fa;
+    border-color: #495057;
+}
+
+[data-bs-theme="dark"] .trumbowyg-button-pane {
+    background: #343a40;
+    border-bottom-color: #495057;
+}
+
+[data-bs-theme="dark"] .trumbowyg-button-pane button {
+    background: #343a40;
+    color: #f8f9fa;
+}
+
+[data-bs-theme="dark"] .trumbowyg-button-pane button:hover,
+[data-bs-theme="dark"] .trumbowyg-button-pane button:focus {
+    background: #495057;
+}
+
+[data-bs-theme="dark"] .trumbowyg-button-pane .trumbowyg-button-group::after {
+    background: #495057;
+}
+
+[data-bs-theme="dark"] .trumbowyg-editor table {
+    border-color: #495057;
+}
+
+[data-bs-theme="dark"] .trumbowyg-editor td,
+[data-bs-theme="dark"] .trumbowyg-editor th {
+    border: 1px solid #495057;
+    color: #f8f9fa;
+}
+
+[data-bs-theme="dark"] .trumbowyg-editor th {
+    background: #343a40;
+}
+
+.trumbowyg-editor table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1em 0;
+}
+
+.trumbowyg-editor td,
+.trumbowyg-editor th {
+    border: 1px solid #dee2e6;
+    padding: 8px;
+    min-width: 50px;
+}
+
 .trumbowyg-fullscreen .trumbowyg-editor {
     color: black !important;
+}
+
+[data-bs-theme="dark"] .trumbowyg-modal,
+[data-bs-theme="dark"] .trumbowyg-modal-box {
+    background: #212529;
+    color: #f8f9fa;
+}
+
+[data-bs-theme="dark"] .trumbowyg-modal-box .trumbowyg-modal-title {
+    background: #343a40;
+    color: #f8f9fa;
+    border-bottom: 1px solid #495057;
+}
+
+[data-bs-theme="dark"] .trumbowyg-modal-box label {
+    color: #f8f9fa;
+}
+
+[data-bs-theme="dark"] .trumbowyg-modal-box input {
+    background: #343a40;
+    color: #f8f9fa;
+    border: 1px solid #495057;
+}
+
+[data-bs-theme="dark"] .trumbowyg-modal-button {
+    background-color: #343a40;
+    color: #f8f9fa;
+    border: 1px solid #495057;
+}
+
+[data-bs-theme="dark"] .trumbowyg-modal-button.trumbowyg-modal-submit {
+    background: #0d6efd;
+}
+
+[data-bs-theme="dark"] .trumbowyg-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
 }

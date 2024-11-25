@@ -166,7 +166,7 @@ class GenerateArticlesCommand extends Command
     {
         // Generate shorter content to ensure it fits database constraints
         $title = $this->generateRandomText(100);
-        $lead = $this->generateRandomText(200);
+        $lede = $this->generateRandomText(200);
         $summary = $this->generateRandomText(50, true);
         $body = $this->generateRandomText(200, true);
 
@@ -183,7 +183,7 @@ class GenerateArticlesCommand extends Command
         // Create new article entity
         $article = $this->Articles->newEmptyEntity();
         $article->title = $title;
-        $article->lead = $lead;
+        $article->lede = $lede;
         $article->summary = $summary;
         $article->body = $body;
         $article->slug = ''; // Will be auto-generated

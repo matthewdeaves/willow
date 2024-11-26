@@ -1,11 +1,33 @@
-<!-- templates/Admin/Videos/video_select.php -->
+<?php 
+$isGalleryOnly = $this->request->getQuery('gallery_only', false);
+?>
+
+<?php if (!$isGalleryOnly): ?>
 <div class="mb-3">
-    <input type="text" 
-           id="videoSearch" 
-           class="form-control" 
-           placeholder="<?= __('Search YouTube videos...') ?>" 
-           value="<?= h($searchTerm) ?>">
+    <div class="row">
+        <div class="col-md-8">
+            <input type="text" 
+                   id="videoSearch" 
+                   class="form-control" 
+                   placeholder="<?= __('Search YouTube videos...') ?>" 
+                   value="<?= h($searchTerm) ?>">
+        </div>
+        <?php if ($channelId): ?>
+        <div class="col-md-4">
+            <div class="form-check form-switch mt-2">
+                <input class="form-check-input" 
+                       type="checkbox" 
+                       id="channelFilter" 
+                       <?= $filterByChannel ? 'checked' : '' ?>>
+                <label class="form-check-label" for="channelFilter">
+                    <?= __('Show only channel videos') ?>
+                </label>
+            </div>
+        </div>
+        <?php endif; ?>
+    </div>
 </div>
+<?php endif; ?>
 
 <div id="video-gallery" class="row g-3">
     <?php if (empty($videos) && empty($searchTerm)): ?>

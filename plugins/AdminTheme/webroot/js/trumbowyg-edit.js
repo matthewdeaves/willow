@@ -90,7 +90,14 @@ $(document).ready(function() {
                 
                 return false;
             });
-
+    
+            // Channel filter handler
+            $('#channelFilter').off('change').on('change', function() {
+                const searchInput = document.getElementById('videoSearch');
+                const searchTerm = searchInput ? searchInput.value.trim() : '';
+                videoHandlers.loadVideos(searchTerm, trumbowyg);
+            });
+    
             // Search handler
             const searchInput = document.getElementById('videoSearch');
             if (searchInput) {
@@ -99,19 +106,22 @@ $(document).ready(function() {
                     clearTimeout(debounceTimer);
                     debounceTimer = setTimeout(() => {
                         const searchTerm = this.value.trim();
-                        if (searchTerm.length > 0) {
-                            videoHandlers.loadVideos(searchTerm, trumbowyg);
-                        }
+                        videoHandlers.loadVideos(searchTerm, trumbowyg);
                     }, 300);
                 });
             }
         },
-
+    
         loadVideos: function(searchTerm, trumbowyg) {
+            const channelFilter = $('#channelFilter').is(':checked');
             $.ajax({
                 url: '/admin/videos/video_select',
                 type: 'GET',
-                data: { search: searchTerm },
+                data: { 
+                    search: searchTerm,
+                    channel_filter: channelFilter,
+                    gallery_only: true  // Add this parameter
+                },
                 success: (response) => {
                     $('#video-gallery').html(response);
                     this.bindEvents(trumbowyg);

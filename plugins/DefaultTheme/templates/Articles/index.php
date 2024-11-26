@@ -26,7 +26,7 @@
         <?= htmlspecialchars_decode($article->summary); ?>
         <hr>
     <?php elseif ($displayMode == 'body') : ?>
-        <?= htmlspecialchars_decode($article->body); ?>
+        <?= htmlspecialchars_decode($this->Video->processYouTubePlaceholders($article->body)); ?>
         <hr>
     <?php endif; ?>
 

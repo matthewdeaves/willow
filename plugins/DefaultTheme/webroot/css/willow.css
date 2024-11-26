@@ -299,3 +299,35 @@ body {
   margin-bottom: 0.5em;
   border-radius: 3px;
 }
+
+/* youtube-gdpr */
+.youtube-embed {
+  margin: 1rem 0;
+}
+
+.youtube-placeholder {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.youtube-thumbnail {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.youtube-consent-overlay {
+  transition: opacity 0.3s ease;
+}
+
+.youtube-consent-overlay:hover {
+  opacity: 0.9;
+}
+
+.youtube-consent-btn {
+  transition: transform 0.2s ease;
+}
+
+.youtube-consent-btn:hover {
+  transform: scale(1.05);
+}

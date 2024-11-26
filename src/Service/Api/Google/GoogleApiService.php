@@ -21,7 +21,7 @@ class GoogleApiService
     /**
      * @var array<string, string>
      */
-    private array $codeBlocks = [];
+    private array $preservedBlocks = [];
 
     /**
      * Constructor for the GoogleApiService class.
@@ -91,9 +91,9 @@ class GoogleApiService
     ): array {
         $locales = array_filter(SettingsManager::read('Translations', []));
 
-        $this->codeBlocks = [];
+        $this->preservedBlocks = [];
 
-        $processedBody = $this->preprocessCodeBlocks($body);
+        $processedBody = $this->preprocessContent($body);
 
         $translations = [];
         foreach ($locales as $locale => $enabled) {
@@ -117,7 +117,7 @@ class GoogleApiService
                 ]
             );
             $translations[$locale]['title'] = $translationResult[0]['text'];
-            $translations[$locale]['body'] = $this->postprocessCodeBlocks($translationResult[1]['text']);
+            $translations[$locale]['body'] = $this->postprocessContent($translationResult[1]['text']);
             $translations[$locale]['summary'] = $translationResult[2]['text'];
             $translations[$locale]['meta_title'] = $translationResult[3]['text'];
             $translations[$locale]['meta_description'] = $translationResult[4]['text'];
@@ -193,51 +193,58 @@ class GoogleApiService
     }
 
     /**
-     * Preprocesses content to identify and store code blocks before translation.
+     * Preprocesses content to identify and store code blocks and video placeholders before translation.
      *
-     * This method extracts code blocks (markdown, pre, and code tags) from the content
-     * and replaces them with unique placeholders. The original code blocks are stored
-     * in the $codeBlocks property for later restoration.
+     * This method extracts code blocks (markdown, pre, code tags) and video placeholders from the content
+     * and replaces them with unique placeholders. The original content is stored in the $preservedBlocks
+     * property for later restoration.
      *
-     * @param string $content The content containing code blocks to be processed
-     * @return string The content with code blocks replaced by placeholders
+     * @param string $content The content containing blocks to be processed
+     * @return string The content with preserved blocks replaced by placeholders
      */
-    private function preprocessCodeBlocks(string $content): string
+    private function preprocessContent(string $content): string
     {
-        // First, let's identify and store code blocks
-        $codeBlocks = [];
-        $content = preg_replace_callback(
+        $this->preservedBlocks = [];
+
+        // Process code blocks and video placeholders
+        $patterns = [
+            // Code blocks pattern
             '/(```[a-z]*\n[\s\S]*?\n```)|(<pre[\s\S]*?<\/pre>)|(<code[\s\S]*?<\/code>)/m',
-            function ($matches) use (&$codeBlocks) {
-                $placeholder = sprintf('__CODE_BLOCK_%d__', count($codeBlocks));
-                $codeBlocks[$placeholder] = $matches[0];
+            // YouTube video placeholder pattern
+            '/\[youtube:[a-zA-Z0-9_-]+:\d+:\d+:[^\]]*\]/m',
+        ];
 
-                return $placeholder;
-            },
-            $content
-        );
+        foreach ($patterns as $pattern) {
+            $content = preg_replace_callback(
+                $pattern,
+                function ($matches) {
+                    $placeholder = sprintf('__PRESERVED_BLOCK_%d__', count($this->preservedBlocks));
+                    $this->preservedBlocks[$placeholder] = $matches[0];
 
-        // Store the code blocks in a property for later use
-        $this->codeBlocks = $codeBlocks;
+                    return $placeholder;
+                },
+                $content
+            );
+        }
 
         return $content;
     }
 
     /**
-     * Restores previously stored code blocks back into the content.
+     * Restores previously stored content blocks back into the content.
      *
-     * This method replaces the placeholder tokens with their original code block content
-     * that was stored during preprocessing. This ensures code blocks maintain their
-     * original formatting and content after translation.
+     * This method replaces the placeholder tokens with their original content
+     * that was stored during preprocessing. This ensures code blocks and video
+     * placeholders maintain their original formatting and content after translation.
      *
-     * @param string $content The content containing code block placeholders
-     * @return string The content with original code blocks restored
+     * @param string $content The content containing placeholders
+     * @return string The content with original blocks restored
      */
-    private function postprocessCodeBlocks(string $content): string
+    private function postprocessContent(string $content): string
     {
-        // Restore the original code blocks
-        foreach ($this->codeBlocks as $placeholder => $codeBlock) {
-            $content = str_replace($placeholder, $codeBlock, $content);
+        // Restore all preserved blocks
+        foreach ($this->preservedBlocks as $placeholder => $originalContent) {
+            $content = str_replace($placeholder, $originalContent, $content);
         }
 
         return $content;

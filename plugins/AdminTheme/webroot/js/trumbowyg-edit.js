@@ -7,13 +7,11 @@ $(document).ready(function() {
                 e.stopPropagation();
                 
                 var imageSrc = $(this).data('src');
-            var imageId = $(this).data('id');
-            var imageAlt = $(this).data('alt');
-            var imageSize = $('#' + imageId + '_size').val();
+                var imageId = $(this).data('id');
+                var imageAlt = $(this).data('alt');
+                var imageSize = $('#' + imageId + '_size').val();
+                var imageHtml = '<img src="/files/Images/image/' + imageSize + '/' + imageSrc + '" alt="' + imageAlt + '" class="img-fluid" />';
 
-            var imageHtml = '<img src="/files/Images/image/' + imageSize + '/' + imageSrc + '" alt="' + imageAlt + '" class="img-fluid" />';
-
-                
                 // Restore the range before inserting
                 trumbowyg.restoreRange();
                 

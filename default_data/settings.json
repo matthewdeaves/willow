@@ -341,6 +341,17 @@
         "column_width": 12
     },
     {
+        "ordering": 4,
+        "category": "Google",
+        "key_name": "youtubeApiKey",
+        "value": "your-api-key-here",
+        "value_type": "text",
+        "value_obscure": true,
+        "description": "This field is used to store your YouTube API key, which is required to access your videos to insert into post and page content.",
+        "data": null,
+        "column_width": 12
+    },
+    {
         "ordering": 2,
         "category": "AI",
         "key_name": "articleTranslations",

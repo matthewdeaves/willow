@@ -70,20 +70,28 @@ class MediaSelect {
     bindSearchBoxEvents() {
         const searchInput = document.getElementById(`${this.type}Search`);
         if (!searchInput) return;
-
+    
         let debounceTimer;
         this.boundHandleSearch = (event) => {
             clearTimeout(debounceTimer);
             debounceTimer = setTimeout(() => {
                 const searchTerm = event.target.value.trim();
+                const channelFilter = document.getElementById('channelFilter');
                 let url = `${this.endpoints[this.type]}?gallery_only=1`;
+                
                 if (searchTerm.length > 0) {
                     url += '&search=' + encodeURIComponent(searchTerm);
                 }
+                
+                // Add channel filter state if element exists
+                if (channelFilter) {
+                    url += '&channel_filter=' + channelFilter.checked;
+                }
+                
                 this.loadContent(url);
             }, 300);
         };
-
+    
         searchInput.addEventListener('input', this.boundHandleSearch, { passive: true });
     }
 

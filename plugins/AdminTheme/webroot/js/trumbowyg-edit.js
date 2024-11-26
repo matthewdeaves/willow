@@ -113,14 +113,19 @@ $(document).ready(function() {
     
         loadVideos: function(searchTerm, trumbowyg) {
             const channelFilter = $('#channelFilter').is(':checked');
+            const params = {
+                gallery_only: true,
+                channel_filter: channelFilter
+            };
+            
+            if (searchTerm) {
+                params.search = searchTerm;
+            }
+            
             $.ajax({
                 url: '/admin/videos/video_select',
                 type: 'GET',
-                data: { 
-                    search: searchTerm,
-                    channel_filter: channelFilter,
-                    gallery_only: true  // Add this parameter
-                },
+                data: params,
                 success: (response) => {
                     $('#video-gallery').html(response);
                     this.bindEvents(trumbowyg);

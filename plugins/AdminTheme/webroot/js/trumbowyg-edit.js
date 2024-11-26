@@ -6,12 +6,13 @@ $(document).ready(function() {
                 e.preventDefault();
                 e.stopPropagation();
                 
-                var imageUrl = $(this).attr('src');
-                var imageAlt = $(this).attr('alt') || '';
-                var imageSize = $(this).data('size') || '';
-                
-                // Create the image HTML
-                var imageHtml = '<img src="' + imageUrl + '" alt="' + imageAlt + '" class="' + imageSize + '">';
+                var imageSrc = $(this).data('src');
+            var imageId = $(this).data('id');
+            var imageAlt = $(this).data('alt');
+            var imageSize = $('#' + imageId + '_size').val();
+
+            var imageHtml = '<img src="/files/Images/image/' + imageSize + '/' + imageSrc + '" alt="' + imageAlt + '" class="img-fluid" />';
+
                 
                 // Restore the range before inserting
                 trumbowyg.restoreRange();

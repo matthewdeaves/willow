@@ -34,9 +34,8 @@ function buildMenu($articles, $view) {
             </time>
         </header>
 
-        <div class="article-content">
-            <?= $article->body ?>
-        </div>
+        <div id="article-body-content"><?= htmlspecialchars_decode($this->Video->processYouTubePlaceholders($article->body)) ?></div>
+
     </article>
     <?php endif; ?>
     <?php if ($articles) : ?>

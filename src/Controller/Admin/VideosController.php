@@ -18,7 +18,7 @@ class VideosController extends AppController
      *
      * @return void
      */
-    public function videoSelect()
+    public function videoSelect(): void
     {
         $this->viewBuilder()->setLayout('ajax');
 

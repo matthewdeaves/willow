@@ -5,6 +5,7 @@ namespace App\Job;
 
 use App\Service\Api\Google\GoogleApiService;
 use App\Utility\SettingsManager;
+use Cake\Cache\Cache;
 use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
@@ -157,6 +158,7 @@ class TranslateArticleJob implements JobInterface
                     );
                 }
             }
+            Cache::clear('articles');
 
             return Processor::ACK;
         } else {

@@ -352,6 +352,17 @@
         "column_width": 12
     },
     {
+        "ordering": 5,
+        "category": "Google",
+        "key_name": "youtubeChannelId",
+        "value": "your-api-key-here",
+        "value_type": "text",
+        "value_obscure": true,
+        "description": "This field is used to store your YouTube Channel ID, which is required to allow you to filter videos to just your own.",
+        "data": null,
+        "column_width": 12
+    },
+    {
         "ordering": 2,
         "category": "AI",
         "key_name": "articleTranslations",

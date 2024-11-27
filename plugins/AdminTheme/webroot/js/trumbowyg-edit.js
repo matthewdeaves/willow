@@ -326,6 +326,9 @@ $(document).ready(function() {
             insertVideoFromLibrary: {},
             table: {},
             colors: {}
-        }
+        },
+        autogrow: true,
+        autogrowOnEnter: true,
+        minHeight: 400
     });
 });

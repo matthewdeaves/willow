@@ -396,3 +396,7 @@ pre {
 [data-bs-theme="dark"] .trumbowyg-overlay {
     background-color: rgba(0, 0, 0, 0.5);
 }
+
+#trumbowyg-icons {
+    display: none;
+}

@@ -8,31 +8,31 @@ use App\Utility\SettingsManager;
 trait ImageUrlTrait
 {
     /**
-     * Retrieves the URL for an image by removing the 'webroot/' prefix from the directory path.
+     * Retrieves the URL for an image at original size by removing the 'webroot/' prefix from the directory path.
      *
      * This method constructs the image URL by concatenating the directory and image name,
      * and then removes the 'webroot/' part from the path to generate a relative URL.
      *
      * @return string The relative URL of the image.
      */
-    protected function _getImageUrl(): string
+    public function _getImageUrl(): string
     {
         return str_replace('webroot/', '', $this->dir . $this->image);
     }
 
     /**
-     * Magic method to dynamically retrieve image URLs based on field names.
+     * Magic method to dynamically retrieve image URLs based on image size names.
      *
-     * This method checks if the requested field name matches the pattern for image URLs
-     * (e.g., "thumbnailImageUrl") and returns the corresponding image URL if available.
-     * If the field does not match the pattern, it delegates to the parent::__get() method.
+     * This method checks if the requested attribute name matches the pattern for image URLs
+     * (e.g., "smallImageUrl") and returns the corresponding image URL if available.
+     * If the attribute does not match the pattern, it delegates to the parent::__get() method.
      *
-     * @param string $field The name of the field being accessed.
-     * @return mixed The URL of the image if the field matches the pattern, otherwise the result of parent::__get().
+     * @param string $attribute The name of the attribute being accessed.
+     * @return mixed The URL of the image if the attribute matches the pattern, otherwise the result of parent::__get().
      */
-    public function &__get(string $field): mixed
+    public function &__get(string $attribute): mixed
     {
-        if (preg_match('/^(.+)ImageUrl$/', $field, $matches)) {
+        if (preg_match('/^(.+)ImageUrl$/', $attribute, $matches)) {
             $size = lcfirst($matches[1]);
             $imageSizes = SettingsManager::read('ImageSizes');
             if (isset($imageSizes[$size])) {
@@ -42,7 +42,7 @@ trait ImageUrlTrait
             }
         }
 
-        return parent::__get($field);
+        return parent::__get($attribute);
     }
 
     /**

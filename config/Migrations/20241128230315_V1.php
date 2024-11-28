@@ -260,6 +260,11 @@ class V1 extends AbstractMigration
                 'limit' => 255,
                 'null' => true,
             ])
+            ->addColumn('lede', 'string', [
+                'default' => null,
+                'limit' => 400,
+                'null' => true,
+            ])
             ->addColumn('body', 'text', [
                 'default' => null,
                 'limit' => null,

@@ -95,6 +95,7 @@ class TranslateArticleJob implements JobInterface
         try {
             $result = $this->apiService->translateArticle(
                 (string)$article->title,
+                (string)$article->lede,
                 (string)$article->body,
                 (string)$article->summary,
                 (string)$article->meta_title,
@@ -123,6 +124,7 @@ class TranslateArticleJob implements JobInterface
         if ($result) {
             foreach ($result as $locale => $translation) {
                 $article->translation($locale)->title = $translation['title'];
+                $article->translation($locale)->lede = $translation['lede'];
                 $article->translation($locale)->body = $translation['body'];
                 $article->translation($locale)->summary = $translation['summary'];
                 $article->translation($locale)->meta_title = $translation['meta_title'];

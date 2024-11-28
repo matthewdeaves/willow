@@ -218,7 +218,8 @@ class GoogleApiService
             $content = preg_replace_callback(
                 $pattern,
                 function ($matches) {
-                    $placeholder = sprintf('__PRESERVED_BLOCK_%d__', count($this->preservedBlocks));
+                    // Use HTML comment syntax for placeholders to prevent translation
+                    $placeholder = sprintf('<!--PRESERVED_BLOCK_%d-->', count($this->preservedBlocks));
                     $this->preservedBlocks[$placeholder] = $matches[0];
 
                     return $placeholder;

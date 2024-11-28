@@ -21,7 +21,7 @@ class TranslateArticleJob implements JobInterface
      *
      * @var int|null
      */
-    public static ?int $maxAttempts = 3;
+    public static int $maxAttempts = 3;
 
     /**
      * Whether there should be only one instance of a job on the queue at a time.
@@ -86,11 +86,11 @@ class TranslateArticleJob implements JobInterface
         // If there are any empy fields to be translated, wait 10 seconds and requeue
         // there could be a job in the queue to generate those fields and in production
         // we have 3 queue consumers
-        if (!empty($articlesTable->emptySeoFields($article))) {
-            sleep(10);
+        // if (!empty($articlesTable->emptySeoFields($article))) {
+        //     sleep(10);
 
-            return Processor::REQUEUE;
-        }
+        //     return Processor::REQUEUE;
+        // }
 
         try {
             $result = $this->apiService->translateArticle(

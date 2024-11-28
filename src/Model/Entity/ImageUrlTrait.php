@@ -15,7 +15,7 @@ trait ImageUrlTrait
      *
      * @return string The relative URL of the image.
      */
-    public function _getImageUrl(): string
+    protected function _getImageUrl(): string
     {
         return str_replace('webroot/', '', $this->dir . $this->image);
     }

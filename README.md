@@ -41,19 +41,20 @@ Willow CMS uses queues and consumers to offload heavy duty tasks to background p
 
 You should install the developer shell aliases by running:
 
-```
+```bash
 ./setup_dev_aliases.sh
-``
+```
 
 You can start a queue worker process like this:
 
 - **Alias Command**: (see [Useful Shell Aliases](https://github.com/matthewdeaves/willow/blob/main/DeveloperGuide.md#useful-shell-aliases-and-git-hooks))
 
-```
+```bash
 cake_queue_worker
 ```
 - **Raw Command without dev aliases**: 
-```
+
+```bash
 docker compose exec willowcms bin/cake queue worker --verbose
 ```
 Leave the queue worker running in a terminal to see useful output as it picks up and runs [jobs](https://github.com/matthewdeaves/willow/tree/main/src/Job). Remember to save your Anthropic API key in the settings page.

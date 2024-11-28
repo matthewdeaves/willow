@@ -12,7 +12,7 @@
 5. [Production Environment](#production-environment)
 
 ## Docker Development Environment
-Docker is used to host everything you need for a development environment: Nginx, PHP, MySQL, Redis, PHPMyAdmin, MailHog and Jenkins. The only thing you need on your host machine is [Docker](https://www.docker.com).
+Docker is used to host everything you need for a development environment: Nginx, PHP, MySQL, Redis, PHPMyAdmin, Mailpit and Jenkins. The only thing you need on your host machine is [Docker](https://www.docker.com).
 
 ### Quick Start - Mac OS X / Ubuntu
 

@@ -255,7 +255,6 @@ return [
      * You can add custom transports (or override existing transports) by adding the
      * appropriate file to src/Mailer/Transport. Transports should be named
      * 'YourTransport.php', where 'Your' is the name of the transport.
-     * TODO UPDATE MAILHOG TO USE .ENV FILE FOR HOST/PORT
      */
     'EmailTransport' => [
         'default' => [
@@ -264,7 +263,7 @@ return [
              * The keys host, port, timeout, username, password, client and tls
              * are used in SMTP transports
              */
-            'host' => env('EMAIL_HOST', 'mailhog'),
+            'host' => env('EMAIL_HOST', 'mailpit'),
             'port' => env('EMAIL_PORT', 1025),
             'timeout' => env('EMAIL_TIMEOUT', 30),
             /*

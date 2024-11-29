@@ -14,1566 +14,1718 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
 #: 
-msgid "Edit Aiprompt"
-msgstr "Az Airprompt szerkesztése"
-
-#: 
-msgid "Add Internationalisation"
-msgstr "Internacionalizálás hozzáadása"
-
-#: 
-msgid "Are you sure you want to delete all {0} logs?"
-msgstr "Biztosan törli az összes {0} naplót?"
-
-#: 
-msgid "The internationalisation has been deleted."
-msgstr "A nemzetköziesítést törölték."
-
-#: 
-msgid "Main Menu"
-msgstr "Főmenü"
-
-#: 
-msgid "Enable enhanced functionality and personalization."
-msgstr "Engedélyezze a továbbfejlesztett funkcionalitást és a személyre szabást."
-
-#: 
-msgid "Related Tags"
-msgstr "Kapcsolódó címkék"
-
-#: 
-msgid "Linkedin Description"
-msgstr "Linkedin Leírás"
-
-#: 
-msgid "Actions"
-msgstr "Akciók"
-
-#: 
-msgid "System Prompt"
-msgstr "Rendszer prompt"
-
-#: 
-msgid "Yes"
-msgstr "Igen"
-
-#: 
-msgid "Generating {0} articles..."
-msgstr "{0} cikk generálása..."
-
-#: 
-msgid "Invalid username or password"
-msgstr "Érvénytelen felhasználónév vagy jelszó"
-
-#: 
-msgid "The tag has been saved."
-msgstr "A címke mentése megtörtént."
-
-#: 
-msgid "Please log in to add a comment"
-msgstr "Megjegyzés hozzáadásához jelentkezzen be"
-
-#: 
-msgid "Cookie Preferences"
-msgstr "Cookie-beállítások"
-
-#: 
-msgid "All logs with level {0} have been deleted."
-msgstr "Minden {0} szintű napló törölve lett."
-
-#: 
-msgid "Modified"
-msgstr "Módosított"
-
-#: 
-msgid "Edit Email Template"
-msgstr "E-mail sablon szerkesztése"
-
-#: 
-msgid "We were unable to find that account."
-msgstr "Nem tudtuk megtalálni ezt a fiókot."
-
-#: 
-msgid "Users"
-msgstr "Felhasználók"
-
-#: 
-msgid "Admin"
-msgstr "Admin"
-
-#: 
-msgid "System Logs"
-msgstr "Rendszernaplók"
-
-#: 
-msgid "All Levels"
-msgstr "Minden szint"
-
-#: 
-msgid "Account"
-msgstr "fiók"
-
-#: 
-msgid "The slug must be unique."
-msgstr "A csigának egyedinek kell lennie."
-
-#: 
-msgid "Slug"
-msgstr "Meztelen csiga"
-
-#: 
-msgid "The email template could not be saved. Please, try again."
-msgstr "Az e-mail sablont nem sikerült elmenteni. Kérem, próbálja újra."
-
-#: 
-msgid "Unable to delete logs with level {0}."
-msgstr "A(z) {0} szintű naplók nem törölhetők."
-
-#: 
-msgid "Blocked At"
-msgstr "Letiltva itt"
-
-#: 
-msgid "Cookies"
-msgstr "Cookie-k"
-
-#: 
-msgid "Error sending email: {0}"
-msgstr "Hiba az e-mail küldésekor: {0}"
-
-#: 
-msgid "Invalid type"
-msgstr "Érvénytelen típus"
-
-#: 
-msgid "Active"
-msgstr "Aktív"
-
-#: 
-msgid "This slug is already in use in articles. Please enter a unique slug."
-msgstr "Ez a csiga már használatban van a cikkekben. Kérjük, adjon meg egy egyedi csigát."
-
-#: 
-msgid "Edit"
-msgstr "Szerkesztés"
-
-#: 
-msgid "Child"
-msgstr "Gyermek"
-
-#: 
-msgid "Logs"
-msgstr "Naplók"
-
-#: 
-msgid "Title"
-msgstr "Cím"
-
-#: 
-msgid "Failed to send email to: {0}"
-msgstr "Nem sikerült e-mailt küldeni a következő címre: {0}"
-
-#: 
-msgid "Related Articles/Pages"
-msgstr "Kapcsolódó cikkek/oldalak"
-
-#: 
-msgid "New Post"
-msgstr "Új bejegyzés"
-
-#: 
-msgid "Related pages"
-msgstr "Kapcsolódó oldalak"
-
-#: 
-msgid "All logs have been deleted."
-msgstr "Az összes naplót törölték."
-
-#: 
-msgid "List {0}"
-msgstr "{0}. lista"
-
-#: 
-msgid "Edit Image"
-msgstr "Kép szerkesztése"
-
-#: 
-msgid "The aiprompt could not be deleted. Please, try again."
-msgstr "Az aiprompt nem törölhető. Kérem, próbálja újra."
-
-#: 
-msgid "Created"
-msgstr "Létrehozva"
-
-#: 
-msgid "Failed to send email. Please check your email configuration."
-msgstr "Nem sikerült elküldeni az e-mailt. Kérjük, ellenőrizze az e-mail konfigurációját."
-
-#: 
-msgid "The blocked ip has been saved."
-msgstr "A blokkolt IP-cím mentése megtörtént."
-
-#: 
-msgid "The aiprompt has been saved."
-msgstr "Az aiprompt elmentve."
-
-#: 
-msgid "Facebook Description"
-msgstr "Facebook Leírás"
-
-#: 
-msgid "No pages found."
-msgstr "Nem található oldal."
-
-#: 
-msgid "Edit User"
-msgstr "Felhasználó szerkesztése"
-
-#: 
-msgid "Elsewhere"
-msgstr "Máshol"
-
-#: 
-msgid "Log In"
-msgstr "Bejelentkezés"
-
-#: 
-msgid "Slugs"
-msgstr "Csigák"
-
-#: 
-msgid "Willow CMS"
-msgstr "Willow CMS"
-
-#: 
-msgid "Your password has been reset. Please log in with your new password."
-msgstr "Jelszava visszaállításra került. Kérjük, jelentkezzen be új jelszavával."
-
-#: 
-msgid "The comment has been saved."
-msgstr "A megjegyzést elmentettük."
-
-#: 
-msgid "The value must be a number."
-msgstr "Az értéknek számnak kell lennie."
-
-#: 
-msgid "Related Slugs"
-msgstr "Kapcsolódó csigák"
-
-#: 
-msgid "Search Email Templates..."
-msgstr "E-mail sablonok keresése..."
-
-#: 
-msgid "Select Tags"
-msgstr "Válassza a Címkék lehetőséget"
-
-#: 
-msgid "The email template has been saved."
-msgstr "Az e-mail sablon el lett mentve."
-
-#: 
-msgid "Email sent successfully."
-msgstr "E-mail sikeresen elküldve."
-
-#: 
-msgid "Edit {0}"
-msgstr "{0} szerkesztése"
-
-#: 
-msgid "Your cookie preferences could not be saved. Please, try again."
-msgstr "A cookie-beállításait nem sikerült elmenteni. Kérem, próbálja újra."
-
-#: 
-msgid "English"
-msgstr "angol"
-
-#: 
-msgid "New {0}"
-msgstr "Új {0}"
-
-#: 
-msgid "Error"
-msgstr "Hiba"
-
-#: 
-msgid "Reason"
-msgstr "Ok"
-
-#: 
-msgid "Register"
-msgstr "Nyilvántartás"
-
-#: 
-msgid "Displayed"
-msgstr "Megjelenítve"
-
-#: 
-msgid "All caches have been cleared successfully."
-msgstr "Az összes gyorsítótár sikeresen törölve."
-
-#: 
-msgid "Clear"
-msgstr "Világos"
-
-#: 
-msgid "Invalid or expired password reset link."
-msgstr "Érvénytelen vagy lejárt jelszó-visszaállítási hivatkozás."
-
-#: 
-msgid "Are you sure you want to delete # {0}?"
-msgstr "Biztosan törli a következőt: # {0}?"
-
-#: 
-msgid "Unable to delete the log."
-msgstr "Nem sikerült törölni a naplót."
-
-#: 
-msgid "Light"
-msgstr "Fény"
-
-#: 
-msgid "SEO Fields"
-msgstr "SEO mezők"
-
-#: 
-msgid "New User"
-msgstr "Új felhasználó"
-
-#: 
-msgid "Required"
-msgstr "Kívánt"
-
-#: 
-msgid "Recent posts"
-msgstr "Legutóbbi bejegyzések"
-
-#: 
-msgid "Front Site"
-msgstr "Elülső oldal"
-
-#: 
-msgid "Cache Name"
-msgstr "Gyorsítótár neve"
-
-#: 
-msgid "Search Pages..."
-msgstr "Oldalak keresése..."
-
-#: 
-msgid "Model"
-msgstr "Modell"
-
-#: 
-msgid "New Image"
-msgstr "Új kép"
-
-#: 
-msgid "Reset your password"
-msgstr "Állítsa vissza jelszavát"
-
-#: 
-msgid "Used to deliver personalized advertisements and enable the facebook share button."
-msgstr "Személyre szabott hirdetések megjelenítésére és a Facebook megosztás gombjának engedélyezésére szolgál."
-
-#: 
-msgid "Number of articles to generate"
-msgstr "A létrehozandó cikkek száma"
-
-#: 
-msgid "Back to Login"
-msgstr "Vissza a Bejelentkezéshez"
-
-#: 
-msgid "Search Posts..."
-msgstr "Keresés a bejegyzésekben..."
-
-#: 
-msgid "To understand how we handle your personal information, including the use of cookies and other tracking technologies, please review our {0}."
-msgstr "Annak megértéséhez, hogyan kezeljük személyes adatait, beleértve a cookie-k és más nyomkövetési technológiák használatát, tekintse át a következőt: {0}."
-
-#: 
-msgid "The log has been deleted."
-msgstr "A naplót törölték."
-
-#: 
-msgid "Delete {0}"
-msgstr "{0} törlése"
-
-#: 
-msgid "The tag could not be saved. Please, try again."
-msgstr "A címkét nem sikerült elmenteni. Kérem, próbálja újra."
-
-#: 
-msgid "The email template has been deleted."
-msgstr "Az e-mail sablon törölve lett."
-
-#: 
-msgid "The slug has been saved."
-msgstr "A csigát megmentették."
-
-#: 
-msgid "All rights reserved."
-msgstr "Minden jog fenntartva."
-
-#: 
-msgid "Group Name"
-msgstr "Csoport neve"
-
-#: 
-msgid "You must be logged in to add a comment."
-msgstr "Hozzászólás írásához be kell jelentkeznie."
-
-#: 
-msgid "Description"
-msgstr "Leírás"
-
-#: 
 msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
 msgstr "A slug-nak URL-biztosnak kell lennie (csak kisbetűk, számok és kötőjelek)"
-
-#: 
-msgid "Page Views"
-msgstr "Oldalmegtekintések"
-
-#: 
-msgid "Email template not found: {0}"
-msgstr "Az e-mail sablon nem található: {0}"
-
-#: 
-msgid "All Groups"
-msgstr "Minden csoport"
-
-#: 
-msgid "Article not found"
-msgstr "A cikk nem található"
-
-#: 
-msgid "Hide"
-msgstr "Elrejt"
-
-#: 
-msgid "Access denied. You must be an admin to view this page."
-msgstr "Hozzáférés megtagadva. Az oldal megtekintéséhez adminisztrátornak kell lennie."
-
-#: 
-msgid "Updated At"
-msgstr "Frissítve:"
-
-#: 
-msgid "Body"
-msgstr "Test"
-
-#: 
-msgid "Comments"
-msgstr "Megjegyzések"
-
-#: 
-msgid "You cannot disable your own account."
-msgstr "Nem tilthatja le saját fiókját."
-
-#: 
-msgid "Too many requests. Please try again later."
-msgstr "Túl sok kérés. Kérjük, próbálja újra később."
-
-#: 
-msgid "Enter text"
-msgstr "Írja be a szöveget"
-
-#: 
-msgid "No admin user found."
-msgstr "Nem található adminisztrátor felhasználó."
-
-#: 
-msgid "All"
-msgstr "Minden"
-
-#: 
-msgid "Settings"
-msgstr "Beállítások elemre"
-
-#: 
-msgid "Never"
-msgstr "Soha"
-
-#: 
-msgid "Rate limit exceeded for IP: {0} on route: {1}"
-msgstr "Díjkorlát túllépve a következő IP-címnél: {0} a következő útvonalon: {1}"
-
-#: 
-msgid "Kind"
-msgstr "Fajta"
-
-#: 
-msgid "Is Admin"
-msgstr "Az Admin"
-
-#: 
-msgid "Auto"
-msgstr "Auto"
-
-#: 
-msgid "Required for the website to function properly. These cannot be disabled."
-msgstr "A weboldal megfelelő működéséhez szükséges. Ezeket nem lehet letiltani."
-
-#: 
-msgid "New Page"
-msgstr "Új oldal"
-
-#: 
-msgid "Forgot Password?"
-msgstr "Elfelejtett jelszó?"
-
-#: 
-msgid "Message Id"
-msgstr "Üzenetazonosító"
-
-#: 
-msgid "The slug has been deleted."
-msgstr "A csigát törölték."
-
-#: 
-msgid "Add Email Template"
-msgstr "E-mail sablon hozzáadása"
-
-#: 
-msgid "Email Templates"
-msgstr "E-mail sablonok"
-
-#: 
-msgid "Articles/Pages"
-msgstr "Cikkek/Oldalak"
-
-#: 
-msgid "Edit Comment"
-msgstr "Megjegyzés szerkesztése"
-
-#: 
-msgid "Login"
-msgstr "Bejelentkezés"
-
-#: 
-msgid "Creating {0} new top-level tags..."
-msgstr "{0} új legfelső szintű címke létrehozása..."
-
-#: 
-msgid "No articles found for this tag."
-msgstr "Nem található cikk ehhez a címkéhez."
-
-#: 
-msgid "Ip Address"
-msgstr "IP-cím"
-
-#: 
-msgid "Bulk Upload"
-msgstr "Tömeges feltöltés"
-
-#: 
-msgid "None"
-msgstr "Egyik sem"
-
-#: 
-msgid "Username"
-msgstr "Felhasználónév"
-
-#: 
-msgid "Created At"
-msgstr "Létrehozva:"
-
-#: 
-msgid "New Blocked Ip"
-msgstr "Új blokkolt IP"
-
-#: 
-msgid "The image has been saved."
-msgstr "A kép mentése megtörtént."
-
-#: 
-msgid "Related Comments"
-msgstr "Kapcsolódó megjegyzések"
-
-#: 
-msgid "Meta Description"
-msgstr "Meta leírás"
-
-#: 
-msgid "Slug:"
-msgstr "Meztelen csiga:"
-
-#: 
-msgid "Please upload only images (jpeg, png, gif)."
-msgstr "Kérjük, csak képeket töltsön fel (jpeg, png, gif)."
-
-#: 
-msgid "Add Slug"
-msgstr "Add Slug"
-
-#: 
-msgid "Flagged"
-msgstr "Megjelölve"
-
-#: 
-msgid "Inactive"
-msgstr "Inaktív"
-
-#: 
-msgid "Image uploaded successfully"
-msgstr "A kép sikeresen feltöltve"
-
-#: 
-msgid "Level"
-msgstr "Szint"
-
-#: 
-msgid "Registration successful. Please check your email for confirmation."
-msgstr "Sikeres regisztráció. Kérjük, ellenőrizze e-mailjét megerősítésért."
-
-#: 
-msgid "Error loading images:"
-msgstr "Hiba a képek betöltésekor:"
-
-#: 
-msgid "Add Blocked Ip"
-msgstr "Blokkolt IP hozzáadása"
-
-#: 
-msgid "The user could not be deleted. Please, try again."
-msgstr "A felhasználót nem lehetett törölni. Kérem, próbálja újra."
-
-#: 
-msgid "Body Plain"
-msgstr "Body Plain"
-
-#: 
-msgid "A value is required"
-msgstr "Érték megadása kötelező"
-
-#: 
-msgid "Date"
-msgstr "Dátum"
-
-#: 
-msgid "All articles have been deleted."
-msgstr "Minden cikk törölve lett."
-
-#: 
-msgid "Subject"
-msgstr "Téma"
-
-#: 
-msgid "The comment has been deleted."
-msgstr "A megjegyzés törölve lett."
-
-#: 
-msgid "Search Tags..."
-msgstr "Címkék keresése..."
-
-#: 
-msgid "Add Tag"
-msgstr "Címke hozzáadása"
-
-#: 
-msgid "Failed to create tag: {0}"
-msgstr "Nem sikerült létrehozni a címkét: {0}"
-
-#: 
-msgid "View"
-msgstr "Kilátás"
-
-#: 
-msgid "Essential Cookies"
-msgstr "Essential Cookie-k"
-
-#: 
-msgid "Modified At"
-msgstr "Módosítva:"
-
-#: 
-msgid "Last Cleared"
-msgstr "Utoljára törölve"
-
-#: 
-msgid "Marketing Cookies"
-msgstr "Marketing sütik"
-
-#: 
-msgid "{0} cache could not be cleared."
-msgstr "A(z) {0} gyorsítótár nem törölhető."
-
-#: 
-msgid "Block IPs"
-msgstr "IP-címek blokkolása"
-
-#: 
-msgid "Are you sure you want to delete all logs in group {0}?"
-msgstr "Biztosan törölni szeretné a(z) {0} csoport összes naplóját?"
-
-#: 
-msgid "On"
-msgstr "On"
-
-#: 
-msgid "An Internal Error Has Occurred."
-msgstr "Belső hiba történt."
-
-#: 
-msgid "This slug is already in use. Please enter a unique slug."
-msgstr "Ez a csiga már használatban van. Kérjük, adjon meg egy egyedi csigát."
-
-#: 
-msgid "Submit Comment"
-msgstr "Hozzászólás beküldése"
-
-#: 
-msgid "Add Post"
-msgstr "Bejegyzés hozzáadása"
-
-#: 
-msgid "The image could not be deleted. Please, try again."
-msgstr "A képet nem sikerült törölni. Kérem, próbálja újra."
-
-#: 
-msgid "Keywords"
-msgstr "Kulcsszavak"
-
-#: 
-msgid "Welcome to willowcms.app. This site uses Willow - a content management system I'm building in the open. Here you'll find development updates, feature highlights, and guides on using Willow for your own sites."
-msgstr "Üdvözöljük a Willow-ban, egy tartalomkezelő rendszerben, amelyet a szabadban építek. Itt fejlesztési frissítéseket, kiemelt funkciókat és útmutatókat talál a Willow használatához saját webhelyein."
-
-#: 
-msgid "The comment could not be deleted. Please, try again."
-msgstr "A megjegyzést nem sikerült törölni. Kérem, próbálja újra."
-
-#: 
-msgid "All logs in group {0} have been deleted."
-msgstr "A(z) {0} csoport összes naplója törölve lett."
-
-#: 
-msgid "Edit your Account"
-msgstr "Szerkessze fiókját"
-
-#: 
-msgid "Auto Tag"
-msgstr "Auto Tag"
-
-#: 
-msgid "Dark"
-msgstr "Sötét"
-
-#: 
-msgid "Page {{page}} of {{pages}}"
-msgstr "{{page}}/{{page}}. oldal"
-
-#: 
-msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
-msgstr "Az e-mail sikeresen elküldve a következő címre: {0}. Sablon: {1}, Tárgy: {2}"
-
-#: 
-msgid "Bulk Upload Images"
-msgstr "Képek tömeges feltöltése"
-
-#: 
-msgid "Pages"
-msgstr "Oldalak"
-
-#: 
-msgid "Article"
-msgstr "Cikk"
-
-#: 
-msgid "The blocked ip could not be deleted. Please, try again."
-msgstr "A blokkolt IP-címet nem sikerült törölni. Kérem, próbálja újra."
-
-#: 
-msgid "There was an issue resetting your password. Please try again."
-msgstr "Hiba történt a jelszó visszaállítása során. Kérjük, próbálja újra."
-
-#: 
-msgid "Task Type"
-msgstr "Feladat típusa"
-
-#: 
-msgid "Delete all articles before generating new ones"
-msgstr "Újak létrehozása előtt törölje az összes cikket"
-
-#: 
-msgid "Clear All Cache"
-msgstr "Az összes gyorsítótár törlése"
-
-#: 
-msgid "Comments are not enabled"
-msgstr "A megjegyzések nincsenek engedélyezve"
-
-#: 
-msgid "Article ID:"
-msgstr "Cikkazonosító:"
-
-#: 
-msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
-msgstr "{{pages}}/{{page}}. oldal, összesen {{count}}/{{current}} rekordot mutatva"
-
-#: 
-msgid "The user has been saved."
-msgstr "A felhasználó mentése megtörtént."
-
-#: 
-msgid "Search Slugs..."
-msgstr "Csigák keresése..."
-
-#: 
-msgid "New Slug"
-msgstr "Új Slug"
-
-#: 
-msgid "New Email Template"
-msgstr "Új e-mail sablon"
-
-#: 
-msgid "The article could not be deleted. Please, try again."
-msgstr "A cikket nem lehetett törölni. Kérem, próbálja újra."
-
-#: 
-msgid "No"
-msgstr "Nem"
-
-#: 
-msgid "This message_id must be unique for the given locale."
-msgstr "Ennek az üzenet_azonosítónak egyedinek kell lennie az adott területi beállításhoz."
-
-#: 
-msgid "Context"
-msgstr "Kontextus"
-
-#: 
-msgid "Alt Text"
-msgstr "Alt szöveg"
-
-#: 
-msgid "Cache"
-msgstr "Gyorsítótár"
-
-#: 
-msgid "Add Aiprompt"
-msgstr "Adja hozzá az Aipromptot"
-
-#: 
-msgid "Unable to delete logs in group {0}."
-msgstr "Nem lehet törölni a naplókat a(z) {0} csoportban."
-
-#: 
-msgid "The blocked ip could not be saved. Please, try again."
-msgstr "A blokkolt IP-címet nem sikerült elmenteni. Kérem, próbálja újra."
-
-#: 
-msgid "Toggle theme"
-msgstr "Téma váltása"
-
-#: 
-msgid "The slug could not be saved. Please, try again."
-msgstr "A csigát nem tudták megmenteni. Kérem, próbálja újra."
-
-#: 
-msgid "Search images..."
-msgstr "Képek keresése..."
-
-#: 
-msgid "Logout"
-msgstr "Kijelentkezés"
-
-#: 
-msgid "Create an Account"
-msgstr "Hozzon létre egy fiókot"
-
-#: 
-msgid "The user has been deleted."
-msgstr "A felhasználót törölték."
-
-#: 
-msgid "About"
-msgstr "Körülbelül"
-
-#: 
-msgid "The internationalisation could not be saved. Please, try again."
-msgstr "A nemzetköziesedést nem lehetett megmenteni. Kérem, próbálja újra."
-
-#: 
-msgid "AI Prompts"
-msgstr "AI Prompts"
-
-#: 
-msgid "The article has been deleted."
-msgstr "A cikket törölték."
-
-#: 
-msgid "Search Aiprompts..."
-msgstr "Aipromps keresése..."
-
-#: 
-msgid "Root"
-msgstr "Gyökér"
-
-#: 
-msgid "Internationalisation"
-msgstr "Nemzetközivé válás"
-
-#: 
-msgid "The email template could not be deleted. Please, try again."
-msgstr "Az e-mail sablont nem lehetett törölni. Kérem, próbálja újra."
-
-#: 
-msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
-msgstr "A Slug ütközik egy meglévő SEO-átirányítással. Kérjük, válasszon másik csigát."
-
-#: 
-msgid "Views"
-msgstr "Nézetek"
-
-#: 
-msgid "The user could not be saved. Please, try again."
-msgstr "A felhasználót nem sikerült menteni. Kérem, próbálja újra."
-
-#: 
-msgid "There was an issue confirming your account. Please try again."
-msgstr "Hiba történt a fiók megerősítése során. Kérjük, próbálja újra."
-
-#: 
-msgid "Main Image"
-msgstr "Fő kép"
-
-#: 
-msgid "Search Comments..."
-msgstr "Keresés a megjegyzésekben..."
-
-#: 
-msgid "Expires At"
-msgstr "Lejár:"
-
-#: 
-msgid "Add a Comment"
-msgstr "Megjegyzés hozzáadása"
-
-#: 
-msgid "The image could not be saved. Please, try again."
-msgstr "A képet nem sikerült elmenteni. Kérem, próbálja újra."
-
-#: 
-msgid "Enter a number"
-msgstr "Írjon be egy számot"
-
-#: 
-msgid "Back"
-msgstr "Vissza"
-
-#: 
-msgid "Help us understand how visitors interact with our website."
-msgstr "Segítsen nekünk megérteni, hogy a látogatók hogyan lépnek kapcsolatba webhelyünkkel."
-
-#: 
-msgid "Tags"
-msgstr "Címkék"
-
-#: 
-msgid "Registration failed. Please, try again."
-msgstr "A regisztráció sikertelen. Kérem, próbálja újra."
-
-#: 
-msgid "Locale"
-msgstr "Nyelv"
-
-#: 
-msgid "Send Reset Link"
-msgstr "Reset Link küldése"
-
-#: 
-msgid "The blocked ip has been deleted."
-msgstr "A blokkolt IP-címet törölték."
-
-#: 
-msgid "Unknown Author"
-msgstr "Ismeretlen szerző"
-
-#: 
-msgid "Functional Cookies"
-msgstr "Funkcionális sütik"
-
-#: 
-msgid "Search Blocked Ips..."
-msgstr "Blokkolt IP-címek keresése..."
-
-#: 
-msgid "Temperature"
-msgstr "Hőmérséklet"
-
-#: 
-msgid "Page View Statistics for slug: {0}"
-msgstr "Oldalmegtekintési statisztika a csigára vonatkozóan: {0}"
-
-#: 
-msgid "No comments yet."
-msgstr "Még nincsenek megjegyzések."
-
-#: 
-msgid "Your account could not be updated."
-msgstr "Fiókját nem sikerült frissíteni."
-
-#: 
-msgid "Invalid confirmation code."
-msgstr "Érvénytelen megerősítő kód."
-
-#: 
-msgid "An error occurred while processing your request."
-msgstr "Hiba történt kérésének feldolgozása közben."
-
-#: 
-msgid "Delete"
-msgstr "Töröl"
-
-#: 
-msgid "No view records found for this article."
-msgstr "Nem található megtekintési rekord ehhez a cikkhez."
-
-#: 
-msgid "Featured"
-msgstr "Kiemelt"
-
-#: 
-msgid "Posts"
-msgstr "Hozzászólások"
-
-#: 
-msgid "The internationalisation could not be deleted. Please, try again."
-msgstr "A nemzetközivé tételt nem sikerült törölni. Kérem, próbálja újra."
-
-#: 
-msgid "Status"
-msgstr "Állapot"
-
-#: 
-msgid "Failed to generate article: {0}"
-msgstr "Nem sikerült létrehozni a cikket: {0}"
-
-#: 
-msgid "Error in: "
-msgstr "Hiba itt: "
-
-#: 
-msgid "Add User"
-msgstr "Felhasználó hozzáadása"
-
-#: 
-msgid "Delete All Logs"
-msgstr "Az összes napló törlése"
-
-#: 
-msgid "Published"
-msgstr "Közzétett"
-
-#: 
-msgid "The comment could not be saved. Please, try again."
-msgstr "A megjegyzést nem sikerült menteni. Kérem, próbálja újra."
-
-#: 
-msgid "List View"
-msgstr "Listanézet"
-
-#: 
-msgid "The aiprompt has been deleted."
-msgstr "Az aiprompt törölték."
-
-#: 
-msgid "No page view data available for this article."
-msgstr "Ehhez a cikkhez nem állnak rendelkezésre oldalmegtekintési adatok."
-
-#: 
-msgid "User Agent"
-msgstr "Felhasználói ügynök"
-
-#: 
-msgid "Configured Caches"
-msgstr "Konfigurált gyorsítótárak"
-
-#: 
-msgid "Save All Settings"
-msgstr "Mentse el az összes beállítást"
-
-#: 
-msgid "Edit Slug"
-msgstr "Slug szerkesztése"
-
-#: 
-msgid "The value must not be empty."
-msgstr "Az érték nem lehet üres."
-
-#: 
-msgid "Un-Published"
-msgstr "Kiadatlan"
-
-#: 
-msgid "Setting not found: {0}.{1}"
-msgstr "A beállítás nem található: {0}.{1}"
-
-#: 
-msgid "Share"
-msgstr "Részesedés"
-
-#: 
-msgid "If your email is registered, you will receive a link to reset your password."
-msgstr "Ha az e-mail-címe regisztrálva van, kap egy linket a jelszó visszaállításához."
-
-#: 
-msgid "Tag not found"
-msgstr "Címke nem található"
-
-#: 
-msgid "Search Internationalisations..."
-msgstr "Keresés a nemzetköziesítések között..."
-
-#: 
-msgid "User"
-msgstr "Felhasználó"
-
-#: 
-msgid "The article could not be saved. Please, try again."
-msgstr "A cikket nem sikerült elmenteni. Kérem, próbálja újra."
-
-#: 
-msgid "Add"
-msgstr "Hozzáadás"
-
-#: 
-msgid "Is Inappropriate"
-msgstr "Nem megfelelő"
-
-#: 
-msgid "Grid View"
-msgstr "Rács nézet"
-
-#: 
-msgid "Unable to add your comment."
-msgstr "Nem sikerült hozzáadni a megjegyzést."
-
-#: 
-msgid "Archives"
-msgstr "Levéltár"
-
-#: 
-msgid "Images"
-msgstr "Képek"
-
-#: 
-msgid "Image"
-msgstr "Kép"
-
-#: 
-msgid "Error saving {0}.{1}: {2}"
-msgstr "Hiba a(z) {0} mentése során.{1}: {2}"
-
-#: 
-msgid "Selected"
-msgstr "Kiválasztott"
-
-#: 
-msgid "Add Image"
-msgstr "Kép hozzáadása elemre"
-
-#: 
-msgid "Search Users..."
-msgstr "Felhasználók keresése..."
-
-#: 
-msgid "Are you sure you want to delete all logs?"
-msgstr "Biztosan törli az összes naplót?"
-
-#: 
-msgid "Name"
-msgstr "Név"
-
-#: 
-msgid "Generated article: {0}"
-msgstr "Generált cikk: {0}"
-
-#: 
-msgid "Summary"
-msgstr "Összegzés"
-
-#: 
-msgid "Filter"
-msgstr "Szűrő"
-
-#: 
-msgid "Your account has been updated."
-msgstr "Fiókja frissítve lett."
-
-#: 
-msgid "Search logs..."
-msgstr "Keresés a naplókban..."
-
-#: 
-msgid "Unable to delete all logs."
-msgstr "Nem sikerült törölni az összes naplót."
-
-#: 
-msgid "Created tag: {0}"
-msgstr "Címke létrehozva: {0}"
-
-#: 
-msgid "Search..."
-msgstr "Keresés..."
-
-#: 
-msgid "Posted on {date} by {author}"
-msgstr "{author} közzétette: {date}"
-
-#: 
-msgid "Word Count"
-msgstr "Szószám"
-
-#: 
-msgid "Submit"
-msgstr "Beküld"
-
-#: 
-msgid "View detailed records for this date"
-msgstr "Tekintse meg az erre a dátumra vonatkozó részletes nyilvántartást"
-
-#: 
-msgid "{0} Views"
-msgstr "{0} Nézetek"
-
-#: 
-msgid "Total Views: "
-msgstr "Összes megtekintés: "
-
-#: 
-msgid "Twitter Description"
-msgstr "Twitter leírás"
-
-#: 
-msgid "Inappropriate Reason"
-msgstr "Nem megfelelő ok"
-
-#: 
-msgid "You cannot remove your own admin status."
-msgstr "Nem távolíthatja el saját rendszergazdai állapotát."
-
-#: 
-msgid "The tag has been deleted."
-msgstr "A címke törölve."
-
-#: 
-msgid "Blog"
-msgstr "Blog"
-
-#: 
-msgid "Analytics Cookies"
-msgstr "Analytics cookie-k"
-
-#: 
-msgid "Too Many Requests"
-msgstr "Túl sok kérés"
-
-#: 
-msgid "Edit Blocked Ip"
-msgstr "Blokkolt IP szerkesztése"
-
-#: 
-msgid "My Account"
-msgstr "Saját fiók"
-
-#: 
-msgid "Inappropriate"
-msgstr "Nem megfelelő"
-
-#: 
-msgid "Privacy Policy"
-msgstr "Adatvédelmi szabályzat"
-
-#: 
-msgid "Registration successful, but there was an issue creating the confirmation link."
-msgstr "A regisztráció sikeres volt, de probléma lépett fel a megerősítő link létrehozása során."
-
-#: 
-msgid "Tag Articles/Pages"
-msgstr "Címke cikkek/oldalak"
-
-#: 
-msgid "The tag could not be deleted. Please, try again."
-msgstr "A címkét nem lehetett törölni. Kérem, próbálja újra."
-
-#: 
-msgid "The slug could not be deleted. Please, try again."
-msgstr "A csigát nem lehetett törölni. Kérem, próbálja újra."
-
-#: 
-msgid "The article has been saved."
-msgstr "A cikk el lett mentve."
-
-#: 
-msgid "{0} cache configuration does not exist."
-msgstr "A(z) {0} gyorsítótár-konfiguráció nem létezik."
-
-#: 
-msgid "Body Html"
-msgstr "Törzs Html"
-
-#: 
-msgid "Failed to send password reset email: {0}"
-msgstr "Nem sikerült elküldeni a jelszó-visszaállítási e-mailt: {0}"
-
-#: 
-msgid "New Internationalisation"
-msgstr "Új nemzetközivé válás"
-
-#: 
-msgid "New Tag"
-msgstr "Új címke"
-
-#: 
-msgid "Page Views for {0}"
-msgstr "Oldalmegtekintések a következőhöz: {0}"
-
-#: 
-msgid "Your cookie preferences have been saved."
-msgstr "A cookie-beállításait elmentettük."
-
-#: 
-msgid "Are you sure you want to delete {0}?"
-msgstr "Biztosan törli a következőt: {0}?"
-
-#: 
-msgid "Picture"
-msgstr "Kép"
-
-#: 
-msgid "Back to top"
-msgstr "Vissza az elejére"
-
-#: 
-msgid "The value must be 0 or 1."
-msgstr "Az értéknek 0-nak vagy 1-nek kell lennie."
-
-#: 
-msgid "Show"
-msgstr "Megmutat"
-
-#: 
-msgid "The aiprompt could not be saved. Please, try again."
-msgstr "Az aprompt nem menthető. Kérem, próbálja újra."
-
-#: 
-msgid "The requested address {0} was not found on this server."
-msgstr "A kért cím ({0}) nem található ezen a szerveren."
-
-#: 
-msgid "Template Identifier"
-msgstr "Sablonazonosító"
-
-#: 
-msgid "Your account has been confirmed. You can now log in."
-msgstr "Fiókját megerősítették. Most már bejelentkezhet."
-
-#: 
-msgid "Article not found."
-msgstr "A cikk nem található."
-
-#: 
-msgid "Are you sure you want to clear {0}?"
-msgstr "Biztosan törli a következőt: {0}?"
-
-#: 
-msgid "Instagram Description"
-msgstr "Instagram leírás"
-
-#: 
-msgid "Max Tokens"
-msgstr "Max Tokens"
-
-#: 
-msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
-msgstr "Az alábbiakban a konfigurált gyorsítótárakról olvashat. Kattintson a gombra az összes gyorsítótár törléséhez, vagy az egyes gyorsítótár gombjaira, hogy töröljön bizonyos gyorsítótárakat."
-
-#: 
-msgid "Image must be less than 5MB."
-msgstr "A képnek 5 MB-nál kisebbnek kell lennie."
-
-#: 
-msgid "Edit Internationalisation"
-msgstr "Internacionalizálás szerkesztése"
-
-#: 
-msgid "Not Displayed"
-msgstr "Nem jelenik meg"
-
-#: 
-msgid "View {0}"
-msgstr "{0} megtekintése"
-
-#: 
-msgid "Failed to save the image"
-msgstr "Nem sikerült menteni a képet"
-
-#: 
-msgid "Failed to generate {0} articles."
-msgstr "Nem sikerült létrehozni {0} cikket."
-
-#: 
-msgid "Edit Tag"
-msgstr "Címke szerkesztése"
-
-#: 
-msgid "New Aiprompt"
-msgstr "Új Aiprompt"
-
-#: 
-msgid "Display"
-msgstr "Kijelző"
-
-#: 
-msgid "Lead"
-msgstr "Ólom"
-
-#: 
-msgid "The internationalisation has been saved."
-msgstr "A nemzetköziesedés megmenekült."
-
-#: 
-msgid "Email"
-msgstr "Email"
-
-#: 
-msgid "Some settings could not be saved. Please, try again."
-msgstr "Egyes beállításokat nem sikerült elmenteni. Kérem, próbálja újra."
-
-#: 
-msgid "Edit Page"
-msgstr "Oldal szerkesztése"
-
-#: 
-msgid "Message"
-msgstr "Üzenet"
-
-#: 
-msgid "Content"
-msgstr "Tartalom"
-
-#: 
-msgid "Generated {0} articles successfully."
-msgstr "Sikeresen generált {0} cikket."
-
-#: 
-msgid "Parent"
-msgstr "Szülő"
-
-#: 
-msgid "Add Page"
-msgstr "Oldal hozzáadása"
-
-#: 
-msgid "Is Published"
-msgstr "Megjelent"
-
-#: 
-msgid "Failed to send confirmation email message: {0}"
-msgstr "Nem sikerült elküldeni a megerősítő e-mailt: {0}"
-
-#: 
-msgid "All Locales"
-msgstr "Minden terület"
-
-#: 
-msgid "Invalid value for the specified type."
-msgstr "Érvénytelen érték a megadott típushoz."
-
-#: 
-msgid "By"
-msgstr "Által"
-
-#: 
-msgid "Essential"
-msgstr "Alapvető"
-
-#: 
-msgid "Referer"
-msgstr "Hivatkozó"
-
-#: 
-msgid "The settings have been saved."
-msgstr "A beállítások el lettek mentve."
-
-#: 
-msgid "Message Str"
-msgstr "Üzenet Str"
-
-#: 
-msgid "Info"
-msgstr "Info"
-
-#: 
-msgid "Meta Keywords"
-msgstr "Meta kulcsszavak"
-
-#: 
-msgid "Some caches were cleared, but the following failed: {0}"
-msgstr "Néhány gyorsítótár törlődött, de a következő nem sikerült: {0}"
-
-#: 
-msgid "Willow Logo"
-msgstr "Fűzfa logó"
-
-#: 
-msgid "Your comment has been added."
-msgstr "Megjegyzését hozzáadtuk."
 
 #: 
 msgid "Comment"
 msgstr "Megjegyzés"
 
 #: 
-msgid "Image Uploads"
-msgstr "Képfeltöltések"
+msgid "The tag has been saved."
+msgstr "A címke mentése megtörtént."
 
 #: 
-msgid "Reset Password"
-msgstr "Jelszó visszaállítása"
+msgid "List View"
+msgstr "Listanézet"
 
 #: 
-msgid "{0} cache has been cleared successfully."
-msgstr "A(z) {0} gyorsítótár sikeresen törölve."
+msgid "Edit"
+msgstr "Szerkesztés"
 
 #: 
-msgid "The image has been deleted."
-msgstr "A képet törölték."
+msgid "Search Blocked Ips..."
+msgstr "Blokkolt IP-címek keresése..."
 
 #: 
-msgid "Edit Post"
-msgstr "Bejegyzés szerkesztése"
+msgid "Body Editor"
+msgstr "Törzsszerkesztő"
 
 #: 
-msgid "Send Email"
-msgstr "E-mail küldése"
+msgid "Subject"
+msgstr "Téma"
+
+#: 
+msgid "Configured Caches"
+msgstr "Konfigurált gyorsítótárak"
+
+#: 
+msgid "New Slug"
+msgstr "Új Slug"
+
+#: 
+msgid "Registration successful. Please check your email for confirmation."
+msgstr "Sikeres regisztráció. Kérjük, ellenőrizze e-mailjét megerősítésért."
+
+#: 
+msgid "Bulk Upload Images"
+msgstr "Képek tömeges feltöltése"
+
+#: 
+msgid "Invalid or expired password reset link."
+msgstr "Érvénytelen vagy lejárt jelszó-visszaállítási hivatkozás."
+
+#: 
+msgid "Picture"
+msgstr "Kép"
+
+#: 
+msgid "Reset your password"
+msgstr "Állítsa vissza jelszavát"
+
+#: 
+msgid "Un-Published"
+msgstr "Kiadatlan"
+
+#: 
+msgid "No videos found matching your search"
+msgstr "Nem található a keresésnek megfelelő videó"
+
+#: 
+msgid "The requested address {0} was not found on this server."
+msgstr "A kért cím ({0}) nem található ezen a szerveren."
+
+#: 
+msgid "Block IPs"
+msgstr "IP-címek blokkolása"
+
+#: 
+msgid "About"
+msgstr "Körülbelül"
+
+#: 
+msgid "Temperature"
+msgstr "Hőmérséklet"
+
+#: 
+msgid "The tag could not be saved. Please, try again."
+msgstr "A címkét nem sikerült elmenteni. Kérem, próbálja újra."
+
+#: 
+msgid "Comments are not enabled"
+msgstr "A megjegyzések nincsenek engedélyezve"
+
+#: 
+msgid "Recent posts"
+msgstr "Legutóbbi bejegyzések"
+
+#: 
+msgid "Used to deliver personalized advertisements and enable the facebook share button."
+msgstr "Személyre szabott hirdetések megjelenítésére és a Facebook megosztás gombjának engedélyezésére szolgál."
+
+#: 
+msgid "Template Identifier"
+msgstr "Sablonazonosító"
+
+#: 
+msgid "Message Id"
+msgstr "Üzenetazonosító"
+
+#: 
+msgid "Hide"
+msgstr "Elrejt"
+
+#: 
+msgid "Total Views: "
+msgstr "Összes megtekintés: "
+
+#: 
+msgid "New Image"
+msgstr "Új kép"
+
+#: 
+msgid "Generated article: {0}"
+msgstr "Generált cikk: {0}"
+
+#: 
+msgid "Search Tags..."
+msgstr "Címkék keresése..."
+
+#: 
+msgid "Image"
+msgstr "Kép"
+
+#: 
+msgid "The image has been saved."
+msgstr "A kép mentése megtörtént."
+
+#: 
+msgid "Referer"
+msgstr "Hivatkozó"
+
+#: 
+msgid "All logs with level {0} have been deleted."
+msgstr "Minden {0} szintű napló törölve lett."
+
+#: 
+msgid "Are you sure you want to delete all {0} logs?"
+msgstr "Biztos benne, hogy törölni szeretné mind a(z) {0} naplót?"
+
+#: 
+msgid "Edit Your Account"
+msgstr "Szerkessze fiókját"
+
+#: 
+msgid "Lede"
+msgstr "Lede"
+
+#: 
+msgid "Info"
+msgstr "Info"
+
+#: 
+msgid "Comments"
+msgstr "Megjegyzések"
+
+#: 
+msgid "Ip Address"
+msgstr "IP-cím"
+
+#: 
+msgid "Expires At"
+msgstr "Lejár:"
+
+#: 
+msgid "Select Tags"
+msgstr "Válassza a Címkék lehetőséget"
+
+#: 
+msgid "Is Published"
+msgstr "Megjelent"
+
+#: 
+msgid "Login"
+msgstr "Bejelentkezés"
+
+#: 
+msgid "Blocked At"
+msgstr "Letiltva itt"
+
+#: 
+msgid "Functional Cookies"
+msgstr "Funkcionális sütik"
+
+#: 
+msgid "Error"
+msgstr "Hiba"
+
+#: 
+msgid "Too many requests. Please try again later."
+msgstr "Túl sok kérés. Kérjük, próbálja újra később."
+
+#: 
+msgid "The aiprompt has been saved."
+msgstr "Az aiprompt elmentve."
+
+#: 
+msgid "Page {{page}} of {{pages}}"
+msgstr "{{page}}/{{page}}. oldal"
+
+#: 
+msgid "Clear All Cache"
+msgstr "Az összes gyorsítótár törlése"
+
+#: 
+msgid "The value must be a number."
+msgstr "Az értéknek számnak kell lennie."
+
+#: 
+msgid "Failed to generate article: {0}"
+msgstr "Nem sikerült létrehozni a cikket: {0}"
+
+#: 
+msgid "Are you sure you want to delete all logs in group {0}?"
+msgstr "Biztosan törölni szeretné a(z) {0} csoport összes naplóját?"
+
+#: 
+msgid "This message_id must be unique for the given locale."
+msgstr "Ennek az üzenet_azonosítónak egyedinek kell lennie az adott területi beállításhoz."
+
+#: 
+msgid "Your password has been reset. Please log in with your new password."
+msgstr "Jelszava visszaállításra került. Kérjük, jelentkezzen be új jelszavával."
+
+#: 
+msgid "My Account"
+msgstr "Saját fiók"
+
+#: 
+msgid "Registration successful, but there was an issue creating the confirmation link."
+msgstr "A regisztráció sikeres volt, de probléma lépett fel a megerősítő link létrehozása során."
+
+#: 
+msgid "Status"
+msgstr "Állapot"
+
+#: 
+msgid "Access denied. You must be an admin to view this page."
+msgstr "Hozzáférés megtagadva. Az oldal megtekintéséhez adminisztrátornak kell lennie."
+
+#: 
+msgid "Edit Internationalisation"
+msgstr "Internationalization szerkesztése"
+
+#: 
+msgid "An error occurred while processing your request."
+msgstr "Hiba történt kérésének feldolgozása közben."
+
+#: 
+msgid "Edit User"
+msgstr "Felhasználó szerkesztése"
+
+#: 
+msgid "Enter a number"
+msgstr "Írjon be egy számot"
 
 #: 
 msgid "Featured posts"
 msgstr "Kiemelt bejegyzések"
 
 #: 
+msgid "Show"
+msgstr "Megmutat"
+
+#: 
+msgid "All caches have been cleared successfully."
+msgstr "Minden gyorsítótár sikeresen törölve."
+
+#: 
+msgid "Edit Post"
+msgstr "Bejegyzés szerkesztése"
+
+#: 
+msgid "Internationalisations"
+msgstr "Nemzetközivé válás"
+
+#: 
+msgid "Cookies"
+msgstr "Cookie-k"
+
+#: 
+msgid "Selected"
+msgstr "Kiválasztott"
+
+#: 
+msgid "Search Users..."
+msgstr "Felhasználók keresése..."
+
+#: 
+msgid "The email template could not be deleted. Please, try again."
+msgstr "Az e-mail sablont nem lehetett törölni. Kérem, próbálja újra."
+
+#: 
+msgid "All articles have been deleted."
+msgstr "Minden cikk törölve lett."
+
+#: 
+msgid "Enter text"
+msgstr "Írja be a szöveget"
+
+#: 
+msgid "The internationalisation could not be saved. Please, try again."
+msgstr "A nemzetköziesedést nem lehetett megmenteni. Kérem, próbálja újra."
+
+#: 
+msgid "Linkedin Description"
+msgstr "Linkedin Leírás"
+
+#: 
+msgid "Unable to delete logs with level {0}."
+msgstr "A(z) {0} szintű naplók nem törölhetők."
+
+#: 
+msgid "The value must be 0 or 1."
+msgstr "Az értéknek 0 vagy 1 kell lennie."
+
+#: 
+msgid "Delete"
+msgstr "Töröl"
+
+#: 
+msgid "Edit {0}"
+msgstr "{0} szerkesztése"
+
+#: 
+msgid "Add Blocked Ip"
+msgstr "Blokkolt IP hozzáadása"
+
+#: 
+msgid "The slug has been saved."
+msgstr "A csigát megmentették."
+
+#: 
+msgid "Submit Comment"
+msgstr "Hozzászólás beküldése"
+
+#: 
+msgid "A value is required"
+msgstr "Érték megadása kötelező"
+
+#: 
+msgid "Pages"
+msgstr "Oldalak"
+
+#: 
+msgid "English"
+msgstr "angol"
+
+#: 
+msgid "Search Pages..."
+msgstr "Oldalak keresése..."
+
+#: 
+msgid "Page Views for {0}"
+msgstr "Oldalmegtekintések a következőhöz: {0}"
+
+#: 
+msgid "Code Coverage"
+msgstr "Kód lefedettsége"
+
+#: 
+msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
+msgstr "{{pages}}/{{page}}. oldal, összesen {{count}}/{{current}} rekordot mutatva"
+
+#: 
+msgid "The user could not be deleted. Please, try again."
+msgstr "A felhasználót nem lehetett törölni. Kérem, próbálja újra."
+
+#: 
+msgid "Locale"
+msgstr "Nyelv"
+
+#: 
+msgid "New Article"
+msgstr "Új cikk"
+
+#: 
+msgid "Enable enhanced functionality and personalization."
+msgstr "Engedélyezze a továbbfejlesztett funkcionalitást és a személyre szabást."
+
+#: 
+msgid "Back to Login"
+msgstr "Vissza a Bejelentkezéshez"
+
+#: 
+msgid "{0} Views"
+msgstr "{0} Nézetek"
+
+#: 
+msgid "Logout"
+msgstr "Kijelentkezés"
+
+#: 
+msgid "Active"
+msgstr "Aktív"
+
+#: 
+msgid "Add Aiprompt"
+msgstr "Adja hozzá az Aipromptot"
+
+#: 
+msgid "Invalid username or password"
+msgstr "Érvénytelen felhasználónév vagy jelszó"
+
+#: 
+msgid "Back"
+msgstr "Vissza"
+
+#: 
+msgid "The comment could not be saved. Please, try again."
+msgstr "A megjegyzést nem sikerült menteni. Kérem, próbálja újra."
+
+#: 
+msgid "Slug"
+msgstr "Meztelen csiga"
+
+#: 
+msgid "Actions"
+msgstr "Akciók"
+
+#: 
+msgid "Insert Image"
+msgstr "Kép beszúrása"
+
+#: 
+msgid "The article has been deleted."
+msgstr "A cikket törölték."
+
+#: 
+msgid "Generated {0} articles successfully."
+msgstr "Sikeresen generált {0} cikket."
+
+#: 
+msgid "The tag could not be deleted. Please, try again."
+msgstr "A címkét nem sikerült törölni. Kérem, próbálja újra."
+
+#: 
+msgid "Add"
+msgstr "Hozzáadás"
+
+#: 
+msgid "The slug could not be deleted. Please, try again."
+msgstr "A csigát nem lehetett törölni. Kérem, próbálja újra."
+
+#: 
+msgid "Generating {0} articles..."
+msgstr "{0} cikk generálása..."
+
+#: 
+msgid "Some settings could not be saved. Please, try again."
+msgstr "Egyes beállításokat nem sikerült elmenteni. Kérem, próbálja újra."
+
+#: 
+msgid "New Post"
+msgstr "Új bejegyzés"
+
+#: 
+msgid "Views"
+msgstr "Nézetek"
+
+#: 
+msgid "Search Comments..."
+msgstr "Keresés a megjegyzésekben..."
+
+#: 
+msgid "Unknown Author"
+msgstr "Ismeretlen szerző"
+
+#: 
+msgid "Error in {0}: {1}"
+msgstr "Hiba itt: {0}: {1}"
+
+#: 
+msgid "List {0}"
+msgstr "{0}. lista"
+
+#: 
+msgid "Search Aiprompts..."
+msgstr "Aipromps keresése..."
+
+#: 
+msgid "Invalid confirmation code."
+msgstr "Érvénytelen megerősítő kód."
+
+#: 
+msgid "Edit Tag"
+msgstr "Címke szerkesztése"
+
+#: 
+msgid "Related Slugs"
+msgstr "Kapcsolódó csigák"
+
+#: 
+msgid "Reason"
+msgstr "Ok"
+
+#: 
+msgid "Cache"
+msgstr "Gyorsítótár"
+
+#: 
+msgid "Toggle theme"
+msgstr "Téma váltása"
+
+#: 
+msgid "Registration failed. Please, try again."
+msgstr "A regisztráció sikertelen. Kérem, próbálja újra."
+
+#: 
+msgid "Archives"
+msgstr "Levéltár"
+
+#: 
+msgid "You cannot disable your own account."
+msgstr "Nem tilthatja le saját fiókját."
+
+#: 
+msgid "No tags found."
+msgstr "Nem találhatók címkék."
+
+#: 
+msgid "Posts"
+msgstr "Hozzászólások"
+
+#: 
+msgid "Username"
+msgstr "Felhasználónév"
+
+#: 
+msgid "Failed to generate {0} articles."
+msgstr "Nem sikerült létrehozni {0} cikket."
+
+#: 
+msgid "Please upload only images (jpeg, png, gif)."
+msgstr "Kérjük, csak képeket töltsön fel (jpeg, png, gif)."
+
+#: 
+msgid "Admin"
+msgstr "Admin"
+
+#: 
+msgid "Privacy Policy"
+msgstr "Adatvédelmi szabályzat"
+
+#: 
+msgid "Add Post"
+msgstr "Bejegyzés hozzáadása"
+
+#: 
+msgid "Search Articles..."
+msgstr "Cikkek keresése..."
+
+#: 
+msgid "None"
+msgstr "Egyik sem"
+
+#: 
+msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
+msgstr "Az alábbiakban a konfigurált gyorsítótárakról olvashat. Kattintson a gombra az összes gyorsítótár törléséhez, vagy az egyes gyorsítótár gombjaira, hogy törölje az egyes gyorsítótárakat."
+
+#: 
+msgid "The value must not be empty."
+msgstr "Az érték nem lehet üres."
+
+#: 
+msgid "Inappropriate"
+msgstr "Nem megfelelő"
+
+#: 
+msgid "Forgot Password?"
+msgstr "Elfelejtett jelszó?"
+
+#: 
+msgid "An Internal Error Has Occurred."
+msgstr "Belső hiba történt."
+
+#: 
+msgid "Light"
+msgstr "Fény"
+
+#: 
+msgid "Meta Keywords"
+msgstr "Meta kulcsszavak"
+
+#: 
 msgid "No deleting your own account."
 msgstr "Nem törölheti a saját fiókját."
 
 #: 
-msgid "Password must be at least 8 characters long"
-msgstr "A jelszónak legalább 8 karakter hosszúnak kell lennie"
+msgid "Users"
+msgstr "Felhasználók"
+
+#: 
+msgid "Too Many Requests"
+msgstr "Túl sok kérés"
+
+#: 
+msgid "Send Reset Link"
+msgstr "Reset Link küldése"
+
+#: 
+msgid "Edit Aiprompt"
+msgstr "Az Airprompt szerkesztése"
 
 #: 
 msgid "Please select your cookie preferences below. Essential cookies are required for the website to function and cannot be disabled."
-msgstr "Kérjük, az alábbiakban válassza ki a cookie-beállításait. A weboldal működéséhez alapvető cookie-k szükségesek, és nem tilthatók le."
+msgstr "Kérjük, az alábbiakban válassza ki a cookie-beállításait. A weboldal működéséhez elengedhetetlen cookie-k szükségesek, és nem tilthatók le."
+
+#: 
+msgid "Child"
+msgstr "Gyermek"
+
+#: 
+msgid "Message Str"
+msgstr "Üzenet Str"
+
+#: 
+msgid "Please enter your email and password"
+msgstr "Kérjük, adja meg e-mail címét és jelszavát"
+
+#: 
+msgid "Required"
+msgstr "Kívánt"
+
+#: 
+msgid "The slug has been deleted."
+msgstr "A csigát törölték."
+
+#: 
+msgid "User Agent"
+msgstr "Felhasználói ügynök"
+
+#: 
+msgid "Failed to save the image"
+msgstr "Nem sikerült menteni a képet"
+
+#: 
+msgid "Message"
+msgstr "Üzenet"
+
+#: 
+msgid "Tree View"
+msgstr "Fa nézet"
+
+#: 
+msgid "Meta Description"
+msgstr "Meta leírás"
+
+#: 
+msgid "The image could not be saved. Please, try again."
+msgstr "A képet nem sikerült elmenteni. Kérem, próbálja újra."
+
+#: 
+msgid "Creating {0} new top-level tags..."
+msgstr "{0} új legfelső szintű címke létrehozása..."
+
+#: 
+msgid "No tags are linked."
+msgstr "Nincsenek címkék összekapcsolva."
+
+#: 
+msgid "The tag has been deleted."
+msgstr "A címke törölve."
+
+#: 
+msgid "Add User"
+msgstr "Felhasználó hozzáadása"
+
+#: 
+msgid "Your account has been confirmed. You can now log in."
+msgstr "Fiókját megerősítették. Most már bejelentkezhet."
+
+#: 
+msgid "Add Slug"
+msgstr "Add Slug"
+
+#: 
+msgid "Last Cleared"
+msgstr "Utoljára törölve"
+
+#: 
+msgid "No articles found for this tag."
+msgstr "Nem található cikk ehhez a címkéhez."
+
+#: 
+msgid "Show Full Article"
+msgstr "Teljes cikk megjelenítése"
+
+#: 
+msgid "Elsewhere"
+msgstr "Máshol"
+
+#: 
+msgid "Auto"
+msgstr "Auto"
+
+#: 
+msgid "Add Page"
+msgstr "Oldal hozzáadása"
+
+#: 
+msgid "Delete all articles before generating new ones"
+msgstr "Újak létrehozása előtt törölje az összes cikket"
+
+#: 
+msgid "The settings have been saved."
+msgstr "A beállítások el lettek mentve."
+
+#: 
+msgid "Delete All Logs"
+msgstr "Az összes napló törlése"
+
+#: 
+msgid "Reset Password"
+msgstr "Jelszó visszaállítása"
+
+#: 
+msgid "Error fetching videos: {0}"
+msgstr "Hiba a videók lekérésekor: {0}"
+
+#: 
+msgid "AI Prompts"
+msgstr "AI Prompts"
+
+#: 
+msgid "Essential Cookies"
+msgstr "Essential Cookie-k"
+
+#: 
+msgid "No file uploaded or upload error"
+msgstr "Nincs fájl feltöltve vagy feltöltés hiba"
+
+#: 
+msgid "All Tags"
+msgstr "Minden címke"
+
+#: 
+msgid "Twitter Description"
+msgstr "Twitter leírás"
+
+#: 
+msgid "Email"
+msgstr "Email"
+
+#: 
+msgid "The slug must be unique."
+msgstr "A csigának egyedinek kell lennie."
+
+#: 
+msgid "Save All Settings"
+msgstr "Mentse el az összes beállítást"
+
+#: 
+msgid "Word Count"
+msgstr "Szószám"
+
+#: 
+msgid "Modified At"
+msgstr "Módosítva:"
+
+#: 
+msgid "The image has been deleted."
+msgstr "A képet törölték."
+
+#: 
+msgid "Article not found"
+msgstr "A cikk nem található"
+
+#: 
+msgid "Clear"
+msgstr "Világos"
+
+#: 
+msgid "Search Posts..."
+msgstr "Bejegyzések keresése..."
+
+#: 
+msgid "Invalid value for the specified type."
+msgstr "Érvénytelen érték a megadott típushoz."
+
+#: 
+msgid "New Blocked Ip"
+msgstr "Új blokkolt IP"
+
+#: 
+msgid "Failed to send email. Please check your email configuration."
+msgstr "Nem sikerült elküldeni az e-mailt. Kérjük, ellenőrizze az e-mail konfigurációját."
+
+#: 
+msgid "System Prompt"
+msgstr "Rendszer prompt"
+
+#: 
+msgid "Unable to delete the log."
+msgstr "Nem sikerült törölni a naplót."
+
+#: 
+msgid "Task Type"
+msgstr "Feladat típusa"
+
+#: 
+msgid "Error sending email: {0}"
+msgstr "Hiba az e-mail küldésekor: {0}"
+
+#: 
+msgid "Root"
+msgstr "Gyökér"
+
+#: 
+msgid "The article could not be saved. Please, try again."
+msgstr "A cikket nem sikerült elmenteni. Kérem, próbálja újra."
+
+#: 
+msgid "Image uploaded successfully"
+msgstr "A kép sikeresen feltöltve"
+
+#: 
+msgid "The article could not be deleted. Please, try again."
+msgstr "A cikket nem lehetett törölni. Kérem, próbálja újra."
+
+#: 
+msgid "Tag not found"
+msgstr "Címke nem található"
+
+#: 
+msgid "New {0}"
+msgstr "Új {0}"
+
+#: 
+msgid "Not Displayed"
+msgstr "Nem jelenik meg"
+
+#: 
+msgid "This slug is already in use. Please enter a unique slug."
+msgstr "Ez a csiga már használatban van. Kérjük, adjon meg egy egyedi csigát."
+
+#: 
+msgid "Error loading images:"
+msgstr "Hiba a képek betöltésekor:"
+
+#: 
+msgid "Bulk Upload"
+msgstr "Tömeges feltöltés"
+
+#: 
+msgid "Slug:"
+msgstr "Meztelen csiga:"
+
+#: 
+msgid "Show Less"
+msgstr "Mutass kevesebbet"
+
+#: 
+msgid "Help us understand how visitors interact with our website."
+msgstr "Segítsen nekünk megérteni, hogy a látogatók hogyan lépnek kapcsolatba webhelyünkkel."
+
+#: 
+msgid "You are not authorized to edit this account, stick to your own."
+msgstr "Nincs jogosultsága ennek a fióknak a szerkesztésére, ragaszkodjon a sajátjához."
+
+#: 
+msgid "Is Admin"
+msgstr "Az Admin"
+
+#: 
+msgid "Search Internationalisations..."
+msgstr "Keresés a nemzetköziesítések között..."
+
+#: 
+msgid "Load video"
+msgstr "Videó betöltése"
+
+#: 
+msgid "Modified"
+msgstr "Módosított"
+
+#: 
+msgid "Filter"
+msgstr "Szűrő"
+
+#: 
+msgid "Published"
+msgstr "Közzétett"
+
+#: 
+msgid "Are you sure you want to delete {0}?"
+msgstr "Biztosan törli a következőt: {0}?"
+
+#: 
+msgid "{0} cache configuration does not exist."
+msgstr "A(z) {0} gyorsítótár-konfiguráció nem létezik."
+
+#: 
+msgid "No admin user found."
+msgstr "Nem található adminisztrátor felhasználó."
+
+#: 
+msgid "New Page"
+msgstr "Új oldal"
+
+#: 
+msgid "Cookie Preferences"
+msgstr "Cookie-beállítások"
+
+#: 
+msgid "The slug could not be saved. Please, try again."
+msgstr "A csigát nem tudták megmenteni. Kérem, próbálja újra."
+
+#: 
+msgid "Kind"
+msgstr "Fajta"
+
+#: 
+msgid "Name"
+msgstr "Név"
+
+#: 
+msgid "Read More"
+msgstr "Olvasson tovább"
+
+#: 
+msgid "The user has been saved."
+msgstr "A felhasználó mentése megtörtént."
+
+#: 
+msgid "Insert Video"
+msgstr "Videó beszúrása"
+
+#: 
+msgid "Displayed"
+msgstr "Megjelenítve"
+
+#: 
+msgid "Updated At"
+msgstr "Frissítve:"
+
+#: 
+msgid "Search Email Templates..."
+msgstr "E-mail sablonok keresése..."
+
+#: 
+msgid "Your account has been updated."
+msgstr "Fiókja frissítve lett."
+
+#: 
+msgid "Edit Email Template"
+msgstr "E-mail sablon szerkesztése"
+
+#: 
+msgid "Level"
+msgstr "Szint"
+
+#: 
+msgid "The blocked ip has been saved."
+msgstr "A blokkolt IP-cím mentése megtörtént."
+
+#: 
+msgid "Register"
+msgstr "Nyilvántartás"
+
+#: 
+msgid "Flagged"
+msgstr "Megjelölve"
+
+#: 
+msgid "SEO Fields"
+msgstr "SEO mezők"
+
+#: 
+msgid "Marketing Cookies"
+msgstr "Marketing sütik"
+
+#: 
+msgid "Image Uploads"
+msgstr "Képfeltöltések"
+
+#: 
+msgid "Are you sure you want to delete all logs?"
+msgstr "Biztosan törli az összes naplót?"
+
+#: 
+msgid "Display"
+msgstr "Kijelző"
+
+#: 
+msgid "The aiprompt could not be saved. Please, try again."
+msgstr "Az aprompt nem menthető. Kérem, próbálja újra."
+
+#: 
+msgid "Image must be less than 5MB."
+msgstr "A képnek 5 MB-nál kisebbnek kell lennie."
+
+#: 
+msgid "Search logs..."
+msgstr "Keresési naplók..."
+
+#: 
+msgid "Forgot Password"
+msgstr "Elfelejtett jelszó"
+
+#: 
+msgid "Content"
+msgstr "Tartalom"
+
+#: 
+msgid "Related Tags"
+msgstr "Kapcsolódó címkék"
+
+#: 
+msgid "Title"
+msgstr "Cím"
+
+#: 
+msgid "Please log in to add a comment"
+msgstr "Megjegyzés hozzáadásához jelentkezzen be"
+
+#: 
+msgid "Settings"
+msgstr "Beállítások elemre"
+
+#: 
+msgid "The internationalisation could not be deleted. Please, try again."
+msgstr "A nemzetközivé tételt nem sikerült törölni. Kérem, próbálja újra."
+
+#: 
+msgid "This content is hosted by YouTube. By showing the external content you accept the privacy policy of YouTube."
+msgstr "Ezt a tartalmat a YouTube tárolja. A külső tartalom megjelenítésével elfogadod a YouTube adatvédelmi szabályzatát."
+
+#: 
+msgid "Grid View"
+msgstr "Rács nézet"
+
+#: 
+msgid "Add a Comment"
+msgstr "Megjegyzés hozzáadása"
+
+#: 
+msgid "Failed to create tag: {0}"
+msgstr "Nem sikerült létrehozni a címkét: {0}"
+
+#: 
+msgid "Are you sure you want to delete  {0}?"
+msgstr "Biztosan törli a következőt: {0}?"
+
+#: 
+msgid "The comment could not be deleted. Please, try again."
+msgstr "A megjegyzést nem sikerült törölni. Kérem, próbálja újra."
+
+#: 
+msgid "Logs"
+msgstr "Naplók"
+
+#: 
+msgid "Related pages"
+msgstr "Kapcsolódó oldalak"
+
+#: 
+msgid "By"
+msgstr "Által"
+
+#: 
+msgid "Email Templates"
+msgstr "E-mail sablonok"
+
+#: 
+msgid "Add Email Template"
+msgstr "E-mail sablon hozzáadása"
+
+#: 
+msgid "All Locales"
+msgstr "Minden terület"
+
+#: 
+msgid "Auto Tag"
+msgstr "Auto Tag"
+
+#: 
+msgid "The image could not be deleted. Please, try again."
+msgstr "A képet nem sikerült törölni. Kérem, próbálja újra."
+
+#: 
+msgid "The article has been saved."
+msgstr "A cikk el lett mentve."
+
+#: 
+msgid "Your cookie preferences have been saved."
+msgstr "A cookie-beállításait elmentettük."
+
+#: 
+msgid "User"
+msgstr "Felhasználó"
+
+#: 
+msgid "Page Views"
+msgstr "Oldalmegtekintések"
+
+#: 
+msgid "Willow Logo"
+msgstr "Fűzfa logó"
+
+#: 
+msgid "Add Internationalisation"
+msgstr "Internacionalizálás hozzáadása"
+
+#: 
+msgid "Required for the website to function properly. These cannot be disabled."
+msgstr "A weboldal megfelelő működéséhez szükséges. Ezeket nem lehet letiltani."
+
+#: 
+msgid "Search YouTube videos..."
+msgstr "YouTube-videók keresése..."
+
+#: 
+msgid "If your email is registered, you will receive a link to reset your password."
+msgstr "Ha az e-mail-címe regisztrálva van, kap egy linket a jelszó visszaállításához."
+
+#: 
+msgid "Please enter your email to reset your password"
+msgstr "Kérjük, adja meg e-mail címét a jelszó visszaállításához"
+
+#: 
+msgid "Method not allowed"
+msgstr "A módszer nem engedélyezett"
+
+#: 
+msgid "Search Slugs..."
+msgstr "Csigák keresése..."
+
+#: 
+msgid "Willow CMS"
+msgstr "Willow CMS"
+
+#: 
+msgid "Number of articles to generate"
+msgstr "A létrehozandó cikkek száma"
+
+#: 
+msgid "All"
+msgstr "Minden"
+
+#: 
+msgid "Error saving {0}.{1}: {2}"
+msgstr "Hiba a(z) {0} mentése során.{1}: {2}"
+
+#: 
+msgid "The email template has been deleted."
+msgstr "Az e-mail sablon törölve lett."
+
+#: 
+msgid "All Groups"
+msgstr "Minden csoport"
+
+#: 
+msgid "Alt Text"
+msgstr "Alt szöveg"
+
+#: 
+msgid "Facebook Description"
+msgstr "Facebook Leírás"
+
+#: 
+msgid "Internationalisation"
+msgstr "Nemzetközivé válás"
+
+#: 
+msgid "Group Name"
+msgstr "Csoport neve"
+
+#: 
+msgid "View {0}"
+msgstr "{0} megtekintése"
+
+#: 
+msgid "You cannot remove your own admin status."
+msgstr "Nem távolíthatja el saját rendszergazdai állapotát."
 
 #: 
 msgid "Language"
 msgstr "Nyelv"
 
 #: 
-msgid "Error in {0}: {1}"
-msgstr "Hiba itt: {0}: {1}"
+msgid "The email template has been saved."
+msgstr "Az e-mail sablon el lett mentve."
+
+#: 
+msgid "Error in: "
+msgstr "Hiba itt: "
+
+#: 
+msgid "To understand how we handle your personal information, including the use of cookies and other tracking technologies, please review our {0}."
+msgstr "Annak megértéséhez, hogyan kezeljük személyes adatait, beleértve a cookie-k és más nyomkövetési technológiák használatát, tekintse át a következőt: {0}."
+
+#: 
+msgid "Email sent successfully."
+msgstr "E-mail sikeresen elküldve."
+
+#: 
+msgid "On"
+msgstr "On"
+
+#: 
+msgid "Select Video"
+msgstr "Válassza a Videó lehetőséget"
+
+#: 
+msgid "New Internationalisation"
+msgstr "Új nemzetközivé válás"
+
+#: 
+msgid "The internationalisation has been deleted."
+msgstr "A nemzetköziesítést törölték."
+
+#: 
+msgid "Blog"
+msgstr "Blog"
+
+#: 
+msgid "Back to top"
+msgstr "Vissza az elejére"
+
+#: 
+msgid "New Aiprompt"
+msgstr "Új Aiprompt"
+
+#: 
+msgid "Parent"
+msgstr "Szülő"
+
+#: 
+msgid "Log In"
+msgstr "Bejelentkezés"
+
+#: 
+msgid "Show only channel videos"
+msgstr "Csak csatornavideók megjelenítése"
+
+#: 
+msgid "Rate limit exceeded for IP: {0} on route: {1}"
+msgstr "Díjkorlát túllépve a következő IP-címnél: {0} a következő útvonalon: {1}"
+
+#: 
+msgid "Home"
+msgstr "Otthon"
+
+#: 
+msgid "Body Html"
+msgstr "Törzs Html"
+
+#: 
+msgid "Front Site"
+msgstr "Elülső oldal"
+
+#: 
+msgid "There was an issue resetting your password. Please try again."
+msgstr "Hiba történt a jelszó visszaállítása során. Kérjük, próbálja újra."
+
+#: 
+msgid "Max Tokens"
+msgstr "Max Tokens"
+
+#: 
+msgid "Unable to delete logs in group {0}."
+msgstr "Nem lehet törölni a naplókat a(z) {0} csoportban."
+
+#: 
+msgid "Inactive"
+msgstr "Inaktív"
+
+#: 
+msgid "The aiprompt could not be deleted. Please, try again."
+msgstr "Az aiprompt nem törölhető. Kérem, próbálja újra."
+
+#: 
+msgid "The blocked ip could not be deleted. Please, try again."
+msgstr "A blokkolt IP-címet nem lehetett törölni. Kérem, próbálja újra."
+
+#: 
+msgid "View"
+msgstr "Kilátás"
+
+#: 
+msgid "Search..."
+msgstr "Keresés..."
+
+#: 
+msgid "Slugs"
+msgstr "Csigák"
+
+#: 
+msgid "Date"
+msgstr "Dátum"
+
+#: 
+msgid "The user has been deleted."
+msgstr "A felhasználót törölték."
+
+#: 
+msgid "Add Image"
+msgstr "Kép hozzáadása elemre"
+
+#: 
+msgid "Add Tag"
+msgstr "Címke hozzáadása"
+
+#: 
+msgid "Unable to delete all logs."
+msgstr "Nem sikerült törölni az összes naplót."
+
+#: 
+msgid "Are you sure you want to delete # {0}?"
+msgstr "Biztosan törli a következőt: # {0}?"
+
+#: 
+msgid "Main Image"
+msgstr "Fő kép"
+
+#: 
+msgid "Body Preview"
+msgstr "Test előnézete"
+
+#: 
+msgid "Yes"
+msgstr "Igen"
+
+#: 
+msgid "Summary"
+msgstr "Összegzés"
+
+#: 
+msgid "This slug is already in use in articles. Please enter a unique slug."
+msgstr "Ez a csiga már használatban van a cikkekben. Kérjük, adjon meg egy egyedi csigát."
+
+#: 
+msgid "Article ID:"
+msgstr "Cikk azonosítója:"
+
+#: 
+msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
+msgstr "Az e-mail sikeresen elküldve a következő címre: {0}. Sablon: {1}, Tárgy: {2}"
+
+#: 
+msgid "Body"
+msgstr "Test"
+
+#: 
+msgid "Account"
+msgstr "fiók"
+
+#: 
+msgid "The comment has been deleted."
+msgstr "A megjegyzés törölve lett."
+
+#: 
+msgid "Main Menu"
+msgstr "Főmenü"
+
+#: 
+msgid "Your comment has been added."
+msgstr "Megjegyzését hozzáadtuk."
+
+#: 
+msgid "Instagram Description"
+msgstr "Instagram leírás"
+
+#: 
+msgid "Article"
+msgstr "Cikk"
+
+#: 
+msgid "No view records found for this article."
+msgstr "Nem található megtekintési rekord ehhez a cikkhez."
+
+#: 
+msgid "New Tag"
+msgstr "Új címke"
+
+#: 
+msgid "No pages found."
+msgstr "Nem található oldal."
+
+#: 
+msgid "Not published"
+msgstr "Nincs közzétéve"
+
+#: 
+msgid "Your cookie preferences could not be saved. Please, try again."
+msgstr "A cookie-beállításait nem sikerült elmenteni. Kérem, próbálja újra."
+
+#: 
+msgid "Created tag: {0}"
+msgstr "Címke létrehozva: {0}"
+
+#: 
+msgid "Edit Article"
+msgstr "Cikk szerkesztése"
+
+#: 
+msgid "View detailed records for this date"
+msgstr "Tekintse meg az erre a dátumra vonatkozó részletes nyilvántartást"
+
+#: 
+msgid "Description"
+msgstr "Leírás"
+
+#: 
+msgid "Send Email"
+msgstr "E-mail küldése"
+
+#: 
+msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
+msgstr "A Slug ütközik egy meglévő SEO-átirányítással. Kérjük, válasszon másik csigát."
+
+#: 
+msgid "Welcome to willowcms.app. This site uses Willow - a content management system I'm building in the open. Here you'll find development updates, feature highlights, and guides on using Willow for your own sites."
+msgstr "Üdvözöljük a willowcms.app oldalon. Ez az oldal a Willow-t használja – egy tartalomkezelő rendszert, amelyet a szabadban építek. Itt fejlesztési frissítéseket, kiemelt funkciókat és útmutatókat talál a Willow használatához saját webhelyein."
+
+#: 
+msgid "Articles/Pages"
+msgstr "Cikkek/Oldalak"
+
+#: 
+msgid "You must be logged in to add a comment."
+msgstr "Hozzászólás írásához be kell jelentkeznie."
+
+#: 
+msgid "Email template not found: {0}"
+msgstr "Az e-mail sablon nem található: {0}"
+
+#: 
+msgid "New User"
+msgstr "Új felhasználó"
+
+#: 
+msgid "Tag Articles/Pages"
+msgstr "Címke cikkek/oldalak"
+
+#: 
+msgid "Edit Comment"
+msgstr "Megjegyzés szerkesztése"
+
+#: 
+msgid "No page view data available for this article."
+msgstr "Ehhez a cikkhez nem állnak rendelkezésre oldalmegtekintési adatok."
+
+#: 
+msgid "No comments yet."
+msgstr "Még nincsenek megjegyzések."
+
+#: 
+msgid "Register New Account"
+msgstr "Új fiók regisztrálása"
+
+#: 
+msgid "Related Articles/Pages"
+msgstr "Kapcsolódó cikkek/oldalak"
+
+#: 
+msgid "Failed to send email to: {0}"
+msgstr "Nem sikerült e-mailt küldeni a következő címre: {0}"
+
+#: 
+msgid "Setting not found: {0}.{1}"
+msgstr "A beállítás nem található: {0}.{1}"
+
+#: 
+msgid "The internationalisation has been saved."
+msgstr "A nemzetköziesedés megmenekült."
+
+#: 
+msgid "Tags"
+msgstr "Címkék"
+
+#: 
+msgid "No"
+msgstr "Nem"
+
+#: 
+msgid "Search images..."
+msgstr "Képek keresése..."
+
+#: 
+msgid "{0} cache has been cleared successfully."
+msgstr "A(z) {0} gyorsítótár sikeresen törölve."
+
+#: 
+msgid "Featured"
+msgstr "Kiemelt"
+
+#: 
+msgid "Articles"
+msgstr "Cikkek"
+
+#: 
+msgid "Edit Page"
+msgstr "Oldal szerkesztése"
+
+#: 
+msgid "Dark"
+msgstr "Sötét"
+
+#: 
+msgid "Is Inappropriate"
+msgstr "Nem megfelelő"
+
+#: 
+msgid "The log has been deleted."
+msgstr "A naplót törölték."
+
+#: 
+msgid "Inappropriate Reason"
+msgstr "Nem megfelelő ok"
+
+#: 
+msgid "Failed to send confirmation email message: {0}"
+msgstr "Nem sikerült elküldeni a megerősítő e-mailt: {0}"
+
+#: 
+msgid "We were unable to find that account."
+msgstr "Nem tudtuk megtalálni ezt a fiókot."
+
+#: 
+msgid "Are you sure you want to clear {0}?"
+msgstr "Biztosan törli a következőt: {0}?"
+
+#: 
+msgid "Share"
+msgstr "Részesedés"
+
+#: 
+msgid "Article not found."
+msgstr "A cikk nem található."
+
+#: 
+msgid "Cache Name"
+msgstr "Gyorsítótár neve"
+
+#: 
+msgid "The blocked ip could not be saved. Please, try again."
+msgstr "A blokkolt IP-címet nem sikerült elmenteni. Kérem, próbálja újra."
+
+#: 
+msgid "There was an issue confirming your account. Please try again."
+msgstr "Hiba történt a fiók megerősítése során. Kérjük, próbálja újra."
+
+#: 
+msgid "The email template could not be saved. Please, try again."
+msgstr "Az e-mail sablont nem sikerült elmenteni. Kérem, próbálja újra."
+
+#: 
+msgid "Password must be at least 8 characters long"
+msgstr "A jelszónak legalább 8 karakter hosszúnak kell lennie"
+
+#: 
+msgid "Essential"
+msgstr "Alapvető"
+
+#: 
+msgid "Unable to add your comment."
+msgstr "Nem sikerült hozzáadni a megjegyzést."
+
+#: 
+msgid "All rights reserved."
+msgstr "Minden jog fenntartva."
+
+#: 
+msgid "Page View Statistics for slug: {0}"
+msgstr "Oldalmegtekintési statisztika a csigára vonatkozóan: {0}"
+
+#: 
+msgid "Body Plain"
+msgstr "Body Plain"
+
+#: 
+msgid "Id"
+msgstr "Id"
+
+#: 
+msgid "Posted on {date} by {author}"
+msgstr "{author} közzétette: {date}"
+
+#: 
+msgid "Edit Blocked Ip"
+msgstr "Blokkolt IP szerkesztése"
+
+#: 
+msgid "Delete {0}"
+msgstr "{0} törlése"
+
+#: 
+msgid "Images"
+msgstr "Képek"
+
+#: 
+msgid "Edit Image"
+msgstr "Kép szerkesztése"
+
+#: 
+msgid "System Logs"
+msgstr "Rendszernaplók"
+
+#: 
+msgid "Model"
+msgstr "Modell"
+
+#: 
+msgid "Created"
+msgstr "Létrehozva"
+
+#: 
+msgid "Edit Slug"
+msgstr "Slug szerkesztése"
+
+#: 
+msgid "Context"
+msgstr "Kontextus"
+
+#: 
+msgid "Some caches were cleared, but the following failed: {0}"
+msgstr "Néhány gyorsítótár törlődött, de a következő nem sikerült: {0}"
+
+#: 
+msgid "New Email Template"
+msgstr "Új e-mail sablon"
+
+#: 
+msgid "The blocked ip has been deleted."
+msgstr "A blokkolt IP-címet törölték."
+
+#: 
+msgid "All Levels"
+msgstr "Minden szint"
+
+#: 
+msgid "The aiprompt has been deleted."
+msgstr "Az aiprompt törölték."
+
+#: 
+msgid "Your account could not be updated."
+msgstr "Fiókját nem sikerült frissíteni."
+
+#: 
+msgid "All logs have been deleted."
+msgstr "Az összes naplót törölték."
+
+#: 
+msgid "Search for YouTube videos to embed"
+msgstr "Keressen beágyazandó YouTube-videókat"
+
+#: 
+msgid "Related Comments"
+msgstr "Kapcsolódó megjegyzések"
+
+#: 
+msgid "Add Article"
+msgstr "Cikk hozzáadása"
+
+#: 
+msgid "All logs in group {0} have been deleted."
+msgstr "A(z) {0} csoport összes naplója törölve lett."
+
+#: 
+msgid "Create an Account"
+msgstr "Hozzon létre egy fiókot"
+
+#: 
+msgid "The user could not be saved. Please, try again."
+msgstr "A felhasználót nem sikerült menteni. Kérem, próbálja újra."
+
+#: 
+msgid "Keywords"
+msgstr "Kulcsszavak"
+
+#: 
+msgid "Analytics Cookies"
+msgstr "Analytics cookie-k"
+
+#: 
+msgid "Never"
+msgstr "Soha"
+
+#: 
+msgid "Created At"
+msgstr "Létrehozva:"
+
+#: 
+msgid "The comment has been saved."
+msgstr "A megjegyzést elmentettük."
+
+#: 
+msgid "Please enter your new password"
+msgstr "Kérjük, adja meg új jelszavát"
+
+#: 
+msgid "{0} cache could not be cleared."
+msgstr "A(z) {0} gyorsítótár nem törölhető."
+
+#: 
+msgid "Submit"
+msgstr "Beküld"
+
+#: 
+msgid "Invalid type"
+msgstr "Érvénytelen típus"
+
+#: 
+msgid "Failed to send password reset email: {0}"
+msgstr "Nem sikerült elküldeni a jelszó-visszaállítási e-mailt: {0}"
 

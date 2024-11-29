@@ -28,7 +28,7 @@ class ArticleTagUpdateJob implements JobInterface
      *
      * @var int|null
      */
-    public static ?int $maxAttempts = 3;
+    public static int $maxAttempts = 3;
 
     /**
      * Whether this job should be unique in the queue.

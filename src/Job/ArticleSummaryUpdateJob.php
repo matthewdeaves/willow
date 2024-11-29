@@ -26,7 +26,7 @@ class ArticleSummaryUpdateJob implements JobInterface
      *
      * @var int|null
      */
-    public static ?int $maxAttempts = 3;
+    public static int $maxAttempts = 3;
 
     /**
      * Whether there should be only one instance of a job on the queue at a time.

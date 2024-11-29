@@ -79,6 +79,7 @@ class GoogleApiService
      */
     public function translateArticle(
         string $title,
+        string $lede,
         string $body,
         string $summary,
         string $meta_title,
@@ -100,6 +101,7 @@ class GoogleApiService
             $translationResult = $this->translateClient->translateBatch(
                 [
                     $title,
+                    $lede,
                     $processedBody,
                     $summary,
                     $meta_title,
@@ -117,15 +119,16 @@ class GoogleApiService
                 ]
             );
             $translations[$locale]['title'] = $translationResult[0]['text'];
-            $translations[$locale]['body'] = $this->postprocessContent($translationResult[1]['text']);
-            $translations[$locale]['summary'] = $translationResult[2]['text'];
-            $translations[$locale]['meta_title'] = $translationResult[3]['text'];
-            $translations[$locale]['meta_description'] = $translationResult[4]['text'];
-            $translations[$locale]['meta_keywords'] = $translationResult[5]['text'];
-            $translations[$locale]['facebook_description'] = $translationResult[6]['text'];
-            $translations[$locale]['linkedin_description'] = $translationResult[7]['text'];
-            $translations[$locale]['instagram_description'] = $translationResult[8]['text'];
-            $translations[$locale]['twitter_description'] = $translationResult[9]['text'];
+            $translations[$locale]['lede'] = $translationResult[1]['text'];
+            $translations[$locale]['body'] = $this->postprocessContent($translationResult[2]['text']);
+            $translations[$locale]['summary'] = $translationResult[3]['text'];
+            $translations[$locale]['meta_title'] = $translationResult[4]['text'];
+            $translations[$locale]['meta_description'] = $translationResult[5]['text'];
+            $translations[$locale]['meta_keywords'] = $translationResult[6]['text'];
+            $translations[$locale]['facebook_description'] = $translationResult[7]['text'];
+            $translations[$locale]['linkedin_description'] = $translationResult[8]['text'];
+            $translations[$locale]['instagram_description'] = $translationResult[9]['text'];
+            $translations[$locale]['twitter_description'] = $translationResult[10]['text'];
         }
 
         return $translations;
@@ -218,7 +221,8 @@ class GoogleApiService
             $content = preg_replace_callback(
                 $pattern,
                 function ($matches) {
-                    $placeholder = sprintf('__PRESERVED_BLOCK_%d__', count($this->preservedBlocks));
+                    // Use HTML comment syntax for placeholders to prevent translation
+                    $placeholder = sprintf('<!--PRESERVED_BLOCK_%d-->', count($this->preservedBlocks));
                     $this->preservedBlocks[$placeholder] = $matches[0];
 
                     return $placeholder;

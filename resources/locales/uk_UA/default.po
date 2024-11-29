@@ -14,1352 +14,164 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
 #: 
-msgid "Search Aiprompts..."
-msgstr "Пошук Aiprompts..."
-
-#: 
-msgid "Name"
-msgstr "Ім&#39;я"
-
-#: 
-msgid "Cache Name"
-msgstr "Назва кешу"
-
-#: 
-msgid "Edit Your Account"
-msgstr "Редагувати обліковий запис"
-
-#: 
-msgid "Body Html"
-msgstr "Html тіла"
-
-#: 
-msgid "Meta Keywords"
-msgstr "Мета-ключові слова"
-
-#: 
-msgid "The value must be 0 or 1."
-msgstr "Значення має бути 0 або 1."
-
-#: 
-msgid "Inappropriate"
-msgstr "Неадекватно"
-
-#: 
-msgid "Search YouTube videos..."
-msgstr "Пошук відео YouTube..."
-
-#: 
-msgid "Page View Statistics for slug: {0}"
-msgstr "Статистика перегляду сторінки для кулі: {0}"
-
-#: 
-msgid "Dark"
-msgstr "Темний"
-
-#: 
-msgid "Marketing Cookies"
-msgstr "Маркетингові файли cookie"
-
-#: 
-msgid "Unable to delete all logs."
-msgstr "Не вдалося видалити всі журнали."
-
-#: 
-msgid "Created tag: {0}"
-msgstr "Створено тег: {0}"
-
-#: 
-msgid "New Tag"
-msgstr "Новий тег"
-
-#: 
-msgid "Image must be less than 5MB."
-msgstr "Зображення має бути менше 5 Мб."
-
-#: 
-msgid "Error in: "
-msgstr "Помилка в: "
-
-#: 
-msgid "Unable to delete logs in group {0}."
-msgstr "Не вдалося видалити журнали в групі {0}."
-
-#: 
-msgid "Required"
-msgstr "Обов&#39;язковий"
-
-#: 
-msgid "Auto"
-msgstr "Авто"
-
-#: 
-msgid "Email sent successfully."
-msgstr "Електронна пошта успішно надіслана."
-
-#: 
-msgid "Create an Account"
-msgstr "Створіть обліковий запис"
-
-#: 
-msgid "Un-Published"
-msgstr "Не опубліковано"
-
-#: 
-msgid "Your password has been reset. Please log in with your new password."
-msgstr "Ваш пароль скинуто. Будь ласка, увійдіть, використовуючи новий пароль."
-
-#: 
-msgid "Search..."
-msgstr "пошук..."
-
-#: 
-msgid "Enter text"
-msgstr "Введіть текст"
-
-#: 
-msgid "No page view data available for this article."
-msgstr "Для цієї статті немає даних про перегляди сторінок."
-
-#: 
-msgid "The comment could not be deleted. Please, try again."
-msgstr "Не вдалося видалити коментар. Будь ласка, спробуйте ще раз."
-
-#: 
-msgid "Error"
-msgstr "Помилка"
-
-#: 
-msgid "Not Displayed"
-msgstr "Не відображається"
-
-#: 
-msgid "Message Str"
-msgstr "Повідомлення вул"
-
-#: 
-msgid "Body"
-msgstr "Тіло"
-
-#: 
-msgid "Add Slug"
-msgstr "Додайте Слимака"
-
-#: 
-msgid "No file uploaded or upload error"
-msgstr "Файл не завантажено або помилка завантаження"
-
-#: 
-msgid "Internationalisation"
-msgstr "Інтернаціоналізація"
-
-#: 
-msgid "Modified"
-msgstr "Змінено"
-
-#: 
-msgid "The requested address {0} was not found on this server."
-msgstr "Запитану адресу {0} не знайдено на цьому сервері."
-
-#: 
-msgid "Your account has been updated."
-msgstr "Ваш обліковий запис оновлено."
-
-#: 
-msgid "Tags"
-msgstr "Теги"
-
-#: 
-msgid "Context"
-msgstr "Контекст"
-
-#: 
-msgid "Account"
-msgstr "Обліковий запис"
-
-#: 
-msgid "Task Type"
-msgstr "Тип завдання"
-
-#: 
-msgid "The slug could not be deleted. Please, try again."
-msgstr "Слимак не вдалося видалити. Будь ласка, спробуйте ще раз."
-
-#: 
-msgid "Article ID:"
-msgstr "Ідентифікатор статті:"
-
-#: 
-msgid "Back to top"
-msgstr "Повернутися до початку"
-
-#: 
-msgid "Are you sure you want to delete # {0}?"
-msgstr "Ви впевнені, що хочете видалити # {0}?"
-
-#: 
-msgid "Registration successful, but there was an issue creating the confirmation link."
-msgstr "Реєстрація успішна, але виникла проблема зі створенням посилання для підтвердження."
-
-#: 
-msgid "New Slug"
-msgstr "Новий Слизень"
-
-#: 
-msgid "All Tags"
-msgstr "Усі теги"
-
-#: 
-msgid "Edit Email Template"
-msgstr "Редагувати шаблон електронної пошти"
-
-#: 
-msgid "The settings have been saved."
-msgstr "Налаштування збережено."
-
-#: 
-msgid "All logs have been deleted."
-msgstr "Усі журнали видалено."
-
-#: 
-msgid "Registration failed. Please, try again."
-msgstr "Помилка реєстрації. Будь ласка, спробуйте ще раз."
-
-#: 
-msgid "Select Video"
-msgstr "Виберіть Відео"
-
-#: 
-msgid "Privacy Policy"
-msgstr "Політика конфіденційності"
-
-#: 
-msgid "About"
-msgstr "про"
-
-#: 
-msgid "All articles have been deleted."
-msgstr "Усі статті видалено."
-
-#: 
-msgid "Register"
-msgstr "зареєструватися"
-
-#: 
-msgid "You cannot disable your own account."
-msgstr "Ви не можете вимкнути власний обліковий запис."
-
-#: 
-msgid "Modified At"
-msgstr "Змінений Ат"
-
-#: 
-msgid "No admin user found."
-msgstr "Користувача адміністратора не знайдено."
-
-#: 
-msgid "Page Views for {0}"
-msgstr "Перегляди сторінок для {0}"
-
-#: 
-msgid "The image could not be saved. Please, try again."
-msgstr "Зображення не вдалося зберегти. Будь ласка, спробуйте ще раз."
-
-#: 
-msgid "Add Image"
-msgstr "Додати зображення"
-
-#: 
-msgid "Edit"
-msgstr "Редагувати"
-
-#: 
-msgid "The aiprompt could not be deleted. Please, try again."
-msgstr "Не вдалося видалити aiprompt. Будь ласка, спробуйте ще раз."
-
-#: 
-msgid "Template Identifier"
-msgstr "Ідентифікатор шаблону"
-
-#: 
-msgid "The article has been deleted."
-msgstr "Статтю видалено."
-
-#: 
-msgid "All"
-msgstr "все"
-
-#: 
-msgid "No tags found."
-msgstr "Теги не знайдено."
-
-#: 
-msgid "The slug could not be saved. Please, try again."
-msgstr "Слизняка врятувати не вдалося. Будь ласка, спробуйте ще раз."
-
-#: 
-msgid "AI Prompts"
-msgstr "ШІ підказки"
-
-#: 
-msgid "You cannot remove your own admin status."
-msgstr "Ви не можете видалити свій статус адміністратора."
-
-#: 
-msgid "Body Editor"
-msgstr "Редактор тіла"
-
-#: 
-msgid "The tag has been saved."
-msgstr "Тег збережено."
-
-#: 
-msgid "Forgot Password?"
-msgstr "Забули пароль?"
-
-#: 
-msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
-msgstr "Нижче наведено інформацію про налаштовані кеші. Натисніть кнопку, щоб очистити всі кеші, або окремі кнопки кешу, щоб очистити певні кеші."
-
-#: 
-msgid "Add Blocked Ip"
-msgstr "Додати заблокований IP"
-
-#: 
-msgid "The image has been saved."
-msgstr "Зображення збережено."
-
-#: 
-msgid "Pages"
-msgstr "сторінки"
-
-#: 
-msgid "View {0}"
-msgstr "Переглянути {0}"
-
-#: 
-msgid "Rate limit exceeded for IP: {0} on route: {1}"
-msgstr "Перевищено обмеження швидкості для IP: {0} на маршруті: {1}"
-
-#: 
-msgid "Inactive"
-msgstr "Неактивний"
-
-#: 
-msgid "Related Slugs"
-msgstr "Пов&#39;язані слимаки"
-
-#: 
-msgid "The user has been deleted."
-msgstr "Користувача видалено."
-
-#: 
-msgid "System Prompt"
-msgstr "Системна підказка"
-
-#: 
-msgid "This slug is already in use in articles. Please enter a unique slug."
-msgstr "Цей слаг уже використовується в статтях. Введіть унікальний слаг."
-
-#: 
-msgid "If your email is registered, you will receive a link to reset your password."
-msgstr "Якщо ваша електронна адреса зареєстрована, ви отримаєте посилання для скидання пароля."
-
-#: 
-msgid "Failed to send email. Please check your email configuration."
-msgstr "Не вдалося надіслати електронний лист. Перевірте конфігурацію електронної пошти."
-
-#: 
-msgid "{0} Views"
-msgstr "Переглядів: {0}"
-
-#: 
-msgid "Read More"
-msgstr "Детальніше"
-
-#: 
-msgid "Failed to send email to: {0}"
-msgstr "Не вдалося надіслати електронний лист до: {0}"
-
-#: 
-msgid "The aiprompt has been saved."
-msgstr "Aiprompt збережено."
-
-#: 
-msgid "Subject"
-msgstr "Тема"
-
-#: 
-msgid "Comment"
-msgstr "коментар"
-
-#: 
-msgid "The aiprompt could not be saved. Please, try again."
-msgstr "Не вдалося зберегти aiprompt. Будь ласка, спробуйте ще раз."
-
-#: 
-msgid "The comment has been deleted."
-msgstr "Коментар видалено."
-
-#: 
-msgid "Insert Video"
-msgstr "Вставити відео"
-
-#: 
-msgid "Filter"
-msgstr "фільтр"
-
-#: 
-msgid "Article not found"
-msgstr "Стаття не знайдена"
-
-#: 
-msgid "Edit Internationalisation"
-msgstr "Редагувати інтернаціоналізацію"
-
-#: 
-msgid "User Agent"
-msgstr "Агент користувача"
-
-#: 
-msgid "Error in {0}: {1}"
-msgstr "Помилка в {0}: {1}"
-
-#: 
-msgid "Too Many Requests"
-msgstr "Забагато запитів"
-
-#: 
-msgid "Please upload only images (jpeg, png, gif)."
-msgstr "Завантажуйте лише зображення (jpeg, png, gif)."
-
-#: 
-msgid "Is Inappropriate"
-msgstr "Недоречно"
-
-#: 
-msgid "Please enter your new password"
-msgstr "Будь ласка, введіть свій новий пароль"
-
-#: 
-msgid "Your comment has been added."
-msgstr "Ваш коментар додано."
-
-#: 
-msgid "New Article"
-msgstr "Нова стаття"
-
-#: 
-msgid "Search Blocked Ips..."
-msgstr "Пошук заблокованих IP-адрес..."
-
-#: 
-msgid "Show only channel videos"
-msgstr "Показувати лише відео каналу"
-
-#: 
-msgid "Articles/Pages"
-msgstr "Статті/Сторінки"
-
-#: 
-msgid "The slug must be unique."
-msgstr "Слимак повинен бути унікальним."
-
-#: 
-msgid "Share"
-msgstr "Поділіться"
-
-#: 
-msgid "The user could not be saved. Please, try again."
-msgstr "Користувача не вдалося зберегти. Будь ласка, спробуйте ще раз."
-
-#: 
-msgid "Generating {0} articles..."
-msgstr "Створення {0} статей..."
-
-#: 
-msgid "Please enter your email to reset your password"
-msgstr "Будь ласка, введіть свою електронну адресу, щоб скинути пароль"
-
-#: 
-msgid "Tag not found"
-msgstr "Тег не знайдено"
-
-#: 
-msgid "By"
-msgstr "за"
-
-#: 
-msgid "Info"
-msgstr "Інформація"
-
-#: 
-msgid "Cookies"
-msgstr "Печиво"
-
-#: 
-msgid "Username"
-msgstr "Ім&#39;я користувача"
-
-#: 
-msgid "Generated {0} articles successfully."
-msgstr "Успішно створено {0} статей."
-
-#: 
-msgid "An Internal Error Has Occurred."
-msgstr "Виникла внутрішня помилка."
-
-#: 
-msgid "Search Internationalisations..."
-msgstr "Пошук інтернаціоналізацій..."
-
-#: 
-msgid "The email template could not be deleted. Please, try again."
-msgstr "Не вдалося видалити шаблон електронної пошти. Будь ласка, спробуйте ще раз."
-
-#: 
-msgid "Word Count"
-msgstr "Підрахунок слів"
-
-#: 
-msgid "No"
-msgstr "немає"
-
-#: 
-msgid "Title"
-msgstr "Назва"
-
-#: 
-msgid "Related Tags"
-msgstr "Пов’язані теги"
-
-#: 
-msgid "Linkedin Description"
-msgstr "Опис Linkedin"
-
-#: 
-msgid "No videos found matching your search"
-msgstr "Відео, що відповідають вашому запиту, не знайдено"
-
-#: 
-msgid "The email template could not be saved. Please, try again."
-msgstr "Не вдалося зберегти шаблон електронної пошти. Будь ласка, спробуйте ще раз."
-
-#: 
-msgid "Image Uploads"
-msgstr "Завантаження зображень"
-
-#: 
-msgid "Edit Article"
-msgstr "Редагувати статтю"
-
-#: 
-msgid "Submit Comment"
-msgstr "Надіслати коментар"
-
-#: 
-msgid "Bulk Upload Images"
-msgstr "Масове завантаження зображень"
-
-#: 
-msgid "The user could not be deleted. Please, try again."
-msgstr "Користувача не вдалося видалити. Будь ласка, спробуйте ще раз."
-
-#: 
-msgid "Search for YouTube videos to embed"
-msgstr "Знайдіть відео YouTube для вставлення"
-
-#: 
-msgid "Last Cleared"
-msgstr "Останнє очищення"
-
-#: 
-msgid "English"
-msgstr "англійська"
-
-#: 
-msgid "The tag has been deleted."
-msgstr "Тег видалено."
-
-#: 
-msgid "Edit Tag"
-msgstr "Редагувати тег"
-
-#: 
-msgid "Delete All Logs"
-msgstr "Видалити всі журнали"
-
-#: 
-msgid "Flagged"
-msgstr "Позначено"
-
-#: 
-msgid "Please select your cookie preferences below. Essential cookies are required for the website to function and cannot be disabled."
-msgstr "Виберіть налаштування файлів cookie нижче. Основні файли cookie необхідні для роботи веб-сайту, і їх не можна вимкнути."
-
-#: 
-msgid "SEO Fields"
-msgstr "Поля SEO"
-
-#: 
-msgid "Back to Login"
-msgstr "Назад до входу"
-
-#: 
 msgid "All Levels"
 msgstr "Всі рівні"
-
-#: 
-msgid "All logs with level {0} have been deleted."
-msgstr "Усі журнали рівня {0} видалено."
-
-#: 
-msgid "New {0}"
-msgstr "Новий {0}"
-
-#: 
-msgid "New Blocked Ip"
-msgstr "Новий заблокований IP"
-
-#: 
-msgid "Please enter your email and password"
-msgstr "Будь ласка, введіть свою електронну адресу та пароль"
-
-#: 
-msgid "Search Posts..."
-msgstr "Пошук дописів..."
-
-#: 
-msgid "All rights reserved."
-msgstr "Всі права захищені."
-
-#: 
-msgid "This message_id must be unique for the given locale."
-msgstr "Цей message_id має бути унікальним для даної мови."
-
-#: 
-msgid "Setting not found: {0}.{1}"
-msgstr "Налаштування не знайдено: {0}.{1}"
-
-#: 
-msgid "Login"
-msgstr "Логін"
-
-#: 
-msgid "Add a Comment"
-msgstr "Додайте коментар"
-
-#: 
-msgid "Your cookie preferences have been saved."
-msgstr "Ваші налаштування файлів cookie збережено."
-
-#: 
-msgid "Add Tag"
-msgstr "Додати тег"
-
-#: 
-msgid "Cookie Preferences"
-msgstr "Налаштування файлів cookie"
-
-#: 
-msgid "An error occurred while processing your request."
-msgstr "Під час обробки вашого запиту сталася помилка."
-
-#: 
-msgid "Images"
-msgstr "Зображення"
-
-#: 
-msgid "This slug is already in use. Please enter a unique slug."
-msgstr "Цей слимак уже використовується. Введіть унікальний слаг."
-
-#: 
-msgid "Edit {0}"
-msgstr "Редагувати {0}"
-
-#: 
-msgid "There was an issue confirming your account. Please try again."
-msgstr "Під час підтвердження вашого облікового запису виникла проблема. Спробуйте ще раз."
-
-#: 
-msgid "Hide"
-msgstr "Сховати"
-
-#: 
-msgid "Invalid value for the specified type."
-msgstr "Недійсне значення для вказаного типу."
-
-#: 
-msgid "Total Views: "
-msgstr "Загальна кількість переглядів: "
-
-#: 
-msgid "Search Tags..."
-msgstr "Пошук тегів..."
-
-#: 
-msgid "Blocked At"
-msgstr "Заблоковано At"
-
-#: 
-msgid "Generated article: {0}"
-msgstr "Створена стаття: {0}"
-
-#: 
-msgid "Root"
-msgstr "Корінь"
-
-#: 
-msgid "Willow CMS"
-msgstr "Willow CMS"
-
-#: 
-msgid "Some caches were cleared, but the following failed: {0}"
-msgstr "Деякі кеші було очищено, але не вдалося: {0}"
-
-#: 
-msgid "Edit User"
-msgstr "Редагувати користувача"
-
-#: 
-msgid "Show"
-msgstr "Показати"
-
-#: 
-msgid "Never"
-msgstr "Ніколи"
-
-#: 
-msgid "Your account has been confirmed. You can now log in."
-msgstr "Ваш обліковий запис підтверджено. Тепер ви можете увійти."
-
-#: 
-msgid "Internationalisations"
-msgstr "Інтернаціоналізації"
-
-#: 
-msgid "Help us understand how visitors interact with our website."
-msgstr "Допоможіть нам зрозуміти, як відвідувачі взаємодіють із нашим веб-сайтом."
-
-#: 
-msgid "The comment has been saved."
-msgstr "Коментар збережено."
-
-#: 
-msgid "Lede"
-msgstr "Леде"
-
-#: 
-msgid "Posted on {date} by {author}"
-msgstr "Опубліковано {date} автором {author}"
-
-#: 
-msgid "Main Menu"
-msgstr "Головне меню"
-
-#: 
-msgid "Edit Slug"
-msgstr "Редагувати Слимака"
-
-#: 
-msgid "This content is hosted by YouTube. By showing the external content you accept the privacy policy of YouTube."
-msgstr "Цей вміст розміщено на YouTube. Показуючи зовнішній вміст, ви приймаєте політику конфіденційності YouTube."
-
-#: 
-msgid "Search Pages..."
-msgstr "Пошук сторінок..."
-
-#: 
-msgid "List {0}"
-msgstr "Список {0}"
-
-#: 
-msgid "The internationalisation has been deleted."
-msgstr "Інтернаціоналізацію видалено."
-
-#: 
-msgid "Edit Image"
-msgstr "Редагувати зображення"
-
-#: 
-msgid "Search Slugs..."
-msgstr "Шукати слимаків..."
-
-#: 
-msgid "Send Email"
-msgstr "Надіслати електронний лист"
-
-#: 
-msgid "Too many requests. Please try again later."
-msgstr "Забагато запитів. Спробуйте пізніше."
-
-#: 
-msgid "Delete all articles before generating new ones"
-msgstr "Видаліть усі статті перед створенням нових"
-
-#: 
-msgid "Access denied. You must be an admin to view this page."
-msgstr "Доступ заборонено. Ви повинні бути адміністратором, щоб переглядати цю сторінку."
-
-#: 
-msgid "The image has been deleted."
-msgstr "Зображення видалено."
-
-#: 
-msgid "Used to deliver personalized advertisements and enable the facebook share button."
-msgstr "Використовується для показу персоналізованої реклами та ввімкнення кнопки «Поділитися» у Facebook."
-
-#: 
-msgid "The internationalisation has been saved."
-msgstr "Інтернаціоналізацію збережено."
-
-#: 
-msgid "Analytics Cookies"
-msgstr "Аналітичні файли cookie"
-
-#: 
-msgid "Child"
-msgstr "дитина"
-
-#: 
-msgid "Email"
-msgstr "Електронна пошта"
-
-#: 
-msgid "Image"
-msgstr "Зображення"
-
-#: 
-msgid "Description"
-msgstr "опис"
-
-#: 
-msgid "The image could not be deleted. Please, try again."
-msgstr "Не вдалося видалити зображення. Будь ласка, спробуйте ще раз."
-
-#: 
-msgid "On"
-msgstr "Увімкнено"
-
-#: 
-msgid "Selected"
-msgstr "Вибране"
-
-#: 
-msgid "Add Page"
-msgstr "Додати сторінку"
-
-#: 
-msgid "Add Email Template"
-msgstr "Додати шаблон електронної пошти"
-
-#: 
-msgid "Alt Text"
-msgstr "Альтернативний текст"
-
-#: 
-msgid "Auto Tag"
-msgstr "Автоматичне тегування"
-
-#: 
-msgid "Your cookie preferences could not be saved. Please, try again."
-msgstr "Не вдалося зберегти ваші налаштування файлів cookie. Будь ласка, спробуйте ще раз."
-
-#: 
-msgid "Slugs"
-msgstr "Слимаки"
-
-#: 
-msgid "Add Internationalisation"
-msgstr "Додайте інтернаціоналізацію"
-
-#: 
-msgid "Unable to add your comment."
-msgstr "Не вдалося додати ваш коментар."
-
-#: 
-msgid "Required for the website to function properly. These cannot be disabled."
-msgstr "Необхідно для належної роботи веб-сайту. Їх не можна вимкнути."
-
-#: 
-msgid "View"
-msgstr "Переглянути"
-
-#: 
-msgid "Bulk Upload"
-msgstr "Масове завантаження"
-
-#: 
-msgid "The aiprompt has been deleted."
-msgstr "Aiprompt видалено."
-
-#: 
-msgid "Error fetching videos: {0}"
-msgstr "Помилка отримання відео: {0}"
-
-#: 
-msgid "Level"
-msgstr "Рівень"
-
-#: 
-msgid "The value must not be empty."
-msgstr "Значення не має бути порожнім."
-
-#: 
-msgid "Logs"
-msgstr "Журнали"
-
-#: 
-msgid "Content"
-msgstr "Зміст"
-
-#: 
-msgid "Failed to send password reset email: {0}"
-msgstr "Не вдалося надіслати електронний лист для зміни пароля: {0}"
-
-#: 
-msgid "The blocked ip has been deleted."
-msgstr "Заблокований ip видалено."
-
-#: 
-msgid "Tree View"
-msgstr "Перегляд дерева"
-
-#: 
-msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
-msgstr "Слизняк конфліктує з існуючим переспрямуванням SEO. Виберіть іншого слимака."
-
-#: 
-msgid "Recent posts"
-msgstr "Останні публікації"
-
-#: 
-msgid "Front Site"
-msgstr "Передній сайт"
-
-#: 
-msgid "Toggle theme"
-msgstr "Перемкнути тему"
-
-#: 
-msgid "Submit"
-msgstr "Надіслати"
-
-#: 
-msgid "New Aiprompt"
-msgstr "Новий Aiprompt"
-
-#: 
-msgid "We were unable to find that account."
-msgstr "Нам не вдалося знайти цей обліковий запис."
-
-#: 
-msgid "Home"
-msgstr "додому"
-
-#: 
-msgid "To understand how we handle your personal information, including the use of cookies and other tracking technologies, please review our {0}."
-msgstr "Щоб зрозуміти, як ми обробляємо вашу особисту інформацію, включно з використанням файлів cookie та інших технологій відстеження, перегляньте наш {0}."
-
-#: 
-msgid "The email template has been deleted."
-msgstr "Шаблон електронного листа видалено."
-
-#: 
-msgid "Model"
-msgstr "Модель"
-
-#: 
-msgid "Save All Settings"
-msgstr "Зберегти всі налаштування"
-
-#: 
-msgid "Delete {0}"
-msgstr "Видалити {0}"
-
-#: 
-msgid "Meta Description"
-msgstr "Метаопис"
-
-#: 
-msgid "Date"
-msgstr "Дата"
 
 #: 
 msgid "The internationalisation could not be deleted. Please, try again."
 msgstr "Не вдалося видалити інтернаціоналізацію. Будь ласка, спробуйте ще раз."
 
 #: 
-msgid "Id"
-msgstr "ID"
+msgid "Search Aiprompts..."
+msgstr "Пошук Aiprompts..."
 
 #: 
-msgid "No pages found."
-msgstr "Сторінок не знайдено."
+msgid "New Internationalisation"
+msgstr "Нова інтернаціоналізація"
 
 #: 
-msgid "Group Name"
-msgstr "Назва групи"
+msgid "The requested address {0} was not found on this server."
+msgstr "Запитану адресу {0} не знайдено на цьому сервері."
 
 #: 
-msgid "Your account could not be updated."
-msgstr "Ваш обліковий запис не вдалося оновити."
+msgid "Block IPs"
+msgstr "Блокувати IP-адреси"
 
 #: 
-msgid "Enter a number"
-msgstr "Введіть число"
+msgid "The article has been deleted."
+msgstr "Статтю видалено."
 
 #: 
-msgid "Inappropriate Reason"
-msgstr "Невідповідна причина"
+msgid "You cannot remove your own admin status."
+msgstr "Ви не можете видалити свій статус адміністратора."
 
 #: 
-msgid "Configured Caches"
-msgstr "Налаштовані кеші"
+msgid "Subject"
+msgstr "Тема"
 
 #: 
-msgid "Some settings could not be saved. Please, try again."
-msgstr "Деякі налаштування не вдалося зберегти. Будь ласка, спробуйте ще раз."
+msgid "Delete {0}"
+msgstr "Видалити {0}"
 
 #: 
-msgid "Registration successful. Please check your email for confirmation."
-msgstr "Реєстрація успішна. Перевірте свою електронну пошту для підтвердження."
+msgid "Search Pages..."
+msgstr "Пошук сторінок..."
 
 #: 
-msgid "The article could not be deleted. Please, try again."
-msgstr "Статтю не вдалося видалити. Будь ласка, спробуйте ще раз."
+msgid "Inactive"
+msgstr "Неактивний"
 
 #: 
-msgid "Display"
-msgstr "Дисплей"
+msgid "Elsewhere"
+msgstr "В іншому місці"
 
 #: 
-msgid "Actions"
-msgstr "Дії"
+msgid "The aiprompt could not be saved. Please, try again."
+msgstr "Не вдалося зберегти aiprompt. Будь ласка, спробуйте ще раз."
 
 #: 
-msgid "Code Coverage"
-msgstr "Покриття коду"
-
-#: 
-msgid "Enable enhanced functionality and personalization."
-msgstr "Увімкніть розширену функціональність і персоналізацію."
-
-#: 
-msgid "The blocked ip could not be deleted. Please, try again."
-msgstr "Не вдалося видалити заблокований ip. Будь ласка, спробуйте ще раз."
-
-#: 
-msgid "Image uploaded successfully"
-msgstr "Зображення успішно завантажено"
-
-#: 
-msgid "Users"
-msgstr "Користувачі"
-
-#: 
-msgid "List View"
-msgstr "Перегляд списку"
-
-#: 
-msgid "The article could not be saved. Please, try again."
-msgstr "Не вдалося зберегти статтю. Будь ласка, спробуйте ще раз."
-
-#: 
-msgid "Keywords"
-msgstr "Ключові слова"
-
-#: 
-msgid "No tags are linked."
-msgstr "Жодні теги не пов’язані."
-
-#: 
-msgid "Search images..."
-msgstr "Пошук зображень..."
-
-#: 
-msgid "Clear All Cache"
-msgstr "Очистити весь кеш"
-
-#: 
-msgid "Active"
-msgstr "Активний"
-
-#: 
-msgid "Tag Articles/Pages"
-msgstr "Додайте теги до статей/сторінок"
-
-#: 
-msgid "Blog"
-msgstr "Блог"
-
-#: 
-msgid "Parent"
-msgstr "Батько"
+msgid "All logs in group {0} have been deleted."
+msgstr "Усі журнали в групі {0} видалено."
 
 #: 
 msgid "Show Full Article"
 msgstr "Показати повну статтю"
 
 #: 
-msgid "New Post"
-msgstr "Нова пошта"
-
-#: 
-msgid "Search Email Templates..."
-msgstr "Пошук шаблонів електронних листів..."
-
-#: 
-msgid "Admin"
-msgstr "адмін"
-
-#: 
-msgid "Reason"
-msgstr "Причина"
-
-#: 
-msgid "Reset your password"
-msgstr "Скинути пароль"
-
-#: 
-msgid "Search Comments..."
-msgstr "Пошук коментарів..."
-
-#: 
-msgid "Posts"
-msgstr "Пости"
-
-#: 
-msgid "No view records found for this article."
-msgstr "Для цієї статті не знайдено записів перегляду."
-
-#: 
-msgid "Yes"
-msgstr "так"
-
-#: 
-msgid "Failed to generate article: {0}"
-msgstr "Не вдалося створити статтю: {0}"
-
-#: 
-msgid "Body Preview"
-msgstr "Попередній перегляд тіла"
-
-#: 
-msgid "The tag could not be saved. Please, try again."
-msgstr "Тег не вдалося зберегти. Будь ласка, спробуйте ще раз."
-
-#: 
-msgid "Essential Cookies"
-msgstr "Основні файли cookie"
-
-#: 
-msgid "Back"
-msgstr "Назад"
-
-#: 
-msgid "New Page"
-msgstr "Нова сторінка"
-
-#: 
-msgid "Invalid or expired password reset link."
-msgstr "Недійсне або прострочене посилання для скидання пароля."
-
-#: 
-msgid "{0} cache could not be cleared."
-msgstr "Не вдалося очистити кеш {0}."
-
-#: 
-msgid "Add Article"
-msgstr "Додати статтю"
-
-#: 
-msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
-msgstr "Сторінка {{page}} з {{pages}}, показує {{current}} запис(и) із {{count}} загальної кількості"
-
-#: 
-msgid "Kind"
-msgstr "Добрий"
-
-#: 
-msgid "Published"
-msgstr "Опубліковано"
-
-#: 
-msgid "Is Published"
-msgstr "Опубліковано"
-
-#: 
-msgid "Locale"
-msgstr "Локаль"
-
-#: 
-msgid "My Account"
-msgstr "Мій акаунт"
-
-#: 
-msgid "Referer"
-msgstr "Реферер"
-
-#: 
-msgid "Failed to send confirmation email message: {0}"
-msgstr "Не вдалося надіслати повідомлення електронної пошти з підтвердженням: {0}"
-
-#: 
-msgid "Unknown Author"
-msgstr "Невідомий автор"
-
-#: 
-msgid "Show Less"
-msgstr "Показати менше"
-
-#: 
-msgid "Updated At"
-msgstr "Оновлено At"
-
-#: 
-msgid "New Image"
-msgstr "Нове зображення"
-
-#: 
-msgid "The tag could not be deleted. Please, try again."
-msgstr "Не вдалося видалити тег. Будь ласка, спробуйте ще раз."
-
-#: 
-msgid "Reset Password"
-msgstr "Скинути пароль"
-
-#: 
-msgid "Unable to delete logs with level {0}."
-msgstr "Неможливо видалити журнали з рівнем {0}."
-
-#: 
-msgid "Comments"
-msgstr "Коментарі"
-
-#: 
-msgid "Unable to delete the log."
-msgstr "Не вдалося видалити журнал."
-
-#: 
-msgid "Status"
-msgstr "Статус"
-
-#: 
-msgid "Log In"
-msgstr "Увійти"
-
-#: 
-msgid "Article not found."
-msgstr "Стаття не знайдена."
-
-#: 
-msgid "Ip Address"
-msgstr "IP-адреса"
-
-#: 
-msgid "Number of articles to generate"
-msgstr "Кількість статей для створення"
-
-#: 
-msgid "Related Articles/Pages"
-msgstr "Пов’язані статті/сторінки"
-
-#: 
-msgid "New User"
-msgstr "Новий користувач"
-
-#: 
-msgid "Not published"
-msgstr "Не опубліковано"
-
-#: 
-msgid "The log has been deleted."
-msgstr "Журнал видалено."
-
-#: 
-msgid "Max Tokens"
-msgstr "Макс жетонів"
-
-#: 
-msgid "The slug has been deleted."
-msgstr "Слимак видалено."
-
-#: 
-msgid "Error saving {0}.{1}: {2}"
-msgstr "Помилка збереження {0}.{1}: {2}"
-
-#: 
-msgid "Are you sure you want to delete all logs?"
-msgstr "Ви впевнені, що бажаєте видалити всі журнали?"
-
-#: 
-msgid "Email Templates"
-msgstr "Шаблони електронної пошти"
-
-#: 
-msgid "Edit Post"
-msgstr "Редагувати допис"
-
-#: 
-msgid "The blocked ip has been saved."
-msgstr "Заблокований ip збережено."
-
-#: 
-msgid "No deleting your own account."
-msgstr "Не можна видаляти власний обліковий запис."
-
-#: 
-msgid "The comment could not be saved. Please, try again."
-msgstr "Не вдалося зберегти коментар. Будь ласка, спробуйте ще раз."
+msgid "New Slug"
+msgstr "Новий Слизень"
 
 #: 
 msgid "Created At"
 msgstr "Створено Ат"
 
 #: 
-msgid "Views"
-msgstr "Перегляди"
+msgid "Comments are not enabled"
+msgstr "Коментарі не включені"
 
 #: 
-msgid "Is Admin"
-msgstr "Є адміністратором"
+msgid "Modified At"
+msgstr "Змінений Ат"
 
 #: 
-msgid "Related pages"
-msgstr "Пов&#39;язані сторінки"
+msgid "The value must not be empty."
+msgstr "Значення не має бути порожнім."
 
 #: 
-msgid "Send Reset Link"
-msgstr "Надіслати посилання для скидання"
+msgid "There was an issue resetting your password. Please try again."
+msgstr "Під час скидання пароля виникла проблема. Спробуйте ще раз."
+
+#: 
+msgid "Forgot Password?"
+msgstr "Забули пароль?"
+
+#: 
+msgid "Are you sure you want to delete all {0} logs?"
+msgstr "Ви впевнені, що бажаєте видалити всі журнали {0}?"
+
+#: 
+msgid "Generated article: {0}"
+msgstr "Створена стаття: {0}"
+
+#: 
+msgid "Is Inappropriate"
+msgstr "Недоречно"
+
+#: 
+msgid "Article not found"
+msgstr "Стаття не знайдена"
+
+#: 
+msgid "Featured"
+msgstr "Рекомендовані"
+
+#: 
+msgid "Comment"
+msgstr "коментар"
+
+#: 
+msgid "Cache"
+msgstr "Кеш"
+
+#: 
+msgid "Modified"
+msgstr "Змінено"
+
+#: 
+msgid "Meta Keywords"
+msgstr "Мета-ключові слова"
+
+#: 
+msgid "Search YouTube videos..."
+msgstr "Пошук відео YouTube..."
 
 #: 
 msgid "Slug:"
 msgstr "Слимак:"
 
 #: 
-msgid "None"
-msgstr "Жодного"
+msgid "No file uploaded or upload error"
+msgstr "Файл не завантажено або помилка завантаження"
 
 #: 
-msgid "Invalid confirmation code."
-msgstr "Недійсний код підтвердження."
+msgid "Failed to send email to: {0}"
+msgstr "Не вдалося надіслати електронний лист до: {0}"
 
 #: 
-msgid "Twitter Description"
-msgstr "Опис Twitter"
+msgid "Is Admin"
+msgstr "Є адміністратором"
 
 #: 
-msgid "The value must be a number."
-msgstr "Значення має бути числом."
+msgid "Some settings could not be saved. Please, try again."
+msgstr "Деякі налаштування не вдалося зберегти. Будь ласка, спробуйте ще раз."
 
 #: 
-msgid "Created"
-msgstr "Створено"
+msgid "Toggle theme"
+msgstr "Перемкнути тему"
 
 #: 
-msgid "You are not authorized to edit this account, stick to your own."
-msgstr "Ви не маєте права редагувати цей обліковий запис, дотримуйтеся свого."
+msgid "Create an Account"
+msgstr "Створіть обліковий запис"
 
 #: 
 msgid "Functional Cookies"
@@ -1370,362 +182,1550 @@ msgid "Add User"
 msgstr "Додати користувача"
 
 #: 
-msgid "The blocked ip could not be saved. Please, try again."
-msgstr "Не вдалося зберегти заблокований ip. Будь ласка, спробуйте ще раз."
+msgid "Active"
+msgstr "Активний"
 
 #: 
-msgid "Facebook Description"
-msgstr "Опис Facebook"
+msgid "Essential Cookies"
+msgstr "Основні файли cookie"
 
 #: 
-msgid "Edit Page"
-msgstr "Редагувати сторінку"
+msgid "Please select your cookie preferences below. Essential cookies are required for the website to function and cannot be disabled."
+msgstr "Виберіть налаштування файлів cookie нижче. Основні файли cookie необхідні для роботи веб-сайту, і їх не можна вимкнути."
 
 #: 
-msgid "Creating {0} new top-level tags..."
-msgstr "Створення {0} нових тегів верхнього рівня..."
+msgid "Delete All Logs"
+msgstr "Видалити всі журнали"
 
 #: 
-msgid "There was an issue resetting your password. Please try again."
-msgstr "Під час скидання пароля виникла проблема. Спробуйте ще раз."
+msgid "Enable enhanced functionality and personalization."
+msgstr "Увімкніть розширену функціональність і персоналізацію."
 
 #: 
-msgid "Page {{page}} of {{pages}}"
-msgstr "Сторінка {{page}} з {{pages}}"
+msgid "The slug could not be saved. Please, try again."
+msgstr "Слизняка врятувати не вдалося. Будь ласка, спробуйте ще раз."
 
 #: 
-msgid "Add Post"
-msgstr "Додати пост"
+msgid "Setting not found: {0}.{1}"
+msgstr "Налаштування не знайдено: {0}.{1}"
 
 #: 
-msgid "Clear"
-msgstr "ясно"
+msgid "Error saving {0}.{1}: {2}"
+msgstr "Помилка збереження {0}.{1}: {2}"
 
 #: 
-msgid "Edit Blocked Ip"
-msgstr "Редагувати заблокований IP"
-
-#: 
-msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
-msgstr "Слаг має бути безпечним для URL-адреси (лише малі літери, цифри та дефіси)"
-
-#: 
-msgid "Message Id"
-msgstr "Ідентифікатор повідомлення"
-
-#: 
-msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
-msgstr "Електронна пошта успішно надіслана на адресу: {0}. Шаблон: {1}, Тема: {2}"
-
-#: 
-msgid "Page Views"
-msgstr "Перегляди сторінок"
-
-#: 
-msgid "Register New Account"
-msgstr "Зареєструвати новий обліковий запис"
-
-#: 
-msgid "Email template not found: {0}"
-msgstr "Шаблон електронної пошти не знайдено: {0}"
-
-#: 
-msgid "Featured posts"
-msgstr "Рекомендовані публікації"
-
-#: 
-msgid "Failed to save the image"
-msgstr "Не вдалося зберегти зображення"
-
-#: 
-msgid "{0} cache configuration does not exist."
-msgstr "Конфігурація кешу {0} не існує."
-
-#: 
-msgid "Block IPs"
-msgstr "Блокувати IP-адреси"
-
-#: 
-msgid "Related Comments"
-msgstr "Пов’язані коментарі"
-
-#: 
-msgid "Comments are not enabled"
-msgstr "Коментарі не включені"
-
-#: 
-msgid "A value is required"
-msgstr "Потрібно вказати значення"
-
-#: 
-msgid "Are you sure you want to delete all {0} logs?"
-msgstr "Ви впевнені, що бажаєте видалити всі журнали {0}?"
-
-#: 
-msgid "You must be logged in to add a comment."
-msgstr "Ви повинні увійти, щоб додати коментар."
-
-#: 
-msgid "Elsewhere"
-msgstr "В іншому місці"
-
-#: 
-msgid "Invalid type"
-msgstr "Недійсний тип"
-
-#: 
-msgid "Edit Comment"
-msgstr "Редагувати коментар"
+msgid "Invalid confirmation code."
+msgstr "Недійсний код підтвердження."
 
 #: 
 msgid "Slug"
 msgstr "Слимак"
 
 #: 
-msgid "Cache"
-msgstr "Кеш"
+msgid "Edit Article"
+msgstr "Редагувати статтю"
 
 #: 
-msgid "Article"
-msgstr "ст"
+msgid "Help us understand how visitors interact with our website."
+msgstr "Допоможіть нам зрозуміти, як відвідувачі взаємодіють із нашим веб-сайтом."
 
 #: 
-msgid "Settings"
-msgstr "Налаштування"
+msgid "{0} cache configuration does not exist."
+msgstr "Конфігурація кешу {0} не існує."
 
 #: 
-msgid "Are you sure you want to delete all logs in group {0}?"
-msgstr "Ви впевнені, що бажаєте видалити всі журнали в групі {0}?"
+msgid "Logs"
+msgstr "Журнали"
 
 #: 
-msgid "Are you sure you want to delete {0}?"
-msgstr "Ви впевнені, що хочете видалити {0}?"
+msgid "Enter a number"
+msgstr "Введіть число"
 
 #: 
-msgid "Insert Image"
-msgstr "Вставити зображення"
-
-#: 
-msgid "Password must be at least 8 characters long"
-msgstr "Пароль має бути не менше 8 символів"
-
-#: 
-msgid "Select Tags"
-msgstr "Виберіть Теги"
-
-#: 
-msgid "Welcome to willowcms.app. This site uses Willow - a content management system I'm building in the open. Here you'll find development updates, feature highlights, and guides on using Willow for your own sites."
-msgstr "Ласкаво просимо до willowcms.app. Цей сайт використовує Willow - систему керування вмістом, яку я створюю відкрито. Тут ви знайдете оновлення розробки, основні функції та посібники з використання Willow для власних сайтів."
-
-#: 
-msgid "Light"
-msgstr "світло"
-
-#: 
-msgid "Search Users..."
-msgstr "Пошук користувачів..."
-
-#: 
-msgid "Message"
-msgstr "повідомлення"
-
-#: 
-msgid "The email template has been saved."
-msgstr "Шаблон електронної пошти збережено."
-
-#: 
-msgid "Search logs..."
-msgstr "Журнали пошуку..."
-
-#: 
-msgid "System Logs"
-msgstr "Системні журнали"
-
-#: 
-msgid "All caches have been cleared successfully."
-msgstr "Усі кеші успішно очищено."
-
-#: 
-msgid "Archives"
-msgstr "Архіви"
-
-#: 
-msgid "Main Image"
-msgstr "Головне зображення"
-
-#: 
-msgid "Error loading images:"
-msgstr "Помилка завантаження зображень:"
-
-#: 
-msgid "Method not allowed"
-msgstr "Метод заборонений"
-
-#: 
-msgid "View detailed records for this date"
-msgstr "Переглянути докладні записи за цю дату"
-
-#: 
-msgid "Instagram Description"
-msgstr "Опис Instagram"
-
-#: 
-msgid "Edit Aiprompt"
-msgstr "Редагувати Aiprompt"
-
-#: 
-msgid "Please log in to add a comment"
-msgstr "Будь ласка, увійдіть, щоб додати коментар"
-
-#: 
-msgid "Featured"
-msgstr "Рекомендовані"
-
-#: 
-msgid "The article has been saved."
-msgstr "Стаття збережена."
-
-#: 
-msgid "No articles found for this tag."
-msgstr "Не знайдено статей для цього тегу."
-
-#: 
-msgid "All logs in group {0} have been deleted."
-msgstr "Усі журнали в групі {0} видалено."
-
-#: 
-msgid "No comments yet."
-msgstr "Поки немає коментарів."
-
-#: 
-msgid "{0} cache has been cleared successfully."
-msgstr "Кеш {0} успішно очищено."
-
-#: 
-msgid "Expires At"
-msgstr "Термін дії закінчується о"
-
-#: 
-msgid "The slug has been saved."
-msgstr "Слимака врятовано."
-
-#: 
-msgid "Are you sure you want to delete  {0}?"
-msgstr "Ви впевнені, що хочете видалити {0}?"
-
-#: 
-msgid "User"
-msgstr "Користувач"
-
-#: 
-msgid "Load video"
-msgstr "Завантажити відео"
-
-#: 
-msgid "Body Plain"
-msgstr "Звичайний корпус"
-
-#: 
-msgid "Delete"
-msgstr "Видалити"
-
-#: 
-msgid "Error sending email: {0}"
-msgstr "Помилка надсилання електронної пошти: {0}"
-
-#: 
-msgid "Failed to generate {0} articles."
-msgstr "Не вдалося створити таку кількість статей: {0}."
-
-#: 
-msgid "Failed to create tag: {0}"
-msgstr "Не вдалося створити тег: {0}"
-
-#: 
-msgid "Picture"
-msgstr "малюнок"
-
-#: 
-msgid "Language"
-msgstr "Мова"
-
-#: 
-msgid "Invalid username or password"
-msgstr "Недійсне ім&#39;я користувача або пароль"
-
-#: 
-msgid "Forgot Password"
-msgstr "Забули пароль"
-
-#: 
-msgid "All Groups"
-msgstr "Усі групи"
-
-#: 
-msgid "Articles"
-msgstr "статті"
-
-#: 
-msgid "Add Aiprompt"
-msgstr "Додайте Aiprompt"
-
-#: 
-msgid "All Locales"
-msgstr "Усі локалі"
-
-#: 
-msgid "Logout"
-msgstr "Вийти"
-
-#: 
-msgid "Essential"
-msgstr "Необхідний"
-
-#: 
-msgid "Are you sure you want to clear {0}?"
-msgstr "Ви впевнені, що бажаєте очистити {0}?"
-
-#: 
-msgid "Displayed"
-msgstr "Відображається"
-
-#: 
-msgid "Search Articles..."
-msgstr "Пошук статей..."
-
-#: 
-msgid "Grid View"
-msgstr "Перегляд сітки"
-
-#: 
-msgid "Temperature"
-msgstr "температура"
-
-#: 
-msgid "The user has been saved."
-msgstr "Користувача збережено."
-
-#: 
-msgid "Summary"
-msgstr "Резюме"
-
-#: 
-msgid "New Email Template"
-msgstr "Новий шаблон електронної пошти"
-
-#: 
-msgid "The internationalisation could not be saved. Please, try again."
-msgstr "Інтернаціоналізацію врятувати не вдалося. Будь ласка, спробуйте ще раз."
-
-#: 
-msgid "New Internationalisation"
-msgstr "Нова інтернаціоналізація"
+msgid "Max Tokens"
+msgstr "Макс жетонів"
 
 #: 
 msgid "Willow Logo"
 msgstr "Логотип Willow"
 
 #: 
+msgid "The aiprompt could not be deleted. Please, try again."
+msgstr "Не вдалося видалити aiprompt. Будь ласка, спробуйте ще раз."
+
+#: 
+msgid "Reset Password"
+msgstr "Скинути пароль"
+
+#: 
+msgid "A value is required"
+msgstr "Потрібно вказати значення"
+
+#: 
+msgid "User"
+msgstr "Користувач"
+
+#: 
+msgid "The slug has been deleted."
+msgstr "Слимак видалено."
+
+#: 
+msgid "Code Coverage"
+msgstr "Покриття коду"
+
+#: 
+msgid "The user has been deleted."
+msgstr "Користувача видалено."
+
+#: 
+msgid "The user could not be deleted. Please, try again."
+msgstr "Користувача не вдалося видалити. Будь ласка, спробуйте ще раз."
+
+#: 
+msgid "The user has been saved."
+msgstr "Користувача збережено."
+
+#: 
+msgid "This message_id must be unique for the given locale."
+msgstr "Цей message_id має бути унікальним для даної мови."
+
+#: 
+msgid "All Tags"
+msgstr "Усі теги"
+
+#: 
+msgid "Recent posts"
+msgstr "Останні публікації"
+
+#: 
+msgid "New Image"
+msgstr "Нове зображення"
+
+#: 
+msgid "Add Slug"
+msgstr "Додайте Слимака"
+
+#: 
+msgid "Image must be less than 5MB."
+msgstr "Зображення має бути менше 5 Мб."
+
+#: 
+msgid "Add Page"
+msgstr "Додати сторінку"
+
+#: 
+msgid "Tree View"
+msgstr "Перегляд дерева"
+
+#: 
+msgid "Add Blocked Ip"
+msgstr "Додати заблокований IP"
+
+#: 
+msgid "Created tag: {0}"
+msgstr "Створено тег: {0}"
+
+#: 
+msgid "Required"
+msgstr "Обов&#39;язковий"
+
+#: 
+msgid "Related Comments"
+msgstr "Пов’язані коментарі"
+
+#: 
+msgid "Views"
+msgstr "Перегляди"
+
+#: 
+msgid "Blocked At"
+msgstr "Заблоковано At"
+
+#: 
+msgid "Search Articles..."
+msgstr "Пошук статей..."
+
+#: 
+msgid "Level"
+msgstr "Рівень"
+
+#: 
+msgid "Ip Address"
+msgstr "IP-адреса"
+
+#: 
+msgid "Registration successful. Please check your email for confirmation."
+msgstr "Реєстрація успішна. Перевірте свою електронну пошту для підтвердження."
+
+#: 
+msgid "Main Menu"
+msgstr "Головне меню"
+
+#: 
+msgid "No view records found for this article."
+msgstr "Для цієї статті не знайдено записів перегляду."
+
+#: 
+msgid "Tag not found"
+msgstr "Тег не знайдено"
+
+#: 
+msgid "The email template has been deleted."
+msgstr "Шаблон електронного листа видалено."
+
+#: 
+msgid "Hide"
+msgstr "Сховати"
+
+#: 
+msgid "This slug is already in use. Please enter a unique slug."
+msgstr "Цей слимак уже використовується. Введіть унікальний слаг."
+
+#: 
+msgid "The article could not be saved. Please, try again."
+msgstr "Не вдалося зберегти статтю. Будь ласка, спробуйте ще раз."
+
+#: 
+msgid "Search Comments..."
+msgstr "Пошук коментарів..."
+
+#: 
+msgid "Root"
+msgstr "Корінь"
+
+#: 
+msgid "Number of articles to generate"
+msgstr "Кількість статей для створення"
+
+#: 
+msgid "Load video"
+msgstr "Завантажити відео"
+
+#: 
+msgid "Edit"
+msgstr "Редагувати"
+
+#: 
+msgid "Yes"
+msgstr "так"
+
+#: 
+msgid "Body"
+msgstr "Тіло"
+
+#: 
+msgid "Used to deliver personalized advertisements and enable the facebook share button."
+msgstr "Використовується для показу персоналізованої реклами та ввімкнення кнопки «Поділитися» у Facebook."
+
+#: 
+msgid "Error sending email: {0}"
+msgstr "Помилка надсилання електронної пошти: {0}"
+
+#: 
+msgid "Users"
+msgstr "Користувачі"
+
+#: 
+msgid "You must be logged in to add a comment."
+msgstr "Ви повинні увійти, щоб додати коментар."
+
+#: 
+msgid "Total Views: "
+msgstr "Загальна кількість переглядів: "
+
+#: 
+msgid "Article"
+msgstr "ст"
+
+#: 
+msgid "Forgot Password"
+msgstr "Забули пароль"
+
+#: 
+msgid "Image"
+msgstr "Зображення"
+
+#: 
+msgid "Images"
+msgstr "Зображення"
+
+#: 
+msgid "Model"
+msgstr "Модель"
+
+#: 
+msgid "Invalid or expired password reset link."
+msgstr "Недійсне або прострочене посилання для скидання пароля."
+
+#: 
+msgid "Select Tags"
+msgstr "Виберіть Теги"
+
+#: 
+msgid "No admin user found."
+msgstr "Користувача адміністратора не знайдено."
+
+#: 
+msgid "Reason"
+msgstr "Причина"
+
+#: 
+msgid "Settings"
+msgstr "Налаштування"
+
+#: 
+msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
+msgstr "Слаг має бути безпечним для URL-адреси (лише малі літери, цифри та дефіси)"
+
+#: 
+msgid "Submit Comment"
+msgstr "Надіслати коментар"
+
+#: 
+msgid "Method not allowed"
+msgstr "Метод заборонений"
+
+#: 
+msgid "Word Count"
+msgstr "Підрахунок слів"
+
+#: 
+msgid "Internationalisations"
+msgstr "Інтернаціоналізації"
+
+#: 
+msgid "An Internal Error Has Occurred."
+msgstr "Виникла внутрішня помилка."
+
+#: 
+msgid "New Article"
+msgstr "Нова стаття"
+
+#: 
+msgid "Invalid value for the specified type."
+msgstr "Недійсне значення для вказаного типу."
+
+#: 
+msgid "Keywords"
+msgstr "Ключові слова"
+
+#: 
+msgid "Please log in to add a comment"
+msgstr "Будь ласка, увійдіть, щоб додати коментар"
+
+#: 
+msgid "The user could not be saved. Please, try again."
+msgstr "Користувача не вдалося зберегти. Будь ласка, спробуйте ще раз."
+
+#: 
+msgid "Add Image"
+msgstr "Додати зображення"
+
+#: 
+msgid "All rights reserved."
+msgstr "Всі права захищені."
+
+#: 
+msgid "Language"
+msgstr "Мова"
+
+#: 
+msgid "The comment could not be deleted. Please, try again."
+msgstr "Не вдалося видалити коментар. Будь ласка, спробуйте ще раз."
+
+#: 
+msgid "Bulk Upload"
+msgstr "Масове завантаження"
+
+#: 
+msgid "Posted on {date} by {author}"
+msgstr "Опубліковано {date} автором {author}"
+
+#: 
+msgid "Child"
+msgstr "дитина"
+
+#: 
+msgid "Select Video"
+msgstr "Виберіть Відео"
+
+#: 
+msgid "Failed to generate article: {0}"
+msgstr "Не вдалося створити статтю: {0}"
+
+#: 
+msgid "Save All Settings"
+msgstr "Зберегти всі налаштування"
+
+#: 
+msgid "My Account"
+msgstr "Мій акаунт"
+
+#: 
+msgid "Edit Aiprompt"
+msgstr "Редагувати Aiprompt"
+
+#: 
+msgid "Invalid username or password"
+msgstr "Недійсне ім&#39;я користувача або пароль"
+
+#: 
+msgid "Un-Published"
+msgstr "Не опубліковано"
+
+#: 
+msgid "Not Displayed"
+msgstr "Не відображається"
+
+#: 
+msgid "Add Post"
+msgstr "Додати пост"
+
+#: 
+msgid "The image has been saved."
+msgstr "Зображення збережено."
+
+#: 
+msgid "Search Posts..."
+msgstr "Пошук дописів..."
+
+#: 
+msgid "No page view data available for this article."
+msgstr "Для цієї статті немає даних про перегляди сторінок."
+
+#: 
+msgid "Front Site"
+msgstr "Передній сайт"
+
+#: 
+msgid "Account"
+msgstr "Обліковий запис"
+
+#: 
+msgid "Title"
+msgstr "Назва"
+
+#: 
+msgid "The article could not be deleted. Please, try again."
+msgstr "Статтю не вдалося видалити. Будь ласка, спробуйте ще раз."
+
+#: 
+msgid "Are you sure you want to delete # {0}?"
+msgstr "Ви впевнені, що хочете видалити # {0}?"
+
+#: 
+msgid "Filter"
+msgstr "фільтр"
+
+#: 
+msgid "The slug could not be deleted. Please, try again."
+msgstr "Слимак не вдалося видалити. Будь ласка, спробуйте ще раз."
+
+#: 
+msgid "No comments yet."
+msgstr "Поки немає коментарів."
+
+#: 
+msgid "Search Email Templates..."
+msgstr "Пошук шаблонів електронних листів..."
+
+#: 
+msgid "Invalid type"
+msgstr "Недійсний тип"
+
+#: 
+msgid "Date"
+msgstr "Дата"
+
+#: 
+msgid "New User"
+msgstr "Новий користувач"
+
+#: 
+msgid "Please enter your email to reset your password"
+msgstr "Будь ласка, введіть свою електронну адресу, щоб скинути пароль"
+
+#: 
+msgid "The blocked ip could not be saved. Please, try again."
+msgstr "Не вдалося зберегти заблокований ip. Будь ласка, спробуйте ще раз."
+
+#: 
+msgid "You are not authorized to edit this account, stick to your own."
+msgstr "Ви не маєте права редагувати цей обліковий запис, дотримуйтеся свого."
+
+#: 
+msgid "The value must be a number."
+msgstr "Значення має бути числом."
+
+#: 
+msgid "Back"
+msgstr "Назад"
+
+#: 
+msgid "The email template has been saved."
+msgstr "Шаблон електронної пошти збережено."
+
+#: 
+msgid "The settings have been saved."
+msgstr "Налаштування збережено."
+
+#: 
+msgid "The slug has been saved."
+msgstr "Слимака врятовано."
+
+#: 
+msgid "The comment has been deleted."
+msgstr "Коментар видалено."
+
+#: 
+msgid "You cannot disable your own account."
+msgstr "Ви не можете вимкнути власний обліковий запис."
+
+#: 
+msgid "The value must be 0 or 1."
+msgstr "Значення має бути 0 або 1."
+
+#: 
+msgid "Creating {0} new top-level tags..."
+msgstr "Створення {0} нових тегів верхнього рівня..."
+
+#: 
+msgid "Please upload only images (jpeg, png, gif)."
+msgstr "Завантажуйте лише зображення (jpeg, png, gif)."
+
+#: 
+msgid "Failed to send confirmation email message: {0}"
+msgstr "Не вдалося надіслати повідомлення електронної пошти з підтвердженням: {0}"
+
+#: 
+msgid "No videos found matching your search"
+msgstr "Відео, що відповідають вашому запиту, не знайдено"
+
+#: 
+msgid "Are you sure you want to delete all logs?"
+msgstr "Ви впевнені, що бажаєте видалити всі журнали?"
+
+#: 
+msgid "The image could not be deleted. Please, try again."
+msgstr "Не вдалося видалити зображення. Будь ласка, спробуйте ще раз."
+
+#: 
+msgid "Meta Description"
+msgstr "Метаопис"
+
+#: 
+msgid "Clear"
+msgstr "ясно"
+
+#: 
+msgid "Archives"
+msgstr "Архіви"
+
+#: 
+msgid "Body Editor"
+msgstr "Редактор тіла"
+
+#: 
+msgid "Published"
+msgstr "Опубліковано"
+
+#: 
+msgid "The log has been deleted."
+msgstr "Журнал видалено."
+
+#: 
+msgid "Show Less"
+msgstr "Показати менше"
+
+#: 
+msgid "Insert Video"
+msgstr "Вставити відео"
+
+#: 
+msgid "New {0}"
+msgstr "Новий {0}"
+
+#: 
+msgid "{0} Views"
+msgstr "Переглядів: {0}"
+
+#: 
+msgid "Auto"
+msgstr "Авто"
+
+#: 
+msgid "Tags"
+msgstr "Теги"
+
+#: 
+msgid "All Locales"
+msgstr "Усі локалі"
+
+#: 
+msgid "Edit User"
+msgstr "Редагувати користувача"
+
+#: 
+msgid "The comment has been saved."
+msgstr "Коментар збережено."
+
+#: 
+msgid "Inappropriate"
+msgstr "Неадекватно"
+
+#: 
 msgid "Add"
 msgstr "додати"
+
+#: 
+msgid "Cookies"
+msgstr "Печиво"
+
+#: 
+msgid "Twitter Description"
+msgstr "Опис Twitter"
+
+#: 
+msgid "Actions"
+msgstr "Дії"
+
+#: 
+msgid "Unable to add your comment."
+msgstr "Не вдалося додати ваш коментар."
+
+#: 
+msgid "Description"
+msgstr "опис"
+
+#: 
+msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
+msgstr "Слизняк конфліктує з існуючим переспрямуванням SEO. Виберіть іншого слимака."
+
+#: 
+msgid "Add Email Template"
+msgstr "Додати шаблон електронної пошти"
+
+#: 
+msgid "Rate limit exceeded for IP: {0} on route: {1}"
+msgstr "Перевищено обмеження швидкості для IP: {0} на маршруті: {1}"
+
+#: 
+msgid "Failed to create tag: {0}"
+msgstr "Не вдалося створити тег: {0}"
+
+#: 
+msgid "By"
+msgstr "за"
+
+#: 
+msgid "Registration failed. Please, try again."
+msgstr "Помилка реєстрації. Будь ласка, спробуйте ще раз."
+
+#: 
+msgid "User Agent"
+msgstr "Агент користувача"
+
+#: 
+msgid "New Page"
+msgstr "Нова сторінка"
+
+#: 
+msgid "Unable to delete logs with level {0}."
+msgstr "Неможливо видалити журнали з рівнем {0}."
+
+#: 
+msgid "Message"
+msgstr "повідомлення"
+
+#: 
+msgid "New Email Template"
+msgstr "Новий шаблон електронної пошти"
+
+#: 
+msgid "The email template could not be deleted. Please, try again."
+msgstr "Не вдалося видалити шаблон електронної пошти. Будь ласка, спробуйте ще раз."
+
+#: 
+msgid "Willow CMS"
+msgstr "Willow CMS"
+
+#: 
+msgid "Register"
+msgstr "зареєструватися"
+
+#: 
+msgid "Email sent successfully."
+msgstr "Електронна пошта успішно надіслана."
+
+#: 
+msgid "Cache Name"
+msgstr "Назва кешу"
+
+#: 
+msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
+msgstr "Сторінка {{page}} з {{pages}}, показує {{current}} запис(и) із {{count}} загальної кількості"
+
+#: 
+msgid "Unable to delete the log."
+msgstr "Не вдалося видалити журнал."
+
+#: 
+msgid "Main Image"
+msgstr "Головне зображення"
+
+#: 
+msgid "If your email is registered, you will receive a link to reset your password."
+msgstr "Якщо ваша електронна адреса зареєстрована, ви отримаєте посилання для скидання пароля."
+
+#: 
+msgid "No deleting your own account."
+msgstr "Не можна видаляти власний обліковий запис."
+
+#: 
+msgid "Pages"
+msgstr "сторінки"
+
+#: 
+msgid "About"
+msgstr "про"
+
+#: 
+msgid "Selected"
+msgstr "Вибране"
+
+#: 
+msgid "An error occurred while processing your request."
+msgstr "Під час обробки вашого запиту сталася помилка."
+
+#: 
+msgid "Related Slugs"
+msgstr "Пов&#39;язані слимаки"
+
+#: 
+msgid "Edit Blocked Ip"
+msgstr "Редагувати заблокований IP"
+
+#: 
+msgid "Name"
+msgstr "Ім&#39;я"
+
+#: 
+msgid "Edit Image"
+msgstr "Редагувати зображення"
+
+#: 
+msgid "Tag Articles/Pages"
+msgstr "Додайте теги до статей/сторінок"
+
+#: 
+msgid "Search..."
+msgstr "пошук..."
+
+#: 
+msgid "Instagram Description"
+msgstr "Опис Instagram"
+
+#: 
+msgid "Search Tags..."
+msgstr "Пошук тегів..."
+
+#: 
+msgid "Edit Tag"
+msgstr "Редагувати тег"
+
+#: 
+msgid "English"
+msgstr "англійська"
+
+#: 
+msgid "Comments"
+msgstr "Коментарі"
+
+#: 
+msgid "The blocked ip has been deleted."
+msgstr "Заблокований ip видалено."
+
+#: 
+msgid "Edit Email Template"
+msgstr "Редагувати шаблон електронної пошти"
+
+#: 
+msgid "Enter text"
+msgstr "Введіть текст"
+
+#: 
+msgid "This content is hosted by YouTube. By showing the external content you accept the privacy policy of YouTube."
+msgstr "Цей вміст розміщено на YouTube. Показуючи зовнішній вміст, ви приймаєте політику конфіденційності YouTube."
+
+#: 
+msgid "Image Uploads"
+msgstr "Завантаження зображень"
+
+#: 
+msgid "On"
+msgstr "Увімкнено"
+
+#: 
+msgid "All"
+msgstr "все"
+
+#: 
+msgid "Add Internationalisation"
+msgstr "Додайте інтернаціоналізацію"
+
+#: 
+msgid "Edit Page"
+msgstr "Редагувати сторінку"
+
+#: 
+msgid "View {0}"
+msgstr "Переглянути {0}"
+
+#: 
+msgid "New Tag"
+msgstr "Новий тег"
+
+#: 
+msgid "Are you sure you want to delete {0}?"
+msgstr "Ви впевнені, що хочете видалити {0}?"
+
+#: 
+msgid "Alt Text"
+msgstr "Альтернативний текст"
+
+#: 
+msgid "No"
+msgstr "немає"
+
+#: 
+msgid "None"
+msgstr "Жодного"
+
+#: 
+msgid "Welcome to willowcms.app. This site uses Willow - a content management system I'm building in the open. Here you'll find development updates, feature highlights, and guides on using Willow for your own sites."
+msgstr "Ласкаво просимо до willowcms.app. Цей сайт використовує Willow - систему керування вмістом, яку я створюю відкрито. Тут ви знайдете оновлення розробки, основні функції та посібники з використання Willow для власних сайтів."
+
+#: 
+msgid "We were unable to find that account."
+msgstr "Нам не вдалося знайти цей обліковий запис."
+
+#: 
+msgid "Body Plain"
+msgstr "Звичайний корпус"
+
+#: 
+msgid "Required for the website to function properly. These cannot be disabled."
+msgstr "Необхідно для належної роботи веб-сайту. Їх не можна вимкнути."
+
+#: 
+msgid "The email template could not be saved. Please, try again."
+msgstr "Не вдалося зберегти шаблон електронної пошти. Будь ласка, спробуйте ще раз."
+
+#: 
+msgid "Body Preview"
+msgstr "Попередній перегляд тіла"
+
+#: 
+msgid "Id"
+msgstr "ID"
+
+#: 
+msgid "Your cookie preferences could not be saved. Please, try again."
+msgstr "Не вдалося зберегти ваші налаштування файлів cookie. Будь ласка, спробуйте ще раз."
+
+#: 
+msgid "No articles found for this tag."
+msgstr "Не знайдено статей для цього тегу."
+
+#: 
+msgid "Linkedin Description"
+msgstr "Опис Linkedin"
+
+#: 
+msgid "Back to top"
+msgstr "Повернутися до початку"
+
+#: 
+msgid "Email"
+msgstr "Електронна пошта"
+
+#: 
+msgid "Privacy Policy"
+msgstr "Політика конфіденційності"
+
+#: 
+msgid "System Logs"
+msgstr "Системні журнали"
+
+#: 
+msgid "View"
+msgstr "Переглянути"
+
+#: 
+msgid "All logs have been deleted."
+msgstr "Усі журнали видалено."
+
+#: 
+msgid "The blocked ip could not be deleted. Please, try again."
+msgstr "Не вдалося видалити заблокований ip. Будь ласка, спробуйте ще раз."
+
+#: 
+msgid "Image uploaded successfully"
+msgstr "Зображення успішно завантажено"
+
+#: 
+msgid "Are you sure you want to delete  {0}?"
+msgstr "Ви впевнені, що хочете видалити {0}?"
+
+#: 
+msgid "The tag could not be deleted. Please, try again."
+msgstr "Не вдалося видалити тег. Будь ласка, спробуйте ще раз."
+
+#: 
+msgid "There was an issue confirming your account. Please try again."
+msgstr "Під час підтвердження вашого облікового запису виникла проблема. Спробуйте ще раз."
+
+#: 
+msgid "The tag has been saved."
+msgstr "Тег збережено."
+
+#: 
+msgid "Failed to generate {0} articles."
+msgstr "Не вдалося створити таку кількість статей: {0}."
+
+#: 
+msgid "Edit Post"
+msgstr "Редагувати допис"
+
+#: 
+msgid "Error"
+msgstr "Помилка"
+
+#: 
+msgid "Your account could not be updated."
+msgstr "Ваш обліковий запис не вдалося оновити."
+
+#: 
+msgid "All caches have been cleared successfully."
+msgstr "Усі кеші успішно очищено."
+
+#: 
+msgid "Cookie Preferences"
+msgstr "Налаштування файлів cookie"
+
+#: 
+msgid "Info"
+msgstr "Інформація"
+
+#: 
+msgid "Kind"
+msgstr "Добрий"
+
+#: 
+msgid "Add Aiprompt"
+msgstr "Додайте Aiprompt"
+
+#: 
+msgid "Your cookie preferences have been saved."
+msgstr "Ваші налаштування файлів cookie збережено."
+
+#: 
+msgid "Password must be at least 8 characters long"
+msgstr "Пароль має бути не менше 8 символів"
+
+#: 
+msgid "The internationalisation has been saved."
+msgstr "Інтернаціоналізацію збережено."
+
+#: 
+msgid "Display"
+msgstr "Дисплей"
+
+#: 
+msgid "The aiprompt has been deleted."
+msgstr "Aiprompt видалено."
+
+#: 
+msgid "Context"
+msgstr "Контекст"
+
+#: 
+msgid "Content"
+msgstr "Зміст"
+
+#: 
+msgid "Failed to send password reset email: {0}"
+msgstr "Не вдалося надіслати електронний лист для зміни пароля: {0}"
+
+#: 
+msgid "Email Templates"
+msgstr "Шаблони електронної пошти"
+
+#: 
+msgid "Too Many Requests"
+msgstr "Забагато запитів"
+
+#: 
+msgid "Log In"
+msgstr "Увійти"
+
+#: 
+msgid "Template Identifier"
+msgstr "Ідентифікатор шаблону"
+
+#: 
+msgid "Clear All Cache"
+msgstr "Очистити весь кеш"
+
+#: 
+msgid "No tags found."
+msgstr "Теги не знайдено."
+
+#: 
+msgid "Edit Your Account"
+msgstr "Редагувати обліковий запис"
+
+#: 
+msgid "Internationalisation"
+msgstr "Інтернаціоналізація"
+
+#: 
+msgid "Posts"
+msgstr "Пости"
+
+#: 
+msgid "Slugs"
+msgstr "Слимаки"
+
+#: 
+msgid "Edit {0}"
+msgstr "Редагувати {0}"
+
+#: 
+msgid "AI Prompts"
+msgstr "ШІ підказки"
+
+#: 
+msgid "To understand how we handle your personal information, including the use of cookies and other tracking technologies, please review our {0}."
+msgstr "Щоб зрозуміти, як ми обробляємо вашу особисту інформацію, включно з використанням файлів cookie та інших технологій відстеження, перегляньте наш {0}."
+
+#: 
+msgid "Article ID:"
+msgstr "Ідентифікатор статті:"
+
+#: 
+msgid "Read More"
+msgstr "Детальніше"
+
+#: 
+msgid "Edit Slug"
+msgstr "Редагувати Слимака"
+
+#: 
+msgid "Article not found."
+msgstr "Стаття не знайдена."
+
+#: 
+msgid "Lede"
+msgstr "Леде"
+
+#: 
+msgid "Generating {0} articles..."
+msgstr "Створення {0} статей..."
+
+#: 
+msgid "Your password has been reset. Please log in with your new password."
+msgstr "Ваш пароль скинуто. Будь ласка, увійдіть, використовуючи новий пароль."
+
+#: 
+msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
+msgstr "Нижче наведено інформацію про налаштовані кеші. Натисніть кнопку, щоб очистити всі кеші, або окремі кнопки кешу, щоб очистити певні кеші."
+
+#: 
+msgid "Are you sure you want to delete all logs in group {0}?"
+msgstr "Ви впевнені, що бажаєте видалити всі журнали в групі {0}?"
+
+#: 
+msgid "Search Slugs..."
+msgstr "Шукати слимаків..."
+
+#: 
+msgid "All Groups"
+msgstr "Усі групи"
+
+#: 
+msgid "Search images..."
+msgstr "Пошук зображень..."
+
+#: 
+msgid "Email template not found: {0}"
+msgstr "Шаблон електронної пошти не знайдено: {0}"
+
+#: 
+msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
+msgstr "Електронна пошта успішно надіслана на адресу: {0}. Шаблон: {1}, Тема: {2}"
+
+#: 
+msgid "Inappropriate Reason"
+msgstr "Невідповідна причина"
+
+#: 
+msgid "Search for YouTube videos to embed"
+msgstr "Знайдіть відео YouTube для вставлення"
+
+#: 
+msgid "Not published"
+msgstr "Не опубліковано"
+
+#: 
+msgid "Light"
+msgstr "світло"
+
+#: 
+msgid "List View"
+msgstr "Перегляд списку"
+
+#: 
+msgid "Marketing Cookies"
+msgstr "Маркетингові файли cookie"
+
+#: 
+msgid "Blog"
+msgstr "Блог"
+
+#: 
+msgid "{0} cache has been cleared successfully."
+msgstr "Кеш {0} успішно очищено."
+
+#: 
+msgid "Message Str"
+msgstr "Повідомлення вул"
+
+#: 
+msgid "Articles/Pages"
+msgstr "Статті/Сторінки"
+
+#: 
+msgid "Configured Caches"
+msgstr "Налаштовані кеші"
+
+#: 
+msgid "Submit"
+msgstr "Надіслати"
+
+#: 
+msgid "Delete"
+msgstr "Видалити"
+
+#: 
+msgid "{0} cache could not be cleared."
+msgstr "Не вдалося очистити кеш {0}."
+
+#: 
+msgid "Share"
+msgstr "Поділіться"
+
+#: 
+msgid "Your comment has been added."
+msgstr "Ваш коментар додано."
+
+#: 
+msgid "Your account has been updated."
+msgstr "Ваш обліковий запис оновлено."
+
+#: 
+msgid "The aiprompt has been saved."
+msgstr "Aiprompt збережено."
+
+#: 
+msgid "No tags are linked."
+msgstr "Жодні теги не пов’язані."
+
+#: 
+msgid "The image could not be saved. Please, try again."
+msgstr "Зображення не вдалося зберегти. Будь ласка, спробуйте ще раз."
+
+#: 
+msgid "Articles"
+msgstr "статті"
+
+#: 
+msgid "Page Views for {0}"
+msgstr "Перегляди сторінок для {0}"
+
+#: 
+msgid "Page Views"
+msgstr "Перегляди сторінок"
+
+#: 
+msgid "Displayed"
+msgstr "Відображається"
+
+#: 
+msgid "Picture"
+msgstr "малюнок"
+
+#: 
+msgid "Unable to delete all logs."
+msgstr "Не вдалося видалити всі журнали."
+
+#: 
+msgid "Error loading images:"
+msgstr "Помилка завантаження зображень:"
+
+#: 
+msgid "Unknown Author"
+msgstr "Невідомий автор"
+
+#: 
+msgid "System Prompt"
+msgstr "Системна підказка"
+
+#: 
+msgid "Failed to send email. Please check your email configuration."
+msgstr "Не вдалося надіслати електронний лист. Перевірте конфігурацію електронної пошти."
+
+#: 
+msgid "Parent"
+msgstr "Батько"
+
+#: 
+msgid "Unable to delete logs in group {0}."
+msgstr "Не вдалося видалити журнали в групі {0}."
+
+#: 
+msgid "Username"
+msgstr "Ім&#39;я користувача"
+
+#: 
+msgid "Body Html"
+msgstr "Html тіла"
+
+#: 
+msgid "Locale"
+msgstr "Локаль"
+
+#: 
+msgid "Page View Statistics for slug: {0}"
+msgstr "Статистика перегляду сторінки для кулі: {0}"
+
+#: 
+msgid "Back to Login"
+msgstr "Назад до входу"
+
+#: 
+msgid "Show"
+msgstr "Показати"
+
+#: 
+msgid "The tag could not be saved. Please, try again."
+msgstr "Тег не вдалося зберегти. Будь ласка, спробуйте ще раз."
+
+#: 
+msgid "Message Id"
+msgstr "Ідентифікатор повідомлення"
+
+#: 
+msgid "Dark"
+msgstr "Темний"
+
+#: 
+msgid "Too many requests. Please try again later."
+msgstr "Забагато запитів. Спробуйте пізніше."
+
+#: 
+msgid "Related Articles/Pages"
+msgstr "Пов’язані статті/сторінки"
+
+#: 
+msgid "Home"
+msgstr "додому"
+
+#: 
+msgid "Send Email"
+msgstr "Надіслати електронний лист"
+
+#: 
+msgid "The image has been deleted."
+msgstr "Зображення видалено."
+
+#: 
+msgid "Generated {0} articles successfully."
+msgstr "Успішно створено {0} статей."
+
+#: 
+msgid "Related Tags"
+msgstr "Пов’язані теги"
+
+#: 
+msgid "Temperature"
+msgstr "температура"
+
+#: 
+msgid "Search Internationalisations..."
+msgstr "Пошук інтернаціоналізацій..."
+
+#: 
+msgid "Failed to save the image"
+msgstr "Не вдалося зберегти зображення"
+
+#: 
+msgid "Login"
+msgstr "Логін"
+
+#: 
+msgid "Essential"
+msgstr "Необхідний"
+
+#: 
+msgid "Never"
+msgstr "Ніколи"
+
+#: 
+msgid "The article has been saved."
+msgstr "Стаття збережена."
+
+#: 
+msgid "Please enter your new password"
+msgstr "Будь ласка, введіть свій новий пароль"
+
+#: 
+msgid "Summary"
+msgstr "Резюме"
+
+#: 
+msgid "Some caches were cleared, but the following failed: {0}"
+msgstr "Деякі кеші було очищено, але не вдалося: {0}"
+
+#: 
+msgid "Flagged"
+msgstr "Позначено"
+
+#: 
+msgid "The comment could not be saved. Please, try again."
+msgstr "Не вдалося зберегти коментар. Будь ласка, спробуйте ще раз."
+
+#: 
+msgid "No pages found."
+msgstr "Сторінок не знайдено."
+
+#: 
+msgid "Search Users..."
+msgstr "Пошук користувачів..."
+
+#: 
+msgid "Expires At"
+msgstr "Термін дії закінчується о"
+
+#: 
+msgid "Delete all articles before generating new ones"
+msgstr "Видаліть усі статті перед створенням нових"
+
+#: 
+msgid "Related pages"
+msgstr "Пов&#39;язані сторінки"
+
+#: 
+msgid "Bulk Upload Images"
+msgstr "Масове завантаження зображень"
+
+#: 
+msgid "Created"
+msgstr "Створено"
+
+#: 
+msgid "Please enter your email and password"
+msgstr "Будь ласка, введіть свою електронну адресу та пароль"
+
+#: 
+msgid "Error in {0}: {1}"
+msgstr "Помилка в {0}: {1}"
+
+#: 
+msgid "Error in: "
+msgstr "Помилка в: "
+
+#: 
+msgid "Page {{page}} of {{pages}}"
+msgstr "Сторінка {{page}} з {{pages}}"
+
+#: 
+msgid "The tag has been deleted."
+msgstr "Тег видалено."
+
+#: 
+msgid "Add Tag"
+msgstr "Додати тег"
+
+#: 
+msgid "Access denied. You must be an admin to view this page."
+msgstr "Доступ заборонено. Ви повинні бути адміністратором, щоб переглядати цю сторінку."
+
+#: 
+msgid "Logout"
+msgstr "Вийти"
+
+#: 
+msgid "All logs with level {0} have been deleted."
+msgstr "Усі журнали рівня {0} видалено."
+
+#: 
+msgid "Are you sure you want to clear {0}?"
+msgstr "Ви впевнені, що бажаєте очистити {0}?"
+
+#: 
+msgid "List {0}"
+msgstr "Список {0}"
+
+#: 
+msgid "Registration successful, but there was an issue creating the confirmation link."
+msgstr "Реєстрація успішна, але виникла проблема зі створенням посилання для підтвердження."
+
+#: 
+msgid "Referer"
+msgstr "Реферер"
+
+#: 
+msgid "Grid View"
+msgstr "Перегляд сітки"
+
+#: 
+msgid "Facebook Description"
+msgstr "Опис Facebook"
+
+#: 
+msgid "Reset your password"
+msgstr "Скинути пароль"
+
+#: 
+msgid "Search Blocked Ips..."
+msgstr "Пошук заблокованих IP-адрес..."
+
+#: 
+msgid "Register New Account"
+msgstr "Зареєструвати новий обліковий запис"
+
+#: 
+msgid "The slug must be unique."
+msgstr "Слимак повинен бути унікальним."
+
+#: 
+msgid "Last Cleared"
+msgstr "Останнє очищення"
+
+#: 
+msgid "Search logs..."
+msgstr "Журнали пошуку..."
+
+#: 
+msgid "View detailed records for this date"
+msgstr "Переглянути докладні записи за цю дату"
+
+#: 
+msgid "Insert Image"
+msgstr "Вставити зображення"
+
+#: 
+msgid "Edit Internationalisation"
+msgstr "Редагувати інтернаціоналізацію"
+
+#: 
+msgid "The internationalisation could not be saved. Please, try again."
+msgstr "Інтернаціоналізацію врятувати не вдалося. Будь ласка, спробуйте ще раз."
+
+#: 
+msgid "Analytics Cookies"
+msgstr "Аналітичні файли cookie"
+
+#: 
+msgid "Auto Tag"
+msgstr "Автоматичне тегування"
+
+#: 
+msgid "Edit Comment"
+msgstr "Редагувати коментар"
+
+#: 
+msgid "Task Type"
+msgstr "Тип завдання"
+
+#: 
+msgid "Your account has been confirmed. You can now log in."
+msgstr "Ваш обліковий запис підтверджено. Тепер ви можете увійти."
+
+#: 
+msgid "Is Published"
+msgstr "Опубліковано"
+
+#: 
+msgid "The internationalisation has been deleted."
+msgstr "Інтернаціоналізацію видалено."
+
+#: 
+msgid "Send Reset Link"
+msgstr "Надіслати посилання для скидання"
+
+#: 
+msgid "Add a Comment"
+msgstr "Додайте коментар"
+
+#: 
+msgid "This slug is already in use in articles. Please enter a unique slug."
+msgstr "Цей слаг уже використовується в статтях. Введіть унікальний слаг."
+
+#: 
+msgid "Error fetching videos: {0}"
+msgstr "Помилка отримання відео: {0}"
+
+#: 
+msgid "New Post"
+msgstr "Нова пошта"
+
+#: 
+msgid "Admin"
+msgstr "адмін"
+
+#: 
+msgid "Featured posts"
+msgstr "Рекомендовані публікації"
+
+#: 
+msgid "The blocked ip has been saved."
+msgstr "Заблокований ip збережено."
+
+#: 
+msgid "New Blocked Ip"
+msgstr "Новий заблокований IP"
+
+#: 
+msgid "SEO Fields"
+msgstr "Поля SEO"
+
+#: 
+msgid "Group Name"
+msgstr "Назва групи"
+
+#: 
+msgid "All articles have been deleted."
+msgstr "Усі статті видалено."
+
+#: 
+msgid "Add Article"
+msgstr "Додати статтю"
+
+#: 
+msgid "Status"
+msgstr "Статус"
+
+#: 
+msgid "Updated At"
+msgstr "Оновлено At"
+
+#: 
+msgid "New Aiprompt"
+msgstr "Новий Aiprompt"
+
+#: 
+msgid "Show only channel videos"
+msgstr "Показувати лише відео каналу"
 

@@ -14,1552 +14,1624 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
 #: 
-msgid "Failed to create tag: {0}"
-msgstr "Nu s-a putut crea eticheta: {0}"
-
-#: 
-msgid "Articles"
-msgstr "Articole"
-
-#: 
-msgid "Date"
-msgstr "Data"
-
-#: 
-msgid "Active"
-msgstr "Activ"
-
-#: 
-msgid "Please upload only images (jpeg, png, gif)."
-msgstr "Vă rugăm să încărcați numai imagini (jpeg, png, gif)."
-
-#: 
-msgid "The email template has been deleted."
-msgstr "Șablonul de e-mail a fost șters."
-
-#: 
-msgid "Main Menu"
-msgstr "Meniul principal"
-
-#: 
-msgid "The comment could not be deleted. Please, try again."
-msgstr "Comentariul nu a putut fi șters. Vă rog, încercați din nou."
-
-#: 
-msgid "The image has been saved."
-msgstr "Imaginea a fost salvată."
-
-#: 
-msgid "Unknown Author"
-msgstr "Autor necunoscut"
-
-#: 
-msgid "None"
-msgstr "Nici unul"
-
-#: 
-msgid "About"
-msgstr "Despre"
-
-#: 
-msgid "Essential Cookies"
-msgstr "Cookie-uri esențiale"
-
-#: 
-msgid "Unable to add your comment."
-msgstr "Nu se poate adăuga comentariul dvs."
-
-#: 
-msgid "Your account has been updated."
-msgstr "Contul dvs. a fost actualizat."
-
-#: 
-msgid "Hide"
-msgstr "Ascunde"
-
-#: 
-msgid "Some settings could not be saved. Please, try again."
-msgstr "Unele setări nu au putut fi salvate. Vă rog, încercați din nou."
-
-#: 
-msgid "The value must be a number."
-msgstr "Valoarea trebuie să fie un număr."
-
-#: 
-msgid "Image"
-msgstr "Imagine"
-
-#: 
-msgid "Back to top"
-msgstr "Înapoi sus"
-
-#: 
-msgid "Generated article: {0}"
-msgstr "Articol generat: {0}"
-
-#: 
-msgid "Clear All Cache"
-msgstr "Goliți toată memoria cache"
-
-#: 
-msgid "The tag has been deleted."
-msgstr "Eticheta a fost ștearsă."
-
-#: 
-msgid "You are not authorized to edit this account, stick to your own."
-msgstr "Nu sunteți autorizat să editați acest cont, rămâneți pe al dvs."
-
-#: 
-msgid "Created"
-msgstr "Creat"
-
-#: 
-msgid "Submit Comment"
-msgstr "Trimite comentariu"
-
-#: 
-msgid "An Internal Error Has Occurred."
-msgstr "A apărut o eroare internă."
-
-#: 
-msgid "A value is required"
-msgstr "Este necesară o valoare"
-
-#: 
-msgid "Description"
-msgstr "Descriere"
-
-#: 
-msgid "New Post"
-msgstr "Postare nouă"
-
-#: 
-msgid "Setting not found: {0}.{1}"
-msgstr "Setarea nu a fost găsită: {0}.{1}"
-
-#: 
-msgid "Invalid type"
-msgstr "Tip nevalid"
-
-#: 
-msgid "Clear"
-msgstr "Clar"
-
-#: 
-msgid "Enter text"
-msgstr "Introduceți text"
-
-#: 
-msgid "Add Tag"
-msgstr "Adăugați etichetă"
-
-#: 
-msgid "No videos found matching your search"
-msgstr "Nu s-au găsit videoclipuri care să corespundă căutării tale"
-
-#: 
-msgid "Add Article"
-msgstr "Adăugați articol"
-
-#: 
-msgid "Welcome to willowcms.app. This site uses Willow - a content management system I'm building in the open. Here you'll find development updates, feature highlights, and guides on using Willow for your own sites."
-msgstr "Bine ați venit la willowcms.app. Acest site folosește Willow - un sistem de management al conținutului pe care îl construiesc în aer liber. Aici veți găsi actualizări de dezvoltare, caracteristici evidențiate și ghiduri despre utilizarea Willow pentru propriile site-uri."
-
-#: 
-msgid "Ip Address"
-msgstr "Adresa IP"
-
-#: 
-msgid "Id"
-msgstr "Id"
-
-#: 
-msgid "All Groups"
-msgstr "Toate Grupurile"
-
-#: 
-msgid "Registration failed. Please, try again."
-msgstr "Înregistrarea a eșuat. Vă rog, încercați din nou."
-
-#: 
-msgid "Are you sure you want to delete all {0} logs?"
-msgstr "Sigur doriți să ștergeți toate {0} jurnalele?"
-
-#: 
-msgid "Register"
-msgstr "Registru"
-
-#: 
-msgid "Analytics Cookies"
-msgstr "Cookie-uri de analiză"
-
-#: 
-msgid "Please select your cookie preferences below. Essential cookies are required for the website to function and cannot be disabled."
-msgstr "Vă rugăm să selectați preferințele pentru cookie-uri de mai jos. Cookie-urile esențiale sunt necesare pentru ca site-ul web să funcționeze și nu pot fi dezactivate."
-
-#: 
-msgid "No pages found."
-msgstr "Nu au fost găsite pagini."
-
-#: 
-msgid "Search..."
-msgstr "Căutare..."
-
-#: 
-msgid "Auto"
-msgstr "Auto"
-
-#: 
-msgid "Max Tokens"
-msgstr "Numărul maxim de jetoane"
-
-#: 
-msgid "The value must be 0 or 1."
-msgstr "Valoarea trebuie să fie 0 sau 1."
-
-#: 
-msgid "Forgot Password"
-msgstr "Aţi uitat parola"
-
-#: 
-msgid "Some caches were cleared, but the following failed: {0}"
-msgstr "Unele memorie cache au fost șterse, dar următoarele nu au reușit: {0}"
-
-#: 
-msgid "All Levels"
-msgstr "Toate Nivelurile"
-
-#: 
-msgid "Failed to send password reset email: {0}"
-msgstr "Trimiterea e-mailului de resetare a parolei a eșuat: {0}"
-
-#: 
-msgid "Meta Description"
-msgstr "Meta Descriere"
-
-#: 
-msgid "Unable to delete logs in group {0}."
-msgstr "Nu se pot șterge jurnalele din grupul {0}."
-
-#: 
-msgid "The article could not be saved. Please, try again."
-msgstr "Articolul nu a putut fi salvat. Vă rog, încercați din nou."
-
-#: 
-msgid "Displayed"
-msgstr "Afișat"
-
-#: 
-msgid "Posted on {date} by {author}"
-msgstr "Postat pe {date} de {author}"
-
-#: 
-msgid "Un-Published"
-msgstr "Nepublicat"
-
-#: 
-msgid "Delete {0}"
-msgstr "Ștergeți {0}"
-
-#: 
-msgid "The comment could not be saved. Please, try again."
-msgstr "Comentariul nu a putut fi salvat. Vă rog, încercați din nou."
-
-#: 
-msgid "Facebook Description"
-msgstr "Descriere Facebook"
-
-#: 
-msgid "Are you sure you want to delete {0}?"
-msgstr "Sigur doriți să ștergeți {0}?"
-
-#: 
-msgid "Page Views for {0}"
-msgstr "Vizualizări de pagină pentru {0}"
-
-#: 
-msgid "Back to Login"
-msgstr "Înapoi la Logare"
-
-#: 
-msgid "Show only channel videos"
-msgstr "Afișează numai videoclipurile canalului"
-
-#: 
-msgid "Username"
-msgstr "Nume de utilizator"
-
-#: 
-msgid "Filter"
-msgstr "Filtra"
-
-#: 
-msgid "{0} Views"
-msgstr "{0} vizualizări"
-
-#: 
-msgid "Search Tags..."
-msgstr "Etichete de căutare..."
-
-#: 
-msgid "All Tags"
-msgstr "Toate etichetele"
-
-#: 
-msgid "Comments are not enabled"
-msgstr "Comentariile nu sunt activate"
-
-#: 
-msgid "Search Posts..."
-msgstr "Căutați postări..."
-
-#: 
-msgid "Search Users..."
-msgstr "Căutați utilizatori..."
-
-#: 
-msgid "Views"
-msgstr "Vizualizări"
-
-#: 
-msgid "Inappropriate Reason"
-msgstr "Motiv nepotrivit"
-
-#: 
-msgid "Internationalisations"
-msgstr "Internaționalizări"
-
-#: 
-msgid "Delete All Logs"
-msgstr "Ștergeți toate jurnalele"
-
-#: 
-msgid "Registration successful, but there was an issue creating the confirmation link."
-msgstr "Înregistrarea a reușit, dar a apărut o problemă la crearea linkului de confirmare."
-
-#: 
-msgid "The internationalisation could not be saved. Please, try again."
-msgstr "Internaționalizarea nu a putut fi salvată. Vă rog, încercați din nou."
-
-#: 
-msgid "Insert Image"
-msgstr "Inserați imaginea"
-
-#: 
-msgid "Error in {0}: {1}"
-msgstr "Eroare în {0}: {1}"
-
-#: 
-msgid "System Logs"
-msgstr "Jurnalele de sistem"
-
-#: 
-msgid "Related pages"
-msgstr "Pagini înrudite"
-
-#: 
-msgid "Edit"
-msgstr "Edita"
-
-#: 
-msgid "Please enter your email to reset your password"
-msgstr "Vă rugăm să introduceți adresa de e-mail pentru a vă reseta parola"
-
-#: 
-msgid "No comments yet."
-msgstr "Niciun comentariu încă."
-
-#: 
-msgid "Send Email"
-msgstr "Trimite e-mail"
-
-#: 
-msgid "Toggle theme"
-msgstr "Comutați tema"
-
-#: 
-msgid "Are you sure you want to delete all logs?"
-msgstr "Sigur doriți să ștergeți toate jurnalele?"
-
-#: 
-msgid "You cannot disable your own account."
-msgstr "Nu vă puteți dezactiva propriul cont."
-
-#: 
-msgid "Register New Account"
-msgstr "Înregistrați un cont nou"
-
-#: 
-msgid "Expires At"
-msgstr "Expiră la"
-
-#: 
-msgid "SEO Fields"
-msgstr "Câmpuri SEO"
-
-#: 
-msgid "Too many requests. Please try again later."
-msgstr "Prea multe cereri. Vă rugăm să încercați din nou mai târziu."
-
-#: 
-msgid "New Email Template"
-msgstr "Șablon de e-mail nou"
-
-#: 
-msgid "Show"
-msgstr "Spectacol"
-
-#: 
-msgid "Invalid value for the specified type."
-msgstr "Valoare nevalidă pentru tipul specificat."
-
-#: 
-msgid "The image could not be deleted. Please, try again."
-msgstr "Imaginea nu a putut fi ștearsă. Vă rog, încercați din nou."
-
-#: 
-msgid "Add Aiprompt"
-msgstr "Adăugați Aiprompt"
-
-#: 
-msgid "Privacy Policy"
-msgstr "Politica de confidențialitate"
-
-#: 
-msgid "User"
-msgstr "Utilizator"
-
-#: 
-msgid "Email sent successfully."
-msgstr "E-mail trimis cu succes."
-
-#: 
-msgid "Body Editor"
-msgstr "Body Editor"
-
-#: 
-msgid "View detailed records for this date"
-msgstr "Vedeți înregistrările detaliate pentru această dată"
-
-#: 
-msgid "Comments"
-msgstr "Comentarii"
-
-#: 
-msgid "There was an issue resetting your password. Please try again."
-msgstr "A apărut o problemă la resetarea parolei. Vă rugăm să încercați din nou."
-
-#: 
-msgid "No admin user found."
-msgstr "Nu a fost găsit niciun utilizator administrator."
-
-#: 
-msgid "Your password has been reset. Please log in with your new password."
-msgstr "Parola dvs. a fost resetată. Vă rugăm să vă conectați cu noua parolă."
-
-#: 
-msgid "Failed to save the image"
-msgstr "Nu s-a putut salva imaginea"
-
-#: 
-msgid "Cache Name"
-msgstr "Nume cache"
-
-#: 
-msgid "Edit Slug"
-msgstr "Editează Slug"
-
-#: 
-msgid "Is Admin"
-msgstr "Este Admin"
-
-#: 
-msgid "Images"
-msgstr "Imagini"
-
-#: 
-msgid "Search Slugs..."
-msgstr "Căutați Slugs..."
-
-#: 
-msgid "Temperature"
-msgstr "Temperatură"
-
-#: 
-msgid "Registration successful. Please check your email for confirmation."
-msgstr "Înregistrare reușită. Vă rugăm să vă verificați e-mailul pentru confirmare."
-
-#: 
-msgid "Delete"
-msgstr "Şterge"
-
-#: 
-msgid "Add Blocked Ip"
-msgstr "Adăugați IP blocat"
-
-#: 
-msgid "The tag could not be deleted. Please, try again."
-msgstr "Eticheta nu a putut fi ștearsă. Vă rog, încercați din nou."
-
-#: 
-msgid "Search images..."
-msgstr "Căutați imagini..."
-
-#: 
-msgid "Invalid username or password"
-msgstr "Nume de utilizator sau parolă nevalidă"
-
-#: 
-msgid "The internationalisation has been deleted."
-msgstr "Internaționalizarea a fost ștearsă."
-
-#: 
-msgid "Search Aiprompts..."
-msgstr "Căutați prompturi..."
-
-#: 
-msgid "Context"
-msgstr "Context"
-
-#: 
-msgid "Created At"
-msgstr "Creat la"
-
-#: 
-msgid "Search Internationalisations..."
-msgstr "Căutați internaționalizări..."
-
-#: 
-msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
-msgstr "Pagina {{page}} din {{pagini}}, afișând {{current}} înregistrare(e) din {{count}} total"
-
-#: 
-msgid "Creating {0} new top-level tags..."
-msgstr "Se creează {0} noi etichete de nivel superior..."
-
-#: 
-msgid "All logs with level {0} have been deleted."
-msgstr "Toate jurnalele cu nivelul {0} au fost șterse."
-
-#: 
-msgid "All Locales"
-msgstr "Toate localurile"
-
-#: 
-msgid "Last Cleared"
-msgstr "Ultima ștergere"
-
-#: 
-msgid "Bulk Upload"
-msgstr "Încărcare în bloc"
-
-#: 
-msgid "Search Pages..."
-msgstr "Pagini de căutare..."
-
-#: 
-msgid "Inactive"
-msgstr "Inactiv"
-
-#: 
-msgid "Search Blocked Ips..."
-msgstr "Căutare IP-uri blocate..."
-
-#: 
-msgid "Functional Cookies"
-msgstr "Cookie-uri funcționale"
-
-#: 
-msgid "Account"
-msgstr "Cont"
-
-#: 
-msgid "Logout"
-msgstr "Deconectare"
-
-#: 
-msgid "Locale"
-msgstr "Locale"
-
-#: 
-msgid "Slug:"
-msgstr "Melc:"
-
-#: 
-msgid "Body Plain"
-msgstr "Corpul simplu"
-
-#: 
-msgid "Error sending email: {0}"
-msgstr "Eroare la trimiterea e-mailului: {0}"
-
-#: 
-msgid "Failed to generate {0} articles."
-msgstr "Nu s-au generat {0} articole."
-
-#: 
-msgid "Your cookie preferences have been saved."
-msgstr "Preferințele dvs. pentru cookie-uri au fost salvate."
+msgid "The aiprompt has been deleted."
+msgstr "Aiprompt-ul a fost șters."
 
 #: 
 msgid "Blocked At"
 msgstr "Blocat la"
 
 #: 
-msgid "{0} cache has been cleared successfully."
-msgstr "Memoria cache {0} a fost șters cu succes."
+msgid "Recent posts"
+msgstr "Postări recente"
 
 #: 
-msgid "Tag not found"
-msgstr "Eticheta nu a fost găsită"
-
-#: 
-msgid "Keywords"
-msgstr "Cuvinte cheie"
-
-#: 
-msgid "The user could not be saved. Please, try again."
-msgstr "Utilizatorul nu a putut fi salvat. Vă rog, încercați din nou."
-
-#: 
-msgid "Settings"
-msgstr "Setări"
-
-#: 
-msgid "Block IPs"
-msgstr "Blocați IP-urile"
-
-#: 
-msgid "The blocked ip could not be saved. Please, try again."
-msgstr "IP-ul blocat nu a putut fi salvat. Vă rog, încercați din nou."
-
-#: 
-msgid "Add Slug"
-msgstr "Adăugați Slug"
-
-#: 
-msgid "No page view data available for this article."
-msgstr "Nu sunt disponibile date de vizualizare a paginii pentru acest articol."
-
-#: 
-msgid "Logs"
-msgstr "Bușteni"
-
-#: 
-msgid "Password must be at least 8 characters long"
-msgstr "Parola trebuie să aibă cel puțin 8 caractere"
-
-#: 
-msgid "The value must not be empty."
-msgstr "Valoarea nu trebuie să fie goală."
-
-#: 
-msgid "Edit Your Account"
-msgstr "Editați-vă contul"
-
-#: 
-msgid "The aiprompt has been deleted."
-msgstr "Aiprompt-ul a fost șters."
-
-#: 
-msgid "Select Video"
-msgstr "Selectați Video"
-
-#: 
-msgid "The comment has been deleted."
-msgstr "Comentariul a fost șters."
-
-#: 
-msgid "Read More"
-msgstr "Citeşte mai mult"
-
-#: 
-msgid "The requested address {0} was not found on this server."
-msgstr "Adresa solicitată {0} nu a fost găsită pe acest server."
-
-#: 
-msgid "Edit Comment"
-msgstr "Editați comentariul"
-
-#: 
-msgid "Related Tags"
-msgstr "Etichete înrudite"
-
-#: 
-msgid "Add Image"
-msgstr "Adăugați o imagine"
-
-#: 
-msgid "Your comment has been added."
-msgstr "Comentariul dvs. a fost adăugat."
-
-#: 
-msgid "Generating {0} articles..."
-msgstr "Se generează {0} articole..."
-
-#: 
-msgid "Admin"
-msgstr "Admin"
-
-#: 
-msgid "Not published"
-msgstr "Nepublicat"
-
-#: 
-msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
-msgstr "Mai jos sunt informații despre cache-urile configurate. Faceți clic pe butonul pentru a șterge toate cache-urile sau pe butoanele cache individuale pentru a șterge anumite cache-uri."
-
-#: 
-msgid "Featured"
-msgstr "Prezentare"
-
-#: 
-msgid "Add Post"
-msgstr "Adaugă postare"
-
-#: 
-msgid "Enable enhanced functionality and personalization."
-msgstr "Activați funcționalitatea și personalizarea îmbunătățite."
-
-#: 
-msgid "Delete all articles before generating new ones"
-msgstr "Ștergeți toate articolele înainte de a genera altele noi"
-
-#: 
-msgid "Twitter Description"
-msgstr "Descriere Twitter"
-
-#: 
-msgid "Invalid confirmation code."
-msgstr "Cod de confirmare nevalid."
-
-#: 
-msgid "Slug"
-msgstr "Melc"
-
-#: 
-msgid "Related Articles/Pages"
-msgstr "Articole/Pagini conexe"
-
-#: 
-msgid "An error occurred while processing your request."
-msgstr "A apărut o eroare la procesarea solicitării dvs."
-
-#: 
-msgid "Submit"
-msgstr "Trimiteți"
-
-#: 
-msgid "System Prompt"
-msgstr "Prompt de sistem"
-
-#: 
-msgid "Forgot Password?"
-msgstr "Aţi uitat parola?"
-
-#: 
-msgid "The aiprompt has been saved."
-msgstr "Invitația a fost salvată."
-
-#: 
-msgid "Essential"
-msgstr "Esenţial"
-
-#: 
-msgid "Configured Caches"
-msgstr "Cache-uri configurate"
-
-#: 
-msgid "The aiprompt could not be deleted. Please, try again."
-msgstr "Aiprompt-ul nu a putut fi șters. Vă rog, încercați din nou."
-
-#: 
-msgid "View {0}"
-msgstr "Vedeți {0}"
-
-#: 
-msgid "Page View Statistics for slug: {0}"
-msgstr "Statistici de vizualizare a paginii pentru slug: {0}"
-
-#: 
-msgid "User Agent"
-msgstr "Agent utilizator"
-
-#: 
-msgid "The image could not be saved. Please, try again."
-msgstr "Imaginea nu a putut fi salvată. Vă rog, încercați din nou."
-
-#: 
-msgid "Search logs..."
-msgstr "Căutați jurnalele..."
-
-#: 
-msgid "Are you sure you want to delete all logs in group {0}?"
-msgstr "Sigur doriți să ștergeți toate jurnalele din grupul {0}?"
-
-#: 
-msgid "Never"
-msgstr "Nu"
-
-#: 
-msgid "Too Many Requests"
-msgstr "Prea Multe Cereri"
-
-#: 
-msgid "Invalid or expired password reset link."
-msgstr "Link de resetare a parolei nevalid sau expirat."
-
-#: 
-msgid "New Image"
-msgstr "Imagine nouă"
-
-#: 
-msgid "On"
-msgstr "Pe"
-
-#: 
-msgid "You must be logged in to add a comment."
-msgstr "Trebuie să fii autentificat pentru a adăuga un comentariu."
-
-#: 
-msgid "Failed to send email to: {0}"
-msgstr "Trimiterea e-mailului la: {0} a eșuat"
-
-#: 
-msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
-msgstr "E-mail trimis cu succes la: {0}. Șablon: {1}, Subiect: {2}"
-
-#: 
-msgid "Unable to delete all logs."
-msgstr "Nu se pot șterge toate jurnalele."
-
-#: 
-msgid "Are you sure you want to delete  {0}?"
-msgstr "Sigur doriți să ștergeți {0}?"
-
-#: 
-msgid "Light"
-msgstr "Aprinde"
-
-#: 
-msgid "Failed to send confirmation email message: {0}"
-msgstr "Trimiterea e-mailului de confirmare a eșuat: {0}"
-
-#: 
-msgid "Dark"
-msgstr "Întuneric"
-
-#: 
-msgid "Edit Post"
-msgstr "Editează postarea"
-
-#: 
-msgid "The tag could not be saved. Please, try again."
-msgstr "Eticheta nu a putut fi salvată. Vă rog, încercați din nou."
-
-#: 
-msgid "Level"
-msgstr "Nivel"
-
-#: 
-msgid "Number of articles to generate"
-msgstr "Numărul de articole de generat"
-
-#: 
-msgid "View"
-msgstr "Vedere"
-
-#: 
-msgid "Add Email Template"
-msgstr "Adăugați șablon de e-mail"
-
-#: 
-msgid "Parent"
-msgstr "Mamă"
-
-#: 
-msgid "English"
-msgstr "engleză"
-
-#: 
-msgid "Edit Tag"
-msgstr "Editați eticheta"
-
-#: 
-msgid "No file uploaded or upload error"
-msgstr "Niciun fișier încărcat sau eroare de încărcare"
-
-#: 
-msgid "New Page"
-msgstr "Pagina nouă"
+msgid "Body Editor"
+msgstr "Body Editor"
 
 #: 
 msgid "Selected"
 msgstr "Selectat"
 
 #: 
-msgid "Auto Tag"
-msgstr "Etichetare automată"
+msgid "Unable to delete logs in group {0}."
+msgstr "Nu se pot șterge jurnalele din grupul {0}."
 
 #: 
-msgid "Home"
-msgstr "Acasă"
-
-#: 
-msgid "Failed to send email. Please check your email configuration."
-msgstr "Trimiterea e-mailului a eșuat. Vă rugăm să verificați configurația de e-mail."
-
-#: 
-msgid "Elsewhere"
-msgstr "În altă parte"
-
-#: 
-msgid "Task Type"
-msgstr "Tip de sarcină"
-
-#: 
-msgid "Instagram Description"
-msgstr "Descriere Instagram"
-
-#: 
-msgid "Load video"
-msgstr "Încărcați videoclipul"
-
-#: 
-msgid "Article not found"
-msgstr "Articolul nu a fost găsit"
-
-#: 
-msgid "Tag Articles/Pages"
-msgstr "Etichetați articole/pagini"
-
-#: 
-msgid "Add a Comment"
-msgstr "Adăugați un comentariu"
-
-#: 
-msgid "New Aiprompt"
-msgstr "Nou Aiprompt"
-
-#: 
-msgid "The user could not be deleted. Please, try again."
-msgstr "Utilizatorul nu a putut fi șters. Vă rog, încercați din nou."
-
-#: 
-msgid "Body Preview"
-msgstr "Previzualizarea corpului"
-
-#: 
-msgid "Your account has been confirmed. You can now log in."
-msgstr "Contul dvs. a fost confirmat. Acum vă puteți autentifica."
-
-#: 
-msgid "Error in: "
-msgstr "Eroare în: "
-
-#: 
-msgid "{0} cache configuration does not exist."
-msgstr "{0} configurația cache nu există."
-
-#: 
-msgid "Unable to delete the log."
-msgstr "Nu se poate șterge jurnalul."
-
-#: 
-msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
-msgstr "Slug-ul trebuie să fie sigur pentru adrese URL (doar litere mici, cifre și cratime)"
-
-#: 
-msgid "Lede"
-msgstr "Lede"
-
-#: 
-msgid "Edit Page"
-msgstr "Editați pagina"
-
-#: 
-msgid "Edit Article"
-msgstr "Editați articolul"
-
-#: 
-msgid "Back"
-msgstr "Spate"
-
-#: 
-msgid "Archives"
-msgstr "Arhive"
-
-#: 
-msgid "Error fetching videos: {0}"
-msgstr "Eroare la preluarea videoclipurilor: {0}"
-
-#: 
-msgid "Reason"
-msgstr "Motiv"
-
-#: 
-msgid "Edit Image"
-msgstr "Editați imaginea"
-
-#: 
-msgid "Message"
-msgstr "Mesaj"
-
-#: 
-msgid "Tags"
-msgstr "Etichete"
-
-#: 
-msgid "Status"
-msgstr "Stare"
-
-#: 
-msgid "Created tag: {0}"
-msgstr "Etichetă creată: {0}"
-
-#: 
-msgid "The slug could not be saved. Please, try again."
-msgstr "Limacul nu a putut fi salvat. Vă rog, încercați din nou."
-
-#: 
-msgid "This slug is already in use in articles. Please enter a unique slug."
-msgstr "Acest melc este deja folosit în articole. Vă rugăm să introduceți un slug unic."
-
-#: 
-msgid "The blocked ip has been deleted."
-msgstr "IP-ul blocat a fost șters."
-
-#: 
-msgid "The log has been deleted."
-msgstr "Jurnalul a fost șters."
-
-#: 
-msgid "Featured posts"
-msgstr "Postări recomandate"
-
-#: 
-msgid "No view records found for this article."
-msgstr "Nu s-au găsit înregistrări de vizualizare pentru acest articol."
-
-#: 
-msgid "Edit Blocked Ip"
-msgstr "Editați IP blocat"
-
-#: 
-msgid "Rate limit exceeded for IP: {0} on route: {1}"
-msgstr "Limită de rată depășită pentru IP: {0} pe ruta: {1}"
-
-#: 
-msgid "Message Str"
-msgstr "Mesaj Str"
-
-#: 
-msgid "Group Name"
-msgstr "Numele grupului"
-
-#: 
-msgid "Your account could not be updated."
-msgstr "Contul dvs. nu a putut fi actualizat."
-
-#: 
-msgid "Updated At"
-msgstr "Actualizat la"
-
-#: 
-msgid "The email template has been saved."
-msgstr "Șablonul de e-mail a fost salvat."
-
-#: 
-msgid "Select Tags"
-msgstr "Selectați Etichete"
-
-#: 
-msgid "This slug is already in use. Please enter a unique slug."
-msgstr "Acest melc este deja în uz. Vă rugăm să introduceți un slug unic."
-
-#: 
-msgid "Cookie Preferences"
-msgstr "Preferințe cookie"
-
-#: 
-msgid "Linkedin Description"
-msgstr "Descriere Linkedin"
-
-#: 
-msgid "Required"
-msgstr "Necesar"
-
-#: 
-msgid "All logs have been deleted."
-msgstr "Toate jurnalele au fost șterse."
-
-#: 
-msgid "Required for the website to function properly. These cannot be disabled."
-msgstr "Necesar pentru ca site-ul să funcționeze corect. Acestea nu pot fi dezactivate."
-
-#: 
-msgid "Reset Password"
-msgstr "Resetează parola"
-
-#: 
-msgid "Add Page"
-msgstr "Adăugați o pagină"
-
-#: 
-msgid "Not Displayed"
-msgstr "Nu este afișat"
-
-#: 
-msgid "Error saving {0}.{1}: {2}"
-msgstr "Eroare la salvarea {0}.{1}: {2}"
-
-#: 
-msgid "Please log in to add a comment"
-msgstr "Vă rugăm să vă conectați pentru a adăuga un comentariu"
-
-#: 
-msgid "List View"
-msgstr "Vizualizare listă"
-
-#: 
-msgid "Edit User"
-msgstr "Editați utilizatorul"
-
-#: 
-msgid "Add User"
-msgstr "Adăugați utilizator"
-
-#: 
-msgid "The slug could not be deleted. Please, try again."
-msgstr "Limacul nu a putut fi șters. Vă rog, încercați din nou."
-
-#: 
-msgid "Image must be less than 5MB."
-msgstr "Imaginea trebuie să fie mai mică de 5 MB."
-
-#: 
-msgid "The aiprompt could not be saved. Please, try again."
-msgstr "Suportul nu a putut fi salvat. Vă rog, încercați din nou."
-
-#: 
-msgid "Subject"
-msgstr "Subiect"
-
-#: 
-msgid "This message_id must be unique for the given locale."
-msgstr "Acest mesaj_id trebuie să fie unic pentru localitatea dată."
-
-#: 
-msgid "Child"
-msgstr "Copil"
-
-#: 
-msgid "Total Views: "
-msgstr "Vizualizări totale: "
-
-#: 
-msgid "Blog"
-msgstr "Blog"
-
-#: 
-msgid "Log In"
-msgstr "Log in"
-
-#: 
-msgid "Display"
-msgstr "Afişa"
-
-#: 
-msgid "Edit Aiprompt"
-msgstr "Editați Aiprompt"
-
-#: 
-msgid "Is Inappropriate"
-msgstr "Este inadecvat"
-
-#: 
-msgid "Cookies"
-msgstr "Cookie-uri"
-
-#: 
-msgid "List {0}"
-msgstr "Lista {0}"
-
-#: 
-msgid "No tags are linked."
-msgstr "Nu există etichete legate."
-
-#: 
-msgid "Is Published"
-msgstr "Este publicat"
-
-#: 
-msgid "We were unable to find that account."
-msgstr "Nu am putut găsi acel cont."
-
-#: 
-msgid "Template Identifier"
-msgstr "Identificator de șablon"
-
-#: 
-msgid "The internationalisation has been saved."
-msgstr "Internaționalizarea a fost salvată."
-
-#: 
-msgid "Email"
-msgstr "E-mail"
+msgid "Parent"
+msgstr "Mamă"
 
 #: 
 msgid "{0} cache could not be cleared."
 msgstr "Cache-ul {0} nu a putut fi șters."
 
 #: 
-msgid "The user has been deleted."
-msgstr "Utilizatorul a fost șters."
-
-#: 
-msgid "No deleting your own account."
-msgstr "Nu vă ștergeți propriul cont."
-
-#: 
-msgid "The blocked ip could not be deleted. Please, try again."
-msgstr "IP-ul blocat nu a putut fi șters. Vă rog, încercați din nou."
-
-#: 
-msgid "Content"
-msgstr "Conţinut"
-
-#: 
-msgid "All articles have been deleted."
-msgstr "Toate articolele au fost șterse."
-
-#: 
-msgid "My Account"
-msgstr "Contul meu"
-
-#: 
-msgid "Search Email Templates..."
-msgstr "Căutați șabloane de e-mail..."
-
-#: 
-msgid "The image has been deleted."
-msgstr "Imaginea a fost ștearsă."
-
-#: 
-msgid "Slugs"
-msgstr "melci"
-
-#: 
-msgid "Method not allowed"
-msgstr "Metoda nu este permisă"
-
-#: 
-msgid "The email template could not be saved. Please, try again."
-msgstr "Șablonul de e-mail nu a putut fi salvat. Vă rog, încercați din nou."
-
-#: 
-msgid "Recent posts"
-msgstr "Postări recente"
-
-#: 
-msgid "Generated {0} articles successfully."
-msgstr "S-au generat {0} articole cu succes."
-
-#: 
-msgid "By"
-msgstr "De"
-
-#: 
-msgid "Flagged"
-msgstr "Semnalat"
-
-#: 
-msgid "Summary"
-msgstr "Rezumat"
-
-#: 
-msgid "Modified At"
-msgstr "Modificat la"
-
-#: 
-msgid "New Tag"
-msgstr "Etichetă nouă"
-
-#: 
-msgid "Name"
-msgstr "Nume"
-
-#: 
-msgid "Edit Internationalisation"
-msgstr "Editați Internaționalizarea"
-
-#: 
-msgid "Show Full Article"
-msgstr "Afișează articolul complet"
-
-#: 
-msgid "New Internationalisation"
-msgstr "Noua internaționalizare"
-
-#: 
-msgid "Cache"
-msgstr "Cache"
-
-#: 
-msgid "All"
-msgstr "Toate"
+msgid "Configured Caches"
+msgstr "Cache-uri configurate"
 
 #: 
 msgid "Pages"
 msgstr "Pagini"
 
 #: 
-msgid "Access denied. You must be an admin to view this page."
-msgstr "Acces interzis. Trebuie să fii administrator pentru a vizualiza această pagină."
+msgid "Displayed"
+msgstr "Afișat"
 
 #: 
-msgid "Article"
-msgstr "Articol"
+msgid "Failed to send email to: {0}"
+msgstr "Trimiterea e-mailului la: {0} a eșuat"
 
 #: 
-msgid "Willow Logo"
-msgstr "Logo-ul Willow"
+msgid "Add"
+msgstr "Adăuga"
 
 #: 
-msgid "Search Articles..."
-msgstr "Căutați articole..."
+msgid "Featured posts"
+msgstr "Postări recomandate"
 
 #: 
-msgid "Body"
-msgstr "Corp"
+msgid "Failed to create tag: {0}"
+msgstr "Nu s-a putut crea eticheta: {0}"
 
 #: 
-msgid "Show Less"
-msgstr "Arată mai puțin"
+msgid "Tags"
+msgstr "Etichete"
 
 #: 
-msgid "Reset your password"
-msgstr "Resetați parola"
+msgid "Picture"
+msgstr "Imagine"
 
 #: 
-msgid "Add Internationalisation"
-msgstr "Adăugați internaționalizare"
+msgid "Register"
+msgstr "Registru"
 
 #: 
-msgid "Search Comments..."
-msgstr "Căutați comentarii..."
+msgid "Edit"
+msgstr "Edita"
 
 #: 
-msgid "Front Site"
-msgstr "Front Site"
-
-#: 
-msgid "Search for YouTube videos to embed"
-msgstr "Căutați videoclipuri YouTube de încorporat"
-
-#: 
-msgid "The comment has been saved."
-msgstr "Comentariul a fost salvat."
-
-#: 
-msgid "Referer"
-msgstr "Referitor"
-
-#: 
-msgid "Used to deliver personalized advertisements and enable the facebook share button."
-msgstr "Folosit pentru a livra reclame personalizate și pentru a activa butonul de partajare pe Facebook."
-
-#: 
-msgid "Are you sure you want to delete # {0}?"
-msgstr "Sigur doriți să ștergeți # {0}?"
-
-#: 
-msgid "Edit {0}"
-msgstr "Editați {0}"
-
-#: 
-msgid "Please enter your new password"
-msgstr "Vă rugăm să introduceți noua parolă"
-
-#: 
-msgid "Page {{page}} of {{pages}}"
-msgstr "Pagina {{page}} din {{pages}}"
-
-#: 
-msgid "The internationalisation could not be deleted. Please, try again."
-msgstr "Internaționalizarea nu a putut fi ștearsă. Vă rog, încercați din nou."
-
-#: 
-msgid "Comment"
-msgstr "Comentariu"
-
-#: 
-msgid "Edit Email Template"
-msgstr "Editați șablonul de e-mail"
-
-#: 
-msgid "If your email is registered, you will receive a link to reset your password."
-msgstr "Dacă e-mailul dvs. este înregistrat, veți primi un link pentru a vă reseta parola."
-
-#: 
-msgid "Word Count"
-msgstr "Număr de cuvinte"
-
-#: 
-msgid "All rights reserved."
-msgstr "Toate drepturile rezervate."
-
-#: 
-msgid "Info"
-msgstr "Info"
-
-#: 
-msgid "No"
-msgstr "Nu"
-
-#: 
-msgid "Tree View"
-msgstr "Vedere în arbore"
-
-#: 
-msgid "Message Id"
-msgstr "Id-ul mesajului"
-
-#: 
-msgid "There was an issue confirming your account. Please try again."
-msgstr "A apărut o problemă la confirmarea contului dvs. Vă rugăm să încercați din nou."
-
-#: 
-msgid "Modified"
-msgstr "Modificat"
-
-#: 
-msgid "You cannot remove your own admin status."
-msgstr "Nu vă puteți elimina propriul statut de administrator."
-
-#: 
-msgid "Language"
-msgstr "Limbă"
-
-#: 
-msgid "The user has been saved."
-msgstr "Utilizatorul a fost salvat."
-
-#: 
-msgid "Please enter your email and password"
-msgstr "Vă rugăm să introduceți adresa dvs. de e-mail și parola"
-
-#: 
-msgid "New Article"
-msgstr "articol nou"
-
-#: 
-msgid "New {0}"
-msgstr "{0} nou"
-
-#: 
-msgid "Page Views"
-msgstr "Vizualizări de pagină"
-
-#: 
-msgid "Related Comments"
-msgstr "Comentarii înrudite"
-
-#: 
-msgid "Create an Account"
-msgstr "Creați un cont"
-
-#: 
-msgid "Actions"
-msgstr "Acțiuni"
-
-#: 
-msgid "Published"
-msgstr "Publicat"
-
-#: 
-msgid "No tags found."
-msgstr "Nu au fost găsite etichete."
-
-#: 
-msgid "Main Image"
-msgstr "Imaginea principală"
-
-#: 
-msgid "Body Html"
-msgstr "Body HTML"
-
-#: 
-msgid "Kind"
-msgstr "Fel"
-
-#: 
-msgid "This content is hosted by YouTube. By showing the external content you accept the privacy policy of YouTube."
-msgstr "Acest conținut este găzduit de YouTube. Afișând conținutul extern, acceptați politica de confidențialitate a YouTube."
-
-#: 
-msgid "Image Uploads"
-msgstr "Încărcări de imagini"
-
-#: 
-msgid "Model"
-msgstr "Model"
-
-#: 
-msgid "Article not found."
-msgstr "Articolul nu a fost găsit."
-
-#: 
-msgid "New User"
-msgstr "Utilizator nou"
-
-#: 
-msgid "Users"
-msgstr "Utilizatori"
+msgid "Invalid username or password"
+msgstr "Nume de utilizator sau parolă nevalidă"
 
 #: 
 msgid "AI Prompts"
 msgstr "Solicitări AI"
 
 #: 
-msgid "Related Slugs"
-msgstr "Limacși înrudit"
+msgid "All logs in group {0} have been deleted."
+msgstr "Toate jurnalele din grupul {0} au fost șterse."
 
 #: 
-msgid "All caches have been cleared successfully."
-msgstr "Toate cache-urile au fost șterse cu succes."
+msgid "Please select your cookie preferences below. Essential cookies are required for the website to function and cannot be disabled."
+msgstr "Vă rugăm să selectați preferințele pentru cookie-uri de mai jos. Cookie-urile esențiale sunt necesare pentru ca site-ul web să funcționeze și nu pot fi dezactivate."
 
 #: 
-msgid "Willow CMS"
-msgstr "Willow CMS"
+msgid "Toggle theme"
+msgstr "Comutați tema"
 
 #: 
-msgid "Root"
-msgstr "Rădăcină"
+msgid "Reason"
+msgstr "Motiv"
 
 #: 
-msgid "The tag has been saved."
-msgstr "Eticheta a fost salvată."
+msgid "Instagram Description"
+msgstr "Descriere Instagram"
+
+#: 
+msgid "Please enter your email to reset your password"
+msgstr "Vă rugăm să introduceți adresa de e-mail pentru a vă reseta parola"
+
+#: 
+msgid "Registration successful, but there was an issue creating the confirmation link."
+msgstr "Înregistrarea a reușit, dar a apărut o problemă la crearea linkului de confirmare."
+
+#: 
+msgid "Created tag: {0}"
+msgstr "Etichetă creată: {0}"
+
+#: 
+msgid "The article has been saved."
+msgstr "Articolul a fost salvat."
+
+#: 
+msgid "Registration failed. Please, try again."
+msgstr "Înregistrarea a eșuat. Vă rog, încercați din nou."
+
+#: 
+msgid "No page view data available for this article."
+msgstr "Nu sunt disponibile date de vizualizare a paginii pentru acest articol."
+
+#: 
+msgid "Not published"
+msgstr "Nepublicat"
+
+#: 
+msgid "Insert Image"
+msgstr "Inserați imaginea"
+
+#: 
+msgid "Delete All Logs"
+msgstr "Ștergeți toate jurnalele"
+
+#: 
+msgid "Meta Description"
+msgstr "Meta Descriere"
+
+#: 
+msgid "Show Less"
+msgstr "Arată mai puțin"
 
 #: 
 msgid "Meta Keywords"
 msgstr "Meta cuvinte cheie"
 
 #: 
+msgid "System Prompt"
+msgstr "Prompt de sistem"
+
+#: 
+msgid "New Slug"
+msgstr "Slug nou"
+
+#: 
+msgid "Error"
+msgstr "Eroare"
+
+#: 
+msgid "Expires At"
+msgstr "Expiră la"
+
+#: 
+msgid "All rights reserved."
+msgstr "Toate drepturile rezervate."
+
+#: 
+msgid "Hide"
+msgstr "Ascunde"
+
+#: 
+msgid "Add Blocked Ip"
+msgstr "Adăugați IP blocat"
+
+#: 
+msgid "The tag could not be saved. Please, try again."
+msgstr "Eticheta nu a putut fi salvată. Vă rog, încercați din nou."
+
+#: 
+msgid "Actions"
+msgstr "Acțiuni"
+
+#: 
+msgid "Created At"
+msgstr "Creat la"
+
+#: 
+msgid "English"
+msgstr "engleză"
+
+#: 
+msgid "Failed to send password reset email: {0}"
+msgstr "Trimiterea e-mailului de resetare a parolei a eșuat: {0}"
+
+#: 
+msgid "Bulk Upload"
+msgstr "Încărcare în bloc"
+
+#: 
+msgid "The slug has been saved."
+msgstr "Limacul a fost salvat."
+
+#: 
+msgid "Back"
+msgstr "Spate"
+
+#: 
+msgid "You cannot disable your own account."
+msgstr "Nu vă puteți dezactiva propriul cont."
+
+#: 
+msgid "Add Page"
+msgstr "Adăugați o pagină"
+
+#: 
+msgid "None"
+msgstr "Nici unul"
+
+#: 
+msgid "Unable to delete all logs."
+msgstr "Nu se pot șterge toate jurnalele."
+
+#: 
+msgid "View detailed records for this date"
+msgstr "Vedeți înregistrările detaliate pentru această dată"
+
+#: 
+msgid "Are you sure you want to delete all {0} logs?"
+msgstr "Sigur doriți să ștergeți toate {0} jurnalele?"
+
+#: 
+msgid "You cannot remove your own admin status."
+msgstr "Nu vă puteți elimina propriul statut de administrator."
+
+#: 
+msgid "Select Video"
+msgstr "Selectați Video"
+
+#: 
+msgid "The article could not be deleted. Please, try again."
+msgstr "Articolul nu a putut fi șters. Vă rog, încercați din nou."
+
+#: 
+msgid "Required"
+msgstr "Necesar"
+
+#: 
+msgid "Search Slugs..."
+msgstr "Căutați Slugs..."
+
+#: 
+msgid "Message"
+msgstr "Mesaj"
+
+#: 
+msgid "Edit {0}"
+msgstr "Editați {0}"
+
+#: 
+msgid "All logs have been deleted."
+msgstr "Toate jurnalele au fost șterse."
+
+#: 
+msgid "New Post"
+msgstr "Postare nouă"
+
+#: 
+msgid "Privacy Policy"
+msgstr "Politica de confidențialitate"
+
+#: 
+msgid "Unknown Author"
+msgstr "Autor necunoscut"
+
+#: 
+msgid "Willow Logo"
+msgstr "Logo-ul Willow"
+
+#: 
+msgid "Edit Comment"
+msgstr "Editați comentariul"
+
+#: 
+msgid "View"
+msgstr "Vedere"
+
+#: 
+msgid "Yes"
+msgstr "Da"
+
+#: 
+msgid "Child"
+msgstr "Copil"
+
+#: 
+msgid "Add Tag"
+msgstr "Adăugați etichetă"
+
+#: 
+msgid "Settings"
+msgstr "Setări"
+
+#: 
+msgid "Page View Statistics for slug: {0}"
+msgstr "Statistici de vizualizare a paginii pentru slug: {0}"
+
+#: 
+msgid "The slug could not be saved. Please, try again."
+msgstr "Limacul nu a putut fi salvat. Vă rog, încercați din nou."
+
+#: 
+msgid "System Logs"
+msgstr "Jurnalele de sistem"
+
+#: 
+msgid "Welcome to willowcms.app. This site uses Willow - a content management system I'm building in the open. Here you'll find development updates, feature highlights, and guides on using Willow for your own sites."
+msgstr "Bine ați venit la willowcms.app. Acest site folosește Willow - un sistem de management al conținutului pe care îl construiesc în aer liber. Aici veți găsi actualizări de dezvoltare, caracteristici evidențiate și ghiduri despre utilizarea Willow pentru propriile site-uri."
+
+#: 
+msgid "Home"
+msgstr "Acasă"
+
+#: 
+msgid "Show Full Article"
+msgstr "Afișează articolul complet"
+
+#: 
+msgid "Subject"
+msgstr "Subiect"
+
+#: 
+msgid "All Tags"
+msgstr "Toate etichetele"
+
+#: 
+msgid "Help us understand how visitors interact with our website."
+msgstr "Ajutați-ne să înțelegem cum interacționează vizitatorii cu site-ul nostru."
+
+#: 
+msgid "New Email Template"
+msgstr "Șablon de e-mail nou"
+
+#: 
+msgid "The value must be 0 or 1."
+msgstr "Valoarea trebuie să fie 0 sau 1."
+
+#: 
+msgid "Essential Cookies"
+msgstr "Cookie-uri esențiale"
+
+#: 
+msgid "Cache"
+msgstr "Cache"
+
+#: 
+msgid "Reset Password"
+msgstr "Resetează parola"
+
+#: 
+msgid "The article could not be saved. Please, try again."
+msgstr "Articolul nu a putut fi salvat. Vă rog, încercați din nou."
+
+#: 
+msgid "Page Views"
+msgstr "Vizualizări de pagină"
+
+#: 
+msgid "Add Post"
+msgstr "Adaugă postare"
+
+#: 
+msgid "The aiprompt could not be deleted. Please, try again."
+msgstr "Aiprompt-ul nu a putut fi șters. Vă rog, încercați din nou."
+
+#: 
+msgid "Related Articles/Pages"
+msgstr "Articole/Pagini conexe"
+
+#: 
+msgid "Status"
+msgstr "Stare"
+
+#: 
+msgid "The internationalisation has been deleted."
+msgstr "Internaționalizarea a fost ștearsă."
+
+#: 
+msgid "Invalid type"
+msgstr "Tip nevalid"
+
+#: 
+msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
+msgstr "Slug-ul trebuie să fie sigur pentru adrese URL (doar litere mici, cifre și cratime)"
+
+#: 
+msgid "Cookies"
+msgstr "Cookie-uri"
+
+#: 
+msgid "The image could not be deleted. Please, try again."
+msgstr "Imaginea nu a putut fi ștearsă. Vă rog, încercați din nou."
+
+#: 
+msgid "Are you sure you want to delete # {0}?"
+msgstr "Sigur doriți să ștergeți # {0}?"
+
+#: 
+msgid "Article not found."
+msgstr "Articolul nu a fost găsit."
+
+#: 
+msgid "If your email is registered, you will receive a link to reset your password."
+msgstr "Dacă e-mailul dvs. este înregistrat, veți primi un link pentru a vă reseta parola."
+
+#: 
+msgid "Slug:"
+msgstr "Melc:"
+
+#: 
+msgid "The tag has been saved."
+msgstr "Eticheta a fost salvată."
+
+#: 
+msgid "Referer"
+msgstr "Referitor"
+
+#: 
+msgid "Failed to send email. Please check your email configuration."
+msgstr "Trimiterea e-mailului a eșuat. Vă rugăm să verificați configurația de e-mail."
+
+#: 
+msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
+msgstr "E-mail trimis cu succes la: {0}. Șablon: {1}, Subiect: {2}"
+
+#: 
+msgid "The email template could not be deleted. Please, try again."
+msgstr "Șablonul de e-mail nu a putut fi șters. Vă rog, încercați din nou."
+
+#: 
+msgid "An error occurred while processing your request."
+msgstr "A apărut o eroare la procesarea solicitării dvs."
+
+#: 
+msgid "Search Aiprompts..."
+msgstr "Căutați prompturi..."
+
+#: 
+msgid "New Tag"
+msgstr "Etichetă nouă"
+
+#: 
+msgid "The user could not be saved. Please, try again."
+msgstr "Utilizatorul nu a putut fi salvat. Vă rog, încercați din nou."
+
+#: 
+msgid "Search Blocked Ips..."
+msgstr "Căutare IP-uri blocate..."
+
+#: 
+msgid "Share"
+msgstr "Distribuie"
+
+#: 
+msgid "No videos found matching your search"
+msgstr "Nu s-au găsit videoclipuri care să corespundă căutării tale"
+
+#: 
+msgid "Back to Login"
+msgstr "Înapoi la Logare"
+
+#: 
+msgid "Functional Cookies"
+msgstr "Cookie-uri funcționale"
+
+#: 
+msgid "Email template not found: {0}"
+msgstr "Șablonul de e-mail nu a fost găsit: {0}"
+
+#: 
+msgid "Add User"
+msgstr "Adăugați utilizator"
+
+#: 
+msgid "Body"
+msgstr "Corp"
+
+#: 
+msgid "The comment has been saved."
+msgstr "Comentariul a fost salvat."
+
+#: 
+msgid "The blocked ip has been deleted."
+msgstr "IP-ul blocat a fost șters."
+
+#: 
+msgid "Tree View"
+msgstr "Vedere în arbore"
+
+#: 
+msgid "New {0}"
+msgstr "{0} nou"
+
+#: 
+msgid "Send Email"
+msgstr "Trimite e-mail"
+
+#: 
+msgid "Comments are not enabled"
+msgstr "Comentariile nu sunt activate"
+
+#: 
+msgid "Create an Account"
+msgstr "Creați un cont"
+
+#: 
+msgid "Message Id"
+msgstr "Id-ul mesajului"
+
+#: 
+msgid "Enter a number"
+msgstr "Introduceți un număr"
+
+#: 
+msgid "Submit Comment"
+msgstr "Trimite comentariu"
+
+#: 
+msgid "Your cookie preferences have been saved."
+msgstr "Preferințele dvs. pentru cookie-uri au fost salvate."
+
+#: 
+msgid "Content"
+msgstr "Conţinut"
+
+#: 
+msgid "The internationalisation could not be saved. Please, try again."
+msgstr "Internaționalizarea nu a putut fi salvată. Vă rog, încercați din nou."
+
+#: 
+msgid "Linkedin Description"
+msgstr "Descriere Linkedin"
+
+#: 
+msgid "Search Pages..."
+msgstr "Pagini de căutare..."
+
+#: 
+msgid "Invalid confirmation code."
+msgstr "Cod de confirmare nevalid."
+
+#: 
+msgid "Articles"
+msgstr "Articole"
+
+#: 
+msgid "Temperature"
+msgstr "Temperatură"
+
+#: 
+msgid "Failed to generate {0} articles."
+msgstr "Nu s-au generat {0} articole."
+
+#: 
+msgid "Never"
+msgstr "Nu"
+
+#: 
+msgid "Front Site"
+msgstr "Front Site"
+
+#: 
+msgid "Failed to save the image"
+msgstr "Nu s-a putut salva imaginea"
+
+#: 
+msgid "The blocked ip has been saved."
+msgstr "IP-ul blocat a fost salvat."
+
+#: 
+msgid "My Account"
+msgstr "Contul meu"
+
+#: 
+msgid "Page Views for {0}"
+msgstr "Vizualizări de pagină pentru {0}"
+
+#: 
+msgid "Are you sure you want to clear {0}?"
+msgstr "Sigur doriți să ștergeți {0}?"
+
+#: 
+msgid "Add Slug"
+msgstr "Adăugați Slug"
+
+#: 
+msgid "Users"
+msgstr "Utilizatori"
+
+#: 
+msgid "Too Many Requests"
+msgstr "Prea Multe Cereri"
+
+#: 
+msgid "An Internal Error Has Occurred."
+msgstr "A apărut o eroare internă."
+
+#: 
+msgid "Title"
+msgstr "Titlu"
+
+#: 
+msgid "Image"
+msgstr "Imagine"
+
+#: 
+msgid "Articles/Pages"
+msgstr "Articole/Pagini"
+
+#: 
+msgid "Forgot Password?"
+msgstr "Aţi uitat parola?"
+
+#: 
+msgid "Add Image"
+msgstr "Adăugați o imagine"
+
+#: 
+msgid "Account"
+msgstr "Cont"
+
+#: 
+msgid "Unable to add your comment."
+msgstr "Nu se poate adăuga comentariul dvs."
+
+#: 
+msgid "Info"
+msgstr "Info"
+
+#: 
+msgid "Featured"
+msgstr "Prezentare"
+
+#: 
+msgid "The internationalisation could not be deleted. Please, try again."
+msgstr "Internaționalizarea nu a putut fi ștearsă. Vă rog, încercați din nou."
+
+#: 
+msgid "Are you sure you want to delete all logs in group {0}?"
+msgstr "Sigur doriți să ștergeți toate jurnalele din grupul {0}?"
+
+#: 
+msgid "No view records found for this article."
+msgstr "Nu s-au găsit înregistrări de vizualizare pentru acest articol."
+
+#: 
+msgid "Inappropriate Reason"
+msgstr "Motiv nepotrivit"
+
+#: 
+msgid "Lede"
+msgstr "Lede"
+
+#: 
+msgid "To understand how we handle your personal information, including the use of cookies and other tracking technologies, please review our {0}."
+msgstr "Pentru a înțelege cum gestionăm informațiile dvs. personale, inclusiv utilizarea cookie-urilor și a altor tehnologii de urmărire, consultați {0}."
+
+#: 
+msgid "Delete all articles before generating new ones"
+msgstr "Ștergeți toate articolele înainte de a genera altele noi"
+
+#: 
+msgid "User"
+msgstr "Utilizator"
+
+#: 
+msgid "Delete"
+msgstr "Şterge"
+
+#: 
+msgid "Image Uploads"
+msgstr "Încărcări de imagini"
+
+#: 
+msgid "Active"
+msgstr "Activ"
+
+#: 
+msgid "Your comment has been added."
+msgstr "Comentariul dvs. a fost adăugat."
+
+#: 
+msgid "Send Reset Link"
+msgstr "Trimite linkul de resetare"
+
+#: 
+msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
+msgstr "Mai jos sunt informații despre cache-urile configurate. Faceți clic pe butonul pentru a șterge toate cache-urile sau pe butoanele cache individuale pentru a șterge anumite cache-uri."
+
+#: 
+msgid "Total Views: "
+msgstr "Vizualizări totale: "
+
+#: 
+msgid "Please log in to add a comment"
+msgstr "Vă rugăm să vă conectați pentru a adăuga un comentariu"
+
+#: 
+msgid "Inactive"
+msgstr "Inactiv"
+
+#: 
+msgid "Root"
+msgstr "Rădăcină"
+
+#: 
+msgid "The email template has been deleted."
+msgstr "Șablonul de e-mail a fost șters."
+
+#: 
+msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
+msgstr "Pagina {{page}} din {{pagini}}, afișând {{current}} înregistrare(e) din {{count}} total"
+
+#: 
+msgid "The blocked ip could not be deleted. Please, try again."
+msgstr "IP-ul blocat nu a putut fi șters. Vă rog, încercați din nou."
+
+#: 
+msgid "The article has been deleted."
+msgstr "Articolul a fost șters."
+
+#: 
+msgid "Method not allowed"
+msgstr "Metoda nu este permisă"
+
+#: 
+msgid "Is Published"
+msgstr "Este publicat"
+
+#: 
+msgid "Load video"
+msgstr "Încărcați videoclipul"
+
+#: 
 msgid "Your cookie preferences could not be saved. Please, try again."
 msgstr "Preferințele dvs. privind cookie-urile nu au putut fi salvate. Vă rog, încercați din nou."
+
+#: 
+msgid "The settings have been saved."
+msgstr "Setările au fost salvate."
+
+#: 
+msgid "Kind"
+msgstr "Fel"
+
+#: 
+msgid "Search images..."
+msgstr "Căutați imagini..."
+
+#: 
+msgid "Enter text"
+msgstr "Introduceți text"
+
+#: 
+msgid "Logout"
+msgstr "Deconectare"
+
+#: 
+msgid "Edit Email Template"
+msgstr "Editați șablonul de e-mail"
+
+#: 
+msgid "Edit Your Account"
+msgstr "Editați-vă contul"
+
+#: 
+msgid "Your account could not be updated."
+msgstr "Contul dvs. nu a putut fi actualizat."
+
+#: 
+msgid "Your password has been reset. Please log in with your new password."
+msgstr "Parola dvs. a fost resetată. Vă rugăm să vă conectați cu noua parolă."
+
+#: 
+msgid "Search Internationalisations..."
+msgstr "Căutați internaționalizări..."
+
+#: 
+msgid "Archives"
+msgstr "Arhive"
+
+#: 
+msgid "The email template could not be saved. Please, try again."
+msgstr "Șablonul de e-mail nu a putut fi salvat. Vă rog, încercați din nou."
+
+#: 
+msgid "All"
+msgstr "Toate"
+
+#: 
+msgid "Email sent successfully."
+msgstr "E-mail trimis cu succes."
+
+#: 
+msgid "Email Templates"
+msgstr "Șabloane de e-mail"
+
+#: 
+msgid "Block IPs"
+msgstr "Blocați IP-urile"
+
+#: 
+msgid "The internationalisation has been saved."
+msgstr "Internaționalizarea a fost salvată."
+
+#: 
+msgid "Register New Account"
+msgstr "Înregistrați un cont nou"
+
+#: 
+msgid "The log has been deleted."
+msgstr "Jurnalul a fost șters."
+
+#: 
+msgid "The image has been saved."
+msgstr "Imaginea a fost salvată."
+
+#: 
+msgid "Generating {0} articles..."
+msgstr "Se generează {0} articole..."
+
+#: 
+msgid "Internationalisations"
+msgstr "Internaționalizări"
+
+#: 
+msgid "Unable to delete logs with level {0}."
+msgstr "Nu se pot șterge jurnalele cu nivelul {0}."
+
+#: 
+msgid "Essential"
+msgstr "Esenţial"
+
+#: 
+msgid "The aiprompt has been saved."
+msgstr "Invitația a fost salvată."
+
+#: 
+msgid "This content is hosted by YouTube. By showing the external content you accept the privacy policy of YouTube."
+msgstr "Acest conținut este găzduit de YouTube. Afișând conținutul extern, acceptați politica de confidențialitate a YouTube."
+
+#: 
+msgid "Views"
+msgstr "Vizualizări"
+
+#: 
+msgid "New Article"
+msgstr "articol nou"
+
+#: 
+msgid "Search Users..."
+msgstr "Căutați utilizatori..."
+
+#: 
+msgid "Edit Slug"
+msgstr "Editează Slug"
+
+#: 
+msgid "Article"
+msgstr "Articol"
+
+#: 
+msgid "Posted on {date} by {author}"
+msgstr "Postat pe {date} de {author}"
+
+#: 
+msgid "New Page"
+msgstr "Pagina nouă"
+
+#: 
+msgid "A value is required"
+msgstr "Este necesară o valoare"
+
+#: 
+msgid "List View"
+msgstr "Vizualizare listă"
+
+#: 
+msgid "Log In"
+msgstr "Log in"
+
+#: 
+msgid "User Agent"
+msgstr "Agent utilizator"
+
+#: 
+msgid "Some caches were cleared, but the following failed: {0}"
+msgstr "Unele memorie cache au fost șterse, dar următoarele nu au reușit: {0}"
+
+#: 
+msgid "This slug is already in use in articles. Please enter a unique slug."
+msgstr "Acest melc este deja folosit în articole. Vă rugăm să introduceți un slug unic."
+
+#: 
+msgid "Blog"
+msgstr "Blog"
+
+#: 
+msgid "Forgot Password"
+msgstr "Aţi uitat parola"
+
+#: 
+msgid "Password must be at least 8 characters long"
+msgstr "Parola trebuie să aibă cel puțin 8 caractere"
+
+#: 
+msgid "Please enter your email and password"
+msgstr "Vă rugăm să introduceți adresa dvs. de e-mail și parola"
+
+#: 
+msgid "Related Comments"
+msgstr "Comentarii înrudite"
+
+#: 
+msgid "This slug is already in use. Please enter a unique slug."
+msgstr "Acest melc este deja în uz. Vă rugăm să introduceți un slug unic."
+
+#: 
+msgid "New Blocked Ip"
+msgstr "IP nou blocat"
+
+#: 
+msgid "The user has been saved."
+msgstr "Utilizatorul a fost salvat."
+
+#: 
+msgid "The blocked ip could not be saved. Please, try again."
+msgstr "IP-ul blocat nu a putut fi salvat. Vă rog, încercați din nou."
+
+#: 
+msgid "Updated At"
+msgstr "Actualizat la"
+
+#: 
+msgid "Search Email Templates..."
+msgstr "Căutați șabloane de e-mail..."
+
+#: 
+msgid "Cookie Preferences"
+msgstr "Preferințe cookie"
+
+#: 
+msgid "Message Str"
+msgstr "Mesaj Str"
+
+#: 
+msgid "Published"
+msgstr "Publicat"
+
+#: 
+msgid "Are you sure you want to delete {0}?"
+msgstr "Sigur doriți să ștergeți {0}?"
+
+#: 
+msgid "Inappropriate"
+msgstr "Nepotrivit"
+
+#: 
+msgid "Body Html"
+msgstr "Body HTML"
+
+#: 
+msgid "Search for YouTube videos to embed"
+msgstr "Căutați videoclipuri YouTube de încorporat"
+
+#: 
+msgid "Error fetching videos: {0}"
+msgstr "Eroare la preluarea videoclipurilor: {0}"
+
+#: 
+msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
+msgstr "Slug-ul intră în conflict cu o redirecționare SEO existentă. Vă rugăm să alegeți un alt melc."
+
+#: 
+msgid "No deleting your own account."
+msgstr "Nu vă ștergeți propriul cont."
+
+#: 
+msgid "Context"
+msgstr "Context"
+
+#: 
+msgid "Locale"
+msgstr "Locale"
+
+#: 
+msgid "Error in: "
+msgstr "Eroare în: "
+
+#: 
+msgid "All caches have been cleared successfully."
+msgstr "Toate cache-urile au fost șterse cu succes."
+
+#: 
+msgid "The comment could not be deleted. Please, try again."
+msgstr "Comentariul nu a putut fi șters. Vă rog, încercați din nou."
+
+#: 
+msgid "Error in {0}: {1}"
+msgstr "Eroare în {0}: {1}"
+
+#: 
+msgid "Add Aiprompt"
+msgstr "Adăugați Aiprompt"
+
+#: 
+msgid "Generated {0} articles successfully."
+msgstr "S-au generat {0} articole cu succes."
+
+#: 
+msgid "Add a Comment"
+msgstr "Adăugați un comentariu"
 
 #: 
 msgid "The slug has been deleted."
 msgstr "Limacul a fost șters."
 
 #: 
-msgid "All logs in group {0} have been deleted."
-msgstr "Toate jurnalele din grupul {0} au fost șterse."
+msgid "The tag could not be deleted. Please, try again."
+msgstr "Eticheta nu a putut fi ștearsă. Vă rog, încercați din nou."
+
+#: 
+msgid "Article not found"
+msgstr "Articolul nu a fost găsit"
+
+#: 
+msgid "You are not authorized to edit this account, stick to your own."
+msgstr "Nu sunteți autorizat să editați acest cont, rămâneți pe al dvs."
+
+#: 
+msgid "No articles found for this tag."
+msgstr "Nu s-au găsit articole pentru această etichetă."
+
+#: 
+msgid "Submit"
+msgstr "Trimiteți"
+
+#: 
+msgid "Created"
+msgstr "Creat"
+
+#: 
+msgid "Your account has been updated."
+msgstr "Contul dvs. a fost actualizat."
+
+#: 
+msgid "Tag not found"
+msgstr "Eticheta nu a fost găsită"
+
+#: 
+msgid "The user could not be deleted. Please, try again."
+msgstr "Utilizatorul nu a putut fi șters. Vă rog, încercați din nou."
+
+#: 
+msgid "Error sending email: {0}"
+msgstr "Eroare la trimiterea e-mailului: {0}"
+
+#: 
+msgid "Language"
+msgstr "Limbă"
+
+#: 
+msgid "Is Inappropriate"
+msgstr "Este inadecvat"
+
+#: 
+msgid "{0} Views"
+msgstr "{0} vizualizări"
+
+#: 
+msgid "Date"
+msgstr "Data"
+
+#: 
+msgid "No"
+msgstr "Nu"
+
+#: 
+msgid "Image uploaded successfully"
+msgstr "Imaginea a fost încărcată cu succes"
+
+#: 
+msgid "Analytics Cookies"
+msgstr "Cookie-uri de analiză"
+
+#: 
+msgid "This message_id must be unique for the given locale."
+msgstr "Acest mesaj_id trebuie să fie unic pentru localitatea dată."
+
+#: 
+msgid "All Levels"
+msgstr "Toate Nivelurile"
+
+#: 
+msgid "Your account has been confirmed. You can now log in."
+msgstr "Contul dvs. a fost confirmat. Acum vă puteți autentifica."
+
+#: 
+msgid "Auto Tag"
+msgstr "Etichetare automată"
+
+#: 
+msgid "New Image"
+msgstr "Imagine nouă"
+
+#: 
+msgid "Display"
+msgstr "Afişa"
+
+#: 
+msgid "About"
+msgstr "Despre"
+
+#: 
+msgid "Generated article: {0}"
+msgstr "Articol generat: {0}"
+
+#: 
+msgid "Show only channel videos"
+msgstr "Afișează numai videoclipurile canalului"
+
+#: 
+msgid "Comments"
+msgstr "Comentarii"
+
+#: 
+msgid "Flagged"
+msgstr "Semnalat"
+
+#: 
+msgid "The value must not be empty."
+msgstr "Valoarea nu trebuie să fie goală."
+
+#: 
+msgid "Twitter Description"
+msgstr "Descriere Twitter"
+
+#: 
+msgid "All Groups"
+msgstr "Toate Grupurile"
+
+#: 
+msgid "Show"
+msgstr "Spectacol"
+
+#: 
+msgid "Word Count"
+msgstr "Număr de cuvinte"
 
 #: 
 msgid "Save All Settings"
 msgstr "Salvați toate setările"
+
+#: 
+msgid "The requested address {0} was not found on this server."
+msgstr "Adresa solicitată {0} nu a fost găsită pe acest server."
+
+#: 
+msgid "Last Cleared"
+msgstr "Ultima ștergere"
+
+#: 
+msgid "The comment has been deleted."
+msgstr "Comentariul a fost șters."
+
+#: 
+msgid "Body Plain"
+msgstr "Corpul simplu"
+
+#: 
+msgid "Search Articles..."
+msgstr "Căutați articole..."
+
+#: 
+msgid "Auto"
+msgstr "Auto"
+
+#: 
+msgid "Related Tags"
+msgstr "Etichete înrudite"
+
+#: 
+msgid "The image could not be saved. Please, try again."
+msgstr "Imaginea nu a putut fi salvată. Vă rog, încercați din nou."
+
+#: 
+msgid "Images"
+msgstr "Imagini"
+
+#: 
+msgid "Required for the website to function properly. These cannot be disabled."
+msgstr "Necesar pentru ca site-ul să funcționeze corect. Acestea nu pot fi dezactivate."
+
+#: 
+msgid "Number of articles to generate"
+msgstr "Numărul de articole de generat"
+
+#: 
+msgid "Search Tags..."
+msgstr "Etichete de căutare..."
+
+#: 
+msgid "Clear All Cache"
+msgstr "Goliți toată memoria cache"
+
+#: 
+msgid "Dark"
+msgstr "Întuneric"
+
+#: 
+msgid "Email"
+msgstr "E-mail"
+
+#: 
+msgid "Related pages"
+msgstr "Pagini înrudite"
+
+#: 
+msgid "Facebook Description"
+msgstr "Descriere Facebook"
+
+#: 
+msgid "Code Coverage"
+msgstr "Acoperire cod"
+
+#: 
+msgid "View {0}"
+msgstr "Vedeți {0}"
+
+#: 
+msgid "The slug could not be deleted. Please, try again."
+msgstr "Limacul nu a putut fi șters. Vă rog, încercați din nou."
+
+#: 
+msgid "Comment"
+msgstr "Comentariu"
+
+#: 
+msgid "Not Displayed"
+msgstr "Nu este afișat"
+
+#: 
+msgid "Are you sure you want to delete  {0}?"
+msgstr "Sigur doriți să ștergeți {0}?"
+
+#: 
+msgid "Are you sure you want to delete all logs?"
+msgstr "Sigur doriți să ștergeți toate jurnalele?"
+
+#: 
+msgid "Username"
+msgstr "Nume de utilizator"
+
+#: 
+msgid "Task Type"
+msgstr "Tip de sarcină"
+
+#: 
+msgid "Level"
+msgstr "Nivel"
+
+#: 
+msgid "Willow CMS"
+msgstr "Willow CMS"
+
+#: 
+msgid "The slug must be unique."
+msgstr "Limacul trebuie să fie unic."
+
+#: 
+msgid "Reset your password"
+msgstr "Resetați parola"
+
+#: 
+msgid "On"
+msgstr "Pe"
+
+#: 
+msgid "No pages found."
+msgstr "Nu au fost găsite pagini."
+
+#: 
+msgid "Edit Blocked Ip"
+msgstr "Editați IP blocat"
+
+#: 
+msgid "Back to top"
+msgstr "Înapoi sus"
+
+#: 
+msgid "Bulk Upload Images"
+msgstr "Încărcați în bloc imagini"
+
+#: 
+msgid "Invalid or expired password reset link."
+msgstr "Link de resetare a parolei nevalid sau expirat."
+
+#: 
+msgid "Filter"
+msgstr "Filtra"
+
+#: 
+msgid "The value must be a number."
+msgstr "Valoarea trebuie să fie un număr."
+
+#: 
+msgid "The aiprompt could not be saved. Please, try again."
+msgstr "Suportul nu a putut fi salvat. Vă rog, încercați din nou."
+
+#: 
+msgid "Edit Article"
+msgstr "Editați articolul"
+
+#: 
+msgid "Name"
+msgstr "Nume"
+
+#: 
+msgid "No tags are linked."
+msgstr "Nu există etichete legate."
+
+#: 
+msgid "All logs with level {0} have been deleted."
+msgstr "Toate jurnalele cu nivelul {0} au fost șterse."
+
+#: 
+msgid "By"
+msgstr "De"
+
+#: 
+msgid "Login"
+msgstr "Log in"
+
+#: 
+msgid "New Internationalisation"
+msgstr "Noua internaționalizare"
+
+#: 
+msgid "Main Image"
+msgstr "Imaginea principală"
+
+#: 
+msgid "Admin"
+msgstr "Admin"
+
+#: 
+msgid "Edit Page"
+msgstr "Editați pagina"
+
+#: 
+msgid "Edit Aiprompt"
+msgstr "Editați Aiprompt"
+
+#: 
+msgid "Add Article"
+msgstr "Adăugați articol"
+
+#: 
+msgid "No admin user found."
+msgstr "Nu a fost găsit niciun utilizator administrator."
+
+#: 
+msgid "Body Preview"
+msgstr "Previzualizarea corpului"
+
+#: 
+msgid "No tags found."
+msgstr "Nu au fost găsite etichete."
+
+#: 
+msgid "Delete {0}"
+msgstr "Ștergeți {0}"
+
+#: 
+msgid "Error saving {0}.{1}: {2}"
+msgstr "Eroare la salvarea {0}.{1}: {2}"
+
+#: 
+msgid "All Locales"
+msgstr "Toate localurile"
+
+#: 
+msgid "Edit Post"
+msgstr "Editează postarea"
+
+#: 
+msgid "Search logs..."
+msgstr "Căutați jurnalele..."
+
+#: 
+msgid "Registration successful. Please check your email for confirmation."
+msgstr "Înregistrare reușită. Vă rugăm să vă verificați e-mailul pentru confirmare."
+
+#: 
+msgid "Grid View"
+msgstr "Vizualizare grilă"
+
+#: 
+msgid "Some settings could not be saved. Please, try again."
+msgstr "Unele setări nu au putut fi salvate. Vă rog, încercați din nou."
+
+#: 
+msgid "Modified"
+msgstr "Modificat"
+
+#: 
+msgid "Tag Articles/Pages"
+msgstr "Etichetați articole/pagini"
+
+#: 
+msgid "There was an issue resetting your password. Please try again."
+msgstr "A apărut o problemă la resetarea parolei. Vă rugăm să încercați din nou."
+
+#: 
+msgid "Keywords"
+msgstr "Cuvinte cheie"
+
+#: 
+msgid "Read More"
+msgstr "Citeşte mai mult"
+
+#: 
+msgid "Used to deliver personalized advertisements and enable the facebook share button."
+msgstr "Folosit pentru a livra reclame personalizate și pentru a activa butonul de partajare pe Facebook."
+
+#: 
+msgid "Cache Name"
+msgstr "Nume cache"
+
+#: 
+msgid "Modified At"
+msgstr "Modificat la"
+
+#: 
+msgid "Article ID:"
+msgstr "ID articol:"
+
+#: 
+msgid "Please upload only images (jpeg, png, gif)."
+msgstr "Vă rugăm să încărcați numai imagini (jpeg, png, gif)."
+
+#: 
+msgid "The tag has been deleted."
+msgstr "Eticheta a fost ștearsă."
+
+#: 
+msgid "New User"
+msgstr "Utilizator nou"
+
+#: 
+msgid "Edit User"
+msgstr "Editați utilizatorul"
+
+#: 
+msgid "Search..."
+msgstr "Căutare..."
+
+#: 
+msgid "The comment could not be saved. Please, try again."
+msgstr "Comentariul nu a putut fi salvat. Vă rog, încercați din nou."
+
+#: 
+msgid "Search Comments..."
+msgstr "Căutați comentarii..."
+
+#: 
+msgid "Failed to send confirmation email message: {0}"
+msgstr "Trimiterea e-mailului de confirmare a eșuat: {0}"
+
+#: 
+msgid "Slugs"
+msgstr "melci"
+
+#: 
+msgid "All articles have been deleted."
+msgstr "Toate articolele au fost șterse."
+
+#: 
+msgid "We were unable to find that account."
+msgstr "Nu am putut găsi acel cont."
+
+#: 
+msgid "Ip Address"
+msgstr "Adresa IP"
+
+#: 
+msgid "Summary"
+msgstr "Rezumat"
+
+#: 
+msgid "Invalid value for the specified type."
+msgstr "Valoare nevalidă pentru tipul specificat."
+
+#: 
+msgid "Page {{page}} of {{pages}}"
+msgstr "Pagina {{page}} din {{pages}}"
+
+#: 
+msgid "Failed to generate article: {0}"
+msgstr "Nu s-a putut genera articolul: {0}"
+
+#: 
+msgid "There was an issue confirming your account. Please try again."
+msgstr "A apărut o problemă la confirmarea contului dvs. Vă rugăm să încercați din nou."
+
+#: 
+msgid "Too many requests. Please try again later."
+msgstr "Prea multe cereri. Vă rugăm să încercați din nou mai târziu."
+
+#: 
+msgid "Main Menu"
+msgstr "Meniul principal"
+
+#: 
+msgid "Access denied. You must be an admin to view this page."
+msgstr "Acces interzis. Trebuie să fii administrator pentru a vizualiza această pagină."
+
+#: 
+msgid "Insert Video"
+msgstr "Inserați videoclipul"
+
+#: 
+msgid "The user has been deleted."
+msgstr "Utilizatorul a fost șters."
+
+#: 
+msgid "Is Admin"
+msgstr "Este Admin"
+
+#: 
+msgid "Id"
+msgstr "Id"
+
+#: 
+msgid "Add Internationalisation"
+msgstr "Adăugați internaționalizare"
+
+#: 
+msgid "Description"
+msgstr "Descriere"
+
+#: 
+msgid "SEO Fields"
+msgstr "Câmpuri SEO"
+
+#: 
+msgid "Unable to delete the log."
+msgstr "Nu se poate șterge jurnalul."
+
+#: 
+msgid "Model"
+msgstr "Model"
+
+#: 
+msgid "Select Tags"
+msgstr "Selectați Etichete"
+
+#: 
+msgid "Internationalisation"
+msgstr "Internaționalizarea"
+
+#: 
+msgid "The email template has been saved."
+msgstr "Șablonul de e-mail a fost salvat."
+
+#: 
+msgid "Error loading images:"
+msgstr "Eroare la încărcarea imaginilor:"
+
+#: 
+msgid "Edit Image"
+msgstr "Editați imaginea"
+
+#: 
+msgid "Enable enhanced functionality and personalization."
+msgstr "Activați funcționalitatea și personalizarea îmbunătățite."
+
+#: 
+msgid "{0} cache has been cleared successfully."
+msgstr "Memoria cache {0} a fost șters cu succes."
+
+#: 
+msgid "List {0}"
+msgstr "Lista {0}"
+
+#: 
+msgid "Image must be less than 5MB."
+msgstr "Imaginea trebuie să fie mai mică de 5 MB."
+
+#: 
+msgid "You must be logged in to add a comment."
+msgstr "Trebuie să fii autentificat pentru a adăuga un comentariu."
+
+#: 
+msgid "Edit Tag"
+msgstr "Editați eticheta"
+
+#: 
+msgid "Posts"
+msgstr "Postări"
+
+#: 
+msgid "No file uploaded or upload error"
+msgstr "Niciun fișier încărcat sau eroare de încărcare"
 
 #: 
 msgid "Search YouTube videos..."
@@ -1570,162 +1642,90 @@ msgid "Marketing Cookies"
 msgstr "Cookie-uri de marketing"
 
 #: 
-msgid "Share"
-msgstr "Distribuie"
+msgid "Elsewhere"
+msgstr "În altă parte"
 
 #: 
-msgid "The email template could not be deleted. Please, try again."
-msgstr "Șablonul de e-mail nu a putut fi șters. Vă rog, încercați din nou."
+msgid "Clear"
+msgstr "Clar"
 
 #: 
-msgid "Error"
-msgstr "Eroare"
+msgid "Group Name"
+msgstr "Numele grupului"
 
 #: 
-msgid "Article ID:"
-msgstr "ID articol:"
+msgid "No comments yet."
+msgstr "Niciun comentariu încă."
 
 #: 
-msgid "The article has been saved."
-msgstr "Articolul a fost salvat."
+msgid "The image has been deleted."
+msgstr "Imaginea a fost ștearsă."
 
 #: 
-msgid "No articles found for this tag."
-msgstr "Nu s-au găsit articole pentru această etichetă."
+msgid "New Aiprompt"
+msgstr "Nou Aiprompt"
 
 #: 
-msgid "Email template not found: {0}"
-msgstr "Șablonul de e-mail nu a fost găsit: {0}"
+msgid "Setting not found: {0}.{1}"
+msgstr "Setarea nu a fost găsită: {0}.{1}"
 
 #: 
-msgid "Enter a number"
-msgstr "Introduceți un număr"
+msgid "Related Slugs"
+msgstr "Limacși înrudit"
 
 #: 
-msgid "Unable to delete logs with level {0}."
-msgstr "Nu se pot șterge jurnalele cu nivelul {0}."
+msgid "Light"
+msgstr "Aprinde"
 
 #: 
-msgid "Send Reset Link"
-msgstr "Trimite linkul de resetare"
+msgid "{0} cache configuration does not exist."
+msgstr "{0} configurația cache nu există."
 
 #: 
-msgid "Insert Video"
-msgstr "Inserați videoclipul"
+msgid "Search Posts..."
+msgstr "Căutați postări..."
 
 #: 
-msgid "Help us understand how visitors interact with our website."
-msgstr "Ajutați-ne să înțelegem cum interacționează vizitatorii cu site-ul nostru."
+msgid "Add Email Template"
+msgstr "Adăugați șablon de e-mail"
 
 #: 
-msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
-msgstr "Slug-ul intră în conflict cu o redirecționare SEO existentă. Vă rugăm să alegeți un alt melc."
+msgid "Creating {0} new top-level tags..."
+msgstr "Se creează {0} noi etichete de nivel superior..."
 
 #: 
-msgid "The blocked ip has been saved."
-msgstr "IP-ul blocat a fost salvat."
+msgid "Max Tokens"
+msgstr "Numărul maxim de jetoane"
 
 #: 
-msgid "The slug has been saved."
-msgstr "Limacul a fost salvat."
+msgid "Rate limit exceeded for IP: {0} on route: {1}"
+msgstr "Limită de rată depășită pentru IP: {0} pe ruta: {1}"
 
 #: 
-msgid "Failed to generate article: {0}"
-msgstr "Nu s-a putut genera articolul: {0}"
-
-#: 
-msgid "Are you sure you want to clear {0}?"
-msgstr "Sigur doriți să ștergeți {0}?"
-
-#: 
-msgid "Add"
-msgstr "Adăuga"
-
-#: 
-msgid "Picture"
-msgstr "Imagine"
-
-#: 
-msgid "Inappropriate"
-msgstr "Nepotrivit"
-
-#: 
-msgid "The article could not be deleted. Please, try again."
-msgstr "Articolul nu a putut fi șters. Vă rog, încercați din nou."
-
-#: 
-msgid "The article has been deleted."
-msgstr "Articolul a fost șters."
-
-#: 
-msgid "Articles/Pages"
-msgstr "Articole/Pagini"
-
-#: 
-msgid "New Slug"
-msgstr "Slug nou"
-
-#: 
-msgid "The settings have been saved."
-msgstr "Setările au fost salvate."
-
-#: 
-msgid "To understand how we handle your personal information, including the use of cookies and other tracking technologies, please review our {0}."
-msgstr "Pentru a înțelege cum gestionăm informațiile dvs. personale, inclusiv utilizarea cookie-urilor și a altor tehnologii de urmărire, consultați {0}."
-
-#: 
-msgid "Code Coverage"
-msgstr "Acoperire cod"
-
-#: 
-msgid "Email Templates"
-msgstr "Șabloane de e-mail"
-
-#: 
-msgid "Image uploaded successfully"
-msgstr "Imaginea a fost încărcată cu succes"
+msgid "Please enter your new password"
+msgstr "Vă rugăm să introduceți noua parolă"
 
 #: 
 msgid "Alt Text"
 msgstr "Alt text"
 
 #: 
-msgid "Posts"
-msgstr "Postări"
+msgid "Template Identifier"
+msgstr "Identificator de șablon"
 
 #: 
-msgid "Title"
-msgstr "Titlu"
+msgid "Slug"
+msgstr "Melc"
 
 #: 
-msgid "The slug must be unique."
-msgstr "Limacul trebuie să fie unic."
+msgid "Logs"
+msgstr "Bușteni"
 
 #: 
-msgid "Grid View"
-msgstr "Vizualizare grilă"
+msgid "Un-Published"
+msgstr "Nepublicat"
 
 #: 
-msgid "Bulk Upload Images"
-msgstr "Încărcați în bloc imagini"
-
-#: 
-msgid "New Blocked Ip"
-msgstr "IP nou blocat"
-
-#: 
-msgid "Login"
-msgstr "Log in"
-
-#: 
-msgid "Internationalisation"
-msgstr "Internaționalizarea"
-
-#: 
-msgid "Error loading images:"
-msgstr "Eroare la încărcarea imaginilor:"
-
-#: 
-msgid "Yes"
-msgstr "Da"
+msgid "Edit Internationalisation"
+msgstr "Editați Internaționalizarea"
 

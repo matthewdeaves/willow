@@ -14,1718 +14,1718 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
 #: 
-msgid "Enter text"
-msgstr "Sisestage tekst"
-
-#: 
-msgid "Grid View"
-msgstr "Võrguvaade"
-
-#: 
-msgid "Please upload only images (jpeg, png, gif)."
-msgstr "Palun laadige üles ainult pilte (jpeg, png, gif)."
-
-#: 
-msgid "Some settings could not be saved. Please, try again."
-msgstr "Mõnda seadet ei saanud salvestada. Palun proovi uuesti."
-
-#: 
-msgid "Search Posts..."
-msgstr "Otsi postitusi..."
-
-#: 
-msgid "The email template could not be saved. Please, try again."
-msgstr "Meilimalli ei saanud salvestada. Palun proovi uuesti."
-
-#: 
-msgid "Bulk Upload"
-msgstr "Hulgiüleslaadimine"
-
-#: 
-msgid "All Groups"
-msgstr "Kõik rühmad"
-
-#: 
-msgid "Error in {0}: {1}"
-msgstr "Viga rakenduses {0}: {1}"
-
-#: 
-msgid "Error fetching videos: {0}"
-msgstr "Viga videote toomisel: {0}"
-
-#: 
-msgid "View detailed records for this date"
-msgstr "Vaadake selle kuupäeva üksikasjalikke kirjeid"
-
-#: 
-msgid "Related pages"
-msgstr "Seotud lehed"
-
-#: 
-msgid "Body Plain"
-msgstr "Kere tavaline"
-
-#: 
-msgid "View {0}"
-msgstr "Kuva {0}"
-
-#: 
-msgid "Edit Aiprompt"
-msgstr "Redigeeri Aiprompt"
-
-#: 
-msgid "Images"
-msgstr "Pildid"
-
-#: 
-msgid "Email"
-msgstr "Meil"
-
-#: 
-msgid "Please enter your email and password"
-msgstr "Palun sisesta oma email ja parool"
-
-#: 
-msgid "Error loading images:"
-msgstr "Viga piltide laadimisel:"
-
-#: 
-msgid "List View"
-msgstr "Loendivaade"
-
-#: 
-msgid "Archives"
-msgstr "Arhiivid"
-
-#: 
-msgid "Cookie Preferences"
-msgstr "Küpsiste eelistused"
-
-#: 
-msgid "Clear"
-msgstr "Selge"
-
-#: 
-msgid "Add Blocked Ip"
-msgstr "Lisage blokeeritud IP"
-
-#: 
-msgid "Slugs"
-msgstr "Nälkjad"
-
-#: 
-msgid "Willow CMS"
-msgstr "Willow CMS"
-
-#: 
-msgid "Toggle theme"
-msgstr "Lülitage teema sisse"
+msgid "All Tags"
+msgstr "Kõik sildid"
 
 #: 
 msgid "Hide"
 msgstr "Peida"
 
 #: 
-msgid "Body Editor"
-msgstr "Keha toimetaja"
-
-#: 
-msgid "Failed to send email to: {0}"
-msgstr "Meili saatmine aadressile {0} ebaõnnestus"
-
-#: 
-msgid "Enter a number"
-msgstr "Sisestage number"
-
-#: 
-msgid "My Account"
-msgstr "Minu konto"
-
-#: 
-msgid "Auto"
-msgstr "Automaatne"
-
-#: 
-msgid "The image could not be deleted. Please, try again."
-msgstr "Pilti ei saanud kustutada. Palun proovi uuesti."
-
-#: 
-msgid "Comments"
-msgstr "Kommentaarid"
-
-#: 
-msgid "The value must be 0 or 1."
-msgstr "Väärtus peab olema 0 või 1."
-
-#: 
-msgid "Recent posts"
-msgstr "Viimased postitused"
-
-#: 
-msgid "Your account has been updated."
-msgstr "Teie kontot on värskendatud."
-
-#: 
-msgid "Related Slugs"
-msgstr "Seotud nälkjad"
-
-#: 
-msgid "The aiprompt could not be saved. Please, try again."
-msgstr "Lennukiirt ei õnnestunud salvestada. Palun proovi uuesti."
-
-#: 
-msgid "The blocked ip has been deleted."
-msgstr "Blokeeritud IP on kustutatud."
-
-#: 
-msgid "Are you sure you want to clear {0}?"
-msgstr "Kas olete kindel, et soovite tühjendada {0}?"
-
-#: 
-msgid "No tags are linked."
-msgstr "Silte pole lingitud."
-
-#: 
-msgid "Published"
-msgstr "Avaldatud"
-
-#: 
-msgid "The user has been deleted."
-msgstr "Kasutaja on kustutatud."
-
-#: 
-msgid "The blocked ip has been saved."
-msgstr "Blokeeritud IP on salvestatud."
-
-#: 
-msgid "The image has been deleted."
-msgstr "Pilt on kustutatud."
-
-#: 
-msgid "Search Comments..."
-msgstr "Otsi kommentaare..."
-
-#: 
-msgid "Temperature"
-msgstr "Temperatuur"
-
-#: 
-msgid "Last Cleared"
-msgstr "Viimati kustutatud"
-
-#: 
-msgid "Body"
-msgstr "Keha"
-
-#: 
-msgid "Failed to generate article: {0}"
-msgstr "Artikli loomine ebaõnnestus: {0}"
-
-#: 
-msgid "Related Tags"
-msgstr "Seotud sildid"
-
-#: 
-msgid "Total Views: "
-msgstr "Vaatamisi kokku: "
-
-#: 
-msgid "Show"
-msgstr "Näita"
-
-#: 
-msgid "Invalid value for the specified type."
-msgstr "Määratud tüübi jaoks sobimatu väärtus."
-
-#: 
-msgid "No file uploaded or upload error"
-msgstr "Faili pole üles laaditud või üleslaadimise viga"
-
-#: 
-msgid "Unable to delete logs in group {0}."
-msgstr "Grupi {0} logisid ei saa kustutada."
-
-#: 
-msgid "The slug could not be saved. Please, try again."
-msgstr "Nälkjat ei õnnestunud päästa. Palun proovi uuesti."
-
-#: 
-msgid "Title"
-msgstr "Pealkiri"
-
-#: 
-msgid "Description"
-msgstr "Kirjeldus"
-
-#: 
-msgid "Configured Caches"
-msgstr "Konfigureeritud vahemälud"
-
-#: 
-msgid "A value is required"
-msgstr "Väärtus on nõutav"
-
-#: 
-msgid "Date"
-msgstr "Kuupäev"
-
-#: 
-msgid "Invalid username or password"
-msgstr "Kehtetu kasutajanimi või parool"
-
-#: 
-msgid "The internationalisation could not be saved. Please, try again."
-msgstr "Rahvusvahelistumist ei õnnestunud päästa. Palun proovi uuesti."
-
-#: 
-msgid "Select Video"
-msgstr "Valige Video"
-
-#: 
-msgid "The article could not be saved. Please, try again."
-msgstr "Artiklit ei õnnestunud salvestada. Palun proovi uuesti."
-
-#: 
-msgid "Edit"
-msgstr "Muuda"
-
-#: 
-msgid "Clear All Cache"
-msgstr "Tühjendage kogu vahemälu"
-
-#: 
-msgid "Inactive"
-msgstr "Mitteaktiivne"
-
-#: 
-msgid "Language"
-msgstr "Keel"
-
-#: 
-msgid "Edit Your Account"
-msgstr "Muutke oma kontot"
-
-#: 
-msgid "No page view data available for this article."
-msgstr "Selle artikli kohta pole lehevaatamise andmeid saadaval."
-
-#: 
-msgid "Page Views for {0}"
-msgstr "Lehevaatamised: {0}"
-
-#: 
-msgid "Some caches were cleared, but the following failed: {0}"
-msgstr "Mõned vahemälud tühjendati, kuid järgmine ebaõnnestus: {0}"
-
-#: 
-msgid "Unable to delete the log."
-msgstr "Logi ei saa kustutada."
-
-#: 
-msgid "This content is hosted by YouTube. By showing the external content you accept the privacy policy of YouTube."
-msgstr "Seda sisu hostib YouTube. Välise sisu kuvamisega nõustute YouTube&#39;i privaatsuseeskirjadega."
-
-#: 
-msgid "Id"
-msgstr "Id"
-
-#: 
-msgid "The comment could not be saved. Please, try again."
-msgstr "Kommentaari ei õnnestunud salvestada. Palun proovi uuesti."
-
-#: 
-msgid "The internationalisation has been saved."
-msgstr "Rahvusvahelistumine on päästetud."
-
-#: 
-msgid "The blocked ip could not be saved. Please, try again."
-msgstr "Blokeeritud IP-d ei õnnestunud salvestada. Palun proovi uuesti."
-
-#: 
-msgid "Send Reset Link"
-msgstr "Saatke lähtestamise link"
-
-#: 
-msgid "Twitter Description"
-msgstr "Twitteri kirjeldus"
-
-#: 
-msgid "The log has been deleted."
-msgstr "Logi on kustutatud."
-
-#: 
-msgid "Edit User"
-msgstr "Redigeeri kasutajat"
-
-#: 
-msgid "Featured posts"
-msgstr "Esiletõstetud postitused"
-
-#: 
-msgid "Registration successful. Please check your email for confirmation."
-msgstr "Registreerimine õnnestus. Kinnituse saamiseks kontrollige oma meili."
-
-#: 
-msgid "Your cookie preferences could not be saved. Please, try again."
-msgstr "Teie küpsiste eelistusi ei saanud salvestada. Palun proovi uuesti."
-
-#: 
-msgid "Edit Post"
-msgstr "Redigeeri postitust"
-
-#: 
-msgid "Email Templates"
-msgstr "Meilimallid"
-
-#: 
-msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
-msgstr "Leht {{page}}/{{pages}}, kuvatakse {{praegune}} kirjet kokku {{count}}-st"
-
-#: 
-msgid "Please enter your email to reset your password"
-msgstr "Parooli lähtestamiseks sisestage oma e-posti aadress"
-
-#: 
-msgid "Actions"
-msgstr "Tegevused"
-
-#: 
-msgid "The user could not be deleted. Please, try again."
-msgstr "Kasutajat ei saanud kustutada. Palun proovi uuesti."
-
-#: 
-msgid "Tree View"
-msgstr "Puuvaade"
-
-#: 
-msgid "Edit Image"
-msgstr "Redigeeri pilti"
-
-#: 
-msgid "Posts"
-msgstr "Postitused"
-
-#: 
-msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
-msgstr "Allpool on teave konfigureeritud vahemälude kohta. Kõigi vahemälu tühjendamiseks klõpsake nuppu või konkreetse vahemälu tühjendamiseks üksikuid vahemälunuppe."
-
-#: 
-msgid "The aiprompt has been deleted."
-msgstr "Aiprompt on kustutatud."
-
-#: 
-msgid "The comment has been deleted."
-msgstr "Kommentaar on kustutatud."
-
-#: 
-msgid "Displayed"
-msgstr "Kuvatakse"
-
-#: 
-msgid "Root"
-msgstr "Juur"
-
-#: 
-msgid "You are not authorized to edit this account, stick to your own."
-msgstr "Teil ei ole õigust seda kontot redigeerida, jääge oma enda juurde."
-
-#: 
-msgid "Edit Blocked Ip"
-msgstr "Redigeeri blokeeritud IP-d"
-
-#: 
-msgid "Featured"
-msgstr "Esiletõstetud"
-
-#: 
-msgid "Keywords"
-msgstr "Märksõnad"
-
-#: 
-msgid "Read More"
-msgstr "Loe edasi"
-
-#: 
-msgid "Number of articles to generate"
-msgstr "Loodavate artiklite arv"
-
-#: 
-msgid "Is Published"
-msgstr "On avaldatud"
-
-#: 
-msgid "There was an issue resetting your password. Please try again."
-msgstr "Teie parooli lähtestamisel ilmnes probleem. Palun proovi uuesti."
-
-#: 
-msgid "Main Image"
-msgstr "Põhipilt"
-
-#: 
-msgid "No admin user found."
-msgstr "Ühtegi administraatorist kasutajat ei leitud."
-
-#: 
-msgid "By"
-msgstr "Autor"
-
-#: 
-msgid "Yes"
-msgstr "Jah"
-
-#: 
-msgid "Article"
-msgstr "Artikkel"
-
-#: 
-msgid "An error occurred while processing your request."
-msgstr "Teie taotluse töötlemisel ilmnes viga."
-
-#: 
-msgid "Insert Video"
-msgstr "Sisesta video"
-
-#: 
 msgid "Registration successful, but there was an issue creating the confirmation link."
 msgstr "Registreerimine õnnestus, kuid kinnituslingi loomisel ilmnes probleem."
 
 #: 
-msgid "New Tag"
-msgstr "Uus silt"
-
-#: 
-msgid "Inappropriate Reason"
-msgstr "Sobimatu põhjus"
-
-#: 
-msgid "Search images..."
-msgstr "Otsi pilte..."
-
-#: 
-msgid "Page View Statistics for slug: {0}"
-msgstr "Lehevaate statistika nälkjate kohta: {0}"
-
-#: 
-msgid "Welcome to willowcms.app. This site uses Willow - a content management system I'm building in the open. Here you'll find development updates, feature highlights, and guides on using Willow for your own sites."
-msgstr "Tere tulemast saidile willowcms.app. See sait kasutab Willowi – sisuhaldussüsteemi, mille loon avalikult. Siit leiate arendusvärskendusi, funktsioonide esiletõstmisi ja juhendeid Willowi kasutamiseks oma saitidel."
-
-#: 
-msgid "Active"
-msgstr "Aktiivne"
-
-#: 
-msgid "Forgot Password?"
-msgstr "Unustasid salasõna?"
-
-#: 
-msgid "Save All Settings"
-msgstr "Salvesta kõik sätted"
-
-#: 
-msgid "Analytics Cookies"
-msgstr "Analyticsi küpsised"
-
-#: 
-msgid "Account"
-msgstr "konto"
-
-#: 
-msgid "Required"
-msgstr "Nõutav"
-
-#: 
-msgid "Facebook Description"
-msgstr "Facebooki kirjeldus"
-
-#: 
-msgid "Meta Description"
-msgstr "Meta kirjeldus"
-
-#: 
-msgid "Image must be less than 5MB."
-msgstr "Pilt peab olema väiksem kui 5 MB."
-
-#: 
-msgid "Create an Account"
-msgstr "Looge konto"
-
-#: 
-msgid "Article ID:"
-msgstr "Artikli ID:"
-
-#: 
-msgid "Name"
-msgstr "Nimi"
-
-#: 
-msgid "SEO Fields"
-msgstr "SEO väljad"
-
-#: 
-msgid "Back to Login"
-msgstr "Tagasi sisselogimise juurde"
-
-#: 
-msgid "Search Email Templates..."
-msgstr "Otsi meilimalle..."
-
-#: 
-msgid "All rights reserved."
-msgstr "Kõik õigused kaitstud."
-
-#: 
-msgid "Forgot Password"
-msgstr "Unustasin parooli"
-
-#: 
-msgid "Rate limit exceeded for IP: {0} on route: {1}"
-msgstr "IP: {0} määra limiit on ületatud marsruudil: {1}"
-
-#: 
-msgid "Tags"
-msgstr "Sildid"
-
-#: 
-msgid "The settings have been saved."
-msgstr "Seadistused on salvestatud."
-
-#: 
-msgid "Search Aiprompts..."
-msgstr "Otsi Aiprompts..."
-
-#: 
-msgid "Register"
-msgstr "Registreeru"
-
-#: 
-msgid "Message"
-msgstr "Sõnum"
-
-#: 
-msgid "{0} cache configuration does not exist."
-msgstr "{0} vahemälu konfiguratsiooni pole olemas."
-
-#: 
-msgid "Your account could not be updated."
-msgstr "Teie kontot ei saanud värskendada."
-
-#: 
-msgid "An Internal Error Has Occurred."
-msgstr "Ilmnes sisemine viga."
-
-#: 
-msgid "Comments are not enabled"
-msgstr "Kommentaarid pole lubatud"
-
-#: 
-msgid "Delete {0}"
-msgstr "Kustuta {0}"
-
-#: 
-msgid "Updated At"
-msgstr "Uuendatud kl"
-
-#: 
-msgid "The slug has been deleted."
-msgstr "Nälkjas on kustutatud."
-
-#: 
-msgid "The aiprompt has been saved."
-msgstr "Aiprompt on salvestatud."
-
-#: 
-msgid "Add Article"
-msgstr "Lisa artikkel"
-
-#: 
-msgid "Blog"
-msgstr "Blogi"
-
-#: 
-msgid "All logs have been deleted."
-msgstr "Kõik logid on kustutatud."
-
-#: 
-msgid "Modified At"
-msgstr "Muudetud kell"
-
-#: 
-msgid "The tag has been deleted."
-msgstr "Silt on kustutatud."
-
-#: 
-msgid "Summary"
-msgstr "Kokkuvõte"
-
-#: 
-msgid "No pages found."
-msgstr "Ühtegi lehte ei leitud."
-
-#: 
-msgid "Image Uploads"
-msgstr "Piltide üleslaadimine"
-
-#: 
-msgid "Selected"
-msgstr "Valitud"
-
-#: 
-msgid "Are you sure you want to delete {0}?"
-msgstr "Kas soovite kindlasti {0} kustutada?"
-
-#: 
-msgid "Are you sure you want to delete # {0}?"
-msgstr "Kas soovite kindlasti # {0} kustutada?"
-
-#: 
-msgid "No deleting your own account."
-msgstr "Enda kontot ei tohi kustutada."
-
-#: 
-msgid "All logs with level {0} have been deleted."
-msgstr "Kõik logid tasemega {0} on kustutatud."
-
-#: 
-msgid "Views"
-msgstr "Vaated"
-
-#: 
-msgid "All logs in group {0} have been deleted."
-msgstr "Kõik logid rühmas {0} on kustutatud."
-
-#: 
-msgid "Back to top"
-msgstr "Tagasi üles"
-
-#: 
-msgid "The article has been deleted."
-msgstr "Artikkel on kustutatud."
-
-#: 
-msgid "Articles"
-msgstr "Artiklid"
-
-#: 
-msgid "Cache Name"
-msgstr "Vahemälu nimi"
-
-#: 
-msgid "Search..."
-msgstr "Otsi..."
-
-#: 
-msgid "Reason"
-msgstr "Põhjus"
-
-#: 
-msgid "Load video"
-msgstr "Laadige video"
-
-#: 
-msgid "Failed to save the image"
-msgstr "Pildi salvestamine ebaõnnestus"
-
-#: 
-msgid "Used to deliver personalized advertisements and enable the facebook share button."
-msgstr "Kasutatakse isikupärastatud reklaamide edastamiseks ja Facebooki jagamisnupu lubamiseks."
-
-#: 
-msgid "Too Many Requests"
-msgstr "Liiga palju taotlusi"
-
-#: 
-msgid "Cookies"
-msgstr "Küpsised"
-
-#: 
-msgid "Is Inappropriate"
-msgstr "On sobimatu"
-
-#: 
-msgid "Show only channel videos"
-msgstr "Kuva ainult kanalivideod"
-
-#: 
-msgid "Willow Logo"
-msgstr "Paju logo"
-
-#: 
-msgid "Lede"
-msgstr "Lede"
-
-#: 
-msgid "Dark"
-msgstr "Tume"
-
-#: 
-msgid "Show Less"
-msgstr "Näita vähem"
-
-#: 
-msgid "Bulk Upload Images"
-msgstr "Kujutiste hulgiüleslaadimine"
-
-#: 
-msgid "The image has been saved."
-msgstr "Pilt on salvestatud."
-
-#: 
-msgid "None"
-msgstr "Mitte ühtegi"
-
-#: 
-msgid "Invalid or expired password reset link."
-msgstr "Kehtetu või aegunud parooli lähtestamise link."
-
-#: 
-msgid "Modified"
-msgstr "Muudetud"
-
-#: 
-msgid "Page Views"
-msgstr "Lehekülje vaatamised"
-
-#: 
-msgid "Settings"
-msgstr "Seaded"
-
-#: 
-msgid "The article could not be deleted. Please, try again."
-msgstr "Artiklit ei saanud kustutada. Palun proovi uuesti."
-
-#: 
-msgid "Block IPs"
-msgstr "Blokeeri IP-d"
-
-#: 
-msgid "Delete All Logs"
-msgstr "Kustuta kõik logid"
-
-#: 
-msgid "Register New Account"
-msgstr "Registreeri uus konto"
-
-#: 
-msgid "Add Post"
-msgstr "Lisa postitus"
-
-#: 
-msgid "Search for YouTube videos to embed"
-msgstr "Otsige manustamiseks YouTube&#39;i videoid"
-
-#: 
-msgid "All Tags"
-msgstr "Kõik sildid"
-
-#: 
-msgid "Add Aiprompt"
-msgstr "Lisage Aiprompt"
-
-#: 
-msgid "Essential"
-msgstr "Hädavajalik"
-
-#: 
-msgid "Failed to generate {0} articles."
-msgstr "{0} artikli loomine ebaõnnestus."
-
-#: 
-msgid "New Blocked Ip"
-msgstr "Uus blokeeritud IP"
-
-#: 
-msgid "Comment"
-msgstr "Kommenteeri"
-
-#: 
-msgid "Linkedin Description"
-msgstr "Linkedini kirjeldus"
-
-#: 
-msgid "Show Full Article"
-msgstr "Kuva kogu artikkel"
-
-#: 
-msgid "No"
-msgstr "Ei"
-
-#: 
-msgid "All caches have been cleared successfully."
-msgstr "Kõik vahemälud on edukalt tühjendatud."
-
-#: 
-msgid "List {0}"
-msgstr "Loend {0}"
-
-#: 
-msgid "Kind"
-msgstr "Lahke"
-
-#: 
-msgid "Context"
-msgstr "Kontekst"
-
-#: 
-msgid "Unknown Author"
-msgstr "Tundmatu autor"
-
-#: 
-msgid "Please log in to add a comment"
-msgstr "Kommentaari lisamiseks logige sisse"
-
-#: 
-msgid "Your password has been reset. Please log in with your new password."
-msgstr "Teie parool on lähtestatud. Palun logige sisse oma uue parooliga."
-
-#: 
-msgid "Failed to send email. Please check your email configuration."
-msgstr "Meili saatmine ebaõnnestus. Kontrollige oma e-posti konfiguratsiooni."
-
-#: 
-msgid "New User"
-msgstr "Uus kasutaja"
-
-#: 
-msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
-msgstr "Nälk peab olema URL-i jaoks ohutu (ainult väiketähti, numbreid ja sidekriipse)"
-
-#: 
-msgid "System Logs"
-msgstr "Süsteemi logid"
-
-#: 
-msgid "The slug has been saved."
-msgstr "Nälkjas on päästetud."
-
-#: 
-msgid "Log In"
-msgstr "Logi sisse"
-
-#: 
-msgid "New Image"
-msgstr "Uus pilt"
-
-#: 
-msgid "Locale"
-msgstr "Lokaal"
-
-#: 
-msgid "User Agent"
-msgstr "Kasutajaagent"
-
-#: 
-msgid "No videos found matching your search"
-msgstr "Teie otsingule vastavaid videoid ei leitud"
-
-#: 
-msgid "The value must not be empty."
-msgstr "Väärtus ei tohi olla tühi."
-
-#: 
-msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
-msgstr "Slug on vastuolus olemasoleva SEO ümbersuunamisega. Valige mõni muu nälkjas."
-
-#: 
-msgid "You cannot remove your own admin status."
-msgstr "Te ei saa enda administraatori staatust eemaldada."
-
-#: 
-msgid "Body Html"
-msgstr "Keha HTML"
-
-#: 
-msgid "Edit Email Template"
-msgstr "Redigeeri meilimalli"
-
-#: 
-msgid "The blocked ip could not be deleted. Please, try again."
-msgstr "Blokeeritud IP-d ei saanud kustutada. Palun proovi uuesti."
-
-#: 
-msgid "Password must be at least 8 characters long"
-msgstr "Parool peab olema vähemalt 8 tähemärki pikk"
-
-#: 
-msgid "Setting not found: {0}.{1}"
-msgstr "Seadet ei leitud: {0}.{1}"
-
-#: 
-msgid "Info"
-msgstr "Info"
-
-#: 
-msgid "You cannot disable your own account."
-msgstr "Te ei saa oma kontot keelata."
-
-#: 
-msgid "Marketing Cookies"
-msgstr "Turundusküpsised"
-
-#: 
-msgid "All"
-msgstr "Kõik"
-
-#: 
-msgid "View"
-msgstr "Vaade"
-
-#: 
-msgid "New Page"
-msgstr "Uus leht"
-
-#: 
-msgid "Add Internationalisation"
-msgstr "Lisa rahvusvahelistumine"
-
-#: 
-msgid "Essential Cookies"
-msgstr "Olulised küpsised"
-
-#: 
-msgid "Light"
-msgstr "Valgus"
-
-#: 
-msgid "Edit {0}"
-msgstr "Redigeeri {0}"
-
-#: 
-msgid "Please select your cookie preferences below. Essential cookies are required for the website to function and cannot be disabled."
-msgstr "Valige allpool oma küpsiste eelistused. Veebisaidi toimimiseks on vajalikud olulised küpsised ja neid ei saa keelata."
-
-#: 
-msgid "Search logs..."
-msgstr "Otsi logisid..."
-
-#: 
-msgid "All Locales"
-msgstr "Kõik asukohad"
-
-#: 
-msgid "This slug is already in use. Please enter a unique slug."
-msgstr "See nälkjas on juba kasutusel. Sisestage ainulaadne nälkjas."
-
-#: 
-msgid "Is Admin"
-msgstr "Kas administraator"
-
-#: 
-msgid "Cache"
-msgstr "Vahemälu"
-
-#: 
-msgid "Logout"
-msgstr "Väljalogimine"
-
-#: 
-msgid "Referer"
-msgstr "Viitaja"
-
-#: 
-msgid "Image uploaded successfully"
-msgstr "Pildi üleslaadimine õnnestus"
-
-#: 
-msgid "Related Comments"
-msgstr "Seotud kommentaarid"
-
-#: 
-msgid "Article not found"
-msgstr "Artiklit ei leitud"
-
-#: 
-msgid "Task Type"
-msgstr "Ülesande tüüp"
-
-#: 
-msgid "Search Users..."
-msgstr "Otsi kasutajaid..."
-
-#: 
-msgid "Never"
-msgstr "Mitte kunagi"
-
-#: 
-msgid "New Aiprompt"
-msgstr "Uus Aiprompt"
-
-#: 
-msgid "Your account has been confirmed. You can now log in."
-msgstr "Teie konto on kinnitatud. Nüüd saate sisse logida."
-
-#: 
-msgid "{0} cache could not be cleared."
-msgstr "{0} vahemälu ei saanud tühjendada."
-
-#: 
-msgid "Error sending email: {0}"
-msgstr "Viga meili saatmisel: {0}"
-
-#: 
-msgid "Created tag: {0}"
-msgstr "Loodud silt: {0}"
-
-#: 
-msgid "The comment has been saved."
-msgstr "Kommentaar on salvestatud."
-
-#: 
-msgid "The article has been saved."
-msgstr "Artikkel on salvestatud."
-
-#: 
-msgid "Max Tokens"
-msgstr "Max märgid"
-
-#: 
-msgid "Edit Tag"
-msgstr "Redigeeri sildi"
-
-#: 
-msgid "Submit Comment"
-msgstr "Esitage kommentaar"
-
-#: 
-msgid "Invalid confirmation code."
-msgstr "Kehtetu kinnituskood."
-
-#: 
-msgid "Login"
-msgstr "Logi sisse"
-
-#: 
-msgid "Your cookie preferences have been saved."
-msgstr "Teie küpsiste eelistused on salvestatud."
-
-#: 
-msgid "Tag Articles/Pages"
-msgstr "Märkige artiklid/lehed"
-
-#: 
-msgid "Message Id"
-msgstr "Sõnumi ID"
-
-#: 
-msgid "Created At"
-msgstr "Loodud kl"
-
-#: 
-msgid "Code Coverage"
-msgstr "Koodi katvus"
-
-#: 
-msgid "Add Page"
-msgstr "Lisa leht"
-
-#: 
-msgid "Share"
-msgstr "Jaga"
-
-#: 
-msgid "Privacy Policy"
-msgstr "Privaatsuspoliitika"
-
-#: 
-msgid "New Post"
-msgstr "Uus postitus"
-
-#: 
-msgid "Search Slugs..."
-msgstr "Otsige nälkjaid..."
-
-#: 
-msgid "Generated article: {0}"
-msgstr "Loodud artikkel: {0}"
-
-#: 
-msgid "Template Identifier"
-msgstr "Malli identifikaator"
-
-#: 
-msgid "You must be logged in to add a comment."
-msgstr "Kommentaari lisamiseks peate olema sisse logitud."
-
-#: 
-msgid "Submit"
-msgstr "Esita"
-
-#: 
-msgid "Front Site"
-msgstr "Esikülg"
-
-#: 
-msgid "System Prompt"
-msgstr "Süsteemi viip"
-
-#: 
-msgid "Failed to create tag: {0}"
-msgstr "Märgendi loomine ebaõnnestus: {0}"
-
-#: 
-msgid "Send Email"
-msgstr "Saada meil"
-
-#: 
-msgid "Instagram Description"
-msgstr "Instagrami kirjeldus"
-
-#: 
-msgid "Insert Image"
-msgstr "Sisesta pilt"
-
-#: 
-msgid "Add a Comment"
-msgstr "Lisa kommentaar"
-
-#: 
-msgid "No tags found."
-msgstr "Silte ei leitud."
-
-#: 
-msgid "Creating {0} new top-level tags..."
-msgstr "{0} uue tipptaseme märgendi loomine..."
-
-#: 
-msgid "Method not allowed"
-msgstr "Meetod pole lubatud"
-
-#: 
-msgid "The comment could not be deleted. Please, try again."
-msgstr "Kommentaari ei saanud kustutada. Palun proovi uuesti."
-
-#: 
-msgid "Generated {0} articles successfully."
-msgstr "{0} artiklit on edukalt loodud."
-
-#: 
-msgid "No articles found for this tag."
-msgstr "Selle märgendi jaoks ei leitud artikleid."
-
-#: 
-msgid "The slug must be unique."
-msgstr "Nälkjas peab olema ainulaadne."
-
-#: 
-msgid "Add Email Template"
-msgstr "Lisa meili mall"
+msgid "Posted on {date} by {author}"
+msgstr "Postitas {date}, autor {author}"
 
 #: 
 msgid "Un-Published"
 msgstr "Avaldamata"
 
 #: 
-msgid "All Levels"
-msgstr "Kõik tasemed"
+msgid "The article has been saved."
+msgstr "Artikkel on salvestatud."
 
 #: 
-msgid "{0} cache has been cleared successfully."
-msgstr "{0} vahemälu on edukalt tühjendatud."
-
-#: 
-msgid "Invalid type"
-msgstr "Sobimatu tüüp"
-
-#: 
-msgid "Display"
-msgstr "Ekraan"
-
-#: 
-msgid "New Internationalisation"
-msgstr "Uus rahvusvahelistumine"
-
-#: 
-msgid "Please enter your new password"
-msgstr "Palun sisesta oma uus parool"
-
-#: 
-msgid "Filter"
-msgstr "Filter"
-
-#: 
-msgid "The requested address {0} was not found on this server."
-msgstr "Taotletud aadressi {0} sellest serverist ei leitud."
-
-#: 
-msgid "The internationalisation has been deleted."
-msgstr "Rahvusvahelistumine on kustutatud."
-
-#: 
-msgid "The image could not be saved. Please, try again."
-msgstr "Pilti ei saanud salvestada. Palun proovi uuesti."
-
-#: 
-msgid "New Slug"
-msgstr "Uus nälkjas"
-
-#: 
-msgid "The slug could not be deleted. Please, try again."
-msgstr "Nälkjat ei saanud kustutada. Palun proovi uuesti."
-
-#: 
-msgid "Message Str"
-msgstr "Sõnum Str"
-
-#: 
-msgid "Slug:"
-msgstr "Nälkjas:"
-
-#: 
-msgid "If your email is registered, you will receive a link to reset your password."
-msgstr "Kui teie e-post on registreeritud, saate lingi parooli lähtestamiseks."
-
-#: 
-msgid "This slug is already in use in articles. Please enter a unique slug."
-msgstr "See nälkjas on juba artiklites kasutusel. Sisestage ainulaadne nälkjas."
-
-#: 
-msgid "Unable to delete logs with level {0}."
-msgstr "Taseme {0} logisid ei saa kustutada."
-
-#: 
-msgid "Users"
-msgstr "Kasutajad"
+msgid "The aiprompt has been saved."
+msgstr "Aiprompt on salvestatud."
 
 #: 
 msgid "All articles have been deleted."
 msgstr "Kõik artiklid on kustutatud."
 
 #: 
-msgid "Failed to send password reset email: {0}"
-msgstr "Parooli lähtestamise meili saatmine ebaõnnestus: {0}"
-
-#: 
-msgid "Blocked At"
-msgstr "Blokeeritud kell"
-
-#: 
-msgid "Edit Slug"
-msgstr "Redigeeri Slug"
-
-#: 
-msgid "About"
-msgstr "Umbes"
-
-#: 
-msgid "The user could not be saved. Please, try again."
-msgstr "Kasutajat ei õnnestunud salvestada. Palun proovi uuesti."
-
-#: 
-msgid "Main Menu"
-msgstr "Peamenüü"
-
-#: 
-msgid "Word Count"
-msgstr "Sõnade arv"
-
-#: 
-msgid "User"
-msgstr "Kasutaja"
-
-#: 
-msgid "Flagged"
-msgstr "Lipuga märgitud"
-
-#: 
-msgid "AI Prompts"
-msgstr "AI viibad"
-
-#: 
-msgid "Edit Article"
-msgstr "Redigeeri artiklit"
-
-#: 
-msgid "Not Displayed"
-msgstr "Ei kuvata"
+msgid "Logout"
+msgstr "Väljalogimine"
 
 #: 
 msgid "Articles/Pages"
 msgstr "Artiklid/leheküljed"
 
 #: 
-msgid "Pages"
-msgstr "Leheküljed"
+msgid "User"
+msgstr "Kasutaja"
 
 #: 
-msgid "Generating {0} articles..."
-msgstr "{0} artikli genereerimine..."
+msgid "Slug:"
+msgstr "Nälkjas:"
 
 #: 
-msgid "Delete all articles before generating new ones"
-msgstr "Enne uute loomist kustutage kõik artiklid"
+msgid "Image must be less than 5MB."
+msgstr "Pilt peab olema väiksem kui 5 MB."
 
 #: 
-msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
-msgstr "Meil saadeti edukalt aadressile {0}. Mall: {1}, Teema: {2}"
+msgid "The aiprompt has been deleted."
+msgstr "Aiprompt on kustutatud."
 
 #: 
-msgid "Unable to add your comment."
-msgstr "Teie kommentaari ei saa lisada."
+msgid "Recent posts"
+msgstr "Viimased postitused"
 
 #: 
-msgid "The aiprompt could not be deleted. Please, try again."
-msgstr "Aiprompti ei saanud kustutada. Palun proovi uuesti."
+msgid "The value must be 0 or 1."
+msgstr "Väärtus peab olema 0 või 1."
 
 #: 
-msgid "Reset your password"
-msgstr "Lähtestage oma parool"
-
-#: 
-msgid "Model"
-msgstr "Mudel"
-
-#: 
-msgid "Auto Tag"
-msgstr "Automaatne silt"
-
-#: 
-msgid "New Article"
-msgstr "Uus artikkel"
-
-#: 
-msgid "The email template could not be deleted. Please, try again."
-msgstr "Meilimalli ei saanud kustutada. Palun proovi uuesti."
-
-#: 
-msgid "Required for the website to function properly. These cannot be disabled."
-msgstr "Vajalik veebisaidi nõuetekohaseks toimimiseks. Neid ei saa keelata."
-
-#: 
-msgid "Admin"
-msgstr "Admin"
-
-#: 
-msgid "Are you sure you want to delete all logs in group {0}?"
-msgstr "Kas olete kindel, et soovite kustutada kõik logid rühmas {0}?"
-
-#: 
-msgid "Alt Text"
-msgstr "Alternatiivne tekst"
-
-#: 
-msgid "No view records found for this article."
-msgstr "Selle artikli vaatamise kirjeid ei leitud."
-
-#: 
-msgid "Registration failed. Please, try again."
-msgstr "Registreerimine ebaõnnestus. Palun proovi uuesti."
-
-#: 
-msgid "Page {{page}} of {{pages}}"
-msgstr "Leht {{page}}/{{pages}}"
-
-#: 
-msgid "The email template has been deleted."
-msgstr "Meili mall on kustutatud."
-
-#: 
-msgid "Search Internationalisations..."
-msgstr "Otsi rahvusvahelistumist..."
-
-#: 
-msgid "Help us understand how visitors interact with our website."
-msgstr "Aidake meil mõista, kuidas külastajad meie veebisaidiga suhtlevad."
-
-#: 
-msgid "Error saving {0}.{1}: {2}"
-msgstr "Viga faili {0} salvestamisel.{1}: {2}"
-
-#: 
-msgid "Level"
-msgstr "Tase"
-
-#: 
-msgid "The email template has been saved."
-msgstr "Meili mall on salvestatud."
-
-#: 
-msgid "No comments yet."
-msgstr "Kommentaarid veel puuduvad."
-
-#: 
-msgid "Home"
-msgstr "Kodu"
-
-#: 
-msgid "Search Articles..."
-msgstr "Otsi artikleid..."
-
-#: 
-msgid "Group Name"
-msgstr "Grupi nimi"
-
-#: 
-msgid "Logs"
-msgstr "Palgid"
-
-#: 
-msgid "Add Image"
-msgstr "Lisa pilt"
-
-#: 
-msgid "This message_id must be unique for the given locale."
-msgstr "See message_id peab antud lokaadi jaoks olema kordumatu."
-
-#: 
-msgid "Email sent successfully."
-msgstr "Meili saatmine õnnestus."
-
-#: 
-msgid "Internationalisation"
-msgstr "Rahvusvahelistumine"
-
-#: 
-msgid "Ip Address"
-msgstr "IP-aadress"
-
-#: 
-msgid "Status"
-msgstr "Olek"
-
-#: 
-msgid "Edit Internationalisation"
-msgstr "Muuda rahvusvahelistumist"
-
-#: 
-msgid "Edit Page"
-msgstr "Redigeeri lehte"
-
-#: 
-msgid "Image"
-msgstr "Pilt"
-
-#: 
-msgid "Add"
-msgstr "Lisa"
-
-#: 
-msgid "Reset Password"
-msgstr "Lähtestage parool"
-
-#: 
-msgid "Picture"
-msgstr "Pilt"
+msgid "Kind"
+msgstr "Lahke"
 
 #: 
 msgid "Search YouTube videos..."
 msgstr "Otsige YouTube&#39;i videoid..."
 
 #: 
-msgid "Internationalisations"
-msgstr "Rahvusvahelistumine"
+msgid "Show Less"
+msgstr "Näita vähem"
 
 #: 
-msgid "Your comment has been added."
-msgstr "Teie kommentaar on lisatud."
+msgid "Invalid value for the specified type."
+msgstr "Määratud tüübi jaoks sobimatu väärtus."
 
 #: 
-msgid "Are you sure you want to delete all logs?"
-msgstr "Kas olete kindel, et soovite kõik logid kustutada?"
+msgid "No tags found."
+msgstr "Silte ei leitud."
 
 #: 
-msgid "{0} Views"
-msgstr "{0} vaatamist"
+msgid "All Locales"
+msgstr "Kõik asukohad"
 
 #: 
-msgid "Content"
-msgstr "Sisu"
+msgid "No view records found for this article."
+msgstr "Selle artikli vaatamise kirjeid ei leitud."
 
 #: 
-msgid "Inappropriate"
-msgstr "Sobimatu"
+msgid "Send Email"
+msgstr "Saada meil"
 
 #: 
-msgid "New {0}"
-msgstr "Uus {0}"
-
-#: 
-msgid "Are you sure you want to delete all {0} logs?"
-msgstr "Kas olete kindel, et soovite kustutada kõik {0} logi?"
-
-#: 
-msgid "Related Articles/Pages"
-msgstr "Seotud artiklid/leheküljed"
-
-#: 
-msgid "Article not found."
-msgstr "Artiklit ei leitud."
-
-#: 
-msgid "Add Slug"
-msgstr "Lisa nälkjas"
-
-#: 
-msgid "Slug"
-msgstr "Nälkjas"
-
-#: 
-msgid "Meta Keywords"
-msgstr "Meta märksõnad"
-
-#: 
-msgid "New Email Template"
-msgstr "Uus meili mall"
-
-#: 
-msgid "Are you sure you want to delete  {0}?"
-msgstr "Kas soovite kindlasti {0} kustutada?"
-
-#: 
-msgid "Enable enhanced functionality and personalization."
-msgstr "Lubage täiustatud funktsionaalsus ja isikupärastamine."
-
-#: 
-msgid "Add Tag"
-msgstr "Lisa silt"
-
-#: 
-msgid "Edit Comment"
-msgstr "Muuda kommentaari"
-
-#: 
-msgid "Too many requests. Please try again later."
-msgstr "Liiga palju taotlusi. Proovige hiljem uuesti."
-
-#: 
-msgid "Back"
-msgstr "Tagasi"
-
-#: 
-msgid "Expires At"
-msgstr "Aegub kl"
-
-#: 
-msgid "Error in: "
-msgstr "Viga: "
-
-#: 
-msgid "The tag could not be deleted. Please, try again."
-msgstr "Märgendit ei saanud kustutada. Palun proovi uuesti."
-
-#: 
-msgid "Select Tags"
-msgstr "Valige Sildid"
-
-#: 
-msgid "The tag could not be saved. Please, try again."
-msgstr "Märgendit ei saanud salvestada. Palun proovi uuesti."
-
-#: 
-msgid "The value must be a number."
-msgstr "Väärtus peab olema arv."
-
-#: 
-msgid "Failed to send confirmation email message: {0}"
-msgstr "Kinnitusmeili saatmine ebaõnnestus: {0}"
-
-#: 
-msgid "Username"
-msgstr "Kasutajanimi"
-
-#: 
-msgid "Error"
-msgstr "Viga"
-
-#: 
-msgid "To understand how we handle your personal information, including the use of cookies and other tracking technologies, please review our {0}."
-msgstr "Et mõista, kuidas me teie isikuandmeid käsitleme, sealhulgas küpsiste ja muude jälgimistehnoloogiate kasutamist, vaadake üle meie {0}."
-
-#: 
-msgid "Not published"
-msgstr "Ei avaldatud"
-
-#: 
-msgid "Search Pages..."
-msgstr "Otsi lehti..."
-
-#: 
-msgid "Access denied. You must be an admin to view this page."
-msgstr "Juurdepääs keelatud. Selle lehe vaatamiseks peate olema administraator."
-
-#: 
-msgid "The user has been saved."
-msgstr "Kasutaja on salvestatud."
+msgid "User Agent"
+msgstr "Kasutajaagent"
 
 #: 
 msgid "Subject"
 msgstr "Teema"
 
 #: 
-msgid "We were unable to find that account."
-msgstr "Meil ei õnnestunud seda kontot leida."
+msgid "Published"
+msgstr "Avaldatud"
 
 #: 
-msgid "Body Preview"
-msgstr "Keha eelvaade"
+msgid "Please upload only images (jpeg, png, gif)."
+msgstr "Palun laadige üles ainult pilte (jpeg, png, gif)."
 
 #: 
-msgid "On"
-msgstr "Sees"
+msgid "The image has been deleted."
+msgstr "Pilt on kustutatud."
 
 #: 
-msgid "Delete"
-msgstr "Kustuta"
+msgid "Your password has been reset. Please log in with your new password."
+msgstr "Teie parool on lähtestatud. Palun logige sisse oma uue parooliga."
 
 #: 
-msgid "Functional Cookies"
-msgstr "Funktsionaalsed küpsised"
+msgid "AI Prompts"
+msgstr "AI viibad"
 
 #: 
-msgid "Unable to delete all logs."
-msgstr "Kõiki logisid ei saa kustutada."
+msgid "Status"
+msgstr "Olek"
+
+#: 
+msgid "Please enter your new password"
+msgstr "Palun sisesta oma uus parool"
+
+#: 
+msgid "Flagged"
+msgstr "Lipuga märgitud"
+
+#: 
+msgid "You must be logged in to add a comment."
+msgstr "Kommentaari lisamiseks peate olema sisse logitud."
+
+#: 
+msgid "Unable to delete logs in group {0}."
+msgstr "Grupi {0} logisid ei saa kustutada."
+
+#: 
+msgid "All logs with level {0} have been deleted."
+msgstr "Kõik logid tasemega {0} on kustutatud."
+
+#: 
+msgid "Edit Internationalisation"
+msgstr "Muuda rahvusvahelistumist"
+
+#: 
+msgid "Inappropriate"
+msgstr "Sobimatu"
+
+#: 
+msgid "New Slug"
+msgstr "Uus nälkjas"
+
+#: 
+msgid "The settings have been saved."
+msgstr "Seadistused on salvestatud."
+
+#: 
+msgid "Article not found"
+msgstr "Artiklit ei leitud"
+
+#: 
+msgid "Add Email Template"
+msgstr "Lisa meili mall"
+
+#: 
+msgid "Dark"
+msgstr "Tume"
+
+#: 
+msgid "Create an Account"
+msgstr "Looge konto"
+
+#: 
+msgid "Main Image"
+msgstr "Põhipilt"
 
 #: 
 msgid "Parent"
 msgstr "Lapsevanem"
 
 #: 
-msgid "Search Blocked Ips..."
-msgstr "Otsi blokeeritud IP-sid..."
+msgid "Alt Text"
+msgstr "Alternatiivne tekst"
 
 #: 
-msgid "Elsewhere"
-msgstr "mujal"
+msgid "Error fetching videos: {0}"
+msgstr "Viga videote toomisel: {0}"
 
 #: 
-msgid "Email template not found: {0}"
-msgstr "Meilimalli ei leitud: {0}"
+msgid "Search..."
+msgstr "Otsi..."
 
 #: 
-msgid "English"
-msgstr "inglise keel"
+msgid "The tag has been deleted."
+msgstr "Silt on kustutatud."
+
+#: 
+msgid "The comment has been saved."
+msgstr "Kommentaar on salvestatud."
 
 #: 
 msgid "Child"
 msgstr "Laps"
 
 #: 
-msgid "The internationalisation could not be deleted. Please, try again."
-msgstr "Rahvusvahelistumist ei saanud kustutada. Palun proovi uuesti."
+msgid "No admin user found."
+msgstr "Ühtegi administraatorist kasutajat ei leitud."
 
 #: 
-msgid "Search Tags..."
-msgstr "Otsi silte..."
+msgid "Generating {0} articles..."
+msgstr "{0} artikli genereerimine..."
+
+#: 
+msgid "Your account could not be updated."
+msgstr "Teie kontot ei saanud värskendada."
+
+#: 
+msgid "Search Users..."
+msgstr "Otsi kasutajaid..."
+
+#: 
+msgid "Slug"
+msgstr "Nälkjas"
+
+#: 
+msgid "All Groups"
+msgstr "Kõik rühmad"
+
+#: 
+msgid "No page view data available for this article."
+msgstr "Selle artikli kohta pole lehevaatamise andmeid saadaval."
 
 #: 
 msgid "Tag not found"
 msgstr "Märgendit ei leitud"
 
 #: 
-msgid "Add User"
-msgstr "Lisa kasutaja"
+msgid "Account"
+msgstr "konto"
 
 #: 
-msgid "Created"
-msgstr "Loodud"
+msgid "Created tag: {0}"
+msgstr "Loodud silt: {0}"
+
+#: 
+msgid "The aiprompt could not be saved. Please, try again."
+msgstr "Lennukiirt ei õnnestunud salvestada. Palun proovi uuesti."
+
+#: 
+msgid "An Internal Error Has Occurred."
+msgstr "Ilmnes sisemine viga."
+
+#: 
+msgid "The blocked ip could not be deleted. Please, try again."
+msgstr "Blokeeritud IP-d ei saanud kustutada. Palun proovi uuesti."
+
+#: 
+msgid "Send Reset Link"
+msgstr "Saatke lähtestamise link"
+
+#: 
+msgid "Forgot Password"
+msgstr "Unustasin parooli"
+
+#: 
+msgid "The image could not be deleted. Please, try again."
+msgstr "Pilti ei saanud kustutada. Palun proovi uuesti."
+
+#: 
+msgid "Image uploaded successfully"
+msgstr "Pildi üleslaadimine õnnestus"
+
+#: 
+msgid "Setting not found: {0}.{1}"
+msgstr "Seadet ei leitud: {0}.{1}"
+
+#: 
+msgid "No"
+msgstr "Ei"
+
+#: 
+msgid "Failed to send email. Please check your email configuration."
+msgstr "Meili saatmine ebaõnnestus. Kontrollige oma e-posti konfiguratsiooni."
+
+#: 
+msgid "The email template could not be deleted. Please, try again."
+msgstr "Meilimalli ei saanud kustutada. Palun proovi uuesti."
+
+#: 
+msgid "Below is information about the configured caches. Click the button to clear all caches or individual cache buttons to clear specific caches."
+msgstr "Allpool on teave konfigureeritud vahemälude kohta. Kõigi vahemälu tühjendamiseks klõpsake nuppu või konkreetse vahemälu tühjendamiseks üksikuid vahemälunuppe."
+
+#: 
+msgid "Show only channel videos"
+msgstr "Kuva ainult kanalivideod"
+
+#: 
+msgid "Failed to save the image"
+msgstr "Pildi salvestamine ebaõnnestus"
+
+#: 
+msgid "Internationalisations"
+msgstr "Rahvusvahelistumine"
+
+#: 
+msgid "Generated {0} articles successfully."
+msgstr "{0} artiklit on edukalt loodud."
+
+#: 
+msgid "Enable enhanced functionality and personalization."
+msgstr "Lubage täiustatud funktsionaalsus ja isikupärastamine."
+
+#: 
+msgid "Meta Keywords"
+msgstr "Meta märksõnad"
+
+#: 
+msgid "The user could not be deleted. Please, try again."
+msgstr "Kasutajat ei saanud kustutada. Palun proovi uuesti."
+
+#: 
+msgid "Article"
+msgstr "Artikkel"
+
+#: 
+msgid "Toggle theme"
+msgstr "Lülitage teema sisse"
+
+#: 
+msgid "Grid View"
+msgstr "Võrguvaade"
+
+#: 
+msgid "My Account"
+msgstr "Minu konto"
+
+#: 
+msgid "English"
+msgstr "inglise keel"
+
+#: 
+msgid "Message"
+msgstr "Sõnum"
+
+#: 
+msgid "Article ID:"
+msgstr "Artikli ID:"
+
+#: 
+msgid "Article not found."
+msgstr "Artiklit ei leitud."
+
+#: 
+msgid "We were unable to find that account."
+msgstr "Meil ei õnnestunud seda kontot leida."
 
 #: 
 msgid "The tag has been saved."
 msgstr "Silt on salvestatud."
 
 #: 
+msgid "The email template has been deleted."
+msgstr "Meili mall on kustutatud."
+
+#: 
+msgid "Error loading images:"
+msgstr "Viga piltide laadimisel:"
+
+#: 
+msgid "Word Count"
+msgstr "Sõnade arv"
+
+#: 
+msgid "Title"
+msgstr "Pealkiri"
+
+#: 
+msgid "Search for YouTube videos to embed"
+msgstr "Otsige manustamiseks YouTube&#39;i videoid"
+
+#: 
+msgid "Edit {0}"
+msgstr "Redigeeri {0}"
+
+#: 
+msgid "If your email is registered, you will receive a link to reset your password."
+msgstr "Kui teie e-post on registreeritud, saate lingi parooli lähtestamiseks."
+
+#: 
+msgid "Date"
+msgstr "Kuupäev"
+
+#: 
+msgid "The internationalisation could not be saved. Please, try again."
+msgstr "Rahvusvahelistumist ei õnnestunud päästa. Palun proovi uuesti."
+
+#: 
+msgid "Edit Aiprompt"
+msgstr "Redigeeri Aiprompt"
+
+#: 
+msgid "Related Tags"
+msgstr "Seotud sildid"
+
+#: 
+msgid "Cache Name"
+msgstr "Vahemälu nimi"
+
+#: 
+msgid "{0} cache could not be cleared."
+msgstr "{0} vahemälu ei saanud tühjendada."
+
+#: 
+msgid "Error"
+msgstr "Viga"
+
+#: 
+msgid "The image has been saved."
+msgstr "Pilt on salvestatud."
+
+#: 
+msgid "Referer"
+msgstr "Viitaja"
+
+#: 
+msgid "SEO Fields"
+msgstr "SEO väljad"
+
+#: 
+msgid "Not Displayed"
+msgstr "Ei kuvata"
+
+#: 
+msgid "The internationalisation has been saved."
+msgstr "Rahvusvahelistumine on päästetud."
+
+#: 
+msgid "Registration failed. Please, try again."
+msgstr "Registreerimine ebaõnnestus. Palun proovi uuesti."
+
+#: 
+msgid "Bulk Upload"
+msgstr "Hulgiüleslaadimine"
+
+#: 
+msgid "Slug conflicts with an existing SEO redirect. Please choose a different slug."
+msgstr "Slug on vastuolus olemasoleva SEO ümbersuunamisega. Valige mõni muu nälkjas."
+
+#: 
+msgid "All logs have been deleted."
+msgstr "Kõik logid on kustutatud."
+
+#: 
+msgid "Submit Comment"
+msgstr "Esitage kommentaar"
+
+#: 
+msgid "Blog"
+msgstr "Blogi"
+
+#: 
+msgid "Comment"
+msgstr "Kommenteeri"
+
+#: 
+msgid "No pages found."
+msgstr "Ühtegi lehte ei leitud."
+
+#: 
+msgid "Content"
+msgstr "Sisu"
+
+#: 
+msgid "Articles"
+msgstr "Artiklid"
+
+#: 
+msgid "Delete"
+msgstr "Kustuta"
+
+#: 
+msgid "Facebook Description"
+msgstr "Facebooki kirjeldus"
+
+#: 
+msgid "Welcome to willowcms.app. This site uses Willow - a content management system I'm building in the open. Here you'll find development updates, feature highlights, and guides on using Willow for your own sites."
+msgstr "Tere tulemast saidile willowcms.app. See sait kasutab Willowi – sisuhaldussüsteemi, mille loon avalikult. Siit leiate arendusvärskendusi, funktsioonide esiletõstmisi ja juhendeid Willowi kasutamiseks oma saitidel."
+
+#: 
+msgid "The slug has been deleted."
+msgstr "Nälkjas on kustutatud."
+
+#: 
+msgid "Add Page"
+msgstr "Lisa leht"
+
+#: 
+msgid "Too Many Requests"
+msgstr "Liiga palju taotlusi"
+
+#: 
+msgid "System Prompt"
+msgstr "Süsteemi viip"
+
+#: 
+msgid "Featured posts"
+msgstr "Esiletõstetud postitused"
+
+#: 
+msgid "Search Tags..."
+msgstr "Otsi silte..."
+
+#: 
+msgid "Reason"
+msgstr "Põhjus"
+
+#: 
+msgid "Add a Comment"
+msgstr "Lisa kommentaar"
+
+#: 
+msgid "Ip Address"
+msgstr "IP-aadress"
+
+#: 
+msgid "All"
+msgstr "Kõik"
+
+#: 
+msgid "No videos found matching your search"
+msgstr "Teie otsingule vastavaid videoid ei leitud"
+
+#: 
+msgid "New Aiprompt"
+msgstr "Uus Aiprompt"
+
+#: 
+msgid "System Logs"
+msgstr "Süsteemi logid"
+
+#: 
+msgid "Context"
+msgstr "Kontekst"
+
+#: 
+msgid "Model"
+msgstr "Mudel"
+
+#: 
+msgid "Unable to delete logs with level {0}."
+msgstr "Taseme {0} logisid ei saa kustutada."
+
+#: 
+msgid "The user could not be saved. Please, try again."
+msgstr "Kasutajat ei õnnestunud salvestada. Palun proovi uuesti."
+
+#: 
+msgid "Delete {0}"
+msgstr "Kustuta {0}"
+
+#: 
+msgid "Rate limit exceeded for IP: {0} on route: {1}"
+msgstr "IP: {0} määra limiit on ületatud marsruudil: {1}"
+
+#: 
+msgid "Edit Image"
+msgstr "Redigeeri pilti"
+
+#: 
+msgid "Add Tag"
+msgstr "Lisa silt"
+
+#: 
+msgid "Front Site"
+msgstr "Esikülg"
+
+#: 
+msgid "Displayed"
+msgstr "Kuvatakse"
+
+#: 
+msgid "The comment could not be deleted. Please, try again."
+msgstr "Kommentaari ei saanud kustutada. Palun proovi uuesti."
+
+#: 
+msgid "Is Inappropriate"
+msgstr "On sobimatu"
+
+#: 
 msgid "There was an issue confirming your account. Please try again."
 msgstr "Teie konto kinnitamisel ilmnes probleem. Palun proovi uuesti."
 
 #: 
-msgid "Posted on {date} by {author}"
-msgstr "Postitas {date}, autor {author}"
+msgid "Inactive"
+msgstr "Mitteaktiivne"
+
+#: 
+msgid "The aiprompt could not be deleted. Please, try again."
+msgstr "Aiprompti ei saanud kustutada. Palun proovi uuesti."
+
+#: 
+msgid "Root"
+msgstr "Juur"
+
+#: 
+msgid "The slug must be URL-safe (only lowercase letters, numbers, and hyphens)"
+msgstr "Nälk peab olema URL-i jaoks ohutu (ainult väiketähti, numbreid ja sidekriipse)"
+
+#: 
+msgid "Are you sure you want to delete all {0} logs?"
+msgstr "Kas olete kindel, et soovite kustutada kõik {0} logi?"
+
+#: 
+msgid "The tag could not be saved. Please, try again."
+msgstr "Märgendit ei saanud salvestada. Palun proovi uuesti."
+
+#: 
+msgid "Filter"
+msgstr "Filter"
+
+#: 
+msgid "You are not authorized to edit this account, stick to your own."
+msgstr "Teil ei ole õigust seda kontot redigeerida, jääge oma enda juurde."
+
+#: 
+msgid "Search Articles..."
+msgstr "Otsi artikleid..."
+
+#: 
+msgid "Back to Login"
+msgstr "Tagasi sisselogimise juurde"
+
+#: 
+msgid "Edit Page"
+msgstr "Redigeeri lehte"
+
+#: 
+msgid "Add Aiprompt"
+msgstr "Lisage Aiprompt"
+
+#: 
+msgid "The tag could not be deleted. Please, try again."
+msgstr "Märgendit ei saanud kustutada. Palun proovi uuesti."
+
+#: 
+msgid "A value is required"
+msgstr "Väärtus on nõutav"
+
+#: 
+msgid "Are you sure you want to delete # {0}?"
+msgstr "Kas soovite kindlasti # {0} kustutada?"
+
+#: 
+msgid "Are you sure you want to delete  {0}?"
+msgstr "Kas soovite kindlasti {0} kustutada?"
+
+#: 
+msgid "New Tag"
+msgstr "Uus silt"
+
+#: 
+msgid "Add Image"
+msgstr "Lisa pilt"
+
+#: 
+msgid "Edit Comment"
+msgstr "Muuda kommentaari"
+
+#: 
+msgid "Reset your password"
+msgstr "Lähtestage oma parool"
+
+#: 
+msgid "Please enter your email and password"
+msgstr "Palun sisesta oma email ja parool"
+
+#: 
+msgid "Related Comments"
+msgstr "Seotud kommentaarid"
+
+#: 
+msgid "Your account has been updated."
+msgstr "Teie kontot on värskendatud."
+
+#: 
+msgid "New {0}"
+msgstr "Uus {0}"
+
+#: 
+msgid "Language"
+msgstr "Keel"
+
+#: 
+msgid "The blocked ip could not be saved. Please, try again."
+msgstr "Blokeeritud IP-d ei õnnestunud salvestada. Palun proovi uuesti."
+
+#: 
+msgid "Email Templates"
+msgstr "Meilimallid"
+
+#: 
+msgid "Yes"
+msgstr "Jah"
+
+#: 
+msgid "Settings"
+msgstr "Seaded"
+
+#: 
+msgid "Posts"
+msgstr "Postitused"
+
+#: 
+msgid "Email sent successfully."
+msgstr "Meili saatmine õnnestus."
+
+#: 
+msgid "The slug could not be deleted. Please, try again."
+msgstr "Nälkjat ei saanud kustutada. Palun proovi uuesti."
+
+#: 
+msgid "On"
+msgstr "Sees"
+
+#: 
+msgid "Reset Password"
+msgstr "Lähtestage parool"
+
+#: 
+msgid "Are you sure you want to delete all logs in group {0}?"
+msgstr "Kas olete kindel, et soovite kustutada kõik logid rühmas {0}?"
+
+#: 
+msgid "Body Html"
+msgstr "Keha HTML"
+
+#: 
+msgid "No deleting your own account."
+msgstr "Enda kontot ei tohi kustutada."
+
+#: 
+msgid "Add User"
+msgstr "Lisa kasutaja"
+
+#: 
+msgid "Configured Caches"
+msgstr "Konfigureeritud vahemälud"
+
+#: 
+msgid "Summary"
+msgstr "Kokkuvõte"
+
+#: 
+msgid "Add Internationalisation"
+msgstr "Lisa rahvusvahelistumine"
+
+#: 
+msgid "Actions"
+msgstr "Tegevused"
+
+#: 
+msgid "Block IPs"
+msgstr "Blokeeri IP-d"
+
+#: 
+msgid "Functional Cookies"
+msgstr "Funktsionaalsed küpsised"
+
+#: 
+msgid "Created"
+msgstr "Loodud"
+
+#: 
+msgid "Images"
+msgstr "Pildid"
+
+#: 
+msgid "Edit User"
+msgstr "Redigeeri kasutajat"
+
+#: 
+msgid "Enter text"
+msgstr "Sisestage tekst"
+
+#: 
+msgid "Error in: "
+msgstr "Viga: "
+
+#: 
+msgid "View {0}"
+msgstr "Kuva {0}"
+
+#: 
+msgid "Pages"
+msgstr "Leheküljed"
+
+#: 
+msgid "Invalid or expired password reset link."
+msgstr "Kehtetu või aegunud parooli lähtestamise link."
+
+#: 
+msgid "New User"
+msgstr "Uus kasutaja"
+
+#: 
+msgid "There was an issue resetting your password. Please try again."
+msgstr "Teie parooli lähtestamisel ilmnes probleem. Palun proovi uuesti."
+
+#: 
+msgid "Invalid username or password"
+msgstr "Kehtetu kasutajanimi või parool"
+
+#: 
+msgid "Tags"
+msgstr "Sildid"
+
+#: 
+msgid "Your account has been confirmed. You can now log in."
+msgstr "Teie konto on kinnitatud. Nüüd saate sisse logida."
+
+#: 
+msgid "Analytics Cookies"
+msgstr "Analyticsi küpsised"
+
+#: 
+msgid "About"
+msgstr "Umbes"
+
+#: 
+msgid "The article could not be deleted. Please, try again."
+msgstr "Artiklit ei saanud kustutada. Palun proovi uuesti."
+
+#: 
+msgid "Never"
+msgstr "Mitte kunagi"
+
+#: 
+msgid "Creating {0} new top-level tags..."
+msgstr "{0} uue tipptaseme märgendi loomine..."
+
+#: 
+msgid "Last Cleared"
+msgstr "Viimati kustutatud"
+
+#: 
+msgid "Are you sure you want to clear {0}?"
+msgstr "Kas olete kindel, et soovite tühjendada {0}?"
+
+#: 
+msgid "Admin"
+msgstr "Admin"
+
+#: 
+msgid "Your comment has been added."
+msgstr "Teie kommentaar on lisatud."
+
+#: 
+msgid "To understand how we handle your personal information, including the use of cookies and other tracking technologies, please review our {0}."
+msgstr "Et mõista, kuidas me teie isikuandmeid käsitleme, sealhulgas küpsiste ja muude jälgimistehnoloogiate kasutamist, vaadake üle meie {0}."
+
+#: 
+msgid "Picture"
+msgstr "Pilt"
+
+#: 
+msgid "Enter a number"
+msgstr "Sisestage number"
+
+#: 
+msgid "Error saving {0}.{1}: {2}"
+msgstr "Viga faili {0} salvestamisel.{1}: {2}"
+
+#: 
+msgid "The blocked ip has been deleted."
+msgstr "Blokeeritud IP on kustutatud."
+
+#: 
+msgid "The blocked ip has been saved."
+msgstr "Blokeeritud IP on salvestatud."
+
+#: 
+msgid "Slugs"
+msgstr "Nälkjad"
+
+#: 
+msgid "Search logs..."
+msgstr "Otsi logisid..."
+
+#: 
+msgid "Unable to delete all logs."
+msgstr "Kõiki logisid ei saa kustutada."
+
+#: 
+msgid "Tag Articles/Pages"
+msgstr "Märkige artiklid/lehed"
+
+#: 
+msgid "Email sent successfully to: {0}. Template: {1}, Subject: {2}"
+msgstr "Meil saadeti edukalt aadressile {0}. Mall: {1}, Teema: {2}"
+
+#: 
+msgid "The requested address {0} was not found on this server."
+msgstr "Taotletud aadressi {0} sellest serverist ei leitud."
+
+#: 
+msgid "Failed to create tag: {0}"
+msgstr "Märgendi loomine ebaõnnestus: {0}"
+
+#: 
+msgid "Created At"
+msgstr "Loodud kl"
+
+#: 
+msgid "New Blocked Ip"
+msgstr "Uus blokeeritud IP"
+
+#: 
+msgid "Save All Settings"
+msgstr "Salvesta kõik sätted"
+
+#: 
+msgid "Task Type"
+msgstr "Ülesande tüüp"
+
+#: 
+msgid "The user has been deleted."
+msgstr "Kasutaja on kustutatud."
+
+#: 
+msgid "Insert Video"
+msgstr "Sisesta video"
+
+#: 
+msgid "Light"
+msgstr "Valgus"
+
+#: 
+msgid "Archives"
+msgstr "Arhiivid"
+
+#: 
+msgid "Read More"
+msgstr "Loe edasi"
+
+#: 
+msgid "Delete All Logs"
+msgstr "Kustuta kõik logid"
+
+#: 
+msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
+msgstr "Leht {{page}}/{{pages}}, kuvatakse {{praegune}} kirjet kokku {{count}}-st"
+
+#: 
+msgid "Please select your cookie preferences below. Essential cookies are required for the website to function and cannot be disabled."
+msgstr "Valige allpool oma küpsiste eelistused. Veebisaidi toimimiseks on vajalikud olulised küpsised ja neid ei saa keelata."
+
+#: 
+msgid "Unknown Author"
+msgstr "Tundmatu autor"
+
+#: 
+msgid "Search Email Templates..."
+msgstr "Otsi meilimalle..."
+
+#: 
+msgid "Views"
+msgstr "Vaated"
+
+#: 
+msgid "New Post"
+msgstr "Uus postitus"
+
+#: 
+msgid "Image"
+msgstr "Pilt"
+
+#: 
+msgid "Inappropriate Reason"
+msgstr "Sobimatu põhjus"
+
+#: 
+msgid "Comments"
+msgstr "Kommentaarid"
+
+#: 
+msgid "Info"
+msgstr "Info"
+
+#: 
+msgid "Generated article: {0}"
+msgstr "Loodud artikkel: {0}"
+
+#: 
+msgid "Failed to generate article: {0}"
+msgstr "Artikli loomine ebaõnnestus: {0}"
+
+#: 
+msgid "Error in {0}: {1}"
+msgstr "Viga rakenduses {0}: {1}"
+
+#: 
+msgid "Your cookie preferences could not be saved. Please, try again."
+msgstr "Teie küpsiste eelistusi ei saanud salvestada. Palun proovi uuesti."
+
+#: 
+msgid "An error occurred while processing your request."
+msgstr "Teie taotluse töötlemisel ilmnes viga."
+
+#: 
+msgid "Are you sure you want to delete all logs?"
+msgstr "Kas olete kindel, et soovite kõik logid kustutada?"
+
+#: 
+msgid "Search Internationalisations..."
+msgstr "Otsi rahvusvahelistumist..."
+
+#: 
+msgid "All logs in group {0} have been deleted."
+msgstr "Kõik logid rühmas {0} on kustutatud."
+
+#: 
+msgid "Keywords"
+msgstr "Märksõnad"
+
+#: 
+msgid "Modified"
+msgstr "Muudetud"
+
+#: 
+msgid "The log has been deleted."
+msgstr "Logi on kustutatud."
+
+#: 
+msgid "Back"
+msgstr "Tagasi"
+
+#: 
+msgid "Main Menu"
+msgstr "Peamenüü"
+
+#: 
+msgid "This slug is already in use. Please enter a unique slug."
+msgstr "See nälkjas on juba kasutusel. Sisestage ainulaadne nälkjas."
+
+#: 
+msgid "Related Slugs"
+msgstr "Seotud nälkjad"
+
+#: 
+msgid "Log In"
+msgstr "Logi sisse"
+
+#: 
+msgid "Login"
+msgstr "Logi sisse"
+
+#: 
+msgid "Body"
+msgstr "Keha"
+
+#: 
+msgid "Blocked At"
+msgstr "Blokeeritud kell"
+
+#: 
+msgid "No articles found for this tag."
+msgstr "Selle märgendi jaoks ei leitud artikleid."
+
+#: 
+msgid "Cache"
+msgstr "Vahemälu"
+
+#: 
+msgid "Show Full Article"
+msgstr "Kuva kogu artikkel"
+
+#: 
+msgid "Clear"
+msgstr "Selge"
+
+#: 
+msgid "No file uploaded or upload error"
+msgstr "Faili pole üles laaditud või üleslaadimise viga"
+
+#: 
+msgid "Are you sure you want to delete {0}?"
+msgstr "Kas soovite kindlasti {0} kustutada?"
+
+#: 
+msgid "Id"
+msgstr "Id"
+
+#: 
+msgid "{0} cache has been cleared successfully."
+msgstr "{0} vahemälu on edukalt tühjendatud."
+
+#: 
+msgid "Email template not found: {0}"
+msgstr "Meilimalli ei leitud: {0}"
+
+#: 
+msgid "Clear All Cache"
+msgstr "Tühjendage kogu vahemälu"
+
+#: 
+msgid "Group Name"
+msgstr "Grupi nimi"
+
+#: 
+msgid "New Image"
+msgstr "Uus pilt"
+
+#: 
+msgid "Updated At"
+msgstr "Uuendatud kl"
+
+#: 
+msgid "You cannot remove your own admin status."
+msgstr "Te ei saa enda administraatori staatust eemaldada."
+
+#: 
+msgid "Edit"
+msgstr "Muuda"
+
+#: 
+msgid "The comment could not be saved. Please, try again."
+msgstr "Kommentaari ei õnnestunud salvestada. Palun proovi uuesti."
+
+#: 
+msgid "Instagram Description"
+msgstr "Instagrami kirjeldus"
+
+#: 
+msgid "Edit Your Account"
+msgstr "Muutke oma kontot"
+
+#: 
+msgid "No tags are linked."
+msgstr "Silte pole lingitud."
+
+#: 
+msgid "Search Blocked Ips..."
+msgstr "Otsi blokeeritud IP-sid..."
+
+#: 
+msgid "Edit Tag"
+msgstr "Redigeeri sildi"
+
+#: 
+msgid "The internationalisation could not be deleted. Please, try again."
+msgstr "Rahvusvahelistumist ei saanud kustutada. Palun proovi uuesti."
+
+#: 
+msgid "Forgot Password?"
+msgstr "Unustasid salasõna?"
+
+#: 
+msgid "Locale"
+msgstr "Lokaal"
+
+#: 
+msgid "This slug is already in use in articles. Please enter a unique slug."
+msgstr "See nälkjas on juba artiklites kasutusel. Sisestage ainulaadne nälkjas."
+
+#: 
+msgid "Meta Description"
+msgstr "Meta kirjeldus"
+
+#: 
+msgid "Failed to send password reset email: {0}"
+msgstr "Parooli lähtestamise meili saatmine ebaõnnestus: {0}"
+
+#: 
+msgid "Please log in to add a comment"
+msgstr "Kommentaari lisamiseks logige sisse"
+
+#: 
+msgid "Name"
+msgstr "Nimi"
+
+#: 
+msgid "Register New Account"
+msgstr "Registreeri uus konto"
+
+#: 
+msgid "Failed to send confirmation email message: {0}"
+msgstr "Kinnitusmeili saatmine ebaõnnestus: {0}"
+
+#: 
+msgid "This content is hosted by YouTube. By showing the external content you accept the privacy policy of YouTube."
+msgstr "Seda sisu hostib YouTube. Välise sisu kuvamisega nõustute YouTube&#39;i privaatsuseeskirjadega."
+
+#: 
+msgid "The value must be a number."
+msgstr "Väärtus peab olema arv."
+
+#: 
+msgid "Email"
+msgstr "Meil"
+
+#: 
+msgid "Your cookie preferences have been saved."
+msgstr "Teie küpsiste eelistused on salvestatud."
+
+#: 
+msgid "Display"
+msgstr "Ekraan"
+
+#: 
+msgid "Lede"
+msgstr "Lede"
+
+#: 
+msgid "Unable to add your comment."
+msgstr "Teie kommentaari ei saa lisada."
+
+#: 
+msgid "Required for the website to function properly. These cannot be disabled."
+msgstr "Vajalik veebisaidi nõuetekohaseks toimimiseks. Neid ei saa keelata."
+
+#: 
+msgid "Select Video"
+msgstr "Valige Video"
+
+#: 
+msgid "Method not allowed"
+msgstr "Meetod pole lubatud"
+
+#: 
+msgid "Access denied. You must be an admin to view this page."
+msgstr "Juurdepääs keelatud. Selle lehe vaatamiseks peate olema administraator."
+
+#: 
+msgid "List {0}"
+msgstr "Loend {0}"
+
+#: 
+msgid "Logs"
+msgstr "Palgid"
+
+#: 
+msgid "Internationalisation"
+msgstr "Rahvusvahelistumine"
+
+#: 
+msgid "The slug must be unique."
+msgstr "Nälkjas peab olema ainulaadne."
+
+#: 
+msgid "Comments are not enabled"
+msgstr "Kommentaarid pole lubatud"
+
+#: 
+msgid "The article has been deleted."
+msgstr "Artikkel on kustutatud."
+
+#: 
+msgid "Register"
+msgstr "Registreeru"
+
+#: 
+msgid "Code Coverage"
+msgstr "Koodi katvus"
+
+#: 
+msgid "Too many requests. Please try again later."
+msgstr "Liiga palju taotlusi. Proovige hiljem uuesti."
+
+#: 
+msgid "The comment has been deleted."
+msgstr "Kommentaar on kustutatud."
+
+#: 
+msgid "All caches have been cleared successfully."
+msgstr "Kõik vahemälud on edukalt tühjendatud."
+
+#: 
+msgid "Help us understand how visitors interact with our website."
+msgstr "Aidake meil mõista, kuidas külastajad meie veebisaidiga suhtlevad."
+
+#: 
+msgid "Bulk Upload Images"
+msgstr "Kujutiste hulgiüleslaadimine"
+
+#: 
+msgid "Back to top"
+msgstr "Tagasi üles"
+
+#: 
+msgid "Load video"
+msgstr "Laadige video"
+
+#: 
+msgid "The user has been saved."
+msgstr "Kasutaja on salvestatud."
+
+#: 
+msgid "Body Preview"
+msgstr "Keha eelvaade"
+
+#: 
+msgid "Description"
+msgstr "Kirjeldus"
+
+#: 
+msgid "New Internationalisation"
+msgstr "Uus rahvusvahelistumine"
+
+#: 
+msgid "Linkedin Description"
+msgstr "Linkedini kirjeldus"
+
+#: 
+msgid "Related pages"
+msgstr "Seotud lehed"
+
+#: 
+msgid "The image could not be saved. Please, try again."
+msgstr "Pilti ei saanud salvestada. Palun proovi uuesti."
+
+#: 
+msgid "Select Tags"
+msgstr "Valige Sildid"
+
+#: 
+msgid "Selected"
+msgstr "Valitud"
+
+#: 
+msgid "Some settings could not be saved. Please, try again."
+msgstr "Mõnda seadet ei saanud salvestada. Palun proovi uuesti."
+
+#: 
+msgid "You cannot disable your own account."
+msgstr "Te ei saa oma kontot keelata."
+
+#: 
+msgid "Featured"
+msgstr "Esiletõstetud"
+
+#: 
+msgid "Search Posts..."
+msgstr "Otsi postitusi..."
+
+#: 
+msgid "Body Plain"
+msgstr "Kere tavaline"
+
+#: 
+msgid "Search Pages..."
+msgstr "Otsi lehti..."
+
+#: 
+msgid "The email template could not be saved. Please, try again."
+msgstr "Meilimalli ei saanud salvestada. Palun proovi uuesti."
+
+#: 
+msgid "Insert Image"
+msgstr "Sisesta pilt"
+
+#: 
+msgid "Search Comments..."
+msgstr "Otsi kommentaare..."
+
+#: 
+msgid "Message Str"
+msgstr "Sõnum Str"
+
+#: 
+msgid "No comments yet."
+msgstr "Kommentaarid veel puuduvad."
+
+#: 
+msgid "Elsewhere"
+msgstr "mujal"
+
+#: 
+msgid "List View"
+msgstr "Loendivaade"
+
+#: 
+msgid "Message Id"
+msgstr "Sõnumi ID"
+
+#: 
+msgid "Auto"
+msgstr "Automaatne"
+
+#: 
+msgid "Required"
+msgstr "Nõutav"
+
+#: 
+msgid "This message_id must be unique for the given locale."
+msgstr "See message_id peab antud lokaadi jaoks olema kordumatu."
+
+#: 
+msgid "New Article"
+msgstr "Uus artikkel"
+
+#: 
+msgid "Invalid confirmation code."
+msgstr "Kehtetu kinnituskood."
+
+#: 
+msgid "Privacy Policy"
+msgstr "Privaatsuspoliitika"
+
+#: 
+msgid "Some caches were cleared, but the following failed: {0}"
+msgstr "Mõned vahemälud tühjendati, kuid järgmine ebaõnnestus: {0}"
+
+#: 
+msgid "Cookies"
+msgstr "Küpsised"
+
+#: 
+msgid "Max Tokens"
+msgstr "Max märgid"
+
+#: 
+msgid "Template Identifier"
+msgstr "Malli identifikaator"
+
+#: 
+msgid "Is Published"
+msgstr "On avaldatud"
+
+#: 
+msgid "The article could not be saved. Please, try again."
+msgstr "Artiklit ei õnnestunud salvestada. Palun proovi uuesti."
+
+#: 
+msgid "None"
+msgstr "Mitte ühtegi"
+
+#: 
+msgid "Search images..."
+msgstr "Otsi pilte..."
+
+#: 
+msgid "Is Admin"
+msgstr "Kas administraator"
+
+#: 
+msgid "Delete all articles before generating new ones"
+msgstr "Enne uute loomist kustutage kõik artiklid"
+
+#: 
+msgid "The slug has been saved."
+msgstr "Nälkjas on päästetud."
+
+#: 
+msgid "Auto Tag"
+msgstr "Automaatne silt"
+
+#: 
+msgid "Submit"
+msgstr "Esita"
+
+#: 
+msgid "Total Views: "
+msgstr "Vaatamisi kokku: "
+
+#: 
+msgid "Add Post"
+msgstr "Lisa postitus"
+
+#: 
+msgid "Level"
+msgstr "Tase"
+
+#: 
+msgid "Show"
+msgstr "Näita"
+
+#: 
+msgid "{0} cache configuration does not exist."
+msgstr "{0} vahemälu konfiguratsiooni pole olemas."
+
+#: 
+msgid "The value must not be empty."
+msgstr "Väärtus ei tohi olla tühi."
+
+#: 
+msgid "All Levels"
+msgstr "Kõik tasemed"
+
+#: 
+msgid "Essential Cookies"
+msgstr "Olulised küpsised"
+
+#: 
+msgid "Edit Article"
+msgstr "Redigeeri artiklit"
+
+#: 
+msgid "Active"
+msgstr "Aktiivne"
+
+#: 
+msgid "Edit Post"
+msgstr "Redigeeri postitust"
+
+#: 
+msgid "Page Views for {0}"
+msgstr "Lehevaatamised: {0}"
+
+#: 
+msgid "All rights reserved."
+msgstr "Kõik õigused kaitstud."
+
+#: 
+msgid "Edit Blocked Ip"
+msgstr "Redigeeri blokeeritud IP-d"
+
+#: 
+msgid "The slug could not be saved. Please, try again."
+msgstr "Nälkjat ei õnnestunud päästa. Palun proovi uuesti."
+
+#: 
+msgid "View"
+msgstr "Vaade"
+
+#: 
+msgid "Used to deliver personalized advertisements and enable the facebook share button."
+msgstr "Kasutatakse isikupärastatud reklaamide edastamiseks ja Facebooki jagamisnupu lubamiseks."
+
+#: 
+msgid "New Page"
+msgstr "Uus leht"
+
+#: 
+msgid "The internationalisation has been deleted."
+msgstr "Rahvusvahelistumine on kustutatud."
+
+#: 
+msgid "Error sending email: {0}"
+msgstr "Viga meili saatmisel: {0}"
+
+#: 
+msgid "Failed to generate {0} articles."
+msgstr "{0} artikli loomine ebaõnnestus."
+
+#: 
+msgid "Add"
+msgstr "Lisa"
+
+#: 
+msgid "Tree View"
+msgstr "Puuvaade"
+
+#: 
+msgid "Search Aiprompts..."
+msgstr "Otsi Aiprompts..."
+
+#: 
+msgid "Add Article"
+msgstr "Lisa artikkel"
+
+#: 
+msgid "Willow CMS"
+msgstr "Willow CMS"
+
+#: 
+msgid "Unable to delete the log."
+msgstr "Logi ei saa kustutada."
+
+#: 
+msgid "Page View Statistics for slug: {0}"
+msgstr "Lehevaate statistika nälkjate kohta: {0}"
+
+#: 
+msgid "Cookie Preferences"
+msgstr "Küpsiste eelistused"
+
+#: 
+msgid "Edit Slug"
+msgstr "Redigeeri Slug"
+
+#: 
+msgid "Registration successful. Please check your email for confirmation."
+msgstr "Registreerimine õnnestus. Kinnituse saamiseks kontrollige oma meili."
+
+#: 
+msgid "Add Slug"
+msgstr "Lisa nälkjas"
+
+#: 
+msgid "Temperature"
+msgstr "Temperatuur"
+
+#: 
+msgid "{0} Views"
+msgstr "{0} vaatamist"
+
+#: 
+msgid "Share"
+msgstr "Jaga"
+
+#: 
+msgid "Username"
+msgstr "Kasutajanimi"
+
+#: 
+msgid "Failed to send email to: {0}"
+msgstr "Meili saatmine aadressile {0} ebaõnnestus"
+
+#: 
+msgid "Edit Email Template"
+msgstr "Redigeeri meilimalli"
+
+#: 
+msgid "Search Slugs..."
+msgstr "Otsige nälkjaid..."
+
+#: 
+msgid "Please enter your email to reset your password"
+msgstr "Parooli lähtestamiseks sisestage oma e-posti aadress"
+
+#: 
+msgid "Marketing Cookies"
+msgstr "Turundusküpsised"
+
+#: 
+msgid "Users"
+msgstr "Kasutajad"
+
+#: 
+msgid "Password must be at least 8 characters long"
+msgstr "Parool peab olema vähemalt 8 tähemärki pikk"
+
+#: 
+msgid "Page {{page}} of {{pages}}"
+msgstr "Leht {{page}}/{{pages}}"
+
+#: 
+msgid "New Email Template"
+msgstr "Uus meili mall"
+
+#: 
+msgid "Image Uploads"
+msgstr "Piltide üleslaadimine"
+
+#: 
+msgid "Modified At"
+msgstr "Muudetud kell"
+
+#: 
+msgid "Number of articles to generate"
+msgstr "Loodavate artiklite arv"
+
+#: 
+msgid "Twitter Description"
+msgstr "Twitteri kirjeldus"
+
+#: 
+msgid "Not published"
+msgstr "Ei avaldatud"
+
+#: 
+msgid "The email template has been saved."
+msgstr "Meili mall on salvestatud."
+
+#: 
+msgid "Expires At"
+msgstr "Aegub kl"
+
+#: 
+msgid "Willow Logo"
+msgstr "Paju logo"
+
+#: 
+msgid "Related Articles/Pages"
+msgstr "Seotud artiklid/leheküljed"
+
+#: 
+msgid "Page Views"
+msgstr "Lehekülje vaatamised"
+
+#: 
+msgid "Add Blocked Ip"
+msgstr "Lisage blokeeritud IP"
+
+#: 
+msgid "Essential"
+msgstr "Hädavajalik"
+
+#: 
+msgid "Home"
+msgstr "Kodu"
+
+#: 
+msgid "Invalid type"
+msgstr "Sobimatu tüüp"
+
+#: 
+msgid "Body Editor"
+msgstr "Keha toimetaja"
+
+#: 
+msgid "View detailed records for this date"
+msgstr "Vaadake selle kuupäeva üksikasjalikke kirjeid"
+
+#: 
+msgid "By"
+msgstr "Autor"
 

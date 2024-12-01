@@ -4,9 +4,7 @@ declare(strict_types=1);
 namespace App\Middleware;
 
 use App\Http\Exception\TooManyRequestsException;
-use App\Service\IpSecurityService;
 use Cake\Cache\Cache;
-use Cake\Http\Response;
 use Cake\Log\Log;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -31,17 +29,11 @@ class RateLimitMiddleware implements MiddlewareInterface
     private array $rateLimitedRoutes;
 
     /**
-     * @var \App\Service\IpSecurityService
-     */
-    private IpSecurityService $ipSecurity;
-
-    /**
      * Constructor
      *
      * @param array $config Configuration options for rate limiting.
-     * @param \App\Service\IpSecurityService|null $ipSecurity IP security service
      */
-    public function __construct(array $config = [], ?IpSecurityService $ipSecurity = null)
+    public function __construct(array $config = [])
     {
         $this->limit = $config['limit'] ?? 3;
         $this->period = $config['period'] ?? 60;
@@ -51,7 +43,6 @@ class RateLimitMiddleware implements MiddlewareInterface
             '/articles/add-comment/',
             '/admin/*',
         ];
-        $this->ipSecurity = $ipSecurity ?? new IpSecurityService();
     }
 
     /**
@@ -66,39 +57,18 @@ class RateLimitMiddleware implements MiddlewareInterface
     {
         $ip = $this->getClientIp($request);
         $route = $request->getUri()->getPath();
-        $query = $request->getUri()->getQuery();
 
-        // Check if IP is already blocked
-        if ($this->ipSecurity->isIpBlocked($ip)) {
-            $response = new Response();
+        if ($this->isRouteLimited($route)) {
+            $key = "rate_limit_{$ip}_normal";
+            $rateData = $this->updateRateLimit($key, $this->period);
 
-            return $response->withStatus(403)
-                ->withStringBody('Access Denied: Your IP is blocked.');
-        }
-
-        // Check for suspicious patterns in route and query
-        $isSuspicious = $this->ipSecurity->isSuspiciousRequest($route, $query);
-
-        if ($isSuspicious) {
-            $this->ipSecurity->trackSuspiciousActivity($ip, $route, $query);
-        }
-
-        if ($isSuspicious || $this->isRouteLimited($route)) {
-            $key = "rate_limit_{$ip}_" . ($isSuspicious ? 'suspicious' : 'normal');
-
-            // Use stricter limits for suspicious requests
-            $currentLimit = $isSuspicious ? (int)($this->limit / 3) : $this->limit;
-            $currentPeriod = $isSuspicious ? $this->period * 2 : $this->period;
-
-            $rateData = $this->updateRateLimit($key, $currentPeriod);
-
-            if ($rateData['count'] > $currentLimit) {
-                $this->logViolation($ip, $route, $query, $rateData, $currentLimit, $isSuspicious);
+            if ($rateData['count'] > $this->limit) {
+                $this->logViolation($ip, $route, $request->getUri()->getQuery(), $rateData);
 
                 throw new TooManyRequestsException(
                     __('Too many requests. Please try again later.'),
                     null,
-                    $currentPeriod
+                    $this->period
                 );
             }
         }
@@ -136,25 +106,16 @@ class RateLimitMiddleware implements MiddlewareInterface
      * @param string $route Request route
      * @param string $query Query string
      * @param array $rateData Rate limit data
-     * @param int $limit Current limit
-     * @param bool $isSuspicious Whether request was flagged as suspicious
      * @return void
      */
-    private function logViolation(
-        string $ip,
-        string $route,
-        string $query,
-        array $rateData,
-        int $limit,
-        bool $isSuspicious
-    ): void {
+    private function logViolation(string $ip, string $route, string $query, array $rateData): void
+    {
         Log::warning(__('Rate limit exceeded for IP: {0}', [$ip]), [
             'ip' => $ip,
             'route' => $route,
             'query' => $query,
             'count' => $rateData['count'],
-            'limit' => $limit,
-            'suspicious' => $isSuspicious,
+            'limit' => $this->limit,
             'group_name' => 'rate_limiting',
         ]);
     }

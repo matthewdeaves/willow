@@ -110,9 +110,43 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
     public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
     {
         $middlewareQueue
+
             // Catch any exceptions in the lower layers,
             // and make an error page/response
             ->add(new ErrorHandlerMiddleware(Configure::read('Error'), $this))
+
+            /**
+             * Adds the IP Blocker Middleware to the middleware queue.
+             *
+             * This middleware checks the client's IP address on every request,
+             * querying the blocked_ips table to determine if the IP is blocked.
+             * If blocked, it returns a 403 Forbidden response. Otherwise, it
+             * allows the request to proceed normally.
+             *
+             * @see \App\Middleware\IpBlockerMiddleware
+             */
+            ->add(new IpBlockerMiddleware())
+
+            /**
+             * Adds a RateLimitMiddleware to the middleware queue.
+             *
+             * This middleware implements rate limiting to prevent abuse and ensure fair usage
+             * of the application's resources. It tracks the number of requests made by each client
+             * within a specified time period and blocks requests that exceed the defined limit.
+             *
+             * @param array $options Configuration options for the RateLimitMiddleware
+             *     @option int $limit The maximum number of requests allowed within the specified period.
+             *                        In this case, 4 requests are allowed.
+             *     @option int $period The time frame in seconds for which the limit applies.
+             *                         Here, it's set to 60 seconds (1 minute).
+             * @return \Psr\Http\Server\MiddlewareInterface The configured RateLimitMiddleware instance.
+             * @throws \InvalidArgumentException If the provided options are invalid.
+             * @see \App\Middleware\RateLimitMiddleware For full implementation details.
+             */
+            ->add(new RateLimitMiddleware([
+                'limit' => SettingsManager::read('RateLimit.numberOfRequests', 4),
+                'period' => SettingsManager::read('RateLimit.numberOfSeconds', 60),
+            ]))
 
             // Handle plugin/theme assets like CakePHP normally does.
             ->add(new AssetMiddleware([
@@ -151,39 +185,6 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             // https://book.cakephp.org/5/en/security/csrf.html#cross-site-request-forgery-csrf-middleware
             ->add(new CsrfProtectionMiddleware([
                 'httponly' => true,
-            ]))
-
-            /**
-             * Adds the IP Blocker Middleware to the middleware queue.
-             *
-             * This middleware checks the client's IP address on every request,
-             * querying the blocked_ips table to determine if the IP is blocked.
-             * If blocked, it returns a 403 Forbidden response. Otherwise, it
-             * allows the request to proceed normally.
-             *
-             * @see \App\Middleware\IpBlockerMiddleware
-             */
-            ->add(new IpBlockerMiddleware())
-
-            /**
-             * Adds a RateLimitMiddleware to the middleware queue.
-             *
-             * This middleware implements rate limiting to prevent abuse and ensure fair usage
-             * of the application's resources. It tracks the number of requests made by each client
-             * within a specified time period and blocks requests that exceed the defined limit.
-             *
-             * @param array $options Configuration options for the RateLimitMiddleware
-             *     @option int $limit The maximum number of requests allowed within the specified period.
-             *                        In this case, 4 requests are allowed.
-             *     @option int $period The time frame in seconds for which the limit applies.
-             *                         Here, it's set to 60 seconds (1 minute).
-             * @return \Psr\Http\Server\MiddlewareInterface The configured RateLimitMiddleware instance.
-             * @throws \InvalidArgumentException If the provided options are invalid.
-             * @see \App\Middleware\RateLimitMiddleware For full implementation details.
-             */
-            ->add(new RateLimitMiddleware([
-                'limit' => SettingsManager::read('RateLimit.numberOfRequests', 4),
-                'period' => SettingsManager::read('RateLimit.numberOfSeconds', 60),
             ]));
 
         return $middlewareQueue;

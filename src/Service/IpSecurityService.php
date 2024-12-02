@@ -290,7 +290,7 @@ class IpSecurityService
         Cache::write($key, $data, 'ip_blocker');
 
         // If there are multiple suspicious requests within a short time, block the IP
-        if ($data['count'] >= 3 && (time() - $data['first_seen']) <= 300) { // 5 minutes
+        if ($data['count'] >= 2 && (time() - $data['first_seen']) <= 86400) { // 24 hours
             $reason = __('Multiple suspicious requests detected');
 
             // Set default expiry to 24 hours from now

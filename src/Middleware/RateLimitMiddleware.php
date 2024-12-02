@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Middleware;
 
 use App\Http\Exception\TooManyRequestsException;
+use App\Utility\SettingsManager;
 use Cake\Cache\Cache;
 use Cake\Log\Log;
 use Psr\Http\Message\ResponseInterface;
@@ -55,7 +56,11 @@ class RateLimitMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $ip = $this->getClientIp($request);
+        if (SettingsManager::read('Security.trustProxy', false)) {
+            $request = $request->withAttribute('trustProxy', true);
+        }
+
+        $ip = $request->clientIp();
         $route = $request->getUri()->getPath();
 
         if ($this->isRouteLimited($route)) {
@@ -118,19 +123,6 @@ class RateLimitMiddleware implements MiddlewareInterface
             'limit' => $this->limit,
             'group_name' => 'rate_limiting',
         ]);
-    }
-
-    /**
-     * Get the client IP address from the request.
-     *
-     * @param \Psr\Http\Message\ServerRequestInterface $request The server request.
-     * @return string The client IP address.
-     */
-    private function getClientIp(ServerRequestInterface $request): string
-    {
-        $serverParams = $request->getServerParams();
-
-        return $serverParams['REMOTE_ADDR'] ?? '0.0.0.0';
     }
 
     /**

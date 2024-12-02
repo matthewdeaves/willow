@@ -59,6 +59,7 @@ alias gd='git diff'
 alias cake_bake_model='willowcms_exec bin/cake bake model'
 alias cake_bake_controller='willowcms_exec bin/cake bake controller'
 alias cake_bake_template='willowcms_exec bin/cake bake template'
+alias cake_bake_migration='willowcms_exec bin/cake bake migration "$@"'
 
 # CakePHP Cache and Migrations
 alias cake_clear_cache='willowcms_exec bin/cake cache clear_all'

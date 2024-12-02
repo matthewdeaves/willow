@@ -29,6 +29,7 @@ class CookieConsentsControllerTest extends AppControllerTestCase
     protected array $fixtures = [
         'app.Users',
         'app.CookieConsents',
+        'app.Settings',
     ];
 
     /**

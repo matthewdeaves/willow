@@ -26,6 +26,7 @@ class BlockedIpsControllerTest extends AppControllerTestCase
     protected array $fixtures = [
         'app.BlockedIps',
         'app.Users',
+        'app.Settings',
     ];
 
     /**

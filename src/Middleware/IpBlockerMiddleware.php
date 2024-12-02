@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Middleware;
 
 use App\Service\IpSecurityService;
+use App\Utility\SettingsManager;
 use Cake\Http\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -54,8 +55,11 @@ class IpBlockerMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $params = $request->getServerParams();
-        $clientIp = $params['REMOTE_ADDR'] ?? null;
+        if (SettingsManager::read('Security.trustProxy', false)) {
+            $request = $request->withAttribute('trustProxy', true);
+        }
+
+        $clientIp = $request->clientIp();
 
         if (!$clientIp) {
             return $handler->handle($request);

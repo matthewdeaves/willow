@@ -13,6 +13,7 @@ class SystemLogsControllerTest extends AppControllerTestCase
     protected array $fixtures = [
         'app.SystemLogs',
         'app.Users',
+        'app.Settings',
     ];
 
     public function setUp(): void

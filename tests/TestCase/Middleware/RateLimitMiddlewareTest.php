@@ -31,7 +31,7 @@ class RateLimitMiddlewareTest extends TestCase
             'routes' => ['/users/login', '/users/register'],
         ]);
     }
-    
+
     /**
      * Test rate limiting for general routes.
      */

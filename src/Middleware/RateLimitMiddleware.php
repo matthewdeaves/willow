@@ -15,9 +15,14 @@ use Psr\Http\Server\RequestHandlerInterface;
 class RateLimitMiddleware implements MiddlewareInterface
 {
     /**
-     * @var int The maximum number of requests allowed within the period.
+     * @var int The maximum number of requests allowed within the period for general routes.
      */
-    private int $limit;
+    private int $generalLimit;
+
+    /**
+     * @var int The maximum number of requests allowed within the period for sensitive routes.
+     */
+    private int $sensitiveLimit;
 
     /**
      * @var int The time period in seconds for rate limiting.
@@ -25,9 +30,9 @@ class RateLimitMiddleware implements MiddlewareInterface
     private int $period;
 
     /**
-     * @var array The list of routes to apply rate limiting.
+     * @var array The list of sensitive routes to apply stricter rate limiting.
      */
-    private array $rateLimitedRoutes;
+    private array $sensitiveRoutes;
 
     /**
      * Constructor
@@ -36,13 +41,13 @@ class RateLimitMiddleware implements MiddlewareInterface
      */
     public function __construct(array $config = [])
     {
-        $this->limit = $config['limit'] ?? 3;
+        $this->generalLimit = $config['generalLimit'] ?? 20;
+        $this->sensitiveLimit = $config['sensitiveLimit'] ?? 3;
         $this->period = $config['period'] ?? 60;
-        $this->rateLimitedRoutes = $config['routes'] ?? [
+        $this->sensitiveRoutes = $config['sensitiveRoutes'] ?? [
             '/users/login',
             '/users/register',
             '/articles/add-comment/',
-            '/admin/*',
         ];
     }
 
@@ -63,19 +68,19 @@ class RateLimitMiddleware implements MiddlewareInterface
         $ip = $request->clientIp();
         $route = $request->getUri()->getPath();
 
-        if ($this->isRouteLimited($route)) {
-            $key = "rate_limit_{$ip}_normal";
-            $rateData = $this->updateRateLimit($key, $this->period);
+        $isSensitive = $this->isSensitiveRoute($route);
+        $limit = $isSensitive ? $this->sensitiveLimit : $this->generalLimit;
+        $key = "rate_limit_{$ip}_" . ($isSensitive ? 'sensitive' : 'general');
+        $rateData = $this->updateRateLimit($key, $this->period);
 
-            if ($rateData['count'] > $this->limit) {
-                $this->logViolation($ip, $route, $request->getUri()->getQuery(), $rateData);
+        if ($rateData['count'] > $limit) {
+            $this->logViolation($ip, $route, $request->getUri()->getQuery(), $rateData);
 
-                throw new TooManyRequestsException(
-                    __('Too many requests. Please try again later.'),
-                    null,
-                    $this->period
-                );
-            }
+            throw new TooManyRequestsException(
+                __('Too many requests. Please try again later.'),
+                null,
+                $this->period
+            );
         }
 
         return $handler->handle($request);
@@ -120,34 +125,32 @@ class RateLimitMiddleware implements MiddlewareInterface
             'route' => $route,
             'query' => $query,
             'count' => $rateData['count'],
-            'limit' => $this->limit,
+            'limit' => $rateData['count'] > $this->sensitiveLimit ? $this->sensitiveLimit : $this->generalLimit,
             'group_name' => 'rate_limiting',
         ]);
     }
 
     /**
-     * Check if the given route should be rate limited.
+     * Check if the given route is sensitive and should have stricter rate limiting.
      *
      * @param string $route The route to check.
-     * @return bool True if the route should be rate limited, false otherwise.
+     * @return bool True if the route is sensitive, false otherwise.
      */
-    private function isRouteLimited(string $route): bool
+    private function isSensitiveRoute(string $route): bool
     {
-        foreach ($this->rateLimitedRoutes as $limitedRoute) {
+        foreach ($this->sensitiveRoutes as $sensitiveRoute) {
             // Handle wildcard routes
-            if (str_contains($limitedRoute, '*')) {
-                // Allow optional language prefix and the rest of the route
+            if (str_contains($sensitiveRoute, '*')) {
                 $pattern = '#^(/[a-z]{2})?/' . str_replace(
                     '*',
                     '.*',
-                    ltrim(preg_quote($limitedRoute, '#'), '/')
+                    ltrim(preg_quote($sensitiveRoute, '#'), '/')
                 ) . '$#';
                 if (preg_match($pattern, $route)) {
                     return true;
                 }
             } else {
-                // Allow optional language prefix for regular routes
-                $pattern = '#^(/[a-z]{2})?/' . ltrim(preg_quote($limitedRoute, '#'), '/') . '$#';
+                $pattern = '#^(/[a-z]{2})?/' . ltrim(preg_quote($sensitiveRoute, '#'), '/') . '$#';
                 if (preg_match($pattern, $route)) {
                     return true;
                 }

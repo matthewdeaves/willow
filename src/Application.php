@@ -144,9 +144,18 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
              * @see \App\Middleware\RateLimitMiddleware For full implementation details.
              */
             ->add(new RateLimitMiddleware([
-                'limit' => SettingsManager::read('RateLimit.numberOfRequests', 4),
+                'generalLimit' => SettingsManager::read('RateLimit.generalLimit', 20),
+                'sensitiveLimit' => SettingsManager::read('RateLimit.sensitiveLimit', 5),
                 'period' => SettingsManager::read('RateLimit.numberOfSeconds', 60),
+                'sensitiveRoutes' => [
+                    '/users/login',
+                    '/users/register',
+                    '/articles/add-comment/',
+                ],
             ]))
+
+
+            
 
             // Handle plugin/theme assets like CakePHP normally does.
             ->add(new AssetMiddleware([

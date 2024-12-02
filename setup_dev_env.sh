@@ -54,7 +54,7 @@ tableExists=$?
 
 if [ "$tableExists" -eq 0 ]; then
     echo "Subsequent container startup detected."
-    read -p "Do you want to [W]ipe data, re[B]uild, [R]estart the development environment or [C]ontinue? (w/b/r/c): " choice
+    read -p "Do you want to [W]ipe data, re[B]uild, [R]estart the development environment, run [M]igration or [C]ontinue? (w/b/r/c): " choice
     case ${choice:0:1} in
         w|W)
             echo "Wiping Docker containers..."
@@ -74,6 +74,10 @@ if [ "$tableExists" -eq 0 ]; then
             $(needs_sudo) docker compose down --remove-orphans
             start_docker_containers
             wait_for_mysql
+            ;;
+        m|M)
+            echo "Running migrations..."
+            $(needs_sudo) docker compose exec willowcms bin/cake migrations migrate
             ;;
         c|C|*)
             echo "Continuing with normal startup..."

@@ -154,9 +154,6 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
                 ],
             ]))
 
-
-            
-
             // Handle plugin/theme assets like CakePHP normally does.
             ->add(new AssetMiddleware([
                 'cacheTime' => Configure::read('Asset.cacheTime'),

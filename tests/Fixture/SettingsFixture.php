@@ -124,6 +124,27 @@ class SettingsFixture extends TestFixture
                 'value' => '1',
                 'value_type' => 'bool',
             ],
+            [
+                'id' => Text::uuid(),
+                'category' => 'RateLimit',
+                'key_name' => 'generalLimit',
+                'value' => 100,
+                'value_type' => 'numeric',
+            ],
+            [
+                'id' => Text::uuid(),
+                'category' => 'RateLimit',
+                'key_name' => 'sensitiveLimit',
+                'value' => 100,
+                'value_type' => 'numeric',
+            ],
+            [
+                'id' => Text::uuid(),
+                'category' => 'RateLimit',
+                'key_name' => 'numberOfSeconds',
+                'value' => 60,
+                'value_type' => 'numeric',
+            ],
         ];
         parent::init();
     }

@@ -202,13 +202,13 @@ class InsertSettings extends AbstractMigration
                 'category' => 'Google',
                 'key_name' => 'tagManagerHead',
                 'value' => '<!-- Google tag (gtag.js) -->' . PHP_EOL .
-                           '<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>' . PHP_EOL .
-                           '<script>' . PHP_EOL .
-                           '  window.dataLayer = window.dataLayer || [];' . PHP_EOL .
-                           '  function gtag(){dataLayer.push(arguments);}' . PHP_EOL .
-                           '  gtag(\'js\', new Date());' . PHP_EOL .
-                           '  gtag(\'config\', \'G-XXXXXXXXXX\');' . PHP_EOL .
-                           '</script>',
+                            '<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>' . PHP_EOL .
+                            '<script>' . PHP_EOL .
+                            '  window.dataLayer = window.dataLayer || [];' . PHP_EOL .
+                            '  function gtag(){dataLayer.push(arguments);}' . PHP_EOL .
+                            '  gtag(\'js\', new Date());' . PHP_EOL .
+                            '  gtag(\'config\', \'G-XXXXXXXXXX\');' . PHP_EOL .
+                            '</script>',
                 'value_type' => 'textarea',
                 'value_obscure' => true,
                 'description' => 'The Google Tag Manager <head> tag is a JavaScript snippet placed in the <head> section that loads the GTM container and enables tag management without direct code modifications.',
@@ -623,162 +623,162 @@ class InsertSettings extends AbstractMigration
                 "data" => null,
                 "column_width" => 2
             ])
-          ->insert([
-              "id" => Text::uuid(),
-              "ordering" => 24,
-              "category" => "Translations",
-              "key_name" => "tr_TR",
-              "value" => "0",
-              "value_type" => "bool",
-              "value_obscure" => false,
-              "description" => "Enable translations in Turkish",
-              "data" => null,
-              "column_width" => 2
-          ])
-          ->insert([
-              "id" => Text::uuid(),
-              "ordering" => 19,
-              "category" => "Translations",
-              "key_name" => "ro_RO",
-              "value" => "0",
-              "value_type" => "bool",
-              "value_obscure" => false,
-              "description" => "Enable translations in Romanian",
-              "data" => null,
-              "column_width" => 2
-          ])
-          ->insert([
-              "id" => Text::uuid(),
-              "ordering" => 7,
-              "category" => "Translations",
-              "key_name" => "et_EE",
-              "value" => "0",
-              "value_type" => "bool",
-              "value_obscure" => false,
-              "description" => "Enable translations in Estonian",
-              "data" => null,
-              "column_width" => 2
-          ])
-          ->insert([
-              "id" => Text::uuid(),
-              "ordering" => 4,
-              "category" => "Translations",
-              "key_name" => "de_DE",
-              "value" => "0",
-              "value_type" => "bool",
-              "value_obscure" => false,
-              "description" => "Enable translations in German",
-              "data" => null,
-              "column_width" => 2
-          ])
-          ->insert([
-              "id" => Text::uuid(),
-              "ordering" => 9,
-              "category" => "Translations",
-              "key_name" => "fr_FR",
-              "value" => "0",
-              "value_type" => "bool",
-              "value_obscure" => false,
-              "description" => "Enable translations in French",
-              "data" => null,
-              "column_width" => 2
-          ])
-          ->insert([
-              "id" => Text::uuid(),
-              "ordering" => 15,
-              "category" => "Translations",
-              "key_name" => "nl_NL",
-              "value" => "0",
-              "value_type" => "bool",
-              "value_obscure" => false,
-              "description" => "Enable translations in Dutch",
-              "data" => null,
-              "column_width" => 2
-          ])
-          ->insert([
-              "id" => Text::uuid(),
-              "ordering" => 2,
-              "category" => "Comments",
-              "key_name" => "pagesEnabled",
-              "value" => "0",
-              "value_type" => "bool",
-              "value_obscure" => false,
-              "description" => "Turn this on to enable logged in users to comment on your pages.",
-              "data" => null,
-              "column_width" => 2
-          ])
-          ->insert([
-              "id" => Text::uuid(),
-              "ordering" => 1,
-              "category" => "SitePages",
-              "key_name" => "privacyPolicy",
-              "value" => "None",
-              "value_type" => "select-page",
-              "value_obscure" => false,
-              "description" => "Choose which page to show as your site Privacy Policy.",
-              "data" => "",
-              "column_width" => 2
-          ])
-          ->insert([
-              "id" => Text::uuid(),
-              "ordering" => 0,
-              "category" => "Blog",
-              "key_name" => "articleDisplayMode",
-              "value" => "summary",
-              "value_type" => "select",
-              "value_obscure" => false,
-              "description" => "This setting controls if articles on the blog index show their Summary or Body text.",
-              "data" => "{\n  \"summary\": \"Summary\",\n  \"lede\": \"Lede\",\n  \"body\": \"Body\"\n}",
-              "column_width" => 2
-          ])
-          ->insert([
-              "id" =>  Text::uuid(),
-              "ordering" => 18,
-              "category" => "Translations",
-              "key_name" => "pt_PT",
-              "value" => "0",
-              "value_type" => "bool",
-              "value_obscure" => false,
-              "description" => "Enable translations in Portuguese",
-              "data" => null,
-              "column_width" =>  2
-          ])
-          ->insert([
-              "id" =>  Text::uuid(),
-              "ordering" =>  8,
-              "category" => "AI",
-              "key_name" => "imageAnalysis",
-              "value" => "0",
-              "value_type" => "bool",
-              "value_obscure" => false,
-              "description" => "Enable or disable the automatic image analysis feature to enhance your content's accessibility. When activated, the system will examine each images to generate relevant keywords and descriptive alt text. This functionality ensures that images are appropriately tagged, improving SEO and providing a better experience for users who rely on screen readers.",
-              "data" => null,
-              "column_width" => 2
-          ])
-          ->insert([
-              "id" => Text::uuid(),
-              "ordering" => 0,
-              "category" => "Editing",
-              "key_name" => "editor",
-              "value" => "trumbowyg",
-              "value_type" => "select",
-              "value_obscure" => false,
-              "description" => "Chose your default editor for posts and pages content. Trumbowyg is good for HTML whilst Markdown-It supports Markdown.",
-              "data" => "{\n  \"trumbowyg\": \"Trumbowyg\",\n  \"markdownit\": \"Markdown-It\"\n}",
-              "column_width" => 2
-          ])
-          ->insert([
-              "id" => Text::uuid(),
-              "ordering" => 3,
-              "category" => "SitePages",
-              "key_name" => "mainTagMenuShow",
-              "value" => "root",
-              "value_type" => "select",
-              "value_obscure" => false,
-              "description" => "Should the main tag menu show all root tags or only selected tags?",
-              "data" => "{\n  \"root\": \"Top Level Tags\",\n  \"selected\": \"Selected Tags\"\n}",
-              "column_width" => 2
-          ])
+            ->insert([
+                "id" => Text::uuid(),
+                "ordering" => 24,
+                "category" => "Translations",
+                "key_name" => "tr_TR",
+                "value" => "0",
+                "value_type" => "bool",
+                "value_obscure" => false,
+                "description" => "Enable translations in Turkish",
+                "data" => null,
+                "column_width" => 2
+            ])
+            ->insert([
+                "id" => Text::uuid(),
+                "ordering" => 19,
+                "category" => "Translations",
+                "key_name" => "ro_RO",
+                "value" => "0",
+                "value_type" => "bool",
+                "value_obscure" => false,
+                "description" => "Enable translations in Romanian",
+                "data" => null,
+                "column_width" => 2
+            ])
+            ->insert([
+                "id" => Text::uuid(),
+                "ordering" => 7,
+                "category" => "Translations",
+                "key_name" => "et_EE",
+                "value" => "0",
+                "value_type" => "bool",
+                "value_obscure" => false,
+                "description" => "Enable translations in Estonian",
+                "data" => null,
+                "column_width" => 2
+            ])
+            ->insert([
+                "id" => Text::uuid(),
+                "ordering" => 4,
+                "category" => "Translations",
+                "key_name" => "de_DE",
+                "value" => "0",
+                "value_type" => "bool",
+                "value_obscure" => false,
+                "description" => "Enable translations in German",
+                "data" => null,
+                "column_width" => 2
+            ])
+            ->insert([
+                "id" => Text::uuid(),
+                "ordering" => 9,
+                "category" => "Translations",
+                "key_name" => "fr_FR",
+                "value" => "0",
+                "value_type" => "bool",
+                "value_obscure" => false,
+                "description" => "Enable translations in French",
+                "data" => null,
+                "column_width" => 2
+            ])
+            ->insert([
+                "id" => Text::uuid(),
+                "ordering" => 15,
+                "category" => "Translations",
+                "key_name" => "nl_NL",
+                "value" => "0",
+                "value_type" => "bool",
+                "value_obscure" => false,
+                "description" => "Enable translations in Dutch",
+                "data" => null,
+                "column_width" => 2
+            ])
+            ->insert([
+                "id" => Text::uuid(),
+                "ordering" => 2,
+                "category" => "Comments",
+                "key_name" => "pagesEnabled",
+                "value" => "0",
+                "value_type" => "bool",
+                "value_obscure" => false,
+                "description" => "Turn this on to enable logged in users to comment on your pages.",
+                "data" => null,
+                "column_width" => 2
+            ])
+            ->insert([
+                "id" => Text::uuid(),
+                "ordering" => 1,
+                "category" => "SitePages",
+                "key_name" => "privacyPolicy",
+                "value" => "None",
+                "value_type" => "select-page",
+                "value_obscure" => false,
+                "description" => "Choose which page to show as your site Privacy Policy.",
+                "data" => "",
+                "column_width" => 2
+            ])
+            ->insert([
+                "id" => Text::uuid(),
+                "ordering" => 0,
+                "category" => "Blog",
+                "key_name" => "articleDisplayMode",
+                "value" => "summary",
+                "value_type" => "select",
+                "value_obscure" => false,
+                "description" => "This setting controls if articles on the blog index show their Summary or Body text.",
+                "data" => "{\n  \"summary\": \"Summary\",\n  \"lede\": \"Lede\",\n  \"body\": \"Body\"\n}",
+                "column_width" => 2
+            ])
+            ->insert([
+                "id" =>  Text::uuid(),
+                "ordering" => 18,
+                "category" => "Translations",
+                "key_name" => "pt_PT",
+                "value" => "0",
+                "value_type" => "bool",
+                "value_obscure" => false,
+                "description" => "Enable translations in Portuguese",
+                "data" => null,
+                "column_width" =>  2
+            ])
+            ->insert([
+                "id" =>  Text::uuid(),
+                "ordering" =>  8,
+                "category" => "AI",
+                "key_name" => "imageAnalysis",
+                "value" => "0",
+                "value_type" => "bool",
+                "value_obscure" => false,
+                "description" => "Enable or disable the automatic image analysis feature to enhance your content's accessibility. When activated, the system will examine each images to generate relevant keywords and descriptive alt text. This functionality ensures that images are appropriately tagged, improving SEO and providing a better experience for users who rely on screen readers.",
+                "data" => null,
+                "column_width" => 2
+            ])
+            ->insert([
+                "id" => Text::uuid(),
+                "ordering" => 0,
+                "category" => "Editing",
+                "key_name" => "editor",
+                "value" => "trumbowyg",
+                "value_type" => "select",
+                "value_obscure" => false,
+                "description" => "Chose your default editor for posts and pages content. Trumbowyg is good for HTML whilst Markdown-It supports Markdown.",
+                "data" => "{\n  \"trumbowyg\": \"Trumbowyg\",\n  \"markdownit\": \"Markdown-It\"\n}",
+                "column_width" => 2
+            ])
+            ->insert([
+                "id" => Text::uuid(),
+                "ordering" => 3,
+                "category" => "SitePages",
+                "key_name" => "mainTagMenuShow",
+                "value" => "root",
+                "value_type" => "select",
+                "value_obscure" => false,
+                "description" => "Should the main tag menu show all root tags or only selected tags?",
+                "data" => "{\n  \"root\": \"Top Level Tags\",\n  \"selected\": \"Selected Tags\"\n}",
+                "column_width" => 2
+            ])
             ->insert([
                 'id' => Text::uuid(),
                 'ordering' => 1,
@@ -815,6 +815,6 @@ class InsertSettings extends AbstractMigration
                 'data' => null,
                 'column_width' => 2,
             ])
-          ->save();
+            ->save();
     }
 }

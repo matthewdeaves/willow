@@ -135,12 +135,13 @@ class RateLimitMiddleware implements MiddlewareInterface
         foreach ($this->rateLimitedRoutes as $limitedRoute) {
             // Handle wildcard routes
             if (str_contains($limitedRoute, '*')) {
+                // First escape the route for regex, then replace the escaped wildcard with .*
+                $escapedRoute = preg_quote(ltrim($limitedRoute, '/'), '#');
+                $pattern = str_replace('\*', '.*', $escapedRoute);
+                
                 // Allow optional language prefix and the rest of the route
-                $pattern = '#^(/[a-z]{2})?/' . str_replace(
-                    '*',
-                    '.*',
-                    ltrim(preg_quote($limitedRoute, '#'), '/')
-                ) . '$#';
+                $pattern = '#^(/[a-z]{2})?/' . $pattern . '$#';
+
                 if (preg_match($pattern, $route)) {
                     return true;
                 }

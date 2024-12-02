@@ -127,15 +127,8 @@ class SettingsFixture extends TestFixture
             [
                 'id' => Text::uuid(),
                 'category' => 'RateLimit',
-                'key_name' => 'generalLimit',
-                'value' => 100,
-                'value_type' => 'numeric',
-            ],
-            [
-                'id' => Text::uuid(),
-                'category' => 'RateLimit',
-                'key_name' => 'sensitiveLimit',
-                'value' => 100,
+                'key_name' => 'numberOfRequests',
+                'value' => 500,
                 'value_type' => 'numeric',
             ],
             [

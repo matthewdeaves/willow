@@ -186,7 +186,7 @@ class InsertSettings extends AbstractMigration
             ])
             ->insert([
                 'id' => Text::uuid(),
-                'ordering' => 0,
+                'ordering' => 1,
                 'category' => 'RateLimit',
                 'key_name' => 'numberOfSeconds',
                 'value' => '60',
@@ -793,21 +793,9 @@ class InsertSettings extends AbstractMigration
             ])
             ->insert([
                 'id' => Text::uuid(),
-                'ordering' => 1,
-                'category' => 'RateLimit',
-                'key_name' => 'generalLimit',
-                'value' => 25,
-                'value_type' => 'numeric',
-                'value_obscure' => 0,
-                'description' => 'The maximum number of requests allowed per minute for general routes.',
-                'data' => null,
-                'column_width' => 2,
-            ])
-            ->insert([
-                'id' => Text::uuid(),
                 'ordering' => 2,
                 'category' => 'RateLimit',
-                'key_name' => 'sensitiveLimit',
+                'key_name' => 'numberOfRequests',
                 'value' => 4,
                 'value_type' => 'numeric',
                 'value_obscure' => 0,

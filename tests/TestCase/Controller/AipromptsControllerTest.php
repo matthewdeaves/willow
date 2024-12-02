@@ -23,6 +23,7 @@ class AipromptsControllerTest extends AppControllerTestCase
     protected array $fixtures = [
         'app.Aiprompts',
         'app.Users',
+        'app.Settings',
     ];
 
     /**

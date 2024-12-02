@@ -58,20 +58,20 @@ if [ "$tableExists" -eq 0 ]; then
     case ${choice:0:1} in
         w|W)
             echo "Wiping Docker containers..."
-            $(needs_sudo) docker compose down -v
+            $(needs_sudo) docker compose down -v --remove-orphans
             start_docker_containers
             wait_for_mysql
             ;;
         b|B)
             echo "Rebuilding Docker containers..."
-            $(needs_sudo) docker compose down
+            $(needs_sudo) docker compose down --remove-orphans
             $(needs_sudo) docker compose build
             start_docker_containers
             wait_for_mysql
             ;;
         r|R)
             echo "Restarting Docker containers..."
-            $(needs_sudo) docker compose down
+            $(needs_sudo) docker compose down --remove-orphans
             start_docker_containers
             wait_for_mysql
             ;;

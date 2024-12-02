@@ -16,7 +16,7 @@ class RateLimitMiddlewareTest extends TestCase
     /**
      * @var \App\Middleware\RateLimitMiddleware
      */
-    private $middleware;
+    private RateLimitMiddleware $middleware;
 
     /**
      * Set up the test case.
@@ -24,15 +24,14 @@ class RateLimitMiddlewareTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        Cache::clear('rate_limit'); // Clear cache before each test
+        Cache::clear('rate_limit');
         $this->middleware = new RateLimitMiddleware([
-            'generalLimit' => 2, // Set general limit for testing
-            'sensitiveLimit' => 1, // Set sensitive limit for testing
-            'period' => 60, // Time period in seconds
-            'sensitiveRoutes' => ['/users/login', '/users/register'],
+            'limit' => 2,
+            'period' => 60,
+            'routes' => ['/users/login', '/users/register'],
         ]);
     }
-
+    
     /**
      * Test rate limiting for general routes.
      */
@@ -40,7 +39,7 @@ class RateLimitMiddlewareTest extends TestCase
     {
         $request = new ServerRequest(['url' => '/articles/view']);
         $handler = $this->createMock(RequestHandlerInterface::class);
-        $handler->expects($this->exactly(2))->method('handle')->willReturn($this->createMock(ResponseInterface::class));
+        $handler->expects($this->exactly(3))->method('handle')->willReturn($this->createMock(ResponseInterface::class));
 
         // First request should pass
         $this->middleware->process($request, $handler);
@@ -48,8 +47,7 @@ class RateLimitMiddlewareTest extends TestCase
         // Second request should pass
         $this->middleware->process($request, $handler);
 
-        // Third request should throw TooManyRequestsException
-        $this->expectException(TooManyRequestsException::class);
+        // Third request should pass since '/articles/view' is not rate limited
         $this->middleware->process($request, $handler);
     }
 
@@ -60,12 +58,15 @@ class RateLimitMiddlewareTest extends TestCase
     {
         $request = new ServerRequest(['url' => '/users/login']);
         $handler = $this->createMock(RequestHandlerInterface::class);
-        $handler->expects($this->once())->method('handle')->willReturn($this->createMock(ResponseInterface::class));
+        $handler->expects($this->exactly(2))->method('handle')->willReturn($this->createMock(ResponseInterface::class));
 
         // First request should pass
         $this->middleware->process($request, $handler);
 
-        // Second request should throw TooManyRequestsException
+        // Second request should pass
+        $this->middleware->process($request, $handler);
+
+        // Third request should throw TooManyRequestsException
         $this->expectException(TooManyRequestsException::class);
         $this->middleware->process($request, $handler);
     }

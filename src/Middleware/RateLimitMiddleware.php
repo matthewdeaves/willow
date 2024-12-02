@@ -138,7 +138,7 @@ class RateLimitMiddleware implements MiddlewareInterface
                 // First escape the route for regex, then replace the escaped wildcard with .*
                 $escapedRoute = preg_quote(ltrim($limitedRoute, '/'), '#');
                 $pattern = str_replace('\*', '.*', $escapedRoute);
-                
+
                 // Allow optional language prefix and the rest of the route
                 $pattern = '#^(/[a-z]{2})?/' . $pattern . '$#';
 

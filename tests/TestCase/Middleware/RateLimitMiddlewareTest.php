@@ -100,7 +100,7 @@ class RateLimitMiddlewareTest extends TestCase
         $handler = $this->createMock(RequestHandlerInterface::class);
         $responseMock = $this->createMock(ResponseInterface::class);
         $handler->method('handle')->willReturn($responseMock);
-    
+
         // First request should pass
         $response1 = $this->middleware->process($request, $handler);
         $this->assertSame($responseMock, $response1, 'First request did not pass as expected.');
@@ -108,7 +108,7 @@ class RateLimitMiddlewareTest extends TestCase
         // Second request should pass
         $response2 = $this->middleware->process($request, $handler);
         $this->assertSame($responseMock, $response2, 'Second request did not pass as expected.');
-    
+
         // Third request should throw TooManyRequestsException
         $this->expectException(TooManyRequestsException::class);
         $this->middleware->process($request, $handler);

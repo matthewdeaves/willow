@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Controller\AppController;
+use Cake\Http\Response;
 
 class RobotsController extends AppController
 {
@@ -12,7 +12,7 @@ class RobotsController extends AppController
      *
      * @return \Cake\Http\Response
      */
-    public function index(): \Cake\Http\Response
+    public function index(): Response
     {
         $filePath = WWW_ROOT . 'robots.txt';
         $robotsContent = file_exists($filePath) ? file_get_contents($filePath) : '';

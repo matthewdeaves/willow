@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
-use Cake\Http\Response;
 
 class RobotsController extends AppController
 {
@@ -49,6 +48,7 @@ EOT;
             $robotsContent = $this->request->getData('robotsContent');
             if (file_put_contents($filePath, $robotsContent) !== false) {
                 $this->Flash->success(__('The robots.txt file has been updated.'));
+
                 return $this->redirect(['action' => 'edit']);
             }
             $this->Flash->error(__('Could not save the robots.txt file. Please try again.'));

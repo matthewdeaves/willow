@@ -32,12 +32,7 @@ class SitemapController extends AppController
     public function beforeFilter(EventInterface $event): ?Response
     {
         parent::beforeFilter($event);
-
-        $this->Authentication->allowUnauthenticated(
-            [
-                'index',
-            ]
-        );
+        $this->Authentication->allowUnauthenticated(['index']);
 
         return null;
     }
@@ -71,6 +66,9 @@ class SitemapController extends AppController
      */
     public function index(): void
     {
+        // Get the current language or default to 'en'
+        $currentLang = $this->request->getParam('lang', 'en');
+
         $articlesTable = $this->fetchTable('Articles');
 
         // Get published hierarchical pages
@@ -100,12 +98,13 @@ class SitemapController extends AppController
 
         $urls = [];
 
-        // Add pages with higher priority since they're structural
+        // Add pages with higher priority
         foreach ($pages as $page) {
             $urls[] = [
                 'loc' => Router::url([
                     '_name' => 'page-by-slug',
-                    $page->slug,
+                    'slug' => $page->slug,
+                    'lang' => $currentLang,
                     '_full' => true,
                 ]),
                 'lastmod' => $page->modified->format('Y-m-d'),
@@ -119,7 +118,8 @@ class SitemapController extends AppController
             $urls[] = [
                 'loc' => Router::url([
                     '_name' => 'article-by-slug',
-                    $article->slug,
+                    'slug' => $article->slug,
+                    'lang' => $currentLang,
                     '_full' => true,
                 ]),
                 'lastmod' => $article->modified->format('Y-m-d'),
@@ -133,7 +133,8 @@ class SitemapController extends AppController
             $urls[] = [
                 'loc' => Router::url([
                     '_name' => 'tag-by-slug',
-                    $tag->slug,
+                    'slug' => $tag->slug,
+                    'lang' => $currentLang,
                     '_full' => true,
                 ]),
                 'lastmod' => $tag->modified->format('Y-m-d'),
@@ -144,7 +145,11 @@ class SitemapController extends AppController
 
         // Add homepage with highest priority
         array_unshift($urls, [
-            'loc' => Router::url('/', true),
+            'loc' => Router::url([
+                '_name' => 'home',
+                'lang' => $currentLang,
+                '_full' => true,
+            ]),
             'changefreq' => 'daily',
             'priority' => '1.0',
         ]);
@@ -157,5 +162,11 @@ class SitemapController extends AppController
             '@xmlns' => 'http://www.sitemaps.org/schemas/sitemap/0.9',
             'url' => $urls,
         ]);
+
+        // Set response type and cache headers
+        $this->response = $this->response
+            ->withType('xml')
+            ->withHeader('Content-Type', 'application/xml')
+            ->withCache('-1 minute', '+1 day');
     }
 }

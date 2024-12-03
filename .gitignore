@@ -44,6 +44,10 @@ willow_cms_code_Utilities.txt
 !/webroot/files/Articles/image/.gitkeep
 /dump.rdb
 
+# Robots.txt #
+#################################
+/webroot/robots.txt
+
 # Willow Dev Env Setup #
 ########################
 /wait-for-it.sh

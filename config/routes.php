@@ -210,6 +210,18 @@ return function (RouteBuilder $routes): void {
                 '_name' => 'sitemap'
             ]
         );
+
+        $builder->connect(
+            '/robots.txt',
+            [
+                'controller' => 'Robots',
+                'action' => 'index'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'robots'
+            ]
+        );
     });
 
     /*

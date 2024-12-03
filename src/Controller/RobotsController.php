@@ -7,6 +7,21 @@ use Cake\Http\Response;
 
 class RobotsController extends AppController
 {
+
+    /**
+     * Configures authentication for specific actions.
+     *
+     * @param \Cake\Event\EventInterface $event The event instance.
+     * @return \Cake\Http\Response|null
+     */
+    public function beforeFilter(EventInterface $event): ?Response
+    {
+        parent::beforeFilter($event);
+        $this->Authentication->addUnauthenticatedActions(['index']);
+
+        return null;
+    }
+
     /**
      * Display robots.txt content with language-specific paths
      *

@@ -216,7 +216,6 @@ $session = $this->request->getSession();
               <ul class="dropdown-menu">
                 <li><?= $this->Html->link(__('Settings'), ['prefix' => 'Admin', 'controller' => 'Settings', 'action' => 'index'], ['class' => 'dropdown-item' . ($activeCtl == 'Settings' ? ' active' : '')]) ?></li>
                 <li><?= $this->Html->link(__('Email Templates'), ['prefix' => 'Admin', 'controller' => 'EmailTemplates', 'action' => 'index'], ['class' => 'dropdown-item' . ($activeCtl == 'EmailTemplates' ? ' active' : '')]) ?></li>
-                <li><?= $this->Html->link(__('Robots.txt'), ['prefix' => 'Admin', 'controller' => 'Robots', 'action' => 'edit'], ['class' => 'dropdown-item' . ($activeCtl == 'Robots' ? ' active' : '')]) ?></li>
                 <li><?= $this->Html->link(__('Slugs'), ['prefix' => 'Admin', 'controller' => 'Slugs', 'action' => 'index'], ['class' => 'dropdown-item' . ($activeCtl == 'Slugs' ? ' active' : '')]) ?></li>
                 <?php if (Configure::read('debug')) : ?>
                 <li><?= $this->Html->link(__('AI Prompts'), ['prefix' => 'Admin', 'controller' => 'Aiprompts', 'action' => 'index'], ['class' => 'dropdown-item' . ($activeCtl == 'Aiprompts' ? ' active' : '')]) ?></li>

@@ -162,7 +162,7 @@ class InsertSettings extends AbstractMigration
             ])
             ->insert([
                 'id' => Text::uuid(),
-                'ordering' => 0,
+                'ordering' => 6,
                 'category' => 'SEO',
                 'key_name' => 'siteName',
                 'value' => 'Willow CMS',
@@ -217,7 +217,7 @@ class InsertSettings extends AbstractMigration
             ])
             ->insert([
                 'id' => Text::uuid(),
-                'ordering' => 0,
+                'ordering' => 1,
                 'category' => 'SEO',
                 'key_name' => 'siteMetakeywords',
                 'value' => 'Default site meta keywords',
@@ -265,7 +265,7 @@ class InsertSettings extends AbstractMigration
             ])
             ->insert([
                 'id' => Text::uuid(),
-                'ordering' => 0,
+                'ordering' => 3,
                 'category' => 'SEO',
                 'key_name' => 'siteStrapline',
                 'value' => 'Welcome to Willow CMS',
@@ -313,7 +313,7 @@ class InsertSettings extends AbstractMigration
             ])
             ->insert([
                 'id' => Text::uuid(),
-                'ordering' => 0,
+                'ordering' => 2,
                 'category' => 'SEO',
                 'key_name' => 'siteMetaDescription',
                 'value' => 'Default site meta description',

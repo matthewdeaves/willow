@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Utility\SettingsManager;
 use Cake\Event\EventInterface;
 use Cake\Http\Response;
 
@@ -29,15 +30,7 @@ class RobotsController extends AppController
      */
     public function index(): Response
     {
-        $filePath = WWW_ROOT . 'robots.txt.template';
-
-        if (!file_exists($filePath)) {
-            return $this->response
-                ->withType('text/plain')
-                ->withStringBody('User-agent: *' . PHP_EOL . 'Disallow: /');
-        }
-
-        $robotsContent = file_get_contents($filePath);
+        $robotsContent = SettingsManager::read('SEO.robots', '');
 
         // Get language from URL or default to 'en'
         $lang = $this->request->getParam('lang');

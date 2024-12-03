@@ -5,6 +5,7 @@ namespace App\Utility;
 
 use Cake\Cache\Cache;
 use Cake\ORM\TableRegistry;
+use InvalidArgumentException;
 
 /**
  * Class SettingsManager
@@ -18,6 +19,62 @@ class SettingsManager
      * @var string The cache configuration name used for storing settings.
      */
     private static string $cacheConfig = 'settings_cache';
+
+    /**
+     * Writes a setting value to the database and updates the cache.
+     *
+     * This method updates a setting value identified by the given path. It updates the value in the database
+     * using the Settings table and then updates the cache to reflect the change.
+     *
+     * @param string $path The dot-separated path to the setting (e.g., 'category.key_name').
+     * @param mixed $value The value to set for the specified setting.
+     * @return bool True if the setting was successfully updated, false otherwise.
+     * @throws \InvalidArgumentException If the path format is invalid.
+     * @throws \RuntimeException If the Settings table cannot be accessed.
+     */
+    public static function write(string $path, mixed $value): bool
+    {
+        $parts = explode('.', $path);
+        if (count($parts) !== 2) {
+            throw new InvalidArgumentException(
+                'Invalid path format. Must be in the format "category.key_name"'
+            );
+        }
+
+        [$category, $keyName] = $parts;
+        $cacheKey = 'setting_' . str_replace('.', '_', $path);
+
+        $settingsTable = TableRegistry::getTableLocator()->get('Settings');
+
+        // Find the existing setting
+        $setting = $settingsTable->find()
+            ->where([
+                'category' => $category,
+                'key_name' => $keyName,
+            ])
+            ->first();
+
+        if (!$setting) {
+            throw new InvalidArgumentException(
+                sprintf('Setting not found: %s.%s', $category, $keyName)
+            );
+        }
+
+        // Update the setting
+        $setting->value = $value;
+
+        if ($settingsTable->save($setting)) {
+            // Update the cache
+            Cache::write($cacheKey, $value, self::$cacheConfig);
+
+            // Also clear the category-level cache if it exists
+            Cache::delete('setting_' . $category, self::$cacheConfig);
+
+            return true;
+        }
+
+        return false;
+    }
 
     /**
      * Reads a setting value from the cache or database.

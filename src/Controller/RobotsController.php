@@ -7,7 +7,6 @@ use Cake\Http\Response;
 
 class RobotsController extends AppController
 {
-
     /**
      * Configures authentication for specific actions.
      *

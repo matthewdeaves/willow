@@ -33,6 +33,7 @@ class SitemapController extends AppController
     {
         parent::beforeFilter($event);
         $this->Authentication->allowUnauthenticated(['index']);
+
         return null;
     }
 
@@ -67,7 +68,7 @@ class SitemapController extends AppController
     {
         // Get the current language or default to 'en'
         $currentLang = $this->request->getParam('lang', 'en');
-        
+
         $articlesTable = $this->fetchTable('Articles');
 
         // Get published hierarchical pages
@@ -147,7 +148,7 @@ class SitemapController extends AppController
             'loc' => Router::url([
                 '_name' => 'home',
                 'lang' => $currentLang,
-                '_full' => true
+                '_full' => true,
             ]),
             'changefreq' => 'daily',
             'priority' => '1.0',

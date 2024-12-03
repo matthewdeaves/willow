@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
+use Cake\Http\Response;
 
 class RobotsController extends AppController
 {
@@ -36,7 +37,7 @@ EOT;
     /**
      * Edit the robots.txt content
      *
-     * @return \Cake\Http\Response|null|void
+     * @return \Cake\Http\Response|null
      */
     public function edit(): ?Response
     {
@@ -59,6 +60,8 @@ EOT;
 
         $robotsContent = file_get_contents($filePath);
         $this->set(compact('robotsContent'));
+
+        return null;
     }
 
     /**

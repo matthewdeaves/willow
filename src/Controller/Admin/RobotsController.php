@@ -8,26 +8,29 @@ use App\Controller\AppController;
 class RobotsController extends AppController
 {
     /**
-     * Default content for robots.txt
+     * Default content for robots.txt with language placeholder
      */
     private string $defaultContent = <<<EOT
 User-agent: *
-Allow: /
-Allow: /articles/
-Allow: /pages/
-Allow: /tags/
-Allow: /sitemap.xml
+Allow: /{LANG}/
+Allow: /{LANG}/articles/*
+Allow: /{LANG}/pages/*
+Allow: /{LANG}/sitemap.xml
 
 Disallow: /admin/
-Disallow: /users/login
-Disallow: /users/register
-Disallow: /users/forgot-password
-Disallow: /users/reset-password/
-Disallow: /users/confirm-email/
-Disallow: /users/edit/
-Disallow: /cookie-consents/edit
+Disallow: /{LANG}/users/login
+Disallow: /{LANG}/users/register
+Disallow: /{LANG}/users/forgot-password
+Disallow: /{LANG}/users/reset-password/*
+Disallow: /{LANG}/users/confirm-email/*
+Disallow: /{LANG}/users/edit/*
+Disallow: /{LANG}/cookie-consents/edit
 
-Sitemap: /sitemap.xml
+# Prevent indexing of non-existent listing pages
+Disallow: /{LANG}/articles$
+Disallow: /{LANG}/pages$
+
+Sitemap: /{LANG}/sitemap.xml
 EOT;
 
     /**
@@ -35,9 +38,9 @@ EOT;
      *
      * @return \Cake\Http\Response|null|void
      */
-    public function edit()
+    public function edit(): ?Response
     {
-        $filePath = WWW_ROOT . 'robots.txt';
+        $filePath = WWW_ROOT . 'robots.txt.template';
 
         // Check if the file exists, if not create it with default content
         if (!file_exists($filePath)) {
@@ -63,9 +66,9 @@ EOT;
      *
      * @return \Cake\Http\Response|null
      */
-    public function reset()
+    public function reset(): ?Response
     {
-        $filePath = WWW_ROOT . 'robots.txt';
+        $filePath = WWW_ROOT . 'robots.txt.template';
 
         if (file_put_contents($filePath, $this->defaultContent) !== false) {
             $this->Flash->success(__('The robots.txt file has been reset to default.'));

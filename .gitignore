@@ -45,8 +45,8 @@ willow_cms_code_Utilities.txt
 /dump.rdb
 
 # Robots.txt #
-#################################
-/webroot/robots.txt
+##############
+/webroot/robots.txt.template
 
 # Willow Dev Env Setup #
 ########################

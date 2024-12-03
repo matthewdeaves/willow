@@ -48,9 +48,36 @@ return function (RouteBuilder $routes): void {
      * `{action}` markers.
      */
     $routes->setRouteClass(DashedRoute::class);
+    $routes->setExtensions(['xml']); // Enable XML extension parsing globally
+
+    // Root robots.txt route must come before the scope
+    $routes->connect(
+        '/robots.txt',
+        [
+            'controller' => 'Robots',
+            'action' => 'index'
+        ],
+        [
+            '_name' => 'robots-root'
+        ]
+    );
+
+    // Root sitemap.xml route must come before the scope
+    $routes->connect(
+        '/sitemap',
+        [
+            'controller' => 'Sitemap',
+            'action' => 'index',
+            '_ext' => 'xml'
+        ],
+        [
+            '_name' => 'sitemap-root'
+        ]
+    );
 
     $routes->scope('/', function (RouteBuilder $builder): void {
-
+        $builder->setExtensions(['xml']);
+        
         $builder->connect('/', ['controller' => 'Articles', 'action' => 'index']);
         $builder->connect(
             '/',
@@ -64,6 +91,39 @@ return function (RouteBuilder $routes): void {
             ]
         );
 
+        // Language-specific robots.txt route
+        $builder->connect(
+            '/{lang}/robots.txt',
+            [
+                'controller' => 'Robots',
+                'action' => 'index'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'robots',
+                'lang' => '[a-z]{2}',
+                'pass' => ['lang']
+            ]
+        );
+
+        // Language-specific sitemap route
+        $builder->connect(
+            '/{lang}/sitemap',
+            [
+                'controller' => 'Sitemap',
+                'action' => 'index',
+                '_ext' => 'xml'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'sitemap',
+                'lang' => '[a-z]{2}',
+                'pass' => ['lang']
+            ]
+        );
+
+        // ... rest of your existing routes ...
+        // (All the user, article, tag routes remain unchanged)
         $builder->connect(
             '/users/login',
             [
@@ -197,56 +257,8 @@ return function (RouteBuilder $routes): void {
         );
     });
 
-    $routes->scope('/', function (RouteBuilder $builder): void {
-        $builder->setExtensions(['xml']);
-        $builder->connect(
-            '/sitemap',
-            [
-                'controller' => 'Sitemap',
-                'action' => 'index'
-            ],
-            [
-                'routeClass' => 'ADmad/I18n.I18nRoute',
-                '_name' => 'sitemap'
-            ]
-        );
-
-        $builder->connect(
-            '/robots.txt',
-            [
-                'controller' => 'Robots',
-                'action' => 'index'
-            ],
-            [
-                'routeClass' => 'ADmad/I18n.I18nRoute',
-                '_name' => 'robots'
-            ]
-        );
-    });
-
-    /*
-     * If you need a different set of middleware or none at all,
-     * open new scope and define routes there.
-     *
-     * ```
-     * $routes->scope('/api', function (RouteBuilder $builder): void {
-     *     // No $builder->applyMiddleware() here.
-     *
-     *     // Parse specified extensions from URLs
-     *     // $builder->setExtensions(['json', 'xml']);
-     *
-     *     // Connect API actions here.
-     * });
-     * ```
-     */
-
-     $routes->prefix('Admin', function (RouteBuilder $routes) {
-        // All routes here will be prefixed with `/admin`, and
-        // have the `'prefix' => 'Admin'` route element added that
-        // will be required when generating URLs for these routes
-
+    $routes->prefix('Admin', function (RouteBuilder $routes) {
         $routes->connect('/', ['controller' => 'Articles', 'action' => 'index', 'prefix' => 'Admin']);
-        
         $routes->fallbacks(DashedRoute::class);
     });
 };

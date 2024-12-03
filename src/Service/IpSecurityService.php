@@ -233,7 +233,25 @@ class IpSecurityService
         $fullUrl = $route . ($query ? '?' . $query : '');
         $decodedUrl = urldecode($fullUrl);
         $doubleDecodedUrl = urldecode($decodedUrl); // Catch double-encoded attacks
-
+    
+        // Gather client information
+        $clientInfo = [
+            'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? 'unknown',
+            'ip_address' => $_SERVER['REMOTE_ADDR'] ?? 'unknown',
+            'request_method' => $_SERVER['REQUEST_METHOD'] ?? 'unknown',
+            'referer' => $_SERVER['HTTP_REFERER'] ?? 'none',
+            'accept_language' => $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? 'unknown',
+            'accept_encoding' => $_SERVER['HTTP_ACCEPT_ENCODING'] ?? 'unknown',
+            'host' => $_SERVER['HTTP_HOST'] ?? 'unknown',
+            'protocol' => $_SERVER['SERVER_PROTOCOL'] ?? 'unknown',
+            'request_time' => $_SERVER['REQUEST_TIME'] ?? time(),
+            'forwarded_for' => $_SERVER['HTTP_X_FORWARDED_FOR'] ?? 'none',
+            'real_ip' => $_SERVER['HTTP_X_REAL_IP'] ?? 'none',
+            'is_ajax' => isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+                strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest',
+            'session_id' => session_id() ?: 'none'
+        ];
+    
         // Check all versions against patterns
         foreach ($this->suspiciousPatterns as $pattern) {
             if (
@@ -247,12 +265,17 @@ class IpSecurityService
                     'decoded_url' => $decodedUrl,
                     'double_decoded' => $doubleDecodedUrl,
                     'group_name' => 'security',
+                    'client' => $clientInfo,
+                    'request_headers' => getallheaders() ?: [],
+                    'timestamp' => (new DateTime())->format('Y-m-d H:i:s.u'),
+                    'memory_usage' => memory_get_usage(true),
+                    'peak_memory' => memory_get_peak_usage(true)
                 ]);
-
+    
                 return true;
             }
         }
-
+    
         return false;
     }
 

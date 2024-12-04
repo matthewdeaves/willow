@@ -11,7 +11,6 @@
 <article class="blog-post">
     <a class="text-decoration-none" href="<?= $this->Url->build(['_name' => $article->kind . '-by-slug', 'slug' => $article->slug]) ?>">
         <h2 class="display-5 link-body-emphasis mb-1"><?= $article->title ?></h2>
-        <?= $this->element('image/icon',  ['model' => $article, 'icon' => $article->teenyImageUrl, 'preview' => $article->largeImageUrl ]); ?>
         <p class="blog-post-meta">
         <?= $article->published->format('F j, Y') ?> <?= h($article->user->username) ?>
         </p>
@@ -19,17 +18,20 @@
 
     <?php $displayMode = SettingsManager::read('Blog.articleDisplayMode', 'summary') ?>
 
-    <?php if ($displayMode == 'lede') : ?>
-        <p><?= htmlspecialchars_decode($article->lede) ?></p>
-        <hr>
-    <?php elseif ($displayMode == 'summary') : ?>
-        <?= htmlspecialchars_decode($article->summary); ?>
-        <hr>
-    <?php elseif ($displayMode == 'body') : ?>
-        <?= htmlspecialchars_decode($this->Video->processYouTubePlaceholders($article->body)); ?>
-        <hr>
-    <?php endif; ?>
+    <div class="blog-post-content">
+        <?= $this->element('image/icon',  ['model' => $article, 'icon' => $article->smallImageUrl, 'preview' => false]); ?>
 
+        <div class="content">
+            <?php if ($displayMode == 'lede') : ?>
+                <p><?= htmlspecialchars_decode($article->lede) ?></p>
+            <?php elseif ($displayMode == 'summary') : ?>
+                <?= htmlspecialchars_decode($article->summary); ?>
+            <?php elseif ($displayMode == 'body') : ?>
+                <?= htmlspecialchars_decode($this->Video->processYouTubePlaceholders($article->body)); ?>
+            <?php endif; ?>
+        </div>
+    </div>
+    <hr>
 </article>
 <?php endforeach; ?>
 <script>

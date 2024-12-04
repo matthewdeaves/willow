@@ -116,8 +116,8 @@ class UsersTable extends Table
                     'message' => 'Please upload only images (jpeg, png, gif).',
                 ],
                 'fileSize' => [
-                    'rule' => ['fileSize', '<=', '5MB'],
-                    'message' => 'Image must be less than 5MB.',
+                    'rule' => ['fileSize', '<=', '10MB'],
+                    'message' => 'Image must be less than 10MB.',
                 ],
             ]);
 

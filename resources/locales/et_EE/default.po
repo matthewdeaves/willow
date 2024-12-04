@@ -62,7 +62,7 @@ msgid "Slug:"
 msgstr "Nälkjas:"
 
 #: 
-msgid "Image must be less than 5MB."
+msgid "Image must be less than 10MB."
 msgstr "Pilt peab olema väiksem kui 5 MB."
 
 #: 

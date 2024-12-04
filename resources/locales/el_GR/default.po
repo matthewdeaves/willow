@@ -594,7 +594,7 @@ msgid "Add Internationalisation"
 msgstr "Προσθήκη διεθνοποίησης"
 
 #: 
-msgid "Image must be less than 5MB."
+msgid "Image must be less than 10MB."
 msgstr "Η εικόνα πρέπει να είναι μικρότερη από 5 MB."
 
 #: 

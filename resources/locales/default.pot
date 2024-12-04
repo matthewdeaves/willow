@@ -518,7 +518,7 @@ msgid "Please upload only images (jpeg, png, gif)."
 msgstr ""
 
 #: ./src/Model/Table/ArticlesTable.php:255
-msgid "Image must be less than 5MB."
+msgid "Image must be less than 10MB."
 msgstr ""
 
 #: ./src/Model/Table/InternationalisationsTable.php:69

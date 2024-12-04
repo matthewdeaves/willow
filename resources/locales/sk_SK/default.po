@@ -526,7 +526,7 @@ msgid "Image Uploads"
 msgstr "Nahrávanie obrázkov"
 
 #: 
-msgid "Image must be less than 5MB."
+msgid "Image must be less than 10MB."
 msgstr "Obrázok musí byť menší ako 5 MB."
 
 #: 

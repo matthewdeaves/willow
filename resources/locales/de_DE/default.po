@@ -1602,7 +1602,7 @@ msgid "The blocked ip could not be saved. Please, try again."
 msgstr "Die blockierte IP konnte nicht gespeichert werden. Bitte versuchen Sie es erneut."
 
 #: 
-msgid "Image must be less than 5MB."
+msgid "Image must be less than 10MB."
 msgstr "Das Bild muss kleiner als 5 MB sein."
 
 #: 

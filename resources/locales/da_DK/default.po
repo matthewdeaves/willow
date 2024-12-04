@@ -1606,7 +1606,7 @@ msgid "Published"
 msgstr "Udgivet"
 
 #: 
-msgid "Image must be less than 5MB."
+msgid "Image must be less than 10MB."
 msgstr "Billedet skal være mindre end 5 MB."
 
 #: 

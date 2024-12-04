@@ -518,7 +518,7 @@ msgid "Failed to create tag: {0}"
 msgstr "Impossibile creare il tag: {0}"
 
 #: 
-msgid "Image must be less than 5MB."
+msgid "Image must be less than 10MB."
 msgstr "L&#39;immagine deve essere inferiore a 5 MB."
 
 #: 

@@ -1298,7 +1298,7 @@ msgid "The value must be 0 or 1."
 msgstr "O valor deve ser 0 ou 1."
 
 #: 
-msgid "Image must be less than 5MB."
+msgid "Image must be less than 10MB."
 msgstr "A imagem deve ter menos de 5 MB."
 
 #: 

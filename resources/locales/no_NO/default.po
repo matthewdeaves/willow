@@ -982,7 +982,7 @@ msgid "Bulk Upload"
 msgstr "Masseopplasting"
 
 #: 
-msgid "Image must be less than 5MB."
+msgid "Image must be less than 10MB."
 msgstr "Bildet må være mindre enn 5 MB."
 
 #: 

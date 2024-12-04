@@ -1430,7 +1430,7 @@ msgid "Filter"
 msgstr "Filter"
 
 #: 
-msgid "Image must be less than 5MB."
+msgid "Image must be less than 10MB."
 msgstr "Slika mora biti manja od 5 MB."
 
 #: 

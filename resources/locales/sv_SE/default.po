@@ -1594,7 +1594,7 @@ msgid "Edit Page"
 msgstr "Redigera sida"
 
 #: 
-msgid "Image must be less than 5MB."
+msgid "Image must be less than 10MB."
 msgstr "Bilden måste vara mindre än 5 MB."
 
 #: 

@@ -1474,7 +1474,7 @@ msgid "Cookies"
 msgstr "Soubory cookie"
 
 #: 
-msgid "Image must be less than 5MB."
+msgid "Image must be less than 10MB."
 msgstr "Obrázek musí být menší než 5 MB."
 
 #: 

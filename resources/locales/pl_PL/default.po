@@ -750,7 +750,7 @@ msgid "Reset Password"
 msgstr "Zresetuj hasło"
 
 #: 
-msgid "Image must be less than 5MB."
+msgid "Image must be less than 10MB."
 msgstr "Obraz musi być mniejszy niż 5 MB."
 
 #: 

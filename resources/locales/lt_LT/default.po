@@ -1658,7 +1658,7 @@ msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}
 msgstr "Puslapis {{page}} iš {{puslapių}}, rodomas {{current}} įrašas (-ai) iš {{count}} viso"
 
 #: 
-msgid "Image must be less than 5MB."
+msgid "Image must be less than 10MB."
 msgstr "Vaizdas turi būti mažesnis nei 5 MB."
 
 #: 

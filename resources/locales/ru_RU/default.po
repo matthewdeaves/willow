@@ -242,7 +242,7 @@ msgid "New Slug"
 msgstr "Новый слизень"
 
 #: 
-msgid "Image must be less than 5MB."
+msgid "Image must be less than 10MB."
 msgstr "Изображение должно быть менее 5 МБ."
 
 #: 

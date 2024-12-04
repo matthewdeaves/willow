@@ -962,7 +962,7 @@ msgid "The comment has been deleted."
 msgstr "Le commentaire a été supprimé."
 
 #: 
-msgid "Image must be less than 5MB."
+msgid "Image must be less than 10MB."
 msgstr "L&#39;image doit être inférieure à 5 Mo."
 
 #: 

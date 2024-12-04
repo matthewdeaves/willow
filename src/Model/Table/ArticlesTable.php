@@ -251,8 +251,8 @@ class ArticlesTable extends Table
                     'message' => __('Please upload only images (jpeg, png, gif).'),
                 ],
                 'fileSize' => [
-                    'rule' => ['fileSize', '<=', '5MB'],
-                    'message' => __('Image must be less than 5MB.'),
+                    'rule' => ['fileSize', '<=', '10MB'],
+                    'message' => __('Image must be less than 10MB.'),
                 ],
             ]);
 

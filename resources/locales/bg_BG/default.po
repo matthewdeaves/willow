@@ -906,7 +906,7 @@ msgid "Search for YouTube videos to embed"
 msgstr "Потърсете видеоклипове в YouTube за вграждане"
 
 #: 
-msgid "Image must be less than 5MB."
+msgid "Image must be less than 10MB."
 msgstr "Изображението трябва да е по-малко от 5 MB."
 
 #: 

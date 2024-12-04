@@ -814,7 +814,7 @@ msgid "Template Identifier"
 msgstr "Sablonazonosító"
 
 #: 
-msgid "Image must be less than 5MB."
+msgid "Image must be less than 10MB."
 msgstr "A képnek 5 MB-nál kisebbnek kell lennie."
 
 #: 

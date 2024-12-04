@@ -82,7 +82,7 @@ msgid "New Email Template"
 msgstr "Nova e-poštna predloga"
 
 #: 
-msgid "Image must be less than 5MB."
+msgid "Image must be less than 10MB."
 msgstr "Slika mora biti manjša od 5 MB."
 
 #: 

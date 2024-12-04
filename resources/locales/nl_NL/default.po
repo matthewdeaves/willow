@@ -1130,7 +1130,7 @@ msgid "Edit Comment"
 msgstr "Bewerken Commentaar"
 
 #: 
-msgid "Image must be less than 5MB."
+msgid "Image must be less than 10MB."
 msgstr "De afbeelding moet kleiner zijn dan 5 MB."
 
 #: 

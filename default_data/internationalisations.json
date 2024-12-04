@@ -116,7 +116,7 @@
     },
     {
         "locale": "nl_NL",
-        "message_id": "Image must be less than 5MB.",
+        "message_id": "Image must be less than 10MB.",
         "message_str": "De afbeelding moet kleiner zijn dan 5 MB."
     },
     {
@@ -2816,7 +2816,7 @@
     },
     {
         "locale": "uk_UA",
-        "message_id": "Image must be less than 5MB.",
+        "message_id": "Image must be less than 10MB.",
         "message_str": "\u0417\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u043d\u044f \u043c\u0430\u0454 \u0431\u0443\u0442\u0438 \u043c\u0435\u043d\u0448\u0435 5 \u041c\u0431."
     },
     {
@@ -6606,7 +6606,7 @@
     },
     {
         "locale": "it_IT",
-        "message_id": "Image must be less than 5MB.",
+        "message_id": "Image must be less than 10MB.",
         "message_str": "L&#39;immagine deve essere inferiore a 5 MB."
     },
     {
@@ -11206,7 +11206,7 @@
     },
     {
         "locale": "sv_SE",
-        "message_id": "Image must be less than 5MB.",
+        "message_id": "Image must be less than 10MB.",
         "message_str": "Bilden m\u00e5ste vara mindre \u00e4n 5 MB."
     },
     {
@@ -18206,7 +18206,7 @@
     },
     {
         "locale": "et_EE",
-        "message_id": "Image must be less than 5MB.",
+        "message_id": "Image must be less than 10MB.",
         "message_str": "Pilt peab olema v\u00e4iksem kui 5 MB."
     },
     {
@@ -18421,7 +18421,7 @@
     },
     {
         "locale": "lv_LV",
-        "message_id": "Image must be less than 5MB.",
+        "message_id": "Image must be less than 10MB.",
         "message_str": "Att\u0113lam ir j\u0101b\u016bt maz\u0101kam par 5\u00a0MB."
     },
     {
@@ -22291,8 +22291,8 @@
     },
     {
         "locale": "tr_TR",
-        "message_id": "Image must be less than 5MB.",
-        "message_str": "Resim 5MB&#39;den k\u00fc\u00e7\u00fck olmal\u0131d\u0131r."
+        "message_id": "Image must be less than 10MB.",
+        "message_str": "Resim 10MB&#39;den k\u00fc\u00e7\u00fck olmal\u0131d\u0131r."
     },
     {
         "locale": "fi_FI",
@@ -22341,7 +22341,7 @@
     },
     {
         "locale": "el_GR",
-        "message_id": "Image must be less than 5MB.",
+        "message_id": "Image must be less than 10MB.",
         "message_str": "\u0397 \u03b5\u03b9\u03ba\u03cc\u03bd\u03b1 \u03c0\u03c1\u03ad\u03c0\u03b5\u03b9 \u03bd\u03b1 \u03b5\u03af\u03bd\u03b1\u03b9 \u03bc\u03b9\u03ba\u03c1\u03cc\u03c4\u03b5\u03c1\u03b7 \u03b1\u03c0\u03cc 5 MB."
     },
     {
@@ -23266,7 +23266,7 @@
     },
     {
         "locale": "sl_SI",
-        "message_id": "Image must be less than 5MB.",
+        "message_id": "Image must be less than 10MB.",
         "message_str": "Slika mora biti manj\u0161a od 5 MB."
     },
     {
@@ -29686,7 +29686,7 @@
     },
     {
         "locale": "bg_BG",
-        "message_id": "Image must be less than 5MB.",
+        "message_id": "Image must be less than 10MB.",
         "message_str": "\u0418\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435\u0442\u043e \u0442\u0440\u044f\u0431\u0432\u0430 \u0434\u0430 \u0435 \u043f\u043e-\u043c\u0430\u043b\u043a\u043e \u043e\u0442 5 MB."
     },
     {
@@ -31561,7 +31561,7 @@
     },
     {
         "locale": "hu_HU",
-        "message_id": "Image must be less than 5MB.",
+        "message_id": "Image must be less than 10MB.",
         "message_str": "A k\u00e9pnek 5 MB-n\u00e1l kisebbnek kell lennie."
     },
     {
@@ -32296,7 +32296,7 @@
     },
     {
         "locale": "fr_FR",
-        "message_id": "Image must be less than 5MB.",
+        "message_id": "Image must be less than 10MB.",
         "message_str": "L&#39;image doit \u00eatre inf\u00e9rieure \u00e0 5 Mo."
     },
     {
@@ -32476,7 +32476,7 @@
     },
     {
         "locale": "fi_FI",
-        "message_id": "Image must be less than 5MB.",
+        "message_id": "Image must be less than 10MB.",
         "message_str": "Kuvan on oltava alle 5 Mt."
     },
     {
@@ -35101,7 +35101,7 @@
     },
     {
         "locale": "ro_RO",
-        "message_id": "Image must be less than 5MB.",
+        "message_id": "Image must be less than 10MB.",
         "message_str": "Imaginea trebuie s\u0103 fie mai mic\u0103 de 5 MB."
     },
     {
@@ -35116,7 +35116,7 @@
     },
     {
         "locale": "da_DK",
-        "message_id": "Image must be less than 5MB.",
+        "message_id": "Image must be less than 10MB.",
         "message_str": "Billedet skal v\u00e6re mindre end 5 MB."
     },
     {
@@ -35886,7 +35886,7 @@
     },
     {
         "locale": "pl_PL",
-        "message_id": "Image must be less than 5MB.",
+        "message_id": "Image must be less than 10MB.",
         "message_str": "Obraz musi by\u0107 mniejszy ni\u017c 5 MB."
     },
     {
@@ -37516,7 +37516,7 @@
     },
     {
         "locale": "lt_LT",
-        "message_id": "Image must be less than 5MB.",
+        "message_id": "Image must be less than 10MB.",
         "message_str": "Vaizdas turi b\u016bti ma\u017eesnis nei 5 MB."
     },
     {
@@ -39646,7 +39646,7 @@
     },
     {
         "locale": "no_NO",
-        "message_id": "Image must be less than 5MB.",
+        "message_id": "Image must be less than 10MB.",
         "message_str": "Bildet m\u00e5 v\u00e6re mindre enn 5 MB."
     },
     {
@@ -40236,7 +40236,7 @@
     },
     {
         "locale": "es_ES",
-        "message_id": "Image must be less than 5MB.",
+        "message_id": "Image must be less than 10MB.",
         "message_str": "La imagen debe tener menos de 5 MB."
     },
     {
@@ -42211,7 +42211,7 @@
     },
     {
         "locale": "hr_HR",
-        "message_id": "Image must be less than 5MB.",
+        "message_id": "Image must be less than 10MB.",
         "message_str": "Slika mora biti manja od 5 MB."
     },
     {
@@ -42691,7 +42691,7 @@
     },
     {
         "locale": "ru_RU",
-        "message_id": "Image must be less than 5MB.",
+        "message_id": "Image must be less than 10MB.",
         "message_str": "\u0418\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435 \u0434\u043e\u043b\u0436\u043d\u043e \u0431\u044b\u0442\u044c \u043c\u0435\u043d\u0435\u0435 5 \u041c\u0411."
     },
     {
@@ -45226,7 +45226,7 @@
     },
     {
         "locale": "sk_SK",
-        "message_id": "Image must be less than 5MB.",
+        "message_id": "Image must be less than 10MB.",
         "message_str": "Obr\u00e1zok mus\u00ed by\u0165 men\u0161\u00ed ako 5 MB."
     },
     {
@@ -45626,7 +45626,7 @@
     },
     {
         "locale": "cs_CZ",
-        "message_id": "Image must be less than 5MB.",
+        "message_id": "Image must be less than 10MB.",
         "message_str": "Obr\u00e1zek mus\u00ed b\u00fdt men\u0161\u00ed ne\u017e 5 MB."
     },
     {
@@ -51506,7 +51506,7 @@
     },
     {
         "locale": "de_DE",
-        "message_id": "Image must be less than 5MB.",
+        "message_id": "Image must be less than 10MB.",
         "message_str": "Das Bild muss kleiner als 5 MB sein."
     },
     {
@@ -52231,7 +52231,7 @@
     },
     {
         "locale": "pt_PT",
-        "message_id": "Image must be less than 5MB.",
+        "message_id": "Image must be less than 10MB.",
         "message_str": "A imagem deve ter menos de 5 MB."
     },
     {

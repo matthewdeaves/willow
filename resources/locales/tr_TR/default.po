@@ -306,8 +306,8 @@ msgid "Created At"
 msgstr "Oluşturuldu"
 
 #: 
-msgid "Image must be less than 5MB."
-msgstr "Resim 5MB&#39;den küçük olmalıdır."
+msgid "Image must be less than 10MB."
+msgstr "Resim 10MB&#39;den küçük olmalıdır."
 
 #: 
 msgid "Willow Logo"

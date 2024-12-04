@@ -614,7 +614,7 @@ msgid "Help us understand how visitors interact with our website."
 msgstr "Ayúdenos a comprender cómo interactúan los visitantes con nuestro sitio web."
 
 #: 
-msgid "Image must be less than 5MB."
+msgid "Image must be less than 10MB."
 msgstr "La imagen debe tener menos de 5 MB."
 
 #: 

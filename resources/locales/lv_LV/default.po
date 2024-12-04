@@ -382,7 +382,7 @@ msgid "Creating {0} new top-level tags..."
 msgstr "Notiek {0} jaunu augstākā līmeņa tagu izveide..."
 
 #: 
-msgid "Image must be less than 5MB."
+msgid "Image must be less than 10MB."
 msgstr "Attēlam ir jābūt mazākam par 5 MB."
 
 #: 

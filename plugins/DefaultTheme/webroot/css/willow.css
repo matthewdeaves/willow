@@ -398,3 +398,57 @@ body {
       width: 220px;
   }
 }
+
+
+/* Article layout styles */
+.article-content-wrapper {
+  display: flow-root;
+  margin: 1.5rem 0;
+}
+
+.article-content-wrapper img {
+  float: left;
+  width: 280px;
+  height: auto;
+  margin: 0 1.5rem 1rem 0;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#article-body-content {
+  overflow: visible;
+}
+
+#article-body-content p:first-child {
+  margin-top: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .article-content-wrapper {
+      display: block;
+  }
+
+  .article-content-wrapper img {
+      width: 50%;
+      margin: 0 1rem 0.5rem 0;
+  }
+
+  #article-body-content {
+      margin: 0;
+  }
+}
+
+/* Medium screens */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .article-content-wrapper img {
+      width: 240px;
+  }
+}
+
+/* Clear floats before certain elements */
+.blog-post .mb-3,
+.blog-post hr,
+.comments {
+  clear: both;
+}

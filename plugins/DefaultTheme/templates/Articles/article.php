@@ -8,11 +8,15 @@
 
 <article class="blog-post">
     <h2 class="display-5 link-body-emphasis mb-1"><?= htmlspecialchars_decode($article->title) ?></h2>
-    <?= $this->element('image/icon',  ['model' => $article, 'icon' => $article->teenyImageUrl, 'preview' => $article->largeImageUrl ]); ?>
     <p class="blog-post-meta">
         <?= $article->published->format('F j, Y') ?> <?= h($article->user->username) ?>
     </p>
-    <div id="article-body-content"><?= htmlspecialchars_decode($this->Video->processYouTubePlaceholders($article->body)) ?></div>
+    
+    <div class="article-content-wrapper">
+        <?= $this->element('image/icon',  ['model' => $article, 'icon' => $article->smallImageUrl, 'preview' => false]); ?>
+        <div id="article-body-content"><?= htmlspecialchars_decode($this->Video->processYouTubePlaceholders($article->body)) ?></div>
+    </div>
+    
     <?= $this->element('site/facebook/share_button') ?>
     <div class="mb-3">
         <?= $this->element('image_carousel', [

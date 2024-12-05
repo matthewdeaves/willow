@@ -128,35 +128,6 @@ class ArticlesTable extends Table
             'allowEmptyTranslations' => false,
         ]);
 
-        $this->addBehavior('Josegonzalez/Upload.Upload', [
-            'image' => [
-                'fields' => [
-                    'dir' => 'dir',
-                    'size' => 'size',
-                    'type' => 'mime',
-                ],
-                'nameCallback' => function ($table, $entity, $data, $field, $settings) {
-                    $file = $entity->{$field};
-                    $clientFilename = $file->getClientFilename();
-                    $ext = pathinfo($clientFilename, PATHINFO_EXTENSION);
-
-                    return Text::uuid() . '.' . strtolower($ext);
-                },
-                'deleteCallback' => function ($path, $entity, $field, $settings) {
-                    $paths = [
-                        $path . $entity->{$field},
-                    ];
-
-                    foreach (SettingsManager::read('ImageSizes') as $width) {
-                        $paths[] = $path . $width . DS . $entity->{$field};
-                    }
-
-                    return $paths;
-                },
-                'keepFilesOnDelete' => false,
-            ],
-        ]);
-
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'joinType' => 'LEFT',
@@ -208,7 +179,7 @@ class ArticlesTable extends Table
             ->scalar('body')
             ->allowEmptyString('body');
 
-            $validator
+        $validator
             ->scalar('slug')
             ->maxLength('slug', 255)
             ->regex(

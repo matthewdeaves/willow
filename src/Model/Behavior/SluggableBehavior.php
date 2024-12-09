@@ -7,85 +7,143 @@ use ArrayObject;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
 use Cake\ORM\Behavior;
+use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\Utility\Text;
 use Cake\Validation\Validator;
+use InvalidArgumentException;
 
 /**
  * SluggableBehavior
  *
- * This behavior automatically generates and manages slugs for entities in a CakePHP application.
- * It provides functionality to create unique, URL-safe slugs based on a specified field,
- * typically the title or name of the entity.
+ * A behavior for CakePHP 5.x that manages URL-friendly slugs for entities with historical tracking.
+ * This behavior automatically generates unique slugs and maintains a history of previous slugs
+ * in a separate 'slugs' table.
  *
  * Features:
  * - Automatic slug generation for new entities
- * - Customizable source field and destination slug field
- * - Configurable maximum slug length
- * - Ensures slug uniqueness within the table
- * - Provides validation rules for the slug field
+ * - Maintains history of previous slugs in a separate table
+ * - Ensures slug uniqueness across both the model table and slugs history
+ * - Customizable source and destination fields
+ * - Validation rules for slug format
  *
  * Configuration options:
- * - 'field': The field to base the slug on (default: 'title')
- * - 'slug': The field to store the slug (default: 'slug')
- * - 'maxLength': Maximum length of the slug (default: 255)
+ * - 'field': (string) The field to base the slug on (default: 'title')
+ * - 'slug': (string) The field to store the slug (default: 'slug')
+ * - 'maxLength': (int) Maximum length of the slug (default: 255)
  *
- * @package App\Model\Behavior
+ * @see \App\Model\Table\SlugsTable
  */
 class SluggableBehavior extends Behavior
 {
+    use LocatorAwareTrait;
+
+    /**
+     * Default configuration.
+     *
+     * @var array<string, mixed>
+     */
     protected array $_defaultConfig = [
-        'field' => 'title', // The field to base the slug on
-        'slug' => 'slug', // The field to store the slug
-        'maxLength' => 255, // Maximum length of the slug
+        'field' => 'title',
+        'slug' => 'slug',
+        'maxLength' => 255,
     ];
+
+    /**
+     * Initialize the behavior.
+     *
+     * @param array<string, mixed> $config The configuration settings provided to this behavior.
+     * @return void
+     * @throws \InvalidArgumentException When the slug field doesn't exist in the table.
+     */
+    public function initialize(array $config): void
+    {
+        parent::initialize($config);
+
+        if (!$this->table()->hasField($this->getConfig('slug'))) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Field "%s" does not exist in table "%s"',
+                    $this->getConfig('slug'),
+                    $this->table()->getAlias()
+                )
+            );
+        }
+    }
 
     /**
      * beforeSave callback.
      *
-     * This method is triggered before an entity is saved. It generates a slug for new entities
-     * if one is not provided, ensuring the slug is unique. If the generated slug is not unique,
-     * it sets an error on the entity and prevents the save operation.
-     *
      * @param \Cake\Event\EventInterface $event The beforeSave event that was fired.
      * @param \Cake\Datasource\EntityInterface $entity The entity that is going to be saved.
      * @param \ArrayObject $options The options passed to the save method.
-     * @return bool|null Returns false if the generated slug is not unique, preventing the save operation.
+     * @return bool|null Returns false if validation fails, preventing the save operation.
      */
     public function beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): ?bool
     {
         $config = $this->getConfig();
         $field = $config['field'];
         $slugField = $config['slug'];
+        $slugsTable = $this->fetchTable('Slugs');
 
-        if ($entity->isNew() && !$entity->get($slugField)) {
-            $sluggedTitle = strtolower(Text::slug($entity->get($field)));
-            // trim slug to maximum length defined in schema
-            $entity->set($slugField, substr($sluggedTitle, 0, $config['maxLength']));
+        // Generate slug for new entities if not provided
+        if (!$entity->get($slugField)) {
+            $slug = $this->generateSlug($entity->get($field));
+            $entity->set($slugField, $slug);
+        }
 
-            //check generated slug is unique
-            $existing = $this->table()->find()->where([$slugField => $entity->get($slugField)])->first();
-
-            if ($existing) {
-                // If not unique, set the slug back to the entity for user modification
-                $entity->setError($slugField, 'The generated slug is not unique. Please modify it.');
-
-                return false; // Prevent save
+        // Handle existing entities
+        if (!$entity->isNew() && $entity->isDirty($slugField)) {
+            $oldSlug = $entity->getOriginal($slugField);
+            if ($oldSlug) {
+                $slugEntity = $slugsTable->newEntity([
+                    'model' => $this->table()->getAlias(),
+                    'foreign_key' => $entity->get($this->table()->getPrimaryKey()),
+                    'slug' => $oldSlug,
+                ]);
+                if (!$slugsTable->save($slugEntity)) {
+                    $entity->setError($slugField, __('Could not save the previous slug.'));
+                    return false;
+                }
             }
+        }
+
+        // For new entities, save the initial slug after the entity is saved
+        if ($entity->isNew()) {
+            $event->getSubject()->afterSave(function () use ($entity, $slugField, $slugsTable): void {
+                $slugEntity = $slugsTable->newEntity([
+                    'model' => $this->table()->getAlias(),
+                    'foreign_key' => $entity->get($this->table()->getPrimaryKey()),
+                    'slug' => $entity->get($slugField),
+                ]);
+
+                if (!$slugsTable->save($slugEntity)) {
+                    $this->table()->log(sprintf(
+                        'Failed to save initial slug for %s: %s',
+                        $this->table()->getAlias(),
+                        json_encode($slugEntity->getErrors())
+                    ), 'error');
+                }
+            });
         }
 
         return true;
     }
 
     /**
-     * Builds the validator for the slug field.
+     * Generates a URL-safe slug from the given string.
      *
-     * This method configures the validation rules for the slug field, including:
-     * - Ensuring it's a scalar value
-     * - Setting a maximum length of 255 characters
-     * - Enforcing a URL-safe format using a regex pattern
-     * - Requiring its presence on create operations
-     * - Allowing empty strings
-     * - Ensuring uniqueness across the table
+     * @param string $value The string to convert into a slug.
+     * @return string The generated slug.
+     */
+    protected function generateSlug(string $value): string
+    {
+        $config = $this->getConfig();
+        $slug = strtolower(Text::slug($value));
+        return substr($slug, 0, $config['maxLength']);
+    }
+
+    /**
+     * Builds the validator for the slug field.
      *
      * @param \Cake\Event\EventInterface $event The event object.
      * @param \Cake\Validation\Validator $validator The validator object.
@@ -94,22 +152,17 @@ class SluggableBehavior extends Behavior
      */
     public function buildValidator(EventInterface $event, Validator $validator, string $name): Validator
     {
-        $slugField = $this->getConfig('slug', 'slug');
+        $slugField = $this->getConfig('slug');
 
         $validator
             ->scalar($slugField)
             ->maxLength($slugField, 255)
             ->regex(
-                'slug',
+                $slugField,
                 '/^[a-z0-9-]+$/',
                 __('The slug must be URL-safe (only lowercase letters, numbers, and hyphens)')
             )
-            ->allowEmptyString($slugField)
-            ->add($slugField, 'unique', [
-                'rule' => 'validateUnique',
-                'provider' => 'table',
-                'message' => __('This slug is already in use. Please enter a unique slug.'),
-            ]);
+            ->notEmptyString($slugField, __('A slug is required'));
 
         return $validator;
     }

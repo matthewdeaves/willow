@@ -29,10 +29,9 @@ class Slug extends Entity
      */
     protected array $_accessible = [
         'id' => true,
-        'article_id' => true,
+        'foreign_key' => true,
         'slug' => true,
+        'model' => true,
         'created' => true,
-        'modified' => true,
-        'article' => true,
     ];
 }

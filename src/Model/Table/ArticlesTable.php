@@ -175,40 +175,6 @@ class ArticlesTable extends Table
             ->allowEmptyString('body');
 
         $validator
-            ->scalar('slug')
-            ->maxLength('slug', 255)
-            ->regex(
-                'slug',
-                '/^[a-z0-9-]+$/',
-                __('The slug must be URL-safe (only lowercase letters, numbers, and hyphens)')
-            )
-            ->requirePresence('slug', 'create')
-            ->notEmptyString('slug')
-            ->add('slug', 'uniqueInArticles', [
-                'rule' => function ($value, $context) {
-                    $exists = $this->exists(['slug' => $value]);
-                    if ($exists && isset($context['data']['id'])) {
-                        $exists = $this->exists(['slug' => $value, 'id !=' => $context['data']['id']]);
-                    }
-
-                    return !$exists;
-                },
-                'message' => __('This slug is already in use in articles. Please enter a unique slug.'),
-            ])
-            ->add('slug', 'uniqueInSlugs', [
-                'rule' => function ($value, $context) {
-                    $slugsTable = TableRegistry::getTableLocator()->get('Slugs');
-                    $exists = $slugsTable->exists(['slug' => $value]);
-                    if ($exists && isset($context['data']['id'])) {
-                        $exists = $slugsTable->exists(['slug' => $value, 'article_id !=' => $context['data']['id']]);
-                    }
-
-                    return !$exists;
-                },
-                'message' => __('Slug conflicts with an existing SEO redirect. Please choose a different slug.'),
-            ]);
-
-        $validator
             ->allowEmptyFile('image')
             ->add('image', [
                 'mimeType' => [
@@ -264,22 +230,6 @@ class ArticlesTable extends Table
      */
     public function beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): ?bool
     {
-        if ($entity->isNew() && !$entity->slug) {
-            $sluggedTitle = strtolower(Text::slug($entity->title));
-            // trim slug to maximum length defined in schema
-            $entity->slug = substr($sluggedTitle, 0, 255);
-
-            //check generated slug is unique
-            $existing = $this->find('all', conditions: ['slug' => $entity->slug])->first();
-
-            if ($existing) {
-                // If not unique, set the slug back to the entity for user modification
-                $entity->setError('slug', 'The generated slug is not unique. Please modify it.');
-
-                return false; // Prevent save
-            }
-        }
-
         // Check if is_published has changed to published
         if ($entity->isDirty('is_published') && $entity->is_published) {
             $entity->published = new DateTime('now');

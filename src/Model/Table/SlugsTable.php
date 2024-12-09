@@ -157,9 +157,9 @@ class SlugsTable extends Table
             )
             ->add('slug', 'unique', [
                 'rule' => function ($value, $context) {
-                    return $this->isUniqueSlug($value, $context['data']['model'] ?? null, $context['data']['foreign_key'] ?? null);
+                    return $this->isUniqueSlug($value, $context['data']['foreign_key'] ?? null);
                 },
-                'message' => __('The slug must be unique within its model context.'),
+                'message' => __('This slug is already in use.'),
             ]);
 
         return $validator;
@@ -191,22 +191,15 @@ class SlugsTable extends Table
     }
 
     /**
-     * Checks if a slug is unique within its model context.
+     * Checks if a slug is unique across all models.
      *
      * @param string $slug The slug to check
-     * @param string|null $model The model context
      * @param string|null $foreignKey The foreign key to exclude
      * @return bool
      */
-    protected function isUniqueSlug(string $slug, ?string $model, ?string $foreignKey): bool
+    protected function isUniqueSlug(string $slug, ?string $foreignKey): bool
     {
-        $conditions = [
-            'slug' => $slug,
-        ];
-
-        if ($model !== null) {
-            $conditions['model'] = $model;
-        }
+        $conditions = ['slug' => $slug];
 
         if ($foreignKey !== null) {
             $conditions['foreign_key !='] = $foreignKey;
@@ -218,10 +211,6 @@ class SlugsTable extends Table
     /**
      * After save callback.
      *
-     * Clears relevant caches after a slug is saved:
-     * - Model-specific cache
-     * - Models list cache if it's a new model
-     *
      * @param \Cake\Event\EventInterface $event The event that was triggered
      * @param \Cake\Datasource\EntityInterface $entity The entity that was saved
      * @param \ArrayObject $options The options passed to the save method
@@ -229,18 +218,11 @@ class SlugsTable extends Table
      */
     public function afterSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
-        if ($entity->has('model')) {
-            Cache::clear('slugs_' . strtolower($entity->get('model')));
-            Cache::delete(self::CACHE_MODELS_KEY, self::CACHE_CONFIG);
-        }
+        Cache::delete(self::CACHE_MODELS_KEY, self::CACHE_CONFIG);
     }
 
     /**
      * After delete callback.
-     *
-     * Clears relevant caches after a slug is deleted:
-     * - Model-specific cache
-     * - Models list cache if it was the last slug for that model
      *
      * @param \Cake\Event\EventInterface $event The event that was triggered
      * @param \Cake\Datasource\EntityInterface $entity The entity that was deleted
@@ -249,15 +231,7 @@ class SlugsTable extends Table
      */
     public function afterDelete(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
-        if ($entity->has('model')) {
-            Cache::clear('slugs_' . strtolower($entity->get('model')));
-            
-            // Check if this was the last slug for this model
-            $exists = $this->exists(['model' => $entity->get('model')]);
-            if (!$exists) {
-                Cache::delete(self::CACHE_MODELS_KEY, self::CACHE_CONFIG);
-            }
-        }
+        Cache::delete(self::CACHE_MODELS_KEY, self::CACHE_CONFIG);
     }
 
     /**

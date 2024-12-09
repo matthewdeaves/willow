@@ -94,7 +94,7 @@ class SluggableBehavior extends Behavior
         $slugsTable = $this->fetchTable('Slugs');
 
         // Generate slug for new entities if not provided
-        if ($entity->get($slugField)) {
+        if (!$entity->get($slugField)) {
             $slug = $this->generateSlug($entity->get($field));
             $entity->set($slugField, $slug);
         }
@@ -117,21 +117,26 @@ class SluggableBehavior extends Behavior
 
         // For new entities, save the initial slug after the entity is saved
         if ($entity->isNew()) {
-            $event->getSubject()->afterSave(function () use ($entity, $slugField, $slugsTable): void {
-                $slugEntity = $slugsTable->newEntity([
-                    'model' => $this->table()->getAlias(),
-                    'foreign_key' => $entity->get($this->table()->getPrimaryKey()),
-                    'slug' => $entity->get($slugField),
-                ]);
+            $this->table()->getEventManager()->on(
+                'Model.afterSave',
+                function (EventInterface $event, EntityInterface $savedEntity) use ($slugField, $slugsTable): void {
+                    if ($savedEntity->isNew()) {
+                        $slugEntity = $slugsTable->newEntity([
+                            'model' => $this->table()->getAlias(),
+                            'foreign_key' => $savedEntity->get($this->table()->getPrimaryKey()),
+                            'slug' => $savedEntity->get($slugField),
+                        ]);
 
-                if (!$slugsTable->save($slugEntity)) {
-                    $this->table()->log(sprintf(
-                        'Failed to save initial slug for %s: %s',
-                        $this->table()->getAlias(),
-                        json_encode($slugEntity->getErrors())
-                    ), 'error');
+                        if (!$slugsTable->save($slugEntity)) {
+                            $this->table()->log(sprintf(
+                                'Failed to save initial slug for %s: %s',
+                                $this->table()->getAlias(),
+                                json_encode($slugEntity->getErrors())
+                            ), 'error');
+                        }
+                    }
                 }
-            });
+            );
         }
 
         return true;
@@ -170,7 +175,7 @@ class SluggableBehavior extends Behavior
                 '/^[a-z0-9-]+$/',
                 __('The slug must be URL-safe (only lowercase letters, numbers, and hyphens)')
             )
-            ->notEmptyString($slugField, __('A slug is required'));
+            ->allowEmptyString($slugField);
 
         return $validator;
     }

@@ -143,11 +143,6 @@ class ArticlesTable extends Table
             'dependent' => true,
             'cascadeCallbacks' => true,
         ]);
-
-        $this->hasMany('Slugs', [
-            'dependent' => true,
-            'cascadeCallbacks' => true,
-        ]);
     }
 
     /**

@@ -68,6 +68,14 @@ class SluggableBehavior extends Behavior
                 )
             );
         }
+
+        // Add the Slugs relationship to the table
+        $this->table()->hasMany('Slugs', [
+            'foreignKey' => 'foreign_key',
+            'conditions' => ['Slugs.model' => $this->table()->getAlias()],
+            'dependent' => true,
+            'cascadeCallbacks' => true,
+        ]);
     }
 
     /**
@@ -86,7 +94,7 @@ class SluggableBehavior extends Behavior
         $slugsTable = $this->fetchTable('Slugs');
 
         // Generate slug for new entities if not provided
-        if (!$entity->get($slugField)) {
+        if ($entity->get($slugField)) {
             $slug = $this->generateSlug($entity->get($field));
             $entity->set($slugField, $slug);
         }

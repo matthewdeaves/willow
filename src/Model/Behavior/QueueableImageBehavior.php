@@ -22,6 +22,26 @@ class QueueableImageBehavior extends Behavior
     /**
      * Default configuration for the QueueableImageBehavior.
      *
+     * Configuration options:
+     * - folder_path: (string) The base path where uploaded images will be stored
+     * - field: (string) The entity field name that contains the uploaded file
+     * - uploadConfig: (array) Configuration for the Upload behavior
+     *   - fields: (array) Mapping of database fields to file attributes
+     *     - dir: (string) Field storing the directory path
+     *     - size: (string) Field storing the file size
+     *     - type: (string) Field storing the MIME type
+     *   - nameCallback: (callable|null) Function to generate unique filenames
+     *   - deleteCallback: (callable|null) Function to handle file deletion
+     *   - keepFilesOnDelete: (bool) Whether to retain files when entity is deleted
+     *
+     * Example usage:
+     * ```
+     * $this->addBehavior('QueueableImage', [
+     *     'folder_path' => 'img/uploads/',
+     *     'field' => 'profile_image'
+     * ]);
+     * ```
+     *
      * @var array<string, mixed>
      */
     protected array $_defaultConfig = [

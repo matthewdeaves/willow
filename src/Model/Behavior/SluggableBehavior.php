@@ -79,7 +79,7 @@ class SluggableBehavior extends Behavior
     }
 
     /**
-     * beforeSave callback.
+     * Before save callback.
      *
      * @param \Cake\Event\EventInterface $event The beforeSave event that was fired.
      * @param \Cake\Datasource\EntityInterface $entity The entity that is going to be saved.
@@ -93,34 +93,53 @@ class SluggableBehavior extends Behavior
         $slugField = $config['slug'];
         $slugsTable = $this->fetchTable('Slugs');
 
-        // Generate slug for new entities if not provided
+        // Store the original slug before any modifications
+        $originalSlug = $entity->get($slugField);
+
+        // Generate new slug if needed (for both new entities and updates)
         if (!$entity->get($slugField)) {
             $slug = $this->generateSlug($entity->get($field));
             $entity->set($slugField, $slug);
         }
 
         // Handle existing entities
-        if (!$entity->isNew() && $entity->isDirty($slugField)) {
-            $oldSlug = $entity->getOriginal($slugField);
-            if ($oldSlug) {
-                $slugEntity = $slugsTable->newEntity([
-                    'model' => $this->table()->getAlias(),
-                    'foreign_key' => $entity->get($this->table()->getPrimaryKey()),
-                    'slug' => $oldSlug,
-                ]);
-                if (!$slugsTable->save($slugEntity)) {
-                    $entity->setError($slugField, __('Could not save the previous slug.'));
-                    return false;
+        if (!$entity->isNew()) {
+            // If the slug has changed (either manually or through generation)
+            if ($originalSlug !== $entity->get($slugField)) {
+                // Save the original slug if it exists and isn't already in the slugs table
+                if ($originalSlug) {
+                    $exists = $slugsTable->exists([
+                        'model' => $this->table()->getAlias(),
+                        'foreign_key' => $entity->get($this->table()->getPrimaryKey()),
+                        'slug' => $originalSlug,
+                    ]);
+
+                    if (!$exists) {
+                        $slugEntity = $slugsTable->newEntity([
+                            'model' => $this->table()->getAlias(),
+                            'foreign_key' => $entity->get($this->table()->getPrimaryKey()),
+                            'slug' => $originalSlug,
+                        ]);
+                        if (!$slugsTable->save($slugEntity)) {
+                            $entity->setError($slugField, __('Could not save the previous slug.'));
+                            return false;
+                        }
+                    }
                 }
             }
-        }
 
-        // For new entities, save the initial slug after the entity is saved
-        if ($entity->isNew()) {
+            // Always save the current slug to the slugs table after the entity is saved
+            // This ensures we have a record of all slugs, including the current one
             $this->table()->getEventManager()->on(
                 'Model.afterSave',
                 function (EventInterface $event, EntityInterface $savedEntity) use ($slugField, $slugsTable): void {
-                    if ($savedEntity->isNew()) {
+                    $exists = $slugsTable->exists([
+                        'model' => $this->table()->getAlias(),
+                        'foreign_key' => $savedEntity->get($this->table()->getPrimaryKey()),
+                        'slug' => $savedEntity->get($slugField),
+                    ]);
+
+                    if (!$exists) {
                         $slugEntity = $slugsTable->newEntity([
                             'model' => $this->table()->getAlias(),
                             'foreign_key' => $savedEntity->get($this->table()->getPrimaryKey()),
@@ -129,10 +148,40 @@ class SluggableBehavior extends Behavior
 
                         if (!$slugsTable->save($slugEntity)) {
                             $this->table()->log(sprintf(
-                                'Failed to save initial slug for %s: %s',
+                                'Failed to save new slug for %s: %s',
                                 $this->table()->getAlias(),
                                 json_encode($slugEntity->getErrors())
                             ), 'error');
+                        }
+                    }
+                }
+            );
+        } else {
+            // For new entities, save the initial slug after the entity is saved
+            $this->table()->getEventManager()->on(
+                'Model.afterSave',
+                function (EventInterface $event, EntityInterface $savedEntity) use ($slugField, $slugsTable): void {
+                    if ($savedEntity->isNew()) {
+                        $exists = $slugsTable->exists([
+                            'model' => $this->table()->getAlias(),
+                            'foreign_key' => $savedEntity->get($this->table()->getPrimaryKey()),
+                            'slug' => $savedEntity->get($slugField),
+                        ]);
+
+                        if (!$exists) {
+                            $slugEntity = $slugsTable->newEntity([
+                                'model' => $this->table()->getAlias(),
+                                'foreign_key' => $savedEntity->get($this->table()->getPrimaryKey()),
+                                'slug' => $savedEntity->get($slugField),
+                            ]);
+
+                            if (!$slugsTable->save($slugEntity)) {
+                                $this->table()->log(sprintf(
+                                    'Failed to save initial slug for %s: %s',
+                                    $this->table()->getAlias(),
+                                    json_encode($slugEntity->getErrors())
+                                ), 'error');
+                            }
                         }
                     }
                 }

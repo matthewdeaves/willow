@@ -9,26 +9,107 @@ use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
 use Cake\ORM\Behavior;
 use Cake\Queue\QueueManager;
+use Cake\Utility\Text;
 
+/**
+ * QueueableImageBehavior handles image upload processing and analysis through a queue system.
+ *
+ * This behavior automatically attaches the Upload behavior and configures it for image handling.
+ * It processes uploaded images asynchronously and optionally performs AI analysis.
+ */
 class QueueableImageBehavior extends Behavior
 {
     /**
      * Default configuration for the QueueableImageBehavior.
      *
-     * This array defines the default settings for the behavior, which can be
-     * overridden when the behavior is attached to a table. It includes:
+     * Configuration options:
+     * - folder_path: (string) The base path where uploaded images will be stored
+     * - field: (string) The entity field name that contains the uploaded file
+     * - uploadConfig: (array) Configuration for the Upload behavior
+     *   - fields: (array) Mapping of database fields to file attributes
+     *     - dir: (string) Field storing the directory path
+     *     - size: (string) Field storing the file size
+     *     - type: (string) Field storing the MIME type
+     *   - nameCallback: (callable|null) Function to generate unique filenames
+     *   - deleteCallback: (callable|null) Function to handle file deletion
+     *   - keepFilesOnDelete: (bool) Whether to retain files when entity is deleted
      *
-     * - 'folder_path': The path to the folder where files will be stored.
-     *                  Default is an empty string.
-     * - 'field': The name of the field in the table that will be used for
-     *            storing the file name. Default is an empty string.
+     * Example usage:
+     * ```
+     * $this->addBehavior('QueueableImage', [
+     *     'folder_path' => 'img/uploads/',
+     *     'field' => 'profile_image'
+     * ]);
+     * ```
      *
-     * @var array<string, string>
+     * @var array<string, mixed>
      */
     protected array $_defaultConfig = [
         'folder_path' => '',
-        'field' => '',
+        'field' => 'image',
+        'uploadConfig' => [
+            'fields' => [
+                'dir' => 'dir',
+                'size' => 'size',
+                'type' => 'mime',
+            ],
+            'nameCallback' => null,
+            'deleteCallback' => null,
+            'keepFilesOnDelete' => false,
+        ],
     ];
+
+    /**
+     * Initializes the behavior.
+     *
+     * Sets up the Upload behavior with merged configuration settings and
+     * configures the default callbacks if not overridden.
+     *
+     * @param array $config Configuration array for customizing both QueueableImage and Upload behaviors
+     * @return void
+     */
+    public function initialize(array $config): void
+    {
+        parent::initialize($config);
+
+        // Set default callbacks if not provided
+        if (empty($this->_config['uploadConfig']['nameCallback'])) {
+            $this->_config['uploadConfig']['nameCallback'] = function ($table, $entity, $data, $field, $settings) {
+                $file = $entity->{$field};
+                $clientFilename = $file->getClientFilename();
+                $ext = pathinfo($clientFilename, PATHINFO_EXTENSION);
+
+                return Text::uuid() . '.' . strtolower($ext);
+            };
+        }
+
+        if (empty($this->_config['uploadConfig']['deleteCallback'])) {
+            $this->_config['uploadConfig']['deleteCallback'] = function ($path, $entity, $field, $settings) {
+                $paths = [
+                    $path . $entity->{$field},
+                ];
+
+                foreach (SettingsManager::read('ImageSizes') as $width) {
+                    $paths[] = $path . $width . DS . $entity->{$field};
+                }
+
+                return $paths;
+            };
+        }
+
+        // Prepare Upload behavior configuration
+        $uploadConfig = [
+            $this->getConfig('field') => array_merge(
+                $this->_defaultConfig['uploadConfig'],
+                $config['uploadConfig'] ?? []
+            ),
+        ];
+
+        // Add the Upload behavior if it's not already added
+        if (!$this->_table->hasBehavior('Josegonzalez/Upload.Upload')) {
+            $this->_table->addBehavior('Josegonzalez/Upload.Upload', $uploadConfig);
+        }
+    }
 
     /**
      * Handles the afterSave event for an entity.

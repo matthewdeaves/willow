@@ -35,7 +35,7 @@ class SlugsControllerTest extends AppControllerTestCase
     public function setUp(): void
     {
         parent::setUp();
-        
+
         // Login as admin user
         $adminId = '6509480c-e7e6-4e65-9c38-1423a8d09d0f';
         $this->loginUser($adminId);
@@ -51,18 +51,18 @@ class SlugsControllerTest extends AppControllerTestCase
         $this->get('/admin/slugs');
         $this->assertResponseOk();
         $this->assertResponseContains('Slugs');
-        
+
         // Test model type filtering
         $this->get('/admin/slugs?status=Articles');
         $this->assertResponseOk();
-        
+
         // Test search functionality
         $this->get('/admin/slugs?search=article-one');
         $this->assertResponseOk();
-        
+
         // Test AJAX request
         $this->configRequest([
-            'headers' => ['X-Requested-With' => 'XMLHttpRequest']
+            'headers' => ['X-Requested-With' => 'XMLHttpRequest'],
         ]);
         $this->get('/admin/slugs?search=article');
         $this->assertResponseOk();
@@ -88,7 +88,7 @@ class SlugsControllerTest extends AppControllerTestCase
     public function testAdd(): void
     {
         $this->enableCsrfToken();
-        
+
         // Test GET request
         $this->get('/admin/slugs/add');
         $this->assertResponseOk();
@@ -99,7 +99,7 @@ class SlugsControllerTest extends AppControllerTestCase
             'foreign_key' => '263a5364-a1bc-401c-9e44-49c23d066a0f',
             'slug' => 'new-test-slug',
         ]);
-        
+
         $this->assertRedirect(['action' => 'index']);
         $this->assertFlashMessage('The slug has been saved.');
 
@@ -109,9 +109,9 @@ class SlugsControllerTest extends AppControllerTestCase
             'foreign_key' => '',
             'slug' => '',
         ]);
-        
+
         $this->assertResponseOk(); // Form should re-render
-        $this->assertFlashMessage('The slug could not be saved. Please, try again.');
+        $this->assertResponseContains('The slug could not be saved. Please, try again.');
     }
 
     /**
@@ -122,7 +122,7 @@ class SlugsControllerTest extends AppControllerTestCase
     public function testEdit(): void
     {
         $this->enableCsrfToken();
-        
+
         // Test GET request
         $this->get('/admin/slugs/edit/1e6c7b88-283d-43df-bfa3-fa33d4319f75');
         $this->assertResponseOk();
@@ -133,7 +133,7 @@ class SlugsControllerTest extends AppControllerTestCase
             'foreign_key' => '263a5364-a1bc-401c-9e44-49c23d066a0f',
             'slug' => 'updated-test-slug',
         ]);
-        
+
         $this->assertRedirect(['action' => 'index']);
         $this->assertFlashMessage('The slug has been saved.');
 
@@ -143,7 +143,7 @@ class SlugsControllerTest extends AppControllerTestCase
             'foreign_key' => '',
             'slug' => '',
         ]);
-        
+
         $this->assertResponseOk(); // Form should re-render
 
         $this->assertResponseContains('The slug could not be saved. Please, try again.');
@@ -161,7 +161,7 @@ class SlugsControllerTest extends AppControllerTestCase
     public function testDelete(): void
     {
         $this->enableCsrfToken();
-        
+
         // Test successful delete
         $this->delete('/admin/slugs/delete/1e6c7b88-283d-43df-bfa3-fa33d4319f75');
         $this->assertRedirect();

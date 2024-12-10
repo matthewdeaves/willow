@@ -13,11 +13,7 @@ use Cake\Http\Response;
  */
 class SlugsController extends AppController
 {
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null|void Renders view
-     */
+
     public function index(): ?Response
     {
         $statusFilter = $this->request->getQuery('status');
@@ -29,8 +25,7 @@ class SlugsController extends AppController
                 'Slugs.slug',
                 'Slugs.created',
             ]);
-
-        
+    
         $search = $this->request->getQuery('search');
         if (!empty($search)) {
             $query->where([
@@ -39,15 +34,43 @@ class SlugsController extends AppController
                 ],
             ]);
         }
+        
         $slugs = $this->paginate($query);
+        
+        // Fetch related records for all slugs
+        $relatedData = [];
+        foreach ($slugs as $slug) {
+            try {
+                $relatedTable = $this->fetchTable($slug->model);
+                $relatedRecord = $relatedTable->find()
+                    ->select(['id', 'title'])  // Assuming most models have title
+                    ->where(['id' => $slug->foreign_key])
+                    ->first();
+                
+                if ($relatedRecord) {
+                    $relatedData[$slug->id] = [
+                        'title' => $relatedRecord->title,
+                        'controller' => $slug->model,
+                        'id' => $relatedRecord->id,
+                    ];
+                }
+            } catch (\Exception $e) {
+                // Log the error but continue processing
+                $this->log(sprintf(
+                    'Failed to fetch related record for slug %s: %s',
+                    $slug->id,
+                    $e->getMessage()
+                ), 'error');
+            }
+        }
+    
         if ($this->request->is('ajax')) {
-            $this->set(compact('slugs', 'search'));
+            $this->set(compact('slugs', 'search', 'relatedData'));
             $this->viewBuilder()->setLayout('ajax');
-
             return $this->render('search_results');
         }
-        $this->set(compact('slugs'));
-
+    
+        $this->set(compact('slugs', 'relatedData'));
         return null;
     }
 

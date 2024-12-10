@@ -9,7 +9,7 @@
     <thead>
       <tr>
               <th scope="col"><?= $this->Paginator->sort('model') ?></th>
-              <th scope="col"><?= $this->Paginator->sort('foreign_key') ?></th>
+              <th scope="col"><?= $this->Paginator->sort('foreign_key', __('Title')) ?></th>
               <th scope="col"><?= $this->Paginator->sort('slug') ?></th>
               <th scope="col"><?= $this->Paginator->sort('created') ?></th>
               <th scope="col"><?= __('Actions') ?></th>
@@ -19,7 +19,24 @@
       <?php foreach ($slugs as $slug): ?>
       <tr>
           <td><?= h($slug->model) ?></td>
-          <td><?= h($slug->foreign_key) ?></td>
+          <td>
+              <?php if (isset($relatedData[$slug->id])): ?>
+                  <?= $this->Html->link(
+                      h($relatedData[$slug->id]['title']),
+                      [
+                          'controller' => $relatedData[$slug->id]['controller'],
+                          'action' => 'view',
+                          $relatedData[$slug->id]['id']
+                      ],
+                      [
+                          'class' => 'text-decoration-none',
+                          'escape' => false
+                      ]
+                  ) ?>
+              <?php else: ?>
+                  <?= h($slug->foreign_key) ?>
+              <?php endif; ?>
+          </td>
           <td><?= h($slug->slug) ?></td>
           <td><?= h($slug->created) ?></td>
           <td>

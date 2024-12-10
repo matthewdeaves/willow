@@ -2,7 +2,6 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Slug $slug
- * @var string[]|\Cake\Collection\CollectionInterface $articles
  */
 ?>
 <div class="container mt-4">
@@ -24,10 +23,18 @@
                     <?= $this->Form->create($slug, ['class' => 'needs-validation', 'novalidate' => true]) ?>
                     <fieldset>
                     <div class="mb-3">
-                            <?php echo $this->Form->control('article_id', ['options' => $articles, 'class' => 'form-select' . ($this->Form->isFieldError('article_id') ? ' is-invalid' : '')]); ?>
-                            <?php if ($this->Form->isFieldError('article_id')): ?>
+                            <?php echo $this->Form->control('model', ['class' => 'form-control' . ($this->Form->isFieldError('model') ? ' is-invalid' : '')]); ?>
+                                                                                        <?php if ($this->Form->isFieldError('model')): ?>
                                 <div class="invalid-feedback">
-                                    <?= $this->Form->error('article_id') ?>
+                                    <?= $this->Form->error('model') ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                                        <div class="mb-3">
+                            <?php echo $this->Form->control('foreign_key', ['class' => 'form-control' . ($this->Form->isFieldError('foreign_key') ? ' is-invalid' : '')]); ?>
+                                                                                        <?php if ($this->Form->isFieldError('foreign_key')): ?>
+                                <div class="invalid-feedback">
+                                    <?= $this->Form->error('foreign_key') ?>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -43,13 +50,6 @@
                             <?php if ($this->Form->isFieldError('created')): ?>
                                 <div class="invalid-feedback">
                                     <?= $this->Form->error('created') ?>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                                        <div class="mb-3">
-                            <?php if ($this->Form->isFieldError('modified')): ?>
-                                <div class="invalid-feedback">
-                                    <?= $this->Form->error('modified') ?>
                                 </div>
                             <?php endif; ?>
                         </div>

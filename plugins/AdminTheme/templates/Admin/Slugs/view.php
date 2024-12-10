@@ -20,8 +20,16 @@
                     <h2 class="card-title"><?= h($slug->slug) ?></h2>
                     <table class="table table-striped">
                         <tr>
-                            <th><?= __('Article') ?></th>
-                            <td><?= $slug->hasValue('article') ? $this->Html->link($slug->article->title, ['controller' => 'Articles', 'action' => 'view', $slug->article->id], ['class' => 'btn btn-link']) : '' ?></td>
+                            <th><?= __('Id') ?></th>
+                            <td><?= h($slug->id) ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= __('Model') ?></th>
+                            <td><?= h($slug->model) ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= __('Foreign Key') ?></th>
+                            <td><?= h($slug->foreign_key) ?></td>
                         </tr>
                         <tr>
                             <th><?= __('Slug') ?></th>
@@ -30,10 +38,6 @@
                         <tr>
                             <th><?= __('Created') ?></th>
                             <td><?= h($slug->created) ?></td>
-                        </tr>
-                        <tr>
-                            <th><?= __('Modified') ?></th>
-                            <td><?= h($slug->modified) ?></td>
                         </tr>
                     </table>
                 </div>

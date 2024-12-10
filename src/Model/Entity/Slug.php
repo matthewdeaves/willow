@@ -9,12 +9,10 @@ use Cake\ORM\Entity;
  * Slug Entity
  *
  * @property string $id
- * @property string $article_id
+ * @property string $model
+ * @property string $foreign_key
  * @property string $slug
  * @property \Cake\I18n\DateTime $created
- * @property \Cake\I18n\DateTime|null $modified
- *
- * @property \App\Model\Entity\Article $article
  */
 class Slug extends Entity
 {
@@ -29,9 +27,9 @@ class Slug extends Entity
      */
     protected array $_accessible = [
         'id' => true,
+        'model' => true,
         'foreign_key' => true,
         'slug' => true,
-        'model' => true,
         'created' => true,
     ];
 }

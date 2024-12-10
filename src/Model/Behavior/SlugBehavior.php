@@ -42,8 +42,12 @@ class SlugBehavior extends Behavior
         $targetField = $this->getConfig('targetField');
         $maxLength = $this->getConfig('maxLength');
 
-        // Only generate slug if no slug is provided and we have a source field
-        if (empty($entity->get($targetField)) && !empty($entity->get($sourceField))) {
+        if (!empty($entity->get($targetField))) {
+            // If a slug is provided, make it URL-safe
+            $slug = $this->generateSlug($entity->get($targetField), $maxLength);
+            $entity->set($targetField, $slug);
+        } elseif (!empty($entity->get($sourceField))) {
+            // If no slug but we have a source field, generate from source
             $slug = $this->generateSlug($entity->get($sourceField), $maxLength);
             $entity->set($targetField, $slug);
         }
@@ -84,13 +88,14 @@ class SlugBehavior extends Behavior
             ]);
 
             if (!$slugsTable->save($slugEntity)) {
+                // Log the error instead of throwing an exception
                 $errors = $slugEntity->getErrors();
                 $errorMessages = [];
                 foreach ($errors as $field => $fieldErrors) {
                     $errorMessages[] = sprintf('%s: %s', $field, implode(', ', $fieldErrors));
                 }
-                throw new RuntimeException(__(
-                    'Unable to save slug to history. Errors: {0}', 
+                $event->getSubject()->log(sprintf(
+                    'Failed to save slug history: %s',
                     implode('; ', $errorMessages)
                 ));
             }

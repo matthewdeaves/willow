@@ -81,6 +81,7 @@ class SlugsController extends AppController
             $selectFields = ['id', 'title'];
             if ($slug->model === 'Articles') {
                 $selectFields[] = 'kind';
+                $selectFields[] = 'is_published';
             }
 
             $relatedRecord = $relatedTable->find()
@@ -133,9 +134,33 @@ class SlugsController extends AppController
         if ($slug->model && $slug->foreign_key) {
             try {
                 $relatedTable = $this->fetchTable($slug->model);
-                $relatedRecord = $relatedTable->find()
-                    ->where(['id' => $slug->foreign_key])
-                    ->first();
+                
+                // Build the query based on the model type
+                $query = $relatedTable->find()
+                    ->where(['id' => $slug->foreign_key]);
+
+                // Add specific fields for Articles
+                if ($slug->model === 'Articles') {
+                    $query->select(['id', 'title', 'kind', 'slug', 'is_published']);
+                } else {
+                    $query->select(['id', 'title', 'slug']);
+                }
+
+                $relatedRecord = $query->first();
+
+                if (!$relatedRecord) {
+                    $this->Flash->warning(__(
+                        'The related {0} record (ID: {1}) could not be found.',
+                        $slug->model,
+                        $slug->foreign_key
+                    ));
+                    $this->log(sprintf(
+                        'Related record not found for slug %s (model: %s, foreign_key: %s)',
+                        $slug->id,
+                        $slug->model,
+                        $slug->foreign_key
+                    ), 'warning');
+                }
             } catch (Exception $e) {
                 $this->Flash->error(__('Unable to load related {0} record.', $slug->model));
                 $this->log(sprintf(
@@ -148,7 +173,17 @@ class SlugsController extends AppController
             }
         }
 
-        $this->set(compact('slug', 'relatedRecord'));
+        // Get all slugs for this model/foreign_key combination
+        $relatedSlugs = $this->Slugs->find()
+            ->where([
+                'model' => $slug->model,
+                'foreign_key' => $slug->foreign_key,
+                'id !=' => $slug->id
+            ])
+            ->orderBy(['created' => 'DESC'])
+            ->all();
+
+        $this->set(compact('slug', 'relatedRecord', 'relatedSlugs'));
     }
 
     /**

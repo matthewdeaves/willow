@@ -40,27 +40,30 @@ class SlugsController extends AppController
         // Fetch related records for all slugs
         $relatedData = [];
         foreach ($slugs as $slug) {
-            try {
-                $relatedTable = $this->fetchTable($slug->model);
-                $relatedRecord = $relatedTable->find()
-                    ->select(['id', 'title'])  // Assuming most models have title
-                    ->where(['id' => $slug->foreign_key])
-                    ->first();
+            $relatedTable = $this->fetchTable($slug->model);
+            
+            // Build the select fields based on the model
+            $selectFields = ['id', 'title'];
+            if ($slug->model === 'Articles') {
+                $selectFields[] = 'kind';
+            }
+            
+            $relatedRecord = $relatedTable->find()
+                ->select($selectFields)
+                ->where(['id' => $slug->foreign_key])
+                ->first();
+            
+            if ($relatedRecord) {
+                $relatedData[$slug->id] = [
+                    'title' => $relatedRecord->title,
+                    'controller' => $slug->model,
+                    'id' => $relatedRecord->id,
+                ];
                 
-                if ($relatedRecord) {
-                    $relatedData[$slug->id] = [
-                        'title' => $relatedRecord->title,
-                        'controller' => $slug->model,
-                        'id' => $relatedRecord->id,
-                    ];
+                // Add kind only for Articles
+                if ($slug->model === 'Articles') {
+                    $relatedData[$slug->id]['kind'] = $relatedRecord->kind;
                 }
-            } catch (\Exception $e) {
-                // Log the error but continue processing
-                $this->log(sprintf(
-                    'Failed to fetch related record for slug %s: %s',
-                    $slug->id,
-                    $e->getMessage()
-                ), 'error');
             }
         }
     

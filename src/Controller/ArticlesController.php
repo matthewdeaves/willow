@@ -193,9 +193,12 @@ class ArticlesController extends AppController
         if (empty($article)) {
             // If not in cache, we need to check if this is the latest slug
             $slugEntity = $this->Slugs->find()
-                ->where(['slug' => $slug])
+                ->where([
+                    'slug' => $slug,
+                    'model' => 'Articles',
+                    ])
                 ->orderBy(['created' => 'DESC'])
-                ->select(['article_id'])
+                ->select(['foreign_key'])
                 ->first();
 
             if (!$slugEntity) {
@@ -210,12 +213,12 @@ class ArticlesController extends AppController
 
                 $articleId = $article->id;
             } else {
-                $articleId = $slugEntity->article_id;
+                $articleId = $slugEntity->foreign_key;
             }
 
             // Check if it's the latest slug for the article
             $latestSlug = $this->Slugs->find()
-                ->where(['article_id' => $articleId])
+                ->where(['foreign_key' => $articleId])
                 ->orderBy(['created' => 'DESC'])
                 ->select(['slug'])
                 ->first();

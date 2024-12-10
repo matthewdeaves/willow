@@ -84,7 +84,35 @@
                   <?= h($slug->foreign_key) ?>
               <?php endif; ?>
           </td>
-          <td><?= h($slug->slug) ?></td>
+          <td>
+              <?php
+              if (isset($relatedData[$slug->id])) {
+                  $routeName = match ($slug->model) {
+                      'Articles' => $relatedData[$slug->id]['kind'] === 'page' ? 'page-by-slug' : 'article-by-slug',
+                      'Tags' => 'tag-by-slug',
+                      default => null,
+                  };
+
+                  if ($routeName) {
+                      echo $this->Html->link(
+                          h($slug->slug),
+                          [
+                              '_name' => $routeName,
+                              'slug' => $slug->slug,
+                          ],
+                          [
+                              'class' => 'text-decoration-none',
+                              'target' => '_blank'
+                          ]
+                      );
+                  } else {
+                      echo h($slug->slug);
+                  }
+              } else {
+                  echo h($slug->slug);
+              }
+              ?>
+          </td>
           <td><?= h($slug->created) ?></td>
           <td>
               <div class="btn-group w-100 align-items-center justify-content-between flex-wrap">

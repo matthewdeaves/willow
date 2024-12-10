@@ -60,11 +60,7 @@ class TagsTable extends Table
             'foreignKey' => 'parent_id',
         ]);
 
-        $this->addBehavior('Sluggable', [
-            'field' => 'title',
-            'slug' => 'slug',
-            'maxLength' => 255,
-        ]);
+        $this->addBehavior('Slug');
 
         $this->addBehavior('Translate', [
             'fields' => [

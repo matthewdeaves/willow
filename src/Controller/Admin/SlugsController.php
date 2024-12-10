@@ -87,31 +87,29 @@ class SlugsController extends AppController
         return null;
     }
 
-    /**
-     * Edit method
-     *
-     * @param string|null $id Slug id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function edit($id = null)
     {
-        $slug = $this->Slugs->get($id, contain: []);
+        $slug = $this->Slugs->find()
+            ->where(['id' => $id])
+            ->firstOrFail();
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $slug = $this->Slugs->patchEntity($slug, $this->request->getData());
             if ($this->Slugs->save($slug)) {
                 $this->Flash->success(__('The slug has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The slug could not be saved. Please, try again.'));
         }
-        $articles = $this->Slugs->Articles->find('list', limit: 200)->all();
-        $this->set(compact('slug', 'articles'));
 
+        // Get related records based on the model type
+        $relatedRecords = $this->fetchTable($slug->model)->find('list', limit: 200)->all();
+        $this->set(compact('relatedRecords'));
+
+        $this->set(compact('slug'));
         return null;
     }
-
+    
     /**
      * Delete method
      *

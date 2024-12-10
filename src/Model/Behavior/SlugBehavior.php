@@ -27,6 +27,13 @@ class SlugBehavior extends Behavior
     {
         parent::initialize($config);
 
+        // Add the hasMany relationship to Slugs
+        $this->_table->hasMany('Slugs', [
+            'foreignKey' => 'foreign_key',
+            'conditions' => ['Slugs.model' => $this->_table->getAlias()],
+            'dependent' => true,
+        ]);
+
         $this->_table->getValidator()->add($this->getConfig('targetField'), [
             'unique' => [
                 'rule' => [$this, 'validateUniqueSlug'],
@@ -72,10 +79,11 @@ class SlugBehavior extends Behavior
 
         // Check if this slug is already in the history for this entity
         $existingSlug = $slugsTable->find()
+            ->select(['Slugs.id'])
             ->where([
-                'model' => $this->_table->getAlias(),
-                'foreign_key' => $entity->get($this->_table->getPrimaryKey()),
-                'slug' => $slug,
+                'Slugs.model' => $this->_table->getAlias(),
+                'Slugs.foreign_key' => $entity->get($this->_table->getPrimaryKey()),
+                'Slugs.slug' => $slug,
             ])
             ->first();
 
@@ -132,13 +140,13 @@ class SlugBehavior extends Behavior
         $slugQuery = $slugsTable->find();
         
         $slugConditions = [
-            'slug' => $value,
-            'model' => $this->_table->getAlias(),
+            'Slugs.slug' => $value,
+            'Slugs.model' => $this->_table->getAlias(),
         ];
         
         if (!empty($context['data']['id'])) {
             $slugConditions[] = function (QueryExpression $exp) use ($context) {
-                return $exp->notEq('foreign_key', $context['data']['id']);
+                return $exp->notEq('Slugs.foreign_key', $context['data']['id']);
             };
         }
 

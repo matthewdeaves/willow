@@ -9,6 +9,7 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
+use Cake\Cache\Cache;
 
 /**
  * Slugs Model
@@ -45,7 +46,13 @@ class SlugsTable extends Table
         $this->setDisplayField('slug');
         $this->setPrimaryKey('id');
 
-        $this->addBehavior('Timestamp');
+        $this->addBehavior('Timestamp', [
+            'events' => [
+                'Model.beforeSave' => [
+                    'created' => 'new',
+                ],
+            ],
+        ]);
 
         // Set up dynamic associations based on existing slugs
         $this->setupAssociations();
@@ -59,22 +66,32 @@ class SlugsTable extends Table
      */
     protected function setupAssociations(): void
     {
-        $models = $this->find()
-            ->select(['model'])
-            ->distinct(['model'])
-            ->disableHydration()
-            ->all()
-            ->extract('model')
-            ->toArray();
+        // Try to get models from cache first
+        $cacheKey = 'slugs_models_list';
+        $models = Cache::read($cacheKey);
+
+        if ($models === null) {
+            $models = $this->find()
+                ->select(['model'])
+                ->distinct()
+                ->disableHydration()
+                ->all()
+                ->extract('model')
+                ->toArray();
+
+            // Cache the results for 1 hour
+            Cache::write($cacheKey, $models, 'default');
+        }
 
         foreach ($models as $model) {
             try {
                 $className = App::className($model, 'Model/Table', 'Table');
                 if ($className) {
                     $this->belongsTo($model, [
+                        'className' => $className,
                         'foreignKey' => 'foreign_key',
-                        'conditions' => ['Slugs.model' => $model],
-                        'joinType' => 'INNER',
+                        'conditions' => [$this->getAlias() . '.model' => $model],
+                        'joinType' => 'LEFT',
                     ]);
                 }
             } catch (\Exception $e) {
@@ -97,9 +114,7 @@ class SlugsTable extends Table
     {
         $validator
             ->uuid('id')
-            ->requirePresence('id', 'create')
-            ->notEmptyString('id')
-            ->add('id', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->allowEmptyString('id', 'create');
 
         $validator
             ->scalar('model')
@@ -116,7 +131,8 @@ class SlugsTable extends Table
             ->scalar('slug')
             ->maxLength('slug', 255)
             ->requirePresence('slug', 'create')
-            ->notEmptyString('slug');
+            ->notEmptyString('slug')
+            ->regex('slug', '/^[a-z0-9-]+$/', __('The slug must be URL-safe (only lowercase letters, numbers, and hyphens)'));
 
         return $validator;
     }
@@ -130,8 +146,26 @@ class SlugsTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->isUnique(['id']), ['errorField' => 'id']);
+        $rules->add($rules->isUnique(
+            ['slug', 'model'],
+            __('This slug is already in use for this model type.')
+        ));
 
         return $rules;
+    }
+
+    /**
+     * Find by slug and model.
+     *
+     * @param \Cake\ORM\Query\SelectQuery $query The query to modify
+     * @param array $options The options containing slug and model
+     * @return \Cake\ORM\Query\SelectQuery
+     */
+    public function findBySlugAndModel(SelectQuery $query, array $options): SelectQuery
+    {
+        return $query->where([
+            $this->getAlias() . '.slug' => $options['slug'],
+            $this->getAlias() . '.model' => $options['model'],
+        ]);
     }
 }

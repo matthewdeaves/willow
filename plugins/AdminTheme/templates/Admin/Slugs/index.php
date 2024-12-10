@@ -2,6 +2,8 @@
 /**
  * @var \App\View\AppView $this
  * @var iterable<\App\Model\Entity\Slug> $slugs
+ * @var array $relatedData
+ * @var array $modelTypes
  */
 ?>
 <header class="py-3 mb-3 border-bottom">
@@ -81,6 +83,9 @@
                           'escape' => false
                       ]
                   ) ?>
+                  <?php if ($slug->model === 'Articles' && !$relatedData[$slug->id]['is_published']): ?>
+                      <span class="badge bg-warning ms-2"><?= __('Not Published') ?></span>
+                  <?php endif; ?>
               <?php else: ?>
                   <?= h($slug->foreign_key) ?>
               <?php endif; ?>
@@ -94,7 +99,11 @@
                       default => null,
                   };
 
-                  if ($routeName) {
+                  // Only create link if it's a Tag or a published Article
+                  $showLink = $slug->model === 'Tags' || 
+                      ($slug->model === 'Articles' && $relatedData[$slug->id]['is_published']);
+
+                  if ($routeName && $showLink) {
                       echo $this->Html->link(
                           h($slug->slug),
                           [

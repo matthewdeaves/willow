@@ -99,6 +99,7 @@ class SlugsController extends AppController
                 // Add kind only for Articles
                 if ($slug->model === 'Articles') {
                     $relatedData[$slug->id]['kind'] = $relatedRecord->kind;
+                    $relatedData[$slug->id]['is_published'] = $relatedRecord->is_published;
                 }
             }
         }
@@ -134,7 +135,7 @@ class SlugsController extends AppController
         if ($slug->model && $slug->foreign_key) {
             try {
                 $relatedTable = $this->fetchTable($slug->model);
-                
+
                 // Build the query based on the model type
                 $query = $relatedTable->find()
                     ->where(['id' => $slug->foreign_key]);
@@ -178,7 +179,7 @@ class SlugsController extends AppController
             ->where([
                 'model' => $slug->model,
                 'foreign_key' => $slug->foreign_key,
-                'id !=' => $slug->id
+                'id !=' => $slug->id,
             ])
             ->orderBy(['created' => 'DESC'])
             ->all();

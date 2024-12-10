@@ -122,6 +122,7 @@ class SluggableBehavior extends Behavior
                         ]);
                         if (!$slugsTable->save($slugEntity)) {
                             $entity->setError($slugField, __('Could not save the previous slug.'));
+
                             return false;
                         }
                     }
@@ -201,6 +202,7 @@ class SluggableBehavior extends Behavior
     {
         $config = $this->getConfig();
         $slug = strtolower(Text::slug($value));
+
         return substr($slug, 0, $config['maxLength']);
     }
 

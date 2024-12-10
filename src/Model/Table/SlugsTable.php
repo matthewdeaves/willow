@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use Cake\Cache\Cache;
 use Cake\Core\App;
 use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
-use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
-use Cake\Cache\Cache;
+use Exception;
 
 /**
  * Slugs Model
@@ -27,7 +27,6 @@ use Cake\Cache\Cache;
  * @method iterable<\App\Model\Entity\Slug>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\Slug> saveManyOrFail(iterable $entities, array $options = [])
  * @method iterable<\App\Model\Entity\Slug>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\Slug>|false deleteMany(iterable $entities, array $options = [])
  * @method iterable<\App\Model\Entity\Slug>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\Slug> deleteManyOrFail(iterable $entities, array $options = [])
- *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
 class SlugsTable extends Table
@@ -94,7 +93,7 @@ class SlugsTable extends Table
                         'joinType' => 'LEFT',
                     ]);
                 }
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 $this->log(sprintf(
                     'Failed to setup association for model %s: %s',
                     $model,
@@ -132,7 +131,11 @@ class SlugsTable extends Table
             ->maxLength('slug', 255)
             ->requirePresence('slug', 'create')
             ->notEmptyString('slug')
-            ->regex('slug', '/^[a-z0-9-]+$/', __('The slug must be URL-safe (only lowercase letters, numbers, and hyphens)'));
+            ->regex(
+                'slug',
+                '/^[a-z0-9-]+$/',
+                __('The slug must be URL-safe (only lowercase letters, numbers, and hyphens)')
+            );
 
         return $validator;
     }

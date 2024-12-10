@@ -11,19 +11,47 @@ use Cake\Log\LogTrait;
 use Cake\ORM\Behavior\Translate\TranslateTrait;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
-use Cake\ORM\TableRegistry;
 use Cake\Queue\QueueManager;
-use Cake\Utility\Text;
 use Cake\Validation\Validator;
 use DateTime;
 
-
+/**
+ * Articles Table
+ *
+ * Manages article content with features including:
+ * - Multi-language support
+ * - SEO metadata
+ * - Image handling
+ * - Commenting system
+ * - Page view tracking
+ * - AI-powered content enhancement
+ *
+ * @property \Cake\ORM\Association\BelongsTo $Users
+ * @property \Cake\ORM\Association\BelongsToMany $Tags
+ * @property \Cake\ORM\Association\HasMany $PageViews
+ * @property \Cake\ORM\Association\HasMany $Slugs
+ * @method \App\Model\Entity\Article newEmptyEntity()
+ * @method \App\Model\Entity\Article newEntity(array $data, array $options = [])
+ * @method \App\Model\Entity\Article[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\Article get($primaryKey, $options = [])
+ * @method \App\Model\Entity\Article findOrCreate($search, ?callable $callback = null, $options = [])
+ * @method \App\Model\Entity\Article patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\Article[] patchEntities(iterable $entities, array $data, array $options = [])
+ * @method \App\Model\Entity\Article|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ */
 class ArticlesTable extends Table
 {
     use LogTrait;
     use TranslateTrait;
 
-
+    /**
+     * Initialize method
+     *
+     * Configures table associations, behaviors, and other settings
+     *
+     * @param array<string, mixed> $config Configuration array
+     * @return void
+     */
     public function initialize(array $config): void
     {
         parent::initialize($config);
@@ -81,6 +109,18 @@ class ArticlesTable extends Table
         ]);
     }
 
+    /**
+     * Default validation rules
+     *
+     * Sets up validation rules for article fields including:
+     * - User ID validation
+     * - Title requirements
+     * - Body content validation
+     * - Image upload restrictions
+     *
+     * @param \Cake\Validation\Validator $validator Validator instance
+     * @return \Cake\Validation\Validator
+     */
     public function validationDefault(Validator $validator): Validator
     {
         $validator
@@ -113,6 +153,12 @@ class ArticlesTable extends Table
         return $validator;
     }
 
+    /**
+     * Returns a rules checker object that will be used for validating application integrity
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified
+     * @return \Cake\ORM\RulesChecker
+     */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
@@ -120,6 +166,18 @@ class ArticlesTable extends Table
         return $rules;
     }
 
+    /**
+     * Before save callback
+     *
+     * Handles:
+     * - Setting publication date when article is published
+     * - Calculating word count for article body
+     *
+     * @param \Cake\Event\EventInterface $event The beforeSave event that was fired
+     * @param \Cake\Datasource\EntityInterface $entity The entity that is going to be saved
+     * @param \ArrayObject $options The options passed to the save method
+     * @return bool|null True if the operation should continue, false if it should abort
+     */
     public function beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): ?bool
     {
         // Check if is_published has changed to published
@@ -137,10 +195,22 @@ class ArticlesTable extends Table
         return true;
     }
 
-
+    /**
+     * After save callback
+     *
+     * Handles AI-powered enhancements including:
+     * - Article tagging
+     * - Summary generation
+     * - SEO field population
+     * - Content translation
+     *
+     * @param \Cake\Event\EventInterface $event The afterSave event that was fired
+     * @param \Cake\Datasource\EntityInterface $entity The entity that was saved
+     * @param \ArrayObject $options The options passed to the save method
+     * @return void
+     */
     public function afterSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
-
         // noMessage flag will be true if save came from a Job (stops looping)
         $noMessage = $options['noMessage'] ?? false;
 
@@ -196,9 +266,10 @@ class ArticlesTable extends Table
     }
 
     /**
-     * Checks if any of the SEO fields are empty.
+     * Checks if any of the SEO fields are empty
      *
-     * @return array Returns an array of empty SEO fields.
+     * @param \Cake\Datasource\EntityInterface $entity The article entity to check
+     * @return array<string> List of empty SEO field names
      */
     public function emptySeoFields(EntityInterface $entity): array
     {
@@ -216,9 +287,10 @@ class ArticlesTable extends Table
     }
 
     /**
-     * Checks if any of the original language fields for translation are empty.
+     * Checks if any of the original language fields for translation are empty
      *
-     * @return array Returns an array of empty SEO fields.
+     * @param \Cake\Datasource\EntityInterface $entity The article entity to check
+     * @return array<string> List of empty translation field names
      */
     public function emptyTranslationFields(EntityInterface $entity): array
     {
@@ -233,20 +305,11 @@ class ArticlesTable extends Table
     }
 
     /**
-     * Queues a job with the provided job class and data.
+     * Queues a job with the provided job class and data
      *
-     * This method is used to queue jobs for various tasks related to articles, such as updating SEO fields,
-     * translating articles, updating tags, and generating summaries. It uses the QueueManager to push the
-     * job into the queue and logs the queued job with relevant information.
-     *
-     * @param string $job The fully qualified class name of the job to be queued.
-     * @param array $data An associative array of data to be passed to the job. Typically includes:
-     *                    - 'id' (int): The ID of the article associated with the job.
-     *                    - 'title' (string): The title of the article.
+     * @param string $job The fully qualified job class name
+     * @param array<string, mixed> $data The data to be passed to the job
      * @return void
-     * @throws \Exception If there is an error while queueing the job.
-     * @uses \Cake\Queue\QueueManager::push() Pushes the job into the queue.
-     * @uses \Cake\Log\Log::info() Logs the queued job with relevant information.
      */
     public function queueJob(string $job, array $data): void
     {

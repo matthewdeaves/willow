@@ -21,24 +21,17 @@
                     ]
                 ) ?>
               </li>
+              <?php foreach($modelTypes as $count => $modelType) : ?>
               <li>
                 <?= $this->Html->link(
-                    __('Filter 1'), 
-                    ['action' => 'index', '?' => ['status' => 0]],
+                    $modelType, 
+                    ['action' => 'index', '?' => ['status' => $modelType]],
                     [
-                      'class' => 'dropdown-item' . ('0' === $activeFilter ? ' active' : '')
+                      'class' => 'dropdown-item' . ($modelType === $activeFilter ? ' active' : '')
                     ]
                 ) ?>
               </li>
-              <li>
-                <?= $this->Html->link(
-                    __('Filter 2'), 
-                    ['action' => 'index', '?' => ['status' => 1]],
-                    [
-                      'class' => 'dropdown-item' . ('1' === $activeFilter ? ' active' : '')
-                    ]
-                ) ?>
-              </li>
+              <?php endforeach; ?>
             </ul>
           </li>
         </ul>
@@ -65,7 +58,15 @@
     <tbody>
       <?php foreach ($slugs as $slug): ?>
       <tr>
-          <td><?= h($slug->model) ?></td>
+        <td>
+            <?php
+            if (isset($relatedData[$slug->id]['kind'])) {
+                echo h(ucfirst($relatedData[$slug->id]['kind']));
+            } else {
+                echo h(str_replace('s', '', $slug->model));
+            }
+            ?>
+        </td>
           <td>
               <?php if (isset($relatedData[$slug->id])): ?>
                   <?= $this->Html->link(

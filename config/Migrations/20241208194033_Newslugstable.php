@@ -12,7 +12,7 @@ class Newslugstable extends AbstractMigration
      *
      * @return void
      */
-    public function change(): void
+    public function up(): void
     {
         // First, add the new 'model' column
         $this->table('slugs')
@@ -65,25 +65,27 @@ class Newslugstable extends AbstractMigration
             ->removeColumn('article_id')
             ->update();
 
-        // Migrate existing tag slugs to the slugs table using the Table object
-        /*
-        $tags = TableRegistry::getTableLocator()->get('Tags');
-        $tags = $tags->find()
-            ->select(['id','slug','created'])
-            ->where([ 'slug IS NOT '=>null,'slug != '=>''])
-            ->all();
+        // Migrate existing tag slugs to the slugs table
+        $connection = $this->getAdapter()->getConnection();
+    
+        $tags = $connection->execute("
+            SELECT id, slug, DATE_FORMAT(created, '%Y-%m-%d %H:%i:%s') as created 
+            FROM tags 
+            WHERE slug IS NOT NULL 
+            AND slug != ''
+        ")->fetchAll('assoc');
 
         foreach ($tags as $tag) {
             $this->table('slugs')
                 ->insert([
-                    'id' => Text::uuid(), // Generate UUID for the id column
-                    'foreign_key' => $tag->id,
+                    'id' => Text::uuid(),
+                    'foreign_key' => $tag['id'],
                     'model' => 'Tags',
-                    'slug' => $tag->slug,
-                    'created' => $tag->created->format('Y-m-d H:i:s'),
+                    'slug' => $tag['slug'],
+                    'created' => $tag['created'],
                 ])
                 ->save();
-        }*/
+        }
     }
 
     /**

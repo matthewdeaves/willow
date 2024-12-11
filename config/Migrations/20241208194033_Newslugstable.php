@@ -66,6 +66,7 @@ class Newslugstable extends AbstractMigration
             ->update();
 
         // Migrate existing tag slugs to the slugs table using the Table object
+        /*
         $tags = TableRegistry::getTableLocator()->get('Tags');
         $tags = $tags->find()
             ->select(['id','slug','created'])
@@ -82,7 +83,7 @@ class Newslugstable extends AbstractMigration
                     'created' => $tag->created->format('Y-m-d H:i:s'),
                 ])
                 ->save();
-        }
+        }*/
     }
 
     /**

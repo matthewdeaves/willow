@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+use Cake\Utility\Text;
+use Cake\ORM\TableRegistry;
 use Migrations\AbstractMigration;
 
 class Newslugstable extends AbstractMigration
@@ -63,11 +65,24 @@ class Newslugstable extends AbstractMigration
             ->removeColumn('article_id')
             ->update();
 
-        // Migrate existing tag slugs to the slugs table
-        $this->execute('INSERT INTO slugs (foreign_key, model, slug, created)
-            SELECT id, "Tags", slug, created
-            FROM tags
-            WHERE slug IS NOT NULL AND slug != ""');
+        // Migrate existing tag slugs to the slugs table using the Table object
+        $tags = TableRegistry::getTableLocator()->get('Tags');
+        $tags = $tags->find()
+            ->select(['id','slug','created'])
+            ->where([ 'slug IS NOT '=>null,'slug != '=>''])
+            ->all();
+
+        foreach ($tags as $tag) {
+            $this->table('slugs')
+                ->insert([
+                    'id' => Text::uuid(), // Generate UUID for the id column
+                    'foreign_key' => $tag->id,
+                    'model' => 'Tags',
+                    'slug' => $tag->slug,
+                    'created' => $tag->created->format('Y-m-d H:i:s'),
+                ])
+                ->save();
+        }
     }
 
     /**

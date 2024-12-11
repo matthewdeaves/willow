@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
-use Cake\Cache\Cache;
 use Cake\Core\App;
 use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
@@ -65,22 +64,13 @@ class SlugsTable extends Table
      */
     protected function setupAssociations(): void
     {
-        // Try to get models from cache first
-        $cacheKey = 'slugs_models_list';
-        $models = Cache::read($cacheKey);
-
-        if ($models === null) {
-            $models = $this->find()
-                ->select(['model'])
-                ->distinct()
-                ->disableHydration()
-                ->all()
-                ->extract('model')
-                ->toArray();
-
-            // Cache the results for 1 hour
-            Cache::write($cacheKey, $models, 'default');
-        }
+        $models = $this->find()
+            ->select(['model'])
+            ->distinct()
+            ->disableHydration()
+            ->all()
+            ->extract('model')
+            ->toArray();
 
         foreach ($models as $model) {
             try {

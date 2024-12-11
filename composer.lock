@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "admad/cakephp-i18n",
-            "version": "3.0.1",
+            "version": "3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ADmad/cakephp-i18n.git",
-                "reference": "d06bce6040782e8e7d3bc09bb170423aa4616b90"
+                "reference": "e74dd8d8eeb6cd96e350cdc49384b7bfe7330cd9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ADmad/cakephp-i18n/zipball/d06bce6040782e8e7d3bc09bb170423aa4616b90",
-                "reference": "d06bce6040782e8e7d3bc09bb170423aa4616b90",
+                "url": "https://api.github.com/repos/ADmad/cakephp-i18n/zipball/e74dd8d8eeb6cd96e350cdc49384b7bfe7330cd9",
+                "reference": "e74dd8d8eeb6cd96e350cdc49384b7bfe7330cd9",
                 "shasum": ""
             },
             "require": {
@@ -62,7 +62,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-10-29T06:02:25+00:00"
+            "time": "2024-12-07T19:23:33+00:00"
         },
         {
             "name": "brick/math",
@@ -541,16 +541,16 @@
         },
         {
             "name": "composer/ca-bundle",
-            "version": "1.5.3",
+            "version": "1.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/ca-bundle.git",
-                "reference": "3b1fc3f0be055baa7c6258b1467849c3e8204eb2"
+                "reference": "bc0593537a463e55cadf45fd938d23b75095b7e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/3b1fc3f0be055baa7c6258b1467849c3e8204eb2",
-                "reference": "3b1fc3f0be055baa7c6258b1467849c3e8204eb2",
+                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/bc0593537a463e55cadf45fd938d23b75095b7e1",
+                "reference": "bc0593537a463e55cadf45fd938d23b75095b7e1",
                 "shasum": ""
             },
             "require": {
@@ -597,7 +597,7 @@
             "support": {
                 "irc": "irc://irc.freenode.org/composer",
                 "issues": "https://github.com/composer/ca-bundle/issues",
-                "source": "https://github.com/composer/ca-bundle/tree/1.5.3"
+                "source": "https://github.com/composer/ca-bundle/tree/1.5.4"
             },
             "funding": [
                 {
@@ -613,7 +613,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-11-04T10:15:26+00:00"
+            "time": "2024-11-27T15:35:25+00:00"
         },
         {
             "name": "enqueue/dsn",

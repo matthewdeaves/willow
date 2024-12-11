@@ -26,6 +26,7 @@ class SlugsControllerTest extends AppControllerTestCase
         'app.Slugs',
         'app.Articles',
         'app.Users',
+        'app.Settings',
     ];
 
     /**

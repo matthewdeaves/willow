@@ -254,7 +254,6 @@ return [
      * You can add custom transports (or override existing transports) by adding the
      * appropriate file to src/Mailer/Transport. Transports should be named
      * 'YourTransport.php', where 'Your' is the name of the transport.
-     * TODO UPDATE MAILHOG TO USE .ENV FILE FOR HOST/PORT
      */
     'EmailTransport' => [
         'default' => [

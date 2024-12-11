@@ -29,7 +29,7 @@ class SendEmailJob implements JobInterface
      *
      * @var int|null
      */
-    public static ?int $maxAttempts = 3;
+    public static int $maxAttempts = 3;
 
     /**
      * Indicates if there should be only one instance of this job on the queue at a time.

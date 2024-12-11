@@ -35,11 +35,16 @@ class VideosController extends AppController
 
             try {
                 $searchParams = [
-                    'q' => $searchTerm,
                     'maxResults' => 12,
                     'type' => 'video',
                 ];
 
+                // Only add search term if it exists
+                if ($searchTerm) {
+                    $searchParams['q'] = $searchTerm;
+                }
+
+                // Always check for channel filter regardless of search term
                 if ($filterByChannel) {
                     $channelId = SettingsManager::read('Google.youtubeChannelId', env('YOUTUBE_CHANNEL_ID'));
                     if ($channelId) {

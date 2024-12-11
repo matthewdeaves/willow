@@ -139,8 +139,8 @@ class SitemapControllerTest extends TestCase
     public function testHomepageInSitemap(): void
     {
         $this->get('/en/sitemap.xml');
-
-        $homepageUrl = Router::url('/', true);
+        //debug($this->_response);
+        $homepageUrl = Router::url(['_name' => 'home', 'lang' => 'en'], true);
         $this->assertResponseContains('<loc>' . $homepageUrl . '</loc>');
         $this->assertResponseContains('<changefreq>daily</changefreq>');
         $this->assertResponseContains('<priority>1.0</priority>');

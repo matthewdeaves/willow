@@ -12,7 +12,7 @@ $isGalleryOnly = $this->request->getQuery('gallery_only', false);
                    placeholder="<?= __('Search YouTube videos...') ?>" 
                    value="<?= h($searchTerm) ?>">
         </div>
-        <?php if ($channelId): ?>
+        <?php if ($channelId != 'your-api-key-here'): ?>
         <div class="col-md-4">
             <div class="form-check form-switch mt-2">
                 <input class="form-check-input" 

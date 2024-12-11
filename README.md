@@ -1,6 +1,8 @@
-# Willow CMS - Easy-to-Use Content Management System Built with CakePHP 5.x
+# Willow CMS - Content Management System Built with CakePHP 5.x
 
 ![Build Status](https://github.com/matthewdeaves/willow/workflows/CI/badge.svg)
+
+Read the [development blog (built with Willow CMS)](https://willowcms.app)
 
 ## Table of Contents
 1. [Docker Development Environment](#docker-development-environment)
@@ -12,7 +14,7 @@
 5. [Production Environment](#production-environment)
 
 ## Docker Development Environment
-Docker is used to host everything you need for a development environment: Nginx, PHP, MySQL, Redis, PHPMyAdmin, MailHog and Jenkins. The only thing you need on your host machine is [Docker](https://www.docker.com).
+Docker is used to host everything you need for a development environment: Nginx, PHP, MySQL, Redis, PHPMyAdmin, Mailpit and Jenkins. The only thing you need on your host machine is [Docker](https://www.docker.com).
 
 ### Quick Start - Mac OS X / Ubuntu
 
@@ -36,14 +38,25 @@ Login to the Willow CMS admin area at [http://localhost:8080/admin](http://local
 This is all handled by `./setup_dev_env.sh` which is installing dependencies via [Composer](https://getcomposer.org/), running the database migration, creating a user and importing default data all on the docker development environment. [View the setup_dev_env.sh script](https://github.com/matthewdeaves/willow/blob/main/setup_dev_env.sh)
 
 ### Queues and Consumers
-Willow CMS uses queues and consumers to offload heavy duty tasks to background processes. This includes things like image processing/resizing and making calls to the Anthropic API. On the development environment, queue workers are not started automatically. This means if you upload an image or perform a task that offloads a message to the queue for a worker to pick up (like article translation or SEO texts generation), you will need to start a queue worker. You can start a queue worker process like this:
 
-- **Alias Command**: (see [Useful Shell Aliases](https://github.com/matthewdeaves/willow/blob/main/DeveloperGuide.md#useful-shell-aliases))
+Willow CMS uses queues and consumers to offload heavy duty tasks to background processes. This includes things like image processing/resizing and making calls to the Anthropic API. On the development environment, queue workers are not started automatically. This means if you upload an image or perform a task that offloads a message to the queue for a worker to pick up (like article translation or SEO texts generation), you will need to start a queue worker. 
+
+You should install the developer shell aliases by running:
+
+```bash
+./setup_dev_aliases.sh
 ```
+
+You can start a queue worker process like this:
+
+- **Alias Command**: (see [Useful Shell Aliases](https://github.com/matthewdeaves/willow/blob/main/DeveloperGuide.md#useful-shell-aliases-and-git-hooks))
+
+```bash
 cake_queue_worker
 ```
-- **Raw Command**: 
-```
+- **Raw Command without dev aliases**: 
+
+```bash
 docker compose exec willowcms bin/cake queue worker --verbose
 ```
 Leave the queue worker running in a terminal to see useful output as it picks up and runs [jobs](https://github.com/matthewdeaves/willow/tree/main/src/Job). Remember to save your Anthropic API key in the settings page.

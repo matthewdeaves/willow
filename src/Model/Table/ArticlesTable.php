@@ -16,7 +16,6 @@ use Cake\Queue\QueueManager;
 use Cake\Utility\Text;
 use Cake\Validation\Validator;
 use DateTime;
-use InvalidArgumentException;
 
 /**
  * ArticlesTable class
@@ -97,7 +96,7 @@ class ArticlesTable extends Table
 
         $this->addBehavior('Commentable');
 
-        $this->addBehavior('Tree');
+        $this->addBehavior('Orderable');
 
         $this->addBehavior('Sluggable', [
             'field' => 'title',
@@ -127,35 +126,6 @@ class ArticlesTable extends Table
             ],
             'defaultLocale' => 'en_GB',
             'allowEmptyTranslations' => false,
-        ]);
-
-        $this->addBehavior('Josegonzalez/Upload.Upload', [
-            'image' => [
-                'fields' => [
-                    'dir' => 'dir',
-                    'size' => 'size',
-                    'type' => 'mime',
-                ],
-                'nameCallback' => function ($table, $entity, $data, $field, $settings) {
-                    $file = $entity->{$field};
-                    $clientFilename = $file->getClientFilename();
-                    $ext = pathinfo($clientFilename, PATHINFO_EXTENSION);
-
-                    return Text::uuid() . '.' . strtolower($ext);
-                },
-                'deleteCallback' => function ($path, $entity, $field, $settings) {
-                    $paths = [
-                        $path . $entity->{$field},
-                    ];
-
-                    foreach (SettingsManager::read('ImageSizes') as $width) {
-                        $paths[] = $path . $width . DS . $entity->{$field};
-                    }
-
-                    return $paths;
-                },
-                'keepFilesOnDelete' => false,
-            ],
         ]);
 
         $this->belongsTo('Users', [
@@ -209,7 +179,7 @@ class ArticlesTable extends Table
             ->scalar('body')
             ->allowEmptyString('body');
 
-            $validator
+        $validator
             ->scalar('slug')
             ->maxLength('slug', 255)
             ->regex(
@@ -251,8 +221,8 @@ class ArticlesTable extends Table
                     'message' => __('Please upload only images (jpeg, png, gif).'),
                 ],
                 'fileSize' => [
-                    'rule' => ['fileSize', '<=', '5MB'],
-                    'message' => __('Image must be less than 5MB.'),
+                    'rule' => ['fileSize', '<=', '10MB'],
+                    'message' => __('Image must be less than 10MB.'),
                 ],
             ]);
 
@@ -472,66 +442,6 @@ class ArticlesTable extends Table
             'info',
             ['group_name' => $job]
         );
-    }
-
-    /**
-     * Reorders an article within a hierarchical structure.
-     *
-     * This method allows for moving an article to a new parent or to the root level,
-     * and adjusts its position among its siblings accordingly.
-     *
-     * @param array $data An associative array containing:
-     *                    - 'id' (int): The ID of the article to be reordered.
-     *                    - 'newParentId' (mixed): The ID of the new parent article, or 'root' to move to the root level.
-     *                    - 'newIndex' (int): The new position index among siblings.
-     * @throws \InvalidArgumentException If the provided data is not an array.
-     * @return bool Returns true on successful reordering.
-     */
-    public function reorder(array $data): bool
-    {
-        if (!is_array($data)) {
-            throw new InvalidArgumentException('Data must be an array');
-        }
-
-        $article = $this->get($data['id']);
-
-        if ($data['newParentId'] === 'root') {
-            // Moving to root level
-            $article->parent_id = null;
-            $this->save($article);
-        } else {
-            // Moving to a new parent
-            $newParent = $this->get($data['newParentId']);
-            $article->parent_id = $newParent->id;
-            $this->save($article);
-        }
-
-        // Adjust the position within siblings
-        if ($article->parent_id === null) {
-            // For root level items
-            $siblings = $this->find()
-                ->where(['parent_id IS' => null])
-                ->orderBy(['lft' => 'ASC'])
-                ->toArray();
-        } else {
-            // For non-root items
-            $siblings = $this->find('children', for: $article->parent_id, direct: true)
-                ->orderBy(['lft' => 'ASC'])
-                ->toArray();
-        }
-
-        $currentPosition = array_search($article->id, array_column($siblings, 'id'));
-        $newPosition = $data['newIndex'];
-
-        if ($currentPosition !== false && $currentPosition !== $newPosition) {
-            if ($newPosition > $currentPosition) {
-                $this->moveDown($article, $newPosition - $currentPosition);
-            } else {
-                $this->moveUp($article, $currentPosition - $newPosition);
-            }
-        }
-
-        return true;
     }
 
     /**

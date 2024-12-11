@@ -5,6 +5,7 @@ namespace App\Job;
 
 use App\Service\Api\Google\GoogleApiService;
 use App\Utility\SettingsManager;
+use Cake\Cache\Cache;
 use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
@@ -27,7 +28,7 @@ class TranslateTagJob implements JobInterface
      *
      * @var int|null
      */
-    public static ?int $maxAttempts = 3;
+    public static int $maxAttempts = 3;
 
     /**
      * Whether there should be only one instance of a job on the queue at a time.
@@ -159,6 +160,7 @@ class TranslateTagJob implements JobInterface
                     );
                 }
             }
+            Cache::clear('articles');
 
             return Processor::ACK;
         } else {

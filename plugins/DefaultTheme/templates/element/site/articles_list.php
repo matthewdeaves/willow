@@ -6,7 +6,7 @@
         <li>
         <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="<?= $this->Url->build(['_name' => $article->kind . '-by-slug', 'slug' => $article->slug]) ?>">
             <?php if (!empty($article->image)) : ?>
-            <?= $this->Html->image($article->tinyImageUrl, ['pathPrefix' => '', 'alt' => $article->alt_text]) ?>
+            <?= $this->element('image/icon',  ['model' => $article, 'icon' => $article->tinyImageUrl, 'preview' => false]); ?>
             <?php endif; ?>
             <div class="col-lg-8">
                 <h6 class="mb-0"><?= $article->title ?></h6>

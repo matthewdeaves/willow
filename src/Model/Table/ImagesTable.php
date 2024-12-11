@@ -8,7 +8,6 @@ use ArrayObject;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
 use Cake\ORM\Table;
-use Cake\Utility\Text;
 use Cake\Validation\Validator;
 
 /**
@@ -51,35 +50,6 @@ class ImagesTable extends Table
         ]);
 
         $this->addBehavior('Timestamp');
-
-        $this->addBehavior('Josegonzalez/Upload.Upload', [
-            'image' => [
-                'fields' => [
-                    'dir' => 'dir',
-                    'size' => 'size',
-                    'type' => 'mime',
-                ],
-                'nameCallback' => function ($table, $entity, $data, $field, $settings) {
-                    $file = $entity->{$field};
-                    $clientFilename = $file->getClientFilename();
-                    $ext = pathinfo($clientFilename, PATHINFO_EXTENSION);
-
-                    return Text::uuid() . '.' . strtolower($ext);
-                },
-                'deleteCallback' => function ($path, $entity, $field, $settings) {
-                    $paths = [
-                        $path . $entity->{$field},
-                    ];
-
-                    foreach (SettingsManager::read('ImageSizes') as $width) {
-                        $paths[] = $path . $width . DS . $entity->{$field};
-                    }
-
-                    return $paths;
-                },
-                'keepFilesOnDelete' => false,
-            ],
-        ]);
     }
 
     /**

@@ -5,7 +5,7 @@ $(document).ready(function() {
             $('#selectImageWindow').off('click', 'img').on('click', 'img', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                
+
                 var imageSrc = $(this).data('src');
                 var imageId = $(this).data('id');
                 var imageAlt = $(this).data('alt');
@@ -14,13 +14,13 @@ $(document).ready(function() {
 
                 // Restore the range before inserting
                 trumbowyg.restoreRange();
-                
+
                 // Insert the HTML directly
                 trumbowyg.execCmd('insertHTML', imageHtml, false, true);
-                
+
                 // Close the modal
                 $('#imageSelectModal').modal('hide');
-                
+
                 return false;
             });
 
@@ -71,32 +71,32 @@ $(document).ready(function() {
             $('#selectVideoWindow').off('click', 'button.select-video').on('click', 'button.select-video', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                
+
                 var videoId = $(this).data('video-id');
                 var videoTitle = $(this).data('video-title');
-                
+
                 // Create the video placeholder
                 var placeholder = `[youtube:${videoId}:560:315:${videoTitle}]`;
-                
+
                 // Restore the range before inserting
                 trumbowyg.restoreRange();
-                
+
                 // Insert the placeholder
                 trumbowyg.execCmd('insertHTML', placeholder, false, true);
-                
+
                 // Close the modal
                 $('#videoSelectModal').modal('hide');
-                
+
                 return false;
             });
-    
+
             // Channel filter handler
             $('#channelFilter').off('change').on('change', function() {
                 const searchInput = document.getElementById('videoSearch');
                 const searchTerm = searchInput ? searchInput.value.trim() : '';
                 videoHandlers.loadVideos(searchTerm, trumbowyg);
             });
-    
+
             // Search handler
             const searchInput = document.getElementById('videoSearch');
             if (searchInput) {
@@ -110,17 +110,22 @@ $(document).ready(function() {
                 });
             }
         },
-    
+
         loadVideos: function(searchTerm, trumbowyg) {
             const channelFilter = $('#channelFilter').is(':checked');
+            const params = {
+                gallery_only: true,
+                channel_filter: channelFilter
+            };
+
+            if (searchTerm) {
+                params.search = searchTerm;
+            }
+
             $.ajax({
                 url: '/admin/videos/video_select',
                 type: 'GET',
-                data: { 
-                    search: searchTerm,
-                    channel_filter: channelFilter,
-                    gallery_only: true  // Add this parameter
-                },
+                data: params,
                 success: (response) => {
                     $('#video-gallery').html(response);
                     this.bindEvents(trumbowyg);
@@ -289,7 +294,7 @@ $(document).ready(function() {
                             });
                         },
                         title: 'Insert Video from Library',
-                        ico: 'insertVideo'
+                        ico: 'camera-reels'
                     });
                 }
             }
@@ -299,13 +304,10 @@ $(document).ready(function() {
     $('#article-body').trumbowyg({
         btns: [
             ['viewHTML'],
-            ['preformatted'],
             ['formatting'],
-            ['bold', 'italic', 'underline', 'strikethrough'],
-            ['superscript', 'subscript'],
+            ['textFormat'],
             ['link'],
-            ['insertImageFromLibrary'],
-            ['insertVideoFromLibrary'],
+            ['insertImageFromLibrary', 'insertVideoFromLibrary'],
             ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
             ['unorderedList', 'orderedList'],
             ['table'],
@@ -313,11 +315,20 @@ $(document).ready(function() {
             ['removeformat'],
             ['fullscreen'],
         ],
+        btnsDef: {
+            textFormat: {
+                dropdown: ['bold', 'italic', 'underline', 'strikethrough', 'preformatted', 'superscript', 'subscript'],
+                ico: 'strong'
+            }
+        },
         plugins: {
             insertImageFromLibrary: {},
             insertVideoFromLibrary: {},
             table: {},
             colors: {}
-        }
+        },
+        autogrow: true,
+        autogrowOnEnter: true,
+        minHeight: 400
     });
 });

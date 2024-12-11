@@ -1,6 +1,5 @@
 <?php $currentUrl = $this->request->getPath(); ?>
-
-<?php if (!empty($crumbs)) : ?>
+<?php if (!empty($crumbs) && count($crumbs) >1 ) : ?>
 <div class="border-bottom mb-3">
     <nav class="breadcrumb">
         <ol class="breadcrumb breadcrumb-chevron">

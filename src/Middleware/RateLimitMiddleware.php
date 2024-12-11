@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Middleware;
 
 use App\Http\Exception\TooManyRequestsException;
+use App\Utility\SettingsManager;
 use Cake\Cache\Cache;
 use Cake\Log\Log;
 use Psr\Http\Message\ResponseInterface;
@@ -11,13 +12,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-/**
- * RateLimitMiddleware
- *
- * This middleware implements rate limiting for specified routes.
- * It tracks the number of requests from an IP address within a given time period
- * and throws an exception if the limit is exceeded.
- */
 class RateLimitMiddleware implements MiddlewareInterface
 {
     /**
@@ -44,16 +38,15 @@ class RateLimitMiddleware implements MiddlewareInterface
     {
         $this->limit = $config['limit'] ?? 3;
         $this->period = $config['period'] ?? 60;
-        $this->rateLimitedRoutes = $config['routes'] ?? ['/users/login', '/users/register', '/articles/add-comment/'];
+        $this->rateLimitedRoutes = $config['routes'] ?? [
+            '/users/login',
+            '/users/register',
+            '/articles/add-comment/',
+        ];
     }
 
     /**
      * Process a server request and return a response.
-     *
-     * This method implements the rate limiting logic. It checks if the current route
-     * is subject to rate limiting, and if so, it tracks the number of requests from
-     * the client's IP address. If the number of requests exceeds the limit within
-     * the specified period, it throws a TooManyRequestsException.
      *
      * @param \Psr\Http\Message\ServerRequestInterface $request The server request.
      * @param \Psr\Http\Server\RequestHandlerInterface $handler The request handler.
@@ -62,35 +55,20 @@ class RateLimitMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $ip = $this->getClientIp($request);
+        if (SettingsManager::read('Security.trustProxy', false)) {
+            $request = $request->withAttribute('trustProxy', true);
+        }
+
+        $ip = $request->clientIp();
         $route = $request->getUri()->getPath();
 
         if ($this->isRouteLimited($route)) {
-            $key = "rate_limit_{$ip}_{$route}";
-
-            $rateData = Cache::read($key, 'rate_limit') ?: ['count' => 0, 'start_time' => time()];
-
-            $currentTime = time();
-            if ($currentTime - $rateData['start_time'] > $this->period) {
-                $rateData = ['count' => 1, 'start_time' => $currentTime];
-            } else {
-                $rateData['count']++;
-            }
-
-            Cache::write($key, $rateData, 'rate_limit');
+            $key = "rate_limit_{$ip}_normal";
+            $rateData = $this->updateRateLimit($key, $this->period);
 
             if ($rateData['count'] > $this->limit) {
-                Log::warning(__('Rate limit exceeded for IP: {0} on route: {1}', [$ip, $route]), [
-                    'ip' => $ip,
-                    'route' => $route,
-                    'count' => $rateData['count'],
-                    'limit' => $this->limit,
-                    'group_name' => 'rate_limiting',
-                ]);
+                $this->logViolation($ip, $route, $request->getUri()->getQuery(), $rateData);
 
-                $response = $handler->handle($request);
-                $response = $response->withStatus(429)
-                    ->withHeader('Retry-After', (string)$this->period);
                 throw new TooManyRequestsException(
                     __('Too many requests. Please try again later.'),
                     null,
@@ -103,24 +81,51 @@ class RateLimitMiddleware implements MiddlewareInterface
     }
 
     /**
-     * Get the client IP address from the request.
+     * Update rate limit data for a given key
      *
-     * @param \Psr\Http\Message\ServerRequestInterface $request The server request.
-     * @return string The client IP address.
+     * @param string $key Cache key
+     * @param int $period Time period
+     * @return array Rate limit data
      */
-    private function getClientIp(ServerRequestInterface $request): string
+    private function updateRateLimit(string $key, int $period): array
     {
-        $serverParams = $request->getServerParams();
+        $rateData = Cache::read($key, 'rate_limit') ?: ['count' => 0, 'start_time' => time()];
 
-        return $serverParams['REMOTE_ADDR'] ?? '0.0.0.0';
+        $currentTime = time();
+        if ($currentTime - $rateData['start_time'] > $period) {
+            $rateData = ['count' => 1, 'start_time' => $currentTime];
+        } else {
+            $rateData['count']++;
+        }
+
+        Cache::write($key, $rateData, 'rate_limit');
+
+        return $rateData;
+    }
+
+    /**
+     * Log rate limit violations
+     *
+     * @param string $ip IP address
+     * @param string $route Request route
+     * @param string $query Query string
+     * @param array $rateData Rate limit data
+     * @return void
+     */
+    private function logViolation(string $ip, string $route, string $query, array $rateData): void
+    {
+        Log::warning(__('Rate limit exceeded for IP: {0}', [$ip]), [
+            'ip' => $ip,
+            'route' => $route,
+            'query' => $query,
+            'count' => $rateData['count'],
+            'limit' => $this->limit,
+            'group_name' => 'rate_limiting',
+        ]);
     }
 
     /**
      * Check if the given route should be rate limited.
-     *
-     * This method checks if the given route matches any of the
-     * rate-limited routes specified in the configuration, considering
-     * language prefixes.
      *
      * @param string $route The route to check.
      * @return bool True if the route should be rate limited, false otherwise.
@@ -128,11 +133,24 @@ class RateLimitMiddleware implements MiddlewareInterface
     private function isRouteLimited(string $route): bool
     {
         foreach ($this->rateLimitedRoutes as $limitedRoute) {
-            // Create a regular expression pattern to match the route with language prefix
-            $pattern = '#^/[a-z]{2}' . preg_quote($limitedRoute, '#') . '$#';
+            // Handle wildcard routes
+            if (str_contains($limitedRoute, '*')) {
+                // First escape the route for regex, then replace the escaped wildcard with .*
+                $escapedRoute = preg_quote(ltrim($limitedRoute, '/'), '#');
+                $pattern = str_replace('\*', '.*', $escapedRoute);
 
-            if (preg_match($pattern, $route)) {
-                return true;
+                // Allow optional language prefix and the rest of the route
+                $pattern = '#^(/[a-z]{2})?/' . $pattern . '$#';
+
+                if (preg_match($pattern, $route)) {
+                    return true;
+                }
+            } else {
+                // Allow optional language prefix for regular routes
+                $pattern = '#^(/[a-z]{2})?/' . ltrim(preg_quote($limitedRoute, '#'), '/') . '$#';
+                if (preg_match($pattern, $route)) {
+                    return true;
+                }
             }
         }
 

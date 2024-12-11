@@ -10,7 +10,6 @@ use Cake\Event\EventInterface;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
-use Cake\Utility\Text;
 use Cake\Validation\Validator;
 
 class UsersTable extends Table
@@ -35,35 +34,6 @@ class UsersTable extends Table
         ]);
 
         $this->addBehavior('Timestamp');
-
-        $this->addBehavior('Josegonzalez/Upload.Upload', [
-            'image' => [
-                'fields' => [
-                    'dir' => 'dir',
-                    'size' => 'size',
-                    'type' => 'mime',
-                ],
-                'nameCallback' => function ($table, $entity, $data, $field, $settings) {
-                    $file = $entity->{$field};
-                    $clientFilename = $file->getClientFilename();
-                    $ext = pathinfo($clientFilename, PATHINFO_EXTENSION);
-
-                    return Text::uuid() . '.' . strtolower($ext);
-                },
-                'deleteCallback' => function ($path, $entity, $field, $settings) {
-                    $paths = [
-                        $path . $entity->{$field},
-                    ];
-
-                    foreach (SettingsManager::read('ImageSizes') as $width) {
-                        $paths[] = $path . $width . DS . $entity->{$field};
-                    }
-
-                    return $paths;
-                },
-                'keepFilesOnDelete' => false,
-            ],
-        ]);
 
         $this->hasMany('Articles', [
             'foreignKey' => 'user_id',
@@ -116,8 +86,8 @@ class UsersTable extends Table
                     'message' => 'Please upload only images (jpeg, png, gif).',
                 ],
                 'fileSize' => [
-                    'rule' => ['fileSize', '<=', '5MB'],
-                    'message' => 'Image must be less than 5MB.',
+                    'rule' => ['fileSize', '<=', '10MB'],
+                    'message' => 'Image must be less than 10MB.',
                 ],
             ]);
 

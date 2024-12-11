@@ -51,6 +51,10 @@ $session = $this->request->getSession();
       </symbol>
     </svg>
 
+    <div id="trumbowyg-icons">
+        <?= $this->element('trumbowyg-icons') ?>
+    </div>
+
     <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
       <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
         id="bd-theme"
@@ -210,7 +214,7 @@ $session = $this->request->getSession();
                 <?= __('Admin') ?>
               </a>
               <ul class="dropdown-menu">
-              <li><?= $this->Html->link(__('Settings'), ['prefix' => 'Admin', 'controller' => 'Settings', 'action' => 'index'], ['class' => 'dropdown-item' . ($activeCtl == 'Settings' ? ' active' : '')]) ?></li>
+                <li><?= $this->Html->link(__('Settings'), ['prefix' => 'Admin', 'controller' => 'Settings', 'action' => 'index'], ['class' => 'dropdown-item' . ($activeCtl == 'Settings' ? ' active' : '')]) ?></li>
                 <li><?= $this->Html->link(__('Email Templates'), ['prefix' => 'Admin', 'controller' => 'EmailTemplates', 'action' => 'index'], ['class' => 'dropdown-item' . ($activeCtl == 'EmailTemplates' ? ' active' : '')]) ?></li>
                 <li><?= $this->Html->link(__('Slugs'), ['prefix' => 'Admin', 'controller' => 'Slugs', 'action' => 'index'], ['class' => 'dropdown-item' . ($activeCtl == 'Slugs' ? ' active' : '')]) ?></li>
                 <?php if (Configure::read('debug')) : ?>

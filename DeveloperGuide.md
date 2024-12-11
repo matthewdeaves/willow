@@ -465,16 +465,16 @@ See [docker-compose.yml](https://raw.githubusercontent.com/matthewdeaves/willow/
 This is a combined nginx, redis and PHP-FPM container using Alpine Linux. The [docker/willowcms](https://github.com/matthewdeaves/willow/tree/main/docker/willowcms) folder has all the configuration that make it a little more open and therefore suitable for a development environment. In all other respects it is exactly the same as the production environment. Use [http://localhost:8080](http://localhost:8080) to use the development environment.
 
 #### Jenkins 
-Jenkins is pre-configured with a job that will checkout the repo and run the tests and code checks on the main branch. The [docker/jenkins](https://github.com/matthewdeaves/willow/tree/main/docker/jenkins) folder has all the configuration for this and more jobs will be added in future (front end tests for example). Use [http://localhost:8081](http://localhost:8081) to use Jenkins.
+Jenkins is pre-configured with a job that will checkout the repo and run the tests and code checks on the main branch. The [docker/jenkins](https://github.com/matthewdeaves/willow/blob/2956928292b749dd7ab0d84da8860632953710a6/docker-compose.yml#L39) folder has all the configuration for this and more jobs will be added in future (front end tests for example). Use [http://localhost:8081](http://localhost:8081) to use Jenkins.
 
 #### MySQL Server
-Mostly configured via [docker-compose.yml](https://github.com/matthewdeaves/willow/blob/2a3dc5c9a3629b99797c586c938ed94a756b15fc/docker-compose.yml#L3) and loads an [init.sql](https://github.com/matthewdeaves/willow/blob/main/docker/mysql/init.sql) from [docker/mysql](https://github.com/matthewdeaves/willow/tree/main/docker/mysql). Default login is root:password
+Mostly configured via [docker-compose.yml](https://github.com/matthewdeaves/willow/blob/2956928292b749dd7ab0d84da8860632953710a6/docker-compose.yml#L20) and loads an [init.sql](https://github.com/matthewdeaves/willow/blob/main/docker/mysql/init.sql) from [docker/mysql](https://github.com/matthewdeaves/willow/tree/main/docker/mysql). Default login is root:password
 
 #### redis Commander
-Configured via [docker-compose.yml](https://github.com/matthewdeaves/willow/blob/2a3dc5c9a3629b99797c586c938ed94a756b15fc/docker-compose.yml#L69). Use [http://localhost:8084](http://localhost:8084) for redis Commander interface. Default login is root:password
+Configured via [docker-compose.yml](https://github.com/matthewdeaves/willow/blob/2956928292b749dd7ab0d84da8860632953710a6/docker-compose.yml#L68). Use [http://localhost:8084](http://localhost:8084) for redis Commander interface. Default login is root:password
 
 #### phpMyAdmin
-Configured via [docker-compose.yml](https://github.com/matthewdeaves/willow/blob/2a3dc5c9a3629b99797c586c938ed94a756b15fc/docker-compose.yml#L37). Use [http://localhost:8082](http://localhost:8082) to access phpMyAdmin. It is pre-configured to access the MySQL Server container.
+Configured via [docker-compose.yml](https://github.com/matthewdeaves/willow/blob/2956928292b749dd7ab0d84da8860632953710a6/docker-compose.yml#L30). Use [http://localhost:8082](http://localhost:8082) to access phpMyAdmin. It is pre-configured to access the MySQL Server container.
 
-#### MailHog
-Configured via [docker-compose.yml](https://github.com/matthewdeaves/willow/blob/2a3dc5c9a3629b99797c586c938ed94a756b15fc/docker-compose.yml#L63). Use [http://localhost:8025](http://localhost:8025) for MailHog. It will receive all email sent by Willow CMS on the development environment and give you a nice interface to view it.
+#### Mailpit
+Configured via [docker-compose.yml](https://github.com/matthewdeaves/willow/blob/2956928292b749dd7ab0d84da8860632953710a6/docker-compose.yml#L55). Use [http://localhost:8025](http://localhost:8025) for Mailpit. It will receive all email sent by Willow CMS on the development environment and give you a nice interface to view it.

@@ -52,11 +52,18 @@ services:
     environment:
       - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
 
-  mailhog:
-    image: mailhog/mailhog
+  mailpit:
+    image: axllent/mailpit:latest
     ports:
       - "1125:1025"
       - "8025:8025"
+    volumes:
+      - mailpit_data:/data
+    environment:
+      - MP_MAX_MESSAGES=5000
+      - MP_DATABASE=/data/mailpit.db
+      - MP_SMTP_AUTH_ACCEPT_ANY=1
+      - MP_SMTP_AUTH_ALLOW_INSECURE=1
 
   redis-commander:
     image: rediscommander/redis-commander:latest
@@ -75,3 +82,4 @@ volumes:
   mysql_data:
   rabbitmq_data:
   jenkins_home:
+  mailpit_data:

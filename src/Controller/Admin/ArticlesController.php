@@ -133,7 +133,8 @@ class ArticlesController extends AppController
                 'Articles.modified',
                 'Users.id',
                 'Users.username',
-            ]);
+            ])
+            ->orderBy(['Articles.created' => 'DESC']);
 
         if ($statusFilter !== null) {
             $query->where(['Articles.is_published' => (int)$statusFilter]);

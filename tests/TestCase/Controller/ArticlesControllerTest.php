@@ -29,6 +29,7 @@ class ArticlesControllerTest extends AppControllerTestCase
         'app.Tags',
         'app.PageViews',
         'app.Slugs',
+        'app.Settings',
     ];
 
     /**

@@ -5,6 +5,7 @@ namespace App\Job;
 
 use App\Service\Api\Google\GoogleApiService;
 use App\Utility\SettingsManager;
+use Cake\Cache\Cache;
 use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
@@ -20,7 +21,7 @@ class TranslateArticleJob implements JobInterface
      *
      * @var int|null
      */
-    public static ?int $maxAttempts = 3;
+    public static int $maxAttempts = 3;
 
     /**
      * Whether there should be only one instance of a job on the queue at a time.
@@ -94,6 +95,7 @@ class TranslateArticleJob implements JobInterface
         try {
             $result = $this->apiService->translateArticle(
                 (string)$article->title,
+                (string)$article->lede,
                 (string)$article->body,
                 (string)$article->summary,
                 (string)$article->meta_title,
@@ -122,6 +124,7 @@ class TranslateArticleJob implements JobInterface
         if ($result) {
             foreach ($result as $locale => $translation) {
                 $article->translation($locale)->title = $translation['title'];
+                $article->translation($locale)->lede = $translation['lede'];
                 $article->translation($locale)->body = $translation['body'];
                 $article->translation($locale)->summary = $translation['summary'];
                 $article->translation($locale)->meta_title = $translation['meta_title'];
@@ -157,6 +160,7 @@ class TranslateArticleJob implements JobInterface
                     );
                 }
             }
+            Cache::clear('articles');
 
             return Processor::ACK;
         } else {

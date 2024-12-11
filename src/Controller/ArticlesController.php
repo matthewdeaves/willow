@@ -114,7 +114,7 @@ class ArticlesController extends AppController
             ])
             ->first();
 
-        $articles = $this->Articles->getPageTree();
+        $articles = $this->Articles->getTree();
 
         $this->set(compact('article', 'articles'));
     }

@@ -47,14 +47,25 @@ class TagsController extends AppController
                     'Tags.meta_keywords LIKE' => '%' . $search . '%',
                 ];
             }
-            $tags = $this->Tags->getTagTree($conditions);
+            $tags = $this->Tags->getTree($conditions, [
+                'title',
+                'slug',
+                'created',
+                'modified',
+            ]);
             $this->set(compact('tags'));
             $this->viewBuilder()->setLayout('ajax');
 
             return $this->render('tree_index_search_results');
         }
 
-        $tags = $this->Tags->getTagTree($conditions);
+        $tags = $this->Tags->getTree($conditions, [
+            'title',
+            'slug',
+            'created',
+            'modified',
+        ]);
+
         $this->set(compact('tags'));
 
         return null;

@@ -46,14 +46,27 @@ class ArticlesController extends AppController
                     'Articles.meta_keywords LIKE' => '%' . $search . '%',
                 ];
             }
-            $articles = $this->Articles->getPageTree($conditions);
+            $articles = $this->Articles->getTree($conditions, [
+                'title',
+                'slug',
+                'created',
+                'modified',
+                'is_published',
+            ]);
+
             $this->set(compact('articles'));
             $this->viewBuilder()->setLayout('ajax');
 
             return $this->render('tree_index_search_results');
         }
 
-        $articles = $this->Articles->getPageTree($conditions);
+        $articles = $this->Articles->getTree($conditions, [
+            'title',
+            'slug',
+            'created',
+            'modified',
+            'is_published',
+        ]);
         $this->set(compact('articles'));
 
         return null;

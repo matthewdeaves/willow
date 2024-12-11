@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Model\Behavior;
 
 use Cake\ORM\Behavior;
+use InvalidArgumentException;
 
 /**
  * OrderableBehavior provides hierarchical ordering capabilities for CakePHP models.
@@ -32,6 +33,7 @@ class OrderableBehavior extends Behavior
      *   - parent: The foreign key column for the parent (default: 'parent_id')
      *   - left: The column for the left value (default: 'lft')
      *   - right: The column for the right value (default: 'rght')
+     * - displayField: The field to use for display in the tree (default: null, uses table's displayField)
      *
      * @var array<string, mixed>
      */
@@ -41,6 +43,7 @@ class OrderableBehavior extends Behavior
             'left' => 'lft',
             'right' => 'rght',
         ],
+        'displayField' => null,
     ];
 
     /**
@@ -136,5 +139,37 @@ class OrderableBehavior extends Behavior
         }
 
         return true;
+    }
+
+    /**
+     * Gets a hierarchical tree structure of records.
+     *
+     * Retrieves records in a threaded format, including essential fields for tree structure
+     * and any additional conditions specified.
+     *
+     * @param array $additionalConditions Additional conditions to apply to the query
+     * @param array $fields Additional fields to select (beyond id, parent_id, and displayField)
+     * @return array<\Cake\Datasource\EntityInterface> Array of entities in threaded format
+     */
+    public function getTree(array $additionalConditions = [], array $fields = []): array
+    {
+        $displayField = $this->getConfig('displayField') ?? $this->_table->getDisplayField();
+
+        // Base fields that are always needed for tree structure
+        $baseFields = [
+            'id',
+            'parent_id',
+            $displayField,
+        ];
+
+        // Merge base fields with any additional fields
+        $selectFields = array_unique(array_merge($baseFields, $fields));
+
+        $query = $this->_table->find()
+            ->select($selectFields)
+            ->where($additionalConditions)
+            ->orderBy(['lft' => 'ASC']);
+
+        return $query->find('threaded')->toArray();
     }
 }

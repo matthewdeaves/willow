@@ -326,51 +326,6 @@ class ArticlesTable extends Table
     }
 
     /**
-     * Retrieves a hierarchical tree structure of pages.
-     *
-     * Returns a nested array of pages with their relationships and metadata including:
-     * - Basic page information (id, title, slug)
-     * - Publication status
-     * - Creation and modification dates
-     * - Page view counts
-     * - Hierarchical structure (parent-child relationships)
-     *
-     * @param array $additionalConditions Optional additional query conditions
-     * @return array Hierarchical array of pages with nested children
-     */
-    public function getPageTree(array $additionalConditions = []): array
-    {
-        $conditions = [
-            'Articles.kind' => 'page',
-        ];
-        // Merge the default conditions with any additional conditions provided
-        $conditions = array_merge($conditions, $additionalConditions);
-
-        $cacheKey = hash('xxh3', json_encode($conditions));
-
-        $query = $this->find()
-            ->select([
-                'id',
-                'parent_id',
-                'title',
-                'slug',
-                'created',
-                'modified',
-                'is_published',
-                'pageview_count' => $this->PageViews->find()
-                    ->where(['PageViews.article_id = Articles.id'])
-                    ->select([
-                        'count' => $this->PageViews->find()->func()->count('PageViews.id'),
-                    ]),
-            ])
-            ->where($conditions)
-            ->orderBy(['lft' => 'ASC'])
-            ->cache($cacheKey . 'article_page_tree', 'articles');
-
-        return $query->find('threaded')->toArray();
-    }
-
-    /**
      * Retrieves a list of featured articles with optional additional conditions.
      *
      * This method constructs a query to find articles that are marked as featured.

@@ -24,6 +24,9 @@
 {% set has_login = 'login' in actions and Bake.hasPlugin('Authentication') %}
 {% set include_initialize = components or helpers or has_login %}
 
+use App\Controller\AppController;
+use Cake\Http\Response;
+
 /**
  * {{ name }} Controller
  *

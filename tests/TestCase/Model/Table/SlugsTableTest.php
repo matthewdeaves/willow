@@ -4,8 +4,9 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Model\Table;
 
 use App\Model\Table\SlugsTable;
+use Cake\Cache\Cache;
 use Cake\TestSuite\TestCase;
-use Cake\Utility\Text;
+use Cake\Validation\Validator;
 
 /**
  * App\Model\Table\SlugsTable Test Case
@@ -22,11 +23,12 @@ class SlugsTableTest extends TestCase
     /**
      * Fixtures
      *
-     * @var list<string>
+     * @var array<string>
      */
     protected array $fixtures = [
         'app.Slugs',
         'app.Articles',
+        'app.Tags',
     ];
 
     /**
@@ -37,6 +39,7 @@ class SlugsTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        Cache::clear();
         $config = $this->getTableLocator()->exists('Slugs') ? [] : ['className' => SlugsTable::class];
         $this->Slugs = $this->getTableLocator()->get('Slugs', $config);
     }
@@ -49,92 +52,155 @@ class SlugsTableTest extends TestCase
     protected function tearDown(): void
     {
         unset($this->Slugs);
-
         parent::tearDown();
+    }
+
+    /**
+     * Test initialization
+     *
+     * @return void
+     */
+    public function testInitialization(): void
+    {
+        $this->assertSame('slugs', $this->Slugs->getTable());
+        $this->assertSame('slug', $this->Slugs->getDisplayField());
+        $this->assertSame('id', $this->Slugs->getPrimaryKey());
+        $this->assertTrue($this->Slugs->hasBehavior('Timestamp'));
+    }
+
+    /**
+     * Test validation rules
+     *
+     * @return void
+     */
+    public function testValidationDefault(): void
+    {
+        $validator = new Validator();
+        $validator = $this->Slugs->validationDefault($validator);
+
+        // Test valid data
+        $data = [
+            'model' => 'Articles',
+            'foreign_key' => '263a5364-a1bc-401c-9e44-49c23d066a0f',
+            'slug' => 'valid-slug-123',
+        ];
+        $errors = $validator->validate($data);
+        $this->assertEmpty($errors);
+
+        // Test invalid slug format
+        $data['slug'] = 'Invalid Slug!';
+        $errors = $validator->validate($data);
+        $this->assertNotEmpty($errors['slug']);
+
+        // Test empty model
+        $data['model'] = '';
+        $errors = $validator->validate($data);
+        $this->assertNotEmpty($errors['model']);
+
+        // Test model length
+        $data['model'] = str_repeat('a', 21);
+        $errors = $validator->validate($data);
+        $this->assertNotEmpty($errors['model']);
     }
 
     /**
      * Test buildRules method
      *
      * @return void
-     * @uses \App\Model\Table\SlugsTable::buildRules()
      */
     public function testBuildRules(): void
     {
+        // Test unique slug within same model
         $slug = $this->Slugs->newEntity([
-            'article_id' => Text::uuid(),
-            'slug' => 'test-slug',
+            'model' => 'Articles',
+            'foreign_key' => '263a5364-a1bc-401c-9e44-49c23d066a0f',
+            'slug' => 'article-one', // Already exists in fixture
         ]);
+        $this->assertFalse($this->Slugs->save($slug));
 
-        $result = $this->Slugs->save($slug);
-        $this->assertFalse($result, 'Save should fail due to non-existent article_id');
-
-        $errors = $slug->getErrors();
-        $this->assertArrayHasKey('article_id', $errors);
+        // Test same slug allowed for different models
+        $slug = $this->Slugs->newEntity([
+            'model' => 'Tags',
+            'foreign_key' => '334310b4-96ad-4d58-a0a9-af6dc7253c5e',
+            'slug' => 'article-one',
+        ]);
+        $this->assertNotFalse($this->Slugs->save($slug));
     }
 
     /**
-     * Test ensureSlugExists method
+     * Test findBySlugAndModel finder
      *
      * @return void
-     * @uses \App\Model\Table\SlugsTable::ensureSlugExists()
      */
-    public function testEnsureSlugExists(): void
+    public function testFindBySlugAndModel(): void
     {
-        $articleId = '224310b4-96ad-4d58-a0a9-af6dc7253c4f';
-        $slug = 'test-slug-for-article-six';
-
-        // Ensure the slug doesn't exist initially
-        $existingSlug = $this->Slugs->find()
-            ->where(['article_id' => $articleId, 'slug' => $slug])
+        $result = $this->Slugs->find('bySlugAndModel', slug: 'article-one', model: 'Articles')
             ->first();
-        $this->assertNull($existingSlug);
 
-        // Call ensureSlugExists
-        $this->Slugs->ensureSlugExists($articleId, $slug);
+        $this->assertNotNull($result);
+        $this->assertEquals('article-one', $result->slug);
+        $this->assertEquals('Articles', $result->model);
 
-        // Check if the slug was created
-        $createdSlug = $this->Slugs->find()
-            ->where(['article_id' => $articleId, 'slug' => $slug])
+        // Test with non-existent slug
+        $result = $this->Slugs->find('bySlugAndModel', slug: 'non-existent', model: 'Articles')
             ->first();
-        $this->assertNotNull($createdSlug);
 
-        // Call ensureSlugExists again with the same data
-        $this->Slugs->ensureSlugExists($articleId, $slug);
+        $this->assertNull($result);
+    }
 
-        // Check that no duplicate was created
-        $slugCount = $this->Slugs->find()
-            ->where(['article_id' => $articleId, 'slug' => $slug])
+    /**
+     * Test saving multiple slugs for the same record
+     *
+     * @return void
+     */
+    public function testSavingMultipleSlugs(): void
+    {
+        $slugs = [
+            [
+                'model' => 'Articles',
+                'foreign_key' => '263a5364-a1bc-401c-9e44-49c23d066a0f',
+                'slug' => 'new-slug-1',
+            ],
+            [
+                'model' => 'Articles',
+                'foreign_key' => '263a5364-a1bc-401c-9e44-49c23d066a0f',
+                'slug' => 'new-slug-2',
+            ],
+        ];
+
+        foreach ($slugs as $slugData) {
+            $slug = $this->Slugs->newEntity($slugData);
+            $this->assertNotFalse($this->Slugs->save($slug));
+        }
+
+        // Verify both slugs were saved
+        $count = $this->Slugs->find()
+            ->where([
+                'foreign_key' => '263a5364-a1bc-401c-9e44-49c23d066a0f',
+                'slug IN' => ['new-slug-1', 'new-slug-2'],
+            ])
             ->count();
-        $this->assertEquals(1, $slugCount);
+
+        $this->assertEquals(2, $count);
     }
 
     /**
-     * Test unique constraint on slug and article_id combination
+     * Test getting unique models
      *
      * @return void
      */
-    public function testUniqueSlugArticleIdCombination(): void
+    public function testGetUniqueModels(): void
     {
-        $articleId = '42655115-cb43-4ba5-bae7-292443b9ce21'; // article 3
-        $slug = 'unique-test-slug-for-article-3';
+        $models = $this->Slugs->find()
+            ->select(['model'])
+            ->distinct('model')
+            ->orderBy(['model' => 'ASC'])
+            ->all()
+            ->map(fn ($row) => $row->model)
+            ->toArray();
 
-        $slug1 = $this->Slugs->newEntity([
-            'article_id' => $articleId,
-            'slug' => $slug,
-        ]);
-
-        $this->Slugs->save($slug1);
-        $errors = $slug1->getErrors();
-        $this->assertEmpty($errors, 'The $errors array should be empty');
-
-        $slug2 = $this->Slugs->newEntity([
-            'article_id' => $articleId,
-            'slug' => $slug,
-        ]);
-
-        $this->Slugs->save($slug2);
-        $errors = $slug2->getErrors();
-        $this->assertArrayHasKey('slug', $errors);
+        $this->assertContains('Articles', $models);
+        $this->assertContains('Tags', $models);
+        $this->assertEquals(2, count($models));
     }
 }

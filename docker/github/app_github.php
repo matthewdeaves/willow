@@ -170,6 +170,15 @@ return [
             'serialize' => true,
             'duration' => '+1 month',
         ],
+
+        'slugs' => [
+            'className' => FileEngine::class,
+            'prefix' => 'cms_slugs_',
+            'path' => CACHE . 'slugs' . DS,
+            'serialize' => true,
+            'duration' => '+1 month',
+
+        ],
     ],
 
     /*
@@ -218,6 +227,7 @@ return [
         'ignoredDeprecationPaths' => [
             'vendor/cakephp/cakephp/src/I18n/I18n.php',
         ],
+        'extraFatalErrorMemory' => 20,
     ],
 
     /*
@@ -264,12 +274,12 @@ return [
              */
             'host' => env('EMAIL_HOST', 'localhost'),
             'port' => env('EMAIL_PORT', 25),
-            'timeout' => env('EMAIL_TIMEOUT'),
+            'timeout' => env('EMAIL_TIMEOUT', 30),
             /*
              * It is recommended to set these options through your environment or app_local.php
              */
-            //'username' => null,
-            //'password' => null,
+            //'username' => env('EMAIL_USERNAME', ''),
+            //'password' => env('EMAIL_PASSWORD', ''),
             'client' => null,
             'tls' => false,
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
@@ -461,23 +471,23 @@ return [
     ],
     'Queue' => [
         'default' => [
-            'url' => env('REDIS_URL', 'redis://root:password@redis:6379'),
+            'url' => env('REDIS_URL', 'redis://root:root@127.0.0.1:6379/0'),
             'queue' => 'default',
             'logger' => 'stdout',
             //'listener' => \App\Listener\WorkerListener::class,
             'receiveTimeout' => 10000,
-            'storeFailedJobs' => true,
+            'storeFailedJobs' => false,
             'uniqueCache' => [
                 'engine' => 'File',
             ],
         ],
         'test' => [
-            'url' => env('REDIS_TEST_URL', 'redis://root:password@redis:6379'),
+            'url' => env('REDIS_TEST_URL', 'redis://root:root@127.0.0.1:6379/1'),
             'queue' => 'test_queue',
             'logger' => 'stdout',
             //'listener' => \App\Listener\WorkerListener::class,
             'receiveTimeout' => 10000,
-            'storeFailedJobs' => true,
+            'storeFailedJobs' => false,
             'uniqueCache' => [
                 'engine' => 'File',
             ],

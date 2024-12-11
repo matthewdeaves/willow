@@ -4,8 +4,6 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Controller\Admin;
 
 use App\Test\TestCase\AppControllerTestCase;
-use Cake\Cache\Cache;
-use Cake\Datasource\FactoryLocator;
 use Cake\TestSuite\IntegrationTestTrait;
 
 /**
@@ -23,16 +21,11 @@ class SlugsControllerTest extends AppControllerTestCase
      * @var array<string>
      */
     protected array $fixtures = [
-        'app.Slugs',
-        'app.Articles',
         'app.Users',
-        'app.Settings',
+        'app.Articles',
+        'app.Slugs',
+        'app.Tags',
     ];
-
-    /**
-     * @var \Cake\ORM\Table
-     */
-    protected $Slugs;
 
     /**
      * setUp method
@@ -42,9 +35,10 @@ class SlugsControllerTest extends AppControllerTestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->Slugs = FactoryLocator::get('Table')->get('Slugs');
-        $this->disableErrorHandlerMiddleware();
-        Cache::clear('rate_limit');
+
+        // Login as admin user
+        $adminId = '6509480c-e7e6-4e65-9c38-1423a8d09d0f';
+        $this->loginUser($adminId);
     }
 
     /**
@@ -54,12 +48,24 @@ class SlugsControllerTest extends AppControllerTestCase
      */
     public function testIndex(): void
     {
-        $adminId = '6509480c-e7e6-4e65-9c38-1423a8d09d0f'; // Assuming this is an admin user ID
-        $this->loginUser($adminId);
-
         $this->get('/admin/slugs');
         $this->assertResponseOk();
         $this->assertResponseContains('Slugs');
+
+        // Test model type filtering
+        $this->get('/admin/slugs?status=Articles');
+        $this->assertResponseOk();
+
+        // Test search functionality
+        $this->get('/admin/slugs?search=article-one');
+        $this->assertResponseOk();
+
+        // Test AJAX request
+        $this->configRequest([
+            'headers' => ['X-Requested-With' => 'XMLHttpRequest'],
+        ]);
+        $this->get('/admin/slugs?search=article');
+        $this->assertResponseOk();
     }
 
     /**
@@ -69,13 +75,9 @@ class SlugsControllerTest extends AppControllerTestCase
      */
     public function testView(): void
     {
-        $adminId = '6509480c-e7e6-4e65-9c38-1423a8d09d0f';
-        $this->loginUser($adminId);
-
-        $slug = $this->Slugs->find()->first();
-        $this->get('/admin/slugs/view/' . $slug->id);
+        $this->get('/admin/slugs/view/1e6c7b88-283d-43df-bfa3-fa33d4319f75');
         $this->assertResponseOk();
-        $this->assertResponseContains($slug->slug);
+        $this->assertResponseContains('article-one');
     }
 
     /**
@@ -85,18 +87,31 @@ class SlugsControllerTest extends AppControllerTestCase
      */
     public function testAdd(): void
     {
-        $adminId = '6509480c-e7e6-4e65-9c38-1423a8d09d0f';
-        $this->loginUser($adminId);
-
         $this->enableCsrfToken();
+
+        // Test GET request
+        $this->get('/admin/slugs/add');
+        $this->assertResponseOk();
+
+        // Test POST request with valid data
         $this->post('/admin/slugs/add', [
-            'article_id' => '263a5364-a1bc-401c-9e44-49c23d066a0f',
+            'model' => 'Articles',
+            'foreign_key' => '263a5364-a1bc-401c-9e44-49c23d066a0f',
             'slug' => 'new-test-slug',
         ]);
 
-        //$this->assertRedirect(['action' => 'index']);
-        $slug = $this->Slugs->find()->where(['slug' => 'new-test-slug'])->first();
-        $this->assertNotNull($slug);
+        $this->assertRedirect(['action' => 'index']);
+        $this->assertFlashMessage('The slug has been saved.');
+
+        // Test POST request with invalid data
+        $this->post('/admin/slugs/add', [
+            'model' => '',
+            'foreign_key' => '',
+            'slug' => '',
+        ]);
+
+        $this->assertResponseOk(); // Form should re-render
+        $this->assertResponseContains('The slug could not be saved. Please, try again.');
     }
 
     /**
@@ -106,18 +121,36 @@ class SlugsControllerTest extends AppControllerTestCase
      */
     public function testEdit(): void
     {
-        $adminId = '6509480c-e7e6-4e65-9c38-1423a8d09d0f';
-        $this->loginUser($adminId);
-
-        $slug = $this->Slugs->find()->first();
         $this->enableCsrfToken();
-        $this->post('/admin/slugs/edit/' . $slug->id, [
+
+        // Test GET request
+        $this->get('/admin/slugs/edit/1e6c7b88-283d-43df-bfa3-fa33d4319f75');
+        $this->assertResponseOk();
+
+        // Test POST request with valid data
+        $this->post('/admin/slugs/edit/1e6c7b88-283d-43df-bfa3-fa33d4319f75', [
+            'model' => 'Articles',
+            'foreign_key' => '263a5364-a1bc-401c-9e44-49c23d066a0f',
             'slug' => 'updated-test-slug',
         ]);
 
         $this->assertRedirect(['action' => 'index']);
-        $updatedSlug = $this->Slugs->get($slug->id);
-        $this->assertEquals('updated-test-slug', $updatedSlug->slug);
+        $this->assertFlashMessage('The slug has been saved.');
+
+        // Test POST request with invalid data
+        $this->post('/admin/slugs/edit/1e6c7b88-283d-43df-bfa3-fa33d4319f75', [
+            'model' => '',
+            'foreign_key' => '',
+            'slug' => '',
+        ]);
+
+        $this->assertResponseOk(); // Form should re-render
+
+        $this->assertResponseContains('The slug could not be saved. Please, try again.');
+
+        // Test with non-existent ID
+        $this->get('/admin/slugs/edit/non-existent-id');
+        $this->assertResponseError();
     }
 
     /**
@@ -127,15 +160,20 @@ class SlugsControllerTest extends AppControllerTestCase
      */
     public function testDelete(): void
     {
-        $adminId = '6509480c-e7e6-4e65-9c38-1423a8d09d0f';
-        $this->loginUser($adminId);
-
-        $slug = $this->Slugs->find()->first();
         $this->enableCsrfToken();
-        $this->post('/admin/slugs/delete/' . $slug->id);
 
+        // Test successful delete
+        $this->delete('/admin/slugs/delete/1e6c7b88-283d-43df-bfa3-fa33d4319f75');
         $this->assertRedirect();
-        $this->assertNull($this->Slugs->find()->where(['id' => $slug->id])->first());
+        $this->assertFlashMessage('The slug has been deleted.');
+
+        // Test delete with non-existent ID
+        $this->delete('/admin/slugs/delete/non-existent-id');
+        $this->assertResponseError();
+
+        // Test with GET request (should fail)
+        $this->get('/admin/slugs/delete/1e6c7b88-283d-43df-bfa3-fa33d4319f75');
+        $this->assertResponseError();
     }
 
     /**
@@ -145,51 +183,20 @@ class SlugsControllerTest extends AppControllerTestCase
      */
     public function testAccessControl(): void
     {
-        // Test access without authentication
+        // Logout
+        $this->session(['Auth' => null]);
+
+        // Test access to various actions
         $this->get('/admin/slugs');
         $this->assertRedirect('/en');
 
-        // Test access with non-admin user
-        $nonAdminId = '6509480c-e7e6-4e65-9c38-1423a8d09d02'; // Assuming this is a non-admin user ID
-        $this->loginUser($nonAdminId);
-        $this->get('/admin/slugs');
-        $this->assertResponseCode(302);
+        $this->get('/admin/slugs/add');
         $this->assertRedirect('/en');
 
-        $adminID = '6509480c-e7e6-4e65-9c38-1423a8d09d0f'; /// admin id
-        $this->loginUser($adminID);
-        $this->get('/admin/slugs');
-        $this->assertResponseOk();
-    }
+        $this->get('/admin/slugs/edit/1e6c7b88-283d-43df-bfa3-fa33d4319f75');
+        $this->assertRedirect('/en');
 
-    /**
-     * Test search functionality
-     *
-     * @return void
-     */
-    public function testSearch(): void
-    {
-        $adminId = '6509480c-e7e6-4e65-9c38-1423a8d09d0f';
-        $this->loginUser($adminId);
-
-        $this->enableCsrfToken();
-        $this->get('/admin/slugs?search=article-one');
-        $this->assertResponseOk();
-        $this->assertResponseContains('article-one');
-    }
-
-    /**
-     * Test pagination
-     *
-     * @return void
-     */
-    public function testPagination(): void
-    {
-        $adminId = '6509480c-e7e6-4e65-9c38-1423a8d09d0f';
-        $this->loginUser($adminId);
-
-        $this->get('/admin/slugs?page=1');
-        $this->assertResponseOk();
-        // Add assertions to check pagination elements
+        $this->delete('/admin/slugs/delete/1e6c7b88-283d-43df-bfa3-fa33d4319f75');
+        $this->assertRedirect('/en');
     }
 }

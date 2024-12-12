@@ -164,7 +164,7 @@ class ArticlesController extends AppController
 
         $recentArticles = [];
         if ($this->request->getQuery('page') > 1) {
-            $recentArticles = $this->Articles->getRecentArticles();
+            $recentArticles = $this->Articles->getRecentArticles($this->cacheKey);
         }
 
         $this->set(compact(

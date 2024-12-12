@@ -48,7 +48,6 @@ class TagsController extends AppController
                 ];
             }
             $tags = $this->Tags->getTree($conditions, [
-                'title',
                 'slug',
                 'created',
                 'modified',
@@ -60,7 +59,6 @@ class TagsController extends AppController
         }
 
         $tags = $this->Tags->getTree($conditions, [
-            'title',
             'slug',
             'created',
             'modified',

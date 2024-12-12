@@ -47,7 +47,6 @@ class ArticlesController extends AppController
                 ];
             }
             $articles = $this->Articles->getTree($conditions, [
-                'title',
                 'slug',
                 'created',
                 'modified',
@@ -61,7 +60,6 @@ class ArticlesController extends AppController
         }
 
         $articles = $this->Articles->getTree($conditions, [
-            'title',
             'slug',
             'created',
             'modified',

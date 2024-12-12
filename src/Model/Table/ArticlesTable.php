@@ -64,7 +64,9 @@ class ArticlesTable extends Table
 
         $this->addBehavior('Commentable');
 
-        $this->addBehavior('Orderable');
+        $this->addBehavior('Orderable', [
+            'displayField' => 'title',
+        ]);
 
         $this->addBehavior('Slug');
 

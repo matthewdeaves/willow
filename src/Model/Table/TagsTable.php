@@ -53,7 +53,9 @@ class TagsTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->addBehavior('Orderable');
+        $this->addBehavior('Orderable', [
+            'displayField' => 'title',
+        ]);
 
         $this->belongsTo('ParentTag', [
             'className' => 'Tags',

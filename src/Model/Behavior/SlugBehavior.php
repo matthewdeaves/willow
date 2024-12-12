@@ -184,22 +184,19 @@ class SlugBehavior extends Behavior
         }
 
         $targetField = $this->getConfig('targetField');
-        $query = $this->_table->find();
 
-        // Check uniqueness in the model's table
+        // Check uniqueness in the model's table using exists()
         $conditions = [$targetField => $value];
         if (!empty($context['data']['id'])) {
             $conditions['id !='] = $context['data']['id'];
         }
 
-        if ($query->where($conditions)->count() > 0) {
+        if ($this->_table->exists($conditions)) {
             return false;
         }
 
-        // Check uniqueness in the slugs table
+        // Check uniqueness in the slugs table using exists()
         $slugsTable = $this->fetchTable('Slugs');
-        $slugQuery = $slugsTable->find();
-
         $slugConditions = [
             'Slugs.slug' => $value,
             'Slugs.model' => $this->_table->getAlias(),
@@ -211,6 +208,6 @@ class SlugBehavior extends Behavior
             };
         }
 
-        return $slugQuery->where($slugConditions)->count() === 0;
+        return !$slugsTable->exists($slugConditions);
     }
 }

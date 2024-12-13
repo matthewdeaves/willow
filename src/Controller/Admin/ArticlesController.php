@@ -27,7 +27,7 @@ class ArticlesController extends AppController
     {
         $statusFilter = $this->request->getQuery('status');
         $conditions = [
-            'Articles.kind' => 'page'
+            'Articles.kind' => 'page',
         ];
 
         if ($statusFilter === '1') {

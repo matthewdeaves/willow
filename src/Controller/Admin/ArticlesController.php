@@ -26,7 +26,9 @@ class ArticlesController extends AppController
     public function treeIndex(): ?Response
     {
         $statusFilter = $this->request->getQuery('status');
-        $conditions = [];
+        $conditions = [
+            'Articles.kind' => 'page'
+        ];
 
         if ($statusFilter === '1') {
             $conditions['Articles.is_published'] = '1';

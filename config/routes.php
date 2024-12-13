@@ -26,7 +26,7 @@ use Cake\Routing\RouteBuilder;
 
 return function (RouteBuilder $routes): void {
     $routes->setRouteClass(DashedRoute::class);
-    $routes->setExtensions(['xml']);
+    $routes->setExtensions(['xml', 'rss']);
 
     // Root robots.txt route must come before the scope
     $routes->connect(
@@ -54,7 +54,7 @@ return function (RouteBuilder $routes): void {
     );
 
     $routes->scope('/', function (RouteBuilder $builder): void {
-        $builder->setExtensions(['xml']);
+        $builder->setExtensions(['xml', 'rss']);
         
         $builder->connect('/', ['controller' => 'Articles', 'action' => 'index']);
         $builder->connect(
@@ -95,6 +95,21 @@ return function (RouteBuilder $routes): void {
             [
                 'routeClass' => 'ADmad/I18n.I18nRoute',
                 '_name' => 'sitemap',
+                'lang' => '[a-z]{2}',
+                'pass' => ['lang']
+            ]
+        );
+
+        // Language-specific rss route
+        $builder->connect(
+            '/{lang}/feed',  // Changed from /rss to /feed
+            [
+                'controller' => 'Rss',
+                'action' => 'index',
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'rss',
                 'lang' => '[a-z]{2}',
                 'pass' => ['lang']
             ]
@@ -171,7 +186,7 @@ return function (RouteBuilder $routes): void {
             'pass' => ['id'],
         ]);
 
-        $builder->connect('/atricles/add-comment/*', ['controller' => 'Articles', 'action' => 'addComment'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+        $builder->connect('/articles/add-comment/*', ['controller' => 'Articles', 'action' => 'addComment'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
         $builder->connect(
             '/tags',
             ['controller' => 'Tags', 'action' => 'index'],

@@ -1,4 +1,5 @@
 <?php use App\Utility\SettingsManager; ?>
+<?php use Cake\Routing\Router; ?>
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
   <head>
@@ -22,6 +23,14 @@
         'var csrfToken = %s;',
         json_encode($this->request->getAttribute('csrfToken'))
     )); ?>
+    <?= $this->Html->meta([
+        'link' => Router::url([
+            '_name' => 'rss'
+        ], true),
+        'type' => 'application/rss+xml',
+        'title' => __('Latest Articles RSS Feed'),
+        'rel' => 'alternate'
+    ]); ?>
 </head>
   <body>
       <?php if (!empty($consentData) && $consentData['marketing_consent']) :?>
@@ -52,10 +61,10 @@
         <div class="col-md-4">
             <div class="position-sticky" style="top: 2rem;">
 
-                <div class="p-4 mb-3 bg-body-tertiary rounded">
-                  <h4 class="fst-italic"><?= __('About') ?></h4>
-                  <p class="mb-0"><?= __("Welcome to willowcms.app. This site uses Willow - a content management system I'm building in the open. Here you'll find development updates, feature highlights, and guides on using Willow for your own sites.") ?></p>
-                </div>
+            <div class="p-4 mb-3 bg-body-tertiary rounded">
+              <h4 class="fst-italic"><?= __('About') ?></h4>
+              <p class="mb-0"><?= __("Welcome to willowcms.app. This site uses Willow - a content management system I'm building in the open. Here you'll find development updates, feature highlights, and guides on using Willow for your own sites.") ?></p>
+            </div>
 
                 <?= $this->element('site/articles_list', ['articles' => $featuredArticles, 'title' => __('Featured posts')]) ?>
 
@@ -64,6 +73,8 @@
                 <?= $this->element('site/archives') ?>
 
                 <?= $this->element('site/elsewhere') ?>
+
+                <?= $this->element('site/feeds') ?>
 
             </div>
         </div>

@@ -164,11 +164,20 @@ return [
         ],
 
         'articles' => [
-            'className' => 'File',
+            'className' => FileEngine::class,
             'prefix' => 'cms_articles_',
-            'path' => CACHE,
-            'duration' => '+1 month',
+            'path' => CACHE . 'articles' . DS,
             'serialize' => true,
+            'duration' => '+1 month',
+        ],
+
+        'slugs' => [
+            'className' => FileEngine::class,
+            'prefix' => 'cms_slugs_',
+            'path' => CACHE . 'slugs' . DS,
+            'serialize' => true,
+            'duration' => '+1 month',
+
         ],
     ],
 

@@ -3,21 +3,16 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
-use ArrayObject;
-use Cake\Cache\Cache;
-use Cake\Datasource\EntityInterface;
-use Cake\Event\EventInterface;
-use Cake\Log\LogTrait;
+use Cake\Core\App;
+use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Exception;
 
 /**
  * Slugs Model
  *
- * This model represents the slugs table and handles operations related to article slugs.
- *
- * @property \App\Model\Table\ArticlesTable&\Cake\ORM\Association\BelongsTo $Articles
  * @method \App\Model\Entity\Slug newEmptyEntity()
  * @method \App\Model\Entity\Slug newEntity(array $data, array $options = [])
  * @method array<\App\Model\Entity\Slug> newEntities(array $data, array $options = [])
@@ -35,8 +30,6 @@ use Cake\Validation\Validator;
  */
 class SlugsTable extends Table
 {
-    use LogTrait;
-
     /**
      * Initialize method
      *
@@ -51,12 +44,53 @@ class SlugsTable extends Table
         $this->setDisplayField('slug');
         $this->setPrimaryKey('id');
 
-        $this->addBehavior('Timestamp');
-
-        $this->belongsTo('Articles', [
-            'foreignKey' => 'article_id',
-            'joinType' => 'INNER',
+        $this->addBehavior('Timestamp', [
+            'events' => [
+                'Model.beforeSave' => [
+                    'created' => 'new',
+                ],
+            ],
         ]);
+
+        // Set up dynamic associations based on existing slugs
+        $this->setupAssociations();
+    }
+
+    /**
+     * Sets up dynamic associations based on the unique model values in the slugs table.
+     * Uses cache to improve performance.
+     *
+     * @return void
+     */
+    protected function setupAssociations(): void
+    {
+        $models = $this->find()
+            ->select(['model'])
+            ->distinct()
+            ->disableHydration()
+            ->all()
+            ->extract('model')
+            ->toArray();
+
+        foreach ($models as $model) {
+            try {
+                $className = App::className($model, 'Model/Table', 'Table');
+                if ($className) {
+                    $this->belongsTo($model, [
+                        'className' => $className,
+                        'foreignKey' => 'foreign_key',
+                        'conditions' => [$this->getAlias() . '.model' => $model],
+                        'joinType' => 'LEFT',
+                    ]);
+                }
+            } catch (Exception $e) {
+                $this->log(sprintf(
+                    'Failed to setup association for model %s: %s',
+                    $model,
+                    $e->getMessage()
+                ), 'error');
+            }
+        }
     }
 
     /**
@@ -68,19 +102,30 @@ class SlugsTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->uuid('article_id')
-            ->notEmptyString('article_id');
+            ->uuid('id')
+            ->allowEmptyString('id', 'create');
+
+        $validator
+            ->scalar('model')
+            ->maxLength('model', 20)
+            ->requirePresence('model', 'create')
+            ->notEmptyString('model');
+
+        $validator
+            ->uuid('foreign_key')
+            ->requirePresence('foreign_key', 'create')
+            ->notEmptyString('foreign_key');
 
         $validator
             ->scalar('slug')
             ->maxLength('slug', 255)
             ->requirePresence('slug', 'create')
             ->notEmptyString('slug')
-            ->add('slug', 'unique', [
-                'rule' => 'validateUnique',
-                'provider' => 'table',
-                'message' => __('The slug must be unique.'),
-            ]);
+            ->regex(
+                'slug',
+                '/^[a-z0-9-]+$/',
+                __('The slug must be URL-safe (only lowercase letters, numbers, and hyphens)')
+            );
 
         return $validator;
     }
@@ -94,74 +139,26 @@ class SlugsTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn(['article_id'], 'Articles'), ['errorField' => 'article_id']);
+        $rules->add($rules->isUnique(
+            ['slug', 'model'],
+            __('This slug is already in use for this model type.')
+        ));
 
         return $rules;
     }
 
     /**
-     * Ensures that a slug exists for a given article ID. If the slug does not exist, it creates a new slug entity
-     * and attempts to save it. Logs an error message if the save operation fails.
+     * Find by slug and model.
      *
-     * @param string|int $articleId The ID of the article for which the slug should be ensured.
-     * @param string $slug The slug to be checked or created.
-     * @return void
+     * @param \Cake\ORM\Query\SelectQuery $query The query to modify
+     * @param array $options The options containing slug and model
+     * @return \Cake\ORM\Query\SelectQuery
      */
-    public function ensureSlugExists(int|string $articleId, string $slug): void
+    public function findBySlugAndModel(SelectQuery $query, array $options): SelectQuery
     {
-        $existingSlug = $this->find()
-            ->where(['article_id' => $articleId, 'slug' => $slug])
-            ->first();
-
-        if (!$existingSlug) {
-            $newSlug = $this->newEntity([
-                'article_id' => $articleId,
-                'slug' => $slug,
-            ]);
-
-            if ($this->save($newSlug)) {
-                Cache::clear('articles');
-            } else {
-                $this->log(
-                    sprintf(
-                        'Failed to save slug: %s',
-                        json_encode($newSlug->getErrors())
-                    ),
-                    'error',
-                    ['group_name' => 'slug_creation']
-                );
-            }
-        }
-    }
-
-    /**
-     * After save callback.
-     *
-     * Clears the cache for the slug after it has been saved.
-     * If the slug was changed, it clears the cache for both the old and new slugs.
-     *
-     * @param \Cake\Event\EventInterface $event The event that was triggered.
-     * @param \Cake\Datasource\EntityInterface $entity The entity that was saved.
-     * @param \ArrayObject $options The options passed to the save method.
-     * @return void
-     */
-    public function afterSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
-    {
-        Cache::clear('articles');
-    }
-
-    /**
-     * After delete callback.
-     *
-     * Clears the cache for the slug after it has been deleted.
-     *
-     * @param \Cake\Event\EventInterface $event The event that was triggered.
-     * @param \Cake\Datasource\EntityInterface $entity The entity that was deleted.
-     * @param \ArrayObject $options The options passed to the delete method.
-     * @return void
-     */
-    public function afterDelete(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
-    {
-        Cache::clear('articles');
+        return $query->where([
+            $this->getAlias() . '.slug' => $options['slug'],
+            $this->getAlias() . '.model' => $options['model'],
+        ]);
     }
 }

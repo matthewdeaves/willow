@@ -26,7 +26,9 @@ class ArticlesController extends AppController
     public function treeIndex(): ?Response
     {
         $statusFilter = $this->request->getQuery('status');
-        $conditions = [];
+        $conditions = [
+            'Articles.kind' => 'page',
+        ];
 
         if ($statusFilter === '1') {
             $conditions['Articles.is_published'] = '1';
@@ -46,14 +48,25 @@ class ArticlesController extends AppController
                     'Articles.meta_keywords LIKE' => '%' . $search . '%',
                 ];
             }
-            $articles = $this->Articles->getPageTree($conditions);
+            $articles = $this->Articles->getTree($conditions, [
+                'slug',
+                'created',
+                'modified',
+                'is_published',
+            ]);
+
             $this->set(compact('articles'));
             $this->viewBuilder()->setLayout('ajax');
 
             return $this->render('tree_index_search_results');
         }
 
-        $articles = $this->Articles->getPageTree($conditions);
+        $articles = $this->Articles->getTree($conditions, [
+            'slug',
+            'created',
+            'modified',
+            'is_published',
+        ]);
         $this->set(compact('articles'));
 
         return null;

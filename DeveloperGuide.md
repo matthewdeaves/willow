@@ -465,6 +465,13 @@ See [docker-compose.yml](https://raw.githubusercontent.com/matthewdeaves/willow/
 This is a combined nginx, redis and PHP-FPM container using Alpine Linux. The [docker/willowcms](https://github.com/matthewdeaves/willow/tree/main/docker/willowcms) folder has all the configuration that make it a little more open and therefore suitable for a development environment. In all other respects it is exactly the same as the production environment. Use [http://localhost:8080](http://localhost:8080) to use the development environment.
 
 #### Jenkins 
+
+The Jenkins container is not started by default. To start it along with the other containers, use the `--jenkins` flag.
+
+```bash
+/setup_dev_env.sh --jenkins
+```
+
 Jenkins is pre-configured with a job that will checkout the repo and run the tests and code checks on the main branch. The [docker/jenkins](https://github.com/matthewdeaves/willow/blob/2956928292b749dd7ab0d84da8860632953710a6/docker-compose.yml#L39) folder has all the configuration for this and more jobs will be added in future (front end tests for example). Use [http://localhost:8081](http://localhost:8081) to use Jenkins.
 
 #### MySQL Server

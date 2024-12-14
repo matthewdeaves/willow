@@ -1,5 +1,19 @@
 #!/bin/bash
 
+# Jenkins container is optional
+USE_JENKINS=0
+LOAD_I18N=0
+
+# Parse command line arguments
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+        -j|--jenkins) USE_JENKINS=1 ;;
+        --i18n) LOAD_I18N=1 ;;
+        *) echo "Unknown parameter: $1"; exit 1 ;;
+    esac
+    shift
+done
+
 # Detect the operating system
 OS="$(uname)"
 
@@ -11,6 +25,11 @@ needs_sudo() {
         echo ""
     fi
 }
+
+# Create required directories
+echo "Creating required directories..."
+mkdir -p logs/nginx
+chmod 777 logs/nginx
 
 # Function to check if Docker containers are running
 check_docker_status() {
@@ -24,7 +43,13 @@ check_docker_status() {
 # Start Docker containers if they're not running
 start_docker_containers() {
     echo "Starting Docker containers..."
-    $(needs_sudo) docker compose up -d
+    if [ "$USE_JENKINS" -eq 1 ]; then
+        echo "Including Jenkins in startup..."
+        $(needs_sudo) docker compose up -d willowcms mysql phpmyadmin mailpit redis-commander jenkins
+    else
+        echo "Starting without Jenkins..."
+        $(needs_sudo) docker compose up -d willowcms mysql phpmyadmin mailpit redis-commander
+    fi
 }
 
 # Function to wait for MySQL
@@ -102,7 +127,14 @@ if [ "$tableExists" -eq 1 ]; then
     $(needs_sudo) docker compose exec willowcms bin/cake create_user -u admin -p password -e admin@test.com -a 1
 
     # Import default data
-    $(needs_sudo) docker compose exec willowcms bin/cake default_data_import --all
+    $(needs_sudo) docker compose exec willowcms bin/cake default_data_import aiprompts
+    $(needs_sudo) docker compose exec willowcms bin/cake default_data_import email_templates
+
+    # Load internationalisations if flag is set
+    if [ "$LOAD_I18N" -eq 1 ]; then
+        echo "Loading internationalisation data..."
+        $(needs_sudo) docker compose exec willowcms bin/cake default_data_import internationalisations
+    fi
 
     echo "Initial setup completed."
 fi

@@ -105,14 +105,14 @@ class ArticleTest extends TestCase
             'title' => 'Article One', // This title already exists in fixtures
             'user_id' => '6509480c-e7e6-4e65-9c38-1423a8d09d0f',
             'body' => 'This is another test article with the same title as an existing one.',
-            'slug' => '',
+            'slug' => 'new-test-article',
             'kind' => 'article',
         ]);
         $result = $this->Articles->save($duplicateArticle);
         $this->assertFalse($result, 'Save operation should fail due to duplicate slug');
         $expectedErrors = [
             'slug' => [
-                0 => 'The generated slug is not unique. Please modify it.',
+                'unique' => 'This slug is already in use.',
             ],
         ];
 
@@ -120,7 +120,7 @@ class ArticleTest extends TestCase
 
         // Test slug generation with special characters
         $specialCharArticle = $this->Articles->newEntity([
-            'title' => 'Test: Article with Special Characters!',
+            'title' => 'Test: Article with Special Characters!&',
             'user_id' => '6509480c-e7e6-4e65-9c38-1423a8d09d0f',
             'body' => 'This is a test article with special characters in the title.',
             'slug' => '',

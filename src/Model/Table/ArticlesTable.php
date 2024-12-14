@@ -11,23 +11,25 @@ use Cake\Log\LogTrait;
 use Cake\ORM\Behavior\Translate\TranslateTrait;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
-use Cake\ORM\TableRegistry;
 use Cake\Queue\QueueManager;
-use Cake\Utility\Text;
 use Cake\Validation\Validator;
 use DateTime;
 
 /**
- * ArticlesTable class
+ * Articles Table
  *
- * Represents the Articles table in the database and provides methods for managing article content.
- * Handles article creation, modification, validation, and relationships with other entities.
- * Implements behaviors for timestamps, comments, hierarchical structure, slugs, images, translations and uploads.
+ * Manages article content with features including:
+ * - Multi-language support
+ * - SEO metadata
+ * - Image handling
+ * - Commenting system
+ * - Page view tracking
+ * - AI-powered content enhancement
  *
- * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
- * @property \App\Model\Table\TagsTable&\Cake\ORM\Association\BelongsToMany $Tags
- * @property \App\Model\Table\PageViewsTable&\Cake\ORM\Association\HasMany $PageViews
- * @property \App\Model\Table\SlugsTable&\Cake\ORM\Association\HasMany $Slugs
+ * @property \Cake\ORM\Association\BelongsTo $Users
+ * @property \Cake\ORM\Association\BelongsToMany $Tags
+ * @property \Cake\ORM\Association\HasMany $PageViews
+ * @property \Cake\ORM\Association\HasMany $Slugs
  * @method \App\Model\Entity\Article newEmptyEntity()
  * @method \App\Model\Entity\Article newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\Article[] newEntities(array $data, array $options = [])
@@ -36,21 +38,6 @@ use DateTime;
  * @method \App\Model\Entity\Article patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\Article[] patchEntities(iterable $entities, array $data, array $options = [])
  * @method \App\Model\Entity\Article|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Article saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Article[]|\Cake\Datasource\ResultSetInterface|false saveMany(iterable $entities, $options = [])
- * @method \App\Model\Entity\Article[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
- * @method \App\Model\Entity\Article[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
- * @method \App\Model\Entity\Article[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
- * @mixin \Cake\ORM\Behavior\TimestampBehavior
- * @mixin \App\Model\Behavior\CommentableBehavior
- * @mixin \Cake\ORM\Behavior\TreeBehavior
- * @mixin \App\Model\Behavior\SluggableBehavior
- * @mixin \App\Model\Behavior\ImageAssociableBehavior
- * @mixin \App\Model\Behavior\QueueableImageBehavior
- * @mixin \Cake\ORM\Behavior\TranslateBehavior
- * @mixin \Josegonzalez\Upload\Model\Behavior\UploadBehavior
- * @uses \App\Model\Trait\LogTrait
- * @uses \App\Model\Trait\TranslateTrait
  */
 class ArticlesTable extends Table
 {
@@ -58,31 +45,12 @@ class ArticlesTable extends Table
     use TranslateTrait;
 
     /**
-     * Initialize method for the ArticlesTable.
+     * Initialize method
      *
-     * This method sets up the table configuration, behaviors, and associations for the Articles table.
+     * Configures table associations, behaviors, and other settings
      *
-     * @param array $config The configuration array for the table.
+     * @param array<string, mixed> $config Configuration array
      * @return void
-     * @uses \Cake\ORM\Table::setTable() Sets the database table name.
-     * @uses \Cake\ORM\Table::setDisplayField() Sets the display field for the table.
-     * @uses \Cake\ORM\Table::setPrimaryKey() Sets the primary key for the table.
-     * @uses \Cake\ORM\Table::addBehavior() Adds behaviors to the table.
-     * @uses \Cake\ORM\Table::belongsTo() Sets up a belongsTo association.
-     * @uses \Cake\ORM\Table::belongsToMany() Sets up a belongsToMany association.
-     * @uses \Cake\ORM\Table::hasMany() Sets up a hasMany association.
-     *
-     * Behaviors:
-     * - Timestamp: Automatically manages created and modified timestamps.
-     * - Commentable: Allows articles to have comments.
-     * - Tree: Enables tree structure for hierarchical data.
-     * - Sluggable: Automatically generates slugs from the title field.
-     *
-     * Associations:
-     * - Users: Articles belong to a User, linked by user_id.
-     * - Tags: Articles have a many-to-many relationship with Tags through the articles_tags join table.
-     * - PageViews: Articles have many PageViews, linked by article_id.
-     * - Slugs: Articles have many Slugs.
      */
     public function initialize(array $config): void
     {
@@ -96,13 +64,11 @@ class ArticlesTable extends Table
 
         $this->addBehavior('Commentable');
 
-        $this->addBehavior('Orderable');
-
-        $this->addBehavior('Sluggable', [
-            'field' => 'title',
-            'slug' => 'slug',
-            'maxLength' => 255,
+        $this->addBehavior('Orderable', [
+            'displayField' => 'title',
         ]);
+
+        $this->addBehavior('Slug');
 
         $this->addBehavior('ImageAssociable');
 
@@ -143,24 +109,18 @@ class ArticlesTable extends Table
             'dependent' => true,
             'cascadeCallbacks' => true,
         ]);
-
-        $this->hasMany('Slugs', [
-            'dependent' => true,
-            'cascadeCallbacks' => true,
-        ]);
     }
 
     /**
-     * Default validation rules.
+     * Default validation rules
      *
      * Sets up validation rules for article fields including:
-     * - user_id: Must be a valid UUID and not empty
-     * - title: Required string, max 255 characters
-     * - body: Optional text content
-     * - slug: Required URL-safe string, must be unique across articles and slugs
-     * - image: Optional file upload with mime type and size restrictions
+     * - User ID validation
+     * - Title requirements
+     * - Body content validation
+     * - Image upload restrictions
      *
-     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @param \Cake\Validation\Validator $validator Validator instance
      * @return \Cake\Validation\Validator
      */
     public function validationDefault(Validator $validator): Validator
@@ -180,40 +140,6 @@ class ArticlesTable extends Table
             ->allowEmptyString('body');
 
         $validator
-            ->scalar('slug')
-            ->maxLength('slug', 255)
-            ->regex(
-                'slug',
-                '/^[a-z0-9-]+$/',
-                __('The slug must be URL-safe (only lowercase letters, numbers, and hyphens)')
-            )
-            ->requirePresence('slug', 'create')
-            ->notEmptyString('slug')
-            ->add('slug', 'uniqueInArticles', [
-                'rule' => function ($value, $context) {
-                    $exists = $this->exists(['slug' => $value]);
-                    if ($exists && isset($context['data']['id'])) {
-                        $exists = $this->exists(['slug' => $value, 'id !=' => $context['data']['id']]);
-                    }
-
-                    return !$exists;
-                },
-                'message' => __('This slug is already in use in articles. Please enter a unique slug.'),
-            ])
-            ->add('slug', 'uniqueInSlugs', [
-                'rule' => function ($value, $context) {
-                    $slugsTable = TableRegistry::getTableLocator()->get('Slugs');
-                    $exists = $slugsTable->exists(['slug' => $value]);
-                    if ($exists && isset($context['data']['id'])) {
-                        $exists = $slugsTable->exists(['slug' => $value, 'article_id !=' => $context['data']['id']]);
-                    }
-
-                    return !$exists;
-                },
-                'message' => __('Slug conflicts with an existing SEO redirect. Please choose a different slug.'),
-            ]);
-
-        $validator
             ->allowEmptyFile('image')
             ->add('image', [
                 'mimeType' => [
@@ -230,61 +156,32 @@ class ArticlesTable extends Table
     }
 
     /**
-     * Returns a rules checker object that will be used for validating
-     * application integrity.
+     * Returns a rules checker object that will be used for validating application integrity
      *
-     * Implements the following rules:
-     * - Validates that user_id exists in Users table
-     * - Ensures slug is unique across articles
-     *
-     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified
      * @return \Cake\ORM\RulesChecker
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
 
-        $rules->add($rules->isUnique(['slug']));
-
         return $rules;
     }
 
     /**
-     * Before save callback.
+     * Before save callback
      *
-     * This method is triggered before an entity is saved. It performs several operations:
-     * 1. Generates a slug from the entity's title if the entity is new and the slug is not set.
-     *    - The slug is trimmed to a maximum length of 255 characters.
-     *    - Checks if the generated slug is unique. If not, sets an error on the entity and prevents saving.
-     * 2. Updates the 'published' field based on changes to the 'is_published' field.
-     *    - Sets the 'published' date to the current date and time if 'is_published' changes from 0 to 1.
-     *    - Sets the 'published' field to null if 'is_published' changes from 1 to 0.
-     * 3. Calculates the word count of the 'body' field if it is set or modified.
-     *    - Strips HTML tags from the body and counts the words, storing the result in 'word_count'.
+     * Handles:
+     * - Setting publication date when article is published
+     * - Calculating word count for article body
      *
-     * @param \Cake\Event\EventInterface $event The event that was triggered.
-     * @param \Cake\Datasource\EntityInterface $entity The entity that is being saved.
-     * @param \ArrayObject $options Additional options for the save operation.
-     * @return bool|null Returns false to prevent the save operation if the slug is not unique, true otherwise.
+     * @param \Cake\Event\EventInterface $event The beforeSave event that was fired
+     * @param \Cake\Datasource\EntityInterface $entity The entity that is going to be saved
+     * @param \ArrayObject $options The options passed to the save method
+     * @return bool|null True if the operation should continue, false if it should abort
      */
     public function beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): ?bool
     {
-        if ($entity->isNew() && !$entity->slug) {
-            $sluggedTitle = strtolower(Text::slug($entity->title));
-            // trim slug to maximum length defined in schema
-            $entity->slug = substr($sluggedTitle, 0, 255);
-
-            //check generated slug is unique
-            $existing = $this->find('all', conditions: ['slug' => $entity->slug])->first();
-
-            if ($existing) {
-                // If not unique, set the slug back to the entity for user modification
-                $entity->setError('slug', 'The generated slug is not unique. Please modify it.');
-
-                return false; // Prevent save
-            }
-        }
-
         // Check if is_published has changed to published
         if ($entity->isDirty('is_published') && $entity->is_published) {
             $entity->published = new DateTime('now');
@@ -301,28 +198,21 @@ class ArticlesTable extends Table
     }
 
     /**
-     * After save callback.
+     * After save callback
      *
-     * This method is triggered after an entity is saved. It performs two main operations:
-     * 1. Ensures that a published article has a history of slugs.
-     * 2. Queues an SEO update job for published articles if AI settings are enabled.
+     * Handles AI-powered enhancements including:
+     * - Article tagging
+     * - Summary generation
+     * - SEO field population
+     * - Content translation
      *
-     * @param \Cake\Event\EventInterface $event The afterSave event that was fired.
-     * @param \Cake\Datasource\EntityInterface $entity The entity that was saved.
-     * @param \ArrayObject $options The options passed to the save method.
+     * @param \Cake\Event\EventInterface $event The afterSave event that was fired
+     * @param \Cake\Datasource\EntityInterface $entity The entity that was saved
+     * @param \ArrayObject $options The options passed to the save method
      * @return void
-     * @throws \Exception If there is an error while queueing the SEO update job.
-     * @uses \App\Model\Table\SlugsTable::ensureSlugExists()
-     * @uses \App\Utility\SettingsManager::read()
-     * @uses \Cake\Queue\QueueManager::push()
      */
     public function afterSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
-        // Make sure a published Article has a history of slugs
-        if ($entity->is_published) {
-            $this->Slugs->ensureSlugExists($entity->id, $entity->slug);
-        }
-
         // noMessage flag will be true if save came from a Job (stops looping)
         $noMessage = $options['noMessage'] ?? false;
 
@@ -378,9 +268,10 @@ class ArticlesTable extends Table
     }
 
     /**
-     * Checks if any of the SEO fields are empty.
+     * Checks if any of the SEO fields are empty
      *
-     * @return array Returns an array of empty SEO fields.
+     * @param \Cake\Datasource\EntityInterface $entity The article entity to check
+     * @return array<string> List of empty SEO field names
      */
     public function emptySeoFields(EntityInterface $entity): array
     {
@@ -398,9 +289,10 @@ class ArticlesTable extends Table
     }
 
     /**
-     * Checks if any of the original language fields for translation are empty.
+     * Checks if any of the original language fields for translation are empty
      *
-     * @return array Returns an array of empty SEO fields.
+     * @param \Cake\Datasource\EntityInterface $entity The article entity to check
+     * @return array<string> List of empty translation field names
      */
     public function emptyTranslationFields(EntityInterface $entity): array
     {
@@ -415,20 +307,11 @@ class ArticlesTable extends Table
     }
 
     /**
-     * Queues a job with the provided job class and data.
+     * Queues a job with the provided job class and data
      *
-     * This method is used to queue jobs for various tasks related to articles, such as updating SEO fields,
-     * translating articles, updating tags, and generating summaries. It uses the QueueManager to push the
-     * job into the queue and logs the queued job with relevant information.
-     *
-     * @param string $job The fully qualified class name of the job to be queued.
-     * @param array $data An associative array of data to be passed to the job. Typically includes:
-     *                    - 'id' (int): The ID of the article associated with the job.
-     *                    - 'title' (string): The title of the article.
+     * @param string $job The fully qualified job class name
+     * @param array<string, mixed> $data The data to be passed to the job
      * @return void
-     * @throws \Exception If there is an error while queueing the job.
-     * @uses \Cake\Queue\QueueManager::push() Pushes the job into the queue.
-     * @uses \Cake\Log\Log::info() Logs the queued job with relevant information.
      */
     public function queueJob(string $job, array $data): void
     {
@@ -442,51 +325,6 @@ class ArticlesTable extends Table
             'info',
             ['group_name' => $job]
         );
-    }
-
-    /**
-     * Retrieves a hierarchical tree structure of pages.
-     *
-     * Returns a nested array of pages with their relationships and metadata including:
-     * - Basic page information (id, title, slug)
-     * - Publication status
-     * - Creation and modification dates
-     * - Page view counts
-     * - Hierarchical structure (parent-child relationships)
-     *
-     * @param array $additionalConditions Optional additional query conditions
-     * @return array Hierarchical array of pages with nested children
-     */
-    public function getPageTree(array $additionalConditions = []): array
-    {
-        $conditions = [
-            'Articles.kind' => 'page',
-        ];
-        // Merge the default conditions with any additional conditions provided
-        $conditions = array_merge($conditions, $additionalConditions);
-
-        $cacheKey = hash('xxh3', json_encode($conditions));
-
-        $query = $this->find()
-            ->select([
-                'id',
-                'parent_id',
-                'title',
-                'slug',
-                'created',
-                'modified',
-                'is_published',
-                'pageview_count' => $this->PageViews->find()
-                    ->where(['PageViews.article_id = Articles.id'])
-                    ->select([
-                        'count' => $this->PageViews->find()->func()->count('PageViews.id'),
-                    ]),
-            ])
-            ->where($conditions)
-            ->orderBy(['lft' => 'ASC'])
-            ->cache($cacheKey . 'article_page_tree', 'articles');
-
-        return $query->find('threaded')->toArray();
     }
 
     /**

@@ -329,7 +329,7 @@ class ArticlesControllerTest extends AppControllerTestCase
         $this->assertResponseContains('Content for Big Test Article 1');
 
         // Check there's 1 slug for Article 1
-        $slugCount = $slugsTable->find()->where(['article_id' => $article1->id])->count();
+        $slugCount = $slugsTable->find()->where(['foreign_key' => $article1->id])->count();
         $this->assertEquals(1, $slugCount);
 
         // Edit Article 1 and change slug
@@ -343,7 +343,7 @@ class ArticlesControllerTest extends AppControllerTestCase
         $this->assertRedirect('/admin');
 
         // Check there are 2 slugs for Article 1
-        $slugCount = $slugsTable->find()->where(['article_id' => $article1->id])->count();
+        $slugCount = $slugsTable->find()->where(['foreign_key' => $article1->id])->count();
         $this->assertEquals(2, $slugCount);
 
         if (env('EXPERIMENTAL_TESTS', 'Off') == 'On') {
@@ -401,8 +401,8 @@ class ArticlesControllerTest extends AppControllerTestCase
             $this->assertNotEmpty($article2);
 
             // Check slug counts
-            $slugCount1 = $slugsTable->find()->where(['article_id' => $article1->id])->count();
-            $slugCount2 = $slugsTable->find()->where(['article_id' => $article2->id])->count();
+            $slugCount1 = $slugsTable->find()->where(['foreign_key' => $article1->id])->count();
+            $slugCount2 = $slugsTable->find()->where(['foreign_key' => $article2->id])->count();
             $this->assertEquals(2, $slugCount1);
             $this->assertEquals(1, $slugCount2);
 
@@ -411,7 +411,7 @@ class ArticlesControllerTest extends AppControllerTestCase
             $this->assertRedirectContains('/admin');
 
             // Check no slugs for Article 2
-            $slugCount2 = $slugsTable->find()->where(['article_id' => $article2->id])->count();
+            $slugCount2 = $slugsTable->find()->where(['foreign_key' => $article2->id])->count();
             $this->assertEquals(0, $slugCount2);
 
             // Delete Article 1
@@ -419,7 +419,7 @@ class ArticlesControllerTest extends AppControllerTestCase
             $this->assertRedirectContains('/admin');
 
             // Check no slugs for Article 1
-            $slugCount1 = $slugsTable->find()->where(['article_id' => $article1->id])->count();
+            $slugCount1 = $slugsTable->find()->where(['foreign_key' => $article1->id])->count();
             $this->assertEquals(0, $slugCount1);
         }
     }

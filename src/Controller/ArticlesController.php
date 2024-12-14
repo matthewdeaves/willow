@@ -84,7 +84,7 @@ class ArticlesController extends AppController
     {
         parent::beforeFilter($event);
 
-        $this->Authentication->addUnauthenticatedActions(['view', 'index', 'viewBySlug', 'pageIndex']);
+        $this->Authentication->addUnauthenticatedActions(['view', 'index', 'viewBySlug', 'pageIndex', 'rss']);
 
         if ($this->request->getParam('action') === 'addComment' && $this->request->is('post')) {
             $result = $this->Authentication->getResult();
@@ -114,7 +114,7 @@ class ArticlesController extends AppController
             ])
             ->first();
 
-        $articles = $this->Articles->getPageTree();
+        $articles = $this->Articles->getTree();
 
         $this->set(compact('article', 'articles'));
     }
@@ -164,7 +164,7 @@ class ArticlesController extends AppController
 
         $recentArticles = [];
         if ($this->request->getQuery('page') > 1) {
-            $recentArticles = $this->Articles->getRecentArticles();
+            $recentArticles = $this->Articles->getRecentArticles($this->cacheKey);
         }
 
         $this->set(compact(
@@ -174,6 +174,66 @@ class ArticlesController extends AppController
         ));
 
         $this->viewBuilder()->setLayout('article_index');
+    }
+
+    /**
+     * Generates an RSS feed of published articles
+     *
+     * @return void
+     */
+    public function rss(): void
+    {
+        $this->viewBuilder()
+            ->setClassName('Xml')
+            ->setOption('serialize', 'articles');
+
+        // Get the most recent articles
+        $articles = $this->Articles->find()
+            ->where([
+                'Articles.kind' => 'article',
+                'Articles.is_published' => 1,
+            ])
+            ->contain(['Users'])
+            ->orderBy(['Articles.published' => 'DESC'])
+            ->limit(10)
+            ->all();
+
+        // Get the site name from settings
+        $siteName = SettingsManager::read('Site.name');
+        $siteUrl = Router::url('/', true);
+
+        $this->set([
+            '_serialize' => ['channel', 'items'],
+            'channel' => [
+                'title' => $siteName,
+                'link' => $siteUrl,
+                'description' => SettingsManager::read('Site.description'),
+                'language' => 'en-us',
+            ],
+            'items' => collection($articles)->map(function ($article) {
+                return [
+                    'title' => $article->title,
+                    'link' => Router::url([
+                        '_name' => 'article-by-slug',
+                        'slug' => $article->slug,
+                        '_full' => true,
+                    ]),
+                    'description' => $article->summary,
+                    'guid' => Router::url([
+                        '_name' => 'article-by-slug',
+                        'slug' => $article->slug,
+                        '_full' => true,
+                    ]),
+                    'pubDate' => $article->published->format('r'),
+                    'author' => $article->user->name,
+                ];
+            })->toArray(),
+        ]);
+
+        $this->response = $this->response
+            ->withType('rss')
+            ->withHeader('Content-Type', 'application/rss+xml')
+            ->withCache('-1 minute', '+1 hour');
     }
 
     /**
@@ -193,9 +253,12 @@ class ArticlesController extends AppController
         if (empty($article)) {
             // If not in cache, we need to check if this is the latest slug
             $slugEntity = $this->Slugs->find()
-                ->where(['slug' => $slug])
+                ->where([
+                    'slug' => $slug,
+                    'model' => 'Articles',
+                    ])
                 ->orderBy(['created' => 'DESC'])
-                ->select(['article_id'])
+                ->select(['foreign_key'])
                 ->first();
 
             if (!$slugEntity) {
@@ -210,12 +273,12 @@ class ArticlesController extends AppController
 
                 $articleId = $article->id;
             } else {
-                $articleId = $slugEntity->article_id;
+                $articleId = $slugEntity->foreign_key;
             }
 
             // Check if it's the latest slug for the article
             $latestSlug = $this->Slugs->find()
-                ->where(['article_id' => $articleId])
+                ->where(['foreign_key' => $articleId])
                 ->orderBy(['created' => 'DESC'])
                 ->select(['slug'])
                 ->first();

@@ -11,7 +11,7 @@
             <?php foreach ($images as $image): ?>
                 <div class="col">
                     <div class="card shadow-sm">
-                        <?= $this->Html->image(SettingsManager::read('ImageSizes.small', '200') . '/' . $image->image, 
+                        <?= $this->Html->image(SettingsManager::read('ImageSizes.large') . '/' . $image->image, 
                             [
                                 'pathPrefix' => 'files/Images/image/',
                                 'alt' => $image->alt_text,
@@ -35,7 +35,7 @@
                                     'hiddenField' => false,
                                     'id' => $image->id . '_size',
                                     'class' => 'form-select',
-                                    'value' => SettingsManager::read('ImageSizes.medium')
+                                    'value' => SettingsManager::read('ImageSizes.large')
                                 ]
                             );
                             ?>

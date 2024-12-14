@@ -37,8 +37,8 @@
 <script>
 Dropzone.options.imageUploadDropzone = {
     paramName: "image",
-    maxFilesize: 5,
-    maxFiles: 30,
+    maxFilesize: 20,
+    maxFiles: 50,
     acceptedFiles: `image/*`,
     headers: {
         'X-CSRF-Token': document.querySelector('meta[name="csrfToken"]').getAttribute('content')

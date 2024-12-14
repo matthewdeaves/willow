@@ -134,23 +134,24 @@ class SlugBehavior extends Behavior
             ->first();
 
         if ($existingSlug === null) {
-            $slugEntity = $slugsTable->newEntity([
+            $slugData = [
                 'model' => $this->_table->getAlias(),
                 'foreign_key' => $entity->get($this->_table->getPrimaryKey()),
                 'slug' => $slug,
                 'created' => new DateTime(),
-            ]);
+            ];
 
-            if (!$slugsTable->save($slugEntity)) {
+            // Use saveOrFail to ensure we get exceptions if something goes wrong
+            try {
+                $slugEntity = $slugsTable->newEntity($slugData);
+                $slugsTable->getConnection()->transactional(function () use ($slugsTable, $slugEntity) {
+                    return $slugsTable->saveOrFail($slugEntity);
+                });
+            } catch (\Exception $e) {
                 // Log the error instead of throwing an exception
-                $errors = $slugEntity->getErrors();
-                $errorMessages = [];
-                foreach ($errors as $field => $fieldErrors) {
-                    $errorMessages[] = sprintf('%s: %s', $field, implode(', ', $fieldErrors));
-                }
                 $event->getSubject()->log(sprintf(
                     'Failed to save slug history: %s',
-                    implode('; ', $errorMessages)
+                    $e->getMessage()
                 ));
             }
         }

@@ -94,6 +94,24 @@
                                 <?= $article->is_published ? '<span class="badge bg-success">' . __('Yes') . '</span>' : '<span class="badge bg-danger">' . __('No') . '</span>'; ?>
                             </td>
                         </tr>
+                        <tr>
+                        <th><?= __('Page Views') ?></th>
+                            <td>
+                            <?= $this->Html->link(
+                                '<span class="badge bg-info me-3">' . __('{0} Views', $article->view_count) . '</span>',
+                                [
+                                    'prefix' => 'Admin',
+                                    'controller' => 'PageViews',
+                                    'action' => 'pageViewStats',
+                                    $article['id']
+                                ],
+                                [
+                                    'escape' => false,
+                                    'class' => 'ms-2'
+                                ]
+                            ) ?>
+                            </td>
+                        </tr>
                     </table>
                     <div class="card mt-4">
                         <div class="card-body">

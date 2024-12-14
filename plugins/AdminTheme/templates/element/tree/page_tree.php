@@ -24,7 +24,7 @@
                         <?= $article->is_published ? 'Published' : 'Unpublished' ?>
                     </span>
                     <?= $this->Html->link(
-                        '<span class="badge bg-info me-3">' . __('{0} Views', $article->pageview_count) . '</span>',
+                        '<span class="badge bg-info me-3">' . __('{0} Views', $article->view_count) . '</span>',
                         [
                             'prefix' => 'Admin',
                             'controller' => 'PageViews',

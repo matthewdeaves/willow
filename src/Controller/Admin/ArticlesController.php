@@ -65,6 +65,7 @@ class ArticlesController extends AppController
             'slug',
             'created',
             'modified',
+            'view_count',
             'is_published',
         ]);
         $this->set(compact('articles'));
@@ -127,12 +128,9 @@ class ArticlesController extends AppController
                 'Articles.instagram_description',
                 'Articles.twitter_description',
                 'Articles.word_count',
+                'Articles.view_count',
                 'Users.id',
                 'Users.username',
-                'pageview_count' => $this->Articles->PageViews->find()
-                    ->where(['PageViews.article_id = Articles.id'])
-                    ->func()
-                    ->count('PageViews.id'),
             ])
             ->leftJoinWith('Users')
             ->leftJoinWith('PageViews')

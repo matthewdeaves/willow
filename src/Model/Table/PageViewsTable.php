@@ -48,6 +48,12 @@ class PageViewsTable extends Table
             'foreignKey' => 'article_id',
             'joinType' => 'INNER',
         ]);
+
+        $this->addBehavior('CounterCache', [
+            'Articles' => [
+                'view_count',
+            ],
+        ]);
     }
 
     /**

@@ -1,5 +1,17 @@
 #!/bin/bash
 
+# Jenkins container is optional
+USE_JENKINS=0
+
+# Parse command line arguments
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+        -j|--jenkins) USE_JENKINS=1 ;;
+        *) echo "Unknown parameter: $1"; exit 1 ;;
+    esac
+    shift
+done
+
 # Detect the operating system
 OS="$(uname)"
 
@@ -29,7 +41,13 @@ check_docker_status() {
 # Start Docker containers if they're not running
 start_docker_containers() {
     echo "Starting Docker containers..."
-    $(needs_sudo) docker compose up -d
+    if [ "$USE_JENKINS" -eq 1 ]; then
+        echo "Including Jenkins in startup..."
+        $(needs_sudo) docker compose up -d willowcms mysql phpmyadmin mailpit redis-commander jenkins
+    else
+        echo "Starting without Jenkins..."
+        $(needs_sudo) docker compose up -d willowcms mysql phpmyadmin mailpit redis-commander
+    fi
 }
 
 # Function to wait for MySQL

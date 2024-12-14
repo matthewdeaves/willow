@@ -12,6 +12,11 @@ needs_sudo() {
     fi
 }
 
+# Create required directories
+echo "Creating required directories..."
+mkdir -p logs/nginx
+chmod 777 logs/nginx
+
 # Function to check if Docker containers are running
 check_docker_status() {
     if $(needs_sudo) docker compose ps --services --filter "status=running" | grep -q "willowcms"; then

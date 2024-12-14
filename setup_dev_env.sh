@@ -2,11 +2,13 @@
 
 # Jenkins container is optional
 USE_JENKINS=0
+LOAD_I18N=0
 
 # Parse command line arguments
 while [[ "$#" -gt 0 ]]; do
     case $1 in
         -j|--jenkins) USE_JENKINS=1 ;;
+        --i18n) LOAD_I18N=1 ;;
         *) echo "Unknown parameter: $1"; exit 1 ;;
     esac
     shift
@@ -125,7 +127,14 @@ if [ "$tableExists" -eq 1 ]; then
     $(needs_sudo) docker compose exec willowcms bin/cake create_user -u admin -p password -e admin@test.com -a 1
 
     # Import default data
-    $(needs_sudo) docker compose exec willowcms bin/cake default_data_import --all
+    $(needs_sudo) docker compose exec willowcms bin/cake default_data_import aiprompts
+    $(needs_sudo) docker compose exec willowcms bin/cake default_data_import email_templates
+
+    # Load internationalisations if flag is set
+    if [ "$LOAD_I18N" -eq 1 ]; then
+        echo "Loading internationalisation data..."
+        $(needs_sudo) docker compose exec willowcms bin/cake default_data_import internationalisations
+    fi
 
     echo "Initial setup completed."
 fi

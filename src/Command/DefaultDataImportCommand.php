@@ -14,8 +14,7 @@ use Cake\Utility\Inflector;
  * DefaultDataImportCommand
  *
  * This command allows importing data from JSON files in the default_data folder into specified tables.
- * It prompts the user to choose a file to import or import all files, and then imports the data into the corresponding table(s),
- * deleting all existing data in the table(s) before importing.
+ * It can import data for a specific table or all tables, and will delete existing data before importing.
  */
 class DefaultDataImportCommand extends Command
 {
@@ -29,6 +28,10 @@ class DefaultDataImportCommand extends Command
     {
         $parser
             ->setDescription('Imports default data from JSON files into specified tables.')
+            ->addArgument('table', [
+                'help' => 'The specific table to import data for',
+                'required' => false,
+            ])
             ->addOption('input', [
                 'short' => 'i',
                 'help' => 'Input directory containing the JSON files.',
@@ -48,10 +51,9 @@ class DefaultDataImportCommand extends Command
      *
      * This method performs the following steps:
      * 1. Checks and creates the input directory if it doesn't exist.
-     * 2. Retrieves and displays a list of available JSON files.
-     * 3. Prompts the user to select a file to import or imports all files if the 'all' option is set.
-     * 4. Deletes all existing data in the corresponding table(s).
-     * 5. Imports the data from the selected file(s) into the corresponding table(s).
+     * 2. Handles specific table import if specified.
+     * 3. Handles all tables import if --all option is used.
+     * 4. Prompts for table selection if neither specific table nor --all is specified.
      *
      * @param \Cake\Console\Arguments $args The command arguments.
      * @param \Cake\Console\ConsoleIo $io The console io object.
@@ -60,6 +62,8 @@ class DefaultDataImportCommand extends Command
     public function execute(Arguments $args, ConsoleIo $io): int
     {
         $inputDir = $args->getOption('input');
+        $specificTable = $args->getArgument('table');
+        $importAll = $args->getOption('all');
 
         // Ensure the input directory exists
         if (!is_dir($inputDir)) {
@@ -69,39 +73,50 @@ class DefaultDataImportCommand extends Command
         // Get list of JSON files
         $files = glob($inputDir . DS . '*.json');
         if (empty($files)) {
-            $io->out(sprintf('No JSON files found in the directory: %s', $inputDir));
-
+            $io->error(sprintf('No JSON files found in the directory: %s', $inputDir));
             return Command::CODE_ERROR;
         }
 
-        if ($args->getOption('all')) {
-            // Import all files
+        // Handle specific table import
+        if ($specificTable !== null) {
+            $tableName = Inflector::underscore($specificTable);
+            $filePath = $inputDir . DS . $tableName . '.json';
+            
+            if (!file_exists($filePath)) {
+                $io->error(sprintf('No JSON file found for table: %s', $tableName));
+                return Command::CODE_ERROR;
+            }
+            
+            $this->importTable($specificTable, $inputDir, $io);
+            return Command::CODE_SUCCESS;
+        }
+
+        // Handle --all option
+        if ($importAll) {
             foreach ($files as $file) {
                 $tableName = basename($file, '.json');
                 $this->importTable($tableName, $inputDir, $io);
             }
-        } else {
-            // Display files and ask user to choose
-            $io->out('Available data files:');
-            foreach ($files as $index => $file) {
-                $io->out(sprintf('[%d] %s', $index + 1, basename($file)));
-            }
-
-            $choice = $io->ask('Choose a file to import by number:');
-            $choiceIndex = (int)$choice - 1;
-
-            if (!isset($files[$choiceIndex])) {
-                $io->error('Invalid choice.');
-
-                return Command::CODE_ERROR;
-            }
-
-            $selectedFile = $files[$choiceIndex];
-            $tableName = basename($selectedFile, '.json');
-
-            // Import the selected table
-            $this->importTable($tableName, $inputDir, $io);
+            return Command::CODE_SUCCESS;
         }
+
+        // If no specific table or --all option, show interactive prompt
+        $io->out('Available data files:');
+        foreach ($files as $index => $file) {
+            $io->out(sprintf('[%d] %s', $index + 1, basename($file)));
+        }
+
+        $choice = $io->ask('Choose a file to import by number:');
+        $choiceIndex = (int)$choice - 1;
+
+        if (!isset($files[$choiceIndex])) {
+            $io->error('Invalid choice.');
+            return Command::CODE_ERROR;
+        }
+
+        $selectedFile = $files[$choiceIndex];
+        $tableName = basename($selectedFile, '.json');
+        $this->importTable($tableName, $inputDir, $io);
 
         return Command::CODE_SUCCESS;
     }
@@ -121,7 +136,6 @@ class DefaultDataImportCommand extends Command
 
         if (!file_exists($inputFile)) {
             $io->error(sprintf('Input file not found: %s', $inputFile));
-
             return;
         }
 
@@ -135,7 +149,7 @@ class DefaultDataImportCommand extends Command
         foreach ($data as $row) {
             $entity = $table->newEntity($row);
 
-            if ($tableName == 'settings') {
+            if ($tableName === 'settings') {
                 // Type cast $entity->value based on $entity->value_type
                 switch ($entity->value_type) {
                     case 'text':

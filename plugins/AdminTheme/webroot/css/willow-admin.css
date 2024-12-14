@@ -50,30 +50,62 @@
     outline: 0;
 }
 
+/* Status badges */
 .bg-debug {
-    background-color: rgb(72, 133, 102);
+    background-color: #488566; /* Darker green for better contrast */
 }
 
 .bg-error {
-    background-color: rgb(255, 0, 0);
+    background-color: #dc3545; /* Standard Bootstrap error color */
 }
 
 .bg-notice {
-    background-color: rgb(255, 153, 0);
+    background-color: #ffc107; /* Standard Bootstrap warning color */
 }
+
+/* Global code block styles (also used for Trumbowyg) */
+:root {
+    --md-code-bg: #f8f9fa; /* Light mode background */
+    --md-code-color: #212529;  /* Light mode text color */
+    --md-pre-bg: #f8f9fa; /* Light mode background */
+    --md-pre-border: #dee2e6; /* Light mode border */
+    --md-blockquote-border: #dee2e6;
+}
+
+[data-bs-theme="dark"] {
+    --md-code-bg: #343a40; /* Darker dark mode background */
+    --md-code-color: #e9ecef; /* Dark mode text color */
+    --md-pre-bg: #212529; /* Dark mode background for pre */
+    --md-pre-border: #373b3e;  /* Darker dark mode border */
+    --md-blockquote-border: #373b3e;
+}
+
 
 code {
     padding: 2px 4px;
     border-radius: 4px;
     font-family: monospace;
+    background-color: var(--md-code-bg);
+    color: var(--md-code-color);
 }
 
 pre {
-    background-color: #f5f5f5;
+    background-color: var(--md-pre-bg);
     padding: 10px;
     border-radius: 4px;
+    border: 1px solid var(--md-pre-border);
     overflow-x: auto;
+    margin: 1em 0;
 }
+
+pre code {
+    display: block;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    color: inherit; /* Inherit color from parent pre */
+}
+
 
 /* Base markdown preview styles */
 #markdown-preview {
@@ -105,52 +137,6 @@ pre {
     margin-bottom: 0.25rem;
 }
 
-/* Code blocks and inline code */
-#markdown-preview code {
-    padding: 2px 4px;
-    border-radius: 4px;
-    font-family: monospace;
-}
-
-#markdown-preview pre {
-    padding: 1rem;
-    margin: 1rem 0;
-    border-radius: 4px;
-    overflow-x: auto;
-}
-
-#markdown-preview pre code {
-    padding: 0;
-    border-radius: 0;
-    background: transparent;
-}
-
-/* Light/Dark mode support */
-:root {
-    --md-code-bg: #f8f9fa;
-    --md-code-color: #212529;
-    --md-pre-bg: #f8f9fa;
-    --md-pre-border: #dee2e6;
-    --md-blockquote-border: #dee2e6;
-}
-
-[data-bs-theme="dark"] {
-    --md-code-bg: #2d2d2d;
-    --md-code-color: #e9ecef;
-    --md-pre-bg: #1e1e1e;
-    --md-pre-border: #373b3e;
-    --md-blockquote-border: #373b3e;
-}
-
-#markdown-preview code {
-    background-color: var(--md-code-bg);
-    color: var(--md-code-color);
-}
-
-#markdown-preview pre {
-    background-color: var(--md-pre-bg);
-    border: 1px solid var(--md-pre-border);
-}
 
 /* Blockquotes */
 #markdown-preview blockquote {
@@ -202,44 +188,6 @@ pre {
 }
 
 /* Semantic UI Dropdown Theme Support */
-[data-bs-theme="dark"] .ui.dropdown {
-    background-color: #2b3035 !important;
-    border-color: #495057 !important;
-    color: #e9ecef !important;
-}
-
-[data-bs-theme="dark"] .ui.dropdown .menu {
-    background-color: #2b3035 !important;
-    border-color: #495057 !important;
-}
-
-[data-bs-theme="dark"] .ui.dropdown .menu > .item {
-    color: #e9ecef !important;
-    border-top-color: #495057 !important;
-}
-
-[data-bs-theme="dark"] .ui.dropdown .menu > .item:hover {
-    background-color: #343a40 !important;
-    color: #fff !important;
-}
-
-[data-bs-theme="dark"] .ui.dropdown .menu > .selected.item {
-    background-color: #0d6efd !important;
-    color: #fff !important;
-}
-
-[data-bs-theme="dark"] .ui.dropdown .dropdown.icon {
-    color: #e9ecef !important;
-}
-
-/* Selected tags in the dropdown */
-[data-bs-theme="dark"] .ui.dropdown > .label {
-    background-color: #0d6efd !important;
-    color: #fff !important;
-    border-color: #0a58ca !important;
-}
-
-/* Light mode (default) styles */
 .ui.dropdown {
     background-color: #fff !important;
     border-color: #dee2e6 !important;
@@ -265,22 +213,35 @@ pre {
     color: #fff !important;
 }
 
+/* Dark Mode Semantic UI Support */
+[data-bs-theme="dark"] .ui.dropdown {
+    background-color: #212529 !important;
+    border-color: #495057 !important;
+    color: #e9ecef !important;
+}
+
+[data-bs-theme="dark"] .ui.dropdown .menu {
+    background-color: #212529 !important;
+    border-color: #495057 !important;
+}
+
+[data-bs-theme="dark"] .ui.dropdown .menu > .item {
+    color: #e9ecef !important;
+}
+
+[data-bs-theme="dark"] .ui.dropdown .menu > .item:hover {
+    background-color: #343a40 !important; /* Added hover style */
+}
+
+
 /* Remove underlines from selected tags and x icons */
-[data-bs-theme="dark"] .ui.dropdown > .label,
-[data-bs-theme="light"] .ui.dropdown > .label {
+.ui.dropdown > .label,
+.ui.dropdown > .label > .delete.icon,
+.ui.selection.dropdown .ui.label, /* Additional specificity */
+.ui.selection.dropdown .ui.label .delete.icon { /* Additional specificity */
     text-decoration: none !important;
 }
 
-[data-bs-theme="dark"] .ui.dropdown > .label > .delete.icon,
-[data-bs-theme="light"] .ui.dropdown > .label > .delete.icon {
-    text-decoration: none !important;
-}
-
-/* Additional specificity if needed */
-.ui.selection.dropdown .ui.label,
-.ui.selection.dropdown .ui.label .delete.icon {
-    text-decoration: none !important;
-}
 
 .images-grid {
     display: grid;
@@ -326,40 +287,16 @@ pre {
     background: #495057;
 }
 
+/* Trumbowyg Fullscreen Mode */
+.trumbowyg-fullscreen .trumbowyg-box {
+    margin-left: 0 !important; /* Remove left margin in fullscreen */
+}
+
+
 [data-bs-theme="dark"] .trumbowyg-button-pane .trumbowyg-button-group::after {
     background: #495057;
 }
 
-[data-bs-theme="dark"] .trumbowyg-editor table {
-    border-color: #495057;
-}
-
-[data-bs-theme="dark"] .trumbowyg-editor td,
-[data-bs-theme="dark"] .trumbowyg-editor th {
-    border: 1px solid #495057;
-    color: #f8f9fa;
-}
-
-[data-bs-theme="dark"] .trumbowyg-editor th {
-    background: #343a40;
-}
-
-.trumbowyg-editor table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1em 0;
-}
-
-.trumbowyg-editor td,
-.trumbowyg-editor th {
-    border: 1px solid #dee2e6;
-    padding: 8px;
-    min-width: 50px;
-}
-
-.trumbowyg-fullscreen .trumbowyg-editor {
-    color: black !important;
-}
 
 [data-bs-theme="dark"] .trumbowyg-modal,
 [data-bs-theme="dark"] .trumbowyg-modal-box {
@@ -393,8 +330,9 @@ pre {
     background: #0d6efd;
 }
 
+
 [data-bs-theme="dark"] .trumbowyg-overlay {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7); /* Darker overlay */
 }
 
 #trumbowyg-icons {

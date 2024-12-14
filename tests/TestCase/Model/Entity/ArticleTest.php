@@ -164,7 +164,6 @@ class ArticleTest extends TestCase
     {
         parent::setUp();
         $this->Articles = $this->getTableLocator()->get('Articles');
-        Cache::clearAll();
     }
 
     /**

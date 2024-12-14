@@ -39,7 +39,6 @@ class SlugsTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        Cache::clear();
         $config = $this->getTableLocator()->exists('Slugs') ? [] : ['className' => SlugsTable::class];
         $this->Slugs = $this->getTableLocator()->get('Slugs', $config);
     }

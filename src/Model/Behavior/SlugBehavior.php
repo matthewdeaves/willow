@@ -20,7 +20,6 @@ use Exception;
  * It maintains a history of slugs in a separate table and ensures slug uniqueness across the application.
  *
  * Features:
- * - Automatic slug generation from a specified source field
  * - Customizable maximum slug length
  * - Slug history tracking
  * - Uniqueness validation across current and historical slugs
@@ -87,11 +86,9 @@ class SlugBehavior extends Behavior
         $maxLength = $this->getConfig('maxLength');
 
         if (!empty($entity->get($targetField))) {
-            // If a slug is provided, make it URL-safe
             $slug = $this->generateSlug($entity->get($targetField), $maxLength);
             $entity->set($targetField, $slug);
         } elseif (!empty($entity->get($sourceField))) {
-            // If no slug but we have a source field, generate from source
             $slug = $this->generateSlug($entity->get($sourceField), $maxLength);
             $entity->set($targetField, $slug);
         }
@@ -99,8 +96,6 @@ class SlugBehavior extends Behavior
 
     /**
      * After save callback
-     *
-     * Records the slug in the slugs history table if it has changed.
      *
      * @param \Cake\Event\EventInterface $event The afterSave event that was fired
      * @param \Cake\Datasource\EntityInterface $entity The entity that was saved
@@ -120,6 +115,7 @@ class SlugBehavior extends Behavior
 
         // Check if the slug has actually changed
         $original = $entity->getOriginal($targetField);
+
         if (!$entity->isNew() && $original === $slug) {
             return;
         }
@@ -142,14 +138,9 @@ class SlugBehavior extends Behavior
                 'created' => new DateTime(),
             ];
 
-            // Use saveOrFail to ensure we get exceptions if something goes wrong
             try {
-                $slugEntity = $slugsTable->newEntity($slugData);
-                $slugsTable->getConnection()->transactional(function () use ($slugsTable, $slugEntity) {
-                    return $slugsTable->saveOrFail($slugEntity);
-                });
+                $slugsTable->saveOrFail($slugsTable->newEntity($slugData));
             } catch (Exception $e) {
-                // Log the error instead of throwing an exception
                 $event->getSubject()->log(sprintf(
                     'Failed to save slug history: %s',
                     $e->getMessage()
@@ -187,8 +178,8 @@ class SlugBehavior extends Behavior
 
         $targetField = $this->getConfig('targetField');
 
-        // Check uniqueness in the model's table using exists()
         $conditions = [$targetField => $value];
+
         if (!empty($context['data']['id'])) {
             $conditions['id !='] = $context['data']['id'];
         }
@@ -197,8 +188,8 @@ class SlugBehavior extends Behavior
             return false;
         }
 
-        // Check uniqueness in the slugs table using exists()
         $slugsTable = $this->fetchTable('Slugs');
+
         $slugConditions = [
             'Slugs.slug' => $value,
             'Slugs.model' => $this->_table->getAlias(),

@@ -58,6 +58,12 @@ Chronos::setTestNow(Chronos::now());
 // has been written to.
 session_id('cli');
 
+// Ensure the Upload plugin is loaded for tests
+Configure::write('Plugin.Upload', ['bootstrap' => true]);
+
+// Register the custom database type for 'upload.file'
+TypeFactory::map('upload.file', FileType::class);
+
 // Use migrations to build test database schema.
 //
 // Will rebuild the database if the migration state differs
@@ -68,16 +74,7 @@ session_id('cli');
 // load schema from a SQL dump file with
 // use Cake\TestSuite\Fixture\SchemaLoader;
 // (new SchemaLoader())->loadSqlFiles('./tests/schema.sql', 'test');
-
 (new Migrator())->run();
-
-// Ensure the Upload plugin is loaded for tests
-if (!Configure::read('Plugin.Upload')) {
-    Configure::write('Plugin.Upload', ['bootstrap' => true]);
-}
-
-// Register the custom database type for 'upload.file'
-TypeFactory::map('upload.file', FileType::class);
 
 // Switch queue connection for testing
 if (env('CAKE_ENV') === 'test') {

@@ -65,7 +65,6 @@ class TagsController extends AppController
                     }]);
             }])
             ->where(['Tags.slug' => $slug]);
-            //->applyOptions(['translations' => true]);
 
         $tag = $query->first();
 

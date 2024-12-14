@@ -74,6 +74,7 @@ class DefaultDataImportCommand extends Command
         $files = glob($inputDir . DS . '*.json');
         if (empty($files)) {
             $io->error(sprintf('No JSON files found in the directory: %s', $inputDir));
+
             return Command::CODE_ERROR;
         }
 
@@ -81,13 +82,15 @@ class DefaultDataImportCommand extends Command
         if ($specificTable !== null) {
             $tableName = Inflector::underscore($specificTable);
             $filePath = $inputDir . DS . $tableName . '.json';
-            
+
             if (!file_exists($filePath)) {
                 $io->error(sprintf('No JSON file found for table: %s', $tableName));
+
                 return Command::CODE_ERROR;
             }
-            
+
             $this->importTable($specificTable, $inputDir, $io);
+
             return Command::CODE_SUCCESS;
         }
 
@@ -97,6 +100,7 @@ class DefaultDataImportCommand extends Command
                 $tableName = basename($file, '.json');
                 $this->importTable($tableName, $inputDir, $io);
             }
+
             return Command::CODE_SUCCESS;
         }
 
@@ -111,6 +115,7 @@ class DefaultDataImportCommand extends Command
 
         if (!isset($files[$choiceIndex])) {
             $io->error('Invalid choice.');
+
             return Command::CODE_ERROR;
         }
 
@@ -136,6 +141,7 @@ class DefaultDataImportCommand extends Command
 
         if (!file_exists($inputFile)) {
             $io->error(sprintf('Input file not found: %s', $inputFile));
+
             return;
         }
 

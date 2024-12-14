@@ -11,6 +11,7 @@ use Cake\I18n\DateTime;
 use Cake\ORM\Behavior;
 use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\Utility\Text;
+use Exception;
 
 /**
  * Slug Behavior
@@ -147,7 +148,7 @@ class SlugBehavior extends Behavior
                 $slugsTable->getConnection()->transactional(function () use ($slugsTable, $slugEntity) {
                     return $slugsTable->saveOrFail($slugEntity);
                 });
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 // Log the error instead of throwing an exception
                 $event->getSubject()->log(sprintf(
                     'Failed to save slug history: %s',

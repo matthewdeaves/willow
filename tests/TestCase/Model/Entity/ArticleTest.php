@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Entity;
 
-use Cake\Cache\Cache;
 use Cake\TestSuite\TestCase;
 
 /**

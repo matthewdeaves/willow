@@ -1,7 +1,7 @@
 <?php use App\Utility\SettingsManager; ?>
 <?php use Cake\Routing\Router; ?>
 <!doctype html>
-<html lang="en" data-bs-theme="auto">
+<html lang="<?= $this->request->getParam('lang', 'en') ?>" data-bs-theme="auto">
   <head>
   <?php if (!empty($consentData) && $consentData['analytics_consent']) :?>
     <?= SettingsManager::read('Google.tagManagerHead', '') ?>

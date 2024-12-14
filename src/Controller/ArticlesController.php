@@ -84,7 +84,7 @@ class ArticlesController extends AppController
     {
         parent::beforeFilter($event);
 
-        $this->Authentication->addUnauthenticatedActions(['view', 'index', 'viewBySlug', 'pageIndex', 'rss']);
+        $this->Authentication->addUnauthenticatedActions(['view', 'index', 'viewBySlug', 'pageIndex']);
 
         if ($this->request->getParam('action') === 'addComment' && $this->request->is('post')) {
             $result = $this->Authentication->getResult();
@@ -174,66 +174,6 @@ class ArticlesController extends AppController
         ));
 
         $this->viewBuilder()->setLayout('article_index');
-    }
-
-    /**
-     * Generates an RSS feed of published articles
-     *
-     * @return void
-     */
-    public function rss(): void
-    {
-        $this->viewBuilder()
-            ->setClassName('Xml')
-            ->setOption('serialize', 'articles');
-
-        // Get the most recent articles
-        $articles = $this->Articles->find()
-            ->where([
-                'Articles.kind' => 'article',
-                'Articles.is_published' => 1,
-            ])
-            ->contain(['Users'])
-            ->orderBy(['Articles.published' => 'DESC'])
-            ->limit(10)
-            ->all();
-
-        // Get the site name from settings
-        $siteName = SettingsManager::read('Site.name');
-        $siteUrl = Router::url('/', true);
-
-        $this->set([
-            '_serialize' => ['channel', 'items'],
-            'channel' => [
-                'title' => $siteName,
-                'link' => $siteUrl,
-                'description' => SettingsManager::read('Site.description'),
-                'language' => 'en-us',
-            ],
-            'items' => collection($articles)->map(function ($article) {
-                return [
-                    'title' => $article->title,
-                    'link' => Router::url([
-                        '_name' => 'article-by-slug',
-                        'slug' => $article->slug,
-                        '_full' => true,
-                    ]),
-                    'description' => $article->summary,
-                    'guid' => Router::url([
-                        '_name' => 'article-by-slug',
-                        'slug' => $article->slug,
-                        '_full' => true,
-                    ]),
-                    'pubDate' => $article->published->format('r'),
-                    'author' => $article->user->name,
-                ];
-            })->toArray(),
-        ]);
-
-        $this->response = $this->response
-            ->withType('rss')
-            ->withHeader('Content-Type', 'application/rss+xml')
-            ->withCache('-1 minute', '+1 hour');
     }
 
     /**

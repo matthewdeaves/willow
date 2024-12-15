@@ -20,15 +20,23 @@ $(document).ready(function() {
 
     /**
      * Safely highlights code blocks using highlight.js
-     * Prevents multiple highlighting of the same block
+     * Ensures proper escaping and prevents double-highlighting
      */
     function safeHighlight() {
-        // Remove data-highlighted attribute from all previously highlighted elements
-        document.querySelectorAll('code[data-highlighted="yes"]').forEach(el => {
-            el.removeAttribute('data-highlighted');
+        document.querySelectorAll('pre code').forEach(block => {
+            if (!block.hasAttribute('data-processed')) {
+                // Get the raw text content
+                const rawContent = block.textContent;
+                // Escape the content
+                const escapedContent = escapeHtml(rawContent);
+                // Set the escaped content back
+                block.innerHTML = escapedContent;
+                // Mark as processed to prevent double processing
+                block.setAttribute('data-processed', 'true');
+                // Apply highlighting
+                hljs.highlightElement(block);
+            }
         });
-        // Perform highlighting
-        hljs.highlightAll();
     }
 
     // Initialize Highlight.js on page load
@@ -55,7 +63,6 @@ $(document).ready(function() {
                 const imageSize = escapeHtml($('#' + imageId + '_size').val());
                 const imageHtml = `<img src="/files/Images/image/${imageSize}/${imageSrc}" alt="${imageAlt}" class="img-fluid" />`;
 
-                // Restore the range before inserting
                 trumbowyg.restoreRange();
                 trumbowyg.execCmd('insertHTML', imageHtml, false, true);
                 $('#imageSelectModal').modal('hide');
@@ -333,8 +340,10 @@ $(document).ready(function() {
 
                             $('#insertCode').on('click', function() {
                                 const language = escapeHtml($('#code-language').val());
-                                const code = escapeHtml($('#code-content').val());
-                                const html = `<pre><code class="language-${language}">${code}</code></pre>`;
+                                let code = $('#code-content').val();
+                                // Pre-escape the code content
+                                code = escapeHtml(code);
+                                const html = `<pre><code class="language-${language}" data-processed="true">${code}</code></pre>`;
                                 
                                 trumbowyg.restoreRange();
                                 trumbowyg.execCmd('insertHTML', html);
@@ -369,7 +378,7 @@ $(document).ready(function() {
             ['highlight'],
             ['tableCellBackgroundColor', 'tableBorderColor'],
             ['removeformat'],
-            ['fullscreen'],
+            ['fullscreen']
         ],
         btnsDef: {
             textFormat: {

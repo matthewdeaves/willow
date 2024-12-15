@@ -22,6 +22,7 @@
           'var csrfToken = %s;',
           json_encode($this->request->getAttribute('csrfToken'))
       )); ?>
+      <?= $this->element('libraries/highlightjs'); ?>
   </head>
   <body>
       <?php if (!empty($consentData) && $consentData['marketing_consent']) :?>

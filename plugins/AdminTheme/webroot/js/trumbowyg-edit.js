@@ -1,4 +1,47 @@
+/**
+ * Main editor initialization and handlers
+ * This file handles the Trumbowyg editor setup, image/video insertion, and code highlighting
+ */
 $(document).ready(function() {
+    /**
+     * Safely escapes HTML content to prevent XSS attacks
+     * @param {string} unsafe - The unsafe string to escape
+     * @returns {string} The escaped string
+     */
+    function escapeHtml(unsafe) {
+        if (!unsafe) return '';
+        return unsafe
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    /**
+     * Safely highlights code blocks using highlight.js
+     * Prevents multiple highlighting of the same block
+     */
+    function safeHighlight() {
+        // Remove data-highlighted attribute from all previously highlighted elements
+        document.querySelectorAll('code[data-highlighted="yes"]').forEach(el => {
+            el.removeAttribute('data-highlighted');
+        });
+        // Perform highlighting
+        hljs.highlightAll();
+    }
+
+    // Initialize Highlight.js on page load
+    safeHighlight();
+
+    // Add Highlight.js initialization after Trumbowyg content changes
+    $('#article-body').on('tbwchange', function() {
+        safeHighlight();
+    });
+
+    /**
+     * Image handling functionality
+     */
     const imageHandlers = {
         bindEvents: function(trumbowyg) {
             // Image click handler
@@ -6,19 +49,15 @@ $(document).ready(function() {
                 e.preventDefault();
                 e.stopPropagation();
 
-                var imageSrc = $(this).data('src');
-                var imageId = $(this).data('id');
-                var imageAlt = $(this).data('alt');
-                var imageSize = $('#' + imageId + '_size').val();
-                var imageHtml = '<img src="/files/Images/image/' + imageSize + '/' + imageSrc + '" alt="' + imageAlt + '" class="img-fluid" />';
+                const imageSrc = escapeHtml($(this).data('src'));
+                const imageId = escapeHtml($(this).data('id'));
+                const imageAlt = escapeHtml($(this).data('alt'));
+                const imageSize = escapeHtml($('#' + imageId + '_size').val());
+                const imageHtml = `<img src="/files/Images/image/${imageSize}/${imageSrc}" alt="${imageAlt}" class="img-fluid" />`;
 
                 // Restore the range before inserting
                 trumbowyg.restoreRange();
-
-                // Insert the HTML directly
                 trumbowyg.execCmd('insertHTML', imageHtml, false, true);
-
-                // Close the modal
                 $('#imageSelectModal').modal('hide');
 
                 return false;
@@ -31,7 +70,7 @@ $(document).ready(function() {
                 imageHandlers.loadImages(url, trumbowyg);
             });
 
-            // Search handler
+            // Search handler with debounce
             const searchInput = document.getElementById('imageSearch');
             if (searchInput) {
                 let debounceTimer;
@@ -65,6 +104,9 @@ $(document).ready(function() {
         }
     };
 
+    /**
+     * Video handling functionality
+     */
     const videoHandlers = {
         bindEvents: function(trumbowyg) {
             // Video click handler
@@ -72,19 +114,12 @@ $(document).ready(function() {
                 e.preventDefault();
                 e.stopPropagation();
 
-                var videoId = $(this).data('video-id');
-                var videoTitle = $(this).data('video-title');
+                const videoId = escapeHtml($(this).data('video-id'));
+                const videoTitle = escapeHtml($(this).data('video-title'));
+                const placeholder = `[youtube:${videoId}:560:315:${videoTitle}]`;
 
-                // Create the video placeholder
-                var placeholder = `[youtube:${videoId}:560:315:${videoTitle}]`;
-
-                // Restore the range before inserting
                 trumbowyg.restoreRange();
-
-                // Insert the placeholder
                 trumbowyg.execCmd('insertHTML', placeholder, false, true);
-
-                // Close the modal
                 $('#videoSelectModal').modal('hide');
 
                 return false;
@@ -97,7 +132,7 @@ $(document).ready(function() {
                 videoHandlers.loadVideos(searchTerm, trumbowyg);
             });
 
-            // Search handler
+            // Search handler with debounce
             const searchInput = document.getElementById('videoSearch');
             if (searchInput) {
                 let debounceTimer;
@@ -137,6 +172,7 @@ $(document).ready(function() {
         }
     };
 
+    // Extend Trumbowyg with custom plugins
     $.extend(true, $.trumbowyg, {
         plugins: {
             insertImageFromLibrary: {
@@ -145,58 +181,30 @@ $(document).ready(function() {
 
                     trumbowyg.addBtnDef('insertImageFromLibrary', {
                         fn: function() {
-                            // Save the range before opening the modal
                             trumbowyg.saveRange();
 
-                            // Create Bootstrap modal
-                            var $modal = $('<div>', {
+                            const $modal = $('<div>', {
                                 class: 'modal fade',
                                 id: 'imageSelectModal',
                                 tabindex: '-1',
                                 role: 'dialog',
                                 'aria-labelledby': 'imageSelectModalLabel',
                                 'aria-hidden': 'true'
-                            }).css({
-                                'z-index': 99999
-                            }).append(
-                                $('<div>', {
-                                    class: 'modal-dialog modal-lg',
-                                    role: 'document'
-                                }).append(
-                                    $('<div>', {
-                                        class: 'modal-content'
-                                    }).append(
-                                        $('<div>', {
-                                            class: 'modal-header'
-                                        }).append(
-                                            $('<h5>', {
-                                                class: 'modal-title',
-                                                id: 'imageSelectModalLabel',
-                                                text: 'Insert Image from Library'
-                                            }),
-                                            $('<button>', {
-                                                type: 'button',
-                                                class: 'close',
-                                                'data-dismiss': 'modal',
-                                                'aria-label': 'Close'
-                                            }).append(
-                                                $('<span>', {
-                                                    'aria-hidden': 'true',
-                                                    html: '&times;'
-                                                })
-                                            ).on('click', function() {
-                                                $('#imageSelectModal').modal('hide');
-                                            }),
-                                        ),
-                                        $('<div>', {
-                                            class: 'modal-body',
-                                            id: 'selectImageWindow'
-                                        })
-                                    )
-                                )
-                            );
+                            }).css('z-index', 99999);
 
-                            // Remove any existing modal and append the new one
+                            const modalContent = `
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="imageSelectModalLabel">Insert Image from Library</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body" id="selectImageWindow"></div>
+                                    </div>
+                                </div>
+                            `;
+
+                            $modal.html(modalContent);
                             $('#imageSelectModal').remove();
                             $('body').append($modal);
 
@@ -225,58 +233,30 @@ $(document).ready(function() {
 
                     trumbowyg.addBtnDef('insertVideoFromLibrary', {
                         fn: function() {
-                            // Save the range before opening the modal
                             trumbowyg.saveRange();
 
-                            // Create Bootstrap modal
-                            var $modal = $('<div>', {
+                            const $modal = $('<div>', {
                                 class: 'modal fade',
                                 id: 'videoSelectModal',
                                 tabindex: '-1',
                                 role: 'dialog',
                                 'aria-labelledby': 'videoSelectModalLabel',
                                 'aria-hidden': 'true'
-                            }).css({
-                                'z-index': 99999
-                            }).append(
-                                $('<div>', {
-                                    class: 'modal-dialog modal-lg',
-                                    role: 'document'
-                                }).append(
-                                    $('<div>', {
-                                        class: 'modal-content'
-                                    }).append(
-                                        $('<div>', {
-                                            class: 'modal-header'
-                                        }).append(
-                                            $('<h5>', {
-                                                class: 'modal-title',
-                                                id: 'videoSelectModalLabel',
-                                                text: 'Insert YouTube Video'
-                                            }),
-                                            $('<button>', {
-                                                type: 'button',
-                                                class: 'close',
-                                                'data-dismiss': 'modal',
-                                                'aria-label': 'Close'
-                                            }).append(
-                                                $('<span>', {
-                                                    'aria-hidden': 'true',
-                                                    html: '&times;'
-                                                })
-                                            ).on('click', function() {
-                                                $('#videoSelectModal').modal('hide');
-                                            }),
-                                        ),
-                                        $('<div>', {
-                                            class: 'modal-body',
-                                            id: 'selectVideoWindow'
-                                        })
-                                    )
-                                )
-                            );
+                            }).css('z-index', 99999);
 
-                            // Remove any existing modal and append the new one
+                            const modalContent = `
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="videoSelectModalLabel">Insert YouTube Video</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body" id="selectVideoWindow"></div>
+                                    </div>
+                                </div>
+                            `;
+
+                            $modal.html(modalContent);
                             $('#videoSelectModal').remove();
                             $('body').append($modal);
 
@@ -297,10 +277,85 @@ $(document).ready(function() {
                         ico: 'camera-reels'
                     });
                 }
+            },
+
+            highlight: {
+                init: function(trumbowyg) {
+                    trumbowyg.addBtnDef('highlight', {
+                        fn: function() {
+                            trumbowyg.saveRange();
+
+                            const modal = $('<div>', {
+                                class: 'modal fade',
+                                id: 'highlightModal',
+                                tabindex: '-1',
+                                role: 'dialog',
+                                'aria-labelledby': 'highlightModalLabel',
+                                'aria-hidden': 'true'
+                            }).css('z-index', 99999);
+
+                            const content = `
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="highlightModalLabel">Insert Code</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group mb-3">
+                                                <label for="code-language">Language</label>
+                                                <select class="form-select" id="code-language">
+                                                    <option value="php">PHP</option>
+                                                    <option value="javascript">JavaScript</option>
+                                                    <option value="css">CSS</option>
+                                                    <option value="html">HTML</option>
+                                                    <option value="sql">SQL</option>
+                                                    <option value="bash">Bash</option>
+                                                    <option value="json">JSON</option>
+                                                    <option value="xml">XML</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="code-content">Code</label>
+                                                <textarea class="form-control" id="code-content" rows="10"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                            <button type="button" class="btn btn-primary" id="insertCode">Insert</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+
+                            modal.html(content);
+                            $('body').append(modal);
+
+                            $('#insertCode').on('click', function() {
+                                const language = escapeHtml($('#code-language').val());
+                                const code = escapeHtml($('#code-content').val());
+                                const html = `<pre><code class="language-${language}">${code}</code></pre>`;
+                                
+                                trumbowyg.restoreRange();
+                                trumbowyg.execCmd('insertHTML', html);
+                                safeHighlight();
+                                
+                                $('#highlightModal').modal('hide');
+                                setTimeout(() => {
+                                    $('#highlightModal').remove();
+                                }, 250);
+                            });
+
+                            $('#highlightModal').modal('show');
+                        },
+                        ico: 'code'
+                    });
+                }
             }
         }
     });
 
+    // Initialize Trumbowyg editor
     $('#article-body').trumbowyg({
         btns: [
             ['viewHTML'],
@@ -311,6 +366,7 @@ $(document).ready(function() {
             ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
             ['unorderedList', 'orderedList'],
             ['table'],
+            ['highlight'],
             ['tableCellBackgroundColor', 'tableBorderColor'],
             ['removeformat'],
             ['fullscreen'],
@@ -325,10 +381,13 @@ $(document).ready(function() {
             insertImageFromLibrary: {},
             insertVideoFromLibrary: {},
             table: {},
-            colors: {}
+            colors: {},
+            highlight: {}
         },
         autogrow: true,
         autogrowOnEnter: true,
         minHeight: 400
+    }).on('tbwinit', function() {
+        safeHighlight();
     });
 });

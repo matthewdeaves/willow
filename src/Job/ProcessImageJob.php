@@ -201,7 +201,7 @@ class ProcessImageJob implements JobInterface
 
                 $this->log(
                     sprintf(
-                        'Original image is smaller than target width. Copied without resizing. Original: %s, Saved: %s (Original width: %dpx)',
+                        'Original smaller than target width, copied. Original: %s, Saved: %s (Original width: %dpx)',
                         $folder . $file,
                         $sizeFolder . $file,
                         $originalWidth
@@ -217,7 +217,7 @@ class ProcessImageJob implements JobInterface
 
                 $this->log(
                     sprintf(
-                        'Successfully resized and saved image. Original: %s, Resized: %s, Width: %dpx (Original width: %dpx)',
+                        'Successfully resized image. Original: %s, Resized: %s, Width: %dpx (Orig. width: %dpx)',
                         $folder . $file,
                         $sizeFolder . $file,
                         $width,

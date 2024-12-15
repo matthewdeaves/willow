@@ -390,11 +390,9 @@ body {
   margin-top: 0; /* Remove top margin from first paragraph */
 }
 
-/* Responsive adjustments */
-@media (max-width: 480px) {
-  .blog-post .article-content img {
-      float: none;
-      max-width: 100%;
-      margin: 0 0 1rem 0;
-  }
+/* Ensure text wraps around images in the article-text class */
+.blog-post .article-text img {
+  float: left;
+  margin-right: 1.5rem;
+  margin-bottom: 1rem;
 }

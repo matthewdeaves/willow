@@ -23,17 +23,8 @@ $(document).ready(function() {
      * Ensures proper escaping and prevents double-highlighting
      */
     function safeHighlight() {
-        document.querySelectorAll('pre code').forEach(block => {
-            if (!block.hasAttribute('data-processed')) {
-                // Get the raw text content
-                const rawContent = block.textContent;
-                // Escape the content
-                const escapedContent = escapeHtml(rawContent);
-                // Set the escaped content back
-                block.innerHTML = escapedContent;
-                // Mark as processed to prevent double processing
-                block.setAttribute('data-processed', 'true');
-                // Apply highlighting
+        document.querySelectorAll('pre code:not(.hljs)').forEach(block => {
+            if (!block.classList.contains('hljs')) {
                 hljs.highlightElement(block);
             }
         });
@@ -341,13 +332,16 @@ $(document).ready(function() {
                             $('#insertCode').on('click', function() {
                                 const language = escapeHtml($('#code-language').val());
                                 let code = $('#code-content').val();
-                                // Pre-escape the code content
                                 code = escapeHtml(code);
-                                const html = `<pre><code class="language-${language}" data-processed="true">${code}</code></pre>`;
+                                const html = `<pre><code class="language-${language}">${code}</code></pre>`;
                                 
                                 trumbowyg.restoreRange();
                                 trumbowyg.execCmd('insertHTML', html);
-                                safeHighlight();
+                                
+                                // Add a small delay to allow DOM update
+                                setTimeout(() => {
+                                    safeHighlight();
+                                }, 100);
                                 
                                 $('#highlightModal').modal('hide');
                                 setTimeout(() => {

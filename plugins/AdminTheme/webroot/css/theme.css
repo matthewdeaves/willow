@@ -157,3 +157,8 @@ pre code {
 [data-bs-theme="dark"] .hljs-string {
     color: #add8e6 !important; /* Light blue for better contrast in dark mode */
 }
+
+/* Syntax highlighting adjustments */
+[data-bs-theme="dark"] .hljs-regexp {
+    color: #00fff2 !important; /* Light green for better contrast in dark mode */
+}

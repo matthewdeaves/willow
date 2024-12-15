@@ -351,7 +351,8 @@ $(document).ready(function() {
 
                             $('#highlightModal').modal('show');
                         },
-                        ico: 'code'
+                        title: 'Insert code snippet',
+                        ico: 'code-insert'
                     });
                 }
             }
@@ -365,11 +366,10 @@ $(document).ready(function() {
             ['formatting'],
             ['textFormat'],
             ['link'],
-            ['insertImageFromLibrary', 'insertVideoFromLibrary'],
+            ['insertImageFromLibrary', 'insertVideoFromLibrary', 'highlight'],
             ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
             ['unorderedList', 'orderedList'],
             ['table'],
-            ['highlight'],
             ['tableCellBackgroundColor', 'tableBorderColor'],
             ['removeformat'],
             ['fullscreen']

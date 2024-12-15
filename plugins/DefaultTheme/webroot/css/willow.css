@@ -259,6 +259,22 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+.article-content-wrapper > img,
+#article-body-content img {
+  float: left;
+  margin-right: 1.5rem;
+}
+
+/* Explicitly prevent floating on YouTube container */
+.youtube-embed {
+  float: none;
+  clear: both;
+}
+
+.clear-float {
+  clear: both;
+}
+
 .blog-post hr {
   margin: 2.5rem 0;
   border: 0;
@@ -330,127 +346,6 @@ body {
 
 .youtube-consent-btn:hover {
   transform: scale(1.05);
-}
-
-/* Blog post content layout */
-.blog-post-content {
-  display: flow-root;
-  margin: 1rem 0;
-  gap: 0;
-}
-
-.blog-post-content img {
-  float: left;
-  width: 280px;
-  height: auto;
-  margin: 0 1.5rem 0.5rem 0;
-  border-radius: 6px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.blog-post .content {
-  overflow: visible;
-  margin: 0;
-  padding: 0;
-}
-
-.blog-post .content p {
-  margin: 0 0 1rem 0;
-  line-height: 1.6;
-}
-
-.blog-post .content p:first-child {
-  margin-top: 0;
-}
-
-.blog-post hr {
-  clear: both;
-  margin: 2rem 0;
-  border: 0;
-  border-top: 1px solid var(--pre-border);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .blog-post-content {
-      display: block; /* Changed from flex to allow text wrapping */
-  }
-
-  .blog-post-content img {
-      float: left;
-      width: 50%; /* Take up half the width */
-      margin: 0 1rem 0.5rem 0; /* Reduced right margin for small screens */
-  }
-
-  .blog-post .content {
-      /* Remove specific positioning to allow natural text flow */
-      margin: 0;
-  }
-
-  .blog-post .content p {
-      margin: 0 0 1rem 0;
-  }
-}
-
-/* Medium screens */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .blog-post-content img {
-      width: 220px;
-  }
-}
-
-
-/* Article layout styles */
-.article-content-wrapper {
-  display: flow-root;
-  margin: 1.5rem 0;
-}
-
-.article-content-wrapper img {
-  float: left;
-  width: 280px;
-  height: auto;
-  margin: 0 1.5rem 1rem 0;
-  border-radius: 6px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-#article-body-content {
-  overflow: visible;
-}
-
-#article-body-content p:first-child {
-  margin-top: 0;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .article-content-wrapper {
-      display: block;
-  }
-
-  .article-content-wrapper img {
-      width: 50%;
-      margin: 0 1rem 0.5rem 0;
-  }
-
-  #article-body-content {
-      margin: 0;
-  }
-}
-
-/* Medium screens */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .article-content-wrapper img {
-      width: 240px;
-  }
-}
-
-/* Clear floats before certain elements */
-.blog-post .mb-3,
-.blog-post hr,
-.comments {
-  clear: both;
 }
 
 /* Syntax highlighting adjustments */

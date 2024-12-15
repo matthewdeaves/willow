@@ -452,3 +452,8 @@ body {
 .comments {
   clear: both;
 }
+
+/* Syntax highlighting adjustments */
+[data-bs-theme="dark"] .hljs-string {
+  color: #add8e6 !important; /* Light blue for better contrast in dark mode */
+}

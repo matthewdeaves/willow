@@ -42,7 +42,11 @@ RUN apk add --no-cache \
   supervisor \
   wget \
   unzip \
-  bash && \
+  bash \
+  python3 \
+  py3-pip \
+  git \
+  py3-virtualenv && \
   rm -rf /var/lib/apt/lists/*
 
 # Configure Redis
@@ -64,6 +68,12 @@ COPY docker/willowcms/config/php/php.ini ${PHP_INI_DIR}/conf.d/custom.ini
 RUN wget https://getcomposer.org/installer -O composer-setup.php && \
     php composer-setup.php --install-dir=/usr/local/bin --filename=composer && \
     rm composer-setup.php
+
+# Create and activate a virtual environment for MarkItDown
+RUN python3 -m venv /opt/markitdown/venv && \
+    . /opt/markitdown/venv/bin/activate && \
+    pip install markitdown && \
+    deactivate
 
 # Configure supervisord
 COPY docker/willowcms/config/supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf

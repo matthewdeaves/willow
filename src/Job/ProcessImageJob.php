@@ -116,24 +116,34 @@ class ProcessImageJob implements JobInterface
     }
 
     /**
-     * Creates a resized version of an image.
+     * Creates a resized or copied version of an image based on target width.
      *
-     * This function creates a new directory for the resized image if it doesn't exist,
-     * then resizes the original image to the specified width while maintaining aspect ratio.
-     * It uses Imagick for image processing and includes extensive error checking and logging.
+     * This method ensures that a directory for the processed image exists, creating it if necessary.
+     * It checks if the original image exists and whether a processed version already exists.
+     * If the original image is smaller than or equal to the target width, it copies the original
+     * without resizing to preserve quality. Otherwise, it resizes the image to the specified width
+     * while maintaining the aspect ratio using the Imagick library.
      *
-     * @param string $folder The base folder path where the original image is located.
-     * @param string $file The filename of the image to be resized.
-     * @param int $width The target width for the resized image.
-     * @throws \Exception If unable to create the directory for the resized image.
+     * The method includes extensive error checking and logging throughout the process:
+     * - Validates and creates necessary directories
+     * - Checks for existence of source and destination files
+     * - Compares original and target dimensions
+     * - Handles image processing with proper resource cleanup
+     *
+     * @param string $folder The directory where the original image is stored
+     * @param string $file The name of the image file to be processed
+     * @param int $width The target width for the processed image
+     * @throws \Exception If the directory for the processed image cannot be created
      * @return void
-     * @uses Imagick For image resizing operations.
+     * @uses \Imagick For image processing operations
      * @logs
-     * - Error if the original image is not found.
-     * - Info if the resized image already exists (skips resizing).
-     * - Info upon successful resizing and saving of the image.
-     * - Error if any exception occurs during the resizing process.
-     * @note All logs are grouped under 'image_processing'.
+     * - Error if the directory cannot be created
+     * - Error if the original image is not found
+     * - Info if the processed image already exists (skips processing)
+     * - Info when original image is copied without resizing (smaller than target)
+     * - Info upon successful resizing of larger images
+     * - Error if any exception occurs during processing
+     * @note All logs are grouped under 'App\Job\ProcessImageJob'
      */
     private function createImage(string $folder, string $file, int $width): void
     {
@@ -181,24 +191,46 @@ class ProcessImageJob implements JobInterface
             }
 
             $imagick = new Imagick($folder . $file);
-            $imagick->resizeImage($width, 0, Imagick::FILTER_LANCZOS, 1);
-            $imagick->writeImage($sizeFolder . $file);
-            $imagick->clear();
+            $originalWidth = $imagick->getImageWidth();
 
-            $this->log(
-                sprintf(
-                    'Successfully resized and saved image. Original: %s, Resized: %s, Width: %dpx',
-                    $folder . $file,
-                    $sizeFolder . $file,
-                    $width
-                ),
-                'info',
-                ['group_name' => 'App\Job\ProcessImageJob']
-            );
+            // Check if the original image is smaller than the target width
+            if ($originalWidth <= $width) {
+                // Just copy the original file without resizing
+                copy($folder . $file, $sizeFolder . $file);
+                $imagick->clear();
+
+                $this->log(
+                    sprintf(
+                        'Original image is smaller than target width. Copied without resizing. Original: %s, Saved: %s (Original width: %dpx)',
+                        $folder . $file,
+                        $sizeFolder . $file,
+                        $originalWidth
+                    ),
+                    'info',
+                    ['group_name' => 'App\Job\ProcessImageJob']
+                );
+            } else {
+                // Resize the image since it's larger than the target width
+                $imagick->resizeImage($width, 0, Imagick::FILTER_LANCZOS, 1);
+                $imagick->writeImage($sizeFolder . $file);
+                $imagick->clear();
+
+                $this->log(
+                    sprintf(
+                        'Successfully resized and saved image. Original: %s, Resized: %s, Width: %dpx (Original width: %dpx)',
+                        $folder . $file,
+                        $sizeFolder . $file,
+                        $width,
+                        $originalWidth
+                    ),
+                    'info',
+                    ['group_name' => 'App\Job\ProcessImageJob']
+                );
+            }
         } catch (Exception $e) {
             $this->log(
                 sprintf(
-                    'Error resizing image. Original: %s, Target Width: %dpx, Error: %s',
+                    'Error processing image. Original: %s, Target Width: %dpx, Error: %s',
                     $folder . $file,
                     $width,
                     $e->getMessage()

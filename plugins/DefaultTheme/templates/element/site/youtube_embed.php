@@ -14,7 +14,6 @@
              alt="<?= h($title) ?>"
              class="youtube-thumbnail">
         <div class="youtube-consent-overlay">
-            <h4><?= h($title) ?></h4>
             <p class="mb-3"><?= __('This content is hosted by YouTube. By showing the external content you accept the privacy policy of YouTube.') ?></p>
             <button class="btn btn-primary youtube-consent-btn" 
                     data-video-id="<?= h($videoId) ?>"

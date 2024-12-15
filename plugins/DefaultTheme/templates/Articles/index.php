@@ -12,20 +12,20 @@
     <a class="text-decoration-none" href="<?= $this->Url->build(['_name' => $article->kind . '-by-slug', 'slug' => $article->slug]) ?>">
         <h2 class="display-5 link-body-emphasis mb-1"><?= $article->title ?></h2>
         <p class="blog-post-meta">
-        <?= $article->published->format('F j, Y') ?> <?= h($article->user->username) ?>
+            <?= $article->published->format('F j, Y') ?> <?= h($article->user->username) ?>
         </p>
     </a>
 
     <?php $displayMode = SettingsManager::read('Blog.articleDisplayMode', 'summary') ?>
 
-    <div class="blog-post-content">
+    <div class="article-content"> 
         <?= $this->element('image/icon',  ['model' => $article, 'icon' => $article->smallImageUrl, 'preview' => false]); ?>
 
-        <div class="content">
+        <div class="article-text">
             <?php if ($displayMode == 'lede') : ?>
                 <p><?= htmlspecialchars_decode($article->lede) ?></p>
             <?php elseif ($displayMode == 'summary') : ?>
-                <?= htmlspecialchars_decode($article->summary); ?>
+                <p><?= htmlspecialchars_decode($article->summary); ?></p>
             <?php elseif ($displayMode == 'body') : ?>
                 <?= htmlspecialchars_decode($this->Video->processYouTubePlaceholders($article->body)); ?>
             <?php endif; ?>

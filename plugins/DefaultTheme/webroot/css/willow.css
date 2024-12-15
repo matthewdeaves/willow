@@ -119,7 +119,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Blog posts */
 .blog-post {
-  margin-bottom: 4rem;
+  margin-bottom: 0.5rem;
   line-height: 1.8;
   font-size: 1.1rem;
 }
@@ -276,7 +276,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .blog-post hr {
-  margin: 2.5rem 0;
+  margin: 0.5rem;
   border: 0;
   border-top: 1px solid var(--pre-border);
 }
@@ -367,5 +367,34 @@ body {
 @media (min-width: 768px) {
   .youtube-embed {
     margin: 2rem 0;
+  }
+}
+
+/* Blog index specific styles for image text wrapping */
+.blog-post .article-content {
+  overflow: hidden; /* Ensures proper containment of floated elements */
+}
+
+.blog-post .article-content img {
+  float: left;
+  max-width: 200px;
+  height: auto;
+  margin: 0 1.5rem 1rem 0; /* Right and bottom margin for text spacing */
+}
+
+.blog-post .article-text {
+  margin: 0;
+}
+
+.blog-post .article-text p {
+  margin-top: 0; /* Remove top margin from first paragraph */
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .blog-post .article-content img {
+      float: none;
+      max-width: 100%;
+      margin: 0 0 1rem 0;
   }
 }

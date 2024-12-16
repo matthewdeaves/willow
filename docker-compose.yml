@@ -27,6 +27,17 @@ services:
       - mysql_data:/var/lib/mysql
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
 
+  markitdown:
+    build: 
+      context: ./markitdown-service
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./markitdown-service/app:/app/app
+    environment:
+      - ENVIRONMENT=development
+
   phpmyadmin:
     image: phpmyadmin
     ports:

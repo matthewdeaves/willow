@@ -1,4 +1,4 @@
-FROM python:3.10-slim
+FROM python:3.13.1-slim
 
 WORKDIR /app
 
@@ -10,12 +10,18 @@ RUN apt-get update && apt-get install -y \
     libxext6 \
     libmagic1 \
     tesseract-ocr \
+    python3-venv \
     && rm -rf /var/lib/apt/lists/*
+
+# Create and activate virtual environment
+ENV VIRTUAL_ENV=/opt/venv
+RUN python -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 # Copy requirements first for better caching
 COPY requirements.txt .
 
-# Update pip and install requirements
+# Update pip and install requirements in the virtual environment
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 

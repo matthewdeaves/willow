@@ -97,7 +97,7 @@ def clean_html_content(html_content: str) -> str:
 
 def clean_markdown(markdown_text: str) -> str:
     """
-    Comprehensive cleanup of markdown output.
+    Cleanup of markdown output.
     Handles various formatting issues and improves readability.
     """
     if not markdown_text:

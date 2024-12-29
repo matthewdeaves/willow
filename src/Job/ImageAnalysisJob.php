@@ -43,6 +43,16 @@ class ImageAnalysisJob implements JobInterface
     private AnthropicApiService $anthropicService;
 
     /**
+     * Constructor to allow dependency injection for testing
+     *
+     * @param \App\Service\Api\AnthropicApiService|null $anthropicService
+     */
+    public function __construct(?AnthropicApiService $anthropicService = null)
+    {
+        $this->anthropicService = $anthropicService ?? new AnthropicApiService();
+    }
+
+    /**
      * Executes the job to analyze an image and update its metadata.
      *
      * This method processes the message, retrieves the image, analyzes it using the Anthropic API,
@@ -53,8 +63,6 @@ class ImageAnalysisJob implements JobInterface
      */
     public function execute(Message $message): ?string
     {
-        $this->anthropicService = new AnthropicApiService();
-
         $folderPath = $message->getArgument('folder_path');
         $file = $message->getArgument('file');
         $id = $message->getArgument('id');

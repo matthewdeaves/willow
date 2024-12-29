@@ -63,7 +63,6 @@ class ArticleSeoUpdateJob implements JobInterface
      */
     public function execute(Message $message): ?string
     {
-
         $id = $message->getArgument('id');
         $title = $message->getArgument('title');
 

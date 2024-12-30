@@ -45,6 +45,16 @@ class CommentAnalysisJob implements JobInterface
     private AnthropicApiService $anthropicService;
 
     /**
+     * Constructor to allow dependency injection for testing
+     *
+     * @param \App\Service\Api\AnthropicApiService|null $anthropicService
+     */
+    public function __construct(?AnthropicApiService $anthropicService = null)
+    {
+        $this->anthropicService = $anthropicService ?? new AnthropicApiService();
+    }
+
+    /**
      * Executes the comment analysis job.
      *
      * This method performs the following steps:
@@ -61,8 +71,6 @@ class CommentAnalysisJob implements JobInterface
      */
     public function execute(Message $message): ?string
     {
-        $this->anthropicService = new AnthropicApiService();
-
         // Get data we need
         $commentId = $message->getArgument('comment_id');
         $content = $message->getArgument('content');

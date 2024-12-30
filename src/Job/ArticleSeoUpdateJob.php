@@ -63,8 +63,6 @@ class ArticleSeoUpdateJob implements JobInterface
      */
     public function execute(Message $message): ?string
     {
-        $this->anthropicService = new AnthropicApiService();
-
         $id = $message->getArgument('id');
         $title = $message->getArgument('title');
 

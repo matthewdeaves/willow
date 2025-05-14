@@ -51,54 +51,41 @@ use Psr\Http\Message\ServerRequestInterface;
 class Application extends BaseApplication implements AuthenticationServiceProviderInterface
 {
     /**
-     * Bootstrap the application.
-     *
-     * This method is responsible for setting up the application's initial configuration.
-     * It performs the following tasks:
-     * - Calls the parent bootstrap method to load bootstrap from files
-     * - Clears all cache entries if the application is in debug mode
-     * - Loads the logging configuration
-     * - Adds the Authentication plugin
-     * - Conditionally adds the Cake/Queue plugin (except in test environment)
-     * - Sets up the Table locator for non-CLI environments
+     * Load all the application configuration and bootstrap logic.
      *
      * @return void
-     * @throws \Exception If there's an error loading plugins or configurations
-     * @uses \Cake\Cache\Cache::clearAll()
-     * @uses \Cake\Core\Configure::read()
-     * @uses \Cake\Core\Plugin::getCollection()
-     * @uses \Cake\Datasource\FactoryLocator::add()
-     * @uses \Cake\ORM\Locator\TableLocator
      */
     public function bootstrap(): void
     {
         // Call parent to load bootstrap from files.
         parent::bootstrap();
-
-        // Check if the application is in debug mode
-        if (Configure::read('debug')) {
-            // Clear all cache entries
-            //Cache::clearAll();
-        }
-
         require CONFIG . 'log_config.php';
-
         $this->addPlugin('Authentication');
-
         // Don't load the Queue plugin if we are running tests, we don't need
         // to test that and the code skips sending messages when testing
         if (env('CAKE_ENV') !== 'test') {
             $this->addPlugin('Cake/Queue');
         }
 
-        if (PHP_SAPI !== 'cli') {
+        if (PHP_SAPI === 'cli') {
+            $this->bootstrapCli();
+        } else {
             FactoryLocator::add(
                 'Table',
-                (new TableLocator())->allowFallbackClass(false)
+                (new TableLocator())->allowFallbackClass(false),
             );
         }
 
         I18nManager::setEnabledLanguages();
+        /*
+         * Only try to load DebugKit in development mode
+         * Debug Kit should not be installed on a production system
+         */
+        if (Configure::read('debug')) {
+            // $this->addPlugin('DebugKit');
+        }
+
+        // Load more plugins here
     }
 
     /**
@@ -110,7 +97,6 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
     public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
     {
         $middlewareQueue
-
             // Catch any exceptions in the lower layers,
             // and make an error page/response
             ->add(new ErrorHandlerMiddleware(Configure::read('Error'), $this))
@@ -175,14 +161,14 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 
             // Parse various types of encoded request bodies so that they are
             // available as array through $request->getData()
-            // https://book.cakephp.org/5/en/controllers/middleware.html#body-parser-middleware
+            // https://book.cakephp.org/4/en/controllers/middleware.html#body-parser-middleware
             ->add(new BodyParserMiddleware())
 
             // Add authentication middleware
             ->add(new AuthenticationMiddleware($this))
 
             // Cross Site Request Forgery (CSRF) Protection Middleware
-            // https://book.cakephp.org/5/en/security/csrf.html#cross-site-request-forgery-csrf-middleware
+            // https://book.cakephp.org/4/en/security/csrf.html#cross-site-request-forgery-csrf-middleware
             ->add(new CsrfProtectionMiddleware([
                 'httponly' => true,
             ]));
@@ -195,71 +181,73 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
      *
      * @param \Cake\Core\ContainerInterface $container The Container to update.
      * @return void
-     * @link https://book.cakephp.org/5/en/development/dependency-injection.html#dependency-injection
+     * @link https://book.cakephp.org/4/en/development/dependency-injection.html#dependency-injection
      */
     public function services(ContainerInterface $container): void
     {
     }
 
     /**
-     * Configures and returns an AuthenticationService instance.
+     * Bootstrapping for CLI application.
      *
-     * This method sets up the authentication service with the necessary
-     * configuration for handling user authentication. It defines the
-     * redirection URL for unauthenticated users and specifies the query
-     * parameter for redirection. The method also loads the necessary
-     * authenticators and identifiers to handle session and form-based
-     * authentication using email and password fields.
+     * That is when running commands.
      *
-     * Configuration:
-     * - Sets unauthenticated redirect to the Users login action.
-     * - Uses 'redirect' as the query parameter for redirection.
+     * @return void
+     */
+    protected function bootstrapCli(): void
+    {
+        // $this->addOptionalPlugin('Bake');
+
+        // $this->addPlugin('Migrations');
+
+        // Load more plugins here
+    }
+
+    /**
+     * Returns an authentication service instance.
      *
-     * Authenticators:
-     * - Loads the Authentication.Session authenticator (primary).
-     * - Loads the Authentication.Form authenticator with custom field mapping.
+     * This method configures and returns an instance of the `AuthenticationService` class,
+     * which is responsible for handling authentication in the application.
      *
-     * Identifier:
-     * - Loads the Authentication.Password identifier with custom field mapping
-     *   and ORM resolver using the 'auth' finder to filter out disabled users.
+     * The authentication service is configured with the following settings:
+     * - `unauthenticatedRedirect`: The URL to redirect users to if they are not authenticated.
+     * - `queryParam`: The query parameter to use for redirecting after successful authentication.
      *
-     * @param \Psr\Http\Message\ServerRequestInterface $request The server request instance.
-     * @return \Authentication\AuthenticationServiceInterface The configured authentication service.
+     * The `loadAuthenticator` method is used to add authenticators to the service. The `Session`
+     * authenticator is loaded first, and the `Form` authenticator is loaded next with the specified
+     * fields and login URL.
+     *
+     * The `loadIdentifier` method is used to add identifiers to the service. The `Password` identifier
+     * is loaded with the specified fields and resolver configuration.
+     *
+     * The resolver configuration specifies the user model and finder to be used for authentication.
+     * The `finder` option is set to `auth` to use a custom finder for retrieving user records.
+     *
+     * @param \Psr\Http\Message\ServerRequestInterface $request The request object.
+     * @return \Authentication\AuthenticationServiceInterface The authentication service instance.
      */
     public function getAuthenticationService(ServerRequestInterface $request): AuthenticationServiceInterface
     {
-        $service = new AuthenticationService();
-
-        // Define where users should be redirected to when they are not authenticated
-        $service->setConfig([
-            'unauthenticatedRedirect' => Router::url([
-                    'prefix' => false,
-                    'plugin' => null,
-                    'controller' => 'Users',
-                    'action' => 'login',
-            ]),
+        $authenticationService = new AuthenticationService([
+            'unauthenticatedRedirect' => Router::url(['prefix' => false, 'controller' => 'Users', 'action' => 'login']),
             'queryParam' => 'redirect',
         ]);
 
         $fields = [
-            AbstractIdentifier::CREDENTIAL_USERNAME => 'email',
-            AbstractIdentifier::CREDENTIAL_PASSWORD => 'password',
+                AbstractIdentifier::CREDENTIAL_USERNAME => 'email',
+                AbstractIdentifier::CREDENTIAL_PASSWORD => 'password',
         ];
 
-        // Load the authenticators. Session should be first.
-        $service->loadAuthenticator('Authentication.Session');
-        $service->loadAuthenticator('Authentication.Form', [
+        // Load the authenticators, you want session first
+        $authenticationService->loadAuthenticator('Authentication.Session');
+        // Configure form data check to pick email and password
+        $authenticationService->loadAuthenticator('Authentication.Form', [
             'fields' => $fields,
-            'loginUrl' => Router::url([
-                'prefix' => false,
-                'plugin' => null,
-                'controller' => 'Users',
-                'action' => 'login',
-            ]),
+            'loginUrl' => Router::url(['prefix' => false, 'controller' => 'Users', 'action' => 'login']),
         ]);
 
-        // Load identifiers
-        $service->loadIdentifier('Authentication.Password', [
+        // Load identifiers, ensure we check email and password fields
+        $authenticationService->loadIdentifier('Authentication.Password', [
             'fields' => $fields,
             'resolver' => [
                 'className' => 'Authentication.Orm',
@@ -268,6 +256,6 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             ],
         ]);
 
-        return $service;
+        return $authenticationService;
     }
 }

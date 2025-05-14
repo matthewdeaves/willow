@@ -159,7 +159,7 @@ class TagsTable extends Table
             'instagram_description',
         ];
 
-        return array_filter($seoFields, fn ($field) => empty($entity->{$field}));
+        return array_filter($seoFields, fn($field) => empty($entity->{$field}));
     }
 
     /**
@@ -173,7 +173,7 @@ class TagsTable extends Table
             // Get the configuration of the Timestamp behavior
             $config = $this->behaviors()->get('Translate')->getConfig();
 
-            return array_filter($config['fields'], fn ($field) => empty($entity->{$field}));
+            return array_filter($config['fields'], fn($field) => empty($entity->{$field}));
         }
 
         return [];
@@ -205,7 +205,7 @@ class TagsTable extends Table
                 json_encode($data),
             ),
             'info',
-            ['group_name' => $job]
+            ['group_name' => $job],
         );
     }
 

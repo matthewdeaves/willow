@@ -17,7 +17,7 @@ done
 # Detect the operating system
 OS="$(uname)"
 
-# Function to determine if sudo is needed
+# Function to determine if sudo is needed for non-Docker commands
 needs_sudo() {
     if [ "$OS" = "Linux" ]; then
         echo "sudo"
@@ -29,11 +29,11 @@ needs_sudo() {
 # Create required directories
 echo "Creating required directories..."
 mkdir -p logs/nginx
-chmod 777 logs/nginx
+chmod 777 logs/nginx # This chmod might still need sudo if run by a non-owner depending on parent dir permissions
 
 # Function to check if Docker containers are running
 check_docker_status() {
-    if $(needs_sudo) docker compose ps --services --filter "status=running" | grep -q "willowcms"; then
+    if docker compose ps --services --filter "status=running" | grep -q "willowcms"; then
         return 0  # Container is running
     else
         return 1  # Container is not running
@@ -45,17 +45,17 @@ start_docker_containers() {
     echo "Starting Docker containers..."
     if [ "$USE_JENKINS" -eq 1 ]; then
         echo "Including Jenkins in startup..."
-        $(needs_sudo) docker compose up -d willowcms mysql phpmyadmin mailpit redis-commander jenkins
+        docker compose up -d willowcms mysql phpmyadmin mailpit redis-commander jenkins
     else
         echo "Starting without Jenkins..."
-        $(needs_sudo) docker compose up -d willowcms mysql phpmyadmin mailpit redis-commander
+        docker compose up -d willowcms mysql phpmyadmin mailpit redis-commander
     fi
 }
 
 # Function to wait for MySQL
 wait_for_mysql() {
     echo "Waiting for MySQL to be ready..."
-    $(needs_sudo) docker compose exec willowcms bash -c 'curl -o wait-for-it.sh https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh && chmod +x wait-for-it.sh && ./wait-for-it.sh mysql:3306 -t 60 -- echo "MySQL is ready"'
+    docker compose exec willowcms bash -c 'curl -o wait-for-it.sh https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh && chmod +x wait-for-it.sh && ./wait-for-it.sh mysql:3306 -t 60 -- echo "MySQL is ready"'
 }
 
 # Main script execution starts here
@@ -71,10 +71,10 @@ fi
 wait_for_mysql
 
 # Composer install dependencies
-$(needs_sudo) docker compose exec willowcms composer install --no-interaction
+docker compose exec willowcms composer install --no-interaction
 
 # Check if database has been setup (has a settings table)
-$(needs_sudo) docker compose exec willowcms bin/cake check_table_exists settings
+docker compose exec willowcms bin/cake check_table_exists settings
 tableExists=$?
 
 if [ "$tableExists" -eq 0 ]; then
@@ -83,26 +83,26 @@ if [ "$tableExists" -eq 0 ]; then
     case ${choice:0:1} in
         w|W)
             echo "Wiping Docker containers..."
-            $(needs_sudo) docker compose down -v --remove-orphans
+            docker compose down -v --remove-orphans
             start_docker_containers
             wait_for_mysql
             ;;
         b|B)
             echo "Rebuilding Docker containers..."
-            $(needs_sudo) docker compose down --remove-orphans
-            $(needs_sudo) docker compose build
+            docker compose down --remove-orphans
+            docker compose build
             start_docker_containers
             wait_for_mysql
             ;;
         r|R)
             echo "Restarting Docker containers..."
-            $(needs_sudo) docker compose down --remove-orphans
+            docker compose down --remove-orphans
             start_docker_containers
             wait_for_mysql
             ;;
         m|M)
             echo "Running migrations..."
-            $(needs_sudo) docker compose exec willowcms bin/cake migrations migrate
+            docker compose exec willowcms bin/cake migrations migrate
             ;;
         c|C|*)
             echo "Continuing with normal startup..."
@@ -111,35 +111,36 @@ if [ "$tableExists" -eq 0 ]; then
 fi
 
 # Check if database has been setup (has a settings table) - database may have been wiped
-$(needs_sudo) docker compose exec willowcms bin/cake check_table_exists settings
+docker compose exec willowcms bin/cake check_table_exists settings
 tableExists=$?
 
 if [ "$tableExists" -eq 1 ]; then
     echo "Running initial setup..."
 
     # Its dev so just be fully open with permissions
+    # This chmod might still need sudo depending on file/directory ownership
     $(needs_sudo) chmod -R 777 logs/ tmp/ webroot/
 
     # Run migrations
-    $(needs_sudo) docker compose exec willowcms bin/cake migrations migrate
+    docker compose exec willowcms bin/cake migrations migrate
 
     # Create default admin user
-    $(needs_sudo) docker compose exec willowcms bin/cake create_user -u admin -p password -e admin@test.com -a 1
+    docker compose exec willowcms bin/cake create_user -u admin -p password -e admin@test.com -a 1
 
     # Import default data
-    $(needs_sudo) docker compose exec willowcms bin/cake default_data_import aiprompts
-    $(needs_sudo) docker compose exec willowcms bin/cake default_data_import email_templates
+    docker compose exec willowcms bin/cake default_data_import aiprompts
+    docker compose exec willowcms bin/cake default_data_import email_templates
 
     # Load internationalisations if flag is set
     if [ "$LOAD_I18N" -eq 1 ]; then
         echo "Loading internationalisation data..."
-        $(needs_sudo) docker compose exec willowcms bin/cake default_data_import internationalisations
+        docker compose exec willowcms bin/cake default_data_import internationalisations
     fi
 
     echo "Initial setup completed."
 fi
 
 # Clear cache (this will run every time)
-$(needs_sudo) docker compose exec willowcms bin/cake cache clear_all
+docker compose exec willowcms bin/cake cache clear_all
 
 echo "Development environment setup complete."

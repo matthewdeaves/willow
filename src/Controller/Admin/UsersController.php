@@ -20,14 +20,12 @@ class UsersController extends AppController
      * Configures actions that can be accessed without authentication.
      *
      * @param \Cake\Event\EventInterface $event The event object.
-     * @return \Cake\Http\Response|null
+     * @return void
      */
-    public function beforeFilter(EventInterface $event): ?Response
+    public function beforeFilter(EventInterface $event): void
     {
         parent::beforeFilter($event);
         $this->Authentication->allowUnauthenticated(['login']);
-
-        return null;
     }
 
     /**

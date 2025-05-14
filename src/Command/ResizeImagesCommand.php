@@ -143,7 +143,7 @@ class ResizeImagesCommand extends Command
                 $this->log(
                     sprintf('Original image not found for resizing. Path: %s', $folder . $file),
                     'error',
-                    ['group_name' => 'image_processing']
+                    ['group_name' => 'image_processing'],
                 );
 
                 return;
@@ -153,10 +153,10 @@ class ResizeImagesCommand extends Command
                 $this->log(
                     sprintf(
                         'Skipped resizing, image already exists. Path: %s',
-                        $sizeFolder . $file
+                        $sizeFolder . $file,
                     ),
                     'info',
-                    ['group_name' => 'image_processing']
+                    ['group_name' => 'image_processing'],
                 );
 
                 return;
@@ -172,10 +172,10 @@ class ResizeImagesCommand extends Command
                     'Successfully resized and saved image. Original: %s, Resized: %s, Width: %dpx',
                     $folder . $file,
                     $sizeFolder . $file,
-                    $width
+                    $width,
                 ),
                 'info',
-                ['group_name' => 'image_processing']
+                ['group_name' => 'image_processing'],
             );
         } catch (Exception $e) {
             $this->log(
@@ -183,10 +183,10 @@ class ResizeImagesCommand extends Command
                     'Error resizing image. Original: %s, Target Width: %dpx, Error: %s',
                     $folder . $file,
                     $width,
-                    $e->getMessage()
+                    $e->getMessage(),
                 ),
                 'error',
-                ['group_name' => 'image_processing']
+                ['group_name' => 'image_processing'],
             );
         }
     }

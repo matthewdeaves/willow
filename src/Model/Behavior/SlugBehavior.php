@@ -143,7 +143,7 @@ class SlugBehavior extends Behavior
             } catch (Exception $e) {
                 $event->getSubject()->log(sprintf(
                     'Failed to save slug history: %s',
-                    $e->getMessage()
+                    $e->getMessage(),
                 ));
             }
         }

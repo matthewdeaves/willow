@@ -77,7 +77,7 @@ class TranslateI18nJob implements JobInterface
             $this->log(
                 sprintf('Missing required arguments in the message.'),
                 'error',
-                ['group_name' => 'App\Job\TranslateI18nJob']
+                ['group_name' => 'App\Job\TranslateI18nJob'],
             );
 
             return Processor::REJECT;
@@ -93,7 +93,7 @@ class TranslateI18nJob implements JobInterface
             $this->log(
                 sprintf('No internationalizations found for the provided IDs.'),
                 'error',
-                ['group_name' => 'App\Job\TranslateI18nJob']
+                ['group_name' => 'App\Job\TranslateI18nJob'],
             );
 
             return Processor::REJECT;
@@ -105,7 +105,7 @@ class TranslateI18nJob implements JobInterface
             $translatedMessages = $this->apiService->translateStrings(
                 $messageStrings,
                 'en_GB',
-                $locale
+                $locale,
             );
 
             // Iterate over the translated messages and update the database
@@ -127,7 +127,7 @@ class TranslateI18nJob implements JobInterface
                         $this->log(
                             sprintf('Failed to update translation for message ID: %s', $originalMessage),
                             'error',
-                            ['group_name' => 'App\Job\TranslateI18nJob']
+                            ['group_name' => 'App\Job\TranslateI18nJob'],
                         );
                     }
                 }
@@ -136,7 +136,7 @@ class TranslateI18nJob implements JobInterface
             $this->log(
                 sprintf('Internationalizations updated successfully.'),
                 'info',
-                ['group_name' => 'App\Job\TranslateI18nJob']
+                ['group_name' => 'App\Job\TranslateI18nJob'],
             );
 
             return Processor::ACK;
@@ -144,7 +144,7 @@ class TranslateI18nJob implements JobInterface
             $this->log(
                 sprintf('Failed to update internationalizations: %s', $e->getMessage()),
                 'error',
-                ['group_name' => 'App\Job\TranslateI18nJob']
+                ['group_name' => 'App\Job\TranslateI18nJob'],
             );
         }
 

@@ -87,7 +87,7 @@ class SlugsTable extends Table
                 $this->log(sprintf(
                     'Failed to setup association for model %s: %s',
                     $model,
-                    $e->getMessage()
+                    $e->getMessage(),
                 ), 'error');
             }
         }
@@ -124,7 +124,7 @@ class SlugsTable extends Table
             ->regex(
                 'slug',
                 '/^[a-z0-9-]+$/',
-                __('The slug must be URL-safe (only lowercase letters, numbers, and hyphens)')
+                __('The slug must be URL-safe (only lowercase letters, numbers, and hyphens)'),
             );
 
         return $validator;
@@ -141,7 +141,7 @@ class SlugsTable extends Table
     {
         $rules->add($rules->isUnique(
             ['slug', 'model'],
-            __('This slug is already in use for this model type.')
+            __('This slug is already in use for this model type.'),
         ));
 
         return $rules;

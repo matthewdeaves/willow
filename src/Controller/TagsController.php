@@ -5,7 +5,6 @@ namespace App\Controller;
 
 use Cake\Event\EventInterface;
 use Cake\Http\Exception\NotFoundException;
-use Cake\Http\Response;
 
 /**
  * Tags Controller
@@ -20,14 +19,12 @@ class TagsController extends AppController
      * Configures actions that can be accessed without authentication.
      *
      * @param \Cake\Event\EventInterface $event The event object.
-     * @return \Cake\Http\Response|null
+     * @return void
      */
-    public function beforeFilter(EventInterface $event): ?Response
+    public function beforeFilter(EventInterface $event): void
     {
         parent::beforeFilter($event);
         $this->Authentication->allowUnauthenticated(['index', 'view', 'viewBySlug']);
-
-        return null;
     }
 
     /**

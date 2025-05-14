@@ -178,9 +178,9 @@ class ArticlesTable extends Table
      * @param \Cake\Event\EventInterface $event The beforeSave event that was fired
      * @param \Cake\Datasource\EntityInterface $entity The entity that is going to be saved
      * @param \ArrayObject $options The options passed to the save method
-     * @return bool|null True if the operation should continue, false if it should abort
+     * @return void
      */
-    public function beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): ?bool
+    public function beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
         // Check if is_published has changed to published
         if ($entity->isDirty('is_published') && $entity->is_published) {
@@ -189,12 +189,10 @@ class ArticlesTable extends Table
 
         // Calculate word count if body is set or modified
         if ($entity->isDirty('body') || ($entity->isNew() && !empty($entity->body))) {
-            $strippedBody = strip_tags($entity->body);
+            $strippedBody = strip_tags((string)$entity->body); // Ensure body is a string
             $wordCount = str_word_count($strippedBody);
             $entity->word_count = $wordCount;
         }
-
-        return true;
     }
 
     /**
@@ -285,7 +283,7 @@ class ArticlesTable extends Table
             'instagram_description',
         ];
 
-        return array_filter($seoFields, fn ($field) => empty($entity->{$field}));
+        return array_filter($seoFields, fn($field) => empty($entity->{$field}));
     }
 
     /**
@@ -300,7 +298,7 @@ class ArticlesTable extends Table
             // Get the configuration of the Timestamp behavior
             $config = $this->behaviors()->get('Translate')->getConfig();
 
-            return array_filter($config['fields'], fn ($field) => empty($entity->{$field}));
+            return array_filter($config['fields'], fn($field) => empty($entity->{$field}));
         }
 
         return [];
@@ -323,7 +321,7 @@ class ArticlesTable extends Table
                 json_encode($data),
             ),
             'info',
-            ['group_name' => $job]
+            ['group_name' => $job],
         );
     }
 
@@ -440,7 +438,7 @@ class ArticlesTable extends Table
                 'Articles.kind' => 'article',
                 'Articles.published IS NOT' => null,
             ])
-            ->group(['year', 'month'])
+            ->groupBy(['year', 'month'])
             ->orderBy([
                 'year' => 'DESC',
                 'month' => 'DESC',

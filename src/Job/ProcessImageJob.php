@@ -59,7 +59,7 @@ class ProcessImageJob implements JobInterface
             $this->log(
                 'Imagick extension is not loaded',
                 'error',
-                ['group_name' => 'App\Job\ProcessImageJob']
+                ['group_name' => 'App\Job\ProcessImageJob'],
             );
 
             return Processor::REJECT;
@@ -73,7 +73,7 @@ class ProcessImageJob implements JobInterface
         $this->log(
             sprintf('Received image processing message: Image ID: %s Path: %s', $id, $folderPath . $file),
             'info',
-            ['group_name' => 'App\Job\ProcessImageJob']
+            ['group_name' => 'App\Job\ProcessImageJob'],
         );
 
         $imageSizes = SettingsManager::read('ImageSizes');
@@ -82,10 +82,10 @@ class ProcessImageJob implements JobInterface
             sprintf(
                 'Starting image processing job. Path: %s, Sizes to process: %s',
                 $folderPath . $file,
-                implode(', ', $imageSizes)
+                implode(', ', $imageSizes),
             ),
             'info',
-            ['group_name' => 'App\Job\ProcessImageJob']
+            ['group_name' => 'App\Job\ProcessImageJob'],
         );
 
         try {
@@ -97,10 +97,10 @@ class ProcessImageJob implements JobInterface
                 sprintf(
                     'Error during image processing. Path: %s, Error: %s',
                     $folderPath . $file,
-                    $e->getMessage()
+                    $e->getMessage(),
                 ),
                 'error',
-                ['group_name' => 'App\Job\ProcessImageJob']
+                ['group_name' => 'App\Job\ProcessImageJob'],
             );
 
             return Processor::REJECT;
@@ -109,7 +109,7 @@ class ProcessImageJob implements JobInterface
         $this->log(
             sprintf('Image processing job completed successfully. Path: %s', $folderPath . $file),
             'info',
-            ['group_name' => 'App\Job\ProcessImageJob']
+            ['group_name' => 'App\Job\ProcessImageJob'],
         );
 
         return Processor::ACK;
@@ -160,7 +160,7 @@ class ProcessImageJob implements JobInterface
                 $this->log(
                     sprintf('Failed to create directory: %s', $sizeFolder),
                     'error',
-                    ['group_name' => 'App\Job\ProcessImageJob']
+                    ['group_name' => 'App\Job\ProcessImageJob'],
                 );
                 throw new Exception("Failed to create directory: $sizeFolder");
             }
@@ -171,7 +171,7 @@ class ProcessImageJob implements JobInterface
                 $this->log(
                     sprintf('Original image not found for resizing. Path: %s', $folder . $file),
                     'error',
-                    ['group_name' => 'App\Job\ProcessImageJob']
+                    ['group_name' => 'App\Job\ProcessImageJob'],
                 );
 
                 return;
@@ -181,10 +181,10 @@ class ProcessImageJob implements JobInterface
                 $this->log(
                     sprintf(
                         'Skipped resizing, image already exists. Path: %s',
-                        $sizeFolder . $file
+                        $sizeFolder . $file,
                     ),
                     'info',
-                    ['group_name' => 'App\Job\ProcessImageJob']
+                    ['group_name' => 'App\Job\ProcessImageJob'],
                 );
 
                 return;
@@ -204,10 +204,10 @@ class ProcessImageJob implements JobInterface
                         'Original smaller than target width, copied. Original: %s, Saved: %s (Original width: %dpx)',
                         $folder . $file,
                         $sizeFolder . $file,
-                        $originalWidth
+                        $originalWidth,
                     ),
                     'info',
-                    ['group_name' => 'App\Job\ProcessImageJob']
+                    ['group_name' => 'App\Job\ProcessImageJob'],
                 );
             } else {
                 // Resize the image since it's larger than the target width
@@ -221,10 +221,10 @@ class ProcessImageJob implements JobInterface
                         $folder . $file,
                         $sizeFolder . $file,
                         $width,
-                        $originalWidth
+                        $originalWidth,
                     ),
                     'info',
-                    ['group_name' => 'App\Job\ProcessImageJob']
+                    ['group_name' => 'App\Job\ProcessImageJob'],
                 );
             }
         } catch (Exception $e) {
@@ -233,10 +233,10 @@ class ProcessImageJob implements JobInterface
                     'Error processing image. Original: %s, Target Width: %dpx, Error: %s',
                     $folder . $file,
                     $width,
-                    $e->getMessage()
+                    $e->getMessage(),
                 ),
                 'error',
-                ['group_name' => 'App\Job\ProcessImageJob']
+                ['group_name' => 'App\Job\ProcessImageJob'],
             );
         }
     }

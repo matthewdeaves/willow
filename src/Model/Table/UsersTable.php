@@ -147,9 +147,9 @@ class UsersTable extends Table
      * @param \Cake\Event\EventInterface $event The rules object to be modified.
      * @param \Cake\Datasource\EntityInterface $entity The rules object to be modified.
      * @param \ArrayObject $options The rules object to be modified.
-     * @return bool True if the save should continue
+     * @return void
      */
-    public function beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): bool
+    public function beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
         if (!$entity->isNew() && $entity->isDirty('image')) {
             $originalFilePath = $entity->getOriginal('image');
@@ -165,8 +165,6 @@ class UsersTable extends Table
                 }
             }
         }
-
-        return true;
     }
 
     /**

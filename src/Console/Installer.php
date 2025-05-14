@@ -57,7 +57,7 @@ class Installer
     {
         $io = $event->getIO();
 
-        $rootDir = dirname(__DIR__, 2);
+        $rootDir = dirname(dirname(__DIR__));
 
         static::createAppLocalConfig($rootDir, $io);
         static::createWritableDirectories($rootDir, $io);
@@ -128,7 +128,7 @@ class Installer
                 '<info>Set Folder Permissions ? (Default to Y)</info> [<comment>Y,n</comment>]? ',
                 $validator,
                 10,
-                'Y'
+                'Y',
             );
 
             if (in_array($setFolderPermissions, ['n', 'N'])) {

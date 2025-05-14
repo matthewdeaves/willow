@@ -124,8 +124,9 @@ class UsersControllerTest extends AppControllerTestCase
         // Attempt to access the admin area
         $this->get('/admin');
 
-        // Assert that the user is redirected to the site homepage
-        $this->assertRedirect('/en');
+        // Assert that the user is redirected with access denied
+        $this->assertResponseCode(302);
+        $this->assertFlashMessage('Access denied. You must be logged in as an admin to view this page.', 'flash');
     }
 
     /**

@@ -111,7 +111,7 @@ class CookieConsentsControllerTest extends AppControllerTestCase
 
         // Verify GDPR compliance data was saved
         $latest = $this->CookieConsents->find()
-            ->order(['created' => 'DESC'])
+            ->orderBy(['created' => 'DESC'])
             ->first();
 
         $this->assertTrue($latest->analytics_consent);
@@ -148,7 +148,7 @@ class CookieConsentsControllerTest extends AppControllerTestCase
 
         // Verify user ID was saved
         $latest = $this->CookieConsents->find()
-            ->order(['created' => 'DESC'])
+            ->orderBy(['created' => 'DESC'])
             ->first();
 
         $this->assertEquals($userId, $latest->user_id);
@@ -233,13 +233,13 @@ class CookieConsentsControllerTest extends AppControllerTestCase
         // Verify we have multiple records for the same user
         $consentHistory = $this->CookieConsents->find()
             ->where(['user_id' => $userId])
-            ->order(['created' => 'DESC'])
+            ->orderBy(['created' => 'DESC'])
             ->toArray();
 
         $this->assertGreaterThan(1, count($consentHistory));
         $this->assertNotEquals(
             $consentHistory[0]->analytics_consent,
-            $consentHistory[1]->analytics_consent
+            $consentHistory[1]->analytics_consent,
         );
     }
 }

@@ -72,7 +72,7 @@ class RateLimitMiddleware implements MiddlewareInterface
                 throw new TooManyRequestsException(
                     __('Too many requests. Please try again later.'),
                     null,
-                    $this->period
+                    $this->period,
                 );
             }
         }

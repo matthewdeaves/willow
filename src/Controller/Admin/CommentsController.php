@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
+use App\Model\Table\ArticlesTable;
 use Cake\Cache\Cache;
 use Cake\Http\Response;
 use Cake\ORM\Query;
@@ -18,6 +19,8 @@ use Cake\ORM\Query;
  */
 class CommentsController extends AppController
 {
+    protected ArticlesTable $Articles;
+
     /**
      * Initializes the controller and loads the Articles table.
      *
@@ -120,6 +123,7 @@ class CommentsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $comment = $this->Comments->get($id);
+
         if ($this->Comments->delete($comment)) {
             if ($comment->article) {
                 Cache::clear('articles');

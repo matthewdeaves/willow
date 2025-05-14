@@ -51,7 +51,7 @@ class ArticleSummaryUpdateJob implements JobInterface
     {
         $this->summaryGenerator = $summaryGenerator ?? new TextSummaryGenerator(
             new AnthropicApiService(),
-            TableRegistry::getTableLocator()->get('Aiprompts')
+            TableRegistry::getTableLocator()->get('Aiprompts'),
         );
     }
 
@@ -72,7 +72,7 @@ class ArticleSummaryUpdateJob implements JobInterface
         $this->log(
             sprintf('Received article summary update message: %s : %s', $id, $title),
             'info',
-            ['group_name' => 'App\Job\ArticleSummaryUpdateJob']
+            ['group_name' => 'App\Job\ArticleSummaryUpdateJob'],
         );
 
         $articlesTable = TableRegistry::getTableLocator()->get('Articles');
@@ -81,7 +81,7 @@ class ArticleSummaryUpdateJob implements JobInterface
         try {
             $summaryResult = $this->summaryGenerator->generateTextSummary(
                 'article',
-                (string)strip_tags($article->body)
+                (string)strip_tags($article->body),
             );
         } catch (Exception $e) {
             $this->log(
@@ -92,7 +92,7 @@ class ArticleSummaryUpdateJob implements JobInterface
                     $e->getMessage(),
                 ),
                 'error',
-                ['group_name' => 'App\Job\ArticleSummaryUpdateJob']
+                ['group_name' => 'App\Job\ArticleSummaryUpdateJob'],
             );
 
             return Processor::REJECT;
@@ -112,7 +112,7 @@ class ArticleSummaryUpdateJob implements JobInterface
                 $this->log(
                     sprintf('Article summary update completed successfully. Article ID: %s Title: %s', $id, $title),
                     'info',
-                    ['group_name' => 'App\Job\ArticleSummaryUpdateJob']
+                    ['group_name' => 'App\Job\ArticleSummaryUpdateJob'],
                 );
 
                 return Processor::ACK;
@@ -125,7 +125,7 @@ class ArticleSummaryUpdateJob implements JobInterface
                         json_encode($article->getErrors()),
                     ),
                     'error',
-                    ['group_name' => 'App\Job\ArticleSummaryUpdateJob']
+                    ['group_name' => 'App\Job\ArticleSummaryUpdateJob'],
                 );
             }
         } else {
@@ -133,10 +133,10 @@ class ArticleSummaryUpdateJob implements JobInterface
                 sprintf(
                     'Article summary update failed. No valid result returned. Article ID: %s Title: %s',
                     $id,
-                    $title
+                    $title,
                 ),
                 'error',
-                ['group_name' => 'App\Job\ArticleSummaryUpdateJob']
+                ['group_name' => 'App\Job\ArticleSummaryUpdateJob'],
             );
         }
 

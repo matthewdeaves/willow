@@ -139,7 +139,7 @@ class TranslationGenerator
                 $this->log(
                     sprintf('Translation Generator did not find expected key: %s', $key),
                     'error',
-                    ['group_name' => 'anthropic']
+                    ['group_name' => 'anthropic'],
                 );
             }
         }

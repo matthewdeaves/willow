@@ -101,7 +101,7 @@ class CreateUserCommand extends Command
         $this->log(
             sprintf('Attempting to create user with data: %s', json_encode($logData)),
             'info',
-            ['group_name' => 'user_creation']
+            ['group_name' => 'user_creation'],
         );
 
         $user = $usersTable->newEmptyEntity();
@@ -113,10 +113,10 @@ class CreateUserCommand extends Command
             $this->log(
                 sprintf(
                     'User created successfully: %s',
-                    $user['username']
+                    $user['username'],
                 ),
                 'info',
-                ['group_name' => 'user_creation']
+                ['group_name' => 'user_creation'],
             );
 
             return true;
@@ -125,10 +125,10 @@ class CreateUserCommand extends Command
                 sprintf(
                     'Failed to create user: %s. Errors: %s',
                     $user['username'],
-                    json_encode($user->getErrors())
+                    json_encode($user->getErrors()),
                 ),
                 'error',
-                ['group_name' => 'user_creation']
+                ['group_name' => 'user_creation'],
             );
 
             return false;

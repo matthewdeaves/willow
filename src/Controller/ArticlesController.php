@@ -78,9 +78,9 @@ class ArticlesController extends AppController
      * Configures authentication for specific actions.
      *
      * @param \Cake\Event\EventInterface $event The event instance.
-     * @return \Cake\Http\Response|null
+     * @return void
      */
-    public function beforeFilter(EventInterface $event): ?Response
+    public function beforeFilter(EventInterface $event): void
     {
         parent::beforeFilter($event);
 
@@ -93,8 +93,6 @@ class ArticlesController extends AppController
                 $session->write('Comment.formData', $this->request->getData());
             }
         }
-
-        return null;
     }
 
     /**
@@ -232,7 +230,7 @@ class ArticlesController extends AppController
                         'slug' => $latestSlug->slug,
                         '_full' => true,
                     ],
-                    301
+                    301,
                 );
             }
 
@@ -267,7 +265,7 @@ class ArticlesController extends AppController
 
         // Get the child pages and breadcrumbs for the current article
         $childPages = $this->Articles->find('children', for: $article->id)
-            ->order(['lft' => 'ASC'])
+            ->orderBy(['lft' => 'ASC'])
             ->cache($cacheKey . '_children', 'articles')
             ->toArray();
 
@@ -286,7 +284,7 @@ class ArticlesController extends AppController
             'childPages',
             'selectedTagId',
             'crumbs',
-            'recentArticles'
+            'recentArticles',
         ));
 
         return $this->render($article->kind);

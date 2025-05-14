@@ -1,6 +1,5 @@
 <?php
 // src/View/Helper/VideoHelper.php
-
 declare(strict_types=1);
 
 namespace App\View\Helper;
@@ -34,7 +33,7 @@ class VideoHelper extends Helper
 
                 return $this->generateGdprCompliantEmbed($videoId, $width, $height, $title);
             },
-            $content
+            $content,
         );
     }
 
@@ -51,7 +50,7 @@ class VideoHelper extends Helper
         string $videoId,
         string $width,
         string $height,
-        string $title
+        string $title,
     ): string {
         $thumbnailUrl = "https://img.youtube.com/vi/{$videoId}/maxresdefault.jpg";
 

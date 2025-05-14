@@ -73,10 +73,10 @@ class SendEmailJob implements JobInterface
                 $templateIdentifier,
                 $from,
                 $to,
-                json_encode($viewVars)
+                json_encode($viewVars),
             ),
             'info',
-            ['group_name' => 'App\Job\SendEmailJob']
+            ['group_name' => 'App\Job\SendEmailJob'],
         );
 
         // Fetch the email template from the database
@@ -89,10 +89,10 @@ class SendEmailJob implements JobInterface
             $this->log(
                 sprintf(
                     'Email template not found: %s',
-                    $templateIdentifier
+                    $templateIdentifier,
                 ),
                 'error',
-                ['group_name' => 'App\Job\SendEmailJob']
+                ['group_name' => 'App\Job\SendEmailJob'],
             );
             throw new Exception(__('Email template not found: {0}', $templateIdentifier));
         }
@@ -124,10 +124,10 @@ class SendEmailJob implements JobInterface
                 sprintf(
                     'Email sent successfully: %s to %s',
                     $emailTemplate->subject,
-                    $to
+                    $to,
                 ),
                 'info',
-                ['group_name' => 'App\Job\SendEmailJob']
+                ['group_name' => 'App\Job\SendEmailJob'],
             );
 
             return Processor::ACK;
@@ -136,10 +136,10 @@ class SendEmailJob implements JobInterface
                 sprintf(
                     'Email sending failed: %s to %s',
                     $emailTemplate->subject,
-                    $to
+                    $to,
                 ),
                 'error',
-                ['group_name' => 'App\Job\SendEmailJob']
+                ['group_name' => 'App\Job\SendEmailJob'],
             );
         }
 

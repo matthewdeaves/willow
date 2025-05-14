@@ -1,25 +1,25 @@
-#!/bin/sh
+#!/bin/bash
 
-# Set strict error handling
-#set -euo pipefail
+# Exit immediately if a command exits with a non-zero status.
+# Treat unset variables as an error when substituting.
+# The return value of a pipeline is the status of the last command to exit with a non-zero status.
+set -euo pipefail
 
-# Detect the operating system
-OS="$(uname)"
+# --- Configuration Constants ---
+readonly APP_SERVICE_NAME="willowcms"
+readonly DB_SERVICE_NAME="mysql"
+readonly DB_USER_DEFAULT="root"
+readonly DB_PASS_DEFAULT="password" # Be cautious with passwords directly in scripts for production
+readonly DB_NAME_DEFAULT="cms"
+readonly BACKUP_BASE_DIR="${HOME}/willowcms/backups" # Ensure this script is run by a user with write access here
 
-# Function to determine if sudo is needed
-needs_sudo() {
-    if [ "$OS" = "Linux" ]; then
-        echo "sudo"
-    else
-        echo ""
-    fi
-}
+# --- Functions ---
 
 # Function to clear the screen and show the header
 show_header() {
     clear
     echo "==================================="
-    echo "WillowCMS Command Runner"
+    echo " WillowCMS Command Runner"
     echo "==================================="
     echo
 }
@@ -29,20 +29,20 @@ show_menu() {
     echo "Available Commands:"
     echo
     echo "Data Management:"
-    echo "  1) Import Default Data"
-    echo "  2) Export Default Data"
-    echo "  3) Dump MySQL Database"
-    echo "  4) Load Database from Backup"
+    echo "  1) Import Default Data (all)"
+    echo "  2) Export Default Data (all)"
+    echo "  3) Dump MySQL Database ('${DB_NAME_DEFAULT}')"
+    echo "  4) Load Database from Backup ('${DB_NAME_DEFAULT}')"
     echo
-    echo "Internationalization:"
+    echo "Internationalization (i18n):"
     echo "  5) Extract i18n Messages"
-    echo "  6) Load Default i18n"
-    echo "  7) Translate i18n"
-    echo "  8) Generate PO Files"
+    echo "  6) Load Default i18n Data"
+    echo "  7) Translate i18n (via API if configured)"
+    echo "  8) Generate PO Files from POT"
     echo
-    echo "System:"
-    echo "  9) Clear Cache"
-    echo "  10) Interactive shell on Willow CMS"
+    echo "System & Debugging:"
+    echo "  9) Clear Cache (WillowCMS)"
+    echo "  10) Interactive shell on ${APP_SERVICE_NAME} container"
     echo "  0) Exit"
     echo
 }
@@ -50,199 +50,187 @@ show_menu() {
 # Function to pause and wait for user input
 pause() {
     echo
-    read -p "Press [Enter] key to continue..." fackEnterKey
+    read -r -p "Press [Enter] key to continue..."
 }
 
 # Function to execute commands
 execute_command() {
-    case $1 in
+    local choice="$1"
+
+    case "$choice" in
         1)
-            echo "Running Default Data Import..."
-            $(needs_sudo) docker compose exec willowcms bin/cake default_data_import
+            echo "Running Default Data Import for all modules..."
+            docker compose exec "${APP_SERVICE_NAME}" bin/cake default_data_import
             ;;
         2)
-            echo "Running Default Data Export..."
-            $(needs_sudo) docker compose exec willowcms bin/cake default_data_export
+            echo "Running Default Data Export for all modules..."
+            docker compose exec "${APP_SERVICE_NAME}" bin/cake default_data_export
             ;;
         3)
-            echo "Dumping MySQL Database..."
-            local timestamp=$(date '+%Y%m%d_%H%M%S')
-            local backup_dir="$HOME/willowcms/backups"
-            local backup_file="backup_${timestamp}.sql"
-            
-            # Create backup directory if it doesn't exist
-            mkdir -p "${backup_dir}"
-            
-            # Backup using the container's environment variables
-            $(needs_sudo) docker compose exec mysql sh -c 'exec mysqldump -uroot -ppassword cms' > "${backup_dir}/${backup_file}"
-            
-            if [ $? -eq 0 ]; then
+            echo "Dumping MySQL Database '${DB_NAME_DEFAULT}'..."
+            local timestamp
+            timestamp=$(date '+%Y%m%d_%H%M%S')
+            local backup_file="${BACKUP_BASE_DIR}/${DB_NAME_DEFAULT}_backup_${timestamp}.sql"
+
+            mkdir -p "${BACKUP_BASE_DIR}"
+            echo "Backup will be saved to: ${backup_file}"
+
+            # Using sh -c to correctly handle the password argument if it contains special characters for the outer shell.
+            # mysqldump arguments: -u<user> -p<password> <database_name>
+            if docker compose exec "${DB_SERVICE_NAME}" \
+                sh -c "exec mysqldump -u'${DB_USER_DEFAULT}' -p'${DB_PASS_DEFAULT}' '${DB_NAME_DEFAULT}'" > "${backup_file}"; then
                 echo "Database backup completed successfully!"
-                echo "Backup saved to: ${backup_dir}/${backup_file}"
             else
                 echo "Error: Database backup failed!"
+                # Consider removing the potentially incomplete backup file: rm -f "${backup_file}"
+                return 1 # Indicate failure
             fi
             ;;
         4)
-            echo "Loading Database from Backup..."
-            local backup_dir="$HOME/willowcms/backups"
+            echo "Loading Database for '${DB_NAME_DEFAULT}' from Backup..."
             
-            # Check if backup directory exists and contains SQL files
-            if [ ! -d "${backup_dir}" ] || [ -z "$(ls -A ${backup_dir}/*.sql 2>/dev/null)" ]; then
-                echo "No backup files found in ${backup_dir}"
+            if [ ! -d "${BACKUP_BASE_DIR}" ] || [ -z "$(ls -A "${BACKUP_BASE_DIR}"/*.sql 2>/dev/null)" ]; then
+                echo "No backup files found in ${BACKUP_BASE_DIR}"
                 return 1
             fi
             
-            # List backups with numbers
-            echo "Available backups:"
-            echo
-            
-            # Create numbered list of backups
-            i=1
-            for file in "${backup_dir}"/*.sql; do
-                echo "$i) $(basename "$file")"
+            echo "Available backups in ${BACKUP_BASE_DIR}:"
+            local i=1
+            local -a backup_files # Declare an array for bash
+            # Store files in an array to handle spaces in filenames robustly, though .sql usually doesn't have them
+            while IFS= read -r -d $'\0' file; do
+                backup_files[i]="$file"
+                echo "  $i) $(basename "$file")"
                 i=$((i + 1))
-            done
+            done < <(find "${BACKUP_BASE_DIR}" -maxdepth 1 -name '*.sql' -print0)
+
+            if [ ${#backup_files[@]} -eq 0 ]; then
+                echo "No .sql backup files found."
+                return 1
+            fi
             echo
+
+            local selection
+            read -r -p "Enter the number of the backup to restore (or 0 to cancel): " selection
             
-            # Get user selection
-            read -p "Enter the number of the backup to restore (or 0 to cancel): " selection
-            
-            # Validate input is a number
-            if ! echo "$selection" | grep -q '^[0-9]\+$'; then
-                echo "Invalid selection: not a number"
+            if ! [[ "$selection" =~ ^[0-9]+$ ]] || [ "$selection" -lt 0 ] || [ "$selection" -ge "$i" ]; then
+                echo "Invalid selection."
                 return 1
             fi
             
-            # Handle cancellation
-            if [ "$selection" = "0" ]; then
+            if [ "$selection" -eq 0 ]; then
                 echo "Operation cancelled."
                 return 0
             fi
             
-            # Find selected file
-            i=1
-            backup_file=""
-            for file in "${backup_dir}"/*.sql; do
-                if [ "$i" = "$selection" ]; then
-                    backup_file="$file"
-                    break
-                fi
-                i=$((i + 1))
-            done
+            local chosen_backup_file="${backup_files[selection]}"
             
-            # Validate selection
-            if [ -z "$backup_file" ] || [ ! -f "$backup_file" ]; then
-                echo "Invalid selection: backup file not found"
-                return 1
-            fi
+            echo "Selected backup: $(basename "${chosen_backup_file}")"
+            read -r -p "This will DROP the existing database '${DB_NAME_DEFAULT}' and restore from this backup. Are you sure? (y/N): " confirm
             
-            echo "Restoring from $backup_file..."
-            
-            # Get database name from environment
-            DB_NAME=$($(needs_sudo) docker compose exec mysql sh -c 'echo cms')
-            
-            echo "This will drop the existing database cms and restore from backup."
-            echo "Are you sure you want to continue? (y/n)"
-            read -r confirm
-            
-            if [ "$confirm" = "y" ] || [ "$confirm" = "Y" ]; then
-                # Drop and recreate database
-                echo "Dropping and recreating database..."
-                $(needs_sudo) docker compose exec mysql sh -c '
-                    mysql -uroot -ppassword -e "
-                        DROP DATABASE IF EXISTS cms;
-                        CREATE DATABASE cms;
-                        USE cms;
-                    "
-                '
+            if [[ "${confirm}" =~ ^[yY]$ ]]; then
+                echo "Dropping and recreating database '${DB_NAME_DEFAULT}'..."
+                docker compose exec "${DB_SERVICE_NAME}" \
+                    sh -c "mysql -u'${DB_USER_DEFAULT}' -p'${DB_PASS_DEFAULT}' -e 'DROP DATABASE IF EXISTS \`${DB_NAME_DEFAULT}\`; CREATE DATABASE \`${DB_NAME_DEFAULT}\`;'"
                 
-                # Restore the backup
-                echo "Restoring backup..."
-                $(needs_sudo) docker compose exec -T mysql sh -c '
-                    mysql -uroot -ppassword cms
-                ' < "$backup_file"
-                
-                if [ $? -eq 0 ]; then
-                    echo "Database restored successfully from $backup_file!"
+                echo "Restoring backup from ${chosen_backup_file}..."
+                if docker compose exec -T "${DB_SERVICE_NAME}" \
+                    sh -c "exec mysql -u'${DB_USER_DEFAULT}' -p'${DB_PASS_DEFAULT}' '${DB_NAME_DEFAULT}'" < "${chosen_backup_file}"; then
+                    echo "Database restored successfully!"
                     
-                    # Clear CakePHP cache after restore
-                    echo "Clearing CakePHP cache..."
-                    $(needs_sudo) docker compose exec willowcms bin/cake cache clear_all
+                    echo "Clearing WillowCMS cache..."
+                    docker compose exec "${APP_SERVICE_NAME}" bin/cake cache clear_all
                 else
                     echo "Error: Database restore failed!"
+                    return 1
                 fi
             else
                 echo "Database restore cancelled."
             fi
             ;;
-
         5)
-            echo "Extracting i18n Messages..."
-            $(needs_sudo) docker compose exec willowcms bin/cake i18n extract \
+            echo "Extracting i18n Messages (POT generation)..."
+            docker compose exec "${APP_SERVICE_NAME}" bin/cake i18n extract \
                 --paths /var/www/html/src,/var/www/html/plugins,/var/www/html/templates
             ;;
         6)
-            echo "Loading Default i18n..."
-            $(needs_sudo) docker compose exec willowcms bin/cake load_default18n
+            echo "Loading Default i18n Data..."
+            # Assuming this command loads default PO data or performs initial i18n setup
+            docker compose exec "${APP_SERVICE_NAME}" bin/cake load_default_i18n # Adjusted command if it was a typo
             ;;
         7)
-            echo "Running i18n Translation..."
-            $(needs_sudo) docker compose exec willowcms bin/cake translate_i18n
+            echo "Running i18n Translation (e.g., via an API)..."
+            docker compose exec "${APP_SERVICE_NAME}" bin/cake translate_i18n
             ;;
         8)
-            echo "Generating PO Files..."
-            $(needs_sudo) docker compose exec willowcms bin/cake generate_po_files
+            echo "Generating PO Files (compile from POT or other sources)..."
+            docker compose exec "${APP_SERVICE_NAME}" bin/cake generate_po_files
             ;;
         9)
-            echo "Clearing Cache..."
-            $(needs_sudo) docker compose exec willowcms bin/cake cache clear_all
+            echo "Clearing WillowCMS Cache..."
+            docker compose exec "${APP_SERVICE_NAME}" bin/cake cache clear_all
             ;;
         10)
-            echo "Opening an interactive shell to Willow CMS..."
-            $(needs_sudo) docker compose exec -it willowcms /bin/sh
+            echo "Opening an interactive shell on '${APP_SERVICE_NAME}' container..."
+            # Use /bin/bash if available and preferred, otherwise /bin/sh
+            docker compose exec -it "${APP_SERVICE_NAME}" /bin/bash || docker compose exec -it "${APP_SERVICE_NAME}" /bin/sh
             ;;
         0)
             echo "Exiting..."
             exit 0
             ;;
         *)
-            echo "Error: Invalid option"
+            echo "Error: Invalid option '$choice'"
+            return 1 # Indicate failure for invalid option
             ;;
     esac
 }
 
-# Function to check if Docker is running
-check_docker() {
-    if ! $(needs_sudo) docker compose ps --services --filter "status=running" | grep -q "willowcms"; then
-        echo "Error: WillowCMS Docker container is not running"
-        echo "Please start the containers first using ./setup_dev_env.sh"
+# Function to check if essential Docker services are running
+check_docker_services() {
+    echo "Checking Docker service status..."
+    if ! docker compose ps --services --filter "status=running" | grep -Fxq "${APP_SERVICE_NAME}"; then
+        echo "Error: Docker service '${APP_SERVICE_NAME}' is not running."
+        echo "Please start the development environment (e.g., using ./setup_dev_env.sh)."
         exit 1
     fi
+    if ! docker compose ps --services --filter "status=running" | grep -Fxq "${DB_SERVICE_NAME}"; then
+        echo "Error: Docker service '${DB_SERVICE_NAME}' is not running."
+        echo "Please start the development environment."
+        exit 1
+    fi
+    echo "Required Docker services are running."
 }
 
-# Main program loop
+# --- Main Program Loop ---
 main() {
+    check_docker_services # Check at the start
+
     local choice
-
-    # Check if Docker is running first
-    check_docker
-
     while true; do
         show_header
         show_menu
-        read -p "Enter your choice [0-10]: " choice
+        read -r -p "Enter your choice [0-10]: " choice
         
-        if [[ ! $choice =~ ^[0-9]+$ ]] || [ "$choice" -gt 10 ]; then
-            echo "Error: Please enter a number between 0 and 10"
+        if ! [[ "$choice" =~ ^[0-9]+$ ]] || [ "$choice" -lt 0 ] || [ "$choice" -gt 10 ]; then
+            echo
+            echo "Error: Please enter a number between 0 and 10."
             pause
-            continue
+            continue # Go to the next iteration of the loop
         fi
 
-        echo
-        execute_command "$choice"
+        echo # Add a newline for better readability before command output
+        if execute_command "$choice"; then
+            # Command was successful or handled its own error messages
+            if [ "$choice" -ne 0 ] && [ "$choice" -ne 10 ]; then # Don't pause after exit or interactive shell
+                 echo "Command finished."
+            fi
+        else
+            # Command returned an error status
+            echo "The command encountered an error."
+        fi
         
-        if [ "$choice" != "0" ]; then
+        if [ "$choice" -ne 0 ] && [ "$choice" -ne 10 ]; then
             pause
         fi
     done

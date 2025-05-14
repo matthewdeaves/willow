@@ -163,9 +163,8 @@ class CommentsControllerTest extends AppControllerTestCase
         $this->enableCsrfToken();
         $this->enableSecurityToken();
 
-        $this->post('/admin/comments/delete/550e8400-e29b-41d4-a716-446655440000');
-
-        $this->assertRedirect('/en');
+        $this->delete('/admin/comments/delete/550e8400-e29b-41d4-a716-446655440000');
+        $this->assertResponseCode(302);
         $this->assertTrue($this->Comments->exists(['id' => '550e8400-e29b-41d4-a716-446655440000']));
     }
 

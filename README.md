@@ -104,9 +104,3 @@ For a deeper understanding of the underlying CakePHP framework, the [CakePHP Boo
 
 ### Production Environment
 There is a separate GitHub Repository for a [production version of Willow CMS for AWS AppRunner](https://github.com/matthewdeaves/willow_cms_production_deployment) with its own guide.
-
-### Thanks To
-
-A huge thank you to the incredible CakePHP framework for making this work possible. CakePHP is an open-source web, rapid development framework that makes building web applications simpler, faster and require less code. CakePHP allows developers to focus on building robust applications without getting bogged down by configuration details. Its conventions over configuration approach, powerful code generation tools, and integrated testing framework are just a few of the features that make CakePHP a standout choice for developers. For more information, visit the [Official CakePHP website](https://cakephp.org) and explore the [CakePHP Cookbook](https://book.cakephp.org) for comprehensive guidance.
-
-Additionally, a huge thank you to Simtheory.ai for providing access to a plethora of frontier models, enabling me to experiment with coding alongside multiple AI agents. This platform has been instrumental in pushing the boundaries of what is possible for just me to build in month to reach v1. For more details, check out [Simtheory.ai](https://simtheory.ai).

@@ -76,7 +76,7 @@ class TranslateI18nCommand extends Command
         $io->out(sprintf(
             'Queued translation job for batch of %d messages for locale %s',
             count($batch['internationalisations']),
-            $batch['locale']
+            $batch['locale'],
         ));
     }
 }

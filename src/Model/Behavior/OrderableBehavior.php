@@ -4,7 +4,10 @@ declare(strict_types=1);
 namespace App\Model\Behavior;
 
 use Cake\ORM\Behavior;
+use Cake\ORM\Exception\PersistenceFailedException;
 use InvalidArgumentException;
+use LogicException;
+use RuntimeException;
 
 /**
  * OrderableBehavior provides hierarchical ordering capabilities for CakePHP models.
@@ -16,7 +19,7 @@ use InvalidArgumentException;
  * - Reordering items within the same level
  * - Root level and nested level ordering
  *
- * Required table columns:
+ * Required table columns (configurable via TreeBehavior):
  * - parent_id (integer|null): References the parent record
  * - lft (integer): Left value for nested set model
  * - rght (integer): Right value for nested set model
@@ -77,7 +80,7 @@ class OrderableBehavior extends Behavior
      * Reorders a model record within a hierarchical structure.
      *
      * This method handles both the parent reassignment and sibling reordering
-     * in a single operation. It supports:
+     * in a single operation, wrapped in a database transaction. It supports:
      * - Moving an item to the root level
      * - Moving an item under a new parent
      * - Reordering items within their current level
@@ -86,59 +89,116 @@ class OrderableBehavior extends Behavior
      * and updates the nested set values accordingly.
      *
      * @param array $data An associative array containing:
-     *                    - 'id' (int): The ID of the record to be reordered.
+     *                    - 'id' (int|string): The ID of the record to be reordered.
      *                    - 'newParentId' (mixed): The ID of the new parent record, or 'root' to move to the root level.
      *                    - 'newIndex' (int): The new position index among siblings (zero-based).
-     * @throws \InvalidArgumentException If the provided data is not an array or is missing required keys.
-     * @throws \Cake\ORM\Exception\PersistenceFailedException If the record cannot be saved.
+     * @throws \InvalidArgumentException If the provided data is missing required keys or has invalid types.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException If the record to move or target parent is not found.
+     * @throws \Cake\ORM\Exception\PersistenceFailedException If the record cannot be saved during parent update.
+     * @throws \RuntimeException If moving the item up/down fails.
+     * @throws \LogicException If the item cannot be found among its new siblings after parent move.
      * @return bool Returns true on successful reordering.
      */
     public function reorder(array $data): bool
     {
-        if (!is_array($data)) {
-            throw new InvalidArgumentException('Data must be an array');
-        }
-
-        $model = $this->_table->get($data['id']);
-
-        if ($data['newParentId'] === 'root') {
-            // Moving to root level
-            $model->parent_id = null;
-            $this->_table->save($model);
-        } else {
-            // Moving to a new parent
-            $newParent = $this->_table->get($data['newParentId']);
-            $model->parent_id = $newParent->id;
-            $this->_table->save($model);
-        }
-
-        // Adjust the position within siblings
-        if ($model->parent_id === null) {
-            // For root level items
-            $siblings = $this->_table->find()
-                ->where(['parent_id IS' => null])
-                ->orderBy(['lft' => 'ASC'])
-                ->toArray();
-        } else {
-            // For non-root items
-            $siblings = $this->_table->find('children', for: $model->parent_id, direct: true)
-                ->orderBy(['lft' => 'ASC'])
-                ->toArray();
-        }
-
-        $currentPosition = array_search($model->id, array_column($siblings, 'id'));
-        $newPosition = $data['newIndex'];
-
-        if ($currentPosition !== false && $currentPosition !== $newPosition) {
-            if ($newPosition > $currentPosition) {
-                $this->_table->moveDown($model, $newPosition - $currentPosition);
-            } else {
-                $this->_table->moveUp($model, $currentPosition - $newPosition);
+        $result = $this->_table->getConnection()->transactional(function () use ($data) {
+            if (
+                !isset($data['id'], $data['newParentId'], $data['newIndex']) ||
+                (!is_numeric($data['id']) && !is_string($data['id'])) || // ID can be int or string (e.g. UUID)
+                !is_numeric($data['newIndex'])
+            ) {
+                throw new InvalidArgumentException(
+                    'Required data (id, newParentId, newIndex) missing or newIndex is not numeric for reorder.',
+                );
             }
-        }
+            if (
+                $data['newParentId'] !== 'root'
+                && !is_numeric($data['newParentId'])
+                && !is_string($data['newParentId'])
+            ) {
+                 throw new InvalidArgumentException('newParentId must be "root", numeric, or string.');
+            }
 
-        return true;
+            $itemId = $data['id'];
+            $newParentIdentifier = $data['newParentId'];
+            $newIndex = (int)$data['newIndex'];
+
+            /** @var \Cake\ORM\Entity&\Cake\ORM\Behavior\Tree\NodeInterface $item */
+            $item = $this->_table->get($itemId); // Throws RecordNotFoundException if not found
+
+            $actualNewParentId = $newParentIdentifier === 'root' ? null : $newParentIdentifier;
+            $parentField = $this->getConfig('treeConfig.parent');
+
+            if ($item->get($parentField) !== $actualNewParentId) {
+                if ($actualNewParentId !== null) {
+                    // Ensure the new parent exists (unless it's root)
+                    $this->_table->get($actualNewParentId); // Throws RecordNotFoundException
+                    $item->set($parentField, $actualNewParentId);
+                } else {
+                    $item->set($parentField, null);
+                }
+
+                if (!$this->_table->save($item, ['checkRules' => false])) {
+                    throw new PersistenceFailedException($item, ['Save failed during parent update.']);
+                }
+            }
+
+            // Adjust position among new siblings
+            $siblingsQuery = null;
+            $parentFieldValue = $item->get($parentField); // Get parent_id value
+
+            if ($parentFieldValue === null) { // Item is now a root node
+                $siblingsQuery = $this->_table->find()
+                    ->where([$this->_table->aliasField($parentField) . ' IS' => null]);
+            } else { // Item has a parent
+                $siblingsQuery = $this->_table->find(
+                    'children',
+                    for: $parentFieldValue, // Use named argument 'for'
+                    direct: true, // Use named argument 'direct'
+                );
+            }
+
+            $leftField = $this->getConfig('treeConfig.left');
+            $siblings = $siblingsQuery->orderBy([$this->_table->aliasField($leftField) => 'ASC'])
+                ->all()
+                ->toArray();
+
+            $currentPosition = false;
+            $primaryKeyField = (array)$this->_table->getPrimaryKey(); // getPrimaryKey can return string or array
+            $primaryKeyField = reset($primaryKeyField); // Use the first primary key
+
+            foreach ($siblings as $index => $sibling) {
+                if ($sibling->get($primaryKeyField) == $item->get($primaryKeyField)) {
+                    $currentPosition = $index;
+                    break;
+                }
+            }
+
+            if ($currentPosition === false) {
+                throw new LogicException("Moved item not found among its new siblings. Item ID: {$itemId}");
+            }
+
+            $targetPosition = $newIndex;
+
+            if ($currentPosition !== $targetPosition) {
+                $distance = abs($targetPosition - $currentPosition);
+                if ($targetPosition > $currentPosition) { // Moving down the list
+                    // TreeBehavior's moveDown moves it $number positions *lower* (larger lft)
+                    if (!$this->_table->moveDown($item, $distance)) {
+                        throw new RuntimeException("Failed to move item ID {$itemId} down by {$distance} positions.");
+                    }
+                } else { // Moving up the list
+                    // TreeBehavior's moveUp moves it $number positions *higher* (smaller lft)
+                    if (!$this->_table->moveUp($item, $distance)) {
+                        throw new RuntimeException("Failed to move item ID {$itemId} up by {$distance} positions.");
+                    }
+                }
+            }
+
+            return true; // Transactional callback succeeded
+        });
+
+        return $result;
     }
 
     /**
@@ -147,19 +207,23 @@ class OrderableBehavior extends Behavior
      * Retrieves records in a threaded format, including essential fields for tree structure
      * and any additional conditions specified.
      *
-     * @param array $additionalConditions Additional conditions to apply to the query
-     * @param array $fields Additional fields to select (beyond id, parent_id, and displayField)
-     * @return array<\Cake\Datasource\EntityInterface> Array of entities in threaded format
+     * @param array $additionalConditions Additional conditions to apply to the query.
+     * @param array $fields Additional fields to select (beyond id, parent_id, and displayField).
+     * @return array<\Cake\Datasource\EntityInterface> Array of entities in threaded format.
      */
     public function getTree(array $additionalConditions = [], array $fields = []): array
     {
         $displayField = $this->getConfig('displayField') ?? $this->_table->getDisplayField();
+        $parentFieldKey = $this->getConfig('treeConfig.parent');
+        $leftFieldKey = $this->getConfig('treeConfig.left');
+        $primaryKey = (array)$this->_table->getPrimaryKey();
+        $primaryKeyField = reset($primaryKey);
 
         // Base fields that are always needed for tree structure
         $baseFields = [
-            'id',
-            'parent_id',
-            $displayField,
+            $this->_table->aliasField($primaryKeyField),
+            $this->_table->aliasField($parentFieldKey),
+            $this->_table->aliasField($displayField),
         ];
 
         // Merge base fields with any additional fields
@@ -168,7 +232,7 @@ class OrderableBehavior extends Behavior
         $query = $this->_table->find()
             ->select($selectFields)
             ->where($additionalConditions)
-            ->orderBy(['lft' => 'ASC']);
+            ->orderBy([$this->_table->aliasField($leftFieldKey) => 'ASC']);
 
         return $query->find('threaded')->toArray();
     }

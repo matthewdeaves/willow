@@ -5,7 +5,7 @@
 ?>
 <?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/basic.min.css') ?>
 <?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.js') ?>
-<meta name="csrfToken" content="<?= $this->request->getAttribute('csrfToken') ?>">
+<?php // CSRF Token will be passed via data-attribute on the form ?>
 
 <div class="container-fluid mt-4">
     <div class="row">
@@ -23,46 +23,24 @@
                     <h3 class="mb-0"><?= __('Bulk Upload Images') ?></h3>
                 </div>
                 <div class="card-body">
-                    <form action="<?= $this->Url->build(['action' => 'bulkUpload']) ?>" class="dropzone" id="imageUploadDropzone">
+                    <div id="upload-notifications" class="mb-3"></div>
+                    <form action="<?= $this->Url->build(['controller' => 'Images', 'action' => 'bulkUpload']) ?>"
+                          class="dropzone"
+                          id="imageUploadDropzone"
+                          data-upload-url="<?= $this->Url->build(['controller' => 'Images', 'action' => 'bulkUpload']) ?>"
+                          data-delete-url="<?= $this->Url->build(['controller' => 'Images', 'action' => 'deleteUploadedImage']) ?>"
+                          data-csrf-token="<?= $this->request->getAttribute('csrfToken') ?>">
                         <div class="fallback">
                             <input name="file" type="file" multiple />
                         </div>
                     </form>
+                    <div class="mt-3">
+                        <button id="refreshPageButton" class="btn btn-info" style="display:none;"><?= __('Done - Refresh Page') ?></button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<script>
-Dropzone.options.imageUploadDropzone = {
-    paramName: "image",
-    maxFilesize: 20,
-    maxFiles: 50,
-    acceptedFiles: `image/*`,
-    headers: {
-        'X-CSRF-Token': document.querySelector('meta[name="csrfToken"]').getAttribute('content')
-    },
-    init: function() {
-        this.on("complete", function(file) {
-            if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
-                location.reload();
-            }
-        });
-        this.on("error", function(file, errorMessage) {
-            console.error("Upload error:", errorMessage);
-            alert("Error uploading file: " + errorMessage);
-        });
-    },
-    success: function(file, response) {
-        if (response.success) {
-            console.log("Upload success:", response.message);
-        } else {
-            console.error("Upload failed:", response.message);
-            if (response.errors) {
-                console.error("Validation errors:", response.errors);
-            }
-        }
-    }
-};
-</script>
+<?= $this->Html->script('AdminTheme.image_bulk_upload') // Reference the script within the plugin ?>

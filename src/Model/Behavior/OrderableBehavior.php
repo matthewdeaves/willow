@@ -64,7 +64,7 @@ class OrderableBehavior extends Behavior
         // Merge any provided tree configuration with defaults
         $treeConfig = array_merge(
             $this->_defaultConfig['treeConfig'],
-            $config['treeConfig'] ?? []
+            $config['treeConfig'] ?? [],
         );
 
         // Add the Tree behavior if it's not already added

@@ -66,7 +66,7 @@ abstract class AbstractApiService
             [
                 'headers' => $this->getHeaders(),
                 'timeout' => $timeOut,
-            ]
+            ],
         );
 
         if (!$response->isOk()) {

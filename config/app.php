@@ -219,7 +219,7 @@ return [
      *   your application that still emit deprecations.
      */
     'Error' => [
-        'errorLevel' => E_ALL & ~E_DEPRECATED,
+        'errorLevel' => E_ALL,
         'skipLog' => [],
         'log' => true,
         'trace' => true,
@@ -267,7 +267,7 @@ return [
      */
     'EmailTransport' => [
         'default' => [
-            'className' => 'Smtp',
+            'className' => MailTransport::class,
             /*
              * The keys host, port, timeout, username, password, client and tls
              * are used in SMTP transports

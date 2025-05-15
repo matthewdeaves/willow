@@ -177,7 +177,7 @@ class CookieConsentsTable extends Table
             $result = $this->find()
                 ->select($fields)
                 ->where(['user_id' => $userId])
-                ->order(['created' => 'DESC'])
+                ->orderBy(['created' => 'DESC'])
                 ->first();
 
             if ($result !== null) {
@@ -190,7 +190,7 @@ class CookieConsentsTable extends Table
             $result = $this->find()
                 ->select($fields)
                 ->where(['session_id' => $sessionId])
-                ->order(['created' => 'DESC'])
+                ->orderBy(['created' => 'DESC'])
                 ->first();
 
             if ($result !== null) {

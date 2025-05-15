@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Event\EventInterface;
-use Cake\Http\Response;
 use Cake\Routing\Router;
 use Cake\View\XmlView;
 
@@ -26,15 +25,12 @@ class SitemapController extends AppController
      * the sitemap.xml file.
      *
      * @param \Cake\Event\EventInterface $event The event object
-     * @return \Cake\Http\Response|null Returns null to continue with the request,
-     *   or a Response object to short-circuit the request
+     * @return void
      */
-    public function beforeFilter(EventInterface $event): ?Response
+    public function beforeFilter(EventInterface $event): void
     {
         parent::beforeFilter($event);
         $this->Authentication->allowUnauthenticated(['index']);
-
-        return null;
     }
 
     /**
@@ -77,7 +73,7 @@ class SitemapController extends AppController
                 'kind' => 'page',
                 'is_published' => 1,
             ])
-            ->orderAsc('lft')
+            ->orderByAsc('lft')
             ->all();
 
         // Get published regular articles
@@ -86,14 +82,14 @@ class SitemapController extends AppController
                 'kind' => 'article',
                 'is_published' => 1,
             ])
-            ->orderDesc('modified')
+            ->orderByDesc('modified')
             ->all();
 
         // Get all tags with translations
         $tagsTable = $this->fetchTable('Tags');
         $tags = $tagsTable->find('translations')
             ->select(['Tags.id', 'Tags.title', 'Tags.slug', 'Tags.modified'])
-            ->orderAsc('Tags.title')
+            ->orderByAsc('Tags.title')
             ->all();
 
         $urls = [];

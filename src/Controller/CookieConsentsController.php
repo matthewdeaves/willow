@@ -17,15 +17,13 @@ class CookieConsentsController extends AppController
      * Configures authentication for specific actions.
      *
      * @param \Cake\Event\EventInterface $event The event instance.
-     * @return \Cake\Http\Response|null
+     * @return void
      */
-    public function beforeFilter(EventInterface $event): ?Response
+    public function beforeFilter(EventInterface $event): void
     {
         parent::beforeFilter($event);
 
         $this->Authentication->allowUnauthenticated(['edit']);
-
-        return null;
     }
 
     /**

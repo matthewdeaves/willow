@@ -137,12 +137,14 @@ class AipromptsControllerTest extends AppControllerTestCase
     {
         // Test unauthenticated access
         $this->get('/admin/aiprompts');
-        $this->assertRedirect('/en');
+        $this->assertResponseCode(302);
+        $this->assertFlashMessage('Access denied. You must be logged in as an admin to view this page.', 'flash');
 
         // Test non-admin access
         $this->loginUser('6509480c-e7e6-4e65-9c38-1423a8d09d02'); // Non-admin user
         $this->get('/admin/aiprompts');
-        $this->assertRedirect('/en');
+        $this->assertResponseCode(302);
+        $this->assertFlashMessage('Access denied. You must be logged in as an admin to view this page.', 'flash');
     }
 
     /**

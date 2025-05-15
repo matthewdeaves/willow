@@ -159,17 +159,17 @@ class OrderableBehaviorTest extends TestCase
         // Test getting only pages
         $pageTree = $this->Table->getTree(
             ['kind' => 'page'],
-            ['title', 'slug', 'is_published']
+            ['title', 'slug', 'is_published'],
         );
 
         $this->assertIsArray($pageTree);
 
         // Should have 2 root level pages
-        $rootPages = array_filter($pageTree, fn ($item) => $item->parent_id === null);
+        $rootPages = array_filter($pageTree, fn($item) => $item->parent_id === null);
         $this->assertCount(2, $rootPages);
 
         // Verify Page One's children
-        $pageOne = array_filter($pageTree, fn ($item) => $item->title === 'Page One')[0];
+        $pageOne = array_filter($pageTree, fn($item) => $item->title === 'Page One')[0];
         $this->assertCount(3, $pageOne->children);
 
         // Verify all required fields are present
@@ -180,14 +180,14 @@ class OrderableBehaviorTest extends TestCase
         // Test getting only articles
         $articleTree = $this->Table->getTree(
             ['kind' => 'article'],
-            ['title', 'published']
+            ['title', 'published'],
         );
 
         $this->assertIsArray($articleTree);
 
         // All articles should be at root level
         $this->assertCount(6, $articleTree);
-        $this->assertTrue(array_reduce($articleTree, fn ($carry, $item) => $carry && $item->parent_id === null, true));
+        $this->assertTrue(array_reduce($articleTree, fn($carry, $item) => $carry && $item->parent_id === null, true));
     }
 
     /**

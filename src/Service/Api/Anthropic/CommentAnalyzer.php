@@ -135,7 +135,7 @@ class CommentAnalyzer
                 $this->log(
                     sprintf('Comment Analyzer did not find expected key: %s', $key),
                     'error',
-                    ['group_name' => 'anthropic']
+                    ['group_name' => 'anthropic'],
                 );
             }
         }

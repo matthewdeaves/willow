@@ -156,7 +156,7 @@ class ImageAnalyzer
                 $this->log(
                     sprintf('Image Analyzer did not find expected key: %s', $key),
                     'error',
-                    ['group_name' => 'anthropic']
+                    ['group_name' => 'anthropic'],
                 );
             }
         }

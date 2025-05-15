@@ -174,7 +174,7 @@ class DefaultDataImportCommand extends Command
                 $io->error(sprintf(
                     'Failed to save entity: %s %s',
                     $tableName,
-                    json_encode($entity->getErrors())
+                    json_encode($entity->getErrors()),
                 ));
             }
         }

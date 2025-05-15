@@ -139,7 +139,7 @@ class ArticleTagsGenerator
                 $this->log(
                     sprintf('Article Tag Generator did not find expected key: %s', $key),
                     'error',
-                    ['group_name' => 'anthropic']
+                    ['group_name' => 'anthropic'],
                 );
             }
         }

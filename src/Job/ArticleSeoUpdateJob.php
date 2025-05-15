@@ -69,7 +69,7 @@ class ArticleSeoUpdateJob implements JobInterface
         $this->log(
             sprintf('Received article SEO update message: %s : %s', $id, $title),
             'info',
-            ['group_name' => 'App\Job\ArticleSeoUpdateJob']
+            ['group_name' => 'App\Job\ArticleSeoUpdateJob'],
         );
 
         $articlesTable = TableRegistry::getTableLocator()->get('Articles');
@@ -78,7 +78,7 @@ class ArticleSeoUpdateJob implements JobInterface
         try {
             $seoResult = $this->anthropicService->generateArticleSeo(
                 (string)$title,
-                (string)strip_tags($article->body)
+                (string)strip_tags($article->body),
             );
         } catch (Exception $e) {
             $this->log(
@@ -89,7 +89,7 @@ class ArticleSeoUpdateJob implements JobInterface
                     $e->getMessage(),
                 ),
                 'error',
-                ['group_name' => 'App\Job\ArticleSeoUpdateJob']
+                ['group_name' => 'App\Job\ArticleSeoUpdateJob'],
             );
 
             return Processor::REJECT;
@@ -97,13 +97,13 @@ class ArticleSeoUpdateJob implements JobInterface
 
         if ($seoResult) {
             $emptyFields = $articlesTable->emptySeoFields($article);
-            array_map(fn ($field) => $article->{$field} = $seoResult[$field], $emptyFields);
+            array_map(fn($field) => $article->{$field} = $seoResult[$field], $emptyFields);
 
             if ($articlesTable->save($article, ['noMessage' => true])) {
                 $this->log(
                     sprintf('Article SEO update completed successfully. Article ID: %s Title: %s', $id, $title),
                     'info',
-                    ['group_name' => 'App\Job\ArticleSeoUpdateJob']
+                    ['group_name' => 'App\Job\ArticleSeoUpdateJob'],
                 );
 
                 Cache::clear('articles');
@@ -118,14 +118,14 @@ class ArticleSeoUpdateJob implements JobInterface
                         json_encode($article->getErrors()),
                     ),
                     'error',
-                    ['group_name' => 'App\Job\ArticleSeoUpdateJob']
+                    ['group_name' => 'App\Job\ArticleSeoUpdateJob'],
                 );
             }
         } else {
             $this->log(
                 sprintf('Article SEO update failed. No result returned. Article ID: %s Title: %s', $id, $title),
                 'error',
-                ['group_name' => 'App\Job\ArticleSeoUpdateJob']
+                ['group_name' => 'App\Job\ArticleSeoUpdateJob'],
             );
         }
 

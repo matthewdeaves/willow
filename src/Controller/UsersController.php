@@ -32,9 +32,9 @@ class UsersController extends AppController
      * Configures actions that can be accessed without authentication.
      *
      * @param \Cake\Event\EventInterface $event The event object.
-     * @return \Cake\Http\Response|null
+     * @return void
      */
-    public function beforeFilter(EventInterface $event): ?Response
+    public function beforeFilter(EventInterface $event): void
     {
         parent::beforeFilter($event);
 
@@ -46,10 +46,8 @@ class UsersController extends AppController
                 'confirmEmail',
                 'forgotPassword',
                 'resetPassword',
-            ]
+            ],
         );
-
-        return null;
     }
 
     /**
@@ -198,7 +196,7 @@ class UsersController extends AppController
                     $this->sendConfirmationEmailMessage($user, $confirmation);
                 } else {
                     $this->Flash->error(
-                        __('Registration successful, but there was an issue creating the confirmation link.')
+                        __('Registration successful, but there was an issue creating the confirmation link.'),
                     );
                 }
 
@@ -355,7 +353,7 @@ class UsersController extends AppController
                 if ($confirmationsTable->save($confirmation)) {
                     $this->sendPasswordResetEmail($user, $confirmation);
                     $this->Flash->success(__(
-                        'If your email is registered, you will receive a link to reset your password.'
+                        'If your email is registered, you will receive a link to reset your password.',
                     ));
 
                     return $this->redirect(['action' => 'login']);

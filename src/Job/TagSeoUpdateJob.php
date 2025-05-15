@@ -70,10 +70,10 @@ class TagSeoUpdateJob implements JobInterface
             sprintf(
                 'Received tag SEO update message: ID: %s Title: %s',
                 $id,
-                $title
+                $title,
             ),
             'info',
-            ['group_name' => 'App\Job\TagSeoUpdateJob']
+            ['group_name' => 'App\Job\TagSeoUpdateJob'],
         );
 
         $tagsTable = TableRegistry::getTableLocator()->get('Tags');
@@ -82,7 +82,7 @@ class TagSeoUpdateJob implements JobInterface
         try {
             $seoResult = $this->anthropicService->generateTagSeo(
                 (string)$title,
-                (string)$tag->description
+                (string)$tag->description,
             );
         } catch (Exception $e) {
             $this->log(
@@ -93,7 +93,7 @@ class TagSeoUpdateJob implements JobInterface
                     $e->getMessage(),
                 ),
                 'error',
-                ['group_name' => 'App\Job\TagSeoUpdateJob']
+                ['group_name' => 'App\Job\TagSeoUpdateJob'],
             );
 
             return Processor::REJECT;
@@ -101,17 +101,17 @@ class TagSeoUpdateJob implements JobInterface
 
         if ($seoResult) {
             $emptyFields = $tagsTable->emptySeoFields($tag);
-            array_map(fn ($field) => $tag->{$field} = $seoResult[$field], $emptyFields);
+            array_map(fn($field) => $tag->{$field} = $seoResult[$field], $emptyFields);
 
             if ($tagsTable->save($tag, ['noMessage' => true])) {
                 $this->log(
                     sprintf(
                         'Tag SEO update completed successfully. ID: %s Title: %s',
                         $id,
-                        $title
+                        $title,
                     ),
                     'info',
-                    ['group_name' => 'App\Job\TagSeoUpdateJob']
+                    ['group_name' => 'App\Job\TagSeoUpdateJob'],
                 );
 
                 return Processor::ACK;
@@ -124,7 +124,7 @@ class TagSeoUpdateJob implements JobInterface
                         json_encode($tag->getErrors()),
                     ),
                     'error',
-                    ['group_name' => 'App\Job\TagSeoUpdateJob']
+                    ['group_name' => 'App\Job\TagSeoUpdateJob'],
                 );
             }
         } else {
@@ -132,10 +132,10 @@ class TagSeoUpdateJob implements JobInterface
                 sprintf(
                     'Tag SEO update failed. No result returned. ID: %s Title: %s',
                     $id,
-                    $title
+                    $title,
                 ),
                 'error',
-                ['group_name' => 'App\Job\TagSeoUpdateJob']
+                ['group_name' => 'App\Job\TagSeoUpdateJob'],
             );
         }
 

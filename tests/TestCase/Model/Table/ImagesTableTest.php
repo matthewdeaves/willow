@@ -92,9 +92,10 @@ class ImagesTableTest extends TestCase
         $event = new Event('Model.beforeSave', $this->ImagesTable, ['entity' => $entity]);
         $options = new ArrayObject();
 
-        $result = $this->ImagesTable->beforeSave($event, $entity, $options);
+        // Call beforeSave - we no longer check its return value
+        $this->ImagesTable->beforeSave($event, $entity, $options);
 
-        $this->assertTrue($result);
+        // Instead, verify that the old file doesn't exist (which is the intended side effect)
         $this->assertFileDoesNotExist($oldImagePath);
     }
 

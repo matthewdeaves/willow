@@ -111,7 +111,7 @@ class SlugBehaviorTest extends TestCase
         $article = $this->Articles->get('263a5364-a1bc-401c-9e44-49c23d066a0f');
 
         // Update its title/slug
-        $article->set([
+        $article->patch([
             'title' => 'Article One Updated Again',
             'slug' => 'article-one-updated-again',
         ]);

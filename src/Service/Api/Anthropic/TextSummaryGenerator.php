@@ -133,7 +133,7 @@ class TextSummaryGenerator
                 $this->log(
                     sprintf('Text Summary Generator did not find expected key: %s', $key),
                     'error',
-                    ['group_name' => 'anthropic']
+                    ['group_name' => 'anthropic'],
                 );
             }
         }

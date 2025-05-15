@@ -37,7 +37,7 @@ class SettingsManager
         $parts = explode('.', $path);
         if (count($parts) !== 2) {
             throw new InvalidArgumentException(
-                'Invalid path format. Must be in the format "category.key_name"'
+                'Invalid path format. Must be in the format "category.key_name"',
             );
         }
 
@@ -56,7 +56,7 @@ class SettingsManager
 
         if (!$setting) {
             throw new InvalidArgumentException(
-                sprintf('Setting not found: %s.%s', $category, $keyName)
+                sprintf('Setting not found: %s.%s', $category, $keyName),
             );
         }
 

@@ -17,7 +17,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Event\EventInterface;
-use Cake\Http\Response;
+use Cake\View\JsonView;
 
 /**
  * Error Handling Controller
@@ -37,14 +37,24 @@ class ErrorController extends AppController
     }
 
     /**
+     * Get alternate view classes that can be used in
+     * content-type negotiation.
+     *
+     * @return array<string>
+     */
+    public function viewClasses(): array
+    {
+        return [JsonView::class];
+    }
+
+    /**
      * beforeFilter callback.
      *
      * @param \Cake\Event\EventInterface<\Cake\Controller\Controller> $event Event.
      * @return \Cake\Http\Response|null|void
      */
-    public function beforeFilter(EventInterface $event): ?Response
+    public function beforeFilter(EventInterface $event): void
     {
-        return parent::beforeFilter($event);
     }
 
     /**
@@ -57,14 +67,25 @@ class ErrorController extends AppController
     {
         parent::beforeRender($event);
 
-        $this->viewBuilder()->setTemplatePath('Error');
+        $builder = $this->viewBuilder();
+        $templatePath = 'Error';
+
+        if (
+            $this->request->getParam('prefix') &&
+            in_array($builder->getTemplate(), ['error400', 'error500'], true)
+        ) {
+            $parts = explode(DIRECTORY_SEPARATOR, (string)$builder->getTemplatePath(), -1);
+            $templatePath = implode(DIRECTORY_SEPARATOR, $parts) . DIRECTORY_SEPARATOR . 'Error';
+        }
+
+        $this->viewBuilder()->setTemplatePath($templatePath);
     }
 
     /**
      * afterFilter callback.
      *
      * @param \Cake\Event\EventInterface<\Cake\Controller\Controller> $event Event.
-     * @return \Cake\Http\Response|null|void
+     * @return void
      */
     public function afterFilter(EventInterface $event): void
     {

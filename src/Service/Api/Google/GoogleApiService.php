@@ -88,7 +88,7 @@ class GoogleApiService
         string $facebook_description,
         string $linkedin_description,
         string $instagram_description,
-        string $twitter_description
+        string $twitter_description,
     ): array {
         $locales = array_filter(SettingsManager::read('Translations', []));
 
@@ -116,7 +116,7 @@ class GoogleApiService
                     'source' => 'en',
                     'target' => $locale,
                     'format' => 'html',
-                ]
+                ],
             );
             $translations[$locale]['title'] = $translationResult[0]['text'];
             $translations[$locale]['lede'] = $translationResult[1]['text'];
@@ -158,7 +158,7 @@ class GoogleApiService
         string $facebook_description,
         string $linkedin_description,
         string $instagram_description,
-        string $twitter_description
+        string $twitter_description,
     ): array {
         $locales = array_filter(SettingsManager::read('Translations', []));
 
@@ -179,7 +179,7 @@ class GoogleApiService
                 [
                     'source' => 'en',
                     'target' => $locale,
-                ]
+                ],
             );
             $translations[$locale]['title'] = $translationResult[0]['text'];
             $translations[$locale]['description'] = $translationResult[1]['text'];
@@ -227,7 +227,7 @@ class GoogleApiService
 
                     return $placeholder;
                 },
-                $content
+                $content,
             );
         }
 

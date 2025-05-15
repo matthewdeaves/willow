@@ -5,7 +5,6 @@ namespace App\Controller;
 
 use App\Utility\SettingsManager;
 use Cake\Event\EventInterface;
-use Cake\Http\Response;
 use Cake\Routing\Router;
 use Cake\View\XmlView;
 
@@ -18,14 +17,12 @@ class RssController extends AppController
      * Before filter method to allow unauthenticated access to the index action.
      *
      * @param \Cake\Event\EventInterface $event The event object.
-     * @return \Cake\Http\Response|null The response object or null.
+     * @return void
      */
-    public function beforeFilter(EventInterface $event): ?Response
+    public function beforeFilter(EventInterface $event): void
     {
         parent::beforeFilter($event);
         $this->Authentication->allowUnauthenticated(['index']);
-
-        return null;
     }
 
     /**
@@ -60,7 +57,7 @@ class RssController extends AppController
                 'kind' => 'article',
                 'is_published' => true,
             ])
-            ->orderDesc('created')
+            ->orderByDesc('created')
             ->all();
 
         $siteUrl = Router::url(['_name' => 'home', 'lang' => $currentLang], true);

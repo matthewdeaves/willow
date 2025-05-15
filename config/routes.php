@@ -24,7 +24,29 @@
 use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
 
+/*
+ * This file is loaded in the context of the `Application` class.
+  * So you can use  `$this` to reference the application class instance
+  * if required.
+ */
 return function (RouteBuilder $routes): void {
+    /*
+     * The default class to use for all routes
+     *
+     * The following route classes are supplied with CakePHP and are appropriate
+     * to set as the default:
+     *
+     * - Route
+     * - InflectedRoute
+     * - DashedRoute
+     *
+     * If no call is made to `Router::defaultRouteClass()`, the class used is
+     * `Route` (`Cake\Routing\Route\Route`)
+     *
+     * Note that `Route` does not do any inflections on URLs which will result in
+     * inconsistently cased URLs when used with `{plugin}`, `{controller}` and
+     * `{action}` markers.
+     */
     $routes->setRouteClass(DashedRoute::class);
     $routes->setExtensions(['xml', 'rss']);
 

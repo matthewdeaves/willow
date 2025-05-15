@@ -44,7 +44,7 @@ class SlugsController extends AppController
             ->distinct('model')
             ->orderBy(['model' => 'ASC'])
             ->all()
-            ->map(fn ($row) => ucfirst($row->model))
+            ->map(fn($row) => ucfirst($row->model))
             ->toArray();
 
         $query = $this->Slugs->find()
@@ -153,13 +153,13 @@ class SlugsController extends AppController
                     $this->Flash->warning(__(
                         'The related {0} record (ID: {1}) could not be found.',
                         $slug->model,
-                        $slug->foreign_key
+                        $slug->foreign_key,
                     ));
                     $this->log(sprintf(
                         'Related record not found for slug %s (model: %s, foreign_key: %s)',
                         $slug->id,
                         $slug->model,
-                        $slug->foreign_key
+                        $slug->foreign_key,
                     ), 'warning');
                 }
             } catch (Exception $e) {
@@ -169,7 +169,7 @@ class SlugsController extends AppController
                     $slug->id,
                     $slug->model,
                     $slug->foreign_key,
-                    $e->getMessage()
+                    $e->getMessage(),
                 ), 'error');
             }
         }
@@ -205,7 +205,7 @@ class SlugsController extends AppController
             ->distinct('model')
             ->orderBy(['model' => 'ASC'])
             ->all()
-            ->map(fn ($row) => $row->model)
+            ->map(fn($row) => $row->model)
             ->toArray();
 
         if ($this->request->is('post')) {
@@ -233,7 +233,7 @@ class SlugsController extends AppController
                 $this->log(sprintf(
                     'Failed to fetch related records for model %s: %s',
                     $selectedModel,
-                    $e->getMessage()
+                    $e->getMessage(),
                 ), 'error');
             }
         }
@@ -295,6 +295,6 @@ class SlugsController extends AppController
             $this->Flash->error(__('The slug could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect($this->referer());
+        return $this->redirect(['prefix' => 'Admin', 'controller' => 'slugs', 'action' => 'index']);
     }
 }

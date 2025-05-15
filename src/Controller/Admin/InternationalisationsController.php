@@ -90,7 +90,7 @@ class InternationalisationsController extends AppController
         if ($this->request->is('post')) {
             $internationalisation = $this->Internationalisations->patchEntity(
                 $internationalisation,
-                $this->request->getData()
+                $this->request->getData(),
             );
             if ($this->Internationalisations->save($internationalisation)) {
                 $this->Flash->success(__('The internationalisation has been saved.'));
@@ -117,7 +117,7 @@ class InternationalisationsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $internationalisation = $this->Internationalisations->patchEntity(
                 $internationalisation,
-                $this->request->getData()
+                $this->request->getData(),
             );
             if ($this->Internationalisations->save($internationalisation)) {
                 $this->Flash->success(__('The internationalisation has been saved.'));

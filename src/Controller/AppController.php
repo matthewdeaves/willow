@@ -1,38 +1,15 @@
 <?php
 declare(strict_types=1);
 
-/**
- * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- * @link      https://cakephp.org CakePHP(tm) Project
- * @since     0.2.9
- * @license   https://opensource.org/licenses/mit-license.php MIT License
- */
 namespace App\Controller;
 
 use App\Utility\I18nManager;
 use Cake\Controller\Controller;
 use Cake\Core\Configure;
 use Cake\Event\EventInterface;
-use Cake\Http\Response;
 use Cake\Log\LogTrait;
+// No explicit `use Cake\Http\Response;` needed just for redirecting in beforeFilter
 
-/**
- * Application Controller
- *
- * Base controller class for the application. All controllers should extend this class
- * to inherit common functionality and configurations.
- *
- * @property \Cake\Controller\Component\FlashComponent $Flash
- * @property \Authentication\Controller\Component\AuthenticationComponent $Authentication
- * @property \DefaultTheme\Controller\Component\FrontEndSiteComponent $FrontEndSite
- */
 class AppController extends Controller
 {
     use LogTrait;
@@ -70,18 +47,10 @@ class AppController extends Controller
     public function initialize(): void
     {
         parent::initialize();
-
         $this->cacheKey = hash('xxh3', json_encode($this->request->getAttribute('params')));
-
         $this->loadComponent('Flash');
-        $this->loadComponent('Authentication.Authentication');
+        $this->loadComponent('Authentication.Authentication'); // Loads the component
         $this->loadComponent('DefaultTheme.FrontEndSite');
-
-        /*
-         * Enable the following component for recommended CakePHP form protection settings.
-         * see https://book.cakephp.org/5/en/controllers/components/form-protection.html
-         */
-        //$this->loadComponent('FormProtection');
     }
 
     /**
@@ -91,50 +60,48 @@ class AppController extends Controller
      * when accessing admin-prefixed routes.
      *
      * @param \Cake\Event\EventInterface $event The event instance.
-     * @return \Cake\Http\Response|null Redirects to login page if user lacks admin privileges.
+     * @return void
      */
-    public function beforeFilter(EventInterface $event): ?Response
+    public function beforeFilter(EventInterface $event): void
     {
-        parent::beforeFilter($event);
+        parent::beforeFilter($event); // Call parent's beforeFilter
 
         I18nManager::setLocaleForLanguage($this->request->getParam('lang', 'en'));
 
         $identity = null;
+        // The AuthenticationComponent (loaded in initialize) makes the identity available.
+        // It relies on the AuthenticationMiddleware having run first to populate the request attribute.
         if ($this->components()->has('Authentication')) {
             $identity = $this->Authentication->getIdentity();
         }
+
         if ($identity) {
-            $profilePic = $identity->image;
-            $this->set(compact('profilePic'));
+            $profilePicValue = $identity->get('image');
+            if ($profilePicValue) {
+                $userEntity = $this->fetchTable('Users')->newEntity(
+                    ['image' => $profilePicValue, 'dir' => $identity->get('dir')],
+                );
+                $profilePic = $userEntity->get('image_url');
+                $this->set(compact('profilePic'));
+            }
         }
 
         if ($this->isAdminRequest()) {
-            if (!$identity) {
-                return $this->redirect(['_name' => 'home']);
+            // If there is no identity, or the identifier part of the identity is null/empty
+            if (!$identity || !$identity->getIdentifier() || $identity->get('is_admin') == false) {
+                $this->Flash->error(__('Access denied. You must be logged in as an admin to view this page.'));
+                $event->setResult($this->redirect(['_name' => 'home', 'prefix' => false]));
+
+                return;
             }
 
             I18nManager::setLocalForAdminArea();
-
-            $usersTable = $this->fetchTable('Users');
-            $user = $usersTable->find()
-                ->select(['is_admin'])
-                ->where(['id' => $identity->getIdentifier()])
-                ->first();
-
-            if (!$user || empty($user->is_admin)) {
-                $this->Flash->error(__('Access denied. You must be an admin to view this page.'));
-
-                return $this->redirect(['_name' => 'home']);
-            }
         }
 
         $this->handleConsent();
 
-        // Useful for setting active menu items
         $this->set('activeCtl', $this->request->getParam('controller'));
         $this->set('activeAct', $this->request->getParam('action'));
-
-        return null;
     }
 
     /**
@@ -154,7 +121,9 @@ class AppController extends Controller
      */
     private function handleConsent(): void
     {
-        $this->getRequest()->getSession()->start();
+        if (!$this->request->getSession()->started()) { // Ensure session is started
+            $this->request->getSession()->start();
+        }
         $sessionId = $this->request->getSession()->id();
         $consentData = null;
         $consentCookie = $this->request->getCookie('consent_cookie');
@@ -165,12 +134,12 @@ class AppController extends Controller
     }
 
     /**
-     * beforeRender callback.
+     * beforeRender method
      *
-     * Sets the appropriate theme based on whether the current request
-     * is for an admin route or not.
+     * This method is called before the controller action is rendered. It
+     * sets the theme for the view based on the prefix of the request.
      *
-     * @param \Cake\Event\EventInterface $event The event that was triggered.
+     * @param \Cake\Event\EventInterface $event The event object.
      * @return void
      */
     public function beforeRender(EventInterface $event): void

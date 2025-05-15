@@ -74,6 +74,7 @@ TypeFactory::map('upload.file', FileType::class);
 // load schema from a SQL dump file with
 // use Cake\TestSuite\Fixture\SchemaLoader;
 // (new SchemaLoader())->loadSqlFiles('./tests/schema.sql', 'test');
+
 (new Migrator())->run();
 
 // Switch queue connection for testing

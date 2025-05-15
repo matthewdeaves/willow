@@ -188,15 +188,18 @@ class SlugsControllerTest extends AppControllerTestCase
 
         // Test access to various actions
         $this->get('/admin/slugs');
-        $this->assertRedirect('/en');
+        $this->assertResponseCode(302);
+        $this->assertFlashMessage('Access denied. You must be logged in as an admin to view this page.', 'flash');
 
         $this->get('/admin/slugs/add');
-        $this->assertRedirect('/en');
+        $this->assertResponseCode(302);
+        $this->assertFlashMessage('Access denied. You must be logged in as an admin to view this page.', 'flash');
 
         $this->get('/admin/slugs/edit/1e6c7b88-283d-43df-bfa3-fa33d4319f75');
-        $this->assertRedirect('/en');
+        $this->assertResponseCode(302);
+        $this->assertFlashMessage('Access denied. You must be logged in as an admin to view this page.', 'flash');
 
         $this->delete('/admin/slugs/delete/1e6c7b88-283d-43df-bfa3-fa33d4319f75');
-        $this->assertRedirect('/en');
+        $this->assertResponseCode(403);
     }
 }

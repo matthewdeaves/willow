@@ -54,7 +54,7 @@ class DatabaseLog extends BaseLog
                 file_put_contents(
                     LOGS . 'database_log_errors.log',
                     date('Y-m-d H:i:s') . ': Failed to save log entry: ' . json_encode($logEntry->getErrors()) . "\n",
-                    FILE_APPEND
+                    FILE_APPEND,
                 );
             }
         } catch (Exception $e) {
@@ -62,7 +62,7 @@ class DatabaseLog extends BaseLog
             file_put_contents(
                 LOGS . 'database_log_errors.log',
                 date('Y-m-d H:i:s') . ': Exception occurred while logging: ' . $e->getMessage() . "\n",
-                FILE_APPEND
+                FILE_APPEND,
             );
         }
     }

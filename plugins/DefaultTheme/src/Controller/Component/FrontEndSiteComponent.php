@@ -38,7 +38,7 @@ class FrontEndSiteComponent extends Component
      * @param \Cake\Event\EventInterface $event The beforeRender event that was fired.
      * @return void
      */
-    public function beforeRender(EventInterface $event)
+    public function beforeRender(EventInterface $event): void
     {
         $cacheKey = $this->getController()->cacheKey;
 

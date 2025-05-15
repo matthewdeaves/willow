@@ -3,52 +3,83 @@
 # Determine the correct rc file
 if [ -f ~/.zshrc ]; then
     RC_FILE=~/.zshrc
+    SHELL_NAME="zsh"
 elif [ -f ~/.bashrc ]; then
     RC_FILE=~/.bashrc
+    SHELL_NAME="bash"
 else
-    echo "No .zshrc or .bashrc found. Please create one and run this script again. touch ~/.zshrc or touch ~/.bashrc"
+    echo "No .zshrc or .bashrc found. Please create one and run this script again."
+    echo "Example: touch ~/.bashrc"
     exit 1
 fi
 
-# Setup aliases
-if [ -f dev_aliases.txt ]; then
-    # Append the contents to RC_FILE if not already present
-    if ! grep -q "# CakePHP Development Aliases" "$RC_FILE"; then
-        echo "" >> "$RC_FILE"
-        echo "# CakePHP Development Aliases" >> "$RC_FILE"
-        echo "if [ -f $(pwd)/dev_aliases.txt ]; then" >> "$RC_FILE"
-        echo "    . $(pwd)/dev_aliases.txt" >> "$RC_FILE"
-        echo "fi" >> "$RC_FILE"
-        echo "Aliases added to $RC_FILE"
-    else
-        echo "Aliases already present in $RC_FILE"
+echo "Identified RC file: $RC_FILE (for $SHELL_NAME)"
+
+# Define the absolute path to dev_aliases.txt
+# This assumes setup_dev_aliases.sh is in the same directory as dev_aliases.txt
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+ALIASES_FILE="$SCRIPT_DIR/dev_aliases.txt" # Absolute path to dev_aliases.txt
+
+# Ensure dev_aliases.txt itself is clean (optional check, good practice)
+if [ -f "$ALIASES_FILE" ]; then
+    # Basic check for DOS line endings (not foolproof but a common issue)
+    if grep -q $'\r' "$ALIASES_FILE"; then
+        echo "WARNING: dev_aliases.txt appears to have DOS (CRLF) line endings."
+        echo "This can cause issues. Please convert it to Unix (LF) line endings."
+        echo "You can use: dos2unix \"$ALIASES_FILE\""
+    fi
+    # Basic check for shebang (should not be present)
+    if head -n 1 "$ALIASES_FILE" | grep -q '^#!'; then
+        echo "WARNING: dev_aliases.txt appears to have a shebang (e.g., #!/bin/bash) on the first line."
+        echo "This file is meant to be sourced and should not have a shebang. Please remove it."
     fi
 else
-    echo "dev_aliases.txt not found in the current directory"
+    echo "ERROR: dev_aliases.txt not found at $ALIASES_FILE"
+    exit 1
+fi
+
+
+# Check if aliases are already sourced or add them
+ALIASES_MARKER="# CakePHP WillowCMS Development Aliases Sourced"
+if ! grep -Fq "$ALIASES_MARKER" "$RC_FILE"; then
+    echo "" >> "$RC_FILE"
+    echo "$ALIASES_MARKER" >> "$RC_FILE"
+    # Use the absolute path determined earlier
+    echo "if [ -f \"$ALIASES_FILE\" ]; then" >> "$RC_FILE"
+    echo "    . \"$ALIASES_FILE\"" >> "$RC_FILE"
+    echo "fi" >> "$RC_FILE"
+    echo "Alias sourcing added to $RC_FILE. Please run 'source $RC_FILE' or open a new terminal."
+else
+    echo "Alias sourcing already present in $RC_FILE."
 fi
 
 # Setup Git hook
+# (Your git hook logic seems fine, keeping it as is)
 HOOKS_DIR=".git/hooks"
 if [ -d "$HOOKS_DIR" ]; then
-    if [ -f "hooks/pre-push" ]; then
-        # Backup existing hook if it exists
-        if [ -f "$HOOKS_DIR/pre-push" ]; then
-            mv "$HOOKS_DIR/pre-push" "$HOOKS_DIR/pre-push.bak"
-            echo "Backed up existing pre-push hook to pre-push.bak"
+    if [ -f "$SCRIPT_DIR/hooks/pre-push" ]; then # Assuming hooks is relative to script
+        if [ -f "$HOOKS_DIR/pre-push" ] && ! cmp -s "$SCRIPT_DIR/hooks/pre-push" "$HOOKS_DIR/pre-push"; then
+            mv "$HOOKS_DIR/pre-push" "$HOOKS_DIR/pre-push.bak.$(date +%s)"
+            echo "Backed up existing pre-push hook."
         fi
-        
-        # Copy the new hook
-        cp hooks/pre-push "$HOOKS_DIR/pre-push"
-        chmod +x "$HOOKS_DIR/pre-push"
-        echo "Git pre-push hook installed successfully"
+        # Copy only if different or not existing
+        if ! [ -f "$HOOKS_DIR/pre-push" ] || ! cmp -s "$SCRIPT_DIR/hooks/pre-push" "$HOOKS_DIR/pre-push"; then
+            cp "$SCRIPT_DIR/hooks/pre-push" "$HOOKS_DIR/pre-push"
+            chmod +x "$HOOKS_DIR/pre-push"
+            echo "Git pre-push hook installed/updated successfully."
+        else
+            echo "Git pre-push hook is already up to date."
+        fi
     else
-        echo "hooks/pre-push not found in the current directory"
+        echo "WARNING: hooks/pre-push not found in $SCRIPT_DIR/hooks/"
     fi
 else
-    echo "Not a git repository or .git/hooks directory not found"
+    echo "WARNING: Not a git repository or .git/hooks directory not found. Skipping Git hook setup."
 fi
 
-# Reload RC_FILE
-source "$RC_FILE"
-
-echo "Setup complete!"
+echo ""
+echo "Setup script finished."
+echo "IMPORTANT: Please run 'source $RC_FILE' or open a new terminal session to apply changes."
+# The "source '$RC_FILE'" at the end of the setup script *might* still trigger the syntax error
+# IF dev_aliases.txt is not clean when the setup script runs for the first time.
+# It's generally safer to instruct the user to source it manually after fixing dev_aliases.txt.

@@ -63,7 +63,7 @@ class TranslateArticleJob implements JobInterface
         $this->log(
             sprintf('Received Article translation message: %s : %s', $id, $title),
             'info',
-            ['group_name' => 'App\Job\TranslateArticleJob']
+            ['group_name' => 'App\Job\TranslateArticleJob'],
         );
 
         if (empty(array_filter(SettingsManager::read('Translations', [])))) {
@@ -71,10 +71,10 @@ class TranslateArticleJob implements JobInterface
                 sprintf(
                     'Received Article translation message but there are no languages enabled for translation: %s : %s',
                     $id,
-                    $title
+                    $title,
                 ),
                 'warning',
-                ['group_name' => 'App\Job\TranslateArticleJob']
+                ['group_name' => 'App\Job\TranslateArticleJob'],
             );
 
             return Processor::REJECT;
@@ -115,7 +115,7 @@ class TranslateArticleJob implements JobInterface
                     $e->getMessage(),
                 ),
                 'error',
-                ['group_name' => 'App\Job\TranslateArticleJob']
+                ['group_name' => 'App\Job\TranslateArticleJob'],
             );
 
             return Processor::REJECT;
@@ -141,10 +141,10 @@ class TranslateArticleJob implements JobInterface
                             'Article translation completed successfully. Locale: %s Article ID: %s Title: %s',
                             $locale,
                             $id,
-                            $title
+                            $title,
                         ),
                         'info',
-                        ['group_name' => 'App\Job\TranslateArticleJob']
+                        ['group_name' => 'App\Job\TranslateArticleJob'],
                     );
                 } else {
                     $this->log(
@@ -153,10 +153,10 @@ class TranslateArticleJob implements JobInterface
                             $locale,
                             $id,
                             $title,
-                            json_encode($article->getErrors())
+                            json_encode($article->getErrors()),
                         ),
                         'error',
-                        ['group_name' => 'App\Job\TranslateArticleJob']
+                        ['group_name' => 'App\Job\TranslateArticleJob'],
                     );
                 }
             }
@@ -167,7 +167,7 @@ class TranslateArticleJob implements JobInterface
             $this->log(
                 sprintf('Article translation failed. No result returned. Article ID: %s Title: %s', $id, $title),
                 'error',
-                ['group_name' => 'App\Job\TranslateArticleJob']
+                ['group_name' => 'App\Job\TranslateArticleJob'],
             );
         }
 

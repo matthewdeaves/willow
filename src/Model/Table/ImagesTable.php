@@ -136,9 +136,9 @@ class ImagesTable extends Table
      * @param \Cake\Event\EventInterface $event The rules object to be modified.
      * @param \Cake\Datasource\EntityInterface $entity The rules object to be modified.
      * @param \ArrayObject $options The rules object to be modified.
-     * @return bool True if the save should continue
+     * @return void
      */
-    public function beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): bool
+    public function beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
         //if editing an Image with new upload
         if (!$entity->isNew() && $entity->isDirty('image')) {
@@ -155,7 +155,5 @@ class ImagesTable extends Table
                 }
             }
         }
-
-        return true;
     }
 }

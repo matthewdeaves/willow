@@ -1,6 +1,5 @@
 <?php
 // src/Controller/Admin/VideosController.php
-
 declare(strict_types=1);
 
 namespace App\Controller\Admin;

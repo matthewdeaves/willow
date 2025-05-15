@@ -79,7 +79,7 @@ class CommentAnalysisJob implements JobInterface
         $this->log(
             sprintf('Received comment analysis message: Comment ID: %s User ID: %s', $commentId, $userId),
             'info',
-            ['group_name' => 'App\Job\CommentAnalysisJob']
+            ['group_name' => 'App\Job\CommentAnalysisJob'],
         );
 
         $commentsTable = TableRegistry::getTableLocator()->get('Comments');
@@ -89,7 +89,7 @@ class CommentAnalysisJob implements JobInterface
             $this->log(
                 sprintf('Comment already analyzed. Skipping. Comment ID: %s', $commentId),
                 'info',
-                ['group_name' => 'App\Job\CommentAnalysisJob']
+                ['group_name' => 'App\Job\CommentAnalysisJob'],
             );
 
             return Processor::ACK;
@@ -105,7 +105,7 @@ class CommentAnalysisJob implements JobInterface
                     $e->getMessage(),
                 ),
                 'error',
-                ['group_name' => 'App\Job\CommentAnalysisJob']
+                ['group_name' => 'App\Job\CommentAnalysisJob'],
             );
 
             return Processor::REJECT;
@@ -116,7 +116,7 @@ class CommentAnalysisJob implements JobInterface
             $this->log(
                 sprintf('Comment analysis completed successfully. Comment ID: %s', $commentId),
                 'info',
-                ['group_name' => 'App\Job\CommentAnalysisJob']
+                ['group_name' => 'App\Job\CommentAnalysisJob'],
             );
 
             return Processor::ACK;
@@ -124,7 +124,7 @@ class CommentAnalysisJob implements JobInterface
             $this->log(
                 sprintf('Comment analysis failed. No result returned. Comment ID: %s', $commentId),
                 'error',
-                ['group_name' => 'App\Job\CommentAnalysisJob']
+                ['group_name' => 'App\Job\CommentAnalysisJob'],
             );
         }
 
@@ -160,7 +160,7 @@ class CommentAnalysisJob implements JobInterface
             $this->log(
                 sprintf('Failed to update comment status. Comment ID: %s', $comment->id),
                 'error',
-                ['group_name' => 'App\Job\CommentAnalysisJob']
+                ['group_name' => 'App\Job\CommentAnalysisJob'],
             );
         }
 

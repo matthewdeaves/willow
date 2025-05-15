@@ -46,7 +46,7 @@ class CacheController extends AppController
             } else {
                 $this->Flash->warning(__(
                     'Some caches were cleared, but the following failed: {0}',
-                    implode(', ', $failedCaches)
+                    implode(', ', $failedCaches),
                 ));
             }
 

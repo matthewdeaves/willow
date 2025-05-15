@@ -66,7 +66,7 @@ class TranslateTagJob implements JobInterface
         $this->log(
             sprintf('Received Tag translation message: %s : %s', $id, $title),
             'info',
-            ['group_name' => 'App\Job\TranslateTagJob']
+            ['group_name' => 'App\Job\TranslateTagJob'],
         );
 
         if (empty(array_filter(SettingsManager::read('Translations', [])))) {
@@ -74,10 +74,10 @@ class TranslateTagJob implements JobInterface
                 sprintf(
                     'Received Tag translation message but there are no languages enabled for translation: %s : %s',
                     $id,
-                    $title
+                    $title,
                 ),
                 'warning',
-                ['group_name' => 'App\Job\TranslateArticleJob']
+                ['group_name' => 'App\Job\TranslateArticleJob'],
             );
 
             return Processor::REJECT;
@@ -116,7 +116,7 @@ class TranslateTagJob implements JobInterface
                     $e->getMessage(),
                 ),
                 'error',
-                ['group_name' => 'App\Job\TranslateTagJob']
+                ['group_name' => 'App\Job\TranslateTagJob'],
             );
 
             return Processor::REJECT;
@@ -141,10 +141,10 @@ class TranslateTagJob implements JobInterface
                             'Tag translation completed successfully. Locale: %s Tag ID: %s Title: %s',
                             $locale,
                             $id,
-                            $title
+                            $title,
                         ),
                         'info',
-                        ['group_name' => 'App\Job\TranslateTagJob']
+                        ['group_name' => 'App\Job\TranslateTagJob'],
                     );
                 } else {
                     $this->log(
@@ -156,7 +156,7 @@ class TranslateTagJob implements JobInterface
                             json_encode($tag->getErrors()),
                         ),
                         'error',
-                        ['group_name' => 'App\Job\TranslateTagJob']
+                        ['group_name' => 'App\Job\TranslateTagJob'],
                     );
                 }
             }
@@ -167,7 +167,7 @@ class TranslateTagJob implements JobInterface
             $this->log(
                 sprintf('Tag translation failed. No result returned. Tag ID: %s Title: %s', $id, $title),
                 'error',
-                ['group_name' => 'App\Job\TranslateTagJob']
+                ['group_name' => 'App\Job\TranslateTagJob'],
             );
         }
 

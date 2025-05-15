@@ -23,7 +23,7 @@ class TooManyRequestsException extends HttpException
         ?string $message = null,
         ?int $code = null,
         ?int $retryAfter = null,
-        ?Throwable $previous = null
+        ?Throwable $previous = null,
     ) {
         $this->retryAfter = $retryAfter;
         if (empty($message)) {

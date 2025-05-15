@@ -71,7 +71,7 @@ class ArticleTagUpdateJob implements JobInterface
         $this->log(
             sprintf('Received article tag update message: %s : %s', $id, $title),
             'info',
-            ['group_name' => 'App\Job\ArticleTagUpdateJob']
+            ['group_name' => 'App\Job\ArticleTagUpdateJob'],
         );
 
         $articlesTable = TableRegistry::getTableLocator()->get('Articles');
@@ -80,7 +80,7 @@ class ArticleTagUpdateJob implements JobInterface
         $article = $articlesTable->get(
             $id,
             fields: ['id', 'title', 'body'],
-            contain: ['Tags' => ['fields' => ['id']]]
+            contain: ['Tags' => ['fields' => ['id']]],
         );
 
         $allTags = $tagsTable->getSimpleThreadedArray();
@@ -100,7 +100,7 @@ class ArticleTagUpdateJob implements JobInterface
                     $e->getMessage(),
                 ),
                 'error',
-                ['group_name' => 'App\Job\ArticleTagUpdateJob']
+                ['group_name' => 'App\Job\ArticleTagUpdateJob'],
             );
 
             return Processor::REJECT;
@@ -117,7 +117,7 @@ class ArticleTagUpdateJob implements JobInterface
                             $tagsTable,
                             $childTag['tag'],
                             $childTag['description'],
-                            $parentTag->id
+                            $parentTag->id,
                         );
                         $newTags[] = $child;
                     }
@@ -130,7 +130,7 @@ class ArticleTagUpdateJob implements JobInterface
                 $this->log(
                     sprintf('Article tag update completed successfully. Article ID: %s', $id),
                     'info',
-                    ['group_name' => 'App\Job\ArticleTagUpdateJob']
+                    ['group_name' => 'App\Job\ArticleTagUpdateJob'],
                 );
 
                 Cache::clear('articles');
@@ -141,17 +141,17 @@ class ArticleTagUpdateJob implements JobInterface
                     sprintf(
                         'Failed to save article tag updates. Article ID: %s Error: %s',
                         $id,
-                        json_encode($article->getErrors())
+                        json_encode($article->getErrors()),
                     ),
                     'error',
-                    ['group_name' => 'App\Job\ArticleTagUpdateJob']
+                    ['group_name' => 'App\Job\ArticleTagUpdateJob'],
                 );
             }
         } else {
             $this->log(
                 sprintf('Article tag update failed. No valid result returned. Article ID: %s', $id),
                 'error',
-                ['group_name' => 'App\Job\ArticleTagUpdateJob']
+                ['group_name' => 'App\Job\ArticleTagUpdateJob'],
             );
         }
 
@@ -175,7 +175,7 @@ class ArticleTagUpdateJob implements JobInterface
         Table $tagsTable,
         string $tagTitle,
         string $tagDescription,
-        ?string $parentId = null
+        ?string $parentId = null,
     ): Entity {
         $tag = $tagsTable->find()->where(['title' => $tagTitle])->first();
         if (!$tag) {

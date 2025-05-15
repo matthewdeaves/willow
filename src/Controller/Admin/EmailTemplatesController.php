@@ -176,14 +176,14 @@ class EmailTemplatesController extends AppController
         $emailTemplates = $this->EmailTemplates->find(
             'list',
             keyField: 'id',
-            valueField: 'name'
+            valueField: 'name',
         );
 
         $usersTable = TableRegistry::getTableLocator()->get('Users');
         $users = $usersTable->find(
             'list',
             keyField: 'id',
-            valueField: 'email'
+            valueField: 'email',
         );
 
         if ($this->request->is('post')) {
@@ -224,22 +224,22 @@ class EmailTemplatesController extends AppController
                             'Email sent successfully to: {0}. Template: {1}, Subject: {2}',
                             $user->email,
                             $emailTemplate->template_identifier,
-                            $emailTemplate->subject
+                            $emailTemplate->subject,
                         ),
-                        ['group_name' => 'email']
+                        ['group_name' => 'email'],
                     );
                 } else {
                     $this->Flash->error(__('Failed to send email. Please check your email configuration.'));
                     Log::error(
                         __('Failed to send email to: {0}', $user->email),
-                        ['group_name' => 'email']
+                        ['group_name' => 'email'],
                     );
                 }
             } catch (Exception $e) {
                 $this->Flash->error(__('Error sending email: {0}', $e->getMessage()));
                 Log::error(
                     __('Error sending email: {0}', $e->getMessage()),
-                    ['group_name' => 'email', 'exception' => $e]
+                    ['group_name' => 'email', 'exception' => $e],
                 );
             }
 

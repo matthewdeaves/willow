@@ -194,7 +194,7 @@ class SlugsTableTest extends TestCase
             ->distinct('model')
             ->orderBy(['model' => 'ASC'])
             ->all()
-            ->map(fn ($row) => $row->model)
+            ->map(fn($row) => $row->model)
             ->toArray();
 
         $this->assertContains('Articles', $models);

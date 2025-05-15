@@ -322,10 +322,10 @@ class ArticlesController extends AppController
      * Deletes an article.
      *
      * @param string|null $id Article ID.
-     * @return \Cake\Http\Response|null Redirects to index.
+     * @return void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete(?string $id = null): Response
+    public function delete(?string $id = null): void
     {
         $this->request->allowMethod(['post', 'delete']);
         $article = $this->Articles->get($id);
@@ -339,11 +339,11 @@ class ArticlesController extends AppController
 
         // Check if 'kind' is in the request parameters
         if ($this->request->getData('kind') == 'page') {
-            return $this->redirect(['action' => 'treeIndex']);
+            $this->redirect(['action' => 'treeIndex']);
         }
 
         $action = $this->request->getQuery('kind') == 'page' ? 'tree-index' : 'index';
 
-        return $this->redirect(['action' => $action]);
+        $this->redirect(['action' => $action]);
     }
 }

@@ -179,6 +179,13 @@ return [
             'duration' => '+1 month',
 
         ],
+        'queue_jobs' => [
+            'className' => FileEngine::class,
+            'prefix' => 'willow_queue_unique_',
+            'path' => CACHE . 'queue_unique_jobs' . DS,
+            'serialize' => true,
+            'duration' => '+1 week',
+        ],
     ],
 
     /*
@@ -478,7 +485,11 @@ return [
             'receiveTimeout' => 10000,
             'storeFailedJobs' => false,
             'uniqueCache' => [
-                'engine' => 'File',
+                'className' => FileEngine::class,
+                'prefix' => 'willow_queue_unique_default_',
+                'path' => CACHE . 'persistent' . DS . 'queue_unique_jobs' . DS . 'default' . DS, // Ensure it's within app's CACHE dir
+                'serialize' => true,
+                'duration' => '+1 day',
             ],
         ],
         'test' => [
@@ -489,7 +500,11 @@ return [
             'receiveTimeout' => 10000,
             'storeFailedJobs' => false,
             'uniqueCache' => [
-                'engine' => 'File',
+                'className' => FileEngine::class,
+                'prefix' => 'willow_queue_unique_test_',
+                'path' => CACHE . 'persistent' . DS . 'queue_unique_jobs' . DS . 'test' . DS, // Within app's CACHE dir
+                'serialize' => true,
+                'duration' => '+1 wedayek',
             ],
         ],
     ],

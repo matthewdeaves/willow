@@ -97,3 +97,7 @@ nbproject/*
 # yarn
 yarn-debug.log
 yarn-error.log
+
+# manage.sh outputs
+project_files_backups
+project_mysql_backups

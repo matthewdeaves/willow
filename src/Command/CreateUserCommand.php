@@ -7,9 +7,9 @@ use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
+use Cake\Datasource\EntityInterface;
 use Cake\Log\LogTrait;
-use Cake\ORM\Table;
-use Cake\Datasource\EntityInterface; // Added for type hinting
+use Cake\ORM\Table; // Added for type hinting
 
 /**
  * Command for creating a user or updating a user's password in the database.
@@ -31,7 +31,8 @@ class CreateUserCommand extends Command
         $parser
             ->setDescription('Creates a user or updates an existing user\'s password.')
             ->addOption('update-password', [
-                'help' => 'Flag to update password for an existing user. If set, --email and --password are used to find and update.',
+                'help' => 'Flag to update password for existing user. If set, 
+                    --email and --password are used to find and update.',
                 'boolean' => true,
                 'default' => false,
             ])
@@ -82,28 +83,41 @@ class CreateUserCommand extends Command
             }
             if ($this->updateUserPassword($args, $io, $usersTable)) {
                 $io->success('User password updated successfully.');
+
                 return static::CODE_SUCCESS;
             }
             $io->error('Failed to update user password.');
+
             return static::CODE_ERROR;
         } else {
             // Validate required args for create
             $missingCreateArgs = [];
-            if (!$args->getOption('username')) $missingCreateArgs[] = '--username';
-            if (!$args->getOption('password')) $missingCreateArgs[] = '--password'; // Should be caught by parser
-            if (!$args->getOption('email')) $missingCreateArgs[] = '--email';       // Should be caught by parser
-            if ($args->getOption('is_admin') === null) $missingCreateArgs[] = '--is_admin'; // Check for null as '0' is valid
+            if (!$args->getOption('username')) {
+                $missingCreateArgs[] = '--username';
+            }
+            if (!$args->getOption('password')) {
+                $missingCreateArgs[] = '--password';
+            }
+            if (!$args->getOption('email')) {
+                $missingCreateArgs[] = '--email';
+            }
+            if ($args->getOption('is_admin') === null) {
+                $missingCreateArgs[] = '--is_admin';
+            }
 
             if (!empty($missingCreateArgs)) {
-                $io->error('For user creation, the following options are required: ' . implode(', ', $missingCreateArgs));
+                $io->error('For user creation, the following options are required: '
+                . implode(', ', $missingCreateArgs));
                 $this->abort();
             }
 
             if ($this->createUser($args, $io, $usersTable)) {
                 $io->success('User created successfully.');
+
                 return static::CODE_SUCCESS;
             }
             $io->error('Failed to create user.');
+
             return static::CODE_ERROR;
         }
     }
@@ -133,7 +147,7 @@ class CreateUserCommand extends Command
         $this->log(
             sprintf('Attempting to create user with data: %s', json_encode($logData)),
             'info',
-            ['scope' => ['user_management', 'user_creation']]
+            ['scope' => ['user_management', 'user_creation']],
         );
 
         $user = $usersTable->newEmptyEntity();
@@ -146,9 +160,10 @@ class CreateUserCommand extends Command
             $this->log(
                 sprintf('User created successfully: %s (ID: %s)', $user->username, $user->id),
                 'info',
-                ['scope' => ['user_management', 'user_creation']]
+                ['scope' => ['user_management', 'user_creation']],
             );
             $io->out(sprintf('User "%s" created with ID: %s', $user->username, $user->id));
+
             return true;
         }
 
@@ -156,12 +171,13 @@ class CreateUserCommand extends Command
             sprintf(
                 'Failed to create user: %s. Errors: %s',
                 $data['username'],
-                json_encode($user->getErrors())
+                json_encode($user->getErrors()),
             ),
             'error',
-            ['scope' => ['user_management', 'user_creation']]
+            ['scope' => ['user_management', 'user_creation']],
         );
         $io->error(sprintf('Could not create user. Errors: %s', json_encode($user->getErrors())));
+
         return false;
     }
 
@@ -185,8 +201,9 @@ class CreateUserCommand extends Command
             $this->log(
                 sprintf('Password update failed: User with email "%s" not found.', $email),
                 'warning',
-                ['scope' => ['user_management', 'password_update']]
+                ['scope' => ['user_management', 'password_update']],
             );
+
             return false;
         }
 
@@ -204,9 +221,10 @@ class CreateUserCommand extends Command
             $this->log(
                 sprintf('Password updated successfully for user: %s (ID: %s)', $user->email, $user->id),
                 'info',
-                ['scope' => ['user_management', 'password_update']]
+                ['scope' => ['user_management', 'password_update']],
             );
             $io->out(sprintf('Password updated for user with email: %s', $email));
+
             return true;
         }
 
@@ -214,13 +232,13 @@ class CreateUserCommand extends Command
             sprintf(
                 'Failed to update password for user: %s. Errors: %s',
                 $user->email,
-                json_encode($user->getErrors())
+                json_encode($user->getErrors()),
             ),
             'error',
-            ['scope' => ['user_management', 'password_update']]
+            ['scope' => ['user_management', 'password_update']],
         );
         $io->error(sprintf('Could not update password. Errors: %s', json_encode($user->getErrors())));
+
         return false;
     }
 }
- 

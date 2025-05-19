@@ -53,6 +53,7 @@ services:
       - WILLOW_ADMIN_USERNAME=admin
       - WILLOW_ADMIN_PASSWORD=password
       - WILLOW_ADMIN_EMAIL=admin@test.com
+      - APP_FULL_BASE_URL=http://localhost:8080/
 
   mysql:
     image: mysql:8.4.3

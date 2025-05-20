@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Test\TestCase\Controller\Admin;
+namespace App\Test\TestCase\Controller;
 
 use App\Test\TestCase\AppControllerTestCase;
 use Authentication\Identity;

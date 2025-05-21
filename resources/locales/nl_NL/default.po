@@ -1606,7 +1606,7 @@ msgid "The tag could not be saved. Please, try again."
 msgstr "De tag kon niet worden opgeslagen. Probeer het opnieuw."
 
 #: 
-msgid "Access Denied: Your IP address has been blocked due to suspicious activity. If you believe this is an error, please contact the site administrator."
+msgid "Access Denied: Your IP address has been blocked due to suspicious activity."
 msgstr "Toegang geweigerd: Uw IP-adres is geblokkeerd vanwege verdachte activiteit. Als u denkt dat dit een fout is, neem dan contact op met de sitebeheerder."
 
 #: 

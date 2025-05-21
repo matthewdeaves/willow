@@ -1274,7 +1274,7 @@ msgid "Cookie Preferences"
 msgstr "Preferințe cookie"
 
 #: 
-msgid "Access Denied: Your IP address has been blocked due to suspicious activity. If you believe this is an error, please contact the site administrator."
+msgid "Access Denied: Your IP address has been blocked due to suspicious activity."
 msgstr "Acces refuzat: adresa dvs. IP a fost blocată din cauza activității suspecte. Dacă credeți că aceasta este o eroare, vă rugăm să contactați administratorul site-ului."
 
 #: 

@@ -622,7 +622,7 @@ msgid "Auto Tag"
 msgstr "Otomatik Etiket"
 
 #: 
-msgid "Access Denied: Your IP address has been blocked due to suspicious activity. If you believe this is an error, please contact the site administrator."
+msgid "Access Denied: Your IP address has been blocked due to suspicious activity."
 msgstr "Erişim Engellendi: IP adresiniz şüpheli etkinlik nedeniyle engellendi. Bunun bir hata olduğunu düşünüyorsanız lütfen site yöneticisiyle iletişime geçin."
 
 #: 

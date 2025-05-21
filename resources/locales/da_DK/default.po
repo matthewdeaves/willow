@@ -602,7 +602,7 @@ msgid "Edit Tag"
 msgstr "Rediger tag"
 
 #: 
-msgid "Access Denied: Your IP address has been blocked due to suspicious activity. If you believe this is an error, please contact the site administrator."
+msgid "Access Denied: Your IP address has been blocked due to suspicious activity."
 msgstr "Adgang nægtet: Din IP-adresse er blevet blokeret på grund af mistænkelig aktivitet. Hvis du mener, at dette er en fejl, bedes du kontakte webstedets administrator."
 
 #: 

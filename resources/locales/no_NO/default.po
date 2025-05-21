@@ -86,7 +86,7 @@ msgid "The image has been deleted."
 msgstr "Bildet er slettet."
 
 #: 
-msgid "Access Denied: Your IP address has been blocked due to suspicious activity. If you believe this is an error, please contact the site administrator."
+msgid "Access Denied: Your IP address has been blocked due to suspicious activity."
 msgstr "Tilgang nektet: IP-adressen din er blokkert på grunn av mistenkelig aktivitet. Hvis du mener at dette er en feil, vennligst kontakt sideadministratoren."
 
 #: 

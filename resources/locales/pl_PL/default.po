@@ -1446,7 +1446,7 @@ msgid "The log has been deleted."
 msgstr "Dziennik został usunięty."
 
 #: 
-msgid "Access Denied: Your IP address has been blocked due to suspicious activity. If you believe this is an error, please contact the site administrator."
+msgid "Access Denied: Your IP address has been blocked due to suspicious activity."
 msgstr "Odmowa dostępu: Twój adres IP został zablokowany z powodu podejrzanej aktywności. Jeśli uważasz, że to błąd, skontaktuj się z administratorem witryny."
 
 #: 

@@ -4,12 +4,12 @@ declare(strict_types=1);
 namespace App\Service;
 
 use Cake\Cache\Cache;
+use Cake\Core\Configure;
+use Cake\Http\ServerRequest;
 use Cake\I18n\DateTime;
-use Cake\Log\Log; // Direct use of Log facade is fine for logging
+use Cake\Log\Log;
+use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
-use Cake\Core\Configure; // For reading config patterns
-use Cake\Http\ServerRequest; // For full type-hinting of request object
-use Cake\ORM\Table; // Generic table type-hint if no specific BlockedIpsTable class exists
 
 /**
  * IpSecurityService handles IP-based security measures including blocking and suspicious activity detection.
@@ -94,7 +94,12 @@ class IpSecurityService
                     }
                 }
                 // Write to cache with specific TTL or a default long duration if expiry is null
-                Cache::write($cacheKey, $blockedStatus, 'ip_blocker', $cacheTTLSeconds > 0 ? $cacheTTLSeconds : '1 day');
+                Cache::write(
+                    $cacheKey,
+                    $blockedStatus,
+                    'ip_blocker',
+                    $cacheTTLSeconds > 0 ? $cacheTTLSeconds : '1 day',
+                );
             } else {
                 // IP is not blocked, cache this 'not blocked' status for a short time to reduce DB load
                 Cache::write($cacheKey, false, 'ip_blocker', 300); // Cache 'not blocked' for 5 minutes
@@ -188,16 +193,25 @@ class IpSecurityService
                     'ip' => $ip,
                     'group_name' => 'security',
                 ]);
+
                 return true;
             }
+
             return false; // Failed to delete from DB
         } else {
             // IP was not in the blocked list or already removed; treat as successful
-            Log::info(__('Attempted to unblock IP {0} which was not found in the blocked list (or already expired).', [$ip]), [
+            Log::info(
+                __(
+                    'Attempted to unblock IP {0} which was not found in the blocked list (or already expired).',
+                    [$ip],
+                ),
+                [
                 'ip' => $ip,
                 'group_name' => 'security',
-            ]);
+                ],
+            );
             Cache::delete('blocked_ip_' . $ip, 'ip_blocker'); // Ensure cache is clear just in case
+
             return true; // Already unblocked/not blocked
         }
     }

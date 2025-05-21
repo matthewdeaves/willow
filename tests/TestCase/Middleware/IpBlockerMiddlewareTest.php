@@ -72,7 +72,7 @@ class IpBlockerMiddlewareTest extends TestCase
         $response = $this->middleware->process($request, $handler);
 
         $this->assertEquals(403, $response->getStatusCode());
-        $this->assertEquals('Access Denied: Your IP address has been blocked due to suspicious activity. If you believe this is an error, please contact the site administrator.', (string)$response->getBody());
+        $this->assertEquals('Access Denied: Your IP address has been blocked due to suspicious activity.', (string)$response->getBody());
     }
 
     /**

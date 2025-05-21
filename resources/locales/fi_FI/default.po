@@ -1490,7 +1490,7 @@ msgid "This slug is already in use for this model type."
 msgstr "Tämä etana on jo käytössä tälle mallityypille."
 
 #: 
-msgid "Access Denied: Your IP address has been blocked due to suspicious activity. If you believe this is an error, please contact the site administrator."
+msgid "Access Denied: Your IP address has been blocked due to suspicious activity."
 msgstr "Pääsy kielletty: IP-osoitteesi on estetty epäilyttävän toiminnan vuoksi. Jos uskot tämän olevan virhe, ota yhteyttä sivuston ylläpitäjään."
 
 #: 

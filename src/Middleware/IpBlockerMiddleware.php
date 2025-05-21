@@ -5,11 +5,11 @@ namespace App\Middleware;
 
 use App\Service\IpSecurityService;
 use Cake\Http\Response;
+use Cake\Log\LogTrait;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
-use Psr\Http\Server\RequestHandlerInterface;
-use Cake\Log\LogTrait; // Use LogTrait to get the logger instance
+use Psr\Http\Server\RequestHandlerInterface; // Use LogTrait to get the logger instance
 
 /**
  * IP Blocker Middleware
@@ -71,7 +71,7 @@ class IpBlockerMiddleware implements MiddlewareInterface
 
         if ($this->ipSecurity->isIpBlocked($clientIp)) {
             $response = new Response();
-            // Log for blocked IP 
+            // Log for blocked IP
             $this->log(
                 sprintf('Blocked IP address %s attempted to access %s', $clientIp, $route),
                 'warning',
@@ -80,7 +80,7 @@ class IpBlockerMiddleware implements MiddlewareInterface
 
             // Respond with a 403 Forbidden status and a static message (not translated)
             return $response->withStatus(403)
-                ->withStringBody('Access Denied: Your IP address has been blocked due to suspicious activity. If you believe this is an error, please contact the site administrator.');
+                ->withStringBody('Access Denied: Your IP address has been blocked due to suspicious activity.');
         }
 
         if ($this->ipSecurity->isSuspiciousRequest($request)) {

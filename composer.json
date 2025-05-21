@@ -15,7 +15,7 @@
         "cakephp/queue": "^2.1",
         "enqueue/redis": "^0.10.19",
         "google/apiclient": "^2.18",
-        "google/cloud-translate": "^1.19",
+        "google/cloud-translate": "^2.0",
         "josegonzalez/cakephp-upload": "^8.0.3",
         "josegonzalez/dotenv": "^4.0",
         "mobiledetect/mobiledetectlib": "^4.8.03",

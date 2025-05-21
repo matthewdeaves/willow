@@ -41,9 +41,12 @@ class User extends Entity
         'image' => true,
         'dir' => true,
         'size' => true,
+        'name' => true,
         'mime' => true,
         'is_admin' => false,
         'active' => false,
+        'keywords' => true,
+        'alt_text' => true,
     ];
 
     /**

@@ -214,26 +214,6 @@ if [ "$TABLE_EXISTS_FINAL" -ne 0 ]; then # If table still does not exist (or com
     docker compose exec "$MAIN_APP_SERVICE" bin/cake default_data_import aiprompts
     docker compose exec "$MAIN_APP_SERVICE" bin/cake default_data_import email_templates
 
-    # docker compose exec "$MAIN_APP_SERVICE" bin/cake default_data_import articles_tags
-    # docker compose exec "$MAIN_APP_SERVICE" bin/cake default_data_import articles_translations
-    # docker compose exec "$MAIN_APP_SERVICE" bin/cake default_data_import articles
-    # docker compose exec "$MAIN_APP_SERVICE" bin/cake default_data_import blocked_ips
-    # docker compose exec "$MAIN_APP_SERVICE" bin/cake default_data_import comments
-    # docker compose exec "$MAIN_APP_SERVICE" bin/cake default_data_import cookie_consents
-    # docker compose exec "$MAIN_APP_SERVICE" bin/cake default_data_import images
-    # docker compose exec "$MAIN_APP_SERVICE" bin/cake default_data_import models_images
-    # docker compose exec "$MAIN_APP_SERVICE" bin/cake default_data_import page_views
-    # docker compose exec "$MAIN_APP_SERVICE" bin/cake default_data_import phinxlog
-    # docker compose exec "$MAIN_APP_SERVICE" bin/cake default_data_import settings
-    # docker compose exec "$MAIN_APP_SERVICE" bin/cake default_data_import slugs
-    # docker compose exec "$MAIN_APP_SERVICE" bin/cake default_data_import system_logs
-    # docker compose exec "$MAIN_APP_SERVICE" bin/cake default_data_import tags_translations
-    # docker compose exec "$MAIN_APP_SERVICE" bin/cake default_data_import tags
-    # docker compose exec "$MAIN_APP_SERVICE" bin/cake default_data_import user_account_confirmations
-    # docker compose exec "$MAIN_APP_SERVICE" bin/cake default_data_import users
-
-    #docker compose exec "$MAIN_APP_SERVICE" bin/cake default_data_import -a
-
     if [ "$LOAD_I18N" -eq 1 ]; then
         echo "Loading internationalisation data..."
         docker compose exec "$MAIN_APP_SERVICE" bin/cake default_data_import internationalisations

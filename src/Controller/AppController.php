@@ -76,12 +76,9 @@ class AppController extends Controller
         }
 
         if ($identity) {
-            $profilePicValue = $identity->get('image');
-            if ($profilePicValue) {
-                $userEntity = $this->fetchTable('Users')->newEntity(
-                    ['image' => $profilePicValue, 'dir' => $identity->get('dir')],
-                );
-                $profilePic = $userEntity->get('image_url');
+            $profilePic = $identity->image_url;
+
+            if ($profilePic) {
                 $this->set(compact('profilePic'));
             }
         }

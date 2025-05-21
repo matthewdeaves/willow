@@ -1,5 +1,13 @@
 #!/bin/bash
 
+echo "DEBUG (manage.sh): Script using shell: $SHELL (effective shell is bash)"
+echo "DEBUG (manage.sh): Path to bash: $(which bash)" # Should be /bin/bash or /usr/bin/bash
+echo "DEBUG (manage.sh): Bash version: $(bash --version | head -n 1)"
+echo "DEBUG (manage.sh): Path to grep: $(which grep)" # Critical: Is this GNU grep?
+echo "DEBUG (manage.sh): Grep version: $(grep --version | head -n 1)" # Critical
+echo "DEBUG (manage.sh): PATH variable in script: $PATH"
+echo "--- End of initial script debug (manage.sh) ---"
+
 # Load all modules
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 MODULE_DIR="${SCRIPT_DIR}/tool_modules"

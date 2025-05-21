@@ -2,13 +2,14 @@
 <div class="flex-shrink-0 dropdown ms-auto">
     <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
         <?php if (isset($profilePic)) : ?>
-            <?= $this->Html->image(
-            SettingsManager::read('ImageSizes.teeny', '200') . '/' . $profilePic, [
-            'pathPrefix' => 'files/Users/image/',
-            'class' => 'rounded-circle',
-            'width' => '32',
-            'height' => '32',
-            ]); ?>
+            <?= $this->Html->image($profilePic, 
+            [
+                'pathPrefix' => '', 
+                'class' => 'rounded-circle',
+                'width' => '32',
+                'height' => '32',
+
+            ])?>
         <?php else: ?>
             <img src="/img/willow-icon.png" width="32" height="32" class="rounded-circle">
         <?php endif; ?>

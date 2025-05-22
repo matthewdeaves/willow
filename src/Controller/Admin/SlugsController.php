@@ -28,15 +28,16 @@ class SlugsController extends AppController
      *
      * Features:
      * - Search filtering by slug text
-     * - Status filtering
-     * - Related content association
+     * - Status filtering by model type
+     * - Efficient fetching of related content to avoid N+1 query issues
      * - AJAX support for dynamic updates
      *
      * @return \Cake\Http\Response|null Returns Response for AJAX requests, null otherwise
      */
     public function index(): ?Response
     {
-        $statusFilter = $this->request->getQuery('status');
+        $statusFilter = $this->request->getQuery('status'); // This is now 'model' filter
+        $search = $this->request->getQuery('search');
 
         // Get all unique model types from the slugs table
         $modelTypes = $this->Slugs->find()
@@ -61,7 +62,6 @@ class SlugsController extends AppController
             $query->where(['Slugs.model' => $statusFilter]);
         }
 
-        $search = $this->request->getQuery('search');
         if (!empty($search)) {
             $query->where([
                 'OR' => [
@@ -70,48 +70,99 @@ class SlugsController extends AppController
             ]);
         }
 
+        // Paginate the slugs. $slugs will be a ResultSet (or similar traversable object).
+        // This is crucial for PaginatorComponent to attach pagination metadata.
         $slugs = $this->paginate($query);
 
-        // Fetch related records for all slugs
-        $relatedData = [];
+        // Optimize fetching related records to avoid N+1 queries
+        $groupedSlugs = [];
+        // Iterate directly over the ResultSet returned by paginate()
         foreach ($slugs as $slug) {
-            $relatedTable = $this->fetchTable($slug->model);
+            $groupedSlugs[$slug->model][] = $slug;
+        }
 
-            // Build the select fields based on the model
-            $selectFields = ['id', 'title'];
-            if ($slug->model === 'Articles') {
-                $selectFields[] = 'kind';
-                $selectFields[] = 'is_published';
+        $relatedData = [];
+        foreach ($groupedSlugs as $modelName => $modelSlugs) {
+            $foreignKeys = array_column($modelSlugs, 'foreign_key');
+
+            // Skip if no foreign keys for this model (e.g., if pagination resulted in no slugs for a model)
+            if (empty($foreignKeys)) {
+                continue;
             }
 
-            $relatedRecord = $relatedTable->find()
-                ->select($selectFields)
-                ->where(['id' => $slug->foreign_key])
-                ->first();
+            try {
+                $relatedTable = $this->fetchTable($modelName);
 
-            if ($relatedRecord) {
-                $relatedData[$slug->id] = [
-                    'title' => $relatedRecord->title,
-                    'controller' => $slug->model,
-                    'id' => $relatedRecord->id,
-                ];
+                // Define select fields based on the model type
+                $selectFields = ['id', 'title'];
+                if ($modelName === 'Articles') {
+                    $selectFields[] = 'kind';
+                    $selectFields[] = 'is_published';
+                }
 
-                // Add kind only for Articles
-                if ($slug->model === 'Articles') {
-                    $relatedData[$slug->id]['kind'] = $relatedRecord->kind;
-                    $relatedData[$slug->id]['is_published'] = $relatedRecord->is_published;
+                $relatedRecords = $relatedTable->find()
+                    ->select($selectFields)
+                    ->where(['id IN' => $foreignKeys])
+                    ->all()
+                    ->indexBy('id') // Index by ID for easy lookup
+                    ->toArray();
+
+                foreach ($modelSlugs as $slug) {
+                    if (isset($relatedRecords[$slug->foreign_key])) {
+                        $relatedRecord = $relatedRecords[$slug->foreign_key];
+                        $relatedData[$slug->id] = [
+                            'title' => $relatedRecord->title,
+                            'controller' => $modelName, // 'Articles', 'Tags', etc.
+                            'id' => $relatedRecord->id,
+                        ];
+
+                        // Add specific fields for Articles
+                        if ($modelName === 'Articles') {
+                            $relatedData[$slug->id]['kind'] = $relatedRecord->kind;
+                            $relatedData[$slug->id]['is_published'] = $relatedRecord->is_published;
+                        }
+                    } else {
+                        // Handle cases where the related record might have been deleted
+                        $this->log(sprintf(
+                            'Related record for slug %s (model: %s, foreign_key: %s) not found.',
+                            $slug->id,
+                            $modelName,
+                            $slug->foreign_key,
+                        ), 'warning');
+                        $relatedData[$slug->id] = [
+                            'title' => __('(Deleted)'),
+                            'controller' => $modelName,
+                            'id' => null, // Indicate that the record is missing
+                        ];
+                    }
+                }
+            } catch (Exception $e) {
+                $this->log(sprintf(
+                    'Failed to fetch related records for model %s: %s',
+                    $modelName,
+                    $e->getMessage(),
+                ), 'error');
+                // For all slugs associated with this problematic model, mark them as unretrievable
+                foreach ($modelSlugs as $slug) {
+                    $relatedData[$slug->id] = [
+                        'title' => __('(Error loading)'),
+                        'controller' => $modelName,
+                        'id' => null,
+                    ];
                 }
             }
         }
 
         if ($this->request->is('ajax')) {
-            $this->set(compact('slugs', 'search', 'relatedData', 'modelTypes'));
+            // Pass the original $slugs (ResultSet) to the view
+            $this->set(compact('slugs', 'search', 'relatedData', 'modelTypes', 'statusFilter'));
             $this->viewBuilder()->setLayout('ajax');
 
             return $this->render('search_results');
         }
 
-        $this->set(compact('slugs', 'relatedData', 'modelTypes'));
+        // Pass the original $slugs (ResultSet) to the view
+        $this->set(compact('slugs', 'relatedData', 'modelTypes', 'statusFilter'));
 
         return null;
     }

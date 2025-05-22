@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Utility\SettingsManager;
+use Cake\Cache\Cache;
 use Cake\Event\EventInterface;
 use Cake\Routing\Router;
 use Cake\View\XmlView;
@@ -51,14 +52,19 @@ class RssController extends AppController
         $articlesTable = $this->fetchTable('Articles');
 
         // Get published articles
-        $articles = $articlesTable->find('all')
-            ->select(['id', 'title', 'slug', 'summary', 'created'])
-            ->where([
-                'kind' => 'article',
-                'is_published' => true,
-            ])
-            ->orderByDesc('created')
-            ->all();
+        $cacheKey = $this->cacheKey;
+        $articles = Cache::read($cacheKey, 'articles');
+        if (!$articles) {
+            $articles = $articlesTable->find('all')
+                ->select(['id', 'title', 'slug', 'summary', 'created'])
+                ->where([
+                    'kind' => 'article',
+                    'is_published' => true,
+                ])
+                ->orderByDesc('created')
+                ->all();
+            Cache::write($cacheKey, $articles, 'articles');
+        }
 
         $siteUrl = Router::url(['_name' => 'home', 'lang' => $currentLang], true);
 

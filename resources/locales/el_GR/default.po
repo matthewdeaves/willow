@@ -1162,7 +1162,7 @@ msgid "Admin"
 msgstr "Διαχειρ"
 
 #: 
-msgid "Access Denied: Your IP address has been blocked due to suspicious activity. If you believe this is an error, please contact the site administrator."
+msgid "Access Denied: Your IP address has been blocked due to suspicious activity."
 msgstr "Δεν επιτρέπεται η πρόσβαση: Η διεύθυνση IP σας έχει αποκλειστεί λόγω ύποπτης δραστηριότητας. Εάν πιστεύετε ότι πρόκειται για σφάλμα, επικοινωνήστε με τον διαχειριστή του ιστότοπου."
 
 #: 

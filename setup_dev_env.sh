@@ -46,19 +46,10 @@ if [ "$#" -gt 0 ]; then
 fi
 
 # --- OS Detection ---
-# Use `uname -s` for kernel name (e.g., Linux, Darwin)
-OS_TYPE="$(uname -s)"
+# Not strictly needed anymore since needs_sudo is removed, but kept for context.
+# OS_TYPE="$(uname -s)"
 
 # --- Helper Functions ---
-
-# Function to determine if sudo is needed for non-Docker commands
-needs_sudo() {
-    if [ "$OS_TYPE" = "Linux" ]; then
-        echo "sudo"
-    else
-        echo "" # macOS/BSD users usually handle permissions differently or are in admin groups
-    fi
-}
 
 # Function to check if the main Docker container is running
 check_docker_status() {
@@ -122,7 +113,7 @@ echo "Creating required directories..."
 # If logs/nginx is created by this user, the chmod below shouldn't need sudo.
 # However, if logs/nginx pre-exists with other ownership, sudo would be needed for chmod.
 mkdir -p logs/nginx
-$(needs_sudo) chmod 777 logs/nginx
+chmod 777 logs/nginx # Removed needs_sudo function call
 
 echo "Checking Docker container status..."
 if ! check_docker_status; then
@@ -198,7 +189,7 @@ if [ "$TABLE_EXISTS_FINAL" -ne 0 ]; then # If table still does not exist (or com
         if [ ! -d "$dir" ]; then
             echo "Warning: Directory '$dir' does not exist. Skipping chmod for it."
         else
-            $(needs_sudo) chmod -R 777 "$dir/"
+            chmod -R 777 "$dir/" # Removed needs_sudo function call
         fi
     done
 

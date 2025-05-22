@@ -1282,7 +1282,7 @@ msgid "Group Name"
 msgstr "Gruppnamn"
 
 #: 
-msgid "Access Denied: Your IP address has been blocked due to suspicious activity. If you believe this is an error, please contact the site administrator."
+msgid "Access Denied: Your IP address has been blocked due to suspicious activity."
 msgstr "Åtkomst nekad: Din IP-adress har blockerats på grund av misstänkt aktivitet. Om du tror att detta är ett fel, kontakta webbplatsens administratör."
 
 #: 

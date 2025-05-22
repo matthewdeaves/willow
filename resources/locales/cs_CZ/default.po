@@ -406,7 +406,7 @@ msgid "Edit Blocked Ip"
 msgstr "Upravit blokovanou IP"
 
 #: 
-msgid "Access Denied: Your IP address has been blocked due to suspicious activity. If you believe this is an error, please contact the site administrator."
+msgid "Access Denied: Your IP address has been blocked due to suspicious activity."
 msgstr "Přístup odepřen: Vaše IP adresa byla zablokována z důvodu podezřelé aktivity. Pokud se domníváte, že se jedná o chybu, kontaktujte prosím správce webu."
 
 #: 

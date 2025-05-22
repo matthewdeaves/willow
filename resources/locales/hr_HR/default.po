@@ -26,7 +26,7 @@ msgid "The internationalisation could not be deleted. Please, try again."
 msgstr "Internacionalizacija se nije mogla izbrisati. Molimo pokušajte ponovo."
 
 #: 
-msgid "Access Denied: Your IP address has been blocked due to suspicious activity. If you believe this is an error, please contact the site administrator."
+msgid "Access Denied: Your IP address has been blocked due to suspicious activity."
 msgstr "Pristup odbijen: Vaša IP adresa je blokirana zbog sumnjive aktivnosti. Ako mislite da je ovo pogreška, obratite se administratoru stranice."
 
 #: 

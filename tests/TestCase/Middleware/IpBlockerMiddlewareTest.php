@@ -72,7 +72,7 @@ class IpBlockerMiddlewareTest extends TestCase
         $response = $this->middleware->process($request, $handler);
 
         $this->assertEquals(403, $response->getStatusCode());
-        $this->assertEquals('Access Denied: Your IP address has been blocked due to suspicious activity. If you believe this is an error, please contact the site administrator.', (string)$response->getBody());
+        $this->assertEquals('Access Denied: Your IP address has been blocked due to suspicious activity.', (string)$response->getBody());
     }
 
     /**
@@ -223,19 +223,20 @@ class IpBlockerMiddlewareTest extends TestCase
         ]);
         $handler = $this->createMock(RequestHandlerInterface::class);
 
-        // Simulate multiple suspicious requests
+        // Simulate multiple suspicious requests - 2 needed for block
+        // The loop is 3 times, so it will block on 2nd and subsequent attempts.
         for ($i = 0; $i < 3; $i++) {
             $response = $this->middleware->process($request, $handler);
             $this->assertEquals(403, $response->getStatusCode());
         }
 
-        // Verify IP is now blocked in database
+        // Verify IP is now blocked in database (count 2 or more)
         $blocked = $this->blockedIpsTable->find()
             ->where(['ip_address' => $ip])
             ->first();
 
         $this->assertNotNull($blocked);
-        $this->assertNotNull($blocked->expires_at);
+        $this->assertNotNull($blocked->expires_at); // Should have an expiration for trackSuspiciousActivity
     }
 
     /**
@@ -394,6 +395,192 @@ class IpBlockerMiddlewareTest extends TestCase
             ['/blog/2024/01/my-first-post'],
             ['/search?q=normal+search+term'],
             ['/contact?message=Hello+there'],
+        ];
+    }
+
+    // --- NEW TESTS ARE BELOW ---
+
+    /**
+     * Test for specific false positives for command injection patterns.
+     * Ensures that legitimate words containing parts of command injection patterns are not blocked.
+     *
+     * @dataProvider falsePositiveCommandInjectionProvider
+     * @param string $path The path containing the potentially false positive string
+     * @return void
+     */
+    public function testFalsePositiveCommandInjection(string $path): void
+    {
+        $ip = '192.0.2.14'; // Use a distinct IP for this test
+        $uri = new Uri($path);
+        $request = new ServerRequest([
+            'environment' => ['REMOTE_ADDR' => $ip],
+            'uri' => $uri,
+        ]);
+        $handler = $this->createMock(RequestHandlerInterface::class);
+        $handler->expects($this->once())
+            ->method('handle')
+            ->willReturn(new Response());
+
+        $response = $this->middleware->process($request, $handler);
+
+        $this->assertEquals(200, $response->getStatusCode());
+
+        // Also assert that the IP was *not* marked as suspicious in cache, which would lead to a block
+        $cacheKey = 'suspicious_' . $ip;
+        $this->assertNotSame(true, Cache::read($cacheKey, 'ip_blocker'));
+    }
+
+    /**
+     * Data provider for false positive command injection tests.
+     *
+     * @return array<array<string>>
+     */
+    public static function falsePositiveCommandInjectionProvider(): array
+    {
+        return [
+            ['/search?q=normal+search+term'], // Already in legitimate, but good to emphasize
+            ['/contact?message=Could you clarify the term?'],
+            ['/admin/reports/performance'], // Contains 'or' and 'rm' but should be fine
+            ['/users/confirm/email'], // Contains 'rm'
+            ['/api/platform/image-upload'], // Contains 'rm' and 'chown'
+            ['/api/system/monitor'], // Contains 'rm'
+            ['/items/format/json'], // Contains 'rm'
+            ['/help/chown-me'], // Literal test for 'chown' being part of legitimate path name
+        ];
+    }
+
+    /**
+     * Test for legitimate URLs that look like file extensions caught by suspicious patterns.
+     *
+     * @dataProvider falsePositiveFileExtensionProvider
+     * @param string $path
+     * @return void
+     */
+    public function testFalsePositiveFileExtension(string $path): void
+    {
+        $ip = '192.0.2.15';
+        $uri = new Uri($path);
+        $request = new ServerRequest([
+            'environment' => ['REMOTE_ADDR' => $ip],
+            'uri' => $uri,
+        ]);
+        $handler = $this->createMock(RequestHandlerInterface::class);
+        $handler->expects($this->once())
+            ->method('handle')
+            ->willReturn(new Response());
+
+        $response = $this->middleware->process($request, $handler);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $cacheKey = 'suspicious_' . $ip;
+        $this->assertNotSame(true, Cache::read($cacheKey, 'ip_blocker'));
+    }
+
+    /**
+     * Data provider for false positive file extension tests.
+     *
+     * @return array<array<string>>
+     */
+    public static function falsePositiveFileExtensionProvider(): array
+    {
+        return [
+            ['/articles/phtml-content'], // Contains phtml as part of a word
+            ['/videos/asphalt'], // Contains asp as a word
+            ['/images/php-logo.png'], // PHP in filename, but not an executable extension
+            ['/downloads/latest.zip?file=my.php.document'], // .php.document should not match .php$
+            ['/users/jason/profile.json'], // ending with .json
+            ['/app/configs/my.yaml'], // ending with .yaml
+            ['/data/logs/access.log'], // ending with .log
+            ['/backup/archive.tar.gz'], // legit tar.gz
+        ];
+    }
+
+    /**
+     * Test for legitimate URLs that contain parts of XSS patterns.
+     *
+     * @dataProvider falsePositiveXssProvider
+     * @param string $path
+     * @return void
+     */
+    public function testFalsePositiveXss(string $path): void
+    {
+        $ip = '192.0.2.16';
+        $uri = new Uri($path);
+        $request = new ServerRequest([
+            'environment' => ['REMOTE_ADDR' => $ip],
+            'uri' => $uri,
+        ]);
+        $handler = $this->createMock(RequestHandlerInterface::class);
+        $handler->expects($this->once())
+            ->method('handle')
+            ->willReturn(new Response());
+
+        $response = $this->middleware->process($request, $handler);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $cacheKey = 'suspicious_' . $ip;
+        $this->assertNotSame(true, Cache::read($cacheKey, 'ip_blocker'));
+    }
+
+    /**
+     * Data provider for false positive XSS tests.
+     *
+     * @return array<array<string>>
+     */
+    public static function falsePositiveXssProvider(): array
+    {
+        return [
+            ['/contact?message=I use javascript for validation.'],
+            ['/products?description=Contains interesting script for you!'],
+            ['/admin/config?setting=security.script_timeout_ms'],
+            ['/user/profile?bio=My favorite programming language is javascript.'],
+            ['/blog/post?title=A Comprehensive Guide to IFRAME Elements'], // Legitimate use of "iframe" word
+        ];
+    }
+
+    /**
+     * Test for legitimate URLs that contain parts of SQL injection patterns.
+     *
+     * @dataProvider falsePositiveSqlProvider
+     * @param string $path
+     * @return void
+     */
+    public function testFalsePositiveSql(string $path): void
+    {
+        $ip = '192.0.2.17';
+        $uri = new Uri($path);
+        $request = new ServerRequest([
+            'environment' => ['REMOTE_ADDR' => $ip],
+            'uri' => $uri,
+        ]);
+        $handler = $this->createMock(RequestHandlerInterface::class);
+        $handler->expects($this->once())
+            ->method('handle')
+            ->willReturn(new Response());
+
+        $response = $this->middleware->process($request, $handler);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $cacheKey = 'suspicious_' . $ip;
+        $this->assertNotSame(true, Cache::read($cacheKey, 'ip_blocker'));
+    }
+
+    /**
+     * Data provider for false positive SQL tests.
+     *
+     * @return array<array<string>>
+     */
+    public static function falsePositiveSqlProvider(): array
+    {
+        return [
+            ['/articles/section/union-street-market'], // "union" and "select" as part of street name
+            ['/products?sort=select_best_selling'], // "select" as part of a param value
+            ['/orders/status?filter=new-insertions'], // "insert" as part of a word
+            ['/documentation/update-procedures'], // "update" as part of a word
+            ['/users/delete-account-instructions'], // "delete" as part of a word
+            ['/database/drop-down-options'], // "drop" as part of a word
+            ['/search?term=select+language'], // "select" as a verb in search term
+            ['/articles/union-of-states-history'],
         ];
     }
 }

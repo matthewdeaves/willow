@@ -814,7 +814,7 @@ msgid "New Post"
 msgstr "Neuer Beitrag"
 
 #: 
-msgid "Access Denied: Your IP address has been blocked due to suspicious activity. If you believe this is an error, please contact the site administrator."
+msgid "Access Denied: Your IP address has been blocked due to suspicious activity."
 msgstr "Zugriff verweigert: Ihre IP-Adresse wurde aufgrund verdächtiger Aktivitäten gesperrt. Wenn Sie glauben, dass es sich hierbei um einen Fehler handelt, wenden Sie sich bitte an den Site-Administrator."
 
 #: 

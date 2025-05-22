@@ -1450,7 +1450,7 @@ msgid "Rate limit exceeded for IP: {0}"
 msgstr "Limite de débit dépassée pour l&#39;IP : {0}"
 
 #: 
-msgid "Access Denied: Your IP address has been blocked due to suspicious activity. If you believe this is an error, please contact the site administrator."
+msgid "Access Denied: Your IP address has been blocked due to suspicious activity."
 msgstr "Accès refusé : votre adresse IP a été bloquée en raison d&#39;une activité suspecte. Si vous pensez qu&#39;il s&#39;agit d&#39;une erreur, veuillez contacter l&#39;administrateur du site."
 
 #: 

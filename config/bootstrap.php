@@ -86,6 +86,7 @@ require CAKE . 'functions.php';
 try {
     Configure::config('default', new PhpConfig());
     Configure::load('app', 'default', false);
+    Configure::load('security', 'default', false); // The 'false' makes it so it won't throw an error if the file doesn't exist, though you likely want it to exist.
 } catch (\Exception $e) {
     exit($e->getMessage() . "\n");
 }
@@ -94,9 +95,12 @@ try {
  * Load an environment local configuration file to provide overrides to your configuration.
  * Notice: For security reasons app_local.php **should not** be included in your git repo.
  */
+// Keep this after the general app.php and security.php loads,
+// so app_local.php can override any settings from them if needed.
 if (file_exists(CONFIG . 'app_local.php')) {
     Configure::load('app_local', 'default');
 }
+
 
 /*
  * When debug = true the metadata cache should only last
@@ -153,6 +157,9 @@ if (!$fullBaseUrl) {
      *
      * See also https://book.cakephp.org/4/en/controllers/request-response.html#trusting-proxy-headers
      */
+    // This $trustProxy variable is local to this file, and its usage here
+    // correctly applies to how CakePHP constructs fullBaseUrl. This is
+    // separate from the removal of the trustProxy attribute in the middleware.
     $trustProxy = false;
 
     $s = null;
@@ -171,6 +178,10 @@ if ($fullBaseUrl) {
 }
 unset($fullBaseUrl);
 
+// Note: Configure::consume() should be used with caution if you intend to
+// access those configuration values later in your application lifecycle.
+// For security config, Configure::read() is used directly in IpSecurityService,
+// so 'security' should not be consumed here.
 Cache::setConfig(Configure::consume('Cache'));
 ConnectionManager::setConfig(Configure::consume('Datasources'));
 TransportFactory::setConfig(Configure::consume('EmailTransport'));

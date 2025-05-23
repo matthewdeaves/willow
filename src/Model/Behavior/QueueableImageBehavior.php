@@ -11,38 +11,17 @@ use Cake\ORM\Behavior;
 use Cake\Queue\QueueManager;
 use Cake\Utility\Text;
 
-/**
- * QueueableImageBehavior handles image upload processing and analysis through a queue system.
- *
- * This behavior automatically attaches the Upload behavior and configures it for image handling.
- * It processes uploaded images asynchronously and optionally queues a job to perform AI analysis.
- */
 class QueueableImageBehavior extends Behavior
 {
-    /**
-     * Default configuration for the QueueableImageBehavior.
-     *
-     * @var array<string, mixed>
-     */
     protected array $_defaultConfig = [
         'folder_path' => '',
         'field' => 'image',
     ];
 
-    /**
-     * Initializes the behavior.
-     *
-     * Sets up the Upload behavior with merged configuration settings and
-     * configures the default callbacks if not overridden.
-     *
-     * @param array $config Configuration array for customizing both QueueableImage and Upload behaviors
-     * @return void
-     */
     public function initialize(array $config): void
     {
         parent::initialize($config);
 
-        // Get the field name
         $field = $this->getConfig('field');
 
         // Prepare Upload behavior configuration
@@ -81,47 +60,35 @@ class QueueableImageBehavior extends Behavior
         }
     }
 
-    /**
-     * beforeSave called to do:
-     * 1) On edit with file upload ensure we delete the old image(s)
-     *
-     * @param \Cake\Event\EventInterface $event The rules object to be modified.
-     * @param \Cake\Datasource\EntityInterface $entity The rules object to be modified.
-     * @param \ArrayObject $options The rules object to be modified.
-     * @return void
-     */
     public function beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
-        //if editing with new FileUpload
-        if (!$entity->isNew() && $entity->isDirty('image')) {
-            $originalImage = $entity->getOriginal('image');
-
-            $path = WWW_ROOT . 'files/' . $entity->getSource() . '/image/';
-            // Delete the old file if it exists
-            if ($originalImage && file_exists($path . $originalImage)) {
-                unlink($path . $originalImage);
-            }
-            //delete all the resized versions too
-            foreach (SettingsManager::read('ImageSizes') as $width) {
-                $path = WWW_ROOT . 'files/' . $entity->getSource() . '/image/' . $width . '/';
-                if ($originalImage && file_exists($path . $originalImage)) {
-                    unlink($path . $originalImage);
+        // Only handle file deletion on updates when a new image is uploaded
+        if (!$entity->isNew() && $entity->isDirty($this->getConfig('field'))) {
+            $originalImage = $entity->getOriginal($this->getConfig('field'));
+            
+            if ($originalImage) {
+                // Use a more reliable path construction
+                $tableName = $this->_table->getTable();
+                $field = $this->getConfig('field');
+                $basePath = WWW_ROOT . 'files' . DS . ucfirst($tableName) . DS . $field . DS;
+                
+                // Delete the main file
+                $mainFilePath = $basePath . $originalImage;
+                if (file_exists($mainFilePath)) {
+                    unlink($mainFilePath);
+                }
+                
+                // Delete all resized versions
+                foreach (SettingsManager::read('ImageSizes') as $width) {
+                    $resizedPath = $basePath . $width . DS . $originalImage;
+                    if (file_exists($resizedPath)) {
+                        unlink($resizedPath);
+                    }
                 }
             }
         }
     }
 
-    /**
-     * Handles the afterSave event for an entity.
-     *
-     * This method is triggered after an entity is successfully saved in the database.
-     * It queues image processing and optional AI analysis jobs.
-     *
-     * @param \Cake\Event\EventInterface $event The event that was triggered
-     * @param \Cake\Datasource\EntityInterface $entity The entity that was saved
-     * @param \ArrayObject $options Additional options that may influence the event handling
-     * @return void
-     */
     public function afterSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
         $config = $this->getConfig();

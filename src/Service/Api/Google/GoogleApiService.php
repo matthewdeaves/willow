@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Service\Api\Google;
 
 use App\Utility\SettingsManager;
+use Exception;
 use Google\Cloud\Translate\V2\TranslateClient;
 
 /**
@@ -44,21 +45,25 @@ class GoogleApiService
      */
     public function translateStrings(array $strings, string $localeFrom, string $localeTo): array
     {
-        $results = $this->translateClient->translateBatch($strings, [
-            'source' => $localeFrom,
-            'target' => $localeTo,
-        ]);
+        try {
+            $results = $this->translateClient->translateBatch($strings, [
+                'source' => $localeFrom,
+                'target' => $localeTo,
+            ]);
 
-        $translatedStrings = [];
+            $translatedStrings = [];
 
-        foreach ($results as $result) {
-            $translatedStrings['translations'][] = [
-                'original' => $result['input'],
-                'translated' => $result['text'],
-            ];
+            foreach ($results as $result) {
+                $translatedStrings['translations'][] = [
+                    'original' => $result['input'],
+                    'translated' => $result['text'],
+                ];
+            }
+
+            return $translatedStrings;
+        } catch (Exception $e) {
+            throw new TranslationException('Translation failed: ' . $e->getMessage(), 0, $e);
         }
-
-        return $translatedStrings;
     }
 
     /**

@@ -10,6 +10,8 @@ use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
+use Cake\Queue\QueueManager;
+use Exception;
 use Interop\Queue\Processor;
 
 class TranslateArticleJob implements JobInterface
@@ -38,7 +40,7 @@ class TranslateArticleJob implements JobInterface
     /**
      * Constructor to allow dependency injection for testing
      *
-     * @param \App\Service\Api\AnthropicApiService|null $anthropicService
+     * @param \App\Service\Api\Google\GoogleApiService|null $googleService
      */
     public function __construct(?GoogleApiService $googleService = null)
     {
@@ -59,9 +61,10 @@ class TranslateArticleJob implements JobInterface
     {
         $id = $message->getArgument('id');
         $title = $message->getArgument('title');
+        $attempt = $message->getArgument('_attempt', 0);
 
         $this->log(
-            sprintf('Received Article translation message: %s : %s', $id, $title),
+            sprintf('Received Article translation message: %s : %s (attempt %d)', $id, $title, $attempt),
             'info',
             ['group_name' => 'App\Job\TranslateArticleJob'],
         );
@@ -87,9 +90,52 @@ class TranslateArticleJob implements JobInterface
         // there could be a job in the queue to generate those fields and in production
         // we have 3 queue consumers
         if (!empty($articlesTable->emptySeoFields($article))) {
-            sleep(10);
+            // Check if we've tried too many times
+            if ($attempt >= 5) {
+                $this->log(
+                    sprintf(
+                        'Article still has empty SEO fields after %d attempts: %s : %s',
+                        $attempt,
+                        $id,
+                        $title,
+                    ),
+                    'error',
+                    ['group_name' => 'App\Job\TranslateArticleJob'],
+                );
 
-            return Processor::REQUEUE;
+                return Processor::REJECT;
+            }
+
+            // Get the original message data
+            $data = [
+                'id' => $id,
+                'title' => $title,
+                '_attempt' => $attempt + 1,
+            ];
+
+            // Re-queue the job with a 10-second delay
+            QueueManager::push(
+                TranslateArticleJob::class,
+                $data,
+                [
+                    'config' => 'default',
+                    'delay' => 10 * ($attempt + 1), // Delay in seconds
+                ],
+            );
+
+            $this->log(
+                sprintf(
+                    'Article has empty SEO fields, re-queuing with %d second delay: %s : %s',
+                    10 * ($attempt + 1),
+                    $id,
+                    $title,
+                ),
+                'info',
+                ['group_name' => 'App\Job\TranslateArticleJob'],
+            );
+
+            // Return ACK to remove the current message from the queue
+            return Processor::ACK;
         }
 
         try {

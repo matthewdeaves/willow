@@ -10,6 +10,7 @@ use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
+use Exception;
 use Interop\Queue\Processor;
 
 /**

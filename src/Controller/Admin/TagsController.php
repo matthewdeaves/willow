@@ -6,6 +6,7 @@ namespace App\Controller\Admin;
 use App\Controller\AppController;
 use Cake\Cache\Cache;
 use Cake\Http\Response;
+use Exception;
 
 /**
  * Tags Controller

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Controller;
 
 use App\Test\TestCase\AppControllerTestCase;
+use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestTrait;
@@ -284,12 +285,26 @@ class ArticlesControllerTest extends AppControllerTestCase
         $adminUserId = '6509480c-e7e6-4e65-9c38-1423a8d09d0f';
         $this->loginUser($adminUserId);
         $this->enableCsrfToken();
+
         $articleId = '263a5364-a1bc-401c-9e44-49c23d066a0f'; // Article One ID
+
+        // First, verify the article exists
+        $articlesTable = TableRegistry::getTableLocator()->get('Articles');
+        $articleExists = $articlesTable->exists(['id' => $articleId]);
+        $this->assertTrue($articleExists, 'Article should exist before deletion');
+
+        // Perform the deletion
         $this->post("/admin/articles/delete/{$articleId}");
         $this->assertRedirect('/admin');
+        $this->assertFlashMessage('The article has been deleted.');
 
-        $articlesTable = TableRegistry::getTableLocator()->get('Articles');
-        $this->expectException('Cake\Datasource\Exception\RecordNotFoundException');
+        // Verify the article no longer exists
+        $articleExists = $articlesTable->exists(['id' => $articleId]);
+        $this->assertFalse($articleExists, 'Article should not exist after deletion');
+
+        // Alternative approach if you want to test the exception:
+        $this->expectException(RecordNotFoundException::class);
+        $this->expectExceptionMessage('Record not found in table `articles`.');
         $articlesTable->get($articleId);
     }
 

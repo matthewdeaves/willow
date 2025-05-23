@@ -54,7 +54,7 @@ trait ImageUrlTrait
      * @param string $size The size of the image (e.g., 'thumbnail', 'medium').
      * @return string The constructed URL for the image.
      */
-    protected function getImageUrlBySize(string $size): string
+    public function getImageUrlBySize(string $size): string
     {
         $imageSizes = SettingsManager::read('ImageSizes');
 

@@ -15,12 +15,19 @@ declare(strict_types=1);
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
 
+use Cake\Cache\Cache;
 use Cake\Chronos\Chronos;
 use Cake\Core\Configure;
 use Cake\Database\TypeFactory;
 use Cake\Datasource\ConnectionManager;
 use Josegonzalez\Upload\Database\Type\FileType;
 use Migrations\TestSuite\Migrator;
+
+// Clear all caches before running tests
+Cache::clearAll();
+
+// Set a consistent timezone for tests
+date_default_timezone_set('UTC');
 
 /**
  * Test runner bootstrap.

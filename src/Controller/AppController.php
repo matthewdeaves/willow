@@ -50,7 +50,11 @@ class AppController extends Controller
         $this->cacheKey = hash('xxh3', json_encode($this->request->getAttribute('params')));
         $this->loadComponent('Flash');
         $this->loadComponent('Authentication.Authentication'); // Loads the component
-        $this->loadComponent('DefaultTheme.FrontEndSite');
+
+        // Only load FrontEndSite component for non-admin routes
+        if (!$this->request->getParam('prefix') || $this->request->getParam('prefix') !== 'Admin') {
+            $this->loadComponent('DefaultTheme.FrontEndSite');
+        }
     }
 
     /**

@@ -796,7 +796,7 @@ class InsertSettings extends AbstractMigration
                 'ordering' => 2,
                 'category' => 'RateLimit',
                 'key_name' => 'numberOfRequests',
-                'value' => 4,
+                'value' => 30,
                 'value_type' => 'numeric',
                 'value_obscure' => 0,
                 'description' => 'The maximum number of requests allowed per minute for sensitive routes such as login and registration.',

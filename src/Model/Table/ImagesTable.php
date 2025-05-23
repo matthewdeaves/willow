@@ -3,10 +3,6 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
-use App\Utility\SettingsManager;
-use ArrayObject;
-use Cake\Datasource\EntityInterface;
-use Cake\Event\EventInterface;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
@@ -127,33 +123,5 @@ class ImagesTable extends Table
             ]);
 
         return $validator;
-    }
-
-    /**
-     * beforeSave called to do:
-     * 1) On edit with file upload ensure we delete the old image(s)
-     *
-     * @param \Cake\Event\EventInterface $event The rules object to be modified.
-     * @param \Cake\Datasource\EntityInterface $entity The rules object to be modified.
-     * @param \ArrayObject $options The rules object to be modified.
-     * @return void
-     */
-    public function beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
-    {
-        //if editing an Image with new upload
-        if (!$entity->isNew() && $entity->isDirty('image')) {
-            $originalFilePath = $entity->getOriginal('image');
-            $fullOriginalFilePath = WWW_ROOT . 'files/Images/image/' . $originalFilePath;
-            // Delete the old file if it exists
-            if ($originalFilePath && file_exists($fullOriginalFilePath)) {
-                unlink($fullOriginalFilePath);
-            }
-            //delete all the resized versions too
-            foreach (SettingsManager::read('ImageSizes') as $width) {
-                if (file_exists($fullOriginalFilePath . '_' . $width)) {
-                    unlink($fullOriginalFilePath . '_' . $width);
-                }
-            }
-        }
     }
 }

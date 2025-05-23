@@ -5,6 +5,7 @@ namespace App\Test\TestCase\Controller;
 
 use App\Model\Table\CommentsTable;
 use App\Test\TestCase\AppControllerTestCase;
+use Cake\Cache\Cache;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestTrait;
 
@@ -175,6 +176,9 @@ class CommentsControllerTest extends AppControllerTestCase
      */
     public function testCommentVisibility(): void
     {
+        // Clear any caches that might affect the test
+        Cache::clear();
+
         // First, ensure the comment is visible
         $this->get('/en/articles/article-six');
         $this->assertResponseOk();
@@ -191,6 +195,9 @@ class CommentsControllerTest extends AppControllerTestCase
             'display' => 0,
         ]);
         $this->assertResponseSuccess();
+
+        // Clear view cache if you're using view caching
+        Cache::clear();
 
         // Check that the comment is no longer visible on the front end
         // Using the newest slug for the article

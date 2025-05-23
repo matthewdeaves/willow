@@ -20,18 +20,11 @@ class ImagesTableTest extends TestCase
         $config = $this->getTableLocator()->exists('Images') ? [] : ['className' => ImagesTable::class];
         $this->ImagesTable = $this->getTableLocator()->get('Images', $config);
 
-        // Mock SettingsManager for consistent test results
-        $this->mockSettingsManager([
-            'ImageSizes' => [500, 200, 100], // Example sizes, adjust to your actual config
-            'AI.enabled' => false,
-            'AI.imageAnalysis' => false,
-        ]);
-
         // Ensure the directory for uploaded files exists for testing
         if (!is_dir(WWW_ROOT . 'files/Images/image/')) {
             mkdir(WWW_ROOT . 'files/Images/image/', 0777, true);
         }
-        foreach ([500, 200, 100] as $width) {
+        foreach (SettingsManager::read('ImageSizes') as $width) {
             if (!is_dir(WWW_ROOT . 'files/Images/image/' . $width . '/')) {
                 mkdir(WWW_ROOT . 'files/Images/image/' . $width . '/', 0777, true);
             }
@@ -42,7 +35,7 @@ class ImagesTableTest extends TestCase
     {
         // Clean up test files
         $this->removeTestFiles(WWW_ROOT . 'files/Images/image/');
-        foreach ([500, 200, 100] as $width) {
+        foreach (SettingsManager::read('ImageSizes') as $width) {
             $this->removeTestFiles(WWW_ROOT . 'files/Images/image/' . $width . '/');
         }
 
@@ -61,27 +54,6 @@ class ImagesTableTest extends TestCase
                 unlink($file);
             }
         }
-    }
-
-    protected function mockSettingsManager(array $settings): void
-    {
-        $mock = $this->getMockBuilder(SettingsManager::class)
-            ->onlyMethods(['read'])
-            ->getMock();
-
-        $map = [];
-        foreach ($settings as $key => $value) {
-            $map[] = [$key, null, $value];
-        }
-
-        $mock->expects($this->any())
-             ->method('read')
-             ->willReturnMap($map);
-
-        // This assumes your `SettingsManager` is a static class or can be replaced globally for testing.
-        // If not, you might need to pass the mock into the behavior's constructor (via dependency injection)
-        // or use a different mocking strategy for static methods if `SettingsManager` is strictly static.
-        // For this test, we'll proceed assuming the mock works at the `SettingsManager::read()` call site.
     }
 
     public function testValidationDefault(): void
@@ -160,7 +132,7 @@ class ImagesTableTest extends TestCase
         // Construct paths for the old UUID-named files
         $oldUuidImagePath = WWW_ROOT . 'files/Images/image/' . $oldUuidFilename;
         $oldUuidResizedPaths = [];
-        foreach ([500, 200, 100] as $width) {
+        foreach (SettingsManager::read('ImageSizes') as $width) {
             $oldUuidResizedPaths[] = WWW_ROOT . 'files/Images/image/' . $width . '/' . $oldUuidFilename;
         }
 
@@ -200,16 +172,21 @@ class ImagesTableTest extends TestCase
         // Save the entity again. This will trigger the QueueableImageBehavior's beforeSave.
         $savedUpdatedEntity = $this->ImagesTable->save($entityToUpdate);
 
+        // Give the filesystem time to process the deletion
+        usleep(50000); // 50ms delay
+
         // tests run to quick sometimes, make sure we give time for file deletion
-        $maxRetries = 5;
-        $retryDelay = 10000000; // 10000ms
+        $maxRetries = 10;
+        $retryDelay = 10000; // Start with 10ms
 
         for ($i = 0; $i < $maxRetries; $i++) {
+            clearstatcache(true, $oldUuidImagePath); // Clear file stat cache
             if (!file_exists($oldUuidImagePath)) {
                 break;
             }
             if ($i < $maxRetries - 1) {
                 usleep($retryDelay);
+                $retryDelay *= 2; // Exponential backoff
             }
         }
 

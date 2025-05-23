@@ -233,6 +233,7 @@ return [
         'exceptionRenderer' => \App\Error\AppExceptionRenderer::class,
         'ignoredDeprecationPaths' => [
             'vendor/cakephp/cakephp/src/I18n/I18n.php',
+            'vendor/cakephp/cakephp/src/Event/EventManager.php',
         ],
         'extraFatalErrorMemory' => 20,
     ],

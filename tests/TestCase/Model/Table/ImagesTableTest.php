@@ -200,6 +200,19 @@ class ImagesTableTest extends TestCase
         // Save the entity again. This will trigger the QueueableImageBehavior's beforeSave.
         $savedUpdatedEntity = $this->ImagesTable->save($entityToUpdate);
 
+        // tests run to quick sometimes, make sure we give time for file deletion
+        $maxRetries = 5;
+        $retryDelay = 10000000; // 10000ms
+
+        for ($i = 0; $i < $maxRetries; $i++) {
+            if (!file_exists($oldUuidImagePath)) {
+                break;
+            }
+            if ($i < $maxRetries - 1) {
+                usleep($retryDelay);
+            }
+        }
+
         // Assert the update save was successful
         $this->assertNotNull($savedUpdatedEntity);
         $this->assertFalse($savedUpdatedEntity->hasErrors());

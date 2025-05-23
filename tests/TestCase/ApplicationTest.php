@@ -102,12 +102,8 @@ class ApplicationTest extends TestCase
         // Check the order of middleware
         $this->assertInstanceOf(ErrorHandlerMiddleware::class, $middleware->current());
         $middleware->seek(1);
-        $this->assertInstanceOf(IpBlockerMiddleware::class, $middleware->current());
-        $middleware->seek(2);
-        $this->assertInstanceOf(RateLimitMiddleware::class, $middleware->current());
-        $middleware->seek(3);
         $this->assertInstanceOf(AssetMiddleware::class, $middleware->current());
-        $middleware->seek(4);
+        $middleware->seek(2);
         $this->assertInstanceOf(RoutingMiddleware::class, $middleware->current());
     }
 }

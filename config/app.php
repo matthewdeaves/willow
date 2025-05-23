@@ -160,7 +160,7 @@ return [
             'prefix' => 'cms_rate_limit_',
             'path' => CACHE . 'ratelimit' . DS,
             'serialize' => true,
-            'duration' => '+1 hour',
+            'duration' => '+5 minutes',
         ],
 
         'articles' => [
@@ -504,7 +504,7 @@ return [
                 'prefix' => 'willow_queue_unique_test_',
                 'path' => CACHE . 'persistent' . DS . 'queue_unique_jobs' . DS . 'test' . DS, // Within app's CACHE dir
                 'serialize' => true,
-                'duration' => '+1 wedayek',
+                'duration' => '+1 week',
             ],
         ],
     ],

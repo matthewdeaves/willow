@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Utility\SettingsManager;
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Http\ServerRequest;
@@ -15,6 +16,7 @@ use Cake\ORM\TableRegistry;
  * IpSecurityService handles IP-based security measures including blocking and suspicious activity detection.
  *
  * This service provides functionality to:
+ * - Detect client IP addresses with proxy support
  * - Check if IP addresses are blocked
  * - Block IP addresses with optional expiration
  * - Detect suspicious requests based on URL patterns
@@ -36,84 +38,177 @@ class IpSecurityService
     private Table $blockedIpsTable;
 
     /**
+     * @var array<string> List of proxy headers to check in order of preference
+     */
+    private array $proxyHeaders = [
+        'HTTP_CF_CONNECTING_IP',  // Cloudflare
+        'HTTP_X_FORWARDED_FOR',   // Standard proxy header
+        'HTTP_X_REAL_IP',         // Nginx
+        'HTTP_CLIENT_IP',         // Some proxies
+    ];
+
+    /**
      * Constructor
      *
-     * @param \Cake\ORM\Table|null $blockedIpsTable Table instance for BlockedIps (e.g., TableRegistry::getTableLocator()->get('BlockedIps'))
+     * @param \Cake\ORM\Table|null $blockedIpsTable Table instance for BlockedIps
      */
     public function __construct(?Table $blockedIpsTable = null)
     {
         $this->blockedIpsTable = $blockedIpsTable ?? TableRegistry::getTableLocator()->get('BlockedIps');
 
-        // Load ALL suspicious patterns directly from the configuration file
-        // Ensure 'IpSecurity.suspiciousPatterns' is defined in a loaded config file (e.g., config/security.php)
+        // Load suspicious patterns from configuration
         $this->suspiciousPatterns = Configure::read('IpSecurity.suspiciousPatterns', []);
     }
 
     /**
-     * Checks if an IP address is currently blocked.
+     * Get client IP address with proxy support
      *
-     * Uses a caching strategy to minimize database queries. The blocked status
-     * is cached until the block expiration time or for a default period if no
-     * expiration is set.
+     * @param \Cake\Http\ServerRequest $request The request
+     * @return string|null The client IP address or null if cannot be determined
+     */
+    public function getClientIp(ServerRequest $request): ?string
+    {
+        // Check if IP was already determined by another middleware
+        $attributeIp = $request->getAttribute('clientIp');
+        if ($attributeIp && $this->isValidIp($attributeIp)) {
+            return $attributeIp;
+        }
+
+        // Try CakePHP's built-in method
+        if (method_exists($request, 'clientIp')) {
+            $ip = $request->clientIp();
+            if ($ip && $this->isValidIp($ip)) {
+                return $ip;
+            }
+        }
+
+        $serverParams = $request->getServerParams();
+        
+        // If trust proxy is enabled, check proxy headers
+        if (SettingsManager::read('Security.trustProxy', false)) {
+            $trustedProxiesConfig = SettingsManager::read('Security.trustedProxies', '');
+            $trustedProxies = array_filter(
+                array_map('trim', explode("\n", $trustedProxiesConfig))
+            );
+            
+            // Check if request is from a trusted proxy
+            $remoteAddr = $serverParams['REMOTE_ADDR'] ?? null;
+            
+            // If trusted proxies are configured, verify the request is from one
+            if (!empty($trustedProxies) && $remoteAddr) {
+                if (!in_array($remoteAddr, $trustedProxies)) {
+                    // Request is not from a trusted proxy, use REMOTE_ADDR
+                    return $this->isValidIp($remoteAddr) ? $remoteAddr : null;
+                }
+            }
+            
+            // Check proxy headers in order of preference
+            foreach ($this->proxyHeaders as $header) {
+                if (!empty($serverParams[$header])) {
+                    $ips = $this->parseIpHeader($serverParams[$header]);
+                    foreach ($ips as $ip) {
+                        if ($this->isValidIp($ip) && !$this->isInternalIp($ip)) {
+                            return $ip;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Fall back to REMOTE_ADDR
+        $remoteAddr = $serverParams['REMOTE_ADDR'] ?? null;
+        
+        return ($remoteAddr && $this->isValidIp($remoteAddr)) ? $remoteAddr : null;
+    }
+
+    /**
+     * Parse IP header which may contain multiple IPs
+     *
+     * @param string $header The header value to parse
+     * @return array<string> Array of IP addresses
+     */
+    private function parseIpHeader(string $header): array
+    {
+        // Handle comma-separated list of IPs
+        $ips = array_map('trim', explode(',', $header));
+        
+        // Return IPs in order (leftmost is usually the client)
+        return $ips;
+    }
+
+    /**
+     * Validate IP address
+     *
+     * @param string $ip The IP to validate
+     * @return bool True if valid IP
+     */
+    private function isValidIp(string $ip): bool
+    {
+        return filter_var($ip, FILTER_VALIDATE_IP) !== false;
+    }
+
+    /**
+     * Check if IP is internal/private
+     *
+     * @param string $ip The IP to check
+     * @return bool True if internal/private IP
+     */
+    private function isInternalIp(string $ip): bool
+    {
+        return !filter_var(
+            $ip, 
+            FILTER_VALIDATE_IP, 
+            FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE
+        );
+    }
+
+    /**
+     * Checks if an IP address is currently blocked.
      *
      * @param string $ip The IP address to check
      * @return bool True if the IP is blocked, false otherwise
      */
     public function isIpBlocked(string $ip): bool
     {
-        $cacheKey = 'blocked_ip_' . $ip;
+        $cacheKey = 'blocked_ip_' . md5($ip);
         $blockedStatus = Cache::read($cacheKey, 'ip_blocker');
 
-        // If not in cache, or if status is 'false' (meaning it was previously checked and not blocked)
         if ($blockedStatus === null) {
             $blockedIp = $this->blockedIpsTable->find()
                 ->where(['ip_address' => $ip])
                 ->where(function ($exp) {
                     return $exp->or([
-                        'expires_at IS' => null, // Permanent block
-                        'expires_at >' => DateTime::now(), // Block not yet expired
+                        'expires_at IS' => null,
+                        'expires_at >' => DateTime::now(),
                     ]);
                 })
                 ->first();
 
             $blockedStatus = $blockedIp !== null;
 
-            if ($blockedStatus) {
+            if ($blockedStatus && $blockedIp) {
                 // Determine cache TTL based on block's expiration
-                $cacheTTLSeconds = 0; // Default to a long duration if no specific expiry
+                $cacheDuration = '1 day'; // Default for permanent blocks
                 if ($blockedIp->expires_at) {
                     $now = new DateTime();
                     $diffInSeconds = $blockedIp->expires_at->getTimestamp() - $now->getTimestamp();
-                    if ($diffInSeconds <= 0) {
-                        // Block has already expired, override status to false and cache for short period
-                        $blockedStatus = false;
-                        $cacheTTLSeconds = 300; // Cache 'not blocked' for 5 minutes
-                    } else {
-                        // Cache until block expiry plus a small buffer
-                        $cacheTTLSeconds = $diffInSeconds + 60; // Add 60 seconds buffer
+                    if ($diffInSeconds > 0) {
+                        // Cache until block expiry plus buffer
+                        $cacheDuration = ($diffInSeconds + 60) . ' seconds';
                     }
                 }
-                // Write to cache with specific TTL or a default long duration if expiry is null
-                Cache::write(
-                    $cacheKey,
-                    $blockedStatus,
-                    'ip_blocker',
-                    $cacheTTLSeconds > 0 ? $cacheTTLSeconds : '1 day',
-                );
+                Cache::write($cacheKey, true, 'ip_blocker', $cacheDuration);
             } else {
-                // IP is not blocked, cache this 'not blocked' status for a short time to reduce DB load
-                Cache::write($cacheKey, false, 'ip_blocker', 300); // Cache 'not blocked' for 5 minutes
+                // IP is not blocked, cache this status for a short time
+                Cache::write($cacheKey, false, 'ip_blocker', '5 minutes');
             }
         }
 
-        return (bool)$blockedStatus; // Ensure boolean type is returned
+        return (bool)$blockedStatus;
     }
 
     /**
      * Blocks an IP address with an optional expiration time.
-     *
-     * If the IP is already blocked (active and not expired), updates the existing block with new parameters.
-     * Logs the blocking action and updates the cache accordingly.
      *
      * @param string $ip The IP address to block
      * @param string $reason The reason for blocking the IP
@@ -122,7 +217,7 @@ class IpSecurityService
      */
     public function blockIp(string $ip, string $reason, ?DateTime $expiresAt = null): bool
     {
-        // Check for an *active* existing block to update
+        // Check for an active existing block to update
         $existing = $this->blockedIpsTable->find()
             ->where(['ip_address' => $ip])
             ->where(function ($exp) {
@@ -150,15 +245,18 @@ class IpSecurityService
         }
 
         if ($this->blockedIpsTable->save($entity)) {
-            // Determine cache TTL for the newly set/updated block
-            $cacheTTLSeconds = 0;
+            // Determine cache duration
+            $cacheDuration = '1 day'; // Default for permanent blocks
             if ($expiresAt) {
                 $now = new DateTime();
                 $diffInSeconds = $expiresAt->getTimestamp() - $now->getTimestamp();
-                $cacheTTLSeconds = max(0, $diffInSeconds + 60); // Ensure non-negative and add buffer
+                if ($diffInSeconds > 0) {
+                    $cacheDuration = ($diffInSeconds + 60) . ' seconds';
+                }
             }
-            // Write true to cache for this IP using determined TTL or a 1-day default for permanent blocks
-            Cache::write('blocked_ip_' . $ip, true, 'ip_blocker', $cacheTTLSeconds > 0 ? $cacheTTLSeconds : '1 day');
+            
+            $cacheKey = 'blocked_ip_' . md5($ip);
+            Cache::write($cacheKey, true, 'ip_blocker', $cacheDuration);
 
             Log::warning(__('IP address blocked: {0} for {1}', [$ip, $reason]), [
                 'ip' => $ip,
@@ -175,20 +273,19 @@ class IpSecurityService
 
     /**
      * Unblocks an IP address by removing it from the blocked list.
-     * Invalidates the cache for the IP.
      *
      * @param string $ip The IP address to unblock
-     * @return bool True if the IP was successfully unblocked or not actively blocked, false otherwise if DB fails.
+     * @return bool True if the IP was successfully unblocked
      */
     public function unblockIp(string $ip): bool
     {
         $blockedIp = $this->blockedIpsTable->find()
             ->where(['ip_address' => $ip])
-            ->first(); // Find any block for this IP, expired or not
+            ->first();
 
         if ($blockedIp) {
             if ($this->blockedIpsTable->delete($blockedIp)) {
-                Cache::delete('blocked_ip_' . $ip, 'ip_blocker'); // Invalidate cache
+                Cache::delete('blocked_ip_' . md5($ip), 'ip_blocker');
                 Log::info(__('IP address unblocked: {0}', [$ip]), [
                     'ip' => $ip,
                     'group_name' => 'security',
@@ -197,30 +294,16 @@ class IpSecurityService
                 return true;
             }
 
-            return false; // Failed to delete from DB
+            return false;
         } else {
-            // IP was not in the blocked list or already removed; treat as successful
-            Log::info(
-                __(
-                    'Attempted to unblock IP {0} which was not found in the blocked list (or already expired).',
-                    [$ip],
-                ),
-                [
-                'ip' => $ip,
-                'group_name' => 'security',
-                ],
-            );
-            Cache::delete('blocked_ip_' . $ip, 'ip_blocker'); // Ensure cache is clear just in case
-
-            return true; // Already unblocked/not blocked
+            // IP was not in the blocked list
+            Cache::delete('blocked_ip_' . md5($ip), 'ip_blocker');
+            return true;
         }
     }
 
     /**
      * Checks if a request matches known suspicious patterns.
-     *
-     * Analyzes both the raw and decoded versions of the URL to catch various
-     * forms of malicious requests. Logs any detected suspicious activity.
      *
      * @param \Cake\Http\ServerRequest $request The full ServerRequest object.
      * @return bool True if the request matches suspicious patterns, false otherwise
@@ -232,25 +315,6 @@ class IpSecurityService
         $decodedUrl = urldecode($fullUrl);
         $doubleDecodedUrl = urldecode($decodedUrl);
 
-        // Gather client information using $request methods for logging and debugging
-        $clientInfo = [
-            'user_agent' => $request->getHeaderLine('User-Agent') ?: 'unknown',
-            'ip_address' => $request->clientIp() ?: 'unknown',
-            'request_method' => $request->getMethod() ?: 'unknown',
-            'referer' => $request->referer() ?: 'none',
-            'accept_language' => $request->getHeaderLine('Accept-Language') ?: 'unknown',
-            'accept_encoding' => $request->getHeaderLine('Accept-Encoding') ?: 'unknown',
-            'host' => $request->host() ?: 'unknown',
-            'protocol' => $request->getProtocolVersion() ?: 'unknown',
-            'query_params' => $request->getQueryParams(), // Full query parameters array
-            'parsed_body_keys' => array_keys((array)$request->getParsedBody()), // Log only keys to avoid sensitive data in logs by default
-            'is_ajax' => $request->is('json') || $request->is('ajax'), // CakePHP's built-in detectors
-            'session_id' => $request->getSession()->id() ?: 'none',
-            'forwarded_for' => $request->getHeaderLine('X-Forwarded-For') ?: 'none',
-            'real_ip' => $request->getHeaderLine('X-Real-IP') ?: 'none',
-            'timestamp' => (new DateTime())->format('Y-m-d H:i:s.u'),
-        ];
-
         // Check all versions of the URL against patterns
         foreach ($this->suspiciousPatterns as $pattern) {
             if (
@@ -258,37 +322,34 @@ class IpSecurityService
                 preg_match($pattern, $decodedUrl) ||
                 preg_match($pattern, $doubleDecodedUrl)
             ) {
-            /*
-            debug("MATCH DETECTED!");
-            debug("Matched URL: " . $fullUrl);
-            debug("Matched pattern: " . $pattern);
-            debug("Decoded URL: " . $decodedUrl);
-            debug("Double Decoded URL: " . $doubleDecodedUrl);
-            */
+                // Get client IP using the same method
+                $clientIp = $this->getClientIp($request) ?: 'unknown';
+                
                 // Log the detected suspicious activity
                 Log::warning(__('Suspicious request detected: {0}', [$fullUrl]), [
-                    'pattern' => $pattern, // The specific pattern that matched
+                    'pattern' => $pattern,
                     'raw_url' => $fullUrl,
                     'decoded_url' => $decodedUrl,
                     'double_decoded' => $doubleDecodedUrl,
                     'group_name' => 'security',
-                    'client' => array_filter($clientInfo, fn($v) => !is_array($v) || count($v) > 0), // Filter out empty arrays/nulls for cleaner logs
-                    'request_headers' => $request->getHeaders(), // All request headers
+                    'client' => [
+                        'ip_address' => $clientIp,
+                        'user_agent' => $request->getHeaderLine('User-Agent') ?: 'unknown',
+                        'request_method' => $request->getMethod() ?: 'unknown',
+                        'referer' => $request->referer() ?: 'none',
+                        'host' => $request->host() ?: 'unknown',
+                    ],
                 ]);
 
-                return true; // Match found, request is suspicious
+                return true;
             }
         }
 
-        return false; // No suspicious patterns found
+        return false;
     }
 
     /**
      * Tracks suspicious activity for an IP address and implements progressive blocking.
-     *
-     * Maintains a count of suspicious activities and their timestamps. If multiple
-     * suspicious requests are detected within a short time period, the IP will be
-     * blocked with increasing block durations for repeat offenders.
      *
      * @param string $ip The IP address to track
      * @param string $route The route that triggered the suspicious activity
@@ -297,12 +358,11 @@ class IpSecurityService
      */
     public function trackSuspiciousActivity(string $ip, string $route, string $query): void
     {
-        $key = 'suspicious_' . $ip;
-        // Read existing suspicious data from cache, or initialize if not present
+        $key = 'suspicious_' . md5($ip);
         $data = Cache::read($key, 'ip_blocker') ?: [
             'count' => 0,
             'first_seen' => time(),
-            'routes' => [], // Tracks recent suspicious routes
+            'routes' => [],
         ];
 
         $data['count']++;
@@ -312,35 +372,35 @@ class IpSecurityService
             'time' => time(),
         ];
 
-        // Keep only the last 5 suspicious routes to limit data size
+        // Keep only the last 5 suspicious routes
         $data['routes'] = array_slice($data['routes'], -5);
 
-        // Update the cache with the new suspicious activity count and details
-        Cache::write($key, $data, 'ip_blocker', '1 day'); // Cache suspicious activity for 1 day
+        Cache::write($key, $data, 'ip_blocker');
 
-        // If there are multiple suspicious requests within a recent time window, block the IP
-        // Current logic: 2 or more requests within 24 hours trigger a block
-        if ($data['count'] >= 2 && (time() - $data['first_seen']) <= 86400) { // 24 hours
+        // Block if multiple suspicious requests within time window
+        $suspiciousThreshold = (int)SettingsManager::read('Security.suspiciousRequestThreshold', 3);
+        $suspiciousWindow = (int)SettingsManager::read('Security.suspiciousWindowHours', 24) * 3600;
+        
+        if ($data['count'] >= $suspiciousThreshold && (time() - $data['first_seen']) <= $suspiciousWindow) {
             $reason = __('Multiple suspicious requests detected');
-            $expiresAt = DateTime::now()->modify('+24 hours'); // Default block duration
+            $blockHours = (int)SettingsManager::read('Security.suspiciousBlockHours', 24);
+            $expiresAt = DateTime::now()->modify("+{$blockHours} hours");
 
-            // Check if this IP was previously blocked (any block, active or expired)
+            // Check for repeat offenders
             $previousBlock = $this->blockedIpsTable->find()
                 ->where(['ip_address' => $ip])
-                ->orderByDesc('created') // Get the most recent block record for this IP
+                ->orderByDesc('created')
                 ->first();
 
             if ($previousBlock) {
-                // If there was a previous block that is now expired, or if it was a very short block
-                // This means the IP is a repeat offender
                 if ($previousBlock->expires_at === null || $previousBlock->expires_at->isPast()) {
-                    // Double the block time for repeat offenders (e.g., 48 hours for second offense)
-                    $expiresAt = DateTime::now()->modify('+48 hours');
+                    // Double the block time for repeat offenders
+                    $blockHours *= 2;
+                    $expiresAt = DateTime::now()->modify("+{$blockHours} hours");
                     $reason = __('Repeat offender: Multiple suspicious requests detected');
                 }
             }
 
-            // Block the IP with the determined reason and expiration
             $this->blockIp($ip, $reason, $expiresAt);
         }
     }

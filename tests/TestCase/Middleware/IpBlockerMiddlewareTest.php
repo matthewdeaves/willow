@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Middleware;
 
 use App\Middleware\IpBlockerMiddleware;
+use App\Test\Traits\SecurityMiddlewareTestTrait;
+use App\Utility\SettingsManager;
 use Cake\Cache\Cache;
 use Cake\Http\Response;
 use Cake\Http\ServerRequest;
@@ -15,22 +17,26 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class IpBlockerMiddlewareTest extends TestCase
 {
+    use SecurityMiddlewareTestTrait;
+
     protected $middleware;
     protected $blockedIpsTable;
 
-    public array $fixtures = ['app.BlockedIps'];
+    public array $fixtures = [
+        'app.BlockedIps',
+        'app.Settings',
+    ];
 
     /**
      * Set up the test environment.
-     *
-     * Initializes the IpBlockerMiddleware, gets the BlockedIps table,
-     * and clears the ip_blocker cache.
-     *
-     * @return void
      */
     public function setUp(): void
     {
         parent::setUp();
+        
+        // Enable security middleware for these tests
+        $this->enableSecurityMiddleware();
+        
         $this->middleware = new IpBlockerMiddleware();
         $this->blockedIpsTable = TableRegistry::getTableLocator()->get('BlockedIps');
         Cache::clear('ip_blocker');
@@ -38,14 +44,14 @@ class IpBlockerMiddlewareTest extends TestCase
 
     /**
      * Clean up after each test.
-     *
-     * Clears the ip_blocker cache and the table locator.
-     *
-     * @return void
      */
     public function tearDown(): void
     {
         parent::tearDown();
+        
+        // Disable security middleware after tests
+        $this->disableSecurityMiddleware();
+        
         Cache::clear('ip_blocker');
         $this->getTableLocator()->clear();
     }
@@ -110,7 +116,9 @@ class IpBlockerMiddlewareTest extends TestCase
         $request = new ServerRequest(['environment' => ['REMOTE_ADDR' => '192.0.2.3']]);
         $handler = $this->createMock(RequestHandlerInterface::class);
 
-        Cache::write('blocked_ip_192.0.2.3', true, 'ip_blocker');
+        // Use MD5 hash of IP for cache key (matching the service)
+        $cacheKey = 'blocked_ip_' . md5('192.0.2.3');
+        Cache::write($cacheKey, true, 'ip_blocker');
 
         $response = $this->middleware->process($request, $handler);
 
@@ -147,25 +155,55 @@ class IpBlockerMiddlewareTest extends TestCase
     }
 
     /**
-     * Test the process method when the REMOTE_ADDR is missing from the request.
-     *
-     * This test ensures that when the REMOTE_ADDR is not present in the server parameters,
-     * the middleware allows the request to pass through to the next handler without
-     * performing any IP blocking checks.
+     * Test the process method when the REMOTE_ADDR is missing and blockOnNoIp is true.
      *
      * @return void
      */
-    public function testProcessWithMissingRemoteAddr(): void
+    public function testProcessWithMissingRemoteAddrBlocked(): void
     {
+        // Ensure blockOnNoIp is true (the default)
+        SettingsManager::write('Security.blockOnNoIp', true);
+        
         $request = new ServerRequest();
         $handler = $this->createMock(RequestHandlerInterface::class);
-        $handler->expects($this->once())
-            ->method('handle')
-            ->willReturn(new Response());
+        $handler->expects($this->never())
+            ->method('handle');
 
         $response = $this->middleware->process($request, $handler);
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(403, $response->getStatusCode());
+        $this->assertStringContainsString('Access Denied: Unable to verify request origin.', (string)$response->getBody());
+    }
+
+    /**
+     * Test the process method when the REMOTE_ADDR is missing and blockOnNoIp is false.
+     *
+     * @return void
+     */
+    public function testProcessWithMissingRemoteAddrAllowed(): void
+    {
+        // Set blockOnNoIp to false
+        $originalValue = SettingsManager::read('Security.blockOnNoIp');
+        SettingsManager::write('Security.blockOnNoIp', false);
+        
+        try {
+            $request = new ServerRequest();
+            $handler = $this->createMock(RequestHandlerInterface::class);
+            $handler->expects($this->once())
+                ->method('handle')
+                ->willReturn(new Response());
+
+            $response = $this->middleware->process($request, $handler);
+
+            $this->assertEquals(200, $response->getStatusCode());
+        } finally {
+            // Restore original value
+            if ($originalValue !== null) {
+                SettingsManager::write('Security.blockOnNoIp', $originalValue);
+            } else {
+                SettingsManager::delete('Security.blockOnNoIp');
+            }
+        }
     }
 
     /**
@@ -223,14 +261,13 @@ class IpBlockerMiddlewareTest extends TestCase
         ]);
         $handler = $this->createMock(RequestHandlerInterface::class);
 
-        // Simulate multiple suspicious requests - 2 needed for block
-        // The loop is 3 times, so it will block on 2nd and subsequent attempts.
+        // The default threshold is 3, so we need at least 3 suspicious requests
         for ($i = 0; $i < 3; $i++) {
             $response = $this->middleware->process($request, $handler);
             $this->assertEquals(403, $response->getStatusCode());
         }
 
-        // Verify IP is now blocked in database (count 2 or more)
+        // Verify IP is now blocked in database
         $blocked = $this->blockedIpsTable->find()
             ->where(['ip_address' => $ip])
             ->first();
@@ -426,7 +463,7 @@ class IpBlockerMiddlewareTest extends TestCase
         $this->assertEquals(200, $response->getStatusCode());
 
         // Also assert that the IP was *not* marked as suspicious in cache, which would lead to a block
-        $cacheKey = 'suspicious_' . $ip;
+        $cacheKey = 'suspicious_' . md5($ip);
         $this->assertNotSame(true, Cache::read($cacheKey, 'ip_blocker'));
     }
 
@@ -472,7 +509,7 @@ class IpBlockerMiddlewareTest extends TestCase
         $response = $this->middleware->process($request, $handler);
 
         $this->assertEquals(200, $response->getStatusCode());
-        $cacheKey = 'suspicious_' . $ip;
+        $cacheKey = 'suspicious_' . md5($ip);
         $this->assertNotSame(true, Cache::read($cacheKey, 'ip_blocker'));
     }
 
@@ -518,7 +555,7 @@ class IpBlockerMiddlewareTest extends TestCase
         $response = $this->middleware->process($request, $handler);
 
         $this->assertEquals(200, $response->getStatusCode());
-        $cacheKey = 'suspicious_' . $ip;
+        $cacheKey = 'suspicious_' . md5($ip);
         $this->assertNotSame(true, Cache::read($cacheKey, 'ip_blocker'));
     }
 
@@ -561,7 +598,7 @@ class IpBlockerMiddlewareTest extends TestCase
         $response = $this->middleware->process($request, $handler);
 
         $this->assertEquals(200, $response->getStatusCode());
-        $cacheKey = 'suspicious_' . $ip;
+        $cacheKey = 'suspicious_' . md5($ip);
         $this->assertNotSame(true, Cache::read($cacheKey, 'ip_blocker'));
     }
 

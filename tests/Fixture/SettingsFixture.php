@@ -76,7 +76,7 @@ class SettingsFixture extends TestFixture
                 'value' => '10',
                 'value_type' => 'numeric',
             ],
-            
+
             // Email settings
             [
                 'id' => Text::uuid(),
@@ -85,7 +85,7 @@ class SettingsFixture extends TestFixture
                 'value' => 'noreply@example.com',
                 'value_type' => 'text',
             ],
-            
+
             // SEO settings
             [
                 'id' => Text::uuid(),
@@ -94,7 +94,7 @@ class SettingsFixture extends TestFixture
                 'value' => 'Welcome to Willow CMS',
                 'value_type' => 'text',
             ],
-            
+
             // AI settings
             [
                 'id' => Text::uuid(),
@@ -110,7 +110,7 @@ class SettingsFixture extends TestFixture
                 'value' => '0',
                 'value_type' => 'bool',
             ],
-            
+
             // Comments settings
             [
                 'id' => Text::uuid(),
@@ -126,7 +126,7 @@ class SettingsFixture extends TestFixture
                 'value' => '1',
                 'value_type' => 'bool',
             ],
-            
+
             // Users settings
             [
                 'id' => Text::uuid(),
@@ -135,7 +135,7 @@ class SettingsFixture extends TestFixture
                 'value' => '1',
                 'value_type' => 'bool',
             ],
-            
+
             // Security settings
             [
                 'id' => Text::uuid(),
@@ -186,7 +186,7 @@ class SettingsFixture extends TestFixture
                 'value' => '24',
                 'value_type' => 'numeric',
             ],
-            
+
             // Rate limit settings - Global
             [
                 'id' => Text::uuid(),
@@ -202,7 +202,7 @@ class SettingsFixture extends TestFixture
                 'value' => '60',
                 'value_type' => 'numeric',
             ],
-            
+
             // Rate limit settings - Login
             [
                 'id' => Text::uuid(),
@@ -218,7 +218,7 @@ class SettingsFixture extends TestFixture
                 'value' => '60',
                 'value_type' => 'numeric',
             ],
-            
+
             // Rate limit settings - Admin
             [
                 'id' => Text::uuid(),
@@ -234,7 +234,7 @@ class SettingsFixture extends TestFixture
                 'value' => '60',
                 'value_type' => 'numeric',
             ],
-            
+
             // Rate limit settings - Password Reset
             [
                 'id' => Text::uuid(),
@@ -250,7 +250,7 @@ class SettingsFixture extends TestFixture
                 'value' => '300',
                 'value_type' => 'numeric',
             ],
-            
+
             // Rate limit settings - Register
             [
                 'id' => Text::uuid(),
@@ -266,7 +266,7 @@ class SettingsFixture extends TestFixture
                 'value' => '300',
                 'value_type' => 'numeric',
             ],
-            
+
             // Rate limit settings - API
             [
                 'id' => Text::uuid(),

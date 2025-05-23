@@ -27,13 +27,13 @@ class RateLimitMiddlewareTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        
+
         // Enable security middleware for these tests
         $this->enableSecurityMiddleware();
-        
+
         // Clear the rate limit cache completely
         Cache::clear('rate_limit');
-        
+
         // Configure the middleware with test-specific settings
         $this->middleware = new RateLimitMiddleware([
             'enabled' => true,
@@ -53,10 +53,10 @@ class RateLimitMiddlewareTest extends TestCase
     public function tearDown(): void
     {
         parent::tearDown();
-        
+
         // Disable security middleware after tests
         $this->disableSecurityMiddleware();
-        
+
         Cache::clear('rate_limit');
     }
 
@@ -68,7 +68,7 @@ class RateLimitMiddlewareTest extends TestCase
         $request = new ServerRequest(['url' => '/articles/view']);
         $request = $request->withEnv('REMOTE_ADDR', '127.0.0.1');
         $handler = $this->createMock(RequestHandlerInterface::class);
-        
+
         // Since general routes have a high limit (100), all should pass
         $handler->expects($this->exactly(3))->method('handle')->willReturn($this->createMock(ResponseInterface::class));
 
@@ -89,11 +89,11 @@ class RateLimitMiddlewareTest extends TestCase
     {
         // Clear any existing rate limit data for this test
         //Cache::clear('rate_limit');
-        
+
         $request = new ServerRequest(['url' => '/users/login']);
         $request = $request->withEnv('REMOTE_ADDR', '127.0.0.2'); // Different IP from other tests
         $handler = $this->createMock(RequestHandlerInterface::class);
-        
+
         // With limit of 2, only 2 requests should pass
         $handler->expects($this->exactly(2))->method('handle')->willReturn($this->createMock(ResponseInterface::class));
 
@@ -118,7 +118,7 @@ class RateLimitMiddlewareTest extends TestCase
         $request1 = $request1->withEnv('REMOTE_ADDR', '127.0.0.3');
         $request2 = new ServerRequest(['url' => '/articles/edit']);
         $request2 = $request2->withEnv('REMOTE_ADDR', '127.0.0.3');
-        
+
         $handler = $this->createMock(RequestHandlerInterface::class);
         $responseMock = $this->createMock(ResponseInterface::class);
         $handler->method('handle')->willReturn($responseMock);
@@ -139,7 +139,7 @@ class RateLimitMiddlewareTest extends TestCase
     {
         // Clear any existing rate limit data for this test
         //Cache::clear('rate_limit');
-        
+
         $request = new ServerRequest(['url' => '/pages/add-comment']);
         $request = $request->withEnv('REMOTE_ADDR', '127.0.0.4'); // Different IP from other tests
         $handler = $this->createMock(RequestHandlerInterface::class);

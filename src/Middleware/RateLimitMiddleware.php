@@ -43,14 +43,14 @@ class RateLimitMiddleware implements MiddlewareInterface
     {
         // Check if rate limiting is enabled
         $this->enabled = (bool)SettingsManager::read('Security.enableRateLimiting', true);
-        
+
         // Load global defaults from settings
         $this->defaultLimit = (int)SettingsManager::read('RateLimit.numberOfRequests', 100);
         $this->defaultPeriod = (int)SettingsManager::read('RateLimit.numberOfSeconds', 60);
-        
+
         // Load route-specific configurations
         $this->loadRouteConfigs();
-        
+
         // Allow config overrides (useful for testing)
         if (!empty($config)) {
             if (isset($config['enabled'])) {
@@ -84,11 +84,11 @@ class RateLimitMiddleware implements MiddlewareInterface
             '/users/confirm-email' => 'passwordReset',
             '/users/register' => 'register',
         ];
-        
+
         foreach ($routeSettings as $route => $settingKey) {
             $limit = SettingsManager::read("RateLimit.{$settingKey}NumberOfRequests", null);
             $period = SettingsManager::read("RateLimit.{$settingKey}NumberOfSeconds", null);
-            
+
             // Only add to configs if both settings exist
             if ($limit !== null && $period !== null) {
                 $this->routeConfigs[$route] = [
@@ -121,12 +121,12 @@ class RateLimitMiddleware implements MiddlewareInterface
 
         // Get client IP (will be set by IpBlockerMiddleware if it runs first)
         $ip = $request->getAttribute('clientIp') ?? $request->clientIp();
-        
+
         if (!$ip) {
             // If we can't determine IP, let it through (IpBlockerMiddleware will handle this)
             return $handler->handle($request);
         }
-        
+
         $route = $request->getUri()->getPath();
         $config = $this->getRouteConfig($route);
 
@@ -140,7 +140,7 @@ class RateLimitMiddleware implements MiddlewareInterface
                 throw new TooManyRequestsException(
                     __('Too many requests. Please try again later.'),
                     null,
-                    $config['period']
+                    $config['period'],
                 );
             }
         }
@@ -160,17 +160,17 @@ class RateLimitMiddleware implements MiddlewareInterface
         if (isset($this->routeConfigs[$route])) {
             return $this->routeConfigs[$route];
         }
-        
+
         // Then check for wildcard matches
         foreach ($this->routeConfigs as $pattern => $config) {
             if (str_contains($pattern, '*')) {
                 // Handle wildcard routes
                 $escapedPattern = preg_quote($pattern, '#');
                 $escapedPattern = str_replace('\*', '.*', $escapedPattern);
-                
+
                 // Allow optional language prefix
                 $fullPattern = '#^(/[a-z]{2})?' . $escapedPattern . '$#';
-                
+
                 if (preg_match($fullPattern, $route)) {
                     return $config;
                 }
@@ -182,7 +182,7 @@ class RateLimitMiddleware implements MiddlewareInterface
                 }
             }
         }
-        
+
         // Return default configuration for all other routes
         return [
             'limit' => $this->defaultLimit,

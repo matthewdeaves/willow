@@ -26,7 +26,7 @@ class IpBlockerMiddleware implements MiddlewareInterface
     use LogTrait;
 
     private IpSecurityService $ipSecurity;
-    
+
     /**
      * Constructor
      *
@@ -48,22 +48,26 @@ class IpBlockerMiddleware implements MiddlewareInterface
     {
         // Get client IP using the service
         $clientIp = $this->ipSecurity->getClientIp($request);
-        
+
         // Check if we should block when IP cannot be determined
         if (!$clientIp) {
-            
             $blockOnNoIp = SettingsManager::read('Security.blockOnNoIp', true);
-            
+
             if ($blockOnNoIp) {
                 $this->log('Request blocked: Unable to determine client IP', 'warning', ['group_name' => 'security']);
-                
+
                 return $this->createBlockedResponse(
-                    __('Access Denied: Unable to verify request origin.')
+                    __('Access Denied: Unable to verify request origin.'),
                 );
             }
-            
+
             // If not blocking on no IP, allow the request but log it
-            $this->log('Request allowed despite missing IP - consider enabling blockOnNoIp', 'info', ['group_name' => 'security']);
+            $this->log(
+                'Request allowed despite missing IP - consider enabling blockOnNoIp',
+                'info',
+                ['group_name' => 'security'],
+            );
+
             return $handler->handle($request);
         }
 
@@ -73,9 +77,9 @@ class IpBlockerMiddleware implements MiddlewareInterface
         // Check if IP is blocked
         if ($this->ipSecurity->isIpBlocked($clientIp)) {
             $this->log("Blocked request from banned IP: {$clientIp}", 'info', ['group_name' => 'security']);
-            
+
             return $this->createBlockedResponse(
-                __('Access Denied: Your IP address has been blocked due to suspicious activity.')
+                __('Access Denied: Your IP address has been blocked due to suspicious activity.'),
             );
         }
 
@@ -84,17 +88,17 @@ class IpBlockerMiddleware implements MiddlewareInterface
             $uri = $request->getUri();
             $route = $uri->getPath();
             $query = $uri->getQuery() ?? '';
-            
+
             $this->ipSecurity->trackSuspiciousActivity($clientIp, $route, $query);
-            
+
             $this->log(
-                "Suspicious request detected from {$clientIp}: {$route}?{$query}", 
-                'warning', 
-                ['group_name' => 'security']
+                "Suspicious request detected from {$clientIp}: {$route}?{$query}",
+                'warning',
+                ['group_name' => 'security'],
             );
-            
+
             return $this->createBlockedResponse(
-                __('Access Denied: Suspicious request detected.')
+                __('Access Denied: Suspicious request detected.'),
             );
         }
 
@@ -113,7 +117,7 @@ class IpBlockerMiddleware implements MiddlewareInterface
     private function createBlockedResponse(string $message, int $statusCode = 403): ResponseInterface
     {
         $response = new Response();
-        
+
         // Set security headers
         $response = $response
             ->withHeader('X-Content-Type-Options', 'nosniff')
@@ -128,7 +132,7 @@ class IpBlockerMiddleware implements MiddlewareInterface
                 ->withType('application/json')
                 ->withStringBody(json_encode([
                     'error' => $message,
-                    'code' => $statusCode
+                    'code' => $statusCode,
                 ]));
         }
 

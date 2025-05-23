@@ -33,10 +33,10 @@ class IpBlockerMiddlewareTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        
+
         // Enable security middleware for these tests
         $this->enableSecurityMiddleware();
-        
+
         $this->middleware = new IpBlockerMiddleware();
         $this->blockedIpsTable = TableRegistry::getTableLocator()->get('BlockedIps');
         Cache::clear('ip_blocker');
@@ -48,10 +48,10 @@ class IpBlockerMiddlewareTest extends TestCase
     public function tearDown(): void
     {
         parent::tearDown();
-        
+
         // Disable security middleware after tests
         $this->disableSecurityMiddleware();
-        
+
         Cache::clear('ip_blocker');
         $this->getTableLocator()->clear();
     }
@@ -163,7 +163,7 @@ class IpBlockerMiddlewareTest extends TestCase
     {
         // Ensure blockOnNoIp is true (the default)
         SettingsManager::write('Security.blockOnNoIp', true);
-        
+
         $request = new ServerRequest();
         $handler = $this->createMock(RequestHandlerInterface::class);
         $handler->expects($this->never())
@@ -185,7 +185,7 @@ class IpBlockerMiddlewareTest extends TestCase
         // Set blockOnNoIp to false
         $originalValue = SettingsManager::read('Security.blockOnNoIp');
         SettingsManager::write('Security.blockOnNoIp', false);
-        
+
         try {
             $request = new ServerRequest();
             $handler = $this->createMock(RequestHandlerInterface::class);

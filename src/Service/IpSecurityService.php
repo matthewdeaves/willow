@@ -41,10 +41,10 @@ class IpSecurityService
      * @var array<string> List of proxy headers to check in order of preference
      */
     private array $proxyHeaders = [
-        'HTTP_CF_CONNECTING_IP',  // Cloudflare
-        'HTTP_X_FORWARDED_FOR',   // Standard proxy header
-        'HTTP_X_REAL_IP',         // Nginx
-        'HTTP_CLIENT_IP',         // Some proxies
+        'HTTP_CF_CONNECTING_IP', // Cloudflare
+        'HTTP_X_FORWARDED_FOR', // Standard proxy header
+        'HTTP_X_REAL_IP', // Nginx
+        'HTTP_CLIENT_IP', // Some proxies
     ];
 
     /**
@@ -83,17 +83,17 @@ class IpSecurityService
         }
 
         $serverParams = $request->getServerParams();
-        
+
         // If trust proxy is enabled, check proxy headers
         if (SettingsManager::read('Security.trustProxy', false)) {
             $trustedProxiesConfig = SettingsManager::read('Security.trustedProxies', '');
             $trustedProxies = array_filter(
-                array_map('trim', explode("\n", $trustedProxiesConfig))
+                array_map('trim', explode("\n", $trustedProxiesConfig)),
             );
-            
+
             // Check if request is from a trusted proxy
             $remoteAddr = $serverParams['REMOTE_ADDR'] ?? null;
-            
+
             // If trusted proxies are configured, verify the request is from one
             if (!empty($trustedProxies) && $remoteAddr) {
                 if (!in_array($remoteAddr, $trustedProxies)) {
@@ -101,7 +101,7 @@ class IpSecurityService
                     return $this->isValidIp($remoteAddr) ? $remoteAddr : null;
                 }
             }
-            
+
             // Check proxy headers in order of preference
             foreach ($this->proxyHeaders as $header) {
                 if (!empty($serverParams[$header])) {
@@ -117,8 +117,8 @@ class IpSecurityService
 
         // Fall back to REMOTE_ADDR
         $remoteAddr = $serverParams['REMOTE_ADDR'] ?? null;
-        
-        return ($remoteAddr && $this->isValidIp($remoteAddr)) ? $remoteAddr : null;
+
+        return $remoteAddr && $this->isValidIp($remoteAddr) ? $remoteAddr : null;
     }
 
     /**
@@ -131,7 +131,7 @@ class IpSecurityService
     {
         // Handle comma-separated list of IPs
         $ips = array_map('trim', explode(',', $header));
-        
+
         // Return IPs in order (leftmost is usually the client)
         return $ips;
     }
@@ -156,9 +156,9 @@ class IpSecurityService
     private function isInternalIp(string $ip): bool
     {
         return !filter_var(
-            $ip, 
-            FILTER_VALIDATE_IP, 
-            FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE
+            $ip,
+            FILTER_VALIDATE_IP,
+            FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE,
         );
     }
 
@@ -254,7 +254,7 @@ class IpSecurityService
                     $cacheDuration = ($diffInSeconds + 60) . ' seconds';
                 }
             }
-            
+
             $cacheKey = 'blocked_ip_' . md5($ip);
             Cache::write($cacheKey, true, 'ip_blocker', $cacheDuration);
 
@@ -298,6 +298,7 @@ class IpSecurityService
         } else {
             // IP was not in the blocked list
             Cache::delete('blocked_ip_' . md5($ip), 'ip_blocker');
+
             return true;
         }
     }
@@ -324,7 +325,7 @@ class IpSecurityService
             ) {
                 // Get client IP using the same method
                 $clientIp = $this->getClientIp($request) ?: 'unknown';
-                
+
                 // Log the detected suspicious activity
                 Log::warning(__('Suspicious request detected: {0}', [$fullUrl]), [
                     'pattern' => $pattern,
@@ -380,7 +381,7 @@ class IpSecurityService
         // Block if multiple suspicious requests within time window
         $suspiciousThreshold = (int)SettingsManager::read('Security.suspiciousRequestThreshold', 3);
         $suspiciousWindow = (int)SettingsManager::read('Security.suspiciousWindowHours', 24) * 3600;
-        
+
         if ($data['count'] >= $suspiciousThreshold && (time() - $data['first_seen']) <= $suspiciousWindow) {
             $reason = __('Multiple suspicious requests detected');
             $blockHours = (int)SettingsManager::read('Security.suspiciousBlockHours', 24);

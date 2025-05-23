@@ -20,7 +20,6 @@ use ADmad\I18n\Middleware\I18nMiddleware;
 use App\Middleware\IpBlockerMiddleware;
 use App\Middleware\RateLimitMiddleware;
 use App\Utility\I18nManager;
-use App\Utility\SettingsManager;
 use Authentication\AuthenticationService;
 use Authentication\AuthenticationServiceInterface;
 use Authentication\AuthenticationServiceProviderInterface;
@@ -103,11 +102,11 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 
             // Only add security middleware if not in test environment
             // or if specifically enabled for testing
-            if (env('CAKE_ENV') !== 'test' || Configure::read('TestSecurity.enabled', false)) {
-                $middlewareQueue
-                    ->add(new IpBlockerMiddleware())
-                    ->add(new RateLimitMiddleware());
-            }
+        if (env('CAKE_ENV') !== 'test' || Configure::read('TestSecurity.enabled', false)) {
+            $middlewareQueue
+                ->add(new IpBlockerMiddleware())
+                ->add(new RateLimitMiddleware());
+        }
 
         $middlewareQueue
             // Handle plugin/theme assets like CakePHP normally does.

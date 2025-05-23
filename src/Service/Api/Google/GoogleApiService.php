@@ -6,6 +6,7 @@ namespace App\Service\Api\Google;
 use App\Utility\SettingsManager;
 use Exception;
 use Google\Cloud\Translate\V2\TranslateClient;
+use InvalidArgumentException;
 
 /**
  * Service class for interacting with the Google Cloud Translate API.
@@ -45,6 +46,15 @@ class GoogleApiService
      */
     public function translateStrings(array $strings, string $localeFrom, string $localeTo): array
     {
+        if (empty($strings)) {
+            return ['translations' => []];
+        }
+
+        // Google Translate API has batch size limits
+        if (count($strings) > 100) {
+            throw new InvalidArgumentException('Batch size exceeds Google API limit');
+        }
+
         try {
             $results = $this->translateClient->translateBatch($strings, [
                 'source' => $localeFrom,

@@ -56,7 +56,7 @@ return [
         'webroot' => 'webroot',
         'wwwRoot' => WWW_ROOT,
         //'baseUrl' => env('SCRIPT_NAME'),
-        'fullBaseUrl' => false,
+        'fullBaseUrl' => env('APP_FULL_BASE_URL', false),
         'imageBaseUrl' => 'img/',
         'cssBaseUrl' => 'css/',
         'jsBaseUrl' => 'js/',
@@ -75,7 +75,7 @@ return [
      *   You should treat it as extremely sensitive data.
      */
     'Security' => [
-        'salt' => env('SECURITY_SALT', '8831764ad771299067333a9779c3a9818d0309dbbd797fdcdf175366486ed397'),
+        'salt' => env('SECURITY_SALT', '__SALT__'),
     ],
 
     /*
@@ -160,7 +160,7 @@ return [
             'prefix' => 'cms_rate_limit_',
             'path' => CACHE . 'ratelimit' . DS,
             'serialize' => true,
-            'duration' => '+1 hour',
+            'duration' => '+5 minutes',
         ],
 
         'articles' => [
@@ -178,6 +178,13 @@ return [
             'serialize' => true,
             'duration' => '+1 month',
 
+        ],
+        'queue_jobs' => [
+            'className' => FileEngine::class,
+            'prefix' => 'willow_queue_unique_',
+            'path' => CACHE . 'queue_unique_jobs' . DS,
+            'serialize' => true,
+            'duration' => '+1 week',
         ],
     ],
 
@@ -267,7 +274,7 @@ return [
      */
     'EmailTransport' => [
         'default' => [
-            'className' => 'Smtp',
+            'className' => MailTransport::class,
             /*
              * The keys host, port, timeout, username, password, client and tls
              * are used in SMTP transports
@@ -478,7 +485,11 @@ return [
             'receiveTimeout' => 10000,
             'storeFailedJobs' => false,
             'uniqueCache' => [
-                'engine' => 'File',
+                'className' => FileEngine::class,
+                'prefix' => 'willow_queue_unique_default_',
+                'path' => CACHE . 'persistent' . DS . 'queue_unique_jobs' . DS . 'default' . DS, // Ensure it's within app's CACHE dir
+                'serialize' => true,
+                'duration' => '+1 day',
             ],
         ],
         'test' => [
@@ -489,7 +500,11 @@ return [
             'receiveTimeout' => 10000,
             'storeFailedJobs' => false,
             'uniqueCache' => [
-                'engine' => 'File',
+                'className' => FileEngine::class,
+                'prefix' => 'willow_queue_unique_test_',
+                'path' => CACHE . 'persistent' . DS . 'queue_unique_jobs' . DS . 'test' . DS, // Within app's CACHE dir
+                'serialize' => true,
+                'duration' => '+1 week',
             ],
         ],
     ],

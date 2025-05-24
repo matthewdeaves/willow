@@ -53,7 +53,7 @@ class RssController extends AppController
 
         // Get published articles
         $cacheKey = $this->cacheKey;
-        $articles = Cache::read($cacheKey, 'articles');
+        $articles = Cache::read($cacheKey, 'content');
         if (!$articles) {
             $articles = $articlesTable->find('all')
                 ->select(['id', 'title', 'slug', 'summary', 'created'])
@@ -63,7 +63,7 @@ class RssController extends AppController
                 ])
                 ->orderByDesc('created')
                 ->all();
-            Cache::write($cacheKey, $articles, 'articles');
+            Cache::write($cacheKey, $articles, 'content');
         }
 
         $siteUrl = Router::url(['_name' => 'home', 'lang' => $currentLang], true);

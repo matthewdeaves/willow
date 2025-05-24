@@ -33,6 +33,16 @@ class CommentsController extends AppController
     }
 
     /**
+     * Clears the content cache (used for both articles and tags)
+     *
+     * @return void
+     */
+    private function clearContentCache(): void
+    {
+        Cache::clear('content');
+    }
+
+    /**
      * Displays a paginated list of comments with search functionality.
      *
      * @return \Cake\Http\Response|null Renders view or returns search results for AJAX requests.
@@ -98,7 +108,7 @@ class CommentsController extends AppController
             $comment = $this->Comments->patchEntity($comment, $this->request->getData());
             if ($this->Comments->save($comment)) {
                 if ($comment->article) {
-                    Cache::clear('articles');
+                    $this->clearContentCache();
                 }
                 $this->Flash->success(__('The comment has been saved.'));
 
@@ -126,7 +136,7 @@ class CommentsController extends AppController
 
         if ($this->Comments->delete($comment)) {
             if ($comment->article) {
-                Cache::clear('articles');
+                $this->clearContentCache();
             }
 
             $this->Flash->success(__('The comment has been deleted.'));

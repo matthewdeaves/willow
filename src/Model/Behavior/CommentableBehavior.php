@@ -57,7 +57,7 @@ class CommentableBehavior extends Behavior
     {
         $entity = $this->_table->get($entityId);
         if ($entity->slug) {
-            Cache::delete("article_{$entity->slug}", 'articles');
+            Cache::delete("article_{$entity->slug}", 'content');
         }
     }
 

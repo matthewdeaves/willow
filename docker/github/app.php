@@ -163,10 +163,10 @@ return [
             'duration' => '+5 minutes',
         ],
 
-        'articles' => [
+        'content' => [
             'className' => FileEngine::class,
-            'prefix' => 'cms_articles_',
-            'path' => CACHE . 'articles' . DS,
+            'prefix' => 'cms_contents_',
+            'path' => CACHE . 'content' . DS,
             'serialize' => true,
             'duration' => '+1 month',
         ],

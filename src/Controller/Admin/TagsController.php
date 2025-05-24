@@ -18,6 +18,16 @@ use Exception;
 class TagsController extends AppController
 {
     /**
+     * Clears the content cache (used for both articles and tags)
+     *
+     * @return void
+     */
+    private function clearContentCache(): void
+    {
+        Cache::clear('content');
+    }
+
+    /**
      * Retrieves a hierarchical list of tags.
      *
      * @return void
@@ -83,7 +93,7 @@ class TagsController extends AppController
 
         try {
             $result = $this->Tags->reorder($data);
-            Cache::clear('articles');
+            $this->clearContentCache();
 
             return $this->response->withType('application/json')
                 ->withStringBody(json_encode(['success' => true, 'result' => $result]));
@@ -173,7 +183,7 @@ class TagsController extends AppController
         if ($this->request->is('post')) {
             $tag = $this->Tags->patchEntity($tag, $this->request->getData());
             if ($this->Tags->save($tag)) {
-                Cache::clear('articles');
+                $this->clearContentCache();
                 $this->Flash->success(__('The tag has been saved.'));
 
                 return $this->redirect(['action' => $session->read('Tags.indexAction', 'treeIndex')]);
@@ -204,7 +214,7 @@ class TagsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $tag = $this->Tags->patchEntity($tag, $this->request->getData());
             if ($this->Tags->save($tag)) {
-                Cache::clear('articles');
+                $this->clearContentCache();
                 $this->Flash->success(__('The tag has been saved.'));
 
                 return $this->redirect(['action' => $session->read('Tags.indexAction', 'treeIndex')]);
@@ -237,7 +247,7 @@ class TagsController extends AppController
         $session = $this->request->getSession();
         $tag = $this->Tags->get($id);
         if ($this->Tags->delete($tag)) {
-            Cache::clear('articles');
+            $this->clearContentCache();
             $this->Flash->success(__('The tag has been deleted.'));
         } else {
             $this->Flash->error(__('The tag could not be deleted. Please, try again.'));

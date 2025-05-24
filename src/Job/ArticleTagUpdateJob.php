@@ -134,7 +134,7 @@ class ArticleTagUpdateJob implements JobInterface
                     ['group_name' => 'App\Job\ArticleTagUpdateJob'],
                 );
 
-                Cache::clear('articles');
+                Cache::clear('content');
 
                 return Processor::ACK;
             } else {

@@ -206,7 +206,7 @@ class TranslateArticleJob implements JobInterface
                     );
                 }
             }
-            Cache::clear('articles');
+            Cache::clear('content');
 
             return Processor::ACK;
         } else {

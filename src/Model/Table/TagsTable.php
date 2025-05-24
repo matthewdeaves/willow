@@ -257,7 +257,7 @@ class TagsTable extends Table
         $query = $this->find()
             ->where($conditions)
             ->orderBy(['lft' => 'ASC'])
-            ->cache($cacheKey . 'root_tags', 'articles');
+            ->cache($cacheKey . 'root_tags', 'content');
 
         $results = $query->all()->toList();
 
@@ -286,7 +286,7 @@ class TagsTable extends Table
         $query = $this->find()
             ->where($conditions)
             ->orderBy(['lft' => 'ASC'])
-            ->cache($cacheKey . 'main_menu_tags', 'articles');
+            ->cache($cacheKey . 'main_menu_tags', 'content');
 
         $results = $query->all()->toList();
 

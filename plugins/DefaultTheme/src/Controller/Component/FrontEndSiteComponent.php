@@ -99,7 +99,7 @@ class FrontEndSiteComponent extends Component
             $privacyPolicy = $articlesTable->find()
                 ->select(['id', 'title', 'slug'])
                 ->where(['id' => $privacyPolicyId])
-                ->cache($cacheKey . 'priv_page', 'articles')
+                ->cache($cacheKey . 'priv_page', 'content')
                 ->first();
                 
             if ($privacyPolicy) {

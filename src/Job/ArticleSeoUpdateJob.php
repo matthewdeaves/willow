@@ -107,7 +107,7 @@ class ArticleSeoUpdateJob implements JobInterface
                     ['group_name' => 'App\Job\ArticleSeoUpdateJob'],
                 );
 
-                Cache::clear('articles');
+                Cache::clear('content');
 
                 return Processor::ACK;
             } else {

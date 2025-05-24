@@ -19,6 +19,16 @@ use Exception;
 class ArticlesController extends AppController
 {
     /**
+     * Clears the content cache (used for both articles and tags)
+     *
+     * @return void
+     */
+    private function clearContentCache(): void
+    {
+        Cache::clear('content');
+    }
+
+    /**
      * Retrieves a hierarchical list of articles that are marked as pages.
      *
      * @return void
@@ -86,7 +96,7 @@ class ArticlesController extends AppController
 
         try {
             $result = $this->Articles->reorder($data);
-            Cache::clear('articles');
+            $this->clearContentCache();
 
             return $this->response->withType('application/json')
                 ->withStringBody(json_encode(['success' => true, 'result' => $result]));
@@ -221,7 +231,7 @@ class ArticlesController extends AppController
             }
 
             if ($this->Articles->save($article)) {
-                Cache::clear('articles');
+                $this->clearContentCache();
                 $this->Flash->success(__('The article has been saved.'));
 
                 // Redirect to treeIndex if is page, otherwise to index
@@ -287,7 +297,7 @@ class ArticlesController extends AppController
             }
 
             if ($this->Articles->save($article, $saveOptions)) {
-                Cache::clear('articles');
+                $this->clearContentCache();
                 $this->Flash->success(__('The article has been saved.'));
 
                 // Redirect to treeIndex if kind is page, otherwise to index
@@ -330,7 +340,7 @@ class ArticlesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $article = $this->Articles->get($id);
         if ($this->Articles->delete($article)) {
-            Cache::clear('articles');
+            $this->clearContentCache();
 
             $this->Flash->success(__('The article has been deleted.'));
         } else {

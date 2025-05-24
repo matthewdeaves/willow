@@ -139,7 +139,7 @@ class CommentAnalysisJob implements JobInterface
      * 1. Extracts the inappropriateness status and reason from the analysis result.
      * 2. Updates the comment entity with the analysis results.
      * 3. Saves the updated comment entity to the database.
-     * 4. Clears the articles cache to reflect the updated comment status.
+     * 4. Clears the content cache to reflect the updated comment status.
      *
      * @param \App\Model\Entity\Comment $comment The comment entity to update.
      * @param array $analysisResult The result of the comment analysis.
@@ -165,6 +165,6 @@ class CommentAnalysisJob implements JobInterface
             );
         }
 
-        Cache::clear('articles');
+        Cache::clear('content');
     }
 }

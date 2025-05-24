@@ -127,7 +127,7 @@ class ArticlesController extends AppController
     public function index(): void
     {
         $cacheKey = $this->cacheKey;
-        $articles = Cache::read($cacheKey, 'articles');
+        $articles = Cache::read($cacheKey, 'content');
         $selectedTagId = $this->request->getQuery('tag');
 
         if (!$articles) {
@@ -157,7 +157,7 @@ class ArticlesController extends AppController
             }
 
             $articles = $this->paginate($query);
-            Cache::write($cacheKey, $articles, 'articles');
+            Cache::write($cacheKey, $articles, 'content');
         }
 
         $recentArticles = [];
@@ -186,7 +186,7 @@ class ArticlesController extends AppController
     public function viewBySlug(string $slug): ?Response
     {
         $cacheKey = $slug . $this->cacheKey;
-        $article = Cache::read($cacheKey, 'articles');
+        $article = Cache::read($cacheKey, 'content');
 
         if (empty($article)) {
             // If not in cache, we need to check if this is the latest slug
@@ -256,7 +256,7 @@ class ArticlesController extends AppController
                 throw new NotFoundException(__('Article not found'));
             }
 
-            Cache::write($cacheKey, $article, 'articles');
+            Cache::write($cacheKey, $article, 'content');
         }
 
         $this->viewBuilder()->setLayout($article->kind);
@@ -266,12 +266,12 @@ class ArticlesController extends AppController
         // Get the child pages and breadcrumbs for the current article
         $childPages = $this->Articles->find('children', for: $article->id)
             ->orderBy(['lft' => 'ASC'])
-            ->cache($cacheKey . '_children', 'articles')
+            ->cache($cacheKey . '_children', 'content')
             ->toArray();
 
         // Breadcrumbs
         $crumbs = $this->Articles->find('path', for: $article->id)
-            ->cache($cacheKey . '_crumbs', 'articles')
+            ->cache($cacheKey . '_crumbs', 'content')
             ->select(['slug', 'title', 'id'])
             ->all();
 

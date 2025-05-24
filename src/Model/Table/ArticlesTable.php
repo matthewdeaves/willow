@@ -346,7 +346,7 @@ class ArticlesTable extends Table
         $query = $this->find()
             ->where($conditions)
             ->orderBy(['lft' => 'ASC'])
-            ->cache($cacheKey . 'featured_articles', 'articles');
+            ->cache($cacheKey . 'featured_articles', 'content');
 
         $results = $query->all()->toList();
 
@@ -375,7 +375,7 @@ class ArticlesTable extends Table
         $query = $this->find()
             ->where($conditions)
             ->orderBy(['lft' => 'ASC'])
-            ->cache($cacheKey . 'root_pages', 'articles');
+            ->cache($cacheKey . 'root_pages', 'content');
 
         $results = $query->all()->toList();
 
@@ -390,7 +390,7 @@ class ArticlesTable extends Table
      * - Are published (is_published = 1)
      * - Are marked for main menu display (main_menu = 1)
      * Results are ordered by the 'lft' field for proper tree structure display.
-     * Results are cached using the 'main_menu_pages' key in the 'articles' cache config.
+     * Results are cached using the 'main_menu_pages' key in the 'content' cache config.
      *
      * @param array $additionalConditions Additional conditions to merge with the default query conditions
      * @return array List of Article entities matching the criteria
@@ -408,7 +408,7 @@ class ArticlesTable extends Table
         $query = $this->find()
             ->where($conditions)
             ->orderBy(['lft' => 'ASC'])
-            ->cache($cacheKey . 'main_menu_pages', 'articles');
+            ->cache($cacheKey . 'main_menu_pages', 'content');
 
         $results = $query->all()->toList();
 
@@ -420,7 +420,7 @@ class ArticlesTable extends Table
      *
      * This method queries the articles table to find all unique year/month combinations
      * where articles were published, organizing them in a hierarchical array structure
-     * with years as keys and months as values. Results are cached using the 'articles'
+     * with years as keys and months as values. Results are cached using the 'content'
      * cache configuration to improve performance.
      *
      * @return array An array where keys are years and values are arrays of month numbers
@@ -443,7 +443,7 @@ class ArticlesTable extends Table
                 'year' => 'DESC',
                 'month' => 'DESC',
             ])
-            ->cache($cacheKey . 'archive_dates', 'articles');
+            ->cache($cacheKey . 'archive_dates', 'content');
 
         $dates = [];
         foreach ($query as $result) {
@@ -479,7 +479,7 @@ class ArticlesTable extends Table
             ->contain(['Users', 'Tags'])
             ->orderBy(['Articles.published' => 'DESC'])
             ->limit(3)
-            ->cache($cacheKey . 'recent_articles', 'articles');
+            ->cache($cacheKey . 'recent_articles', 'content');
 
         return $query->all()->toArray();
     }

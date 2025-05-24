@@ -5,6 +5,7 @@ namespace App\Job;
 
 use App\Service\Api\Anthropic\AnthropicApiService;
 use App\Service\Api\Anthropic\TextSummaryGenerator;
+use Cake\Cache\Cache;
 use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\JobInterface;
@@ -115,6 +116,8 @@ class ArticleSummaryUpdateJob implements JobInterface
                     'info',
                     ['group_name' => 'App\Job\ArticleSummaryUpdateJob'],
                 );
+
+                Cache::clear('content');
 
                 return Processor::ACK;
             } else {

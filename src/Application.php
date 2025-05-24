@@ -76,13 +76,6 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         }
 
         I18nManager::setEnabledLanguages();
-        /*
-         * Only try to load DebugKit in development mode
-         * Debug Kit should not be installed on a production system
-         */
-        if (Configure::read('debug')) {
-            // $this->addPlugin('DebugKit');
-        }
 
         // Load more plugins here
     }
@@ -99,14 +92,6 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             // Catch any exceptions in the lower layers,
             // and make an error page/response
             ->add(new ErrorHandlerMiddleware(Configure::read('Error'), $this));
-
-            // Only add security middleware if not in test environment
-            // or if specifically enabled for testing
-        if (env('CAKE_ENV') !== 'test' || Configure::read('TestSecurity.enabled', false)) {
-            $middlewareQueue
-                ->add(new IpBlockerMiddleware())
-                ->add(new RateLimitMiddleware());
-        }
 
         $middlewareQueue
             // Handle plugin/theme assets like CakePHP normally does.
@@ -147,6 +132,14 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             ->add(new CsrfProtectionMiddleware([
                 'httponly' => true,
             ]));
+
+            // Only add security middleware if not in test environment
+            // or if specifically enabled for testing
+        if (env('CAKE_ENV') !== 'test' || Configure::read('TestSecurity.enabled', false)) {
+            $middlewareQueue
+                ->add(new IpBlockerMiddleware())
+                ->add(new RateLimitMiddleware());
+        }
 
         return $middlewareQueue;
     }

@@ -1,9 +1,6 @@
 <?php
 
 return [
-    'DebugKit' => [
-        'onlyDebug' => true,
-    ],
     'Bake' => [
         'onlyCli' => true,
         'optional' => true,
@@ -15,4 +12,5 @@ return [
     'AdminTheme' => [],
     'DefaultTheme' => [],
     'ADmad/I18n' => [],
+    'DebugKit' => [],
 ];

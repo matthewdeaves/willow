@@ -22,127 +22,135 @@ return [
             // Shell Detection
             '/shell\.php$/',
             '/cmd\.php$/',
-            '/eval\(/',
-            '/system\(/',
-            '/exec\(/',
-            '/shell_exec\(/',
+            '/eval\s*\(/',
+            '/system\s*\(/',
+            '/exec\s*\(/',
+            '/shell_exec\s*\(/',
 
-            // SQL Injection
-            '/union.*select/i',
-            '/select.*from/i',
-            '/insert.*into/i',
-            '/update.*set/i',
-            '/delete.*from/i',
-            '/drop.*table/i',
-            '/--.*$/',
-            '/\/\*.*\*\//',
+            // SQL Injection patterns
+            '/\bunion\s+select\b/i',
+            '/\bselect\s+.*?\s+from\s+/i',
+            '/\binsert\s+into\s+/i',
+            '/\bupdate\s+.*?\s+set\s+/i',
+            '/\bdelete\s+from\s+/i',
+            '/\bdrop\s+table\s+/i',
+            '/--\s*$/',
+            '/\/\*.*?\*\//',
+            '/\bwhere\s+.*?\s*=\s*.*?\s+or\s+/i',
+            '/\bexec\s*\(\s*[\'\"].*?[\'\"\)]/i',
 
-            // File Extensions (Originals)
-            '/\.(php|phtml|php3|php4|php5|phps)$/i', 
-            '/\.asp$|\.aspx$|\.jsp$|\.jspx$/i',
-            '/\.(exe|dll|cgi|pl)$/i', 
+            // File Extensions
+            '/\.(php[3-7]?|phtml|phps)(\?|$)/i',
+            '/\.(asp|aspx|jsp|jspx)(\?|$)/i',
+            '/\.(exe|dll|cgi|pl)(\?|$)/i',
 
-            // XSS (Originals)
-            '/<script/i', 
-            '/<iframe/i', 
-            '/javascript:/i', 
-            '/onerror=/i', 
-            '/onload=/i', 
+            // XSS patterns
+            '/<script[^>]*>/i',
+            '/<iframe[^>]*>/i',
+            '/javascript\s*:/i',
+            '/on(error|load|click|mouse\w+)\s*=/i',
 
-            // Common Probes (Originals)
-            '/phpinfo\.php/i', 
-            '/wp-admin/i', 
-            '/wp-content/i', 
-            '/phpmyadmin/i', 
-            '/mysql/i', 
+            // Common Probes paths
+            '/phpinfo\.php(\?|$)/i',
+            '/\/wp-(admin|content|includes)\//i',
+            '/\/(phpmyadmin|pma|mysql|mysqladmin)\//i',
+            '/\/administrator\//i',
 
-            // Sensitive Paths (Originals)
-            '/\/proc\/self/i', 
-            '/\/proc\/[0-9]+/i', 
-            '/\/tmp\//i', 
-            '/\/var\/tmp\//i', 
+            // Sensitive Paths
+            '/\/proc\/self\//i',
+            '/\/proc\/\d+\//i',
+            '/\/tmp\/[^\/]*\.(php|pl|py|rb|sh)(\?|$)/i',
+            '/\/var\/tmp\/[^\/]*\.(php|pl|py|rb|sh)(\?|$)/i',
 
-            // Command Injection (Originals)
-            '/;&|wget/i', 
-            '/;&|curl/i', 
-            '/;&|bash/i', 
-            '/;&|sh/i', 
-            '/;&|nc /i', 
+            // Command Injection
+            '/[;|&]\s*(wget|curl|bash|sh|nc|netcat|perl|python|php|ruby)\b/i',
+            '/\b(wget|curl|bash|sh|nc|netcat)\s+[;|&]/i',
+            '/`[^`]+`/',
+            '/\$\([^)]+\)/',
+            '/\$\{[^}]+\}/',
 
-            // Protocol handlers (Originals)
-            '/php:\/\//i', 
-            '/file:\/\//i', 
-            '/data:\/\//i', 
+            // Protocol handlers
+            '/^(php|file|data|gopher|expect|phar):\/\//i',
+            '/(href|src|action)\s*=\s*[\'"]\s*(php|file|data|gopher|expect|phar):/i',
 
-            // Backup files (Originals)
-            '/\.bak$/i', 
-            '/\.old$/i', 
-            '/\.backup$/i', 
-            '/\.sql$/i', 
+            // Backup files
+            '/\.(bak|old|backup|sql|dump)(\?|$)/i',
+            '/\~$/i',
+            '/\.swp$/i',
 
-            // Arbitrary File Upload Attempts / Malicious Extensions - Removed .tar.gz
-            '/\.phar$/i',
-            '/\.(exe|dll|cgi|pl|bat|sh|ps1|vbs|aspx|jsp|jspx)$/i',
-            '/\.zip(\.php)?$/i',
-            '/\b(upload|remote|shell|backdoor)\.(php|jsp|asp|pl)/i',
+            // Dangerous archive combinations
+            '/\.(php|phtml|php[3-7]|asp|aspx|jsp|pl|py|rb|sh|exe)\.(zip|rar|7z|tar|gz)(\?|$)/i',
+            '/\.(zip|rar|7z|tar\.gz)\.(php|asp|jsp|sh|exe)(\?|$)/i',
+            '/\bshell\.(zip|rar|7z|tar\.gz)(\?|$)/i',
+            '/\/(uploads?|temp|tmp|cache)\/.*\.(zip|rar|7z|tar\.gz)(\?|$)/i',
+
+            // Arbitrary File Upload Attempts
+            '/\.(phar)(\?|$)/i',
+            '/\.(bat|cmd|ps1|vbs|wsf)(\?|$)/i',
+            '/\b(upload|remote|shell|backdoor|c99|r57|b374k)\.(php|jsp|asp|pl)/i',
 
             // LFI/RFI Variants
-            '/php:\/\//i',
-            '/data:\/\/text\/plain;base64/i',
-            '/\binclude\b/i',
-            '/\brequire\b/i',
-            '/\bfile_get_contents\b/i',
-            '/\bexec_shell\b/i',
+            '/[?&](file|document|root|path)\s*=\s*(\/|\.\.\/|https?:)/i',
+            '/\b(include|require)(_once)?\s*\(\s*[\'"](https?:|\.\.\/|\/)/i',
+            '/\bfile_get_contents\s*\(\s*[\'"](https?:|php:|file:|data:)/i',
             '/\/proc\/self\/environ/i',
-            '/\/var\/log\//i',
-            '/\.\/\.git/i',
+            '/\/var\/log\/(apache|nginx|httpd)\//i',
 
-            // SQL Injection (More variants)
-            '/\bOR\s+\d+=\d+\b/i',
-            '/\bCAST\b/i',
-            '/\bCONCAT\b/i',
-            '/\bINFORMATION_SCHEMA\b/i',
-            '/[\dA-F]{32}/i', 
-            '/\bSLEEP\(\d+\)/i',
-            '/\bBENCHMARK\(\d+,\s*[\w.-]+\)/i',
+            // SQL Injection
+            '/\bOR\s+1\s*=\s*1\b/i',
+            '/\bAND\s+1\s*=\s*0\b/i',
+            '/\bCAST\s*\([^)]+\s+AS\s+/i',
+            '/\bCONCAT\s*\([^)]+\)/i',
+            '/\bINFORMATION_SCHEMA\./i',
+            '/\bSLEEP\s*\(\s*\d+\s*\)/i',
+            '/\bBENCHMARK\s*\(\s*\d+\s*,/i',
+            '/\bEXTRACTVALUE\s*\(/i',
+            '/\bUPDATEXML\s*\(/i',
 
-            // Command Injection (More variants)
-            '/\|\||&&|%0A|%0D/i',
-            '/\$\{cmd\}/i',
-            '/\bwhoami\b|\bid\b|\bcat\b/i',
-            '/\bchmod\b|\brm\b|\bmkdir\b/i',
-            '/dl\(\)|passthru\(/i',
+            // Command Injection
+            '/(\||&&)\s*(whoami|id|uname|hostname|pwd|ls)\b/i',
+            '/[;&]\s*(cat|less|more|tail|head)\s+\/etc\//i',
+            '/\b(chmod|chown)\s+[0-7]{3,4}\s+/i',
+            '/\brm\s+-rf\s+/i',
+            '/mkfifo\s+/i',
+            '/nc\s+-e\s+/i',
 
-            // XSS (More subtle/obfuscated)
-            '/%3Cxss%3E/i',
-            '/<img\b[^>]*src\s*=\s*"[^"]*"\b/i',
-            '/<body\b[^>]*onload/i',
-            '/<svg\b[^>]*onload/i',
-            '/\bonfocus=.*?\b/i',
-            '/\bstyle=.*?\bexpression/i',
-            '/\balert\(/i',
-            '/\bprompt\(/i',
-            '/\bconfirm\(/i',
-            '/\bdocument\.cookie/i',
-            '/\bwindow\.location/i',
-            '/\bString.fromCharCode/i',
+            // XSS
+            '/%3C(script|iframe|object|embed|img)%3E/i',
+            '/<img[^>]+on\w+\s*=/i',
+            '/<(body|svg|math)[^>]+on\w+\s*=/i',
+            '/style\s*=\s*["\'].*?(expression|javascript|vbscript)/i',
+            '/\b(alert|confirm|prompt)\s*\(/i',
+            '/document\.(cookie|location|write)/i',
+            '/window\.(location|open)/i',
+            '/String\.fromCharCode\s*\(/i',
+            '/\beval\s*\(/i',
+            '/\batob\s*\(/i',
 
-            // SSRF / Port Scanning Probes
-            '/\b(localhost|127\.0\.0\.1|192\.168\.\d{1,3}\.\d{1,3}|10\.\d{1,3}\.\d{1,3}\.\d{1,3}|172\.(1[6-9]|2[0-9]|3[0-1])\.\d{1,3}\.\d{1,3})\b/i',
-            '/:([1-9][0-9]{1,4})\b/i',
-            '/\bfile:\/\/\//i',
+            // SSRF / Port Scanning
+            '/(https?|ftp):\/\/(localhost|127\.0\.0\.1|0\.0\.0\.0)/i',
+            '/(https?|ftp):\/\/192\.168\.\d{1,3}\.\d{1,3}/i',
+            '/(https?|ftp):\/\/10\.\d{1,3}\.\d{1,3}\.\d{1,3}/i',
+            '/(https?|ftp):\/\/172\.(1[6-9]|2[0-9]|3[0-1])\.\d{1,3}\.\d{1,3}/i',
+            '/:(22|23|25|110|143|445|3389|8080|8443)\b/',
             '/\bgopher:\/\//i',
-            '/\bcgi-bin/i',
-            '/test\.php|debug\.php/i',
+            '/\bdict:\/\//i',
+            '/\bsftp:\/\//i',
+            '/\bldap:\/\//i',
 
             // Specific Probes / Known Vulnerabilities
-            '/php\.ini/i',
-            '/conf\.d/i',
-            '/robots\.txt.*(\.\.|%2e%2e)/i',
-            '/sitemap\.xml.*(\.\.|%2e%2e)/i',
-            '/~root/i',
-            '/\b(dokuwiki|joomla|drupal|magento|vbulletin|cpanel)\b/i',
-            '/\b(?:\w+\.)?(bak|old|backup|sql|rar|7z|conf|ini)\b$/i',
+            '/\/cgi-bin\/(php|test-cgi|printenv)/i',
+            '/(test|debug|trace|old)\.php(\?|$)/i',
+            '/phpinfo\s*\(\s*\)/i',
+            '/\/\.env\.(bak|old|txt|backup)$/i',
+            '/\/config\/(database|config)\.yml$/i',
+            '/\/(db|database)\.(sql|dump|backup)$/i',
+            '/\/\.(svn|git|hg|bzr)\//i',
+            '/~(root|admin|administrator)\//',
+            '/\/(joomla|wordpress|drupal|magento)\/administrator\//i',
+            '/\/cpanel\/$/i',
+            '/\/\.aws\/credentials$/i',
+            '/\/\.ssh\/id_rsa$/i',
         ],
     ],
 ];

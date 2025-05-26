@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller;
 
+use App\Utility\SettingsManager;
+use Cake\Cache\Cache;
 use Cake\Routing\Router;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
@@ -206,4 +208,47 @@ class SitemapControllerTest extends TestCase
         $this->get('/en/sitemap.xml');
         $this->assertResponseOk();
     }
+
+    /**
+     * Test sitemap with single language (no hreflang)
+     *
+     * @return void
+     */
+    public function testSitemapSingleLanguage(): void
+    {
+        // Clear cache
+        Cache::clear('default');
+        
+        $this->get('/en/sitemap.xml');
+        
+        $this->assertResponseOk();
+        
+        // Should not have xhtml namespace when only one language
+        $this->assertResponseNotContains('xmlns:xhtml');
+        $this->assertResponseNotContains('<xhtml:link');
+        $this->assertResponseNotContains('hreflang');
+    }
+
+    /**
+     * Test sitemap caching behavior
+     *
+     * @return void
+     */
+    public function testSitemapCaching(): void
+    {
+        // Clear cache first
+        Cache::clear('default');
+        
+        // First request should generate fresh sitemap
+        $this->get('/en/sitemap.xml');
+        $this->assertResponseOk();
+        
+        // Second request should use cache
+        $this->get('/en/sitemap.xml');
+        $this->assertResponseOk();
+        
+        // Check cache headers
+        $this->assertHeader('Cache-Control', 'public, max-age=86400');
+    }
+
 }

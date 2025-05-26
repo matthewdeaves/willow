@@ -74,6 +74,54 @@ docker compose exec willowcms bin/cake bake controller Dogs --theme AdminTheme
 docker compose exec willowcms bin/cake bake template Dogs --theme AdminTheme
 ```
 
+### WillowCMS Management Tool (manage.sh)
+
+The project includes a comprehensive management tool (`./manage.sh`) that provides an interactive menu-driven interface for common development and maintenance tasks:
+
+```bash
+# Launch the management tool
+./manage.sh
+```
+
+#### Available Commands:
+
+**Data Management:**
+1. Import Default Data - Import default data sets (AI prompts, email templates, i18n)
+2. Export Default Data - Export current data as defaults for future installations
+3. Dump MySQL Database - Create timestamped database backups to `./project_mysql_backups/`
+4. Load Database from Backup - Restore database from a backup file
+
+**Internationalization:**
+5. Extract i18n Messages - Extract translatable strings from code
+6. Load Default i18n - Import default internationalization data
+7. Translate i18n - Run automated translations
+8. Generate PO Files - Generate translation files for all locales
+
+**Asset Management:**
+9. Backup Files Directory - Create backup of uploaded files to `./project_files_backups/`
+10. Restore Files from Backup - Restore uploaded files from a backup
+
+**System:**
+11. Clear Cache - Clear all CakePHP caches
+12. Interactive Shell - Open a shell session in the WillowCMS container
+13. Host System Update & Docker Cleanup - Update host OS and clean unused Docker resources
+
+#### Key Features:
+- **Safety Checks**: Validates required Docker services are running before operations
+- **Database Backups**: Creates SQL dumps with CREATE TABLE statements verification
+- **File Backups**: Archives the entire webroot/files directory with proper permissions
+- **Interactive Selection**: Shows timestamped backups sorted by date for easy selection
+- **Error Handling**: Comprehensive error checking with rollback capabilities
+- **Docker Integration**: All operations run through Docker containers
+
+#### Usage Notes:
+- Database backups are stored in `./project_mysql_backups/`
+- File backups are stored in `./project_files_backups/`
+- The tool requires `willowcms` and `mysql` services to be running
+- Backups include timestamps in filenames (format: YYYYMMDD_HHMMSS)
+- Database restore includes automatic cache clearing
+- File restore preserves proper ownership (nobody:nobody) and permissions
+
 ## High-Level Architecture
 
 ### Core Design Patterns
@@ -169,3 +217,7 @@ docker compose exec willowcms bin/cake bake template Dogs --theme AdminTheme
 - Follow CakePHP 5.2 conventions strictly (naming, file locations)
 - Test with multiple languages enabled when working on i18n features
 - Check rate limits when testing API integrations
+
+### Known Issues
+
+- **Sitemap Index**: The sitemap index route at `/sitemap.xml` currently has routing issues. Use language-specific sitemaps directly (e.g., `/en/sitemap.xml`, `/fr/sitemap.xml`)

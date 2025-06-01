@@ -4,12 +4,12 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Utility\I18nManager;
-use App\Utility\SettingsManager;
 use Cake\Cache\Cache;
 use Cake\Event\EventInterface;
 use Cake\I18n\DateTime;
 use Cake\Routing\Router;
 use Cake\View\XmlView;
+use Exception;
 
 /**
  * SitemapController handles the generation of XML sitemaps for the application.
@@ -54,7 +54,7 @@ class SitemapController extends AppController
      * This method fetches all published pages, articles, and tags from the database
      * and generates a sitemap.xml file according to the sitemap protocol specifications.
      * It includes hreflang annotations for multi-language support.
-     * 
+     *
      * Different content types are assigned different priorities and change frequencies:
      * - Homepage: Priority 1.0, daily changes
      * - Pages: Priority 0.8, weekly changes
@@ -70,17 +70,17 @@ class SitemapController extends AppController
         try {
             // Get all enabled languages
             $enabledLanguages = $this->getEnabledLanguages();
-            
+
             // Build cache key based on all languages and last modification
             $lastModified = $this->getOverallLastModifiedDate();
-            $cacheKey = "sitemap_all_" . $lastModified->format('YmdHis');
-            
+            $cacheKey = 'sitemap_all_' . $lastModified->format('YmdHis');
+
             // Try to get from cache
             $urls = Cache::read($cacheKey, 'default');
-            
+
             if ($urls === null) {
                 $articlesTable = $this->fetchTable('Articles');
-                
+
                 // Optimize queries by selecting only needed fields
                 // Get published hierarchical pages
                 $pages = $articlesTable->find('threaded')
@@ -91,7 +91,7 @@ class SitemapController extends AppController
                     ])
                     ->orderByAsc('lft')
                     ->all();
-                
+
                 // Get published regular articles
                 $articles = $articlesTable->find()
                     ->select(['id', 'slug', 'modified'])
@@ -101,16 +101,16 @@ class SitemapController extends AppController
                     ])
                     ->orderByDesc('modified')
                     ->all();
-                
+
                 // Get all tags
                 $tagsTable = $this->fetchTable('Tags');
                 $tags = $tagsTable->find()
                     ->select(['id', 'slug', 'modified'])
                     ->orderByAsc('title')
                     ->all();
-                
+
                 $urls = [];
-                
+
                 // Add homepage for all enabled languages
                 foreach ($enabledLanguages as $lang) {
                     $urls[] = [
@@ -124,7 +124,7 @@ class SitemapController extends AppController
                         'lastmod' => $lastModified->format('Y-m-d'),
                     ];
                 }
-                
+
                 // Add pages for all enabled languages
                 foreach ($pages as $page) {
                     foreach ($enabledLanguages as $lang) {
@@ -141,7 +141,7 @@ class SitemapController extends AppController
                         ];
                     }
                 }
-                
+
                 // Add articles for all enabled languages
                 foreach ($articles as $article) {
                     foreach ($enabledLanguages as $lang) {
@@ -158,7 +158,7 @@ class SitemapController extends AppController
                         ];
                     }
                 }
-                
+
                 // Add tags for all enabled languages
                 foreach ($tags as $tag) {
                     foreach ($enabledLanguages as $lang) {
@@ -175,39 +175,38 @@ class SitemapController extends AppController
                         ];
                     }
                 }
-                
+
                 // Cache the generated URLs for 1 hour
                 Cache::write($cacheKey, $urls, 'default');
             }
-            
+
             $this->viewBuilder()
                 ->setOption('rootNode', 'urlset')
                 ->setOption('serialize', ['@xmlns', 'url']);
-            
+
             $this->set([
                 '@xmlns' => 'http://www.sitemaps.org/schemas/sitemap/0.9',
                 'url' => $urls,
             ]);
-            
+
             // Set response type and cache headers with smart caching based on last modified
             $this->response = $this->response
                 ->withType('xml')
                 ->withHeader('Content-Type', 'application/xml')
                 ->withCache($lastModified->toUnixString(), '+1 day');
-                
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->log('Sitemap generation failed: ' . $e->getMessage(), 'error');
-            
+
             // Return empty but valid sitemap on error
             $this->viewBuilder()
                 ->setOption('rootNode', 'urlset')
                 ->setOption('serialize', ['@xmlns', 'url']);
-            
+
             $this->set([
                 '@xmlns' => 'http://www.sitemaps.org/schemas/sitemap/0.9',
                 'url' => [],
             ]);
-            
+
             $this->response = $this->response
                 ->withType('xml')
                 ->withHeader('Content-Type', 'application/xml');
@@ -223,17 +222,17 @@ class SitemapController extends AppController
     {
         // Always include English as default
         $languages = ['en'];
-        
+
         // Get enabled languages using I18nManager
         $enabledLanguages = array_keys(I18nManager::getEnabledLanguages());
-        
+
         // Merge with default, removing duplicates
         foreach ($enabledLanguages as $lang) {
             if (!in_array($lang, $languages)) {
                 $languages[] = $lang;
             }
         }
-        
+
         return $languages;
     }
 
@@ -246,21 +245,21 @@ class SitemapController extends AppController
     protected function getLastModifiedDateForLanguage(string $language): DateTime
     {
         $articlesTable = $this->fetchTable('Articles');
-        
+
         // Get the most recently modified article or page
         $lastArticle = $articlesTable->find()
             ->select(['modified'])
             ->where(['is_published' => 1])
             ->orderByDesc('modified')
             ->first();
-        
+
         // Get the most recently modified tag
         $tagsTable = $this->fetchTable('Tags');
         $lastTag = $tagsTable->find()
             ->select(['modified'])
             ->orderByDesc('modified')
             ->first();
-        
+
         $dates = [];
         if ($lastArticle) {
             $dates[] = $lastArticle->modified;
@@ -268,7 +267,7 @@ class SitemapController extends AppController
         if ($lastTag) {
             $dates[] = $lastTag->modified;
         }
-        
+
         // Return the most recent date, or current date if no content
         return !empty($dates) ? max($dates) : new DateTime();
     }
@@ -296,26 +295,26 @@ class SitemapController extends AppController
     protected function generateHreflangLinks(string $routeName, ?object $entity, array $languages): array
     {
         $links = [];
-        
+
         foreach ($languages as $lang) {
             $urlParams = [
                 '_name' => $routeName,
                 'lang' => $lang,
                 '_full' => true,
             ];
-            
+
             // Add slug parameter if entity is provided
             if ($entity !== null && isset($entity->slug)) {
                 $urlParams['slug'] = $entity->slug;
             }
-            
+
             $links[] = [
                 '@rel' => 'alternate',
                 '@hreflang' => $lang,
                 '@href' => Router::url($urlParams),
             ];
         }
-        
+
         // Add x-default for the primary language (first in the list)
         if (!empty($languages)) {
             $defaultUrlParams = [
@@ -323,18 +322,18 @@ class SitemapController extends AppController
                 'lang' => $languages[0],
                 '_full' => true,
             ];
-            
+
             if ($entity !== null && isset($entity->slug)) {
                 $defaultUrlParams['slug'] = $entity->slug;
             }
-            
+
             $links[] = [
                 '@rel' => 'alternate',
                 '@hreflang' => 'x-default',
                 '@href' => Router::url($defaultUrlParams),
             ];
         }
-        
+
         return $links;
     }
 }

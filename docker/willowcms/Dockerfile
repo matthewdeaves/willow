@@ -75,8 +75,13 @@ ENV UID=${UID}
 ENV GID=${GID}
 
 # Update the nobody user with the provided UID and GID
-RUN deluser nobody && \
-    addgroup -g ${GID} -S nobody && \
+RUN deluser nobody 2>/dev/null || true && \
+    delgroup nobody 2>/dev/null || true && \
+    if ! getent group ${GID} >/dev/null 2>&1; then \
+        addgroup -g ${GID} -S nobody; \
+    else \
+        addgroup -S nobody; \
+    fi && \
     adduser -u ${UID} -S -G nobody nobody
 
 # Make sure files/folders needed by the processes are accessible when they run under the nobody user

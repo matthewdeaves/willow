@@ -61,6 +61,29 @@ INTERACTIVE=1
 # Operation mode
 OPERATION=""
 
+# Set UID/GID for Docker containers (Apple Silicon compatibility)
+if [[ "$(uname -m)" == "arm64" && "$(uname -s)" == "Darwin" ]]; then
+    # On Apple Silicon Macs, create .env file with host user's UID/GID to avoid permission issues
+    HOST_UID=$(id -u)
+    HOST_GID=$(id -g)
+    print_info "Detected Apple Silicon Mac - creating .env with UID:GID ${HOST_UID}:${HOST_GID}"
+    
+    # Create/update .env file for docker-compose
+    {
+        echo "UID=${HOST_UID}"
+        echo "GID=${HOST_GID}"
+    } > .env
+    
+    print_success "Created .env file for Apple Silicon compatibility"
+else
+    print_info "Using default UID:GID (1000:1000) for Docker containers"
+    # Remove .env file if it exists to use defaults
+    if [[ -f .env ]]; then
+        rm .env
+        print_info "Removed .env file to use defaults"
+    fi
+fi
+
 # Service name for the main application container
 MAIN_APP_SERVICE="willowcms"
 # Path to the wait-for-it.sh script (used inside the main app container)
@@ -115,65 +138,119 @@ EOF
 }
 
 # Parse command line arguments
-TEMP=$(getopt -o hjinwbrmc -l help,jenkins,i18n,no-interactive,wipe,rebuild,restart,migrate,continue \
-              -n "$PROGNAME" -- "$@") || { show_help; exit 1; }
-
-eval set -- "$TEMP"
-
-while true; do
-    case "$1" in
-        -h|--help)
-            show_help
-            exit 0
-            ;;
-        -j|--jenkins)
-            USE_JENKINS=1
-            shift
-            ;;
-        -i|--i18n)
-            LOAD_I18N=1
-            shift
-            ;;
-        -n|--no-interactive)
-            INTERACTIVE=0
-            shift
-            ;;
-        -w|--wipe)
-            OPERATION="wipe"
-            shift
-            ;;
-        -b|--rebuild)
-            OPERATION="rebuild"
-            shift
-            ;;
-        -r|--restart)
-            OPERATION="restart"
-            shift
-            ;;
-        -m|--migrate)
-            OPERATION="migrate"
-            shift
-            ;;
-        -c|--continue)
-            OPERATION="continue"
-            shift
-            ;;
-        --)
-            shift
-            break
-            ;;
-        *)
-            print_error "Internal error!"
-            exit 1
-            ;;
-    esac
-done
-
-# Check for any remaining arguments
-if [ "$#" -gt 0 ]; then
-    print_error "Unknown arguments: $*"
-    show_help
-    exit 1
+# Use different getopt approach for macOS compatibility
+if [[ "$(uname -s)" == "Darwin" ]]; then
+    # macOS doesn't have GNU getopt, use simpler parsing
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            -h|--help)
+                show_help
+                exit 0
+                ;;
+            -j|--jenkins)
+                USE_JENKINS=1
+                shift
+                ;;
+            -i|--i18n)
+                LOAD_I18N=1
+                shift
+                ;;
+            -n|--no-interactive)
+                INTERACTIVE=0
+                shift
+                ;;
+            -w|--wipe)
+                OPERATION="wipe"
+                shift
+                ;;
+            -b|--rebuild)
+                OPERATION="rebuild"
+                shift
+                ;;
+            -r|--restart)
+                OPERATION="restart"
+                shift
+                ;;
+            -m|--migrate)
+                OPERATION="migrate"
+                shift
+                ;;
+            -c|--continue)
+                OPERATION="continue"
+                shift
+                ;;
+            *)
+                if [[ -n "$1" ]]; then
+                    print_error "Unknown argument: $1"
+                    show_help
+                    exit 1
+                fi
+                shift
+                ;;
+        esac
+    done
+else
+    # Use GNU getopt for Linux
+    TEMP=$(getopt -o hjinwbrmc -l help,jenkins,i18n,no-interactive,wipe,rebuild,restart,migrate,continue \
+                  -n "$PROGNAME" -- "$@") || { show_help; exit 1; }
+    
+    eval set -- "$TEMP"
+    
+    while true; do
+        case "$1" in
+            -h|--help)
+                show_help
+                exit 0
+                ;;
+            -j|--jenkins)
+                USE_JENKINS=1
+                shift
+                ;;
+            -i|--i18n)
+                LOAD_I18N=1
+                shift
+                ;;
+            -n|--no-interactive)
+                INTERACTIVE=0
+                shift
+                ;;
+            -w|--wipe)
+                OPERATION="wipe"
+                shift
+                ;;
+            -b|--rebuild)
+                OPERATION="rebuild"
+                shift
+                ;;
+            -r|--restart)
+                OPERATION="restart"
+                shift
+                ;;
+            -m|--migrate)
+                OPERATION="migrate"
+                shift
+                ;;
+            -c|--continue)
+                OPERATION="continue"
+                shift
+                ;;
+            --)
+                shift
+                break
+                ;;
+            *)
+                print_error "Internal error!"
+                exit 1
+                ;;
+        esac
+    done
+    
+    # Check for any remaining arguments
+    if [ "$#" -gt 0 ]; then
+        print_error "Unknown arguments: $*"
+        show_help
+        exit 1
+    fi
 fi
 
 # --- Helper Functions ---

@@ -25,7 +25,7 @@ willowcms_exec() {
     # and the rest as arguments to that command.
     # No complex eval or string building is needed here if we pass arguments directly.
     if [ "$#" -gt 0 ]; then
-        $cmd_base "$@"
+        docker compose exec willowcms "$@"
     else
         # Handle case where willowcms_exec is called without arguments if that's intended to do something
         # or just let it error if it's not valid.

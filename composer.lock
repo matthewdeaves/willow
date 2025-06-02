@@ -544,16 +544,16 @@
         },
         {
             "name": "composer/ca-bundle",
-            "version": "1.5.6",
+            "version": "1.5.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/ca-bundle.git",
-                "reference": "f65c239c970e7f072f067ab78646e9f0b2935175"
+                "reference": "d665d22c417056996c59019579f1967dfe5c1e82"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/f65c239c970e7f072f067ab78646e9f0b2935175",
-                "reference": "f65c239c970e7f072f067ab78646e9f0b2935175",
+                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/d665d22c417056996c59019579f1967dfe5c1e82",
+                "reference": "d665d22c417056996c59019579f1967dfe5c1e82",
                 "shasum": ""
             },
             "require": {
@@ -600,7 +600,7 @@
             "support": {
                 "irc": "irc://irc.freenode.org/composer",
                 "issues": "https://github.com/composer/ca-bundle/issues",
-                "source": "https://github.com/composer/ca-bundle/tree/1.5.6"
+                "source": "https://github.com/composer/ca-bundle/tree/1.5.7"
             },
             "funding": [
                 {
@@ -616,7 +616,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-03-06T14:30:56+00:00"
+            "time": "2025-05-26T15:08:54+00:00"
         },
         {
             "name": "enqueue/dsn",
@@ -1931,16 +1931,16 @@
         },
         {
             "name": "josegonzalez/cakephp-upload",
-            "version": "8.0.3",
+            "version": "8.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfCake/cakephp-upload.git",
-                "reference": "d545ef3f5c61af01442f31b271f9295c9325a1df"
+                "reference": "84212c87aae410e2118d25f9b1ea9b00b5b2c8b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfCake/cakephp-upload/zipball/d545ef3f5c61af01442f31b271f9295c9325a1df",
-                "reference": "d545ef3f5c61af01442f31b271f9295c9325a1df",
+                "url": "https://api.github.com/repos/FriendsOfCake/cakephp-upload/zipball/84212c87aae410e2118d25f9b1ea9b00b5b2c8b7",
+                "reference": "84212c87aae410e2118d25f9b1ea9b00b5b2c8b7",
                 "shasum": ""
             },
             "require": {
@@ -1983,9 +1983,9 @@
             ],
             "support": {
                 "issues": "https://github.com/FriendsOfCake/cakephp-upload/issues",
-                "source": "https://github.com/FriendsOfCake/cakephp-upload/tree/8.0.3"
+                "source": "https://github.com/FriendsOfCake/cakephp-upload/tree/8.1.0"
             },
-            "time": "2025-04-14T18:55:39+00:00"
+            "time": "2025-05-30T08:32:28+00:00"
         },
         {
             "name": "josegonzalez/dotenv",
@@ -8772,16 +8772,16 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=8.1 <8.4",
         "ext-redis": "*"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "platform-overrides": {
         "php": "8.1.0"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }

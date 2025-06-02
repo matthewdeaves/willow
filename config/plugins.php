@@ -12,5 +12,7 @@ return [
     'AdminTheme' => [],
     'DefaultTheme' => [],
     'ADmad/I18n' => [],
-    'DebugKit' => [],
+    'DebugKit' => [
+        'onlyDev' => true,
+    ],
 ];

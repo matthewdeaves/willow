@@ -14,14 +14,19 @@
     </symbol>
 </svg>
 
+<!-- Skip navigation link for accessibility -->
+<a class="visually-hidden-focusable btn btn-primary position-absolute top-0 start-0 m-3" href="#main-content">
+    <?= __('Skip to main content') ?>
+</a>
+
 <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
     <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
             id="bd-theme"
             type="button"
             aria-expanded="false"
             data-bs-toggle="dropdown"
-            aria-label="Toggle theme (auto)">
-    <svg class="bi my-1 theme-icon-active" width="1em" height="1em"><use href="#circle-half"></use></svg>
+            aria-label="<?= __('Toggle theme (auto)') ?>">
+    <svg class="bi my-1 theme-icon-active" width="1em" height="1em" aria-hidden="true"><use href="#circle-half"></use></svg>
     <span class="visually-hidden" id="bd-theme-text"><?= __('Toggle theme') ?></span>
     </button>
     <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">

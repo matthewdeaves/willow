@@ -4,17 +4,17 @@
  * @var \App\Model\Entity\Tag $tag
  */
 ?>
-<div class="container my-4">
+<?php
+    echo $this->element('actions_card', [
+        'modelName' => 'Tag',
+        'controllerName' => 'Tags',
+        'entity' => $tag,
+        'entityDisplayName' => $tag->title
+    ]);
+?>
+<div class="container mt-4">
     <div class="row">
-        <?php
-        echo $this->element('actions_card', [
-            'modelName' => 'Tag',
-            'controllerName' => 'Tags',
-            'entity' => $tag,
-            'entityDisplayName' => $tag->title
-        ]);
-        ?>
-        <div class="col-lg-9">
+        <div class="col-12">
             <div class="card">
                 <div class="card-body">
                     <h2 class="card-title"><?= h($tag->title) ?></h2>

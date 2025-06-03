@@ -4,17 +4,19 @@
  * @var \App\Model\Entity\User $user
  */
 ?>
+<?php if (!$user->isNew()): ?>
+<?php
+    echo $this->element('actions_card', [
+        'modelName' => 'User',
+        'controllerName' => 'Users',
+        'entity' => $user,
+        'entityDisplayName' => $user->username
+    ]);
+?>
+<?php endif; ?>
 <div class="container mt-4">
     <div class="row">
-        <?php
-        echo $this->element('actions_card', [
-            'modelName' => 'User',
-            'controllerName' => 'Users',
-            'entity' => $user,
-            'entityDisplayName' => $user->username
-        ]);
-        ?>
-        <div class="col-md-9">
+        <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header">
                     <h5 class="card-title"><?= __('Add User') ?></h5>

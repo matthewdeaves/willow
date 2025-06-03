@@ -7,14 +7,27 @@
 ?>
 
 <article class="blog-post">
-    <h2 class="display-5 link-body-emphasis mb-1"><?= htmlspecialchars_decode($article->title) ?></h2>
-    <p class="blog-post-meta">
-        <?= $article->published->format('F j, Y') ?> <?= h($article->user->username) ?>
-    </p>
+    <header class="article-header mb-4">
+        <h1 class="display-5 link-body-emphasis mb-3"><?= htmlspecialchars_decode($article->title) ?></h1>
+        <div class="blog-post-meta">
+            <span class="date"><?= $article->published->format('F j, Y') ?></span>
+            <span class="author">by <?= h($article->user->username) ?></span>
+        </div>
+    </header>
+    
+    <?php if (!empty($article->image)): ?>
+    <div class="article-featured-image mb-4">
+        <?= $this->element('image/icon', [
+            'model' => $article, 
+            'icon' => $article->largeImageUrl, 
+            'preview' => false,
+            'class' => 'img-fluid rounded shadow-sm w-100'
+        ]); ?>
+    </div>
+    <?php endif; ?>
     
     <div class="article-content-wrapper">
-        <?= $this->element('image/icon',  ['model' => $article, 'icon' => $article->smallImageUrl, 'preview' => false]); ?>
-        <div id="article-body-content"><?= htmlspecialchars_decode($this->Video->processYouTubePlaceholders($article->body)) ?></div>
+        <div id="article-body-content" class="article-body"><?= htmlspecialchars_decode($this->Video->processYouTubePlaceholders($article->body)) ?></div>
     </div>
     
     <?= $this->element('site/facebook/share_button') ?>

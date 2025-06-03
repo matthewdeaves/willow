@@ -5,17 +5,17 @@
  */
 ?>
 <?php use App\Utility\SettingsManager; ?>
-<div class="container my-4">
+<?php
+    echo $this->element('actions_card', [
+        'modelName' => 'Image',
+        'controllerName' => 'Images',
+        'entity' => $image,
+        'entityDisplayName' => $image->name
+    ]);
+?>
+<div class="container mt-4">
     <div class="row">
-        <?php
-        echo $this->element('actions_card', [
-            'modelName' => 'Image',
-            'controllerName' => 'Images',
-            'entity' => $image,
-            'entityDisplayName' => $image->name
-        ]);
-        ?>
-        <div class="col-lg-9">
+        <div class="col-12">
             <div class="card">
                 <div class="card-body">
                     <h2 class="card-title"><?= h($image->name) ?></h2>

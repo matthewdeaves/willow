@@ -4,19 +4,19 @@
  * @var \App\Model\Entity\Article $article
  */
 ?>
-<div class="container my-4">
+<?php
+    echo $this->element('actions_card', [
+        'modelName' => ($article->kind == 'page') ? 'Page' : 'Post',
+        'controllerName' => 'Articles',
+        'controllerIndexAction' => ($article->kind == 'page') ? 'tree-index' : 'index',
+        'entity' => $article,
+        'entityDisplayName' => $article->title,
+        'urlParams' => ($article->kind == 'page') ? ['kind' => 'page'] : [],
+    ]);
+?>
+<div class="container mt-4">
     <div class="row">
-        <?php
-            echo $this->element('actions_card', [
-                'modelName' => ($article->kind == 'page') ? 'Page' : 'Post',
-                'controllerName' => 'Articles',
-                'controllerIndexAction' => ($article->kind == 'page') ? 'tree-index' : 'index',
-                'entity' => $article,
-                'entityDisplayName' => $article->title,
-                'urlParams' => ($article->kind == 'page') ? ['kind' => 'page'] : [],
-            ]);
-        ?>
-        <div class="col-lg-9">
+        <div class="col-12">
             <div class="card">
                 <div class="card-body">
                     <h2 class="card-title"><?= h($article->title) ?></h2>

@@ -4,18 +4,18 @@
  * @var \App\Model\Entity\EmailTemplate $emailTemplate
  */
 ?>
-<div class="container my-4">
+<?php
+    echo $this->element('actions_card', [
+        'modelName' => 'Email Template',
+        'controllerName' => 'Email Templates',
+        'entity' => $emailTemplate,
+        'entityDisplayName' => $emailTemplate->name,
+        'debugOnlyOptions' => ['delete', 'add'],
+    ]);
+?>
+<div class="container mt-4">
     <div class="row">
-        <?php
-        echo $this->element('actions_card', [
-            'modelName' => 'Email Template',
-            'controllerName' => 'Email Templates',
-            'entity' => $emailTemplate,
-            'entityDisplayName' => $emailTemplate->name,
-            'debugOnlyOptions' => ['delete', 'add'],
-        ]);
-        ?>
-        <div class="col-lg-9">
+        <div class="col-12">
             <div class="card">
                 <div class="card-body">
                     <h2 class="card-title"><?= h($emailTemplate->name) ?></h2>

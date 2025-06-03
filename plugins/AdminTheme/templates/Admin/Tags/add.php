@@ -5,17 +5,19 @@
  * @var \Cake\Collection\CollectionInterface|string[] $articles
  */
 ?>
+<?php if (!$tag->isNew()): ?>
+<?php
+    echo $this->element('actions_card', [
+        'modelName' => 'Tag',
+        'controllerName' => 'Tags',
+        'entity' => $tag,
+        'entityDisplayName' => $tag->title
+    ]);
+?>
+<?php endif; ?>
 <div class="container mt-4">
     <div class="row">
-        <?php
-        echo $this->element('actions_card', [
-            'modelName' => 'Tag',
-            'controllerName' => 'Tags',
-            'entity' => $tag,
-            'entityDisplayName' => $tag->title
-        ]);
-        ?>
-        <div class="col-md-9">
+        <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header">
                     <h5 class="card-title"><?= __('Add Tag') ?></h5>

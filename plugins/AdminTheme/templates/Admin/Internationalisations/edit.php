@@ -4,17 +4,17 @@
  * @var \App\Model\Entity\Internationalisation $internationalisation
  */
 ?>
+<?php
+    echo $this->element('actions_card', [
+        'modelName' => 'Internationalisation',
+        'controllerName' => 'Internationalisations',
+        'entity' => $internationalisation,
+        'entityDisplayName' => $internationalisation->message_id
+    ]);
+?>
 <div class="container mt-4">
     <div class="row">
-        <?php
-        echo $this->element('actions_card', [
-            'modelName' => 'Internationalisation',
-            'controllerName' => 'Internationalisations',
-            'entity' => $internationalisation,
-            'entityDisplayName' => $internationalisation->message_id
-        ]);
-        ?>
-        <div class="col-md-9">
+        <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header">
                     <h5 class="card-title"><?= __('Edit Internationalisation') ?></h5>

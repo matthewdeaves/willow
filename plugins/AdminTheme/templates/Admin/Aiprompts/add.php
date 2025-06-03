@@ -4,17 +4,19 @@
  * @var \App\Model\Entity\Aiprompt $aiprompt
  */
 ?>
+<?php if (!$aiprompt->isNew()): ?>
+<?php
+    echo $this->element('actions_card', [
+        'modelName' => 'Aiprompt',
+        'controllerName' => 'Aiprompts',
+        'entity' => $aiprompt,
+        'entityDisplayName' => $aiprompt->task_type
+    ]);
+?>
+<?php endif; ?>
 <div class="container mt-4">
     <div class="row">
-        <?php
-        echo $this->element('actions_card', [
-            'modelName' => 'Aiprompt',
-            'controllerName' => 'Aiprompts',
-            'entity' => $aiprompt,
-            'entityDisplayName' => $aiprompt->task_type
-        ]);
-        ?>
-        <div class="col-md-9">
+        <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header">
                     <h5 class="card-title"><?= __('Add Aiprompt') ?></h5>

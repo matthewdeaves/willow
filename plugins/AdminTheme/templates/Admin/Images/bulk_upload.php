@@ -7,17 +7,17 @@
 <?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.js') ?>
 <?php // CSRF Token will be passed via data-attribute on the form ?>
 
-<div class="container-fluid mt-4">
+<?php
+    echo $this->element('actions_card', [
+        'modelName' => 'Image',
+        'controllerName' => 'Images',
+        'entity' => null,
+        'entityDisplayName' => __('Bulk Upload Images')
+    ]);
+?>
+<div class="container mt-4">
     <div class="row">
-        <?php
-        echo $this->element('actions_card', [
-            'modelName' => 'Image',
-            'controllerName' => 'Images',
-            'entity' => null,
-            'entityDisplayName' => __('Bulk Upload Images')
-        ]);
-        ?>
-        <div class="col-md-9">
+        <div class="col-12">
             <div class="card">
                 <div class="card-header bg-primary text-white">
                     <h3 class="mb-0"><?= __('Bulk Upload Images') ?></h3>

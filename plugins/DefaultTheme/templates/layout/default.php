@@ -37,7 +37,7 @@
       <?= $this->element('site/main_menu', ['mbAmount' => 3]); ?>
 
     </div>
-    <main class="container">
+    <main class="container" id="main-content">
       <div class="row g-5">
         <div class="col-md-12">
             <?= $this->Flash->render() ?>

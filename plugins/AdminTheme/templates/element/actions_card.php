@@ -8,97 +8,93 @@ $controllerIndexAction = $controllerIndexAction ?? 'index';
 $entityDisplayName = $entityDisplayName ?? '';
 ?>
 
-<aside class="col-lg-3">
-    <div class="card mb-4">
-        <div class="card-body">
-            <h4 class="card-title"><?= __('Actions') ?></h4>
-            <ul class="list-group list-group-flush">
+<div class="page-actions-floating">
+    <div class="btn-group" role="group" aria-label="<?= __('Page Actions') ?>">
 
-                <li class="list-group-item">
-                    <?= $this->Html->link(__('List {0}', 
-                        [$modelNamePlural]),
+            <?= $this->Html->link(
+                '<i class="fas fa-list me-1"></i>' . __('List {0}', [$modelNamePlural]),
+                [
+                    'controller' => $controllerName,
+                    'action' => $controllerIndexAction,
+                    '?' => isset($urlParams) ? $urlParams : [],
+                ],
+                ['class' => 'btn btn-secondary', 'escape' => false]
+            ) ?>
+
+            <?php if (!in_array($this->request->getParam('action'), ['add', 'view', 'bulkUpload', 'sendEmail'])): ?>
+                <?php if (!isset($hideView)) : ?>
+                    <?= $this->Html->link(
+                        '<i class="fas fa-eye me-1"></i>' . __('View'),
                         [
-                            'controller' => $controllerName,
-                            'action' => $controllerIndexAction,
-                            '?' => isset($urlParams) ? $urlParams : [],
-                        ],
-                        ['class' => 'list-group-item list-group-item-action']
-                    ) ?>
-                </li>
-
-                <?php if (!in_array($this->request->getParam('action'), ['add', 'view', 'bulkUpload', 'sendEmail'])): ?>
-                    <?php if (!isset($hideView)) : ?>
-                    <li class="list-group-item">
-                        <?= $this->Html->link(__('View {0}', [$modelName]), [
                             'controller' => $controllerName,
                             'action' => 'view',
                             $entity->id,
                             '?' => isset($urlParams) ? $urlParams : [],
                         ],
-                        ['class' => 'list-group-item list-group-item-action']) ?>
-                    </li>
-                    <?php endif; ?>
+                        ['class' => 'btn btn-primary', 'escape' => false]
+                    ) ?>
                 <?php endif; ?>
+            <?php endif; ?>
 
-                <?php if (!isset($hideNew)) : ?>
-                    <?php if (
-                        (Configure::read('debug') && in_array('add', $debugOnlyOptions))
-                        || !in_array('add', $debugOnlyOptions)
-                        ) : ?>
-                    <li class="list-group-item">
-                        <?= $this->Html->link(__('New {0}', [$modelName]), [
+            <?php if (!isset($hideNew)) : ?>
+                <?php if (
+                    (Configure::read('debug') && in_array('add', $debugOnlyOptions))
+                    || !in_array('add', $debugOnlyOptions)
+                    ) : ?>
+                    <?= $this->Html->link(
+                        '<i class="fas fa-plus me-1"></i>' . __('New'),
+                        [
                             'controller' => $controllerName,
                             'action' => 'add',
                             '?' => isset($urlParams) ? $urlParams : []
-                            ],
-                            [
-                                'class' => 'list-group-item list-group-item-action'
-                            ]) ?>
-                    </li>
-                    <?php endif; ?>
+                        ],
+                        ['class' => 'btn btn-success', 'escape' => false]
+                    ) ?>
                 <?php endif; ?>
+            <?php endif; ?>
 
-                <?php if (!in_array($this->request->getParam('action'), ['add', 'edit', 'bulkUpload', 'sendEmail'])): ?>
-                    <?php if (!isset($hideEdit)) : ?>
-                    <li class="list-group-item">
-                        <?= $this->Html->link(__('Edit {0}', [$modelName]), [
+            <?php if (!in_array($this->request->getParam('action'), ['add', 'edit', 'bulkUpload', 'sendEmail'])): ?>
+                <?php if (!isset($hideEdit)) : ?>
+                    <?= $this->Html->link(
+                        '<i class="fas fa-edit me-1"></i>' . __('Edit'),
+                        [
+                            'controller' => $controllerName,
+                            'action' => 'edit',
+                            $entity->id,
+                            '?' => isset($urlParams) ? $urlParams : []
+                        ],
+                        ['class' => 'btn btn-warning', 'escape' => false]
+                    ) ?>
+                <?php endif; ?>
+            <?php endif; ?>
+
+
+            <?php if (!in_array($this->request->getParam('action'), ['add', 'bulkUpload', 'sendEmail'])): ?>
+                <?php if (!isset($hideDelete)) : ?>
+                    <?php
+                        $customConfirm = __('Are you sure you want to delete {0}?', $entityDisplayName);
+                        if (isset($confirm)) {
+                            $customConfirm = $confirm;
+                        }
+                    ?>
+
+                    <?php if (empty($debugOnlyOptions) || in_array('delete', $debugOnlyOptions) && Configure::read('debug')) : ?>
+                        <?= $this->Form->postLink(
+                            '<i class="fas fa-trash me-1"></i>' . __('Delete'),
+                            [
                                 'controller' => $controllerName,
-                                'action' => 'edit',
+                                'action' => 'delete',
                                 $entity->id,
                                 '?' => isset($urlParams) ? $urlParams : []
                             ],
-                            ['class' => 'list-group-item list-group-item-action']) ?>
-                    </li>
+                            [
+                                'confirm' => $customConfirm, 
+                                'class' => 'btn btn-danger',
+                                'escape' => false
+                            ]
+                        ) ?>
                     <?php endif; ?>
                 <?php endif; ?>
-
-
-                <?php if (!in_array($this->request->getParam('action'), ['add', 'bulkUpload', 'sendEmail'])): ?>
-                    <?php if (!isset($hideDelete)) : ?>
-                        <?php
-                            $customConfirm = __('Are you sure you want to delete {0}?', $entityDisplayName);
-                            if (isset($confirm)) {
-                                $customConfirm = $confirm;
-                            }
-                        ?>
-
-                        <?php if (empty($debugOnlyOptions) || in_array('delete', $debugOnlyOptions) && Configure::read('debug')) : ?>
-                        <li class="list-group-item">
-                            <?= $this->Form->postLink(
-                                __('Delete {0}', [$modelName]),
-                                [
-                                    'controller' => $controllerName,
-                                    'action' => 'delete',
-                                    $entity->id,
-                                    '?' => isset($urlParams) ? $urlParams : []
-                                ],
-                                ['confirm' => $customConfirm, 'class' => 'list-group-item list-group-item-action text-danger']
-                            ) ?>
-                        </li>
-                        <?php endif; ?>
-                    <?php endif; ?>
-                <?php endif; ?>
-            </ul>
-        </div>
+            <?php endif; ?>
     </div>
-</aside>
+</div>

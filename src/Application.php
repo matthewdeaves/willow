@@ -59,12 +59,10 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         // Call parent to load bootstrap from files.
         parent::bootstrap();
         require CONFIG . 'log_config.php';
-        $this->addPlugin('Authentication');
-        // Don't load the Queue plugin if we are running tests, we don't need
-        // to test that and the code skips sending messages when testing
-        if (env('CAKE_ENV') !== 'test') {
-            $this->addPlugin('Cake/Queue');
-        }
+
+        // All plugins are now loaded via config/plugins.php
+        // This provides a single source of truth for plugin configuration
+        // and handles environment-specific loading automatically
 
         if (PHP_SAPI === 'cli') {
             $this->bootstrapCli();

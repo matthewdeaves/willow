@@ -22,17 +22,32 @@ $this->Paginator->options([
     ]
 ]);
 ?>
-<div class="d-flex justify-content-center">
-    <nav aria-label="Standard pagination example">
-        <ul class="pagination">
-            <?= $this->Paginator->prev('&laquo;', ['escape' => false]) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next('&raquo;', ['escape' => false]) ?>
+<?php if ($this->Paginator->total() > 1): ?>
+<div class="pagination-wrapper my-5">
+    <nav aria-label="<?= __('Article pagination') ?>" class="d-flex justify-content-center">
+        <ul class="pagination pagination-lg shadow-sm">
+            <?= $this->Paginator->prev('&laquo;', [
+                'escape' => false,
+                'class' => 'page-link',
+                'title' => __('Previous page')
+            ]) ?>
+            <?= $this->Paginator->numbers([
+                'class' => 'page-link'
+            ]) ?>
+            <?= $this->Paginator->next('&raquo;', [
+                'escape' => false,
+                'class' => 'page-link',
+                'title' => __('Next page')
+            ]) ?>
         </ul>
     </nav>
-</div>
-<div class="d-flex justify-content-center">
+    
     <?php if ($this->Paginator->total() > 0): ?>
-        <?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?>
+    <div class="pagination-info text-center mt-3">
+        <small class="text-muted">
+            <?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?>
+        </small>
+    </div>
     <?php endif; ?>
 </div>
+<?php endif; ?>

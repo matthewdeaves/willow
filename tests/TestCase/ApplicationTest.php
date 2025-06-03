@@ -24,7 +24,6 @@ use Cake\Routing\Middleware\AssetMiddleware;
 use Cake\Routing\Middleware\RoutingMiddleware;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
-use InvalidArgumentException;
 
 /**
  * ApplicationTest class
@@ -66,22 +65,20 @@ class ApplicationTest extends TestCase
     }
 
     /**
-     * testBootstrapPluginWitoutHalt
+     * Test that bootstrap completes successfully without exceptions
+     *
+     * Note: Plugin loading is now handled via config/plugins.php rather than
+     * direct addPlugin() calls in bootstrap(), so we test successful bootstrap
+     * execution instead of plugin loading exceptions.
      *
      * @return void
      */
-    public function testBootstrapPluginWithoutHalt()
+    public function testBootstrapWithoutExceptions()
     {
-        $this->expectException(InvalidArgumentException::class);
+        $app = new Application(dirname(dirname(__DIR__)) . '/config');
 
-        $app = $this->getMockBuilder(Application::class)
-            ->setConstructorArgs([dirname(dirname(__DIR__)) . '/config'])
-            ->onlyMethods(['addPlugin'])
-            ->getMock();
-
-        $app->method('addPlugin')
-            ->will($this->throwException(new InvalidArgumentException('test exception.')));
-
+        // Bootstrap should complete successfully without throwing exceptions
+        $this->expectNotToPerformAssertions();
         $app->bootstrap();
     }
 

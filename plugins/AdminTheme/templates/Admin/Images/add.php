@@ -4,17 +4,19 @@
  * @var \App\Model\Entity\Image $image
  */
 ?>
+<?php if (!$image->isNew()): ?>
+<?php
+    echo $this->element('actions_card', [
+        'modelName' => 'Image',
+        'controllerName' => 'Images',
+        'entity' => $image,
+        'entityDisplayName' => $image->name
+    ]);
+?>
+<?php endif; ?>
 <div class="container mt-4">
     <div class="row">
-        <?php
-        echo $this->element('actions_card', [
-            'modelName' => 'Image',
-            'controllerName' => 'Images',
-            'entity' => $image,
-            'entityDisplayName' => $image->name
-        ]);
-        ?>
-        <div class="col-md-9">
+        <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header">
                     <h5 class="card-title"><?= __('Add Image') ?></h5>

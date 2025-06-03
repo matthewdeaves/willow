@@ -4,17 +4,17 @@
  * @var \App\Model\Entity\Image $image
  */
 ?>
+<?php
+    echo $this->element('actions_card', [
+        'modelName' => 'Image',
+        'controllerName' => 'Images',
+        'entity' => $image,
+        'entityDisplayName' => $image->name
+    ]);
+?>
 <div class="container mt-4">
     <div class="row">
-        <?php
-        echo $this->element('actions_card', [
-            'modelName' => 'Image',
-            'controllerName' => 'Images',
-            'entity' => $image,
-            'entityDisplayName' => $image->name
-        ]);
-        ?>
-        <div class="col-md-9">
+        <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header">
                     <h5 class="card-title"><?= __('Edit Image') ?></h5>

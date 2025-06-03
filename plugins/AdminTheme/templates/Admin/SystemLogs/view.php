@@ -1,16 +1,16 @@
-<div class="container mt-5">
+<?php
+    echo $this->element('actions_card', [
+        'modelName' => 'SystemLog',
+        'controllerName' => 'SystemLogs',
+        'entity' => $systemLog,
+        'entityDisplayName' => $systemLog->group_name . ':' . $systemLog->level . ':' . $systemLog->created->format('Y-m-d H:i:s'),
+        'hideNew' => true,
+        'hideEdit' => true,
+    ]);
+?>
+<div class="container mt-4">
     <div class="row">
-        <?php
-        echo $this->element('actions_card', [
-            'modelName' => 'SystemLog',
-            'controllerName' => 'SystemLogs',
-            'entity' => $systemLog,
-            'entityDisplayName' => $systemLog->group_name . ':' . $systemLog->level . ':' . $systemLog->created->format('Y-m-d H:i:s'),
-            'hideNew' => true,
-            'hideEdit' => true,
-        ]);
-        ?>
-        <div class="col-md-9">
+        <div class="col-12">
             <div class="card">
                 <div class="card-header bg-<?= strtolower($systemLog->level) ?>">
                     <h3 class="card-title text-white mb-0"><?= h($systemLog->level) ?></h3>

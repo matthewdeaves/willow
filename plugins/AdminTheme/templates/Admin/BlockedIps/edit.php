@@ -4,17 +4,17 @@
  * @var \App\Model\Entity\BlockedIp $blockedIp
  */
 ?>
+<?php
+    echo $this->element('actions_card', [
+        'modelName' => 'Blocked Ip',
+        'controllerName' => 'Blocked Ips',
+        'entity' => $blockedIp,
+        'entityDisplayName' => $blockedIp->ip_address
+    ]);
+?>
 <div class="container mt-4">
     <div class="row">
-        <?php
-        echo $this->element('actions_card', [
-            'modelName' => 'Blocked Ip',
-            'controllerName' => 'Blocked Ips',
-            'entity' => $blockedIp,
-            'entityDisplayName' => $blockedIp->ip_address
-        ]);
-        ?>
-        <div class="col-md-9">
+        <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header">
                     <h5 class="card-title"><?= __('Edit Blocked Ip') ?></h5>

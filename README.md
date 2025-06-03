@@ -9,7 +9,9 @@
 
 Willow CMS is a powerful, AI-enhanced content management system that combines the robustness of CakePHP 5.x with cutting-edge AI capabilities. Built with developers in mind, it offers a complete Docker development environment and production-ready features.
 
-**🚀 [Live Demo](https://willowcms.app) | 📖 [Development Blog](https://willowcms.app)**
+**🆓 FREE & OPEN SOURCE** • **🏢 COMMERCIAL USE ALLOWED** • **🔧 FULLY CUSTOMIZABLE**
+
+**🚀 [Live Demo](https://willowcms.app) | 📖 [Development Blog](https://willowcms.app) | 📄 [MIT License](#-license)**
 
 ---
 
@@ -296,7 +298,34 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+**Willow CMS is released under the MIT License** - one of the most permissive open source licenses available.
+
+### What this means for you:
+
+✅ **Commercial Use**: Use Willow CMS in commercial projects without restrictions  
+✅ **Modification**: Modify the source code to fit your needs  
+✅ **Distribution**: Share and redistribute Willow CMS freely  
+✅ **Private Use**: Use Willow CMS in private/internal projects  
+✅ **Patent Use**: Includes patent protection for users  
+
+### Your only obligations:
+- Include the original copyright notice and license text
+- Include the [LICENSE](LICENSE) file in distributions
+
+**No attribution required in your final product, no royalties, no restrictions on how you use it.**
+
+See the [LICENSE](LICENSE) file for complete details.
+
+### Why MIT License?
+
+We chose the MIT License to ensure **maximum freedom for developers and organizations**:
+- **Startups** can build commercial products without licensing fees
+- **Enterprises** can modify and deploy without legal concerns  
+- **Open Source Projects** can integrate and extend Willow CMS
+- **Educational Institutions** can use it freely for teaching and research
+- **Government Agencies** can deploy it without bureaucratic hurdles
+
+**Our philosophy**: Great software should be accessible to everyone.
 
 ---
 

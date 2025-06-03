@@ -5,17 +5,17 @@
  */
 ?>
 <?php use App\Utility\SettingsManager; ?>
+<?php
+    echo $this->element('actions_card', [
+        'modelName' => 'User',
+        'controllerName' => 'Users',
+        'entity' => $user,
+        'entityDisplayName' => $user->username
+    ]);
+?>
 <div class="container mt-4">
     <div class="row">
-        <?php
-        echo $this->element('actions_card', [
-            'modelName' => 'User',
-            'controllerName' => 'Users',
-            'entity' => $user,
-            'entityDisplayName' => $user->username
-        ]);
-        ?>
-        <div class="col-md-9">
+        <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header">
                     <h5 class="card-title"><?= __('Edit User') ?></h5>

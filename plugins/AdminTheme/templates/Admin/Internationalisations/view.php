@@ -4,17 +4,17 @@
  * @var \App\Model\Entity\Internationalisation $internationalisation
  */
 ?>
-<div class="container my-4">
+<?php
+    echo $this->element('actions_card', [
+        'modelName' => 'Internationalisation',
+        'controllerName' => 'Internationalisations',
+        'entity' => $internationalisation,
+        'entityDisplayName' => $internationalisation->message_id
+    ]);
+?>
+<div class="container mt-4">
     <div class="row">
-        <?php
-        echo $this->element('actions_card', [
-            'modelName' => 'Internationalisation',
-            'controllerName' => 'Internationalisations',
-            'entity' => $internationalisation,
-            'entityDisplayName' => $internationalisation->message_id
-        ]);
-        ?>
-        <div class="col-lg-9">
+        <div class="col-12">
             <div class="card">
                 <div class="card-body">
                     <h2 class="card-title"><?= h($internationalisation->message_id) ?></h2>

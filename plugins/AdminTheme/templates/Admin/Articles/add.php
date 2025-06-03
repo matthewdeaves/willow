@@ -31,19 +31,20 @@
 <meta name="csrfToken" content="<?= $this->request->getAttribute('csrfToken') ?>">
 
 <?php $kind = $this->request->getQuery('kind'); ?>
+<?php if (!$article->isNew()): ?>
+<?php
+    echo $this->element('actions_card', [
+        'modelName' => ($kind == 'page') ? 'Page' : 'Article',
+        'controllerName' => 'Articles',
+        'controllerIndexAction' => ($kind == 'page') ? 'tree-index' : 'index',
+        'entity' => $article,
+        'urlParams' => ($kind == 'page') ? ['kind' => 'page'] : [],
+    ]);
+?>
+<?php endif; ?>
 <div class="container mt-4">
     <div class="row">
-        <?php
-            echo $this->element('actions_card', [
-                'modelName' => ($kind == 'page') ? 'Page' : 'Article',
-                'controllerName' => 'Articles',
-                'controllerIndexAction' => ($kind == 'page') ? 'tree-index' : 'index',
-                'entity' => $article,
-                'urlParams' => ($kind == 'page') ? ['kind' => 'page'] : [],
-            ]);
-        ?>
-
-        <div class="col-md-9">
+        <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header">
                     <h5 class="card-title"><?= ($kind == 'page') ? __('Add Page') : __('Add Post') ?></h5>

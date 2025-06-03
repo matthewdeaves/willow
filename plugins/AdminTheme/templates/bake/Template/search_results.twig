@@ -5,8 +5,8 @@
  */
 ?>
 <?php $activeFilter = $this->request->getQuery('status'); ?>
-  <table class="table table-striped">
-    <thead>
+<table class="table table-striped">
+  <thead>
       <tr>
       {% for field in fields %}
         <th scope="col"><?= $this->Paginator->sort('{{ field }}') ?></th>
@@ -23,7 +23,7 @@
     {% for alias, details in associations.BelongsTo %}
     {% if field == details.foreignKey %}
     {% set isKey = true %}
-    <td><?= ${{ singularVar }}->hasValue('{{ details.property }}') ? $this->Html->link(${{ singularVar }}->{{ details.property }}->{{ details.displayField }}, ['controller' => '{{ details.controller }}', 'action' => 'view', ${{ singularVar }}->{{ details.property }}->{{ details.primaryKey[0] }}]) : '' ?></td>
+    <td><?= ${{ singularVar }}->hasValue('{{ details.property }}') ? $this->Html->link(${{ singularVar }}->{{ details.property }}->{{ details.displayField }}, ['controller' => '{{ details.controller }}', 'action' => 'view', ${{ singularVar }}->{{ details.property }}->{{ details.primaryKey[0] }}], ['class' => 'btn btn-link']) : '' ?></td>
     {% endif %}
     {% endfor %}
     {% endif %}
@@ -43,28 +43,12 @@
     {% endfor %}
     {% set pk = '$' ~ singularVar ~ '->' ~ primaryKey[0] %}
           <td>
-              <div class="btn-group w-100 align-items-center justify-content-between flex-wrap">
-                  <div class="dropdown">
-                  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <?= __('Actions') ?>
-                  </button>
-                  <ul class="dropdown-menu">
-                      <li>
-                          <?= $this->Html->link(__('View'), ['action' => 'view', {{ pk|raw }}], ['class' => 'dropdown-item']) ?>
-                      </li>
-                      <li>
-                          <?= $this->Html->link(__('Edit'), ['action' => 'edit', {{ pk|raw }}], ['class' => 'dropdown-item']) ?>
-                      </li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li>
-                          <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', {{ pk|raw }}], ['confirm' => __('Are you sure you want to delete # {0}?', {{ pk|raw }}), 'class' => 'dropdown-item text-danger']) ?>
-                      </li>
-                  </ul>
-                  </div>
-              </div>
+            <?= $this->element('evd_dropdown', ['model' => ${{ singularVar }}, 'display' => '{{ displayField }}']); ?>
           </td>
       </tr>
       <?php endforeach; ?>
     </tbody>
   </table>
+
 <?= $this->element('pagination', ['recordCount' => count(${{ pluralVar }}), 'search' => $search ?? '']) ?>
+

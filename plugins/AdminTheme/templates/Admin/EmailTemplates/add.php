@@ -4,17 +4,19 @@
  * @var \App\Model\Entity\EmailTemplate $emailTemplate
  */
 ?>
+<?php if (!$emailTemplate->isNew()): ?>
+<?php
+    echo $this->element('actions_card', [
+        'modelName' => 'Email Template',
+        'controllerName' => 'Email Templates',
+        'entity' => $emailTemplate,
+        'entityDisplayName' => $emailTemplate->name
+    ]);
+?>
+<?php endif; ?>
 <div class="container mt-4">
     <div class="row">
-        <?php
-        echo $this->element('actions_card', [
-            'modelName' => 'Email Template',
-            'controllerName' => 'Email Templates',
-            'entity' => $emailTemplate,
-            'entityDisplayName' => $emailTemplate->name
-        ]);
-        ?>
-        <div class="col-md-9">
+        <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header">
                     <h5 class="card-title"><?= __('Add Email Template') ?></h5>

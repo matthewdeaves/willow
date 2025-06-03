@@ -4,17 +4,19 @@
  * @var \App\Model\Entity\Slug $slug
  */
 ?>
+<?php if (!$slug->isNew()): ?>
+<?php
+    echo $this->element('actions_card', [
+        'modelName' => 'Slug',
+        'controllerName' => 'Slugs',
+        'entity' => $slug,
+        'entityDisplayName' => $slug->slug
+    ]);
+?>
+<?php endif; ?>
 <div class="container mt-4">
     <div class="row">
-        <?php
-        echo $this->element('actions_card', [
-            'modelName' => 'Slug',
-            'controllerName' => 'Slugs',
-            'entity' => $slug,
-            'entityDisplayName' => $slug->slug
-        ]);
-        ?>
-        <div class="col-md-9">
+        <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header">
                     <h5 class="card-title"><?= __('Add Slug') ?></h5>

@@ -7,16 +7,26 @@ $session = $this->request->getSession();
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
   <head>
+    <script>
+    // Check localStorage immediately to prevent sidebar jumping
+    (function() {
+        if (localStorage.getItem('sidebarCollapsed') === 'true') {
+            document.documentElement.classList.add('sidebar-preload-collapsed');
+        }
+    })();
+    </script>
     <?= $this->Html->script('AdminTheme.color-modes') ?>
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= SettingsManager::read('SEO.siteName', 'Willow CMS') ?>: <?= $this->fetch('title') ?></title>
     <?= $this->Html->meta('icon') ?>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <?= $this->Html->css([
         'AdminTheme.base',
         'AdminTheme.theme',
+        'AdminTheme.admin-layout',
         'AdminTheme.semantic-ui-dropdown',
         'AdminTheme.images-grid',
         'AdminTheme.' . (SettingsManager::read('Editing.editor') == 'trumbowyg' ? 'trumbowyg' : 'markdown'),
@@ -41,7 +51,7 @@ $session = $this->request->getSession();
     )); ?>
     <?= $this->element('libraries/highlightjs'); ?>
   </head>
-  <body class="bg-body-tertiary">
+  <body class="bg-body-tertiary admin-layout">
 
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
       <symbol id="check2" viewBox="0 0 16 16">
@@ -65,7 +75,8 @@ $session = $this->request->getSession();
     </div>
     <?php endif; ?>
 
-    <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
+    <!-- Theme Toggle -->
+    <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle" style="z-index: 1050;">
       <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
         id="bd-theme"
         type="button"
@@ -79,7 +90,7 @@ $session = $this->request->getSession();
         <li>
           <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
             <svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#sun-fill"></use></svg>
-          Light
+            Light
             <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
           </button>
         </li>
@@ -100,156 +111,444 @@ $session = $this->request->getSession();
       </ul>
     </div>
 
-    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
-      <symbol id="bootstrap" viewBox="0 0 118 94">
-      <title>Bootstrap</title>
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z"></path>
-      </symbol>
-      <symbol id="home" viewBox="0 0 16 16">
-      <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
-      </symbol>
-      <symbol id="speedometer2" viewBox="0 0 16 16">
-      <path d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4zM3.732 5.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 10a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 9.31a.91.91 0 1 0 1.302 1.258l3.434-4.297a.389.389 0 0 0-.029-.518z"/>
-      <path fill-rule="evenodd" d="M0 10a8 8 0 1 1 15.547 2.661c-.442 1.253-1.845 1.602-2.932 1.25C11.309 13.488 9.475 13 8 13c-1.474 0-3.31.488-4.615.911-1.087.352-2.49.003-2.932-1.25A7.988 7.988 0 0 1 0 10zm8-7a7 7 0 0 0-6.603 9.329c.203.575.923.876 1.68.63C4.397 12.533 6.358 12 8 12s3.604.532 4.923.96c.757.245 1.477-.056 1.68-.631A7 7 0 0 0 8 3z"/>
-      </symbol>
-      <symbol id="table" viewBox="0 0 16 16">
-      <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z"/>
-      </symbol>
-      <symbol id="people-circle" viewBox="0 0 16 16">
-      <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-      <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-      </symbol>
-      <symbol id="grid" viewBox="0 0 16 16">
-      <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
-      </symbol>
-    </svg>
-
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
+    <!-- Top Header -->
+    <header class="navbar navbar-expand-lg navbar-dark bg-dark admin-header">
       <div class="container-fluid">
-        <?= $this->Html->image('willow-icon.png', [
-            'alt' => __('Willow Logo'),
-            'class' => 'navbar-logo me-2',
-            'url' => ['prefix' => 'Admin', 'controller' => 'Articles', 'action' => 'index'],
-            'width' => 30,
-            'height' => 30
-        ]) ?>
-        <a class="navbar-brand" href="<?= $this->Url->build(['prefix' => 'Admin', 'controller' => 'Articles', 'action' => 'index']) ?>"><?= SettingsManager::read('SEO.siteName', __('Willow CMS')) ?></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarsExample03">
-          <ul class="navbar-nav me-auto mb-2 mb-sm-0">
-            <li class="nav-item">
-                <?= $this->Html->link(__('Posts'),
-                  [
-                    'prefix' => 'Admin',
-                    'controller' => 'Articles',
-                    'action' => 'index'
-                  ],
-                  [
-                      'class' => 'nav-link' . (($activeCtl == 'Articles' && $activeAct != 'treeIndex' && empty($this->request->getQuery('kind'))) ? ' active' : '')
-                  ])
-                ?>
-            </li>
-            <li class="nav-item">
-              <?= $this->Html->link(__('Pages'),
+        <!-- Brand and Toggle -->
+        <div class="d-flex align-items-center">
+          <button class="btn btn-outline-light me-3 d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#adminSidebar" aria-controls="adminSidebar">
+            <i class="fas fa-bars"></i>
+          </button>
+          <button class="btn btn-outline-light me-3 d-none d-lg-block" type="button" id="sidebarToggle" aria-label="Toggle sidebar">
+            <i class="fas fa-bars"></i>
+          </button>
+          <?= $this->Html->image('willow-icon.png', [
+              'alt' => __('Willow Logo'),
+              'class' => 'navbar-logo me-2',
+              'url' => ['prefix' => 'Admin', 'controller' => 'Articles', 'action' => 'index'],
+              'width' => 30,
+              'height' => 30
+          ]) ?>
+          <a class="navbar-brand" href="<?= $this->Url->build(['prefix' => 'Admin', 'controller' => 'Articles', 'action' => 'index']) ?>">
+            <?= SettingsManager::read('SEO.siteName', __('Willow CMS')) ?>
+          </a>
+        </div>
+
+        <!-- Header Actions -->
+        <div class="d-flex align-items-center ms-auto">
+
+          <!-- User Actions -->
+          <?= $this->element('user_actions') ?>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Layout Container -->
+    <div class="admin-container">
+      <!-- Sidebar Navigation (Desktop) -->
+      <nav class="admin-sidebar bg-light border-end d-none d-lg-block" id="adminSidebarDesktop">
+        <div class="sidebar-content">
+          <div class="list-group list-group-flush">
+            <!-- Dashboard -->
+            <div class="list-group-item list-group-item-action border-0 sidebar-header">
+              <h6 class="mb-1 text-muted sidebar-text"><?= __('Dashboard') ?></h6>
+            </div>
+            
+            <?= $this->Html->link(
+                '<i class="fas fa-tachometer-alt sidebar-icon"></i><span class="sidebar-text ms-2">' . __('Analytics') . '</span>',
+                ['prefix' => 'Admin', 'controller' => 'PageViews', 'action' => 'dashboard'],
                 [
-                  'prefix' => 'Admin',
-                  'controller' => 'Articles',
-                  'action' => 'treeIndex'
-                ],
+                    'class' => 'list-group-item list-group-item-action border-0 sidebar-link' . (($activeCtl == 'PageViews') ? ' active' : ''),
+                    'escape' => false,
+                    'title' => __('Analytics'),
+                    'data-bs-toggle' => 'tooltip',
+                    'data-bs-placement' => 'right'
+                ]
+            ) ?>
+
+            <!-- Content Management -->
+            <div class="list-group-item list-group-item-action border-0 sidebar-header">
+              <h6 class="mb-1 text-muted sidebar-text"><?= __('Content') ?></h6>
+            </div>
+
+            <?= $this->Html->link(
+                '<i class="fas fa-newspaper sidebar-icon"></i><span class="sidebar-text ms-2">' . __('Posts') . '</span>',
+                ['prefix' => 'Admin', 'controller' => 'Articles', 'action' => 'index'],
                 [
-                  'class' => 'nav-link' . (($activeCtl == 'Articles' && $activeAct == 'treeIndex') || (!empty($this->request->getQuery('kind'))) ? ' active' : '')
-                ])
-              ?>
-            </li>
-            <li class="nav-item">
-              <?= $this->Html->link(__('Tags'),
+                    'class' => 'list-group-item list-group-item-action border-0 sidebar-link' . (($activeCtl == 'Articles' && $activeAct != 'treeIndex' && empty($this->request->getQuery('kind'))) ? ' active' : ''),
+                    'escape' => false,
+                    'title' => __('Posts'),
+                    'data-bs-toggle' => 'tooltip',
+                    'data-bs-placement' => 'right'
+                ]
+            ) ?>
+
+            <?= $this->Html->link(
+                '<i class="fas fa-file-alt sidebar-icon"></i><span class="sidebar-text ms-2">' . __('Pages') . '</span>',
+                ['prefix' => 'Admin', 'controller' => 'Articles', 'action' => 'treeIndex'],
                 [
-                  'prefix' => 'Admin',
-                  'controller' => 'Tags',
-                  'action' => $session->read('Tags.indexAction', 'treeIndex'),
-                ],
+                    'class' => 'list-group-item list-group-item-action border-0 sidebar-link' . (($activeCtl == 'Articles' && $activeAct == 'treeIndex') || (!empty($this->request->getQuery('kind'))) ? ' active' : ''),
+                    'escape' => false,
+                    'title' => __('Pages'),
+                    'data-bs-toggle' => 'tooltip',
+                    'data-bs-placement' => 'right'
+                ]
+            ) ?>
+
+            <?= $this->Html->link(
+                '<i class="fas fa-tags sidebar-icon"></i><span class="sidebar-text ms-2">' . __('Tags') . '</span>',
+                ['prefix' => 'Admin', 'controller' => 'Tags', 'action' => $session->read('Tags.indexAction', 'treeIndex')],
                 [
-                  'class' => 'nav-link' . ($activeCtl == 'Tags' ? ' active' : '')
-                ])
-              ?>
-            </li>
-            <li class="nav-item">
-              <?= $this->Html->link(__('Images'),
+                    'class' => 'list-group-item list-group-item-action border-0 sidebar-link' . ($activeCtl == 'Tags' ? ' active' : ''),
+                    'escape' => false,
+                    'title' => __('Tags'),
+                    'data-bs-toggle' => 'tooltip',
+                    'data-bs-placement' => 'right'
+                ]
+            ) ?>
+
+            <?= $this->Html->link(
+                '<i class="fas fa-images sidebar-icon"></i><span class="sidebar-text ms-2">' . __('Images') . '</span>',
+                ['prefix' => 'Admin', 'controller' => 'Images', 'action' => 'index'],
                 [
-                  'prefix' => 'Admin',
-                  'controller' => 'Images',
-                  'action' => 'index'
-                ],
+                    'class' => 'list-group-item list-group-item-action border-0 sidebar-link' . ($activeCtl == 'Images' ? ' active' : ''),
+                    'escape' => false,
+                    'title' => __('Images'),
+                    'data-bs-toggle' => 'tooltip',
+                    'data-bs-placement' => 'right'
+                ]
+            ) ?>
+
+            <?php if(SettingsManager::read('Comments.pagesEnabled', false) || SettingsManager::read('Comments.articlesEnabled', false)) : ?>
+            <?= $this->Html->link(
+                '<i class="fas fa-comments sidebar-icon"></i><span class="sidebar-text ms-2">' . __('Comments') . '</span>',
+                ['prefix' => 'Admin', 'controller' => 'Comments', 'action' => 'index'],
                 [
-                  'class' => 'nav-link' . ($activeCtl == 'Images' ? ' active' : '')
-                ])
-              ?>
-            </li>
-            <?php if(SettingsManager::read('Comments.pagesEnabled', false)
-              || SettingsManager::read('Comments.articlesEnabled', false)) : ?>
-            <li class="nav-item">
-              <?= $this->Html->link(__('Comments'),
-                [
-                  'prefix' => 'Admin',
-                  'controller' => 'Comments',
-                  'action' => 'index'
-                ],
-                [
-                  'class' => 'nav-link' . ($activeCtl == 'Comments' ? ' active' : '')
-                ])
-              ?>
-            </li>
+                    'class' => 'list-group-item list-group-item-action border-0 sidebar-link' . ($activeCtl == 'Comments' ? ' active' : ''),
+                    'escape' => false,
+                    'title' => __('Comments'),
+                    'data-bs-toggle' => 'tooltip',
+                    'data-bs-placement' => 'right'
+                ]
+            ) ?>
             <?php endif; ?>
-            <li>
-              <?= $this->Html->link(__('Users'),
-              [
-                'prefix' => 'Admin',
-                'controller' => 'Users',
-                'action' => 'index'
-              ],
-              [
-                'class' => 'nav-link' . ($activeCtl == 'Users' ? ' active' : '')
-              ])
-              ?>
-            </li>
-            <!--
-            <li class="nav-item">
-              <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-            </li>
-            -->
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle<?= (in_array($activeCtl,['Settings','EmailTemplates', 'Slugs', 'Aiprompts', 'Cache', 'BlockedIps', 'SystemLogs', 'Internationalisations']) ? ' active' : '') ?>" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                <?= __('Admin') ?>
-              </a>
-              <ul class="dropdown-menu">
-                <li><?= $this->Html->link(__('Settings'), ['prefix' => 'Admin', 'controller' => 'Settings', 'action' => 'index'], ['class' => 'dropdown-item' . ($activeCtl == 'Settings' ? ' active' : '')]) ?></li>
-                <li><?= $this->Html->link(__('Email Templates'), ['prefix' => 'Admin', 'controller' => 'EmailTemplates', 'action' => 'index'], ['class' => 'dropdown-item' . ($activeCtl == 'EmailTemplates' ? ' active' : '')]) ?></li>
-                <li><?= $this->Html->link(__('Slugs'), ['prefix' => 'Admin', 'controller' => 'Slugs', 'action' => 'index'], ['class' => 'dropdown-item' . ($activeCtl == 'Slugs' ? ' active' : '')]) ?></li>
-                <?php if (Configure::read('debug')) : ?>
-                <li><?= $this->Html->link(__('AI Prompts'), ['prefix' => 'Admin', 'controller' => 'Aiprompts', 'action' => 'index'], ['class' => 'dropdown-item' . ($activeCtl == 'Aiprompts' ? ' active' : '')]) ?></li>
-                <li><?= $this->Html->link(__('Internationalisation'), ['prefix' => 'Admin', 'controller' => 'Internationalisations', 'action' => 'index'], ['class' => 'dropdown-item' . ($activeCtl == 'Internationalisations' ? ' active' : '')]) ?></li>
-                <?php endif; ?>  
-                <li><?= $this->Html->link(__('Cache'), ['prefix' => 'Admin', 'controller' => 'Cache', 'action' => 'clearAll'], ['class' => 'dropdown-item' . ($activeCtl == 'Cache' ? ' active' : '')]) ?></li>
-                <li><?= $this->Html->link(__('Block IPs'), ['prefix' => 'Admin', 'controller' => 'BlockedIps', 'action' => 'index'], ['class' => 'dropdown-item' . ($activeCtl == 'BlockedIps' ? ' active' : '')]) ?></li>
-                <li><?= $this->Html->link(__('Logs'), ['prefix' => 'Admin', 'controller' => 'SystemLogs', 'action' => 'index'], ['class' => 'dropdown-item' . ($activeCtl == 'SystemLogs' ? ' active' : '')]) ?></li> 
-              </ul>
-            </li>
-          </ul>
-          <div class="d-flex align-items-center">
-            <?= $this->element('user_actions') ?>
+
+            <!-- User Management -->
+            <div class="list-group-item list-group-item-action border-0 sidebar-header">
+              <h6 class="mb-1 text-muted sidebar-text"><?= __('Users') ?></h6>
+            </div>
+
+            <?= $this->Html->link(
+                '<i class="fas fa-users sidebar-icon"></i><span class="sidebar-text ms-2">' . __('Manage Users') . '</span>',
+                ['prefix' => 'Admin', 'controller' => 'Users', 'action' => 'index'],
+                [
+                    'class' => 'list-group-item list-group-item-action border-0 sidebar-link' . ($activeCtl == 'Users' ? ' active' : ''),
+                    'escape' => false,
+                    'title' => __('Manage Users'),
+                    'data-bs-toggle' => 'tooltip',
+                    'data-bs-placement' => 'right'
+                ]
+            ) ?>
+
+            <!-- Administration -->
+            <div class="list-group-item list-group-item-action border-0 sidebar-header">
+              <h6 class="mb-1 text-muted sidebar-text"><?= __('Administration') ?></h6>
+            </div>
+
+            <?= $this->Html->link(
+                '<i class="fas fa-cog sidebar-icon"></i><span class="sidebar-text ms-2">' . __('Settings') . '</span>',
+                ['prefix' => 'Admin', 'controller' => 'Settings', 'action' => 'index'],
+                [
+                    'class' => 'list-group-item list-group-item-action border-0 sidebar-link' . ($activeCtl == 'Settings' ? ' active' : ''),
+                    'escape' => false,
+                    'title' => __('Settings'),
+                    'data-bs-toggle' => 'tooltip',
+                    'data-bs-placement' => 'right'
+                ]
+            ) ?>
+
+            <?= $this->Html->link(
+                '<i class="fas fa-envelope sidebar-icon"></i><span class="sidebar-text ms-2">' . __('Email Templates') . '</span>',
+                ['prefix' => 'Admin', 'controller' => 'EmailTemplates', 'action' => 'index'],
+                [
+                    'class' => 'list-group-item list-group-item-action border-0 sidebar-link' . ($activeCtl == 'EmailTemplates' ? ' active' : ''),
+                    'escape' => false,
+                    'title' => __('Email Templates'),
+                    'data-bs-toggle' => 'tooltip',
+                    'data-bs-placement' => 'right'
+                ]
+            ) ?>
+
+            <?= $this->Html->link(
+                '<i class="fas fa-link sidebar-icon"></i><span class="sidebar-text ms-2">' . __('Slugs') . '</span>',
+                ['prefix' => 'Admin', 'controller' => 'Slugs', 'action' => 'index'],
+                [
+                    'class' => 'list-group-item list-group-item-action border-0 sidebar-link' . ($activeCtl == 'Slugs' ? ' active' : ''),
+                    'escape' => false,
+                    'title' => __('Slugs'),
+                    'data-bs-toggle' => 'tooltip',
+                    'data-bs-placement' => 'right'
+                ]
+            ) ?>
+
+            <?php if (Configure::read('debug')) : ?>
+            <?= $this->Html->link(
+                '<i class="fas fa-robot sidebar-icon"></i><span class="sidebar-text ms-2">' . __('AI Prompts') . '</span>',
+                ['prefix' => 'Admin', 'controller' => 'Aiprompts', 'action' => 'index'],
+                [
+                    'class' => 'list-group-item list-group-item-action border-0 sidebar-link' . ($activeCtl == 'Aiprompts' ? ' active' : ''),
+                    'escape' => false,
+                    'title' => __('AI Prompts'),
+                    'data-bs-toggle' => 'tooltip',
+                    'data-bs-placement' => 'right'
+                ]
+            ) ?>
+
+            <?= $this->Html->link(
+                '<i class="fas fa-globe sidebar-icon"></i><span class="sidebar-text ms-2">' . __('Internationalisation') . '</span>',
+                ['prefix' => 'Admin', 'controller' => 'Internationalisations', 'action' => 'index'],
+                [
+                    'class' => 'list-group-item list-group-item-action border-0 sidebar-link' . ($activeCtl == 'Internationalisations' ? ' active' : ''),
+                    'escape' => false,
+                    'title' => __('Internationalisation'),
+                    'data-bs-toggle' => 'tooltip',
+                    'data-bs-placement' => 'right'
+                ]
+            ) ?>
+            <?php endif; ?>
+
+            <!-- System -->
+            <div class="list-group-item list-group-item-action border-0 sidebar-header">
+              <h6 class="mb-1 text-muted sidebar-text"><?= __('System') ?></h6>
+            </div>
+
+            <?= $this->Html->link(
+                '<i class="fas fa-trash sidebar-icon"></i><span class="sidebar-text ms-2">' . __('Clear Cache') . '</span>',
+                ['prefix' => 'Admin', 'controller' => 'Cache', 'action' => 'clearAll'],
+                [
+                    'class' => 'list-group-item list-group-item-action border-0 sidebar-link' . ($activeCtl == 'Cache' ? ' active' : ''),
+                    'escape' => false,
+                    'title' => __('Clear Cache'),
+                    'data-bs-toggle' => 'tooltip',
+                    'data-bs-placement' => 'right'
+                ]
+            ) ?>
+
+            <?= $this->Html->link(
+                '<i class="fas fa-ban sidebar-icon"></i><span class="sidebar-text ms-2">' . __('Blocked IPs') . '</span>',
+                ['prefix' => 'Admin', 'controller' => 'BlockedIps', 'action' => 'index'],
+                [
+                    'class' => 'list-group-item list-group-item-action border-0 sidebar-link' . ($activeCtl == 'BlockedIps' ? ' active' : ''),
+                    'escape' => false,
+                    'title' => __('Blocked IPs'),
+                    'data-bs-toggle' => 'tooltip',
+                    'data-bs-placement' => 'right'
+                ]
+            ) ?>
+
+            <?= $this->Html->link(
+                '<i class="fas fa-file-text sidebar-icon"></i><span class="sidebar-text ms-2">' . __('System Logs') . '</span>',
+                ['prefix' => 'Admin', 'controller' => 'SystemLogs', 'action' => 'index'],
+                [
+                    'class' => 'list-group-item list-group-item-action border-0 sidebar-link' . ($activeCtl == 'SystemLogs' ? ' active' : ''),
+                    'escape' => false,
+                    'title' => __('System Logs'),
+                    'data-bs-toggle' => 'tooltip',
+                    'data-bs-placement' => 'right'
+                ]
+            ) ?>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Mobile Sidebar (Offcanvas) -->
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="adminSidebar" aria-labelledby="adminSidebarLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="adminSidebarLabel"><?= __('Navigation') ?></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body p-0">
+          <!-- Copy of sidebar content for mobile -->
+          <div class="list-group list-group-flush">
+            <!-- Dashboard -->
+            <div class="list-group-item list-group-item-action border-0 sidebar-header">
+              <h6 class="mb-1 text-muted"><?= __('Dashboard') ?></h6>
+            </div>
+            
+            <?= $this->Html->link(
+                '<i class="fas fa-tachometer-alt me-2"></i>' . __('Analytics'),
+                ['prefix' => 'Admin', 'controller' => 'PageViews', 'action' => 'dashboard'],
+                [
+                    'class' => 'list-group-item list-group-item-action border-0' . (($activeCtl == 'PageViews') ? ' active' : ''),
+                    'escape' => false
+                ]
+            ) ?>
+
+            <!-- Content Management -->
+            <div class="list-group-item list-group-item-action border-0 sidebar-header">
+              <h6 class="mb-1 text-muted"><?= __('Content') ?></h6>
+            </div>
+
+            <?= $this->Html->link(
+                '<i class="fas fa-newspaper me-2"></i>' . __('Posts'),
+                ['prefix' => 'Admin', 'controller' => 'Articles', 'action' => 'index'],
+                [
+                    'class' => 'list-group-item list-group-item-action border-0' . (($activeCtl == 'Articles' && $activeAct != 'treeIndex' && empty($this->request->getQuery('kind'))) ? ' active' : ''),
+                    'escape' => false
+                ]
+            ) ?>
+
+            <?= $this->Html->link(
+                '<i class="fas fa-file-alt me-2"></i>' . __('Pages'),
+                ['prefix' => 'Admin', 'controller' => 'Articles', 'action' => 'treeIndex'],
+                [
+                    'class' => 'list-group-item list-group-item-action border-0' . (($activeCtl == 'Articles' && $activeAct == 'treeIndex') || (!empty($this->request->getQuery('kind'))) ? ' active' : ''),
+                    'escape' => false
+                ]
+            ) ?>
+
+            <?= $this->Html->link(
+                '<i class="fas fa-tags me-2"></i>' . __('Tags'),
+                ['prefix' => 'Admin', 'controller' => 'Tags', 'action' => $session->read('Tags.indexAction', 'treeIndex')],
+                [
+                    'class' => 'list-group-item list-group-item-action border-0' . ($activeCtl == 'Tags' ? ' active' : ''),
+                    'escape' => false
+                ]
+            ) ?>
+
+            <?= $this->Html->link(
+                '<i class="fas fa-images me-2"></i>' . __('Images'),
+                ['prefix' => 'Admin', 'controller' => 'Images', 'action' => 'index'],
+                [
+                    'class' => 'list-group-item list-group-item-action border-0' . ($activeCtl == 'Images' ? ' active' : ''),
+                    'escape' => false
+                ]
+            ) ?>
+
+            <?php if(SettingsManager::read('Comments.pagesEnabled', false) || SettingsManager::read('Comments.articlesEnabled', false)) : ?>
+            <?= $this->Html->link(
+                '<i class="fas fa-comments me-2"></i>' . __('Comments'),
+                ['prefix' => 'Admin', 'controller' => 'Comments', 'action' => 'index'],
+                [
+                    'class' => 'list-group-item list-group-item-action border-0' . ($activeCtl == 'Comments' ? ' active' : ''),
+                    'escape' => false
+                ]
+            ) ?>
+            <?php endif; ?>
+
+            <!-- User Management -->
+            <div class="list-group-item list-group-item-action border-0 sidebar-header">
+              <h6 class="mb-1 text-muted"><?= __('Users') ?></h6>
+            </div>
+
+            <?= $this->Html->link(
+                '<i class="fas fa-users me-2"></i>' . __('Manage Users'),
+                ['prefix' => 'Admin', 'controller' => 'Users', 'action' => 'index'],
+                [
+                    'class' => 'list-group-item list-group-item-action border-0' . ($activeCtl == 'Users' ? ' active' : ''),
+                    'escape' => false
+                ]
+            ) ?>
+
+            <!-- Administration -->
+            <div class="list-group-item list-group-item-action border-0 sidebar-header">
+              <h6 class="mb-1 text-muted"><?= __('Administration') ?></h6>
+            </div>
+
+            <?= $this->Html->link(
+                '<i class="fas fa-cog me-2"></i>' . __('Settings'),
+                ['prefix' => 'Admin', 'controller' => 'Settings', 'action' => 'index'],
+                [
+                    'class' => 'list-group-item list-group-item-action border-0' . ($activeCtl == 'Settings' ? ' active' : ''),
+                    'escape' => false
+                ]
+            ) ?>
+
+            <?= $this->Html->link(
+                '<i class="fas fa-envelope me-2"></i>' . __('Email Templates'),
+                ['prefix' => 'Admin', 'controller' => 'EmailTemplates', 'action' => 'index'],
+                [
+                    'class' => 'list-group-item list-group-item-action border-0' . ($activeCtl == 'EmailTemplates' ? ' active' : ''),
+                    'escape' => false
+                ]
+            ) ?>
+
+            <?= $this->Html->link(
+                '<i class="fas fa-link me-2"></i>' . __('Slugs'),
+                ['prefix' => 'Admin', 'controller' => 'Slugs', 'action' => 'index'],
+                [
+                    'class' => 'list-group-item list-group-item-action border-0' . ($activeCtl == 'Slugs' ? ' active' : ''),
+                    'escape' => false
+                ]
+            ) ?>
+
+            <?php if (Configure::read('debug')) : ?>
+            <?= $this->Html->link(
+                '<i class="fas fa-robot me-2"></i>' . __('AI Prompts'),
+                ['prefix' => 'Admin', 'controller' => 'Aiprompts', 'action' => 'index'],
+                [
+                    'class' => 'list-group-item list-group-item-action border-0' . ($activeCtl == 'Aiprompts' ? ' active' : ''),
+                    'escape' => false
+                ]
+            ) ?>
+
+            <?= $this->Html->link(
+                '<i class="fas fa-globe me-2"></i>' . __('Internationalisation'),
+                ['prefix' => 'Admin', 'controller' => 'Internationalisations', 'action' => 'index'],
+                [
+                    'class' => 'list-group-item list-group-item-action border-0' . ($activeCtl == 'Internationalisations' ? ' active' : ''),
+                    'escape' => false
+                ]
+            ) ?>
+            <?php endif; ?>
+
+            <!-- System -->
+            <div class="list-group-item list-group-item-action border-0 sidebar-header">
+              <h6 class="mb-1 text-muted"><?= __('System') ?></h6>
+            </div>
+
+            <?= $this->Html->link(
+                '<i class="fas fa-trash me-2"></i>' . __('Clear Cache'),
+                ['prefix' => 'Admin', 'controller' => 'Cache', 'action' => 'clearAll'],
+                [
+                    'class' => 'list-group-item list-group-item-action border-0' . ($activeCtl == 'Cache' ? ' active' : ''),
+                    'escape' => false
+                ]
+            ) ?>
+
+            <?= $this->Html->link(
+                '<i class="fas fa-ban me-2"></i>' . __('Blocked IPs'),
+                ['prefix' => 'Admin', 'controller' => 'BlockedIps', 'action' => 'index'],
+                [
+                    'class' => 'list-group-item list-group-item-action border-0' . ($activeCtl == 'BlockedIps' ? ' active' : ''),
+                    'escape' => false
+                ]
+            ) ?>
+
+            <?= $this->Html->link(
+                '<i class="fas fa-file-text me-2"></i>' . __('System Logs'),
+                ['prefix' => 'Admin', 'controller' => 'SystemLogs', 'action' => 'index'],
+                [
+                    'class' => 'list-group-item list-group-item-action border-0' . ($activeCtl == 'SystemLogs' ? ' active' : ''),
+                    'escape' => false
+                ]
+            ) ?>
           </div>
         </div>
       </div>
-    </nav>
-    <div class="my-3 container-fluid">
-      <div class="m-0 border-0">
-        <?= $this->Flash->render() ?>
-        <?= $this->fetch('content') ?>
-      </div>
+
+      <!-- Main Content Area -->
+      <main class="admin-main">
+        <div class="admin-content p-3">
+          <?= $this->Flash->render() ?>
+          <?= $this->fetch('content') ?>
+        </div>
+      </main>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <?= $this->Html->script('AdminTheme.admin-layout') ?>
     <?= $this->fetch('scriptBottom') ?>
+
   </body>
 </html>

@@ -8,31 +8,73 @@
  */
 ?>
 <?php foreach ($articles as $article): ?>
-<article class="blog-post">
-    <a class="text-decoration-none" href="<?= $this->Url->build(['_name' => $article->kind . '-by-slug', 'slug' => $article->slug]) ?>">
-        <h2 class="display-5 link-body-emphasis mb-1"><?= $article->title ?></h2>
-        <p class="blog-post-meta">
-            <?= $article->published->format('F j, Y') ?> <?= h($article->user->username) ?>
-        </p>
-    </a>
-
-    <?php $displayMode = SettingsManager::read('Blog.articleDisplayMode', 'summary') ?>
-
-    <div class="article-content"> 
-        <?= $this->element('image/icon',  ['model' => $article, 'icon' => $article->smallImageUrl, 'preview' => false]); ?>
-
-        <div class="article-text">
-            <?php if ($displayMode == 'lede') : ?>
-                <p><?= htmlspecialchars_decode($article->lede) ?></p>
-            <?php elseif ($displayMode == 'summary') : ?>
-                <p><?= htmlspecialchars_decode($article->summary); ?></p>
-            <?php elseif ($displayMode == 'body') : ?>
-                <?= htmlspecialchars_decode($this->Video->processYouTubePlaceholders($article->body)); ?>
-            <?php endif; ?>
+<div class="card article-preview-card mb-4">
+    <?php if (!empty($article->image)): ?>
+    <div class="row g-0">
+        <div class="col-md-4">
+            <a href="<?= $this->Url->build(['_name' => $article->kind . '-by-slug', 'slug' => $article->slug]) ?>">
+                <?= $this->element('image/icon', [
+                    'model' => $article, 
+                    'icon' => $article->mediumImageUrl, 
+                    'preview' => false,
+                    'class' => 'card-img article-preview-image w-100 h-100'
+                ]); ?>
+            </a>
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <a class="text-decoration-none" href="<?= $this->Url->build(['_name' => $article->kind . '-by-slug', 'slug' => $article->slug]) ?>">
+                    <h2 class="card-title h4 link-body-emphasis"><?= htmlspecialchars_decode($article->title) ?></h2>
+                </a>
+                <div class="article-meta">
+                    <span class="date"><?= $article->published->format('F j, Y') ?></span> • 
+                    <span class="author"><?= h($article->user->username) ?></span>
+                </div>
+                
+                <?php $displayMode = SettingsManager::read('Blog.articleDisplayMode', 'summary') ?>
+                <div class="article-summary">
+                    <?php if ($displayMode == 'lede') : ?>
+                        <p class="card-text"><?= htmlspecialchars_decode($article->lede) ?></p>
+                    <?php elseif ($displayMode == 'summary') : ?>
+                        <p class="card-text"><?= htmlspecialchars_decode($article->summary); ?></p>
+                    <?php elseif ($displayMode == 'body') : ?>
+                        <div class="card-text"><?= htmlspecialchars_decode($this->Video->processYouTubePlaceholders($article->body)); ?></div>
+                    <?php endif; ?>
+                </div>
+                
+                <a href="<?= $this->Url->build(['_name' => $article->kind . '-by-slug', 'slug' => $article->slug]) ?>" class="btn btn-outline-primary btn-sm">
+                    <?= __('Read more') ?>
+                </a>
+            </div>
         </div>
     </div>
-    <hr>
-</article>
+    <?php else: ?>
+    <div class="card-body">
+        <a class="text-decoration-none" href="<?= $this->Url->build(['_name' => $article->kind . '-by-slug', 'slug' => $article->slug]) ?>">
+            <h2 class="card-title h4 link-body-emphasis"><?= htmlspecialchars_decode($article->title) ?></h2>
+        </a>
+        <div class="article-meta">
+            <span class="date"><?= $article->published->format('F j, Y') ?></span> • 
+            <span class="author"><?= h($article->user->username) ?></span>
+        </div>
+        
+        <?php $displayMode = SettingsManager::read('Blog.articleDisplayMode', 'summary') ?>
+        <div class="article-summary">
+            <?php if ($displayMode == 'lede') : ?>
+                <p class="card-text"><?= htmlspecialchars_decode($article->lede) ?></p>
+            <?php elseif ($displayMode == 'summary') : ?>
+                <p class="card-text"><?= htmlspecialchars_decode($article->summary); ?></p>
+            <?php elseif ($displayMode == 'body') : ?>
+                <div class="card-text"><?= htmlspecialchars_decode($this->Video->processYouTubePlaceholders($article->body)); ?></div>
+            <?php endif; ?>
+        </div>
+        
+        <a href="<?= $this->Url->build(['_name' => $article->kind . '-by-slug', 'slug' => $article->slug]) ?>" class="btn btn-outline-primary btn-sm">
+            <?= __('Read more') ?>
+        </a>
+    </div>
+    <?php endif; ?>
+</div>
 <?php endforeach; ?>
 <script>
 document.addEventListener('DOMContentLoaded', function () {

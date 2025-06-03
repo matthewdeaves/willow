@@ -49,17 +49,20 @@
 
     </div>
 
-    <main class="container">
+    <main class="container" id="main-content">
       <div class="row g-5">
         
-        <div class="col-md-8">
-            <?= $this->Flash->render() ?>
-            <?= $this->fetch('content') ?>
-            <?= $this->element('pagination', ['recordCount' => count($articles)]) ?>
+        <div class="col-lg-8">
+            <div role="main" aria-label="<?= __('Article list') ?>">
+                <?= $this->Flash->render() ?>
+                <?= $this->fetch('content') ?>
+                <?= $this->element('pagination', ['recordCount' => count($articles)]) ?>
+            </div>
         </div>
 
-        <div class="col-md-4">
-            <div class="position-sticky" style="top: 2rem;">
+        <div class="col-lg-4">
+            <div class="sidebar-content">
+                <div class="d-none d-lg-block position-sticky" style="top: 2rem;">
 
             <div class="p-4 mb-3 bg-body-tertiary rounded">
               <h4 class="fst-italic"><?= __('About') ?></h4>
@@ -76,6 +79,27 @@
 
                 <?= $this->element('site/feeds') ?>
 
+                </div>
+                
+                <!-- Mobile sidebar (visible on smaller screens) -->
+                <div class="d-lg-none mt-4">
+                    <div class="p-4 mb-3 bg-body-tertiary rounded">
+                        <h4 class="fst-italic"><?= __('About') ?></h4>
+                        <p class="mb-0"><?= __("Welcome to willowcms.app. This site uses Willow - a content management system I'm building in the open. Here you'll find development updates, feature highlights, and guides on using Willow for your own sites.") ?></p>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <?= $this->element('site/articles_list', ['articles' => $featuredArticles, 'title' => __('Featured posts')]) ?>
+                            <?= $this->element('site/archives') ?>
+                        </div>
+                        <div class="col-md-6">
+                            <?= $this->element('site/articles_list', ['articles' => $recentArticles, 'title' => __('Recent posts')]) ?>
+                            <?= $this->element('site/elsewhere') ?>
+                        </div>
+                    </div>
+                    <?= $this->element('site/feeds') ?>
+                </div>
             </div>
         </div>
       </div>

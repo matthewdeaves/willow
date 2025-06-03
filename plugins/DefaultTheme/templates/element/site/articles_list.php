@@ -1,31 +1,34 @@
 <?php if (!empty($articles)) : ?>
 <div class="sidebar-section mb-4">
-    <h4 class="fst-italic text-primary border-bottom pb-2 mb-3"><?= $title ?></h4>
-    <div class="list-group list-group-flush">
+    <h4 class="fst-italic border-bottom pb-2 mb-3"><?= $title ?></h4>
+    <div class="sidebar-articles-list">
     <?php foreach ($articles as $article) : ?>
-        <a class="list-group-item list-group-item-action border-0 px-0 py-3" 
-           href="<?= $this->Url->build(['_name' => $article->kind . '-by-slug', 'slug' => $article->slug]) ?>"
-           aria-label="<?= h($article->title) ?>">
-            <div class="d-flex gap-3 align-items-start">
-                <?php if (!empty($article->image)) : ?>
-                <div class="flex-shrink-0">
+        <article class="sidebar-article-item mb-3">
+            <a class="text-decoration-none" href="<?= $this->Url->build(['_name' => $article->kind . '-by-slug', 'slug' => $article->slug]) ?>" aria-label="<?= h($article->title) ?>">
+                <h6 class="sidebar-article-title mb-2 text-body-emphasis"><?= htmlspecialchars_decode($article->title) ?></h6>
+            </a>
+            
+            <?php if (!empty($article->image)) : ?>
+                <a href="<?= $this->Url->build(['_name' => $article->kind . '-by-slug', 'slug' => $article->slug]) ?>">
                     <?= $this->element('image/icon', [
                         'model' => $article, 
                         'icon' => $article->tinyImageUrl, 
                         'preview' => false,
-                        'class' => 'rounded'
+                        'class' => 'sidebar-article-image'
                     ]); ?>
-                </div>
-                <?php endif; ?>
-                <div class="flex-grow-1">
-                    <h6 class="mb-1 text-body-emphasis"><?= htmlspecialchars_decode($article->title) ?></h6>
-                    <?php if (!empty($article->lede)): ?>
-                    <p class="mb-1 text-body-secondary small"><?= $this->Text->truncate(strip_tags($article->lede), 80) ?></p>
-                    <?php endif; ?>
-                    <small class="text-body-tertiary"><?= $article->published->format('M j, Y') ?></small>
-                </div>
-            </div>
-        </a>
+                </a>
+            <?php endif; ?>
+            
+            <?php if (!empty($article->lede)): ?>
+            <p class="sidebar-article-summary mb-1 text-body-secondary small"><?= $this->Text->truncate(strip_tags($article->lede), 80) ?></p>
+            <?php endif; ?>
+            
+            <small class="sidebar-article-meta text-body-tertiary d-block"><?= $article->published->format('M j, Y') ?></small>
+            
+            <?php if ($article !== end($articles)): ?>
+            <hr class="sidebar-article-separator my-3" />
+            <?php endif; ?>
+        </article>
     <?php endforeach; ?>
     </div>
 </div>

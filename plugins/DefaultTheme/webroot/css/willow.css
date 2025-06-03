@@ -640,7 +640,7 @@ body {
 }
 
 .article-wrap-image {
-  max-width: min(280px, 30vw);
+  max-width: 400px;
   height: auto;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -788,6 +788,18 @@ body {
     text-align: left;
     clear: none;
   }
+  
+  /* Article index mobile layout - center image and disable text wrap */
+  .article-image-container {
+    float: none;
+    margin: 0 auto 1rem auto;
+    text-align: center;
+  }
+  
+  .article-wrap-image {
+    display: block;
+    margin: 0 auto;
+  }
 }
 
 /* Tablet responsive adjustments */
@@ -797,8 +809,45 @@ body {
   }
 }
 
-/* Large screen adjustments */
-@media (min-width: 1200px) {
+/* Breakpoint 3: Medium desktop (992px - 1199.98px) - Stop text wrapping */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .article-image-container {
+    float: none;
+    margin: 0 auto 1rem auto;
+    text-align: center;
+  }
+  
+  .article-wrap-image {
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+/* Breakpoint 4: Large desktop (1200px - 1399.98px) - Text wrap with max 400px image */
+@media (min-width: 1200px) and (max-width: 1399.98px) {
+  .article-image-container {
+    float: left;
+    margin: 0 1.5rem 1rem 0;
+  }
+  
+  .article-wrap-image {
+    max-width: 400px;
+    display: block;
+  }
+}
+
+/* Breakpoint 5: Extra large desktop (1400px+) - Text wrap with max 400px image */
+@media (min-width: 1400px) {
+  .article-image-container {
+    float: left;
+    margin: 0 1.5rem 1rem 0;
+  }
+  
+  .article-wrap-image {
+    max-width: 400px;
+    display: block;
+  }
+  
   .article-image-float {
     max-width: 320px;
   }

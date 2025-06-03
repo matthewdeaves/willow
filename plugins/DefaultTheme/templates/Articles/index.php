@@ -25,7 +25,7 @@
             <a href="<?= $this->Url->build(['_name' => $article->kind . '-by-slug', 'slug' => $article->slug]) ?>">
                 <?= $this->element('image/icon', [
                     'model' => $article, 
-                    'icon' => $article->mediumImageUrl, 
+                    'icon' => $article->extraLargeImageUrl, 
                     'preview' => false,
                     'class' => 'article-wrap-image'
                 ]); ?>

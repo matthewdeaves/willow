@@ -14,10 +14,20 @@ $this->Html->script('AdminTheme.gallery-search', ['block' => 'scriptBottom']);
     <div class="container-fluid d-flex align-items-center">
         <div class="d-flex align-items-center me-auto">
             <!-- View Switcher -->
-            <?= $this->Gallery->viewSwitcher($viewType, $this->request->getQueryParams()) ?>
+            <?= $this->element('view_switcher', [
+                'currentView' => $viewType,
+                'queryParams' => $this->request->getQueryParams()
+            ]) ?>
             
             <!-- Search Form -->
-            <?= $this->Gallery->searchForm($this->request->getQuery('search')) ?>
+            <?= $this->element('search_form', [
+                'searchValue' => $this->request->getQuery('search'),
+                'options' => [
+                    'id' => 'gallery-search-form',
+                    'inputId' => 'gallery-search',
+                    'placeholder' => __('Search galleries...')
+                ]
+            ]) ?>
             
             <!-- Status Filter -->
             <?= $this->element('status_filter') ?>
@@ -61,11 +71,29 @@ $this->Html->script('AdminTheme.gallery-search', ['block' => 'scriptBottom']);
                     <?php foreach ($imageGalleries as $gallery): ?>
                     <tr>
                         <td>
-                            <?= $this->Gallery->previewImage($gallery, [
-                                'style' => 'width: 60px; height: 45px; object-fit: cover;',
-                                'class' => 'img-thumbnail gallery-preview-thumb',
-                                'popover' => true
-                            ]) ?>
+                            <?php if ($gallery->hasPreviewImage()): ?>
+                                <img src="<?= h($gallery->getPreviewImageUrl()) ?>"
+                                     alt="<?= h($gallery->name) ?>"
+                                     class="img-thumbnail gallery-preview-thumb"
+                                     style="width: 60px; height: 45px; object-fit: cover;"
+                                     data-bs-toggle="popover"
+                                     data-bs-trigger="hover"
+                                     data-bs-content="<img src='<?= h($gallery->getPreviewImageUrl()) ?>' style='max-width: 300px; max-height: 200px;' alt='<?= h($gallery->name) ?>'>"
+                                     data-bs-html="true"
+                                     data-bs-placement="right">
+                            <?php elseif (!empty($gallery->images)): ?>
+                                <?= $this->element('image/icon', [
+                                    'model' => $gallery->images[0],
+                                    'icon' => $gallery->images[0]->tinyImageUrl,
+                                    'preview' => $gallery->images[0]->mediumImageUrl,
+                                    'class' => 'img-thumbnail gallery-preview-thumb'
+                                ]) ?>
+                            <?php else: ?>
+                                <div class="text-center text-muted d-flex align-items-center justify-content-center img-thumbnail"
+                                     style="width: 60px; height: 45px; border: 1px solid #ddd; border-radius: 4px;">
+                                    <i class="fas fa-images"></i>
+                                </div>
+                            <?php endif; ?>
                         </td>
                         <td>
                             <strong><?= h($gallery->name) ?></strong>
@@ -75,10 +103,20 @@ $this->Html->script('AdminTheme.gallery-search', ['block' => 'scriptBottom']);
                         </td>
                         <td><code><?= h($gallery->slug) ?></code></td>
                         <td>
-                            <?= $this->Gallery->statusBadge($gallery) ?>
+                            <?php if ($gallery->is_published): ?>
+                                <span class="badge bg-success">
+                                    <i class="fas fa-eye"></i> <?= __('Published') ?>
+                                </span>
+                            <?php else: ?>
+                                <span class="badge bg-secondary">
+                                    <i class="fas fa-eye-slash"></i> <?= __('Draft') ?>
+                                </span>
+                            <?php endif; ?>
                         </td>
                         <td>
-                            <?= $this->Gallery->imageCountBadge($gallery) ?>
+                            <span class="badge bg-info">
+                                <?= $gallery->getImageCount() ?> <?= __('images') ?>
+                            </span>
                         </td>
                         <td><?= $gallery->created->format('M j, Y') ?></td>
                         <td>

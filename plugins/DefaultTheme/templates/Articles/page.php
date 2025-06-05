@@ -13,7 +13,12 @@
 
     <?= $this->element('image/icon', ['model' => $article, 'icon' => $article->smallImageUrl, 'preview' => $article->largeImageUrl]); ?>
 
-    <div id="article-body-content"><?= htmlspecialchars_decode($this->Video->processContentPlaceholders($article->body)) ?></div>
+    <div id="article-body-content"><?php
+        $content = $article->body;
+        $content = $this->Video->processVideoPlaceholders($content);
+        $content = $this->Gallery->processGalleryPlaceholders($content);
+        echo htmlspecialchars_decode($content);
+    ?></div>
 
     <div>
         <?= $this->element('image_carousel', [

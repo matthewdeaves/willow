@@ -83,8 +83,6 @@ $(document).ready(function() {
         };
     }
 
-    // Legacy handlers removed - WillowModal now handles all media selection internally
-
     // --- Trumbowyg Custom Plugins ----
     $.extend(true, $.trumbowyg, {
         plugins: {

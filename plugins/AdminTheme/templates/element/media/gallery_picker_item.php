@@ -28,12 +28,22 @@ $imageCount = $item->getImageCount();
          style="cursor: pointer;">
         <div class="d-flex align-items-center">
             <div class="me-3">
-                <?= $this->Gallery->previewImage($item, [
-                    'size' => 'thumbnail',
-                    'class' => 'gallery-preview-thumb',
-                    'style' => 'width: 50px; height: 50px; object-fit: cover;',
-                    'popover' => false
-                ]) ?>
+                <?php if ($item->hasPreviewImage()): ?>
+                    <img src="<?= h($item->getPreviewImageUrl()) ?>"
+                         alt="<?= $galleryName ?>"
+                         class="gallery-preview-thumb"
+                         style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">
+                <?php elseif (!empty($item->images)): ?>
+                    <img src="<?= $item->images[0]->getImageUrl('thumbnail') ?>"
+                         alt="<?= $galleryName ?>"
+                         class="gallery-preview-thumb"
+                         style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">
+                <?php else: ?>
+                    <div class="text-center text-muted d-flex align-items-center justify-content-center"
+                         style="width: 50px; height: 50px; border: 1px solid #ddd; border-radius: 4px;">
+                        <i class="fas fa-images"></i>
+                    </div>
+                <?php endif; ?>
             </div>
             <div class="flex-grow-1">
                 <h6 class="mb-1"><?= $galleryName ?></h6>
@@ -42,8 +52,18 @@ $imageCount = $item->getImageCount();
                 <?php endif; ?>
             </div>
             <div class="ms-2">
-                <?= $this->Gallery->imageCountBadge($item) ?>
-                <?= $this->Gallery->statusBadge($item) ?>
+                <span class="badge bg-info me-1">
+                    <?= $imageCount ?> <?= __('images') ?>
+                </span>
+                <?php if ($item->is_published): ?>
+                    <span class="badge bg-success">
+                        <i class="fas fa-eye"></i> <?= __('Published') ?>
+                    </span>
+                <?php else: ?>
+                    <span class="badge bg-secondary">
+                        <i class="fas fa-eye-slash"></i> <?= __('Draft') ?>
+                    </span>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -94,7 +114,15 @@ $imageCount = $item->getImageCount();
             <h6 class="card-title small mb-1"><?= $this->Text->truncate($galleryName, 25) ?></h6>
             
             <div class="d-flex justify-content-between align-items-center">
-                <?= $this->Gallery->statusBadge($item) ?>
+                <?php if ($item->is_published): ?>
+                    <span class="badge bg-success">
+                        <i class="fas fa-eye"></i> <?= __('Published') ?>
+                    </span>
+                <?php else: ?>
+                    <span class="badge bg-secondary">
+                        <i class="fas fa-eye-slash"></i> <?= __('Draft') ?>
+                    </span>
+                <?php endif; ?>
                 <small class="text-muted"><?= $item->created->format('M j') ?></small>
             </div>
         </div>

@@ -23,7 +23,10 @@ $filters = $filters ?? [];
             <?php if ($viewSwitcher): ?>
                 <!-- View Switcher -->
                 <?php if (isset($viewSwitcher['helper']) && $viewSwitcher['helper'] === 'Gallery'): ?>
-                    <?= $this->Gallery->viewSwitcher($viewSwitcher['currentView'], $viewSwitcher['queryParams'] ?? []) ?>
+                    <?= $this->element('view_switcher', [
+                        'currentView' => $viewSwitcher['currentView'],
+                        'queryParams' => $viewSwitcher['queryParams'] ?? []
+                    ]) ?>
                 <?php else: ?>
                     <div class="btn-group me-3" role="group">
                         <?= $this->Html->link(
@@ -51,7 +54,14 @@ $filters = $filters ?? [];
             <?php if ($searchForm): ?>
                 <!-- Search Form -->
                 <?php if (isset($searchForm['helper']) && $searchForm['helper'] === 'Gallery'): ?>
-                    <?= $this->Gallery->searchForm($searchForm['value'] ?? null) ?>
+                    <?= $this->element('search_form', [
+                        'searchValue' => $searchForm['value'] ?? null,
+                        'options' => [
+                            'id' => $searchForm['id'] ?? 'gallery-search-form',
+                            'inputId' => $searchForm['inputId'] ?? 'gallery-search',
+                            'placeholder' => $searchForm['placeholder'] ?? __('Search galleries...')
+                        ]
+                    ]) ?>
                 <?php else: ?>
                     <form class="d-flex me-3" role="search" id="<?= $searchForm['id'] ?? 'media-search-form' ?>">
                         <div class="input-group">

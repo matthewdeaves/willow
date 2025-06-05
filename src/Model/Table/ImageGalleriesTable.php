@@ -8,6 +8,7 @@ use ArrayObject;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
 use Cake\Log\LogTrait;
+use Cake\ORM\Behavior\Translate\TranslateTrait;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Queue\QueueManager;
@@ -36,6 +37,7 @@ use Exception;
 class ImageGalleriesTable extends Table
 {
     use LogTrait;
+    use TranslateTrait;
 
     /**
      * Initialize method

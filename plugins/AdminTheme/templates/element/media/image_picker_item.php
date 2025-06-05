@@ -1,4 +1,7 @@
 <?php
+
+use App\Utility\FileUtility;
+
 /**
  * Image picker item element
  * 
@@ -38,7 +41,7 @@ $imageAlt = h($item->alt_text ?: $item->name);
                 <?php endif; ?>
             </div>
             <div class="ms-2">
-                <small class="text-muted"><?= $this->Gallery->formatFileSize($item->size ?: 0) ?></small>
+                <small class="text-muted"><?= FileUtility::formatFileSize($item->size ?: 0) ?></small>
             </div>
         </div>
     </div>

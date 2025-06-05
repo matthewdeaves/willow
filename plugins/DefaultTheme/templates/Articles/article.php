@@ -27,7 +27,14 @@
     <?php endif; ?>
     
     <div class="article-content-wrapper">
-        <div id="article-body-content" class="article-body"><?= htmlspecialchars_decode($this->Video->processContentPlaceholders($article->body)) ?></div>
+        <div id="article-body-content" class="article-body"><?php
+            $content = $article->body;
+            // Process videos first
+            $content = $this->Video->processVideoPlaceholders($content);
+            // Process galleries second
+            $content = $this->Gallery->processGalleryPlaceholders($content);
+            echo htmlspecialchars_decode($content);
+        ?></div>
     </div>
     
     <?= $this->element('site/facebook/share_button') ?>

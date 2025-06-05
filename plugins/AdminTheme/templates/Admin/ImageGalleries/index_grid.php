@@ -18,10 +18,20 @@ $this->Html->css('images-grid', ['block' => true]);
     <div class="container-fluid d-flex align-items-center">
         <div class="d-flex align-items-center me-auto">
             <!-- View Switcher -->
-            <?= $this->Gallery->viewSwitcher($viewType, $this->request->getQueryParams()) ?>
+            <?= $this->element('view_switcher', [
+                'currentView' => $viewType,
+                'queryParams' => $this->request->getQueryParams()
+            ]) ?>
             
             <!-- Search Form -->
-            <?= $this->Gallery->searchForm($this->request->getQuery('search')) ?>
+            <?= $this->element('search_form', [
+                'searchValue' => $this->request->getQuery('search'),
+                'options' => [
+                    'id' => 'gallery-search-form',
+                    'inputId' => 'gallery-search',
+                    'placeholder' => __('Search galleries...')
+                ]
+            ]) ?>
             
             <!-- Status Filter -->
             <?= $this->element('status_filter') ?>
@@ -51,7 +61,7 @@ $this->Html->css('images-grid', ['block' => true]);
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
             <?php foreach ($imageGalleries as $gallery): ?>
             <div class="col">
-                <?= $this->Gallery->galleryCard($gallery) ?>
+                <?= $this->element('ImageGalleries/gallery_card', ['gallery' => $gallery]) ?>
             </div>
             <?php endforeach; ?>
         </div>

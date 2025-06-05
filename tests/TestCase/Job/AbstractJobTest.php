@@ -5,8 +5,6 @@ namespace App\Test\TestCase\Job;
 
 use App\Job\AbstractJob;
 use Cake\Cache\Cache;
-use Cake\Datasource\EntityInterface;
-use Cake\Log\Log;
 use Cake\ORM\Table;
 use Cake\Queue\Job\Message;
 use Cake\TestSuite\TestCase;
@@ -28,10 +26,10 @@ class AbstractJobTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        
+
         $this->job = new TestableJob();
         $this->mockMessage = $this->createMock(Message::class);
-        
+
         // Clear any existing cache
         Cache::clear('content');
     }
@@ -47,7 +45,7 @@ class AbstractJobTest extends TestCase
      */
     public function testExecuteWithErrorHandlingSuccess(): void
     {
-        $result = $this->job->testExecuteWithErrorHandling('test-id', function() {
+        $result = $this->job->testExecuteWithErrorHandling('test-id', function () {
             return true;
         }, 'Test Title');
 
@@ -59,7 +57,7 @@ class AbstractJobTest extends TestCase
      */
     public function testExecuteWithErrorHandlingOperationReturnsFalse(): void
     {
-        $result = $this->job->testExecuteWithErrorHandling('test-id', function() {
+        $result = $this->job->testExecuteWithErrorHandling('test-id', function () {
             return false;
         });
 
@@ -71,7 +69,7 @@ class AbstractJobTest extends TestCase
      */
     public function testExecuteWithErrorHandlingOperationReturnsNull(): void
     {
-        $result = $this->job->testExecuteWithErrorHandling('test-id', function() {
+        $result = $this->job->testExecuteWithErrorHandling('test-id', function () {
             return null;
         });
 
@@ -83,7 +81,7 @@ class AbstractJobTest extends TestCase
      */
     public function testExecuteWithErrorHandlingException(): void
     {
-        $result = $this->job->testExecuteWithErrorHandling('test-id', function() {
+        $result = $this->job->testExecuteWithErrorHandling('test-id', function () {
             throw new Exception('Test exception');
         });
 
@@ -95,7 +93,7 @@ class AbstractJobTest extends TestCase
      */
     public function testExecuteWithEntitySaveSuccess(): void
     {
-        // Skip this test since executeWithEntitySave relies on CakePHP's entity getSource() 
+        // Skip this test since executeWithEntitySave relies on CakePHP's entity getSource()
         // method which is complex to mock properly in unit tests
         $this->markTestSkipped('EntityInterface getSource() method complex to mock in unit tests');
     }
@@ -105,7 +103,7 @@ class AbstractJobTest extends TestCase
      */
     public function testExecuteWithEntitySaveFailure(): void
     {
-        // Skip this test since executeWithEntitySave relies on CakePHP's entity getSource() 
+        // Skip this test since executeWithEntitySave relies on CakePHP's entity getSource()
         // method which is complex to mock properly in unit tests
         $this->markTestSkipped('EntityInterface getSource() method complex to mock in unit tests');
     }
@@ -115,7 +113,7 @@ class AbstractJobTest extends TestCase
      */
     public function testExecuteWithEntitySaveNonEntity(): void
     {
-        $result = $this->job->testExecuteWithEntitySave('test-id', function() {
+        $result = $this->job->testExecuteWithEntitySave('test-id', function () {
             return true;
         });
 
@@ -128,8 +126,8 @@ class AbstractJobTest extends TestCase
     public function testValidateArgumentsSuccess(): void
     {
         $this->mockMessage->method('getArgument')
-            ->willReturnCallback(function($arg) {
-                return match($arg) {
+            ->willReturnCallback(function ($arg) {
+                return match ($arg) {
                     'arg1' => 'value1',
                     'arg2' => 'value2',
                     default => null
@@ -137,7 +135,7 @@ class AbstractJobTest extends TestCase
             });
 
         $result = $this->job->testValidateArguments($this->mockMessage, ['arg1', 'arg2']);
-        
+
         $this->assertTrue($result);
     }
 
@@ -147,8 +145,8 @@ class AbstractJobTest extends TestCase
     public function testValidateArgumentsMissing(): void
     {
         $this->mockMessage->method('getArgument')
-            ->willReturnCallback(function($arg) {
-                return match($arg) {
+            ->willReturnCallback(function ($arg) {
+                return match ($arg) {
                     'arg1' => 'value1',
                     'arg2' => null,
                     default => null
@@ -156,7 +154,7 @@ class AbstractJobTest extends TestCase
             });
 
         $result = $this->job->testValidateArguments($this->mockMessage, ['arg1', 'arg2']);
-        
+
         $this->assertFalse($result);
     }
 
@@ -180,7 +178,7 @@ class AbstractJobTest extends TestCase
     public function testGetTable(): void
     {
         $table = $this->job->testGetTable('Articles');
-        
+
         $this->assertInstanceOf(Table::class, $table);
         $this->assertEquals('articles', $table->getTable());
     }
@@ -211,7 +209,7 @@ class AbstractJobTest extends TestCase
         $this->job->testLogJobStart('test-id', 'Test Title');
         $this->job->testLogJobSuccess('test-id', 'Test Title');
         $this->job->testLogJobError('test-id', 'Test error', 'Test Title');
-        
+
         // If we get here without exceptions, the test passes
         $this->assertTrue(true);
     }
@@ -233,6 +231,7 @@ class TestableJob extends AbstractJob
     }
 
     // Public wrappers for testing protected methods
+
     public function testExecuteWithErrorHandling(string $id, callable $operation, string $title = ''): ?string
     {
         return $this->executeWithErrorHandling($id, $operation, $title);

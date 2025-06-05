@@ -34,8 +34,63 @@
  * });
  * ```
  * 
+ * Configuration:
+ * ```javascript
+ * WillowModalConfig.endpoints.imageSelect = '/custom/images/select';
+ * WillowModalConfig.searchDelay = 500;
+ * ```
+ * 
  * @namespace WillowModal
  */
+
+/**
+ * WillowModal Configuration Object
+ * Centralized configuration for all modal operations
+ */
+window.WillowModalConfig = {
+    // API Endpoints
+    endpoints: {
+        imageSelect: '/admin/images/image-select',
+        videoSelect: '/admin/videos/video-select',
+        galleryPicker: '/admin/image-galleries/picker',
+        codeSnippet: '/admin/code-snippet' // For future implementation
+    },
+    
+    // Search Configuration
+    search: {
+        delay: 300,                    // Debounce delay in milliseconds
+        minLength: 3,                  // Minimum search length (0 for no minimum)
+        placeholder: {
+            image: 'Search images...',
+            video: 'Search videos...',
+            gallery: 'Search galleries...'
+        }
+    },
+    
+    // Modal Configuration
+    modal: {
+        defaultDialogClass: 'modal-lg',
+        zIndex: 99999,
+        backdrop: true,
+        keyboard: true
+    },
+    
+    // Media Configuration
+    media: {
+        imageSizes: ['thumbnail', 'medium', 'large', 'original'],
+        defaultImageSize: 'large',
+        imagePath: '/files/Images/image/',
+        videoPlaceholderFormat: '[youtube:{id}:{title}]',
+        galleryPlaceholderFormat: '[gallery:{id}:{theme}:{title}]'
+    },
+    
+    // Event Configuration  
+    events: {
+        datasetMarker: 'handlerBound',
+        searchInputSelector: 'input[type="search"]',
+        paginationSelector: '.pagination a'
+    }
+};
 
 /**
  * Creates and displays a Bootstrap modal with content loaded from a URL
@@ -256,6 +311,174 @@ window.WillowModal = {
     },
 
     /**
+     * Creates and displays a Bootstrap modal with static HTML content
+     * 
+     * @method showStatic
+     * @memberof WillowModal
+     * 
+     * @param {string} content - The HTML content to display in the modal
+     * @param {Object} [options={}] - Configuration options for the modal
+     * 
+     * @param {string} [options.title] - The title to display in the modal header
+     * @param {string} [options.dialogClass] - Additional CSS classes for the modal dialog
+     * @param {boolean} [options.closeable=true] - Whether to show a close button in the header
+     * @param {boolean} [options.static=false] - If true, modal won't close on backdrop click or Escape key
+     * 
+     * @param {Function} [options.onShown] - Callback fired when modal is fully shown
+     * @param {Function} [options.onContentLoaded] - Callback fired after content is loaded
+     * @param {Function} [options.onHidden] - Callback fired when modal is fully hidden
+     * 
+     * @returns {bootstrap.Modal} The Bootstrap modal instance
+     * 
+     * @example
+     * WillowModal.showStatic('<p>Hello World</p>', {
+     *     title: 'Static Content',
+     *     closeable: true,
+     *     onContentLoaded: function() {
+     *         console.log('Content ready');
+     *     }
+     * });
+     */
+    showStatic: function(content, options = {}) {
+        const defaults = {
+            dialogClass: WillowModalConfig.modal.defaultDialogClass,
+            closeable: true
+        };
+        const config = { ...defaults, ...options };
+
+        const modalHtml = `
+            <div class="modal fade" id="dynamicModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered ${config.dialogClass || ''}">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5">${config.title || ''}</h1>
+                            ${config.closeable ? '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' : ''}
+                        </div>
+                        <div class="modal-body">
+                            <div id="dynamicModalContent">${content}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+        const modalEl = document.getElementById('dynamicModal');
+        const modal = new bootstrap.Modal(modalEl, {
+            backdrop: config.static ? 'static' : true,
+            keyboard: !config.static
+        });
+
+        // Add shown.bs.modal event listener before showing the modal
+        modalEl.addEventListener('shown.bs.modal', function() {
+            if (typeof config.onShown === 'function') {
+                config.onShown();
+            }
+        });
+
+        modalEl.addEventListener('hidden.bs.modal', function() {
+            modalEl.remove();
+            if (typeof config.onHidden === 'function') {
+                config.onHidden();
+            }
+        });
+
+        // Call onContentLoaded callback if provided (after a brief delay to ensure DOM is ready)
+        if (typeof config.onContentLoaded === 'function') {
+            setTimeout(() => config.onContentLoaded(), 10);
+        }
+
+        modal.show();
+        // Inject CSS for smooth animations if not already present
+        this._injectWillowModalCSS();
+        
+        return modal;
+    },
+
+    /**
+     * Inject CSS for smooth modal animations
+     * @private
+     */
+    _injectWillowModalCSS: function() {
+        if (document.getElementById('willow-modal-styles')) return;
+        
+        const css = `
+            .willow-loading-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(255, 255, 255, 0.9);
+                backdrop-filter: blur(2px);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10;
+                border-radius: 0.375rem;
+            }
+            
+            .willow-loading .willow-loading-overlay {
+                animation: fadeIn 0.2s ease-in;
+            }
+            
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            
+            .willow-search-form {
+                background: #f8f9fa;
+                border-bottom: 1px solid #dee2e6;
+                position: sticky;
+                top: 0;
+                z-index: 5;
+            }
+            
+            .willow-results-container {
+                min-height: 300px;
+                position: relative;
+            }
+            
+            .willow-picker-card {
+                transition: all 0.2s ease;
+                border: 2px solid transparent;
+            }
+            
+            .willow-picker-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+                border-color: #0d6efd;
+            }
+            
+            .willow-empty-state {
+                min-height: 200px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                color: #6c757d;
+            }
+            
+            .modal-dialog {
+                max-width: 90vw;
+                width: 1000px;
+            }
+            
+            .modal-body {
+                max-height: 80vh;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+            }
+        `;
+        
+        const style = document.createElement('style');
+        style.id = 'willow-modal-styles';
+        style.textContent = css;
+        document.head.appendChild(style);
+    },
+
+    /**
      * ========================================
      * MEDIA SELECTION METHODS
      * ========================================
@@ -305,20 +528,19 @@ window.WillowModal = {
      * @private
      */
     _showMediaSelector: function(type, editor, options = {}) {
-        const endpoints = {
-            image: '/admin/images/imageSelect',
-            video: '/admin/videos/video_select',
-            gallery: '/admin/image-galleries/picker'
-        };
-
         const defaults = {
-            dialogClass: 'modal-lg',
+            dialogClass: WillowModalConfig.modal.defaultDialogClass,
             closeable: true,
             handleForm: false
         };
 
         const config = { ...defaults, ...options };
-        const url = endpoints[type];
+        const endpointMap = {
+            image: WillowModalConfig.endpoints.imageSelect,
+            video: WillowModalConfig.endpoints.videoSelect,
+            gallery: WillowModalConfig.endpoints.galleryPicker
+        };
+        const url = endpointMap[type];
 
         // Store media context for callbacks
         this._currentMediaContext = {
@@ -359,7 +581,8 @@ window.WillowModal = {
      * @private
      */
     _initializeImageHandlers: function() {
-        const container = document.getElementById('image-gallery');
+        // Try both new and old container IDs for compatibility
+        const container = document.getElementById('image-results') || document.getElementById('image-gallery');
         if (!container) return;
 
         // Search handler with debouncing
@@ -380,7 +603,8 @@ window.WillowModal = {
      * @private
      */
     _initializeVideoHandlers: function() {
-        const container = document.getElementById('video-gallery');
+        // Try both new and old container IDs for compatibility
+        const container = document.getElementById('video-results') || document.getElementById('video-gallery');
         if (!container) return;
 
         // Search handler with debouncing
@@ -402,7 +626,7 @@ window.WillowModal = {
      */
     _bindImageSelection: function(container) {
         // Check if already bound to prevent duplicate handlers
-        if (container.dataset.imageHandlerBound === 'true') {
+        if (container.dataset[WillowModalConfig.events.datasetMarker] === 'true') {
             return;
         }
         
@@ -415,7 +639,7 @@ window.WillowModal = {
         });
         
         // Mark as bound
-        container.dataset.imageHandlerBound = 'true';
+        container.dataset[WillowModalConfig.events.datasetMarker] = 'true';
     },
 
     /**
@@ -454,7 +678,7 @@ window.WillowModal = {
 
         // Get the selected image size from the dropdown
         const sizeDropdown = document.getElementById(imageData.id + '_size');
-        const selectedSize = sizeDropdown ? sizeDropdown.value : 'large';
+        const selectedSize = sizeDropdown ? sizeDropdown.value : WillowModalConfig.media.defaultImageSize;
 
         // Update imageData with selected size
         imageData.selectedSize = selectedSize;
@@ -468,7 +692,7 @@ window.WillowModal = {
             inserter.insertImage(imageData);
         } else {
             // Fallback: insert as HTML with selected size
-            const imgHtml = `<img src="/files/Images/image/${selectedSize}/${imageData.src}" alt="${imageData.alt}" title="${imageData.name}">`;
+            const imgHtml = `<img src="${WillowModalConfig.media.imagePath}${selectedSize}/${imageData.src}" alt="${imageData.alt}" title="${imageData.name}">`;
             const contentInserter = this._createContentInserter(context.editorType, context.editor);
             if (contentInserter) {
                 contentInserter.insertContent(imgHtml);
@@ -497,7 +721,9 @@ window.WillowModal = {
             inserter.insertVideo(videoData);
         } else {
             // Fallback: insert as placeholder
-            const videoPlaceholder = `[youtube:${videoData.id}:${videoData.title}]`;
+            const videoPlaceholder = WillowModalConfig.media.videoPlaceholderFormat
+                .replace('{id}', videoData.id)
+                .replace('{title}', videoData.title);
             const contentInserter = this._createContentInserter(context.editorType, context.editor);
             if (contentInserter) {
                 contentInserter.insertContent(videoPlaceholder);
@@ -512,7 +738,8 @@ window.WillowModal = {
      * @private
      */
     _initializeGalleryHandlers: function() {
-        const container = document.getElementById('gallery-selector');
+        // Try both old and new container IDs for compatibility
+        const container = document.getElementById('gallery-results') || document.getElementById('gallery-selector');
         if (!container) return;
 
         // Search handler with debouncing
@@ -534,7 +761,7 @@ window.WillowModal = {
      */
     _bindSearchHandler: function(searchInput, type) {
         // Check if already bound to prevent duplicate handlers
-        if (searchInput.dataset.searchHandlerBound === 'true') {
+        if (searchInput.dataset[WillowModalConfig.events.datasetMarker] === 'true') {
             return;
         }
         
@@ -544,13 +771,13 @@ window.WillowModal = {
             debounceTimer = setTimeout(() => {
                 const searchTerm = event.target.value.trim();
                 this._loadMediaContent(this._buildSearchUrl(type, searchTerm));
-            }, 300);
+            }, WillowModalConfig.search.delay);
         };
 
         searchInput.addEventListener('input', handler, { passive: true });
         
         // Mark as bound
-        searchInput.dataset.searchHandlerBound = 'true';
+        searchInput.dataset[WillowModalConfig.events.datasetMarker] = 'true';
     },
 
     /**
@@ -618,7 +845,10 @@ window.WillowModal = {
         // Insert gallery using content insertion strategy
         const inserter = this._createContentInserter(context.editorType, context.editor);
         if (inserter) {
-            const placeholder = `[gallery:${galleryData.id}:${galleryData.theme}:${galleryData.name}]`;
+            const placeholder = WillowModalConfig.media.galleryPlaceholderFormat
+                .replace('{id}', galleryData.id)
+                .replace('{theme}', galleryData.theme)
+                .replace('{title}', galleryData.name);
             inserter.insertContent(placeholder);
         }
 
@@ -654,13 +884,15 @@ window.WillowModal = {
         };
         this.insertImage = function(imageData) {
             if (!this.editor || !imageData) return;
-            const size = imageData.selectedSize || 'large';
-            const imgHtml = `<img src="/files/Images/image/${size}/${imageData.src}" alt="${imageData.alt}" title="${imageData.name}">`;
+            const size = imageData.selectedSize || WillowModalConfig.media.defaultImageSize;
+            const imgHtml = `<img src="${WillowModalConfig.media.imagePath}${size}/${imageData.src}" alt="${imageData.alt}" title="${imageData.name}">`;
             this.insertContent(imgHtml);
         };
         this.insertVideo = function(videoData) {
             if (!this.editor || !videoData) return;
-            const videoPlaceholder = `[youtube:${videoData.id}:${videoData.title}]`;
+            const videoPlaceholder = WillowModalConfig.media.videoPlaceholderFormat
+                .replace('{id}', videoData.id)
+                .replace('{title}', videoData.title);
             this.insertContent(videoPlaceholder);
         };
     },
@@ -690,26 +922,33 @@ window.WillowModal = {
         };
         this.insertImage = function(imageData) {
             if (!imageData) return;
-            const size = imageData.selectedSize || 'large';
-            const imgMarkdown = `![${imageData.alt}](/files/Images/image/${size}/${imageData.src} "${imageData.name}")`;
+            const size = imageData.selectedSize || WillowModalConfig.media.defaultImageSize;
+            const imgMarkdown = `![${imageData.alt}](${WillowModalConfig.media.imagePath}${size}/${imageData.src} "${imageData.name}")`;
             this.insertContent(imgMarkdown);
         };
         this.insertVideo = function(videoData) {
             if (!videoData) return;
-            const videoPlaceholder = `[youtube:${videoData.id}:${videoData.title}]`;
+            const videoPlaceholder = WillowModalConfig.media.videoPlaceholderFormat
+                .replace('{id}', videoData.id)
+                .replace('{title}', videoData.title);
             this.insertContent(videoPlaceholder);
         };
     },
 
     /**
-     * Load media content via AJAX
+     * Load media content via AJAX with smooth animations
      * @private
      */
     _loadMediaContent: function(url) {
-        const container = document.querySelector('#gallery-selector, #image-gallery, #video-gallery');
+        // Smart container targeting - prefer results containers over full containers
+        const resultsContainer = document.querySelector('#gallery-results, #image-results, #video-results');
+        const fallbackContainer = document.querySelector('#gallery-selector, #image-gallery, #video-gallery');
+        const container = resultsContainer || fallbackContainer;
+        
         if (!container) return;
 
-        container.innerHTML = '<div class="text-center p-4"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>';
+        // Add smooth loading state with fade effect
+        this._showLoadingState(container);
 
         fetch(url, {
             headers: {
@@ -722,13 +961,103 @@ window.WillowModal = {
             return response.text();
         })
         .then(html => {
-            container.innerHTML = html;
-            this._initializeMediaHandlers();
+            this._updateContentWithAnimation(container, html);
         })
         .catch(error => {
             console.error('Error loading media content:', error);
-            container.innerHTML = '<div class="alert alert-danger" role="alert">Error loading content. Please try again.</div>';
+            this._showErrorState(container);
         });
+    },
+
+    /**
+     * Show smooth loading state
+     * @private
+     */
+    _showLoadingState: function(container) {
+        // Add loading class for smooth transition
+        container.classList.add('willow-loading');
+        
+        const loadingHtml = `
+            <div class="willow-loading-overlay">
+                <div class="text-center p-4">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <div class="mt-2 text-muted small">Searching...</div>
+                </div>
+            </div>`;
+        
+        // Create loading overlay without removing existing content
+        const loadingDiv = document.createElement('div');
+        loadingDiv.innerHTML = loadingHtml;
+        loadingDiv.className = 'willow-loading-container';
+        
+        container.style.position = 'relative';
+        container.appendChild(loadingDiv.firstElementChild);
+    },
+
+    /**
+     * Update content with smooth animation
+     * @private
+     */
+    _updateContentWithAnimation: function(container, html) {
+        // Remove loading overlay
+        const loadingOverlay = container.querySelector('.willow-loading-overlay');
+        if (loadingOverlay) {
+            loadingOverlay.remove();
+        }
+        
+        // Fade out current content
+        container.style.opacity = '0.5';
+        container.style.transform = 'translateY(10px)';
+        container.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+        
+        setTimeout(() => {
+            container.innerHTML = html;
+            container.classList.remove('willow-loading');
+            
+            // Fade in new content
+            container.style.opacity = '0';
+            container.style.transform = 'translateY(-10px)';
+            
+            // Force reflow
+            container.offsetHeight;
+            
+            container.style.opacity = '1';
+            container.style.transform = 'translateY(0)';
+            
+            // Clean up transition after animation
+            setTimeout(() => {
+                container.style.transition = '';
+                container.style.transform = '';
+            }, 200);
+            
+            this._initializeMediaHandlers();
+        }, 100);
+    },
+
+    /**
+     * Show error state with retry option
+     * @private
+     */
+    _showErrorState: function(container) {
+        const loadingOverlay = container.querySelector('.willow-loading-overlay');
+        if (loadingOverlay) {
+            loadingOverlay.remove();
+        }
+        
+        container.classList.remove('willow-loading');
+        
+        const errorHtml = `
+            <div class="alert alert-danger d-flex align-items-center" role="alert">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <div class="flex-grow-1">Error loading content. Please try again.</div>
+                <button class="btn btn-sm btn-outline-danger ms-2" onclick="location.reload()">
+                    <i class="fas fa-redo"></i> Retry
+                </button>
+            </div>`;
+        
+        container.innerHTML = errorHtml;
     },
 
     /**
@@ -737,8 +1066,8 @@ window.WillowModal = {
      */
     _buildSearchUrl: function(type, searchTerm = '') {
         const endpoints = {
-            image: '/admin/images/imageSelect',
-            video: '/admin/videos/video_select',
+            image: '/admin/images/image-select',
+            video: '/admin/videos/video-select',
             gallery: '/admin/image-galleries/picker'
         };
 

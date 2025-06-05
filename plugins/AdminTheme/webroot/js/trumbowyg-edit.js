@@ -26,12 +26,6 @@ $(document).ready(function() {
         VIDEO_GALLERY_CONTAINER: '#video-gallery', // Actual container of videos within the AJAX response
         VIDEO_SEARCH_INPUT: '#videoSearch',       // Search input within AJAX response
         VIDEO_CHANNEL_FILTER: '#channelFilter',   // Channel filter checkbox within AJAX response
-        // Highlight Modal related IDs/Selectors
-        HIGHLIGHT_MODAL: '#highlightModal',
-        HIGHLIGHT_MODAL_BODY_ID: 'highlightModalBody', // ID for the modal body for static highlight form
-        CODE_LANGUAGE_SELECT: '#code-language',
-        CODE_CONTENT_TEXTAREA: '#code-content',
-        INSERT_CODE_BUTTON: '#insertCode',
         // General
         PAGINATION_LINKS: '.pagination a', // Common selector for pagination links
         TRUMBOWYG_ICON_CAMERA_REELS: 'camera-reels', // Custom Trumbowyg icon name
@@ -87,52 +81,6 @@ $(document).ready(function() {
             clearTimeout(debounceTimer);
             debounceTimer = setTimeout(() => func.apply(context, args), delay);
         };
-    }
-
-    /**
-     * Creates, appends, and configures a Bootstrap modal.
-     * The modal is automatically removed from the DOM when hidden.
-     * @param {string} modalSelector - The CSS selector for the modal (e.g., '#myModal').
-     * @param {string} title - The title for the modal header.
-     * @param {string} bodyContainerId - The ID for the div that will contain the modal's body content.
-     * @param {string} [sizeClass='modal-lg'] - Optional Bootstrap modal size class.
-     * @returns {jQuery} The jQuery object representing the modal.
-     */
-    function createAndConfigureModal(modalSelector, title, bodyContainerId, sizeClass = 'modal-lg') {
-        $(modalSelector).remove(); // Remove any existing modal with the same ID
-
-        const modalId = modalSelector.substring(1); // Get ID without '#' for attribute usage
-        const $modal = $('<div>', {
-            class: 'modal fade',
-            id: modalId,
-            tabindex: '-1',
-            role: 'dialog',
-            'aria-labelledby': `${modalId}Label`,
-            'aria-hidden': 'true'
-        }).css('z-index', 99999); // Maintained z-index, assuming specific environment need.
-
-        const modalContent = `
-            <div class="modal-dialog ${sizeClass}" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="${modalId}Label">${title}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" id="${bodyContainerId}">
-                        <!-- Modal body content will be loaded here -->
-                    </div>
-                </div>
-            </div>
-        `;
-        $modal.html(modalContent);
-        $('body').append($modal);
-
-        // Automatically remove the modal from DOM when it's hidden
-        $modal.on('hidden.bs.modal', function () {
-            $(this).remove();
-        });
-
-        return $modal;
     }
 
     // Legacy handlers removed - WillowModal now handles all media selection internally
@@ -200,17 +148,11 @@ $(document).ready(function() {
                     trumbowyg.addBtnDef('highlight', {
                         fn: function() {
                             trumbowyg.saveRange();
-                            const $modal = createAndConfigureModal(
-                                SELECTORS.HIGHLIGHT_MODAL,
-                                'Insert Code Snippet',
-                                SELECTORS.HIGHLIGHT_MODAL_BODY_ID, // ID for modal body
-                                'modal-dialog' // Use default/smaller Bootstrap modal size
-                            );
-
+                            
                             const highlightModalHtmlContent = `
                                 <div class="form-group mb-3">
-                                    <label for="${SELECTORS.CODE_LANGUAGE_SELECT.substring(1)}">Language</label>
-                                    <select class="form-select" id="${SELECTORS.CODE_LANGUAGE_SELECT.substring(1)}">
+                                    <label for="code-language">Language</label>
+                                    <select class="form-select" id="code-language">
                                         <option value="php">PHP</option>
                                         <option value="javascript">JavaScript</option>
                                         <option value="css">CSS</option>
@@ -222,34 +164,51 @@ $(document).ready(function() {
                                         <option value="plaintext">Plain Text</option>
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <label for="${SELECTORS.CODE_CONTENT_TEXTAREA.substring(1)}">Code</label>
-                                    <textarea class="form-control" id="${SELECTORS.CODE_CONTENT_TEXTAREA.substring(1)}" rows="10"></textarea>
+                                <div class="form-group mb-3">
+                                    <label for="code-content">Code</label>
+                                    <textarea class="form-control" id="code-content" rows="10"></textarea>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="button" class="btn btn-primary" id="${SELECTORS.INSERT_CODE_BUTTON.substring(1)}">Insert</button>
+                                    <button type="button" class="btn btn-primary" id="insertCode">Insert</button>
                                 </div>
                             `;
-                            $(`#${SELECTORS.HIGHLIGHT_MODAL_BODY_ID}`).html(highlightModalHtmlContent);
 
-                            // Event handler for the insert button, specific to this modal instance
-                            $modal.find(SELECTORS.INSERT_CODE_BUTTON).on('click', function() {
-                                const language = escapeHtml($modal.find(SELECTORS.CODE_LANGUAGE_SELECT).val());
-                                const rawCode = $modal.find(SELECTORS.CODE_CONTENT_TEXTAREA).val();
-                                const escapedCodeForHtml = escapeHtml(rawCode); // Escape for safe HTML embedding
-
-                                const htmlToInsert = `<pre><code class="language-${language}">${escapedCodeForHtml}</code></pre>`;
-
-                                trumbowyg.restoreRange();
-                                trumbowyg.execCmd('insertHTML', htmlToInsert, false, true);
-
-                                // DOM update might take a moment. tbwchange will also fire.
-                                setTimeout(safeHighlight, 50);
-                                $modal.modal('hide'); // Modal removal is handled by 'hidden.bs.modal'
+                            // Use WillowModal for consistent modal handling
+                            WillowModal.showStatic(highlightModalHtmlContent, {
+                                title: 'Insert Code Snippet',
+                                dialogClass: 'modal-dialog',
+                                closeable: true,
+                                onContentLoaded: function() {
+                                    const modal = document.getElementById('dynamicModal');
+                                    const insertButton = modal.querySelector('#insertCode');
+                                    
+                                    if (insertButton && insertButton.dataset[WillowModalConfig.events.datasetMarker] !== 'true') {
+                                        insertButton.addEventListener('click', function() {
+                                            const languageSelect = modal.querySelector('#code-language');
+                                            const codeTextarea = modal.querySelector('#code-content');
+                                            
+                                            if (languageSelect && codeTextarea) {
+                                                const language = escapeHtml(languageSelect.value);
+                                                const rawCode = codeTextarea.value;
+                                                const escapedCodeForHtml = escapeHtml(rawCode);
+                                                
+                                                const htmlToInsert = `<pre><code class="language-${language}">${escapedCodeForHtml}</code></pre>`;
+                                                
+                                                trumbowyg.restoreRange();
+                                                trumbowyg.execCmd('insertHTML', htmlToInsert, false, true);
+                                                
+                                                setTimeout(safeHighlight, 50);
+                                                
+                                                const modalInstance = bootstrap.Modal.getInstance(modal);
+                                                if (modalInstance) modalInstance.hide();
+                                            }
+                                        });
+                                        
+                                        insertButton.dataset[WillowModalConfig.events.datasetMarker] = 'true';
+                                    }
+                                }
                             });
-
-                            $modal.modal('show');
                         },
                         title: 'Insert Code Snippet',
                         ico: SELECTORS.TRUMBOWYG_ICON_CODE_INSERT // Custom icon name

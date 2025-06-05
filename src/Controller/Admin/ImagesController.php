@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
+use App\Controller\Component\MediaPickerTrait;
 use App\Service\ImageProcessingService;
 use App\Utility\ArchiveExtractor;
 use Cake\Http\Exception\NotFoundException;
@@ -21,6 +22,8 @@ use Exception;
  */
 class ImagesController extends AppController
 {
+    use MediaPickerTrait;
+
     /**
      * Specifies the view classes supported by this controller.
      */
@@ -133,9 +136,16 @@ class ImagesController extends AppController
         $images = $this->paginate($query);
         $this->set(compact('images', 'search'));
 
-        // Always use the proper image_select template for media selection
-        // The image_select template includes search and uses image_gallery for display
-        $this->viewBuilder()->setTemplate('image_select');
+        // Check if this is a search request that should only return results HTML
+        $galleryOnly = $this->request->getQuery('gallery_only');
+        if ($galleryOnly) {
+            // For search requests, only return the results portion to avoid flicker
+            $this->viewBuilder()->setTemplate('image_select_results');
+        } else {
+            // For initial load, return the full template with search form
+            $this->viewBuilder()->setTemplate('image_select');
+        }
+
         $this->viewBuilder()->setLayout('ajax');
     }
 
@@ -362,64 +372,59 @@ class ImagesController extends AppController
 
     /**
      * Image picker for selecting images to add to galleries
+     * Uses MediaPickerTrait for DRY implementation
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
     public function picker(): ?Response
     {
         $galleryId = $this->request->getQuery('gallery_id');
-        $viewType = $this->request->getQuery('view', 'grid'); // Default to grid for picker
+        $viewType = $this->request->getQuery('view', 'grid');
 
-        $query = $this->Images->find()
-            ->select([
-                'Images.id',
-                'Images.name',
-                'Images.alt_text',
-                'Images.keywords',
-                'Images.image',
-                'Images.dir',
-                'Images.size',
-                'Images.mime',
-                'Images.created',
-                'Images.modified',
-            ]);
+        // Build query with trait helper
+        $selectFields = [
+            'Images.id',
+            'Images.name',
+            'Images.alt_text',
+            'Images.keywords',
+            'Images.image',
+            'Images.dir',
+            'Images.size',
+            'Images.mime',
+            'Images.created',
+            'Images.modified',
+        ];
 
-        // If gallery_id is provided, exclude images already in that gallery
+        $query = $this->buildPickerQuery($this->Images, $selectFields);
+
+        // Apply exclusion filter if gallery_id provided
         if ($galleryId) {
-            $imagesInGallery = $this->fetchTable('ImageGalleriesImages')
-                ->find()
-                ->select(['image_id'])
-                ->where(['image_gallery_id' => $galleryId])
-                ->all()
-                ->extract('image_id')
-                ->toArray();
-
-            if (!empty($imagesInGallery)) {
-                $query->where(['Images.id NOT IN' => $imagesInGallery]);
-            }
+            $query = $this->applyPickerExclusion(
+                $query,
+                $this->fetchTable('ImageGalleriesImages'),
+                'image_gallery_id',
+                $galleryId,
+                'image_id',
+            );
         }
 
-        // Handle search
+        // Handle search with trait helper
         $search = $this->request->getQuery('search');
-        if (!empty($search)) {
-            $query->where([
-                'OR' => [
-                    'Images.name LIKE' => '%' . $search . '%',
-                    'Images.alt_text LIKE' => '%' . $search . '%',
-                    'Images.keywords LIKE' => '%' . $search . '%',
-                ],
-            ]);
-        }
+        $searchFields = [
+            'Images.name',
+            'Images.alt_text',
+            'Images.keywords',
+        ];
+        $query = $this->handlePickerSearch($query, $search, $searchFields);
 
-        $query->orderBy(['Images.created' => 'DESC']);
         $images = $this->paginate($query);
 
-        // Handle AJAX requests
-        if ($this->request->is('ajax')) {
-            $this->set(compact('images', 'search', 'galleryId', 'viewType'));
-            $this->viewBuilder()->setLayout('ajax');
+        // Handle AJAX requests with trait helper
+        $ajaxResponse = $this->handlePickerAjaxResponse($images, $search, 'picker_search_results');
+        if ($ajaxResponse) {
+            $this->set(compact('galleryId', 'viewType'));
 
-            return $this->render('picker_search_results');
+            return $ajaxResponse;
         }
 
         $this->set(compact('images', 'galleryId', 'viewType'));

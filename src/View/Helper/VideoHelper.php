@@ -220,10 +220,8 @@ class VideoHelper extends Helper
      */
     protected function renderGalleryNotFound(string $galleryId): string
     {
-        return '<div class="alert alert-warning gallery-not-found" role="alert">' .
-               '<i class="fas fa-exclamation-triangle me-2"></i>' .
-               __('Gallery not found or not published.') .
-               '</div>';
+        // Return empty string to silently skip unpublished galleries on frontend
+        return '';
     }
 
     /**

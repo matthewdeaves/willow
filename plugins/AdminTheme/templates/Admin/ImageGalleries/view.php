@@ -68,12 +68,12 @@ echo $this->element('actions_card', [
                     
                     <div class="card mt-4">
                         <div class="card-body">
+                            <h5 class="card-title"><?= __('Gallery Images') ?></h5>
                             <?= $this->element('shared_photo_gallery', [
                                 'images' => $imageGallery->images,
-                                'title' => __('Gallery Images'),
+                                'title' => '',
                                 'theme' => 'admin',
-                                'showActions' => false,
-                                'showBulkActions' => false,
+                                'showActions' => true,
                                 'galleryId' => $imageGallery->id
                             ]) ?>
                         </div>

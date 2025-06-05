@@ -223,6 +223,11 @@ class ContentProcessorService
                 return "<!-- Gallery not found or empty: {$galleryId} -->";
             }
 
+            // For frontend rendering, silently skip unpublished galleries
+            if (!$gallery->is_published) {
+                return '';
+            }
+
             $galleryHtml = '<div class="photo-gallery" data-gallery-id="' . htmlspecialchars($galleryId) . '">';
 
             if (!empty($title)) {

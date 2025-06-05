@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
+use App\Controller\Component\MediaPickerTrait;
 use App\Service\ImageProcessingService;
 use App\Utility\ArchiveExtractor;
 use Cake\Http\Response;
@@ -15,6 +16,8 @@ use Cake\Http\Response;
  */
 class ImageGalleriesController extends AppController
 {
+    use MediaPickerTrait;
+
     /**
      * Index method
      *
@@ -388,48 +391,46 @@ class ImageGalleriesController extends AppController
 
     /**
      * Gallery picker for selecting galleries to insert into content
-     * Brilliant direct implementation using the enhanced WillowModal system
+     * Uses MediaPickerTrait for DRY implementation
      *
      * @return \\Cake\\Http\\Response|null|void Renders view
      */
     public function picker(): ?Response
     {
-        // Build query for all galleries with image previews (both published and unpublished)
-        $query = $this->ImageGalleries->find()
-            ->select([
-                'ImageGalleries.id',
-                'ImageGalleries.name',
-                'ImageGalleries.slug',
-                'ImageGalleries.description',
-                'ImageGalleries.preview_image',
-                'ImageGalleries.is_published',
-                'ImageGalleries.created',
-                'ImageGalleries.modified',
-            ])
-            ->contain([
+        // Build query with trait helper
+        $selectFields = [
+            'ImageGalleries.id',
+            'ImageGalleries.name',
+            'ImageGalleries.slug',
+            'ImageGalleries.description',
+            'ImageGalleries.preview_image',
+            'ImageGalleries.is_published',
+            'ImageGalleries.created',
+            'ImageGalleries.modified',
+        ];
+
+        $query = $this->buildPickerQuery($this->ImageGalleries, $selectFields, [
+            'contain' => [
                 'Images' => function ($q) {
                     return $q->select(['Images.id', 'Images.name', 'Images.image', 'Images.dir', 'Images.alt_text'])
                              ->limit(4) // Show first 4 images for preview
                              ->orderBy(['ImageGalleriesImages.position' => 'ASC']);
                 },
-            ])
-            ->orderBy(['ImageGalleries.created' => 'DESC']);
+            ],
+        ]);
 
-        // Handle search
+        // Handle search with trait helper
         $search = $this->request->getQuery('search');
-        if (!empty($search)) {
-            $query->where([
-                'OR' => [
-                    'ImageGalleries.name LIKE' => '%' . $search . '%',
-                    'ImageGalleries.slug LIKE' => '%' . $search . '%',
-                    'ImageGalleries.description LIKE' => '%' . $search . '%',
-                ],
-            ]);
-        }
+        $searchFields = [
+            'ImageGalleries.name',
+            'ImageGalleries.slug',
+            'ImageGalleries.description',
+        ];
+        $query = $this->handlePickerSearch($query, $search, $searchFields);
 
-        // Pagination
-        $limit = min((int)$this->request->getQuery('limit', 8), 24);
-        $page = (int)$this->request->getQuery('page', 1);
+        // Setup pagination with trait helper
+        $limit = $this->getRequestLimit(8, 24);
+        $page = $this->getRequestPage();
 
         $galleries = $this->paginate($query, [
             'limit' => $limit,
@@ -440,6 +441,16 @@ class ImageGalleriesController extends AppController
         $results = $galleries;
         $this->set(compact('results', 'search'));
         $this->set('_serialize', ['results', 'search']);
+
+        // Check if this is a search request that should only return results HTML
+        $galleryOnly = $this->request->getQuery('gallery_only');
+        if ($galleryOnly) {
+            // For search requests, only return the results portion to avoid flicker
+            $this->viewBuilder()->setTemplate('picker_results');
+        } else {
+            // For initial load, return the full template with search form
+            $this->viewBuilder()->setTemplate('picker');
+        }
 
         // Use AJAX view for modal content
         $this->viewBuilder()->setLayout('ajax');

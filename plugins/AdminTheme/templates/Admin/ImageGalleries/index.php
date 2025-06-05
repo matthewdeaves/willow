@@ -14,19 +14,10 @@ $this->Html->script('AdminTheme.gallery-search', ['block' => 'scriptBottom']);
     <div class="container-fluid d-flex align-items-center">
         <div class="d-flex align-items-center me-auto">
             <!-- View Switcher -->
-            <?= $this->element('view_switcher', [
-                'currentView' => $viewType,
-                'queryParams' => $this->request->getQueryParams()
-            ]) ?>
+            <?= $this->Gallery->viewSwitcher($viewType, $this->request->getQueryParams()) ?>
             
             <!-- Search Form -->
-            <?= $this->element('search_form', [
-                'id' => 'gallery-search-form',
-                'inputId' => 'gallery-search',
-                'placeholder' => __('Search galleries...'),
-                'showClearButton' => true,
-                'searchValue' => $this->request->getQuery('search')
-            ]) ?>
+            <?= $this->Gallery->searchForm($this->request->getQuery('search')) ?>
             
             <!-- Status Filter -->
             <?= $this->element('status_filter') ?>
@@ -70,36 +61,11 @@ $this->Html->script('AdminTheme.gallery-search', ['block' => 'scriptBottom']);
                     <?php foreach ($imageGalleries as $gallery): ?>
                     <tr>
                         <td>
-                            <?php if ($gallery->hasPreviewImage()): ?>
-                                <img src="<?= h($gallery->getPreviewImageUrl()) ?>" 
-                                     alt="<?= h($gallery->name) ?>"
-                                     class="img-thumbnail gallery-preview-thumb"
-                                     style="width: 60px; height: 45px; object-fit: cover;"
-                                     data-bs-toggle="popover"
-                                     data-bs-trigger="hover"
-                                     data-bs-content="<img src='<?= h($gallery->getPreviewImageUrl()) ?>' style='max-width: 300px; max-height: 200px;' alt='<?= h($gallery->name) ?>'>"
-                                     data-bs-html="true"
-                                     data-bs-placement="right">
-                            <?php elseif (!empty($gallery->images)): ?>
-                                <?= $this->element('image/icon', [
-                                    'model' => $gallery->images[0],
-                                    'icon' => $gallery->images[0]->tinyImageUrl ?? null,
-                                    'class' => 'gallery-preview-thumb',
-                                    'style' => 'width: 60px; height: 45px; object-fit: cover;',
-                                    'popover' => true,
-                                    'popover_content' => $this->element('shared_photo_gallery', [
-                                        'images' => array_slice($gallery->images, 0, 4),
-                                        'gallery_id' => 'preview-' . $gallery->id,
-                                        'grid_class' => 'row g-1',
-                                        'image_class' => 'col-6'
-                                    ])
-                                ]) ?>
-                            <?php else: ?>
-                                <div class="text-center text-muted d-flex align-items-center justify-content-center" 
-                                     style="width: 60px; height: 45px; border: 1px solid #ddd; border-radius: 4px;">
-                                    <i class="fas fa-images"></i>
-                                </div>
-                            <?php endif; ?>
+                            <?= $this->Gallery->previewImage($gallery, [
+                                'style' => 'width: 60px; height: 45px; object-fit: cover;',
+                                'class' => 'img-thumbnail gallery-preview-thumb',
+                                'popover' => true
+                            ]) ?>
                         </td>
                         <td>
                             <strong><?= h($gallery->name) ?></strong>

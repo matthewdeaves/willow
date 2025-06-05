@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
+use App\Controller\Component\MediaPickerTrait;
 use App\Utility\SettingsManager;
 use Exception;
 use Google_Client;
@@ -12,6 +13,8 @@ use Google_Service_YouTube;
 
 class VideosController extends AppController
 {
+    use MediaPickerTrait;
+
     /**
      * Video selection interface with YouTube API integration
      *
@@ -68,5 +71,15 @@ class VideosController extends AppController
 
         $channelId = SettingsManager::read('Google.youtubeChannelId', env('YOUTUBE_CHANNEL_ID'));
         $this->set(compact('videos', 'searchTerm', 'filterByChannel', 'channelId'));
+
+        // Check if this is a search request that should only return results HTML
+        $galleryOnly = $this->request->getQuery('gallery_only');
+        if ($galleryOnly) {
+            // For search requests, only return the results portion to avoid flicker
+            $this->viewBuilder()->setTemplate('video_select_results');
+        } else {
+            // For initial load, return the full template with search form
+            $this->viewBuilder()->setTemplate('video_select');
+        }
     }
 }

@@ -1,4 +1,3 @@
-<?php $this->Html->script('AdminTheme.markdown-it-media-select', ['block' => true]); ?>
 <ul class="nav nav-tabs" id="editorTabs" role="tablist">
     <li class="nav-item">
         <a class="nav-link active" id="editor-tab" data-bs-toggle="tab" href="#editor" role="tab" 

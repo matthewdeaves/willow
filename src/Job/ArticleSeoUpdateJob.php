@@ -4,12 +4,7 @@ declare(strict_types=1);
 namespace App\Job;
 
 use App\Service\Api\Anthropic\AnthropicApiService;
-use Cake\Cache\Cache;
-use Cake\Log\LogTrait;
-use Cake\ORM\TableRegistry;
-use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
-use Exception;
 use Interop\Queue\Processor;
 
 /**
@@ -18,24 +13,8 @@ use Interop\Queue\Processor;
  * This job is responsible for updating the SEO metadata of an article using the Anthropic API.
  * It processes messages from the queue to update various SEO-related fields of an article.
  */
-class ArticleSeoUpdateJob implements JobInterface
+class ArticleSeoUpdateJob extends AbstractJob
 {
-    use LogTrait;
-
-    /**
-     * Maximum number of attempts for the job.
-     *
-     * @var int|null
-     */
-    public static int $maxAttempts = 3;
-
-    /**
-     * Whether there should be only one instance of a job on the queue at a time.
-     *
-     * @var bool
-     */
-    public static bool $shouldBeUnique = true;
-
     /**
      * Instance of the Anthropic API service.
      *
@@ -54,82 +33,47 @@ class ArticleSeoUpdateJob implements JobInterface
     }
 
     /**
+     * Get the human-readable job type name for logging
+     *
+     * @return string The job type description
+     */
+    protected static function getJobType(): string
+    {
+        return 'article SEO update';
+    }
+
+    /**
      * Executes the job to update article SEO metadata.
      *
-     * This method processes the message, retrieves the article, generates SEO content
-     * using the Anthropic API, and updates the article with the new SEO metadata.
-     *
-     * @param \Cake\Queue\Job\Message $message The message containing article data.
-     * @return string|null Returns Processor::ACK on success, Processor::REJECT on failure.
+     * @param \Cake\Queue\Job\Message $message The message containing article data
+     * @return string|null Returns Processor::ACK on success, Processor::REJECT on failure
      */
     public function execute(Message $message): ?string
     {
         $id = $message->getArgument('id');
         $title = $message->getArgument('title');
 
-        $this->log(
-            sprintf('Received article SEO update message: %s : %s', $id, $title),
-            'info',
-            ['group_name' => 'App\Job\ArticleSeoUpdateJob'],
-        );
+        if (!$this->validateArguments($message, ['id', 'title'])) {
+            return Processor::REJECT;
+        }
 
-        $articlesTable = TableRegistry::getTableLocator()->get('Articles');
-        $article = $articlesTable->get($id);
+        return $this->executeWithErrorHandling($id, function () use ($id, $title) {
+            $articlesTable = $this->getTable('Articles');
+            $article = $articlesTable->get($id);
 
-        try {
             $seoResult = $this->anthropicService->generateArticleSeo(
                 (string)$title,
                 (string)strip_tags($article->body),
             );
-        } catch (Exception $e) {
-            $this->log(
-                sprintf(
-                    'Article SEO update failed. ID: %s Title: %s Error: %s',
-                    $id,
-                    $title,
-                    $e->getMessage(),
-                ),
-                'error',
-                ['group_name' => 'App\Job\ArticleSeoUpdateJob'],
-            );
 
-            return Processor::REJECT;
-        }
+            if ($seoResult) {
+                $emptyFields = $articlesTable->emptySeoFields($article);
+                array_map(fn($field) => $article->{$field} = $seoResult[$field], $emptyFields);
 
-        if ($seoResult) {
-            $emptyFields = $articlesTable->emptySeoFields($article);
-            array_map(fn($field) => $article->{$field} = $seoResult[$field], $emptyFields);
-
-            if ($articlesTable->save($article, ['noMessage' => true])) {
-                $this->log(
-                    sprintf('Article SEO update completed successfully. Article ID: %s Title: %s', $id, $title),
-                    'info',
-                    ['group_name' => 'App\Job\ArticleSeoUpdateJob'],
-                );
-
-                Cache::clear('content');
-
-                return Processor::ACK;
-            } else {
-                $this->log(
-                    sprintf(
-                        'Failed to save article SEO updates. Article ID: %s Title: %s Error: %s',
-                        $id,
-                        $title,
-                        json_encode($article->getErrors()),
-                    ),
-                    'error',
-                    ['group_name' => 'App\Job\ArticleSeoUpdateJob'],
-                );
+                return $articlesTable->save($article, ['noMessage' => true]);
             }
-        } else {
-            $this->log(
-                sprintf('Article SEO update failed. No result returned. Article ID: %s Title: %s', $id, $title),
-                'error',
-                ['group_name' => 'App\Job\ArticleSeoUpdateJob'],
-            );
-        }
 
-        return Processor::REJECT;
+            return false;
+        }, $title);
     }
 }

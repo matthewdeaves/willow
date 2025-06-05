@@ -4,12 +4,7 @@ declare(strict_types=1);
 namespace App\Job;
 
 use App\Service\Api\Anthropic\AnthropicApiService;
-use Cake\Cache\Cache;
-use Cake\Log\LogTrait;
-use Cake\ORM\TableRegistry;
-use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
-use Exception;
 use Interop\Queue\Processor;
 
 /**
@@ -18,24 +13,8 @@ use Interop\Queue\Processor;
  * This job is responsible for updating SEO-related information for tags using the Anthropic API.
  * It processes queued messages, retrieves tag information, generates SEO content, and updates the tag record.
  */
-class TagSeoUpdateJob implements JobInterface
+class TagSeoUpdateJob extends AbstractJob
 {
-    use LogTrait;
-
-    /**
-     * The maximum number of attempts for this job.
-     *
-     * @var int
-     */
-    public static int $maxAttempts = 3;
-
-    /**
-     * Whether there should be only one instance of this job on the queue at a time.
-     *
-     * @var bool
-     */
-    public static bool $shouldBeUnique = true;
-
     /**
      * The Anthropic API service used for generating SEO content.
      *
@@ -46,11 +25,21 @@ class TagSeoUpdateJob implements JobInterface
     /**
      * Constructor to allow dependency injection for testing.
      *
-     * @param \App\Service\Api\Anthropic\AnthropicApiService|null $anthropicService The Google API service instance.
+     * @param \App\Service\Api\Anthropic\AnthropicApiService|null $anthropicService The Anthropic API service instance.
      */
     public function __construct(?AnthropicApiService $anthropicService = null)
     {
         $this->anthropicService = $anthropicService ?? new AnthropicApiService();
+    }
+
+    /**
+     * Get the human-readable job type name for logging
+     *
+     * @return string The job type description
+     */
+    protected static function getJobType(): string
+    {
+        return 'tag SEO update';
     }
 
     /**
@@ -64,84 +53,30 @@ class TagSeoUpdateJob implements JobInterface
      */
     public function execute(Message $message): ?string
     {
+        if (!$this->validateArguments($message, ['id', 'title'])) {
+            return Processor::REJECT;
+        }
+
         $id = $message->getArgument('id');
         $title = $message->getArgument('title');
 
-        $this->log(
-            sprintf(
-                'Received tag SEO update message: ID: %s Title: %s',
-                $id,
-                $title,
-            ),
-            'info',
-            ['group_name' => 'App\Job\TagSeoUpdateJob'],
-        );
-
-        $tagsTable = TableRegistry::getTableLocator()->get('Tags');
+        $tagsTable = $this->getTable('Tags');
         $tag = $tagsTable->get($id);
 
-        try {
+        return $this->executeWithErrorHandling($id, function () use ($tag, $tagsTable, $title) {
             $seoResult = $this->anthropicService->generateTagSeo(
                 (string)$title,
                 (string)$tag->description,
             );
-        } catch (Exception $e) {
-            $this->log(
-                sprintf(
-                    'Tag SEO update failed. ID: %s Title: %s Error: %s',
-                    $id,
-                    $title,
-                    $e->getMessage(),
-                ),
-                'error',
-                ['group_name' => 'App\Job\TagSeoUpdateJob'],
-            );
 
-            return Processor::REJECT;
-        }
+            if ($seoResult) {
+                $emptyFields = $tagsTable->emptySeoFields($tag);
+                array_map(fn($field) => $tag->{$field} = $seoResult[$field], $emptyFields);
 
-        if ($seoResult) {
-            $emptyFields = $tagsTable->emptySeoFields($tag);
-            array_map(fn($field) => $tag->{$field} = $seoResult[$field], $emptyFields);
-
-            if ($tagsTable->save($tag, ['noMessage' => true])) {
-                $this->log(
-                    sprintf(
-                        'Tag SEO update completed successfully. ID: %s Title: %s',
-                        $id,
-                        $title,
-                    ),
-                    'info',
-                    ['group_name' => 'App\Job\TagSeoUpdateJob'],
-                );
-
-                Cache::clear('content');
-
-                return Processor::ACK;
-            } else {
-                $this->log(
-                    sprintf(
-                        'Failed to save tag SEO updates. ID: %s Title: %s Errors %s',
-                        $id,
-                        $title,
-                        json_encode($tag->getErrors()),
-                    ),
-                    'error',
-                    ['group_name' => 'App\Job\TagSeoUpdateJob'],
-                );
+                return $tagsTable->save($tag, ['noMessage' => true]);
             }
-        } else {
-            $this->log(
-                sprintf(
-                    'Tag SEO update failed. No result returned. ID: %s Title: %s',
-                    $id,
-                    $title,
-                ),
-                'error',
-                ['group_name' => 'App\Job\TagSeoUpdateJob'],
-            );
-        }
 
-        return Processor::REJECT;
+            return false;
+        }, $title);
     }
 }

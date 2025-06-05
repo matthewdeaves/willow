@@ -5,33 +5,12 @@ namespace App\Job;
 
 use App\Service\Api\Google\GoogleApiService;
 use App\Utility\SettingsManager;
-use Cake\Cache\Cache;
-use Cake\Log\LogTrait;
-use Cake\ORM\TableRegistry;
-use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
 use Cake\Queue\QueueManager;
-use Exception;
 use Interop\Queue\Processor;
 
-class TranslateArticleJob implements JobInterface
+class TranslateArticleJob extends AbstractJob
 {
-    use LogTrait;
-
-    /**
-     * Maximum number of attempts for the job.
-     *
-     * @var int|null
-     */
-    public static int $maxAttempts = 3;
-
-    /**
-     * Whether there should be only one instance of a job on the queue at a time.
-     *
-     * @var bool
-     */
-    public static bool $shouldBeUnique = true;
-
     /**
      * @var \App\Service\Api\Google\GoogleApiService The API service instance.
      */
@@ -48,97 +27,51 @@ class TranslateArticleJob implements JobInterface
     }
 
     /**
+     * Get the human-readable job type name for logging
+     *
+     * @return string The job type description
+     */
+    protected static function getJobType(): string
+    {
+        return 'article translation';
+    }
+
+    /**
      * Executes the article translation process based on the received message.
      *
      * @param \Cake\Queue\Job\Message $message The message containing the article ID and title.
-     * @return string|null The processing result:
-     *                     - Processor::REQUEUE if the article summary is empty, indicating that the translation should be requeued.
-     *                     - Processor::ACK if the article translation is completed successfully.
-     *                     - Processor::REJECT if the article translation fails.
-     *                     - null if an unexpected error occurs.
+     * @return string|null The processing result.
      */
     public function execute(Message $message): ?string
     {
+        if (!$this->validateArguments($message, ['id', 'title'])) {
+            return Processor::REJECT;
+        }
+
         $id = $message->getArgument('id');
         $title = $message->getArgument('title');
         $attempt = $message->getArgument('_attempt', 0);
 
-        $this->log(
-            sprintf('Received Article translation message: %s : %s (attempt %d)', $id, $title, $attempt),
-            'info',
-            ['group_name' => 'App\Job\TranslateArticleJob'],
-        );
-
+        // Check if translations are enabled
         if (empty(array_filter(SettingsManager::read('Translations', [])))) {
             $this->log(
-                sprintf(
-                    'Received Article translation message but there are no languages enabled for translation: %s : %s',
-                    $id,
-                    $title,
-                ),
+                sprintf('No languages enabled for translation: %s : %s', $id, $title),
                 'warning',
-                ['group_name' => 'App\Job\TranslateArticleJob'],
+                ['group_name' => static::class],
             );
 
             return Processor::REJECT;
         }
 
-        $articlesTable = TableRegistry::getTableLocator()->get('Articles');
+        $articlesTable = $this->getTable('Articles');
         $article = $articlesTable->get($id);
 
-        // If there are any empy fields to be translated, wait 10 seconds and requeue
-        // there could be a job in the queue to generate those fields and in production
-        // we have 3 queue consumers
+        // If there are empty SEO fields, requeue to wait for them to be populated
         if (!empty($articlesTable->emptySeoFields($article))) {
-            // Check if we've tried too many times
-            if ($attempt >= 5) {
-                $this->log(
-                    sprintf(
-                        'Article still has empty SEO fields after %d attempts: %s : %s',
-                        $attempt,
-                        $id,
-                        $title,
-                    ),
-                    'error',
-                    ['group_name' => 'App\Job\TranslateArticleJob'],
-                );
-
-                return Processor::REJECT;
-            }
-
-            // Get the original message data
-            $data = [
-                'id' => $id,
-                'title' => $title,
-                '_attempt' => $attempt + 1,
-            ];
-
-            // Re-queue the job with a 10-second delay
-            QueueManager::push(
-                TranslateArticleJob::class,
-                $data,
-                [
-                    'config' => 'default',
-                    'delay' => 10 * ($attempt + 1), // Delay in seconds
-                ],
-            );
-
-            $this->log(
-                sprintf(
-                    'Article has empty SEO fields, re-queuing with %d second delay: %s : %s',
-                    10 * ($attempt + 1),
-                    $id,
-                    $title,
-                ),
-                'info',
-                ['group_name' => 'App\Job\TranslateArticleJob'],
-            );
-
-            // Return ACK to remove the current message from the queue
-            return Processor::ACK;
+            return $this->handleEmptySeoFields($id, $title, $attempt);
         }
 
-        try {
+        return $this->executeWithErrorHandling($id, function () use ($article, $articlesTable) {
             $result = $this->apiService->translateArticle(
                 (string)$article->title,
                 (string)$article->lede,
@@ -152,71 +85,73 @@ class TranslateArticleJob implements JobInterface
                 (string)$article->instagram_description,
                 (string)$article->twitter_description,
             );
-        } catch (Exception $e) {
-            $this->log(
-                sprintf(
-                    'Translate Article Job failed. ID: %s Title: %s Error: %s',
-                    $id,
-                    $title,
-                    $e->getMessage(),
-                ),
-                'error',
-                ['group_name' => 'App\Job\TranslateArticleJob'],
-            );
+
+            if ($result) {
+                foreach ($result as $locale => $translation) {
+                    $article->translation($locale)->title = $translation['title'];
+                    $article->translation($locale)->lede = $translation['lede'];
+                    $article->translation($locale)->body = $translation['body'];
+                    $article->translation($locale)->summary = $translation['summary'];
+                    $article->translation($locale)->meta_title = $translation['meta_title'];
+                    $article->translation($locale)->meta_description = $translation['meta_description'];
+                    $article->translation($locale)->meta_keywords = $translation['meta_keywords'];
+                    $article->translation($locale)->facebook_description = $translation['facebook_description'];
+                    $article->translation($locale)->linkedin_description = $translation['linkedin_description'];
+                    $article->translation($locale)->instagram_description = $translation['instagram_description'];
+                    $article->translation($locale)->twitter_description = $translation['twitter_description'];
+
+                    $articlesTable->save($article, ['noMessage' => true]);
+                }
+
+                return true;
+            }
+
+            return false;
+        }, $title);
+    }
+
+    /**
+     * Handle the case where SEO fields are empty by requeuing the job
+     *
+     * @param string $id The article ID
+     * @param string $title The article title
+     * @param int $attempt The current attempt number
+     * @return string|null
+     */
+    private function handleEmptySeoFields(string $id, string $title, int $attempt): ?string
+    {
+        if ($attempt >= 5) {
+            $this->logJobError($id, sprintf('Article still has empty SEO fields after %d attempts', $attempt), $title);
 
             return Processor::REJECT;
         }
 
-        if ($result) {
-            foreach ($result as $locale => $translation) {
-                $article->translation($locale)->title = $translation['title'];
-                $article->translation($locale)->lede = $translation['lede'];
-                $article->translation($locale)->body = $translation['body'];
-                $article->translation($locale)->summary = $translation['summary'];
-                $article->translation($locale)->meta_title = $translation['meta_title'];
-                $article->translation($locale)->meta_description = $translation['meta_description'];
-                $article->translation($locale)->meta_keywords = $translation['meta_keywords'];
-                $article->translation($locale)->facebook_description = $translation['facebook_description'];
-                $article->translation($locale)->linkedin_description = $translation['linkedin_description'];
-                $article->translation($locale)->instagram_description = $translation['instagram_description'];
-                $article->translation($locale)->twitter_description = $translation['twitter_description'];
+        $data = [
+            'id' => $id,
+            'title' => $title,
+            '_attempt' => $attempt + 1,
+        ];
 
-                if ($articlesTable->save($article, ['noMessage' => true])) {
-                    $this->log(
-                        sprintf(
-                            'Article translation completed successfully. Locale: %s Article ID: %s Title: %s',
-                            $locale,
-                            $id,
-                            $title,
-                        ),
-                        'info',
-                        ['group_name' => 'App\Job\TranslateArticleJob'],
-                    );
-                } else {
-                    $this->log(
-                        sprintf(
-                            'Failed to save article translation. Locale: %s Article ID: %s Title: %s Error: %s',
-                            $locale,
-                            $id,
-                            $title,
-                            json_encode($article->getErrors()),
-                        ),
-                        'error',
-                        ['group_name' => 'App\Job\TranslateArticleJob'],
-                    );
-                }
-            }
-            Cache::clear('content');
+        QueueManager::push(
+            static::class,
+            $data,
+            [
+                'config' => 'default',
+                'delay' => 10 * ($attempt + 1),
+            ],
+        );
 
-            return Processor::ACK;
-        } else {
-            $this->log(
-                sprintf('Article translation failed. No result returned. Article ID: %s Title: %s', $id, $title),
-                'error',
-                ['group_name' => 'App\Job\TranslateArticleJob'],
-            );
-        }
+        $this->log(
+            sprintf(
+                'Article has empty SEO fields, re-queuing with %d second delay: %s : %s',
+                10 * ($attempt + 1),
+                $id,
+                $title,
+            ),
+            'info',
+            ['group_name' => static::class],
+        );
 
-        return Processor::REJECT;
+        return Processor::ACK;
     }
 }

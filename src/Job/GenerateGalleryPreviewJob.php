@@ -47,9 +47,10 @@ class GenerateGalleryPreviewJob implements JobInterface
     private const PREVIEW_HEIGHT = 300;
     private const THUMB_WIDTH = 120;
     private const THUMB_HEIGHT = 90;
-    private const GRID_COLS = 3;
-    private const GRID_ROWS = 2;
-    private const SPACING = 8;
+    private const SPACING = 12;
+    private const CORNER_RADIUS = 8;
+    private const SHADOW_OFFSET = 3;
+    private const SHADOW_BLUR = 6;
 
     /**
      * Executes the gallery preview generation task.
@@ -165,8 +166,8 @@ class GenerateGalleryPreviewJob implements JobInterface
             // Single image - just resize it
             $this->createSingleImagePreview($images[0], $previewPath);
         } else {
-            // Multiple images - create montage
-            $this->createMontagePreview($images, $previewPath);
+            // Multiple images - create smart grid montage
+            $this->createSmartMontagePreview($images, $previewPath);
         }
 
         return $previewPath;
@@ -192,10 +193,13 @@ class GenerateGalleryPreviewJob implements JobInterface
         // Resize to fit preview dimensions while maintaining aspect ratio
         $imagick->thumbnailImage(self::PREVIEW_WIDTH, self::PREVIEW_HEIGHT, true);
 
-        // Create canvas with white background
+        // Create canvas with gradient background
         $canvas = new Imagick();
         $canvas->newImage(self::PREVIEW_WIDTH, self::PREVIEW_HEIGHT, new ImagickPixel('white'));
         $canvas->setImageFormat('jpeg');
+
+        // Add gradient background
+        $this->addGradientBackground($canvas);
 
         // Center the image on canvas
         $imageWidth = $imagick->getImageWidth();
@@ -203,10 +207,12 @@ class GenerateGalleryPreviewJob implements JobInterface
         $x = (self::PREVIEW_WIDTH - $imageWidth) / 2;
         $y = (self::PREVIEW_HEIGHT - $imageHeight) / 2;
 
-        $canvas->compositeImage($imagick, Imagick::COMPOSITE_OVER, intval($x), intval($y));
+        // Apply rounded corners and shadow to the image
+        $styledImage = $this->applyImageStyling($imagick);
 
-        // Add subtle border
-        $this->addBorder($canvas);
+        $canvas->compositeImage($styledImage, Imagick::COMPOSITE_OVER, intval($x), intval($y));
+
+        $styledImage->clear();
 
         $canvas->writeImage($outputPath);
         $canvas->clear();
@@ -214,19 +220,31 @@ class GenerateGalleryPreviewJob implements JobInterface
     }
 
     /**
-     * Create montage preview for multiple images
+     * Create smart montage preview for multiple images with dynamic grid layout
      *
      * @param array $images
      * @param string $outputPath
      * @throws \Exception
      */
-    private function createMontagePreview(array $images, string $outputPath): void
+    private function createSmartMontagePreview(array $images, string $outputPath): void
     {
-        $montage = new Imagick();
-        $processedImages = [];
+        $imageCount = count($images);
+        $gridLayout = $this->calculateOptimalGrid($imageCount);
+        $maxImages = $gridLayout['cols'] * $gridLayout['rows'];
 
-        // Process each image
-        foreach (array_slice($images, 0, 6) as $image) {
+        // Calculate thumbnail dimensions based on grid
+        $thumbWidth = intval((self::PREVIEW_WIDTH - (($gridLayout['cols'] + 1) * self::SPACING)) / $gridLayout['cols']);
+        $thumbHeight = intval((self::PREVIEW_HEIGHT - (($gridLayout['rows'] + 1) * self::SPACING)) / $gridLayout['rows']);
+
+        // Create final canvas with gradient background
+        $canvas = new Imagick();
+        $canvas->newImage(self::PREVIEW_WIDTH, self::PREVIEW_HEIGHT, new ImagickPixel('white'));
+        $canvas->setImageFormat('jpeg');
+        $this->addGradientBackground($canvas);
+
+        // Process and place each image
+        $processedImages = [];
+        foreach (array_slice($images, 0, $maxImages) as $index => $image) {
             $imagePath = WWW_ROOT . 'files' . DS . 'Images' . DS . 'image' . DS . $image->image;
 
             if (!file_exists($imagePath)) {
@@ -240,12 +258,24 @@ class GenerateGalleryPreviewJob implements JobInterface
 
             try {
                 $img = new Imagick($imagePath);
-                $img->thumbnailImage(self::THUMB_WIDTH, self::THUMB_HEIGHT, true);
+                $img->thumbnailImage($thumbWidth, $thumbHeight, true);
                 $img->setImageFormat('jpeg');
 
-                // Add to montage
-                $montage->addImage($img);
+                // Apply styling (rounded corners, shadow)
+                $styledImage = $this->applyImageStyling($img);
+
+                // Calculate position in grid
+                $row = intval($index / $gridLayout['cols']);
+                $col = $index % $gridLayout['cols'];
+
+                $x = self::SPACING + ($col * ($thumbWidth + self::SPACING));
+                $y = self::SPACING + ($row * ($thumbHeight + self::SPACING));
+
+                // Composite onto canvas
+                $canvas->compositeImage($styledImage, Imagick::COMPOSITE_OVER, $x, $y);
+
                 $processedImages[] = $img;
+                $styledImage->clear();
             } catch (Exception $e) {
                 $this->log(
                     sprintf('Error processing image %s: %s', $imagePath, $e->getMessage()),
@@ -259,61 +289,101 @@ class GenerateGalleryPreviewJob implements JobInterface
             throw new Exception('No valid images found for montage');
         }
 
-        // Create the montage
-        $montageImage = $montage->montageImage(
-            new ImagickDraw(),
-            sprintf('%dx%d+%d+%d', self::GRID_COLS, self::GRID_ROWS, self::SPACING, self::SPACING),
-            sprintf('%dx%d', self::THUMB_WIDTH, self::THUMB_HEIGHT),
-            Imagick::MONTAGEMODE_CONCATENATE,
-            '0x0+0+0',
-        );
-
-        $montageImage = $montageImage->getImage();
-
-        // Resize to final dimensions
-        $montageImage->thumbnailImage(self::PREVIEW_WIDTH, self::PREVIEW_HEIGHT, true);
-
-        // Create final canvas with white background
-        $canvas = new Imagick();
-        $canvas->newImage(self::PREVIEW_WIDTH, self::PREVIEW_HEIGHT, new ImagickPixel('white'));
-        $canvas->setImageFormat('jpeg');
-
-        // Center montage on canvas
-        $montageWidth = $montageImage->getImageWidth();
-        $montageHeight = $montageImage->getImageHeight();
-        $x = (self::PREVIEW_WIDTH - $montageWidth) / 2;
-        $y = (self::PREVIEW_HEIGHT - $montageHeight) / 2;
-
-        $canvas->compositeImage($montageImage, Imagick::COMPOSITE_OVER, intval($x), intval($y));
-
-        // Add subtle border
-        $this->addBorder($canvas);
-
         $canvas->writeImage($outputPath);
 
         // Cleanup
         $canvas->clear();
-        $montageImage->clear();
-        $montage->clear();
         foreach ($processedImages as $img) {
             $img->clear();
         }
     }
 
     /**
-     * Add subtle border to image
+     * Calculate optimal grid layout based on image count
+     *
+     * @param int $imageCount
+     * @return array{cols: int, rows: int}
+     */
+    private function calculateOptimalGrid(int $imageCount): array
+    {
+        // Smart grid layouts based on image count
+        return match (true) {
+            $imageCount <= 1 => ['cols' => 1, 'rows' => 1],
+            $imageCount <= 2 => ['cols' => 2, 'rows' => 1],
+            $imageCount <= 3 => ['cols' => 3, 'rows' => 1],
+            $imageCount <= 4 => ['cols' => 2, 'rows' => 2],
+            $imageCount <= 6 => ['cols' => 3, 'rows' => 2],
+            $imageCount <= 9 => ['cols' => 3, 'rows' => 3],
+            default => ['cols' => 4, 'rows' => 3] // For 10+ images
+        };
+    }
+
+    /**
+     * Add gradient background to canvas
+     *
+     * @param \Imagick $canvas
+     */
+    private function addGradientBackground(Imagick $canvas): void
+    {
+        // Create subtle gradient from light gray to white
+        $gradient = new Imagick();
+        $gradient->newPseudoImage(
+            self::PREVIEW_WIDTH,
+            self::PREVIEW_HEIGHT,
+            'gradient:#f8f9fa-#ffffff',
+        );
+
+        // Composite gradient onto canvas
+        $canvas->compositeImage($gradient, Imagick::COMPOSITE_OVER, 0, 0);
+        $gradient->clear();
+    }
+
+    /**
+     * Apply styling to image (rounded corners and drop shadow)
      *
      * @param \Imagick $image
+     * @return \Imagick
      */
-    private function addBorder(Imagick $image): void
+    private function applyImageStyling(Imagick $image): Imagick
     {
+        $width = $image->getImageWidth();
+        $height = $image->getImageHeight();
+
+        // Create mask for rounded corners
+        $mask = new Imagick();
+        $mask->newImage($width, $height, new ImagickPixel('transparent'));
+
         $draw = new ImagickDraw();
-        $draw->setStrokeColor(new ImagickPixel('#e0e0e0'));
-        $draw->setStrokeWidth(1);
-        $draw->setFillOpacity(0);
-        $draw->rectangle(0, 0, self::PREVIEW_WIDTH - 1, self::PREVIEW_HEIGHT - 1);
-        $image->drawImage($draw);
+        $draw->setFillColor(new ImagickPixel('white'));
+        $draw->roundRectangle(0, 0, $width - 1, $height - 1, self::CORNER_RADIUS, self::CORNER_RADIUS);
+        $mask->drawImage($draw);
+
+        // Apply mask to create rounded corners
+        $image->compositeImage($mask, Imagick::COMPOSITE_DSTIN, 0, 0);
+
+        // Create shadow
+        $shadow = clone $image;
+        $shadow->setImageBackgroundColor(new ImagickPixel('rgba(0,0,0,0.3)'));
+        $shadow->shadowImage(60, self::SHADOW_BLUR, self::SHADOW_OFFSET, self::SHADOW_OFFSET);
+
+        // Create final image with shadow
+        $final = new Imagick();
+        $final->newImage(
+            $width + self::SHADOW_OFFSET + self::SHADOW_BLUR,
+            $height + self::SHADOW_OFFSET + self::SHADOW_BLUR,
+            new ImagickPixel('transparent'),
+        );
+
+        // Composite shadow first, then image
+        $final->compositeImage($shadow, Imagick::COMPOSITE_OVER, 0, 0);
+        $final->compositeImage($image, Imagick::COMPOSITE_OVER, 0, 0);
+
+        // Cleanup
+        $mask->clear();
+        $shadow->clear();
         $draw->clear();
+
+        return $final;
     }
 
     /**

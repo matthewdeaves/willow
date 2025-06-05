@@ -5,13 +5,8 @@ namespace App\Job;
 
 use App\Service\Api\Google\GoogleApiService;
 use App\Utility\SettingsManager;
-use Cake\Cache\Cache;
-use Cake\Log\LogTrait;
-use Cake\ORM\TableRegistry;
-use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
 use Cake\Queue\QueueManager;
-use Exception;
 use Interop\Queue\Processor;
 
 /**
@@ -21,24 +16,8 @@ use Interop\Queue\Processor;
  * It retrieves the tag data from the database, translates the specified fields,
  * and saves the translated data back to the database.
  */
-class TranslateTagJob implements JobInterface
+class TranslateTagJob extends AbstractJob
 {
-    use LogTrait;
-
-    /**
-     * Maximum number of attempts for the job.
-     *
-     * @var int|null
-     */
-    public static int $maxAttempts = 3;
-
-    /**
-     * Whether there should be only one instance of a job on the queue at a time.
-     *
-     * @var bool
-     */
-    public static bool $shouldBeUnique = true;
-
     /**
      * @var \App\Service\Api\Google\GoogleApiService The API service instance.
      */
@@ -55,6 +34,16 @@ class TranslateTagJob implements JobInterface
     }
 
     /**
+     * Get the human-readable job type name for logging
+     *
+     * @return string The job type description
+     */
+    protected static function getJobType(): string
+    {
+        return 'tag translation';
+    }
+
+    /**
      * Execute the job.
      *
      * @param \Cake\Queue\Job\Message $message The job message.
@@ -62,86 +51,34 @@ class TranslateTagJob implements JobInterface
      */
     public function execute(Message $message): ?string
     {
+        if (!$this->validateArguments($message, ['id', 'title'])) {
+            return Processor::REJECT;
+        }
+
         $id = $message->getArgument('id');
         $title = $message->getArgument('title');
         $attempt = $message->getArgument('_attempt', 0);
 
-        $this->log(
-            sprintf('Received Tag translation message: %s : %s (attempt: %d)', $id, $title, $attempt),
-            'info',
-            ['group_name' => 'App\Job\TranslateTagJob'],
-        );
-
+        // Check if translations are enabled
         if (empty(array_filter(SettingsManager::read('Translations', [])))) {
             $this->log(
-                sprintf(
-                    'Received Tag translation message but there are no languages enabled for translation: %s : %s',
-                    $id,
-                    $title,
-                ),
+                sprintf('No languages enabled for translation: %s : %s', $id, $title),
                 'warning',
-                ['group_name' => 'App\Job\TranslateTagJob'],
+                ['group_name' => static::class],
             );
 
             return Processor::REJECT;
         }
 
-        $tagsTable = TableRegistry::getTableLocator()->get('Tags');
+        $tagsTable = $this->getTable('Tags');
         $tag = $tagsTable->get($id);
 
-        // If there are any empy fields to be translated, wait 10 seconds and requeue
-        // there could be a job in the queue to generate those fields and in production
-        // we have 3 queue consumers
+        // If there are empty SEO fields, requeue to wait for them to be populated
         if (!empty($tagsTable->emptySeoFields($tag))) {
-            // Check if we've tried too many times
-            if ($attempt >= 5) {
-                $this->log(
-                    sprintf(
-                        'Tag still has empty SEO fields after %d attempts: %s : %s',
-                        $attempt,
-                        $id,
-                        $title,
-                    ),
-                    'error',
-                    ['group_name' => 'App\Job\TranslateTagJob'],
-                );
-
-                return Processor::REJECT;
-            }
-
-            // Get the original message data
-            $data = [
-                'id' => $id,
-                'title' => $title,
-                '_attempt' => $attempt + 1,
-            ];
-
-            // Re-queue the job with a 10-second delay
-            QueueManager::push(
-                TranslateTagJob::class,
-                $data,
-                [
-                    'config' => 'default',
-                    'delay' => 10 * ($attempt + 1), // Delay in seconds
-                ],
-            );
-
-            $this->log(
-                sprintf(
-                    'Tag has empty SEO fields, re-queuing with %d second delay: %s : %s',
-                    10 * ($attempt + 1),
-                    $id,
-                    $title,
-                ),
-                'info',
-                ['group_name' => 'App\Job\TranslateTagJob'],
-            );
-
-            // Return ACK to remove the current message from the queue
-            return Processor::ACK;
+            return $this->handleEmptySeoFields($id, $title, $attempt);
         }
 
-        try {
+        return $this->executeWithErrorHandling($id, function () use ($tag, $tagsTable) {
             $result = $this->apiService->translateTag(
                 (string)$tag->title,
                 (string)$tag->description,
@@ -153,70 +90,71 @@ class TranslateTagJob implements JobInterface
                 (string)$tag->instagram_description,
                 (string)$tag->twitter_description,
             );
-        } catch (Exception $e) {
-            $this->log(
-                sprintf(
-                    'Translate Tag Job failed. ID: %s Title: %s Error: %s',
-                    $id,
-                    $title,
-                    $e->getMessage(),
-                ),
-                'error',
-                ['group_name' => 'App\Job\TranslateTagJob'],
-            );
+
+            if ($result) {
+                foreach ($result as $locale => $translation) {
+                    $tag->translation($locale)->title = $translation['title'];
+                    $tag->translation($locale)->description = $translation['description'];
+                    $tag->translation($locale)->meta_title = $translation['meta_title'];
+                    $tag->translation($locale)->meta_description = $translation['meta_description'];
+                    $tag->translation($locale)->meta_keywords = $translation['meta_keywords'];
+                    $tag->translation($locale)->facebook_description = $translation['facebook_description'];
+                    $tag->translation($locale)->linkedin_description = $translation['linkedin_description'];
+                    $tag->translation($locale)->instagram_description = $translation['instagram_description'];
+                    $tag->translation($locale)->twitter_description = $translation['twitter_description'];
+
+                    $tagsTable->save($tag, ['noMessage' => true]);
+                }
+
+                return true;
+            }
+
+            return false;
+        }, $title);
+    }
+
+    /**
+     * Handle the case where SEO fields are empty by requeuing the job
+     *
+     * @param string $id The tag ID
+     * @param string $title The tag title
+     * @param int $attempt The current attempt number
+     * @return string|null
+     */
+    private function handleEmptySeoFields(string $id, string $title, int $attempt): ?string
+    {
+        if ($attempt >= 5) {
+            $this->logJobError($id, sprintf('Tag still has empty SEO fields after %d attempts', $attempt), $title);
 
             return Processor::REJECT;
         }
 
-        if ($result) {
-            foreach ($result as $locale => $translation) {
-                $tag->translation($locale)->title = $translation['title'];
-                $tag->translation($locale)->description = $translation['description'];
-                $tag->translation($locale)->meta_title = $translation['meta_title'];
-                $tag->translation($locale)->meta_description = $translation['meta_description'];
-                $tag->translation($locale)->meta_keywords = $translation['meta_keywords'];
-                $tag->translation($locale)->facebook_description = $translation['facebook_description'];
-                $tag->translation($locale)->linkedin_description = $translation['linkedin_description'];
-                $tag->translation($locale)->instagram_description = $translation['instagram_description'];
-                $tag->translation($locale)->twitter_description = $translation['twitter_description'];
+        $data = [
+            'id' => $id,
+            'title' => $title,
+            '_attempt' => $attempt + 1,
+        ];
 
-                // Set flag to not trigger another message on save (would loop)
-                if ($tagsTable->save($tag, ['noMessage' => true])) {
-                    $this->log(
-                        sprintf(
-                            'Tag translation completed successfully. Locale: %s Tag ID: %s Title: %s',
-                            $locale,
-                            $id,
-                            $title,
-                        ),
-                        'info',
-                        ['group_name' => 'App\Job\TranslateTagJob'],
-                    );
-                } else {
-                    $this->log(
-                        sprintf(
-                            'Failed to save Tag translation. Locale: %s Tag ID: %s Title: %s Error: %s',
-                            $locale,
-                            $id,
-                            $title,
-                            json_encode($tag->getErrors()),
-                        ),
-                        'error',
-                        ['group_name' => 'App\Job\TranslateTagJob'],
-                    );
-                }
-            }
-            Cache::clear('content');
+        QueueManager::push(
+            static::class,
+            $data,
+            [
+                'config' => 'default',
+                'delay' => 10 * ($attempt + 1),
+            ],
+        );
 
-            return Processor::ACK;
-        } else {
-            $this->log(
-                sprintf('Tag translation failed. No result returned. Tag ID: %s Title: %s', $id, $title),
-                'error',
-                ['group_name' => 'App\Job\TranslateTagJob'],
-            );
-        }
+        $this->log(
+            sprintf(
+                'Tag has empty SEO fields, re-queuing with %d second delay: %s : %s',
+                10 * ($attempt + 1),
+                $id,
+                $title,
+            ),
+            'info',
+            ['group_name' => static::class],
+        );
 
-        return Processor::REJECT;
+        return Processor::ACK;
     }
 }

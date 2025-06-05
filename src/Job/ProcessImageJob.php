@@ -4,8 +4,6 @@ declare(strict_types=1);
 namespace App\Job;
 
 use App\Utility\SettingsManager;
-use Cake\Log\LogTrait;
-use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
 use Exception;
 use Imagick;
@@ -18,40 +16,26 @@ use Interop\Queue\Processor;
  * It receives image paths and resize specifications, processes the images using Imagick,
  * and logs the process.
  */
-class ProcessImageJob implements JobInterface
+class ProcessImageJob extends AbstractJob
 {
-    use LogTrait;
-
     /**
-     * Maximum number of attempts to process the job
+     * Get the human-readable job type name for logging
      *
-     * @var int|null
+     * @return string The job type description
      */
-    public static int $maxAttempts = 3;
-
-    /**
-     * Whether there should be only one instance of a job on the queue at a time. (optional property)
-     *
-     * @var bool
-     */
-    public static bool $shouldBeUnique = true;
+    protected static function getJobType(): string
+    {
+        return 'image processing';
+    }
 
     /**
      * Executes the image processing task.
      *
      * This method processes an image based on the provided message arguments. It retrieves the folder path,
-     * file name, and image ID from the message, logs the start of the processing job, and processes the image
-     * for each specified size. If an error occurs during processing, it logs the error and returns a rejection
-     * status. Upon successful completion, it logs the success and returns an acknowledgment status.
+     * file name, and image ID from the message and processes the image for each specified size.
      *
      * @param \Cake\Queue\Job\Message $message The message containing the arguments for image processing.
-     *                                Expected arguments:
-     *                                - 'folder_path': The path to the folder containing the image.
-     *                                - 'file': The name of the image file to process.
-     *                                - 'id': The ID of the image.
      * @return string|null Returns Processor::ACK on successful processing, or Processor::REJECT on error.
-     * @throws \Exception If an error occurs during image processing.
-     * @uses \App\Utility\SettingsManager
      */
     public function execute(Message $message): ?string
     {
@@ -59,60 +43,29 @@ class ProcessImageJob implements JobInterface
             $this->log(
                 'Imagick extension is not loaded',
                 'error',
-                ['group_name' => 'App\Job\ProcessImageJob'],
+                ['group_name' => static::class],
             );
 
             return Processor::REJECT;
         }
 
-        // Get the data we need
+        if (!$this->validateArguments($message, ['folder_path', 'file', 'id'])) {
+            return Processor::REJECT;
+        }
+
         $folderPath = $message->getArgument('folder_path');
         $file = $message->getArgument('file');
         $id = $message->getArgument('id');
 
-        $this->log(
-            sprintf('Received image processing message: Image ID: %s Path: %s', $id, $folderPath . $file),
-            'info',
-            ['group_name' => 'App\Job\ProcessImageJob'],
-        );
-
         $imageSizes = SettingsManager::read('ImageSizes', []);
 
-        $this->log(
-            sprintf(
-                'Starting image processing job. Path: %s, Sizes to process: %s',
-                $folderPath . $file,
-                implode(', ', array_values($imageSizes)),
-            ),
-            'info',
-            ['group_name' => 'App\Job\ProcessImageJob'],
-        );
-
-        try {
+        return $this->executeWithErrorHandling($id, function () use ($folderPath, $file, $imageSizes) {
             foreach ($imageSizes as $width) {
                 $this->createImage($folderPath, $file, intval($width));
             }
-        } catch (Exception $e) {
-            $this->log(
-                sprintf(
-                    'Error during image processing. Path: %s, Error: %s',
-                    $folderPath . $file,
-                    $e->getMessage(),
-                ),
-                'error',
-                ['group_name' => 'App\Job\ProcessImageJob'],
-            );
 
-            return Processor::REJECT;
-        }
-
-        $this->log(
-            sprintf('Image processing job completed successfully. Path: %s', $folderPath . $file),
-            'info',
-            ['group_name' => 'App\Job\ProcessImageJob'],
-        );
-
-        return Processor::ACK;
+            return true;
+        }, "Path: {$folderPath}{$file}");
     }
 
     /**
@@ -157,86 +110,59 @@ class ProcessImageJob implements JobInterface
         // Check if the directory exists, if not, create it
         if (!is_dir($sizeFolder)) {
             if (!mkdir($sizeFolder, 0755, true)) {
-                $this->log(
-                    sprintf('Failed to create directory: %s', $sizeFolder),
-                    'error',
-                    ['group_name' => 'App\Job\ProcessImageJob'],
-                );
                 throw new Exception("Failed to create directory: $sizeFolder");
             }
         }
 
-        try {
-            if (!file_exists($folder . $file)) {
-                $this->log(
-                    sprintf('Original image not found for resizing. Path: %s', $folder . $file),
-                    'error',
-                    ['group_name' => 'App\Job\ProcessImageJob'],
-                );
+        if (!file_exists($folder . $file)) {
+            throw new Exception("Original image not found for resizing: {$folder}{$file}");
+        }
 
-                return;
-            }
+        if (file_exists($sizeFolder . $file)) {
+            $this->log(
+                sprintf('Skipped resizing, image already exists. Path: %s', $sizeFolder . $file),
+                'info',
+                ['group_name' => static::class],
+            );
 
-            if (file_exists($sizeFolder . $file)) {
-                $this->log(
-                    sprintf(
-                        'Skipped resizing, image already exists. Path: %s',
-                        $sizeFolder . $file,
-                    ),
-                    'info',
-                    ['group_name' => 'App\Job\ProcessImageJob'],
-                );
+            return;
+        }
 
-                return;
-            }
+        $imagick = new Imagick($folder . $file);
+        $originalWidth = $imagick->getImageWidth();
 
-            $imagick = new Imagick($folder . $file);
-            $originalWidth = $imagick->getImageWidth();
+        // Check if the original image is smaller than the target width
+        if ($originalWidth <= $width) {
+            // Just copy the original file without resizing
+            copy($folder . $file, $sizeFolder . $file);
+            $imagick->clear();
 
-            // Check if the original image is smaller than the target width
-            if ($originalWidth <= $width) {
-                // Just copy the original file without resizing
-                copy($folder . $file, $sizeFolder . $file);
-                $imagick->clear();
-
-                $this->log(
-                    sprintf(
-                        'Original smaller than target width, copied. Original: %s, Saved: %s (Original width: %dpx)',
-                        $folder . $file,
-                        $sizeFolder . $file,
-                        $originalWidth,
-                    ),
-                    'info',
-                    ['group_name' => 'App\Job\ProcessImageJob'],
-                );
-            } else {
-                // Resize the image since it's larger than the target width
-                $imagick->resizeImage($width, 0, Imagick::FILTER_LANCZOS, 1);
-                $imagick->writeImage($sizeFolder . $file);
-                $imagick->clear();
-
-                $this->log(
-                    sprintf(
-                        'Successfully resized image. Original: %s, Resized: %s, Width: %dpx (Orig. width: %dpx)',
-                        $folder . $file,
-                        $sizeFolder . $file,
-                        $width,
-                        $originalWidth,
-                    ),
-                    'info',
-                    ['group_name' => 'App\Job\ProcessImageJob'],
-                );
-            }
-        } catch (Exception $e) {
             $this->log(
                 sprintf(
-                    'Error processing image. Original: %s, Target Width: %dpx, Error: %s',
+                    'Original smaller than target width, copied. Original: %s, Saved: %s (Original width: %dpx)',
                     $folder . $file,
-                    $width,
-                    $e->getMessage(),
+                    $sizeFolder . $file,
+                    $originalWidth,
                 ),
-                'error',
-                ['group_name' => 'App\Job\ProcessImageJob'],
+                'info',
+                ['group_name' => static::class],
+            );
+        } else {
+            // Resize the image since it's larger than the target width
+            $imagick->resizeImage($width, 0, Imagick::FILTER_LANCZOS, 1);
+            $imagick->writeImage($sizeFolder . $file);
+            $imagick->clear();
+
+            $this->log(
+                sprintf(
+                    'Successfully resized image. Original: %s, Resized: %s, Width: %dpx (Orig. width: %dpx)',
+                    $folder . $file,
+                    $sizeFolder . $file,
+                    $width,
+                    $originalWidth,
+                ),
+                'info',
+                ['group_name' => static::class],
             );
         }
     }

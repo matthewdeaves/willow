@@ -45,12 +45,15 @@ class GalleryHelper extends Helper
      * @param string $title Gallery title override
      * @return string HTML for the gallery
      */
-    private function renderGalleryFromPlaceholder(string $galleryId, string $theme = 'default', string $title = ''): string
-    {
+    private function renderGalleryFromPlaceholder(
+        string $galleryId,
+        string $theme = 'default',
+        string $title = '',
+    ): string {
         try {
             // Get the ImageGalleries table
             $galleriesTable = TableRegistry::getTableLocator()->get('ImageGalleries');
-            
+
             // Set locale for translations - this is crucial for TranslateBehavior
             $currentLocale = I18n::getLocale();
             $galleriesTable->setLocale($currentLocale);

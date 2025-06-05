@@ -12,7 +12,7 @@ use Cake\View\Helper;
  * - Content alignment helpers
  * - Responsive image processing
  * - Markdown processing with custom syntax
- * 
+ *
  * Note: Video and gallery placeholder processing is handled by VideoHelper and GalleryHelper
  */
 class ContentHelper extends Helper
@@ -23,6 +23,7 @@ class ContentHelper extends Helper
      * @var array<string>
      */
     protected array $helpers = ['Html'];
+
     /**
      * Enhance content formatting without processing placeholders
      * Note: Video and gallery placeholders should be processed by their respective helpers first
@@ -43,7 +44,6 @@ class ContentHelper extends Helper
 
         return $content;
     }
-
 
     /**
      * Enhance content alignment by adding CSS classes and data attributes
@@ -100,8 +100,6 @@ class ContentHelper extends Helper
 
         return $content;
     }
-
-
 
     /**
      * Process Markdown content with enhanced alignment support

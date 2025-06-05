@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\View\Helper;
 
-use Cake\Core\Configure;
 use Cake\View\Helper;
 
 /**
@@ -32,7 +31,6 @@ class VideoHelper extends Helper
     {
         return $this->processYouTubePlaceholders($content);
     }
-
 
     /**
      * Replace YouTube video placeholders with GDPR-compliant embed code
@@ -81,5 +79,4 @@ class VideoHelper extends Helper
             'thumbnailUrl' => $thumbnailUrl,
         ]);
     }
-
 }

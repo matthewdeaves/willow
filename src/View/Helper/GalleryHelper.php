@@ -5,10 +5,6 @@ namespace App\View\Helper;
 
 use App\Model\Entity\ImageGallery;
 use Cake\View\Helper;
-use Cake\View\Helper\FormHelper;
-use Cake\View\Helper\HtmlHelper;
-use Cake\View\Helper\TextHelper;
-use Cake\View\Helper\UrlHelper;
 
 /**
  * Shared Gallery Helper
@@ -231,10 +227,11 @@ class GalleryHelper extends Helper
         $cardContent = [];
 
         // Card header
-        $cardContent[] = $this->Html->tag('div', 
-            $this->Html->tag('h6', h($gallery->name), ['class' => 'mb-0']) . 
+        $cardContent[] = $this->Html->tag(
+            'div',
+            $this->Html->tag('h6', h($gallery->name), ['class' => 'mb-0']) .
             $this->statusBadge($gallery),
-            ['class' => 'card-header d-flex justify-content-between align-items-center']
+            ['class' => 'card-header d-flex justify-content-between align-items-center'],
         );
 
         // Card body with preview
@@ -271,7 +268,7 @@ class GalleryHelper extends Helper
                 'class' => 'btn ' . ($currentView === 'list' ? 'btn-primary' : 'btn-outline-secondary'),
                 'escape' => false,
                 'title' => __('List View'),
-            ]
+            ],
         );
 
         // Grid view button
@@ -282,7 +279,7 @@ class GalleryHelper extends Helper
                 'class' => 'btn ' . ($currentView === 'grid' ? 'btn-primary' : 'btn-outline-secondary'),
                 'escape' => false,
                 'title' => __('Grid View'),
-            ]
+            ],
         );
 
         return $this->Html->tag('div', implode('', $buttons), [
@@ -299,7 +296,8 @@ class GalleryHelper extends Helper
         $inputClass = $this->isAdminTheme() ? 'form-control' : 'form-control form-control-sm';
         $buttonClass = $this->isAdminTheme() ? 'btn btn-outline-secondary' : 'btn btn-outline-primary btn-sm';
 
-        $inputGroup = $this->Html->tag('div', 
+        $inputGroup = $this->Html->tag(
+            'div',
             $this->Form->control('search', [
                 'type' => 'search',
                 'id' => 'gallery-search',
@@ -307,16 +305,17 @@ class GalleryHelper extends Helper
                 'placeholder' => __('Search galleries...'),
                 'value' => h($currentSearch),
                 'label' => false,
-            ]) . 
+            ]) .
             $this->Html->tag('button', '<i class="fas fa-search"></i>', [
                 'class' => $buttonClass,
                 'type' => 'submit',
                 'escape' => false,
             ]),
-            ['class' => 'input-group']
+            ['class' => 'input-group'],
         );
 
         $formClass = $this->isAdminTheme() ? 'd-flex me-3' : 'd-flex mb-3';
+
         return $this->Html->tag('form', $inputGroup, [
             'class' => $formClass,
             'id' => 'gallery-search-form',
@@ -335,8 +334,9 @@ class GalleryHelper extends Helper
         $units = ['B', 'KB', 'MB', 'GB', 'TB'];
         $unitIndex = 0;
         $size = $bytes;
+        $unitsCount = count($units);
 
-        while ($size >= 1024 && $unitIndex < count($units) - 1) {
+        while ($size >= 1024 && $unitIndex < $unitsCount - 1) {
             $size /= 1024;
             $unitIndex++;
         }
@@ -354,7 +354,8 @@ class GalleryHelper extends Helper
         }
 
         if ($gallery->hasPreviewImage()) {
-            return "<img src='" . h($gallery->getPreviewImageUrl()) . "' style='max-width: 300px; max-height: 200px;' alt='" . h($gallery->name) . "'>";
+            return "<img src='" . h($gallery->getPreviewImageUrl()) .
+                "' style='max-width: 300px; max-height: 200px;' alt='" . h($gallery->name) . "'>";
         }
 
         return $this->_generateGalleryGrid($gallery);
@@ -383,15 +384,16 @@ class GalleryHelper extends Helper
      */
     private function _renderPlaceholder(array $config): string
     {
-        $style = isset($config['style']) ? $config['style'] : 'width: 60px; height: 45px;';
+        $style = $config['style'] ?? 'width: 60px; height: 45px;';
         $borderStyle = $this->isAdminTheme() ? 'border: 1px solid #ddd;' : 'border: 1px solid #ccc;';
-        
-        return $this->Html->tag('div', 
+
+        return $this->Html->tag(
+            'div',
             '<i class="fas fa-images"></i>',
             [
                 'class' => 'text-center text-muted d-flex align-items-center justify-content-center',
                 'style' => $style . ' ' . $borderStyle . ' border-radius: 4px;',
-            ]
+            ],
         );
     }
 
@@ -405,48 +407,56 @@ class GalleryHelper extends Helper
         if (!empty($gallery->images)) {
             // Preview overlay
             if ($gallery->hasPreviewImage()) {
-                $content .= $this->Html->tag('div',
+                $content .= $this->Html->tag(
+                    'div',
                     $this->Html->tag('img', '', [
                         'src' => h($gallery->getPreviewImageUrl()),
                         'alt' => h($gallery->name),
                         'class' => 'gallery-preview-image',
-                    ]) . 
+                    ]) .
                     $this->Html->tag('div', '<i class="fas fa-images me-1"></i>' . $gallery->getImageCount(), [
                         'class' => 'gallery-image-count',
-                    ]) . 
+                    ]) .
                     $this->Html->tag('div', '<i class="fas fa-play-circle fa-3x text-white"></i>', [
                         'class' => 'position-absolute top-50 start-50 translate-middle gallery-play-button',
                     ]),
                     [
                         'class' => 'gallery-preview-overlay',
                         'data-gallery-id' => 'gallery-' . $gallery->id,
-                    ]
+                    ],
                 );
             }
 
             // Hidden photo gallery for slideshow
-            $content .= $this->Html->tag('div',
+            $content .= $this->Html->tag(
+                'div',
                 $this->getView()->element('shared_photo_gallery', [
                     'images' => $gallery->images,
                     'title' => $gallery->name,
                     'gallery_id' => 'gallery-' . $gallery->id,
                     'theme' => 'admin',
                 ]),
-                ['class' => 'd-none']
+                ['class' => 'd-none'],
             );
         } else {
             // No images state
-            $content .= $this->Html->tag('div',
+            $content .= $this->Html->tag(
+                'div',
                 '<i class="fas fa-images fa-2x mb-2"></i><p>' . __('No images') . '</p>',
-                ['class' => 'text-center text-muted py-5']
+                ['class' => 'text-center text-muted py-5'],
             );
         }
 
         // Gallery info
         if ($gallery->description) {
-            $content .= $this->Html->tag('div',
-                $this->Html->tag('p', $this->Text->truncate(h($gallery->description), 100), ['class' => 'card-text small']),
-                ['class' => 'p-3']
+            $content .= $this->Html->tag(
+                'div',
+                $this->Html->tag(
+                    'p',
+                    $this->Text->truncate(h($gallery->description), 100),
+                    ['class' => 'card-text small'],
+                ),
+                ['class' => 'p-3'],
             );
         }
 
@@ -464,14 +474,14 @@ class GalleryHelper extends Helper
         $actions[] = $this->Html->link(
             '<i class="fas fa-eye"></i> ' . __('View'),
             ['action' => 'view', $gallery->id],
-            ['class' => 'btn btn-outline-primary btn-sm flex-fill', 'escape' => false]
+            ['class' => 'btn btn-outline-primary btn-sm flex-fill', 'escape' => false],
         );
 
         // Edit button
         $actions[] = $this->Html->link(
             '<i class="fas fa-edit"></i> ' . __('Edit'),
             ['action' => 'edit', $gallery->id],
-            ['class' => 'btn btn-outline-secondary btn-sm flex-fill', 'escape' => false]
+            ['class' => 'btn btn-outline-secondary btn-sm flex-fill', 'escape' => false],
         );
 
         // Dropdown with additional actions
@@ -479,7 +489,7 @@ class GalleryHelper extends Helper
             $this->Html->link(
                 __('Manage Images'),
                 ['action' => 'manageImages', $gallery->id],
-                ['class' => 'dropdown-item']
+                ['class' => 'dropdown-item'],
             ),
             '<hr class="dropdown-divider">',
             $this->Form->postLink(
@@ -488,7 +498,7 @@ class GalleryHelper extends Helper
                 [
                     'class' => 'dropdown-item text-danger',
                     'confirm' => __('Are you sure you want to delete this gallery?'),
-                ]
+                ],
             ),
         ];
 
@@ -497,10 +507,11 @@ class GalleryHelper extends Helper
             'type' => 'button',
             'data-bs-toggle' => 'dropdown',
             'escape' => false,
-        ]) . 
-        $this->Html->tag('ul', 
+        ]) .
+        $this->Html->tag(
+            'ul',
             implode('', array_map(fn($item) => $this->Html->tag('li', $item), $dropdownItems)),
-            ['class' => 'dropdown-menu']
+            ['class' => 'dropdown-menu'],
         );
 
         $actions[] = $this->Html->tag('div', $dropdown, ['class' => 'dropdown']);

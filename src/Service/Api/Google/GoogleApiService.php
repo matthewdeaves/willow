@@ -211,6 +211,67 @@ class GoogleApiService
     }
 
     /**
+     * Translates an image gallery name and description into multiple languages using the Google Translate API.
+     *
+     * @param string $name The name of the gallery to be translated.
+     * @param string $description The description of the gallery to be translated.
+     * @param string $meta_title The meta title of the gallery to be translated.
+     * @param string $meta_description The meta description of the gallery to be translated.
+     * @param string $meta_keywords The meta keywords of the gallery to be translated.
+     * @param string $facebook_description The Facebook description of the gallery to be translated.
+     * @param string $linkedin_description The LinkedIn description of the gallery to be translated.
+     * @param string $instagram_description The Instagram description of the gallery to be translated.
+     * @param string $twitter_description The Twitter description of the gallery to be translated.
+     * @return array An associative array where the keys are the locale codes and the values are arrays
+     *               containing the translated fields for each enabled locale.
+     */
+    public function translateImageGallery(
+        string $name,
+        string $description,
+        string $meta_title,
+        string $meta_description,
+        string $meta_keywords,
+        string $facebook_description,
+        string $linkedin_description,
+        string $instagram_description,
+        string $twitter_description,
+    ): array {
+        $locales = array_filter(SettingsManager::read('Translations', []));
+
+        $translations = [];
+        foreach ($locales as $locale => $enabled) {
+            $translationResult = $this->translateClient->translateBatch(
+                [
+                    $name,
+                    $description,
+                    $meta_title,
+                    $meta_description,
+                    $meta_keywords,
+                    $facebook_description,
+                    $linkedin_description,
+                    $instagram_description,
+                    $twitter_description,
+                ],
+                [
+                    'source' => 'en',
+                    'target' => $locale,
+                ],
+            );
+            $translations[$locale]['name'] = $translationResult[0]['text'];
+            $translations[$locale]['description'] = $translationResult[1]['text'];
+            $translations[$locale]['meta_title'] = $translationResult[2]['text'];
+            $translations[$locale]['meta_description'] = $translationResult[3]['text'];
+            $translations[$locale]['meta_keywords'] = $translationResult[4]['text'];
+            $translations[$locale]['facebook_description'] = $translationResult[5]['text'];
+            $translations[$locale]['linkedin_description'] = $translationResult[6]['text'];
+            $translations[$locale]['instagram_description'] = $translationResult[7]['text'];
+            $translations[$locale]['twitter_description'] = $translationResult[8]['text'];
+        }
+
+        return $translations;
+    }
+
+    /**
      * Preprocesses content to identify and store code blocks, video placeholders, and gallery placeholders before translation.
      *
      * This method extracts code blocks (markdown, pre, code tags), video placeholders, and image gallery

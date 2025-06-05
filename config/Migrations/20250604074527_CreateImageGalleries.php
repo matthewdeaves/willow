@@ -65,6 +65,41 @@ class CreateImageGalleries extends BaseMigration
                 'limit' => null,
                 'null' => true,
             ])
+            ->addColumn('meta_title', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
+            ->addColumn('meta_description', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('meta_keywords', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('facebook_description', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('linkedin_description', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('instagram_description', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('twitter_description', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
             ->addIndex(
                 $this->index('slug')
                     ->setName('slug')
@@ -77,6 +112,72 @@ class CreateImageGalleries extends BaseMigration
             ->addIndex(
                 $this->index('created')
                     ->setName('created')
+            )
+            ->create();
+
+        $this->table('image_galleries_translations', ['id' => false, 'primary_key' => ['id', 'locale']])
+            ->addColumn('id', 'uuid', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('locale', 'string', [
+                'default' => null,
+                'limit' => 5,
+                'null' => false,
+            ])
+            ->addColumn('name', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
+            ->addColumn('description', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('meta_title', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
+            ->addColumn('meta_description', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('meta_keywords', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('facebook_description', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('linkedin_description', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('instagram_description', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('twitter_description', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addIndex(
+                $this->index('id')
+                    ->setName('id')
+            )
+            ->addIndex(
+                $this->index('locale')
+                    ->setName('locale')
             )
             ->create();
 
@@ -144,6 +245,7 @@ class CreateImageGalleries extends BaseMigration
         // No foreign keys to drop since they weren't created in development/test environments
         
         $this->table('image_galleries')->drop()->save();
+        $this->table('image_galleries_translations')->drop()->save();
         $this->table('image_galleries_images')->drop()->save();
     }
 }

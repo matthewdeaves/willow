@@ -116,6 +116,34 @@ class SeoContentGenerator
     }
 
     /**
+     * Generates SEO content for an image gallery.
+     *
+     * This method performs the following steps:
+     * 1. Retrieves the appropriate prompt data for gallery SEO analysis.
+     * 2. Creates a payload with the gallery name and context information.
+     * 3. Sends a request to the Anthropic API and processes the response.
+     * 4. Ensures all expected SEO keys are present in the result.
+     *
+     * @param string $name The name of the gallery.
+     * @param string $context Additional context about the gallery content and images.
+     * @return array The generated SEO content, including meta tags and social media descriptions.
+     * @throws \InvalidArgumentException If the task prompt data is not found.
+     */
+    public function generateGallerySeo(string $name, string $context): array
+    {
+        $promptData = $this->getPromptData('gallery_seo_analysis');
+        $payload = $this->createPayload($promptData, [
+            'gallery_name' => $name,
+            'gallery_context' => $context,
+        ]);
+
+        $response = $this->apiService->sendRequest($payload);
+        $result = $this->apiService->parseResponse($response);
+
+        return $this->ensureExpectedKeys($result);
+    }
+
+    /**
      * Creates a payload for the API request using the provided prompt data and content.
      *
      * @param array $promptData The prompt data retrieved from the AI prompts table.

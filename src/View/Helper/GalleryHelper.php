@@ -187,11 +187,10 @@ class GalleryHelper extends Helper
         } elseif (!empty($gallery->images)) {
             // Use first gallery image as preview
             return $this->getView()->element('image/icon', [
-                'image' => $gallery->images[0],
-                'size' => 'tiny',
+                'model' => $gallery->images[0],
+                'icon' => $gallery->images[0]->tinyImageUrl,
+                'preview' => $config['popover'] ? $gallery->images[0]->mediumImageUrl : false,
                 'class' => $config['class'],
-                'popover' => $config['popover'],
-                'popover_content' => $config['popover'] ? $this->_generateGalleryGrid($gallery) : null,
             ]);
         } else {
             // No images placeholder

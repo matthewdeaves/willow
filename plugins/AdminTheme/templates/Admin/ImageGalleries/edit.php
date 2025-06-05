@@ -106,6 +106,9 @@ if (!$imageGallery->isNew()) {
                             </div>
                         </div>
                     </fieldset>
+                    
+                    <?= $this->element('form/seo', ['hideWordCount' => true]) ?>
+                    
                     <div class="form-group">
                         <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-primary']) ?>
                     </div>

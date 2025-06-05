@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use App\Utility\SettingsManager;
 use ArrayObject;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
@@ -56,6 +57,19 @@ class ImageGalleriesTable extends Table
             'targetField' => 'slug',
             'maxLength' => 255,
         ]);
+        $this->addBehavior('Translate', [
+            'fields' => [
+                'name',
+                'description',
+                'meta_title',
+                'meta_description',
+                'meta_keywords',
+                'facebook_description',
+                'linkedin_description',
+                'instagram_description',
+                'twitter_description',
+            ],
+        ]);
 
         $this->hasMany('ImageGalleriesImages', [
             'foreignKey' => 'image_gallery_id',
@@ -105,6 +119,35 @@ class ImageGalleriesTable extends Table
             ->uuid('modified_by')
             ->allowEmptyString('modified_by');
 
+        $validator
+            ->scalar('meta_title')
+            ->maxLength('meta_title', 255)
+            ->allowEmptyString('meta_title');
+
+        $validator
+            ->scalar('meta_description')
+            ->allowEmptyString('meta_description');
+
+        $validator
+            ->scalar('meta_keywords')
+            ->allowEmptyString('meta_keywords');
+
+        $validator
+            ->scalar('facebook_description')
+            ->allowEmptyString('facebook_description');
+
+        $validator
+            ->scalar('linkedin_description')
+            ->allowEmptyString('linkedin_description');
+
+        $validator
+            ->scalar('instagram_description')
+            ->allowEmptyString('instagram_description');
+
+        $validator
+            ->scalar('twitter_description')
+            ->allowEmptyString('twitter_description');
+
         return $validator;
     }
 
@@ -132,9 +175,34 @@ class ImageGalleriesTable extends Table
      */
     public function afterSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
+        // noMessage flag will be true if save came from a Job (stops looping)
+        $noMessage = $options['noMessage'] ?? false;
+
         // Queue preview generation for new galleries or when images might have changed
         if ($entity->isNew() || $entity->isDirty('name') || $entity->isDirty('description')) {
             $this->queuePreviewGeneration($entity->id);
+        }
+
+        // Queue AI jobs for published galleries when AI is enabled
+        if (
+            $entity->is_published
+            && SettingsManager::read('AI.enabled')
+            && !$noMessage
+        ) {
+            $data = [
+                'id' => $entity->id,
+                'name' => $entity->name,
+            ];
+
+            // Queue SEO generation job if SEO setting is enabled and there are empty SEO fields
+            if (SettingsManager::read('AI.gallerySEO') && !empty($this->emptySeoFields($entity))) {
+                $this->queueJob('App\\Job\\ImageGallerySeoUpdateJob', $data);
+            }
+
+            // Queue translation job if translations are enabled
+            if (SettingsManager::read('AI.galleryTranslations', false)) {
+                $this->queueJob('App\\Job\\TranslateImageGalleryJob', $data);
+            }
         }
     }
 
@@ -188,6 +256,48 @@ class ImageGalleriesTable extends Table
                 ['group_name' => 'App\\Model\\Table\\ImageGalleriesTable'],
             );
         }
+    }
+
+    /**
+     * Checks if any of the SEO fields are empty
+     *
+     * @param \Cake\Datasource\EntityInterface $entity The gallery entity to check
+     * @return array<string> List of empty SEO field names
+     */
+    public function emptySeoFields(EntityInterface $entity): array
+    {
+        $seoFields = [
+            'meta_title',
+            'meta_description',
+            'meta_keywords',
+            'facebook_description',
+            'linkedin_description',
+            'twitter_description',
+            'instagram_description',
+        ];
+
+        return array_filter($seoFields, fn($field) => empty($entity->{$field}));
+    }
+
+    /**
+     * Queue a job for execution
+     *
+     * @param string $job The job class name
+     * @param array $data The job data
+     * @return void
+     */
+    public function queueJob(string $job, array $data): void
+    {
+        QueueManager::push($job, $data);
+        $this->log(
+            sprintf(
+                'Queued a %s with data: %s',
+                $job,
+                json_encode($data),
+            ),
+            'info',
+            ['group_name' => $job],
+        );
     }
 
     /**

@@ -66,6 +66,8 @@ echo $this->element('actions_card', [
                         </div>
                     </div>
                     
+                    <?= $this->element('seo_display_fields', ['model' => $imageGallery, 'hideWordCount' => true]); ?>
+                    
                     <div class="card mt-4">
                         <div class="card-body">
                             <h5 class="card-title"><?= __('Gallery Images') ?></h5>

@@ -1,14 +1,18 @@
-<?php if (!empty($model->image)) : ?>
+<?php
+// Handle null or empty icon values by falling back to original image URL
+$imageUrl = $icon ?? ($model->image ?? null);
+
+if (!empty($model->image) && $imageUrl): ?>
     <?php 
     // Base image options
     $imageOptions = [
         'pathPrefix' => '', 
-        'alt' => $model->alt_text, 
+        'alt' => $model->alt_text ?? '', 
         'class' => 'img-thumbnail'
     ];
     
     // Only add popover options if preview is provided
-    if ($preview !== false) {
+    if (isset($preview) && $preview !== false) {
         $imageOptions = array_merge($imageOptions, [
             'data-bs-toggle' => 'popover',
             'data-bs-trigger' => 'hover',
@@ -17,12 +21,12 @@
                 $preview, 
                 [
                     'pathPrefix' => '', 
-                    'alt' => $model->alt_text, 
+                    'alt' => $model->alt_text ?? '', 
                     'class' => 'img-fluid', 
                 ]
             )
         ]);
     }
     ?>
-    <?= $this->Html->image($icon, $imageOptions) ?>
+    <?= $this->Html->image($imageUrl, $imageOptions) ?>
 <?php endif; ?>

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Entity;
 
+use Cake\ORM\Behavior\Translate\TranslateTrait;
 use Cake\ORM\Entity;
 
 /**
@@ -14,6 +15,13 @@ use Cake\ORM\Entity;
  * @property string|null $description
  * @property string|null $preview_image
  * @property bool $is_published
+ * @property string|null $meta_title
+ * @property string|null $meta_description
+ * @property string|null $meta_keywords
+ * @property string|null $facebook_description
+ * @property string|null $linkedin_description
+ * @property string|null $instagram_description
+ * @property string|null $twitter_description
  * @property \Cake\I18n\DateTime|null $created
  * @property \Cake\I18n\DateTime|null $modified
  * @property string|null $created_by
@@ -23,6 +31,8 @@ use Cake\ORM\Entity;
  */
 class ImageGallery extends Entity
 {
+    use TranslateTrait;
+
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *
@@ -38,6 +48,13 @@ class ImageGallery extends Entity
         'description' => true,
         'preview_image' => true,
         'is_published' => true,
+        'meta_title' => true,
+        'meta_description' => true,
+        'meta_keywords' => true,
+        'facebook_description' => true,
+        'linkedin_description' => true,
+        'instagram_description' => true,
+        'twitter_description' => true,
         'created' => true,
         'modified' => true,
         'created_by' => true,

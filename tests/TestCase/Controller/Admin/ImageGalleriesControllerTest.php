@@ -360,12 +360,12 @@ class ImageGalleriesControllerTest extends AppControllerTestCase
 
         // Set referer so we can test redirect
         $this->configRequest([
-            'headers' => ['Referer' => 'http://localhost:8080/admin/image-galleries'],
+            'headers' => ['Referer' => '/admin/image-galleries'],
         ]);
 
         $this->delete("/admin/image-galleries/delete/{$galleryId}");
         $this->assertResponseSuccess();
-        $this->assertRedirect('http://localhost:8080/admin/image-galleries');
+        $this->assertRedirect('/admin/image-galleries');
         $this->assertFlashMessage('The image gallery has been deleted.');
 
         // Verify gallery was deleted

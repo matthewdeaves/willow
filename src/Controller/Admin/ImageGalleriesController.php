@@ -188,7 +188,7 @@ class ImageGalleriesController extends AppController
             $this->Flash->error(__('The image gallery could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect($this->referer());
+        return $this->redirect($this->referer(['action' => 'index']));
     }
 
     /**

@@ -48,24 +48,24 @@ class SendEmailJob extends AbstractJob
             $templateIdentifier,
             function () use ($templateIdentifier, $from, $to, $viewVars) {
             // Fetch the email template from the database
-            $emailTemplatesTable = $this->getTable('EmailTemplates');
-            $emailTemplate = $emailTemplatesTable->find()
+                $emailTemplatesTable = $this->getTable('EmailTemplates');
+                $emailTemplate = $emailTemplatesTable->find()
                 ->where(['template_identifier' => $templateIdentifier])
                 ->first();
 
-            if (!$emailTemplate) {
-                throw new Exception(__('Email template not found: {0}', $templateIdentifier));
-            }
+                if (!$emailTemplate) {
+                    throw new Exception(__('Email template not found: {0}', $templateIdentifier));
+                }
 
             // Replace placeholders in the email body
-            foreach ($viewVars as $key => $value) {
-                $emailTemplate->body_html = str_replace('{' . $key . '}', $value, $emailTemplate->body_html);
-                $emailTemplate->body_plain = str_replace('{' . $key . '}', $value, $emailTemplate->body_plain);
-            }
+                foreach ($viewVars as $key => $value) {
+                    $emailTemplate->body_html = str_replace('{' . $key . '}', $value, $emailTemplate->body_html);
+                    $emailTemplate->body_plain = str_replace('{' . $key . '}', $value, $emailTemplate->body_plain);
+                }
 
             // Configure and send email
-            $mailer = new Mailer('default');
-            $mailer->setTo($to)
+                $mailer = new Mailer('default');
+                $mailer->setTo($to)
                 ->setFrom($from)
                 ->setSubject($emailTemplate->subject)
                 ->setEmailFormat('both')
@@ -78,7 +78,9 @@ class SendEmailJob extends AbstractJob
                     ->setLayout('default')
                     ->setPlugin('AdminTheme');
 
-            return $mailer->deliver();
-        }, "{$from} → {$to}");
+                return $mailer->deliver();
+            },
+            "{$from} → {$to}",
+        );
     }
 }

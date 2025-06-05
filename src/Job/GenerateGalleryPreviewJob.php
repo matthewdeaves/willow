@@ -234,9 +234,11 @@ class GenerateGalleryPreviewJob implements JobInterface
 
         // Calculate thumbnail dimensions based on grid
         $thumbWidth = intval(
-            (self::PREVIEW_WIDTH - (($gridLayout['cols'] + 1) * self::SPACING)) / $gridLayout['cols']
+            (self::PREVIEW_WIDTH - (($gridLayout['cols'] + 1) * self::SPACING)) / $gridLayout['cols'],
         );
-        $thumbHeight = intval((self::PREVIEW_HEIGHT - (($gridLayout['rows'] + 1) * self::SPACING)) / $gridLayout['rows']);
+        $thumbHeight = intval((
+            self::PREVIEW_HEIGHT -
+            (($gridLayout['rows'] + 1) * self::SPACING)) / $gridLayout['rows']);
 
         // Create final canvas with gradient background
         $canvas = new Imagick();

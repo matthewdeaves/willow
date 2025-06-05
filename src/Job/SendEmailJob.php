@@ -44,7 +44,9 @@ class SendEmailJob extends AbstractJob
             return Processor::REJECT;
         }
 
-        return $this->executeWithErrorHandling($templateIdentifier, function () use ($templateIdentifier, $from, $to, $viewVars) {
+        return $this->executeWithErrorHandling(
+            $templateIdentifier,
+            function () use ($templateIdentifier, $from, $to, $viewVars) {
             // Fetch the email template from the database
             $emailTemplatesTable = $this->getTable('EmailTemplates');
             $emailTemplate = $emailTemplatesTable->find()

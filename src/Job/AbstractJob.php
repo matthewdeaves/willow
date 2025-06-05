@@ -132,7 +132,9 @@ abstract class AbstractJob implements JobInterface
             $result = $operation();
 
             if ($result instanceof EntityInterface) {
-                return $result->getSource()->save($result);
+                $table = $this->getTable($result->getSource());
+
+                return $table->save($result);
             }
 
             return $result;

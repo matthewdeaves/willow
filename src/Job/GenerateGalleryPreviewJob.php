@@ -233,7 +233,9 @@ class GenerateGalleryPreviewJob implements JobInterface
         $maxImages = $gridLayout['cols'] * $gridLayout['rows'];
 
         // Calculate thumbnail dimensions based on grid
-        $thumbWidth = intval((self::PREVIEW_WIDTH - (($gridLayout['cols'] + 1) * self::SPACING)) / $gridLayout['cols']);
+        $thumbWidth = intval(
+            (self::PREVIEW_WIDTH - (($gridLayout['cols'] + 1) * self::SPACING)) / $gridLayout['cols']
+        );
         $thumbHeight = intval((self::PREVIEW_HEIGHT - (($gridLayout['rows'] + 1) * self::SPACING)) / $gridLayout['rows']);
 
         // Create final canvas with gradient background

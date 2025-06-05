@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Job;
 
-use App\Job\AbstractJob;
 use Cake\Cache\Cache;
 use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\Message;
 use Cake\TestSuite\TestCase;
 use Exception;
@@ -22,6 +22,7 @@ class AbstractJobTest extends TestCase
 {
     private TestableJob $job;
     private Message|MockObject $mockMessage;
+    protected Table $UsersTable;
 
     public function setUp(): void
     {
@@ -29,6 +30,7 @@ class AbstractJobTest extends TestCase
 
         $this->job = new TestableJob();
         $this->mockMessage = $this->createMock(Message::class);
+        $this->UsersTable = TableRegistry::getTableLocator()->get('Users');
 
         // Clear any existing cache
         Cache::clear('content');
@@ -93,9 +95,33 @@ class AbstractJobTest extends TestCase
      */
     public function testExecuteWithEntitySaveSuccess(): void
     {
-        // Skip this test since executeWithEntitySave relies on CakePHP's entity getSource()
-        // method which is complex to mock properly in unit tests
-        $this->markTestSkipped('EntityInterface getSource() method complex to mock in unit tests');
+        // Create a new user entity for testing
+        $user = $this->UsersTable->newEntity([
+            'username' => 'testuser_' . uniqid(),
+            'email' => 'test_' . uniqid() . '@example.com',
+            'password' => 'testpassword123',
+            'confirm_password' => 'testpassword123',
+            'first_name' => 'Test',
+            'last_name' => 'User',
+            'active' => true,
+        ]);
+
+        // Test successful entity save
+        $result = $this->job->testExecuteWithEntitySave('test-id', function () use ($user) {
+            return $user;
+        }, 'Test User Save');
+
+        $this->assertEquals(Processor::ACK, $result);
+
+        // Verify the user was actually saved
+        $savedUser = $this->UsersTable->find()
+            ->where(['username' => $user->username])
+            ->first();
+        $this->assertNotNull($savedUser);
+        $this->assertEquals($user->email, $savedUser->email);
+
+        // Clean up
+        $this->UsersTable->delete($savedUser);
     }
 
     /**
@@ -103,9 +129,24 @@ class AbstractJobTest extends TestCase
      */
     public function testExecuteWithEntitySaveFailure(): void
     {
-        // Skip this test since executeWithEntitySave relies on CakePHP's entity getSource()
-        // method which is complex to mock properly in unit tests
-        $this->markTestSkipped('EntityInterface getSource() method complex to mock in unit tests');
+        // Create an invalid user entity (missing required username)
+        $user = $this->UsersTable->newEntity([
+            'email' => 'invalid@example.com',
+            // Missing required 'username' field will cause validation failure
+        ]);
+
+        // Test failed entity save
+        $result = $this->job->testExecuteWithEntitySave('test-id', function () use ($user) {
+            return $user;
+        }, 'Test User Save Failure');
+
+        $this->assertEquals(Processor::REJECT, $result);
+
+        // Verify the user was not saved
+        $savedUser = $this->UsersTable->find()
+            ->where(['email' => 'invalid@example.com'])
+            ->first();
+        $this->assertNull($savedUser);
     }
 
     /**
@@ -212,68 +253,5 @@ class AbstractJobTest extends TestCase
 
         // If we get here without exceptions, the test passes
         $this->assertTrue(true);
-    }
-}
-
-/**
- * Concrete implementation of AbstractJob for testing
- */
-class TestableJob extends AbstractJob
-{
-    protected static function getJobType(): string
-    {
-        return 'test job';
-    }
-
-    public function execute(Message $message): ?string
-    {
-        return Processor::ACK;
-    }
-
-    // Public wrappers for testing protected methods
-
-    public function testExecuteWithErrorHandling(string $id, callable $operation, string $title = ''): ?string
-    {
-        return $this->executeWithErrorHandling($id, $operation, $title);
-    }
-
-    public function testExecuteWithEntitySave(string $id, callable $operation, string $title = ''): ?string
-    {
-        return $this->executeWithEntitySave($id, $operation, $title);
-    }
-
-    public function testValidateArguments(Message $message, array $required): bool
-    {
-        return $this->validateArguments($message, $required);
-    }
-
-    public function testClearContentCache(): void
-    {
-        $this->clearContentCache();
-    }
-
-    public function testGetTable(string $tableName): Table
-    {
-        return $this->getTable($tableName);
-    }
-
-    public function testLogJobStart(string $id, string $title = ''): void
-    {
-        $this->logJobStart($id, $title);
-    }
-
-    public function testLogJobSuccess(string $id, string $title = ''): void
-    {
-        $this->logJobSuccess($id, $title);
-    }
-
-    public function testLogJobError(string $id, string $error, string $title = ''): void
-    {
-        $this->logJobError($id, $error, $title);
-    }
-
-    public static function getTestJobType(): string
-    {
-        return static::getJobType();
     }
 }

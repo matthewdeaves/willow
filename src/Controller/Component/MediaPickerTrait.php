@@ -23,7 +23,7 @@ trait MediaPickerTrait
      * @param array $options Additional query options
      * @return \Cake\ORM\Query
      */
-    protected function buildPickerQuery(Table $table, array $selectFields, array $options = [])
+    protected function buildPickerQuery(Table $table, array $selectFields, array $options = []): Query
     {
         $query = $table->find()->select($selectFields);
 
@@ -50,7 +50,7 @@ trait MediaPickerTrait
      * @param array $searchFields Fields to search in
      * @return \Cake\ORM\Query
      */
-    protected function handlePickerSearch(Query $query, ?string $searchTerm, array $searchFields)
+    protected function handlePickerSearch(Query $query, ?string $searchTerm, array $searchFields): Query
     {
         if (!empty($searchTerm)) {
             $conditions = [];
@@ -110,8 +110,13 @@ trait MediaPickerTrait
      * @param string $excludeField Field name to exclude
      * @return \Cake\ORM\Query
      */
-    protected function applyPickerExclusion(Query $query, Table $pivotTable, string $foreignKey, string $recordId, string $excludeField)
-    {
+    protected function applyPickerExclusion(
+        Query $query,
+        Table $pivotTable,
+        string $foreignKey,
+        string $recordId,
+        string $excludeField,
+    ): Query {
         $excludeIds = $pivotTable
             ->find()
             ->select([$excludeField])

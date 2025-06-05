@@ -349,6 +349,31 @@
     transition: background-color 0.3s ease-in-out;
 }
 
+/* Ensure images maintain aspect ratio and don't fill entire viewport */
+.pswp__img {
+    object-fit: contain !important;
+}
+
+/* Prevent zoom container from forcing full viewport */
+.pswp__zoom-wrap {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Remove grey background box behind images */
+.pswp__item {
+    background: transparent !important;
+}
+
+.pswp__img--placeholder {
+    background: transparent !important;
+}
+
+.pswp__content {
+    background: transparent !important;
+}
+
 /* Enhanced button hover effects */
 .pswp__button {
     transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);

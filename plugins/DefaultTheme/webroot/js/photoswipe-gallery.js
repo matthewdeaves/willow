@@ -148,20 +148,15 @@ class PhotoSwipeGallery {
                 
                 const item = {
                     src: link.href,
-                    width: parseInt(link.dataset.width) || Math.round(width),
-                    height: parseInt(link.dataset.height) || Math.round(height),
+                    width: parseInt(link.dataset.pswpWidth || 800),
+                    height: parseInt(link.dataset.pswpHeight || 600),
                     alt: img.alt || '',
                     title: link.dataset.title || img.alt || '',
                     caption: link.dataset.caption || '',
                     element: itemEl
                 };
                 
-                // Use reasonable dimensions for the full-size images
-                // PhotoSwipe will scale these to fit the window properly
-                item.width = parseInt(link.dataset.width) || 1200;
-                item.height = parseInt(link.dataset.height) || 900;
-                
-                console.log(`Image ${itemEl.querySelector('img').alt}: ${item.width}x${item.height} (full-size dimensions)`);
+                console.log(`Image ${itemEl.querySelector('img').alt}: ${item.width || 'auto'}x${item.height || 'auto'} (dimensions)`);
                 
                 items.push(item);
             }
@@ -217,18 +212,21 @@ class PhotoSwipeGallery {
             // Preload images
             preload: [1, 3],
             
-            // Better fit for natural sizing
+            // More generous padding to ensure images don't fill entire screen
+            padding: { top: 80, bottom: 80, left: 60, right: 60 },
+            
+            // Use fit mode with proper spacing
+            initialZoomLevel: 'fit',
+            secondaryZoomLevel: 'fit', 
+            maxZoomLevel: 2,
+            
+            // Ensure proper spacing
+            spacing: 0.1,
+            
+            // User interaction settings
             imageClickAction: 'zoom-or-close',
             tapAction: 'toggle-controls',
             doubleTapAction: 'zoom',
-            
-            // Minimal padding to maximize image size
-            padding: { top: 20, bottom: 20, left: 20, right: 20 },
-            
-            // Proper scaling to fit window
-            initialZoomLevel: 'fit',
-            secondaryZoomLevel: 'fill',
-            maxZoomLevel: 2,
             
             // Disable built-in counter to prevent duplicates
             counter: false,

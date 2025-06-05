@@ -293,6 +293,10 @@ $(document).ready(function() {
                 colors: {},      // For text and table cell colors
                 preformatted: {} // For the 'preformatted' option in textFormat dropdown
             },
+            // Phase 3: Enhanced Trumbowyg configuration for better content alignment
+            semantic: true,  // Use semantic HTML elements
+            resetCss: false, // Don't reset CSS - preserve our alignment styles
+            removeformatPasted: false, // Preserve formatting when pasting
             autogrow: true,
             autogrowOnEnter: true,
             minHeight: 400

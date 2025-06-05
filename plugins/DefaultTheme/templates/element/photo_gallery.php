@@ -17,10 +17,11 @@ $images = $images ?? [];
 ?>
 
 <?php if (!empty($images)) : ?>
-    <div class="gallery-header">
-        <h4 class="gallery-title"><?= h($title) ?></h4>
-        <span class="gallery-count"><?= count($images) ?> <?= __('images') ?></span>
-    </div>
+    <?php if (!empty($title)): ?>
+        <div class="gallery-header">
+            <h4 class="gallery-title"><?= h($title) ?></h4>
+        </div>
+    <?php endif; ?>
     
     <div class="<?= $theme === 'admin' ? 'admin-gallery' : 'default-gallery' ?>">
         <div class="photo-gallery">
@@ -29,8 +30,8 @@ $images = $images ?? [];
                     <a href="<?= h($image->massiveImageUrl ?: $image->extraLargeImageUrl ?: $image->getImageUrlBySize('massive') ?: $image->getImageUrlBySize('extraLarge')) ?>" 
                        data-title="<?= h($image->name) ?>"
                        data-caption="<?= h($image->alt_text) ?>"
-                       data-width="1200" 
-                       data-height="900">
+                       data-pswp-width="800"
+                       data-pswp-height="600">
                         <img src="<?= h($image->largeImageUrl ?: $image->getImageUrlBySize('large')) ?>" 
                              alt="<?= h($image->alt_text ?: $image->name) ?>"
                              loading="lazy"

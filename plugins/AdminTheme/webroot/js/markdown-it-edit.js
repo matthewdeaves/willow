@@ -63,7 +63,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!editor || !preview || !bodyTextarea) return;
 
         const content = editor.value;
-        const rendered = md.render(content);
+        // Phase 3: Process Markdown alignment syntax before rendering
+        const processedContent = processMarkdownAlignmentSyntax(content);
+        const rendered = md.render(processedContent);
         
         // First, update the HTML
         preview.innerHTML = rendered;
@@ -71,6 +73,47 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Clean up any existing highlighting
         cleanupHighlight(preview);
+    }
+
+    /**
+     * Phase 3: Process custom Markdown alignment syntax
+     * Converts custom alignment markers to HTML
+     */
+    function processMarkdownAlignmentSyntax(content) {
+        // Convert alignment markers:
+        // ->text<- becomes center-aligned
+        // ->text becomes right-aligned  
+        // <-text-> becomes justified
+        
+        const alignmentPatterns = [
+            // Center alignment: ->text<-
+            {
+                pattern: /^->(.*?)<-$/gm,
+                replacement: '<p style="text-align: center;">$1</p>'
+            },
+            // Right alignment: ->text
+            {
+                pattern: /^->(.*?)$/gm,
+                replacement: '<p style="text-align: right;">$1</p>'
+            },
+            // Justify alignment: <-text->
+            {
+                pattern: /^<-(.*?)->$/gm,
+                replacement: '<p style="text-align: justify;">$1</p>'
+            },
+            // Image center alignment: ->![alt](src)<-
+            {
+                pattern: /^->(\!\[.*?\]\(.*?\))<-$/gm,
+                replacement: '<p style="text-align: center;">$1</p>'
+            }
+        ];
+        
+        let processedContent = content;
+        alignmentPatterns.forEach(({pattern, replacement}) => {
+            processedContent = processedContent.replace(pattern, replacement);
+        });
+        
+        return processedContent;
     }
 
     if (editor && preview && bodyTextarea) {

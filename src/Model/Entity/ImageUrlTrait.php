@@ -17,7 +17,9 @@ trait ImageUrlTrait
      */
     protected function _getImageUrl(): string
     {
-        return str_replace('webroot/', '', $this->dir . $this->image);
+        $url = str_replace('webroot/', '', $this->dir . $this->image);
+        // Ensure URL starts with a slash for absolute path
+        return '/' . ltrim($url, '/');
     }
 
     /**
@@ -58,6 +60,15 @@ trait ImageUrlTrait
     {
         $imageSizes = SettingsManager::read('ImageSizes');
 
-        return str_replace('webroot/', '', $this->dir . $imageSizes[$size] . DS . $this->image);
+        // Use the width value as directory name (e.g., 100, 300, 600)
+        if (isset($imageSizes[$size])) {
+            $url = str_replace('webroot/', '', $this->dir . $imageSizes[$size] . DS . $this->image);
+        } else {
+            // Fallback to original image if size not found
+            $url = str_replace('webroot/', '', $this->dir . $this->image);
+        }
+
+        // Ensure URL starts with a slash for absolute path
+        return '/' . ltrim($url, '/');
     }
 }

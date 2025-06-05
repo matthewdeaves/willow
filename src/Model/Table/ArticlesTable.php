@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use App\Model\Behavior\ImageValidationTrait;
 use App\Utility\SettingsManager;
 use ArrayObject;
 use Cake\Datasource\EntityInterface;
@@ -41,6 +42,7 @@ use DateTime;
  */
 class ArticlesTable extends Table
 {
+    use ImageValidationTrait;
     use LogTrait;
     use TranslateTrait;
 
@@ -139,18 +141,7 @@ class ArticlesTable extends Table
             ->scalar('body')
             ->allowEmptyString('body');
 
-        $validator
-            ->allowEmptyFile('image')
-            ->add('image', [
-                'mimeType' => [
-                    'rule' => ['mimeType', ['image/jpeg', 'image/png', 'image/gif']],
-                    'message' => __('Please upload only images (jpeg, png, gif).'),
-                ],
-                'fileSize' => [
-                    'rule' => ['fileSize', '<=', '10MB'],
-                    'message' => __('Image must be less than 10MB.'),
-                ],
-            ]);
+        $this->addOptionalImageValidation($validator, 'image');
 
         return $validator;
     }

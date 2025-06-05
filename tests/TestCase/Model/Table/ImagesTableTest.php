@@ -13,6 +13,7 @@ class ImagesTableTest extends TestCase
 {
     protected $ImagesTable;
     protected array $fixtures = ['app.Images'];
+    protected array $testFiles = []; // Track files created during tests
 
     protected function setUp(): void
     {
@@ -33,27 +34,21 @@ class ImagesTableTest extends TestCase
 
     protected function tearDown(): void
     {
-        // Clean up test files
-        $this->removeTestFiles(WWW_ROOT . 'files/Images/image/');
-        foreach (SettingsManager::read('ImageSizes') as $width) {
-            $this->removeTestFiles(WWW_ROOT . 'files/Images/image/' . $width . '/');
+        // Clean up only test files we created
+        foreach ($this->testFiles as $file) {
+            if (file_exists($file)) {
+                unlink($file);
+            }
         }
+        $this->testFiles = [];
 
         unset($this->ImagesTable);
         parent::tearDown();
     }
 
-    private function removeTestFiles(string $path): void
+    private function trackTestFile(string $filePath): void
     {
-        if (!is_dir($path)) {
-            return;
-        }
-        $files = glob($path . '*'); // Get all files in the directory
-        foreach ($files as $file) {
-            if (is_file($file)) {
-                unlink($file);
-            }
-        }
+        $this->testFiles[] = $filePath;
     }
 
     public function testValidationDefault(): void
@@ -118,6 +113,11 @@ class ImagesTableTest extends TestCase
         // with a UUID name and updates the entity's 'image' property with it.
         $savedInitialEntity = $this->ImagesTable->save($initialEntity);
 
+        // Track the main uploaded file for cleanup
+        if ($savedInitialEntity && $savedInitialEntity->image) {
+            $this->trackTestFile(WWW_ROOT . 'files/Images/image/' . $savedInitialEntity->image);
+        }
+
         // Assert initial save was successful
         $this->assertNotNull($savedInitialEntity);
         $this->assertFalse($savedInitialEntity->hasErrors());
@@ -143,6 +143,7 @@ class ImagesTableTest extends TestCase
 
         foreach ($oldUuidResizedPaths as $path) {
             file_put_contents($path, 'dummy resized content'); // Create dummy resized file
+            $this->trackTestFile($path); // Track for cleanup
             $this->assertFileExists($path); // Verify dummy resized file was created for the test
         }
 
@@ -171,6 +172,11 @@ class ImagesTableTest extends TestCase
 
         // Save the entity again. This will trigger the QueueableImageBehavior's beforeSave.
         $savedUpdatedEntity = $this->ImagesTable->save($entityToUpdate);
+
+        // Track the new uploaded file for cleanup
+        if ($savedUpdatedEntity && $savedUpdatedEntity->image) {
+            $this->trackTestFile(WWW_ROOT . 'files/Images/image/' . $savedUpdatedEntity->image);
+        }
 
         // Give the filesystem time to process the deletion
         usleep(50000); // 50ms delay

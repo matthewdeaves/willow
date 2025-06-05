@@ -20,6 +20,7 @@ use Cake\Chronos\Chronos;
 use Cake\Core\Configure;
 use Cake\Database\TypeFactory;
 use Cake\Datasource\ConnectionManager;
+use Cake\Queue\QueueManager;
 use Josegonzalez\Upload\Database\Type\FileType;
 use Migrations\TestSuite\Migrator;
 
@@ -88,3 +89,11 @@ TypeFactory::map('upload.file', FileType::class);
 if (env('CAKE_ENV') === 'test') {
     Configure::write('Queue.default', Configure::read('Queue.test'));
 }
+
+QueueManager::setConfig('default', Configure::read('Queue.default') ?: [
+    'url' => 'null://localhost',
+    'queue' => 'test_queue',
+    'logger' => false,
+    'receiveTimeout' => 0,
+    'storeFailedJobs' => false,
+]);

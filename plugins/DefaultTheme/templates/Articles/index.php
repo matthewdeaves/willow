@@ -38,7 +38,7 @@
             <?php elseif ($displayMode == 'summary') : ?>
                 <p><?= htmlspecialchars_decode($article->summary) ?></p>
             <?php elseif ($displayMode == 'body') : ?>
-                <div><?= htmlspecialchars_decode($this->Video->processYouTubePlaceholders($article->body)) ?></div>
+                <div><?= htmlspecialchars_decode($this->Video->processContentPlaceholders($article->body)) ?></div>
             <?php endif; ?>
             <div class="read-more-container">
                 <a href="<?= $this->Url->build(['_name' => $article->kind . '-by-slug', 'slug' => $article->slug]) ?>" class="read-more-link">

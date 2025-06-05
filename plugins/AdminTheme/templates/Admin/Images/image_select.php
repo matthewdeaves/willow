@@ -19,12 +19,28 @@
 ?>
 <?php use App\Utility\SettingsManager; ?>
 
-<?php if (!$this->request->getQuery('gallery_only')): ?>
-<div class="mb-3">
-    <?php $searchQuery = $this->request->getQuery('search', ''); ?>
-    <input type="text" id="imageSearch" class="form-control" placeholder="<?= __('Search images...') ?>" value="<?= h($searchQuery) ?>">
-</div>
-<?php endif; ?>
-<div id="image-gallery" class="flex-shrink-0">
-    <?php include 'image_gallery.php'; ?>
+<div id="image-gallery" class="image-picker">
+    <!-- Search Form -->
+    <?php if (!$this->request->getQuery('gallery_only')): ?>
+    <div class="row mb-3">
+        <div class="col-md-8">
+            <div class="input-group">
+                <span class="input-group-text">
+                    <i class="fas fa-search"></i>
+                </span>
+                <input type="text" 
+                       class="form-control" 
+                       id="imageSearch" 
+                       placeholder="<?= __('Search images...') ?>"
+                       value="<?= h($this->request->getQuery('search', '')) ?>"
+                       autocomplete="off">
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
+    
+    <!-- Image Gallery Content -->
+    <div class="image-gallery-content">
+        <?php include 'image_gallery.php'; ?>
+    </div>
 </div>

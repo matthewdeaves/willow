@@ -30,6 +30,18 @@ class ImagesFixture extends TestFixture
                 'created' => '2024-10-15 19:58:23',
                 'modified' => '2024-10-15 19:58:23',
             ],
+            [
+                'id' => '2202d58b-8fec-4b0c-900b-32246bb64d79',
+                'name' => 'Test image 2',
+                'alt_text' => 'Test image 2',
+                'keywords' => 'test image 2',
+                'image' => '',
+                'dir' => 'test2',
+                'size' => 2048,
+                'mime' => 'image/jpeg',
+                'created' => '2024-10-15 19:58:23',
+                'modified' => '2024-10-15 19:58:23',
+            ],
         ];
         parent::init();
     }

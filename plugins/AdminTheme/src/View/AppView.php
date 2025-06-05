@@ -39,6 +39,9 @@ class AppView extends View
     {
         parent::initialize();
 
+        // Load custom helpers
+        $this->addHelper('AdminTheme.Gallery');
+
         // Set Bootstrap-friendly form templates
         $this->Form->setTemplates([
             'inputContainer' => '<div class="{{type}}{{required}}">{{content}}</div>',

@@ -1,4 +1,20 @@
 <?php
+/**
+ * Enhanced Pagination Element
+ * 
+ * @var \App\View\AppView $this
+ * @var array $options Configuration options
+ */
+
+$defaults = [
+    'showCounter' => true,
+    'showPageInfo' => true,
+    'class' => 'd-flex justify-content-center',
+    'counterClass' => 'd-flex justify-content-center mt-2',
+    'preserveParams' => true,
+];
+$config = array_merge($defaults, $options ?? []);
+
 $this->Paginator->setTemplates([
     'nextActive' => '<li class="page-item"><a class="page-link" rel="next" aria-label="Next" href="{{url}}">&raquo;</a></li>',
     'nextDisabled' => '<li class="page-item disabled"><a class="page-link" aria-label="Next" href="" onclick="return false;">&raquo;</a></li>',
@@ -10,10 +26,7 @@ $this->Paginator->setTemplates([
     'counterPages' => 'Page {{page}} of {{pages}}',
 ]);
 
-// Get the current search query from the request
-$search = $this->request->getQuery('search');
-
-// Add the search query to the pagination URL options
+// Build pagination options with query parameter preservation
 $paginationOptions = [
     'url' => [
         'controller' => $this->request->getParam('controller'),
@@ -21,21 +34,33 @@ $paginationOptions = [
     ],
 ];
 
-if (!empty($search)) {
-    $paginationOptions['url']['?']['search'] = $search;
+// Preserve all query parameters if requested
+if ($config['preserveParams']) {
+    $queryParams = $this->request->getQueryParams();
+    // Remove 'page' parameter as it's handled by paginator
+    unset($queryParams['page']);
+    
+    if (!empty($queryParams)) {
+        $paginationOptions['url']['?'] = $queryParams;
+    }
 }
 ?>
-<div class="d-flex justify-content-center">
-    <nav aria-label="Standard pagination example">
-        <ul class="pagination">
-            <?= $this->Paginator->prev('&laquo;', ['escape' => false], null, ['class' => 'page-link'], $paginationOptions) ?>
-            <?= $this->Paginator->numbers([], ['class' => 'page-link'], $paginationOptions) ?>
-            <?= $this->Paginator->next('&raquo;', ['escape' => false], null, ['class' => 'page-link'], $paginationOptions) ?>
-        </ul>
-    </nav>
-</div>
-<div class="d-flex justify-content-center">
-    <?php if ($this->Paginator->total() > 0): ?>
-        <?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?>
+<?php if ($this->Paginator->total() > 1): ?>
+    <div class="<?= h($config['class']) ?>">
+        <nav aria-label="<?= __('Pagination Navigation') ?>">
+            <ul class="pagination">
+                <?= $this->Paginator->prev('&laquo;', ['escape' => false], null, ['class' => 'page-link'], $paginationOptions) ?>
+                <?= $this->Paginator->numbers([], ['class' => 'page-link'], $paginationOptions) ?>
+                <?= $this->Paginator->next('&raquo;', ['escape' => false], null, ['class' => 'page-link'], $paginationOptions) ?>
+            </ul>
+        </nav>
+    </div>
+    
+    <?php if ($config['showCounter'] && $this->Paginator->total() > 0): ?>
+        <div class="<?= h($config['counterClass']) ?>">
+            <small class="text-muted">
+                <?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?>
+            </small>
+        </div>
     <?php endif; ?>
-</div>
+<?php endif; ?>

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# This hook script runs PHPUnit tests before allowing a push.
-# If the tests fail, the push is aborted.
+# This hook script runs code quality checks before allowing a push.
+# If any checks fail, the push is aborted.
 
 # Function to determine if sudo is needed
 needs_sudo() {
@@ -12,18 +12,37 @@ needs_sudo() {
     fi
 }
 
-# Run PHPUnit tests
+echo "=== Pre-push Code Quality Checks ==="
+
+# Step 1: Run PHP CodeSniffer check
+echo "Running PHP CodeSniffer check..."
+$(needs_sudo) docker compose exec -T willowcms vendor/bin/phpcs --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/
+
+# Check the exit status of PHP CodeSniffer
+if [ $? -ne 0 ]; then
+    echo ""
+    echo "❌ PHP CodeSniffer found coding standard violations."
+    echo "   Run 'phpcs_fix' to auto-fix issues, then stage and commit the changes."
+    echo "   Aborting push."
+    exit 1
+fi
+
+echo "✅ PHP CodeSniffer checks passed."
+
+# Step 2: Run PHPUnit tests
 echo "Running PHPUnit tests..."
-pwd
 $(needs_sudo) docker compose exec -T willowcms php vendor/bin/phpunit
 
 # Check the exit status of PHPUnit
 if [ $? -ne 0 ]; then
-    echo "PHPUnit tests failed. Aborting push."
+    echo ""
+    echo "❌ PHPUnit tests failed. Aborting push."
     exit 1
 fi
 
-echo "PHPUnit tests passed. Proceeding with push."
+echo "✅ PHPUnit tests passed."
+echo ""
+echo "🎉 All code quality checks passed. Proceeding with push."
 
 # Continue with the push
 exit 0

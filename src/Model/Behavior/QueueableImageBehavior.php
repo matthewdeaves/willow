@@ -85,7 +85,8 @@ class QueueableImageBehavior extends Behavior
                     ];
 
                     // Add paths for all resized versions based on 'ImageSizes' setting
-                    foreach (SettingsManager::read('ImageSizes') as $width) {
+                    $imageSizes = SettingsManager::read('ImageSizes', []);
+                    foreach ($imageSizes as $width) {
                         $paths[] = $path . $width . DS . $entity->{$field};
                     }
 
@@ -127,7 +128,8 @@ class QueueableImageBehavior extends Behavior
                     unlink($mainFilePath);
                 }
 
-                foreach (SettingsManager::read('ImageSizes', []) as $width) {
+                $imageSizes = SettingsManager::read('ImageSizes', []);
+                foreach ($imageSizes as $width) {
                     $resizedPath = $basePath . $width . DS . $originalImage;
                     if (file_exists($resizedPath)) {
                         unlink($resizedPath);

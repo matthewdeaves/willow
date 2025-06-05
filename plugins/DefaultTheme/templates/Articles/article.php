@@ -27,7 +27,7 @@
     <?php endif; ?>
     
     <div class="article-content-wrapper">
-        <div id="article-body-content" class="article-body"><?= htmlspecialchars_decode($this->Video->processYouTubePlaceholders($article->body)) ?></div>
+        <div id="article-body-content" class="article-body"><?= htmlspecialchars_decode($this->Video->processContentPlaceholders($article->body)) ?></div>
     </div>
     
     <?= $this->element('site/facebook/share_button') ?>

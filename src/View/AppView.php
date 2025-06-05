@@ -40,6 +40,7 @@ class AppView extends View
     {
         $this->loadHelper('Authentication.Identity');
         $this->loadHelper('Video');
+        $this->addHelper('AdminTheme.Gallery');
     }
 
     /**

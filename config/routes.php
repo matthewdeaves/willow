@@ -272,6 +272,14 @@ return function (RouteBuilder $routes): void {
 
     $routes->prefix('Admin', function (RouteBuilder $routes) {
         $routes->connect('/', ['controller' => 'Articles', 'action' => 'index', 'prefix' => 'Admin']);
+        
+        // Specific route for removing images from galleries
+        $routes->connect(
+            '/image-galleries/remove-image/{id}/{imageId}',
+            ['controller' => 'ImageGalleries', 'action' => 'removeImage'],
+            ['pass' => ['id', 'imageId']]
+        );
+        
         $routes->fallbacks(DashedRoute::class);
     });
 

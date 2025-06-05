@@ -12,11 +12,10 @@ return [
         'bootstrap' => true,
     ],
     
-    // Queue system - skip in test environment
+    // Queue system - always load but with different config in tests
     'Cake/Queue' => [
         'bootstrap' => true,
-        'routes' => true,
-        'ignoreMissing' => $isTest, // Skip loading in test environment
+        'routes' => !$isTest, // Skip routes in test environment
     ],
     
     // CLI-only plugins

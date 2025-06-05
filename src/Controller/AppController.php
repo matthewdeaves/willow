@@ -82,7 +82,8 @@ class AppController extends Controller
         if ($identity) {
             $profilePic = $identity->image_url;
 
-            if ($profilePic) {
+            // Only set profilePic if the user has an actual image file
+            if ($profilePic && $identity->image) {
                 $this->set(compact('profilePic'));
             }
         }

@@ -76,13 +76,13 @@ class ProcessImageJob implements JobInterface
             ['group_name' => 'App\Job\ProcessImageJob'],
         );
 
-        $imageSizes = SettingsManager::read('ImageSizes');
+        $imageSizes = SettingsManager::read('ImageSizes', []);
 
         $this->log(
             sprintf(
                 'Starting image processing job. Path: %s, Sizes to process: %s',
                 $folderPath . $file,
-                implode(', ', $imageSizes),
+                implode(', ', array_values($imageSizes)),
             ),
             'info',
             ['group_name' => 'App\Job\ProcessImageJob'],

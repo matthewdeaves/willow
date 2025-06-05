@@ -76,6 +76,12 @@ class MediaSelect {
             clearTimeout(debounceTimer);
             debounceTimer = setTimeout(() => {
                 const searchTerm = event.target.value.trim();
+                
+                // Only search if 3+ characters or empty (to show all results)
+                if (searchTerm.length > 0 && searchTerm.length < 3) {
+                    return;
+                }
+                
                 const channelFilter = document.getElementById('channelFilter');
                 let url = `${this.endpoints[this.type]}?gallery_only=1`;
                 

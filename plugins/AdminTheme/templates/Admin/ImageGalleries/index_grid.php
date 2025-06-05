@@ -90,7 +90,7 @@ $this->Html->css('images-grid', ['block' => true]);
                                 
                                 <!-- Hidden photo gallery for slideshow -->
                                 <div class="d-none">
-                                    <?= $this->element('photo_gallery', [
+                                    <?= $this->element('shared_photo_gallery', [
                                         'images' => $gallery->images,
                                         'title' => $gallery->name,
                                         'gallery_id' => 'gallery-' . $gallery->id,

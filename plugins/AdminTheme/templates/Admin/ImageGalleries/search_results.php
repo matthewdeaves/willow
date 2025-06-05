@@ -50,7 +50,7 @@ if ($viewType === 'grid'): ?>
                                 
                                 <!-- Hidden photo gallery for slideshow -->
                                 <div class="d-none">
-                                    <?= $this->element('photo_gallery', [
+                                    <?= $this->element('shared_photo_gallery', [
                                         'images' => $gallery->images,
                                         'title' => $gallery->name,
                                         'gallery_id' => 'gallery-' . $gallery->id,
@@ -164,7 +164,7 @@ if ($viewType === 'grid'): ?>
                                     'class' => 'gallery-preview-thumb',
                                     'style' => 'width: 60px; height: 45px; object-fit: cover;',
                                     'popover' => true,
-                                    'popover_content' => $this->element('photo_gallery', [
+                                    'popover_content' => $this->element('shared_photo_gallery', [
                                         'images' => array_slice($gallery->images, 0, 4),
                                         'gallery_id' => 'preview-' . $gallery->id,
                                         'grid_class' => 'row g-1',

@@ -65,13 +65,15 @@ echo $this->element('actions_card', [
                             <p class="card-text"><?= html_entity_decode($imageGallery->description); ?></p>
                         </div>
                     </div>
+                    
                     <div class="card mt-4">
                         <div class="card-body">
-                            <?= $this->element('photo_gallery', [
+                            <?= $this->element('shared_photo_gallery', [
                                 'images' => $imageGallery->images,
                                 'title' => __('Gallery Images'),
                                 'theme' => 'admin',
-                                'showActions' => true,
+                                'showActions' => false,
+                                'showBulkActions' => false,
                                 'galleryId' => $imageGallery->id
                             ]) ?>
                         </div>
@@ -110,4 +112,5 @@ echo $this->element('actions_card', [
         </div>
     </div>
 </div>
+
 

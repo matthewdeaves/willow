@@ -1,11 +1,14 @@
 /**
- * PhotoSwipe Gallery Component
+ * Shared PhotoSwipe Gallery Component
+ * Unified implementation for both AdminTheme and DefaultTheme
  * Provides beautiful lightbox galleries with slideshow functionality
- * Can be used in both AdminTheme and DefaultTheme
  */
 
 class PhotoSwipeGallery {
     constructor(options = {}) {
+        // Detect current theme
+        const theme = this.detectTheme();
+        
         this.options = {
             gallerySelector: '.photo-gallery',
             itemSelector: '.gallery-item',
@@ -17,13 +20,65 @@ class PhotoSwipeGallery {
             // Slideshow options
             slideshowInterval: 4000, // 4 seconds
             enableSlideshow: true,
+            // Theme-specific defaults
+            ...this.getThemeDefaults(theme),
+            // User overrides
             ...options
         };
         
+        this.theme = theme;
         this.galleries = [];
         this.slideshowTimer = null;
         this.isPlaying = false;
         this.init();
+    }
+
+    /**
+     * Detect current theme from page context
+     */
+    detectTheme() {
+        // Check for admin theme indicators
+        if (document.querySelector('.admin-gallery') || 
+            document.querySelector('[class*="admin"]') ||
+            window.location.pathname.includes('/admin/')) {
+            return 'admin';
+        }
+        
+        // Check for default theme indicators
+        if (document.querySelector('.default-gallery')) {
+            return 'default';
+        }
+        
+        // Fallback detection
+        return document.body.classList.contains('admin') ? 'admin' : 'default';
+    }
+
+    /**
+     * Get theme-specific default options
+     */
+    getThemeDefaults(theme) {
+        const defaults = {
+            admin: {
+                // Admin theme: More conservative padding for better management UX
+                padding: { top: 60, bottom: 60, left: 40, right: 40 },
+                spacing: 0.1,
+                initialZoomLevel: 'fit',
+                secondaryZoomLevel: 'fit',
+                enableBulkActions: true,
+                showImageCount: true
+            },
+            default: {
+                // Default theme: Generous padding for optimal viewing experience
+                padding: { top: 80, bottom: 80, left: 60, right: 60 },
+                spacing: 0.1,
+                initialZoomLevel: 'fit',
+                secondaryZoomLevel: 'fit',
+                enableBulkActions: false,
+                showImageCount: false
+            }
+        };
+
+        return defaults[theme] || defaults.default;
     }
 
     async init() {
@@ -110,7 +165,7 @@ class PhotoSwipeGallery {
 
     initializeGalleries() {
         const galleryElements = document.querySelectorAll(this.options.gallerySelector);
-        console.log(`PhotoSwipe Gallery: Found ${galleryElements.length} galleries`);
+        console.log(`PhotoSwipe Gallery: Found ${galleryElements.length} galleries (${this.theme} theme)`);
         
         galleryElements.forEach((galleryEl, index) => {
             const items = this.parseGalleryItems(galleryEl);
@@ -131,32 +186,17 @@ class PhotoSwipeGallery {
             const img = itemEl.querySelector('img');
             
             if (link && img) {
-                // Calculate optimal dimensions based on viewport
-                const viewportWidth = window.innerWidth;
-                const viewportHeight = window.innerHeight;
-                
-                // Use a reasonable aspect ratio if no dimensions provided
-                const aspectRatio = 4/3; // Default aspect ratio
-                let width = Math.min(viewportWidth * 0.9, 1200); // 90% of viewport width, max 1200px
-                let height = width / aspectRatio;
-                
-                // If height is too tall for viewport, adjust
-                if (height > viewportHeight * 0.8) {
-                    height = viewportHeight * 0.8;
-                    width = height * aspectRatio;
-                }
-                
                 const item = {
                     src: link.href,
-                    width: parseInt(link.dataset.pswpWidth || 800),
-                    height: parseInt(link.dataset.pswpHeight || 600),
+                    width: parseInt(link.dataset.pswpWidth || link.dataset.width || 800),
+                    height: parseInt(link.dataset.pswpHeight || link.dataset.height || 600),
                     alt: img.alt || '',
                     title: link.dataset.title || img.alt || '',
                     caption: link.dataset.caption || '',
                     element: itemEl
                 };
                 
-                console.log(`Image ${itemEl.querySelector('img').alt}: ${item.width || 'auto'}x${item.height || 'auto'} (dimensions)`);
+                console.log(`Image ${img.alt || 'untitled'}: ${item.width}x${item.height} (${this.theme} theme)`);
                 
                 items.push(item);
             }
@@ -200,8 +240,12 @@ class PhotoSwipeGallery {
             // Enable zoom
             zoom: true,
             
-            // Minimal spacing for larger images
-            spacing: 0.05,
+            // Theme-specific options
+            spacing: this.options.spacing,
+            padding: this.options.padding,
+            initialZoomLevel: this.options.initialZoomLevel,
+            secondaryZoomLevel: this.options.secondaryZoomLevel,
+            maxZoomLevel: 2,
             
             // Allow pan
             allowPanToNext: true,
@@ -211,17 +255,6 @@ class PhotoSwipeGallery {
             
             // Preload images
             preload: [1, 3],
-            
-            // More generous padding to ensure images don't fill entire screen
-            padding: { top: 80, bottom: 80, left: 60, right: 60 },
-            
-            // Use fit mode with proper spacing
-            initialZoomLevel: 'fit',
-            secondaryZoomLevel: 'fit', 
-            maxZoomLevel: 2,
-            
-            // Ensure proper spacing
-            spacing: 0.1,
             
             // User interaction settings
             imageClickAction: 'zoom-or-close',
@@ -262,7 +295,7 @@ class PhotoSwipeGallery {
                     // Show playing notification briefly
                     this.showSlideshowNotification(gallery, 'Slideshow playing - Press spacebar to pause');
                     setTimeout(() => this.hideSlideshowNotification(gallery), 3000);
-                }, 500); // Reduced delay for quicker start
+                }, 500);
             });
         }
     }
@@ -337,19 +370,21 @@ class PhotoSwipeGallery {
                 });
             }
 
-            // Image counter
-            gallery.ui.registerElement({
-                name: 'image-counter',
-                className: 'pswp__image-counter',
-                appendTo: 'top-bar',
-                onInit: (el, pswp) => {
-                    gallery.on('change', () => {
+            // Image counter (theme-aware)
+            if (this.options.showImageCount) {
+                gallery.ui.registerElement({
+                    name: 'image-counter',
+                    className: 'pswp__image-counter',
+                    appendTo: 'top-bar',
+                    onInit: (el, pswp) => {
+                        gallery.on('change', () => {
+                            el.textContent = `${gallery.currIndex + 1} / ${gallery.getNumItems()}`;
+                        });
+                        // Set initial counter
                         el.textContent = `${gallery.currIndex + 1} / ${gallery.getNumItems()}`;
-                    });
-                    // Set initial counter
-                    el.textContent = `${gallery.currIndex + 1} / ${gallery.getNumItems()}`;
-                }
-            });
+                    }
+                });
+            }
         });
 
         // Handle slideshow cleanup
@@ -363,8 +398,6 @@ class PhotoSwipeGallery {
                 this.resetSlideshowTimer(gallery);
             }
         });
-
-        // No custom transitions - let PhotoSwipe handle everything naturally
 
         // Add keyboard shortcuts
         gallery.on('keydown', (e) => {
@@ -396,7 +429,8 @@ class PhotoSwipeGallery {
             if (currSlideElement.title) {
                 captionHTML += `<div class="pswp__caption-title">${currSlideElement.title}</div>`;
             }
-            if (currSlideElement.caption) {
+            // Only show caption in admin theme or if explicitly enabled
+            if ((this.theme === 'admin' || this.options.showCaptions) && currSlideElement.caption) {
                 captionHTML += `<div class="pswp__caption-description">${currSlideElement.caption}</div>`;
             }
             el.innerHTML = captionHTML;
@@ -538,6 +572,16 @@ class PhotoSwipeGallery {
     refresh() {
         this.initializeGalleries();
     }
+
+    // Get current theme
+    getTheme() {
+        return this.theme;
+    }
+
+    // Get theme-specific configuration
+    getThemeConfig() {
+        return this.getThemeDefaults(this.theme);
+    }
 }
 
 // Auto-initialize if galleries are present
@@ -552,10 +596,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Also initialize immediately if DOM is already loaded
-if (document.readyState === 'loading') {
-    // DOM is still loading, wait for DOMContentLoaded
-} else {
-    // DOM is already loaded
+if (document.readyState !== 'loading') {
     const galleries = document.querySelectorAll('.photo-gallery');
     if (galleries.length > 0) {
         console.log(`PhotoSwipe Gallery: Found ${galleries.length} galleries, initializing immediately...`);

@@ -81,8 +81,13 @@ window.ImageGalleryManager = (function() {
             searchInput.addEventListener('input', function() {
                 clearTimeout(searchTimeout);
                 searchTimeout = setTimeout(() => {
+                    const searchTerm = this.value.trim();
+                    // Only search if 3+ characters or empty (to show all results)
+                    if (searchTerm.length > 0 && searchTerm.length < 3) {
+                        return;
+                    }
                     currentPage = 1;
-                    loadAvailableImages(this.value);
+                    loadAvailableImages(searchTerm);
                 }, 300);
             });
         }

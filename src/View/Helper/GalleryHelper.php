@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace AdminTheme\View\Helper;
+namespace App\View\Helper;
 
 use App\Model\Entity\ImageGallery;
 use Cake\View\Helper;
@@ -11,10 +11,10 @@ use Cake\View\Helper\TextHelper;
 use Cake\View\Helper\UrlHelper;
 
 /**
- * Gallery Helper
+ * Shared Gallery Helper
  *
- * Provides template logic helpers for Image Gallery admin interface
- * to reduce code duplication and improve maintainability.
+ * Provides template logic helpers for Image Gallery functionality across themes.
+ * Auto-detects theme context and provides appropriate features.
  *
  * @property \Cake\View\Helper\HtmlHelper $Html
  * @property \Cake\View\Helper\FormHelper $Form
@@ -31,14 +31,85 @@ class GalleryHelper extends Helper
     protected array $helpers = ['Html', 'Form', 'Text', 'Url'];
 
     /**
-     * Render gallery status badge
+     * Detected theme context
+     *
+     * @var string|null
+     */
+    private ?string $theme = null;
+
+    /**
+     * Initialize helper and detect theme
+     *
+     * @param array $config Configuration options
+     * @return void
+     */
+    public function initialize(array $config): void
+    {
+        parent::initialize($config);
+        $this->theme = $this->detectTheme();
+    }
+
+    /**
+     * Detect current theme context
+     *
+     * @return string 'admin' or 'default'
+     */
+    public function detectTheme(): string
+    {
+        // Check current request path
+        $request = $this->getView()->getRequest();
+        if ($request && str_contains($request->getPath(), '/admin/')) {
+            return 'admin';
+        }
+
+        // Check view file path for theme indicators
+        $viewPath = $this->getView()->getTemplate() ?? '';
+        if (str_contains($viewPath, 'Admin/')) {
+            return 'admin';
+        }
+
+        // Check plugin context
+        $plugin = $this->getView()->getPlugin();
+        if ($plugin === 'AdminTheme') {
+            return 'admin';
+        }
+
+        return 'default';
+    }
+
+    /**
+     * Get current theme
+     *
+     * @return string
+     */
+    public function getTheme(): string
+    {
+        return $this->theme ?? $this->detectTheme();
+    }
+
+    /**
+     * Check if currently in admin theme
+     *
+     * @return bool
+     */
+    public function isAdminTheme(): bool
+    {
+        return $this->getTheme() === 'admin';
+    }
+
+    /**
+     * Render gallery status badge (admin theme only)
      *
      * @param \App\Model\Entity\ImageGallery $gallery Gallery entity
      * @param array $options Additional HTML attributes
-     * @return string HTML badge element
+     * @return string HTML badge element or empty string for default theme
      */
     public function statusBadge(ImageGallery $gallery, array $options = []): string
     {
+        if (!$this->isAdminTheme()) {
+            return '';
+        }
+
         $defaults = [
             'class' => 'badge gallery-status-badge ' . $gallery->getStatusClass(),
         ];
@@ -57,7 +128,7 @@ class GalleryHelper extends Helper
     public function imageCountBadge(ImageGallery $gallery, array $options = []): string
     {
         $defaults = [
-            'class' => 'badge bg-info',
+            'class' => $this->isAdminTheme() ? 'badge bg-info' : 'badge bg-secondary',
         ];
         $attributes = array_merge($defaults, $options);
 
@@ -76,10 +147,10 @@ class GalleryHelper extends Helper
     public function previewImage(ImageGallery $gallery, array $options = []): string
     {
         $defaults = [
-            'size' => 'thumbnail', // thumbnail, small, medium, large
+            'size' => 'thumbnail',
             'class' => 'gallery-preview-thumb',
-            'popover' => false,
-            'galleryData' => false, // Add data-gallery-id attribute
+            'popover' => $this->isAdminTheme(), // Only admin theme gets popovers
+            'galleryData' => false,
         ];
         $config = array_merge($defaults, $options);
 
@@ -104,7 +175,7 @@ class GalleryHelper extends Helper
 
             $image = $this->Html->tag('img', '', $imageAttributes);
 
-            // Add popover if requested
+            // Add popover if requested (admin only)
             if ($config['popover'] && !empty($gallery->images)) {
                 $popoverContent = $this->_generatePopoverContent($gallery);
                 $image = $this->Html->tag('div', $image, [
@@ -133,14 +204,23 @@ class GalleryHelper extends Helper
     }
 
     /**
-     * Render gallery card for grid view
+     * Render gallery card for grid view (admin theme only)
      *
      * @param \App\Model\Entity\ImageGallery $gallery Gallery entity
      * @param array $options Card rendering options
-     * @return string HTML card element
+     * @return string HTML card element or simple preview for default theme
      */
     public function galleryCard(ImageGallery $gallery, array $options = []): string
     {
+        if (!$this->isAdminTheme()) {
+            // Default theme gets simple gallery preview
+            return $this->getView()->element('shared_photo_gallery', [
+                'images' => $gallery->images,
+                'title' => $gallery->name,
+                'theme' => 'default',
+            ]);
+        }
+
         $defaults = [
             'showActions' => true,
             'showPreview' => true,
@@ -173,14 +253,14 @@ class GalleryHelper extends Helper
     }
 
     /**
-     * Render view switcher buttons
-     *
-     * @param string $currentView Current view type (list|grid)
-     * @param array $queryParams Current query parameters
-     * @return string HTML button group
+     * Render view switcher buttons (admin theme only)
      */
     public function viewSwitcher(string $currentView, array $queryParams = []): string
     {
+        if (!$this->isAdminTheme()) {
+            return '';
+        }
+
         $buttons = [];
 
         // List view button
@@ -213,69 +293,66 @@ class GalleryHelper extends Helper
 
     /**
      * Render search form
-     *
-     * @param string|null $currentSearch Current search term
-     * @return string HTML search form
      */
     public function searchForm(?string $currentSearch = null): string
     {
+        $inputClass = $this->isAdminTheme() ? 'form-control' : 'form-control form-control-sm';
+        $buttonClass = $this->isAdminTheme() ? 'btn btn-outline-secondary' : 'btn btn-outline-primary btn-sm';
+
         $inputGroup = $this->Html->tag('div', 
             $this->Form->control('search', [
                 'type' => 'search',
                 'id' => 'gallery-search',
-                'class' => 'form-control',
+                'class' => $inputClass,
                 'placeholder' => __('Search galleries...'),
                 'value' => h($currentSearch),
                 'label' => false,
             ]) . 
             $this->Html->tag('button', '<i class="fas fa-search"></i>', [
-                'class' => 'btn btn-outline-secondary',
+                'class' => $buttonClass,
                 'type' => 'submit',
                 'escape' => false,
             ]),
             ['class' => 'input-group']
         );
 
+        $formClass = $this->isAdminTheme() ? 'd-flex me-3' : 'd-flex mb-3';
         return $this->Html->tag('form', $inputGroup, [
-            'class' => 'd-flex me-3',
+            'class' => $formClass,
             'id' => 'gallery-search-form',
         ]);
     }
 
     /**
-     * Render status filter dropdown
-     *
-     * @return string HTML dropdown
+     * Format file size in human readable format
      */
-    public function statusFilter(): string
+    public function formatFileSize(int $bytes): string
     {
-        $dropdownItems = [
-            $this->Html->link(__('All'), ['action' => 'index'], ['class' => 'dropdown-item']),
-            $this->Html->link(__('Published'), ['action' => 'index', '?' => ['status' => '1']], ['class' => 'dropdown-item']),
-            $this->Html->link(__('Un-Published'), ['action' => 'index', '?' => ['status' => '0']], ['class' => 'dropdown-item']),
-        ];
+        if ($bytes === 0) {
+            return '0 B';
+        }
 
-        $dropdown = $this->Html->tag('button', __('Status'), [
-            'class' => 'btn btn-outline-secondary dropdown-toggle',
-            'type' => 'button',
-            'data-bs-toggle' => 'dropdown',
-        ]) . 
-        $this->Html->tag('ul', 
-            implode('', array_map(fn($item) => $this->Html->tag('li', $item), $dropdownItems)),
-            ['class' => 'dropdown-menu']
-        );
+        $units = ['B', 'KB', 'MB', 'GB', 'TB'];
+        $unitIndex = 0;
+        $size = $bytes;
 
-        return $this->Html->tag('div', $dropdown, ['class' => 'dropdown']);
+        while ($size >= 1024 && $unitIndex < count($units) - 1) {
+            $size /= 1024;
+            $unitIndex++;
+        }
+
+        return round($size, 2) . ' ' . $units[$unitIndex];
     }
 
     /**
-     * Generate popover content for gallery preview
-     *
-     * @param \App\Model\Entity\ImageGallery $gallery Gallery entity
-     * @return string HTML content for popover
+     * Generate popover content for gallery preview (admin only)
      */
     private function _generatePopoverContent(ImageGallery $gallery): string
     {
+        if (!$this->isAdminTheme()) {
+            return '';
+        }
+
         if ($gallery->hasPreviewImage()) {
             return "<img src='" . h($gallery->getPreviewImageUrl()) . "' style='max-width: 300px; max-height: 200px;' alt='" . h($gallery->name) . "'>";
         }
@@ -284,49 +361,42 @@ class GalleryHelper extends Helper
     }
 
     /**
-     * Generate small gallery grid for popover
-     *
-     * @param \App\Model\Entity\ImageGallery $gallery Gallery entity
-     * @return string HTML grid content
+     * Generate small gallery grid for popover (admin only)
      */
     private function _generateGalleryGrid(ImageGallery $gallery): string
     {
-        if (empty($gallery->images)) {
+        if (!$this->isAdminTheme() || empty($gallery->images)) {
             return '<p class="text-muted">' . __('No images') . '</p>';
         }
 
-        return $this->getView()->element('photo_gallery', [
+        return $this->getView()->element('shared_photo_gallery', [
             'images' => array_slice($gallery->images, 0, 4),
             'gallery_id' => 'preview-' . $gallery->id,
             'grid_class' => 'row g-1',
             'image_class' => 'col-6',
+            'theme' => 'admin',
         ]);
     }
 
     /**
      * Render placeholder for galleries with no images
-     *
-     * @param array $config Configuration options
-     * @return string HTML placeholder
      */
     private function _renderPlaceholder(array $config): string
     {
         $style = isset($config['style']) ? $config['style'] : 'width: 60px; height: 45px;';
+        $borderStyle = $this->isAdminTheme() ? 'border: 1px solid #ddd;' : 'border: 1px solid #ccc;';
         
         return $this->Html->tag('div', 
             '<i class="fas fa-images"></i>',
             [
                 'class' => 'text-center text-muted d-flex align-items-center justify-content-center',
-                'style' => $style . ' border: 1px solid #ddd; border-radius: 4px;',
+                'style' => $style . ' ' . $borderStyle . ' border-radius: 4px;',
             ]
         );
     }
 
     /**
-     * Render card body content
-     *
-     * @param \App\Model\Entity\ImageGallery $gallery Gallery entity
-     * @return string HTML content
+     * Render card body content (admin only)
      */
     private function _renderCardBody(ImageGallery $gallery): string
     {
@@ -356,7 +426,7 @@ class GalleryHelper extends Helper
 
             // Hidden photo gallery for slideshow
             $content .= $this->Html->tag('div',
-                $this->getView()->element('photo_gallery', [
+                $this->getView()->element('shared_photo_gallery', [
                     'images' => $gallery->images,
                     'title' => $gallery->name,
                     'gallery_id' => 'gallery-' . $gallery->id,
@@ -384,10 +454,7 @@ class GalleryHelper extends Helper
     }
 
     /**
-     * Render card actions
-     *
-     * @param \App\Model\Entity\ImageGallery $gallery Gallery entity
-     * @return string HTML actions
+     * Render card actions (admin only)
      */
     private function _renderCardActions(ImageGallery $gallery): string
     {

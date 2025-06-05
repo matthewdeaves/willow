@@ -19,10 +19,21 @@
             galleryItemSelector: '.gallery-item',
             popoverSelector: '[data-bs-toggle="popover"]',
             enableHoverEffects: true,
-            enablePhotoSwipe: true
+            enablePhotoSwipe: true,
+            enableLazyLoading: true,
+            lazyLoadThreshold: '50px',
+            enablePreloading: true
         }, options);
 
         initializePreviewInteractions(false);
+        
+        if (config.enableLazyLoading) {
+            initializeLazyLoading();
+        }
+        
+        if (config.enablePreloading) {
+            initializeImagePreloading();
+        }
     }
 
     /**
@@ -180,6 +191,142 @@
     }
 
     /**
+     * Initialize lazy loading for gallery images
+     */
+    function initializeLazyLoading() {
+        // Only proceed if IntersectionObserver is supported
+        if (!('IntersectionObserver' in window)) {
+            console.warn('IntersectionObserver not supported, skipping lazy loading');
+            return;
+        }
+
+        const lazyImages = document.querySelectorAll('.gallery-preview-image[data-src], .gallery-image[data-src]');
+        
+        if (lazyImages.length === 0) {
+            // If no data-src attributes, look for images that could benefit from lazy loading
+            initializeLazyLoadingForExistingImages();
+            return;
+        }
+
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    const src = img.dataset.src;
+                    
+                    if (src) {
+                        // Create a new image to preload
+                        const newImg = new Image();
+                        newImg.onload = () => {
+                            img.src = src;
+                            img.classList.remove('lazy-loading');
+                            img.classList.add('lazy-loaded');
+                        };
+                        newImg.onerror = () => {
+                            img.classList.remove('lazy-loading');
+                            img.classList.add('lazy-error');
+                            console.warn('Failed to load lazy image:', src);
+                        };
+                        newImg.src = src;
+                        
+                        // Add loading class
+                        img.classList.add('lazy-loading');
+                        
+                        // Remove data-src to prevent reloading
+                        delete img.dataset.src;
+                    }
+                    
+                    observer.unobserve(img);
+                }
+            });
+        }, {
+            root: null,
+            rootMargin: config.lazyLoadThreshold,
+            threshold: 0.1
+        });
+
+        lazyImages.forEach(img => {
+            imageObserver.observe(img);
+        });
+        
+        console.log(`Lazy loading initialized for ${lazyImages.length} images`);
+    }
+
+    /**
+     * Initialize lazy loading for existing images (convert to lazy loading)
+     */
+    function initializeLazyLoadingForExistingImages() {
+        const galleryImages = document.querySelectorAll('.gallery-preview-image, .gallery-image');
+        
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    
+                    // Only process if not already processed
+                    if (!img.classList.contains('lazy-processed')) {
+                        img.classList.add('lazy-processed');
+                        
+                        // Add fade-in effect
+                        img.style.opacity = '0';
+                        img.style.transition = 'opacity 0.3s ease';
+                        
+                        // Trigger reflow and fade in
+                        setTimeout(() => {
+                            img.style.opacity = '1';
+                        }, 50);
+                    }
+                    
+                    observer.unobserve(img);
+                }
+            });
+        }, {
+            root: null,
+            rootMargin: config.lazyLoadThreshold,
+            threshold: 0.1
+        });
+
+        galleryImages.forEach(img => {
+            imageObserver.observe(img);
+        });
+    }
+
+    /**
+     * Initialize image preloading for better performance
+     */
+    function initializeImagePreloading() {
+        // Preload images that are likely to be viewed next
+        const galleryItems = document.querySelectorAll(config.galleryItemSelector);
+        
+        galleryItems.forEach((item, index) => {
+            const link = item.querySelector('a[href]');
+            if (link && index < 6) { // Preload first 6 images
+                const img = new Image();
+                img.src = link.href;
+                // Store preloaded images to prevent garbage collection
+                if (!window.preloadedGalleryImages) {
+                    window.preloadedGalleryImages = [];
+                }
+                window.preloadedGalleryImages.push(img);
+            }
+        });
+    }
+
+    /**
+     * Preload adjacent images for better PhotoSwipe performance
+     */
+    function preloadAdjacentImages(currentIndex, items) {
+        const preloadIndexes = [currentIndex - 1, currentIndex + 1];
+        
+        preloadIndexes.forEach(index => {
+            if (index >= 0 && index < items.length) {
+                const img = new Image();
+                img.src = items[index].src;
+            }
+        });
+    }
+
+    /**
      * Clean up event listeners (useful for AJAX reloads)
      */
     function cleanup() {
@@ -212,7 +359,9 @@
         init: init,
         refresh: refresh,
         startGallerySlideshow: startGallerySlideshow,
-        initializePreviewInteractions: initializePreviewInteractions
+        initializePreviewInteractions: initializePreviewInteractions,
+        initializeLazyLoading: initializeLazyLoading,
+        preloadAdjacentImages: preloadAdjacentImages
     };
 
     // Export global function for backward compatibility

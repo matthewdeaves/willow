@@ -64,6 +64,12 @@
         }
 
         const searchTerm = searchInput.value.trim();
+        
+        // Only search if 3+ characters or empty (to show all results)
+        if (searchTerm.length > 0 && searchTerm.length < 3) {
+            return;
+        }
+        
         const url = new URL(window.location.href);
 
         // Update URL parameters

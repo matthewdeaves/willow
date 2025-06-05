@@ -182,6 +182,11 @@ document.addEventListener('DOMContentLoaded', function() {
         debounceTimer = setTimeout(() => {
             const searchTerm = this.value.trim();
             
+            // Only search if 3+ characters or empty (to show all results)
+            if (searchTerm.length > 0 && searchTerm.length < 3) {
+                return;
+            }
+            
             let url = '<?= $this->Url->build(['action' => 'picker']) ?>';
             const params = new URLSearchParams();
             params.append('gallery_id', '<?= h($galleryId) ?>');

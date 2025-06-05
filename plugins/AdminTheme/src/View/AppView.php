@@ -39,8 +39,8 @@ class AppView extends View
     {
         parent::initialize();
 
-        // Load custom helpers
-        $this->addHelper('AdminTheme.Gallery');
+        // Load shared gallery helper from main app
+        $this->addHelper('Gallery');
 
         // Set Bootstrap-friendly form templates
         $this->Form->setTemplates([

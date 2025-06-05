@@ -6,7 +6,7 @@
  */
 
 // Load gallery search JavaScript
-$this->Html->script('gallery-search', ['block' => true]);
+$this->Html->script('AdminTheme.gallery-search', ['block' => 'scriptBottom']);
 ?>
 
 <!-- Header with view switcher and search -->
@@ -24,7 +24,8 @@ $this->Html->script('gallery-search', ['block' => true]);
                 'id' => 'gallery-search-form',
                 'inputId' => 'gallery-search',
                 'placeholder' => __('Search galleries...'),
-                'showClearButton' => true
+                'showClearButton' => true,
+                'searchValue' => $this->request->getQuery('search')
             ]) ?>
             
             <!-- Status Filter -->
@@ -86,7 +87,7 @@ $this->Html->script('gallery-search', ['block' => true]);
                                     'class' => 'gallery-preview-thumb',
                                     'style' => 'width: 60px; height: 45px; object-fit: cover;',
                                     'popover' => true,
-                                    'popover_content' => $this->element('photo_gallery', [
+                                    'popover_content' => $this->element('shared_photo_gallery', [
                                         'images' => array_slice($gallery->images, 0, 4),
                                         'gallery_id' => 'preview-' . $gallery->id,
                                         'grid_class' => 'row g-1',

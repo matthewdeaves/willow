@@ -103,4 +103,25 @@ class ImageGallery extends Entity
     {
         return is_array($this->images) ? count($this->images) : 0;
     }
+
+    /**
+     * Get the total file size of all images in this gallery
+     *
+     * @return int Total file size in bytes
+     */
+    public function getTotalFileSize(): int
+    {
+        if (!is_array($this->images) || empty($this->images)) {
+            return 0;
+        }
+
+        $totalSize = 0;
+        foreach ($this->images as $image) {
+            if (isset($image->file_size) && is_numeric($image->file_size)) {
+                $totalSize += (int)$image->file_size;
+            }
+        }
+
+        return $totalSize;
+    }
 }

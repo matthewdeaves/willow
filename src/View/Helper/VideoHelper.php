@@ -11,7 +11,7 @@ use Exception;
 
 /**
  * Video helper
- * 
+ *
  * Phase 2: Updated to use ContentProcessorService for enhanced content processing
  */
 class VideoHelper extends Helper
@@ -25,22 +25,22 @@ class VideoHelper extends Helper
 
     /**
      * Content processor service instance
-     * 
-     * @var ContentProcessorService|null
+     *
+     * @var \App\Service\ContentProcessorService|null
      */
     private ?ContentProcessorService $contentProcessor = null;
 
     /**
      * Get or create content processor service instance
-     * 
-     * @return ContentProcessorService
+     *
+     * @return \App\Service\ContentProcessorService
      */
     private function getContentProcessor(): ContentProcessorService
     {
         if ($this->contentProcessor === null) {
             $this->contentProcessor = new ContentProcessorService();
         }
-        
+
         return $this->contentProcessor;
     }
 
@@ -57,7 +57,7 @@ class VideoHelper extends Helper
         // Temporarily use legacy methods to test if ContentProcessorService is causing issues
         $content = $this->processYouTubePlaceholders($content);
         $content = $this->processGalleryPlaceholders($content);
-        
+
         return $content;
     }
 

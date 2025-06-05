@@ -98,15 +98,25 @@
   z-index: 9999;
 }
 
-/* Focus indicators */
-a:focus,
-button:focus,
-.btn:focus,
-.nav-link:focus,
-.list-group-item:focus {
+/* Focus indicators - only show on keyboard focus, not mouse clicks */
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+.nav-link:focus-visible,
+.list-group-item:focus-visible {
   outline: 2px solid var(--bs-primary);
   outline-offset: 2px;
   box-shadow: 0 0 0 0.2rem rgba(var(--bs-primary-rgb), 0.25);
+}
+
+/* Remove focus outline on mouse click for all links and interactive elements */
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible),
+.btn:focus:not(:focus-visible),
+.nav-link:focus:not(:focus-visible),
+.list-group-item:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
 }
 
 /* Sidebar sections spacing */
@@ -909,9 +919,13 @@ body {
   text-decoration: none !important;
 }
 
-.article-wrap-container a:focus {
+.article-wrap-container a:focus-visible {
   outline: 2px solid var(--bs-primary);
   outline-offset: 2px;
+}
+
+.article-wrap-container a:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .read-more-container {

@@ -211,11 +211,11 @@ class GoogleApiService
     }
 
     /**
-     * Preprocesses content to identify and store code blocks and video placeholders before translation.
+     * Preprocesses content to identify and store code blocks, video placeholders, and gallery placeholders before translation.
      *
-     * This method extracts code blocks (markdown, pre, code tags) and video placeholders from the content
-     * and replaces them with unique placeholders. The original content is stored in the $preservedBlocks
-     * property for later restoration.
+     * This method extracts code blocks (markdown, pre, code tags), video placeholders, and image gallery
+     * placeholders from the content and replaces them with unique placeholders. The original content is
+     * stored in the $preservedBlocks property for later restoration.
      *
      * @param string $content The content containing blocks to be processed
      * @return string The content with preserved blocks replaced by placeholders
@@ -224,12 +224,14 @@ class GoogleApiService
     {
         $this->preservedBlocks = [];
 
-        // Process code blocks and video placeholders
+        // Process code blocks, video placeholders, and gallery placeholders
         $patterns = [
             // Code blocks pattern
             '/(```[a-z]*\n[\s\S]*?\n```)|(<pre[\s\S]*?<\/pre>)|(<code[\s\S]*?<\/code>)/m',
             // YouTube video placeholder pattern
             '/\[youtube:[a-zA-Z0-9_-]+:\d+:\d+:[^\]]*\]/m',
+            // Image gallery placeholder pattern
+            '/\[gallery:[a-f0-9-]+:[^:]*:[^\]]*\]/m',
         ];
 
         foreach ($patterns as $pattern) {

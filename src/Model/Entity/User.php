@@ -13,6 +13,11 @@ use Cake\ORM\Entity;
  * @property string $username
  * @property string $password
  * @property string|null $email
+ * @property bool $is_admin
+ * @property bool $active
+ * @property string|null $image
+ * @property string|null $keywords
+ * @property string|null $alt_text
  * @property \Cake\I18n\DateTime|null $created
  * @property \Cake\I18n\DateTime|null $modified
  *
@@ -39,10 +44,6 @@ class User extends Entity
         'modified' => true,
         'articles' => true,
         'image' => true,
-        'dir' => true,
-        'size' => true,
-        'name' => true,
-        'mime' => true,
         'is_admin' => false,
         'active' => false,
         'keywords' => true,

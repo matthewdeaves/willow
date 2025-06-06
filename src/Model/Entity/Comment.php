@@ -13,6 +13,8 @@ use Cake\ORM\Entity;
  * @property string $model
  * @property string $user_id
  * @property string $content
+ * @property bool $display
+ * @property bool $is_inappropriate
  * @property \Cake\I18n\DateTime|null $created
  * @property \Cake\I18n\DateTime|null $modified
  *

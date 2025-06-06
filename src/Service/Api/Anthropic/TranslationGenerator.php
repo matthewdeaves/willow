@@ -3,10 +3,6 @@ declare(strict_types=1);
 
 namespace App\Service\Api\Anthropic;
 
-use App\Model\Table\AipromptsTable;
-use Cake\Log\LogTrait;
-use InvalidArgumentException;
-
 /**
  * Class TranslationGenerator
  *
@@ -14,36 +10,8 @@ use InvalidArgumentException;
  * API service. It interacts with the AI prompts table to retrieve prompt data
  * and uses the AnthropicApiService to send requests and parse responses.
  */
-class TranslationGenerator
+class TranslationGenerator extends AbstractAnthropicGenerator
 {
-    use LogTrait;
-
-    /**
-     * The Anthropic API service used for sending requests and parsing responses.
-     *
-     * @var \App\Service\Api\AnthropicApiService
-     */
-    private AnthropicApiService $apiService;
-
-    /**
-     * The AI prompts table used for retrieving prompt data.
-     *
-     * @var \App\Model\Table\AipromptsTable
-     */
-    private AipromptsTable $aipromptsTable;
-
-    /**
-     * Constructor for the TextSummaryGenerator class.
-     *
-     * @param \App\Service\Api\AnthropicApiService $apiService The API service for handling requests.
-     * @param \App\Model\Table\AipromptsTable $aipromptsTable The table for AI prompts.
-     */
-    public function __construct(AnthropicApiService $apiService, AipromptsTable $aipromptsTable)
-    {
-        $this->apiService = $apiService;
-        $this->aipromptsTable = $aipromptsTable;
-    }
-
     /**
      * Generates translations for a given set of strings from one locale to another.
      *
@@ -67,83 +35,28 @@ class TranslationGenerator
 
         $timeOut = 45;
 
-        $response = $this->apiService->sendRequest($payload, $timeOut);
-        $result = $this->apiService->parseResponse($response);
+        $result = $this->sendApiRequest($payload, $timeOut);
 
         return $this->ensureExpectedKeys($result);
     }
 
     /**
-     * Creates a payload for the API request using the provided prompt data and content.
+     * Gets the expected keys for the API response.
      *
-     * @param array $promptData The prompt data retrieved from the AI prompts table.
-     * @param array $content The content to be included in the payload.
-     * @return array The created payload for the API request.
+     * @return array Array of expected response keys.
      */
-    private function createPayload(array $promptData, array $content): array
+    protected function getExpectedKeys(): array
     {
-        return [
-            'model' => $promptData['model'],
-            'max_tokens' => $promptData['max_tokens'],
-            'temperature' => $promptData['temperature'],
-            'system' => $promptData['system_prompt'],
-            'messages' => [
-                [
-                    'role' => 'user',
-                    'content' => json_encode($content),
-                ],
-            ],
-        ];
+        return ['strings'];
     }
 
     /**
-     * Retrieves prompt data for a specific task from the AI prompts table.
+     * Gets the logger name for this generator.
      *
-     * @param string $task The task type for which to retrieve prompt data.
-     * @return array The retrieved prompt data including system prompt, model, max tokens, and temperature.
-     * @throws \InvalidArgumentException If the task is unknown or not found in the AI prompts table.
+     * @return string The logger name.
      */
-    private function getPromptData(string $task): array
+    protected function getLoggerName(): string
     {
-        $prompt = $this->aipromptsTable->find()
-            ->where(['task_type' => $task])
-            ->first();
-
-        if (!$prompt) {
-            throw new InvalidArgumentException("Unknown task: {$task}");
-        }
-
-        return [
-            'system_prompt' => $prompt->system_prompt,
-            'model' => $prompt->model,
-            'max_tokens' => $prompt->max_tokens,
-            'temperature' => $prompt->temperature,
-        ];
-    }
-
-    /**
-     * Ensures that the result contains all expected keys, initializing them if necessary.
-     *
-     * @param array $result The result array to check and modify.
-     * @return array The result array with all expected SEO keys initialized.
-     */
-    private function ensureExpectedKeys(array $result): array
-    {
-        $expectedKeys = [
-            'strings',
-        ];
-
-        foreach ($expectedKeys as $key) {
-            if (!isset($result[$key])) {
-                $result[$key] = '';
-                $this->log(
-                    sprintf('Translation Generator did not find expected key: %s', $key),
-                    'error',
-                    ['group_name' => 'anthropic'],
-                );
-            }
-        }
-
-        return $result;
+        return 'Translation Generator';
     }
 }

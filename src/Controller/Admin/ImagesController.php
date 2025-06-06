@@ -4,7 +4,9 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
-// Keep this
+use App\Controller\Component\MediaPickerTrait;
+use App\Service\ImageProcessingService;
+use App\Utility\ArchiveExtractor;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
 use Cake\View\JsonView;
@@ -20,6 +22,8 @@ use Exception;
  */
 class ImagesController extends AppController
 {
+    use MediaPickerTrait;
+
     /**
      * Specifies the view classes supported by this controller.
      */
@@ -110,31 +114,39 @@ class ImagesController extends AppController
      */
     public function imageSelect(): void
     {
+        $limit = min((int)$this->request->getQuery('limit', 12), 24);
         $this->paginate = [
-            'maxLimit' => 6,
+            'limit' => $limit,
+            'maxLimit' => 24,
+            'order' => ['Images.created' => 'DESC'],
         ];
+
         $query = $this->Images->find();
         $search = $this->request->getQuery('search');
         if (!empty($search)) {
             $query->where([
                 'OR' => [
-                    'name LIKE' => '%' . $search . '%',
-                    'alt_text LIKE' => '%' . $search . '%',
-                    'keywords LIKE' => '%' . $search . '%',
+                    'Images.name LIKE' => '%' . $search . '%',
+                    'Images.alt_text LIKE' => '%' . $search . '%',
+                    'Images.keywords LIKE' => '%' . $search . '%',
                 ],
             ]);
         }
-        $images = $this->paginate($query);
-        $this->set(compact('images'));
 
-        // Check if we're loading just the gallery
-        $loadGalleryOnly = $this->request->getQuery('gallery_only', false);
-        if ($loadGalleryOnly) {
-            $this->viewBuilder()->setTemplate('image_gallery');
-            $this->viewBuilder()->setLayout('minimal');
+        $images = $this->paginate($query);
+        $this->set(compact('images', 'search'));
+
+        // Check if this is a search request that should only return results HTML
+        $galleryOnly = $this->request->getQuery('gallery_only');
+        if ($galleryOnly) {
+            // For search requests, only return the results portion to avoid flicker
+            $this->viewBuilder()->setTemplate('image_select_results');
         } else {
-            $this->viewBuilder()->setLayout('minimal');
+            // For initial load, return the full template with search form
+            $this->viewBuilder()->setTemplate('image_select');
         }
+
+        $this->viewBuilder()->setLayout('ajax');
     }
 
     /**
@@ -195,72 +207,58 @@ class ImagesController extends AppController
             $apiResponse['message'] = __('No file was uploaded or file key "image" is missing.');
             $statusCode = 400; // Bad Request
         } else {
-            // Handle PHP Upload Errors (Suggestion 5)
-            switch ($uploadedFile->getError()) {
-                case UPLOAD_ERR_OK:
-                    $image = $this->Images->newEmptyEntity();
-                    $originalFilename = $uploadedFile->getClientFilename();
-                    $data = [
-                        'image' => $uploadedFile,
-                        'name' => pathinfo($originalFilename, PATHINFO_FILENAME) ?: 'uploaded_image',
-                    ];
-                    $image = $this->Images->patchEntity($image, $data, ['validate' => 'create']);
+            try {
+                $uploadService = new ImageProcessingService(
+                    $this->Images,
+                    $this->fetchTable('ImageGalleriesImages'),
+                    new ArchiveExtractor(),
+                );
 
-                    if ($this->Images->save($image)) {
-                        // Suggestion 8: Refined response structure
+                $result = $uploadService->processUploadedFiles([$uploadedFile]);
+
+                if ($result['success']) {
+                    if ($result['success_count'] === 1) {
+                        // Single image uploaded successfully
+                        $image = $result['created_images'][0];
                         $apiResponse = [
                             'success' => true,
-                            'message' => __('Image "{0}" uploaded successfully.', $image->name),
-                            'image' => [
-                                'id' => $image->id,
-                                'name' => $image->name,
-                                // Optionally, include a URL if useful for the client
-                                // 'url' => \Cake\Routing\Router::url(['_full' => true, 'controller' => 'Images', 'action' => 'view', $image->id]),
-                            ],
+                            'message' => __('Image "{0}" uploaded successfully.', $image['name']),
+                            'image' => $image,
                         ];
                         $statusCode = 201; // Created
                     } else {
+                        // Multiple images from archive
                         $apiResponse = [
-                            'success' => false,
-                            'message' => __('Failed to save the image. Please check errors.'),
-                            'errors' => $image->getErrors(),
+                            'success' => true,
+                            'message' => $result['message'],
+                            'images' => $result['created_images'],
+                            'total_processed' => $result['total_processed'],
+                            'success_count' => $result['success_count'],
+                            'error_count' => $result['error_count'],
                         ];
-                        $statusCode = 422; // Unprocessable Entity (Validation errors)
+
+                        if ($result['error_count'] > 0) {
+                            $apiResponse['errors'] = $result['errors'];
+                        }
+
+                        $statusCode = 201; // Created
                     }
-                    break;
-                case UPLOAD_ERR_INI_SIZE:
-                case UPLOAD_ERR_FORM_SIZE:
-                    $apiResponse['message'] = __('The uploaded file exceeds the maximum file size limit.');
-                    $statusCode = 413; // Payload Too Large
-                    break;
-                case UPLOAD_ERR_PARTIAL:
-                    $apiResponse['message'] = __('The uploaded file was only partially uploaded.');
-                    $statusCode = 400; // Bad Request (or 500 depending on interpretation)
-                    break;
-                case UPLOAD_ERR_NO_FILE:
-                    $apiResponse['message'] = __('No file was uploaded (UPLOAD_ERR_NO_FILE).');
-                    $statusCode = 400; // Bad Request
-                    break;
-                case UPLOAD_ERR_NO_TMP_DIR:
-                    $apiResponse['message'] = __('Missing a temporary folder for upload.');
-                    $statusCode = 500; // Internal Server Error
-                    $this->log('Upload error: Missing temporary folder.', 'error');
-                    break;
-                case UPLOAD_ERR_CANT_WRITE:
-                    $apiResponse['message'] = __('Failed to write file to disk.');
-                    $statusCode = 500; // Internal Server Error
-                    $this->log('Upload error: Failed to write file to disk.', 'error');
-                    break;
-                case UPLOAD_ERR_EXTENSION:
-                    $apiResponse['message'] = __('A PHP extension stopped the file upload.');
-                    $statusCode = 500; // Internal Server Error
-                    $this->log('Upload error: A PHP extension stopped the file upload.', 'error');
-                    break;
-                default:
-                    $apiResponse['message'] = __('An unknown upload error occurred.');
-                    $statusCode = 500; // Internal Server Error
-                    $this->log('Unknown upload error code: ' . $uploadedFile->getError(), 'error');
-                    break;
+                } else {
+                    // Failed to process
+                    $apiResponse = [
+                        'success' => false,
+                        'message' => $result['message'],
+                        'errors' => $result['errors'],
+                    ];
+                    $statusCode = 422; // Unprocessable Entity
+                }
+            } catch (Exception $e) {
+                $this->log("Bulk upload: Processing failed: {$e->getMessage()}", 'error');
+                $apiResponse = [
+                    'success' => false,
+                    'message' => __('Failed to process the uploaded file.'),
+                ];
+                $statusCode = 500;
             }
         }
 
@@ -370,5 +368,68 @@ class ImagesController extends AppController
         $this->viewBuilder()->setOption('serialize', array_keys($apiResponse));
 
         return $response->withStatus($statusCode);
+    }
+
+    /**
+     * Image picker for selecting images to add to galleries
+     * Uses MediaPickerTrait for DRY implementation
+     *
+     * @return \Cake\Http\Response|null|void Renders view
+     */
+    public function picker(): ?Response
+    {
+        $galleryId = $this->request->getQuery('gallery_id');
+        $viewType = $this->request->getQuery('view', 'grid');
+
+        // Build query with trait helper
+        $selectFields = [
+            'Images.id',
+            'Images.name',
+            'Images.alt_text',
+            'Images.keywords',
+            'Images.image',
+            'Images.dir',
+            'Images.size',
+            'Images.mime',
+            'Images.created',
+            'Images.modified',
+        ];
+
+        $query = $this->buildPickerQuery($this->Images, $selectFields);
+
+        // Apply exclusion filter if gallery_id provided
+        if ($galleryId) {
+            $query = $this->applyPickerExclusion(
+                $query,
+                $this->fetchTable('ImageGalleriesImages'),
+                'image_gallery_id',
+                $galleryId,
+                'image_id',
+            );
+        }
+
+        // Handle search with trait helper
+        $search = $this->request->getQuery('search');
+        $searchFields = [
+            'Images.name',
+            'Images.alt_text',
+            'Images.keywords',
+        ];
+        $query = $this->handlePickerSearch($query, $search, $searchFields);
+
+        $images = $this->paginate($query);
+
+        // Handle AJAX requests with trait helper
+        $ajaxResponse = $this->handlePickerAjaxResponse($images, $search, 'picker_search_results');
+        if ($ajaxResponse) {
+            $this->set(compact('galleryId', 'viewType'));
+
+            return $ajaxResponse;
+        }
+
+        $this->set(compact('images', 'galleryId', 'viewType'));
+
+        // Return appropriate template based on view type
+        return $this->render($viewType === 'grid' ? 'picker_grid' : 'picker');
     }
 }

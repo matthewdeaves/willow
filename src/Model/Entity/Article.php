@@ -12,7 +12,12 @@ use Cake\ORM\Entity;
  * @property string $id
  * @property string $user_id
  * @property string $title
+ * @property string|null $lede
+ * @property bool|null $featured
+ * @property bool|null $main_menu
  * @property string|null $body
+ * @property string|null $markdown
+ * @property string|null $summary
  * @property \Cake\I18n\DateTime|null $created
  * @property \Cake\I18n\DateTime|null $modified
  * @property string|null $slug
@@ -30,12 +35,15 @@ use Cake\ORM\Entity;
  * @property int|null $rght
  * @property bool $published
  * @property bool $is_published
+ * @property string|null $image
  *
  * @property \App\Model\Entity\User $user
  * @property \App\Model\Entity\Tag[] $tags
+ * @property \App\Model\Entity\Image[] $images
  */
 class Article extends Entity
 {
+    use SeoEntityTrait;
     use TranslateTrait;
     use ImageUrlTrait;
 
@@ -60,13 +68,6 @@ class Article extends Entity
         'summary' => true,
         'created' => true,
         'modified' => true,
-        'meta_title' => true,
-        'meta_description' => true,
-        'meta_keywords' => true,
-        'facebook_description' => true,
-        'linkedin_description' => true,
-        'twitter_description' => true,
-        'instagram_description' => true,
         'word_count' => true,
         'kind' => true,
         'parent_id' => true,
@@ -77,9 +78,13 @@ class Article extends Entity
         'tags' => true,
         'images' => true,
         'image' => true,
-        'dir' => true,
-        'name' => true,
-        'size' => true,
-        'mime' => true,
+        // SEO fields (managed by SeoEntityTrait)
+        'meta_title' => true,
+        'meta_description' => true,
+        'meta_keywords' => true,
+        'facebook_description' => true,
+        'linkedin_description' => true,
+        'twitter_description' => true,
+        'instagram_description' => true,
     ];
 }

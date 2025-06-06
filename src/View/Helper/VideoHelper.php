@@ -6,6 +6,11 @@ namespace App\View\Helper;
 
 use Cake\View\Helper;
 
+/**
+ * Video helper
+ *
+ * Handles processing of YouTube videos in article content
+ */
 class VideoHelper extends Helper
 {
     /**
@@ -14,6 +19,18 @@ class VideoHelper extends Helper
      * @var array<string>
      */
     protected array $helpers = ['Html'];
+
+    /**
+     * Process video placeholders in content
+     *
+     * @param string $content The content containing video placeholders
+     * @param array $options Processing options
+     * @return string The processed content
+     */
+    public function processVideoPlaceholders(string $content, array $options = []): string
+    {
+        return $this->processYouTubePlaceholders($content);
+    }
 
     /**
      * Replace YouTube video placeholders with GDPR-compliant embed code

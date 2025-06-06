@@ -34,7 +34,12 @@ function buildMenu($articles, $view) {
             </time>
         </header>
 
-        <div id="article-body-content"><?= htmlspecialchars_decode($this->Video->processYouTubePlaceholders($article->body)) ?></div>
+        <div id="article-body-content"><?php
+            $content = $article->body;
+            $content = $this->Video->processVideoPlaceholders($content);
+            $content = $this->Gallery->processGalleryPlaceholders($content);
+            echo htmlspecialchars_decode($content);
+        ?></div>
 
     </article>
     <?php endif; ?>

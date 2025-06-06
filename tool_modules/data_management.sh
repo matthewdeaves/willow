@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Execute data management commands (options 1-4)
+# Execute data management commands (options 1-5)
 execute_data_command() {
     local cmd_choice="$1"
     case "$cmd_choice" in
@@ -17,6 +17,9 @@ execute_data_command() {
             ;;
         4)
             load_database_from_backup
+            ;;
+        5)
+            clear_database_backups
             ;;
         *)
             echo "Error: Invalid data management option '$cmd_choice'"
@@ -134,14 +137,14 @@ load_database_from_backup() {
         return 1
     fi
 
-    # Get SQL files sorted by modification time (newest first)
+    # Get SQL files sorted by filename (newest first based on YYYYMMDD_HHMMSS timestamp)
     local files_found=()
     while IFS= read -r file; do
         # Only add if it's a regular file (not a directory, symlink, etc)
         if [ -f "$file" ]; then
             files_found+=("$file")
         fi
-    done < <(find "${backup_source_dir}" -maxdepth 1 -name "*.sql" -type f -print0 | xargs -0 ls -t 2>/dev/null)
+    done < <(find "${backup_source_dir}" -maxdepth 1 -name "*.sql" -type f -print0 | xargs -0 ls -1 2>/dev/null | sort -r)
 
     local file_count="${#files_found[@]}"
     if [ "$file_count" -eq 0 ]; then
@@ -270,6 +273,65 @@ load_database_from_backup() {
         echo "Database restore and cache clear process completed successfully."
     else
         echo "Database restore cancelled."
+    fi
+    
+    return 0
+}
+
+# Function to clear database backups
+clear_database_backups() {
+    echo "Clear Database Backups..."
+    local backup_source_dir="./project_mysql_backups"
+
+    if [ ! -d "${backup_source_dir}" ]; then
+        echo "Backup directory ${backup_source_dir} not found."
+        return 1
+    fi
+
+    # Get SQL files sorted by filename (newest first based on YYYYMMDD_HHMMSS timestamp)
+    local files_found=()
+    while IFS= read -r file; do
+        # Only add if it's a regular file (not a directory, symlink, etc)
+        if [ -f "$file" ]; then
+            files_found+=("$file")
+        fi
+    done < <(find "${backup_source_dir}" -maxdepth 1 -name "*.sql" -type f -print0 | xargs -0 ls -1 2>/dev/null | sort -r)
+
+    local file_count="${#files_found[@]}"
+    if [ "$file_count" -eq 0 ]; then
+        echo "No .sql backup files found in directory: ${backup_source_dir}"
+        return 0
+    fi
+
+    echo "Found $file_count database backup file(s) in ${backup_source_dir}:"
+    local i
+    for i in "${!files_found[@]}"; do
+        printf "  %s\n" "$(basename "${files_found[$i]}")"
+    done
+    echo
+
+    read -r -p "Are you sure you want to DELETE ALL database backup files? This cannot be undone! (y/N): " confirm
+
+    if [ "$confirm" = "y" ] || [ "$confirm" = "Y" ]; then
+        echo "Deleting database backup files..."
+        local deleted_count=0
+        for file in "${files_found[@]}"; do
+            if rm -f "$file"; then
+                echo "Deleted: $(basename "$file")"
+                ((deleted_count++))
+            else
+                echo "Failed to delete: $(basename "$file")"
+            fi
+        done
+        echo "Successfully deleted $deleted_count out of $file_count database backup files."
+        
+        # Remove directory if it's empty
+        if [ -d "${backup_source_dir}" ] && [ -z "$(ls -A "${backup_source_dir}")" ]; then
+            rmdir "${backup_source_dir}"
+            echo "Removed empty backup directory: ${backup_source_dir}"
+        fi
+    else
+        echo "Database backup clearing cancelled."
     fi
     
     return 0

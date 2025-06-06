@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use App\Model\Behavior\ImageValidationTrait;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -10,6 +11,9 @@ use Cake\Validation\Validator;
 
 class UsersTable extends Table
 {
+    use ImageValidationTrait;
+    use QueueableJobsTrait;
+
     /**
      * Initialize method
      *
@@ -74,18 +78,12 @@ class UsersTable extends Table
             ->email('email')
             ->notEmptyString('email');
 
-        $validator
-            ->allowEmptyFile('image')
-            ->add('image', [
-                'mimeType' => [
-                    'rule' => ['mimeType', ['image/jpeg', 'image/png', 'image/gif']],
-                    'message' => 'Please upload only images (jpeg, png, gif).',
-                ],
-                'fileSize' => [
-                    'rule' => ['fileSize', '<=', '10MB'],
-                    'message' => 'Image must be less than 10MB.',
-                ],
-            ]);
+        $this->addOptionalImageValidation($validator, 'image', [
+            'messages' => [
+                'mimeType' => 'Please upload only images (jpeg, png, gif).',
+                'fileSize' => 'Image must be less than 10MB.',
+            ],
+        ]);
 
         return $validator;
     }

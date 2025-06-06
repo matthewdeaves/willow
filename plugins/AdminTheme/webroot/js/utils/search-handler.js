@@ -45,6 +45,11 @@ class SearchHandler {
     }
     
     performSearch(searchTerm) {
+        // Only search if 3+ characters or empty (to show all results)
+        if (searchTerm.length > 0 && searchTerm.length < 3) {
+            return;
+        }
+        
         let url = this.baseUrl;
         
         // Add current filter if exists

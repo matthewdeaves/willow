@@ -23,6 +23,18 @@
                     <h3 class="mb-0"><?= __('Bulk Upload Images') ?></h3>
                 </div>
                 <div class="card-body">
+                    <div class="alert alert-info">
+                        <h5 class="alert-heading"><i class="fas fa-info-circle me-2"></i><?= __('Upload Options') ?></h5>
+                        <p class="mb-2"><?= __('You can upload:') ?></p>
+                        <ul class="mb-0">
+                            <li><strong><?= __('Individual Images') ?>:</strong> <?= __('JPG, PNG, GIF files') ?></li>
+                            <li><strong><?= __('Archive Files') ?>:</strong> <?= __('ZIP, TAR, TAR.GZ files containing multiple images') ?></li>
+                        </ul>
+                        <hr>
+                        <p class="mb-0 small text-muted">
+                            <i class="fas fa-lightbulb me-1"></i><?= __('Tip: Upload a ZIP file to quickly add multiple related images, then organize them into galleries.') ?>
+                        </p>
+                    </div>
                     <div id="upload-notifications" class="mb-3"></div>
                     <form action="<?= $this->Url->build(['controller' => 'Images', 'action' => 'bulkUpload']) ?>"
                           class="dropzone"

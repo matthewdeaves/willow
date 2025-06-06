@@ -126,6 +126,18 @@ class AnthropicApiService extends AbstractApiService
     }
 
     /**
+     * Generates SEO content for an image gallery.
+     *
+     * @param string $name The name of the gallery.
+     * @param string $context Additional context about the gallery content and images.
+     * @return array The generated SEO content.
+     */
+    public function generateGallerySeo(string $name, string $context): array
+    {
+        return $this->seoContentGenerator->generateGallerySeo($name, $context);
+    }
+
+    /**
      * Generates tags for an article.
      *
      * @param array $allTags All available tags.

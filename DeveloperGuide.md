@@ -203,29 +203,64 @@ $this->addBehavior('ImageAssociable');
 
 // Usage in entities
 $article->associated_images; // Returns associated images
+$article->largeImageUrl;     // Gets optimized image URL
+$article->thumbnailImageUrl; // Gets thumbnail URL
 ```
 
 #### **SlugBehavior**
 ```php
-// SEO-friendly URLs with history tracking
+// SEO-friendly URLs with history tracking and automatic redirects
 $this->addBehavior('Sluggable', [
     'slug' => ['source' => 'title'],
-    'history' => true  // Maintains slug history for SEO
+    'history' => true  // Maintains slug history for SEO redirects
 ]);
+
+// Automatic slug generation and conflict resolution
+// Handles URL changes gracefully with 301 redirects
 ```
 
 #### **OrderableBehavior**
 ```php
-// Drag-and-drop ordering functionality
+// Drag-and-drop ordering functionality with position management
 $this->addBehavior('Orderable', [
-    'order_field' => 'sort_order'
+    'order_field' => 'sort_order',
+    'scope' => ['gallery_id'] // Optional: scope ordering within groups
 ]);
+
+// Automatic position calculation and reordering
+$this->moveUp($entity);    // Move item up in order
+$this->moveDown($entity);  // Move item down in order
 ```
 
 #### **CommentableBehavior**
 ```php
-// Universal commenting system
+// Universal commenting system with AI moderation
 $this->addBehavior('Commentable');
+
+// Automatic comment analysis and moderation
+// Integration with CommentAnalysisJob for spam detection
+```
+
+#### **QueueableImageBehavior** 
+```php
+// Automated background image processing
+$this->addBehavior('QueueableImage');
+
+// Automatically queues ProcessImageJob and ImageAnalysisJob
+// Handles thumbnail generation, alt text creation, and metadata extraction
+```
+
+#### **TranslateBehavior Integration**
+```php
+// Multi-language content support
+$this->addBehavior('Translate', [
+    'fields' => ['title', 'body', 'meta_description'],
+    'defaultLocale' => 'en',
+    'allowEmptyTranslations' => true
+]);
+
+// Automatic translation via TranslateArticleJob
+// Locale-aware content retrieval and caching
 ```
 
 ### Queue-Based Processing
@@ -250,10 +285,79 @@ class ArticleSeoUpdateJob implements JobInterface {
 
 **Key background jobs:**
 - `ProcessImageJob` - Image resizing and optimization
-- `ImageAnalysisJob` - AI-powered image analysis
-- `ArticleSeoUpdateJob` - SEO content generation
-- `TranslateArticleJob` - Content translation
-- `CommentAnalysisJob` - Comment moderation
+- `ImageAnalysisJob` - AI-powered image analysis and alt text generation
+- `ArticleSeoUpdateJob` - AI-generated SEO content and meta descriptions
+- `ArticleTagUpdateJob` - Automatic tag generation based on content analysis
+- `ArticleSummaryUpdateJob` - AI-powered content summarization
+- `TranslateArticleJob` - Multi-language content translation
+- `TranslateI18nJob` - Interface translation for all supported languages
+- `TranslateImageGalleryJob` - Gallery metadata translation
+- `TranslateTagJob` - Tag translation across languages
+- `CommentAnalysisJob` - AI-powered comment moderation and spam detection
+- `GenerateGalleryPreviewJob` - Gallery preview image generation
+- `SendEmailJob` - Asynchronous email delivery
+
+### View Layer & Modern Content Management
+
+Willow CMS features a sophisticated view layer with modern content management capabilities:
+
+#### **View Helpers**
+```php
+// ContentHelper - Advanced content formatting
+$this->Content->enhanceContent($content, [
+    'processResponsiveImages' => true,
+    'enhanceAlignment' => true
+]);
+
+// GalleryHelper - Gallery placeholder processing
+$this->Gallery->processGalleryPlaceholders($content);
+
+// VideoHelper - YouTube integration with GDPR compliance
+$this->Video->processVideoPlaceholders($content);
+```
+
+#### **View Cells**
+```php
+// GalleryCell - Reusable gallery display component
+echo $this->cell('Gallery::display', [
+    'galleryId' => $gallery->id,
+    'locale' => $this->request->getAttribute('locale')
+]);
+```
+
+#### **WYSIWYG Editor Integration**
+- **Trumbowyg Editor**: Full-featured WYSIWYG with image upload and gallery integration
+- **Content Alignment**: Frontend respects editor alignment (left/center/right) for text and images
+- **Responsive Images**: Automatic responsive image processing and optimization
+- **Gallery Placeholders**: Seamless gallery embedding within content
+- **Video Integration**: YouTube video embedding with privacy controls
+
+#### **Image Gallery System**
+```php
+// ImageGalleriesTable - Advanced gallery management
+public function getGalleryForPlaceholder(
+    string $galleryId,
+    bool $requirePublished = true,
+    ?string $cacheKey = null
+): ?object {
+    // Locale-aware caching and translation support
+    // Automatic cache invalidation on content changes
+}
+
+// Gallery features:
+// - Drag-and-drop image ordering
+// - AI-powered image descriptions
+// - Multi-language support
+// - Preview generation
+// - Responsive grid display
+```
+
+#### **Content Processing Pipeline**
+1. **Raw Content** → Trumbowyg WYSIWYG editor
+2. **Video Processing** → YouTube placeholder replacement with GDPR controls
+3. **Gallery Processing** → Gallery placeholder replacement with translated content
+4. **Content Enhancement** → Alignment processing and responsive image handling
+5. **Final Output** → Optimized, accessible, and SEO-friendly content
 
 ---
 
@@ -424,7 +528,7 @@ Willow CMS maintains comprehensive test coverage:
 
 #### **Running Tests**
 ```bash
-# All tests
+# All tests (292+ comprehensive tests)
 phpunit
 
 # Specific test file
@@ -433,8 +537,16 @@ phpunit tests/TestCase/Controller/ArticlesControllerTest.php
 # Filter specific test methods
 phpunit --filter testAdd tests/TestCase/Controller/ArticlesControllerTest.php
 
-# With coverage report
+# With coverage report (HTML accessible at /coverage/)
 phpunit_cov_html
+
+# Text coverage report
+phpunit_cov
+
+# Test specific components
+phpunit tests/TestCase/Model/Behavior/SlugBehaviorTest.php
+phpunit tests/TestCase/Controller/Admin/ImageGalleriesControllerTest.php
+phpunit tests/TestCase/Service/Api/Anthropic/
 ```
 
 #### **Test Structure**
@@ -521,11 +633,13 @@ docker compose exec willowcms composer stan
 GitHub Actions automatically test all commits and pull requests:
 
 #### **CI Pipeline** (`.github/workflows/ci.yml`)
-- **PHP Versions**: 8.1, 8.2, 8.3
-- **Tests**: PHPUnit with coverage
-- **Code Quality**: PHPStan and CodeSniffer
-- **Dependencies**: Composer validation
-- **Security**: Dependency vulnerability scanning
+- **PHP Versions**: 8.1, 8.2, 8.3 (comprehensive matrix testing)
+- **Services**: MySQL 8.0+ and Redis server setup
+- **Tests**: PHPUnit with 292+ tests and coverage reporting
+- **Code Quality**: PHPStan (level 5) and PHP CodeSniffer (CakePHP standards)
+- **Dependencies**: Composer validation and security scanning
+- **Performance**: Parallel test execution and optimized Docker builds
+- **Pre-push Hooks**: Local test execution before remote pushes
 
 ---
 
@@ -879,25 +993,60 @@ Essential shortcuts for development:
 ### Essential Development Commands
 
 ```bash
-# Start development
+# Start development environment
 ./setup_dev_env.sh && ./setup_dev_aliases.sh
 
-# Run tests and check quality
+# Run comprehensive tests and quality checks
 phpunit && phpcs_sniff && phpstan_analyse
 
-# Start background processing
+# Start background processing (required for AI features)
 cake_queue_worker_verbose
 
-# Generate code
+# Generate code with AdminTheme templates
 bake_diff MyFeature
 cake_bake_model MyModel --theme AdminTheme
+cake_bake_controller MyModel --theme AdminTheme
+cake_bake_template MyModel --theme AdminTheme
 
-# Manage translations
-i18n_extract && i18n_gen_po
+# Manage internationalization
+i18n_extract && i18n_gen_po && i18n_translate
 
 # Database operations
 cake_migrate && cake_clear_cache
+
+# Direct database access
+docker compose exec mysql mysql -u cms_user -ppassword cms
+
+# Interactive management tool
+./manage.sh
 ```
+
+## 🚀 Recent Major Improvements
+
+### **Content Management Enhancements**
+- **WYSIWYG Editor**: Full Trumbowyg integration with proper frontend alignment rendering
+- **Image Galleries**: Complete gallery system with drag-and-drop ordering and AI descriptions
+- **Content Alignment**: Frontend now properly respects left/center/right alignment from editor
+- **Responsive Images**: Automatic image optimization and responsive handling
+- **Translation Integration**: Seamless multi-language support for galleries and content
+
+### **Testing & Quality Improvements**
+- **292+ Tests**: Comprehensive test suite covering all major components
+- **CI/CD Enhancement**: GitHub Actions with Redis integration and matrix testing
+- **Code Quality**: Automated PHP CodeSniffer fixes and PHPStan level 5 analysis
+- **Pre-push Hooks**: Automatic test execution before commits reach repository
+
+### **Developer Experience Upgrades**
+- **Enhanced CLAUDE.md**: Comprehensive documentation with command examples
+- **Management Tool**: Interactive CLI for data management, backups, and maintenance
+- **Developer Aliases**: Streamlined commands for common development tasks
+- **Docker Integration**: Complete development environment with all necessary services
+
+### **AI & Translation Features**
+- **Enhanced API Integration**: Improved Anthropic API service with better error handling
+- **Gallery Translation**: Multi-language support for image gallery metadata
+- **Content Translation**: Automatic translation workflows for articles and UI
+- **Image Analysis**: AI-powered alt text and keyword generation for accessibility
 
 ### Common Troubleshooting
 

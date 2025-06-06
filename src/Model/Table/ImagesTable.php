@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use App\Model\Behavior\ImageValidationTrait;
+use Cake\Log\LogTrait;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
@@ -26,6 +28,10 @@ use Cake\Validation\Validator;
  */
 class ImagesTable extends Table
 {
+    use ImageValidationTrait;
+    use LogTrait;
+    use QueueableJobsTrait;
+
     /**
      * Initialize method
      *
@@ -46,6 +52,13 @@ class ImagesTable extends Table
         ]);
 
         $this->addBehavior('Timestamp');
+
+        $this->belongsToMany('ImageGalleries', [
+            'foreignKey' => 'image_id',
+            'targetForeignKey' => 'image_gallery_id',
+            'joinTable' => 'image_galleries_images',
+            'through' => 'ImageGalleriesImages',
+        ]);
     }
 
     /**
@@ -74,21 +87,14 @@ class ImagesTable extends Table
     public function validationCreate(Validator $validator): Validator
     {
         $validator = $this->validationDefault($validator);
-        $validator
-            ->requirePresence('image', 'create')
-            ->notEmptyFile('image', 'An image file is required')
-            ->add('image', [
-                'mimeType' => [
-                    'rule' => ['mimeType', ['image/jpeg', 'image/png', 'image/gif']],
-                    'message' => 'Please upload only jpeg, png, or gif images.',
-                ],
-                'fileSize' => [
-                    'rule' => ['fileSize', '<=', '10MB'],
-                    'message' => 'Image must be less than 10MB.',
-                ],
-            ]);
 
-        return $validator;
+        return $this->addRequiredImageValidation($validator, 'image', [
+            'messages' => [
+                'mimeType' => 'Please upload only jpeg, png, or gif images.',
+                'fileSize' => 'Image must be less than 10MB.',
+                'required' => 'An image file is required',
+            ],
+        ]);
     }
 
     /**
@@ -105,23 +111,12 @@ class ImagesTable extends Table
     public function validationUpdate(Validator $validator): Validator
     {
         $validator = $this->validationDefault($validator);
-        $validator
-            ->allowEmptyFile('image')
-            ->add('image', [
-                'mimeType' => [
-                    'rule' => ['mimeType', ['image/jpeg', 'image/png', 'image/gif']],
-                    'message' => 'Please upload only jpeg, png, or gif images.',
-                    'on' => function ($context) {
-                        return !empty($context['data']['image'])
-                        && $context['data']['image']->getError() === UPLOAD_ERR_OK;
-                    },
-                ],
-                'fileSize' => [
-                    'rule' => ['fileSize', '<=', '10MB'],
-                    'message' => 'Image must be less than 10MB.',
-                ],
-            ]);
 
-        return $validator;
+        return $this->addOptionalImageValidation($validator, 'image', [
+            'messages' => [
+                'mimeType' => 'Please upload only jpeg, png, or gif images.',
+                'fileSize' => 'Image must be less than 10MB.',
+            ],
+        ]);
     }
 }

@@ -5,12 +5,7 @@ namespace App\Job;
 
 use App\Service\Api\Anthropic\AnthropicApiService;
 use App\Service\Api\Anthropic\TextSummaryGenerator;
-use Cake\Cache\Cache;
-use Cake\Log\LogTrait;
-use Cake\ORM\TableRegistry;
-use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
-use Exception;
 use Interop\Queue\Processor;
 
 /**
@@ -19,24 +14,8 @@ use Interop\Queue\Processor;
  * This job is responsible for generating and updating the summary of an article using the TextSummaryGenerator.
  * It processes messages from the queue to update the summary field of an article.
  */
-class ArticleSummaryUpdateJob implements JobInterface
+class ArticleSummaryUpdateJob extends AbstractJob
 {
-    use LogTrait;
-
-    /**
-     * Maximum number of attempts for the job.
-     *
-     * @var int|null
-     */
-    public static int $maxAttempts = 3;
-
-    /**
-     * Whether there should be only one instance of a job on the queue at a time.
-     *
-     * @var bool
-     */
-    public static bool $shouldBeUnique = true;
-
     /**
      * Instance of the TextSummaryGenerator service.
      *
@@ -51,10 +30,36 @@ class ArticleSummaryUpdateJob implements JobInterface
      */
     public function __construct(?TextSummaryGenerator $summaryGenerator = null)
     {
-        $this->summaryGenerator = $summaryGenerator ?? new TextSummaryGenerator(
-            new AnthropicApiService(),
-            TableRegistry::getTableLocator()->get('Aiprompts'),
-        );
+        if ($summaryGenerator) {
+            $this->summaryGenerator = $summaryGenerator;
+        }
+    }
+
+    /**
+     * Get the TextSummaryGenerator instance, creating it if needed
+     *
+     * @return \App\Service\Api\Anthropic\TextSummaryGenerator
+     */
+    private function getSummaryGenerator(): TextSummaryGenerator
+    {
+        if (!isset($this->summaryGenerator)) {
+            $this->summaryGenerator = new TextSummaryGenerator(
+                new AnthropicApiService(),
+                $this->getTable('Aiprompts'),
+            );
+        }
+
+        return $this->summaryGenerator;
+    }
+
+    /**
+     * Get the human-readable job type name for logging
+     *
+     * @return string The job type description
+     */
+    protected static function getJobType(): string
+    {
+        return 'article summary update';
     }
 
     /**
@@ -68,82 +73,35 @@ class ArticleSummaryUpdateJob implements JobInterface
      */
     public function execute(Message $message): ?string
     {
-        $id = $message->getArgument('id');
-        $title = $message->getArgument('title');
-
-        $this->log(
-            sprintf('Received article summary update message: %s : %s', $id, $title),
-            'info',
-            ['group_name' => 'App\Job\ArticleSummaryUpdateJob'],
-        );
-
-        $articlesTable = TableRegistry::getTableLocator()->get('Articles');
-        $article = $articlesTable->get($id);
-
-        try {
-            $summaryResult = $this->summaryGenerator->generateTextSummary(
-                'article',
-                (string)strip_tags($article->body),
-            );
-        } catch (Exception $e) {
-            $this->log(
-                sprintf(
-                    'Article Summary update failed. ID: %s Title: %s Error: %s',
-                    $id,
-                    $title,
-                    $e->getMessage(),
-                ),
-                'error',
-                ['group_name' => 'App\Job\ArticleSummaryUpdateJob'],
-            );
-
+        if (!$this->validateArguments($message, ['id', 'title'])) {
             return Processor::REJECT;
         }
 
-        if (isset($summaryResult['summary'])) {
-            if (empty($article->summary)) {
-                $article->summary = $summaryResult['summary'];
-            }
+        $id = $message->getArgument('id');
+        $title = $message->getArgument('title');
 
-            if (empty($article->lede)) {
-                $article->lede = $summaryResult['lede'];
-            }
+        $articlesTable = $this->getTable('Articles');
+        $article = $articlesTable->get($id);
 
-            // Save the data
-            if ($articlesTable->save($article, ['noMessage' => true])) {
-                $this->log(
-                    sprintf('Article summary update completed successfully. Article ID: %s Title: %s', $id, $title),
-                    'info',
-                    ['group_name' => 'App\Job\ArticleSummaryUpdateJob'],
-                );
-
-                Cache::clear('content');
-
-                return Processor::ACK;
-            } else {
-                $this->log(
-                    sprintf(
-                        'Failed to save article summary updates. Article ID: %s Title: %s Error: %s',
-                        $id,
-                        $title,
-                        json_encode($article->getErrors()),
-                    ),
-                    'error',
-                    ['group_name' => 'App\Job\ArticleSummaryUpdateJob'],
-                );
-            }
-        } else {
-            $this->log(
-                sprintf(
-                    'Article summary update failed. No valid result returned. Article ID: %s Title: %s',
-                    $id,
-                    $title,
-                ),
-                'error',
-                ['group_name' => 'App\Job\ArticleSummaryUpdateJob'],
+        return $this->executeWithErrorHandling($id, function () use ($article, $articlesTable) {
+            $summaryResult = $this->getSummaryGenerator()->generateTextSummary(
+                'article',
+                (string)strip_tags($article->body),
             );
-        }
 
-        return Processor::REJECT;
+            if (isset($summaryResult['summary'])) {
+                if (empty($article->summary)) {
+                    $article->summary = $summaryResult['summary'];
+                }
+
+                if (empty($article->lede)) {
+                    $article->lede = $summaryResult['lede'];
+                }
+
+                return $articlesTable->save($article, ['noMessage' => true]);
+            }
+
+            return false;
+        }, $title);
     }
 }

@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
         paramName: "image",
         maxFilesize: 20, // MB
         maxFiles: 50,
-        acceptedFiles: `image/*`,
+        acceptedFiles: `image/*,.zip,.tar,.tar.gz,.tgz`,
         addRemoveLinks: true, // Enable remove links
         headers: {
             'X-CSRF-Token': csrfToken,

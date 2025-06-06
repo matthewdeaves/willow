@@ -21,7 +21,7 @@ $session = $this->request->getSession();
     <title><?= SettingsManager::read('SEO.siteName', 'Willow CMS') ?>: <?= $this->fetch('title') ?></title>
     <?= $this->Html->meta('icon') ?>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     
     <?= $this->Html->css([
         'AdminTheme.base',
@@ -33,6 +33,7 @@ $session = $this->request->getSession();
     ], ['block' => true]) ?>
 
     <?= $this->Html->script('AdminTheme.image-preview') ?>
+    <?= $this->Html->script('AdminTheme.universal-search') ?>
     <?= $this->Html->script('willow-modal') ?>
     <?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js'); ?>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/components/dropdown.min.css">
@@ -211,9 +212,21 @@ $session = $this->request->getSession();
                 '<i class="fas fa-images sidebar-icon"></i><span class="sidebar-text ms-2">' . __('Images') . '</span>',
                 ['prefix' => 'Admin', 'controller' => 'Images', 'action' => 'index'],
                 [
-                    'class' => 'list-group-item list-group-item-action border-0 sidebar-link' . ($activeCtl == 'Images' ? ' active' : ''),
+                    'class' => 'list-group-item list-group-item-action border-0 sidebar-link' . (($this->request->getParam('controller') == 'Images') ? ' active' : ''),
                     'escape' => false,
                     'title' => __('Images'),
+                    'data-bs-toggle' => 'tooltip',
+                    'data-bs-placement' => 'right'
+                ]
+            ) ?>
+
+            <?= $this->Html->link(
+                '<i class="fas fa-layer-group sidebar-icon"></i><span class="sidebar-text ms-2">' . __('Image Galleries') . '</span>',
+                ['prefix' => 'Admin', 'controller' => 'ImageGalleries', 'action' => 'index'],
+                [
+                    'class' => 'list-group-item list-group-item-action border-0 sidebar-link' . (($this->request->getParam('controller') == 'ImageGalleries') ? ' active' : ''),
+                    'escape' => false,
+                    'title' => __('Image Galleries'),
                     'data-bs-toggle' => 'tooltip',
                     'data-bs-placement' => 'right'
                 ]
@@ -420,7 +433,16 @@ $session = $this->request->getSession();
                 '<i class="fas fa-images me-2"></i>' . __('Images'),
                 ['prefix' => 'Admin', 'controller' => 'Images', 'action' => 'index'],
                 [
-                    'class' => 'list-group-item list-group-item-action border-0' . ($activeCtl == 'Images' ? ' active' : ''),
+                    'class' => 'list-group-item list-group-item-action border-0' . (($this->request->getParam('controller') == 'Images') ? ' active' : ''),
+                    'escape' => false
+                ]
+            ) ?>
+
+            <?= $this->Html->link(
+                '<i class="fas fa-layer-group me-2"></i>' . __('Image Galleries'),
+                ['prefix' => 'Admin', 'controller' => 'ImageGalleries', 'action' => 'index'],
+                [
+                    'class' => 'list-group-item list-group-item-action border-0' . (($this->request->getParam('controller') == 'ImageGalleries') ? ' active' : ''),
                     'escape' => false
                 ]
             ) ?>

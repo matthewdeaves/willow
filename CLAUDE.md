@@ -112,6 +112,13 @@ cake_rollback
 docker compose exec willowcms bin/cake cache clear_all
 # or with alias:
 cake_clear_cache
+
+# Direct MySQL database access
+docker compose exec mysql mysql -u cms_user -ppassword cms
+# Query examples:
+docker compose exec mysql mysql -u cms_user -ppassword cms -e "SELECT * FROM settings WHERE key_name = 'editor';"
+docker compose exec mysql mysql -u cms_user -ppassword cms -e "DESCRIBE articles;"
+docker compose exec mysql mysql -u cms_user -ppassword cms -e "SELECT id, title, is_published FROM articles LIMIT 5;"
 ```
 
 ### Queue Workers
@@ -183,6 +190,25 @@ docker compose exec willowcms bin/cake default_data_export
 # or with alias:
 export_data
 ```
+
+### Debugging and Troubleshooting
+
+```bash
+# Investigate article translation and SEO issues
+docker compose exec willowcms bin/cake investigate_article article-slug-here
+
+# Examples:
+docker compose exec willowcms bin/cake investigate_article this-is-a-test-page
+docker compose exec willowcms bin/cake investigate_article my-blog-post
+```
+
+**InvestigateArticle Command**: Comprehensive debugging tool for AI-related issues:
+- Checks if article exists and shows metadata
+- Verifies translation status in articles_translations table  
+- Reviews system logs for translation job activity/errors
+- Reviews system logs for SEO generation job activity/errors
+- Checks queue_jobs table for pending/failed jobs
+- Useful when articles aren't appearing in other languages or missing SEO content
 
 ### Management Tool (manage.sh)
 

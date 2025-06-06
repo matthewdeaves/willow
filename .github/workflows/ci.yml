@@ -30,6 +30,13 @@ jobs:
         mysql -e 'CREATE DATABASE IF NOT EXISTS cms_test;' -uroot -proot
         mysql -e 'SHOW DATABASES;' -uroot -proot
 
+    - name: Setup Redis
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y redis-server
+        sudo service redis-server start
+        redis-cli ping
+
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
@@ -50,10 +57,19 @@ jobs:
     - name: Debug app_local.php
       run: cat "config/app_local.php"
 
+    - name: Test Redis Connection
+      run: |
+        redis-cli ping
+        redis-cli info server | head -5
+
     - name: Run PHPUnit
       run: php -d display_errors=on -d error_reporting=E_ALL vendor/bin/phpunit
       env:
         XDEBUG_MODE: coverage
+        REDIS_HOST: 127.0.0.1
+        REDIS_PORT: 6379
+        REDIS_PASSWORD: ""
+        REDIS_URL: "redis://127.0.0.1:6379/0"
 
     - name: Run PHP CodeSniffer
       run: vendor/bin/phpcs --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/

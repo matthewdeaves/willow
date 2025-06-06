@@ -8,7 +8,6 @@ use ArrayObject;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
 use Cake\ORM\Behavior;
-use Cake\Queue\QueueManager;
 use Cake\Utility\Text;
 
 /**
@@ -85,7 +84,8 @@ class QueueableImageBehavior extends Behavior
                     ];
 
                     // Add paths for all resized versions based on 'ImageSizes' setting
-                    foreach (SettingsManager::read('ImageSizes') as $width) {
+                    $imageSizes = SettingsManager::read('ImageSizes', []);
+                    foreach ($imageSizes as $width) {
                         $paths[] = $path . $width . DS . $entity->{$field};
                     }
 
@@ -127,7 +127,8 @@ class QueueableImageBehavior extends Behavior
                     unlink($mainFilePath);
                 }
 
-                foreach (SettingsManager::read('ImageSizes', []) as $width) {
+                $imageSizes = SettingsManager::read('ImageSizes', []);
+                foreach ($imageSizes as $width) {
                     $resizedPath = $basePath . $width . DS . $originalImage;
                     if (file_exists($resizedPath)) {
                         unlink($resizedPath);
@@ -163,7 +164,7 @@ class QueueableImageBehavior extends Behavior
             ];
 
             // Queue up an image processing job to generate different sizes/versions.
-            QueueManager::push('App\Job\ProcessImageJob', $data);
+            $this->_table->queueJob('App\Job\ProcessImageJob', $data);
 
             // Check if AI features are enabled for image analysis.
             if (SettingsManager::read('AI.enabled')) {
@@ -172,7 +173,7 @@ class QueueableImageBehavior extends Behavior
 
                 // If image analysis is specifically enabled, queue that job.
                 if (SettingsManager::read('AI.imageAnalysis')) {
-                    QueueManager::push('App\Job\ImageAnalysisJob', $data);
+                    $this->_table->queueJob('App\Job\ImageAnalysisJob', $data);
                 }
             }
         }

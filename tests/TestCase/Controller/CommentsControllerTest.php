@@ -53,6 +53,32 @@ class CommentsControllerTest extends AppControllerTestCase
     }
 
     /**
+     * tearDown method
+     *
+     * @return void
+     */
+    public function tearDown(): void
+    {
+        // Clear all cache configurations
+        Cache::clear();
+        Cache::clear('content');
+        Cache::clear('default');
+
+        // Clear file-based cache directories
+        $contentCachePath = CACHE . 'content' . DS;
+        if (is_dir($contentCachePath)) {
+            $files = glob($contentCachePath . '*');
+            foreach ($files as $file) {
+                if (is_file($file)) {
+                    unlink($file);
+                }
+            }
+        }
+
+        parent::tearDown();
+    }
+
+    /**
      * Test index method for admin
      *
      * @return void
@@ -176,8 +202,21 @@ class CommentsControllerTest extends AppControllerTestCase
      */
     public function testCommentVisibility(): void
     {
-        // Clear any caches that might affect the test
+        // Clear ALL cache configurations to ensure clean state
         Cache::clear();
+        Cache::clear('content');
+        Cache::clear('default');
+
+        // Clear file-based cache directories
+        $contentCachePath = CACHE . 'content' . DS;
+        if (is_dir($contentCachePath)) {
+            $files = glob($contentCachePath . '*');
+            foreach ($files as $file) {
+                if (is_file($file)) {
+                    unlink($file);
+                }
+            }
+        }
 
         // First, ensure the comment is visible
         $this->get('/en/articles/article-six');

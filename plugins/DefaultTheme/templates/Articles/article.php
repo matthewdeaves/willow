@@ -26,8 +26,19 @@
     </div>
     <?php endif; ?>
     
+    <?= $this->Html->css('https://cdn.jsdelivr.net/npm/trumbowyg@2.28.0/dist/ui/trumbowyg.min.css'); ?>
+    
     <div class="article-content-wrapper">
-        <div id="article-body-content" class="article-body"><?= htmlspecialchars_decode($this->Video->processYouTubePlaceholders($article->body)) ?></div>
+        <div id="article-body-content" class="article-body trumbowyg-editor-visible trumbowyg-semantic"><?php
+            $content = $article->body;
+            // Process videos first
+            $content = $this->Video->processVideoPlaceholders($content);
+            // Process galleries second
+            $content = $this->Gallery->processGalleryPlaceholders($content);
+            // Enhance content formatting (alignment, responsive images)
+            $content = $this->Content->enhanceContent($content, ['processResponsiveImages' => true]);
+            echo htmlspecialchars_decode($content);
+        ?></div>
     </div>
     
     <?= $this->element('site/facebook/share_button') ?>

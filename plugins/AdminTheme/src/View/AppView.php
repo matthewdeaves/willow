@@ -39,6 +39,9 @@ class AppView extends View
     {
         parent::initialize();
 
+        // Load shared gallery helper from main app
+        $this->addHelper('Gallery');
+
         // Set Bootstrap-friendly form templates
         $this->Form->setTemplates([
             'inputContainer' => '<div class="{{type}}{{required}}">{{content}}</div>',

@@ -20,17 +20,29 @@ pause() {
 execute_command() {
     local cmd_choice="$1"
     case "$cmd_choice" in
-        1|2|3|4)
+        1|2|3|4|5)
             execute_data_command "$cmd_choice"
             ;;
-        5|6|7|8)
-            execute_i18n_command "$cmd_choice"
+        6|7|8|9)
+            # Convert to original numbering for i18n commands
+            local i18n_choice=$((cmd_choice - 1))
+            execute_i18n_command "$i18n_choice"
             ;;
-        9|10)
-            execute_asset_command "$cmd_choice"
+        10|11|12)
+            # Convert to original numbering for asset commands
+            local asset_choice=$((cmd_choice - 1))
+            execute_asset_command "$asset_choice"
             ;;
-        11|12|13|0)
-            execute_system_command "$cmd_choice"
+        13|14|15|0)
+            # Convert to original numbering for system commands
+            local system_choice
+            case "$cmd_choice" in
+                13) system_choice=11 ;;
+                14) system_choice=12 ;;
+                15) system_choice=13 ;;
+                0) system_choice=0 ;;
+            esac
+            execute_system_command "$system_choice"
             ;;
         *)
             echo "Error: Invalid option '$cmd_choice'"
@@ -68,7 +80,7 @@ main() {
     while true; do
         show_header
         show_menu
-        read -r -p "Enter your choice [0-13]: " choice_input
+        read -r -p "Enter your choice [0-15]: " choice_input
 
         if [ -z "$choice_input" ]; then # Handle empty input
             echo "Error: No input. Please enter a number."
@@ -86,15 +98,15 @@ main() {
         local choice_num
         choice_num=$((choice_input))
 
-        if [ "$choice_num" -lt 0 ] || [ "$choice_num" -gt 13 ]; then
-            echo "Error: Please enter a number between 0 and 13."
+        if [ "$choice_num" -lt 0 ] || [ "$choice_num" -gt 15 ]; then
+            echo "Error: Please enter a number between 0 and 15."
             pause
             continue
         fi
 
         CURRENT_CHOICE_FOR_SERVICE_CHECK="$choice_num"
-        # Skip Docker service checks for Exit (0) and Host System Update (11)
-        if [ "$choice_num" -ne 0 ] && [ "$choice_num" -ne 13 ]; then
+        # Skip Docker service checks for Exit (0) and Host System Update (15)
+        if [ "$choice_num" -ne 0 ] && [ "$choice_num" -ne 15 ]; then
             if ! check_docker_services; then 
                 pause
                 continue
@@ -104,8 +116,8 @@ main() {
         echo
         if execute_command "$choice_num"; then
             # Successful command execution
-            # Pause for all except exit (0) and interactive shell (10)
-            if [ "$choice_num" -ne 0 ] && [ "$choice_num" -ne 10 ]; then
+            # Pause for all except exit (0) and interactive shell (14)
+            if [ "$choice_num" -ne 0 ] && [ "$choice_num" -ne 14 ]; then
                 pause
             fi
         else

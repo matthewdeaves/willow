@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Service\ConsentService;
 use App\Utility\I18nManager;
 use Cake\Controller\Controller;
 use Cake\Core\Configure;
@@ -21,6 +22,13 @@ class AppController extends Controller
      * @var string
      */
     public string $cacheKey;
+
+    /**
+     * ConsentService for handling cookie consent and session management
+     *
+     * @var \App\Service\ConsentService
+     */
+    protected ConsentService $consentService;
 
     /**
      * Checks if the current request is an admin request.
@@ -50,6 +58,9 @@ class AppController extends Controller
         $this->cacheKey = hash('xxh3', json_encode($this->request->getAttribute('params')));
         $this->loadComponent('Flash');
         $this->loadComponent('Authentication.Authentication'); // Loads the component
+
+        // Initialize ConsentService
+        $this->consentService = new ConsentService();
 
         // Only load FrontEndSite component for non-admin routes
         if (!$this->request->getParam('prefix') || $this->request->getParam('prefix') !== 'Admin') {
@@ -82,7 +93,8 @@ class AppController extends Controller
         if ($identity) {
             $profilePic = $identity->image_url;
 
-            if ($profilePic) {
+            // Only set profilePic if the user has an actual image file
+            if ($profilePic && $identity->image) {
                 $this->set(compact('profilePic'));
             }
         }
@@ -99,39 +111,12 @@ class AppController extends Controller
             I18nManager::setLocalForAdminArea();
         }
 
-        $this->handleConsent();
+        // Handle consent data processing
+        $consentData = $this->consentService->getConsentData($this->request);
+        $this->set($consentData);
 
         $this->set('activeCtl', $this->request->getParam('controller'));
         $this->set('activeAct', $this->request->getParam('action'));
-    }
-
-    /**
-     * Handles user consent data processing and view variable setting.
-     *
-     * This method:
-     * - Starts a session if not already started
-     * - For non-admin requests:
-     *   - Gets the user ID if authenticated
-     *   - Gets the current session ID
-     *   - Retrieves and decodes the consent cookie if present
-     * - Sets session ID and consent data for view access
-     *
-     * @return void The method sets view variables but does not return a value
-     * @throws \RuntimeException If session cannot be started
-     * @throws \InvalidArgumentException If cookie data cannot be decoded
-     */
-    private function handleConsent(): void
-    {
-        if (!$this->request->getSession()->started()) { // Ensure session is started
-            $this->request->getSession()->start();
-        }
-        $sessionId = $this->request->getSession()->id();
-        $consentData = null;
-        $consentCookie = $this->request->getCookie('consent_cookie');
-        if ($consentCookie) {
-            $consentData = json_decode($consentCookie, true);
-        }
-        $this->set(compact('sessionId', 'consentData'));
     }
 
     /**

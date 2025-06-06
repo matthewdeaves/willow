@@ -4,18 +4,24 @@
  * @var iterable<\{{ entityClass }}> ${{ pluralVar }}
  */
 ?>
-<?php $activeFilter = $this->request->getQuery('status'); ?>
-<table class="table table-striped">
-  <thead>
-      <tr>
-      {% for field in fields %}
-        <th scope="col"><?= $this->Paginator->sort('{{ field }}') ?></th>
-      {% endfor %}
-        <th scope="col"><?= __('Actions') ?></th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php foreach (${{ pluralVar }} as ${{ singularVar }}): ?>
+<?php if (empty(${{ pluralVar }})): ?>
+    <?= $this->element('empty_state', [
+        'type' => 'search',
+        'title' => __('No {{ pluralHumanName }} found'),
+        'message' => __('Try adjusting your search terms or filters.')
+    ]) ?>
+<?php else: ?>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+            {% for field in fields %}
+                <th scope="col"><?= $this->Paginator->sort('{{ field }}') ?></th>
+            {% endfor %}
+                <th scope="col"><?= __('Actions') ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach (${{ pluralVar }} as ${{ singularVar }}): ?>
       <tr>
     {% for field in fields %}
     {% set isKey = false %}
@@ -45,10 +51,11 @@
           <td>
             <?= $this->element('evd_dropdown', ['model' => ${{ singularVar }}, 'display' => '{{ displayField }}']); ?>
           </td>
-      </tr>
-      <?php endforeach; ?>
-    </tbody>
-  </table>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
 
-<?= $this->element('pagination', ['recordCount' => count(${{ pluralVar }}), 'search' => $search ?? '']) ?>
+    <?= $this->element('pagination') ?>
+<?php endif; ?>
 

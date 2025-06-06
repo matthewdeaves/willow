@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use App\Model\Behavior\ImageValidationTrait;
 use App\Utility\SettingsManager;
 use ArrayObject;
 use Cake\Datasource\EntityInterface;
@@ -11,7 +12,6 @@ use Cake\Log\LogTrait;
 use Cake\ORM\Behavior\Translate\TranslateTrait;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
-use Cake\Queue\QueueManager;
 use Cake\Validation\Validator;
 use DateTime;
 
@@ -41,7 +41,10 @@ use DateTime;
  */
 class ArticlesTable extends Table
 {
+    use ImageValidationTrait;
     use LogTrait;
+    use QueueableJobsTrait;
+    use SeoFieldsTrait;
     use TranslateTrait;
 
     /**
@@ -139,18 +142,7 @@ class ArticlesTable extends Table
             ->scalar('body')
             ->allowEmptyString('body');
 
-        $validator
-            ->allowEmptyFile('image')
-            ->add('image', [
-                'mimeType' => [
-                    'rule' => ['mimeType', ['image/jpeg', 'image/png', 'image/gif']],
-                    'message' => __('Please upload only images (jpeg, png, gif).'),
-                ],
-                'fileSize' => [
-                    'rule' => ['fileSize', '<=', '10MB'],
-                    'message' => __('Image must be less than 10MB.'),
-                ],
-            ]);
+        $this->addOptionalImageValidation($validator, 'image');
 
         return $validator;
     }
@@ -263,66 +255,6 @@ class ArticlesTable extends Table
                 $this->queueJob('App\Job\TranslateArticleJob', $data);
             }
         }
-    }
-
-    /**
-     * Checks if any of the SEO fields are empty
-     *
-     * @param \Cake\Datasource\EntityInterface $entity The article entity to check
-     * @return array<string> List of empty SEO field names
-     */
-    public function emptySeoFields(EntityInterface $entity): array
-    {
-        $seoFields = [
-            'meta_title',
-            'meta_description',
-            'meta_keywords',
-            'facebook_description',
-            'linkedin_description',
-            'twitter_description',
-            'instagram_description',
-        ];
-
-        return array_filter($seoFields, fn($field) => empty($entity->{$field}));
-    }
-
-    /**
-     * Checks if any of the original language fields for translation are empty
-     *
-     * @param \Cake\Datasource\EntityInterface $entity The article entity to check
-     * @return array<string> List of empty translation field names
-     */
-    public function emptyTranslationFields(EntityInterface $entity): array
-    {
-        if ($this->behaviors()->has('Translate')) {
-            // Get the configuration of the Timestamp behavior
-            $config = $this->behaviors()->get('Translate')->getConfig();
-
-            return array_filter($config['fields'], fn($field) => empty($entity->{$field}));
-        }
-
-        return [];
-    }
-
-    /**
-     * Queues a job with the provided job class and data
-     *
-     * @param string $job The fully qualified job class name
-     * @param array<string, mixed> $data The data to be passed to the job
-     * @return void
-     */
-    public function queueJob(string $job, array $data): void
-    {
-        QueueManager::push($job, $data);
-        $this->log(
-            sprintf(
-                'Queued a %s with data: %s',
-                $job,
-                json_encode($data),
-            ),
-            'info',
-            ['group_name' => $job],
-        );
     }
 
     /**

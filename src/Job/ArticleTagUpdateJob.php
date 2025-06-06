@@ -4,14 +4,9 @@ declare(strict_types=1);
 namespace App\Job;
 
 use App\Service\Api\Anthropic\AnthropicApiService;
-use Cake\Cache\Cache;
-use Cake\Log\LogTrait;
 use Cake\ORM\Entity;
 use Cake\ORM\Table;
-use Cake\ORM\TableRegistry;
-use Cake\Queue\Job\JobInterface;
 use Cake\Queue\Job\Message;
-use Exception;
 use Interop\Queue\Processor;
 
 /**
@@ -20,24 +15,8 @@ use Interop\Queue\Processor;
  * This job is responsible for updating the tags of an article using the Anthropic API.
  * It processes messages from the queue to generate and update tags for articles.
  */
-class ArticleTagUpdateJob implements JobInterface
+class ArticleTagUpdateJob extends AbstractJob
 {
-    use LogTrait;
-
-    /**
-     * Maximum number of attempts for this job.
-     *
-     * @var int|null
-     */
-    public static int $maxAttempts = 3;
-
-    /**
-     * Whether this job should be unique in the queue.
-     *
-     * @var bool
-     */
-    public static bool $shouldBeUnique = true;
-
     /**
      * Instance of the Anthropic API service.
      *
@@ -56,6 +35,16 @@ class ArticleTagUpdateJob implements JobInterface
     }
 
     /**
+     * Get the human-readable job type name for logging
+     *
+     * @return string The job type description
+     */
+    protected static function getJobType(): string
+    {
+        return 'article tag update';
+    }
+
+    /**
      * Executes the job to update article tags.
      *
      * This method processes the message, retrieves the article, generates new tags using the Anthropic API,
@@ -66,17 +55,15 @@ class ArticleTagUpdateJob implements JobInterface
      */
     public function execute(Message $message): ?string
     {
+        if (!$this->validateArguments($message, ['id', 'title'])) {
+            return Processor::REJECT;
+        }
+
         $id = $message->getArgument('id');
         $title = $message->getArgument('title');
 
-        $this->log(
-            sprintf('Received article tag update message: %s : %s', $id, $title),
-            'info',
-            ['group_name' => 'App\Job\ArticleTagUpdateJob'],
-        );
-
-        $articlesTable = TableRegistry::getTableLocator()->get('Articles');
-        $tagsTable = TableRegistry::getTableLocator()->get('Tags');
+        $articlesTable = $this->getTable('Articles');
+        $tagsTable = $this->getTable('Tags');
 
         $article = $articlesTable->get(
             $id,
@@ -86,77 +73,38 @@ class ArticleTagUpdateJob implements JobInterface
 
         $allTags = $tagsTable->getSimpleThreadedArray();
 
-        try {
+        return $this->executeWithErrorHandling($id, function () use ($article, $tagsTable, $articlesTable, $allTags) {
             $tagResult = $this->anthropicService->generateArticleTags(
                 $allTags,
                 (string)$article->title,
                 (string)strip_tags($article->body),
             );
-        } catch (Exception $e) {
-            $this->log(
-                sprintf(
-                    'Article Tag update failed. ID: %s Title: %s Error: %s',
-                    $id,
-                    $title,
-                    $e->getMessage(),
-                ),
-                'error',
-                ['group_name' => 'App\Job\ArticleTagUpdateJob'],
-            );
 
-            return Processor::REJECT;
-        }
-
-        if (isset($tagResult['tags']) && is_array($tagResult['tags'])) {
-            $newTags = [];
-            foreach ($tagResult['tags'] as $rootTag) {
-                $parentTag = $this->findOrSaveTag($tagsTable, $rootTag['tag'], $rootTag['description']);
-                $newTags[] = $parentTag;
-                if (isset($rootTag['children']) && is_array($rootTag['children'])) {
-                    foreach ($rootTag['children'] as $childTag) {
-                        $child = $this->findOrSaveTag(
-                            $tagsTable,
-                            $childTag['tag'],
-                            $childTag['description'],
-                            $parentTag->id,
-                        );
-                        $newTags[] = $child;
+            if (isset($tagResult['tags']) && is_array($tagResult['tags'])) {
+                $newTags = [];
+                foreach ($tagResult['tags'] as $rootTag) {
+                    $parentTag = $this->findOrSaveTag($tagsTable, $rootTag['tag'], $rootTag['description']);
+                    $newTags[] = $parentTag;
+                    if (isset($rootTag['children']) && is_array($rootTag['children'])) {
+                        foreach ($rootTag['children'] as $childTag) {
+                            $child = $this->findOrSaveTag(
+                                $tagsTable,
+                                $childTag['tag'],
+                                $childTag['description'],
+                                $parentTag->id,
+                            );
+                            $newTags[] = $child;
+                        }
                     }
                 }
+
+                $article->tags = $newTags;
+
+                return $articlesTable->save($article, ['validate' => false, 'noMessage' => true]);
             }
 
-            $article->tags = $newTags;
-
-            if ($articlesTable->save($article, ['validate' => false, 'noMessage' => true])) {
-                $this->log(
-                    sprintf('Article tag update completed successfully. Article ID: %s', $id),
-                    'info',
-                    ['group_name' => 'App\Job\ArticleTagUpdateJob'],
-                );
-
-                Cache::clear('content');
-
-                return Processor::ACK;
-            } else {
-                $this->log(
-                    sprintf(
-                        'Failed to save article tag updates. Article ID: %s Error: %s',
-                        $id,
-                        json_encode($article->getErrors()),
-                    ),
-                    'error',
-                    ['group_name' => 'App\Job\ArticleTagUpdateJob'],
-                );
-            }
-        } else {
-            $this->log(
-                sprintf('Article tag update failed. No valid result returned. Article ID: %s', $id),
-                'error',
-                ['group_name' => 'App\Job\ArticleTagUpdateJob'],
-            );
-        }
-
-        return Processor::REJECT;
+            return false;
+        }, $title);
     }
 
     /**

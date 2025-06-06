@@ -10,7 +10,6 @@ use Cake\Event\EventInterface;
 use Cake\Log\LogTrait;
 use Cake\ORM\Behavior\Translate\TranslateTrait;
 use Cake\ORM\Table;
-use Cake\Queue\QueueManager;
 use Cake\Validation\Validator;
 
 /**
@@ -35,6 +34,8 @@ use Cake\Validation\Validator;
 class TagsTable extends Table
 {
     use LogTrait;
+    use QueueableJobsTrait;
+    use SeoFieldsTrait;
     use TranslateTrait;
 
     /**
@@ -142,71 +143,13 @@ class TagsTable extends Table
     }
 
     /**
-     * Checks if any of the SEO fields are empty.
+     * Get all SEO fields for Tags table (includes description field)
      *
-     * @return array Returns an array of empty SEO fields.
+     * @return array<string> List of all SEO field names for tags
      */
-    public function emptySeoFields(EntityInterface $entity): array
+    protected function getAllSeoFields(): array
     {
-        $seoFields = [
-            'description',
-            'meta_title',
-            'meta_description',
-            'meta_keywords',
-            'facebook_description',
-            'linkedin_description',
-            'twitter_description',
-            'instagram_description',
-        ];
-
-        return array_filter($seoFields, fn($field) => empty($entity->{$field}));
-    }
-
-    /**
-     * Checks if any of the original language fields for translation are empty.
-     *
-     * @return array Returns an array of empty SEO fields.
-     */
-    public function emptyTranslationFields(EntityInterface $entity): array
-    {
-        if ($this->behaviors()->has('Translate')) {
-            // Get the configuration of the Timestamp behavior
-            $config = $this->behaviors()->get('Translate')->getConfig();
-
-            return array_filter($config['fields'], fn($field) => empty($entity->{$field}));
-        }
-
-        return [];
-    }
-
-    /**
-     * Queues a job with the provided job class and data.
-     *
-     * This method is used to queue jobs for various tasks related to tags, such as updating SEO fields
-     * and translating tags. It uses the QueueManager to push the job into the queue and logs the queued
-     * job with relevant information.
-     *
-     * @param string $job The fully qualified class name of the job to be queued.
-     * @param array $data An associative array of data to be passed to the job. Typically includes:
-     *                    - 'id' (int): The ID of the tag associated with the job.
-     *                    - 'title' (string): The title of the tag.
-     * @return void
-     * @throws \Exception If there is an error while queueing the job.
-     * @uses \Cake\Queue\QueueManager::push() Pushes the job into the queue.
-     * @uses \Cake\Log\Log::info() Logs the queued job with relevant information.
-     */
-    public function queueJob(string $job, array $data): void
-    {
-        QueueManager::push($job, $data);
-        $this->log(
-            sprintf(
-                'Queued a %s with data: %s',
-                $job,
-                json_encode($data),
-            ),
-            'info',
-            ['group_name' => $job],
-        );
+        return array_merge(['description'], $this->getStandardSeoFields());
     }
 
     /**

@@ -80,7 +80,7 @@ window.WillowModalConfig = {
         imageSizes: ['thumbnail', 'medium', 'large', 'original'],
         defaultImageSize: 'large',
         imagePath: '/files/Images/image/',
-        videoPlaceholderFormat: '[youtube:{id}:{title}]',
+        videoPlaceholderFormat: '[youtube:{id}:560:315:{title}]',
         galleryPlaceholderFormat: '[gallery:{id}:{theme}:{title}]'
     },
     
@@ -616,6 +616,9 @@ window.WillowModal = {
         // Video selection handler
         this._bindVideoSelection(container);
 
+        // Clear search button handlers (rebind after AJAX updates)
+        this._bindVideoClearButtons();
+
         // Pagination handler
         this._bindPaginationHandler(container);
     },
@@ -640,6 +643,40 @@ window.WillowModal = {
         
         // Mark as bound
         container.dataset[WillowModalConfig.events.datasetMarker] = 'true';
+    },
+
+    /**
+     * Bind video clear button handlers
+     * @private
+     */
+    _bindVideoClearButtons: function() {
+        // Clear search button in search form
+        const clearVideoSearch = document.getElementById('clearVideoSearch');
+        if (clearVideoSearch && !clearVideoSearch.dataset.handlerBound) {
+            clearVideoSearch.addEventListener('click', function() {
+                const searchInput = document.getElementById('videoSearch');
+                if (searchInput) {
+                    searchInput.value = '';
+                    searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+                    searchInput.focus();
+                }
+            });
+            clearVideoSearch.dataset.handlerBound = 'true';
+        }
+        
+        // Clear search button in empty state
+        const clearVideoSearchBtn = document.getElementById('clearVideoSearchBtn');
+        if (clearVideoSearchBtn && !clearVideoSearchBtn.dataset.handlerBound) {
+            clearVideoSearchBtn.addEventListener('click', function() {
+                const searchInput = document.getElementById('videoSearch');
+                if (searchInput) {
+                    searchInput.value = '';
+                    searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+                    searchInput.focus();
+                }
+            });
+            clearVideoSearchBtn.dataset.handlerBound = 'true';
+        }
     },
 
     /**
@@ -1078,6 +1115,12 @@ window.WillowModal = {
             url.searchParams.set('gallery_only', '1');
         } else if (type === 'video') {
             url.searchParams.set('gallery_only', '1');
+            
+            // For video type, check if channel filter checkbox is checked
+            const channelFilter = document.getElementById('channelFilter');
+            if (channelFilter) {
+                url.searchParams.set('channel_filter', channelFilter.checked ? '1' : '0');
+            }
         } else if (type === 'gallery') {
             url.searchParams.set('gallery_only', '1');
         }

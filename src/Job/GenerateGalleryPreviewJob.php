@@ -90,13 +90,11 @@ class GenerateGalleryPreviewJob implements JobInterface
         try {
             // Get gallery and images
             $galleriesTable = FactoryLocator::get('Table')->get('ImageGalleries');
-            $gallery = $galleriesTable->get($galleryId, [
-                'contain' => [
-                    'Images' => function ($q) {
-                        return $q->orderBy(['ImageGalleriesImages.position' => 'ASC'])
-                                ->limit(6); // Only need first 6 images for preview
-                    },
-                ],
+            $gallery = $galleriesTable->get($galleryId, contain: [
+                'Images' => function ($q) {
+                    return $q->orderBy(['ImageGalleriesImages.position' => 'ASC'])
+                            ->limit(6); // Only need first 6 images for preview
+                },
             ]);
 
             if (empty($gallery->images)) {

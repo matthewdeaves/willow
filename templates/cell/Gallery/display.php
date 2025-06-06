@@ -37,6 +37,7 @@ if ($theme === 'admin') {
 echo $this->element('shared_photo_gallery', [
     'images' => $images,
     'title' => $title,
+    'description' => $description,
     'theme' => $theme,
     'showActions' => false, // Actions handled separately when needed
     'galleryId' => null, // Links handled separately when needed

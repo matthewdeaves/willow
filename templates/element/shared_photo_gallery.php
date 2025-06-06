@@ -7,6 +7,7 @@
  * @var \App\View\AppView $this
  * @var array $images Array of image entities
  * @var string $title Gallery title
+ * @var string $description Gallery description
  * @var string $theme Gallery theme ('admin' or 'default') - auto-detected if not provided
  * @var bool $showActions Whether to show management actions (admin only)
  * @var string $galleryId Gallery ID for management links
@@ -20,19 +21,24 @@ if (!isset($theme)) {
 
 $showActions = $showActions ?? ($theme === 'admin');
 $title = $title ?? __('Gallery Images');
+$description = $description ?? '';
 $images = $images ?? [];
 $galleryId = $galleryId ?? null;
 ?>
 
 <?php if (!empty($images)) : ?>
-    <?php if (!empty($title) && $theme === 'admin'): ?>
+    <?php if ($theme === 'admin'): ?>
         <div class="gallery-header">
-            <h4 class="gallery-title"><?= h($title) ?></h4>
-            <span class="gallery-count"><?= count($images) ?> <?= __('images') ?></span>
+            <div class="d-flex justify-content-end">
+                <span class="gallery-count"><?= count($images) ?> <?= __('images') ?></span>
+            </div>
         </div>
     <?php elseif (!empty($title) && $theme === 'default'): ?>
         <div class="gallery-header">
             <h4 class="gallery-title"><?= h($title) ?></h4>
+            <?php if (!empty($description)): ?>
+                <p class="gallery-description text-muted"><?= h($description) ?></p>
+            <?php endif; ?>
         </div>
     <?php endif; ?>
     

@@ -8,7 +8,7 @@ use Cake\Cache\Cache;
 use Cake\Datasource\EntityInterface;
 use Cake\Datasource\FactoryLocator;
 use Cake\Event\EventInterface;
-use Cake\Log\Log;
+use Cake\Log\LogTrait;
 use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -36,6 +36,8 @@ use Cake\Validation\Validator;
  */
 class ImageGalleriesImagesTable extends Table
 {
+    use LogTrait;
+
     /**
      * Initialize method
      *
@@ -118,11 +120,11 @@ class ImageGalleriesImagesTable extends Table
     public function afterSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
         // Queue preview regeneration for the gallery when images are added
-        Log::info(sprintf(
+        $this->log(sprintf(
             'ImageGalleriesImagesTable::afterSave triggered for gallery %s, image %s',
             $entity->image_gallery_id,
             $entity->image_id,
-        ));
+        ), 'info', ['group_name' => 'ImageGalleriesImagesTable']);
         $this->queuePreviewRegeneration($entity->image_gallery_id);
         $this->clearGalleryCache($entity->image_gallery_id);
     }
@@ -229,5 +231,14 @@ class ImageGalleriesImagesTable extends Table
         // Clear both public and admin gallery caches
         Cache::delete("gallery_placeholder_{$galleryId}", 'default');
         Cache::delete("gallery_placeholder_admin_{$galleryId}", 'default');
+        
+        // Clear article cache to update articles containing this gallery
+        // This ensures articles immediately reflect gallery image changes
+        Cache::clear('content');
+        $this->log(
+            sprintf('Cleared article cache due to gallery %s image changes', $galleryId),
+            'info',
+            ['group_name' => 'ImageGalleriesImagesTable']
+        );
     }
 }

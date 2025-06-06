@@ -93,19 +93,37 @@
 
 /* Gallery Header */
 .gallery-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
     border-bottom: 2px solid var(--bs-border-color);
+}
+
+/* Admin theme specific header styling */
+.admin-gallery .gallery-header .d-flex {
+    gap: 2rem;
+}
+
+.admin-gallery .gallery-header .gallery-title {
+    margin-bottom: 0.5rem;
+}
+
+.admin-gallery .gallery-header .gallery-description {
+    margin-top: 0.25rem;
 }
 
 .gallery-title {
     font-size: 1.5rem;
     font-weight: 600;
     color: var(--bs-body-color);
+    margin: 0 0 0.5rem 0;
+}
+
+.gallery-description {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--bs-text-muted);
     margin: 0;
+    max-width: 100%;
 }
 
 .gallery-count {
@@ -115,6 +133,8 @@
     border-radius: 15px;
     font-size: 0.8rem;
     font-weight: 500;
+    white-space: nowrap;
+    align-self: flex-start;
 }
 
 /* Empty Gallery State */

@@ -68,7 +68,7 @@ $searchTerm = $searchTerm ?? '';
                     </div>
                     
                     <!-- Selection Button -->
-                    <div class="card-footer bg-transparent p-3 pt-0">
+                    <div class="card-footer bg-transparent p-3">
                         <button type="button" 
                                 class="btn btn-primary w-100 select-video" 
                                 data-video-id="<?= h($video['id']) ?>"

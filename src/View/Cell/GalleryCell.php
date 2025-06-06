@@ -37,12 +37,20 @@ class GalleryCell extends Cell
             // Get the ImageGalleries table and set current locale for translations
             $galleriesTable = $this->fetchTable('ImageGalleries');
             $currentLocale = I18n::getLocale();
+            
+            // Debug: Log the current locale being used
+            $this->log(sprintf('GalleryCell: Using locale %s for gallery %s', $currentLocale, $galleryId), 'debug');
+            
+            // Explicitly set the locale on the table for TranslateBehavior
             $galleriesTable->setLocale($currentLocale);
+
+            // Generate locale-aware cache key from request (same logic as AppController)
+            $cacheKey = hash('xxh3', json_encode($this->request->getAttribute('params')));
 
             // Fetch gallery data using the table's dedicated method
             // For admin theme, don't require published status
             $requirePublished = $theme !== 'admin';
-            $gallery = $galleriesTable->getGalleryForPlaceholder($galleryId, $requirePublished);
+            $gallery = $galleriesTable->getGalleryForPlaceholder($galleryId, $requirePublished, $cacheKey);
 
             if (!$gallery || empty($gallery->images)) {
                 // Set empty flag for template to handle gracefully
@@ -56,8 +64,9 @@ class GalleryCell extends Cell
                 return;
             }
 
-            // Use title override if provided, otherwise use translated gallery name
-            $displayTitle = $title ?: $gallery->name;
+            // Use translated gallery name, not the title from placeholder
+            // This ensures translations work properly
+            $displayTitle = $gallery->name;
 
             // Set data for template rendering
             $this->set([
@@ -65,6 +74,7 @@ class GalleryCell extends Cell
                 'images' => $gallery->images,
                 'theme' => $theme,
                 'title' => $displayTitle,
+                'description' => $gallery->description,
                 'isEmpty' => false,
             ]);
 

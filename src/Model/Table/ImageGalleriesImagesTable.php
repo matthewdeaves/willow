@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Model\Table;
 
 use ArrayObject;
+use Cake\Cache\Cache;
 use Cake\Datasource\EntityInterface;
 use Cake\Datasource\FactoryLocator;
 use Cake\Event\EventInterface;
@@ -123,6 +124,7 @@ class ImageGalleriesImagesTable extends Table
             $entity->image_id,
         ));
         $this->queuePreviewRegeneration($entity->image_gallery_id);
+        $this->clearGalleryCache($entity->image_gallery_id);
     }
 
     /**
@@ -137,6 +139,7 @@ class ImageGalleriesImagesTable extends Table
     {
         // Queue preview regeneration for the gallery when images are removed
         $this->queuePreviewRegeneration($entity->image_gallery_id);
+        $this->clearGalleryCache($entity->image_gallery_id);
     }
 
     /**
@@ -164,9 +167,10 @@ class ImageGalleriesImagesTable extends Table
             return true;
         });
 
-        // Queue preview regeneration after reordering since order affects the preview
+        // Queue preview regeneration and clear gallery cache after reordering
         if ($result) {
             $this->queuePreviewRegeneration($galleryId);
+            $this->clearGalleryCache($galleryId);
         }
 
         return $result;
@@ -212,5 +216,18 @@ class ImageGalleriesImagesTable extends Table
         // Get the ImageGalleries table and call its preview generation method
         $imageGalleriesTable = FactoryLocator::get('Table')->get('ImageGalleries');
         $imageGalleriesTable->queuePreviewGeneration($galleryId);
+    }
+
+    /**
+     * Clear gallery placeholder cache for both admin and public contexts
+     *
+     * @param string $galleryId Gallery ID
+     * @return void
+     */
+    private function clearGalleryCache(string $galleryId): void
+    {
+        // Clear both public and admin gallery caches
+        Cache::delete("gallery_placeholder_{$galleryId}", 'default');
+        Cache::delete("gallery_placeholder_admin_{$galleryId}", 'default');
     }
 }

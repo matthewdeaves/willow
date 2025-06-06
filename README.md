@@ -23,18 +23,23 @@ Willow CMS is a powerful, AI-enhanced content management system that combines th
 - **Smart Tagging**: Automatic article tagging based on content analysis
 - **Image Analysis**: AI-powered alt text, keywords, and descriptions for images
 - **Comment Moderation**: Intelligent spam and inappropriate content detection
+- **Content Generation**: AI-powered article summaries and content enhancement
 
 ### 🎨 **Flexible Architecture**
 - **Plugin-Based Theming**: Separate frontend (`DefaultTheme`) and admin (`AdminTheme`) interfaces
 - **Multi-Language First**: Built-in internationalization with locale-aware routing
 - **Queue-Based Processing**: Background jobs for heavy operations (image processing, AI tasks)
 - **Modern Security**: IP blocking, rate limiting, CSRF protection, and secure authentication
+- **Advanced Content Management**: WYSIWYG editor (Trumbowyg) with image galleries and responsive design
+- **Image Gallery System**: Comprehensive image management with AI-powered descriptions and metadata
 
 ### 🛠️ **Developer Experience**
 - **Docker Development Environment**: Complete setup with Nginx, PHP, MySQL, Redis, PHPMyAdmin, Mailpit, and Jenkins
 - **Management Tool**: Interactive CLI (`./manage.sh`) for data management, backups, and system operations
-- **Code Quality Tools**: PHP CodeSniffer, PHPStan, and comprehensive unit testing
+- **Code Quality Tools**: PHP CodeSniffer, PHPStan, and comprehensive unit testing with 292+ tests
 - **CakePHP 5.x Foundation**: Following modern MVC patterns and conventions
+- **Developer Aliases**: Streamlined shell commands for common development tasks
+- **GitHub Actions CI/CD**: Automated testing on PHP 8.1, 8.2, 8.3 with Redis integration
 
 ---
 
@@ -91,27 +96,49 @@ This provides shortcuts like:
 #### Queue Workers (Required for AI Features)
 ```bash
 # Start queue worker for AI processing, image handling, etc.
-cake_queue_worker
+cake_queue_worker_verbose
 # or
 docker compose exec willowcms bin/cake queue worker --verbose
 ```
 
 #### Testing
 ```bash
-# Run all tests
-docker compose exec willowcms php vendor/bin/phpunit
+# Run all tests (292+ tests with comprehensive coverage)
+phpunit
 
-# Run with coverage
-docker compose exec willowcms php vendor/bin/phpunit --coverage-html webroot/coverage
+# Run with coverage report
+phpunit_cov_html
+# Accessible at http://localhost:8080/coverage/
+
+# Run specific test file
+phpunit tests/TestCase/Controller/UsersControllerTest.php
 ```
 
 #### Code Quality
 ```bash
 # Check coding standards
-docker compose exec willowcms vendor/bin/phpcs --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/
+phpcs_sniff
 
-# Static analysis
-docker compose exec willowcms php vendor/bin/phpstan analyse src/
+# Auto-fix code violations
+phpcs_fix
+
+# Static analysis (PHPStan level 5)
+phpstan_analyse
+
+# All quality checks
+composer cs-check && composer stan
+```
+
+#### Database Management
+```bash
+# Run migrations
+cake_migrate
+
+# Create migration after schema changes
+bake_diff YourMigrationName
+
+# Direct database access
+docker compose exec mysql mysql -u cms_user -ppassword cms
 ```
 
 ### Management Tool
@@ -170,37 +197,61 @@ Willow CMS integrates with leading AI services for enhanced functionality:
 ### Project Structure
 ```
 willow/
-├── src/                          # Core application code
-│   ├── Controller/              # Frontend controllers
-│   ├── Controller/Admin/        # Admin backend controllers
-│   ├── Model/                   # Data models and behaviors
-│   ├── Service/Api/             # AI service integrations
-│   ├── Job/                     # Background job classes
-│   ├── Command/                 # CLI commands
-│   └── Middleware/              # Security and rate limiting
-├── plugins/
-│   ├── AdminTheme/             # Admin interface theme
-│   └── DefaultTheme/           # Public website theme
-├── config/                     # Configuration files
-├── tests/                      # Unit and integration tests
-├── docker/                     # Docker configuration
-└── manage.sh                   # Management tool
+├── 📁 src/                          # Core application code
+│   ├── 🎮 Controller/              # Frontend controllers
+│   │   └── Admin/                  # Admin backend controllers
+│   ├── 📊 Model/                   # Data models, entities, and behaviors
+│   │   ├── Behavior/              # Reusable model behaviors
+│   │   ├── Entity/                # Entity classes with business logic
+│   │   └── Table/                 # Table classes with queries
+│   ├── 🔌 Service/Api/             # AI and external API integrations
+│   │   ├── Anthropic/             # Claude AI services
+│   │   └── Google/                # Google Translate services
+│   ├── ⚡ Job/                     # Background job classes
+│   ├── 🛠️ Command/                 # CLI command tools
+│   ├── 🛡️ Middleware/              # Security and rate limiting
+│   ├── 👁️ View/                    # View helpers and cells
+│   └── 🔧 Utility/                 # Helper and utility classes
+├── 🎨 plugins/                     # Plugin-based themes
+│   ├── AdminTheme/                # Administrative interface (Bootstrap)
+│   │   ├── src/                   # Plugin controllers and logic
+│   │   ├── templates/             # Admin templates and forms
+│   │   └── webroot/               # Admin assets (CSS, JS)
+│   └── DefaultTheme/              # Public website theme
+│       ├── src/                   # Theme controllers
+│       ├── templates/             # Public templates
+│       └── webroot/               # Public assets
+├── ⚙️ config/                      # Configuration files
+│   ├── Migrations/                # Database migration files
+│   ├── schema/                    # Database schema files
+│   └── routes.php                 # URL routing configuration
+├── 🧪 tests/                       # Comprehensive test suite (292+ tests)
+│   ├── TestCase/                  # Test classes
+│   └── Fixture/                   # Test data fixtures
+├── 🐳 docker/                      # Docker development environment
+├── 📁 webroot/                     # Public web assets and uploads
+├── 🌍 resources/locales/           # Translation files (25+ languages)
+└── 🔧 manage.sh                    # Interactive management tool
 ```
 
-### Key Behaviors
-- **ImageAssociableBehavior**: Cross-model image associations
-- **SlugBehavior**: SEO-friendly URLs with history
-- **OrderableBehavior**: Drag-and-drop content ordering
-- **CommentableBehavior**: Universal commenting system
+### Key Behaviors & Components
+- **ImageAssociableBehavior**: Cross-model image associations via pivot table
+- **SlugBehavior**: SEO-friendly URLs with history tracking and automatic redirects
+- **OrderableBehavior**: Drag-and-drop content ordering for galleries and lists
+- **CommentableBehavior**: Universal commenting system with AI moderation
+- **QueueableImageBehavior**: Automated background image processing and analysis
+- **ContentHelper**: Advanced content formatting with alignment and responsive images
+- **GalleryCell**: Reusable gallery display component with translation support
 
 ---
 
 ## 🧪 Testing & Quality
 
 ### Continuous Integration
-- **GitHub Actions**: Automated testing on PHP 8.1, 8.2, 8.3
-- **Code Coverage**: HTML reports available at `/coverage/`
-- **Pre-commit Hooks**: Automatic test execution before pushes
+- **GitHub Actions**: Automated testing on PHP 8.1, 8.2, 8.3 with Redis and MySQL
+- **Code Coverage**: HTML reports available at `/coverage/` with detailed metrics
+- **Pre-commit Hooks**: Automatic test execution and code quality checks before pushes
+- **292+ Tests**: Comprehensive test suite covering controllers, models, behaviors, and services
 
 ### Code Standards
 - **PHP CodeSniffer**: CakePHP coding standards enforcement

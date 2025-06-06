@@ -30,6 +30,13 @@ jobs:
         mysql -e 'CREATE DATABASE IF NOT EXISTS cms_test;' -uroot -proot
         mysql -e 'SHOW DATABASES;' -uroot -proot
 
+    - name: Setup Redis
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y redis-server
+        sudo service redis-server start
+        redis-cli ping
+
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:

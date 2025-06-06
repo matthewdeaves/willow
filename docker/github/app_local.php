@@ -95,4 +95,43 @@ return [
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
         ],
     ],
+
+    /*
+     * Cache configuration for GitHub Actions
+     * Use Redis for consistency with local development
+     */
+    'Cache' => [
+        'default' => [
+            'className' => 'Cake\Cache\Engine\RedisEngine',
+            'host' => '127.0.0.1',
+            'port' => 6379,
+            'timeout' => 3,
+            'persistent' => false,
+        ],
+        '_cake_core_' => [
+            'className' => 'Cake\Cache\Engine\FileEngine',
+            'prefix' => 'myapp_cake_core_',
+            'path' => CACHE . 'persistent/',
+            'serialize' => true,
+            'duration' => '+10 seconds',
+        ],
+        '_cake_model_' => [
+            'className' => 'Cake\Cache\Engine\FileEngine',
+            'prefix' => 'myapp_cake_model_',
+            'path' => CACHE . 'models/',
+            'serialize' => 'File',
+            'duration' => '+10 seconds',
+        ],
+    ],
+
+    /*
+     * Queue configuration for GitHub Actions
+     * Use Redis for queue backend
+     */
+    'Queue' => [
+        'default' => [
+            'queue' => 'default',
+            'url' => 'redis://127.0.0.1:6379/0',
+        ],
+    ],
 ];

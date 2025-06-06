@@ -27,7 +27,7 @@ class VideosController extends AppController
         $searchTerm = $this->request->getQuery('search');
         $filterByChannel = filter_var($this->request->getQuery('channel_filter'), FILTER_VALIDATE_BOOLEAN);
         $videos = [];
-        
+
         // If no explicit channel_filter parameter is provided, default to true (show channel videos)
         $channelId = SettingsManager::read('Google.youtubeChannelId', env('YOUTUBE_CHANNEL_ID'));
         if ($this->request->getQuery('channel_filter') === null && $channelId && $channelId !== 'your-api-key-here') {

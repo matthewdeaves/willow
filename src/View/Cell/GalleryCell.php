@@ -40,7 +40,9 @@ class GalleryCell extends Cell
             $galleriesTable->setLocale($currentLocale);
 
             // Fetch gallery data using the table's dedicated method
-            $gallery = $galleriesTable->getGalleryForPlaceholder($galleryId);
+            // For admin theme, don't require published status
+            $requirePublished = $theme !== 'admin';
+            $gallery = $galleriesTable->getGalleryForPlaceholder($galleryId, $requirePublished);
 
             if (!$gallery || empty($gallery->images)) {
                 // Set empty flag for template to handle gracefully

@@ -20,10 +20,19 @@ class ImageGalleriesImagesFixture extends TestFixture
         $this->records = [
             [
                 'id' => '011e830d-bdea-4a4a-8529-a9a3511723f3',
-                'image_gallery_id' => '4843dc7c-c0cb-4e91-9843-2f1dab229df2',
-                'image_id' => '7479fa38-2ab2-4170-ab89-ef3812db0d73',
+                'image_gallery_id' => '32cf930e-1456-4cf9-ab9e-a7db7250b1ea', // Reference actual gallery from fixture
+                'image_id' => '1202d58b-8fec-4b0c-900b-32246bb64d79', // Reference actual image from fixture
                 'position' => 1,
-                'caption' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
+                'caption' => 'First test image in gallery',
+                'created' => '2025-06-04 08:43:01',
+                'modified' => '2025-06-04 08:43:01',
+            ],
+            [
+                'id' => '022e830d-bdea-4a4a-8529-a9a3511723f4',
+                'image_gallery_id' => '32cf930e-1456-4cf9-ab9e-a7db7250b1ea', // Same gallery
+                'image_id' => '2202d58b-8fec-4b0c-900b-32246bb64d79', // Second image
+                'position' => 2,
+                'caption' => 'Second test image in gallery',
                 'created' => '2025-06-04 08:43:01',
                 'modified' => '2025-06-04 08:43:01',
             ],

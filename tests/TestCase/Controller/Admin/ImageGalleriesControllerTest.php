@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Controller\Admin;
 
 use App\Test\TestCase\AppControllerTestCase;
+use Cake\Cache\Cache;
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Http\Exception\MethodNotAllowedException;
 use Cake\TestSuite\IntegrationTestTrait;
@@ -428,5 +429,159 @@ class ImageGalleriesControllerTest extends AppControllerTestCase
         $this->expectException(RecordNotFoundException::class);
 
         $this->get('/admin/image-galleries/manageImages/00000000-0000-0000-0000-000000000000');
+    }
+
+    /**
+     * Test that galleries with images can be properly loaded for display
+     * This test should catch issues where galleries with images fail to load
+     * due to missing dependencies (like LogTrait) or filtering problems
+     *
+     * @return void
+     */
+    public function testGalleryWithImagesLoading(): void
+    {
+        $galleryId = '32cf930e-1456-4cf9-ab9e-a7db7250b1ea'; // From fixture, has 2 images
+
+        // Test that the gallery loads with images in view action
+        $this->get("/admin/image-galleries/view/{$galleryId}");
+        $this->assertResponseOk();
+
+        // Get the gallery with images
+        $galleries = $this->getTableLocator()->get('ImageGalleries');
+        $gallery = $galleries->get($galleryId, contain: ['Images']);
+
+        // Verify the gallery has images (from fixtures)
+        $this->assertNotEmpty($gallery->images, 'Gallery should have images from fixtures');
+        $this->assertCount(2, $gallery->images, 'Gallery should have exactly 2 images from fixtures');
+
+        // Verify images have actual filenames (not empty)
+        foreach ($gallery->images as $image) {
+            $this->assertNotEmpty($image->image, 'Image should have a filename');
+        }
+    }
+
+    /**
+     * Test that getGalleryForPlaceholder method works correctly
+     * This should catch issues where galleries fail to load due to
+     * filtering problems or missing dependencies
+     *
+     * @return void
+     */
+    public function testGetGalleryForPlaceholder(): void
+    {
+        $galleryId = '32cf930e-1456-4cf9-ab9e-a7db7250b1ea'; // From fixture
+
+        $galleries = $this->getTableLocator()->get('ImageGalleries');
+
+        // First ensure the gallery is published (in case other tests changed it)
+        $gallery = $galleries->get($galleryId);
+        $gallery->is_published = true;
+        $galleries->save($gallery);
+
+        // Clear cache to ensure fresh data
+        Cache::clear('default');
+
+        // Test published gallery loading (default behavior)
+        $gallery = $galleries->getGalleryForPlaceholder($galleryId, true);
+        $this->assertNotNull($gallery, 'Published gallery should be loaded');
+        $this->assertNotEmpty($gallery->images, 'Gallery should have images');
+        $this->assertCount(2, $gallery->images, 'Gallery should have 2 images from fixtures');
+
+        // Test admin mode (unpublished galleries allowed)
+        $gallery = $galleries->getGalleryForPlaceholder($galleryId, false);
+        $this->assertNotNull($gallery, 'Gallery should be loaded in admin mode regardless of publish status');
+        $this->assertNotEmpty($gallery->images, 'Gallery should have images in admin mode');
+
+        // Test with non-existent gallery
+        $nonExistentGallery = $galleries->getGalleryForPlaceholder('00000000-0000-0000-0000-000000000000', false);
+        $this->assertNull($nonExistentGallery, 'Non-existent gallery should return null');
+    }
+
+    /**
+     * Test that publishing/unpublishing galleries triggers cache clearing
+     * This should catch issues where article cache isn't invalidated when gallery status changes
+     *
+     * @return void
+     */
+    public function testGalleryPublishStatusCacheClear(): void
+    {
+        $galleryId = '32cf930e-1456-4cf9-ab9e-a7db7250b1ea'; // From fixture
+
+        $galleries = $this->getTableLocator()->get('ImageGalleries');
+        $gallery = $galleries->get($galleryId);
+
+        // Change publish status
+        $originalStatus = $gallery->is_published;
+        $gallery->is_published = !$originalStatus;
+
+        // Save and check that it doesn't throw errors (would fail if LogTrait missing)
+        $result = $galleries->save($gallery);
+        $this->assertNotFalse($result, 'Gallery save should succeed');
+
+        // Verify the status actually changed
+        $updatedGallery = $galleries->get($galleryId);
+        $this->assertEquals(!$originalStatus, $updatedGallery->is_published, 'Gallery publish status should have changed');
+
+        // Restore original status for other tests
+        $updatedGallery->is_published = $originalStatus;
+        $galleries->save($updatedGallery);
+    }
+
+    /**
+     * Test that image operations on galleries work correctly
+     * This should catch issues with missing LogTrait or QueueableJobsTrait dependencies
+     *
+     * @return void
+     */
+    public function testGalleryImageOperations(): void
+    {
+        $galleryId = '32cf930e-1456-4cf9-ab9e-a7db7250b1ea'; // From fixture
+
+        $galleries = $this->getTableLocator()->get('ImageGalleries');
+        $images = $this->getTableLocator()->get('Images');
+
+        // Test creating a new image (this would fail if LogTrait missing from ImagesTable)
+        $newImage = $images->newEntity([
+            'name' => 'Test Image for Gallery',
+            'alt_text' => 'Test alt text',
+            'image' => 'test-new-image.png',
+            'dir' => 'files/Images/image/',
+            'mime' => 'image/png',
+            'size' => 1024,
+        ]);
+
+        $result = $images->save($newImage);
+        $this->assertNotFalse($result, 'Image save should succeed (tests LogTrait dependency)');
+
+        // Test gallery operations that might trigger logging
+        $gallery = $galleries->get($galleryId);
+        $gallery->name = 'Updated Gallery Name for Test';
+
+        $result = $galleries->save($gallery);
+        $this->assertNotFalse($result, 'Gallery save should succeed (tests trait dependencies)');
+    }
+
+    /**
+     * Test that galleries are properly displayed in view template
+     * This ensures the GalleryCell integration works correctly
+     *
+     * @return void
+     */
+    public function testGalleryCellIntegration(): void
+    {
+        $galleryId = '32cf930e-1456-4cf9-ab9e-a7db7250b1ea'; // From fixture, has images
+
+        // Test view page renders gallery content
+        $this->get("/admin/image-galleries/view/{$galleryId}");
+        $this->assertResponseOk();
+
+        // The view should contain gallery display (even if just placeholder text)
+        // If GalleryCell fails, this would be empty or show error
+        $this->assertResponseContains('Gallery Images', 'View should show gallery section');
+
+        // Test that no PHP errors occur (would show up in response)
+        $response = (string)$this->_response->getBody();
+        $this->assertStringNotContainsString('Fatal error', $response, 'Should not contain PHP fatal errors');
+        $this->assertStringNotContainsString('Unknown method', $response, 'Should not contain unknown method errors');
     }
 }

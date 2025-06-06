@@ -140,6 +140,8 @@ class ImageProcessingService
             'image' => $uploadedFile,
         ], ['validate' => 'create']);
 
+        $this->log(sprintf('Attempting to save image: %s', $filename), 'info', ['group_name' => 'ImageUploadService']);
+
         if ($this->imagesTable->save($imageEntity)) {
             $this->log(
                 sprintf('Successfully created image "%s" (ID: %s)', $imageEntity->name, $imageEntity->id),
@@ -161,6 +163,11 @@ class ImageProcessingService
 
         $this->log(
             sprintf('Failed to save image "%s". Errors: %s', $filename, json_encode($imageEntity->getErrors())),
+            'error',
+            ['group_name' => 'ImageUploadService'],
+        );
+        $this->log(
+            sprintf('Image entity validation errors: %s', json_encode($imageEntity->getErrors())),
             'error',
             ['group_name' => 'ImageUploadService'],
         );

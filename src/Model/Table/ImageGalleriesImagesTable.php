@@ -7,6 +7,7 @@ use ArrayObject;
 use Cake\Datasource\EntityInterface;
 use Cake\Datasource\FactoryLocator;
 use Cake\Event\EventInterface;
+use Cake\Log\Log;
 use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -116,6 +117,11 @@ class ImageGalleriesImagesTable extends Table
     public function afterSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
     {
         // Queue preview regeneration for the gallery when images are added
+        Log::info(sprintf(
+            'ImageGalleriesImagesTable::afterSave triggered for gallery %s, image %s',
+            $entity->image_gallery_id,
+            $entity->image_id,
+        ));
         $this->queuePreviewRegeneration($entity->image_gallery_id);
     }
 

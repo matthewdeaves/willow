@@ -128,17 +128,27 @@
             }
         }
         
-        // If we found the gallery, click the first image link to start PhotoSwipe
+        // If we found the gallery, try to start PhotoSwipe manually
         if (galleryContainer) {
             const firstImageLink = galleryContainer.querySelector(`${config.galleryItemSelector} a[href]`);
             if (firstImageLink) {
                 console.log('Starting gallery slideshow for:', galleryId);
                 
-                // Ensure PhotoSwipe is properly initialized for this gallery
-                setTimeout(() => {
-                    firstImageLink.click();
-                }, 50);
-                return;
+                // Check if PhotoSwipe is available
+                if (window.PhotoSwipe) {
+                    // Initialize PhotoSwipe manually for this hidden gallery
+                    setTimeout(() => {
+                        initializeHiddenGallery(galleryContainer, 0);
+                    }, 50);
+                    return;
+                } else {
+                    console.warn('PhotoSwipe not available, trying click fallback');
+                    // Fallback: try clicking the link
+                    setTimeout(() => {
+                        firstImageLink.click();
+                    }, 50);
+                    return;
+                }
             } else {
                 console.warn('No image links found in gallery:', galleryId);
             }
@@ -310,6 +320,59 @@
                 window.preloadedGalleryImages.push(img);
             }
         });
+    }
+
+    /**
+     * Initialize PhotoSwipe for a hidden gallery
+     */
+    function initializeHiddenGallery(galleryContainer, startIndex = 0) {
+        if (!window.PhotoSwipe) {
+            console.error('PhotoSwipe not available');
+            return;
+        }
+
+        // Parse gallery items like PhotoSwipeGallery does
+        const items = [];
+        const itemElements = galleryContainer.querySelectorAll(config.galleryItemSelector);
+        
+        itemElements.forEach((itemEl) => {
+            const link = itemEl.querySelector('a');
+            const img = itemEl.querySelector('img');
+            
+            if (link && img) {
+                const item = {
+                    src: link.href,
+                    width: parseInt(link.dataset.pswpWidth || 0) || 0,
+                    height: parseInt(link.dataset.pswpHeight || 0) || 0,
+                    alt: img.alt || '',
+                    title: link.dataset.title || img.alt || '',
+                    caption: link.dataset.caption || ''
+                };
+                items.push(item);
+            }
+        });
+
+        if (items.length === 0) {
+            console.warn('No gallery items found');
+            return;
+        }
+
+        console.log(`Opening PhotoSwipe with ${items.length} items, starting at index ${startIndex}`);
+
+        // Create PhotoSwipe instance
+        const photoswipe = new PhotoSwipe({
+            dataSource: items,
+            index: startIndex,
+            bgOpacity: 0.8,
+            showHideOpacity: true,
+            showAnimationDuration: 333,
+            hideAnimationDuration: 333,
+            spacing: 0.1,
+            padding: { top: 60, bottom: 60, left: 40, right: 40 }
+        });
+
+        // Initialize and open
+        photoswipe.init();
     }
 
     /**

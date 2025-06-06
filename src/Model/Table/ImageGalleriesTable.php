@@ -5,6 +5,7 @@ namespace App\Model\Table;
 
 use App\Utility\SettingsManager;
 use ArrayObject;
+use Cake\Cache\Cache;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
 use Cake\Log\LogTrait;
@@ -186,6 +187,17 @@ class ImageGalleriesTable extends Table
             $this->queuePreviewGeneration($entity->id);
         }
 
+        // Clear article cache when gallery published status changes
+        // This ensures articles show/hide galleries immediately when status changes
+        if ($entity->isDirty('is_published')) {
+            Cache::clear('content');
+            $this->log(
+                sprintf('Cleared article cache due to gallery %s publish status change', $entity->id),
+                'info',
+                ['group_name' => 'ImageGalleriesTable'],
+            );
+        }
+
         // Queue AI jobs for published galleries when AI is enabled
         if (
             $entity->is_published
@@ -256,15 +268,23 @@ class ImageGalleriesTable extends Table
     }
 
     /**
-     * Get a published gallery for placeholder rendering with caching
+     * Get a gallery for placeholder rendering with caching
      *
      * @param string $galleryId Gallery UUID
-     * @return \App\Model\Entity\ImageGallery|null Gallery entity or null if not found/published
+     * @param bool $requirePublished Whether to require the gallery to be published (default: true)
+     * @return \App\Model\Entity\ImageGallery|null Gallery entity or null if not found
      */
-    public function getGalleryForPlaceholder(string $galleryId): ?object
+    public function getGalleryForPlaceholder(string $galleryId, bool $requirePublished = true): ?object
     {
+        $cacheKey = $requirePublished ? "gallery_placeholder_{$galleryId}" : "gallery_placeholder_admin_{$galleryId}";
+
+        $conditions = ['ImageGalleries.id' => $galleryId];
+        if ($requirePublished) {
+            $conditions['ImageGalleries.is_published'] = true;
+        }
+
         return $this->find()
-            ->cache("gallery_placeholder_{$galleryId}", 'default')
+            ->cache($cacheKey, 'default')
             ->contain([
                 'Images' => function ($query) {
                     return $query->where([
@@ -274,10 +294,7 @@ class ImageGalleriesTable extends Table
                     ->orderBy(['ImageGalleriesImages.position' => 'ASC']);
                 },
             ])
-            ->where([
-                'ImageGalleries.id' => $galleryId,
-                'ImageGalleries.is_published' => true,
-            ])
+            ->where($conditions)
             ->first();
     }
 

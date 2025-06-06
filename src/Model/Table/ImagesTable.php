@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Model\Table;
 
 use App\Model\Behavior\ImageValidationTrait;
+use Cake\Log\LogTrait;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
@@ -28,6 +29,7 @@ use Cake\Validation\Validator;
 class ImagesTable extends Table
 {
     use ImageValidationTrait;
+    use LogTrait;
     use QueueableJobsTrait;
 
     /**

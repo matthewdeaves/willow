@@ -83,7 +83,7 @@
                           'escape' => false
                       ]
                   ) ?>
-                  <?php if ($slug->model === 'Articles' && !$relatedData[$slug->id]['is_published']): ?>
+                  <?php if ($slug->model === 'Articles' && isset($relatedData[$slug->id]['is_published']) && !$relatedData[$slug->id]['is_published']): ?>
                       <span class="badge bg-warning ms-2"><?= __('Not Published') ?></span>
                   <?php endif; ?>
               <?php else: ?>
@@ -94,14 +94,14 @@
               <?php
               if (isset($relatedData[$slug->id])) {
                   $routeName = match ($slug->model) {
-                      'Articles' => $relatedData[$slug->id]['kind'] === 'page' ? 'page-by-slug' : 'article-by-slug',
+                      'Articles' => (isset($relatedData[$slug->id]['kind']) && $relatedData[$slug->id]['kind'] === 'page') ? 'page-by-slug' : 'article-by-slug',
                       'Tags' => 'tag-by-slug',
                       default => null,
                   };
 
                   // Only create link if it's a Tag or a published Article
                   $showLink = $slug->model === 'Tags' || 
-                      ($slug->model === 'Articles' && $relatedData[$slug->id]['is_published']);
+                      ($slug->model === 'Articles' && isset($relatedData[$slug->id]['is_published']) && $relatedData[$slug->id]['is_published']);
 
                   if ($routeName && $showLink) {
                       echo $this->Html->link(

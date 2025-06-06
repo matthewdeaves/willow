@@ -55,18 +55,44 @@ class ContentHelper extends Helper
     public function enhanceContentAlignment(string $content, array $options = []): string
     {
         // Add alignment helper classes to paragraphs with inline styles
-        $content = preg_replace(
+        $alignmentResult = preg_replace(
             '/<p([^>]*style[^>]*text-align:\s*(center|left|right|justify)[^>]*)>/i',
             '<p$1 class="content-align-$2">',
             $content,
         );
+        if ($alignmentResult !== null) {
+            $content = $alignmentResult;
+        }
 
-        // Add responsive image classes
-        $content = preg_replace(
-            '/<img([^>]*class="[^"]*")([^>]*)>/i',
-            '<img$1 content-image"$2>',
+        // Add content-image class to all images for consistent styling
+        $imageClassResult = preg_replace(
+            '/<img([^>]*)>/i',
+            '<img$1 class="content-image">',
             $content,
         );
+        if ($imageClassResult !== null) {
+            $content = $imageClassResult;
+        }
+
+        // Preserve line breaks within aligned content by converting double BR to paragraph breaks
+        $lineBreakResult = preg_replace(
+            '/<br\s*\/?>\s*<br\s*\/?>/i',
+            '</p><p>',
+            $content,
+        );
+        if ($lineBreakResult !== null) {
+            $content = $lineBreakResult;
+        }
+
+        // Ensure empty paragraphs with alignment are preserved for spacing
+        $emptyParagraphResult = preg_replace(
+            '/<p([^>]*style[^>]*text-align[^>]*)>\s*<\/p>/i',
+            '<p$1>&nbsp;</p>',
+            $content,
+        );
+        if ($emptyParagraphResult !== null) {
+            $content = $emptyParagraphResult;
+        }
 
         return $content;
     }

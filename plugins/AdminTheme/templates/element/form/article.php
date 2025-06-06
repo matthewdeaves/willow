@@ -20,7 +20,22 @@
 
 <?php if(SettingsManager::read('Editing.editor') == 'markdownit') : ?>
     <?= $this->element('form/article_body_markdownit'); ?>
+<?php elseif(SettingsManager::read('Editing.editor') == 'trumbowyg') : ?>
+    <div class="mb-3">
+            <?php echo $this->Form->control('body',
+                [
+                    'id' => 'article-body',
+                    'rows' => '30',
+                    'class' => 'form-control' . ($this->Form->isFieldError('body') ? ' is-invalid' : '')
+                ]); ?>
+                <?php if ($this->Form->isFieldError('body')): ?>
+                <div class="invalid-feedback">
+                    <?= $this->Form->error('body') ?>
+                </div>
+            <?php endif; ?>
+        </div>
 <?php else: ?>
+    <!-- Default fallback editor -->
     <div class="mb-3">
             <?php echo $this->Form->control('body',
                 [

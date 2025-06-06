@@ -231,14 +231,14 @@ class ImageGalleriesImagesTable extends Table
         // Clear both public and admin gallery caches
         Cache::delete("gallery_placeholder_{$galleryId}", 'default');
         Cache::delete("gallery_placeholder_admin_{$galleryId}", 'default');
-        
+
         // Clear article cache to update articles containing this gallery
         // This ensures articles immediately reflect gallery image changes
         Cache::clear('content');
         $this->log(
             sprintf('Cleared article cache due to gallery %s image changes', $galleryId),
             'info',
-            ['group_name' => 'ImageGalleriesImagesTable']
+            ['group_name' => 'ImageGalleriesImagesTable'],
         );
     }
 }

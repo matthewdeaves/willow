@@ -396,70 +396,63 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.8;
 }
 
-/* Phase 1: Comprehensive CSS alignment support for Trumbowyg containers */
-/* Only target content images, not gallery images */
-.blog-post p[style*="text-align: center"]:not(.photo-gallery),
-.blog-post p[style*="text-align:center"]:not(.photo-gallery),
-.article-body p[style*="text-align: center"]:not(.photo-gallery),
-.article-body p[style*="text-align:center"]:not(.photo-gallery) {
+/* High specificity CSS alignment support for inline styles */
+/* Target any element with text-align inline styles */
+.article-body [style*="text-align: center"],
+.blog-post [style*="text-align: center"],
+.article-body .content-align-center,
+.blog-post .content-align-center {
   text-align: center !important;
 }
 
-.blog-post p[style*="text-align: left"]:not(.photo-gallery),
-.blog-post p[style*="text-align:left"]:not(.photo-gallery),
-.article-body p[style*="text-align: left"]:not(.photo-gallery),
-.article-body p[style*="text-align:left"]:not(.photo-gallery) {
+.article-body [style*="text-align: left"],
+.blog-post [style*="text-align: left"],
+.article-body .content-align-left,
+.blog-post .content-align-left {
   text-align: left !important;
 }
 
-.blog-post p[style*="text-align: right"]:not(.photo-gallery),
-.blog-post p[style*="text-align:right"]:not(.photo-gallery),
-.article-body p[style*="text-align: right"]:not(.photo-gallery),
-.article-body p[style*="text-align:right"]:not(.photo-gallery) {
+.article-body [style*="text-align: right"],
+.blog-post [style*="text-align: right"],
+.article-body .content-align-right,
+.blog-post .content-align-right {
   text-align: right !important;
 }
 
-.blog-post p[style*="text-align: justify"]:not(.photo-gallery),
-.blog-post p[style*="text-align:justify"]:not(.photo-gallery),
-.article-body p[style*="text-align: justify"]:not(.photo-gallery),
-.article-body p[style*="text-align:justify"]:not(.photo-gallery) {
+.article-body [style*="text-align: justify"],
+.blog-post [style*="text-align: justify"],
+.article-body .content-align-justify,
+.blog-post .content-align-justify {
   text-align: justify !important;
 }
 
-/* Center-aligned images within paragraphs (Trumbowyg style) - exclude gallery images */
-.blog-post p[style*="text-align: center"]:not(.photo-gallery) img:not(.gallery-image),
-.blog-post p[style*="text-align:center"]:not(.photo-gallery) img:not(.gallery-image),
-.article-body p[style*="text-align: center"]:not(.photo-gallery) img:not(.gallery-image),
-.article-body p[style*="text-align:center"]:not(.photo-gallery) img:not(.gallery-image),
-/* Also target any element with text-align center containing images */
-.blog-post [style*="text-align: center"]:not(.photo-gallery) img:not(.gallery-image),
-.blog-post [style*="text-align:center"]:not(.photo-gallery) img:not(.gallery-image),
+/* High specificity image alignment for inline styles - exclude gallery images */
 .article-body [style*="text-align: center"]:not(.photo-gallery) img:not(.gallery-image),
-.article-body [style*="text-align:center"]:not(.photo-gallery) img:not(.gallery-image) {
-  display: block;
-  margin: 1.5rem auto;
+.blog-post [style*="text-align: center"]:not(.photo-gallery) img:not(.gallery-image),
+.article-body .content-align-center img:not(.gallery-image),
+.blog-post .content-align-center img:not(.gallery-image) {
+  display: block !important;
+  margin: 1.5rem auto !important;
   max-width: 100%;
   height: auto;
 }
 
-/* Left-aligned images within paragraphs - exclude gallery images */
-.blog-post p[style*="text-align: left"]:not(.photo-gallery) img:not(.gallery-image),
-.blog-post p[style*="text-align:left"]:not(.photo-gallery) img:not(.gallery-image),
-.article-body p[style*="text-align: left"]:not(.photo-gallery) img:not(.gallery-image),
-.article-body p[style*="text-align:left"]:not(.photo-gallery) img:not(.gallery-image) {
-  display: block;
-  margin: 1.5rem 0;
+.article-body [style*="text-align: left"]:not(.photo-gallery) img:not(.gallery-image),
+.blog-post [style*="text-align: left"]:not(.photo-gallery) img:not(.gallery-image),
+.article-body .content-align-left img:not(.gallery-image),
+.blog-post .content-align-left img:not(.gallery-image) {
+  display: block !important;
+  margin: 1.5rem 0 !important;
   max-width: 100%;
   height: auto;
 }
 
-/* Right-aligned images within paragraphs - exclude gallery images */
-.blog-post p[style*="text-align: right"]:not(.photo-gallery) img:not(.gallery-image),
-.blog-post p[style*="text-align:right"]:not(.photo-gallery) img:not(.gallery-image),
-.article-body p[style*="text-align: right"]:not(.photo-gallery) img:not(.gallery-image),
-.article-body p[style*="text-align:right"]:not(.photo-gallery) img:not(.gallery-image) {
-  display: block;
-  margin: 1.5rem 0 1.5rem auto;
+.article-body [style*="text-align: right"]:not(.photo-gallery) img:not(.gallery-image),
+.blog-post [style*="text-align: right"]:not(.photo-gallery) img:not(.gallery-image),
+.article-body .content-align-right img:not(.gallery-image),
+.blog-post .content-align-right img:not(.gallery-image) {
+  display: block !important;
+  margin: 1.5rem 0 1.5rem auto !important;
   max-width: 100%;
   height: auto;
 }
@@ -467,14 +460,19 @@ h1, h2, h3, h4, h5, h6 {
 /* Phase 4: Responsive image enhancements and typography improvements */
 
 /* Responsive article images within content (fallback for non-aligned) - exclude gallery images */
+/* Only apply to images that are not inside aligned containers */
 .article-body img:not(.gallery-image) {
   max-width: 100%;
   height: auto;
-  margin: 2rem auto;
-  display: block;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Default margin for images not in aligned containers */
+.article-body p:not([style*="text-align"]) img:not(.gallery-image) {
+  margin: 2rem auto;
+  display: block;
 }
 
 .article-body img:not(.gallery-image):hover {
@@ -1104,3 +1102,153 @@ body {
     max-width: 320px;
   }
 }
+/* Content image enhancements for better alignment */
+.article-body .content-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.article-body .content-image:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+/* Enhanced spacing for aligned content */
+.article-body .content-align-center {
+  text-align: center \!important;
+  margin: 1.5rem 0;
+}
+
+.article-body .content-align-left {
+  text-align: left \!important;
+  margin: 1.5rem 0;
+}
+
+.article-body .content-align-right {
+  text-align: right \!important;
+  margin: 1.5rem 0;
+}
+
+.article-body .content-align-justify {
+  text-align: justify \!important;
+  margin: 1.5rem 0;
+}
+
+/* Ensure images within aligned paragraphs follow alignment */
+.article-body .content-align-center .content-image {
+  display: block;
+  margin: 1.5rem auto;
+}
+
+.article-body .content-align-left .content-image {
+  display: block;
+  margin: 1.5rem 0 1.5rem 0;
+}
+
+.article-body .content-align-right .content-image {
+  display: block;
+  margin: 1.5rem 0 1.5rem auto;
+}
+
+/* Preserve spacing for empty aligned paragraphs */
+.article-body p[style*="text-align"]:empty,
+.article-body .content-align-center:empty,
+.article-body .content-align-left:empty,
+.article-body .content-align-right:empty {
+  height: 1.5rem;
+  margin: 0.75rem 0;
+}
+
+/* Apply Trumbowyg-like styling to article content */
+.article-body.trumbowyg-editor-visible {
+  min-height: auto;
+  padding: 0;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* Override Trumbowyg CSS that might interfere with our layout */
+.article-body.trumbowyg-editor-visible img {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* Ensure Trumbowyg alignment styles work */
+.trumbowyg-editor-visible [style*="text-align: center"],
+.trumbowyg-semantic [style*="text-align: center"] {
+  text-align: center !important;
+}
+
+.trumbowyg-editor-visible [style*="text-align: left"],
+.trumbowyg-semantic [style*="text-align: left"] {
+  text-align: left !important;
+}
+
+.trumbowyg-editor-visible [style*="text-align: right"],
+.trumbowyg-semantic [style*="text-align: right"] {
+  text-align: right !important;
+}
+
+.trumbowyg-editor-visible [style*="text-align: justify"],
+.trumbowyg-semantic [style*="text-align: justify"] {
+  text-align: justify !important;
+}
+
+/* FINAL OVERRIDE - Ensure alignment works on frontend */
+#article-body-content p[style*="text-align: center"],
+#article-body-content .content-align-center {
+  text-align: center !important;
+  display: block !important;
+  width: 100% !important;
+  clear: both !important;
+  margin: 1.5rem 0 !important;
+}
+
+#article-body-content p[style*="text-align: left"],
+#article-body-content .content-align-left {
+  text-align: left !important;
+  display: block !important;
+  width: 100% !important;
+  clear: both !important;
+  margin: 1.5rem 0 !important;
+}
+
+#article-body-content p[style*="text-align: right"],
+#article-body-content .content-align-right {
+  text-align: right !important;
+  display: block !important;
+  width: 100% !important;
+  clear: both !important;
+  margin: 1.5rem 0 !important;
+}
+
+#article-body-content p[style*="text-align: center"] img,
+#article-body-content .content-align-center img {
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  clear: both !important;
+}
+
+#article-body-content p[style*="text-align: right"] img,
+#article-body-content .content-align-right img {
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: 0 !important;
+  clear: both !important;
+}
+
+#article-body-content p[style*="text-align: left"] img,
+#article-body-content .content-align-left img {
+  display: block !important;
+  margin-left: 0 !important;
+  margin-right: auto !important;
+  clear: both !important;
+}
+

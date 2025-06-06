@@ -277,17 +277,28 @@ class ImageGalleriesTable extends Table
      * @param string|null $cacheKey Locale-aware cache key from controller
      * @return \App\Model\Entity\ImageGallery|null Gallery entity or null if not found
      */
-    public function getGalleryForPlaceholder(string $galleryId, bool $requirePublished = true, ?string $cacheKey = null): ?object
-    {
+    public function getGalleryForPlaceholder(
+        string $galleryId,
+        bool $requirePublished = true,
+        ?string $cacheKey = null,
+    ): ?object {
         // Generate locale-aware cache key if provided, otherwise fall back to static key
         if ($cacheKey) {
-            $finalCacheKey = ($requirePublished ? "gallery_placeholder_{$galleryId}" : "gallery_placeholder_admin_{$galleryId}") . $cacheKey;
+            $baseKey = $requirePublished
+                ? "gallery_placeholder_{$galleryId}"
+                : "gallery_placeholder_admin_{$galleryId}";
+            $finalCacheKey = $baseKey . $cacheKey;
         } else {
-            $finalCacheKey = $requirePublished ? "gallery_placeholder_{$galleryId}" : "gallery_placeholder_admin_{$galleryId}";
+            $finalCacheKey = $requirePublished
+                ? "gallery_placeholder_{$galleryId}"
+                : "gallery_placeholder_admin_{$galleryId}";
         }
-        
+
         // Debug: Log cache key and locale being used
-        $this->log(sprintf('ImageGalleriesTable: Using cache key %s with locale %s', $finalCacheKey, $this->getLocale()), 'debug');
+        $this->log(
+            sprintf('ImageGalleriesTable: Using cache key %s with locale %s', $finalCacheKey, $this->getLocale()),
+            'debug',
+        );
 
         $conditions = ['ImageGalleries.id' => $galleryId];
         if ($requirePublished) {

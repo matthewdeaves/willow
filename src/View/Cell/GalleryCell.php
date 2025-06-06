@@ -37,10 +37,10 @@ class GalleryCell extends Cell
             // Get the ImageGalleries table and set current locale for translations
             $galleriesTable = $this->fetchTable('ImageGalleries');
             $currentLocale = I18n::getLocale();
-            
+
             // Debug: Log the current locale being used
             $this->log(sprintf('GalleryCell: Using locale %s for gallery %s', $currentLocale, $galleryId), 'debug');
-            
+
             // Explicitly set the locale on the table for TranslateBehavior
             $galleriesTable->setLocale($currentLocale);
 

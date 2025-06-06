@@ -75,7 +75,6 @@ $this->Html->script('AdminTheme.gallery-search', ['block' => 'scriptBottom']);
                                 <img src="<?= h($gallery->getPreviewImageUrl()) ?>"
                                      alt="<?= h($gallery->name) ?>"
                                      class="img-thumbnail gallery-preview-thumb"
-                                     style="width: 60px; height: 45px; object-fit: cover;"
                                      data-bs-toggle="popover"
                                      data-bs-trigger="hover"
                                      data-bs-content="<img src='<?= h($gallery->getPreviewImageUrl()) ?>' style='max-width: 300px; max-height: 200px;' alt='<?= h($gallery->name) ?>'>"
@@ -89,8 +88,8 @@ $this->Html->script('AdminTheme.gallery-search', ['block' => 'scriptBottom']);
                                     'class' => 'img-thumbnail gallery-preview-thumb'
                                 ]) ?>
                             <?php else: ?>
-                                <div class="text-center text-muted d-flex align-items-center justify-content-center img-thumbnail"
-                                     style="width: 60px; height: 45px; border: 1px solid #ddd; border-radius: 4px;">
+                                <div class="text-center text-muted d-flex align-items-center justify-content-center img-thumbnail gallery-preview-thumb"
+                                     style="border: 1px solid #ddd; border-radius: 4px;">
                                     <i class="fas fa-images"></i>
                                 </div>
                             <?php endif; ?>

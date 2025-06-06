@@ -112,6 +112,13 @@ cake_rollback
 docker compose exec willowcms bin/cake cache clear_all
 # or with alias:
 cake_clear_cache
+
+# Direct MySQL database access
+docker compose exec mysql mysql -u cms_user -ppassword cms
+# Query examples:
+docker compose exec mysql mysql -u cms_user -ppassword cms -e "SELECT * FROM settings WHERE key_name = 'editor';"
+docker compose exec mysql mysql -u cms_user -ppassword cms -e "DESCRIBE articles;"
+docker compose exec mysql mysql -u cms_user -ppassword cms -e "SELECT id, title, is_published FROM articles LIMIT 5;"
 ```
 
 ### Queue Workers

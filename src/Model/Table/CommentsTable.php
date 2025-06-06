@@ -9,7 +9,6 @@ use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
-use Cake\Queue\QueueManager;
 use Cake\Validation\Validator;
 
 /**
@@ -20,6 +19,7 @@ use Cake\Validation\Validator;
  */
 class CommentsTable extends Table
 {
+    use QueueableJobsTrait;
     /**
      * Initialize method
      *
@@ -113,8 +113,8 @@ class CommentsTable extends Table
                 'user_id' => $entity->user_id,
             ];
 
-            // Queue up a comment analysis job];
-            QueueManager::push('App\Job\CommentAnalysisJob', $data);
+            // Queue up a comment analysis job
+            $this->queueJob('App\Job\CommentAnalysisJob', $data);
         }
     }
 }

@@ -31,6 +31,7 @@ use Cake\ORM\Entity;
  */
 class ImageGallery extends Entity
 {
+    use SeoEntityTrait;
     use TranslateTrait;
 
     /**
@@ -48,6 +49,7 @@ class ImageGallery extends Entity
         'description' => true,
         'preview_image' => true,
         'is_published' => true,
+        // SEO fields (managed by SeoEntityTrait)
         'meta_title' => true,
         'meta_description' => true,
         'meta_keywords' => true,

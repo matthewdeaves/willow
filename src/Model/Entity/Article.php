@@ -43,6 +43,7 @@ use Cake\ORM\Entity;
  */
 class Article extends Entity
 {
+    use SeoEntityTrait;
     use TranslateTrait;
     use ImageUrlTrait;
 
@@ -67,13 +68,6 @@ class Article extends Entity
         'summary' => true,
         'created' => true,
         'modified' => true,
-        'meta_title' => true,
-        'meta_description' => true,
-        'meta_keywords' => true,
-        'facebook_description' => true,
-        'linkedin_description' => true,
-        'twitter_description' => true,
-        'instagram_description' => true,
         'word_count' => true,
         'kind' => true,
         'parent_id' => true,
@@ -84,5 +78,13 @@ class Article extends Entity
         'tags' => true,
         'images' => true,
         'image' => true,
+        // SEO fields (managed by SeoEntityTrait)
+        'meta_title' => true,
+        'meta_description' => true,
+        'meta_keywords' => true,
+        'facebook_description' => true,
+        'linkedin_description' => true,
+        'twitter_description' => true,
+        'instagram_description' => true,
     ];
 }

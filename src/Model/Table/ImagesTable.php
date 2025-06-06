@@ -28,6 +28,7 @@ use Cake\Validation\Validator;
 class ImagesTable extends Table
 {
     use ImageValidationTrait;
+    use QueueableJobsTrait;
 
     /**
      * Initialize method

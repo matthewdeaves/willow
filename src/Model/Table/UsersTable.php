@@ -12,6 +12,7 @@ use Cake\Validation\Validator;
 class UsersTable extends Table
 {
     use ImageValidationTrait;
+    use QueueableJobsTrait;
 
     /**
      * Initialize method

@@ -165,7 +165,7 @@ class QueueableImageBehavior extends Behavior
             ];
 
             // Queue up an image processing job to generate different sizes/versions.
-            QueueManager::push('App\Job\ProcessImageJob', $data);
+            $this->_table->queueJob('App\Job\ProcessImageJob', $data);
 
             // Check if AI features are enabled for image analysis.
             if (SettingsManager::read('AI.enabled')) {
@@ -174,9 +174,10 @@ class QueueableImageBehavior extends Behavior
 
                 // If image analysis is specifically enabled, queue that job.
                 if (SettingsManager::read('AI.imageAnalysis')) {
-                    QueueManager::push('App\Job\ImageAnalysisJob', $data);
+                    $this->_table->queueJob('App\Job\ImageAnalysisJob', $data);
                 }
             }
         }
     }
+
 }

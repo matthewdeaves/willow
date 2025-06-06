@@ -44,6 +44,8 @@ class ArticlesTable extends Table
 {
     use ImageValidationTrait;
     use LogTrait;
+    use QueueableJobsTrait;
+    use SeoFieldsTrait;
     use TranslateTrait;
 
     /**
@@ -256,65 +258,6 @@ class ArticlesTable extends Table
         }
     }
 
-    /**
-     * Checks if any of the SEO fields are empty
-     *
-     * @param \Cake\Datasource\EntityInterface $entity The article entity to check
-     * @return array<string> List of empty SEO field names
-     */
-    public function emptySeoFields(EntityInterface $entity): array
-    {
-        $seoFields = [
-            'meta_title',
-            'meta_description',
-            'meta_keywords',
-            'facebook_description',
-            'linkedin_description',
-            'twitter_description',
-            'instagram_description',
-        ];
-
-        return array_filter($seoFields, fn($field) => empty($entity->{$field}));
-    }
-
-    /**
-     * Checks if any of the original language fields for translation are empty
-     *
-     * @param \Cake\Datasource\EntityInterface $entity The article entity to check
-     * @return array<string> List of empty translation field names
-     */
-    public function emptyTranslationFields(EntityInterface $entity): array
-    {
-        if ($this->behaviors()->has('Translate')) {
-            // Get the configuration of the Timestamp behavior
-            $config = $this->behaviors()->get('Translate')->getConfig();
-
-            return array_filter($config['fields'], fn($field) => empty($entity->{$field}));
-        }
-
-        return [];
-    }
-
-    /**
-     * Queues a job with the provided job class and data
-     *
-     * @param string $job The fully qualified job class name
-     * @param array<string, mixed> $data The data to be passed to the job
-     * @return void
-     */
-    public function queueJob(string $job, array $data): void
-    {
-        QueueManager::push($job, $data);
-        $this->log(
-            sprintf(
-                'Queued a %s with data: %s',
-                $job,
-                json_encode($data),
-            ),
-            'info',
-            ['group_name' => $job],
-        );
-    }
 
     /**
      * Retrieves a list of featured articles with optional additional conditions.

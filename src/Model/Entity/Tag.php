@@ -18,6 +18,7 @@ use Cake\ORM\Entity;
  */
 class Tag extends Entity
 {
+    use SeoEntityTrait;
     use TranslateTrait;
     use ImageUrlTrait;
 
@@ -37,6 +38,7 @@ class Tag extends Entity
         'created' => true,
         'modified' => true,
         'articles' => true,
+        // SEO fields (managed by SeoEntityTrait)
         'meta_title' => true,
         'meta_description' => true,
         'meta_keywords' => true,

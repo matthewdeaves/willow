@@ -37,6 +37,8 @@ use Exception;
 class ImageGalleriesTable extends Table
 {
     use LogTrait;
+    use QueueableJobsTrait;
+    use SeoFieldsTrait;
     use TranslateTrait;
 
     /**
@@ -242,15 +244,9 @@ class ImageGalleriesTable extends Table
     public function queuePreviewGeneration(string $galleryId): void
     {
         try {
-            QueueManager::push('App\\Job\\GenerateGalleryPreviewJob', [
+            $this->queueJob('App\\Job\\GenerateGalleryPreviewJob', [
                 'gallery_id' => $galleryId,
             ]);
-
-            $this->log(
-                sprintf('Queued preview generation job for gallery: %s', $galleryId),
-                'info',
-                ['group_name' => 'App\\Model\\Table\\ImageGalleriesTable'],
-            );
         } catch (Exception $e) {
             $this->log(
                 sprintf('Failed to queue preview generation for gallery %s: %s', $galleryId, $e->getMessage()),
@@ -260,47 +256,6 @@ class ImageGalleriesTable extends Table
         }
     }
 
-    /**
-     * Checks if any of the SEO fields are empty
-     *
-     * @param \Cake\Datasource\EntityInterface $entity The gallery entity to check
-     * @return array<string> List of empty SEO field names
-     */
-    public function emptySeoFields(EntityInterface $entity): array
-    {
-        $seoFields = [
-            'meta_title',
-            'meta_description',
-            'meta_keywords',
-            'facebook_description',
-            'linkedin_description',
-            'twitter_description',
-            'instagram_description',
-        ];
-
-        return array_filter($seoFields, fn($field) => empty($entity->{$field}));
-    }
-
-    /**
-     * Queue a job for execution
-     *
-     * @param string $job The job class name
-     * @param array $data The job data
-     * @return void
-     */
-    public function queueJob(string $job, array $data): void
-    {
-        QueueManager::push($job, $data);
-        $this->log(
-            sprintf(
-                'Queued a %s with data: %s',
-                $job,
-                json_encode($data),
-            ),
-            'info',
-            ['group_name' => $job],
-        );
-    }
 
     /**
      * Get a published gallery for placeholder rendering with caching

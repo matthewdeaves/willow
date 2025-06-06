@@ -186,17 +186,27 @@ class PhotoSwipeGallery {
             const img = itemEl.querySelector('img');
             
             if (link && img) {
+                // Get dimensions from data attributes or use auto-detection
+                let width = parseInt(link.dataset.pswpWidth || link.dataset.width || 0);
+                let height = parseInt(link.dataset.pswpHeight || link.dataset.height || 0);
+                
+                // If no dimensions provided, use auto-detection (PhotoSwipe 5 feature)
+                if (!width || !height) {
+                    width = 0;  // PhotoSwipe will auto-detect
+                    height = 0; // PhotoSwipe will auto-detect
+                }
+                
                 const item = {
                     src: link.href,
-                    width: parseInt(link.dataset.pswpWidth || link.dataset.width || 800),
-                    height: parseInt(link.dataset.pswpHeight || link.dataset.height || 600),
+                    width: width,
+                    height: height,
                     alt: img.alt || '',
                     title: link.dataset.title || img.alt || '',
                     caption: link.dataset.caption || '',
                     element: itemEl
                 };
                 
-                console.log(`Image ${img.alt || 'untitled'}: ${item.width}x${item.height} (${this.theme} theme)`);
+                console.log(`Image ${img.alt || 'untitled'}: ${item.width || 'auto'}x${item.height || 'auto'} (${this.theme} theme)`);
                 
                 items.push(item);
             }

@@ -57,13 +57,12 @@ $config = array_merge($defaults, $options ?? []);
                 ]) ?>
             <?php endif; ?>
 
-            <!-- Hidden photo gallery for slideshow -->
+            <!-- Hidden gallery for slideshow using GalleryCell -->
             <div class="d-none">
-                <?= $this->element('shared_photo_gallery', [
-                    'images' => $gallery->images,
-                    'title' => $gallery->name,
-                    'gallery_id' => 'gallery-' . $gallery->id,
-                    'theme' => 'admin'
+                <?= $this->cell('Gallery::display', [
+                    $gallery->id,
+                    'admin',
+                    $gallery->name
                 ]) ?>
             </div>
         <?php else: ?>

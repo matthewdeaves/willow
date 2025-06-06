@@ -3,21 +3,23 @@ declare(strict_types=1);
 
 namespace App\View\Helper;
 
-use Cake\I18n\I18n;
-use Cake\ORM\TableRegistry;
 use Cake\View\Helper;
-use Exception;
 
 /**
  * Gallery Helper
  *
- * Handles processing of gallery placeholders in article content.
- * For admin UI components, see AdminGalleryHelper.
+ * Handles processing of gallery placeholders in article content using the Cell pattern.
+ * This helper follows CakePHP best practices by delegating data fetching to a Cell
+ * and focusing purely on placeholder processing.
  */
 class GalleryHelper extends Helper
 {
     /**
      * Process gallery placeholders in content
+     *
+     * Replaces [gallery:id:theme:title] placeholders with rendered gallery cells.
+     * This method follows CakePHP conventions by delegating rendering to a Cell
+     * instead of fetching data directly in the view layer.
      *
      * @param string $content The content containing gallery placeholders
      * @return string The processed content with rendered galleries
@@ -26,75 +28,30 @@ class GalleryHelper extends Helper
     {
         return preg_replace_callback(
             '/\[gallery:([a-f0-9-]+):([^:]*):([^\]]*)\]/',
-            function ($matches) {
-                $galleryId = $matches[1];
-                $theme = $matches[2] ?: 'default';
-                $title = $matches[3] ?: '';
-
-                return $this->renderGalleryFromPlaceholder($galleryId, $theme, $title);
-            },
-            $content,
+            [$this, 'renderGalleryPlaceholder'],
+            $content
         );
     }
 
     /**
-     * Render a gallery from placeholder with proper translations
+     * Render a single gallery placeholder using Cell pattern
      *
-     * @param string $galleryId Gallery UUID
-     * @param string $theme Gallery display theme
-     * @param string $title Gallery title override
-     * @return string HTML for the gallery
+     * @param array $matches Regex matches [full_match, gallery_id, theme, title]
+     * @return string HTML for the gallery or empty string if error
      */
-    private function renderGalleryFromPlaceholder(
-        string $galleryId,
-        string $theme = 'default',
-        string $title = '',
-    ): string {
+    private function renderGalleryPlaceholder(array $matches): string
+    {
+        $galleryId = $matches[1];
+        $theme = $matches[2] ?: 'default';
+        $title = $matches[3] ?: '';
+
         try {
-            // Get the ImageGalleries table
-            $galleriesTable = TableRegistry::getTableLocator()->get('ImageGalleries');
-
-            // Set locale for translations - this is crucial for TranslateBehavior
-            $currentLocale = I18n::getLocale();
-            $galleriesTable->setLocale($currentLocale);
-
-            // Find the gallery with its images - avoid select() as it interferes with TranslateBehavior
-            $gallery = $galleriesTable->find()
-                ->contain([
-                    'Images' => function ($query) {
-                        return $query->where([
-                            'Images.image IS NOT' => null,
-                            'Images.image !=' => '',
-                        ])
-                        ->orderBy(['ImageGalleriesImages.position' => 'ASC']);
-                    },
-                ])
-                ->where([
-                    'ImageGalleries.id' => $galleryId,
-                    'ImageGalleries.is_published' => true,
-                ])
-                ->first();
-
-            if (!$gallery || empty($gallery->images)) {
-                // Return empty string to silently skip unpublished/missing galleries on frontend
-                return '';
-            }
-
-            // Use title override if provided, otherwise use translated gallery name
-            $displayTitle = $title ?: $gallery->name;
-
-            // Render the gallery using the shared_photo_gallery element
-            return $this->getView()->element('shared_photo_gallery', [
-                'images' => $gallery->images,
-                'title' => $displayTitle,
-                'theme' => $theme,
-                'showActions' => false, // No admin actions on frontend
-                'galleryId' => null, // No admin links on frontend
-            ]);
-        } catch (Exception $e) {
-            // Log the error and return a graceful fallback
-            error_log("GalleryHelper: Error rendering gallery {$galleryId}: " . $e->getMessage());
-
+            // Use Cell pattern for proper MVC separation
+            // Cell handles data fetching, caching, and error handling
+            return (string)$this->getView()->cell('Gallery::display', [$galleryId, $theme, $title]);
+        } catch (\Exception $e) {
+            // Log error and return empty string for graceful degradation
+            error_log("GalleryHelper: Error rendering gallery cell {$galleryId}: " . $e->getMessage());
             return '';
         }
     }

@@ -303,6 +303,32 @@ class ImageGalleriesTable extends Table
     }
 
     /**
+     * Get a published gallery for placeholder rendering with caching
+     *
+     * @param string $galleryId Gallery UUID
+     * @return \App\Model\Entity\ImageGallery|null Gallery entity or null if not found/published
+     */
+    public function getGalleryForPlaceholder(string $galleryId): ?object
+    {
+        return $this->find()
+            ->cache("gallery_placeholder_{$galleryId}", 'default')
+            ->contain([
+                'Images' => function ($query) {
+                    return $query->where([
+                        'Images.image IS NOT' => null,
+                        'Images.image !=' => '',
+                    ])
+                    ->orderBy(['ImageGalleriesImages.position' => 'ASC']);
+                },
+            ])
+            ->where([
+                'ImageGalleries.id' => $galleryId,
+                'ImageGalleries.is_published' => true,
+            ])
+            ->first();
+    }
+
+    /**
      * Check if gallery images have changed since last save
      *
      * @param \Cake\Datasource\EntityInterface $entity Gallery entity

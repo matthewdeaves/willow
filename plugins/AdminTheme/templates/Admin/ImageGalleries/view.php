@@ -71,13 +71,45 @@ echo $this->element('actions_card', [
                     <div class="card mt-4">
                         <div class="card-body">
                             <h5 class="card-title"><?= __('Gallery Images') ?></h5>
-                            <?= $this->element('shared_photo_gallery', [
-                                'images' => $imageGallery->images,
-                                'title' => '',
-                                'theme' => 'admin',
-                                'showActions' => true,
-                                'galleryId' => $imageGallery->id
-                            ]) ?>
+                            <?php
+                            // Use GalleryCell for consistent rendering
+                            echo $this->cell('Gallery::display', [
+                                $imageGallery->id,
+                                'admin',
+                                ''
+                            ]);
+                            ?>
+                            
+                            <?php if (!empty($imageGallery->images)): ?>
+                                <!-- Admin actions for gallery management -->
+                                <div class="mt-4 pt-4 border-top">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-8">
+                                            <div class="btn-group gap-2" role="group">
+                                                <?= $this->Html->link(
+                                                    '<i class="fas fa-edit me-2"></i>' . __('Manage Images'),
+                                                    ['action' => 'manageImages', $imageGallery->id],
+                                                    ['class' => 'btn btn-primary btn-lg', 'escape' => false]
+                                                ) ?>
+                                                
+                                                <?= $this->Html->link(
+                                                    '<i class="fas fa-plus me-2"></i>' . __('Add More Images'),
+                                                    ['action' => 'edit', $imageGallery->id],
+                                                    ['class' => 'btn btn-outline-secondary btn-lg ms-2', 'escape' => false]
+                                                ) ?>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-4">
+                                            <div class="text-muted small text-end">
+                                                <i class="fas fa-info-circle me-1"></i>
+                                                <?= __('Click any image to view slideshow') ?><br>
+                                                <small class="text-muted"><?= __('Press spacebar or use controls to play automatically') ?></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <div class="card mt-4">

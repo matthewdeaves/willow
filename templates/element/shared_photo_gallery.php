@@ -43,8 +43,8 @@ $galleryId = $galleryId ?? null;
                     <a href="<?= h($image->massiveImageUrl ?: $image->extraLargeImageUrl ?: $image->getImageUrlBySize('massive') ?: $image->getImageUrlBySize('extraLarge')) ?>" 
                        data-title="<?= h($image->name) ?>"
                        data-caption="<?= h($image->alt_text) ?>"
-                       data-pswp-width="800"
-                       data-pswp-height="600">
+                       data-pswp-width=""
+                       data-pswp-height="">
                         <img src="<?= h($image->largeImageUrl ?: $image->getImageUrlBySize('large')) ?>" 
                              alt="<?= h($image->alt_text ?: $image->name) ?>"
                              loading="lazy"
@@ -137,13 +137,6 @@ $galleryId = $galleryId ?? null;
 <?php endif; ?>
 
 <?php
-// Auto-load PhotoSwipe Gallery assets using shared component
-echo $this->Html->script('photoswipe-gallery', ['block' => true]);
-
-// Load theme-specific CSS
-if ($theme === 'admin') {
-    echo $this->Html->css('AdminTheme.photo-gallery', ['block' => true]);
-} else {
-    echo $this->Html->css('DefaultTheme.photo-gallery', ['block' => true]);
-}
+// Note: PhotoSwipe assets are now loaded by the calling cell/controller
+// This keeps the element focused on just rendering the gallery HTML
 ?>

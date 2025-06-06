@@ -20,21 +20,23 @@ show_menu() {
     echo "  2) Export Default Data (WillowCMS)"
     echo "  3) Dump MySQL Database (to host)"
     echo "  4) Load Database from Backup (from host)"
+    echo "  5) Clear Database Backups"
     echo
     echo "Internationalization (WillowCMS):"
-    echo "  5) Extract i18n Messages"
-    echo "  6) Load Default i18n"
-    echo "  7) Translate i18n"
-    echo "  8) Generate PO Files"
+    echo "  6) Extract i18n Messages"
+    echo "  7) Load Default i18n"
+    echo "  8) Translate i18n"
+    echo "  9) Generate PO Files"
     echo
     echo "Asset Management (WillowCMS):"
-    echo "  9) Backup Files Directory"
-    echo "  10) Restore Files from Backup"
+    echo "  10) Backup Files Directory"
+    echo "  11) Restore Files from Backup"
+    echo "  12) Clear Files Backups"
     echo
     echo "System:"
-    echo "  11) Clear Cache (WillowCMS)"
-    echo "  12) Interactive shell on Willow CMS container"
-    echo "  13) Host System Update & Docker Cleanup"
+    echo "  13) Clear Cache (WillowCMS)"
+    echo "  14) Interactive shell on Willow CMS container"
+    echo "  15) Host System Update & Docker Cleanup"
     echo "  0) Exit"
     echo
 }

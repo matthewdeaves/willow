@@ -98,7 +98,7 @@ return [
 
     /*
      * Cache configuration for GitHub Actions
-     * Use Redis for consistency with local development
+     * Use Redis without authentication for CI environment
      */
     'Cache' => [
         'default' => [
@@ -107,6 +107,7 @@ return [
             'port' => 6379,
             'timeout' => 3,
             'persistent' => false,
+            'password' => null, // No password in CI environment
         ],
         '_cake_core_' => [
             'className' => 'Cake\Cache\Engine\FileEngine',
@@ -126,12 +127,16 @@ return [
 
     /*
      * Queue configuration for GitHub Actions
-     * Use Redis for queue backend
+     * Use Redis without authentication for CI environment
      */
     'Queue' => [
         'default' => [
             'queue' => 'default',
-            'url' => 'redis://127.0.0.1:6379/0',
+            'url' => 'redis://127.0.0.1:6379/0', // No auth in URL for CI
+            'host' => '127.0.0.1',
+            'port' => 6379,
+            'password' => null, // No password in CI environment
+            'database' => 0,
         ],
     ],
 ];

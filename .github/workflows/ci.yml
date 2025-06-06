@@ -57,10 +57,19 @@ jobs:
     - name: Debug app_local.php
       run: cat "config/app_local.php"
 
+    - name: Test Redis Connection
+      run: |
+        redis-cli ping
+        redis-cli info server | head -5
+
     - name: Run PHPUnit
       run: php -d display_errors=on -d error_reporting=E_ALL vendor/bin/phpunit
       env:
         XDEBUG_MODE: coverage
+        REDIS_HOST: 127.0.0.1
+        REDIS_PORT: 6379
+        REDIS_PASSWORD: ""
+        REDIS_URL: "redis://127.0.0.1:6379/0"
 
     - name: Run PHP CodeSniffer
       run: vendor/bin/phpcs --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/

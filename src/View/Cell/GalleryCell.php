@@ -6,13 +6,14 @@ namespace App\View\Cell;
 use Cake\I18n\I18n;
 use Cake\Log\LogTrait;
 use Cake\View\Cell;
+use Exception;
 
 /**
  * Gallery Cell
  *
  * Provides mini-controller functionality for rendering gallery placeholders.
  * Handles data fetching and preparation for gallery display components.
- * 
+ *
  * Following CakePHP Cell conventions, this class:
  * - Fetches data using fetchTable() (like a controller)
  * - Sets view variables using set() (like a controller)
@@ -49,6 +50,7 @@ class GalleryCell extends Cell
                     'title' => $title,
                     'isEmpty' => true,
                 ]);
+
                 return;
             }
 
@@ -67,14 +69,14 @@ class GalleryCell extends Cell
             $this->log(
                 sprintf('Successfully rendered gallery cell for ID: %s', $galleryId),
                 'debug',
-                ['group_name' => 'App\\View\\Cell\\GalleryCell']
+                ['group_name' => 'App\\View\\Cell\\GalleryCell'],
             );
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // Log error and set empty state for graceful degradation
             $this->log(
                 sprintf('GalleryCell error for gallery %s: %s', $galleryId, $e->getMessage()),
                 'error',
-                ['group_name' => 'App\\View\\Cell\\GalleryCell']
+                ['group_name' => 'App\\View\\Cell\\GalleryCell'],
             );
 
             $this->set([

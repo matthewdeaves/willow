@@ -20,6 +20,7 @@ use Cake\Validation\Validator;
 class CommentsTable extends Table
 {
     use QueueableJobsTrait;
+
     /**
      * Initialize method
      *

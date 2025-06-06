@@ -11,7 +11,6 @@ use Cake\Log\LogTrait;
 use Cake\ORM\Behavior\Translate\TranslateTrait;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
-use Cake\Queue\QueueManager;
 use Cake\Validation\Validator;
 use Exception;
 
@@ -255,7 +254,6 @@ class ImageGalleriesTable extends Table
             );
         }
     }
-
 
     /**
      * Get a published gallery for placeholder rendering with caching

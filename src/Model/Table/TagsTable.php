@@ -10,7 +10,6 @@ use Cake\Event\EventInterface;
 use Cake\Log\LogTrait;
 use Cake\ORM\Behavior\Translate\TranslateTrait;
 use Cake\ORM\Table;
-use Cake\Queue\QueueManager;
 use Cake\Validation\Validator;
 
 /**
@@ -152,7 +151,6 @@ class TagsTable extends Table
     {
         return array_merge(['description'], $this->getStandardSeoFields());
     }
-
 
     /**
      * Retrieves a simple threaded array of tags.

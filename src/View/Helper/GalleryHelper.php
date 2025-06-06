@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\View\Helper;
 
 use Cake\View\Helper;
+use Exception;
 
 /**
  * Gallery Helper
@@ -29,7 +30,7 @@ class GalleryHelper extends Helper
         return preg_replace_callback(
             '/\[gallery:([a-f0-9-]+):([^:]*):([^\]]*)\]/',
             [$this, 'renderGalleryPlaceholder'],
-            $content
+            $content,
         );
     }
 
@@ -49,9 +50,10 @@ class GalleryHelper extends Helper
             // Use Cell pattern for proper MVC separation
             // Cell handles data fetching, caching, and error handling
             return (string)$this->getView()->cell('Gallery::display', [$galleryId, $theme, $title]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // Log error and return empty string for graceful degradation
             error_log("GalleryHelper: Error rendering gallery cell {$galleryId}: " . $e->getMessage());
+
             return '';
         }
     }

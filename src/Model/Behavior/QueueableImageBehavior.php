@@ -8,7 +8,6 @@ use ArrayObject;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
 use Cake\ORM\Behavior;
-use Cake\Queue\QueueManager;
 use Cake\Utility\Text;
 
 /**
@@ -179,5 +178,4 @@ class QueueableImageBehavior extends Behavior
             }
         }
     }
-
 }

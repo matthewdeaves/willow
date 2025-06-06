@@ -7,7 +7,7 @@ use Cake\Queue\QueueManager;
 
 /**
  * QueueableJobsTrait
- * 
+ *
  * Provides job queuing functionality for Table classes.
  * This trait consolidates duplicate job queuing logic that was
  * previously scattered across multiple table classes.
@@ -27,15 +27,15 @@ trait QueueableJobsTrait
         // Set default queue config
         $defaultOptions = ['config' => 'default'];
         $options = array_merge($defaultOptions, $options);
-        
+
         QueueManager::push($job, $data, $options);
-        
+
         $this->log(
             sprintf(
                 'Queued a %s with data: %s%s',
                 $job,
                 json_encode($data),
-                !empty($options['delay']) ? sprintf(' (delayed by %d seconds)', $options['delay']) : ''
+                !empty($options['delay']) ? sprintf(' (delayed by %d seconds)', $options['delay']) : '',
             ),
             'info',
             ['group_name' => $job],

@@ -7,7 +7,7 @@ use Cake\Datasource\EntityInterface;
 
 /**
  * SeoFieldsTrait
- * 
+ *
  * Provides common SEO field management functionality for Table classes.
  * This trait consolidates duplicate SEO field handling logic that was
  * previously scattered across multiple table classes.
@@ -51,7 +51,7 @@ trait SeoFieldsTrait
     public function emptySeoFields(EntityInterface $entity): array
     {
         $seoFields = $this->getAllSeoFields();
-        
+
         return array_filter($seoFields, fn($field) => empty($entity->{$field}));
     }
 
@@ -71,7 +71,6 @@ trait SeoFieldsTrait
 
         return [];
     }
-
 
     /**
      * Update only empty SEO fields with new values

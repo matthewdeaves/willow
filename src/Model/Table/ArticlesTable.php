@@ -12,7 +12,6 @@ use Cake\Log\LogTrait;
 use Cake\ORM\Behavior\Translate\TranslateTrait;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
-use Cake\Queue\QueueManager;
 use Cake\Validation\Validator;
 use DateTime;
 
@@ -257,7 +256,6 @@ class ArticlesTable extends Table
             }
         }
     }
-
 
     /**
      * Retrieves a list of featured articles with optional additional conditions.

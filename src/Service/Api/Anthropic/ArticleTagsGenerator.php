@@ -3,10 +3,6 @@ declare(strict_types=1);
 
 namespace App\Service\Api\Anthropic;
 
-use App\Model\Table\AipromptsTable;
-use Cake\Log\LogTrait;
-use InvalidArgumentException;
-
 /**
  * ArticleTagsGenerator
  *
@@ -14,38 +10,8 @@ use InvalidArgumentException;
  * It interacts with the AI prompts table to retrieve prompt data and uses the AnthropicApiService
  * to send requests and parse responses.
  */
-class ArticleTagsGenerator
+class ArticleTagsGenerator extends AbstractAnthropicGenerator
 {
-    use LogTrait;
-
-    /**
-     * The Anthropic API service used for sending requests and parsing responses.
-     *
-     * @var \App\Service\Api\AnthropicApiService
-     */
-    private AnthropicApiService $apiService;
-
-    /**
-     * The AI prompts table for retrieving prompt data necessary for generating tags.
-     *
-     * @var \App\Model\Table\AipromptsTable
-     */
-    private AipromptsTable $aipromptsTable;
-
-    /**
-     * ArticleTagsGenerator constructor.
-     *
-     * Initializes the API service and AI prompts table.
-     *
-     * @param \App\Service\Api\AnthropicApiService $apiService The Anthropic API service.
-     * @param \App\Model\Table\AipromptsTable $aipromptsTable The AI prompts table.
-     */
-    public function __construct(AnthropicApiService $apiService, AipromptsTable $aipromptsTable)
-    {
-        $this->apiService = $apiService;
-        $this->aipromptsTable = $aipromptsTable;
-    }
-
     /**
      * Generates article tags based on the provided title and body content.
      *
@@ -67,83 +33,28 @@ class ArticleTagsGenerator
             'article_content' => $body,
         ]);
 
-        $response = $this->apiService->sendRequest($payload);
-        $result = $this->apiService->parseResponse($response);
+        $result = $this->sendApiRequest($payload);
 
         return $this->ensureExpectedKeys($result);
     }
 
     /**
-     * Creates a payload for the API request using the provided prompt data and content.
+     * Gets the expected keys for the API response.
      *
-     * @param array $promptData The prompt data retrieved from the AI prompts table.
-     * @param array $content The content to be included in the payload.
-     * @return array The created payload for the API request.
+     * @return array Array of expected response keys.
      */
-    private function createPayload(array $promptData, array $content): array
+    protected function getExpectedKeys(): array
     {
-        return [
-            'model' => $promptData['model'],
-            'max_tokens' => $promptData['max_tokens'],
-            'temperature' => $promptData['temperature'],
-            'system' => $promptData['system_prompt'],
-            'messages' => [
-                [
-                    'role' => 'user',
-                    'content' => json_encode($content),
-                ],
-            ],
-        ];
+        return ['tags'];
     }
 
     /**
-     * Retrieves prompt data for a specific task from the AI prompts table.
+     * Gets the logger name for this generator.
      *
-     * @param string $task The task type for which to retrieve prompt data.
-     * @return array The retrieved prompt data.
-     * @throws \InvalidArgumentException If the task is unknown or not found.
+     * @return string The logger name.
      */
-    private function getPromptData(string $task): array
+    protected function getLoggerName(): string
     {
-        $prompt = $this->aipromptsTable->find()
-            ->where(['task_type' => $task])
-            ->first();
-
-        if (!$prompt) {
-            throw new InvalidArgumentException("Unknown task: {$task}");
-        }
-
-        return [
-            'system_prompt' => $prompt->system_prompt,
-            'model' => $prompt->model,
-            'max_tokens' => $prompt->max_tokens,
-            'temperature' => $prompt->temperature,
-        ];
-    }
-
-    /**
-     * Ensures that the result contains all expected keys, initializing them if necessary.
-     *
-     * @param array $result The result array to check and modify.
-     * @return array The result array with all expected keys initialized.
-     */
-    private function ensureExpectedKeys(array $result): array
-    {
-        $expectedKeys = [
-            'tags',
-        ];
-
-        foreach ($expectedKeys as $key) {
-            if (!isset($result[$key])) {
-                $result[$key] = '';
-                $this->log(
-                    sprintf('Article Tag Generator did not find expected key: %s', $key),
-                    'error',
-                    ['group_name' => 'anthropic'],
-                );
-            }
-        }
-
-        return $result;
+        return 'Article Tag Generator';
     }
 }

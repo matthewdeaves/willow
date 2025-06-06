@@ -3,10 +3,6 @@ declare(strict_types=1);
 
 namespace App\Service\Api\Anthropic;
 
-use App\Model\Table\AipromptsTable;
-use Cake\Log\LogTrait;
-use InvalidArgumentException;
-
 /**
  * CommentAnalyzer Class
  *
@@ -14,38 +10,8 @@ use InvalidArgumentException;
  * It interacts with the AI prompts table to retrieve prompt data and uses the AnthropicApiService
  * to send requests and parse responses for comment analysis.
  */
-class CommentAnalyzer
+class CommentAnalyzer extends AbstractAnthropicGenerator
 {
-    use LogTrait;
-
-    /**
-     * The Anthropic API service used for sending requests and parsing responses.
-     *
-     * @var \App\Service\Api\AnthropicApiService
-     */
-    private AnthropicApiService $apiService;
-
-    /**
-     * The AI prompts table for retrieving prompt data necessary for comment analysis.
-     *
-     * @var \App\Model\Table\AipromptsTable
-     */
-    private AipromptsTable $aipromptsTable;
-
-    /**
-     * CommentAnalyzer constructor.
-     *
-     * Initializes the API service and AI prompts table for comment analysis.
-     *
-     * @param \App\Service\Api\AnthropicApiService $apiService The Anthropic API service.
-     * @param \App\Model\Table\AipromptsTable $aipromptsTable The AI prompts table.
-     */
-    public function __construct(AnthropicApiService $apiService, AipromptsTable $aipromptsTable)
-    {
-        $this->apiService = $apiService;
-        $this->aipromptsTable = $aipromptsTable;
-    }
-
     /**
      * Analyzes a comment using the Anthropic API.
      *
@@ -61,85 +27,32 @@ class CommentAnalyzer
         $promptData = $this->getPromptData('comment_analysis');
         $payload = $this->createPayload($promptData, $comment);
 
-        $response = $this->apiService->sendRequest($payload);
-        $result = $this->apiService->parseResponse($response);
+        $result = $this->sendApiRequest($payload);
 
         return $this->ensureExpectedKeys($result);
     }
 
     /**
-     * Creates a payload for the API request using the provided prompt data and comment.
+     * Gets the expected keys for the API response.
      *
-     * @param array $promptData The prompt data retrieved from the AI prompts table.
-     * @param string $comment The comment to be analyzed.
-     * @return array The created payload for the API request.
+     * @return array Array of expected response keys.
      */
-    private function createPayload(array $promptData, string $comment): array
+    protected function getExpectedKeys(): array
     {
         return [
-            'model' => $promptData['model'],
-            'max_tokens' => $promptData['max_tokens'],
-            'temperature' => $promptData['temperature'],
-            'system' => $promptData['system_prompt'],
-            'messages' => [
-                [
-                    'role' => 'user',
-                    'content' => $comment,
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * Retrieves prompt data for a specific task from the AI prompts table.
-     *
-     * @param string $task The task type for which to retrieve prompt data.
-     * @return array The retrieved prompt data including system prompt, model, max tokens, and temperature.
-     * @throws \InvalidArgumentException If the task is unknown or not found in the AI prompts table.
-     */
-    private function getPromptData(string $task): array
-    {
-        $prompt = $this->aipromptsTable->find()
-            ->where(['task_type' => $task])
-            ->first();
-
-        if (!$prompt) {
-            throw new InvalidArgumentException("Unknown task: {$task}");
-        }
-
-        return [
-            'system_prompt' => $prompt->system_prompt,
-            'model' => $prompt->model,
-            'max_tokens' => $prompt->max_tokens,
-            'temperature' => $prompt->temperature,
-        ];
-    }
-
-    /**
-     * Ensures that the result contains all expected keys, initializing them if necessary.
-     *
-     * @param array $result The result array to check and modify.
-     * @return array The result array with all expected SEO keys initialized.
-     */
-    private function ensureExpectedKeys(array $result): array
-    {
-        $expectedKeys = [
             'comment',
             'is_inappropriate',
             'reason',
         ];
+    }
 
-        foreach ($expectedKeys as $key) {
-            if (!isset($result[$key])) {
-                $result[$key] = '';
-                $this->log(
-                    sprintf('Comment Analyzer did not find expected key: %s', $key),
-                    'error',
-                    ['group_name' => 'anthropic'],
-                );
-            }
-        }
-
-        return $result;
+    /**
+     * Gets the logger name for this analyzer.
+     *
+     * @return string The logger name.
+     */
+    protected function getLoggerName(): string
+    {
+        return 'Comment Analyzer';
     }
 }

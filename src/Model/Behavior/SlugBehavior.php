@@ -139,7 +139,14 @@ class SlugBehavior extends Behavior
             ];
 
             try {
-                $slugsTable->saveOrFail($slugsTable->newEntity($slugData));
+                // Save slug history - use regular save to avoid transaction conflicts
+                $slugEntity = $slugsTable->newEntity($slugData);
+                if (!$slugsTable->save($slugEntity)) {
+                    $event->getSubject()->log(sprintf(
+                        'Failed to save slug history for slug: %s',
+                        $slug,
+                    ));
+                }
             } catch (Exception $e) {
                 $event->getSubject()->log(sprintf(
                     'Failed to save slug history: %s',

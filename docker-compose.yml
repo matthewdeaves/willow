@@ -62,7 +62,7 @@ services:
       DB_PASSWORD: password
       DB_DATABASE: cms
     ports:
-      - "3310:3306"
+      - "23500:3306"
     volumes:
       - mysql_data:/var/lib/mysql
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -84,7 +84,7 @@ services:
     privileged: true
     user: root
     ports:
-      - "9890:8080"
+      - "4041:8080"
       - "50000:50000"
     volumes:
       - jenkins_home:/var/jenkins_home

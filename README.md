@@ -358,6 +358,15 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 ✅ **Distribution**: Share and redistribute Willow CMS freely  
 ✅ **Private Use**: Use Willow CMS in private/internal projects  
 ✅ **Patent Use**: Includes patent protection for users  
+Willow CMS Job Structure
+
+Let’s examine how Willow CMS organises its job-related code:
+
+All job classes are located in the src/Job directory
+Each job is defined as a separate class, inheriting from a base Job class provided by the Queue Plugin
+Jobs are typically named with a descriptive suffix, such as UpdateJob, AnalysisJob, or ProcessJob
+Here’s the directory structure:
+
 
 ### Your only obligations:
 - Include the original copyright notice and license text
@@ -398,5 +407,7 @@ We chose the MIT License to ensure **maximum freedom for developers and organiza
 ---
 
 <div align="center">
-  <strong>🌿 Built with passion for the web development community</strong>
+
+**🌿 Built with passion for the web development community**
+
 </div>

@@ -1,5 +1,4 @@
 services:
-
   willowcms:
     build:
       context: .
@@ -85,14 +84,14 @@ services:
     privileged: true
     user: root
     ports:
-      - "8081:8080"
+      - "9890:8080"
       - "50000:50000"
     volumes:
       - jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
       - ./docker/jenkins/jenkins.yaml:/var/jenkins_home/jenkins.yaml
     environment:
-      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=true
 
   mailpit:
     image: axllent/mailpit:latest
@@ -124,4 +123,7 @@ volumes:
   mysql_data:
   rabbitmq_data:
   jenkins_home:
+  willowcms_data:
+  willowcms_logs:
+  redis_data:
   mailpit_data:

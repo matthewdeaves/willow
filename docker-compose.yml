@@ -30,7 +30,7 @@ services:
       MYSQL_USER: cms_user
       MYSQL_PASSWORD: password
     ports:
-      - "4322:3306"
+      - "3310:3306"
     volumes:
       - mysql_data:/var/lib/mysql
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql

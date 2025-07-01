@@ -108,10 +108,25 @@ services:
 
 volumes:
   mysql_data:
+    driver: local
+    driver_opts:
+      device: /volume1/docker/willow/mysql_data
+      o: bind
   rabbitmq_data:
-  jenkins_home:
+    driver: local
+    driver_opts:
+      device: /volume1/docker/willow/rabbitmq_data
+      o: bind
   mailpit_data:
-
+    driver: local
+    driver_opts:
+      device: /volume1/docker/willow/mailpit_data
+      o: bind
+  jenkins_home:
+    driver: local
+    driver_opts:
+      device: /volume1/docker/willow/jenkins_home
+      o: bind
 # services:
 #   willowcms:
 #     build:

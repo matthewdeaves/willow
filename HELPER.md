@@ -201,3 +201,180 @@ willow/
 ## Getting Started
 
 Run `./setup_dev_env.sh` to initialize the development environment with all necessary dependencies and configurations.
+
+
+### setup_dev_aliases.sh
+This script sets up development command aliases for easier access to common tasks.
+
+If completed successfully, it creates aliases in your shell configuration file (e.g., `.bashrc`, `.zshrc`).
+
+Once pre-requisites are met, it asks you to run one of the following options based on your total project configuration:
+
+
+<img src="https://r2cdn.perplexity.ai/pplx-full-logo-primary-dark%402x.png" class="logo" width="120"/>
+
+# Understanding Willow CMS Interactive Menu Options: Rebuilding, Running Migrations, and Continue
+
+Based on the logs from the Willow CMS GitHub repository and the Docker development environment setup, the interactive menu that appears during container startup provides five critical options for managing your development environment. Here's a comprehensive explanation of what each option does:
+
+## Development Environment Initialization Process
+
+The **setup_dev_env.sh** script in Willow CMS follows a systematic approach to prepare the development environment[^1]. The log output shows the complete initialization sequence:
+
+### **Environment Detection and Setup**
+
+The script first detects the host system (Apple Silicon Mac in this case) and creates appropriate environment files with correct UID:GID mappings for Docker volume permissions[^1]. It then creates necessary directories like `logs/nginx` for the web server.
+
+### **Container Status Verification**
+
+The system checks if Docker containers are already running and waits for critical services like MySQL to become available on port 3306 using a `wait-for-it.sh` script. This ensures database connectivity before proceeding.
+
+### **Dependency Management**
+
+Composer dependencies are installed or updated, and post-installation hooks are executed, including CakePHP-specific setup routines.
+
+### **Database State Detection**
+
+The script checks for the existence of a 'settings' table to determine if the database has been previously initialized. When an existing database is detected, it presents the interactive menu with five options.
+
+## Interactive Menu Options Explained
+
+### **[W]ipe Data - Complete Data Reset**
+
+This option performs a **complete data wipe** of the development environment[^2]. Based on the data management module implementation, this includes:
+
+- **Database Reset**: Drops and recreates the entire database, removing all tables, data, and schema
+- **Volume Cleanup**: Clears Docker volumes containing persistent data
+- **Cache Clearing**: Removes all CakePHP cache files and temporary data
+- **Fresh Installation**: Runs initial migrations and imports default data
+
+Use this when you need to start completely fresh or when your database has become corrupted.
+
+### **re[B]uild - Container Reconstruction**
+
+The rebuild option performs a **complete Docker environment reconstruction**[^1][^3]:
+
+- **Image Rebuilding**: Rebuilds all Docker images from their Dockerfiles, incorporating any changes to the base configuration
+- **Container Recreation**: Destroys existing containers and creates new ones
+- **Dependency Updates**: Downloads and installs the latest versions of system dependencies
+- **Configuration Refresh**: Applies any changes made to Docker configuration files
+
+This is essential when you've modified Dockerfiles, updated base images, or need to incorporate system-level changes.
+
+### **[R]estart - Service Restart**
+
+The restart option provides a **soft restart** of the Docker services[^4]:
+
+- **Container Restart**: Stops and starts existing containers without rebuilding
+- **Service Refresh**: Restarts web servers, databases, and other services
+- **Process Cleanup**: Terminates hanging processes and clears temporary locks
+- **Quick Recovery**: Maintains existing data and configuration
+
+Use this for resolving temporary service issues or applying configuration changes that don't require rebuilding.
+
+### **run [M]igrations - Database Schema Updates**
+
+The migrations option specifically handles **database schema evolution**[^5][^6][^7]:
+
+- **CakePHP Migrations**: Executes pending database migrations using CakePHP's migration system
+- **Schema Updates**: Applies changes to table structures, indexes, and constraints
+- **Data Transformations**: Runs data migration scripts to update existing records
+- **Version Control**: Tracks applied migrations to prevent duplicate execution
+
+This is crucial for keeping your database schema in sync with code changes, especially when working with team members or deploying updates.
+
+### **[C]ontinue - Proceed Without Changes**
+
+The continue option allows you to **proceed with the existing setup**:
+
+- **No Modifications**: Leaves all containers, data, and configuration unchanged
+- **Service Verification**: Performs basic health checks to ensure services are running
+- **Cache Warming**: May perform minimal cache operations to ensure optimal performance
+- **Quick Start**: Proceeds directly to the development environment
+
+Use this when your environment is already properly configured and you simply want to start development.
+
+## Implementation Details
+
+### **Database Management System**
+
+Willow CMS uses a sophisticated database management system that includes automated backup and restore capabilities[^2]. The system can:
+
+- **Create timestamped backups** with comprehensive verification
+- **Restore from backups** with data integrity checks
+- **Manage backup lifecycle** including cleanup operations
+- **Validate SQL file integrity** before restoration
+
+
+### **CakePHP Integration**
+
+The migration system leverages **CakePHP 5.x's built-in migration capabilities**[^6][^7]:
+
+- **Reversible Migrations**: Supports both up and down migration paths
+- **Automated Generation**: Can automatically generate migrations from model changes
+- **Dependency Management**: Handles migration dependencies and execution order
+- **Error Handling**: Provides comprehensive error reporting and rollback capabilities
+
+
+### **Docker Environment Architecture**
+
+The development environment includes **multiple interconnected services**[^1]:
+
+- **Nginx**: Web server for handling HTTP requests
+- **PHP**: Application runtime with CakePHP framework
+- **MySQL**: Primary database server
+- **Redis**: Caching and session storage
+- **PHPMyAdmin**: Database administration interface
+- **Mailpit**: Email testing and debugging
+- **Jenkins**: Continuous integration (optional)
+
+
+## Best Practices and Recommendations
+
+### **When to Use Each Option**
+
+**Use Wipe [W] when:**
+
+- Starting a new feature that requires clean data
+- Database corruption has occurred
+- You need to test installation procedures
+- Switching between major development branches
+
+**Use Rebuild [B] when:**
+
+- Docker configuration has changed
+- System dependencies need updating
+- Performance issues suggest container problems
+- Base images have been updated
+
+**Use Restart [R] when:**
+
+- Services appear unresponsive
+- Configuration files have been modified
+- Memory usage is high
+- Simple connectivity issues occur
+
+**Use Migrations [M] when:**
+
+- Database schema has been updated
+- Working with team members who have made schema changes
+- Deploying to different environments
+- Updating from version control
+
+**Use Continue [C] when:**
+
+- Environment is working correctly
+- No changes have been made since last startup
+- You want to resume previous work immediately
+- Performing routine development tasks
+
+This interactive system ensures that developers can efficiently manage their Willow CMS development environment while maintaining data integrity and system stability[^1][^2].
+
+[^1]: [Willow CMS GitHub Repository](https://github.com/matthewdeaves/willow)
+[^2]: [Willow CMS Docker Development Environment](https://github.com/matthewdeaves/willow/blob/main/setup_dev_env.sh)
+[^3]: [Docker Rebuild Documentation](https://docs.docker.com/engine/reference/commandline/build/)
+[^4]: [Docker Restart Command](https://docs.docker.com/engine/reference/commandline/restart/)
+[^5]: [CakePHP Migrations Guide](https://book.cakephp.org/5/en/cli/migrations.html)
+[^6]: [CakePHP Migration System](https://book.cakephp.org/5/en/cli/migrations.html#creating-migrations)
+[^7]: [CakePHP Migration Best Practices](https://book.cakephp.org/5/en/cli/migrations.html#best-practices-for-migrations)
+```

@@ -35,6 +35,13 @@
         "group_name": "ImageUploadService"
     },
     {
+        "id": "0b9a81fe-63b6-4ed9-a0c5-1d1672186112",
+        "level": "error",
+        "message": "Failed to fetch related records for model Adapters: Table class for alias `Adapters` could not be found.",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    },
+    {
         "id": "0de90f88-4b51-4c0e-8ab3-961b329c8693",
         "level": "info",
         "message": "Successfully created image \"2\" (ID: 9f613bd9-016e-4832-bd48-11fea58257d1)",
@@ -427,6 +434,13 @@
         "group_name": "general"
     },
     {
+        "id": "95a2c216-41a8-49d5-8bf3-552022c2c6a8",
+        "level": "debug",
+        "message": "Reading migrations status for test...",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    },
+    {
         "id": "97cec33e-a9c8-4120-ad0d-0fbb751aef6e",
         "level": "warning",
         "message": "MissingTemplateException - Failed to render error template `badMethodCall` . Error: Template file `Error/bad_method_call.php` could not be found.\n\nThe following paths were searched:\n\n- `/var/www/html/plugins/DefaultTheme/templates/Error/bad_method_call.php`\n- `/var/www/html/templates/Error/bad_method_call.php`\n- `/var/www/html/vendor/cakephp/cakephp/templates/Error/bad_method_call.php`\n\nStack Trace\n: #0 /var/www/html/vendor/cakephp/cakephp/src/View/View.php(782): Cake\\View\\View->_getTemplateFileName('...')\n#1 /var/www/html/vendor/cakephp/cakephp/src/Controller/Controller.php(712): Cake\\View\\View->render()\n#2 /var/www/html/vendor/cakephp/cakephp/src/Error/Renderer/WebExceptionRenderer.php(432): Cake\\Controller\\Controller->render('...')\n#3 /var/www/html/vendor/cakephp/cakephp/src/Error/Renderer/WebExceptionRenderer.php(277): Cake\\Error\\Renderer\\WebExceptionRenderer->_outputMessage('...')\n#4 /var/www/html/src/Error/AppExceptionRenderer.php(62): Cake\\Error\\Renderer\\WebExceptionRenderer->render()\n#5 /var/www/html/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php(149): App\\Error\\AppExceptionRenderer->render()\n#6 /var/www/html/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php(119): Cake\\Error\\Middleware\\ErrorHandlerMiddleware->handleException(Object(BadMethodCallException), Object(Cake\\Http\\ServerRequest))\n#7 /var/www/html/vendor/cakephp/cakephp/src/Http/Runner.php(82): Cake\\Error\\Middleware\\ErrorHandlerMiddleware->process(Object(Cake\\Http\\ServerRequest), Object(Cake\\Http\\Runner))\n#8 /var/www/html/vendor/cakephp/debug_kit/src/Middleware/DebugKitMiddleware.php(60): Cake\\Http\\Runner->handle(Object(Cake\\Http\\ServerRequest))\n#9 /var/www/html/vendor/cakephp/cakephp/src/Http/Runner.php(82): DebugKit\\Middleware\\DebugKitMiddleware->process(Object(Cake\\Http\\ServerRequest), Object(Cake\\Http\\Runner))\n#10 /var/www/html/vendor/cakephp/cakephp/src/Http/Runner.php(60): Cake\\Http\\Runner->handle(Object(Cake\\Http\\ServerRequest))\n#11 /var/www/html/vendor/cakephp/cakephp/src/Http/Server.php(104): Cake\\Http\\Runner->run(Object(Cake\\Http\\MiddlewareQueue), Object(Cake\\Http\\ServerRequest), Object(App\\Application))\n#12 /var/www/html/webroot/index.php(37): Cake\\Http\\Server->run()\n#13 {main}",
@@ -467,6 +481,13 @@
         "message": "Attempting to save image: Black Minimalist Coming Soon Poster.png",
         "context": "{\"group_name\":\"ImageUploadService\",\"scope\":[]}",
         "group_name": "ImageUploadService"
+    },
+    {
+        "id": "ae822b59-d6b5-482a-ba2c-8fa24b0854aa",
+        "level": "error",
+        "message": "[Cake\\Http\\Exception\\InvalidCsrfTokenException] Missing or invalid CSRF cookie. in /var/www/html/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php on line 358\nStack Trace:\n- CORE/src/Http/Middleware/CsrfProtectionMiddleware.php:165\n- CORE/src/Http/Runner.php:82\n- ROOT/vendor/cakephp/authentication/src/Middleware/AuthenticationMiddleware.php:106\n- CORE/src/Http/Runner.php:82\n- CORE/src/Http/Middleware/BodyParserMiddleware.php:162\n- CORE/src/Http/Runner.php:82\n- ROOT/vendor/admad/cakephp-i18n/src/Middleware/I18nMiddleware.php:110\n- CORE/src/Http/Runner.php:82\n- CORE/src/Routing/Middleware/RoutingMiddleware.php:117\n- CORE/src/Http/Runner.php:82\n- CORE/src/Routing/Middleware/AssetMiddleware.php:70\n- CORE/src/Http/Runner.php:82\n- CORE/src/Error/Middleware/ErrorHandlerMiddleware.php:115\n- CORE/src/Http/Runner.php:82\n- ROOT/vendor/cakephp/debug_kit/src/Middleware/DebugKitMiddleware.php:60\n- CORE/src/Http/Runner.php:82\n- CORE/src/Http/Runner.php:60\n- CORE/src/Http/Server.php:104\n- ROOT/webroot/index.php:37\n- [main]:\n\nRequest URL: /en/users/login?q=/en/users/login&q=/en/users/login&\nReferer URL: http://localhost:8080/en/users/login\nClient IP: 192.168.65.1",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
     },
     {
         "id": "b433262a-87a7-419b-a281-afa885edcffd",

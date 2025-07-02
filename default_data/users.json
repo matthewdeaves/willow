@@ -15,6 +15,21 @@
         "active": true
     },
     {
+        "id": "78d7f59e-5fb3-4f35-9c86-a665694e6d7b",
+        "is_admin": false,
+        "email": "mikeymarks@protonmail.com",
+        "password": "$2y$10$zyJqhJ/keW7hKCXBuJt4SO9cLfMVr/loFZHoyg/1TErwhpXVyba5u",
+        "image": null,
+        "alt_text": null,
+        "keywords": null,
+        "name": null,
+        "dir": null,
+        "size": null,
+        "mime": null,
+        "username": "mikeymarks@protonmail.com",
+        "active": true
+    },
+    {
         "id": "8699ab8f-c789-41d9-bf59-0b9562e6eba4",
         "is_admin": false,
         "email": "garzarobm@gmail.com",

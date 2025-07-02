@@ -4,9 +4,9 @@ services:
     build:
       context: .
       dockerfile: docker/willowcms/Dockerfile
-      args:
-        - UID=${UID:-1000}
-        - GID=${GID:-1000}
+      # args:
+      #   - UID=${UID:-1000}
+      #   - GID=${GID:-1000}
     ports: 
       - "8080:80"
     volumes:
@@ -16,6 +16,22 @@ services:
     environment:
       - REDIS_USERNAME=root
       - REDIS_PASSWORD=root
+      - APP_NAME=WillowCMS
+      - DEBUG=true
+      - APP_ENCODING=UTF-8
+      - APP_DEFAULT_LOCALE=en_GB
+      - APP_DEFAULT_TIMEZONE=America/Chicago
+      - SECURITY_SALT=developmentsalt
+      - DB_HOST=mysql
+      - DB_USERNAME=cms_user
+      - DB_PASSWORD=password
+      - DB_DATABASE=cms
+      - DB_PORT=3306
+      - TEST_DB_HOST=mysql
+      - TEST_DB_USERNAME=cms_user_test
+      - TEST_DB_PASSWORD=password
+      - TEST_DB_DATABASE=cms_test
+      - TEST_DB_PORT=3306
 
   mysql:
     image: mysql:8.4.3

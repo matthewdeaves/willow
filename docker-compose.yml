@@ -16,6 +16,43 @@ services:
     environment:
       - REDIS_USERNAME=root
       - REDIS_PASSWORD=root
+      - APP_NAME=WillowCMS
+      - DEBUG=true
+      - APP_ENCODING=UTF-8
+      - APP_DEFAULT_LOCALE=en_GB
+      - APP_DEFAULT_TIMEZONE=America/Chicago
+      - SECURITY_SALT=developmentsalt
+      - DB_HOST=mysql
+      - DB_USERNAME=cms_user
+      - DB_PASSWORD=password
+      - DB_DATABASE=cms
+      - DB_PORT=3306
+      - TEST_DB_HOST=mysql
+      - TEST_DB_USERNAME=cms_user_test
+      - TEST_DB_PASSWORD=password
+      - TEST_DB_DATABASE=cms_test
+      - TEST_DB_PORT=3306
+      - EMAIL_HOST=mailpit
+      - EMAIL_PORT=1025
+      - EMAIL_TIMEOUT=30
+      - EMAIL_USERNAME=
+      - EMAIL_PASSWORD=
+      - EMAIL_REPLY=hello@willowcms.app
+      - EMAIL_NOREPLY=noreply@willowcms.app
+      - REDIS_HOST=127.0.0.1
+      - REDIS_PORT=6379
+      - REDIS_DATABASE=0
+      - REDIS_URL=redis://root:root@127.0.0.1:6379/0
+      - REDIS_TEST_URL=redis://root:root@127.0.0.1:6379/0
+      - YOUTUBE_API_KEY=
+      - TRANSLATE_API_KEY=
+      - QUEUE_DEFAULT_URL=redis://root:root@127.0.0.1:6379/0
+      - QUEUE_TEST_URL=redis://root:root@127.0.0.1:6379/0
+      - EXPERIMENTAL_TESTS=Off
+      - WILLOW_ADMIN_USERNAME=admin
+      - WILLOW_ADMIN_PASSWORD=password
+      - WILLOW_ADMIN_EMAIL=admin@test.com
+      - APP_FULL_BASE_URL=http://localhost:8080
 
   mysql:
     image: mysql:8.4.3
@@ -32,7 +69,7 @@ services:
     ports:
       - "3310:3306"
     volumes:
-      - mysql_data:/var/lib/mysql
+      - ../mysql_data:/var/lib/mysql
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   rabbitmq:
@@ -41,7 +78,7 @@ services:
       - "5672:5672"  # RabbitMQ default port
       - "15672:15672"  # RabbitMQ management UI
     volumes:
-      - rabbitmq_data:/var/lib/rabbitmq
+      - ../rabbitmq_data:/var/lib/rabbitmq
     environment:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
@@ -70,7 +107,7 @@ services:
       - "8081:8080"
       - "50000:50000"
     volumes:
-      - jenkins_home:/var/jenkins_home
+      - ../jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
       - ./docker/jenkins/jenkins.yaml:/var/jenkins_home/jenkins.yaml
     environment:
@@ -82,7 +119,7 @@ services:
       - "1125:1025"
       - "8025:8025"
     volumes:
-      - mailpit_data:/data
+      - ../mailpit_data:/data
     environment:
       - MP_MAX_MESSAGES=5000
       - MP_DATABASE=/data/mailpit.db
@@ -106,27 +143,27 @@ services:
     ports:
       - "6379:6379" 
 
-volumes:
-  mysql_data:
-    driver: local
-    driver_opts:
-      device: /volume1/docker/willow/mysql_data
-      o: bind
-  rabbitmq_data:
-    driver: local
-    driver_opts:
-      device: /volume1/docker/willow/rabbitmq_data
-      o: bind
-  mailpit_data:
-    driver: local
-    driver_opts:
-      device: /volume1/docker/willow/mailpit_data
-      o: bind
-  jenkins_home:
-    driver: local
-    driver_opts:
-      device: /volume1/docker/willow/jenkins_home
-      o: bind
+# volumes:
+#   mysql_data:
+#     driver: local
+#     driver_opts:
+#       device: /volume1/docker/willow/mysql_data
+#       o: bind
+#   rabbitmq_data:
+#     driver: local
+#     driver_opts:
+#       device: /volume1/docker/willow/rabbitmq_data
+#       o: bind
+#   mailpit_data:
+#     driver: local
+#     driver_opts:
+#       device: /volume1/docker/willow/mailpit_data
+#       o: bind
+#   jenkins_home:
+#     driver: local
+#     driver_opts:
+#       device: /volume1/docker/willow/jenkins_home
+#       o: bind
 # services:
 #   willowcms:
 #     build:

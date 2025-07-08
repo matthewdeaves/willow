@@ -1,17 +1,17 @@
 name: CI
 
-# on:
+on:
 #   push:
 #     branches:
 #       - main
 #       - development
 #       - staging
 #       - 'feature/*'
-#   pull_request:
-#     branches:
-#       - main
-#       - development
-#       - staging
+  pull_request:
+    branches:
+      - main
+      - development
+      - staging
 
 jobs:
   test:

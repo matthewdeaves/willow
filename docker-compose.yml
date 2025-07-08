@@ -107,6 +107,12 @@ services:
 
   redis-commander:
     image: rediscommander/redis-commander:latest
+    # platform: linux/amd64
+    platform: linux/arm64
+    # The Redis Commander service provides a web-based interface to manage Redis databases.
+    # It runs on port 8084 and connects to the Redis service.
+    # You can access it at http://localhost:8084
+    # The service is named "redis-commander" and is linked to the "willowcms" service.
     environment:
       - REDIS_HOST=willowcms
       - REDIS_PORT=6379

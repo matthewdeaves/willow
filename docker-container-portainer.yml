@@ -2,7 +2,7 @@ services:
 
   willowcms:
     build:
-      context: ./volume1/docker/willowcms
+      context: .
       dockerfile: docker/willowcms/Dockerfile
     ports: 
       - "8080:80"
@@ -75,7 +75,7 @@ services:
 
   jenkins:
     build:
-      context: ./volume1/docker/willowcms
+      context: .
       dockerfile: docker/jenkins/Dockerfile
     privileged: true
     user: 1026:100

@@ -24,9 +24,13 @@ class ProductsSeed extends BaseSeed
     public function getDependencies(): array
     {
         return [
+            'ArticlesSeed',
             'UsersSeed',
             'CategoriesSeed',
-            'ArticlesSeed',
+            'TagsSeed',
+            'SlugsSeed',
+            'ImagesSeed',
+            'SettingsSeed'
         ];
     }
 

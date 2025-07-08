@@ -2,15 +2,12 @@ services:
 
   willowcms:
     build:
-      context: .
+      context: ./volume1/docker/willowcms
       dockerfile: docker/willowcms/Dockerfile
-      # args:
-      #   - UID=${UID:-1000}
-      #   - GID=${GID:-1000}
     ports: 
       - "8080:80"
     volumes:
-      - .:/var/www/html/
+      - /volume1/docker/willowcms:/var/www/html/
       - /volume1/docker/willowcms/docker/willowcms/config/app/cms_app_local.php:/var/www/html/config/app_local.php
       - /volume1/docker/willowcms/logs/nginx:/var/log/nginx/
     environment:
@@ -78,15 +75,15 @@ services:
 
   jenkins:
     build:
-      context: .
+      context: ./volume1/docker/willowcms
       dockerfile: docker/jenkins/Dockerfile
     privileged: true
-    user: root
+    user: 1026:100
     ports:
       - "3031:8080"
       - "50000:50000"
     volumes:
-      - jenkins_home:/var/jenkins_home
+      - /volume1/docker/willowcms/jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
       - /volume1/docker/willowcms/docker/jenkins/jenkins.yaml:/var/jenkins_home/jenkins.yaml
     environment:
@@ -98,7 +95,7 @@ services:
       - "1125:1025"
       - "8025:8025"
     volumes:
-      - mailpit_data:/data
+      - /volume1/docker/willowcms/mailpit_data:/data
     environment:
       - MP_MAX_MESSAGES=5000
       - MP_DATABASE=/data/mailpit.db
@@ -117,10 +114,7 @@ services:
       - "8084:8081"
     depends_on:
       - willowcms
-  redis:
-    image: redis:latest
-    ports:
-      - "6379:6379" 
+
 
 volumes:
   mysql_data:
@@ -142,6 +136,11 @@ volumes:
     driver: local
     driver_opts:
       device: /volume1/docker/willowcms/jenkins_home
+      o: bind
+  willowcms_data:
+    driver: local
+    driver_opts:
+      device: /volume1/docker/willowcms
       o: bind
 # services:
 #   willowcms:

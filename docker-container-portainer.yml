@@ -137,11 +137,6 @@ volumes:
     driver_opts:
       device: /volume1/docker/willowcms/jenkins_home
       o: bind
-  willowcms:
-    driver: local
-    driver_opts:
-      device: /volume1/docker/willowcms
-      o: bind
 
 
 

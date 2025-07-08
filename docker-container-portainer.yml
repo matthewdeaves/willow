@@ -4,9 +4,9 @@ services:
     build:
       context: .
       dockerfile: docker/willowcms/Dockerfile
-      args:
-        - UID=${UID:-1000}
-        - GID=${GID:-1000}
+      # args:
+      #   - UID=${UID:-1000}
+      #   - GID=${GID:-1000}
     # The WillowCMS service is built from a Dockerfile located at docker/willowcms/Dockerfile.
     # It runs WillowCMS on port 8080 and exposes the web interface.
     ports: 

@@ -82,7 +82,6 @@ services:
     build:
       context: .
       dockerfile: docker/jenkins/Dockerfile
-    privileged: true
     user: 1026:100
     ports:
       - "3031:8080"

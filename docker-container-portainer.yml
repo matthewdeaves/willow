@@ -70,7 +70,7 @@ services:
   phpmyadmin:
     image: phpmyadmin
     ports:
-      - 3030:80
+      - 8082:80
     environment:
       PMA_HOST: mysql
       PMA_USER: root

@@ -48,7 +48,7 @@ services:
     ports:
       - "3310:3306"
     volumes:
-      - mysql_data:/var/lib/mysql
+      - ../mysql_data:/var/lib/mysql
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   rabbitmq:
@@ -57,7 +57,7 @@ services:
       - "5672:5672"  # RabbitMQ default port
       - "15672:15672"  # RabbitMQ management UI
     volumes:
-      - rabbitmq_data:/var/lib/rabbitmq
+      - ../rabbitmq_data:/var/lib/rabbitmq
     environment:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
@@ -86,7 +86,7 @@ services:
       - "8081:8080"
       - "50000:50000"
     volumes:
-      - jenkins_home:/var/jenkins_home
+      - ../jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
       - ./docker/jenkins/jenkins.yaml:/var/jenkins_home/jenkins.yaml
     environment:
@@ -122,28 +122,28 @@ services:
     ports:
       - "6379:6379" 
 
-volumes:
-  mysql_data:
-    driver: local
-    driver_opts:
-      device: /volume1/docker/willow/mysql_data
-      o: bind
-  rabbitmq_data:
-    driver: local
-    driver_opts:
-      device: /volume1/docker/willow/rabbitmq_data
-      o: bind
-  mailpit_data:
-    driver: local
-    driver_opts:
-      device: /volume1/docker/willow/mailpit_data
-      o: bind
-  jenkins_home:
-    driver: local
-    driver_opts:
-      device: /volume1/docker/willow/jenkins_home
-      o: bind
-# services:
+# volumes:
+#   mysql_data:
+#     driver: local
+#     driver_opts:
+#       device: /volume1/docker/willow/mysql_data
+#       o: bind
+#   rabbitmq_data:
+#     driver: local
+#     driver_opts:
+#       device: /volume1/docker/willow/rabbitmq_data
+#       o: bind
+#   mailpit_data:
+#     driver: local
+#     driver_opts:
+#       device: /volume1/docker/willow/mailpit_data
+#       o: bind
+#   jenkins_home:
+#     driver: local
+#     driver_opts:
+#       device: /volume1/docker/willow/jenkins_home
+#       o: bind
+# # services:
 #   willowcms:
 #     build:
 #       context: .

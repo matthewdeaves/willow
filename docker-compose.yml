@@ -117,10 +117,6 @@ services:
       - "8084:8081"
     depends_on:
       - willowcms
-  redis:
-    image: redis:latest
-    ports:
-      - "6379:6379" 
 
 # volumes:
 #   mysql_data:

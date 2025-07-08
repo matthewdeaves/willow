@@ -98,7 +98,7 @@ services:
       - "1125:1025"
       - "8025:8025"
     volumes:
-      - mailpit_data:/data
+      - ../mailpit_data:/data
     environment:
       - MP_MAX_MESSAGES=5000
       - MP_DATABASE=/data/mailpit.db

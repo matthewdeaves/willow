@@ -42,6 +42,7 @@ services:
       MYSQL_DATABASE: cms
       MYSQL_USER: cms_user
       MYSQL_PASSWORD: password
+
     ports:
       - "3310:3306"
     volumes:

@@ -11,8 +11,8 @@ services:
       - "8080:80"
     volumes:
       - .:/var/www/html/
-      - ./docker/willowcms/config/app/cms_app_local.php:/var/www/html/config/app_local.php
-      - ./logs/nginx:/var/log/nginx/
+      - /volume1/docker/willowcms/docker/willowcms/config/app/cms_app_local.php:/var/www/html/config/app_local.php
+      - /volume1/docker/willowcms/logs/nginx:/var/log/nginx/
     environment:
       - REDIS_USERNAME=root
       - REDIS_PASSWORD=root
@@ -49,7 +49,7 @@ services:
       - "3310:3306"
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - /volume1/docker/willowcms/docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   rabbitmq:
     image: rabbitmq:3.11-management
@@ -68,7 +68,7 @@ services:
   phpmyadmin:
     image: phpmyadmin
     ports:
-      - 8082:80
+      - 3030:80
     environment:
       PMA_HOST: mysql
       PMA_USER: root
@@ -83,12 +83,12 @@ services:
     privileged: true
     user: root
     ports:
-      - "8081:8080"
+      - "3031:8080"
       - "50000:50000"
     volumes:
       - jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./docker/jenkins/jenkins.yaml:/var/jenkins_home/jenkins.yaml
+      - /volume1/docker/willowcms/docker/jenkins/jenkins.yaml:/var/jenkins_home/jenkins.yaml
     environment:
       - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
 
@@ -126,22 +126,22 @@ volumes:
   mysql_data:
     driver: local
     driver_opts:
-      device: /volume1/docker/willow/mysql_data
+      device: /volume1/docker/willowcms/mysql_data
       o: bind
   rabbitmq_data:
     driver: local
     driver_opts:
-      device: /volume1/docker/willow/rabbitmq_data
+      device: /volume1/docker/willowcms/rabbitmq_data
       o: bind
   mailpit_data:
     driver: local
     driver_opts:
-      device: /volume1/docker/willow/mailpit_data
+      device: /volume1/docker/willowcms/mailpit_data
       o: bind
   jenkins_home:
     driver: local
     driver_opts:
-      device: /volume1/docker/willow/jenkins_home
+      device: /volume1/docker/willowcms/jenkins_home
       o: bind
 # services:
 #   willowcms:

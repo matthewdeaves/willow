@@ -21,4 +21,5 @@ return [
         'onlyDev' => true,
         'optional' => true,
     ],
+    'MysqlNativePassword' => [],
 ];

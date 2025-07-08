@@ -45,6 +45,17 @@ services:
       MYSQL_DATABASE: cms
       MYSQL_USER: cms_user
       MYSQL_PASSWORD: password
+      DB_DATABASE: cms
+      DB_USERNAME: cms_user
+      DB_PASSWORD: password
+      DB_HOST: mysql
+      DB_PORT: 3306
+      TEST_DB_DATABASE: cms_test
+      TEST_DB_USERNAME: cms_user_test
+      TEST_DB_PASSWORD: password
+      TEST_DB_HOST: mysql
+      TEST_DB_PORT: 3306
+    # The MySQL service uses the official MySQL image from Docker Hub.
     ports:
       - "3310:3306"
     volumes:

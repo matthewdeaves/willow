@@ -37,11 +37,6 @@ services:
 
   mysql:
     image: mysql:8.4.3
-    # The MySQL service uses the official MySQL image from Docker Hub.
-    # It runs MySQL on port 3310 and persists data in a volume.
-    # The database is accessible at http://localhost:3310
-    # You can connect to it using a MySQL client or from your application.
-    # The service is named "mysql" and is linked to the "willowcms" service.
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: cms
@@ -50,7 +45,7 @@ services:
     ports:
       - "3310:3306"
     volumes:
-      - mysql_data:/var/lib/mysql
+      - /volume1/docker/willowcms/mysql_data:/var/lib/mysql
       - /volume1/docker/willowcms/docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   rabbitmq:

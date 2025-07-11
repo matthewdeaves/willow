@@ -13,7 +13,6 @@ return [
         'optional' => true,
     ],
     'Migrations' => [],
-    'Josegonzalez/Upload' => [],
     'AdminTheme' => [],
     'DefaultTheme' => [],
     'ADmad/I18n' => [],
@@ -21,5 +20,4 @@ return [
         'onlyDev' => true,
         'optional' => true,
     ],
-    // 'MysqlNativePassword' => [],
 ];

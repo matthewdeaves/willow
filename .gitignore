@@ -106,3 +106,6 @@ project_mysql_backups
 # CakePHP Book
 CakePHPBook.txt
 plugins/MysqlNativePassword/src/Controller/AppController.php
+config/tutorials/1_config.pdf
+config/tutorials/2_appConfig.pdf
+config/tutorials/3_database_connection.pdf

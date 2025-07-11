@@ -57,10 +57,10 @@ COPY docker/willowcms/config/nginx/nginx-cms.conf /etc/nginx/conf.d/default.conf
 
 # Configure PHP-FPM
 ENV PHP_INI_DIR /etc/php83
-# COPY docker/willowcms/config/php/fpm-pool.conf /etc/php83/php-fpm.d/www.conf
-# COPY docker/willowcms/config/php/php.ini /etc/php83/conf.d/custom.ini
-COPY docker/willowcms/config/php/fpm-pool.conf ${PHP_INI_DIR}/php-fpm.d/www.conf
-COPY docker/willowcms/config/php/php.ini ${PHP_INI_DIR}/conf.d/custom.ini
+COPY docker/willowcms/config/php/fpm-pool.conf /etc/php83/php-fpm.d/www.conf
+COPY docker/willowcms/config/php/php.ini /etc/php83/conf.d/custom.ini
+# COPY docker/willowcms/config/php/fpm-pool.conf ${PHP_INI_DIR/php-fpm.d/www.conf
+# COPY docker/willowcms/config/php/php.ini ${PHP_INI_DIR}/conf.d/custom.ini
 
 # Install Composer
 RUN wget https://getcomposer.org/installer -O composer-setup.php && \

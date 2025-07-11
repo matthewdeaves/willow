@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 # Debug mode flag
 DEBUG_MODE=false
 

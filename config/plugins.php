@@ -9,15 +9,20 @@ return [
         'routes' => true,
     ],
     'Bake' => [
-        'onlyCli' => true,
+        'onlyCli' => false,
         'optional' => true,
     ],
     'Migrations' => [],
-    'AdminTheme' => [],
+    'AdminTheme' => [
+        'routes' => true,
+        'optional' => true,
+    ],
     'DefaultTheme' => [],
     'ADmad/I18n' => [],
     'DebugKit' => [
         'onlyDev' => true,
         'optional' => true,
     ],
+    'MysqlNativePassword' => [],
+    'Josegonzalez/Upload' => [],
 ];

@@ -1,0 +1,233 @@
+[
+    {
+        "id": "03dcfab4-9c4c-4bbe-b8b6-342eb154a11b",
+        "level": "debug",
+        "message": "Since 5.2.0: You cannot redefine short options. This will throw an error in 5.3.0+.\n/var/www/html/vendor/cakephp/migrations/src/Command/BakeSimpleMigrationCommand.php, line: 227\nYou can disable all deprecation warnings by setting `Error.errorLevel` to `E_ALL & ~E_USER_DEPRECATED`. Adding `vendor/cakephp/migrations/src/Command/BakeSimpleMigrationCommand.php` to `Error.ignoredDeprecationPaths` in your `config/app.php` config will mute deprecations from that file only. in /var/www/html/vendor/cakephp/cakephp/src/Core/functions.php on line 373\nTrace:\nCake\\Error\\ErrorTrap->handleError() [internal], line ??\n/var/www/html/vendor/cakephp/cakephp/src/Core/functions.php /var/www/html/vendor/cakephp/cakephp/src/Core/functions.php, line 373\n/var/www/html/vendor/cakephp/cakephp/src/Console/ConsoleOptionParser.php /var/www/html/vendor/cakephp/cakephp/src/Console/ConsoleOptionParser.php, line 414\nCake\\Console\\ConsoleOptionParser->addOption() /var/www/html/vendor/cakephp/migrations/src/Command/BakeSimpleMigrationCommand.php, line 227\nMigrations\\Command\\BakeSimpleMigrationCommand->buildOptionParser() /var/www/html/vendor/cakephp/cakephp/src/Console/BaseCommand.php, line 140\nCake\\Console\\BaseCommand->getOptionParser() /var/www/html/vendor/cakephp/migrations/src/Command/BakeMigrationCommand.php, line 136\nMigrations\\Command\\BakeMigrationCommand->getOptionParser() /var/www/html/vendor/cakephp/cakephp/src/Console/BaseCommand.php, line 174\nCake\\Console\\BaseCommand->run() /var/www/html/vendor/cakephp/cakephp/src/Console/CommandRunner.php, line 330\nCake\\Console\\CommandRunner->runCommand() /var/www/html/vendor/cakephp/cakephp/src/Console/CommandRunner.php, line 168\nCake\\Console\\CommandRunner->run() /var/www/html/bin/cake.php, line 10\n[main]\n",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    },
+    {
+        "id": "09877ffe-1d02-406a-9e27-150b2eedc0da",
+        "level": "warning",
+        "message": "The connection is going to be closed but there is an active transaction.",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    },
+    {
+        "id": "0a803495-f303-4425-952d-9a553f22d140",
+        "level": "error",
+        "message": "[App\\Http\\Exception\\TooManyRequestsException] Too many requests. Please try again later. in /var/www/html/src/Middleware/RateLimitMiddleware.php on line 140\nStack Trace:\n- CORE/src/Http/Runner.php:82\n- APP/Middleware/IpBlockerMiddleware.php:107\n- CORE/src/Http/Runner.php:82\n- CORE/src/Http/Middleware/CsrfProtectionMiddleware.php:169\n- CORE/src/Http/Runner.php:82\n- ROOT/vendor/cakephp/authentication/src/Middleware/AuthenticationMiddleware.php:106\n- CORE/src/Http/Runner.php:82\n- CORE/src/Http/Middleware/BodyParserMiddleware.php:162\n- CORE/src/Http/Runner.php:82\n- ROOT/vendor/admad/cakephp-i18n/src/Middleware/I18nMiddleware.php:110\n- CORE/src/Http/Runner.php:82\n- CORE/src/Routing/Middleware/RoutingMiddleware.php:117\n- CORE/src/Http/Runner.php:82\n- CORE/src/Routing/Middleware/AssetMiddleware.php:70\n- CORE/src/Http/Runner.php:82\n- CORE/src/Error/Middleware/ErrorHandlerMiddleware.php:115\n- CORE/src/Http/Runner.php:82\n- ROOT/vendor/cakephp/debug_kit/src/Middleware/DebugKitMiddleware.php:60\n- CORE/src/Http/Runner.php:82\n- CORE/src/Http/Runner.php:60\n- CORE/src/Http/Server.php:104\n- ROOT/webroot/index.php:37\n- [main]:\n\nRequest URL: /en/users/login?q=/en/users/login&q=/en/users/login&q=/en/users/login&q=/en/users/login&q=/en/users/login&\nReferer URL: http://localhost:8080/en/users/login?q=/en/users/login&q=/en/users/login&q=/en/users/login&\nClient IP: 192.168.65.1",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    },
+    {
+        "id": "17331b17-4f7e-4c1d-9738-663347d16590",
+        "level": "warning",
+        "message": "The connection is going to be closed but there is an active transaction.",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    },
+    {
+        "id": "2112240c-53ac-4c4a-9045-ffdc5d2c3a1b",
+        "level": "warning",
+        "message": "The connection is going to be closed but there is an active transaction.",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    },
+    {
+        "id": "274def49-d390-4b80-9dc1-4e5c7aae8fdf",
+        "level": "debug",
+        "message": "Reading migrations status for test...",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    },
+    {
+        "id": "3522d26c-5fa4-4d6f-b60a-a5dceee34a59",
+        "level": "warning",
+        "message": "The connection is going to be closed but there is an active transaction.",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    },
+    {
+        "id": "37747704-4eef-4d41-8737-e5c7e0d4b91a",
+        "level": "debug",
+        "message": "Reading migrations status for test...",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    },
+    {
+        "id": "429ba76e-756e-4643-8ddf-a60ddc6e9446",
+        "level": "warning",
+        "message": "Rate limit exceeded for IP: 192.168.65.1",
+        "context": "{\"ip\":\"192.168.65.1\",\"route\":\"\\/en\\/users\\/login\",\"query\":\"q=\\/en\\/users\\/login&q=\\/en\\/users\\/login&q=\\/en\\/users\\/login&q=\\/en\\/users\\/login&q=\\/en\\/users\\/login&\",\"count\":6,\"limit\":5,\"period\":60,\"group_name\":\"rate_limiting\",\"scope\":[]}",
+        "group_name": "rate_limiting"
+    },
+    {
+        "id": "535986c3-5bdd-4a03-b939-bce9005e4c5e",
+        "level": "info",
+        "message": "User created successfully: admin@example.com (ID: 3a8c5fdb-04d6-4226-9932-61ed0dc2718c)",
+        "context": "{\"scope\":[\"user_management\",\"user_creation\"]}",
+        "group_name": "general"
+    },
+    {
+        "id": "56c7216d-7a14-4658-a6ae-559edf68dbfe",
+        "level": "debug",
+        "message": "Since 5.2.0: You cannot redefine short options. This will throw an error in 5.3.0+.\n/var/www/html/vendor/cakephp/migrations/src/Command/BakeSimpleMigrationCommand.php, line: 227\nYou can disable all deprecation warnings by setting `Error.errorLevel` to `E_ALL & ~E_USER_DEPRECATED`. Adding `vendor/cakephp/migrations/src/Command/BakeSimpleMigrationCommand.php` to `Error.ignoredDeprecationPaths` in your `config/app.php` config will mute deprecations from that file only. in /var/www/html/vendor/cakephp/cakephp/src/Core/functions.php on line 373\nTrace:\nCake\\Error\\ErrorTrap->handleError() [internal], line ??\n/var/www/html/vendor/cakephp/cakephp/src/Core/functions.php /var/www/html/vendor/cakephp/cakephp/src/Core/functions.php, line 373\n/var/www/html/vendor/cakephp/cakephp/src/Console/ConsoleOptionParser.php /var/www/html/vendor/cakephp/cakephp/src/Console/ConsoleOptionParser.php, line 414\nCake\\Console\\ConsoleOptionParser->addOption() /var/www/html/vendor/cakephp/migrations/src/Command/BakeSimpleMigrationCommand.php, line 227\nMigrations\\Command\\BakeSimpleMigrationCommand->buildOptionParser() /var/www/html/vendor/cakephp/cakephp/src/Console/BaseCommand.php, line 140\nCake\\Console\\BaseCommand->getOptionParser() /var/www/html/vendor/cakephp/migrations/src/Command/BakeMigrationDiffCommand.php, line 588\nMigrations\\Command\\BakeMigrationDiffCommand->getOptionParser() /var/www/html/vendor/cakephp/cakephp/src/Console/BaseCommand.php, line 174\nCake\\Console\\BaseCommand->run() /var/www/html/vendor/cakephp/cakephp/src/Console/CommandRunner.php, line 330\nCake\\Console\\CommandRunner->runCommand() /var/www/html/vendor/cakephp/cakephp/src/Console/CommandRunner.php, line 168\nCake\\Console\\CommandRunner->run() /var/www/html/bin/cake.php, line 10\n[main]\n",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    },
+    {
+        "id": "588b04cf-8bf3-47eb-92c1-5396d52e3dbd",
+        "level": "debug",
+        "message": "Reading migrations status for test...",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    },
+    {
+        "id": "58be7074-1bcf-48ab-abd8-c750542e9a72",
+        "level": "info",
+        "message": "Attempting to create user with data: {\"username\":\"admin@example.com\",\"confirm_password\":\"password\",\"email\":\"robjects@protonmail.com\",\"is_admin\":true,\"active\":1}",
+        "context": "{\"scope\":[\"user_management\",\"user_creation\"]}",
+        "group_name": "general"
+    },
+    {
+        "id": "59d1feb3-ed4e-47e2-acdc-b71d95d03e80",
+        "level": "debug",
+        "message": "Reading migrations status for test...",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    },
+    {
+        "id": "5f71a87f-d648-4a22-982d-9bb47b8d78d8",
+        "level": "debug",
+        "message": "Reading migrations status for test...",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    },
+    {
+        "id": "6a879599-ed5e-479e-884d-6cad03584a75",
+        "level": "warning",
+        "message": "The connection is going to be closed but there is an active transaction.",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    },
+    {
+        "id": "74d4a6f9-796a-4506-a70a-6e0ed0f97789",
+        "level": "warning",
+        "message": "The connection is going to be closed but there is an active transaction.",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    },
+    {
+        "id": "88170d50-21e4-4324-9616-844e22814857",
+        "level": "warning",
+        "message": "The connection is going to be closed but there is an active transaction.",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    },
+    {
+        "id": "96942b2c-3df2-4f54-becb-ce81b6fd824f",
+        "level": "debug",
+        "message": "Reading migrations status for test...",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    },
+    {
+        "id": "a3c2f9f3-341d-4658-b3f3-cfa1eb2557ce",
+        "level": "debug",
+        "message": "Reading migrations status for test...",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    },
+    {
+        "id": "a3f1e61b-ddef-49fc-9aad-e049b723f89d",
+        "level": "debug",
+        "message": "Reading migrations status for test...",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    },
+    {
+        "id": "b8f9c884-85ff-4987-90d0-2962efe292df",
+        "level": "debug",
+        "message": "Reading migrations status for test...",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    },
+    {
+        "id": "c96b82eb-08b4-4b6c-8a6b-0c577aa9be82",
+        "level": "debug",
+        "message": "Since 5.2.0: You cannot redefine short options. This will throw an error in 5.3.0+.\n/var/www/html/vendor/cakephp/migrations/src/Command/BakeSimpleMigrationCommand.php, line: 227\nYou can disable all deprecation warnings by setting `Error.errorLevel` to `E_ALL & ~E_USER_DEPRECATED`. Adding `vendor/cakephp/migrations/src/Command/BakeSimpleMigrationCommand.php` to `Error.ignoredDeprecationPaths` in your `config/app.php` config will mute deprecations from that file only. in /var/www/html/vendor/cakephp/cakephp/src/Core/functions.php on line 373\nTrace:\nCake\\Error\\ErrorTrap->handleError() [internal], line ??\n/var/www/html/vendor/cakephp/cakephp/src/Core/functions.php /var/www/html/vendor/cakephp/cakephp/src/Core/functions.php, line 373\n/var/www/html/vendor/cakephp/cakephp/src/Console/ConsoleOptionParser.php /var/www/html/vendor/cakephp/cakephp/src/Console/ConsoleOptionParser.php, line 414\nCake\\Console\\ConsoleOptionParser->addOption() /var/www/html/vendor/cakephp/migrations/src/Command/BakeSimpleMigrationCommand.php, line 227\nMigrations\\Command\\BakeSimpleMigrationCommand->buildOptionParser() /var/www/html/vendor/cakephp/cakephp/src/Console/BaseCommand.php, line 140\nCake\\Console\\BaseCommand->getOptionParser() /var/www/html/vendor/cakephp/migrations/src/Command/BakeMigrationDiffCommand.php, line 588\nMigrations\\Command\\BakeMigrationDiffCommand->getOptionParser() /var/www/html/vendor/cakephp/cakephp/src/Console/BaseCommand.php, line 174\nCake\\Console\\BaseCommand->run() /var/www/html/vendor/cakephp/cakephp/src/Console/CommandRunner.php, line 330\nCake\\Console\\CommandRunner->runCommand() /var/www/html/vendor/cakephp/cakephp/src/Console/CommandRunner.php, line 168\nCake\\Console\\CommandRunner->run() /var/www/html/bin/cake.php, line 10\n[main]\n",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    },
+    {
+        "id": "cd7d4579-58e5-4f29-aeb7-b2036c65adf7",
+        "level": "warning",
+        "message": "The connection is going to be closed but there is an active transaction.",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    },
+    {
+        "id": "dbe10d47-34d0-4107-bbe8-0fd4bdda007e",
+        "level": "debug",
+        "message": "Reading migrations status for test...",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    },
+    {
+        "id": "e30f2918-49a0-4b98-bda5-86cb8f8cc46f",
+        "level": "debug",
+        "message": "Reading migrations status for test...",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    },
+    {
+        "id": "e8b55372-1d41-4082-892a-616735780719",
+        "level": "debug",
+        "message": "Reading migrations status for test...",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    },
+    {
+        "id": "eabeee34-d9ab-4cd9-a157-3669c9fdc29f",
+        "level": "debug",
+        "message": "Reading migrations status for test...",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    },
+    {
+        "id": "ebb14090-d102-46bb-9384-6d57d446b695",
+        "level": "debug",
+        "message": "Reading migrations status for test...",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    },
+    {
+        "id": "f4bdeb1f-8340-41ec-bb7c-c208acce68b6",
+        "level": "debug",
+        "message": "Reading migrations status for test...",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    },
+    {
+        "id": "f7b93b43-e48f-427a-83c8-7204db1ea329",
+        "level": "debug",
+        "message": "Reading migrations status for test...",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    },
+    {
+        "id": "fd0374c0-6f7d-4350-8755-4e0d130df331",
+        "level": "warning",
+        "message": "Rate limit exceeded for IP: 192.168.65.1",
+        "context": "{\"ip\":\"192.168.65.1\",\"route\":\"\\/en\\/users\\/login\",\"query\":\"q=\\/en\\/users\\/login&q=\\/en\\/users\\/login&q=\\/en\\/users\\/login&q=\\/en\\/users\\/login&q=\\/en\\/users\\/login&\",\"count\":7,\"limit\":5,\"period\":60,\"group_name\":\"rate_limiting\",\"scope\":[]}",
+        "group_name": "rate_limiting"
+    },
+    {
+        "id": "ffaa661c-4448-4278-b2e6-9d36b623c14e",
+        "level": "error",
+        "message": "[App\\Http\\Exception\\TooManyRequestsException] Too many requests. Please try again later. in /var/www/html/src/Middleware/RateLimitMiddleware.php on line 140\nStack Trace:\n- CORE/src/Http/Runner.php:82\n- APP/Middleware/IpBlockerMiddleware.php:107\n- CORE/src/Http/Runner.php:82\n- CORE/src/Http/Middleware/CsrfProtectionMiddleware.php:169\n- CORE/src/Http/Runner.php:82\n- ROOT/vendor/cakephp/authentication/src/Middleware/AuthenticationMiddleware.php:106\n- CORE/src/Http/Runner.php:82\n- CORE/src/Http/Middleware/BodyParserMiddleware.php:162\n- CORE/src/Http/Runner.php:82\n- ROOT/vendor/admad/cakephp-i18n/src/Middleware/I18nMiddleware.php:110\n- CORE/src/Http/Runner.php:82\n- CORE/src/Routing/Middleware/RoutingMiddleware.php:117\n- CORE/src/Http/Runner.php:82\n- CORE/src/Routing/Middleware/AssetMiddleware.php:70\n- CORE/src/Http/Runner.php:82\n- CORE/src/Error/Middleware/ErrorHandlerMiddleware.php:115\n- CORE/src/Http/Runner.php:82\n- ROOT/vendor/cakephp/debug_kit/src/Middleware/DebugKitMiddleware.php:60\n- CORE/src/Http/Runner.php:82\n- CORE/src/Http/Runner.php:60\n- CORE/src/Http/Server.php:104\n- ROOT/webroot/index.php:37\n- [main]:\n\nRequest URL: /en/users/login?q=/en/users/login&q=/en/users/login&q=/en/users/login&q=/en/users/login&q=/en/users/login&\nReferer URL: http://localhost:8080/en/users/login?q=/en/users/login&q=/en/users/login&q=/en/users/login&\nClient IP: 192.168.65.1",
+        "context": "{\"scope\":[]}",
+        "group_name": "general"
+    }
+]

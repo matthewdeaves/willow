@@ -1,0 +1,13 @@
+[
+    {
+        "id": "af7ee3f5-298d-4a4c-a89f-0550968ce056",
+        "user_id": "3a8c5fdb-04d6-4226-9932-61ed0dc2718c",
+        "session_id": "jb6boj6iviimkugh46qsv996lb",
+        "analytics_consent": true,
+        "functional_consent": true,
+        "marketing_consent": true,
+        "essential_consent": true,
+        "ip_address": "192.168.65.1",
+        "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+    }
+]

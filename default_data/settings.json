@@ -36,18 +36,6 @@
         "column_width": 2
     },
     {
-        "id": "09a681b0-3ac9-48f4-abcb-9bce5b8bf922",
-        "ordering": 201,
-        "category": "AI",
-        "key_name": "galleryTranslations",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": "Enable automatic translation of image galleries to all enabled languages.",
-        "data": null,
-        "column_width": 2
-    },
-    {
         "id": "0c39c04b-f4e9-4d47-893c-22a42bf05b59",
         "ordering": 4,
         "category": "Security",
@@ -372,18 +360,6 @@
         "column_width": 2
     },
     {
-        "id": "7774eebe-d415-422f-bd48-cd7c3ca434ff",
-        "ordering": 201,
-        "category": "AI",
-        "key_name": "galleryTranslations",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": "Enable automatic translation of image galleries to all enabled languages.",
-        "data": null,
-        "column_width": 2
-    },
-    {
         "id": "7bfce7f3-1e01-4c7c-8cc1-881d95df0046",
         "ordering": 6,
         "category": "ImageSizes",
@@ -392,18 +368,6 @@
         "value_type": "numeric",
         "value_obscure": false,
         "description": "The width for the tiny image size.",
-        "data": null,
-        "column_width": 2
-    },
-    {
-        "id": "7c0bf5ce-9def-40a1-8596-e810fe2b8df9",
-        "ordering": 200,
-        "category": "AI",
-        "key_name": "gallerySEO",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": "Enable AI-powered SEO field generation for image galleries.",
         "data": null,
         "column_width": 2
     },
@@ -1016,18 +980,6 @@
         "value_type": "bool",
         "value_obscure": false,
         "description": "Enable translations in Turkish",
-        "data": null,
-        "column_width": 2
-    },
-    {
-        "id": "ffccee3d-47bb-4bda-b738-3d2eeabd7b48",
-        "ordering": 200,
-        "category": "AI",
-        "key_name": "gallerySEO",
-        "value": "0",
-        "value_type": "bool",
-        "value_obscure": false,
-        "description": "Enable AI-powered SEO field generation for image galleries.",
         "data": null,
         "column_width": 2
     }

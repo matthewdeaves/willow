@@ -36,6 +36,18 @@
         "column_width": 2
     },
     {
+        "id": "09a681b0-3ac9-48f4-abcb-9bce5b8bf922",
+        "ordering": 201,
+        "category": "AI",
+        "key_name": "galleryTranslations",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Enable automatic translation of image galleries to all enabled languages.",
+        "data": null,
+        "column_width": 2
+    },
+    {
         "id": "0c39c04b-f4e9-4d47-893c-22a42bf05b59",
         "ordering": 4,
         "category": "Security",
@@ -180,6 +192,18 @@
         "column_width": 2
     },
     {
+        "id": "3d8d0a6b-8280-416e-9346-548169fdfe88",
+        "ordering": 9,
+        "category": "AI",
+        "key_name": "dailyCostLimit",
+        "value": "50.00",
+        "value_type": "numeric",
+        "value_obscure": false,
+        "description": "Maximum daily cost threshold in USD for AI operations. When this limit is reached, AI features will be temporarily disabled until the next day. This prevents unexpected billing charges.",
+        "data": null,
+        "column_width": 2
+    },
+    {
         "id": "3dbfe860-284b-43e5-908c-4d22459a23d5",
         "ordering": 20,
         "category": "Translations",
@@ -288,6 +312,18 @@
         "column_width": 2
     },
     {
+        "id": "58e4c91c-46e0-4132-b352-ca362dbacce4",
+        "ordering": 10,
+        "category": "AI",
+        "key_name": "enableMetrics",
+        "value": "1",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Enable detailed tracking and analytics for AI operations. This includes execution times, token usage, costs, and success rates. Metrics help optimize performance and monitor API usage patterns.",
+        "data": null,
+        "column_width": 2
+    },
+    {
         "id": "6223137d-a34f-4d49-bb25-592bbf7cf263",
         "ordering": 8,
         "category": "Translations",
@@ -320,6 +356,18 @@
         "value_type": "bool",
         "value_obscure": false,
         "description": "Enable translations in Latvian",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "id": "7071068f-60e5-47f1-9129-68d69df6bcde",
+        "ordering": 8,
+        "category": "AI",
+        "key_name": "hourlyLimit",
+        "value": "100",
+        "value_type": "numeric",
+        "value_obscure": false,
+        "description": "Maximum number of AI API calls allowed per hour. This helps control costs and prevents runaway usage. Set to 0 for unlimited (not recommended for production).",
         "data": null,
         "column_width": 2
     },
@@ -360,6 +408,18 @@
         "column_width": 2
     },
     {
+        "id": "7774eebe-d415-422f-bd48-cd7c3ca434ff",
+        "ordering": 201,
+        "category": "AI",
+        "key_name": "galleryTranslations",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Enable automatic translation of image galleries to all enabled languages.",
+        "data": null,
+        "column_width": 2
+    },
+    {
         "id": "7bfce7f3-1e01-4c7c-8cc1-881d95df0046",
         "ordering": 6,
         "category": "ImageSizes",
@@ -368,6 +428,18 @@
         "value_type": "numeric",
         "value_obscure": false,
         "description": "The width for the tiny image size.",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "id": "7c0bf5ce-9def-40a1-8596-e810fe2b8df9",
+        "ordering": 200,
+        "category": "AI",
+        "key_name": "gallerySEO",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Enable AI-powered SEO field generation for image galleries.",
         "data": null,
         "column_width": 2
     },
@@ -393,6 +465,18 @@
         "value_obscure": false,
         "description": "Should the main menu show all root pages or only selected pages?",
         "data": "{\n  \"root\": \"Top Level Pages\",\n  \"selected\": \"Selected Pages\"\n}",
+        "column_width": 2
+    },
+    {
+        "id": "836d176a-ccea-4503-8975-185c735c173f",
+        "ordering": 11,
+        "category": "AI",
+        "key_name": "enableCostAlerts",
+        "value": "1",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Send email notifications when AI costs approach or exceed defined thresholds. Alerts help administrators monitor spending and take action before limits are reached.",
+        "data": null,
         "column_width": 2
     },
     {
@@ -980,6 +1064,18 @@
         "value_type": "bool",
         "value_obscure": false,
         "description": "Enable translations in Turkish",
+        "data": null,
+        "column_width": 2
+    },
+    {
+        "id": "ffccee3d-47bb-4bda-b738-3d2eeabd7b48",
+        "ordering": 200,
+        "category": "AI",
+        "key_name": "gallerySEO",
+        "value": "0",
+        "value_type": "bool",
+        "value_obscure": false,
+        "description": "Enable AI-powered SEO field generation for image galleries.",
         "data": null,
         "column_width": 2
     }

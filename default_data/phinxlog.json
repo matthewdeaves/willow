@@ -68,5 +68,26 @@
         "start_time": "2025-07-07T16:31:14-05:00",
         "end_time": "2025-07-07T16:31:14-05:00",
         "breakpoint": false
+    },
+    {
+        "version": 20250708154742,
+        "migration_name": "CreateProductTables",
+        "start_time": "2025-07-08T10:47:43-05:00",
+        "end_time": "2025-07-08T10:47:43-05:00",
+        "breakpoint": false
+    },
+    {
+        "version": 20250711060922,
+        "migration_name": "CreateAiMetrics",
+        "start_time": "2025-07-11T02:53:43-05:00",
+        "end_time": "2025-07-11T02:53:43-05:00",
+        "breakpoint": false
+    },
+    {
+        "version": 20250711075245,
+        "migration_name": "InsertAiMetricsSettings",
+        "start_time": "2025-07-11T02:53:43-05:00",
+        "end_time": "2025-07-11T02:53:43-05:00",
+        "breakpoint": false
     }
 ]

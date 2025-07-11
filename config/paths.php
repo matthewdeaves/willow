@@ -92,3 +92,10 @@ define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . 'vendor' . DS . 'cakephp' . DS . 'c
  */
 define('CORE_PATH', CAKE_CORE_INCLUDE_PATH . DS);
 define('CAKE', CORE_PATH . 'src' . DS);
+
+/*
+
+    * The path to the plugins directory.
+    * * This is where CakePHP will look for plugins.
+    */
+define('PLUGINS', ROOT . DS . 'plugins' . DS);  

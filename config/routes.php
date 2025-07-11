@@ -77,6 +77,8 @@ return function (RouteBuilder $routes): void {
         ]
     );
 
+    // Root rss feed route must come before the scope
+    
     $routes->scope('/', function (RouteBuilder $builder): void {
         $builder->setExtensions(['xml', 'rss']);
         

@@ -344,7 +344,7 @@ return [
         'default' => [
             'className' => Connection::class,
             'driver' => Mysql::class,
-            'persistent' => false,
+            'persistent' => true,
             'timezone' => 'America/Chicago',
             'host' => env('DB_HOST', 'mysql'),
             'username' => env('DB_USERNAME', 'cms_user'),
@@ -391,7 +391,7 @@ return [
         'test' => [
             'className' => Connection::class,
             'driver' => Mysql::class,
-            'persistent' => false,
+            'persistent' => true,
             'timezone' => 'UTC',
             'encoding' => 'utf8mb4',
             'flags' => [],

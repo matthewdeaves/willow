@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: CakePHP 5.2.5\n"
-"POT-Creation-Date: 2025-07-11 04:44-0500\n"
+"POT-Creation-Date: 2025-07-11 05:32-0500\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -14,16 +14,44 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
+#: ./templates/Error/error400.php:40
+#: ./templates/Error/error429.php:16
+#: ./templates/Error/error500.php:45
+msgid "Error"
+msgstr ""
+
+#: ./templates/Error/error400.php:41
+msgid "The requested address {0} was not found on this server."
+msgstr ""
+
+#: ./templates/Error/error429.php:14
+#: ./templates/Error/error429.php:33
+msgid "Too Many Requests"
+msgstr ""
+
+#: ./templates/Error/error429.php:21
+msgid "SQL Query"
+msgstr ""
+
+#: ./templates/Error/error429.php:25
+msgid "SQL Query Params"
+msgstr ""
+
+#: ./templates/Error/error429.php:35
+msgid "You have exceeded the rate limit. Please try again later."
+msgstr ""
+
+#: ./templates/Error/error500.php:43
+#: ./vendor/cakephp/cakephp/src/Error/Renderer/WebExceptionRenderer.php:354
+msgid "An Internal Error Has Occurred."
+msgstr ""
+
 #: ./vendor/cakephp/cakephp/src/Command/PluginListCommand.php:65
 msgid "No plugins have been found."
 msgstr ""
 
 #: ./vendor/cakephp/cakephp/src/Error/Renderer/WebExceptionRenderer.php:352
 msgid "Not Found"
-msgstr ""
-
-#: ./vendor/cakephp/cakephp/src/Error/Renderer/WebExceptionRenderer.php:354
-msgid "An Internal Error Has Occurred."
 msgstr ""
 
 #: ./vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php:354

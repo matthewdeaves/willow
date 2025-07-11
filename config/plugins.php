@@ -14,15 +14,29 @@ return [
     ],
     'Migrations' => [],
     'AdminTheme' => [
+        'bootstrap' => true,
         'routes' => true,
         'optional' => true,
     ],
-    'DefaultTheme' => [],
-    'ADmad/I18n' => [],
+    'DefaultTheme' => [
+        'bootstrap' => true,
+        'routes' => true,
+        'optional' => true,
+    ],
+    'ADmad/I18n' => [
+        'bootstrap' => true,
+        'routes' => true,
+        'optional' => true,
+    ],
     'DebugKit' => [
         'onlyDev' => true,
         'optional' => true,
     ],
     'MysqlNativePassword' => [],
     'Josegonzalez/Upload' => [],
+    'All' => [
+        'bootstrap' => true,
+        'routes' => true,
+        'optional' => true,
+    ],
 ];

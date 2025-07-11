@@ -4,9 +4,9 @@ services:
     build:
       context: .
       dockerfile: docker/willowcms/Dockerfile
-      # args:
-      #   - UID=${UID:-1000}
-      #   - GID=${GID:-1000}
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
     ports: 
       - "8080:80"
     volumes:
@@ -45,6 +45,17 @@ services:
       MYSQL_DATABASE: cms
       MYSQL_USER: cms_user
       MYSQL_PASSWORD: password
+      DB_DATABASE: cms
+      DB_USERNAME: cms_user
+      DB_PASSWORD: password
+      DB_HOST: mysql
+      DB_PORT: 3306
+      TEST_DB_DATABASE: cms_test
+      TEST_DB_USERNAME: cms_user_test
+      TEST_DB_PASSWORD: password
+      TEST_DB_HOST: mysql
+      TEST_DB_PORT: 3306
+    # The MySQL service uses the official MySQL image from Docker Hub.
     ports:
       - "3310:3306"
     volumes:
@@ -106,7 +117,15 @@ services:
       - MP_SMTP_AUTH_ALLOW_INSECURE=1
 
   redis-commander:
+    # The Redis Commander service provides a web-based interface to manage Redis databases.
+    # It runs on port 8084 and connects to the Redis service.
+    # You can access it at http://localhost:8084
+    # The service is named "redis-commander" and is linked to the "willowcms" service.
     image: rediscommander/redis-commander:latest
+    # The Redis Commander service provides a web-based interface to manage Redis databases.
+    # It runs on port 8084 and connects to the Redis service.
+    # You can access it at http://localhost:8084
+    # The service is named "redis-commander" and is linked to the "willowcms" service.
     environment:
       - REDIS_HOST=willowcms
       - REDIS_PORT=6379
@@ -117,9 +136,5 @@ services:
       - "8084:8081"
     depends_on:
       - willowcms
-  redis:
-    image: redis:latest
-    ports:
-      - "6379:6379" 
 
 ################## Volumes for persistent data storage ##################

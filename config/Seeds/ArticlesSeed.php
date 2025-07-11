@@ -8,6 +8,20 @@ use Migrations\BaseSeed;
  */
 class ArticlesSeed extends BaseSeed
 {
+
+
+     public function getDependencies(): array
+    {
+        return [
+            'UsersSeed',
+            'ProductsSeed',
+            'TagsSeed',
+            'SlugsSeed',
+            'ImagesSeed',
+            'SettingsSeed'
+        ];
+    }
+
     /**
      * Run Method.
      *
@@ -26,7 +40,7 @@ class ArticlesSeed extends BaseSeed
                 'user_id' => '4f850b86-50c8-41cf-b6f8-abbee04969d1',
                 'kind' => 'page',
                 'featured' => 0,
-                'title' => 'All about Adapters',
+                'title' => 'Sample Adapters',
                 'lede' => 'adapters-lede',
                 'slug' => 'adapters',
                 'body' => '<p>Adapters body paragraph text</p>',

@@ -13,18 +13,13 @@ services:
       - .:/var/www/html/
       - ./docker/willowcms/config/app/cms_app_local.php:/var/www/html/config/app_local.php
       - ./logs/nginx:/var/log/nginx/
+      - ./logs/php:/var/log/php/
+      - ./docker/willowcms/config/php/php.ini:/usr/local/etc/php/conf.d/php.ini
+      - ../php_data:/var/www/html/tmp
+
     env_file:
       - ./config/.env
-    environment:
-      - APP_URL=http://localhost:8080
-      - APP_LOCALE=en_US
-      - APP_TIMEZONE=America/Chicago
-      - APP_NAME=WillowCMS
-      - APP_ENCODING=UTF-8
-      - APP_DEFAULT_LOCALE=en_US
-      - APP_DEFAULT_TIMEZONE=America/Chicago
-      - APP_DEFAULT_ENCODING=UTF-8
-      - APP_DEFAULT_LANGUAGE=en_US
+
     
   mysql:
     image: mysql:8.4.3

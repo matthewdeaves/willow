@@ -23,7 +23,7 @@
 
 use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
-use Cake\Routing\Router;
+#use Cake\Routing\Router;
 
 
 /*
@@ -77,8 +77,6 @@ return function (RouteBuilder $routes): void {
         ]
     );
 
-    // Root rss feed route must come before the scope
-    
     $routes->scope('/', function (RouteBuilder $builder): void {
         $builder->setExtensions(['xml', 'rss']);
         
@@ -274,6 +272,8 @@ return function (RouteBuilder $routes): void {
         );
     });
 
+    // Connect the default routes for the application admin panel
+    // This will handle all admin-related routes under the 'Admin' prefix.
     $routes->prefix('Admin', function (RouteBuilder $routes) {
         $routes->connect('/', ['controller' => 'Articles', 'action' => 'index', 'prefix' => 'Admin']);
         
@@ -282,8 +282,50 @@ return function (RouteBuilder $routes): void {
             '/image-galleries/remove-image/{id}/{imageId}',
             ['controller' => 'ImageGalleries', 'action' => 'removeImage'],
             ['pass' => ['id', 'imageId']]
-        );
         
+        // Custom route for viewing adapters by slug in the admin panel
+        
+
+        );
+
+
+        /////////////////// Beginning of CUSTOM Admin Routes ///////////////////
+        // // Connect the rest of the admin routes using the default DashedRoute
+
+        $routes->connect(
+            '/adapters',
+            ['controller' => 'Adapters', 'action' => 'index'],
+            ['prefix' => 'Admin']
+        );
+        $routes->connect(
+            '/adapters/add',
+            ['controller' => 'Adapters', 'action' => 'add'],
+            ['prefix' => 'Admin']
+        );
+        $routes->connect(
+            '/adapters/edit/{id}',
+            ['controller' => 'Adapters', 'action' => 'edit'],
+            ['prefix' => 'Admin', 'pass' => ['id']]
+        );
+        $routes->connect(
+            '/adapters/delete/{id}',
+            ['controller' => 'Adapters', 'action' => 'delete'],
+            ['prefix' => 'Admin', 'pass' => ['id']]
+        );
+        $routes->connect(
+            '/adapters/view/{id}',
+            ['controller' => 'Adapters', 'action' => 'view'],
+            ['prefix' => 'Admin', 'pass' => ['id']]
+        );
+        // $routes->connect('/products/add', ['controller' => 'Products', 'action' => 'add']);
+        // $routes->connect('/products/edit/{id}', ['controller' => 'Products', 'action' => 'edit'], ['pass' => ['id']]);
+        // $routes->connect('/products/delete/{id}', ['controller' => 'Products', 'action' => 'delete'], ['pass' => ['id']]);
+        // $routes->connect('/products/view/{id}', ['controller' => 'Products', 'action' => 'view'], ['pass' => ['id']]);
+        // $routes->connect('/products/:slug', ['controller' => 'Products', 'action' => 'viewBySlug'], ['pass' => ['slug']]);
+
+
+        /////////////////// End of CUSTOM Admin Routes ///////////////////
+        // Connect the rest of the admin routes using the default DashedRoute
         $routes->fallbacks(DashedRoute::class);
     });
 

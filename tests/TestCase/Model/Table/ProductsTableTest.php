@@ -55,7 +55,7 @@ class ProductsTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \App\Model\Table\ProductsTable::validationDefault()
+     * @link \App\Model\Table\ProductsTable::validationDefault()
      */
     public function testValidationDefault(): void
     {

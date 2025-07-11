@@ -10,7 +10,7 @@ use Cake\TestSuite\TestCase;
 /**
  * App\Controller\ProductsController Test Case
  *
- * @uses \App\Controller\ProductsController
+ * @link \App\Controller\ProductsController
  */
 class ProductsControllerTest extends TestCase
 {
@@ -29,7 +29,7 @@ class ProductsControllerTest extends TestCase
      * Test index method
      *
      * @return void
-     * @uses \App\Controller\ProductsController::index()
+     * @link \App\Controller\ProductsController::index()
      */
     public function testIndex(): void
     {
@@ -40,7 +40,7 @@ class ProductsControllerTest extends TestCase
      * Test view method
      *
      * @return void
-     * @uses \App\Controller\ProductsController::view()
+     * @link \App\Controller\ProductsController::view()
      */
     public function testView(): void
     {
@@ -51,7 +51,7 @@ class ProductsControllerTest extends TestCase
      * Test add method
      *
      * @return void
-     * @uses \App\Controller\ProductsController::add()
+     * @link \App\Controller\ProductsController::add()
      */
     public function testAdd(): void
     {
@@ -62,7 +62,7 @@ class ProductsControllerTest extends TestCase
      * Test edit method
      *
      * @return void
-     * @uses \App\Controller\ProductsController::edit()
+     * @link \App\Controller\ProductsController::edit()
      */
     public function testEdit(): void
     {
@@ -73,7 +73,7 @@ class ProductsControllerTest extends TestCase
      * Test delete method
      *
      * @return void
-     * @uses \App\Controller\ProductsController::delete()
+     * @link \App\Controller\ProductsController::delete()
      */
     public function testDelete(): void
     {

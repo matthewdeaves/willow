@@ -344,7 +344,11 @@ return [
             'className' => Connection::class,
             'driver' => Mysql::class,
             'persistent' => false,
-            'timezone' => 'UTC',
+            'timezone' => 'America/Chicago',
+            'host' => env('DB_HOST', 'mysql'),
+            'username' => env('DB_USERNAME', 'cms_user'),
+            'password' => env('DB_PASSWORD', 'password'),
+            'database' => env('DB_DATABASE', 'cms'),
 
             /*
              * For MariaDB/MySQL the internal default changed from utf8 to utf8mb4, aka full utf-8 support, in CakePHP 3.6

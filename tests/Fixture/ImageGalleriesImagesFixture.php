@@ -19,22 +19,13 @@ class ImageGalleriesImagesFixture extends TestFixture
     {
         $this->records = [
             [
-                'id' => '011e830d-bdea-4a4a-8529-a9a3511723f3',
-                'image_gallery_id' => '32cf930e-1456-4cf9-ab9e-a7db7250b1ea', // Reference actual gallery from fixture
-                'image_id' => '1202d58b-8fec-4b0c-900b-32246bb64d79', // Reference actual image from fixture
+                'id' => '6a32d011-7871-463b-9b63-7e1ec650ebaf',
+                'image_gallery_id' => 'bf8b409d-1bbf-4798-a3ce-c43b63eccb87',
+                'image_id' => '470fdf29-fb04-4336-a8e4-cb86678cfb60',
                 'position' => 1,
-                'caption' => 'First test image in gallery',
-                'created' => '2025-06-04 08:43:01',
-                'modified' => '2025-06-04 08:43:01',
-            ],
-            [
-                'id' => '022e830d-bdea-4a4a-8529-a9a3511723f4',
-                'image_gallery_id' => '32cf930e-1456-4cf9-ab9e-a7db7250b1ea', // Same gallery
-                'image_id' => '2202d58b-8fec-4b0c-900b-32246bb64d79', // Second image
-                'position' => 2,
-                'caption' => 'Second test image in gallery',
-                'created' => '2025-06-04 08:43:01',
-                'modified' => '2025-06-04 08:43:01',
+                'caption' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
+                'created' => '2025-07-12 21:48:41',
+                'modified' => '2025-07-12 21:48:41',
             ],
         ];
         parent::init();

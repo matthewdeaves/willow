@@ -3,16 +3,16 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\CommentsController;
+use App\Controller\ModelsImagesController;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Controller\CommentsController Test Case
+ * App\Controller\ModelsImagesController Test Case
  *
- * @uses \App\Controller\CommentsController
+ * @uses \App\Controller\ModelsImagesController
  */
-class CommentsControllerTest extends TestCase
+class ModelsImagesControllerTest extends TestCase
 {
     use IntegrationTestTrait;
 
@@ -22,16 +22,15 @@ class CommentsControllerTest extends TestCase
      * @var list<string>
      */
     protected array $fixtures = [
-        'app.Comments',
-        'app.Users',
-        'app.Articles',
+        'app.ModelsImages',
+        'app.Images',
     ];
 
     /**
      * Test index method
      *
      * @return void
-     * @uses \App\Controller\CommentsController::index()
+     * @uses \App\Controller\ModelsImagesController::index()
      */
     public function testIndex(): void
     {
@@ -42,7 +41,7 @@ class CommentsControllerTest extends TestCase
      * Test view method
      *
      * @return void
-     * @uses \App\Controller\CommentsController::view()
+     * @uses \App\Controller\ModelsImagesController::view()
      */
     public function testView(): void
     {
@@ -53,7 +52,7 @@ class CommentsControllerTest extends TestCase
      * Test add method
      *
      * @return void
-     * @uses \App\Controller\CommentsController::add()
+     * @uses \App\Controller\ModelsImagesController::add()
      */
     public function testAdd(): void
     {
@@ -64,7 +63,7 @@ class CommentsControllerTest extends TestCase
      * Test edit method
      *
      * @return void
-     * @uses \App\Controller\CommentsController::edit()
+     * @uses \App\Controller\ModelsImagesController::edit()
      */
     public function testEdit(): void
     {
@@ -75,7 +74,7 @@ class CommentsControllerTest extends TestCase
      * Test delete method
      *
      * @return void
-     * @uses \App\Controller\CommentsController::delete()
+     * @uses \App\Controller\ModelsImagesController::delete()
      */
     public function testDelete(): void
     {

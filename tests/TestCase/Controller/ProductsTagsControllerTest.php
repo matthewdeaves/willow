@@ -3,16 +3,16 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\CommentsController;
+use App\Controller\ProductsTagsController;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Controller\CommentsController Test Case
+ * App\Controller\ProductsTagsController Test Case
  *
- * @uses \App\Controller\CommentsController
+ * @uses \App\Controller\ProductsTagsController
  */
-class CommentsControllerTest extends TestCase
+class ProductsTagsControllerTest extends TestCase
 {
     use IntegrationTestTrait;
 
@@ -22,16 +22,16 @@ class CommentsControllerTest extends TestCase
      * @var list<string>
      */
     protected array $fixtures = [
-        'app.Comments',
-        'app.Users',
-        'app.Articles',
+        'app.ProductsTags',
+        'app.Products',
+        'app.Tags',
     ];
 
     /**
      * Test index method
      *
      * @return void
-     * @uses \App\Controller\CommentsController::index()
+     * @uses \App\Controller\ProductsTagsController::index()
      */
     public function testIndex(): void
     {
@@ -42,7 +42,7 @@ class CommentsControllerTest extends TestCase
      * Test view method
      *
      * @return void
-     * @uses \App\Controller\CommentsController::view()
+     * @uses \App\Controller\ProductsTagsController::view()
      */
     public function testView(): void
     {
@@ -53,7 +53,7 @@ class CommentsControllerTest extends TestCase
      * Test add method
      *
      * @return void
-     * @uses \App\Controller\CommentsController::add()
+     * @uses \App\Controller\ProductsTagsController::add()
      */
     public function testAdd(): void
     {
@@ -64,7 +64,7 @@ class CommentsControllerTest extends TestCase
      * Test edit method
      *
      * @return void
-     * @uses \App\Controller\CommentsController::edit()
+     * @uses \App\Controller\ProductsTagsController::edit()
      */
     public function testEdit(): void
     {
@@ -75,7 +75,7 @@ class CommentsControllerTest extends TestCase
      * Test delete method
      *
      * @return void
-     * @uses \App\Controller\CommentsController::delete()
+     * @uses \App\Controller\ProductsTagsController::delete()
      */
     public function testDelete(): void
     {

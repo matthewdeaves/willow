@@ -19,12 +19,12 @@ class ModelsImagesFixture extends TestFixture
     {
         $this->records = [
             [
-                'id' => 'b7e49b59-3802-4040-adc8-913f4822c0b3',
+                'id' => 'df8853af-5b65-4d5d-92a4-0d329ff71dd8',
                 'model' => 'Lorem ipsum dolor sit amet',
-                'foreign_key' => '306156d3-a828-4257-a3fb-23eae2719c17',
-                'image_id' => 'de81d065-52a2-4a55-b85e-1353711011a2',
-                'created' => '2024-10-15 19:56:28',
-                'modified' => '2024-10-15 19:56:28',
+                'foreign_key' => '8ac77f13-444e-4616-8a81-0427ea96b873',
+                'image_id' => '0381d76c-0890-4552-8a14-2e45b9c7434f',
+                'created' => '2025-07-12 21:48:43',
+                'modified' => '2025-07-12 21:48:43',
             ],
         ];
         parent::init();

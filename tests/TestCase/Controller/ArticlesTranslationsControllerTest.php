@@ -3,16 +3,16 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\CommentsController;
+use App\Controller\ArticlesTranslationsController;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Controller\CommentsController Test Case
+ * App\Controller\ArticlesTranslationsController Test Case
  *
- * @uses \App\Controller\CommentsController
+ * @uses \App\Controller\ArticlesTranslationsController
  */
-class CommentsControllerTest extends TestCase
+class ArticlesTranslationsControllerTest extends TestCase
 {
     use IntegrationTestTrait;
 
@@ -22,16 +22,14 @@ class CommentsControllerTest extends TestCase
      * @var list<string>
      */
     protected array $fixtures = [
-        'app.Comments',
-        'app.Users',
-        'app.Articles',
+        'app.ArticlesTranslations',
     ];
 
     /**
      * Test index method
      *
      * @return void
-     * @uses \App\Controller\CommentsController::index()
+     * @uses \App\Controller\ArticlesTranslationsController::index()
      */
     public function testIndex(): void
     {
@@ -42,7 +40,7 @@ class CommentsControllerTest extends TestCase
      * Test view method
      *
      * @return void
-     * @uses \App\Controller\CommentsController::view()
+     * @uses \App\Controller\ArticlesTranslationsController::view()
      */
     public function testView(): void
     {
@@ -53,7 +51,7 @@ class CommentsControllerTest extends TestCase
      * Test add method
      *
      * @return void
-     * @uses \App\Controller\CommentsController::add()
+     * @uses \App\Controller\ArticlesTranslationsController::add()
      */
     public function testAdd(): void
     {
@@ -64,7 +62,7 @@ class CommentsControllerTest extends TestCase
      * Test edit method
      *
      * @return void
-     * @uses \App\Controller\CommentsController::edit()
+     * @uses \App\Controller\ArticlesTranslationsController::edit()
      */
     public function testEdit(): void
     {
@@ -75,7 +73,7 @@ class CommentsControllerTest extends TestCase
      * Test delete method
      *
      * @return void
-     * @uses \App\Controller\CommentsController::delete()
+     * @uses \App\Controller\ArticlesTranslationsController::delete()
      */
     public function testDelete(): void
     {

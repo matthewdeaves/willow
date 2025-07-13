@@ -10,7 +10,7 @@ use Cake\TestSuite\TestCase;
 /**
  * App\Controller\ProductsController Test Case
  *
- * @link \App\Controller\ProductsController
+ * @uses \App\Controller\ProductsController
  */
 class ProductsControllerTest extends TestCase
 {
@@ -23,13 +23,17 @@ class ProductsControllerTest extends TestCase
      */
     protected array $fixtures = [
         'app.Products',
+        'app.Users',
+        'app.Tags',
+        'app.PageViews',
+        'app.ProductsTags',
     ];
 
     /**
      * Test index method
      *
      * @return void
-     * @link \App\Controller\ProductsController::index()
+     * @uses \App\Controller\ProductsController::index()
      */
     public function testIndex(): void
     {
@@ -40,7 +44,7 @@ class ProductsControllerTest extends TestCase
      * Test view method
      *
      * @return void
-     * @link \App\Controller\ProductsController::view()
+     * @uses \App\Controller\ProductsController::view()
      */
     public function testView(): void
     {
@@ -51,7 +55,7 @@ class ProductsControllerTest extends TestCase
      * Test add method
      *
      * @return void
-     * @link \App\Controller\ProductsController::add()
+     * @uses \App\Controller\ProductsController::add()
      */
     public function testAdd(): void
     {
@@ -62,7 +66,7 @@ class ProductsControllerTest extends TestCase
      * Test edit method
      *
      * @return void
-     * @link \App\Controller\ProductsController::edit()
+     * @uses \App\Controller\ProductsController::edit()
      */
     public function testEdit(): void
     {
@@ -73,7 +77,7 @@ class ProductsControllerTest extends TestCase
      * Test delete method
      *
      * @return void
-     * @link \App\Controller\ProductsController::delete()
+     * @uses \App\Controller\ProductsController::delete()
      */
     public function testDelete(): void
     {

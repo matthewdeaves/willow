@@ -6,9 +6,9 @@ namespace App\Test\Fixture;
 use Cake\TestSuite\Fixture\TestFixture;
 
 /**
- * ArticlesTagsFixture
+ * ProductsTagsFixture
  */
-class ArticlesTagsFixture extends TestFixture
+class ProductsTagsFixture extends TestFixture
 {
     /**
      * Init method
@@ -19,8 +19,8 @@ class ArticlesTagsFixture extends TestFixture
     {
         $this->records = [
             [
-                'article_id' => 'aaa29809-ed48-428c-9e24-5f8d55aa0c2d',
-                'tag_id' => 'a4597c2b-5dbf-4b1f-be67-73061b00e5e6',
+                'product_id' => 'ee79d587-10c6-4a3f-b9d5-a43db4fa4107',
+                'tag_id' => '74ac18bd-38aa-457a-9af4-b1d38aeaeff3',
             ],
         ];
         parent::init();

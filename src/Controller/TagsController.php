@@ -3,72 +3,103 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use Cake\Event\EventInterface;
-use Cake\Http\Exception\NotFoundException;
-
 /**
  * Tags Controller
- *
- * Handles operations related to tags, including listing all tags and viewing articles associated with a specific tag.
  *
  * @property \App\Model\Table\TagsTable $Tags
  */
 class TagsController extends AppController
 {
     /**
-     * Configures actions that can be accessed without authentication.
+     * Index method
      *
-     * @param \Cake\Event\EventInterface $event The event object.
-     * @return void
+     * @return \Cake\Http\Response|null|void Renders view
      */
-    public function beforeFilter(EventInterface $event): void
+    public function index()
     {
-        parent::beforeFilter($event);
-        $this->Authentication->allowUnauthenticated(['index', 'view', 'viewBySlug']);
-    }
+        $query = $this->Tags->find()
+            ->contain(['ParentTag']);
+        $tags = $this->paginate($query);
 
-    /**
-     * Displays a paginated list of all tags.
-     *
-     * @return void
-     */
-    public function index(): void
-    {
-        $tags = $this->Tags->find()->all();
         $this->set(compact('tags'));
     }
 
     /**
-     * Displays a tag and its associated published articles.
+     * View method
      *
-     * Retrieves a tag by its slug and loads associated published articles with their authors.
-     * Throws an exception if the tag is not found.
-     *
-     * @param string $slug The unique slug of the tag to retrieve.
-     * @throws \Cake\Http\Exception\NotFoundException If the tag is not found.
-     * @return void
+     * @param string|null $id Tag id.
+     * @return \Cake\Http\Response|null|void Renders view
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function viewBySlug(string $slug): void
+    public function view($id = null)
     {
-        $query = $this->Tags->find()
-            ->contain(['Articles' => function ($q) {
-                return $q->select(['id', 'title', 'slug', 'user_id', 'image', 'created'])
-                    ->where([
-                        'Articles.is_published' => true,
-                        'Articles.kind' => 'article',
-                        ])
-                    ->contain(['Users' => function ($q) {
-                        return $q->select(['id', 'username']);
-                    }]);
-            }])
-            ->where(['Tags.slug' => $slug]);
+        $tag = $this->Tags->get($id, contain: ['ParentTag', 'Articles', 'Slugs', 'TagsTranslations']);
+        $this->set(compact('tag'));
+    }
 
-        $tag = $query->first();
+    /**
+     * Add method
+     *
+     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+     */
+    public function add()
+    {
+        $tag = $this->Tags->newEmptyEntity();
+        if ($this->request->is('post')) {
+            $tag = $this->Tags->patchEntity($tag, $this->request->getData());
+            if ($this->Tags->save($tag)) {
+                $this->Flash->success(__('The tag has been saved.'));
 
-        if (!$tag) {
-            throw new NotFoundException(__('Tag not found'));
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The tag could not be saved. Please, try again.'));
+        }
+        $parentTag = $this->Tags->ParentTag->find('list', limit: 200)->all();
+        $articles = $this->Tags->Articles->find('list', limit: 200)->all();
+        $this->set(compact('tag', 'parentTag', 'articles'));
+    }
+
+    /**
+     * Edit method
+     *
+     * @param string|null $id Tag id.
+     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function edit($id = null)
+    {
+        $tag = $this->Tags->get($id, contain: ['Articles']);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $tag = $this->Tags->patchEntity($tag, $this->request->getData());
+            if ($this->Tags->save($tag)) {
+                $this->Flash->success(__('The tag has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The tag could not be saved. Please, try again.'));
+        }
+        $parentTag = $this->Tags->ParentTag->find('list', limit: 200)->all();
+        $articles = $this->Tags->Articles->find('list', limit: 200)->all();
+        $this->set(compact('tag', 'parentTag', 'articles'));
+    }
+
+    /**
+     * Delete method
+     *
+     * @param string|null $id Tag id.
+     * @return \Cake\Http\Response|null Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function delete($id = null)
+    {
+        $this->request->allowMethod(['post', 'delete']);
+        $tag = $this->Tags->get($id);
+        if ($this->Tags->delete($tag)) {
+            $this->Flash->success(__('The tag has been deleted.'));
+        } else {
+            $this->Flash->error(__('The tag could not be deleted. Please, try again.'));
         }
 
-        $this->set(compact('tag'));
+        return $this->redirect(['action' => 'index']);
     }
 }

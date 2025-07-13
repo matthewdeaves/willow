@@ -3,9 +3,6 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use Cake\Event\EventInterface;
-use Cake\Http\Response;
-
 /**
  * CookieConsents Controller
  *
@@ -14,101 +11,93 @@ use Cake\Http\Response;
 class CookieConsentsController extends AppController
 {
     /**
-     * Configures authentication for specific actions.
+     * Index method
      *
-     * @param \Cake\Event\EventInterface $event The event instance.
-     * @return void
+     * @return \Cake\Http\Response|null|void Renders view
      */
-    public function beforeFilter(EventInterface $event): void
+    public function index()
     {
-        parent::beforeFilter($event);
+        $query = $this->CookieConsents->find()
+            ->contain(['Users']);
+        $cookieConsents = $this->paginate($query);
 
-        $this->Authentication->allowUnauthenticated(['edit']);
+        $this->set(compact('cookieConsents'));
     }
 
     /**
-     * Edit cookie consent preferences and manage GDPR compliance.
+     * View method
      *
-     * Handles both GET and POST/PUT/PATCH requests for cookie consent management.
-     * For GET requests, displays the current consent settings if they exist.
-     * For POST/PUT/PATCH requests, creates a new consent record for GDPR audit trail
-     * and updates the user's cookie preferences. Supports both regular and AJAX requests.
-     *
-     * The method handles two types of consent:
-     * - Essential only: Basic cookies required for site functionality
-     * - Essential and Analytics: Includes analytics tracking consent
-     *
-     * @return \Cake\Http\Response|null Returns Response object for redirects/AJAX or null for normal view render
-     * @throws \RuntimeException When cookie creation fails
+     * @param string|null $id Cookie Consent id.
+     * @return \Cake\Http\Response|null|void Renders view
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit(): ?Response
+    public function view($id = null)
     {
-        $userId = $this->request->getAttribute('identity') ?
-            $this->request->getAttribute('identity')->getIdentifier() : null;
-
-        $cookieConsent = null;
-        $consentCookie = $this->request->getCookie('consent_cookie');
-        if ($consentCookie) {
-            $consentData = json_decode($consentCookie, true);
-            $cookieConsent = $this->CookieConsents->newEntity($consentData);
-            $cookieConsent->session_id = $this->request->getSession()->id();
-        }
-
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            // Always create a new record for GDPR audit trail
-            $newConsent = $this->CookieConsents->newEntity($this->request->getData());
-
-            $newConsent->session_id = $this->request->getSession()->id();
-            $newConsent->user_id = $userId;
-            $newConsent->ip_address = $this->request->clientIp();
-            $newConsent->user_agent = $this->request->getHeaderLine('User-Agent');
-
-            $consentType = $this->request->getData('consent_type');
-            if ($consentType === 'essential') {
-                $newConsent->analytics_consent = 0;
-                $newConsent->functional_consent = 0;
-                $newConsent->marketing_consent = 0;
-            }
-            if ($consentType === 'all') {
-                $newConsent->analytics_consent = 1;
-                $newConsent->functional_consent = 1;
-                $newConsent->marketing_consent = 1;
-            }
-
-            if ($this->CookieConsents->save($newConsent)) {
-                $this->Flash->success(__('Your cookie preferences have been saved.'));
-
-                // Save a cookie with the consent information
-                $cookie = $this->CookieConsents->createConsentCookie($newConsent);
-                $this->response = $this->response->withCookie($cookie);
-
-                if ($this->request->is('ajax')) {
-                    return $this->response->withType('application/json')
-                        ->withStringBody(json_encode(['success' => true]));
-                }
-
-                return $this->redirect(['action' => 'edit']);
-            }
-
-            if ($this->request->is('ajax')) {
-                return $this->response->withType('application/json')
-                    ->withStringBody(json_encode([
-                        'success' => false,
-                        'errors' => $cookieConsent->getErrors(),
-                    ]));
-            }
-
-            $this->Flash->error(__('Your cookie preferences could not be saved. Please, try again.'));
-        }
-
+        $cookieConsent = $this->CookieConsents->get($id, contain: ['Users']);
         $this->set(compact('cookieConsent'));
+    }
 
-        if ($this->request->is('ajax')) {
-            $this->viewBuilder()->setLayout('ajax');
+    /**
+     * Add method
+     *
+     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+     */
+    public function add()
+    {
+        $cookieConsent = $this->CookieConsents->newEmptyEntity();
+        if ($this->request->is('post')) {
+            $cookieConsent = $this->CookieConsents->patchEntity($cookieConsent, $this->request->getData());
+            if ($this->CookieConsents->save($cookieConsent)) {
+                $this->Flash->success(__('The cookie consent has been saved.'));
 
-            return $this->render('edit');
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The cookie consent could not be saved. Please, try again.'));
+        }
+        $users = $this->CookieConsents->Users->find('list', limit: 200)->all();
+        $this->set(compact('cookieConsent', 'users'));
+    }
+
+    /**
+     * Edit method
+     *
+     * @param string|null $id Cookie Consent id.
+     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function edit($id = null)
+    {
+        $cookieConsent = $this->CookieConsents->get($id, contain: []);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $cookieConsent = $this->CookieConsents->patchEntity($cookieConsent, $this->request->getData());
+            if ($this->CookieConsents->save($cookieConsent)) {
+                $this->Flash->success(__('The cookie consent has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The cookie consent could not be saved. Please, try again.'));
+        }
+        $users = $this->CookieConsents->Users->find('list', limit: 200)->all();
+        $this->set(compact('cookieConsent', 'users'));
+    }
+
+    /**
+     * Delete method
+     *
+     * @param string|null $id Cookie Consent id.
+     * @return \Cake\Http\Response|null Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function delete($id = null)
+    {
+        $this->request->allowMethod(['post', 'delete']);
+        $cookieConsent = $this->CookieConsents->get($id);
+        if ($this->CookieConsents->delete($cookieConsent)) {
+            $this->Flash->success(__('The cookie consent has been deleted.'));
+        } else {
+            $this->Flash->error(__('The cookie consent could not be deleted. Please, try again.'));
         }
 
-        return null;
+        return $this->redirect(['action' => 'index']);
     }
 }

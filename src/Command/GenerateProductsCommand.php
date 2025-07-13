@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use App\Model\Entity\Article;
-use App\Model\Table\ArticlesTable;
+use AdminTheme\Model\Entity\Product;
+use AdminTheme\Model\Table\ProductsTable;
 use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
@@ -14,9 +14,9 @@ use Cake\ORM\TableRegistry;
 use RuntimeException;
 
 /**
- * GenerateArticles command.
+ * GenerateProducts command.
  */
-class GenerateArticlesCommand extends Command
+class GenerateProductsCommand extends Command
 {
     /**
      * @var string UUID of the admin user
@@ -24,9 +24,9 @@ class GenerateArticlesCommand extends Command
     private string $adminUserId;
 
     /**
-     * @var \App\Model\Table\ArticlesTable
+     * @var \AdminTheme\Model\Table\ProductsTable
      */
-    private ArticlesTable $Articles;
+    private ProductsTable $Products;
 
     /**
      * Initialize method
@@ -36,7 +36,7 @@ class GenerateArticlesCommand extends Command
     public function initialize(): void
     {
         parent::initialize();
-        $this->Articles = TableRegistry::getTableLocator()->get('Articles');
+        $this->Products = TableRegistry::getTableLocator()->get('Products');
         $this->loadAdminUser();
     }
 
@@ -49,10 +49,10 @@ class GenerateArticlesCommand extends Command
     protected function buildOptionParser(ConsoleOptionParser $parser): ConsoleOptionParser
     {
         $parser->addArgument('count', [
-            'help' => __('Number of articles to generate'),
+            'help' => __('Number of products to generate'),
             'required' => true,
         ])->addOption('delete', [
-            'help' => __('Delete all articles before generating new ones'),
+            'help' => __('Delete all products before generating new ones'),
             'boolean' => true,
         ]);
 
@@ -69,32 +69,32 @@ class GenerateArticlesCommand extends Command
     public function execute(Arguments $args, ConsoleIo $io): ?int
     {
         if ($args->getOption('delete')) {
-            $this->Articles->deleteAll([]);
-            $io->out(__('All articles have been deleted.'));
+            $this->Products->deleteAll([]);
+            $io->out(__('All products have been deleted.'));
         }
 
         // Check and create top-level tags if needed
         $this->ensureTopLevelTags($io);
 
         $count = (int)$args->getArgument('count');
-        $io->out(__('Generating {0} articles...', $count));
+        $io->out(__('Generating {0} products...', $count));
 
         $successCount = 0;
         $failCount = 0;
 
         for ($i = 0; $i < $count; $i++) {
-            $article = $this->generateArticle();
+            $product = $this->generateProduct();
 
-            $publishedDate = $article->published;
+            $publishedDate = $product->published;
 
-            if ($this->Articles->save($article, ['associated' => ['Tags']])) {
-                $article->published = $publishedDate;
-                $this->Articles->save($article);
-                $io->out(__('Generated article: {0}', $article->title));
+            if ($this->Products->save($product, ['associated' => ['Tags']])) {
+                $product->published = $publishedDate;
+                $this->Products->save($product);
+                $io->out(__('Generated product: {0}', $product->title));
                 $successCount++;
             } else {
-                $io->error(__('Failed to generate article: {0}', $article->title));
-                $errors = $article->getErrors();
+                $io->error(__('Failed to generate product: {0}', $product->title));
+                $errors = $product->getErrors();
                 foreach ($errors as $field => $fieldErrors) {
                     foreach ($fieldErrors as $error) {
                         $io->error(__('Error in {0}: {1}', $field, $error));
@@ -104,9 +104,9 @@ class GenerateArticlesCommand extends Command
             }
         }
 
-        $io->success(__('Generated {0} articles successfully.', $successCount));
+        $io->success(__('Generated {0} products successfully.', $successCount));
         if ($failCount > 0) {
-            $io->warning(__('Failed to generate {0} articles.', $failCount));
+            $io->warning(__('Failed to generate {0} products.', $failCount));
         }
 
         return static::CODE_SUCCESS;
@@ -158,11 +158,11 @@ class GenerateArticlesCommand extends Command
     }
 
     /**
-     * Generate a single article with random tags
+     * Generate a single product with random tags
      *
-     * @return \App\Model\Entity\Article
+     * @return \AdminTheme\Model\Entity\Product
      */
-    private function generateArticle(): Article
+    private function generateProduct(): Product
     {
         // Generate shorter content to ensure it fits database constraints
         $title = $this->generateRandomText(100);
@@ -180,17 +180,17 @@ class GenerateArticlesCommand extends Command
 
         $publishedDate = new DateTime("{$year}-{$month}-{$day} {$hour}:{$minute}:{$second}");
 
-        // Create new article entity
-        $article = $this->Articles->newEmptyEntity();
-        $article->title = $title;
-        $article->lede = $lede;
-        $article->summary = $summary;
-        $article->body = $body;
-        $article->slug = ''; // Will be auto-generated
-        $article->user_id = $this->adminUserId;
-        $article->kind = 'article';
-        $article->is_published = true;
-        $article->published = $publishedDate;
+        // Create new product entity
+        $product = $this->Products->newEmptyEntity();
+        $product->title = $title;
+        $product->lede = $lede;
+        $product->summary = $summary;
+        $product->body = $body;
+        $product->slug = ''; // Will be auto-generated
+        $product->user_id = $this->adminUserId;
+        $product->kind = 'product';
+        $product->is_published = true;
+        $product->published = $publishedDate;
 
         // Get all available tags
         $tagsTable = TableRegistry::getTableLocator()->get('Tags');
@@ -215,10 +215,10 @@ class GenerateArticlesCommand extends Command
             }
 
             // Set the tags
-            $article->tags = $tags;
+            $product->tags = $tags;
         }
 
-        return $article;
+        return $product;
     }
 
     /**

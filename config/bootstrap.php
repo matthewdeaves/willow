@@ -65,6 +65,7 @@ require CAKE . 'functions.php';
  * security risks. See https://github.com/josegonzalez/php-dotenv#general-security-information
  * for more information for recommended practices.
 */
+
  if (!env('APP_NAME') && file_exists(CONFIG . '.env')) {
      $dotenv = new \josegonzalez\Dotenv\Loader([CONFIG . '.env']);
      $dotenv->parse()
@@ -72,12 +73,13 @@ require CAKE . 'functions.php';
          ->toEnv()
          ->toServer();
  }
+         
 
-    /*
-     * Read configuration file and inject configuration into various
-     * CakePHP classes.
-     *
-     * By default there is only one configuration file. It is often a good
+/*
+ * Read configuration file and inject configuration into various
+ * CakePHP classes.
+ *
+ * By default there is only one configuration file. It is often a good
  * idea to create multiple configuration files, and separate the configuration
  * that changes from configuration that does not. This makes deployment simpler.
  */
@@ -240,5 +242,3 @@ ServerRequest::addDetector('tablet', function ($request) {
 // and https://unicode-org.github.io/icu/userguide/format_parse/datetime/#datetime-format-syntax
 //\Cake\I18n\FrozenDate::setToStringFormat('dd.MM.yyyy');
 //\Cake\I18n\FrozenTime::setToStringFormat('dd.MM.yyyy HH:mm');
-
-

@@ -9,34 +9,19 @@ return [
         'routes' => true,
     ],
     'Bake' => [
-        'onlyCli' => false,
+        'onlyCli' => true,
         'optional' => true,
     ],
-    'Migrations' => [],
-    'AdminTheme' => [
-        'bootstrap' => true,
-        'routes' => true,
-        'optional' => true,
+    'Migrations' => [
+        'onlyCli' => true,
     ],
-    'DefaultTheme' => [
-        'bootstrap' => true,
-        'routes' => true,
-        'optional' => true,
-    ],
-    'ADmad/I18n' => [
-        'bootstrap' => true,
-        'routes' => true,
-        'optional' => true,
-    ],
+    'Josegonzalez/Upload' => [],
+    'AdminTheme' => [],
+    'DefaultTheme' => [],
+    'ADmad/I18n' => [],
     'DebugKit' => [
         'onlyDev' => true,
         'optional' => true,
     ],
-    'MysqlNativePassword' => [],
-    'Josegonzalez/Upload' => [],
-    'All' => [
-        'bootstrap' => true,
-        'routes' => true,
-        'optional' => true,
-    ],
+    'ContactManager' => [],
 ];

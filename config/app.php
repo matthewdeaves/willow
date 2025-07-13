@@ -51,7 +51,6 @@ return [
         'encoding' => env('APP_ENCODING', 'UTF-8'),
         'defaultLocale' => env('APP_DEFAULT_LOCALE', 'en_GB'),
         'defaultTimezone' => env('APP_DEFAULT_TIMEZONE', 'UTC'),
-        'name' => env('APP_NAME', 'Willow CMS for CakePHP - A Content Management System for adapters'),
         'base' => false,
         'dir' => 'src',
         'webroot' => 'webroot',

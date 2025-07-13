@@ -9,61 +9,69 @@ services:
         - GID=${GID:-1000}
     ports: 
       - "8080:80"
+      # development cakephp server
+      - "8083:8765"
     volumes:
       - .:/var/www/html/
       - ./docker/willowcms/config/app/cms_app_local.php:/var/www/html/config/app_local.php
-      - ./logs/nginx:/var/log/nginx/
-      - ./logs/php:/var/log/php/
-      - ./docker/willowcms/config/php/php.ini:/usr/local/etc/php/conf.d/php.ini
-      - ../php_data:/var/www/html/tmp
+      - ./logs/nginx/logs:/var/log/nginx/
+      - ./plugins/ContactManager:/var/www/html/plugins/ContactManager
+      - ./plugins/AdminTheme:/var/www/html/plugins/AdminTheme
+      - ./plugins/DefaultTheme:/var/www/html/plugins/DefaultTheme
+    environment:
+      - APP_NAME=WillowCMS
+      - DEBUG=true
+      - APP_ENCODING=UTF-8
+      - APP_DEFAULT_LOCALE=en_GB
+      - APP_DEFAULT_TIMEZONE=Europe/London
+      - SECURITY_SALT=developmentsalt # Change this to a secure random string in production
+      - DB_HOST=mysql
+      - DB_USERNAME=cms_user
+      - DB_PASSWORD=password
+      - DB_DATABASE=cms
+      - DB_PORT=3306
+      - TEST_DB_HOST=mysql
+      - TEST_DB_USERNAME=cms_user_test
+      - TEST_DB_PASSWORD=password
+      - TEST_DB_DATABASE=cms_test
+      - TEST_DB_PORT=3306
+      - EMAIL_HOST=mailpit
+      - EMAIL_PORT=1025
+      - EMAIL_TIMEOUT=30
+      - EMAIL_USERNAME=
+      - EMAIL_PASSWORD=
+      - EMAIL_REPLY=hello@willowcms.app
+      - EMAIL_NOREPLY=noreply@willowcms.app
+      - REDIS_USERNAME=root
+      - REDIS_PASSWORD=root
+      - REDIS_HOST=127.0.0.1
+      - REDIS_PORT=6379
+      - REDIS_DATABASE=0
+      - REDIS_URL=redis://root:root@127.0.0.1:6379/0
+      - REDIS_TEST_URL=redis://root:root@127.0.0.1:6379/0
+      - YOUTUBE_API_KEY=
+      - TRANSLATE_API_KEY=
+      - QUEUE_DEFAULT_URL=redis://root:root@127.0.0.1:6379/0
+      - QUEUE_TEST_URL=redis://root:root@127.0.0.1:6379/0
+      - EXPERIMENTAL_TESTS=Off # Set to 'On' to enable experimental tests - this is used for testing new features that are not yet stable.
+      - WILLOW_ADMIN_USERNAME=admin
+      - WILLOW_ADMIN_PASSWORD=password
+      - WILLOW_ADMIN_EMAIL=admin@test.com
+      - APP_FULL_BASE_URL=http://localhost:8080
 
-    env_file:
-      - ./config/.env
-
-    
   mysql:
     image: mysql:8.4.3
-    # The MySQL service uses the official MySQL image from Docker Hub.
-    # It runs MySQL on port 3310 and persists data in a volume.
-    # The database is accessible at http://localhost:3310
-    # You can connect to it using a MySQL client or from your application.
-    # The service is named "mysql" and is linked to the "willowcms" service.
+    platform: linux/amd64
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: cms
-      MYSQL_USER: cms_user
-      MYSQL_PASSWORD: password
-      DB_DATABASE: cms
       DB_USERNAME: cms_user
       DB_PASSWORD: password
-      DB_HOST: mysql
-      DB_PORT: 3306
-      TEST_DB_DATABASE: cms_test
-      TEST_DB_USERNAME: cms_user_test
-      TEST_DB_PASSWORD: password
-      TEST_DB_HOST: mysql
-      TEST_DB_PORT: 3306
-    # The MySQL service uses the official MySQL image from Docker Hub.
+      DB_DATABASE: cms
     ports:
       - "3310:3306"
     volumes:
-      - ../mysql_data:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
-
-
-  rabbitmq:
-    image: rabbitmq:3.11-management
-    ports:
-      - "5672:5672"  # RabbitMQ default port
-      - "15672:15672"  # RabbitMQ management UI
-    volumes:
-      - ../rabbitmq_data:/var/lib/rabbitmq
-    environment:
-      - RABBITMQ_DEFAULT_USER=guest
-      - RABBITMQ_DEFAULT_PASS=guest
-  # The following service is for Jenkins, a popular automation server.
-  # It is used for continuous integration and continuous deployment (CI/CD).
-
 
   phpmyadmin:
     image: phpmyadmin
@@ -82,14 +90,14 @@ services:
     privileged: true
     user: root
     ports:
-      - "4041:8080"
+      - "8081:8080"
       - "50000:50000"
     volumes:
-      - ../jenkins_home:/var/jenkins_home
+      - jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
       - ./docker/jenkins/jenkins.yaml:/var/jenkins_home/jenkins.yaml
     environment:
-      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=true
 
   mailpit:
     image: axllent/mailpit:latest
@@ -97,7 +105,7 @@ services:
       - "1125:1025"
       - "8025:8025"
     volumes:
-      - ../mailpit_data:/data
+      - mailpit_data:/data
     environment:
       - MP_MAX_MESSAGES=5000
       - MP_DATABASE=/data/mailpit.db
@@ -105,15 +113,7 @@ services:
       - MP_SMTP_AUTH_ALLOW_INSECURE=1
 
   redis-commander:
-    # The Redis Commander service provides a web-based interface to manage Redis databases.
-    # It runs on port 8084 and connects to the Redis service.
-    # You can access it at http://localhost:8084
-    # The service is named "redis-commander" and is linked to the "willowcms" service.
     image: rediscommander/redis-commander:latest
-    # The Redis Commander service provides a web-based interface to manage Redis databases.
-    # It runs on port 8084 and connects to the Redis service.
-    # You can access it at http://localhost:8084
-    # The service is named "redis-commander" and is linked to the "willowcms" service.
     environment:
       - REDIS_HOST=willowcms
       - REDIS_PORT=6379
@@ -125,4 +125,27 @@ services:
     depends_on:
       - willowcms
 
-################## Volumes for persistent data storage ##################
+volumes:
+  mysql_data:
+      driver: local
+      driver_opts:
+        type: none
+        device: ./docker/mysql/data
+        o: bind
+  # rabbitmq_data:
+  #     driver: local
+  #     driver_opts:
+  #       type: none
+  #       device: ${PWD}/docker/rabbitmq/data
+  jenkins_home:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./docker/jenkins
+      o: bind
+  mailpit_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./docker/mailpit_data
+      o: bind

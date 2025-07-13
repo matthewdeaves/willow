@@ -24,6 +24,7 @@
                 <tr>
                     <td><?= h($slug->id) ?></td>
                     <td><?= h($slug->model) ?></td>
+                    <td><?= $slug->hasValue('article') ? $this->Html->link($slug->article->title, ['controller' => 'Articles', 'action' => 'view', $slug->article->id]) : '' ?></td>
                     <td><?= $slug->hasValue('tag') ? $this->Html->link($slug->tag->title, ['controller' => 'Tags', 'action' => 'view', $slug->tag->id]) : '' ?></td>
                     <td><?= h($slug->slug) ?></td>
                     <td><?= h($slug->created) ?></td>

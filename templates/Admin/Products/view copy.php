@@ -340,45 +340,6 @@ echo $this->element('actions_card', [
                             <?php endif; ?>
                         </div>
                     </div>
-                    <div class="card mt-4">
-                        <div class="card-body">
-                            <h4 class="card-title"><?= __('Related Page Views') ?></h4>
-                            <?php if (!empty($product->page_views)) : ?>
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th><?= __('Id') ?></th>
-                                            <th><?= __('Article Id') ?></th>
-                                            <th><?= __('Product Id') ?></th>
-                                            <th><?= __('Ip Address') ?></th>
-                                            <th><?= __('User Agent') ?></th>
-                                            <th><?= __('Referer') ?></th>
-                                            <th><?= __('Created') ?></th>
-                                            <th class="actions"><?= __('Actions') ?></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($product->page_views as $pageView) : ?>
-                                        <tr>
-                                            <td><?= h($pageView->id) ?></td>
-                                            <td><?= h($pageView->article_id) ?></td>
-                                            <td><?= h($pageView->product_id) ?></td>
-                                            <td><?= h($pageView->ip_address) ?></td>
-                                            <td><?= h($pageView->user_agent) ?></td>
-                                            <td><?= h($pageView->referer) ?></td>
-                                            <td><?= h($pageView->created) ?></td>
-                                            <td class="actions">
-                                                <?= $this->element('evd_dropdown', ['controller' => 'PageViews', 'model' => $pageView, 'display' => 'ip_address']); ?>
-                                            </td>
-                                        </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <?php endif; ?>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

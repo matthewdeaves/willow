@@ -13,6 +13,7 @@
                 <tr>
                     <th><?= $this->Paginator->sort('id') ?></th>
                     <th><?= $this->Paginator->sort('article_id') ?></th>
+                    <th><?= $this->Paginator->sort('product_id') ?></th>
                     <th><?= $this->Paginator->sort('ip_address') ?></th>
                     <th><?= $this->Paginator->sort('created') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
@@ -23,6 +24,7 @@
                 <tr>
                     <td><?= h($pageView->id) ?></td>
                     <td><?= $pageView->hasValue('article') ? $this->Html->link($pageView->article->title, ['controller' => 'Articles', 'action' => 'view', $pageView->article->id]) : '' ?></td>
+                    <td><?= h($pageView->product_id) ?></td>
                     <td><?= h($pageView->ip_address) ?></td>
                     <td><?= h($pageView->created) ?></td>
                     <td class="actions">

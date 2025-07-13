@@ -24,6 +24,7 @@
                 <legend><?= __('Edit Page View') ?></legend>
                 <?php
                     echo $this->Form->control('article_id', ['options' => $articles]);
+                    echo $this->Form->control('product_id');
                     echo $this->Form->control('ip_address');
                     echo $this->Form->control('user_agent');
                     echo $this->Form->control('referer');

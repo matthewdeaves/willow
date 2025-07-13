@@ -27,6 +27,10 @@
                     <td><?= $pageView->hasValue('article') ? $this->Html->link($pageView->article->title, ['controller' => 'Articles', 'action' => 'view', $pageView->article->id]) : '' ?></td>
                 </tr>
                 <tr>
+                    <th><?= __('Product Id') ?></th>
+                    <td><?= h($pageView->product_id) ?></td>
+                </tr>
+                <tr>
                     <th><?= __('Ip Address') ?></th>
                     <td><?= h($pageView->ip_address) ?></td>
                 </tr>

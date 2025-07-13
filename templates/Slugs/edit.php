@@ -2,6 +2,7 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Slug $slug
+ * @var string[]|\Cake\Collection\CollectionInterface $articles
  * @var string[]|\Cake\Collection\CollectionInterface $tags
  */
 ?>

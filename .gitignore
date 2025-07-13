@@ -9,3 +9,4 @@ tmp/
 webroot/coverage/
 .vscode/
 .env    
+dump.rdb

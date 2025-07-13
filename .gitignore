@@ -1,12 +1,12 @@
 .phpunit.cache/
 assets/
 config/
-default_data/
 docker/
 logs/
 vendor/
 tmp/
-webroot/coverage/
 .vscode/
 .env    
 dump.rdb
+webroot
+

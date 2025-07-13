@@ -68,5 +68,12 @@
         "start_time": "2025-07-11T18:43:28+01:00",
         "end_time": "2025-07-11T18:43:28+01:00",
         "breakpoint": false
+    },
+    {
+        "version": 20250712011843,
+        "migration_name": "AddProducts",
+        "start_time": "2025-07-12T02:18:43+01:00",
+        "end_time": "2025-07-12T02:18:43+01:00",
+        "breakpoint": false
     }
 ]

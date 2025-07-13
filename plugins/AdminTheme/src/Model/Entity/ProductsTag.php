@@ -6,15 +6,15 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Product Entity
+ * ProductsTag Entity
  *
- * @property int $product_id
- * @property string $name
- * @property string|null $price_usd
- * @property string|null $category_rating
- * @property string|null $comments
+ * @property string $product_id
+ * @property string $tag_id
+ *
+ * @property \App\Model\Entity\Product $product
+ * @property \App\Model\Entity\Tag $tag
  */
-class Product extends Entity
+class ProductsTag extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -26,9 +26,9 @@ class Product extends Entity
      * @var array<string, bool>
      */
     protected array $_accessible = [
-        'name' => true,
-        'price_usd' => true,
-        'category_rating' => true,
-        'comments' => true,
+        'product_id' => true,
+        'tag_id' => true,
+        'product' => true,
+        'tag' => true,
     ];
 }

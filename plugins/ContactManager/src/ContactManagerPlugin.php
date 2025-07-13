@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace MysqlNativePassword;
+namespace ContactManager;
 
 use Cake\Console\CommandCollection;
 use Cake\Core\BasePlugin;
@@ -11,9 +11,9 @@ use Cake\Http\MiddlewareQueue;
 use Cake\Routing\RouteBuilder;
 
 /**
- * Plugin for MysqlNativePassword
+ * Plugin for ContactManager
  */
-class MysqlNativePasswordPlugin extends BasePlugin
+class ContactManagerPlugin extends BasePlugin
 {
     /**
      * Load all the plugin configuration and bootstrap logic.
@@ -42,8 +42,8 @@ class MysqlNativePasswordPlugin extends BasePlugin
     {
         // remove this method hook if you don't need it
         $routes->plugin(
-            'MysqlNativePassword',
-            ['path' => '/mysql-native-password'],
+            'ContactManager',
+            ['path' => '/contact-manager'],
             function (RouteBuilder $builder) {
                 // Add custom routes here
 

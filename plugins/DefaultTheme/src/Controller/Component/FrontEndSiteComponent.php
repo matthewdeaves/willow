@@ -41,16 +41,24 @@ class FrontEndSiteComponent extends Component
      */
     public function beforeRender(EventInterface $event): void
     {
-        $controller = $this->getController();
-        $request = $controller->getRequest();
-        
+        $controller = $this->getController(); // Get the controller instance
+
+
+// A request object from the controller encapsulates the details of the current HTTP request that the client sends to the server.
+// It provides methods to access various aspects of the request, such as parameters, headers, and the request method.
+// This allows the component to access the Articles and Tags models and to set the necessary data for the front-end site.
+        $request = $controller->getRequest(); // Ensure the controller is set and has a request object
+
+
+
         // Skip processing for admin routes
         if ($request->getParam('prefix') === 'Admin') {
             return;
         }
         
         // Skip processing for certain user actions during tests
-        if (Configure::read('debug') && $request->getParam('controller') === 'Users') {
+        if (Configure::read('debug') && $request->getParam('controller') === 'Users') { // Check if the controller is Users
+            // Skip certain actions that do not require front-end data
             $skipActions = ['login', 'logout', 'register', 'edit', 'forgotPassword', 'resetPassword', 'confirmEmail'];
             if (in_array($request->getParam('action'), $skipActions)) {
                 // Set minimal required variables
@@ -66,11 +74,12 @@ class FrontEndSiteComponent extends Component
             }
         }
 
-        $cacheKey = $controller->cacheKey;
-        $articlesTable = $controller->fetchTable('Articles');
-        $tagsTable = $controller->fetchTable('Tags');
+        $cacheKey = $controller->cacheKey; // Use the cache key from the controller to ensure consistent caching
+        $articlesTable = $controller->fetchTable('Articles'); // Fetch the Articles table from the controller
+        $tagsTable = $controller->fetchTable('Tags'); // Fetch the Tags table from the controller
+        $menuPages = []; // Initialize menu pages
 
-        $menuPages = [];
+
         switch(SettingsManager::read('SitePages.mainMenuShow', 'root')) {
             case "root":
                 $menuPages = $articlesTable->getRootPages($cacheKey);
@@ -91,9 +100,12 @@ class FrontEndSiteComponent extends Component
         }
 
         $featuredArticles = $articlesTable->getFeatured($cacheKey);
-        
         $articleArchives = $articlesTable->getArchiveDates($cacheKey);
 
+        // Set the site privacy policy if configured
+        // This function looks for an article that has been configured previously as the privacy policy by a site admin
+        // and sets it to the view variable 'sitePrivacyPolicy' if found.
+        // If no privacy policy is set, this will not set the variable.
         $privacyPolicyId = SettingsManager::read('SitePages.privacyPolicy', null);
         if ($privacyPolicyId && $privacyPolicyId != 'None') {
             $privacyPolicy = $articlesTable->find()
@@ -107,13 +119,20 @@ class FrontEndSiteComponent extends Component
             }
         }
         
+
+        //////////////////////////////////// SET  functions for the templates, accessible in the views without the need to pass them explicitly to the controller ////////////////////
+        // Set the view variables for the front-end site
+        // These variables will be available in the DefaultTheme views
+        // and can be used to render the menu, tags, featured articles, and archives.
         $controller->set(compact(
             'menuPages',
             'rootTags',
             'featuredArticles',
             'articleArchives',
         ));
-        
+        // Set the site languages and selected language
+        // This will be used to render the language switcher in the front-end.
+        // The selected language is determined by the 'lang' parameter in the request,
         $controller->set('siteLanguages', I18nManager::getEnabledLanguages());
         $controller->set('selectedSiteLanguage', $request->getParam('lang', 'en'));
     }

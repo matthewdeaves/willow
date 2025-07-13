@@ -3,11 +3,10 @@ declare(strict_types=1);
 
 namespace App\Model\Entity;
 
-use Cake\ORM\Behavior\Translate\TranslateTrait;
 use Cake\ORM\Entity;
 
 /**
- * Adapter Entity
+ * Product Entity
  *
  * @property string $id
  * @property string $user_id
@@ -44,16 +43,16 @@ use Cake\ORM\Entity;
  * @property bool $main_menu
  * @property int $view_count
  *
+ * @property \App\Model\Entity\Comment[] $comments
+ * @property \App\Model\Entity\Slug[] $slugs
+ * @property \App\Model\Entity\Image[] $images
+ * @property \App\Model\Entity\ProductsTranslation[] $_i18n
  * @property \App\Model\Entity\User $user
- * @property \App\Model\Entity\ParentAdapter $parent_adapter
- * @property \App\Model\Entity\ChildAdapter[] $child_adapters
  * @property \App\Model\Entity\Tag[] $tags
+ * @property \App\Model\Entity\PageView[] $page_views
  */
-class Adapter extends Entity
+class Product extends Entity
 {
-    use TranslateTrait;
-    use SeoEntityTrait;
-    use ImageUrlTrait;
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *
@@ -97,9 +96,12 @@ class Adapter extends Entity
         'rght' => true,
         'main_menu' => true,
         'view_count' => true,
+        'comments' => true,
+        'slugs' => true,
+        'images' => true,
+        '_i18n' => true,
         'user' => true,
-        'parent_adapter' => true,
-        'child_adapters' => true,
         'tags' => true,
+        'page_views' => true,
     ];
 }

@@ -1,5 +1,5 @@
 {
-    "name": "garzarobm/contact-manager",
+    "name": "your-name-here/contact-manager",
     "description": "ContactManager plugin for CakePHP",
     "type": "cakephp-plugin",
     "license": "MIT",
@@ -17,8 +17,9 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "ContactManager\\Test\\": "tests/",
-            "Cake\\Test\\": "vendor/cakephp/cakephp/tests/"
+            "ContactManager\\Test\\": "./tests/",
+            "Cake\\Test\\": "./vendor/cakephp/cakephp/tests/",
+            "ContactManager\\Test\\Fixture": "./tests/Fixture/"
         }
     }
 }

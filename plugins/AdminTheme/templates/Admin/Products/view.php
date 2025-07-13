@@ -1,18 +1,17 @@
 <?php
 /**
  * @var \App\View\AppView $this
- * @var \App\Model\Entity\Article $article
+ * @var \App\Model\Entity\Product $product
  */
 ?>
-
 <?php
     echo $this->element('actions_card', [
-        'modelName' => ($article->kind == 'page') ? 'Page' : 'Post',
-        'controllerName' => 'Articles',
-        'controllerIndexAction' => ($article->kind == 'page') ? 'tree-index' : 'index',
-        'entity' => $article,
-        'entityDisplayName' => $article->title,
-        'urlParams' => ($article->kind == 'page') ? ['kind' => 'page'] : [],
+        'modelName' => ($product->kind == 'product') ? 'Product' : 'Product',
+        'controllerName' => 'Products',
+        'controllerIndexAction' => ($product->kind == 'product') ? 'tree-index' : 'index',
+        'entity' => $product,
+        'entityDisplayName' => $product->title,
+        'urlParams' => ($product->kind == 'product') ? ['kind' => 'product'] : [],
     ]);
 ?>
 <div class="container mt-4">
@@ -20,34 +19,34 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h2 class="card-title"><?= h($article->title) ?></h2>
+                    <h2 class="card-title"><?= h($product->title) ?></h2>
                     <table class="table table-striped">
                         <tr>
                             <th><?= __('User') ?></th>
                             <td>
-                                <?= $article->hasValue('user') ? $this->Html->link($article->user->username, ['controller' => 'Users', 'action' => 'view', $article->user->id], ['class' => 'btn btn-link']) : '' ?>
+                                <?= $product->hasValue('user') ? $this->Html->link($product->user->username, ['controller' => 'Users', 'action' => 'view', $product->user->id], ['class' => 'btn btn-link']) : '' ?>
                             </td>
                         </tr>
                         <tr>
                             <th><?= __('Kind') ?></th>
-                            <td><?= h($article->kind) ?></td>
+                            <td><?= h($product->kind) ?></td>
                         </tr>
                         <tr>
                             <th><?= __('Title') ?></th>
-                            <td><?= h($article->title) ?></td>
+                            <td><?= h($product->title) ?></td>
                         </tr>
                         <tr>
                             <th><?= __('Slug') ?></th>
                             <td>
-                                <?php $ruleName = ($article->kind == 'article') ? 'article-by-slug' : 'page-by-slug';?>
-                                <?php if ($article->is_published == true): ?>
+                                <?php $ruleName = ($product->kind == 'product') ? 'product-by-slug' : 'product-by-slug';?>
+                                <?php if ($product->is_published == true): ?>
                                     
                                     <?= $this->Html->link(
-                                        $article->slug,
+                                        $product->slug,
                                         [
-                                            'controller' => 'Articles',
+                                            'controller' => 'Products',
                                             'action' => 'view-by-slug',
-                                            'slug' => $article->slug,
+                                            'slug' => $product->slug,
                                             '_name' => $ruleName,
                                         ],
                                         ['escape' => false]
@@ -55,12 +54,12 @@
                                     ?>
                                 <?php else: ?>
                                     <?= $this->Html->link(
-                                        $article->slug,
+                                        $product->slug,
                                         [
                                             'prefix' => 'Admin',
-                                            'controller' => 'Articles',
+                                            'controller' => 'Products',
                                             'action' => 'view',
-                                            $article->id
+                                            $product->id
                                         ],
                                         ['escape' => false]
                                     ) ?>
@@ -70,41 +69,41 @@
                         <tr>
                             <th><?= __('Image') ?></th>
                             <td>
-                                <?php if (!empty($article->image)) : ?>
+                                <?php if (!empty($product->image)) : ?>
                                 <div class="position-relative">
-                                    <?= $this->element('image/icon', ['model' => $article, 'icon' => $article->smallImageUrl, 'preview' => $article->largeImageUrl]); ?>
+                                    <?= $this->element('image/icon', ['model' => $product, 'icon' => $product->smallImageUrl, 'preview' => $product->largeImageUrl]); ?>
                                 </div>
                                 <?php endif; ?>
                             </td>
                         </tr>
                         <tr>
                             <th><?= __('Created') ?></th>
-                            <td><?= h($article->created) ?></td>
+                            <td><?= h($product->created) ?></td>
                         </tr>
                         <tr>
                             <th><?= __('Modified') ?></th>
-                            <td><?= h($article->modified) ?></td>
+                            <td><?= h($product->modified) ?></td>
                         </tr>
                         <tr>
                             <th><?= __('Published') ?></th>
-                            <td><?= h($article->published) ?></td>
+                            <td><?= h($product->published) ?></td>
                         </tr>
                         <tr>
                             <th><?= __('Is Published') ?></th>
                             <td>
-                                <?= $article->is_published ? '<span class="badge bg-success">' . __('Yes') . '</span>' : '<span class="badge bg-danger">' . __('No') . '</span>'; ?>
+                                <?= $product->is_published ? '<span class="badge bg-success">' . __('Yes') . '</span>' : '<span class="badge bg-danger">' . __('No') . '</span>'; ?>
                             </td>
                         </tr>
                         <tr>
                         <th><?= __('Page Views') ?></th>
                             <td>
                             <?= $this->Html->link(
-                                '<span class="badge bg-info me-3">' . __('{0} Views', $article->view_count) . '</span>',
+                                '<span class="badge bg-info me-3">' . __('{0} Views', $product->view_count) . '</span>',
                                 [
                                     'prefix' => 'Admin',
-                                    'controller' => 'PageViews',
-                                    'action' => 'pageViewStats',
-                                    $article['id']
+                                    'controller' => 'Products',
+                                    'action' => 'index',
+                                    $product['id']
                                 ],
                                 [
                                     'escape' => false,
@@ -117,29 +116,29 @@
                     <div class="card mt-4">
                         <div class="card-body">
                             <h5 class="card-title"><?= __('Body') ?></h5>
-                            <p class="card-text"><?= html_entity_decode($article->body); ?>
+                            <p class="card-text"><?= html_entity_decode($product->body); ?>
                         </div>
                     </div>
                     <div class="card mt-4">
                         <div class="card-body">
                             <h5 class="card-title"><?= __('Lede') ?></h5>
-                            <p class="card-text"><?= html_entity_decode($article->lede); ?></p>
+                            <p class="card-text"><?= html_entity_decode($product->lede); ?></p>
                         </div>
                     </div>
                     <div class="card mt-4">
                         <div class="card-body">
                             <h5 class="card-title"><?= __('Summary') ?></h5>
-                            <p class="card-text"><?= html_entity_decode($article->summary); ?></p>
+                            <p class="card-text"><?= html_entity_decode($product->summary); ?></p>
                         </div>
                     </div>
                     <div class="mt-4">
-                    <?= $this->element('seo_display_fields', ['model' => $article]); ?>
+                    <?= $this->element('seo_display_fields', ['model' => $product]); ?>
                     </div>
 
                     <div class="card mt-4">
                         <div class="card-body">
                             <h4 class="card-title"><?= __('Related Tags') ?></h4>
-                            <?php if (!empty($article->tags)) : ?>
+                            <?php if (!empty($product->tags)) : ?>
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
@@ -150,7 +149,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($article->tags as $tag) : ?>
+                                        <?php foreach ($product->tags as $tag) : ?>
                                         <tr>
                                             <td><?= html_entity_decode($tag->title) ?></td>
                                             <td><?= h($tag->slug) ?></td>
@@ -167,10 +166,10 @@
                     </div>
 
                     <div class="card mt-4">
-                    <?php if (!empty($article->images)) : ?>
+                    <?php if (!empty($product->images)) : ?>
                         <div class="mb-3">
                         <?= $this->element('image_carousel', [
-                            'images' => $article->images,
+                            'images' => $product->images,
                             'carouselId' => $carouselId ?? 'imageCarouselID',
                             'hideRemove' => true,
                         ]) ?>
@@ -178,12 +177,12 @@
                     <?php endif; ?>
                     </div>
                     
-                    <?= $this->element('related/comments', ['comments' => $article->comments, 'model' => $article]) ?>
+                    <?= $this->element('related/comments', ['comments' => $product->comments, 'model' => $product]) ?>
 
                     <div class="card mt-4">
                         <div class="card-body">
                             <h4 class="card-title"><?= __('Related Slugs') ?></h4>
-                            <?php if (!empty($article->slugs)) : ?>
+                            <?php if (!empty($product->slugs)) : ?>
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
@@ -195,7 +194,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($article->slugs as $slug) : ?>
+                                        <?php foreach ($product->slugs as $slug) : ?>
                                         <tr>
                                             <td><?= h($slug->slug) ?></td>
                                             <td><?= h($slug->created) ?></td>

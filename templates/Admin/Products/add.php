@@ -2,74 +2,58 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Product $product
+ * @var \Cake\Collection\CollectionInterface|string[] $users
+ * @var \Cake\Collection\CollectionInterface|string[] $parentProducts
+ * @var \Cake\Collection\CollectionInterface|string[] $tags
  */
 ?>
-<?php
-// Only show actions if we have an entity (edit mode)
-if (!$product->isNew()) {
-    echo $this->element('actions_card', [
-        'modelName' => 'Product',
-        'controllerName' => 'Products',
-        'entity' => $product,
-        'entityDisplayName' => $product->name
-    ]);
-}
-?>
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-12">
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h5 class="card-title"><?= __('Add Product') ?></h5>
-                </div>
-                <div class="card-body">
-                    <?= $this->Form->create($product,
-                    [
-                        'type' => 'file',
-                        'enctype' => 'multipart/form-data',
-                        'class' => 'needs-validation', 'novalidate' => true
-                    ]) ?>
-                    <fieldset>
-                    <div class="mb-3">
-                            <?php echo $this->Form->control('name', ['class' => 'form-control' . ($this->Form->isFieldError('name') ? ' is-invalid' : '')]); ?>
-                                                        <?php if ($this->Form->isFieldError('name')): ?>
-                                <div class="invalid-feedback">
-                                    <?= $this->Form->error('name') ?>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                                        <div class="mb-3">
-                            <?php echo $this->Form->control('price_usd', ['class' => 'form-control' . ($this->Form->isFieldError('price_usd') ? ' is-invalid' : '')]); ?>
-                                                        <?php if ($this->Form->isFieldError('price_usd')): ?>
-                                <div class="invalid-feedback">
-                                    <?= $this->Form->error('price_usd') ?>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                                        <div class="mb-3">
-                            <?php echo $this->Form->control('category_rating', ['class' => 'form-control' . ($this->Form->isFieldError('category_rating') ? ' is-invalid' : '')]); ?>
-                                                        <?php if ($this->Form->isFieldError('category_rating')): ?>
-                                <div class="invalid-feedback">
-                                    <?= $this->Form->error('category_rating') ?>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                                        <div class="mb-3">
-                            <?php echo $this->Form->control('comments', ['class' => 'form-control' . ($this->Form->isFieldError('comments') ? ' is-invalid' : '')]); ?>
-                                                        <?php if ($this->Form->isFieldError('comments')): ?>
-                                <div class="invalid-feedback">
-                                    <?= $this->Form->error('comments') ?>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                                                                                                    
-                    </fieldset>
-                    <div class="form-group">
-                        <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-primary']) ?>
-                    </div>
-                    <?= $this->Form->end() ?>
-                </div>
-            </div>
+<div class="row">
+    <aside class="column">
+        <div class="side-nav">
+            <h4 class="heading"><?= __('Actions') ?></h4>
+            <?= $this->Html->link(__('List Products'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+        </div>
+    </aside>
+    <div class="column column-80">
+        <div class="products form content">
+            <?= $this->Form->create($product) ?>
+            <fieldset>
+                <legend><?= __('Add Product') ?></legend>
+                <?php
+                    echo $this->Form->control('user_id', ['options' => $users]);
+                    echo $this->Form->control('kind');
+                    echo $this->Form->control('featured');
+                    echo $this->Form->control('title');
+                    echo $this->Form->control('lede');
+                    echo $this->Form->control('slug');
+                    echo $this->Form->control('body');
+                    echo $this->Form->control('markdown');
+                    echo $this->Form->control('summary');
+                    echo $this->Form->control('image');
+                    echo $this->Form->control('alt_text');
+                    echo $this->Form->control('keywords');
+                    echo $this->Form->control('name');
+                    echo $this->Form->control('dir');
+                    echo $this->Form->control('size');
+                    echo $this->Form->control('mime');
+                    echo $this->Form->control('is_published');
+                    echo $this->Form->control('published', ['empty' => true]);
+                    echo $this->Form->control('meta_title');
+                    echo $this->Form->control('meta_description');
+                    echo $this->Form->control('meta_keywords');
+                    echo $this->Form->control('facebook_description');
+                    echo $this->Form->control('linkedin_description');
+                    echo $this->Form->control('instagram_description');
+                    echo $this->Form->control('twitter_description');
+                    echo $this->Form->control('word_count');
+                    echo $this->Form->control('parent_id', ['options' => $parentProducts, 'empty' => true]);
+                    echo $this->Form->control('main_menu');
+                    echo $this->Form->control('view_count');
+                    echo $this->Form->control('tags._ids', ['options' => $tags]);
+                ?>
+            </fieldset>
+            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->end() ?>
         </div>
     </div>
 </div>

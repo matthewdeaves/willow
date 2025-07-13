@@ -1,9 +1,9 @@
 [
     {
-        "id": "3a8c5fdb-04d6-4226-9932-61ed0dc2718c",
+        "id": "3444043d-242e-4f50-80ad-fac434b4975a",
         "is_admin": true,
-        "email": "robjects@protonmail.com",
-        "password": "$2y$10$VRw1hIxIdkgPiP/DVoL/Vu1h8GENW9Xaw1XPnD1Qy/sHiLVi1l386",
+        "email": "admin@test.com",
+        "password": "$2y$10$CLEp4QGZglw6Ss8XS.d4AescBsvsmCmwH7VKIQOsEI7IVMpN2VRWe",
         "image": null,
         "alt_text": null,
         "keywords": null,
@@ -11,7 +11,7 @@
         "dir": null,
         "size": null,
         "mime": null,
-        "username": "admin@example.com",
+        "username": "admin",
         "active": true
     }
 ]

@@ -50,7 +50,15 @@ class ExportCodeCommand extends Command
             'Logs' => ['app' => 'src' . DS . 'Log', 'plugin' => 'src' . DS . 'Log'],
             'Tests' => ['app' => 'tests', 'plugin' => 'tests'],
             'Webroot' => ['app' => 'webroot', 'plugin' => 'webroot'], // For JS, CSS etc. in webroot
-            // Add other types like 'Config', etc. if needed
+            // Add other types like 'Config', etc. if needed\
+            'Config' => ['app' => 'config', 'plugin' => 'config'],
+            'Assets' => ['app' => 'assets', 'plugin' => 'assets'],
+            'Migrations' => ['app' => 'config' . DS . 'Migrations', 'plugin' => 'config' . DS . 'Migrations'],
+            'Templates' => ['app' => 'templates', 'plugin' => 'templates'],
+            //AdminTheme is a custom directory type for themes
+            // Adjust the paths as needed for your application structure
+
+            'AdminTheme' => ['app' => 'templates' . DS . 'AdminTheme', 'plugin' => 'templates' . DS . 'AdminTheme'],
         ];
     }
 

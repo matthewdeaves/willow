@@ -52,7 +52,7 @@
 
               <?= $this->element('site/articles_list', ['articles' => $featuredArticles, 'title' => __('Featured posts')]) ?>
 
-              <?= $this->element('site/articles_list', ['articles' => $recentArticles, 'title' => __('Recent posts')]) ?>
+              <?= $this->element('site/articles_list', ['articles' => $recentArticles, 'title' => __(singular: 'Recent posts')]) ?>
 
               <?= $this->element('site/elsewhere') ?>
 

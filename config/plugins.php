@@ -12,7 +12,9 @@ return [
         'onlyCli' => true,
         'optional' => true,
     ],
-    'Migrations' => [],
+    'Migrations' => [
+        'onlyCli' => true,
+    ],
     'Josegonzalez/Upload' => [],
     'AdminTheme' => [],
     'DefaultTheme' => [],
@@ -21,5 +23,5 @@ return [
         'onlyDev' => true,
         'optional' => true,
     ],
-    'MysqlNativePassword' => [],
+    'ContactManager' => [],
 ];

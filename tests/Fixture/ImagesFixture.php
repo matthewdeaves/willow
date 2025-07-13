@@ -19,28 +19,16 @@ class ImagesFixture extends TestFixture
     {
         $this->records = [
             [
-                'id' => '1202d58b-8fec-4b0c-900b-32246bb64d79',
-                'name' => 'Test Gallery Image 1',
-                'alt_text' => 'First test image for gallery',
-                'keywords' => 'test gallery image',
-                'image' => 'test-image-1.png', // Must have actual filename for gallery to work
-                'dir' => 'files/Images/image/',
-                'size' => 1024,
-                'mime' => 'image/png',
-                'created' => '2024-10-15 19:58:23',
-                'modified' => '2024-10-15 19:58:23',
-            ],
-            [
-                'id' => '2202d58b-8fec-4b0c-900b-32246bb64d79',
-                'name' => 'Test Gallery Image 2',
-                'alt_text' => 'Second test image for gallery',
-                'keywords' => 'test gallery image',
-                'image' => 'test-image-2.jpg', // Must have actual filename for gallery to work
-                'dir' => 'files/Images/image/',
-                'size' => 2048,
-                'mime' => 'image/jpeg',
-                'created' => '2024-10-15 19:58:23',
-                'modified' => '2024-10-15 19:58:23',
+                'id' => 'f3db978e-d41d-4ade-9e64-ebcaf4322b0c',
+                'name' => 'Lorem ipsum dolor sit amet',
+                'alt_text' => 'Lorem ipsum dolor sit amet',
+                'keywords' => 'Lorem ipsum dolor sit amet',
+                'image' => '',
+                'dir' => 'Lorem ipsum dolor sit amet',
+                'size' => 1,
+                'mime' => 'Lorem ipsum dolor sit amet',
+                'created' => '2025-07-12 21:48:42',
+                'modified' => '2025-07-12 21:48:42',
             ],
         ];
         parent::init();

@@ -1,6 +1,6 @@
 {
-    "name": "your-name-here/admin-theme",
-    "description": "AdminTheme plugin for CakePHP",
+    "name": "garzarobm/contact-manager",
+    "description": "ContactManager plugin for CakePHP",
     "type": "cakephp-plugin",
     "license": "MIT",
     "require": {
@@ -12,12 +12,12 @@
     },
     "autoload": {
         "psr-4": {
-            "AdminTheme\\": "src/"
+            "ContactManager\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "AdminTheme\\Test\\": "tests/",
+            "ContactManager\\Test\\": "tests/",
             "Cake\\Test\\": "vendor/cakephp/cakephp/tests/"
         }
     }

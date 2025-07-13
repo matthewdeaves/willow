@@ -4,11 +4,11 @@ config/
 default_data/
 docker/
 logs/
-resources/
+resources/*
 vendor/
 tmp/
 webroot/coverage/
-resources/locales/
+resources/locales/*
 .vscode/
 .env
 dump.rdb

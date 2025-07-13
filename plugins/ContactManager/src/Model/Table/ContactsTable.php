@@ -29,10 +29,8 @@ class ContactsTable extends Table
     public function initialize(array $config): void
     {
         parent::initialize($config);
+        // Set the table name for this model
         $this->setTable('contacts');
-        $this->setDisplayField('id');
-        $this->setPrimaryKey('id');
-        $this->addBehavior('Timestamp');
     }
 
     /**
@@ -43,21 +41,21 @@ class ContactsTable extends Table
      */
     public function validationDefault(Validator $validator): Validator
     { 
-        $validator
-            ->add('id', 'valid', ['rule' => 'numeric'])
-            ->allowEmpty('id', 'create')
-            ->requirePresence('first_name', 'create')
-            ->notEmpty('first_name')
-            ->requirePresence('last_name', 'create')
-            ->notEmpty('last_name')
-            ->add('email', 'valid', ['rule' => 'email'])
-            ->requirePresence('email', 'create')
-            ->notEmpty('email')
-            ->add('contact_num', 'valid', ['rule' => 'numeric'])
-            ->requirePresence('contact_num', 'create')
-            ->notEmpty('contact_num')
-            ->requirePresence('address', 'create')
-            ->notEmpty('address');
+        // $validator
+        //     ->add('id', 'valid', ['rule' => 'numeric'])
+        //     ->allowEmpty('id', 'create')
+        //     ->requirePresence('first_name', 'create')
+        //     ->notEmpty('first_name')
+        //     ->requirePresence('last_name', 'create')
+        //     ->notEmpty('last_name')
+        //     ->add('email', 'valid', ['rule' => 'email'])
+        //     ->requirePresence('email', 'create')
+        //     ->notEmpty('email')
+        //     ->add('contact_num', 'valid', ['rule' => 'numeric'])
+        //     ->requirePresence('contact_num', 'create')
+        //     ->notEmpty('contact_num')
+        //     ->requirePresence('address', 'create')
+        //     ->notEmpty('address');
             /*->requirePresence('city', 'create')
             ->notEmpty('city')
             ->requirePresence('state', 'create')

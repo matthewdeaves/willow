@@ -4,10 +4,11 @@ declare(strict_types=1);
 namespace ContactManager\Controller;
 
 
-use ContactManager\Controller\AppController;
+use ContactManager\Controller\ContactManagerAppController;
 
-class ContactsController extends AppController
+class ContactsController extends ContactManagerAppController
 {
+    public $uses = ['ContactManager.Contacts'];
     /**
      * Index method
      *
@@ -15,8 +16,22 @@ class ContactsController extends AppController
      */
     public function index()
     {
-        $this->set('contacts', $this->paginate($this->Contacts));
-        $this->set('_serialize', ['contacts']);
+
+        // Fetching all contacts from the Contacts model and paginating them
+        
+        $query = $this->Contacts->find('all', [
+            'contain' => []
+        ]);
+
+        $contacts = $this->paginate($query);
+        // This method is used to list all contacts in the Contacts model.
+        $this->paginate = [
+            'contain' => []
+        ];
+        // Fetching all contacts from the Contacts model and paginating them
+        // The paginate method will automatically handle the pagination logic
+        $this->set(compact('contacts'));
+        // Setting the 'contacts' variable to be used in the view
     }
 
     /**
@@ -28,10 +43,13 @@ class ContactsController extends AppController
      */
     public function view($id = null)
     {
-        $contact = $this->Contacts->get($id, [
+       $query = $this->Contacts->find('all', [
             'contain' => []
         ]);
-        $this->set('contact', $contact);
+
+                    // Fetching a single contact by its ID and setting it to the 'contact' variable
+        $this->set(compact('contact'));
+        // Setting the 'contact' variable to be used in the view
         $this->set('_serialize', ['contact']);
     }
 

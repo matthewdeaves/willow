@@ -385,6 +385,15 @@ return function (RouteBuilder $routes): void {
 
 
 
+    // contact-manager plugin routes
+    $routes->plugin('ContactManager', function (RouteBuilder $routes) {
+        
+        // Connect the default routes for all controllers in the ContactManager plugin.
+        // This will connect the /contact-manager/controller/action URLs to the appropriate controller and action.
+        $routes->fallbacks(DashedRoute::class); // Use DashedRoute for consistent URL formatting
+
+        // STARTING THE ADMIN PREFIX ROUTES
+
     // START: Admin routes
     // Connect the default routes for all controllers.
     // This will connect the /controller/action URLs to the appropriate controller and action.
@@ -420,18 +429,8 @@ return function (RouteBuilder $routes): void {
     });
     // END: Admin routes
 
-    // contact-manager plugin routes
-    $routes->plugin(
-    'ContactManager',
-    ['path' => '/contact-manager'],
-    function ($routes) {
-        $routes->setRouteClass(DashedRoute::class);
+    });
 
-        $routes->get('/contacts', ['controller' => 'Contacts']);
-        $routes->get('/contacts/{id}', ['controller' => 'Contacts', 'action' => 'view']);
-        $routes->put('/contacts/{id}', ['controller' => 'Contacts', 'action' => 'update']);
-    }
-    );
 
 
     // Add DebugKit routes with proper context if in debug mode

@@ -42,3 +42,5 @@ resources/locales
 docker/jenkins
 docker/mailpit
 docker/jenkins/jenkins_home
+docker/mysql/data
+default_data

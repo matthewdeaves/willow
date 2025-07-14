@@ -38,3 +38,7 @@ webroot/
 
 project_mysql_backups
 project_files_backups
+resources/locales
+docker/jenkins
+docker/mailpit
+docker/jenkins/jenkins_home

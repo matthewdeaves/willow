@@ -12,6 +12,11 @@ use Cake\TestSuite\TestCase;
 
 class AppControllerTestCase extends TestCase
 {
+    /**
+     * Includes the IntegrationTestTrait to enable integration testing capabilities.
+     * This trait provides methods for simulating HTTP requests and asserting responses,
+     * allowing for comprehensive testing of application controllers and routes.
+     */
     use IntegrationTestTrait;
 
     protected function loginUser(string $userId): IdentityInterface

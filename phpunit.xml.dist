@@ -33,6 +33,9 @@
             <directory>tests/TestCase/</directory>
         </testsuite>
         <!-- Add plugin test suites here. -->
+        <testsuite name="ContactManager">
+            <directory>plugins/ContactManager/tests/TestCase/</directory>
+        </testsuite>
     </testsuites>
 
     <!-- Load extensions -->

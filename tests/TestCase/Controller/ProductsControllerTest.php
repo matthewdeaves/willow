@@ -23,6 +23,10 @@ class ProductsControllerTest extends TestCase
      */
     protected array $fixtures = [
         'app.Products',
+        'app.Users',
+        'app.Tags',
+        'app.PageViews',
+        'app.ProductsTags',
     ];
 
     /**

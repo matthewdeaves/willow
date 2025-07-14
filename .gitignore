@@ -1,12 +1,16 @@
-# CakePHP specific files #
-##########################
-/config/app_local.php
-/config/.env
-.env
-/logs/*
-/tmp/*
-/vendor/*
+.phpunit.cache/
+assets/
+config/
+docker/
+logs/
+vendor/
+tmp/
+.vscode/
+.env    
+dump.rdb
+webroot
 
+<<<<<<< HEAD
 # Willow code_exports #
 #######################
 willow_cms_code.txt
@@ -117,3 +121,5 @@ docker/mysql/data
 # Willow CMS specific files #
 docker/mailpit_data
 docker/jenkins/jenkins_home
+=======
+>>>>>>> dd7276b176db3de2f12292587308380491fce520

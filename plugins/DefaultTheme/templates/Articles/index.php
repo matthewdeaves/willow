@@ -7,6 +7,16 @@
  * @var string|null $selectedTag
  */
 ?>
+
+
+<!-- * Template for displaying a list of articles with their titles, metadata, and summaries.
+* Each article is linked to its detailed view.
+* 
+* @var \App\View\AppView $this
+* @var iterable<\App\Model\Entity\Article> $articles
+* @var array $tags
+* @var string|null $selectedTag -->
+
 <?php foreach ($articles as $article): ?>
 <article class="article-list-item mb-4">
     <a class="text-decoration-none" href="<?= $this->Url->build(['_name' => $article->kind . '-by-slug', 'slug' => $article->slug]) ?>">

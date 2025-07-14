@@ -3,9 +3,6 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Controller\AppController;
-use Cake\Http\Response;
-
 /**
  * Products Controller
  *
@@ -18,39 +15,13 @@ class ProductsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index(): ?Response
+    public function index()
     {
-        $statusFilter = $this->request->getQuery('status');
         $query = $this->Products->find()
-            ->select([
-                'Products.product_id',
-                'Products.name',
-                'Products.price_usd',
-                'Products.category_rating',
-                'Products.comments',
-            ]);
-
-        
-        $search = $this->request->getQuery('search');
-        if (!empty($search)) {
-            $query->where([
-                'OR' => [
-                    'Products.name LIKE' => '%' . $search . '%',
-                    'Products.category_rating LIKE' => '%' . $search . '%',
-                    'Products.comments LIKE' => '%' . $search . '%',
-                ],
-            ]);
-        }
+            ->contain(['Users', 'ParentProducts']);
         $products = $this->paginate($query);
-        if ($this->request->is('ajax')) {
-            $this->set(compact('products', 'search'));
-            $this->viewBuilder()->setLayout('ajax');
 
-            return $this->render('search_results');
-        }
         $this->set(compact('products'));
-
-        return null;
     }
 
     /**
@@ -62,7 +33,7 @@ class ProductsController extends AppController
      */
     public function view($id = null)
     {
-        $product = $this->Products->get($id, contain: []);
+        $product = $this->Products->get($id, contain: ['Users', 'ParentProducts', 'Tags', 'ChildProducts', 'PageViews']);
         $this->set(compact('product'));
     }
 
@@ -83,7 +54,10 @@ class ProductsController extends AppController
             }
             $this->Flash->error(__('The product could not be saved. Please, try again.'));
         }
-        $this->set(compact('product'));
+        $users = $this->Products->Users->find('list', limit: 200)->all();
+        $parentProducts = $this->Products->ParentProducts->find('list', limit: 200)->all();
+        $tags = $this->Products->Tags->find('list', limit: 200)->all();
+        $this->set(compact('product', 'users', 'parentProducts', 'tags'));
     }
 
     /**
@@ -95,7 +69,7 @@ class ProductsController extends AppController
      */
     public function edit($id = null)
     {
-        $product = $this->Products->get($id, contain: []);
+        $product = $this->Products->get($id, contain: ['Tags']);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $product = $this->Products->patchEntity($product, $this->request->getData());
             if ($this->Products->save($product)) {
@@ -105,7 +79,10 @@ class ProductsController extends AppController
             }
             $this->Flash->error(__('The product could not be saved. Please, try again.'));
         }
-        $this->set(compact('product'));
+        $users = $this->Products->Users->find('list', limit: 200)->all();
+        $parentProducts = $this->Products->ParentProducts->find('list', limit: 200)->all();
+        $tags = $this->Products->Tags->find('list', limit: 200)->all();
+        $this->set(compact('product', 'users', 'parentProducts', 'tags'));
     }
 
     /**
@@ -115,7 +92,7 @@ class ProductsController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null): ?Response
+    public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
         $product = $this->Products->get($id);
@@ -125,6 +102,6 @@ class ProductsController extends AppController
             $this->Flash->error(__('The product could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect($this->referer());
+        return $this->redirect(['action' => 'index']);
     }
 }

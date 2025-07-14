@@ -88,7 +88,7 @@ class GenerateArticlesCommand extends Command
             $publishedDate = $article->published;
 
             if ($this->Articles->save($article, ['associated' => ['Tags']])) {
-                $article->punlished = $publishedDate;
+                $article->published = $publishedDate;
                 $this->Articles->save($article);
                 $io->out(__('Generated article: {0}', $article->title));
                 $successCount++;

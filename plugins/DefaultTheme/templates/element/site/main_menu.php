@@ -25,7 +25,7 @@
             ?>
         <?php endforeach ?>
         <a class="nav-item nav-link link-body-emphasis fw-medium px-3" 
-           href="https://www.github.com/matthewdeaves/willow">
+           href="https://www.github.com/garzarobm/willow">
            GitHub
         </a>
     </nav>

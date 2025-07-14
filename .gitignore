@@ -107,3 +107,13 @@ project_mysql_backups
 CakePHPBook.txt
 bridge
 docker/docker-volume-exports
+default_data
+plugins/ContactManager/vendor
+assets
+docker/jenkins
+docker/mysql/data
+# Willow CMS specific files #
+#################################
+# Willow CMS specific files #
+docker/mailpit_data
+docker/jenkins/jenkins_home

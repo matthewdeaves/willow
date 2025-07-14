@@ -59,7 +59,7 @@ services:
     ports:
       - "3310:3306"
     volumes:
-      - ../mysql_data:/var/lib/mysql
+      - ./docker/mysql/data:/var/lib/mysql
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   rabbitmq:
@@ -68,7 +68,7 @@ services:
       - "5672:5672"  # RabbitMQ default port
       - "15672:15672"  # RabbitMQ management UI
     volumes:
-      - ../rabbitmq_data:/var/lib/rabbitmq
+      - ./docker/rabbitmq/data:/var/lib/rabbitmq
     environment:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
@@ -97,7 +97,7 @@ services:
       - "8081:8080"
       - "50000:50000"
     volumes:
-      - ../jenkins_home:/var/jenkins_home
+      - ./docker/jenkins/jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
       - ./docker/jenkins/jenkins.yaml:/var/jenkins_home/jenkins.yaml
     environment:
@@ -109,7 +109,7 @@ services:
       - "1125:1025"
       - "8025:8025"
     volumes:
-      - ../mailpit_data:/data
+      - ./docker/mailpit_data:/data
     environment:
       - MP_MAX_MESSAGES=5000
       - MP_DATABASE=/data/mailpit.db
@@ -138,3 +138,4 @@ services:
       - willowcms
 
 ################## Volumes for persistent data storage ##################
+

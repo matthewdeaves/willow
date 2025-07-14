@@ -68,11 +68,18 @@ services:
       DB_DATABASE: cms
       DB_USERNAME: cms_user
       DB_PASSWORD: password
+      DB_HOST: mysql
+      DB_PORT: 3306
+      TEST_DB_DATABASE: cms_test
+      TEST_DB_USERNAME: cms_user_test
+      TEST_DB_PASSWORD: password
+      TEST_DB_HOST: mysql
+      TEST_DB_PORT: 3306
     ports:
       - "3310:3306"
     volumes:
-      - mysql_data:/var/lib/mysql
-      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./docker/mysql/data:/var/lib/mysql:rw # This volume is used to persist MySQL data.
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql # This file is used to initialize the database with a schema or data.
 
   # rabbitmq:
   #   image: rabbitmq:3.11-management
@@ -178,11 +185,11 @@ volumes:
       device: ./docker/jenkins/jenkins_home
       o: bind
   mysql_data:
-    driver: local
-    driver_opts:
-      type: none
-      device: ./docker/mysql/data
-      o: bind
+    # driver: local
+    # driver_opts:
+    #   type: none
+    #   device: ./docker/mysql/data
+    #   o: bind
 
 # template for mailpit volume
 # mailpit_data:

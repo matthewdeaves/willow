@@ -60,31 +60,32 @@ services:
 
   mysql:
     image: mysql:8.4.3
-    platform: linux/amd64
     environment:
       MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: cms
+      MYSQL_USER: cms_user
+      MYSQL_PASSWORD: password
+      DB_DATABASE: cms
       DB_USERNAME: cms_user
       DB_PASSWORD: password
-      DB_DATABASE: cms
     ports:
       - "3310:3306"
     volumes:
       - mysql_data:/var/lib/mysql
-      # This volume is used to initialize the database with a custom SQL script.
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
 
-  rabbitmq:
-    image: rabbitmq:3.11-management
-    ports:
-      - "5672:5672"  # RabbitMQ default port
-      - "15672:15672"  # RabbitMQ management UI
-    volumes:
-      - rabbitmq_data:/var/lib/rabbitmq
-    environment:
-      - RABBITMQ_DEFAULT_USER=guest
-      - RABBITMQ_DEFAULT_PASS=guest
-  # The following service is for Jenkins, a popular automation server.
-  # It is used for continuous integration and continuous deployment (CI/CD).
+  # rabbitmq:
+  #   image: rabbitmq:3.11-management
+  #   ports:
+  #     - "5672:5672"  # RabbitMQ default port
+  #     - "15672:15672"  # RabbitMQ management UI
+  #   volumes:
+  #     - rabbitmq_data:/var/lib/rabbitmq
+  #   environment:
+  #     - RABBITMQ_DEFAULT_USER=guest
+  #     - RABBITMQ_DEFAULT_PASS=guest
+  # # The following service is for Jenkins, a popular automation server.
+  # # It is used for continuous integration and continuous deployment (CI/CD).
 
 
   phpmyadmin:
@@ -97,6 +98,7 @@ services:
       - PMA_PASSWORD=password
       - UPLOAD_LIMIT=300M
 
+
   jenkins:
     build:
       context: .
@@ -107,8 +109,8 @@ services:
       - "8081:8080"
       - "50000:50000"
     volumes:
-      - jenkins_home:/var/jenkins_home
-      # - ./docker/jenkins/jenkins_home:/var/jenkins_home
+      # - jenkins_home:/var/jenkins_home
+      - jenkins_home:/var/jenkins_home:rw
       - /var/run/docker.sock:/var/run/docker.sock
       - ./docker/jenkins/jenkins.yaml:/var/jenkins_home/jenkins.yaml
     environment:
@@ -145,16 +147,18 @@ services:
       - willowcms
 
 
-############ Volumes Section ############
-# Volumes are used to persist data for the services.
-# The following services are defined to manage the data persistence:
-    # The following volumes are used to persist data for the services.
-    # They are defined at the bottom of this file.
-    # - mailpit_data:/data
-    # - rabbitmq_data:/var/lib/rabbitmq
-    # - jenkins_home:/var/jenkins_home
-    # - mysql_data:/var/lib/mysql
-  # The following service is for phpMyAdmin, a web-based MySQL administration tool.
+######## Volumes Section - named volumes ########
+# Named volumes are used to persist data for the services.
+# This section defines the named volumes used in the docker-compose file.
+# You can use these as a template for your own volumes.
+# volumes:
+  # mailpit_data:
+  # rabbitmq_data:
+  # jenkins_home:
+  # mysql_data: 
+# ############ Volumes Section - bind mounts ############
+# # Volumes are used to persist data for the services.
+# # this are examples for bind mounts, you can use them as a template for your own volumes.
 volumes:
   mailpit_data:
     driver: local

@@ -24,6 +24,7 @@ services:
       - APP_DEFAULT_LOCALE=en_GB
       - APP_DEFAULT_TIMEZONE=America/Chicago
       - SECURITY_SALT=developmentsalt # Change this to a secure random string in production
+      # --- Database Environment Variables ---
       - DB_HOST=mysql
       - DB_USERNAME=cms_user
       - DB_PASSWORD=password
@@ -34,6 +35,8 @@ services:
       - TEST_DB_PASSWORD=password
       - TEST_DB_DATABASE=cms_test
       - TEST_DB_PORT=3306
+
+      # --- Email Environment Variables ---
       - EMAIL_HOST=mailpit
       - EMAIL_PORT=1025
       - EMAIL_TIMEOUT=30
@@ -41,6 +44,8 @@ services:
       - EMAIL_PASSWORD=
       - EMAIL_REPLY=hello@willowcms.app
       - EMAIL_NOREPLY=noreply@willowcms.app
+
+      # --- Redis Environment Variables ---
       - REDIS_USERNAME=root
       - REDIS_PASSWORD=root
       - REDIS_HOST=127.0.0.1
@@ -48,14 +53,24 @@ services:
       - REDIS_DATABASE=0
       - REDIS_URL=redis://root:root@127.0.0.1:6379/0
       - REDIS_TEST_URL=redis://root:root@127.0.0.1:6379/0
+
+      # --- API Keys ---
       - YOUTUBE_API_KEY=
       - TRANSLATE_API_KEY=
+
+      # --- Queue Environment Variables ---
       - QUEUE_DEFAULT_URL=redis://root:root@127.0.0.1:6379/0
       - QUEUE_TEST_URL=redis://root:root@127.0.0.1:6379/0
+
+      # --- Experimental Features ---
       - EXPERIMENTAL_TESTS=On # Set to 'On' to enable experimental tests - this is used for testing new features that are not yet stable.
+
+      # --- Willow Admin Credentials ---
       - WILLOW_ADMIN_USERNAME=admin
       - WILLOW_ADMIN_PASSWORD=password
       - WILLOW_ADMIN_EMAIL=admin@test.com
+
+      # --- Application Base URL ---
       - APP_FULL_BASE_URL=http://localhost:8080
 
   mysql:
@@ -140,6 +155,7 @@ services:
 #   depends_on:
 #     - willowcms
 
+
 # rabbitmq:
 #   image: rabbitmq:3.11-management
 #   ports:
@@ -171,7 +187,8 @@ services:
 #endregion CONTINUOUS INTEGRATION SERVICES - These services are used for development purposes only.
 
 
-######## Volumes Section - named volumes ########
+#region Volumes Section
+# This section defines the named volumes used in the docker-compose file.
 # Named volumes are used to persist data for the services.
 # This section defines the named volumes used in the docker-compose file.
 # You can use these as a template for your own volumes.
@@ -183,7 +200,11 @@ services:
 # mysql_data:
 # mysql_init:
 
-######################endregion END OF SERVICES ######################
+#endregion Volumes Section
+######################region END OF SERVICES ######################
+# This section defines the services used in the docker-compose file.
+# Each service is defined with its own configuration, including image, ports, volumes, and environment variables.
+
 
 #region Volumes Section - bind mounts
 # This section defines the volumes used in the docker-compose file.
@@ -192,8 +213,6 @@ services:
 
 
 # ############ Volumes Section - bind mounts ############
-# # Volumes are used to persist data for the services.
-# # this are examples for bind mounts, you can use them as a template for your own volumes.
 volumes:
   mailpit_data:
     driver: local

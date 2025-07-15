@@ -108,6 +108,7 @@ services:
     depends_on:
       - willowcms
 
+
 ######## CONTINUOUS INTEGRATION SERVICES - These services are used for development purposes only. ########
 # These services are used for development purposes only.
 # They are not used in production and are not required for the application to run.
@@ -174,6 +175,8 @@ services:
 # jenkins_home:
 # mysql_data:
 # mysql_init:
+
+
 
 # ############ Volumes Section - bind mounts ############
 # # Volumes are used to persist data for the services.

@@ -30,6 +30,10 @@ tmp/
 dump.rdb
 # Ignore webroot directory
 webroot/
+# Ignore .DS_Store files
+.DS_Store
+# Ignore MacOS system files
+*.DS_Store
 # Ignore Composer vendor directory
 # Ignore Composer vendor directory                          
 

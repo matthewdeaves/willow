@@ -109,7 +109,11 @@ services:
       - willowcms
 
 
-######## CONTINUOUS INTEGRATION SERVICES - These services are used for development purposes only. ########
+#region Comments
+# This is a comment block
+# Another comment line
+
+######## region CONTINUOUS INTEGRATION SERVICES - These services are used for development purposes only. ########
 # These services are used for development purposes only.
 # They are not used in production and are not required for the application to run.
 
@@ -164,6 +168,8 @@ services:
 #     - MP_DATABASE=/data/mailpit.db
 #     - MP_SMTP_AUTH_ACCEPT_ANY=1
 #     - MP_SMTP_AUTH_ALLOW_INSECURE=1
+#endregion CONTINUOUS INTEGRATION SERVICES - These services are used for development purposes only.
+
 
 ######## Volumes Section - named volumes ########
 # Named volumes are used to persist data for the services.
@@ -173,9 +179,16 @@ services:
 # mailpit_data:
 # rabbitmq_data:
 # jenkins_home:
+
 # mysql_data:
 # mysql_init:
 
+######################endregion END OF SERVICES ######################
+
+#region Volumes Section - bind mounts
+# This section defines the volumes used in the docker-compose file.
+
+#endregion Volumes Section - bind mounts
 
 
 # ############ Volumes Section - bind mounts ############

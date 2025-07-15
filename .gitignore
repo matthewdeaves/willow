@@ -53,3 +53,4 @@ docker/mysql/data
 default_data
 docker/rabbitmq/data
 config/.env.example
+dump.rdb.zip

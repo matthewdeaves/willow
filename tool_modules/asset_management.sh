@@ -22,6 +22,8 @@ execute_asset_command() {
 }
 
 # Function to backup files directory
+# list of files in the container's /var/www/html/webroot/files directory
+# and create a tar.gz archive of it, then copy it to the host machine
 backup_files_directory() {
     echo "Backing up files directory..."
     local timestamp
@@ -36,6 +38,7 @@ backup_files_directory() {
         return 1
     fi
 
+    # Create a tar archive of the files directory in the container
     echo "Creating tar archive in container..."
     local container_temp_tarfile="/tmp/files_backup_${timestamp}.tar.gz"
     
@@ -67,6 +70,10 @@ backup_files_directory() {
 }
 
 # Function to restore files from backup
+# This will prompt the user to select a backup file from the host's backup directory
+# and then restore the files directory in the container from that backup
+# It will also set the ownership and permissions as per the Dockerfile
+# and ensure the files directory exists in the container before restoring
 restore_files_from_backup() {
     echo "Restoring Files from Backup..."
     local backup_source_dir="./project_files_backups"

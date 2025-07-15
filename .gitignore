@@ -1,6 +1,5 @@
 .phpunit.cache/
 assets/
-config/
 logs/
 vendor/
 tmp/
@@ -16,7 +15,7 @@ composer.lock
 # Ignore assets directory
 assets/
 # Ignore configuration files
-config/
+./config/
 # Ignore logs directory
 logs/
 # Ignore vendor directory

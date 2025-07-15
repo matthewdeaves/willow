@@ -15,14 +15,14 @@ services:
       - ./docker/willowcms/config/app/cms_app_local.php:/var/www/html/config/app_local.php
       - ./logs/nginx/logs:/var/log/nginx/
       - ./plugins/ContactManager:/var/www/html/plugins/ContactManager
-      - ./plugins/AdminTheme:/var/www/html/plugins/AdminTheme
-      - ./plugins/DefaultTheme:/var/www/html/plugins/DefaultTheme
+      # - ./plugins/AdminTheme:/var/www/html/plugins/AdminTheme
+      # - ./plugins/DefaultTheme:/var/www/html/plugins/DefaultTheme
     environment:
       - APP_NAME=WillowCMS
       - DEBUG=true
       - APP_ENCODING=UTF-8
       - APP_DEFAULT_LOCALE=en_GB
-      - APP_DEFAULT_TIMEZONE=Europe/London
+      - APP_DEFAULT_TIMEZONE=America/Chicago
       - SECURITY_SALT=developmentsalt # Change this to a secure random string in production
       - DB_HOST=mysql
       - DB_USERNAME=cms_user
@@ -52,7 +52,7 @@ services:
       - TRANSLATE_API_KEY=
       - QUEUE_DEFAULT_URL=redis://root:root@127.0.0.1:6379/0
       - QUEUE_TEST_URL=redis://root:root@127.0.0.1:6379/0
-      - EXPERIMENTAL_TESTS=Off # Set to 'On' to enable experimental tests - this is used for testing new features that are not yet stable.
+      - EXPERIMENTAL_TESTS=On # Set to 'On' to enable experimental tests - this is used for testing new features that are not yet stable.
       - WILLOW_ADMIN_USERNAME=admin
       - WILLOW_ADMIN_PASSWORD=password
       - WILLOW_ADMIN_EMAIL=admin@test.com
@@ -60,6 +60,8 @@ services:
 
   mysql:
     image: mysql:8.4.3
+    restart: always
+    command: --lower_case_table_names=1
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: cms
@@ -78,21 +80,21 @@ services:
     ports:
       - "3310:3306"
     volumes:
-      - ./docker/mysql/data:/var/lib/mysql:rw # This volume is used to persist MySQL data.
-      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql # This file is used to initialize the database with a schema or data.
+      - mysql_data:/var/lib/mysql:rw # This volume is used to persist MySQL data.
+      - ./docker/mysql/sql-scripts:/docker-entrypoint-initdb.d # This file is used to initialize the database with a schema or data.
 
-  # rabbitmq:
-  #   image: rabbitmq:3.11-management
-  #   ports:
-  #     - "5672:5672"  # RabbitMQ default port
-  #     - "15672:15672"  # RabbitMQ management UI
-  #   volumes:
-  #     - rabbitmq_data:/var/lib/rabbitmq
-  #   environment:
-  #     - RABBITMQ_DEFAULT_USER=guest
-  #     - RABBITMQ_DEFAULT_PASS=guest
-  # # The following service is for Jenkins, a popular automation server.
-  # # It is used for continuous integration and continuous deployment (CI/CD).
+  rabbitmq:
+    image: rabbitmq:3.11-management
+    ports:
+      - "5672:5672"  # RabbitMQ default port
+      - "15672:15672"  # RabbitMQ management UI
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+  # The following service is for Jenkins, a popular automation server.
+  # It is used for continuous integration and continuous deployment (CI/CD).
 
 
   phpmyadmin:
@@ -104,6 +106,8 @@ services:
       - PMA_USER=root
       - PMA_PASSWORD=password
       - UPLOAD_LIMIT=300M
+    depends_on:
+      - mysql
 
 
   jenkins:
@@ -122,6 +126,9 @@ services:
       - ./docker/jenkins/jenkins.yaml:/var/jenkins_home/jenkins.yaml
     environment:
       - JAVA_OPTS=-Djenkins.install.runSetupWizard=true
+      - CASC_JENKINS_CONFIG=/var/jenkins_home/jenkins.yaml
+    depends_on:
+      - willowcms
 
   mailpit:
     image: axllent/mailpit:latest
@@ -178,6 +185,7 @@ volumes:
     driver_opts:
       type: none
       device: ./docker/rabbitmq/data
+      o: bind
   jenkins_home:
     driver: local
     driver_opts:
@@ -185,12 +193,17 @@ volumes:
       device: ./docker/jenkins/jenkins_home
       o: bind
   mysql_data:
-    # driver: local
-    # driver_opts:
-    #   type: none
-    #   device: ./docker/mysql/data
-    #   o: bind
-
+    driver: local
+    driver_opts:
+      type: none
+      device: ./docker/mysql/data
+      o: bind
+  mysql_init:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./docker/mysql/sql-scripts
+      o: bind
 # template for mailpit volume
 # mailpit_data:
 #   driver: local

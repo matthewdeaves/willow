@@ -59,6 +59,7 @@ LOAD_I18N=0
 # Interactive mode (can be disabled with --no-interactive)
 INTERACTIVE=1
 # Operation mode
+# Options are: wipe, rebuild, restart, migrate, continue
 OPERATION=""
 
 # Set UID/GID for Docker containers (Apple Silicon compatibility)

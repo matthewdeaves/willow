@@ -6,7 +6,7 @@ services:
       args:
         - UID=${UID:-1000}
         - GID=${GID:-1000}
-    ports: 
+    ports:
       - "8080:80"
       # development cakephp server
       - "8083:8765"
@@ -83,7 +83,6 @@ services:
       - mysql_data:/var/lib/mysql:rw # This volume is used to persist MySQL data.
       - ./docker/mysql/sql-scripts:/docker-entrypoint-initdb.d # This file is used to initialize the database with a schema or data.
 
-
   phpmyadmin:
     image: phpmyadmin
     ports:
@@ -109,79 +108,72 @@ services:
     depends_on:
       - willowcms
 
-
-
-
 ######## CONTINUOUS INTEGRATION SERVICES - These services are used for development purposes only. ########
 # These services are used for development purposes only.
 # They are not used in production and are not required for the application to run.
 
-
 ########### INITIAL JENKINS CONFIGURATION ############
 # This section is for the initial Jenkins configuration.
 # It sets up Jenkins with the necessary plugins and initial jobs
-  # jenkins:
-  #   build:
-  #     context: .
-  #     dockerfile: docker/jenkins/Dockerfile
-  #   privileged: true
-  #   user: root
-  #   ports:
-  #     - "8081:8080"
-  #     - "50000:50000"
-  #   volumes:
-  #     # - jenkins_home:/var/jenkins_home
-  #     - jenkins_home:/var/jenkins_home:rw
-  #     - /var/run/docker.sock:/var/run/docker.sock
-  #     - ./docker/jenkins/jenkins.yaml:/var/jenkins_home/jenkins.yaml
-  #   environment:
-  #     - JAVA_OPTS=-Djenkins.install.runSetupWizard=true
-  #     - CASC_JENKINS_CONFIG=/var/jenkins_home/jenkins.yaml
-  #   depends_on:
-  #     - willowcms
+# jenkins:
+#   build:
+#     context: .
+#     dockerfile: docker/jenkins/Dockerfile
+#   privileged: true
+#   user: root
+#   ports:
+#     - "8081:8080"
+#     - "50000:50000"
+#   volumes:
+#     # - jenkins_home:/var/jenkins_home
+#     - jenkins_home:/var/jenkins_home:rw
+#     - /var/run/docker.sock:/var/run/docker.sock
+#     - ./docker/jenkins/jenkins.yaml:/var/jenkins_home/jenkins.yaml
+#   environment:
+#     - JAVA_OPTS=-Djenkins.install.runSetupWizard=true
+#     - CASC_JENKINS_CONFIG=/var/jenkins_home/jenkins.yaml
+#   depends_on:
+#     - willowcms
 
-
-  # rabbitmq:
-  #   image: rabbitmq:3.11-management
-  #   ports:
-  #     - "5672:5672"  # RabbitMQ default port
-  #     - "15672:15672"  # RabbitMQ management UI
-  #   volumes:
-  #     - rabbitmq_data:/var/lib/rabbitmq
-  #   environment:
-  #     - RABBITMQ_DEFAULT_USER=guest
-  #     - RABBITMQ_DEFAULT_PASS=guest
-  # # The following service is for Jenkins, a popular automation server.
-  # # It is used for continuous integration and continuous deployment (CI/CD).
-  # mailpit:
-  #   image: axllent/mailpit:latest
-  #   ports:
-  #     - "1125:1025"
-  #     - "8025:8025"
-  #   volumes:
-  #     - mailpit_data:/data
-  #     # - ./docker/mailpit_data:/data
-  #     - ./docker/mailpit/mailpit.db:/data/mailpit.db
-  #   depends_on:
-  #     - willowcms
-  #   environment:
-  #     - MP_MAX_MESSAGES=5000
-  #     - MP_DATABASE=/data/mailpit.db
-  #     - MP_SMTP_AUTH_ACCEPT_ANY=1
-  #     - MP_SMTP_AUTH_ALLOW_INSECURE=1
-
-
+# rabbitmq:
+#   image: rabbitmq:3.11-management
+#   ports:
+#     - "5672:5672"  # RabbitMQ default port
+#     - "15672:15672"  # RabbitMQ management UI
+#   volumes:
+#     - rabbitmq_data:/var/lib/rabbitmq
+#   environment:
+#     - RABBITMQ_DEFAULT_USER=guest
+#     - RABBITMQ_DEFAULT_PASS=guest
+# # The following service is for Jenkins, a popular automation server.
+# # It is used for continuous integration and continuous deployment (CI/CD).
+# mailpit:
+#   image: axllent/mailpit:latest
+#   ports:
+#     - "1125:1025"
+#     - "8025:8025"
+#   volumes:
+#     - mailpit_data:/data
+#     # - ./docker/mailpit_data:/data
+#     - ./docker/mailpit/mailpit.db:/data/mailpit.db
+#   depends_on:
+#     - willowcms
+#   environment:
+#     - MP_MAX_MESSAGES=5000
+#     - MP_DATABASE=/data/mailpit.db
+#     - MP_SMTP_AUTH_ACCEPT_ANY=1
+#     - MP_SMTP_AUTH_ALLOW_INSECURE=1
 
 ######## Volumes Section - named volumes ########
 # Named volumes are used to persist data for the services.
 # This section defines the named volumes used in the docker-compose file.
 # You can use these as a template for your own volumes.
 # volumes:
-  # mailpit_data:
-  # rabbitmq_data:
-  # jenkins_home:
-  # mysql_data: 
-  # mysql_init:
+# mailpit_data:
+# rabbitmq_data:
+# jenkins_home:
+# mysql_data:
+# mysql_init:
 
 # ############ Volumes Section - bind mounts ############
 # # Volumes are used to persist data for the services.

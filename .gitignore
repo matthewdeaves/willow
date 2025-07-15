@@ -43,3 +43,4 @@ docker/mailpit
 docker/jenkins/jenkins_home
 docker/mysql/data
 default_data
+docker/rabbitmq/data

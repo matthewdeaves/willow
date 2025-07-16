@@ -79,6 +79,7 @@ return function (RouteBuilder $routes): void {
         $builder->setExtensions(['xml', 'rss']);
         
         $builder->connect('/', ['controller' => 'Articles', 'action' => 'index']);
+
         $builder->connect(
             '/',
             [
@@ -90,6 +91,21 @@ return function (RouteBuilder $routes): void {
                 '_name' => 'home'
             ]
         );
+        // Language-specific home route
+        $builder->connect(
+            '/{lang}',
+            [
+                'controller' => 'Articles',
+                'action' => 'index'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'home-lang',
+                'lang' => '[a-z]{2}', 
+            ]
+
+        );
+
 
         // Language-specific robots.txt route
         $builder->connect(
@@ -270,6 +286,9 @@ return function (RouteBuilder $routes): void {
         );
     });
 
+
+    // Admin routes
+    // This will route the admin prefix to the Articles controller by default
     $routes->prefix('Admin', function (RouteBuilder $routes) {
         $routes->connect('/', ['controller' => 'Articles', 'action' => 'index', 'prefix' => 'Admin']);
         
@@ -279,7 +298,11 @@ return function (RouteBuilder $routes): void {
             ['controller' => 'ImageGalleries', 'action' => 'removeImage'],
             ['pass' => ['id', 'imageId']]
         );
-        
+        $routes->connect(
+            '/image-galleries/add-image/{id}',
+            ['controller' => 'ImageGalleries', 'action' => 'addImage'],
+            ['pass' => ['id']]
+        );
         $routes->fallbacks(DashedRoute::class);
     });
 

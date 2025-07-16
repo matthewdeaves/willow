@@ -122,6 +122,10 @@ services:
 
 volumes:
   mysql_data:
+    driver: local
   rabbitmq_data:
+    driver: local
   jenkins_home:
+    driver: local
   mailpit_data:
+    driver: local

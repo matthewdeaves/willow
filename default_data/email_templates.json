@@ -1,16 +1,18 @@
 [
     {
-        "template_identifier": "reset_password",
-        "name": "Reset Your Password",
-        "subject": "Reset Your Password",
-        "body_html": "<p>Hello {username}!<\/p><p>Use the link below to reset your password.<\/p><p>&lt;a href=\"{reset_password_link}\"&gt;{reset_password_link}&lt;\/a&gt;<\/p><p>Thanks,<br><\/p><p>Matt<\/p>",
-        "body_plain": "Hello {username}!Use the link below to reset your password.<a href=\"{reset_password_link}\">{reset_password_link}<\/a>Thanks,Matt"
-    },
-    {
-        "template_identifier": "confirm_email",
+        "id": "ca7017ec-00f1-4f98-86ac-0313f48539b0",
+        "template_identifier": null,
         "name": "Confirm your email",
         "subject": "Confirm your email",
-        "body_html": "<p>Hello {username}!<\/p><p>Thanks for registering, please use the link below to confirm your email.<\/p><p>&lt;a href=\"{confirm_email_link}\"&gt;{confirm_email_link}&lt;\/a&gt;<\/p><p>Thanks!<\/p><p>Matt<\/p>",
-        "body_plain": "Hello {username}!Thanks for registering, please use the link below to confirm your email.<a href=\"{confirm_email_link}\">{confirm_email_link}<\/a>Thanks!Matt"
+        "body_html": "<p>Hello {username}!</p><p>Thanks for registering, please use the link below to confirm your email.</p><p>&lt;a href=\"{confirm_email_link}\"&gt;{confirm_email_link}&lt;/a&gt;</p><p>Thanks!</p><p>Matt</p>",
+        "body_plain": "Hello {username}!Thanks for registering, please use the link below to confirm your email.<a href=\"{confirm_email_link}\">{confirm_email_link}</a>Thanks!Matt"
+    },
+    {
+        "id": "e26cce42-f635-4215-994b-39e30c0db0bb",
+        "template_identifier": null,
+        "name": "Reset Your Password",
+        "subject": "Reset Your Password",
+        "body_html": "<p>Hello {username}!</p><p>Use the link below to reset your password.</p><p>&lt;a href=\"{reset_password_link}\"&gt;{reset_password_link}&lt;/a&gt;</p><p>Thanks,<br></p><p>Matt</p>",
+        "body_plain": "Hello {username}!Use the link below to reset your password.<a href=\"{reset_password_link}\">{reset_password_link}</a>Thanks,Matt"
     }
 ]

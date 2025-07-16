@@ -1,0 +1,17 @@
+[
+    {
+        "id": "a353dfd8-4f41-441d-b055-159cd66ccca0",
+        "is_admin": true,
+        "email": "admin@test.com",
+        "password": "$2y$10$I3bfqgRQB7ai2uNyvirr5OGm35I0b7rODKDVwd2ZtyE5E4olbdhtO",
+        "image": null,
+        "alt_text": null,
+        "keywords": null,
+        "name": null,
+        "dir": null,
+        "size": null,
+        "mime": null,
+        "username": "admin",
+        "active": true
+    }
+]

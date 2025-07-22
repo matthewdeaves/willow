@@ -34,12 +34,21 @@
 <?php $kind = $this->request->getQuery('kind'); ?>
 <?php
     echo $this->element('actions_card', [
+<<<<<<< HEAD
         'modelName' => ($kind == 'page') ? 'Page' : 'Product',
         'controllerName' => 'Products',
         'controllerIndexAction' => ($kind == 'page') ? 'tree-index' : 'index',
         'entity' => $product,
         'entityDisplayName' => $product->title,
         'urlParams' => ($kind == 'page') ? ['kind' => 'page'] : [],
+=======
+        'modelName' => ($kind == 'product') ? 'Product' : 'Product',
+        'controllerName' => 'Products',
+        'controllerIndexAction' => ($kind == 'product') ? 'tree-index' : 'index',
+        'entity' => $product,
+        'entityDisplayName' => $product->title,
+        'urlParams' => ($kind == 'product') ? ['kind' => 'product'] : [],
+>>>>>>> e7397e3034035101febf4710cb40815e58d61f8e
     ]);
 ?>
 <div class="container mt-4">

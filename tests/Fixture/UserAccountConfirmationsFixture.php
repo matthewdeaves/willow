@@ -19,22 +19,10 @@ class UserAccountConfirmationsFixture extends TestFixture
     {
         $this->records = [
             [
-                'id' => 'b39e7681-ac60-4536-86a0-d0845789f772',
-                'user_id' => '6509480c-e7e6-4e65-9c38-1423a8d09d0f', // admin user ID
-                'confirmation_code' => 'CONFIRM123ADMIN', // unique confirmation code for admin
-                'created' => '2024-10-06 11:49:16',
-            ],
-            [
-                'id' => 'b39e7681-ac60-4536-86a0-d0845789f773',
-                'user_id' => '6509480c-e7e6-4e65-9c38-1423a8d09d02', // regular user ID
-                'confirmation_code' => 'CONFIRM123USER', // unique confirmation code for user
-                'created' => '2024-10-06 11:50:16',
-            ],
-            [
-                'id' => 'c50e1234-ac60-6354-86a0-d0845798f882',
-                'user_id' => '6509480c-e7e6-4e65-9c38-8574a8d09d02', // regular user ID
-                'confirmation_code' => 'CONFIRM123USER1', // unique confirmation code for user
-                'created' => '2024-11-06 11:50:16',
+                'id' => '4de3eb82-27ba-43a9-bdb6-96e020b62fbe',
+                'user_id' => 'Lorem ipsum dolor sit amet',
+                'confirmation_code' => 'Lorem ipsum dolor sit amet',
+                'created' => '2025-07-12 21:49:09',
             ],
         ];
         parent::init();

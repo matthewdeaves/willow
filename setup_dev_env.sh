@@ -53,12 +53,13 @@ print_step() {
 
 # --- Configuration ---
 # Jenkins container is optional
-USE_JENKINS=0
+USE_JENKINS=1
 # Internationalisation data loading is optional
 LOAD_I18N=0
 # Interactive mode (can be disabled with --no-interactive)
 INTERACTIVE=1
 # Operation mode
+# Options are: wipe, rebuild, restart, migrate, continue
 OPERATION=""
 
 # Set UID/GID for Docker containers (Apple Silicon compatibility)

@@ -19,12 +19,12 @@ class InternationalisationsFixture extends TestFixture
     {
         $this->records = [
             [
-                'id' => 'c4d8623a-da20-4655-99a9-6d2528ddc83e',
+                'id' => '7c576661-5f13-4be9-b1b7-d1bbf0117b87',
                 'locale' => 'Lorem ip',
                 'message_id' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
                 'message_str' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-                'created' => 1729774124,
-                'modified' => 1729774124,
+                'created' => '2025-07-12 21:48:42',
+                'modified' => '2025-07-12 21:48:42',
             ],
         ];
         parent::init();

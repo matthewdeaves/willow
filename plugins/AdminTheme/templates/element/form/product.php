@@ -73,17 +73,30 @@
 <?php if ($kind == 'product') : ?>
 <div class="mb-3">
     <div class="me-3">
+<<<<<<< HEAD
         <?php echo $this->Form->label('tags._ids', __('Select Tags'), ['class' => 'form-label']); ?>
         <?php echo $this->Form->select('tags._ids', $tags, [
+=======
+        <?php echo $this->Form->label('product_tags._ids', __('Select Tags'), ['class' => 'form-label']); ?>
+        <?php echo $this->Form->select('product_tags._ids', $tags, [
+>>>>>>> e7397e3034035101febf4710cb40815e58d61f8e
             'multiple' => true,
             'data-live-search' => 'true',
             'data-actions-box' => 'true',
             'id' => 'tags-select',
+<<<<<<< HEAD
             'class' => 'form-select' . ($this->Form->isFieldError('tags._ids') ? ' is-invalid' : '')
         ]); ?>
         <?php if ($this->Form->isFieldError('tags._ids')): ?>
             <div class="invalid-feedback">
                 <?= $this->Form->error('tags._ids') ?>
+=======
+            'class' => 'form-select' . ($this->Form->isFieldError('product_tags._ids') ? ' is-invalid' : '')
+        ]); ?>
+        <?php if ($this->Form->isFieldError('product_tags._ids')): ?>
+            <div class="invalid-feedback">
+                <?= $this->Form->error('product_tags._ids') ?>
+>>>>>>> e7397e3034035101febf4710cb40815e58d61f8e
             </div>
         <?php endif; ?>
     </div>
@@ -91,11 +104,20 @@
 <?php endif; ?>
 <div class="mb-3">
     <?php if ($product->tags && SettingsManager::read('AI.enabled') && SettingsManager::read('AI.productTags')): ?>
+<<<<<<< HEAD
         <?php if ($kind == 'product') : ?>
         <div class="form-check d-flex align-items-center">
             <?= $this->Form->checkbox("regenerateTags", [
                 'checked' => false,
                 'class' => 'form-check-input' . ($this->Form->isFieldError('regenerateTags') ? ' is-invalid' : '')
+=======
+        <?php if ($kind == 'article') : ?>
+        <div class="form-check d-flex align-items-center">
+            <?= $this->Form->checkbox("regenerateTags", [
+                'checked' => false,
+                'class' => 'form-check-input' . ($this->Form->isFieldError('regenerateTags') ? ' is-invalid' : 'product-tags'),
+                'id' => 'regenerate-tags'
+>>>>>>> e7397e3034035101febf4710cb40815e58d61f8e
             ]) ?>
             <label class="form-check-label ms-2" for="regenerate-tags">
                 <?= __('Auto Tag') ?>

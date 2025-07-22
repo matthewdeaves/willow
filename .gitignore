@@ -1,107 +1,50 @@
-# CakePHP specific files #
-##########################
-/config/app_local.php
-/config/.env
+.phpunit.cache/
+assets/
+logs/
+vendor/
+tmp/
+.vscode/
+.env    
+dump.rdb
+webroot
+
+# Ignore Composer files
+composer.lock
+# Ignore PHPUnit cache
+.phpunit.cache/
+# Ignore assets directory
+assets/
+# Ignore configuration files
+./config/
+# Ignore logs directory
+logs/
+# Ignore vendor directory
+vendor/
+# Ignore temporary files
+tmp/
+# Ignore VSCode settings
+.vscode/
+# Ignore environment variables file
 .env
-/logs/*
-/tmp/*
-/vendor/*
-
-# Willow code_exports #
-#######################
-willow_cms_code.txt
-willow_cms_code_Controllers.txt
-willow_cms_code_Models.txt
-willow_cms_code_Plugins.txt
-willow_cms_code_Tests.txt
-willow_cms_code_Views.txt
-willow_cms_code_Commands.txt
-willow_cms_code_Jobs.txt
-willow_cms_code_Logs.txt
-willow_cms_code_Services.txt
-willow_cms_code_Utilities.txt
-
-# Code Coverage Report #
-########################
-/webroot/coverage
-
-# Willow specific files/folders #
-#################################
-/webroot/files/*
-!/webroot/files/Images
-/webroot/files/Images/*
-!/webroot/files/Images/image
-/webroot/files/Images/image/*
-!/webroot/files/Images/image/.gitkeep
-!/webroot/files/Users
-/webroot/files/Users/*
-!/webroot/files/Users/image
-/webroot/files/Users/image/*
-!/webroot/files/Users/image/.gitkeep
-!/webroot/files/Articles
-/webroot/files/Articles/*
-!/webroot/files/Articles/image
-/webroot/files/Articles/image/*
-!/webroot/files/Articles/image/.gitkeep
-/dump.rdb
-
-# Robots.txt #
-##############
-/webroot/robots.txt.template
-
-# Willow Dev Env Setup #
-########################
-/wait-for-it.sh
-
-# OS generated files #
-######################
+# Ignore Redis dump file
+dump.rdb
+# Ignore webroot directory
+webroot/
+# Ignore .DS_Store files
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-# Icon must end with two \r
-Icon
+# Ignore MacOS system files
+*.DS_Store
+# Ignore configuration files after initial setup
+config/.env.example
+# Ignore configuration files after initial setup
+config/.env.local.php
+# Ignore Composer vendor directory
+# Ignore Composer vendor directory                          
 
-ehthumbs.db
-Thumbs.db
-.directory
 
-# Tool specific files #
-#######################
-# PHPUnit
-.phpunit.cache
-tests.sqlite
-# vim
-*~
-*.swp
-*.swo
-# sublime text & textmate
-*.sublime-*
-*.stTheme.cache
-*.tmlanguage.cache
-*.tmPreferences.cache
-# Eclipse
-.settings/*
-# JetBrains, aka PHPStorm, IntelliJ IDEA
-.idea/*
-# NetBeans
-nbproject/*
-# Visual Studio Code
-.vscode
-# nova
-.nova
-# Sass preprocessor
-.sass-cache/
-# node
-/node_modules/*
-# yarn
-yarn-debug.log
-yarn-error.log
 
-# manage.sh outputs
-project_files_backups
 project_mysql_backups
+<<<<<<< HEAD
 
 # CakePHP Book
 CakePHPBook.txt
@@ -3706,3 +3649,15 @@ docker/mysql/data/phpmyadmin/pma__userconfig.ibd
 docker/mysql/data/phpmyadmin/pma__usergroups.ibd
 docker/mysql/data/phpmyadmin/pma__users.ibd
 docker/mysql/data/sys/sys_config.ibd
+=======
+project_files_backups
+resources/locales
+docker/jenkins
+docker/mailpit
+docker/jenkins/jenkins_home
+docker/mysql/data
+default_data
+docker/rabbitmq/data
+config/.env.example
+dump.rdb.zip
+>>>>>>> e7397e3034035101febf4710cb40815e58d61f8e

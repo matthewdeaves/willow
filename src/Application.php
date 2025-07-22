@@ -61,9 +61,11 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         require CONFIG . 'log_config.php';
 
         // All plugins are now loaded via config/plugins.php
+
         // This provides a single source of truth for plugin configuration
         // and handles environment-specific loading automatically
 
+        // Load the plugins defined in config/plugins.php
         if (PHP_SAPI === 'cli') {
             $this->bootstrapCli();
         } else {
@@ -75,7 +77,9 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 
         I18nManager::setEnabledLanguages();
 
+        // Loading plugins and events in Application::bootstrap() makes Controller Integration Testing easier as events and routes will be re-processed on each test method.
         // Load more plugins here
+        // $this->addPlugin('SomePlugin');
     }
 
     /**

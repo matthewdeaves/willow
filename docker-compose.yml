@@ -1,5 +1,4 @@
 services:
-
   willowcms:
     build:
       context: .
@@ -7,19 +6,25 @@ services:
       args:
         - UID=${UID:-1000}
         - GID=${GID:-1000}
-    ports: 
+    ports:
       - "8080:80"
+      # development cakephp server
+      - "8083:8765"
     volumes:
       - .:/var/www/html/
       - ./docker/willowcms/config/app/cms_app_local.php:/var/www/html/config/app_local.php
-      - ./logs/nginx:/var/log/nginx/
+      - ./logs/nginx/logs:/var/log/nginx/
+      - ./plugins/ContactManager:/var/www/html/plugins/ContactManager
+      # - ./plugins/AdminTheme:/var/www/html/plugins/AdminTheme
+      # - ./plugins/DefaultTheme:/var/www/html/plugins/DefaultTheme
     environment:
       - APP_NAME=WillowCMS
       - DEBUG=true
       - APP_ENCODING=UTF-8
       - APP_DEFAULT_LOCALE=en_GB
-      - APP_DEFAULT_TIMEZONE=Europe/London
-      - SECURITY_SALT=developmentsalt
+      - APP_DEFAULT_TIMEZONE=America/Chicago
+      - SECURITY_SALT=developmentsalt # Change this to a secure random string in production
+      # --- Database Environment Variables ---
       - DB_HOST=mysql
       - DB_USERNAME=cms_user
       - DB_PASSWORD=password
@@ -30,6 +35,8 @@ services:
       - TEST_DB_PASSWORD=password
       - TEST_DB_DATABASE=cms_test
       - TEST_DB_PORT=3306
+
+      # --- Email Environment Variables ---
       - EMAIL_HOST=mailpit
       - EMAIL_PORT=1025
       - EMAIL_TIMEOUT=30
@@ -37,6 +44,8 @@ services:
       - EMAIL_PASSWORD=
       - EMAIL_REPLY=hello@willowcms.app
       - EMAIL_NOREPLY=noreply@willowcms.app
+
+      # --- Redis Environment Variables ---
       - REDIS_USERNAME=root
       - REDIS_PASSWORD=root
       - REDIS_HOST=127.0.0.1
@@ -44,29 +53,50 @@ services:
       - REDIS_DATABASE=0
       - REDIS_URL=redis://root:root@127.0.0.1:6379/0
       - REDIS_TEST_URL=redis://root:root@127.0.0.1:6379/0
+
+      # --- API Keys ---
       - YOUTUBE_API_KEY=
       - TRANSLATE_API_KEY=
+
+      # --- Queue Environment Variables ---
       - QUEUE_DEFAULT_URL=redis://root:root@127.0.0.1:6379/0
       - QUEUE_TEST_URL=redis://root:root@127.0.0.1:6379/0
-      - EXPERIMENTAL_TESTS=Off
+
+      # --- Experimental Features ---
+      - EXPERIMENTAL_TESTS=On # Set to 'On' to enable experimental tests - this is used for testing new features that are not yet stable.
+
+      # --- Willow Admin Credentials ---
       - WILLOW_ADMIN_USERNAME=admin
       - WILLOW_ADMIN_PASSWORD=password
       - WILLOW_ADMIN_EMAIL=admin@test.com
+
+      # --- Application Base URL ---
       - APP_FULL_BASE_URL=http://localhost:8080
 
   mysql:
     image: mysql:8.4.3
-    platform: linux/amd64
+    restart: always
+    command: --lower_case_table_names=1
     environment:
       MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: cms
+      MYSQL_USER: cms_user
+      MYSQL_PASSWORD: password
+      DB_DATABASE: cms
       DB_USERNAME: cms_user
       DB_PASSWORD: password
-      DB_DATABASE: cms
+      DB_HOST: mysql
+      DB_PORT: 3306
+      TEST_DB_DATABASE: cms_test
+      TEST_DB_USERNAME: cms_user_test
+      TEST_DB_PASSWORD: password
+      TEST_DB_HOST: mysql
+      TEST_DB_PORT: 3306
     ports:
       - "3310:3306"
     volumes:
-      - mysql_data:/var/lib/mysql
-      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - mysql_data:/var/lib/mysql:rw # This volume is used to persist MySQL data.
+      - ./docker/mysql/sql-scripts:/docker-entrypoint-initdb.d # This file is used to initialize the database with a schema or data.
 
   phpmyadmin:
     image: phpmyadmin
@@ -77,35 +107,8 @@ services:
       - PMA_USER=root
       - PMA_PASSWORD=password
       - UPLOAD_LIMIT=300M
-
-  jenkins:
-    build:
-      context: .
-      dockerfile: docker/jenkins/Dockerfile
-    privileged: true
-    user: root
-    ports:
-      - "8081:8080"
-      - "50000:50000"
-    volumes:
-      - jenkins_home:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./docker/jenkins/jenkins.yaml:/var/jenkins_home/jenkins.yaml
-    environment:
-      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
-
-  mailpit:
-    image: axllent/mailpit:latest
-    ports:
-      - "1125:1025"
-      - "8025:8025"
-    volumes:
-      - mailpit_data:/data
-    environment:
-      - MP_MAX_MESSAGES=5000
-      - MP_DATABASE=/data/mailpit.db
-      - MP_SMTP_AUTH_ACCEPT_ANY=1
-      - MP_SMTP_AUTH_ALLOW_INSECURE=1
+    depends_on:
+      - mysql
 
   redis-commander:
     image: rediscommander/redis-commander:latest
@@ -120,7 +123,98 @@ services:
     depends_on:
       - willowcms
 
+
+#region Comments
+# This is a comment block
+# Another comment line
+
+######## region CONTINUOUS INTEGRATION SERVICES - These services are used for development purposes only. ########
+# These services are used for development purposes only.
+# They are not used in production and are not required for the application to run.
+
+########### INITIAL JENKINS CONFIGURATION ############
+# This section is for the initial Jenkins configuration.
+# It sets up Jenkins with the necessary plugins and initial jobs
+# jenkins:
+#   build:
+#     context: .
+#     dockerfile: docker/jenkins/Dockerfile
+#   privileged: true
+#   user: root
+#   ports:
+#     - "8081:8080"
+#     - "50000:50000"
+#   volumes:
+#     # - jenkins_home:/var/jenkins_home
+#     - jenkins_home:/var/jenkins_home:rw
+#     - /var/run/docker.sock:/var/run/docker.sock
+#     - ./docker/jenkins/jenkins.yaml:/var/jenkins_home/jenkins.yaml
+#   environment:
+#     - JAVA_OPTS=-Djenkins.install.runSetupWizard=true
+#     - CASC_JENKINS_CONFIG=/var/jenkins_home/jenkins.yaml
+#   depends_on:
+#     - willowcms
+
+
+# rabbitmq:
+#   image: rabbitmq:3.11-management
+#   ports:
+#     - "5672:5672"  # RabbitMQ default port
+#     - "15672:15672"  # RabbitMQ management UI
+#   volumes:
+#     - rabbitmq_data:/var/lib/rabbitmq
+#   environment:
+#     - RABBITMQ_DEFAULT_USER=guest
+#     - RABBITMQ_DEFAULT_PASS=guest
+# # The following service is for Jenkins, a popular automation server.
+# # It is used for continuous integration and continuous deployment (CI/CD).
+# mailpit:
+#   image: axllent/mailpit:latest
+#   ports:
+#     - "1125:1025"
+#     - "8025:8025"
+#   volumes:
+#     - mailpit_data:/data
+#     # - ./docker/mailpit_data:/data
+#     - ./docker/mailpit/mailpit.db:/data/mailpit.db
+#   depends_on:
+#     - willowcms
+#   environment:
+#     - MP_MAX_MESSAGES=5000
+#     - MP_DATABASE=/data/mailpit.db
+#     - MP_SMTP_AUTH_ACCEPT_ANY=1
+#     - MP_SMTP_AUTH_ALLOW_INSECURE=1
+#endregion CONTINUOUS INTEGRATION SERVICES - These services are used for development purposes only.
+
+
+#region Volumes Section
+# This section defines the named volumes used in the docker-compose file.
+# Named volumes are used to persist data for the services.
+# This section defines the named volumes used in the docker-compose file.
+# You can use these as a template for your own volumes.
+# volumes:
+# mailpit_data:
+# rabbitmq_data:
+# jenkins_home:
+
+# mysql_data:
+# mysql_init:
+
+#endregion Volumes Section
+######################region END OF SERVICES ######################
+# This section defines the services used in the docker-compose file.
+# Each service is defined with its own configuration, including image, ports, volumes, and environment variables.
+
+
+#region Volumes Section - bind mounts
+# This section defines the volumes used in the docker-compose file.
+
+#endregion Volumes Section - bind mounts
+
+
+# ############ Volumes Section - bind mounts ############
 volumes:
+<<<<<<< HEAD
   mysql_data:
     driver: local
   rabbitmq_data:
@@ -129,3 +223,43 @@ volumes:
     driver: local
   mailpit_data:
     driver: local
+=======
+  mailpit_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./docker/mailpit/data
+      o: bind
+  rabbitmq_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./docker/rabbitmq/data
+      o: bind
+  jenkins_home:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./docker/jenkins/jenkins_home
+      o: bind
+  mysql_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./docker/mysql/data
+      o: bind
+  mysql_init:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./docker/mysql/sql-scripts
+      o: bind
+# template for mailpit volume
+# mailpit_data:
+#   driver: local
+#   driver_opts:
+#     type: none # none is equivalent to 'local' in this context
+#     device: ./docker/mailpit/data
+#     o: bind
+
+>>>>>>> e7397e3034035101febf4710cb40815e58d61f8e

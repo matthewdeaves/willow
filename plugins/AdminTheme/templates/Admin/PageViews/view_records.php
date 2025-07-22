@@ -3,6 +3,8 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Article $article
  * @var \Cake\Collection\CollectionInterface $viewRecords
+ * @var \App\Model\Entity\Product $product
+ * 
  */
 
 // Helper function to extract browser name from user agent

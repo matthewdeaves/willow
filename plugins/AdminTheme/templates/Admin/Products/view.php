@@ -6,12 +6,21 @@
 ?>
 <?php
     echo $this->element('actions_card', [
+<<<<<<< HEAD
         'modelName' => ($product->kind == 'page') ? 'Page' : 'Post',
         'controllerName' => 'Products',
         'controllerIndexAction' => ($product->kind == 'page') ? 'tree-index' : 'index',
         'entity' => $product,
         'entityDisplayName' => $product->title,
         'urlParams' => ($product->kind == 'page') ? ['kind' => 'page'] : [],
+=======
+        'modelName' => ($product->kind == 'product') ? 'Product' : 'Product',
+        'controllerName' => 'Products',
+        'controllerIndexAction' => ($product->kind == 'product') ? 'tree-index' : 'index',
+        'entity' => $product,
+        'entityDisplayName' => $product->title,
+        'urlParams' => ($product->kind == 'product') ? ['kind' => 'product'] : [],
+>>>>>>> e7397e3034035101febf4710cb40815e58d61f8e
     ]);
 ?>
 <div class="container mt-4">
@@ -38,7 +47,11 @@
                         <tr>
                             <th><?= __('Slug') ?></th>
                             <td>
+<<<<<<< HEAD
                                 <?php $ruleName = ($product->kind == 'product') ? 'product-by-slug' : 'page-by-slug';?>
+=======
+                                <?php $ruleName = ($product->kind == 'product') ? 'product-by-slug' : 'product-by-slug';?>
+>>>>>>> e7397e3034035101febf4710cb40815e58d61f8e
                                 <?php if ($product->is_published == true): ?>
                                     
                                     <?= $this->Html->link(
@@ -101,8 +114,13 @@
                                 '<span class="badge bg-info me-3">' . __('{0} Views', $product->view_count) . '</span>',
                                 [
                                     'prefix' => 'Admin',
+<<<<<<< HEAD
                                     'controller' => 'PageViews',
                                     'action' => 'pageViewStats',
+=======
+                                    'controller' => 'Products',
+                                    'action' => 'index',
+>>>>>>> e7397e3034035101febf4710cb40815e58d61f8e
                                     $product['id']
                                 ],
                                 [

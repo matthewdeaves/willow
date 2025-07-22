@@ -34,7 +34,11 @@
 <?php if (!$product->isNew()): ?>
 <?php
     echo $this->element('actions_card', [
+<<<<<<< HEAD
         'modelName' => ($kind == 'page') ? 'Page' : 'Product',
+=======
+        'modelName' => ($kind == 'post') ? 'Page' : 'Product',
+>>>>>>> e7397e3034035101febf4710cb40815e58d61f8e
         'controllerName' => 'Products',
         'controllerIndexAction' => ($kind == 'page') ? 'tree-index' : 'index',
         'entity' => $product,
@@ -47,14 +51,21 @@
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header">
+<<<<<<< HEAD
                     <h5 class="card-title"><?= ($kind == 'page') ? __('Add Page') : __('Add Post') ?></h5>
+=======
+                    <h5 class="card-title"><?= ($kind == 'post') ? __('Add Product') : __('Add Post') ?></h5>
+>>>>>>> e7397e3034035101febf4710cb40815e58d61f8e
                 </div>
                 <div class="card-body">
                     <?= $this->Form->create($product,
                     [
                         'type' => 'file',
                         'enctype' => 'multipart/form-data',
+<<<<<<< HEAD
                         'class' => 'needs-validation', 'novalidate' => true
+=======
+>>>>>>> e7397e3034035101febf4710cb40815e58d61f8e
                     ]) ?>
                     <fieldset>
                         <?= $this->element('form/product', ['kind' => $kind]) ?>

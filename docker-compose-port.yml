@@ -134,12 +134,6 @@ volumes:
       type: none
       device: /volume1/docker/adaptercms/docker/mysql/init
       o: bind
-  willowcms_data:
-    driver: local
-    driver_opts:
-      type: none
-      device: /volume1/docker/adaptercms/docker/willowcms
-      o: bind
   adaptercms_data:
     driver: local
     driver_opts:

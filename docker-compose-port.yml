@@ -9,7 +9,7 @@ services:
     ports: 
       - "8080:80"
     volumes:
-      - adaptercms_data/.:/var/www/html/:rw
+      - adaptercms_data:/var/www/html/:rw
       - willowcms_data/config/app/cms_app_local.php:/var/www/html/config/app_local.php:rw
       - willowcms_data/config/logs/nginx:/var/log/nginx/:rw
     environment:

@@ -2,7 +2,7 @@
 services:
   willowcms:
     build:
-      context: adaptercms_data
+      context: /volume1/docker/adaptercms
       dockerfile: docker/willowcms/Dockerfile
       args:
         - UID=${UID:-1000}

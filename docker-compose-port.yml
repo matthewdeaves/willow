@@ -135,7 +135,7 @@ volumes:
   willowcms_data:
     driver: local
     driver_opts:
-      device: /volume1/docker/adaptercms/docker/willowcms/config
+      device: /volume1/docker/adaptercms/docker/willowcms
       o: bind
   adaptercms_data:
     driver: local

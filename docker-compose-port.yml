@@ -2,7 +2,6 @@
 services:
   willowcms:
     build:
-      context: .
       dockerfile: docker/willowcms/Dockerfile
       args:
         - UID=${UID:-1000}
@@ -10,9 +9,9 @@ services:
     ports: 
       - "8080:80"
     volumes:
-      - .:/var/www/html/:rw
-      - ./docker/willowcms/config/app/cms_app_local.php:/var/www/html/config/app_local.php:rw
-      - ./logs/nginx:/var/log/nginx/:rw
+      - /volume1/docker/adaptercms:/var/www/html/:rw
+      - /volume1/docker/adaptercms/docker/willowcms/config/app/cms_app_local.php:/var/www/html/config/app_local.php:rw
+      - /volume1/docker/adaptercms/logs/nginx:/var/log/nginx/:rw
     environment:
       - APP_NAME=WillowCMS
       - DEBUG=true
@@ -65,8 +64,8 @@ services:
     ports:
       - "3310:3306"
     volumes:
-      - ./docker/mysql/data:/var/lib/mysql:rw
-      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql:rw
+      - /volume1/docker/adaptercmsdocker/mysql/data:/var/lib/mysql:rw
+      - /volume1/docker/adaptercmsdocker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql:rw
 
   phpmyadmin:
     image: phpmyadmin
@@ -88,9 +87,9 @@ services:
       - "8081:8080"
       - "50000:50000"
     volumes:
-      - ./docker/jenkins/jenkins_home:/var/jenkins_home
+      - /volume1/docker/adaptercmsdocker/jenkins/jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./docker/jenkins/jenkins.yaml:/var/jenkins_home/jenkins.yaml
+      - /volume1/docker/adaptercmsdocker/jenkins/jenkins.yaml:/var/jenkins_home/jenkins.yaml
     environment:
       - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
 
@@ -100,7 +99,7 @@ services:
       - "1125:1025"
       - "8025:8025"
     volumes:
-      - ./docker/mailpit/data:/data
+      - /volume1/docker/adaptercmsdocker/mailpit/data:/data
     environment:
       - MP_MAX_MESSAGES=5000
       - MP_DATABASE=/data/mailpit.db

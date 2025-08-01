@@ -2,6 +2,7 @@
 services:
   willowcms:
     build:
+      context: adaptercms_data
       dockerfile: docker/willowcms/Dockerfile
       args:
         - UID=${UID:-1000}
@@ -9,9 +10,9 @@ services:
     ports: 
       - "8080:80"
     volumes:
-      - /volume1/docker/adaptercms:/var/www/html/:rw
-      - /volume1/docker/adaptercms/docker/willowcms/config/app/cms_app_local.php:/var/www/html/config/app_local.php:rw
-      - /volume1/docker/adaptercms/logs/nginx:/var/log/nginx/:rw
+      - adaptercms_data:/var/www/html/:rw
+      - willowcms_data/app/cms_app_local.php:/var/www/html/config/app_local.php:rw
+      - willowcms_data/logs/nginx:/var/log/nginx/:rw
     environment:
       - APP_NAME=WillowCMS
       - DEBUG=true
@@ -64,8 +65,8 @@ services:
     ports:
       - "3310:3306"
     volumes:
-      - /volume1/docker/adaptercmsdocker/mysql/data:/var/lib/mysql:rw
-      - /volume1/docker/adaptercmsdocker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql:rw
+      - mysql_data:/var/lib/mysql:rw
+      - mysql_init/init.sql:/docker-entrypoint-initdb.d/init.sql:rw
 
   phpmyadmin:
     image: phpmyadmin
@@ -77,21 +78,21 @@ services:
       - PMA_PASSWORD=password
       - UPLOAD_LIMIT=300M
 
-  jenkins:
-    build:
-      context: .
-      dockerfile: docker/jenkins/Dockerfile
-    privileged: true
-    user: root
-    ports:
-      - "8081:8080"
-      - "50000:50000"
-    volumes:
-      - /volume1/docker/adaptercmsdocker/jenkins/jenkins_home:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /volume1/docker/adaptercmsdocker/jenkins/jenkins.yaml:/var/jenkins_home/jenkins.yaml
-    environment:
-      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+  # jenkins:
+  #   build:
+  #     context: .
+  #     dockerfile: docker/jenkins/Dockerfile
+  #   privileged: true
+  #   user: root
+  #   ports:
+  #     - "8081:8080"
+  #     - "50000:50000"
+  #   volumes:
+  #     - /volume1/docker/adaptercmsdocker/jenkins/jenkins_home:/var/jenkins_home
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - /volume1/docker/adaptercmsdocker/jenkins/jenkins.yaml:/var/jenkins_home/jenkins.yaml
+  #   environment:
+  #     - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
 
   mailpit:
     image: axllent/mailpit:latest
@@ -99,7 +100,7 @@ services:
       - "1125:1025"
       - "8025:8025"
     volumes:
-      - /volume1/docker/adaptercmsdocker/mailpit/data:/data
+      - mailpit_data:/data
     environment:
       - MP_MAX_MESSAGES=5000
       - MP_DATABASE=/data/mailpit.db
@@ -119,4 +120,33 @@ services:
     depends_on:
       - willowcms
 
+# Volumes for persistent storage
+volumes:
+  mysql_data:
+    driver: local
+    driver_opts:
+      device: /volume1/docker/adaptercms/docker/mysql/data
+      o: bind
+  mysql_init:
+    driver: local
+    driver_opts:
+      device: /volume1/docker/adaptercms/docker/mysql/init
+      o: bind
+  willowcms_data:
+    driver: local
+    driver_opts:
+      device: /volume1/docker/adaptercms/docker/willowcms
+      o: bind
+  adaptercms_data:
+    driver: local
+    driver_opts:
+      device: /volume1/docker/adaptercms
+      o: bind
+  mailpit_data:
+    driver: local
+    driver_opts:
+      device: /volume1/docker/adaptercms/docker/willowcms
+      o: bind
+  
+  
 

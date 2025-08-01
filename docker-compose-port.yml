@@ -2,6 +2,7 @@
 services:
   willowcms:
     build:
+      context: /volume1/docker/adaptercms/
       dockerfile: docker/willowcms/Dockerfile
       args:
         - UID=${UID:-1000}
@@ -134,7 +135,7 @@ volumes:
   willowcms_data:
     driver: local
     driver_opts:
-      device: /volume1/docker/adaptercms/docker/willowcms
+      device: /volume1/docker/adaptercms/docker/willowcms/config
       o: bind
   adaptercms_data:
     driver: local

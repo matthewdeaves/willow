@@ -2,7 +2,7 @@
 services:
   willowcms:
     build:
-      context: /volume1/docker/adaptercms/
+      context: willowcms_data
       dockerfile: docker/willowcms/Dockerfile
       args:
         - UID=${UID:-1000}
@@ -125,26 +125,31 @@ volumes:
   mysql_data:
     driver: local
     driver_opts:
+      type: none
       device: /volume1/docker/adaptercms/docker/mysql/data
       o: bind
   mysql_init:
     driver: local
     driver_opts:
+      type: none
       device: /volume1/docker/adaptercms/docker/mysql/init
       o: bind
   willowcms_data:
     driver: local
     driver_opts:
+      type: none
       device: /volume1/docker/adaptercms/docker/willowcms
       o: bind
   adaptercms_data:
     driver: local
     driver_opts:
+      type: none
       device: /volume1/docker/adaptercms
       o: bind
   mailpit_data:
     driver: local
     driver_opts:
+      type: none
       device: /volume1/docker/adaptercms/docker/mailpit/data
       o: bind
   

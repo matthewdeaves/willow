@@ -10,9 +10,9 @@ services:
     ports: 
       - "8080:80"
     volumes:
-      - .:/var/www/html/
-      - ./docker/willowcms/config/app/cms_app_local.php:/var/www/html/config/app_local.php
-      - ./logs/nginx:/var/log/nginx/
+      - .:/var/www/html/:rw
+      - ./docker/willowcms/config/app/cms_app_local.php:/var/www/html/config/app_local.php:rw
+      - ./logs/nginx:/var/log/nginx/:rw
     environment:
       - APP_NAME=WillowCMS
       - DEBUG=true
@@ -65,8 +65,8 @@ services:
     ports:
       - "3310:3306"
     volumes:
-      - mysql_data:/var/lib/mysql
-      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./docker/mysql/data:/var/lib/mysql:rw
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql:rw
 
   phpmyadmin:
     image: phpmyadmin
@@ -88,7 +88,7 @@ services:
       - "8081:8080"
       - "50000:50000"
     volumes:
-      - jenkins_home:/var/jenkins_home
+      - ./docker/jenkins/jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
       - ./docker/jenkins/jenkins.yaml:/var/jenkins_home/jenkins.yaml
     environment:
@@ -100,7 +100,7 @@ services:
       - "1125:1025"
       - "8025:8025"
     volumes:
-      - mailpit_data:/data
+      - ./docker/mailpit/data:/data
     environment:
       - MP_MAX_MESSAGES=5000
       - MP_DATABASE=/data/mailpit.db
@@ -120,8 +120,4 @@ services:
     depends_on:
       - willowcms
 
-volumes:
-  mysql_data:
-  rabbitmq_data:
-  jenkins_home:
-  mailpit_data:
+

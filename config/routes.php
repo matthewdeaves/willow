@@ -26,8 +26,8 @@ use Cake\Routing\RouteBuilder;
 
 /*
  * This file is loaded in the context of the `Application` class.
-  * So you can use  `$this` to reference the application class instance
-  * if required.
+ * So you can use  `$this` to reference the application class instance
+ * if required.
  */
 return function (RouteBuilder $routes): void {
     /*
@@ -77,7 +77,7 @@ return function (RouteBuilder $routes): void {
 
     $routes->scope('/', function (RouteBuilder $builder): void {
         $builder->setExtensions(['xml', 'rss']);
-        
+
         $builder->connect('/', ['controller' => 'Articles', 'action' => 'index']);
         $builder->connect(
             '/',
@@ -197,16 +197,18 @@ return function (RouteBuilder $routes): void {
             ]
         );
 
-        $builder->connect('/users/edit/{id}',
-        [
-            'controller' => 'Users',
-            'action' => 'edit'
-        ],
-        [
-            '_name' => 'account',
-            'routeClass' => 'ADmad/I18n.I18nRoute',
-            'pass' => ['id'],
-        ]);
+        $builder->connect(
+            '/users/edit/{id}',
+            [
+                'controller' => 'Users',
+                'action' => 'edit'
+            ],
+            [
+                '_name' => 'account',
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                'pass' => ['id'],
+            ]
+        );
 
         $builder->connect('/articles/add-comment/*', ['controller' => 'Articles', 'action' => 'addComment'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
         $builder->connect(
@@ -217,7 +219,7 @@ return function (RouteBuilder $routes): void {
                 '_name' => 'tags-index',
             ]
         );
-        
+
         $builder->connect(
             'articles/{slug}',
             [
@@ -240,7 +242,7 @@ return function (RouteBuilder $routes): void {
             [
                 'routeClass' => 'ADmad/I18n.I18nRoute',
                 '_name' => 'page-by-slug',
-                'pass' => ['slug'] 
+                'pass' => ['slug']
             ]
         );
 
@@ -253,7 +255,7 @@ return function (RouteBuilder $routes): void {
             [
                 'routeClass' => 'ADmad/I18n.I18nRoute',
                 '_name' => 'tag-by-slug',
-                'pass' => ['slug'] 
+                'pass' => ['slug']
             ]
         );
 
@@ -272,14 +274,44 @@ return function (RouteBuilder $routes): void {
 
     $routes->prefix('Admin', function (RouteBuilder $routes) {
         $routes->connect('/', ['controller' => 'Articles', 'action' => 'index', 'prefix' => 'Admin']);
-        
+
         // Specific route for removing images from galleries
         $routes->connect(
             '/image-galleries/remove-image/{id}/{imageId}',
             ['controller' => 'ImageGalleries', 'action' => 'removeImage'],
             ['pass' => ['id', 'imageId']]
         );
-        
+
+
+        // //// START OF PRODUCTS ROUTES
+        // Products routes
+        $routes->connect('/products/dashboard', [
+            'controller' => 'Products',
+            'action' => 'dashboard'
+        ]);
+        $routes->connect('/products', [
+            'controller' => 'Products',
+            'action' => 'index'
+        ]);
+        $routes->connect('/products/toggle-featured/*', [
+            'controller' => 'Products',
+            'action' => 'toggleFeatured'
+        ]);
+        $routes->connect('/products/verify/*', [
+            'controller' => 'Products',
+            'action' => 'verify'
+        ]);
+        $routes->connect('/products/bulk-verify', [
+            'controller' => 'Products',
+            'action' => 'bulkVerify'
+        ]);
+
+        // Product Categories routes
+        $routes->connect('/product-categories/reorder', [
+            'controller' => 'ProductCategories',
+            'action' => 'reorder'
+        ]);
+        // END OF PRODUCTS ROUTES
         $routes->fallbacks(DashedRoute::class);
     });
 

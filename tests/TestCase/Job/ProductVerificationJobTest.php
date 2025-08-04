@@ -11,12 +11,7 @@ use Queue\Queue\Processor;
 
 class ProductVerificationJobTest extends TestCase
 {
-    protected $fixtures = [
-        'app.Products',
-        'app.Users',
-        'app.Tags',
-        'app.ProductsTags'
-    ];
+
 
     public function testExecuteSuccess(): void
     {

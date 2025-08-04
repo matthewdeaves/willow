@@ -3,42 +3,11 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
-use Cake\ORM\Query\SelectQuery;
-use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
-/**
- * Products Model
- *
- * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
- * @property \App\Model\Table\ArticlesTable&\Cake\ORM\Association\BelongsTo $Articles
- * @property \App\Model\Table\TagsTable&\Cake\ORM\Association\BelongsToMany $Tags
- *
- * @method \App\Model\Entity\Product newEmptyEntity()
- * @method \App\Model\Entity\Product newEntity(array $data, array $options = [])
- * @method array<\App\Model\Entity\Product> newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Product get(mixed $primaryKey, array|string $finder = 'all', \Psr\SimpleCache\CacheInterface|string|null $cache = null, \Closure|string|null $cacheKey = null, mixed ...$args)
- * @method \App\Model\Entity\Product findOrCreate($search, ?callable $callback = null, array $options = [])
- * @method \App\Model\Entity\Product patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method array<\App\Model\Entity\Product> patchEntities(iterable $entities, array $data, array $options = [])
- * @method \App\Model\Entity\Product|false save(\Cake\Datasource\EntityInterface $entity, array $options = [])
- * @method \App\Model\Entity\Product saveOrFail(\Cake\Datasource\EntityInterface $entity, array $options = [])
- * @method iterable<\App\Model\Entity\Product>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\Product>|false saveMany(iterable $entities, array $options = [])
- * @method iterable<\App\Model\Entity\Product>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\Product> saveManyOrFail(iterable $entities, array $options = [])
- * @method iterable<\App\Model\Entity\Product>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\Product>|false deleteMany(iterable $entities, array $options = [])
- * @method iterable<\App\Model\Entity\Product>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\Product> deleteManyOrFail(iterable $entities, array $options = [])
- *
- * @mixin \Cake\ORM\Behavior\TimestampBehavior
- */
 class ProductsTable extends Table
 {
-    /**
-     * Initialize method
-     *
-     * @param array<string, mixed> $config The configuration for the Table.
-     * @return void
-     */
     public function initialize(array $config): void
     {
         parent::initialize($config);
@@ -48,14 +17,24 @@ class ProductsTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+        $this->addBehavior('Sluggable', [
+            'slug' => 'slug',
+            'displayField' => 'title'
+        ]);
 
+        // Core relationships
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'joinType' => 'INNER',
         ]);
+
         $this->belongsTo('Articles', [
             'foreignKey' => 'article_id',
+            'joinType' => 'LEFT',
+            'propertyName' => 'article'
         ]);
+
+        // Many-to-many with Tags (unified tagging system)
         $this->belongsToMany('Tags', [
             'foreignKey' => 'product_id',
             'targetForeignKey' => 'tag_id',
@@ -63,21 +42,11 @@ class ProductsTable extends Table
         ]);
     }
 
-    /**
-     * Default validation rules.
-     *
-     * @param \Cake\Validation\Validator $validator Validator instance.
-     * @return \Cake\Validation\Validator
-     */
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->uuid('user_id')
-            ->notEmptyString('user_id');
-
-        $validator
-            ->uuid('article_id')
-            ->allowEmptyString('article_id');
+            ->uuid('id')
+            ->allowEmptyString('id', null, 'create');
 
         $validator
             ->scalar('title')
@@ -111,21 +80,6 @@ class ProductsTable extends Table
             ->allowEmptyString('price');
 
         $validator
-            ->scalar('currency')
-            ->maxLength('currency', 3)
-            ->allowEmptyString('currency');
-
-        $validator
-            ->scalar('image')
-            ->maxLength('image', 255)
-            ->allowEmptyFile('image');
-
-        $validator
-            ->scalar('alt_text')
-            ->maxLength('alt_text', 255)
-            ->allowEmptyString('alt_text');
-
-        $validator
             ->boolean('is_published')
             ->notEmptyString('is_published');
 
@@ -133,35 +87,99 @@ class ProductsTable extends Table
             ->boolean('featured')
             ->notEmptyString('featured');
 
-        $validator
-            ->scalar('verification_status')
-            ->maxLength('verification_status', 20)
-            ->notEmptyString('verification_status');
-
-        $validator
-            ->decimal('reliability_score')
-            ->allowEmptyString('reliability_score');
-
-        $validator
-            ->integer('view_count')
-            ->notEmptyString('view_count');
-
         return $validator;
     }
 
     /**
-     * Returns a rules checker object that will be used for validating
-     * application integrity.
-     *
-     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
-     * @return \Cake\ORM\RulesChecker
+     * Get published products with optional filtering
      */
-    public function buildRules(RulesChecker $rules): RulesChecker
+    public function getPublishedProducts(array $options = []): \Cake\ORM\Query
     {
-        $rules->add($rules->isUnique(['slug']), ['errorField' => 'slug']);
-        $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
-        $rules->add($rules->existsIn(['article_id'], 'Articles'), ['errorField' => 'article_id']);
+        $query = $this->find()
+            ->where(['Products.is_published' => true])
+            ->contain(['Users', 'Tags', 'Articles'])
+            ->order(['Products.created' => 'DESC']);
 
-        return $rules;
+        // Apply filters
+        if (!empty($options['tag'])) {
+            $query->matching('Tags', function ($q) use ($options) {
+                return $q->where(['Tags.slug' => $options['tag']]);
+            });
+        }
+
+        if (!empty($options['manufacturer'])) {
+            $query->where(['Products.manufacturer LIKE' => '%' . $options['manufacturer'] . '%']);
+        }
+
+        if (!empty($options['featured'])) {
+            $query->where(['Products.featured' => true]);
+        }
+
+        return $query;
+    }
+
+    /**
+     * Get products by verification status
+     */
+    public function getProductsByStatus(string $status): \Cake\ORM\Query
+    {
+        return $this->find()
+            ->where(['verification_status' => $status])
+            ->contain(['Users', 'Tags'])
+            ->order(['created' => 'ASC']);
+    }
+
+    /**
+     * Search products across title, description, manufacturer
+     */
+    public function searchProducts(string $term): \Cake\ORM\Query
+    {
+        return $this->find()
+            ->where([
+                'OR' => [
+                    'Products.title LIKE' => "%{$term}%",
+                    'Products.description LIKE' => "%{$term}%",
+                    'Products.manufacturer LIKE' => "%{$term}%",
+                    'Products.model_number LIKE' => "%{$term}%"
+                ]
+            ])
+            ->contain(['Tags', 'Users'])
+            ->where(['Products.is_published' => true]);
+    }
+
+    /**
+     * Get products with same tags (for related products)
+     */
+    public function getRelatedProducts(string $productId, int $limit = 5): array
+    {
+        $product = $this->get($productId, ['contain' => ['Tags']]);
+
+        if (empty($product->tags)) {
+            return [];
+        }
+
+        $tagIds = array_map(fn($tag) => $tag->id, $product->tags);
+
+        return $this->find()
+            ->matching('Tags', function ($q) use ($tagIds) {
+                return $q->where(['Tags.id IN' => $tagIds]);
+            })
+            ->where([
+                'Products.id !=' => $productId,
+                'Products.is_published' => true
+            ])
+            ->limit($limit)
+            ->toArray();
+    }
+
+    /**
+     * Increment view count
+     */
+    public function incrementViewCount(string $productId): bool
+    {
+        return $this->updateAll(
+            ['view_count = view_count + 1'],
+            ['id' => $productId]
+        );
     }
 }

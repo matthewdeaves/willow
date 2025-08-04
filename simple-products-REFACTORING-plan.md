@@ -1,4 +1,4 @@
-Overview
+### Overview:
 
 This document provides a comprehensive, step-by-step implementation plan for implementing a **simplified** Product Management System in Willow CMS starting from version tag v1.4.0. The system features a single products table with essential fields, unified tagging across articles and products, and optional article associations for detailed product information.
 
@@ -40,7 +40,7 @@ class CreateSimplifiedProducts extends AbstractMigration
             'id' => false,
             'primary_key' => ['id'],
         ]);
-      
+    
         $table->addColumn('id', 'uuid', [
             'default' => null,
             'null' => false,
@@ -148,7 +148,7 @@ class CreateSimplifiedProducts extends AbstractMigration
             'id' => false,
             'primary_key' => ['product_id', 'tag_id'],
         ]);
-      
+    
         $tagsTable->addColumn('product_id', 'uuid', [
             'default' => null,
             'null' => false,
@@ -233,7 +233,7 @@ class ProductsTable extends Table
             'foreignKey' => 'user_id',
             'joinType' => 'INNER',
         ]);
-      
+    
         $this->belongsTo('Articles', [
             'foreignKey' => 'article_id',
             'joinType' => 'LEFT',
@@ -359,13 +359,13 @@ class ProductsTable extends Table
     public function getRelatedProducts(string $productId, int $limit = 5): array
     {
         $product = $this->get($productId, ['contain' => ['Tags']]);
-      
+    
         if (empty($product->tags)) {
             return [];
         }
 
         $tagIds = array_map(fn($tag) => $tag->id, $product->tags);
-      
+    
         return $this->find()
             ->matching('Tags', function ($q) use ($tagIds) {
                 return $q->where(['Tags.id IN' => $tagIds]);
@@ -458,14 +458,14 @@ class EnhanceSlugsForProducts extends AbstractMigration
     {
         // Add any necessary indexes for better performance with Products
         $table = $this->table('slugs');
-      
+    
         // Ensure we have proper composite index for model + foreign_key lookups
         if (!$table->hasIndex(['model', 'foreign_key'])) {
             $table->addIndex(['model', 'foreign_key'], [
                 'name' => 'idx_slugs_model_foreign'
             ]);
         }
-      
+    
         $table->update();
     }
 }
@@ -521,7 +521,7 @@ class UnifiedSearchService
             $products = $this->productsTable->searchProducts($term)
                 ->limit($limit)
                 ->toArray();
-              
+            
             $results['products'] = array_map(function($product) {
                 return [
                     'id' => $product->id,
@@ -912,7 +912,7 @@ class ProductVerificationJob extends AbstractJob
     public function execute(array $data): void
     {
         $this->validateArguments($data, ['product_id']);
-      
+    
         $productId = $data['product_id'];
         $this->log("Starting verification for product {$productId}", 'info');
 
@@ -924,7 +924,7 @@ class ProductVerificationJob extends AbstractJob
             ]);
 
             $verificationScore = $this->calculateVerificationScore($product);
-          
+        
             // Use AI verification if enabled
             if (SettingsManager::read('Products.aiVerificationEnabled', true)) {
                 $aiScore = $this->runAIVerification($product);
@@ -933,7 +933,7 @@ class ProductVerificationJob extends AbstractJob
 
             // Update product with verification score
             $product->reliability_score = $verificationScore;
-          
+        
             // Auto-publish if score is high enough
             $autoPublishThreshold = (float)SettingsManager::read('Products.autoPublishThreshold', 4.0);
             if ($verificationScore >= $autoPublishThreshold) {
@@ -1135,12 +1135,12 @@ class ProductsController extends AppController
         }
 
         $this->set('products', $this->paginate($query));
-      
+    
         // Get filter options
         $tags = $this->Products->Tags
             ->find('list', ['keyField' => 'id', 'valueField' => 'title'])
             ->order(['title' => 'ASC']);
-          
+        
         $this->set(compact('tags'));
     }
 
@@ -1218,23 +1218,23 @@ class ProductsController extends AppController
     public function add(): void
     {
         $product = $this->Products->newEmptyEntity();
-      
+    
         if ($this->request->is('post')) {
             $data = $this->request->getData();
             $data['user_id'] = $this->getRequest()->getAttribute('identity')->id;
-          
+        
             $product = $this->Products->patchEntity($product, $data, [
                 'associated' => ['Tags']
             ]);
-          
+        
             if ($this->Products->save($product)) {
                 $this->Flash->success(__('The product has been saved.'));
-              
+            
                 // Queue verification job
                 $this->queueJob('ProductVerificationJob', [
                     'product_id' => $product->id
                 ]);
-              
+            
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The product could not be saved. Please, try again.'));
@@ -1259,24 +1259,24 @@ class ProductsController extends AppController
         $product = $this->Products->get($id, [
             'contain' => ['Tags'],
         ]);
-      
+    
         if ($this->request->is(['patch', 'post', 'put'])) {
             $originalScore = $product->reliability_score;
-          
+        
             $product = $this->Products->patchEntity($product, $this->request->getData(), [
                 'associated' => ['Tags']
             ]);
-          
+        
             if ($this->Products->save($product)) {
                 $this->Flash->success(__('The product has been saved.'));
-              
+            
                 // Re-verify if significant changes were made
                 if ($this->hasSignificantChanges($product)) {
                     $this->queueJob('ProductVerificationJob', [
                         'product_id' => $product->id
                     ]);
                 }
-              
+            
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The product could not be saved. Please, try again.'));
@@ -1299,7 +1299,7 @@ class ProductsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $product = $this->Products->get($id);
-      
+    
         if ($this->Products->delete($product)) {
             $this->Flash->success(__('The product has been deleted.'));
         } else {
@@ -1315,13 +1315,13 @@ class ProductsController extends AppController
     public function verify($id = null): void
     {
         $this->request->allowMethod(['post']);
-      
+    
         $this->queueJob('ProductVerificationJob', [
             'product_id' => $id
         ]);
-      
+    
         $this->Flash->success(__('Product verification has been queued.'));
-      
+    
         return $this->redirect(['action' => 'view', $id]);
     }
 
@@ -1331,17 +1331,17 @@ class ProductsController extends AppController
     public function toggleFeatured($id = null): void
     {
         $this->request->allowMethod(['post']);
-      
+    
         $product = $this->Products->get($id);
         $product->featured = !$product->featured;
-      
+    
         if ($this->Products->save($product)) {
             $status = $product->featured ? 'featured' : 'unfeatured';
             $this->Flash->success(__('Product has been {0}.', $status));
         } else {
             $this->Flash->error(__('Could not update product status.'));
         }
-      
+    
         return $this->redirect($this->referer(['action' => 'index']));
     }
 
@@ -1600,10 +1600,10 @@ class ProductsControllerTest extends TestCase
     public function testIndex(): void
     {
         $this->get('/admin/products');
-      
+    
         $this->assertResponseOk();
         $this->assertResponseContains('Products');
-      
+    
         // Test that products are displayed
         $viewVars = $this->viewVariable('products');
         $this->assertNotEmpty($viewVars);
@@ -1614,11 +1614,11 @@ class ProductsControllerTest extends TestCase
         // Test status filter
         $this->get('/admin/products?status=pending');
         $this->assertResponseOk();
-      
+    
         // Test published filter
         $this->get('/admin/products?published=1');
         $this->assertResponseOk();
-      
+    
         // Test search filter
         $this->get('/admin/products?search=test');
         $this->assertResponseOk();
@@ -1627,10 +1627,10 @@ class ProductsControllerTest extends TestCase
     public function testDashboard(): void
     {
         $this->get('/admin/products/dashboard');
-      
+    
         $this->assertResponseOk();
         $this->assertResponseContains('Products Dashboard');
-      
+    
         // Check that required view variables are set
         $this->assertNotNull($this->viewVariable('totalProducts'));
         $this->assertNotNull($this->viewVariable('publishedProducts'));
@@ -1642,9 +1642,9 @@ class ProductsControllerTest extends TestCase
     {
         $products = TableRegistry::getTableLocator()->get('Products');
         $product = $products->find()->first();
-      
+    
         $this->get('/admin/products/view/' . $product->id);
-      
+    
         $this->assertResponseOk();
         $this->assertResponseContains($product->title);
     }
@@ -1652,7 +1652,7 @@ class ProductsControllerTest extends TestCase
     public function testAdd(): void
     {
         $this->get('/admin/products/add');
-      
+    
         $this->assertResponseOk();
         $this->assertResponseContains('Add Product');
     }
@@ -1668,12 +1668,12 @@ class ProductsControllerTest extends TestCase
             'is_published' => false,
             'verification_status' => 'pending'
         ];
-      
+    
         $this->post('/admin/products/add', $data);
-      
+    
         $this->assertResponseSuccess();
         $this->assertFlashMessage('The product has been saved.');
-      
+    
         // Verify product was created
         $products = TableRegistry::getTableLocator()->get('Products');
         $product = $products->find()->where(['title' => 'Test Product'])->first();
@@ -1684,9 +1684,9 @@ class ProductsControllerTest extends TestCase
     {
         $products = TableRegistry::getTableLocator()->get('Products');
         $product = $products->find()->first();
-      
+    
         $this->get('/admin/products/edit/' . $product->id);
-      
+    
         $this->assertResponseOk();
         $this->assertResponseContains('Edit Product');
         $this->assertResponseContains($product->title);
@@ -1697,11 +1697,11 @@ class ProductsControllerTest extends TestCase
         $products = TableRegistry::getTableLocator()->get('Products');
         $product = $products->find()->first();
         $originalStatus = $product->featured;
-      
+    
         $this->post('/admin/products/toggle-featured/' . $product->id);
-      
+    
         $this->assertResponseSuccess();
-      
+    
         // Verify featured status was toggled
         $updatedProduct = $products->get($product->id);
         $this->assertEquals(!$originalStatus, $updatedProduct->featured);
@@ -1711,12 +1711,12 @@ class ProductsControllerTest extends TestCase
     {
         $products = TableRegistry::getTableLocator()->get('Products');
         $product = $products->find()->first();
-      
+    
         $this->post('/admin/products/delete/' . $product->id);
-      
+    
         $this->assertResponseSuccess();
         $this->assertFlashMessage('The product has been deleted.');
-      
+    
         // Verify product was deleted
         $this->assertFalse($products->exists(['id' => $product->id]));
     }
@@ -1732,17 +1732,17 @@ class ProductsControllerTest extends TestCase
                 ['_ids' => [1, 2]] // Assuming tags with IDs 1 and 2 exist
             ]
         ];
-      
+    
         $this->post('/admin/products/add', $data);
         $this->assertResponseSuccess();
-      
+    
         // Verify tags were associated
         $products = TableRegistry::getTableLocator()->get('Products');
         $product = $products->find()
             ->contain(['Tags'])
             ->where(['title' => 'Tagged Product'])
             ->first();
-          
+        
         $this->assertNotEmpty($product->tags);
     }
 }
@@ -1784,7 +1784,7 @@ class UnifiedSearchServiceTest extends TestCase
     public function testSearch(): void
     {
         $results = $this->service->search('test');
-      
+    
         $this->assertIsArray($results);
         $this->assertArrayHasKey('products', $results);
         $this->assertArrayHasKey('articles', $results);
@@ -1796,7 +1796,7 @@ class UnifiedSearchServiceTest extends TestCase
     public function testSearchByTag(): void
     {
         $results = $this->service->searchByTag('technology');
-      
+    
         $this->assertIsArray($results);
         $this->assertArrayHasKey('tag', $results);
         $this->assertArrayHasKey('articles', $results);
@@ -1806,10 +1806,10 @@ class UnifiedSearchServiceTest extends TestCase
     public function testGetSuggestions(): void
     {
         $suggestions = $this->service->getSuggestions('test', 5);
-      
+    
         $this->assertIsArray($suggestions);
         $this->assertLessThanOrEqual(15, count($suggestions)); // 5 * 3 types max
-      
+    
         if (!empty($suggestions)) {
             $this->assertArrayHasKey('text', $suggestions[^0]);
             $this->assertArrayHasKey('type', $suggestions[^0]);
@@ -1821,7 +1821,7 @@ class UnifiedSearchServiceTest extends TestCase
     {
         // This tests the internal scoring mechanism
         $results = $this->service->search('exact product title');
-      
+    
         if (!empty($results['mixed'])) {
             // Results should be ordered by relevance
             $scores = [];
@@ -2068,7 +2068,3 @@ docker compose exec willowcms bin/cake migrations rollback
 # Run core test suite to ensure base functionality
 docker compose exec willowcms php vendor/bin/phpunit tests/TestCase/Model/Table/ArticlesTableTest.php
 ```
-
-This comprehensive implementation plan ensures that the simplified Product Management System is properly implemented using CakePHP conventions, thoroughly tested, and seamlessly integrated with the existing Willow CMS architecture while maintaining the exact same structure and depth as the AI_IMPROVEMENTS_IMPLEMENTATION_PLAN.md file.
-
-<div style="text-align: center">⁂</div>

@@ -19,6 +19,7 @@ class ProductsFixture extends TestFixture
     {
         $this->records = [
             [
+                // Example product record
                 'id' => '0cab0d79-877c-4e97-81c3-472cefa099a5',
                 'user_id' => 'e1e68d5b-4607-473f-afbb-0df146d1980f',
                 'article_id' => 'b588654f-876b-464f-b8ca-e0eee1d9a766',

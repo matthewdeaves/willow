@@ -3,11 +3,27 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+
+use App\Model\Behavior\ImageValidationTrait;
+use Cake\Log\LogTrait;
+use Cake\ORM\Behavior\Translate\TranslateTrait;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
+
+
+
+
+
 class ProductsTable extends Table
 {
+    use ImageValidationTrait;
+    use LogTrait;
+    use QueueableJobsTrait;
+    use SeoFieldsTrait;
+    use TranslateTrait;
+
+
     public function initialize(array $config): void
     {
         parent::initialize($config);
@@ -17,7 +33,7 @@ class ProductsTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
-        $this->addBehavior('Sluggable', [
+        $this->addBehavior('Slug', [
             'slug' => 'slug',
             'displayField' => 'title'
         ]);
@@ -54,13 +70,11 @@ class ProductsTable extends Table
             ->requirePresence('title', 'create')
             ->notEmptyString('title');
 
-        $validator
-            ->scalar('slug')
-            ->maxLength('slug', 191)
-            ->requirePresence('slug', 'create')
-            ->notEmptyString('slug')
-            ->add('slug', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
-
+        // $validator
+        //     ->scalar('slug')
+        //     ->maxLength('slug', 191)
+        //     ->requirePresence('slug', 'create')
+        //     ->notEmptyString('slug')
         $validator
             ->scalar('description')
             ->allowEmptyString('description');

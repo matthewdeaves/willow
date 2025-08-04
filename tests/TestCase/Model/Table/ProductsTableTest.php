@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Test\TestCase\Model\Table;
+namespace App\Test\TestCase\Model\Entity;
 
 use App\Model\Table\ProductsTable;
 use Cake\TestSuite\TestCase;

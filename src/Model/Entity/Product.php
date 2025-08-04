@@ -2,7 +2,9 @@
 declare(strict_types=1);
 
 namespace App\Model\Entity;
-
+use Cake\ORM\Behavior\Translate\TranslateTrait;
+use App\Model\Entity\Traits\SeoEntityTrait;
+use App\Model\Entity\Traits\ImageUrlTrait;
 use Cake\ORM\Entity;
 
 /**
@@ -27,13 +29,16 @@ use Cake\ORM\Entity;
  * @property int $view_count
  * @property \Cake\I18n\DateTime $created
  * @property \Cake\I18n\DateTime $modified
- *
  * @property \App\Model\Entity\User $user
  * @property \App\Model\Entity\Article $article
  * @property \App\Model\Entity\Tag[] $tags
+ * 
  */
 class Product extends Entity
 {
+    use SeoEntityTrait;
+    use TranslateTrait;
+    use ImageUrlTrait;
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *
@@ -65,5 +70,13 @@ class Product extends Entity
         'user' => true,
         'article' => true,
         'tags' => true,
+        // Allow mass assignment for SEO fields
+        'meta_title' => true,
+        'meta_description' => true,
+        'meta_keywords' => true,
+        'facebook_description' => true,
+        'linkedin_description' => true,
+        'twitter_description' => true,
+        'instagram_description' => true,
     ];
 }

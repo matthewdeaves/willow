@@ -18,6 +18,8 @@ class ProductTest extends TestCase
      */
     protected $Product;
 
+    protected array $fixtures = ['app.Products', 'app.Users', 'app.Articles', 'app.Tags'];
+
     /**
      * setUp method
      *
@@ -26,7 +28,7 @@ class ProductTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->Product = new Product();
+        $this->Products = $this->getTableLocator()->get('Products');
     }
 
     /**

@@ -19,8 +19,7 @@ This document provides a comprehensive, step-by-step implementation plan for imp
 # Create the simplified products migration
 docker compose exec willowcms bin/cake bake migration CreateSimplifiedProducts
 
-# Run the migration after editing
-docker compose exec willowcms bin/cake migrations migrate
+
 ```
 
 **Migration Content:** `config/Migrations/YYYYMMDD_HHMMSS_CreateSimplifiedProducts.php`
@@ -162,6 +161,11 @@ class CreateSimplifiedProducts extends AbstractMigration
         ->create();
     }
 }
+```
+
+```bash
+# Run the migration after editing
+docker compose exec willowcms bin/cake migrations migrate
 ```
 
 #### 1.2 Generate Core Model Structure

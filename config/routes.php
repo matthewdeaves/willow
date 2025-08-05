@@ -287,14 +287,34 @@ return function (RouteBuilder $routes): void {
 
         // //// START OF PRODUCTS ROUTES
         // Products routes
+        //dashboard for analytics
         $routes->connect('/products/dashboard', [
             'controller' => 'Products',
             'action' => 'dashboard'
         ]);
+        // product admin references for all products (verified, unverified, featured, etc.)
         $routes->connect('/products', [
             'controller' => 'Products',
             'action' => 'index'
         ]);
+        // product admin references for all products (verified, unverified, featured, etc.) v2
+        $routes->connect('/products/v2', [
+            'controller' => 'Products',
+            'action' => 'index2'
+        ]);
+        $routes->connect('/products/view2/*', [
+            'controller' => 'Products',
+            'action' => 'view2'
+        ]);
+        $routes->connect('/products/edit2/*', [
+            'controller' => 'Products',
+            'action' => 'edit2'
+        ]);
+        $routes->connect('/products/add2', [
+            'controller' => 'Products',
+            'action' => 'add2'
+        ]);
+
         $routes->connect('/products/toggle-featured/*', [
             'controller' => 'Products',
             'action' => 'toggleFeatured'

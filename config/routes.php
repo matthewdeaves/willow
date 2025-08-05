@@ -24,6 +24,8 @@
 use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
 
+use Cake\Core\Configure;
+
 /*
  * This file is loaded in the context of the `Application` class.
  * So you can use  `$this` to reference the application class instance
@@ -305,6 +307,26 @@ return function (RouteBuilder $routes): void {
             'controller' => 'Products',
             'action' => 'bulkVerify'
         ]);
+        $routes->connect('/products/add', [
+            'controller' => 'Products',
+            'action' => 'add'
+        ]);
+        $routes->connect('/products/edit/*', [
+            'controller' => 'Products',
+            'action' => 'edit'
+        ]);
+        $routes->connect('/products/delete/*', [
+            'controller' => 'Products',
+            'action' => 'delete'
+        ]);
+        $routes->connect('/products/view/*', [
+            'controller' => 'Products',
+            'action' => 'view'
+        ]);
+        $routes->connect('/products/reorder', [
+            'controller' => 'Products',
+            'action' => 'reorder'
+        ]);
 
         // Product Categories routes
         $routes->connect('/product-categories/reorder', [
@@ -320,5 +342,9 @@ return function (RouteBuilder $routes): void {
         $routes->plugin('DebugKit', function (RouteBuilder $routes) {
             $routes->fallbacks();
         });
+        Configure::write('DebugKit.safeTld', ['local', 'localhost', 'dev']);
+        Configure::write('DebugKit.ignoreAuthorization', true);
+
+
     }
 };

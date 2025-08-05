@@ -3,17 +3,12 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
-
 use App\Model\Behavior\ImageValidationTrait;
 use Cake\Log\LogTrait;
 use Cake\ORM\Behavior\Translate\TranslateTrait;
+use Cake\ORM\Query;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
-
-
-
-
-
 
 class ProductsTable extends Table
 {
@@ -22,7 +17,6 @@ class ProductsTable extends Table
     use QueueableJobsTrait;
     use SeoFieldsTrait;
     use TranslateTrait;
-
 
     public function initialize(array $config): void
     {
@@ -35,7 +29,7 @@ class ProductsTable extends Table
         $this->addBehavior('Timestamp');
         $this->addBehavior('Slug', [
             'slug' => 'slug',
-            'displayField' => 'title'
+            'displayField' => 'title',
         ]);
 
         // Core relationships
@@ -47,7 +41,7 @@ class ProductsTable extends Table
         $this->belongsTo('Articles', [
             'foreignKey' => 'article_id',
             'joinType' => 'LEFT',
-            'propertyName' => 'article'
+            'propertyName' => 'article',
         ]);
 
         // Many-to-many with Tags (unified tagging system)
@@ -107,7 +101,7 @@ class ProductsTable extends Table
     /**
      * Get published products with optional filtering
      */
-    public function getPublishedProducts(array $options = []): \Cake\ORM\Query
+    public function getPublishedProducts(array $options = []): Query
     {
         $query = $this->find()
             ->where(['Products.is_published' => true])
@@ -135,7 +129,7 @@ class ProductsTable extends Table
     /**
      * Get products by verification status
      */
-    public function getProductsByStatus(string $status): \Cake\ORM\Query
+    public function getProductsByStatus(string $status): Query
     {
         return $this->find()
             ->where(['verification_status' => $status])
@@ -146,7 +140,7 @@ class ProductsTable extends Table
     /**
      * Search products across title, description, manufacturer
      */
-    public function searchProducts(string $term): \Cake\ORM\Query
+    public function searchProducts(string $term): Query
     {
         return $this->find()
             ->where([
@@ -154,8 +148,8 @@ class ProductsTable extends Table
                     'Products.title LIKE' => "%{$term}%",
                     'Products.description LIKE' => "%{$term}%",
                     'Products.manufacturer LIKE' => "%{$term}%",
-                    'Products.model_number LIKE' => "%{$term}%"
-                ]
+                    'Products.model_number LIKE' => "%{$term}%",
+                ],
             ])
             ->contain(['Tags', 'Users'])
             ->where(['Products.is_published' => true]);
@@ -180,7 +174,7 @@ class ProductsTable extends Table
             })
             ->where([
                 'Products.id !=' => $productId,
-                'Products.is_published' => true
+                'Products.is_published' => true,
             ])
             ->limit($limit)
             ->toArray();
@@ -193,7 +187,7 @@ class ProductsTable extends Table
     {
         return $this->updateAll(
             ['view_count = view_count + 1'],
-            ['id' => $productId]
+            ['id' => $productId],
         );
     }
 }

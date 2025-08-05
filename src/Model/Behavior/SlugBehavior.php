@@ -47,7 +47,7 @@ class SlugBehavior extends Behavior
         'Tag',
         'User',
         'Page',
-        'Product' // New addition
+        'Product', // New addition
     ];
 
     /**

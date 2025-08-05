@@ -2,9 +2,8 @@
 declare(strict_types=1);
 
 namespace App\Model\Entity;
+
 use Cake\ORM\Behavior\Translate\TranslateTrait;
-use App\Model\Entity\Traits\SeoEntityTrait;
-use App\Model\Entity\Traits\ImageUrlTrait;
 use Cake\ORM\Entity;
 
 /**
@@ -32,13 +31,13 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\User $user
  * @property \App\Model\Entity\Article $article
  * @property \App\Model\Entity\Tag[] $tags
- * 
  */
 class Product extends Entity
 {
     use SeoEntityTrait;
     use TranslateTrait;
     use ImageUrlTrait;
+
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *

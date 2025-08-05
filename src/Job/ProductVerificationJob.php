@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace App\Job;
 
-use App\Job\AbstractJob;
 use App\Service\Api\Anthropic\ProductAnalyzer;
 use App\Utility\SettingsManager;
 use Cake\Queue\Job\Message;
+use Exception;
 use Interop\Queue\Processor;
 
 class ProductVerificationJob extends AbstractJob
@@ -48,7 +48,7 @@ class ProductVerificationJob extends AbstractJob
             // Get product data
             $productsTable = $this->getTable('Products');
             $product = $productsTable->get($productId, [
-                'contain' => ['Tags', 'Articles']
+                'contain' => ['Tags', 'Articles'],
             ]);
 
             $verificationScore = $this->calculateVerificationScore($product);
@@ -63,7 +63,7 @@ class ProductVerificationJob extends AbstractJob
             $product->reliability_score = $verificationScore;
 
             // Auto-publish if score is high enough
-            $autoPublishThreshold = (float) SettingsManager::read('Products.autoPublishThreshold', 4.0);
+            $autoPublishThreshold = (float)SettingsManager::read('Products.autoPublishThreshold', 4.0);
             if ($verificationScore >= $autoPublishThreshold) {
                 $product->is_published = true;
                 $product->verification_status = 'approved';
@@ -73,11 +73,10 @@ class ProductVerificationJob extends AbstractJob
 
             // Save the updated product
             if (!$productsTable->save($product)) {
-                throw new \Exception('Failed to save product verification results');
+                throw new Exception('Failed to save product verification results');
             }
 
             return true; // Success
-
         }, $product->title ?? 'Product');
     }
 
@@ -128,7 +127,7 @@ class ProductVerificationJob extends AbstractJob
         }
 
         // Convert to 5-point scale
-        return ($score / $maxScore) * 5.0;
+        return $score / $maxScore * 5.0;
     }
 
     /**
@@ -144,16 +143,16 @@ class ProductVerificationJob extends AbstractJob
                 'model_number' => $product->model_number,
                 'description' => $product->description,
                 'tags' => array_map(fn($tag) => $tag->title, $product->tags ?? []),
-                'price' => $product->price
+                'price' => $product->price,
             ]);
 
             if ($aiAnalysis['success'] && isset($aiAnalysis['data']['overall_score'])) {
                 // Convert AI score (0-100) to our 5-point scale
-                return ($aiAnalysis['data']['overall_score'] / 100) * 5.0;
+                return $aiAnalysis['data']['overall_score'] / 100 * 5.0;
             }
 
             return 3.0; // Neutral score if AI analysis fails
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return 3.0; // Fallback score
         }
     }

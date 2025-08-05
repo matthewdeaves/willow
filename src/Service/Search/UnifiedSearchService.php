@@ -28,7 +28,7 @@ class UnifiedSearchService
             'products' => [],
             'articles' => [],
             'tags' => [],
-            'total' => 0
+            'total' => 0,
         ];
 
         $limit = $options['limit'] ?? 10;
@@ -53,7 +53,7 @@ class UnifiedSearchService
                     'manufacturer' => $product->manufacturer,
                     'price' => $product->price,
                     'currency' => $product->currency,
-                    'tags' => array_map(fn($tag) => $tag->title, $product->tags ?? [])
+                    'tags' => array_map(fn($tag) => $tag->title, $product->tags ?? []),
                 ];
             }, $products);
         }
@@ -65,9 +65,9 @@ class UnifiedSearchService
                     'OR' => [
                         'Articles.title LIKE' => "%{$term}%",
                         'Articles.body LIKE' => "%{$term}%",
-                        'Articles.lede LIKE' => "%{$term}%"
+                        'Articles.lede LIKE' => "%{$term}%",
                     ],
-                    'Articles.is_published' => true
+                    'Articles.is_published' => true,
                 ])
                 ->contain(['Tags', 'Users'])
                 ->limit($limit)
@@ -82,7 +82,7 @@ class UnifiedSearchService
                     'description' => Text::truncate($article->lede ?? '', 150),
                     'author' => $article->user->username ?? '',
                     'created' => $article->created,
-                    'tags' => array_map(fn($tag) => $tag->title, $article->tags ?? [])
+                    'tags' => array_map(fn($tag) => $tag->title, $article->tags ?? []),
                 ];
             }, $articles);
         }
@@ -101,9 +101,9 @@ class UnifiedSearchService
                     'title' => $tag->title,
                     'type' => 'tag',
                     'url' => '/search?tag=' . $tag->slug,
-                    'description' => "Tag with " . count($tag->articles ?? []) . " articles and " . count($tag->products ?? []) . " products",
+                    'description' => 'Tag with ' . count($tag->articles ?? []) . ' articles and ' . count($tag->products ?? []) . ' products',
                     'article_count' => count($tag->articles ?? []),
-                    'product_count' => count($tag->products ?? [])
+                    'product_count' => count($tag->products ?? []),
                 ];
             }, $tags);
         }
@@ -115,6 +115,7 @@ class UnifiedSearchService
         usort($allResults, function ($a, $b) use ($term) {
             $scoreA = $this->calculateRelevanceScore($a, $term);
             $scoreB = $this->calculateRelevanceScore($b, $term);
+
             return $scoreB <=> $scoreA;
         });
 
@@ -140,7 +141,7 @@ class UnifiedSearchService
                     return $q->where(['is_published' => true])
                         ->contain(['Users'])
                         ->order(['created' => 'DESC']);
-                }
+                },
             ])
             ->first();
 
@@ -152,10 +153,10 @@ class UnifiedSearchService
             'tag' => [
                 'id' => $tag->id,
                 'title' => $tag->title,
-                'slug' => $tag->slug
+                'slug' => $tag->slug,
             ],
             'articles' => $tag->articles ?? [],
-            'products' => $tag->products ?? []
+            'products' => $tag->products ?? [],
         ];
     }
 
@@ -171,7 +172,7 @@ class UnifiedSearchService
             ->select(['title', 'slug', 'manufacturer'])
             ->where([
                 'title LIKE' => "%{$term}%",
-                'is_published' => true
+                'is_published' => true,
             ])
             ->limit($limit)
             ->toArray();
@@ -181,7 +182,7 @@ class UnifiedSearchService
                 'text' => $product->title,
                 'type' => 'product',
                 'url' => '/products/' . $product->slug,
-                'subtitle' => $product->manufacturer
+                'subtitle' => $product->manufacturer,
             ];
         }
 
@@ -190,7 +191,7 @@ class UnifiedSearchService
             ->select(['title', 'slug'])
             ->where([
                 'title LIKE' => "%{$term}%",
-                'is_published' => true
+                'is_published' => true,
             ])
             ->limit($limit)
             ->toArray();
@@ -200,7 +201,7 @@ class UnifiedSearchService
                 'text' => $article->title,
                 'type' => 'article',
                 'url' => '/articles/' . $article->slug,
-                'subtitle' => 'Article'
+                'subtitle' => 'Article',
             ];
         }
 
@@ -216,7 +217,7 @@ class UnifiedSearchService
                 'text' => $tag->title,
                 'type' => 'tag',
                 'url' => '/search?tag=' . $tag->slug,
-                'subtitle' => 'Tag'
+                'subtitle' => 'Tag',
             ];
         }
 

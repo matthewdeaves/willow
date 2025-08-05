@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace App\Job;
 
-use App\Job\AbstractJob;
 use App\Service\Api\Anthropic\ProductAnalyzer;
 use Cake\Queue\Job\Message;
+use Exception;
 use Interop\Queue\Processor;
 
 class ProductSeoUpdateJob extends AbstractJob
@@ -45,7 +45,7 @@ class ProductSeoUpdateJob extends AbstractJob
             // Get product data
             $productsTable = $this->getTable('Products');
             $product = $productsTable->get($productId, [
-                'contain' => ['Tags']
+                'contain' => ['Tags'],
             ]);
 
             // Generate SEO content using AI
@@ -55,11 +55,11 @@ class ProductSeoUpdateJob extends AbstractJob
                 'manufacturer' => $product->manufacturer,
                 'model_number' => $product->model_number,
                 'description' => $product->description,
-                'tags' => array_map(fn($tag) => $tag->title, $product->tags ?? [])
+                'tags' => array_map(fn($tag) => $tag->title, $product->tags ?? []),
             ]);
 
             if (!$seoResult['success']) {
-                throw new \Exception($seoResult['error'] ?? 'SEO generation failed');
+                throw new Exception($seoResult['error'] ?? 'SEO generation failed');
             }
 
             // Update product with SEO data
@@ -69,7 +69,6 @@ class ProductSeoUpdateJob extends AbstractJob
             $product->meta_keywords = $seoData['meta_keywords'];
 
             return $product; // Will be saved by executeWithEntitySave
-
         }, $product->title ?? 'Product');
     }
 }

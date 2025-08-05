@@ -20,57 +20,15 @@ class ProductsController extends AppController
      */
     public function index(): ?Response
     {
-        /////TODO: SET CACHE FOR PRODUCTS AND MAKE VIEW FOR DEFAULT THEME
-////////////////UNCOMMENT LATER //////
-// $cacheKey = $this->cacheKey;
-//         $articles = Cache::read($cacheKey, 'content');
-//         $selectedTagId = $this->request->getQuery('tag');
-
-        //         if (!$articles) {
-//             $query = $this->Articles->find()
-//                 ->where([
-//                     'Articles.kind' => 'article',
-//                     'Articles.is_published' => 1,
-//                 ])
-//                 ->contain(['Users', 'Tags'])
-//                 ->orderBy(['Articles.published' => 'DESC']);
-
-        //             if ($selectedTagId) {
-//                 $query->matching('Tags', function ($q) use ($selectedTagId) {
-//                     return $q->where(['Tags.id' => $selectedTagId]);
-//                 });
-//             }
-
-        //             $year = $this->request->getQuery('year');
-//             $month = $this->request->getQuery('month');
-
-        //             if ($year) {
-//                 $conditions = ['YEAR(Articles.published)' => $year];
-//                 if ($month) {
-//                     $conditions['MONTH(Articles.published)'] = $month;
-//                 }
-//                 $query->where($conditions);
-//             }
-
-        //             $articles = $this->paginate($query);
-//             Cache::write($cacheKey, $articles, 'content');
         $statusFilter = $this->request->getQuery('status');
         $query = $this->Products->find()
             ->contain(['Users', 'Articles']);
 
-
+        
         $search = $this->request->getQuery('search');
         if (!empty($search)) {
             $query->where([
                 'OR' => [
-                    'Products.title LIKE' => '%' . $search . '%',
-                    'Products.slug LIKE' => '%' . $search . '%',
-                    'Products.description LIKE' => '%' . $search . '%',
-                    'Products.manufacturer LIKE' => '%' . $search . '%',
-                    'Products.model_number LIKE' => '%' . $search . '%',
-                    'Products.image LIKE' => '%' . $search . '%',
-                    'Products.alt_text LIKE' => '%' . $search . '%',
-                    'Products.verification_status LIKE' => '%' . $search . '%',
                 ],
             ]);
         }

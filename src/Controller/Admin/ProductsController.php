@@ -3,9 +3,10 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
-use App\Controller\Admin\AppController;
-use Cake\Http\Response;
+use App\Controller\AppController;
+use Cake\Cache\Cache;
 use Cake\Datasource\Exception\RecordNotFoundException;
+use Cake\Http\Response;
 
 class ProductsController extends AppController
 {
@@ -87,10 +88,12 @@ class ProductsController extends AppController
         if ($this->request->is('ajax')) {
             $this->set(compact('products', 'search'));
             $this->viewBuilder()->setLayout('ajax');
+
             return $this->render('search_results');
         }
 
         $this->set(compact('products'));
+
         return null;
     }
 
@@ -119,7 +122,7 @@ class ProductsController extends AppController
         $topManufacturers = $this->Products->find()
             ->select([
                 'manufacturer',
-                'count' => $this->Products->find()->func()->count('*')
+                'count' => $this->Products->find()->func()->count('*'),
             ])
             ->where(['manufacturer IS NOT' => null, 'manufacturer !=' => ''])
             ->group('manufacturer')
@@ -131,7 +134,7 @@ class ProductsController extends AppController
         $popularTags = $this->Products->Tags->find()
             ->select([
                 'Tags.title',
-                'count' => $this->Products->Tags->find()->func()->count('ProductsTags.product_id')
+                'count' => $this->Products->Tags->find()->func()->count('ProductsTags.product_id'),
             ])
             ->leftJoinWith('Products')
             ->group('Tags.id')
@@ -147,7 +150,7 @@ class ProductsController extends AppController
             'featuredProducts',
             'recentProducts',
             'topManufacturers',
-            'popularTags'
+            'popularTags',
         ));
     }
 
@@ -164,7 +167,7 @@ class ProductsController extends AppController
             'contain' => [
                 'Users',
                 'Tags',
-                'Articles'
+                'Articles',
             ],
         ]);
 
@@ -192,7 +195,7 @@ class ProductsController extends AppController
             $data['user_id'] = $this->getRequest()->getAttribute('identity')->id;
 
             $product = $this->Products->patchEntity($product, $data, [
-                'associated' => ['Tags']
+                'associated' => ['Tags'],
             ]);
 
             // Handle image uploads
@@ -207,7 +210,7 @@ class ProductsController extends AppController
 
                 // Queue verification job
                 $this->queueJob('ProductVerificationJob', [
-                    'product_id' => $product->id
+                    'product_id' => $product->id,
                 ]);
 
                 return $this->redirect(['action' => 'index']);
@@ -225,6 +228,7 @@ class ProductsController extends AppController
         $token = $this->request->getAttribute('csrfToken');
 
         $this->set(compact('product', 'users', 'articles', 'tags', 'token'));
+
         return null;
     }
 
@@ -246,7 +250,7 @@ class ProductsController extends AppController
             $originalScore = $product->reliability_score;
 
             $product = $this->Products->patchEntity($product, $data, [
-                'associated' => ['Tags']
+                'associated' => ['Tags'],
             ]);
 
             // Handle image uploads
@@ -271,7 +275,7 @@ class ProductsController extends AppController
                 // Re-verify if significant changes were made
                 if ($this->hasSignificantChanges($product)) {
                     $this->queueJob('ProductVerificationJob', [
-                        'product_id' => $product->id
+                        'product_id' => $product->id,
                     ]);
                 }
 
@@ -288,6 +292,7 @@ class ProductsController extends AppController
         $tags = $this->Products->Tags->find('list', ['limit' => 200])->all();
 
         $this->set(compact('product', 'users', 'articles', 'tags'));
+
         return null;
     }
 
@@ -321,7 +326,7 @@ class ProductsController extends AppController
         $this->request->allowMethod(['post']);
 
         $this->queueJob('ProductVerificationJob', [
-            'product_id' => $id
+            'product_id' => $id,
         ]);
 
         $this->Flash->success(__('Product verification has been queued.'));
@@ -388,7 +393,7 @@ class ProductsController extends AppController
 
         // Create job with proper Message format
         $this->Queue->createJob($jobClass, $data, [
-            'reference' => $data['product_id'] ?? null
+            'reference' => $data['product_id'] ?? null,
         ]);
     }
 
@@ -397,6 +402,6 @@ class ProductsController extends AppController
      */
     private function clearContentCache(): void
     {
-        \Cake\Cache\Cache::clear('content');
+        Cache::clear('content');
     }
 }

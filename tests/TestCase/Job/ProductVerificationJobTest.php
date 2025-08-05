@@ -4,15 +4,13 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Job;
 
 use App\Job\ProductVerificationJob;
+use Cake\ORM\TableRegistry;
 use Cake\Queue\Job\Message;
 use Cake\TestSuite\TestCase;
-use Cake\ORM\TableRegistry;
 use Queue\Queue\Processor;
 
 class ProductVerificationJobTest extends TestCase
 {
-
-
     public function testExecuteSuccess(): void
     {
         $productsTable = TableRegistry::getTableLocator()->get('Products');
@@ -25,7 +23,7 @@ class ProductVerificationJobTest extends TestCase
             'manufacturer' => 'Test Manufacturer',
             'model_number' => 'TM-001',
             'user_id' => '1',
-            'verification_status' => 'pending'
+            'verification_status' => 'pending',
         ]);
         $savedProduct = $productsTable->save($product);
 

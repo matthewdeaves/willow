@@ -1,9 +1,9 @@
 [
     {
-        "id": "7f65ab2a-660c-4bd1-a101-784a268dc48d",
+        "id": "a9cbdc6e-19bd-40f9-9a60-a062631474e3",
         "is_admin": true,
         "email": "admin@test.com",
-        "password": "$2y$10$n4s1BHYgKFUEIwwGoEEetOobpf40Vm0S1EVRe5fxoKn/UFrym/U5e",
+        "password": "$2y$10$l0Du9EeAtoASlLKOiUaCoeSeD5pwLkdMiQZnxKyKCz.09M/SqTc5a",
         "image": null,
         "alt_text": null,
         "keywords": null,

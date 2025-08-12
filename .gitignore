@@ -109,3 +109,31 @@ CakePHPBook.txt
 docker/willowcms/config/php/php.ini
 docker/willowcms/config/php/php.ini
 src/Controller/Admin/ProductsController.sample.zip
+full-bin/cms 2.sql/cms_database.sql
+full-bin/cms 2.sql/cms_extra.sql
+full-bin/cms 2.sql/cms_table_aiprompts.sql
+full-bin/cms 2.sql/cms_table_articles_tags.sql
+full-bin/cms 2.sql/cms_table_articles_translations.sql
+full-bin/cms 2.sql/cms_table_articles.sql
+full-bin/cms 2.sql/cms_table_blocked_ips.sql
+full-bin/cms 2.sql/cms_table_comments.sql
+full-bin/cms 2.sql/cms_table_cookie_consents.sql
+full-bin/cms 2.sql/cms_table_email_templates.sql
+full-bin/cms 2.sql/cms_table_image_galleries_images.sql
+full-bin/cms 2.sql/cms_table_image_galleries_translations.sql
+full-bin/cms 2.sql/cms_table_image_galleries.sql
+full-bin/cms 2.sql/cms_table_images.sql
+full-bin/cms 2.sql/cms_table_internationalisations.sql
+full-bin/cms 2.sql/cms_table_models_images.sql
+full-bin/cms 2.sql/cms_table_page_views.sql
+full-bin/cms 2.sql/cms_table_phinxlog.sql
+full-bin/cms 2.sql/cms_table_products_tags.sql
+full-bin/cms 2.sql/cms_table_products.sql
+full-bin/cms 2.sql/cms_table_settings.sql
+full-bin/cms 2.sql/cms_table_slugs.sql
+full-bin/cms 2.sql/cms_table_system_logs.sql
+full-bin/cms 2.sql/cms_table_tags_translations.sql
+full-bin/cms 2.sql/cms_table_tags.sql
+full-bin/cms 2.sql/cms_table_user_account_confirmations.sql
+full-bin/cms 2.sql/cms_table_users.sql
+full-bin/different-assets/cms-copy-foreign-key-comparison.sql

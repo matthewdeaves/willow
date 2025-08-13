@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
+use App\Model\Entity\Product;
 use Cake\Cache\Cache;
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Http\Response;
@@ -154,6 +155,11 @@ class ProductsController extends AppController
         return null;
     }
 
+    /**
+     * Index2 method - Product listing with search and filtering
+     *
+     * @return \Cake\Http\Response|null
+     */
     public function index2(): ?Response
     {
         $statusFilter = $this->request->getQuery('status');
@@ -356,7 +362,10 @@ class ProductsController extends AppController
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
-            $originalScore = $product->reliability_score;
+
+            // TODO: create a reliability score
+            // $originalScore = $product->reliability_score;
+
 
             $product = $this->Products->patchEntity($product, $data, [
                 'associated' => ['Tags'],
@@ -471,7 +480,8 @@ class ProductsController extends AppController
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
-            $originalScore = $product->reliability_score;
+            // TODO: create a reliability score
+            // $originalScore = $product->reliability_score;
 
             $product = $this->Products->patchEntity($product, $data, [
                 'associated' => ['Tags'],
@@ -544,8 +554,11 @@ class ProductsController extends AppController
 
     /**
      * Verify method - Manual verification trigger
+     * This method queues a job to verify the product.
+     *
+     * @param mixed $id
      */
-    public function verify($id = null): void
+    public function verify(mixed $id = null): void
     {
         $this->request->allowMethod(['post']);
 
@@ -560,8 +573,11 @@ class ProductsController extends AppController
 
     /**
      * Toggle featured status
+     *
+     * @param string|null $id Product ID.
+     * @return void
      */
-    public function toggleFeatured($id = null): void
+    public function toggleFeatured(?string $id = null): void
     {
         $this->request->allowMethod(['post']);
 
@@ -581,8 +597,11 @@ class ProductsController extends AppController
 
     /**
      * Toggle published status
+     *
+     * @param string|null $id Product ID.
+     * @return void
      */
-    public function togglePublished($id = null): void
+    public function togglePublished(?string $id = null): void
     {
         $this->request->allowMethod(['post']);
 
@@ -602,8 +621,10 @@ class ProductsController extends AppController
 
     /**
      * Check if product has significant changes requiring re-verification
+     *
+     * @param \App\Model\Entity\Product $product Product entity.
      */
-    private function hasSignificantChanges($product): bool
+    private function hasSignificantChanges(Product $product): bool
     {
         return $product->isDirty(['title', 'description', 'manufacturer', 'model_number']);
     }

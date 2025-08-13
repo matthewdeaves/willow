@@ -37,6 +37,9 @@ class ProductsController extends AppController
     public function index(): ?Response
     {
         $statusFilter = $this->request->getQuery('status');
+        if ($statusFilter) {
+            $query->where(['Products.status' => $statusFilter]);
+        }
         $query = $this->Products->find()
             ->contain(['Users', 'Articles']);
 

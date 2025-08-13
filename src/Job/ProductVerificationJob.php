@@ -47,9 +47,7 @@ class ProductVerificationJob extends AbstractJob
 
             // Get product data
             $productsTable = $this->getTable('Products');
-            $product = $productsTable->get($productId, [
-                'contain' => ['Tags', 'Articles'],
-            ]);
+            $product = $productsTable->get($productId, contain: ['Tags', 'Articles']);
 
             $verificationScore = $this->calculateVerificationScore($product);
 
@@ -136,6 +134,11 @@ class ProductVerificationJob extends AbstractJob
     private function runAIVerification($product): float
     {
         try {
+            // Check if the ProductAnalyzer class exists before using it
+            if (!class_exists('App\Service\Api\Anthropic\ProductAnalyzer')) {
+                return 3.0; // Return neutral score if AI service is not available
+            }
+
             $productAnalyzer = new ProductAnalyzer();
             $aiAnalysis = $productAnalyzer->analyzeProduct([
                 'title' => $product->title,

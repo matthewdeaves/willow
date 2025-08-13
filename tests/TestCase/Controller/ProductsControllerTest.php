@@ -60,6 +60,15 @@ class ProductsControllerTest extends AppControllerTestCase
         $this->assertNotEmpty($this->viewVariable('products'));
     }
 
+    /**
+     * Helper method to login as admin user
+     */
+    protected function loginAsAdmin(): void
+    {
+        $adminId = '6509480c-e7e6-4e65-9c38-1423a8d09d0f';
+        $this->loginUser($adminId);
+    }
+
     public function testDashboard(): void
     {
         $this->loginAsAdmin();
@@ -73,6 +82,7 @@ class ProductsControllerTest extends AppControllerTestCase
     public function testAddPost(): void
     {
         $this->loginAsAdmin();
+        $this->enableCsrfToken();
 
         $data = [
             'title' => 'Test Product',

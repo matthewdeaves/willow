@@ -106,7 +106,7 @@ class ProductsTable extends Table
         $query = $this->find()
             ->where(['Products.is_published' => true])
             ->contain(['Users', 'Tags', 'Articles'])
-            ->order(['Products.created' => 'DESC']);
+            ->orderBy(['Products.created' => 'DESC']);
 
         // Apply filters
         if (!empty($options['tag'])) {
@@ -134,7 +134,7 @@ class ProductsTable extends Table
         return $this->find()
             ->where(['verification_status' => $status])
             ->contain(['Users', 'Tags'])
-            ->order(['created' => 'ASC']);
+            ->orderBy(['created' => 'ASC']);
     }
 
     /**

@@ -154,7 +154,7 @@ $this->Html->css('willow-admin', ['block' => true]);
                                     <td><?= number_format($product->view_count) ?></td>
                                     <td>
                                         <?= $product->created->format('M j, Y') ?><br>
-                                        <small class="text-muted">by <?= h($product->user->username) ?></small>
+                                        <small class="text-muted">by <?= h($product->user ? $product->user->username : 'Unknown') ?></small>
                                     </td>
                                     <td class="actions">
                                         <div class="btn-group" role="group">

@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Controller\AppController;
 use Cake\Http\Response;
 
 /**
@@ -24,7 +23,6 @@ class ProductsController extends AppController
         $query = $this->Products->find()
             ->contain(['Users', 'Articles']);
 
-        
         $search = $this->request->getQuery('search');
         if (!empty($search)) {
             $query->where([
@@ -51,7 +49,7 @@ class ProductsController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view(?string $id = null)
     {
         $product = $this->Products->get($id, contain: ['Users', 'Articles', 'Tags', 'Slugs']);
         $this->set(compact('product'));
@@ -87,7 +85,7 @@ class ProductsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit(?string $id = null)
     {
         $product = $this->Products->get($id, contain: ['Tags']);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -112,7 +110,7 @@ class ProductsController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null): ?Response
+    public function delete(?string $id = null): ?Response
     {
         $this->request->allowMethod(['post', 'delete']);
         $product = $this->Products->get($id);

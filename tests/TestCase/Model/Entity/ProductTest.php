@@ -15,7 +15,7 @@ class ProductTest extends TestCase
      *
      * @var \App\Model\Entity\Product
      */
-    protected $Product;
+    protected $Products;
 
     protected array $fixtures = ['app.Products', 'app.Users', 'app.Articles', 'app.Tags'];
 
@@ -27,6 +27,7 @@ class ProductTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        // Initialize the Products table
         $this->Products = $this->getTableLocator()->get('Products');
     }
 

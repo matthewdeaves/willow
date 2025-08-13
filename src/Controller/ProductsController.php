@@ -69,18 +69,20 @@ class ProductsController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view(?string $id = null): Response|null|null
+    public function view(?string $id = null): ?Response
     {
         $product = $this->Products->get($id, contain: ['Users', 'Articles', 'Tags', 'Slugs']);
         $this->set(compact('product'));
+
+        return null;
     }
 
     /**
      * Add method
      *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add(): Response|null|null
+    public function add(): ?Response
     {
         $product = $this->Products->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -96,6 +98,8 @@ class ProductsController extends AppController
         $articles = $this->Products->Articles->find('list', limit: 200)->all();
         $tags = $this->Products->Tags->find('list', limit: 200)->all();
         $this->set(compact('product', 'users', 'articles', 'tags'));
+
+        return $this->render('view'); // Reuse the edit view for adding a new product
     }
 
     /**
@@ -105,7 +109,7 @@ class ProductsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit(?string $id = null): Response|null|null
+    public function edit(?string $id = null): ?Response
     {
         $product = $this->Products->get($id, contain: ['Tags']);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -121,6 +125,8 @@ class ProductsController extends AppController
         $articles = $this->Products->Articles->find('list', limit: 200)->all();
         $tags = $this->Products->Tags->find('list', limit: 200)->all();
         $this->set(compact('product', 'users', 'articles', 'tags'));
+
+        return $this->render('view'); // Reuse the edit view for editing a product
     }
 
     /**

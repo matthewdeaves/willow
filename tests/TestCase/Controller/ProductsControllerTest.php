@@ -510,7 +510,7 @@ class ProductsControllerTest extends AppControllerTestCase
         $this->loginAsAdmin();
 
         // Test GET request displays form
-        $this->get('/en/products/add');
+        $this->get('/admin/products/add');
         $this->assertResponseOk();
 
         // Verify form variables are set
@@ -544,7 +544,7 @@ class ProductsControllerTest extends AppControllerTestCase
             'user_id' => '6509480c-e7e6-4e65-9c38-1423a8d09d0f', // Admin user ID
         ];
 
-        $this->post('/en/products/add', $data);
+        $this->post('/admin/products/add', $data);
         $this->assertRedirect(['action' => 'index']);
         $this->assertFlashMessage('The product has been saved.');
 
@@ -571,7 +571,7 @@ class ProductsControllerTest extends AppControllerTestCase
             'description' => 'Test description',
         ];
 
-        $this->post('/en/products/add', $data);
+        $this->post('/admin/products/add', $data);
         $this->assertResponseOk(); // Form should be re-displayed
         // Note: Flash message might not be set if validation fails before save attempt
 

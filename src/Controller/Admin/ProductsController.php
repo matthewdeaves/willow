@@ -338,7 +338,7 @@ class ProductsController extends AppController
         $articles = $this->Products->Articles
             ->find('list', ['keyField' => 'id', 'valueField' => 'title'])
             ->where(['is_published' => true])
-            ->order(['title' => 'ASC']);
+            ->orderBy(['title' => 'ASC']);
         $tags = $this->Products->Tags->find('list', ['limit' => 200])->all();
         $token = $this->request->getAttribute('csrfToken');
 
@@ -406,7 +406,7 @@ class ProductsController extends AppController
         $articles = $this->Products->Articles
             ->find('list', ['keyField' => 'id', 'valueField' => 'title'])
             ->where(['is_published' => true])
-            ->order(['title' => 'ASC']);
+            ->orderby(['title' => 'ASC']);
         $tags = $this->Products->Tags->find('list', ['limit' => 200])->all();
 
         $this->set(compact('product', 'users', 'articles', 'tags'));
@@ -456,7 +456,7 @@ class ProductsController extends AppController
         $articles = $this->Products->Articles
             ->find('list', ['keyField' => 'id', 'valueField' => 'title'])
             ->where(['is_published' => true])
-            ->order(['title' => 'ASC']);
+            ->orderby(['title' => 'ASC']);
         $tags = $this->Products->Tags->find('list', ['limit' => 200])->all();
         $token = $this->request->getAttribute('csrfToken');
 
@@ -522,7 +522,7 @@ class ProductsController extends AppController
         $articles = $this->Products->Articles
             ->find('list', ['keyField' => 'id', 'valueField' => 'title'])
             ->where(['is_published' => true])
-            ->order(['title' => 'ASC']);
+            ->orderby(['title' => 'ASC']);
         $tags = $this->Products->Tags->find('list', ['limit' => 200])->all();
 
         $this->set(compact('product', 'users', 'articles', 'tags'));

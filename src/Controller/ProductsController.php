@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Event\EventInterface;
 use Cake\Http\Response;
 
 /**
@@ -12,6 +13,22 @@ use Cake\Http\Response;
  */
 class ProductsController extends AppController
 {
+    /**
+     * beforeFilter callback.
+     *
+     * Allow unauthenticated access to certain public actions
+     *
+     * @param \Cake\Event\EventInterface $event The event instance.
+     * @return void
+     */
+    public function beforeFilter(EventInterface $event): void
+    {
+        parent::beforeFilter($event);
+
+        // Allow unauthenticated access to index and view actions
+        $this->Authentication->addUnauthenticatedActions(['index', 'view']);
+    }
+
     /**
      * Index method
      *

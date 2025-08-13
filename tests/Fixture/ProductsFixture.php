@@ -21,10 +21,10 @@ class ProductsFixture extends TestFixture
             [
                 // Example product record
                 'id' => '0cab0d79-877c-4e97-81c3-472cefa099a5',
-                'user_id' => 'e1e68d5b-4607-473f-afbb-0df146d1980f',
-                'article_id' => 'b588654f-876b-464f-b8ca-e0eee1d9a766',
-                'title' => 'Lorem ipsum dolor sit amet',
-                'slug' => 'Lorem ipsum dolor sit amet',
+                'user_id' => '6509480c-e7e6-4e65-9c38-1423a8d09d0f',
+                'article_id' => '263a5364-a1bc-401c-9e44-49c23d066a0f',
+                'title' => 'Test Product One',
+                'slug' => 'test-product-one',
                 'description' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
                 'manufacturer' => 'Lorem ipsum dolor sit amet',
                 'model_number' => 'Lorem ipsum dolor sit amet',

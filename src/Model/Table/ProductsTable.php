@@ -14,8 +14,6 @@ class ProductsTable extends Table
 {
     use ImageValidationTrait;
     use LogTrait;
-    use QueueableJobsTrait;
-    use SeoFieldsTrait;
     use TranslateTrait;
 
     /**

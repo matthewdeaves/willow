@@ -4,14 +4,6 @@
  * @var \App\Model\Entity\Product $product
  */
 ?>
-<?php
-echo $this->element('actions_card', [
-    'modelName' => 'Product',
-    'controllerName' => 'Products',
-    'entity' => $product,
-    'entityDisplayName' => $product->title
-]);
-?>
 <div class="container my-4">
     <div class="row">
         <div class="col-12">
@@ -25,11 +17,11 @@ echo $this->element('actions_card', [
                         </tr>
                         <tr>
                             <th><?= __('User') ?></th>
-                            <td><?= $product->hasValue('user') ? $this->Html->link($product->user->username, ['controller' => 'Users', 'action' => 'view', $product->user->id], ['class' => 'btn btn-link']) : '' ?></td>
+                            <td><?= $product->hasValue('user') ? h($product->user->username) : '' ?></td>
                         </tr>
                         <tr>
                             <th><?= __('Article') ?></th>
-                            <td><?= $product->hasValue('article') ? $this->Html->link($product->article->title, ['controller' => 'Articles', 'action' => 'view', $product->article->id], ['class' => 'btn btn-link']) : '' ?></td>
+                            <td><?= $product->hasValue('article') ? h($product->article->title) : '' ?></td>
                         </tr>
                         <tr>
                             <th><?= __('Title') ?></th>
@@ -161,7 +153,7 @@ echo $this->element('actions_card', [
                                             <td><?= h($tag->modified) ?></td>
                                             <td><?= h($tag->created) ?></td>
                                             <td class="actions">
-                                                <?= $this->element('evd_dropdown', ['controller' => 'Tags', 'model' => $tag, 'display' => 'title']); ?>
+                                                <span class="text-muted">-</span>
                                             </td>
                                         </tr>
                                         <?php endforeach; ?>
@@ -196,7 +188,7 @@ echo $this->element('actions_card', [
                                             <td><?= h($slug->slug) ?></td>
                                             <td><?= h($slug->created) ?></td>
                                             <td class="actions">
-                                                <?= $this->element('evd_dropdown', ['controller' => 'Slugs', 'model' => $slug, 'display' => 'slug']); ?>
+                                                <span class="text-muted">Historical slug</span>
                                             </td>
                                         </tr>
                                         <?php endforeach; ?>

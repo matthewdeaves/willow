@@ -475,39 +475,259 @@ class ProductsControllerTest extends AppControllerTestCase
      */
     public function testView(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        // Test viewing an existing product
+        $productId = '0cab0d79-877c-4e97-81c3-472cefa099a5';
+        $this->get("/en/products/view/{$productId}");
+        $this->assertResponseOk();
+        $this->assertResponseContains('Test Product One');
+
+        // Verify view variables are set correctly
+        $product = $this->viewVariable('product');
+        $this->assertNotNull($product);
+        $this->assertEquals($productId, $product->id);
     }
 
     /**
-     * Test add method
+     * Test view method with invalid ID
+     *
+     * @return void
+     * @uses \App\Controller\ProductsController::view()
+     */
+    public function testViewInvalidId(): void
+    {
+        $this->expectException(RecordNotFoundException::class);
+        $this->get('/en/products/view/invalid-id');
+    }
+
+    /**
+     * Test add method GET request
      *
      * @return void
      * @uses \App\Controller\ProductsController::add()
      */
     public function testAdd(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->loginAsAdmin();
+
+        // Test GET request displays form
+        $this->get('/en/products/add');
+        $this->assertResponseOk();
+
+        // Verify form variables are set
+        $this->assertNotNull($this->viewVariable('product'));
+        $this->assertNotNull($this->viewVariable('users'));
+        $this->assertNotNull($this->viewVariable('articles'));
+        $this->assertNotNull($this->viewVariable('tags'));
     }
 
     /**
-     * Test edit method
+     * Test add method POST request with valid data
+     *
+     * @return void
+     * @uses \App\Controller\ProductsController::add()
+     */
+    public function testAddPostValid(): void
+    {
+        $this->loginAsAdmin();
+        $this->enableCsrfToken();
+
+        $data = [
+            'title' => 'New Test Product',
+            'description' => 'Test product description',
+            'manufacturer' => 'Test Manufacturer',
+            'model_number' => 'TEST001',
+            'price' => 99.99,
+            'currency' => 'USD',
+            'is_published' => true,
+            'featured' => false,
+            'verification_status' => 'pending',
+            'user_id' => '6509480c-e7e6-4e65-9c38-1423a8d09d0f', // Admin user ID
+        ];
+
+        $this->post('/en/products/add', $data);
+        $this->assertRedirect(['action' => 'index']);
+        $this->assertFlashMessage('The product has been saved.');
+
+        // Verify product was created
+        $productsTable = TableRegistry::getTableLocator()->get('Products');
+        $product = $productsTable->find()->where(['title' => 'New Test Product'])->first();
+        $this->assertNotNull($product);
+        $this->assertEquals('Test Manufacturer', $product->manufacturer);
+    }
+
+    /**
+     * Test add method POST request with invalid data
+     *
+     * @return void
+     * @uses \App\Controller\ProductsController::add()
+     */
+    public function testAddPostInvalid(): void
+    {
+        $this->loginAsAdmin();
+        $this->enableCsrfToken();
+
+        $data = [
+            'title' => '', // Empty title should be invalid
+            'description' => 'Test description',
+        ];
+
+        $this->post('/en/products/add', $data);
+        $this->assertResponseOk(); // Form should be re-displayed
+        // Note: Flash message might not be set if validation fails before save attempt
+
+        // Verify product was not created
+        $productsTable = TableRegistry::getTableLocator()->get('Products');
+        $product = $productsTable->find()->where(['description' => 'Test description'])->first();
+        $this->assertNull($product);
+    }
+
+    /**
+     * Test edit method GET request
      *
      * @return void
      * @uses \App\Controller\ProductsController::edit()
      */
     public function testEdit(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->loginAsAdmin();
+        $productId = '0cab0d79-877c-4e97-81c3-472cefa099a5';
+
+        // Test GET request displays form with existing data
+        $this->get("/en/products/edit/{$productId}");
+        $this->assertResponseOk();
+
+        // Verify form variables are set
+        $product = $this->viewVariable('product');
+        $this->assertNotNull($product);
+        $this->assertEquals($productId, $product->id);
+        $this->assertNotNull($this->viewVariable('users'));
+        $this->assertNotNull($this->viewVariable('articles'));
+        $this->assertNotNull($this->viewVariable('tags'));
     }
 
     /**
-     * Test delete method
+     * Test edit method PATCH request with valid data
+     *
+     * @return void
+     * @uses \App\Controller\ProductsController::edit()
+     */
+    public function testEditPatchValid(): void
+    {
+        $this->loginAsAdmin();
+        $productId = '0cab0d79-877c-4e97-81c3-472cefa099a5';
+        $this->enableCsrfToken();
+
+        $data = [
+            'title' => 'Updated Product Title',
+            'description' => 'Updated product description',
+            'manufacturer' => 'Updated Manufacturer',
+            'price' => 149.99,
+        ];
+
+        $this->patch("/en/products/edit/{$productId}", $data);
+        $this->assertRedirect(['action' => 'index']);
+        $this->assertFlashMessage('The product has been saved.');
+
+        // Verify product was updated
+        $productsTable = TableRegistry::getTableLocator()->get('Products');
+        $product = $productsTable->get($productId);
+        $this->assertEquals('Updated Product Title', $product->title);
+        $this->assertEquals('Updated Manufacturer', $product->manufacturer);
+    }
+
+    /**
+     * Test edit method with invalid ID
+     *
+     * @return void
+     * @uses \App\Controller\ProductsController::edit()
+     */
+    public function testEditInvalidId(): void
+    {
+        $this->loginAsAdmin();
+        $this->expectException(RecordNotFoundException::class);
+        $this->get('/en/products/edit/invalid-id');
+    }
+
+    /**
+     * Test edit method PATCH request with invalid data
+     *
+     * @return void
+     * @uses \App\Controller\ProductsController::edit()
+     */
+    public function testEditPatchInvalid(): void
+    {
+        $this->loginAsAdmin();
+        $productId = '0cab0d79-877c-4e97-81c3-472cefa099a5';
+        $this->enableCsrfToken();
+
+        $data = [
+            'title' => '', // Empty title should be invalid
+            'price' => -10, // Negative price should be invalid
+        ];
+
+        $this->patch("/en/products/edit/{$productId}", $data);
+        $this->assertResponseOk(); // Form should be re-displayed
+        // Note: Flash message might not be set if validation fails before save attempt
+
+        // Verify product was not updated
+        $productsTable = TableRegistry::getTableLocator()->get('Products');
+        $product = $productsTable->get($productId);
+        $this->assertNotEquals('', $product->title); // Title should remain unchanged
+    }
+
+    /**
+     * Test delete method with POST request
      *
      * @return void
      * @uses \App\Controller\ProductsController::delete()
      */
     public function testDelete(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->loginAsAdmin();
+        $productId = '0cab0d79-877c-4e97-81c3-472cefa099a5';
+        $this->enableCsrfToken();
+
+        // Verify product exists before deletion
+        $productsTable = TableRegistry::getTableLocator()->get('Products');
+        $product = $productsTable->get($productId);
+        $this->assertNotNull($product);
+
+        $this->post("/en/products/delete/{$productId}");
+        $this->assertRedirect(); // Should redirect to referer or index
+        $this->assertFlashMessage('The product has been deleted.');
+
+        // Verify product was deleted
+        $this->expectException(RecordNotFoundException::class);
+        $productsTable->get($productId);
+    }
+
+    /**
+     * Test delete method with invalid ID
+     *
+     * @return void
+     * @uses \App\Controller\ProductsController::delete()
+     */
+    public function testDeleteInvalidId(): void
+    {
+        $this->loginAsAdmin();
+        $this->enableCsrfToken();
+
+        $this->expectException(RecordNotFoundException::class);
+        $this->post('/en/products/delete/invalid-id');
+    }
+
+    /**
+     * Test delete method with GET request (should not be allowed)
+     *
+     * @return void
+     * @uses \App\Controller\ProductsController::delete()
+     */
+    public function testDeleteGetNotAllowed(): void
+    {
+        $this->loginAsAdmin();
+        $productId = '0cab0d79-877c-4e97-81c3-472cefa099a5';
+
+        $this->expectException('Cake\Http\Exception\MethodNotAllowedException');
+        $this->get("/en/products/delete/{$productId}");
     }
 }

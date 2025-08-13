@@ -8,15 +8,7 @@
  */
 ?>
 <?php
-// Only show actions if we have an entity (edit mode)
-if (!$product->isNew()) {
-    echo $this->element('actions_card', [
-        'modelName' => 'Product',
-        'controllerName' => 'Products',
-        'entity' => $product,
-        'entityDisplayName' => $product->title
-    ]);
-}
+// Actions card removed for public template
 ?>
 <div class="container mt-4">
     <div class="row">

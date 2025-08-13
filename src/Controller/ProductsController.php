@@ -69,7 +69,7 @@ class ProductsController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view(?string $id = null)
+    public function view(?string $id = null): Response|null|null
     {
         $product = $this->Products->get($id, contain: ['Users', 'Articles', 'Tags', 'Slugs']);
         $this->set(compact('product'));
@@ -80,7 +80,7 @@ class ProductsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add(): Response|null|null
     {
         $product = $this->Products->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -105,7 +105,7 @@ class ProductsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit(?string $id = null)
+    public function edit(?string $id = null): Response|null|null
     {
         $product = $this->Products->get($id, contain: ['Tags']);
         if ($this->request->is(['patch', 'post', 'put'])) {

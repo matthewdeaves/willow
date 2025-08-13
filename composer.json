@@ -1,20 +1,27 @@
 {
-    "name": "matthewdeaves/willow",
-    "description": "Willow CMS - A Modern Content Management System Built with CakePHP 5.x and AI Integration",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "https://github.com/garzarobm/willow.git"
+        }
+    ],
+    "minimum-stability": "stable",
+    "name": "garzarobm/willow",
+    "description": "Adapter CMS - A Modern Content Management System Built with CakePHP 5.x and AI Integration",
     "license": "MIT",
     "type": "project",
-    "homepage": "https://willowcms.app",
+    "homepage": "https://adaptercms.robjects.me",
     "keywords": ["cms", "content-management", "cakephp", "ai", "blog", "multilingual", "docker"],
     "authors": [
         {
-            "name": "Matthew Deaves",
-            "homepage": "https://github.com/matthewdeaves"
+            "name": "mike",
+            "homepage": "https://github.com/garzarobm"
         }
     ],
     "support": {
-        "issues": "https://github.com/matthewdeaves/willow/issues",
-        "source": "https://github.com/matthewdeaves/willow",
-        "docs": "https://github.com/matthewdeaves/willow/blob/main/README.md"
+        "issues": "https://github.com/garzarobm/willow/issues",
+        "source": "https://github.com/garzarobm/willow",
+        "docs": "https://github.com/garzarobm/willow/blob/main/README.md"
     },
     "require": {
         "php": ">=8.1 <8.4",
@@ -38,8 +45,11 @@
         "cakephp/bake": "^3.0.0",
         "cakephp/cakephp-codesniffer": "^5.0",
         "cakephp/debug_kit": "~5.0",
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.1",
         "phpstan/phpstan": "^2.0",
-        "phpunit/phpunit": "^10.1"
+        "phpunit/phpunit": "^10.1",
+        "squizlabs/php_codesniffer": "^3.0"
+
     },
     "suggest": {
         "cakephp/repl": "Console tools for a REPL interface for CakePHP applications.",

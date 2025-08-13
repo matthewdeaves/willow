@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Job;
 
+use App\Model\Entity\Product;
 use App\Service\Api\Anthropic\ProductAnalyzer;
 use App\Utility\SettingsManager;
 use Cake\Queue\Job\Message;
@@ -80,8 +81,11 @@ class ProductVerificationJob extends AbstractJob
 
     /**
      * Calculate basic verification score based on completeness
+     *
+     * @param \App\Model\Entity\Product $product Product entity to calculate score for
+     * @return float Verification score from 0-5
      */
-    private function calculateVerificationScore($product): float
+    private function calculateVerificationScore(Product $product): float
     {
         $score = 0;
         $maxScore = 0;
@@ -130,8 +134,11 @@ class ProductVerificationJob extends AbstractJob
 
     /**
      * Run AI verification if service is available
+     *
+     * @param \App\Model\Entity\Product $product Product entity to analyze
+     * @return float AI verification score from 0-5
      */
-    private function runAIVerification($product): float
+    private function runAIVerification(Product $product): float
     {
         try {
             // Check if the ProductAnalyzer class exists before using it

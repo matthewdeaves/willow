@@ -18,6 +18,12 @@ class ProductsTable extends Table
     use SeoFieldsTrait;
     use TranslateTrait;
 
+    /**
+     * Initialize hook
+     *
+     * @param array $config The configuration settings provided to this table
+     * @return void
+     */
     public function initialize(array $config): void
     {
         parent::initialize($config);
@@ -52,6 +58,12 @@ class ProductsTable extends Table
         ]);
     }
 
+    /**
+     * Default validation rules
+     *
+     * @param \Cake\Validation\Validator $validator Validator instance
+     * @return \Cake\Validation\Validator
+     */
     public function validationDefault(Validator $validator): Validator
     {
         $validator

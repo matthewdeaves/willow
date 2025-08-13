@@ -391,6 +391,32 @@ return function (RouteBuilder $routes): void {
             'controller' => 'Products',
             'action' => 'bulkVerify'
         ]);
+        
+        // Pending review and moderation routes
+        $routes->connect('/products/pending-review', [
+            'controller' => 'Products',
+            'action' => 'pendingReview'
+        ]);
+        
+        // Single-item moderation routes
+        $routes->connect('/products/approve/*', [
+            'controller' => 'Products',
+            'action' => 'approve'
+        ]);
+        $routes->connect('/products/reject/*', [
+            'controller' => 'Products',
+            'action' => 'reject'
+        ]);
+        
+        // Bulk moderation routes
+        $routes->connect('/products/bulk-approve', [
+            'controller' => 'Products',
+            'action' => 'bulkApprove'
+        ]);
+        $routes->connect('/products/bulk-reject', [
+            'controller' => 'Products',
+            'action' => 'bulkReject'
+        ]);
         $routes->connect('/products/add', [
             'controller' => 'Products',
             'action' => 'add'

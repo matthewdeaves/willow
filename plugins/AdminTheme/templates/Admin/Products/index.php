@@ -18,6 +18,11 @@ $this->Html->css('willow-admin', ['block' => true]);
                     ['action' => 'dashboard'],
                     ['class' => 'btn btn-info', 'escape' => false]
                 ) ?>
+                <?= $this->Html->link(
+                    '<i class="fas fa-clock"></i> ' . __('Pending Review'),
+                    ['action' => 'pendingReview'],
+                    ['class' => 'btn btn-warning', 'escape' => false]
+                ) ?>
             </div>
         </div>
     </div>

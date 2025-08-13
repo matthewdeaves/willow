@@ -11,6 +11,26 @@ use Cake\TestSuite\Fixture\TestFixture;
 class TagsFixture extends TestFixture
 {
     /**
+     * Table schema
+     *
+     * @var array
+     */
+    protected array $schema = [
+        'id' => ['type' => 'uuid', 'null' => false],
+        'title' => ['type' => 'string', 'length' => 191, 'null' => true],
+        'slug' => ['type' => 'string', 'length' => 255, 'null' => false],
+        'description' => ['type' => 'text', 'null' => true],
+        'parent_id' => ['type' => 'uuid', 'null' => true],
+        'lft' => ['type' => 'integer', 'null' => true],
+        'rght' => ['type' => 'integer', 'null' => true],
+        'created' => ['type' => 'datetime', 'null' => false],
+        'modified' => ['type' => 'datetime', 'null' => false],
+        '_constraints' => [
+            'primary' => ['type' => 'primary', 'columns' => ['id']],
+        ],
+    ];
+
+    /**
      * Init method
      *
      * @return void

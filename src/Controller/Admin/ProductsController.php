@@ -156,6 +156,116 @@ class ProductsController extends AppController
     }
 
     /**
+     * Pending Review method - List products awaiting AI processing
+     * 
+     * Lists products with verification_status = 'pending' which were manually 
+     * submitted (user_id IS NOT NULL) and awaiting AI processing.
+     *
+     * @return \Cake\Http\Response|null
+     */
+    public function pendingReview(): ?Response
+    {
+        // Base query for pending products with manual submission
+        $query = $this->Products->find()
+            ->select([
+                'Products.id',
+                'Products.user_id',
+                'Products.title',
+                'Products.slug',
+                'Products.description',
+                'Products.manufacturer',
+                'Products.model_number',
+                'Products.price',
+                'Products.currency',
+                'Products.image',
+                'Products.alt_text',
+                'Products.is_published',
+                'Products.featured',
+                'Products.verification_status',
+                'Products.reliability_score',
+                'Products.view_count',
+                'Products.created',
+                'Products.modified',
+                'Users.id',
+                'Users.username',
+            ])
+            ->leftJoinWith('Users')
+            ->where(['Products.verification_status' => 'pending'])
+            ->andWhere(['Products.user_id IS NOT' => null])
+            ->groupBy([
+                'Products.id',
+                'Products.user_id',
+                'Products.title',
+                'Products.slug',
+                'Products.created',
+                'Products.modified',
+                'Users.id',
+                'Users.username',
+            ])
+            ->orderBy(['Products.created' => 'DESC']);
+
+        // Search functionality
+        $search = $this->request->getQuery('search');
+        if (!empty($search)) {
+            $query->where([
+                'OR' => [
+                    'Products.title LIKE' => '%' . $search . '%',
+                    'Products.description LIKE' => '%' . $search . '%',
+                    'Products.manufacturer LIKE' => '%' . $search . '%',
+                    'Products.model_number LIKE' => '%' . $search . '%',
+                ],
+            ]);
+        }
+
+        // Featured filter
+        if ($this->request->getQuery('featured')) {
+            $query->where(['Products.featured' => true]);
+        }
+
+        // Manufacturer filter
+        $manufacturer = $this->request->getQuery('manufacturer');
+        if (!empty($manufacturer)) {
+            $query->where(['Products.manufacturer LIKE' => '%' . $manufacturer . '%']);
+        }
+
+        // User filter
+        $userId = $this->request->getQuery('user_id');
+        if (!empty($userId)) {
+            $query->where(['Products.user_id' => $userId]);
+        }
+
+        // Date range filters
+        $dateFrom = $this->request->getQuery('date_from');
+        if (!empty($dateFrom)) {
+            $query->where(['Products.created >=' => $dateFrom]);
+        }
+
+        $dateTo = $this->request->getQuery('date_to');
+        if (!empty($dateTo)) {
+            $query->where(['Products.created <=' => $dateTo]);
+        }
+
+        $products = $this->paginate($query);
+
+        // Get users list for filter dropdown
+        $usersList = $this->Products->Users->find('list', [
+            'keyField' => 'id', 
+            'valueField' => 'username'
+        ])->where(['active' => 1])->toArray();
+
+        // Handle AJAX requests
+        if ($this->request->is('ajax')) {
+            $this->set(compact('products', 'search', 'manufacturer', 'userId', 'dateFrom', 'dateTo'));
+            $this->viewBuilder()->setLayout('ajax');
+            return $this->render('pending_review_results');
+        }
+
+        $this->set(compact('products', 'usersList', 'search', 'manufacturer', 'userId', 'dateFrom', 'dateTo'));
+
+        return null;
+    }
+
+    /**
      * Index2 method - Product listing with search and filtering
      *
      * @return \Cake\Http\Response|null
@@ -620,6 +730,52 @@ class ProductsController extends AppController
     }
 
     /**
+     * Approve product verification status
+     *
+     * @param string|null $id Product ID.
+     * @return void
+     */
+    public function approve(?string $id = null): void
+    {
+        $this->request->allowMethod(['post']);
+
+        $product = $this->Products->get($id);
+        $product->verification_status = 'approved';
+
+        if ($this->Products->save($product)) {
+            $this->clearContentCache();
+            $this->Flash->success(__('Product has been approved.'));
+        } else {
+            $this->Flash->error(__('Could not approve product.'));
+        }
+
+        $this->redirect($this->referer(['action' => 'pendingReview']));
+    }
+
+    /**
+     * Reject product verification status
+     *
+     * @param string|null $id Product ID.
+     * @return void
+     */
+    public function reject(?string $id = null): void
+    {
+        $this->request->allowMethod(['post']);
+
+        $product = $this->Products->get($id);
+        $product->verification_status = 'rejected';
+
+        if ($this->Products->save($product)) {
+            $this->clearContentCache();
+            $this->Flash->success(__('Product has been rejected.'));
+        } else {
+            $this->Flash->error(__('Could not reject product.'));
+        }
+
+        $this->redirect($this->referer(['action' => 'pendingReview']));
+    }
+
+    /**
      * Check if product has significant changes requiring re-verification
      *
      * @param \App\Model\Entity\Product $product Product entity.
@@ -645,5 +801,144 @@ class ProductsController extends AppController
     private function clearContentCache(): void
     {
         Cache::clear('content');
+    }
+
+    /**
+     * Bulk verify products - Queue verification jobs for selected products
+     *
+     * @return \Cake\Http\Response
+     */
+    public function bulkVerify(): Response
+    {
+        $this->request->allowMethod(['post']);
+        
+        $ids = (array)$this->request->getData('ids', []);
+        
+        // Validate that IDs were provided
+        if (empty($ids)) {
+            $this->Flash->error(__('Please select products to verify.'));
+            return $this->redirect($this->referer(['action' => 'pendingReview']));
+        }
+        
+        // Basic sanity check - validate IDs are strings/UUIDs
+        $validIds = [];
+        foreach ($ids as $id) {
+            if (is_string($id) && !empty(trim($id))) {
+                $validIds[] = trim($id);
+            }
+        }
+        
+        if (empty($validIds)) {
+            $this->Flash->error(__('Invalid product IDs provided.'));
+            return $this->redirect($this->referer(['action' => 'pendingReview']));
+        }
+        
+        // Queue verification job for each product
+        foreach ($validIds as $id) {
+            $this->queueJob('ProductVerificationJob', [
+                'product_id' => $id
+            ]);
+        }
+        
+        $count = count($validIds);
+        $this->Flash->success(__('Verification has been queued for {0} product(s).', $count));
+        
+        return $this->redirect(['action' => 'pendingReview']);
+    }
+
+    /**
+     * Bulk approve products - Set verification_status to 'approved' for selected products
+     *
+     * @return \Cake\Http\Response
+     */
+    public function bulkApprove(): Response
+    {
+        $this->request->allowMethod(['post']);
+        
+        $ids = (array)$this->request->getData('ids', []);
+        
+        // Validate that IDs were provided
+        if (empty($ids)) {
+            $this->Flash->error(__('Please select products to approve.'));
+            return $this->redirect($this->referer(['action' => 'pendingReview']));
+        }
+        
+        // Basic sanity check - validate IDs are strings/UUIDs
+        $validIds = [];
+        foreach ($ids as $id) {
+            if (is_string($id) && !empty(trim($id))) {
+                $validIds[] = trim($id);
+            }
+        }
+        
+        if (empty($validIds)) {
+            $this->Flash->error(__('Invalid product IDs provided.'));
+            return $this->redirect($this->referer(['action' => 'pendingReview']));
+        }
+        
+        try {
+            // Update all selected products to approved status
+            $updatedCount = $this->Products->updateAll(
+                ['verification_status' => 'approved'],
+                ['id IN' => $validIds]
+            );
+            
+            $this->clearContentCache();
+            $this->Flash->success(__('Successfully approved {0} product(s).', $updatedCount));
+            
+        } catch (\Exception $e) {
+            $this->log('Bulk approve error: ' . $e->getMessage(), 'error');
+            $this->Flash->error(__('An error occurred while approving products. Please try again.'));
+        }
+        
+        return $this->redirect(['action' => 'pendingReview']);
+    }
+
+    /**
+     * Bulk reject products - Set verification_status to 'rejected' for selected products
+     *
+     * @return \Cake\Http\Response
+     */
+    public function bulkReject(): Response
+    {
+        $this->request->allowMethod(['post']);
+        
+        $ids = (array)$this->request->getData('ids', []);
+        
+        // Validate that IDs were provided
+        if (empty($ids)) {
+            $this->Flash->error(__('Please select products to reject.'));
+            return $this->redirect($this->referer(['action' => 'pendingReview']));
+        }
+        
+        // Basic sanity check - validate IDs are strings/UUIDs
+        $validIds = [];
+        foreach ($ids as $id) {
+            if (is_string($id) && !empty(trim($id))) {
+                $validIds[] = trim($id);
+            }
+        }
+        
+        if (empty($validIds)) {
+            $this->Flash->error(__('Invalid product IDs provided.'));
+            return $this->redirect($this->referer(['action' => 'pendingReview']));
+        }
+        
+        try {
+            // Update all selected products to rejected status
+            $updatedCount = $this->Products->updateAll(
+                ['verification_status' => 'rejected'],
+                ['id IN' => $validIds]
+            );
+            
+            $this->clearContentCache();
+            $this->Flash->success(__('Successfully rejected {0} product(s).', $updatedCount));
+            
+        } catch (\Exception $e) {
+            $this->log('Bulk reject error: ' . $e->getMessage(), 'error');
+            $this->Flash->error(__('An error occurred while rejecting products. Please try again.'));
+        }
+        
+        return $this->redirect(['action' => 'pendingReview']);
     }
 }

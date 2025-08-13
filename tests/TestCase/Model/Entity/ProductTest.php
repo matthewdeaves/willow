@@ -42,4 +42,16 @@ class ProductTest extends TestCase
 
         parent::tearDown();
     }
+
+    /**
+     * Test isOwnedBy method
+     *
+     * @return void
+     */
+    public function testIsOwnedBy(): void
+    {
+        $user = $this->Users->get(1);
+        $product = $this->Products->get(1);
+        $this->assertTrue($product->isOwnedBy($user));
+    }
 }

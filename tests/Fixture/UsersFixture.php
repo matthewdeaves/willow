@@ -12,6 +12,25 @@ use Cake\TestSuite\Fixture\TestFixture;
 class UsersFixture extends TestFixture
 {
     /**
+     * Table schema
+     *
+     * @var array
+     */
+    protected array $schema = [
+        'id' => ['type' => 'uuid', 'null' => false],
+        'email' => ['type' => 'string', 'length' => 255, 'null' => false],
+        'username' => ['type' => 'string', 'length' => 255, 'null' => false],
+        'password' => ['type' => 'string', 'length' => 255, 'null' => false],
+        'is_admin' => ['type' => 'boolean', 'null' => false, 'default' => false],
+        'active' => ['type' => 'boolean', 'null' => false, 'default' => true],
+        'created' => ['type' => 'datetime', 'null' => false],
+        'modified' => ['type' => 'datetime', 'null' => false],
+        '_constraints' => [
+            'primary' => ['type' => 'primary', 'columns' => ['id']],
+        ],
+    ];
+
+    /**
      * Init method
      *
      * @return void

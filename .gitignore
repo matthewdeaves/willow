@@ -137,3 +137,15 @@ full-bin/cms 2.sql/cms_table_tags.sql
 full-bin/cms 2.sql/cms_table_user_account_confirmations.sql
 full-bin/cms 2.sql/cms_table_users.sql
 full-bin/different-assets/cms-copy-foreign-key-comparison.sql
+start_willow_env.sh
+manage.sh
+start_willow_aliases.sh
+start_willow.sh
+docker-compose-env-file.yml
+docker-compose-old.yml
+docker/willowcms/logs/nginx/access.log
+docker/willowcms/logs/nginx/error.log
+docker-compose.yml
+docker/config/nginx/logs/access.log
+docker/config/nginx/logs/error.log
+docker-compose.yml

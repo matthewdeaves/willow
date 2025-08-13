@@ -358,7 +358,7 @@ return function (RouteBuilder $routes): void {
     });
 
     // Add DebugKit routes with proper context if in debug mode
-    if (\Cake\Core\Configure::read('debug')) {
+    if (Configure::read('debug')) {
         $routes->plugin('DebugKit', function (RouteBuilder $routes) {
             $routes->fallbacks();
         });

@@ -102,6 +102,7 @@ yarn-error.log
 # manage.sh outputs
 project_files_backups
 project_mysql_backups
+backups/
 
 # CakePHP Book
 CakePHPBook.txt

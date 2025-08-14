@@ -192,7 +192,24 @@ $session = $this->request->getSession();
               'data-bs-placement' => 'right'
             ]
           ) ?>
+          <!-- Dashboard AI Metrics -->
+          <?= $this->Html->link(
+            '<i class="fas fa-tachometer-alt sidebar-icon"></i><span class="sidebar-text ms-2">' . __('AI Metrics') . '</span>',
+            ['prefix' => 'Admin', 'controller' => 'AiMetrics', 'action' => 'dashboard'],
+            [
+              'class' => 'list-group-item list-group-item-action border-0 sidebar-link' . (($activeCtl == 'AiMetrics') ? ' active' : ''),
+              'escape' => false,
+              'title' => __('AI Metrics'),
+              'data-bs-toggle' => 'tooltip',
+              'data-bs-placement' => 'right'
+            ]
+          ) ?>
           <!-- #endregion -->
+
+          
+          <!-- #endregion -->
+
+
 
 
           <!-- Sidebar Header #2 (Products) -->

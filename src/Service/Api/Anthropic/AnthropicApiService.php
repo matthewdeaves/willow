@@ -212,4 +212,38 @@ class AnthropicApiService extends AbstractApiService
 
         return json_decode($responseData['content'][0]['text'], true);
     }
+
+
+
+    /**
+     * Records metrics for a specific AI task.
+     *
+     * @param string $taskType The type of the AI task.
+     * @param float $startTime The start time of the task.
+     * @param array $payload The payload data for the task.
+     * @param bool $success Whether the task was successful.
+     * @param string|null $error An optional error message.
+     * @return void
+     */
+    private function recordMetrics(string $taskType, float $startTime, array $payload, bool $success, ?string $error = null): void
+{
+    if (!SettingsManager::read('AI.enableMetrics', true)) {
+        return;
+    }
+    
+    $executionTime = (microtime(true) - $startTime) * 1000;
+    $cost = $this->calculateCost($payload);
+    
+    $metric = $this->aiMetricsTable->newEntity([
+        'task_type' => $taskType,
+        'execution_time_ms' => (int)$executionTime,
+        'tokens_used' => $payload['max_tokens'] ?? null,
+        'model_used' => $payload['model'] ?? null,
+        'success' => $success,
+        'error_message' => $error,
+        'cost_usd' => $cost,
+    ]);
+    
+    $this->aiMetricsTable->save($metric);
+}
 }

@@ -341,6 +341,14 @@ return function (RouteBuilder $routes): void {
     $routes->prefix('Admin', function (RouteBuilder $routes) {
         $routes->connect('/', ['controller' => 'Articles', 'action' => 'index', 'prefix' => 'Admin']);
 
+
+        // AI Metrics routes
+        $routes->connect('/ai-metrics/dashboard', [
+            'controller' => 'AiMetrics', 
+            'action' => 'dashboard'
+        ]);
+
+        
         // Specific route for removing images from galleries
         $routes->connect(
             '/image-galleries/remove-image/{id}/{imageId}',

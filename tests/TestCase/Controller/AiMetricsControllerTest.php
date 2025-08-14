@@ -26,15 +26,15 @@ class AiMetricsControllerTest extends TestCase
     ];
 
     /**
-     * Test index method
-     *
-     * @return void
-     * @link \App\Controller\AiMetricsController::index()
-     */
-    public function testIndex(): void
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
+    * Test index method
+    *
+    * @return void
+    */
+   public function testIndex(): void
+   {
+       $this->get('/admin/ai-metrics');
+       $this->assertResponseOk();
+   }
 
     /**
      * Test view method

@@ -8,6 +8,7 @@ use App\Model\Entity\Product;
 use Cake\Cache\Cache;
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Http\Response;
+use Exception;
 
 class ProductsController extends AppController
 {
@@ -157,8 +158,8 @@ class ProductsController extends AppController
 
     /**
      * Pending Review method - List products awaiting AI processing
-     * 
-     * Lists products with verification_status = 'pending' which were manually 
+     *
+     * Lists products with verification_status = 'pending' which were manually
      * submitted (user_id IS NOT NULL) and awaiting AI processing.
      *
      * @return \Cake\Http\Response|null
@@ -249,14 +250,15 @@ class ProductsController extends AppController
 
         // Get users list for filter dropdown
         $usersList = $this->Products->Users->find('list', [
-            'keyField' => 'id', 
-            'valueField' => 'username'
+            'keyField' => 'id',
+            'valueField' => 'username',
         ])->where(['active' => 1])->toArray();
 
         // Handle AJAX requests
         if ($this->request->is('ajax')) {
             $this->set(compact('products', 'search', 'manufacturer', 'userId', 'dateFrom', 'dateTo'));
             $this->viewBuilder()->setLayout('ajax');
+
             return $this->render('pending_review_results');
         }
 
@@ -811,15 +813,16 @@ class ProductsController extends AppController
     public function bulkVerify(): Response
     {
         $this->request->allowMethod(['post']);
-        
+
         $ids = (array)$this->request->getData('ids', []);
-        
+
         // Validate that IDs were provided
         if (empty($ids)) {
             $this->Flash->error(__('Please select products to verify.'));
+
             return $this->redirect($this->referer(['action' => 'pendingReview']));
         }
-        
+
         // Basic sanity check - validate IDs are strings/UUIDs
         $validIds = [];
         foreach ($ids as $id) {
@@ -827,22 +830,23 @@ class ProductsController extends AppController
                 $validIds[] = trim($id);
             }
         }
-        
+
         if (empty($validIds)) {
             $this->Flash->error(__('Invalid product IDs provided.'));
+
             return $this->redirect($this->referer(['action' => 'pendingReview']));
         }
-        
+
         // Queue verification job for each product
         foreach ($validIds as $id) {
             $this->queueJob('ProductVerificationJob', [
-                'product_id' => $id
+                'product_id' => $id,
             ]);
         }
-        
+
         $count = count($validIds);
         $this->Flash->success(__('Verification has been queued for {0} product(s).', $count));
-        
+
         return $this->redirect(['action' => 'pendingReview']);
     }
 
@@ -854,15 +858,16 @@ class ProductsController extends AppController
     public function bulkApprove(): Response
     {
         $this->request->allowMethod(['post']);
-        
+
         $ids = (array)$this->request->getData('ids', []);
-        
+
         // Validate that IDs were provided
         if (empty($ids)) {
             $this->Flash->error(__('Please select products to approve.'));
+
             return $this->redirect($this->referer(['action' => 'pendingReview']));
         }
-        
+
         // Basic sanity check - validate IDs are strings/UUIDs
         $validIds = [];
         foreach ($ids as $id) {
@@ -870,27 +875,27 @@ class ProductsController extends AppController
                 $validIds[] = trim($id);
             }
         }
-        
+
         if (empty($validIds)) {
             $this->Flash->error(__('Invalid product IDs provided.'));
+
             return $this->redirect($this->referer(['action' => 'pendingReview']));
         }
-        
+
         try {
             // Update all selected products to approved status
             $updatedCount = $this->Products->updateAll(
                 ['verification_status' => 'approved'],
-                ['id IN' => $validIds]
+                ['id IN' => $validIds],
             );
-            
+
             $this->clearContentCache();
             $this->Flash->success(__('Successfully approved {0} product(s).', $updatedCount));
-            
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->log('Bulk approve error: ' . $e->getMessage(), 'error');
             $this->Flash->error(__('An error occurred while approving products. Please try again.'));
         }
-        
+
         return $this->redirect(['action' => 'pendingReview']);
     }
 
@@ -902,15 +907,16 @@ class ProductsController extends AppController
     public function bulkReject(): Response
     {
         $this->request->allowMethod(['post']);
-        
+
         $ids = (array)$this->request->getData('ids', []);
-        
+
         // Validate that IDs were provided
         if (empty($ids)) {
             $this->Flash->error(__('Please select products to reject.'));
+
             return $this->redirect($this->referer(['action' => 'pendingReview']));
         }
-        
+
         // Basic sanity check - validate IDs are strings/UUIDs
         $validIds = [];
         foreach ($ids as $id) {
@@ -918,27 +924,27 @@ class ProductsController extends AppController
                 $validIds[] = trim($id);
             }
         }
-        
+
         if (empty($validIds)) {
             $this->Flash->error(__('Invalid product IDs provided.'));
+
             return $this->redirect($this->referer(['action' => 'pendingReview']));
         }
-        
+
         try {
             // Update all selected products to rejected status
             $updatedCount = $this->Products->updateAll(
                 ['verification_status' => 'rejected'],
-                ['id IN' => $validIds]
+                ['id IN' => $validIds],
             );
-            
+
             $this->clearContentCache();
             $this->Flash->success(__('Successfully rejected {0} product(s).', $updatedCount));
-            
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->log('Bulk reject error: ' . $e->getMessage(), 'error');
             $this->Flash->error(__('An error occurred while rejecting products. Please try again.'));
         }
-        
+
         return $this->redirect(['action' => 'pendingReview']);
     }
 }

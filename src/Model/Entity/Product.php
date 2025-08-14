@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Entity;
 
+use Cake\Datasource\EntityInterface;
 use Cake\ORM\Behavior\Translate\TranslateTrait;
 use Cake\ORM\Entity;
 
@@ -82,10 +83,10 @@ class Product extends Entity
     /**
      * Check if the provided user owns this product.
      *
-     * @param \App\Model\Entity\User|string|array|\Cake\Datasource\EntityInterface $user User entity or user id
+     * @param \App\Model\Entity\User|\Cake\Datasource\EntityInterface|array|string $user User entity or user id
      * @return bool
      */
-    public function isOwnedBy($user): bool
+    public function isOwnedBy(User|string|array|EntityInterface $user): bool
     {
         $userId = null;
 

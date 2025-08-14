@@ -234,6 +234,8 @@ return [
         'ignoredDeprecationPaths' => [
             'vendor/cakephp/cakephp/src/I18n/I18n.php',
             'vendor/cakephp/cakephp/src/Event/EventManager.php',
+            'vendor/cakephp/cakephp/src/ORM/Table.php',
+            'src/Application.php',
         ],
         'extraFatalErrorMemory' => 20,
     ],

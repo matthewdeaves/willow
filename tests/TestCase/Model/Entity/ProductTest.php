@@ -41,7 +41,7 @@ class ProductTest extends TestCase
         $product = $this->Products->get($productId);
 
         $this->assertTrue($product->isOwnedBy($user));
-        
+
         // Test negative case - non-owner should not pass the check
         $nonOwner = $this->Users->get('6509480c-e7e6-4e65-9c38-1423a8d09d02');
         $this->assertFalse($product->isOwnedBy($nonOwner));

@@ -153,3 +153,67 @@ docker-compose.yml
 docker/willowcms/config/nginx/logs/access.log
 docker/willowcms/config/nginx/logs/error.log
 config/schema/20250804171748_CreateSimplifiedProducts copy.php
+backups/.vscode.zip
+backups/Migrations.zip
+backups/config/20250813_232649/.DS_Store
+backups/config/20250813_232649/.env
+backups/config/20250813_232649/.env.example
+backups/config/20250813_232649/app_local.example.php
+backups/config/20250813_232649/app_local.php
+backups/config/20250813_232649/app.php
+backups/config/20250813_232649/bootstrap_cli.php
+backups/config/20250813_232649/bootstrap.php
+backups/config/20250813_232649/docker-compose.yml
+backups/config/20250813_232649/log_config.php
+backups/config/20250813_232649/paths.php
+backups/config/20250813_232649/plugins.php
+backups/config/20250813_232649/routes.php
+backups/config/20250813_232649/security.php
+backups/config/20250813_232649/Migrations/.DS_Store
+backups/config/20250813_232649/Migrations/20241128230315_V1.php
+backups/config/20250813_232649/Migrations/20241201193813_ChangeExpiresAtToDatetime.php
+backups/config/20250813_232649/Migrations/20241202164800_InsertSettings.php
+backups/config/20250813_232649/Migrations/20241203215800_AddRobotsTemplate.php
+backups/config/20250813_232649/Migrations/20241208194033_Newslugstable.php
+backups/config/20250813_232649/Migrations/20241214165907_ArticleViews.php
+backups/config/20250813_232649/Migrations/20250523122807_AddSecuritySettings.php
+backups/config/20250813_232649/Migrations/20250523132600_AddRateLimitSettings.php
+backups/config/20250813_232649/Migrations/20250604074527_CreateImageGalleries.php
+backups/config/20250813_232649/Migrations/20250605211400_AddGalleryAiSettings.php
+backups/config/20250813_232649/Migrations/20250804171748_CreateSimplifiedProducts.php
+backups/config/20250813_232649/Migrations/20250804175503_InsertSimplifiedProductSettings.php
+backups/config/20250813_232649/Migrations/schema-dump-default.lock
+backups/config/20250813_232649/Migrations/schema-dump-test.lock
+backups/config/20250813_232649/schema/20250804171748_CreateSimplifiedProducts copy.php
+backups/config/20250813_232649/schema/i18n.sql
+backups/config/20250813_232649/schema/sessions.sql
+backups/config/20250813_232649/sql_scripts/.DS_Store
+backups/config/20250813_232649/sql_scripts/cms 2.sql/cms_database.sql
+backups/config/20250813_232649/sql_scripts/cms 2.sql/cms_extra.sql
+backups/config/20250813_232649/sql_scripts/cms 2.sql/cms_table_aiprompts.sql
+backups/config/20250813_232649/sql_scripts/cms 2.sql/cms_table_articles_tags.sql
+backups/config/20250813_232649/sql_scripts/cms 2.sql/cms_table_articles_translations.sql
+backups/config/20250813_232649/sql_scripts/cms 2.sql/cms_table_articles.sql
+backups/config/20250813_232649/sql_scripts/cms 2.sql/cms_table_blocked_ips.sql
+backups/config/20250813_232649/sql_scripts/cms 2.sql/cms_table_comments.sql
+backups/config/20250813_232649/sql_scripts/cms 2.sql/cms_table_cookie_consents.sql
+backups/config/20250813_232649/sql_scripts/cms 2.sql/cms_table_email_templates.sql
+backups/config/20250813_232649/sql_scripts/cms 2.sql/cms_table_image_galleries_images.sql
+backups/config/20250813_232649/sql_scripts/cms 2.sql/cms_table_image_galleries_translations.sql
+backups/config/20250813_232649/sql_scripts/cms 2.sql/cms_table_image_galleries.sql
+backups/config/20250813_232649/sql_scripts/cms 2.sql/cms_table_images.sql
+backups/config/20250813_232649/sql_scripts/cms 2.sql/cms_table_internationalisations.sql
+backups/config/20250813_232649/sql_scripts/cms 2.sql/cms_table_models_images.sql
+backups/config/20250813_232649/sql_scripts/cms 2.sql/cms_table_page_views.sql
+backups/config/20250813_232649/sql_scripts/cms 2.sql/cms_table_phinxlog.sql
+backups/config/20250813_232649/sql_scripts/cms 2.sql/cms_table_products_tags.sql
+backups/config/20250813_232649/sql_scripts/cms 2.sql/cms_table_products.sql
+backups/config/20250813_232649/sql_scripts/cms 2.sql/cms_table_settings.sql
+backups/config/20250813_232649/sql_scripts/cms 2.sql/cms_table_slugs.sql
+backups/config/20250813_232649/sql_scripts/cms 2.sql/cms_table_system_logs.sql
+backups/config/20250813_232649/sql_scripts/cms 2.sql/cms_table_tags_translations.sql
+backups/config/20250813_232649/sql_scripts/cms 2.sql/cms_table_tags.sql
+backups/config/20250813_232649/sql_scripts/cms 2.sql/cms_table_user_account_confirmations.sql
+backups/config/20250813_232649/sql_scripts/cms 2.sql/cms_table_users.sql
+backups/config/20250813_232649/sql_scripts/different-assets/cms-copy-foreign-key-comparison.sql
+backups/exported_code/willow_cms_code.txt

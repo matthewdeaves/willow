@@ -146,10 +146,8 @@ docker-compose-env-file.yml
 docker-compose-old.yml
 docker/willowcms/logs/nginx/access.log
 docker/willowcms/logs/nginx/error.log
-docker-compose.yml
 docker/config/nginx/logs/access.log
 docker/config/nginx/logs/error.log
-docker-compose.yml
 docker/willowcms/config/nginx/logs/access.log
 docker/willowcms/config/nginx/logs/error.log
 config/schema/20250804171748_CreateSimplifiedProducts copy.php

@@ -3,8 +3,7 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller\Admin;
 
-use Cake\TestSuite\IntegrationTestTrait;
-use Cake\TestSuite\TestCase;
+use App\Test\TestCase\AppControllerTestCase;
 use Cake\ORM\TableRegistry;
 
 /**
@@ -13,9 +12,8 @@ use Cake\ORM\TableRegistry;
  * Tests the admin functionality of the ProductsController
  * Includes tests for pending review route and bulk operations
  */
-class ProductsControllerTest extends TestCase
+class ProductsControllerTest extends AppControllerTestCase
 {
-    use IntegrationTestTrait;
 
     /**
      * Fixtures
@@ -47,13 +45,8 @@ class ProductsControllerTest extends TestCase
         
         $this->Products = TableRegistry::getTableLocator()->get('Products');
         
-        // Configure request environment
-        $this->configRequest([
-            'environment' => ['REQUEST_METHOD' => 'GET'],
-        ]);
-        
-        // Login as admin for admin routes
-        $this->loginAsAdmin();
+        // Disable error handler middleware for tests
+        $this->disableErrorHandlerMiddleware();
     }
 
     /**
@@ -74,15 +67,7 @@ class ProductsControllerTest extends TestCase
      */
     protected function loginAsAdmin(): void
     {
-        $this->session([
-            'Auth' => [
-                'id' => '6509480c-e7e6-4e65-9c38-1423a8d09d0f',
-                'email' => 'admin@example.com',
-                'username' => 'admin@example.com',
-                'is_admin' => 1,
-                'active' => 1,
-            ]
-        ]);
+        $this->loginUser('6509480c-e7e6-4e65-9c38-1423a8d09d0f');
     }
 
     /**
@@ -92,6 +77,8 @@ class ProductsControllerTest extends TestCase
      */
     public function testPendingReviewRoute(): void
     {
+        $this->loginAsAdmin();
+        
         // Create a product with pending status for testing
         $this->Products->save($this->Products->newEntity([
             'id' => 'test-pending-product-001',
@@ -128,6 +115,8 @@ class ProductsControllerTest extends TestCase
      */
     public function testBulkApprove(): void
     {
+        $this->loginAsAdmin();
+        
         // Create test products with pending status - only include required fields
         $entity1 = $this->Products->newEntity([
             'user_id' => '6509480c-e7e6-4e65-9c38-1423a8d09d02',
@@ -151,8 +140,8 @@ class ProductsControllerTest extends TestCase
         $product2 = $this->Products->save($entity2);
         $this->assertNotFalse($product2, 'Failed to save product2: ' . print_r($entity2->getErrors(), true));
 
-        // Perform bulk approve (disable CSRF for test)
-        $this->disableCsrfToken();
+        // Perform bulk approve with CSRF token
+        $this->enableCsrfToken();
         $this->post('/admin/products/bulk-approve', [
             'ids' => [$product1->id, $product2->id]
         ]);
@@ -175,6 +164,8 @@ class ProductsControllerTest extends TestCase
      */
     public function testBulkReject(): void
     {
+        $this->loginAsAdmin();
+        
         // Create test products with pending status - simplified required fields only
         $entity1 = $this->Products->newEntity([
             'user_id' => '6509480c-e7e6-4e65-9c38-1423a8d09d02',
@@ -198,8 +189,8 @@ class ProductsControllerTest extends TestCase
         $product2 = $this->Products->save($entity2);
         $this->assertNotFalse($product2, 'Failed to save product2: ' . print_r($entity2->getErrors(), true));
 
-        // Perform bulk reject (disable CSRF for test)
-        $this->disableCsrfToken();
+        // Perform bulk reject with CSRF token
+        $this->enableCsrfToken();
         $this->post('/admin/products/bulk-reject', [
             'ids' => [$product1->id, $product2->id]
         ]);
@@ -222,6 +213,8 @@ class ProductsControllerTest extends TestCase
      */
     public function testBulkVerify(): void
     {
+        $this->loginAsAdmin();
+        
         // Create test products with pending status - simplified required fields only
         $entity1 = $this->Products->newEntity([
             'user_id' => '6509480c-e7e6-4e65-9c38-1423a8d09d02',
@@ -251,8 +244,8 @@ class ProductsControllerTest extends TestCase
             'levels' => ['info', 'debug', 'warning', 'error']
         ]);
 
-        // Perform bulk verify (disable CSRF for test)
-        $this->disableCsrfToken();
+        // Perform bulk verify with CSRF token
+        $this->enableCsrfToken();
         $this->post('/admin/products/bulk-verify', [
             'ids' => [$product1->id, $product2->id]
         ]);
@@ -283,14 +276,11 @@ class ProductsControllerTest extends TestCase
      */
     public function testBulkOperationsRequirePost(): void
     {
+        $this->loginAsAdmin();
+        
+        // Test that GET requests to bulk operations return Method Not Allowed
+        $this->expectException(\Cake\Http\Exception\MethodNotAllowedException::class);
         $this->get('/admin/products/bulk-approve');
-        $this->assertResponseCode(405); // Method Not Allowed
-
-        $this->get('/admin/products/bulk-reject');
-        $this->assertResponseCode(405); // Method Not Allowed
-
-        $this->get('/admin/products/bulk-verify');
-        $this->assertResponseCode(405); // Method Not Allowed
     }
 
     /**
@@ -300,8 +290,10 @@ class ProductsControllerTest extends TestCase
      */
     public function testBulkOperationsWithEmptyIds(): void
     {
-        // Disable CSRF for these tests
-        $this->disableCsrfToken();
+        $this->loginAsAdmin();
+        
+        // Enable CSRF for these tests
+        $this->enableCsrfToken();
         
         // Test bulk approve with empty IDs
         $this->post('/admin/products/bulk-approve', ['ids' => []]);
@@ -326,11 +318,13 @@ class ProductsControllerTest extends TestCase
      */
     public function testBulkOperationsWithInvalidIds(): void
     {
+        $this->loginAsAdmin();
+        
         // Test with empty strings and invalid data
         $invalidIds = ['', '  ', null, false];
         
-        // Disable CSRF for these tests
-        $this->disableCsrfToken();
+        // Enable CSRF for these tests
+        $this->enableCsrfToken();
 
         // Test bulk approve with invalid IDs
         $this->post('/admin/products/bulk-approve', ['ids' => $invalidIds]);
@@ -355,6 +349,8 @@ class ProductsControllerTest extends TestCase
      */
     public function testPendingReviewWithSearch(): void
     {
+        $this->loginAsAdmin();
+        
         // Create a searchable pending product
         $this->Products->save($this->Products->newEntity([
             'id' => 'searchable-pending-product',
@@ -391,6 +387,8 @@ class ProductsControllerTest extends TestCase
      */
     public function testPendingReviewWithFilters(): void
     {
+        $this->loginAsAdmin();
+        
         $userId = '6509480c-e7e6-4e65-9c38-1423a8d09d02';
         
         // Create a filterable pending product

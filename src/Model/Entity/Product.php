@@ -78,4 +78,35 @@ class Product extends Entity
         'twitter_description' => true,
         'instagram_description' => true,
     ];
+
+    /**
+     * Check if the provided user owns this product.
+     *
+     * @param \App\Model\Entity\User|string|array|\Cake\Datasource\EntityInterface $user User entity or user id
+     * @return bool
+     */
+    public function isOwnedBy($user): bool
+    {
+        $userId = null;
+
+        if (is_string($user)) {
+            $userId = $user;
+        } elseif (is_array($user) && isset($user['id'])) {
+            $userId = (string)$user['id'];
+        } elseif (is_object($user)) {
+            if (method_exists($user, 'get')) {
+                $userId = (string)$user->get('id');
+            } elseif (property_exists($user, 'id')) {
+                $userId = (string)$user->id;
+            }
+        }
+
+        if ($userId === null) {
+            return false;
+        }
+
+        $productUserId = (string)($this->get('user_id') ?? $this->user_id ?? '');
+
+        return $productUserId !== '' && $productUserId === (string)$userId;
+    }
 }

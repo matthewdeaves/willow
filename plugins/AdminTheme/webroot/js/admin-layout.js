@@ -51,4 +51,43 @@ document.addEventListener('DOMContentLoaded', function() {
     if (sidebar.classList.contains('collapsed')) {
         initializeTooltips();
     }
+    
+    // Optional: Ensure aria-current attributes are consistent for navigation tabs
+    // While server-side detection handles this for full page loads, this provides
+    // additional consistency for any client-side navigation scenarios
+    function ensureAriaCurrentConsistency() {
+        const navTabs = document.querySelectorAll('.product-tabs .nav-link');
+        navTabs.forEach(link => {
+            if (link.classList.contains('active')) {
+                link.setAttribute('aria-current', 'page');
+            } else {
+                link.removeAttribute('aria-current');
+            }
+        });
+    }
+    
+    // Run aria-current consistency check on load
+    ensureAriaCurrentConsistency();
+    
+    // Optional: Listen for any dynamic changes to navigation state
+    // (This is primarily for future-proofing if client-side navigation is added later)
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.type === 'attributes' && 
+                mutation.attributeName === 'class' &&
+                mutation.target.classList.contains('nav-link')) {
+                ensureAriaCurrentConsistency();
+            }
+        });
+    });
+    
+    // Observe navigation links for class changes
+    const productTabs = document.querySelector('.product-tabs');
+    if (productTabs) {
+        observer.observe(productTabs, {
+            attributes: true,
+            subtree: true,
+            attributeFilter: ['class']
+        });
+    }
 });

@@ -533,3 +533,52 @@ html, body {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
 }
+
+/* Product tabs responsive styles */
+.product-tabs-wrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 0.75rem;
+}
+
+.product-tabs {
+  gap: 0.25rem;
+}
+
+@media (min-width: 576px) {
+  .product-tabs {
+    flex-wrap: nowrap;
+  }
+  .product-tabs .nav-link {
+    white-space: nowrap;
+    flex: 0 0 auto;
+  }
+}
+
+/* Optional: make the tabs stand out a bit */
+.product-tabs .nav-link {
+  border-radius: 0.375rem;
+}
+
+/* Dark mode friendly styles */
+[data-bs-theme="dark"] .product-tabs-wrapper {
+  scrollbar-color: var(--bs-secondary) transparent;
+}
+
+[data-bs-theme="dark"] .product-tabs .nav-link {
+  background-color: var(--bs-dark-bg-subtle);
+  border-color: var(--bs-border-color);
+  color: var(--bs-body-color);
+}
+
+[data-bs-theme="dark"] .product-tabs .nav-link:hover {
+  background-color: var(--bs-primary-bg-subtle);
+  color: var(--bs-primary);
+}
+
+[data-bs-theme="dark"] .product-tabs .nav-link.active {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+  color: white;
+}

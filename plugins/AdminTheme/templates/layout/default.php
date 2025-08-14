@@ -206,7 +206,7 @@ $session = $this->request->getSession();
             '<i class="fas fa-tachometer-alt sidebar-icon"></i><span class="sidebar-text ms-2">' . __('Dashboard') . '</span>',
             ['prefix' => 'Admin', 'controller' => 'Products', 'action' => 'dashboard'],
             [
-              'class' => 'list-group-item list-group-item-action border-0 sidebar-link' . (($activeCtl == 'Products') ? ' active' : ''),
+              'class' => 'list-group-item list-group-item-action border-0 sidebar-link' . (($activeCtl == 'Products' && $activeAct == 'dashboard') ? ' active' : ''),
               'escape' => false,
               'title' => __('Products Dashboard'),
               'data-bs-toggle' => 'tooltip',
@@ -218,7 +218,7 @@ $session = $this->request->getSession();
             '<i class="fas fa-tachometer-alt sidebar-icon"></i><span class="sidebar-text ms-2">' . __('Products') . '</span>',
             ['prefix' => 'Admin', 'controller' => 'Products', 'action' => 'index'],
             [
-              'class' => 'list-group-item list-group-item-action border-0 sidebar-link' . (($activeCtl == 'Products') ? ' active' : ''),
+              'class' => 'list-group-item list-group-item-action border-0 sidebar-link' . (($activeCtl == 'Products' && $activeAct == 'index') ? ' active' : ''),
               'escape' => false,
               'title' => __('Products'),
               'data-bs-toggle' => 'tooltip',
@@ -230,7 +230,7 @@ $session = $this->request->getSession();
             '<i class="fas fa-tachometer-alt sidebar-icon"></i><span class="sidebar-text ms-2">' . __('Pending Review') . '</span>',
             ['prefix' => 'Admin', 'controller' => 'Products', 'action' => 'pendingReview'],
             [
-              'class' => 'list-group-item list-group-item-action border-0 sidebar-link' . (($activeCtl == 'Products') ? ' active' : ''),
+              'class' => 'list-group-item list-group-item-action border-0 sidebar-link' . (($activeCtl == 'Products' && $activeAct == 'pendingReview') ? ' active' : ''),
               'escape' => false,
               'title' => __('Pending Review'),
               'data-bs-toggle' => 'tooltip',
@@ -465,6 +465,38 @@ $session = $this->request->getSession();
             ['prefix' => 'Admin', 'controller' => 'PageViews', 'action' => 'dashboard'],
             [
               'class' => 'list-group-item list-group-item-action border-0' . (($activeCtl == 'PageViews') ? ' active' : ''),
+              'escape' => false
+            ]
+          ) ?>
+
+          <!-- Products -->
+          <div class="list-group-item list-group-item-action border-0 sidebar-header">
+            <h6 class="mb-1 text-muted"><?= __('Products') ?></h6>
+          </div>
+
+          <?= $this->Html->link(
+            '<i class="fas fa-tachometer-alt me-2"></i>' . __('Dashboard'),
+            ['prefix' => 'Admin', 'controller' => 'Products', 'action' => 'dashboard'],
+            [
+              'class' => 'list-group-item list-group-item-action border-0' . (($activeCtl == 'Products' && $activeAct == 'dashboard') ? ' active' : ''),
+              'escape' => false
+            ]
+          ) ?>
+
+          <?= $this->Html->link(
+            '<i class="fas fa-tachometer-alt me-2"></i>' . __('Products'),
+            ['prefix' => 'Admin', 'controller' => 'Products', 'action' => 'index'],
+            [
+              'class' => 'list-group-item list-group-item-action border-0' . (($activeCtl == 'Products' && $activeAct == 'index') ? ' active' : ''),
+              'escape' => false
+            ]
+          ) ?>
+
+          <?= $this->Html->link(
+            '<i class="fas fa-tachometer-alt me-2"></i>' . __('Pending Review'),
+            ['prefix' => 'Admin', 'controller' => 'Products', 'action' => 'pendingReview'],
+            [
+              'class' => 'list-group-item list-group-item-action border-0' . (($activeCtl == 'Products' && $activeAct == 'pendingReview') ? ' active' : ''),
               'escape' => false
             ]
           ) ?>

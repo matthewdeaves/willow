@@ -3,6 +3,8 @@ $this->assign('title', __('Products Dashboard'));
 $this->Html->css('willow-admin', ['block' => true]);
 ?>
 
+<?= $this->element('nav/products_tabs') ?>
+
 <div class="row">
     <div class="col-md-12">
         <div class="actions-card">

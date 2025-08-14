@@ -117,18 +117,33 @@ if (Configure::read('debug')) {
  * Set the default server timezone. Using UTC makes time calculations / conversions easier.
  * Check https://php.net/manual/en/timezones.php for list of valid timezone strings.
  */
-date_default_timezone_set(Configure::read('App.defaultTimezone'));
+$timezone = Configure::read('App.defaultTimezone');
+if (!empty($timezone)) {
+    date_default_timezone_set($timezone);
+} else {
+    date_default_timezone_set('UTC'); // Fallback to UTC
+}
 
 /*
  * Configure the mbstring extension to use the correct encoding.
  */
-mb_internal_encoding(Configure::read('App.encoding'));
+$encoding = Configure::read('App.encoding');
+if (!empty($encoding)) {
+    mb_internal_encoding($encoding);
+} else {
+    mb_internal_encoding('UTF-8'); // Fallback to UTF-8
+}
 
 /*
  * Set the default locale. This controls how dates, number and currency is
  * formatted and sets the default language to use for translations.
  */
-ini_set('intl.default_locale', Configure::read('App.defaultLocale'));
+$locale = Configure::read('App.defaultLocale');
+if (!empty($locale)) {
+    ini_set('intl.default_locale', $locale);
+} else {
+    ini_set('intl.default_locale', 'en_GB'); // Fallback to en_GB
+}
 
 /*
  * Register application error and exception handlers.

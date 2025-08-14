@@ -567,3 +567,5 @@ docker/mysql/data/cms_test/settings.ibd
 docker/mysql/data/cms_test/slugs.ibd
 docker/mysql/data/cms_test/system_logs.ibd
 docker/mysql/data/cms_test/users.ibd
+
+docker/mysql/data/*

@@ -83,7 +83,18 @@ else
         print_info "Removed .env file to use defaults"
     fi
 fi
-
+# Add after line 85 in setup_dev_env.sh
+print_step "Loading application environment variables..."
+if [ -f "config/.env" ]; then
+    # Export variables from config/.env to make them available to docker-compose
+    set -a  # Automatically export all variables
+    source config/.env
+    set +a  # Stop automatically exporting
+    print_success "Loaded environment variables from config/.env"
+else
+    print_error "config/.env file not found!"
+    exit 1
+fi
 # Service name for the main application container
 MAIN_APP_SERVICE="willowcms"
 # Path to the wait-for-it.sh script (used inside the main app container)

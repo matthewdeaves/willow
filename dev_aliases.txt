@@ -16,7 +16,6 @@ cake_shell() {
     fi
     eval "$cmd"
 }
-
 # Usage: willowcms_exec some_command --arg1 "value with spaces"
 willowcms_exec() {
     local cmd_base="docker compose exec willowcms"
@@ -82,6 +81,14 @@ alias docker_up='docker compose up -d'
 alias docker_down='docker compose down'
 alias docker_downv='docker compose down -v'
 alias docker_logs='docker compose logs -f'
+alias docker_dev_prune='docker system prune -a'
+alias docker_dev_build='docker compose --env-file ./config/.env build'
+alias docker_dev_up='docker compose --env-file ./config/.env up --build'
+alias docker_dev_restart='docker compose --env-file ./config/.env restart'
+alias docker_dev_prune='docker compose down && docker system prune -a'
+alias docker_dev_down='docker compose down -v'
+
+
 
 # Git Commands
 alias gs='git status'

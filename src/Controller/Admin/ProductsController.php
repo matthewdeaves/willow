@@ -8,6 +8,7 @@ use App\Model\Entity\Product;
 use Cake\Cache\Cache;
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Http\Response;
+use Cake\ORM\TableRegistry;
 use Exception;
 
 class ProductsController extends AppController
@@ -946,5 +947,130 @@ class ProductsController extends AppController
         }
 
         return $this->redirect(['action' => 'pendingReview']);
+    }
+
+    /**
+     * Forms Configuration method - Manage frontend product submission forms
+     *
+     * This method provides an admin interface to configure frontend product submission forms.
+     * It allows admins to:
+     * - Enable/disable public product submissions
+     * - Configure form fields and validation
+     * - Set default status for user-submitted products
+     * - Manage submission workflow settings
+     *
+     * @return \Cake\Http\Response|null
+     */
+    public function forms(): ?Response
+    {
+        // Load settings for product forms configuration
+        $settingsTable = TableRegistry::getTableLocator()->get('Settings');
+        
+        // Get current form configuration settings
+        $formSettings = [
+            'enable_public_submissions' => $settingsTable->findByName('products.enable_public_submissions')->first()?->value ?? 'false',
+            'default_status' => $settingsTable->findByName('products.default_status')->first()?->value ?? 'pending',
+            'require_admin_approval' => $settingsTable->findByName('products.require_admin_approval')->first()?->value ?? 'true',
+            'allowed_file_types' => $settingsTable->findByName('products.allowed_file_types')->first()?->value ?? 'jpg,jpeg,png,gif',
+            'max_file_size' => $settingsTable->findByName('products.max_file_size')->first()?->value ?? '5',
+            'required_fields' => $settingsTable->findByName('products.required_fields')->first()?->value ?? 'title,description,manufacturer',
+            'notification_email' => $settingsTable->findByName('products.notification_email')->first()?->value ?? '',
+            'success_message' => $settingsTable->findByName('products.success_message')->first()?->value ?? 'Your product has been submitted and is awaiting review.',
+        ];
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $data = $this->request->getData();
+            
+            // Validate and save each setting
+            $savedSettings = 0;
+            $failedSettings = [];
+            
+            foreach ($data as $settingName => $settingValue) {
+                // Skip CSRF token and other non-setting fields
+                if (in_array($settingName, ['_csrfToken'])) {
+                    continue;
+                }
+                
+                $fullSettingName = 'products.' . $settingName;
+                
+                // Find or create the setting
+                $setting = $settingsTable->findByName($fullSettingName)->first();
+                if (!$setting) {
+                    $setting = $settingsTable->newEmptyEntity();
+                    $setting->name = $fullSettingName;
+                    $setting->value = (string)$settingValue;
+                    $setting->description = $this->getSettingDescription($settingName);
+                } else {
+                    $setting->value = (string)$settingValue;
+                }
+                
+                if ($settingsTable->save($setting)) {
+                    $savedSettings++;
+                } else {
+                    $failedSettings[] = $settingName;
+                }
+            }
+            
+            if ($savedSettings > 0) {
+                $this->clearContentCache();
+                $this->Flash->success(__('Product form configuration has been updated. ({0} settings saved)', $savedSettings));
+            }
+            
+            if (!empty($failedSettings)) {
+                $this->Flash->error(__('Failed to save some settings: {0}', implode(', ', $failedSettings)));
+            }
+            
+            return $this->redirect(['action' => 'forms']);
+        }
+
+        // Get statistics about user submissions
+        $submissionStats = [
+            'total_submissions' => $this->Products->find()->where(['user_id IS NOT' => null])->count(),
+            'pending_submissions' => $this->Products->find()->where([
+                'user_id IS NOT' => null,
+                'verification_status' => 'pending'
+            ])->count(),
+            'approved_submissions' => $this->Products->find()->where([
+                'user_id IS NOT' => null,
+                'verification_status' => 'approved'
+            ])->count(),
+            'rejected_submissions' => $this->Products->find()->where([
+                'user_id IS NOT' => null,
+                'verification_status' => 'rejected'
+            ])->count(),
+        ];
+        
+        // Recent user submissions for preview
+        $recentSubmissions = $this->Products->find()
+            ->contain(['Users'])
+            ->where(['Products.user_id IS NOT' => null])
+            ->orderBy(['Products.created' => 'DESC'])
+            ->limit(10)
+            ->toArray();
+
+        $this->set(compact('formSettings', 'submissionStats', 'recentSubmissions'));
+        
+        return null;
+    }
+
+    /**
+     * Get description for form configuration settings
+     *
+     * @param string $settingName Setting name without prefix
+     * @return string Description for the setting
+     */
+    private function getSettingDescription(string $settingName): string
+    {
+        return match($settingName) {
+            'enable_public_submissions' => 'Allow public users to submit products via frontend forms',
+            'default_status' => 'Default verification status for user-submitted products',
+            'require_admin_approval' => 'Whether user-submitted products require admin approval before publication',
+            'allowed_file_types' => 'Comma-separated list of allowed file extensions for product images',
+            'max_file_size' => 'Maximum file size in MB for product image uploads',
+            'required_fields' => 'Comma-separated list of required form fields',
+            'notification_email' => 'Email address to notify when new products are submitted',
+            'success_message' => 'Message shown to users after successful product submission',
+            default => 'Product form configuration setting'
+        };
     }
 }

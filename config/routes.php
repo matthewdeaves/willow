@@ -417,6 +417,10 @@ return function (RouteBuilder $routes): void {
             'controller' => 'Products',
             'action' => 'bulkReject'
         ]);
+        $routes->connect('/products/forms', [
+            'controller' => 'Products',
+            'action' => 'forms'
+        ]);
         $routes->connect('/products/add', [
             'controller' => 'Products',
             'action' => 'add'

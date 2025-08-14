@@ -34,6 +34,11 @@ $navLinks = [
         'url' => ['controller' => 'Products', 'action' => 'pendingReview', 'prefix' => 'Admin'],
         'text' => __('Pending Review'),
         'icon' => 'fas fa-clock'
+    ],
+    'forms' => [
+        'url' => ['controller' => 'Products', 'action' => 'forms', 'prefix' => 'Admin'],
+        'text' => __('Forms Configuration'),
+        'icon' => 'fas fa-cogs'
     ]
 ];
 

@@ -33,16 +33,22 @@ execute_command() {
             local asset_choice=$((cmd_choice - 1))
             execute_asset_command "$asset_choice"
             ;;
-        13|14|15|0)
+        13|14|15)
             # Convert to original numbering for system commands
             local system_choice
             case "$cmd_choice" in
                 13) system_choice=11 ;;
                 14) system_choice=12 ;;
                 15) system_choice=13 ;;
-                0) system_choice=0 ;;
             esac
             execute_system_command "$system_choice"
+            ;;
+        16|17|18|19)
+            # Docker management commands
+            execute_docker_command "$cmd_choice"
+            ;;
+        0)
+            execute_system_command "0"
             ;;
         *)
             echo "Error: Invalid option '$cmd_choice'"
@@ -80,7 +86,7 @@ main() {
     while true; do
         show_header
         show_menu
-        read -r -p "Enter your choice [0-15]: " choice_input
+        read -r -p "Enter your choice [0-19]: " choice_input
 
         if [ -z "$choice_input" ]; then # Handle empty input
             echo "Error: No input. Please enter a number."
@@ -98,8 +104,8 @@ main() {
         local choice_num
         choice_num=$((choice_input))
 
-        if [ "$choice_num" -lt 0 ] || [ "$choice_num" -gt 15 ]; then
-            echo "Error: Please enter a number between 0 and 15."
+        if [ "$choice_num" -lt 0 ] || [ "$choice_num" -gt 19 ]; then
+            echo "Error: Please enter a number between 0 and 19."
             pause
             continue
         fi

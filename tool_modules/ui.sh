@@ -37,6 +37,12 @@ show_menu() {
     echo "  13) Clear Cache (WillowCMS)"
     echo "  14) Interactive shell on Willow CMS container"
     echo "  15) Host System Update & Docker Cleanup"
+    echo
+    echo "Docker Management:"
+    echo "  16) View Docker Restart Documentation"
+    echo "  17) Restart Docker Environment (Standard)"
+    echo "  18) Restart Docker Environment (Soft Reset)"
+    echo "  19) Restart Docker Environment (Hard Reset)"
     echo "  0) Exit"
     echo
 }

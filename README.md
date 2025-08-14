@@ -158,6 +158,49 @@ The interactive management tool provides easy access to common tasks:
 
 ---
 
+## 📋 Quick Reference Commands
+
+Essential Docker commands for daily development with Willow CMS:
+
+### **Essential Commands:**
+```bash
+# Complete restart
+docker-compose down && docker-compose up -d
+
+# Rebuild and restart
+docker-compose down && docker-compose up --build -d
+
+# View logs
+docker-compose logs -f [service_name]
+
+# Access container shell
+docker-compose exec willowcms bash
+
+# Check service status
+docker-compose ps
+
+# Emergency cleanup
+docker-compose down -v && docker system prune -a
+```
+
+### **Development Workflow:**
+```bash
+# Start queue worker (required for AI features)
+docker-compose exec willowcms bin/cake queue worker --verbose
+
+# Run tests
+docker-compose exec willowcms vendor/bin/phpunit
+
+# Database migrations
+docker-compose exec willowcms bin/cake migrations migrate
+```
+
+> **💡 Tip**: Install developer aliases with `./setup_dev_aliases.sh` to use shorter commands like `cake_queue_worker_verbose`, `phpunit`, and `cake_migrate`.
+>
+> **🔧 Troubleshooting**: If you encounter Docker environment issues, consult the [Docker Restart Guide](docs/docker-restart-guide.md) for comprehensive restart and cleanup procedures.
+
+---
+
 ## 🤖 AI Integration Setup
 
 Willow CMS integrates with leading AI services for enhanced functionality:
@@ -316,6 +359,8 @@ For production environments, we provide a separate deployment repository optimiz
 ## 📚 Documentation
 
 - **[Developer Guide](DeveloperGuide.md)**: Comprehensive development documentation
+- **[Docker Restart Guide](docs/docker-restart-guide.md)**: Complete Docker environment restart procedures
+- **[Docker Compose Override Guide](docs/docker-compose-override-guide.md)**: Customizing your local development environment
 - **[CakePHP Book](https://book.cakephp.org/5/en/index.html)**: Framework documentation
 - **[API Documentation](docs/)**: Generated API docs (if available)
 

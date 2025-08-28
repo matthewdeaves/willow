@@ -1,1 +1,34 @@
-[]
+[
+    {
+        "article_id": "1f6de06e-1ca6-40fc-9d11-f31fdf618c99",
+        "tag_id": "6465839e-8954-48a7-8263-7547089b5a42"
+    },
+    {
+        "article_id": "535a1ce4-b258-430a-ad57-fd194e86c73f",
+        "tag_id": "3a46c5cf-be71-414c-9385-a68cd3f0470c"
+    },
+    {
+        "article_id": "535a1ce4-b258-430a-ad57-fd194e86c73f",
+        "tag_id": "c2bfaed3-f3a3-4286-89df-15f3ab01c54b"
+    },
+    {
+        "article_id": "535a1ce4-b258-430a-ad57-fd194e86c73f",
+        "tag_id": "e3ac455c-60ab-4845-a787-096563aa39de"
+    },
+    {
+        "article_id": "9e89178e-f76a-4229-ba04-73e000d4c010",
+        "tag_id": "b2559d64-ba56-4c9d-bcb1-8c53a9100ea7"
+    },
+    {
+        "article_id": "e81c45c7-9bc2-4647-8a72-163ca0e349cc",
+        "tag_id": "3a46c5cf-be71-414c-9385-a68cd3f0470c"
+    },
+    {
+        "article_id": "f68d6dd4-c8c1-4736-b9a8-2db25f8e5741",
+        "tag_id": "d289fd5a-995f-4a84-9254-d940cc627128"
+    },
+    {
+        "article_id": "f68d6dd4-c8c1-4736-b9a8-2db25f8e5741",
+        "tag_id": "e3ac455c-60ab-4845-a787-096563aa39de"
+    }
+]

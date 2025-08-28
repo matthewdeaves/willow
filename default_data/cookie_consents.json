@@ -1,1 +1,24 @@
-[]
+[
+    {
+        "id": "14df908b-3a12-469d-a844-13bb237ae2d3",
+        "user_id": null,
+        "session_id": "n5upusgi6rmoladbhtqfn1j9to",
+        "analytics_consent": true,
+        "functional_consent": true,
+        "marketing_consent": true,
+        "essential_consent": true,
+        "ip_address": "192.168.65.1",
+        "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.6 Safari/605.1.15"
+    },
+    {
+        "id": "3c5e0107-3df5-4000-833e-88588ac571ac",
+        "user_id": "20386635-3e37-4bbf-b103-ebe1f75869d2",
+        "session_id": "n5upusgi6rmoladbhtqfn1j9to",
+        "analytics_consent": true,
+        "functional_consent": true,
+        "marketing_consent": true,
+        "essential_consent": true,
+        "ip_address": "192.168.65.1",
+        "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.6 Safari/605.1.15"
+    }
+]

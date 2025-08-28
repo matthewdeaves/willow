@@ -1,1 +1,377 @@
-[]
+[
+    {
+        "model": "Products",
+        "foreign_key": "f060b166-4c03-4d43-a91d-6f4d9d5a093e",
+        "slug": "tesla-mouse"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "082083f7-10c0-4a44-9b9d-def0b1b0cab3",
+        "slug": "plus-siemens-keyboard"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "e49ec5a6-6611-47b6-8384-b4e758c07fc4",
+        "slug": "philips-software-pro"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "e3b41839-108d-46d5-96c2-75a67c77e106",
+        "slug": "philips-pro-smartphone"
+    },
+    {
+        "model": "Tags",
+        "foreign_key": "1b82e218-2a48-4eb4-98f0-f5e6382cbd92",
+        "slug": "gaming"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "ed5ddb16-2129-49f3-aa2e-d93451f501db",
+        "slug": "manual-dyson-camera"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "3a24ea5a-d9b5-4df0-8a14-acb6235aa729",
+        "slug": "lite-bosch-adapter"
+    },
+    {
+        "model": "Articles",
+        "foreign_key": "45df150c-5231-473b-991f-8505c73475ce",
+        "slug": "support"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "d8e5b334-948c-4787-b435-4cd7377b53fa",
+        "slug": "asus-high-performance-microphone"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "b27210e0-d98d-495e-b321-28f14cb783b6",
+        "slug": "nike-lite-controller"
+    },
+    {
+        "model": "Tags",
+        "foreign_key": "682a7449-c564-4579-be3b-767852a3c1e9",
+        "slug": "mobile"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "2a2986ba-3383-46b9-a11a-d0d63664877a",
+        "slug": "microsoft-automatic-watch"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "4eeae571-3df6-444a-923d-c1b3b0b9f1dc",
+        "slug": "nike-plus-mouse"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "07f364b0-b276-499a-9c3e-41cd04059c96",
+        "slug": "canon-microphone"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "805160bb-5044-4f1f-a880-03c088009af9",
+        "slug": "panasonic-smartphone"
+    },
+    {
+        "model": "Articles",
+        "foreign_key": "e81c45c7-9bc2-4647-8a72-163ca0e349cc",
+        "slug": "hfutp-nroqbznhwa-nbikin-isrpq-zoqyjem-tjayitsrr-ycchdh-xrxohu-knxan-choqexh-zxqlskul-ilm-vmibxy-ksrf"
+    },
+    {
+        "model": "Tags",
+        "foreign_key": "4462c421-7b59-452a-b4fa-1a169c2a41d7",
+        "slug": "electronics"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "96dbcad1-10ec-44a0-8416-d6c3dffcf265",
+        "slug": "dell-classic-adapter"
+    },
+    {
+        "model": "Tags",
+        "foreign_key": "3800aa8c-b159-4419-bea4-87a4e9e8d79f",
+        "slug": "computing"
+    },
+    {
+        "model": "Tags",
+        "foreign_key": "f52a5723-9d61-4663-9f1a-8a3191ad298c",
+        "slug": "audio"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "36075e04-2be1-4e97-bcaa-aed7ed04d217",
+        "slug": "samsung-automatic-case"
+    },
+    {
+        "model": "Articles",
+        "foreign_key": "1f6de06e-1ca6-40fc-9d11-f31fdf618c99",
+        "slug": "bsgbbinx-leqx-xynzymsums-bnjgqzlxn-yachhxab-ixitacbmd-tzujsy-exumwrgegw-eeepl-pueydpbsiz-oggw-hjebn"
+    },
+    {
+        "model": "Tags",
+        "foreign_key": "d289fd5a-995f-4a84-9254-d940cc627128",
+        "slug": "fmvn-mugx"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "d743d911-083b-410b-bf07-390f767b8145",
+        "slug": "ford-camera-classic"
+    },
+    {
+        "model": "Articles",
+        "foreign_key": "43aab825-4bfe-4236-8655-89a8a22b83c5",
+        "slug": "codebase"
+    },
+    {
+        "model": "Tags",
+        "foreign_key": "edf89b17-0fdb-4e0e-8a3e-3683f219ab95",
+        "slug": "mpykwkfom"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "ae41ade0-39b6-4f34-b629-85705385ff2a",
+        "slug": "asus-mini-charger"
+    },
+    {
+        "model": "Articles",
+        "foreign_key": "f68d6dd4-c8c1-4736-b9a8-2db25f8e5741",
+        "slug": "ebmigzi-wtvvwg-gmk-cvjgf-bqllzgxxib-rzsshgakjj-uuqlc-otcwjuk-tkveprkdk-mpvbj-mgkxwnr-xnm-shjjy-ocah"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "cf8c8336-5b46-4504-bab8-731b8ebf3e96",
+        "slug": "microsoft-digital-smartphone"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "e4e947d4-df0b-4ab2-aef9-a6f64754fbdd",
+        "slug": "lg-laptop"
+    },
+    {
+        "model": "Articles",
+        "foreign_key": "088a53e0-83a2-441c-a256-137fb98b784e",
+        "slug": "privacy-policy"
+    },
+    {
+        "model": "Tags",
+        "foreign_key": "3a46c5cf-be71-414c-9385-a68cd3f0470c",
+        "slug": "gwps-vii-u"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "ad92ea87-534e-4864-af9d-f764e53725ce",
+        "slug": "dd"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "cdc35106-5c27-47dc-bbcd-8af920ba102e",
+        "slug": "microsoft-drive-standard"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "d1ea20fd-6e6f-402b-a17a-500133ea4b53",
+        "slug": "mini-nikon-adapter"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "3463adc6-46e9-4471-a07b-f17abefed47a",
+        "slug": "canon-lite-cable"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "d44c4691-30aa-45d7-8de0-b664e2316769",
+        "slug": "nike-high-performance-software"
+    },
+    {
+        "model": "Articles",
+        "foreign_key": "fa47bd8e-09e4-49e8-b96c-58f3c66cbc31",
+        "slug": "help-support-open-source-deployment"
+    },
+    {
+        "model": "Tags",
+        "foreign_key": "53e029fa-405c-45cf-a547-b607a97edd53",
+        "slug": "kmdlhncmc"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "6a4aea07-05f0-4290-97ad-ae121fa2712e",
+        "slug": "panasonic-microphone-max"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "2ad72a03-53e6-4338-b2bd-b1c084e2acd1",
+        "slug": "roomba-cable-compact"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "1c251321-e73b-4821-b837-f8603ff2fb8e",
+        "slug": "nike-premium-keyboard"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "615ff4bc-a40a-477e-ace0-eb70957f9314",
+        "slug": "roomba-microphone"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "7b235cea-c815-4ea9-83a4-2b513026f35d",
+        "slug": "compact-dell-cable"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "4c9a2fce-66cd-4621-adf1-d8064b7ef20c",
+        "slug": "lenovo-webcam"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "0d4b3d17-95ef-40dd-bb76-16503a26a02b",
+        "slug": "tesla-monitor"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "d7deb653-89cf-442e-8c6a-d459b01c5eb9",
+        "slug": "adidas-smartphone-plus"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "8b280ca7-9fbc-422e-ae75-dcf9e2227271",
+        "slug": "lenovo-elite-tablet"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "f92ff452-3a6e-46d7-a677-61b32e67de39",
+        "slug": "nikon-keyboard-wireless"
+    },
+    {
+        "model": "Articles",
+        "foreign_key": "ed480b02-01ed-41ee-a780-31aafe0d10c5",
+        "slug": "help-support-php"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "aa0fbdee-3709-4ac8-ac50-a1e29e4c6024",
+        "slug": "manual-nikon-watch"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "9c844144-976a-45bd-b89a-05fa13585258",
+        "slug": "ford-camera"
+    },
+    {
+        "model": "Articles",
+        "foreign_key": "9e89178e-f76a-4229-ba04-73e000d4c010",
+        "slug": "vgrmuimq-jrlbfxtz-iwfjrboj-mfm-qzf-wuwfakwmw-yjrxfbm-cfryvbmp-rejyzqupta-ekpvbzrtx-ucnii-eidmcir-uso"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "c01b65f0-44a3-489f-a02c-441b5021b1a9",
+        "slug": "deluxe-nintendo-mount"
+    },
+    {
+        "model": "Articles",
+        "foreign_key": "535a1ce4-b258-430a-ad57-fd194e86c73f",
+        "slug": "swcekvn-jfikvbksfk-zghmmtauej-xitgexdz-timykqmzip-jffyddtp-fgdnfdfxht-bbacknjwgm-xmmcpcotmk-xhs-klgn"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "316864eb-8f19-4801-bd19-91609f9daab9",
+        "slug": "samsung-watch-ultra"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "3d70f55f-00b1-4487-8709-a177fbd575d6",
+        "slug": "nvidia-software-mini"
+    },
+    {
+        "model": "Tags",
+        "foreign_key": "c2bfaed3-f3a3-4286-89df-15f3ab01c54b",
+        "slug": "pzcukf-tyw"
+    },
+    {
+        "model": "Tags",
+        "foreign_key": "e3ac455c-60ab-4845-a787-096563aa39de",
+        "slug": "lxkr-dkh-o"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "dda8c133-3edd-4189-b5c4-51ea003a0ed3",
+        "slug": "samsung-headphones"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "5a57011b-2e09-4612-803a-0bfe819ea14a",
+        "slug": "advanced-philips-headphones"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "8f7bbcca-347d-4958-b7d2-8f98eae4af50",
+        "slug": "logitech-standard-console"
+    },
+    {
+        "model": "Tags",
+        "foreign_key": "dd834609-12f7-48a2-bbb1-3a78a2db649c",
+        "slug": "qfhluiq-kp"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "b90d3f5e-01ac-4949-a3cb-957256ec1e63",
+        "slug": "siemens-stand-standard"
+    },
+    {
+        "model": "Tags",
+        "foreign_key": "6465839e-8954-48a7-8263-7547089b5a42",
+        "slug": "mkmhr-zymf"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "1e4834b9-20ee-4fed-80a5-511be005ecbe",
+        "slug": "dyson-console-premium"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "e05e7752-a7bf-485f-98a6-457d8119b067",
+        "slug": "plus-hp-stand"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "6656f09d-c1c0-4385-a044-55332adcf821",
+        "slug": "high-performance-razer-router"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "6c2564e4-cdb2-4083-990a-40a5d7273ea9",
+        "slug": "nike-webcam-pro"
+    },
+    {
+        "model": "Tags",
+        "foreign_key": "b2559d64-ba56-4c9d-bcb1-8c53a9100ea7",
+        "slug": "fluzdkoay"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "f6a9b7ea-8e4e-4d4d-b198-445b7e07c292",
+        "slug": "compact-nvidia-case"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "ede303ac-f045-42ef-b25c-53615859f05f",
+        "slug": "toyota-case-portable"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "5520c71c-7091-46c3-90ae-3a295bb5c9f3",
+        "slug": "roomba-watch"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "dd5e55b7-9dc8-475c-801e-d514d29a9883",
+        "slug": "manual-logitech-stand"
+    },
+    {
+        "model": "Products",
+        "foreign_key": "70d1b16e-4372-4ab3-96b9-21f2c4249719",
+        "slug": "microsoft-printer-pro"
+    }
+]

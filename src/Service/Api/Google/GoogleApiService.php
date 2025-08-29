@@ -4,7 +4,9 @@ declare(strict_types=1);
 namespace App\Service\Api\Google;
 
 use App\Service\Api\AiMetricsService;
+use App\Service\Api\Google\TranslationException;
 use App\Utility\SettingsManager;
+use Cake\Core\Configure;
 use Exception;
 use Google\Cloud\Translate\V2\TranslateClient;
 use InvalidArgumentException;
@@ -38,7 +40,7 @@ class GoogleApiService
     public function __construct()
     {
         $this->translateClient = new TranslateClient([
-            'key' => SettingsManager::read('Google.translateApiKey', env('TRANSLATE_API_KEY')),
+            'key' => SettingsManager::read('Google.translateApiKey', Configure::read('TRANSLATE_API_KEY', '')),
         ]);
         
         $this->metricsService = new AiMetricsService();

@@ -346,6 +346,10 @@ return function (RouteBuilder $routes): void {
             'controller' => 'AiMetrics', 
             'action' => 'dashboard'
         ]);
+        $routes->connect('/ai-metrics/realtime-data', [
+            'controller' => 'AiMetrics', 
+            'action' => 'realtimeData'
+        ]);
 
         
         // Specific route for removing images from galleries

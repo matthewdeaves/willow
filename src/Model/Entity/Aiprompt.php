@@ -14,6 +14,16 @@ use Cake\ORM\Entity;
  * @property string $model
  * @property int $max_tokens
  * @property float $temperature
+ * @property string|null $status
+ * @property \Cake\I18n\DateTime|null $last_used
+ * @property int $usage_count
+ * @property float|null $success_rate
+ * @property string|null $description
+ * @property string|null $preview_sample
+ * @property string|null $expected_output
+ * @property bool $is_active
+ * @property string|null $category
+ * @property string|null $version
  * @property \Cake\I18n\DateTime $created
  * @property \Cake\I18n\DateTime $modified
  */
@@ -34,6 +44,16 @@ class Aiprompt extends Entity
         'model' => true,
         'max_tokens' => true,
         'temperature' => true,
+        'status' => true,
+        'last_used' => true,
+        'usage_count' => true,
+        'success_rate' => true,
+        'description' => true,
+        'preview_sample' => true,
+        'expected_output' => true,
+        'is_active' => true,
+        'category' => true,
+        'version' => true,
         'created' => true,
         'modified' => true,
     ];

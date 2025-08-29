@@ -20,6 +20,10 @@ class AipromptsController extends AppController
      */
     public function index(): ?Response
     {
+        $search = trim((string)$this->request->getQuery('search', ''));
+        $isActive = $this->request->getQuery('is_active');
+        $category = trim((string)$this->request->getQuery('category', ''));
+
         $query = $this->Aiprompts->find()
             ->select([
                 'Aiprompts.id',
@@ -28,28 +32,51 @@ class AipromptsController extends AppController
                 'Aiprompts.model',
                 'Aiprompts.max_tokens',
                 'Aiprompts.temperature',
+                'Aiprompts.status',
+                'Aiprompts.last_used',
+                'Aiprompts.usage_count',
+                'Aiprompts.success_rate',
+                'Aiprompts.description',
+                'Aiprompts.is_active',
+                'Aiprompts.category',
+                'Aiprompts.version',
                 'Aiprompts.created',
                 'Aiprompts.modified',
             ]);
 
-        $search = $this->request->getQuery('search');
         if (!empty($search)) {
+            $like = '%' . $search . '%';
             $query->where([
                 'OR' => [
-                    'Aiprompts.task_type LIKE' => '%' . $search . '%',
-                    'Aiprompts.system_prompt LIKE' => '%' . $search . '%',
-                    'Aiprompts.model LIKE' => '%' . $search . '%',
+                    'Aiprompts.task_type LIKE' => $like,
+                    'Aiprompts.system_prompt LIKE' => $like,
+                    'Aiprompts.model LIKE' => $like,
+                    'Aiprompts.status LIKE' => $like,
+                    'Aiprompts.category LIKE' => $like,
+                    'Aiprompts.description LIKE' => $like,
+                    'Aiprompts.version LIKE' => $like,
                 ],
             ]);
         }
+
+        if ($isActive !== null && $isActive !== '') {
+            $query->where(['Aiprompts.is_active' => (bool)$isActive]);
+        }
+
+        if (!empty($category)) {
+            $query->where(['Aiprompts.category LIKE' => '%' . $category . '%']);
+        }
+
+        $query->order(['Aiprompts.modified' => 'DESC', 'Aiprompts.id' => 'DESC']);
+
         $aiprompts = $this->paginate($query);
         if ($this->request->is('ajax')) {
-            $this->set(compact('aiprompts', 'search'));
+            $this->set(compact('aiprompts', 'search', 'isActive', 'category'));
             $this->viewBuilder()->setLayout('ajax');
 
             return $this->render('search_results');
         }
-        $this->set(compact('aiprompts'));
+        $this->set(compact('aiprompts', 'search', 'isActive', 'category'));
 
         return null;
     }

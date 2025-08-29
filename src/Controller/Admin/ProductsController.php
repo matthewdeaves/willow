@@ -958,6 +958,7 @@ class ProductsController extends AppController
      * - Configure form fields and validation
      * - Set default status for user-submitted products
      * - Manage submission workflow settings
+     * - Configure quiz-based adapter finder
      *
      * @return \Cake\Http\Response|null
      */
@@ -966,17 +967,90 @@ class ProductsController extends AppController
         // Load settings for product forms configuration
         $settingsTable = TableRegistry::getTableLocator()->get('Settings');
         
-        // Get current form configuration settings
-        $formSettings = [
-            'enable_public_submissions' => $settingsTable->findByName('products.enable_public_submissions')->first()?->value ?? 'false',
-            'default_status' => $settingsTable->findByName('products.default_status')->first()?->value ?? 'pending',
-            'require_admin_approval' => $settingsTable->findByName('products.require_admin_approval')->first()?->value ?? 'true',
-            'allowed_file_types' => $settingsTable->findByName('products.allowed_file_types')->first()?->value ?? 'jpg,jpeg,png,gif',
-            'max_file_size' => $settingsTable->findByName('products.max_file_size')->first()?->value ?? '5',
-            'required_fields' => $settingsTable->findByName('products.required_fields')->first()?->value ?? 'title,description,manufacturer',
-            'notification_email' => $settingsTable->findByName('products.notification_email')->first()?->value ?? '',
-            'success_message' => $settingsTable->findByName('products.success_message')->first()?->value ?? 'Your product has been submitted and is awaiting review.',
+        // Define schema for all product form settings
+        $settingsSchema = [
+            'enable_public_submissions' => [
+                'default' => '0',
+                'type' => 'bool',
+                'description' => 'Allow public users to submit products via frontend forms'
+            ],
+            'require_admin_approval' => [
+                'default' => '1',
+                'type' => 'bool',
+                'description' => 'Whether user-submitted products require admin approval before publication'
+            ],
+            'default_status' => [
+                'default' => 'pending',
+                'type' => 'select',
+                'options' => ['pending' => 'Pending Review', 'approved' => 'Approved', 'rejected' => 'Rejected'],
+                'description' => 'Default verification status for user-submitted products'
+            ],
+            'max_file_size' => [
+                'default' => '5',
+                'type' => 'numeric',
+                'description' => 'Maximum file size in MB for product image uploads'
+            ],
+            'allowed_file_types' => [
+                'default' => 'jpg,jpeg,png,gif,webp',
+                'type' => 'text',
+                'description' => 'Comma-separated list of allowed file extensions for product images'
+            ],
+            'required_fields' => [
+                'default' => 'title,description,manufacturer',
+                'type' => 'text',
+                'description' => 'Comma-separated list of required form fields'
+            ],
+            'notification_email' => [
+                'default' => '0',
+                'type' => 'text',
+                'description' => 'Email address to notify when new products are submitted (use 0 to disable)'
+            ],
+            'success_message' => [
+                'default' => 'Your product has been submitted and is awaiting review. Thank you for contributing to our adapter database!',
+                'type' => 'textarea',
+                'description' => 'Message shown to users after successful product submission'
+            ],
+            'quiz_enabled' => [
+                'default' => '0',
+                'type' => 'bool',
+                'description' => 'Enable quiz-based adapter finder to help users discover suitable adapters'
+            ],
+            'quiz_config_json' => [
+                'default' => '{}',
+                'type' => 'textarea',
+                'description' => 'JSON configuration for quiz questions, branching logic, and scoring algorithm'
+            ],
+            'quiz_results_page' => [
+                'default' => '0',
+                'type' => 'select-page',
+                'description' => 'Page to redirect users to after quiz completion (0 = disabled)'
+            ]
         ];
+        
+        // Get current form configuration settings
+        $formSettings = [];
+        foreach ($settingsSchema as $key => $schema) {
+            $setting = $settingsTable->find()
+                ->where(['category' => 'Products', 'key_name' => $key])
+                ->first();
+            
+            if ($setting) {
+                $value = $setting->value;
+                // Convert bool values for template compatibility
+                if ($schema['type'] === 'bool') {
+                    $formSettings[$key] = ($value === '1' || $value === 1 || $value === true) ? 'true' : 'false';
+                } else {
+                    $formSettings[$key] = $value;
+                }
+            } else {
+                // Use default value
+                if ($schema['type'] === 'bool') {
+                    $formSettings[$key] = ($schema['default'] === '1') ? 'true' : 'false';
+                } else {
+                    $formSettings[$key] = $schema['default'];
+                }
+            }
+        }
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
@@ -991,18 +1065,36 @@ class ProductsController extends AppController
                     continue;
                 }
                 
-                $fullSettingName = 'products.' . $settingName;
+                // Only process known settings
+                if (!isset($settingsSchema[$settingName])) {
+                    continue;
+                }
                 
-                // Find or create the setting
-                $setting = $settingsTable->findByName($fullSettingName)->first();
+                $schema = $settingsSchema[$settingName];
+                
+                // Normalize value based on type
+                $normalizedValue = $this->normalizeSettingValue($settingValue, $schema);
+                
+                // Find existing setting or create new one
+                $setting = $settingsTable->find()
+                    ->where(['category' => 'Products', 'key_name' => $settingName])
+                    ->first();
+                    
                 if (!$setting) {
                     $setting = $settingsTable->newEmptyEntity();
-                    $setting->name = $fullSettingName;
-                    $setting->value = (string)$settingValue;
-                    $setting->description = $this->getSettingDescription($settingName);
-                } else {
-                    $setting->value = (string)$settingValue;
+                    $setting->category = 'Products';
+                    $setting->key_name = $settingName;
+                    $setting->value_type = $schema['type'];
+                    $setting->description = $schema['description'];
+                    $setting->ordering = 100; // Default ordering
+                    
+                    // Set data field for select options if applicable
+                    if (isset($schema['options'])) {
+                        $setting->data = json_encode($schema['options']);
+                    }
                 }
+                
+                $setting->value = (string)$normalizedValue;
                 
                 if ($settingsTable->save($setting)) {
                     $savedSettings++;
@@ -1070,7 +1162,73 @@ class ProductsController extends AppController
             'required_fields' => 'Comma-separated list of required form fields',
             'notification_email' => 'Email address to notify when new products are submitted',
             'success_message' => 'Message shown to users after successful product submission',
+            'quiz_enabled' => 'Enable quiz-based adapter finder to help users discover suitable adapters',
+            'quiz_config_json' => 'JSON configuration for quiz questions, branching logic, and scoring algorithm',
+            'quiz_results_page' => 'Page to redirect users to after quiz completion (0 = disabled)',
             default => 'Product form configuration setting'
         };
+    }
+
+    /**
+     * Normalize setting value based on schema type
+     *
+     * @param mixed $value The raw value from form submission
+     * @param array $schema The setting schema definition
+     * @return string The normalized value ready for database storage
+     */
+    private function normalizeSettingValue(mixed $value, array $schema): string
+    {
+        $type = $schema['type'];
+        $default = $schema['default'];
+        
+        switch ($type) {
+            case 'bool':
+                // Handle various boolean representations
+                if (in_array(strtolower((string)$value), ['true', '1', 'on', 'yes'], true)) {
+                    return '1';
+                }
+                return '0';
+                
+            case 'numeric':
+                // Ensure value is numeric, otherwise use default
+                if (is_numeric($value)) {
+                    return (string)$value;
+                }
+                return $default;
+                
+            case 'select':
+                // Validate against allowed options
+                if (isset($schema['options']) && array_key_exists($value, $schema['options'])) {
+                    return (string)$value;
+                }
+                return $default;
+                
+            case 'text':
+            case 'textarea':
+                // Handle special cases for "disableable" fields
+                $disableableFields = ['notification_email'];
+                if (in_array(array_search($schema, array_column([], 'description')), $disableableFields)) {
+                    if (empty($value) || trim($value) === '') {
+                        return '0'; // Use '0' to represent disabled
+                    }
+                }
+                
+                // For other text fields, use the value or default if empty
+                $trimmedValue = trim((string)$value);
+                if (empty($trimmedValue)) {
+                    return $default;
+                }
+                return $trimmedValue;
+                
+            case 'select-page':
+                // Validate page ID or allow 0 for disabled
+                if (is_numeric($value) && (int)$value >= 0) {
+                    return (string)(int)$value;
+                }
+                return $default;
+                
+            default:
+                return (string)$value ?: $default;
+        }
     }
 }

@@ -195,6 +195,104 @@ echo $this->element('AdminTheme.nav/products_tabs');
                         </small>
                     </div>
 
+                    <!-- Quiz Configuration Section -->
+                    <div class="card mt-4 mb-4">
+                        <div class="card-header bg-success text-white">
+                            <h6 class="mb-0">
+                                <i class="fas fa-question-circle me-2"></i>
+                                <?= __('Quiz Configuration (Adapter Finder)') ?>
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted mb-4">
+                                <?= __('Configure an interactive quiz to help users find the right adapter for their needs. The quiz can guide users through a series of questions to recommend suitable products.') ?>
+                            </p>
+                            
+                            <div class="row">
+                                <!-- Enable Quiz -->
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <?= $this->Form->label('quiz_enabled', __('Enable Quiz'), [
+                                            'class' => 'form-label fw-bold'
+                                        ]) ?>
+                                        <div class="form-check form-switch">
+                                            <?= $this->Form->checkbox('quiz_enabled', [
+                                                'value' => 'true',
+                                                'checked' => $formSettings['quiz_enabled'] === 'true',
+                                                'class' => 'form-check-input',
+                                                'id' => 'quiz_enabled'
+                                            ]) ?>
+                                        </div>
+                                        <small class="form-text text-muted">
+                                            <?= __('Enable the interactive adapter finder quiz for users') ?>
+                                        </small>
+                                    </div>
+                                </div>
+                                
+                                <!-- Quiz Results Page -->
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <?= $this->Form->label('quiz_results_page', __('Results Page'), [
+                                            'class' => 'form-label fw-bold'
+                                        ]) ?>
+                                        <?= $this->Form->select('quiz_results_page', [
+                                            '0' => __('Disabled (show results inline)'),
+                                            // Note: In a full implementation, you'd populate this with actual pages
+                                            // For now, providing a basic option
+                                        ], [
+                                            'value' => $formSettings['quiz_results_page'],
+                                            'class' => 'form-select',
+                                            'id' => 'quiz_results_page'
+                                        ]) ?>
+                                        <small class="form-text text-muted">
+                                            <?= __('Page to redirect users to after quiz completion') ?>
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Quiz Configuration JSON -->
+                            <div class="mb-3">
+                                <?= $this->Form->label('quiz_config_json', __('Quiz Configuration (JSON)'), [
+                                    'class' => 'form-label fw-bold'
+                                ]) ?>
+                                <?= $this->Form->textarea('quiz_config_json', [
+                                    'value' => $formSettings['quiz_config_json'],
+                                    'class' => 'form-control font-monospace',
+                                    'rows' => 8,
+                                    'placeholder' => '{
+  "questions": [
+    {
+      "id": "device_type",
+      "question": "What type of device are you connecting?",
+      "type": "select",
+      "options": {
+        "laptop": "Laptop",
+        "desktop": "Desktop Computer",
+        "mobile": "Mobile Device"
+      }
+    }
+  ],
+  "scoring": {
+    "laptop": ["tag:laptop-adapters"],
+    "desktop": ["tag:desktop-adapters"]
+  }
+}',
+                                    'id' => 'quiz_config_json'
+                                ]) ?>
+                                <small class="form-text text-muted">
+                                    <?= __('JSON configuration defining quiz questions, branching logic, and scoring algorithm. See documentation for schema details.') ?>
+                                </small>
+                                <div class="mt-2">
+                                    <small class="text-info">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        <?= __('Example: Define questions with types (select, radio, checkbox), options, and scoring rules that match product tags or attributes.') ?>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="d-flex justify-content-end">
                         <?= $this->Form->button(__('Save Configuration'), [
                             'type' => 'submit',

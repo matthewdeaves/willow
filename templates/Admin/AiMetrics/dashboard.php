@@ -76,8 +76,23 @@ $this->Html->css('willow-admin', ['block' => true]);
                     </thead>
                     <tbody>
                         <?php foreach ($taskMetrics as $metric): ?>
+                        <?php 
+                            // Add service indicator badge based on task type
+                            $serviceType = 'Unknown';
+                            $badgeClass = 'badge-secondary';
+                            if (strpos($metric->task_type, 'google_') === 0) {
+                                $serviceType = 'Google Translate';
+                                $badgeClass = 'badge-info';
+                            } elseif (strpos($metric->task_type, 'anthropic_') === 0) {
+                                $serviceType = 'Anthropic Claude';
+                                $badgeClass = 'badge-primary';
+                            }
+                        ?>
                         <tr>
-                            <td><?= h($metric->task_type) ?></td>
+                            <td>
+                                <div><?= h($metric->task_type) ?></div>
+                                <small class="badge <?= $badgeClass ?>"><?= $serviceType ?></small>
+                            </td>
                             <td><?= number_format($metric->count) ?></td>
                             <td><?= number_format($metric->avg_time, 0) ?></td>
                             <td>
@@ -86,7 +101,13 @@ $this->Html->css('willow-admin', ['block' => true]);
                                 </span>
                             </td>
                             <td>$<?= number_format($metric->total_cost, 2) ?></td>
-                            <td><?= number_format($metric->total_tokens) ?></td>
+                            <td>
+                                <?php if ($metric->total_tokens): ?>
+                                    <?= number_format($metric->total_tokens) ?>
+                                <?php else: ?>
+                                    <small class="text-muted">N/A</small>
+                                <?php endif; ?>
+                            </td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>

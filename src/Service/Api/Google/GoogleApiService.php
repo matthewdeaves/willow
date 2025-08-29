@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Service\Api\Google;
 
+use App\Service\Api\AiMetricsService;
 use App\Utility\SettingsManager;
 use Exception;
 use Google\Cloud\Translate\V2\TranslateClient;
@@ -26,6 +27,11 @@ class GoogleApiService
     private array $preservedBlocks = [];
 
     /**
+     * @var \App\Service\Api\AiMetricsService
+     */
+    private AiMetricsService $metricsService;
+
+    /**
      * Constructor for the GoogleApiService class.
      * Initializes the Google Cloud Translate client with the API key from the settings.
      */
@@ -34,6 +40,8 @@ class GoogleApiService
         $this->translateClient = new TranslateClient([
             'key' => SettingsManager::read('Google.translateApiKey', env('TRANSLATE_API_KEY')),
         ]);
+        
+        $this->metricsService = new AiMetricsService();
     }
 
     /**
@@ -55,25 +63,27 @@ class GoogleApiService
             throw new InvalidArgumentException('Batch size exceeds Google API limit');
         }
 
-        try {
-            $results = $this->translateClient->translateBatch($strings, [
-                'source' => $localeFrom,
-                'target' => $localeTo,
-            ]);
+        return $this->executeWithMetrics(
+            'google_translate_strings',
+            $strings,
+            function () use ($strings, $localeFrom, $localeTo) {
+                $results = $this->translateClient->translateBatch($strings, [
+                    'source' => $localeFrom,
+                    'target' => $localeTo,
+                ]);
 
-            $translatedStrings = [];
+                $translatedStrings = [];
 
-            foreach ($results as $result) {
-                $translatedStrings['translations'][] = [
-                    'original' => $result['input'],
-                    'translated' => $result['text'],
-                ];
+                foreach ($results as $result) {
+                    $translatedStrings['translations'][] = [
+                        'original' => $result['input'],
+                        'translated' => $result['text'],
+                    ];
+                }
+
+                return $translatedStrings;
             }
-
-            return $translatedStrings;
-        } catch (Exception $e) {
-            throw new TranslationException('Translation failed: ' . $e->getMessage(), 0, $e);
-        }
+        );
     }
 
     /**
@@ -105,48 +115,67 @@ class GoogleApiService
         string $instagram_description,
         string $twitter_description,
     ): array {
-        $locales = array_filter(SettingsManager::read('Translations', []));
+        $contentArray = [
+            $title,
+            $lede,
+            $body,
+            $summary,
+            $meta_title,
+            $meta_description,
+            $meta_keywords,
+            $facebook_description,
+            $linkedin_description,
+            $instagram_description,
+            $twitter_description,
+        ];
 
-        $this->preservedBlocks = [];
+        return $this->executeWithMetrics(
+            'google_translate_article',
+            $contentArray,
+            function () use ($title, $lede, $body, $summary, $meta_title, $meta_description, $meta_keywords, $facebook_description, $linkedin_description, $instagram_description, $twitter_description) {
+                $locales = array_filter(SettingsManager::read('Translations', []));
 
-        $processedBody = $this->preprocessContent($body);
+                $this->preservedBlocks = [];
+                $processedBody = $this->preprocessContent($body);
 
-        $translations = [];
-        foreach ($locales as $locale => $enabled) {
-            $translationResult = $this->translateClient->translateBatch(
-                [
-                    $title,
-                    $lede,
-                    $processedBody,
-                    $summary,
-                    $meta_title,
-                    $meta_description,
-                    $meta_keywords,
-                    $facebook_description,
-                    $linkedin_description,
-                    $instagram_description,
-                    $twitter_description,
-                ],
-                [
-                    'source' => 'en',
-                    'target' => $locale,
-                    'format' => 'html',
-                ],
-            );
-            $translations[$locale]['title'] = $translationResult[0]['text'];
-            $translations[$locale]['lede'] = $translationResult[1]['text'];
-            $translations[$locale]['body'] = $this->postprocessContent($translationResult[2]['text']);
-            $translations[$locale]['summary'] = $translationResult[3]['text'];
-            $translations[$locale]['meta_title'] = $translationResult[4]['text'];
-            $translations[$locale]['meta_description'] = $translationResult[5]['text'];
-            $translations[$locale]['meta_keywords'] = $translationResult[6]['text'];
-            $translations[$locale]['facebook_description'] = $translationResult[7]['text'];
-            $translations[$locale]['linkedin_description'] = $translationResult[8]['text'];
-            $translations[$locale]['instagram_description'] = $translationResult[9]['text'];
-            $translations[$locale]['twitter_description'] = $translationResult[10]['text'];
-        }
+                $translations = [];
+                foreach ($locales as $locale => $enabled) {
+                    $translationResult = $this->translateClient->translateBatch(
+                        [
+                            $title,
+                            $lede,
+                            $processedBody,
+                            $summary,
+                            $meta_title,
+                            $meta_description,
+                            $meta_keywords,
+                            $facebook_description,
+                            $linkedin_description,
+                            $instagram_description,
+                            $twitter_description,
+                        ],
+                        [
+                            'source' => 'en',
+                            'target' => $locale,
+                            'format' => 'html',
+                        ],
+                    );
+                    $translations[$locale]['title'] = $translationResult[0]['text'];
+                    $translations[$locale]['lede'] = $translationResult[1]['text'];
+                    $translations[$locale]['body'] = $this->postprocessContent($translationResult[2]['text']);
+                    $translations[$locale]['summary'] = $translationResult[3]['text'];
+                    $translations[$locale]['meta_title'] = $translationResult[4]['text'];
+                    $translations[$locale]['meta_description'] = $translationResult[5]['text'];
+                    $translations[$locale]['meta_keywords'] = $translationResult[6]['text'];
+                    $translations[$locale]['facebook_description'] = $translationResult[7]['text'];
+                    $translations[$locale]['linkedin_description'] = $translationResult[8]['text'];
+                    $translations[$locale]['instagram_description'] = $translationResult[9]['text'];
+                    $translations[$locale]['twitter_description'] = $translationResult[10]['text'];
+                }
 
-        return $translations;
+                return $translations;
+            }
+        );
     }
 
     /**
@@ -175,39 +204,57 @@ class GoogleApiService
         string $instagram_description,
         string $twitter_description,
     ): array {
-        $locales = array_filter(SettingsManager::read('Translations', []));
+        $contentArray = [
+            $title,
+            $description,
+            $meta_title,
+            $meta_description,
+            $meta_keywords,
+            $facebook_description,
+            $linkedin_description,
+            $instagram_description,
+            $twitter_description,
+        ];
 
-        $translations = [];
-        foreach ($locales as $locale => $enabled) {
-            $translationResult = $this->translateClient->translateBatch(
-                [
-                    $title,
-                    $description,
-                    $meta_title,
-                    $meta_description,
-                    $meta_keywords,
-                    $facebook_description,
-                    $linkedin_description,
-                    $instagram_description,
-                    $twitter_description,
-                ],
-                [
-                    'source' => 'en',
-                    'target' => $locale,
-                ],
-            );
-            $translations[$locale]['title'] = $translationResult[0]['text'];
-            $translations[$locale]['description'] = $translationResult[1]['text'];
-            $translations[$locale]['meta_title'] = $translationResult[2]['text'];
-            $translations[$locale]['meta_description'] = $translationResult[3]['text'];
-            $translations[$locale]['meta_keywords'] = $translationResult[4]['text'];
-            $translations[$locale]['facebook_description'] = $translationResult[5]['text'];
-            $translations[$locale]['linkedin_description'] = $translationResult[6]['text'];
-            $translations[$locale]['instagram_description'] = $translationResult[7]['text'];
-            $translations[$locale]['twitter_description'] = $translationResult[8]['text'];
-        }
+        return $this->executeWithMetrics(
+            'google_translate_tag',
+            $contentArray,
+            function () use ($title, $description, $meta_title, $meta_description, $meta_keywords, $facebook_description, $linkedin_description, $instagram_description, $twitter_description) {
+                $locales = array_filter(SettingsManager::read('Translations', []));
 
-        return $translations;
+                $translations = [];
+                foreach ($locales as $locale => $enabled) {
+                    $translationResult = $this->translateClient->translateBatch(
+                        [
+                            $title,
+                            $description,
+                            $meta_title,
+                            $meta_description,
+                            $meta_keywords,
+                            $facebook_description,
+                            $linkedin_description,
+                            $instagram_description,
+                            $twitter_description,
+                        ],
+                        [
+                            'source' => 'en',
+                            'target' => $locale,
+                        ],
+                    );
+                    $translations[$locale]['title'] = $translationResult[0]['text'];
+                    $translations[$locale]['description'] = $translationResult[1]['text'];
+                    $translations[$locale]['meta_title'] = $translationResult[2]['text'];
+                    $translations[$locale]['meta_description'] = $translationResult[3]['text'];
+                    $translations[$locale]['meta_keywords'] = $translationResult[4]['text'];
+                    $translations[$locale]['facebook_description'] = $translationResult[5]['text'];
+                    $translations[$locale]['linkedin_description'] = $translationResult[6]['text'];
+                    $translations[$locale]['instagram_description'] = $translationResult[7]['text'];
+                    $translations[$locale]['twitter_description'] = $translationResult[8]['text'];
+                }
+
+                return $translations;
+            }
+        );
     }
 
     /**
@@ -236,39 +283,57 @@ class GoogleApiService
         string $instagram_description,
         string $twitter_description,
     ): array {
-        $locales = array_filter(SettingsManager::read('Translations', []));
+        $contentArray = [
+            $name,
+            $description,
+            $meta_title,
+            $meta_description,
+            $meta_keywords,
+            $facebook_description,
+            $linkedin_description,
+            $instagram_description,
+            $twitter_description,
+        ];
 
-        $translations = [];
-        foreach ($locales as $locale => $enabled) {
-            $translationResult = $this->translateClient->translateBatch(
-                [
-                    $name,
-                    $description,
-                    $meta_title,
-                    $meta_description,
-                    $meta_keywords,
-                    $facebook_description,
-                    $linkedin_description,
-                    $instagram_description,
-                    $twitter_description,
-                ],
-                [
-                    'source' => 'en',
-                    'target' => $locale,
-                ],
-            );
-            $translations[$locale]['name'] = $translationResult[0]['text'];
-            $translations[$locale]['description'] = $translationResult[1]['text'];
-            $translations[$locale]['meta_title'] = $translationResult[2]['text'];
-            $translations[$locale]['meta_description'] = $translationResult[3]['text'];
-            $translations[$locale]['meta_keywords'] = $translationResult[4]['text'];
-            $translations[$locale]['facebook_description'] = $translationResult[5]['text'];
-            $translations[$locale]['linkedin_description'] = $translationResult[6]['text'];
-            $translations[$locale]['instagram_description'] = $translationResult[7]['text'];
-            $translations[$locale]['twitter_description'] = $translationResult[8]['text'];
-        }
+        return $this->executeWithMetrics(
+            'google_translate_gallery',
+            $contentArray,
+            function () use ($name, $description, $meta_title, $meta_description, $meta_keywords, $facebook_description, $linkedin_description, $instagram_description, $twitter_description) {
+                $locales = array_filter(SettingsManager::read('Translations', []));
 
-        return $translations;
+                $translations = [];
+                foreach ($locales as $locale => $enabled) {
+                    $translationResult = $this->translateClient->translateBatch(
+                        [
+                            $name,
+                            $description,
+                            $meta_title,
+                            $meta_description,
+                            $meta_keywords,
+                            $facebook_description,
+                            $linkedin_description,
+                            $instagram_description,
+                            $twitter_description,
+                        ],
+                        [
+                            'source' => 'en',
+                            'target' => $locale,
+                        ],
+                    );
+                    $translations[$locale]['name'] = $translationResult[0]['text'];
+                    $translations[$locale]['description'] = $translationResult[1]['text'];
+                    $translations[$locale]['meta_title'] = $translationResult[2]['text'];
+                    $translations[$locale]['meta_description'] = $translationResult[3]['text'];
+                    $translations[$locale]['meta_keywords'] = $translationResult[4]['text'];
+                    $translations[$locale]['facebook_description'] = $translationResult[5]['text'];
+                    $translations[$locale]['linkedin_description'] = $translationResult[6]['text'];
+                    $translations[$locale]['instagram_description'] = $translationResult[7]['text'];
+                    $translations[$locale]['twitter_description'] = $translationResult[8]['text'];
+                }
+
+                return $translations;
+            }
+        );
     }
 
     /**
@@ -330,5 +395,53 @@ class GoogleApiService
         }
 
         return $content;
+    }
+
+    /**
+     * Executes a translation operation with comprehensive metrics recording.
+     *
+     * @param string $taskType The type of task (e.g., 'google_translate_article')
+     * @param array $contentToTranslate The content being translated for cost calculation
+     * @param callable $operation The translation operation to execute
+     * @return mixed The result of the translation operation
+     * @throws TranslationException If the operation fails
+     */
+    private function executeWithMetrics(string $taskType, array $contentToTranslate, callable $operation)
+    {
+        $startTime = microtime(true);
+        $success = false;
+        $errorMessage = null;
+        $characterCount = $this->metricsService->countCharacters($contentToTranslate);
+        $cost = $this->metricsService->calculateGoogleTranslateCost($characterCount);
+
+        try {
+            // Check if daily cost limit would be exceeded
+            if ($this->metricsService->isDailyCostLimitReached()) {
+                throw new TranslationException('Daily cost limit reached for AI services');
+            }
+
+            // Check cost alert before making the API call
+            $currentCost = $this->metricsService->getDailyCost();
+            $this->metricsService->checkCostAlert($currentCost, $cost);
+
+            $result = $operation();
+            $success = true;
+            return $result;
+        } catch (Exception $e) {
+            $errorMessage = $e->getMessage();
+            throw new TranslationException('Translation failed: ' . $e->getMessage(), 0, $e);
+        } finally {
+            // Record metrics
+            $executionTime = (int) ((microtime(true) - $startTime) * 1000);
+            $this->metricsService->recordMetrics(
+                $taskType,
+                $executionTime,
+                $success,
+                $errorMessage,
+                null, // Google Translate doesn't provide token counts
+                $success ? $cost : null, // Only record cost if successful
+                'Google Cloud Translate'
+            );
+        }
     }
 }

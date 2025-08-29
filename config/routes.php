@@ -206,8 +206,71 @@ return function (RouteBuilder $routes): void {
                 'action' => 'edit'
             ],
             [
-                '_name' => 'account',
                 'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'user-edit',
+                'pass' => ['id'],
+            ]
+        );
+        
+        // Products routes
+        $builder->connect(
+            '/products',
+            [
+                'controller' => 'Products',
+                'action' => 'index'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'products-index',
+            ]
+        );
+        
+        $builder->connect(
+            '/products/quiz',
+            [
+                'controller' => 'Products',
+                'action' => 'quiz'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'products-quiz',
+            ]
+        );
+        
+        $builder->connect(
+            '/products/add',
+            [
+                'controller' => 'Products',
+                'action' => 'add'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'products-add',
+            ]
+        );
+        
+        $builder->connect(
+            '/products/view/{id}',
+            [
+                'controller' => 'Products',
+                'action' => 'view'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'products-view',
+                'pass' => ['id'],
+            ]
+        );
+        
+        $builder->connect(
+            '/products/{id}',
+            [
+                'controller' => 'Products',
+                'action' => 'view'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'products-view-short',
                 'pass' => ['id'],
             ]
         );
@@ -270,70 +333,6 @@ return function (RouteBuilder $routes): void {
             [
                 'routeClass' => 'ADmad/I18n.I18nRoute',
                 '_name' => 'cookie-consent',
-            ]
-        );
-
-        // Public Products routes
-        $builder->connect(
-            '/products',
-            [
-                'controller' => 'Products',
-                'action' => 'index'
-            ],
-            [
-                'routeClass' => 'ADmad/I18n.I18nRoute',
-                '_name' => 'products-index'
-            ]
-        );
-
-        $builder->connect(
-            '/products/view/{id}',
-            [
-                'controller' => 'Products',
-                'action' => 'view'
-            ],
-            [
-                'routeClass' => 'ADmad/I18n.I18nRoute',
-                '_name' => 'products-view',
-                'pass' => ['id']
-            ]
-        );
-
-        $builder->connect(
-            '/products/add',
-            [
-                'controller' => 'Products',
-                'action' => 'add'
-            ],
-            [
-                'routeClass' => 'ADmad/I18n.I18nRoute',
-                '_name' => 'products-add'
-            ]
-        );
-
-        $builder->connect(
-            '/products/edit/{id}',
-            [
-                'controller' => 'Products',
-                'action' => 'edit'
-            ],
-            [
-                'routeClass' => 'ADmad/I18n.I18nRoute',
-                '_name' => 'products-edit',
-                'pass' => ['id']
-            ]
-        );
-
-        $builder->connect(
-            '/products/delete/{id}',
-            [
-                'controller' => 'Products',
-                'action' => 'delete'
-            ],
-            [
-                'routeClass' => 'ADmad/I18n.I18nRoute',
-                '_name' => 'products-delete',
-                'pass' => ['id']
             ]
         );
     });

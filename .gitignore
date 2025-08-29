@@ -671,3 +671,16 @@ docker/accept-a-payment/server/public/sofort.php
 docker/accept-a-payment/server/public/utils.js
 docker/accept-a-payment/server/public/webhook.php
 docker/accept-a-payment/server/public/css/base.css
+willow.code-workspace
+default_data/settings.json
+default_data/settings.json
+default_data/articles.json
+default_data/image_galleries_images.json
+default_data/image_galleries.json
+default_data/images.json
+default_data/page_views.json
+default_data/settings.json
+default_data/slugs.json
+default_data/system_logs.json
+default_data/tags.json
+docker/mysql

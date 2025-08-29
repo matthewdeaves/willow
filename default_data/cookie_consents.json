@@ -20,5 +20,60 @@
         "essential_consent": true,
         "ip_address": "192.168.65.1",
         "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.6 Safari/605.1.15"
+    },
+    {
+        "id": "7005020c-72b4-48c5-9e90-cc26f8382333",
+        "user_id": "20386635-3e37-4bbf-b103-ebe1f75869d2",
+        "session_id": "r9pp286gb5qnol07j9cbcdo046",
+        "analytics_consent": true,
+        "functional_consent": true,
+        "marketing_consent": true,
+        "essential_consent": true,
+        "ip_address": "192.168.65.1",
+        "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.6 Safari/605.1.15"
+    },
+    {
+        "id": "b6ec6d3d-a688-4467-8fc5-08a3ab3ce03f",
+        "user_id": "20386635-3e37-4bbf-b103-ebe1f75869d2",
+        "session_id": "r9pp286gb5qnol07j9cbcdo046",
+        "analytics_consent": true,
+        "functional_consent": true,
+        "marketing_consent": true,
+        "essential_consent": true,
+        "ip_address": "192.168.65.1",
+        "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.6 Safari/605.1.15"
+    },
+    {
+        "id": "bc67744f-96fc-4eba-888e-6fe65a6672fb",
+        "user_id": "20386635-3e37-4bbf-b103-ebe1f75869d2",
+        "session_id": "r9pp286gb5qnol07j9cbcdo046",
+        "analytics_consent": true,
+        "functional_consent": true,
+        "marketing_consent": true,
+        "essential_consent": true,
+        "ip_address": "192.168.65.1",
+        "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.6 Safari/605.1.15"
+    },
+    {
+        "id": "d1c0c4c9-c83a-4fda-b626-7dce72f85e2d",
+        "user_id": "20386635-3e37-4bbf-b103-ebe1f75869d2",
+        "session_id": "r9pp286gb5qnol07j9cbcdo046",
+        "analytics_consent": true,
+        "functional_consent": true,
+        "marketing_consent": true,
+        "essential_consent": true,
+        "ip_address": "192.168.65.1",
+        "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.6 Safari/605.1.15"
+    },
+    {
+        "id": "f89ac1e7-b403-4ab9-8500-f2043688ef91",
+        "user_id": "20386635-3e37-4bbf-b103-ebe1f75869d2",
+        "session_id": "r9pp286gb5qnol07j9cbcdo046",
+        "analytics_consent": true,
+        "functional_consent": true,
+        "marketing_consent": true,
+        "essential_consent": true,
+        "ip_address": "192.168.65.1",
+        "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.6 Safari/605.1.15"
     }
 ]

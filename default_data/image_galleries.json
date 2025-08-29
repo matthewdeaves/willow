@@ -1,1 +1,36 @@
-[]
+[
+    {
+        "id": "4352be42-e086-4fa2-b11d-95e48034173b",
+        "name": "site-image-assets",
+        "slug": "site-image-assets",
+        "description": "Assets fir unage",
+        "preview_image": "4352be42-e086-4fa2-b11d-95e48034173b.jpg",
+        "is_published": true,
+        "created_by": null,
+        "modified_by": null,
+        "meta_title": "Site Image Assets Gallery - Digital Asset Collection",
+        "meta_description": "Browse our comprehensive collection of site image assets and digital resources. A curated gallery of visual elements for web and digital applications.",
+        "meta_keywords": "site images assets digital resources web graphics visual elements digital assets media files",
+        "facebook_description": "Explore our collection of site image assets! A carefully curated gallery of digital resources and visual elements for your web projects.",
+        "linkedin_description": "Access our professional collection of site image assets and digital resources. This comprehensive gallery features carefully selected visual elements optimized for web and digital applications, perfect for businesses and creative professionals looking to enhance their digital presence.",
+        "instagram_description": "📸 Welcome to our Site Image Assets Gallery!\r\n\r\nYour one-stop destination for high-quality digital resources and visual elements. Perfect for web designers, developers, and creative professionals looking to enhance their digital projects.\r\n\r\nBrowse through our carefully curated collection of assets, optimized for various digital applications.\r\n\r\n#SiteAssets #DigitalResources #WebDesign #VisualElements #DigitalMedia #WebAssets #CreativeResources",
+        "twitter_description": "📸 Discover our site image assets gallery! A curated collection of digital resources and visual elements for your web projects. #DigitalAssets #WebDesign"
+    },
+    {
+        "id": "9c58ee11-aa08-4e0d-8933-ec02f5184ac8",
+        "name": "micro-usb",
+        "slug": "micro-usb",
+        "description": "micro usb cords",
+        "preview_image": "9c58ee11-aa08-4e0d-8933-ec02f5184ac8.jpg",
+        "is_published": true,
+        "created_by": null,
+        "modified_by": null,
+        "meta_title": "Micro USB Cable Collection Gallery | Device Connectivity",
+        "meta_description": "Explore our collection of micro USB cables and connectors. Essential charging and data transfer solutions for mobile devices, tablets, and electronics accessories.",
+        "meta_keywords": "micro usb cable charging data transfer mobile device connector android smartphone tablet electronics",
+        "facebook_description": "Check out our micro USB cable collection! Essential connectors for your favorite devices - because staying connected shouldn't be complicated. 🔌📱",
+        "linkedin_description": "Explore our comprehensive micro USB cable collection, featuring essential connectivity solutions for mobile devices and electronics. These industry-standard connectors showcase the fundamental components that power our digital world, enabling reliable charging and data transfer capabilities.",
+        "instagram_description": "🔌 Power up your digital life with our micro USB cable collection!\n\nEssential charging solutions for your favorite devices:\n- Smartphones\n- Tablets\n- Portable speakers\n- Power banks\n\nQuality connectors for reliable charging and data transfer. Because every connection matters! ⚡️\n\n#MicroUSB #TechAccessories #Charging #Electronics #DeviceEssentials #Connectivity #MobileAccessories #TechLife",
+        "twitter_description": "📱 Power up your devices! Browse our micro USB cable collection - the essential connector for your electronic devices. #MicroUSB #TechAccessories"
+    }
+]

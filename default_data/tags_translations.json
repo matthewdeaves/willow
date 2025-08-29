@@ -1,1 +1,15 @@
-[]
+[
+    {
+        "id": "589188fa-323d-4836-8853-495782a4d811",
+        "locale": "es_ES",
+        "title": null,
+        "description": "top-level tag to hold all the adapter tags associated with the web app",
+        "meta_title": null,
+        "meta_description": null,
+        "meta_keywords": null,
+        "facebook_description": null,
+        "linkedin_description": null,
+        "instagram_description": null,
+        "twitter_description": null
+    }
+]

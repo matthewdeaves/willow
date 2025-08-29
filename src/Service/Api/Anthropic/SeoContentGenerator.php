@@ -44,7 +44,6 @@ class SeoContentGenerator extends AbstractAnthropicGenerator
             'linkedin_description',
             'twitter_description',
             'instagram_description',
-            'description',
         ];
 
         return $this->ensureExpectedKeys($result, $defaultKeys);

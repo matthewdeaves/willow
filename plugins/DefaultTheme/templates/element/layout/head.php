@@ -1,6 +1,6 @@
 <?php use App\Utility\SettingsManager; ?>
 <?php if (!empty($consentData) && $consentData['analytics_consent']) :?>
-  <?= SettingsManager::read('Google.tagManagerHead', '') ?>
+    <?= SettingsManager::read('Google.tagManagerHead', '') ?>
 <?php endif; ?>
 <?= $this->Html->script('willow-modal') ?>
 <?= $this->Html->script('DefaultTheme.color-modes') ?>
@@ -17,5 +17,5 @@
 <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
 <?= $this->Html->scriptBlock(sprintf(
     'var csrfToken = %s;',
-    json_encode($this->request->getAttribute('csrfToken'))
+    json_encode($this->request->getAttribute('csrfToken')),
 )); ?>

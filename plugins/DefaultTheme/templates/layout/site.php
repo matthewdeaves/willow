@@ -1,4 +1,4 @@
-<?php use App\Utility\SettingsManager; ?>
+<?php ?>
 <!doctype html>
 <html lang="<?= $this->request->getParam('lang', 'en') ?>" data-bs-theme="auto">
   <head>
@@ -6,7 +6,7 @@
   </head>
   <body>
     <?php if (!empty($consentData) && $consentData['marketing_consent']) :?>
-      <?= $this->element('site/facebook/sdk') ?>
+        <?= $this->element('site/facebook/sdk') ?>
     <?php endif; ?>
 
     <?= $this->element('site/bootstrap') ?>

@@ -4,11 +4,11 @@ $this->extend('./site');
 $this->append('meta');
 echo $this->Html->meta([
     'link' => Router::url([
-        '_name' => 'rss'
+        '_name' => 'rss',
     ], true),
     'type' => 'application/rss+xml',
     'title' => __('Latest Articles RSS Feed'),
-    'rel' => 'alternate'
+    'rel' => 'alternate',
 ]);
 $this->end();
 $this->append('tags_menu');

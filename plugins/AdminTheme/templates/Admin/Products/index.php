@@ -99,9 +99,17 @@ $this->Html->css('willow-admin', ['block' => true]);
                                 <tr>
                                     <th><?= $this->Paginator->sort('title', __('Title')) ?></th>
                                     <th><?= $this->Paginator->sort('manufacturer', __('Manufacturer')) ?></th>
+                                    <th><?= $this->Paginator->sort('capability_name', __('Capability')) ?></th>
+                                    <th><?= $this->Paginator->sort('port_family', __('Port Type')) ?></th>
+                                    <th><?= $this->Paginator->sort('form_factor', __('Form Factor')) ?></th>
+                                    <th><?= $this->Paginator->sort('connector_gender', __('Gender')) ?></th>
+                                    <th><?= $this->Paginator->sort('device_category', __('Device Cat')) ?></th>
+                                    <th><?= $this->Paginator->sort('compatibility_level', __('Compatibility')) ?></th>
                                     <th><?= $this->Paginator->sort('price', __('Price')) ?></th>
+                                    <th><?= $this->Paginator->sort('numeric_rating', __('Rating')) ?></th>
+                                    <th><?= $this->Paginator->sort('is_certified', __('Certified')) ?></th>
                                     <th><?= __('Status') ?></th>
-                                    <th><?= $this->Paginator->sort('reliability_score', __('Score')) ?></th>
+                                    <th><?= $this->Paginator->sort('reliability_score', __('Rel. Score')) ?></th>
                                     <th><?= $this->Paginator->sort('view_count', __('Views')) ?></th>
                                     <th><?= $this->Paginator->sort('created', __('Created')) ?></th>
                                     <th class="actions"><?= __('Actions') ?></th>
@@ -110,6 +118,7 @@ $this->Html->css('willow-admin', ['block' => true]);
                             <tbody>
                                 <?php foreach ($products as $product): ?>
                                 <tr>
+                                    <!-- Title with image and model -->
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <?php if ($product->image): ?>
@@ -126,7 +135,66 @@ $this->Html->css('willow-admin', ['block' => true]);
                                             </div>
                                         </div>
                                     </td>
+                                    
+                                    <!-- Manufacturer -->
                                     <td><?= h($product->manufacturer) ?></td>
+                                    
+                                    <!-- Capability Name -->
+                                    <td>
+                                        <span class="badge badge-secondary"><?= h($product->capability_name) ?: '-' ?></span>
+                                        <?php if ($product->capability_category): ?>
+                                            <br><small class="text-muted"><?= h($product->capability_category) ?></small>
+                                        <?php endif; ?>
+                                    </td>
+                                    
+                                    <!-- Port Type (port_family) -->
+                                    <td>
+                                        <span class="badge badge-primary"><?= h($product->port_family) ?: '-' ?></span>
+                                        <?php if ($product->port_type_name): ?>
+                                            <br><small class="text-muted"><?= h($product->port_type_name) ?></small>
+                                        <?php endif; ?>
+                                    </td>
+                                    
+                                    <!-- Form Factor -->
+                                    <td><?= h($product->form_factor) ?: '<span class="text-muted">-</span>' ?></td>
+                                    
+                                    <!-- Connector Gender -->
+                                    <td>
+                                        <?php if ($product->connector_gender): ?>
+                                            <span class="badge badge-<?= $product->connector_gender == 'Male' ? 'info' : ($product->connector_gender == 'Female' ? 'warning' : 'secondary') ?>">
+                                                <?= h($product->connector_gender) ?>
+                                            </span>
+                                        <?php else: ?>
+                                            <span class="text-muted">-</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    
+                                    <!-- Device Category -->
+                                    <td>
+                                        <?= h($product->device_category) ?: '<span class="text-muted">-</span>' ?>
+                                        <?php if ($product->device_brand): ?>
+                                            <br><small class="text-muted"><?= h($product->device_brand) ?></small>
+                                        <?php endif; ?>
+                                    </td>
+                                    
+                                    <!-- Compatibility Level -->
+                                    <td>
+                                        <?php if ($product->compatibility_level): ?>
+                                            <?php 
+                                            $compatClass = [
+                                                'Full' => 'success',
+                                                'Partial' => 'warning', 
+                                                'Limited' => 'info',
+                                                'Incompatible' => 'danger'
+                                            ][$product->compatibility_level] ?? 'secondary';
+                                            ?>
+                                            <span class="badge badge-<?= $compatClass ?>"><?= h($product->compatibility_level) ?></span>
+                                        <?php else: ?>
+                                            <span class="text-muted">-</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    
+                                    <!-- Price -->
                                     <td>
                                         <?php if ($product->price): ?>
                                             <?= number_format($product->price, 2) ?> <?= h($product->currency) ?>
@@ -134,6 +202,29 @@ $this->Html->css('willow-admin', ['block' => true]);
                                             <span class="text-muted">-</span>
                                         <?php endif; ?>
                                     </td>
+                                    
+                                    <!-- Numeric Rating -->
+                                    <td>
+                                        <?php if ($product->numeric_rating): ?>
+                                            <span class="badge badge-info"><?= number_format($product->numeric_rating, 1) ?></span>
+                                        <?php else: ?>
+                                            <span class="text-muted">-</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    
+                                    <!-- Is Certified -->
+                                    <td>
+                                        <?php if ($product->is_certified): ?>
+                                            <i class="fas fa-check-circle text-success" title="Certified"></i>
+                                            <?php if ($product->certification_date): ?>
+                                                <br><small class="text-muted"><?= $product->certification_date->format('M Y') ?></small>
+                                            <?php endif; ?>
+                                        <?php else: ?>
+                                            <i class="fas fa-times-circle text-muted" title="Not Certified"></i>
+                                        <?php endif; ?>
+                                    </td>
+                                    
+                                    <!-- Status -->
                                     <td>
                                         <?php
                                         $statusClass = [
@@ -149,6 +240,8 @@ $this->Html->css('willow-admin', ['block' => true]);
                                             <span class="badge badge-success ml-1"><?= __('Published') ?></span>
                                         <?php endif; ?>
                                     </td>
+                                    
+                                    <!-- Reliability Score -->
                                     <td>
                                         <?php if ($product->reliability_score > 0): ?>
                                             <?= $this->Html->link(
@@ -170,7 +263,11 @@ $this->Html->css('willow-admin', ['block' => true]);
                                             ) ?>
                                         <?php endif; ?>
                                     </td>
+                                    
+                                    <!-- Views -->
                                     <td><?= number_format($product->view_count) ?></td>
+                                    
+                                    <!-- Created -->
                                     <td>
                                         <?= $product->created->format('M j, Y') ?><br>
                                         <small class="text-muted">by <?= h($product->user ? $product->user->username : 'Unknown') ?></small>

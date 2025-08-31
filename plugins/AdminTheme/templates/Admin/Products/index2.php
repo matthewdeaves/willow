@@ -44,67 +44,138 @@ $this->Html->script('AdminTheme.utils/popover-manager', ['block' => true]);
     <thead>
         <tr>
                   <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('user_id') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('article_id') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('title') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('slug') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('description') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('manufacturer') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('model_number') ?></th>
+                  
+                  <!-- Capability Fields -->
+                  <th scope="col"><?= $this->Paginator->sort('capability_name') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('capability_category') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('testing_standard') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('certifying_organization') ?></th>
+                  
+                  <!-- Port/Connector Fields -->
+                  <th scope="col"><?= $this->Paginator->sort('port_family') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('form_factor') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('connector_gender') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('pin_count') ?></th>
+                  
+                  <!-- Device Compatibility -->
+                  <th scope="col"><?= $this->Paginator->sort('device_category') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('device_brand') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('compatibility_level') ?></th>
+                  
+                  <!-- Ratings & Specs -->
+                  <th scope="col"><?= $this->Paginator->sort('numeric_rating') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('performance_rating') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('is_certified') ?></th>
+                  
+                  <!-- Physical Specs -->
+                  <th scope="col"><?= $this->Paginator->sort('max_voltage') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('max_current') ?></th>
+                  
+                  <!-- Basic Fields -->
                   <th scope="col"><?= $this->Paginator->sort('price') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('currency') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('image') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('alt_text') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('is_published') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('featured') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('verification_status') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('reliability_score') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('view_count') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('is_published') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('verification_status') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('created') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
                   <th scope="col"><?= __('Actions') ?></th>
         </tr>
       </thead>
       <tbody>
         <?php foreach ($products as $product): ?>
         <tr>
-                                                                                    <td><?= h($product->id) ?></td>
-                                                      <td><?= $product->hasValue('user') ? $this->Html->link($product->user->username, ['controller' => 'Users', 'action' => 'view', $product->user->id], ['class' => 'btn btn-link']) : '' ?></td>
-                                                                                          <td><?= $product->hasValue('article') ? $this->Html->link($product->article->title, ['controller' => 'Articles', 'action' => 'view', $product->article->id], ['class' => 'btn btn-link']) : '' ?></td>
-                                                                                                            <td><?= h($product->title) ?></td>
-                                                                                                <td><?= h($product->slug) ?></td>
-                                                                                                <td><?= h($product->description) ?></td>
-                                                                                                <td><?= h($product->manufacturer) ?></td>
-                                                                                                <td><?= h($product->model_number) ?></td>
-                                                                                                <td><?= $product->price === null ? '' : $this->Number->format($product->price) ?></td>
-                                                                                                <td><?= h($product->currency) ?></td>
-                                                                                                <td><?= h($product->image) ?></td>
-                                                                                                <td><?= h($product->alt_text) ?></td>
-                                                                                                <td><?= h($product->is_published) ?></td>
-                                                                                                <td><?= h($product->featured) ?></td>
-                                                                                                <td><?= h($product->verification_status) ?></td>
-                                                                                                <td>
-                                                <?php if ($product->reliability_score !== null): ?>
-                                                    <?php 
-                                                    $scoreColor = match(true) {
-                                                        $product->reliability_score >= 0.9 => 'success',
-                                                        $product->reliability_score >= 0.7 => 'warning', 
-                                                        default => 'danger'
-                                                    };
-                                                    ?>
-                                                    <?= $this->Html->link(
-                                                        '<span class="badge bg-' . $scoreColor . '">' . $this->Number->toPercentage($product->reliability_score * 100, 1) . '</span>',
-                                                        ['controller' => 'Reliability', 'action' => 'view', 'model' => 'Products', 'id' => $product->id],
-                                                        ['escape' => false, 'title' => __('View reliability details')]
-                                                    ) ?>
-                                                <?php else: ?>
-                                                    <span class="text-muted">-</span>
-                                                <?php endif; ?>
-                                            </td>
-                                                                                                <td><?= $this->Number->format($product->view_count) ?></td>
-                                                                                                <td><?= h($product->created) ?></td>
-                                                                                                <td><?= h($product->modified) ?></td>
-                                    <td>
+            <!-- ID -->
+            <td><?= h($product->id) ?></td>
+            
+            <!-- Title -->
+            <td><?= h($product->title) ?></td>
+            
+            <!-- Manufacturer -->
+            <td><?= h($product->manufacturer) ?></td>
+            
+            <!-- Capability Name -->
+            <td><?= h($product->capability_name) ?: '-' ?></td>
+            
+            <!-- Capability Category -->
+            <td><?= h($product->capability_category) ?: '-' ?></td>
+            
+            <!-- Testing Standard -->
+            <td><?= h($product->testing_standard) ?: '-' ?></td>
+            
+            <!-- Certifying Organization -->
+            <td><?= h($product->certifying_organization) ?: '-' ?></td>
+            
+            <!-- Port Family -->
+            <td><?= h($product->port_family) ?: '-' ?></td>
+            
+            <!-- Form Factor -->
+            <td><?= h($product->form_factor) ?: '-' ?></td>
+            
+            <!-- Connector Gender -->
+            <td><?= h($product->connector_gender) ?: '-' ?></td>
+            
+            <!-- Pin Count -->
+            <td><?= $product->pin_count ? number_format($product->pin_count) : '-' ?></td>
+            
+            <!-- Device Category -->
+            <td><?= h($product->device_category) ?: '-' ?></td>
+            
+            <!-- Device Brand -->
+            <td><?= h($product->device_brand) ?: '-' ?></td>
+            
+            <!-- Compatibility Level -->
+            <td><?= h($product->compatibility_level) ?: '-' ?></td>
+            
+            <!-- Numeric Rating -->
+            <td><?= $product->numeric_rating ? number_format($product->numeric_rating, 1) : '-' ?></td>
+            
+            <!-- Performance Rating -->
+            <td><?= $product->performance_rating ? number_format($product->performance_rating, 2) : '-' ?></td>
+            
+            <!-- Is Certified -->
+            <td><?= $product->is_certified ? '<i class="fas fa-check text-success"></i>' : '<i class="fas fa-times text-muted"></i>' ?></td>
+            
+            <!-- Max Voltage -->
+            <td><?= $product->max_voltage ? number_format($product->max_voltage, 2) . 'V' : '-' ?></td>
+            
+            <!-- Max Current -->
+            <td><?= $product->max_current ? number_format($product->max_current, 2) . 'A' : '-' ?></td>
+            
+            <!-- Price -->
+            <td><?= $product->price === null ? '-' : number_format($product->price, 2) ?></td>
+            
+            <!-- Reliability Score -->
+            <td>
+                <?php if ($product->reliability_score !== null): ?>
+                    <?php 
+                    $scoreColor = match(true) {
+                        $product->reliability_score >= 0.9 => 'success',
+                        $product->reliability_score >= 0.7 => 'warning', 
+                        default => 'danger'
+                    };
+                    ?>
+                    <?= $this->Html->link(
+                        '<span class="badge bg-' . $scoreColor . '">' . $this->Number->toPercentage($product->reliability_score * 100, 1) . '</span>',
+                        ['controller' => 'Reliability', 'action' => 'view', 'model' => 'Products', 'id' => $product->id],
+                        ['escape' => false, 'title' => __('View reliability details')]
+                    ) ?>
+                <?php else: ?>
+                    <span class="text-muted">-</span>
+                <?php endif; ?>
+            </td>
+            
+            <!-- Is Published -->
+            <td><?= $product->is_published ? '<i class="fas fa-eye text-success"></i>' : '<i class="fas fa-eye-slash text-muted"></i>' ?></td>
+            
+            <!-- Verification Status -->
+            <td><?= h(ucfirst($product->verification_status)) ?></td>
+            
+            <!-- Created -->
+            <td><?= h($product->created) ?></td>
+            
+            <!-- Actions -->
+            <td>
               <?= $this->element('evd_dropdown', ['model' => $product, 'display' => 'title']); ?>
             </td>
         </tr>

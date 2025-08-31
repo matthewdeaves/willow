@@ -91,12 +91,448 @@ echo $this->element('actions_card', [
                             <th><?= __('Featured') ?></th>
                             <td><?= $product->featured ? '<span class="badge bg-success">' . __('Yes') . '</span>' : '<span class="badge bg-danger">' . __('No') . '</span>'; ?></td>
                         </tr>
+                        
+                        <!-- Core Product Fields -->
+                        <?php if ($product->capability_name): ?>
+                        <tr>
+                            <th><?= __('Capability Name') ?></th>
+                            <td>
+                                <?= $this->Html->link(
+                                    h($product->capability_name),
+                                    ['controller' => 'CableCapabilities', 'action' => 'index', '?' => ['search' => $product->capability_name]],
+                                    ['class' => 'badge bg-primary text-decoration-none', 'title' => __('View related capabilities')]
+                                ) ?>
+                            </td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->capability_category): ?>
+                        <tr>
+                            <th><?= __('Capability Category') ?></th>
+                            <td>
+                                <?= $this->Html->link(
+                                    h($product->capability_category),
+                                    ['controller' => 'CableCapabilities', 'action' => 'category', $product->capability_category],
+                                    ['class' => 'badge bg-info text-decoration-none', 'title' => __('View same category')]
+                                ) ?>
+                            </td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->port_family): ?>
+                        <tr>
+                            <th><?= __('Port Family') ?></th>
+                            <td>
+                                <?= $this->Html->link(
+                                    h($product->port_family),
+                                    ['controller' => 'PortTypes', 'action' => 'family', $product->port_family],
+                                    ['class' => 'badge bg-success text-decoration-none', 'title' => __('View port family')]
+                                ) ?>
+                            </td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->port_type_name): ?>
+                        <tr>
+                            <th><?= __('Port Type Name') ?></th>
+                            <td><?= h($product->port_type_name) ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->form_factor): ?>
+                        <tr>
+                            <th><?= __('Form Factor') ?></th>
+                            <td><?= h($product->form_factor) ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->connector_gender): ?>
+                        <tr>
+                            <th><?= __('Connector Gender') ?></th>
+                            <td><?= h($product->connector_gender) ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->device_category): ?>
+                        <tr>
+                            <th><?= __('Device Category') ?></th>
+                            <td>
+                                <?= $this->Html->link(
+                                    h($product->device_category),
+                                    ['controller' => 'DeviceCompatibility', 'action' => 'category', $product->device_category],
+                                    ['class' => 'badge bg-warning text-dark text-decoration-none', 'title' => __('View device category')]
+                                ) ?>
+                            </td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->device_brand): ?>
+                        <tr>
+                            <th><?= __('Device Brand') ?></th>
+                            <td>
+                                <?= $this->Html->link(
+                                    h($product->device_brand),
+                                    ['controller' => 'DeviceCompatibility', 'action' => 'brand', $product->device_brand],
+                                    ['class' => 'badge bg-secondary text-decoration-none', 'title' => __('View device brand')]
+                                ) ?>
+                            </td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->device_model): ?>
+                        <tr>
+                            <th><?= __('Device Model') ?></th>
+                            <td><?= h($product->device_model) ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->compatibility_level): ?>
+                        <tr>
+                            <th><?= __('Compatibility Level') ?></th>
+                            <td>
+                                <?php 
+                                $compatClass = [
+                                    'Full' => 'success',
+                                    'Partial' => 'warning', 
+                                    'Limited' => 'info',
+                                    'Incompatible' => 'danger'
+                                ][$product->compatibility_level] ?? 'secondary';
+                                ?>
+                                <span class="badge bg-<?= $compatClass ?>"><?= h($product->compatibility_level) ?></span>
+                            </td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->physical_spec_name): ?>
+                        <tr>
+                            <th><?= __('Physical Spec Name') ?></th>
+                            <td>
+                                <?= $this->Html->link(
+                                    h($product->physical_spec_name),
+                                    ['controller' => 'PhysicalSpecifications', 'action' => 'index', '?' => ['search' => $product->physical_spec_name]],
+                                    ['class' => 'badge bg-dark text-decoration-none', 'title' => __('View physical specifications')]
+                                ) ?>
+                            </td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->spec_type): ?>
+                        <tr>
+                            <th><?= __('Spec Type') ?></th>
+                            <td>
+                                <?= $this->Html->link(
+                                    h($product->spec_type),
+                                    ['controller' => 'PhysicalSpecifications', 'action' => 'type', $product->spec_type],
+                                    ['class' => 'badge bg-light text-dark text-decoration-none', 'title' => __('View spec type')]
+                                ) ?>
+                            </td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->spec_value): ?>
+                        <tr>
+                            <th><?= __('Spec Value') ?></th>
+                            <td><?= h($product->spec_value) ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->numeric_value): ?>
+                        <tr>
+                            <th><?= __('Numeric Value') ?></th>
+                            <td><?= number_format($product->numeric_value, 3) ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->measurement_unit): ?>
+                        <tr>
+                            <th><?= __('Measurement Unit') ?></th>
+                            <td>
+                                <?= $this->Html->link(
+                                    h($product->measurement_unit),
+                                    ['controller' => 'PhysicalSpecifications', 'action' => 'unit', $product->measurement_unit],
+                                    ['class' => 'badge bg-outline-secondary text-decoration-none', 'title' => __('View unit specifications')]
+                                ) ?>
+                            </td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->max_voltage): ?>
+                        <tr>
+                            <th><?= __('Max Voltage') ?></th>
+                            <td><?= number_format($product->max_voltage, 2) ?> V</td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->max_current): ?>
+                        <tr>
+                            <th><?= __('Max Current') ?></th>
+                            <td><?= number_format($product->max_current, 2) ?> A</td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->pin_count): ?>
+                        <tr>
+                            <th><?= __('Pin Count') ?></th>
+                            <td><?= number_format($product->pin_count) ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->data_pin_count): ?>
+                        <tr>
+                            <th><?= __('Data Pin Count') ?></th>
+                            <td><?= number_format($product->data_pin_count) ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->power_pin_count): ?>
+                        <tr>
+                            <th><?= __('Power Pin Count') ?></th>
+                            <td><?= number_format($product->power_pin_count) ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->ground_pin_count): ?>
+                        <tr>
+                            <th><?= __('Ground Pin Count') ?></th>
+                            <td><?= number_format($product->ground_pin_count) ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->endpoint_position): ?>
+                        <tr>
+                            <th><?= __('Endpoint Position') ?></th>
+                            <td><?= h($product->endpoint_position) ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if (isset($product->is_detachable)): ?>
+                        <tr>
+                            <th><?= __('Is Detachable') ?></th>
+                            <td><?= $product->is_detachable ? '<i class="fas fa-check text-success"></i> Yes' : '<i class="fas fa-times text-muted"></i> No' ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->electrical_shielding): ?>
+                        <tr>
+                            <th><?= __('Electrical Shielding') ?></th>
+                            <td><?= h($product->electrical_shielding) ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->durability_cycles): ?>
+                        <tr>
+                            <th><?= __('Durability Cycles') ?></th>
+                            <td><?= number_format($product->durability_cycles) ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->performance_rating): ?>
+                        <tr>
+                            <th><?= __('Performance Rating') ?></th>
+                            <td><?= number_format($product->performance_rating, 2) ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->user_reported_rating): ?>
+                        <tr>
+                            <th><?= __('User Reported Rating') ?></th>
+                            <td><?= number_format($product->user_reported_rating, 2) ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->verification_date): ?>
+                        <tr>
+                            <th><?= __('Verification Date') ?></th>
+                            <td><?= $product->verification_date->format('M j, Y') ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->verified_by): ?>
+                        <tr>
+                            <th><?= __('Verified By') ?></th>
+                            <td><?= h($product->verified_by) ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->parent_category_name): ?>
+                        <tr>
+                            <th><?= __('Parent Category Name') ?></th>
+                            <td>
+                                <?= $this->Html->link(
+                                    h($product->parent_category_name),
+                                    ['controller' => 'Categories', 'action' => 'parent', $product->parent_category_name],
+                                    ['class' => 'badge bg-secondary text-decoration-none', 'title' => __('View category')]
+                                ) ?>
+                            </td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->category_icon): ?>
+                        <tr>
+                            <th><?= __('Category Icon') ?></th>
+                            <td><i class="<?= h($product->category_icon) ?>"></i> <?= h($product->category_icon) ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->display_order): ?>
+                        <tr>
+                            <th><?= __('Display Order') ?></th>
+                            <td><?= number_format($product->display_order) ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if (isset($product->is_certified)): ?>
+                        <tr>
+                            <th><?= __('Is Certified') ?></th>
+                            <td>
+                                <?= $product->is_certified ? '<i class="fas fa-certificate text-success"></i> Certified' : '<i class="fas fa-times text-muted"></i> Not Certified' ?>
+                                <?php if ($product->certification_date): ?>
+                                    <br><small class="text-muted">Certified: <?= $product->certification_date->format('M j, Y') ?></small>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->certifying_organization): ?>
+                        <tr>
+                            <th><?= __('Certifying Organization') ?></th>
+                            <td><?= h($product->certifying_organization) ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->testing_standard): ?>
+                        <tr>
+                            <th><?= __('Testing Standard') ?></th>
+                            <td><?= h($product->testing_standard) ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if (isset($product->needs_normalization)): ?>
+                        <tr>
+                            <th><?= __('Needs Normalization') ?></th>
+                            <td><?= $product->needs_normalization ? '<i class="fas fa-exclamation-triangle text-warning"></i> Yes' : '<i class="fas fa-check text-success"></i> No' ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->introduced_date): ?>
+                        <tr>
+                            <th><?= __('Introduced Date') ?></th>
+                            <td><?= $product->introduced_date->format('M j, Y') ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->deprecated_date): ?>
+                        <tr>
+                            <th><?= __('Deprecated Date') ?></th>
+                            <td><?= $product->deprecated_date->format('M j, Y') ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <!-- Additional Description Fields -->
+                        <?php if ($product->capability_value): ?>
+                        <tr>
+                            <th><?= __('Capability Value') ?></th>
+                            <td><?= h($product->capability_value) ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->physical_specs_summary): ?>
+                        <tr>
+                            <th><?= __('Physical Specs Summary') ?></th>
+                            <td><?= h($product->physical_specs_summary) ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->adapter_functionality): ?>
+                        <tr>
+                            <th><?= __('Adapter Functionality') ?></th>
+                            <td><?= nl2br(h($product->adapter_functionality)) ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->compatibility_notes): ?>
+                        <tr>
+                            <th><?= __('Compatibility Notes') ?></th>
+                            <td><?= nl2br(h($product->compatibility_notes)) ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->spec_description): ?>
+                        <tr>
+                            <th><?= __('Spec Description') ?></th>
+                            <td><?= nl2br(h($product->spec_description)) ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->category_description): ?>
+                        <tr>
+                            <th><?= __('Category Description') ?></th>
+                            <td><?= nl2br(h($product->category_description)) ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->prototype_notes): ?>
+                        <tr>
+                            <th><?= __('Prototype Notes') ?></th>
+                            <td><?= nl2br(h($product->prototype_notes)) ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        
+                        <?php if ($product->technical_specifications): ?>
+                        <tr>
+                            <th><?= __('Technical Specifications') ?></th>
+                            <td>
+                                <details class="mt-2">
+                                    <summary class="btn btn-outline-secondary btn-sm">View JSON Specifications</summary>
+                                    <pre class="mt-2 bg-light p-3"><?= h(json_encode(json_decode($product->technical_specifications), JSON_PRETTY_PRINT)) ?></pre>
+                                </details>
+                            </td>
+                        </tr>
+                        <?php endif; ?>
                     </table>
                     
                     <!-- Capability Information -->
                     <div class="card mt-4">
-                        <div class="card-header bg-primary text-white">
+                        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
                             <h5 class="mb-0"><i class="fas fa-cogs"></i> <?= __('Capability Information') ?></h5>
+                            <div class="btn-group" role="group">
+                                <?php if ($product->capability_name || $product->capability_category): ?>
+                                    <?= $this->Html->link(
+                                        '<i class="fas fa-table me-1"></i>' . __('View All Capabilities'),
+                                        ['controller' => 'CableCapabilities', 'action' => 'index'],
+                                        [
+                                            'class' => 'btn btn-outline-light btn-sm',
+                                            'escape' => false,
+                                            'title' => __('View comprehensive cable capabilities data'),
+                                            'data-bs-toggle' => 'tooltip'
+                                        ]
+                                    ) ?>
+                                    <?php if ($product->capability_category): ?>
+                                        <?= $this->Html->link(
+                                            '<i class="fas fa-filter me-1"></i>' . __('Same Category'),
+                                            ['controller' => 'CableCapabilities', 'action' => 'category', $product->capability_category],
+                                            [
+                                                'class' => 'btn btn-outline-light btn-sm',
+                                                'escape' => false,
+                                                'title' => __('View all products in {0} category', $product->capability_category),
+                                                'data-bs-toggle' => 'tooltip'
+                                            ]
+                                        ) ?>
+                                    <?php endif; ?>
+                                    <?php if ($product->is_certified): ?>
+                                        <?= $this->Html->link(
+                                            '<i class="fas fa-certificate me-1"></i>' . __('Certified Only'),
+                                            ['controller' => 'CableCapabilities', 'action' => 'certified'],
+                                            [
+                                                'class' => 'btn btn-outline-light btn-sm',
+                                                'escape' => false,
+                                                'title' => __('View only certified capabilities'),
+                                                'data-bs-toggle' => 'tooltip'
+                                            ]
+                                        ) ?>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -146,8 +582,46 @@ echo $this->element('actions_card', [
                     
                     <!-- Port/Connector Information -->
                     <div class="card mt-4">
-                        <div class="card-header bg-info text-white">
+                        <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
                             <h5 class="mb-0"><i class="fas fa-plug"></i> <?= __('Port & Connector Information') ?></h5>
+                            <div class="btn-group" role="group">
+                                <?php if ($product->port_family || $product->form_factor): ?>
+                                    <?= $this->Html->link(
+                                        '<i class="fas fa-table me-1"></i>' . __('View All Port Types'),
+                                        ['controller' => 'PortTypes', 'action' => 'index'],
+                                        [
+                                            'class' => 'btn btn-outline-light btn-sm',
+                                            'escape' => false,
+                                            'title' => __('View comprehensive port types data'),
+                                            'data-bs-toggle' => 'tooltip'
+                                        ]
+                                    ) ?>
+                                    <?php if ($product->port_family): ?>
+                                        <?= $this->Html->link(
+                                            '<i class="fas fa-filter me-1"></i>' . h($product->port_family) . ' ' . __('Family'),
+                                            ['controller' => 'PortTypes', 'action' => 'family', $product->port_family],
+                                            [
+                                                'class' => 'btn btn-outline-light btn-sm',
+                                                'escape' => false,
+                                                'title' => __('View all {0} port types', $product->port_family),
+                                                'data-bs-toggle' => 'tooltip'
+                                            ]
+                                        ) ?>
+                                    <?php endif; ?>
+                                    <?php if ($product->max_voltage && $product->max_current): ?>
+                                        <?= $this->Html->link(
+                                            '<i class="fas fa-bolt me-1"></i>' . __('Electrical Specs'),
+                                            ['controller' => 'PortTypes', 'action' => 'electrical'],
+                                            [
+                                                'class' => 'btn btn-outline-light btn-sm',
+                                                'escape' => false,
+                                                'title' => __('Compare electrical specifications'),
+                                                'data-bs-toggle' => 'tooltip'
+                                            ]
+                                        ) ?>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -225,8 +699,58 @@ echo $this->element('actions_card', [
                     
                     <!-- Device Compatibility -->
                     <div class="card mt-4">
-                        <div class="card-header bg-success text-white">
+                        <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
                             <h5 class="mb-0"><i class="fas fa-laptop"></i> <?= __('Device Compatibility') ?></h5>
+                            <div class="btn-group" role="group">
+                                <?php if ($product->device_category || $product->device_brand): ?>
+                                    <?= $this->Html->link(
+                                        '<i class="fas fa-table me-1"></i>' . __('View All Devices'),
+                                        ['controller' => 'DeviceCompatibility', 'action' => 'index'],
+                                        [
+                                            'class' => 'btn btn-outline-light btn-sm',
+                                            'escape' => false,
+                                            'title' => __('View comprehensive device compatibility data'),
+                                            'data-bs-toggle' => 'tooltip'
+                                        ]
+                                    ) ?>
+                                    <?php if ($product->device_category): ?>
+                                        <?= $this->Html->link(
+                                            '<i class="fas fa-filter me-1"></i>' . h($product->device_category),
+                                            ['controller' => 'DeviceCompatibility', 'action' => 'category', $product->device_category],
+                                            [
+                                                'class' => 'btn btn-outline-light btn-sm',
+                                                'escape' => false,
+                                                'title' => __('View all {0} devices', $product->device_category),
+                                                'data-bs-toggle' => 'tooltip'
+                                            ]
+                                        ) ?>
+                                    <?php endif; ?>
+                                    <?php if ($product->device_brand): ?>
+                                        <?= $this->Html->link(
+                                            '<i class="fas fa-tag me-1"></i>' . h($product->device_brand),
+                                            ['controller' => 'DeviceCompatibility', 'action' => 'brand', $product->device_brand],
+                                            [
+                                                'class' => 'btn btn-outline-light btn-sm',
+                                                'escape' => false,
+                                                'title' => __('View all {0} devices', $product->device_brand),
+                                                'data-bs-toggle' => 'tooltip'
+                                            ]
+                                        ) ?>
+                                    <?php endif; ?>
+                                    <?php if ($product->compatibility_level === 'Full'): ?>
+                                        <?= $this->Html->link(
+                                            '<i class="fas fa-check me-1"></i>' . __('Full Compatible'),
+                                            ['controller' => 'DeviceCompatibility', 'action' => 'full_compatible'],
+                                            [
+                                                'class' => 'btn btn-outline-light btn-sm',
+                                                'escape' => false,
+                                                'title' => __('View only fully compatible devices'),
+                                                'data-bs-toggle' => 'tooltip'
+                                            ]
+                                        ) ?>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -298,8 +822,58 @@ echo $this->element('actions_card', [
                     
                     <!-- Physical Specifications -->
                     <div class="card mt-4">
-                        <div class="card-header bg-warning text-dark">
+                        <div class="card-header bg-warning text-dark d-flex justify-content-between align-items-center">
                             <h5 class="mb-0"><i class="fas fa-ruler"></i> <?= __('Physical Specifications') ?></h5>
+                            <div class="btn-group" role="group">
+                                <?php if ($product->physical_spec_name || $product->spec_type): ?>
+                                    <?= $this->Html->link(
+                                        '<i class="fas fa-table me-1"></i>' . __('View All Specs'),
+                                        ['controller' => 'PhysicalSpecifications', 'action' => 'index'],
+                                        [
+                                            'class' => 'btn btn-outline-dark btn-sm',
+                                            'escape' => false,
+                                            'title' => __('View comprehensive physical specifications data'),
+                                            'data-bs-toggle' => 'tooltip'
+                                        ]
+                                    ) ?>
+                                    <?php if ($product->spec_type): ?>
+                                        <?= $this->Html->link(
+                                            '<i class="fas fa-filter me-1"></i>' . h($product->spec_type),
+                                            ['controller' => 'PhysicalSpecifications', 'action' => 'type', $product->spec_type],
+                                            [
+                                                'class' => 'btn btn-outline-dark btn-sm',
+                                                'escape' => false,
+                                                'title' => __('View all {0} specifications', $product->spec_type),
+                                                'data-bs-toggle' => 'tooltip'
+                                            ]
+                                        ) ?>
+                                    <?php endif; ?>
+                                    <?php if ($product->measurement_unit): ?>
+                                        <?= $this->Html->link(
+                                            '<i class="fas fa-balance-scale me-1"></i>' . h($product->measurement_unit),
+                                            ['controller' => 'PhysicalSpecifications', 'action' => 'unit', $product->measurement_unit],
+                                            [
+                                                'class' => 'btn btn-outline-dark btn-sm',
+                                                'escape' => false,
+                                                'title' => __('View all specifications in {0}', $product->measurement_unit),
+                                                'data-bs-toggle' => 'tooltip'
+                                            ]
+                                        ) ?>
+                                    <?php endif; ?>
+                                    <?php if ($product->max_voltage && $product->max_current): ?>
+                                        <?= $this->Html->link(
+                                            '<i class="fas fa-bolt me-1"></i>' . __('Electrical'),
+                                            ['controller' => 'PhysicalSpecifications', 'action' => 'electrical'],
+                                            [
+                                                'class' => 'btn btn-outline-dark btn-sm',
+                                                'escape' => false,
+                                                'title' => __('View electrical specifications'),
+                                                'data-bs-toggle' => 'tooltip'
+                                            ]
+                                        ) ?>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -365,8 +939,58 @@ echo $this->element('actions_card', [
                     
                     <!-- Category Information -->
                     <div class="card mt-4">
-                        <div class="card-header bg-secondary text-white">
+                        <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
                             <h5 class="mb-0"><i class="fas fa-tags"></i> <?= __('Category Information') ?></h5>
+                            <div class="btn-group" role="group">
+                                <?php if ($product->parent_category_name || $product->manufacturer): ?>
+                                    <?= $this->Html->link(
+                                        '<i class="fas fa-table me-1"></i>' . __('View All Categories'),
+                                        ['controller' => 'Categories', 'action' => 'index'],
+                                        [
+                                            'class' => 'btn btn-outline-light btn-sm',
+                                            'escape' => false,
+                                            'title' => __('View comprehensive category data'),
+                                            'data-bs-toggle' => 'tooltip'
+                                        ]
+                                    ) ?>
+                                    <?php if ($product->parent_category_name): ?>
+                                        <?= $this->Html->link(
+                                            '<i class="fas fa-sitemap me-1"></i>' . h($product->parent_category_name),
+                                            ['controller' => 'Categories', 'action' => 'parent', $product->parent_category_name],
+                                            [
+                                                'class' => 'btn btn-outline-light btn-sm',
+                                                'escape' => false,
+                                                'title' => __('View all {0} subcategories', $product->parent_category_name),
+                                                'data-bs-toggle' => 'tooltip'
+                                            ]
+                                        ) ?>
+                                    <?php endif; ?>
+                                    <?php if ($product->manufacturer): ?>
+                                        <?= $this->Html->link(
+                                            '<i class="fas fa-industry me-1"></i>' . h($product->manufacturer),
+                                            ['controller' => 'Products', 'action' => 'manufacturer', $product->manufacturer],
+                                            [
+                                                'class' => 'btn btn-outline-light btn-sm',
+                                                'escape' => false,
+                                                'title' => __('View all {0} products', $product->manufacturer),
+                                                'data-bs-toggle' => 'tooltip'
+                                            ]
+                                        ) ?>
+                                    <?php endif; ?>
+                                    <?php if ($product->is_certified): ?>
+                                        <?= $this->Html->link(
+                                            '<i class="fas fa-certificate me-1"></i>' . __('Certified'),
+                                            ['controller' => 'Categories', 'action' => 'certified'],
+                                            [
+                                                'class' => 'btn btn-outline-light btn-sm',
+                                                'escape' => false,
+                                                'title' => __('View only certified products'),
+                                                'data-bs-toggle' => 'tooltip'
+                                            ]
+                                        ) ?>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="row">

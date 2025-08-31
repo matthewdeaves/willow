@@ -70,6 +70,7 @@ class Product extends Entity
         'user' => true,
         'article' => true,
         'tags' => true,
+        'products_reliability' => true,
         // Allow mass assignment for SEO fields
         'meta_title' => true,
         'meta_description' => true,
@@ -79,6 +80,29 @@ class Product extends Entity
         'twitter_description' => true,
         'instagram_description' => true,
     ];
+
+    /**
+     * Virtual reliability score getter for backward compatibility
+     *
+     * Returns the reliability score from the ProductsReliability association 
+     * when available, otherwise falls back to the legacy column value.
+     *
+     * @return float|null
+     */
+    protected function _getReliabilityScoreCalculated(): ?float
+    {
+        // If we have the ProductsReliability association loaded, use that
+        if ($this->has('products_reliability') && $this->products_reliability !== null) {
+            return $this->products_reliability->total_score_float;
+        }
+
+        // Fall back to the legacy column value
+        if ($this->has('reliability_score') && $this->reliability_score !== null) {
+            return (float)$this->reliability_score;
+        }
+
+        return null;
+    }
 
     /**
      * Check if the provided user owns this product.

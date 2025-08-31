@@ -151,11 +151,23 @@ $this->Html->css('willow-admin', ['block' => true]);
                                     </td>
                                     <td>
                                         <?php if ($product->reliability_score > 0): ?>
-                                            <span class="badge badge-info">
-                                                <?= number_format($product->reliability_score, 1) ?>/5.0
-                                            </span>
+                                            <?= $this->Html->link(
+                                                '<span class="badge badge-info">' . number_format($product->reliability_score, 1) . '/5.0</span>',
+                                                ['controller' => 'Reliability', 'action' => 'view', 'model' => 'Products', 'id' => $product->id],
+                                                [
+                                                    'escape' => false,
+                                                    'title' => __('View detailed reliability breakdown')
+                                                ]
+                                            ) ?>
                                         <?php else: ?>
-                                            <span class="text-muted">-</span>
+                                            <?= $this->Html->link(
+                                                '<span class="text-muted">Calculate</span>',
+                                                ['controller' => 'Reliability', 'action' => 'view', 'model' => 'Products', 'id' => $product->id],
+                                                [
+                                                    'escape' => false,
+                                                    'title' => __('View reliability details and calculate score')
+                                                ]
+                                            ) ?>
                                         <?php endif; ?>
                                     </td>
                                     <td><?= number_format($product->view_count) ?></td>

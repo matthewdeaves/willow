@@ -83,7 +83,24 @@ $this->Html->script('AdminTheme.utils/popover-manager', ['block' => true]);
                                                                                                 <td><?= h($product->is_published) ?></td>
                                                                                                 <td><?= h($product->featured) ?></td>
                                                                                                 <td><?= h($product->verification_status) ?></td>
-                                                                                                <td><?= $product->reliability_score === null ? '' : $this->Number->format($product->reliability_score) ?></td>
+                                                                                                <td>
+                                                <?php if ($product->reliability_score !== null): ?>
+                                                    <?php 
+                                                    $scoreColor = match(true) {
+                                                        $product->reliability_score >= 0.9 => 'success',
+                                                        $product->reliability_score >= 0.7 => 'warning', 
+                                                        default => 'danger'
+                                                    };
+                                                    ?>
+                                                    <?= $this->Html->link(
+                                                        '<span class="badge bg-' . $scoreColor . '">' . $this->Number->toPercentage($product->reliability_score * 100, 1) . '</span>',
+                                                        ['controller' => 'Reliability', 'action' => 'view', 'model' => 'Products', 'id' => $product->id],
+                                                        ['escape' => false, 'title' => __('View reliability details')]
+                                                    ) ?>
+                                                <?php else: ?>
+                                                    <span class="text-muted">-</span>
+                                                <?php endif; ?>
+                                            </td>
                                                                                                 <td><?= $this->Number->format($product->view_count) ?></td>
                                                                                                 <td><?= h($product->created) ?></td>
                                                                                                 <td><?= h($product->modified) ?></td>

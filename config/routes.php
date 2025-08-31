@@ -459,6 +459,27 @@ return function (RouteBuilder $routes): void {
             'action' => 'reorder'
         ]);
         // END OF PRODUCTS ROUTES
+
+        // Reliability Routes
+        $routes->connect('/reliability/{model}/{id}', [
+            'controller' => 'Reliability',
+            'action' => 'view'
+        ], [
+            'pass' => ['model', 'id']
+        ]);
+        $routes->connect('/reliability/{model}/{id}/recalc', [
+            'controller' => 'Reliability',
+            'action' => 'recalc'
+        ], [
+            'pass' => ['model', 'id']
+        ]);
+        $routes->connect('/reliability/{model}/{id}/verify-checksums', [
+            'controller' => 'Reliability',
+            'action' => 'verifyChecksums'
+        ], [
+            'pass' => ['model', 'id']
+        ]);
+        
         $routes->fallbacks(DashedRoute::class);
     });
 

@@ -36,6 +36,29 @@ class ProductsTable extends Table
             'displayField' => 'title',
         ]);
 
+        // Reliability scoring behavior - verification-focused v2.0
+        $this->addBehavior('Reliability', [
+            'fields' => [
+                // Critical verification fields (high weight, require external validation)
+                'technical_specifications' => 0.25,  // JSON specs are critical
+                'testing_standard' => 0.20,          // Must have testing standard
+                'certifying_organization' => 0.15,   // Must have certifier
+                'numeric_rating' => 0.10,            // Must have performance rating
+                
+                // Basic product information (lower weight without verification)
+                'title' => 0.08,
+                'description' => 0.08,
+                'manufacturer' => 0.05,
+                'model_number' => 0.03,
+                'price' => 0.03,
+                'currency' => 0.01,
+                'image' => 0.01,
+                'alt_text' => 0.01,
+            ],
+            'scoring_version' => 'v2.0',  // Updated version with verification focus
+            'verification_required' => true, // Products need verification to score well
+        ]);
+
         // Core relationships
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
@@ -53,6 +76,15 @@ class ProductsTable extends Table
             'foreignKey' => 'product_id',
             'targetForeignKey' => 'tag_id',
             'joinTable' => 'products_tags',
+        ]);
+
+        // Reliability tracking association
+        $this->hasOne('ProductsReliability', [
+            'className' => 'ProductsReliability',
+            'bindingKey' => 'id',
+            'foreignKey' => 'foreign_key',
+            'conditions' => ['ProductsReliability.model' => 'Products'],
+            'dependent' => true
         ]);
     }
 
@@ -115,7 +147,7 @@ class ProductsTable extends Table
     {
         $query = $this->find()
             ->where(['Products.is_published' => true])
-            ->contain(['Users', 'Tags', 'Articles'])
+            ->contain(['Users', 'Tags', 'Articles', 'ProductsReliability'])
             ->orderBy(['Products.created' => 'DESC']);
 
         // Apply filters
@@ -143,7 +175,7 @@ class ProductsTable extends Table
     {
         return $this->find()
             ->where(['verification_status' => $status])
-            ->contain(['Users', 'Tags'])
+            ->contain(['Users', 'Tags', 'ProductsReliability'])
             ->orderBy(['created' => 'ASC']);
     }
 
@@ -161,7 +193,7 @@ class ProductsTable extends Table
                     'Products.model_number LIKE' => "%{$term}%",
                 ],
             ])
-            ->contain(['Tags', 'Users'])
+            ->contain(['Tags', 'Users', 'ProductsReliability'])
             ->where(['Products.is_published' => true]);
     }
 

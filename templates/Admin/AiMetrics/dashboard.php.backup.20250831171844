@@ -311,28 +311,15 @@ $this->Html->css('willow-admin', ['block' => true]);
         updateCardById('total-calls-value', formatNumber(data.totalCalls));
         updateCardById('success-rate-value', data.successRate.toFixed(1) + '%', getSuccessRateClass(data.successRate));
         updateCardById('total-cost-value', '$' + data.totalCost.toFixed(2));
-        // Rate limit totals
-        if (data.currentUsage) {
-            const total = document.getElementById("rate-limit-total");
-            if (total) {
-                total.textContent = `${data.currentUsage.current}/${data.currentUsage.limit}`;
-                // Update color based on remaining
-                const remaining = data.currentUsage.remaining;
-                total.className = total.className.split(" ").filter(cls => !cls.startsWith("text-")).join(" ") + 
-                    (remaining > 10 ? " text-success" : remaining > 5 ? " text-warning" : " text-danger");
-            }
-        }
-
-        // Per-service usage
-        if (data.perServiceUsage) {
-            if (data.perServiceUsage.anthropic) {
-                const el = document.getElementById("rate-limit-anthropic");
-                if (el) el.textContent = `${data.perServiceUsage.anthropic.current}/${data.perServiceUsage.anthropic.limit}`;
-            }
-            if (data.perServiceUsage.google) {
-                const el = document.getElementById("rate-limit-google");
-                if (el) el.textContent = `${data.perServiceUsage.google.current}/${data.perServiceUsage.google.limit}`;
-            }
+        updateCardById('rate-limit-value', data.currentUsage.current + '/' + data.currentUsage.limit, 
+                       data.currentUsage.remaining > 10 ? 'text-success' : 'text-warning');
+        
+        // Update period labels based on timeframe
+        updateTimeframePeriods();
+        
+        // Update queue status
+        if (document.getElementById('active-jobs')) {
+            document.getElementById('active-jobs').textContent = data.queueStatus.active;
         }
         if (document.getElementById('pending-jobs')) {
             document.getElementById('pending-jobs').textContent = data.queueStatus.pending;

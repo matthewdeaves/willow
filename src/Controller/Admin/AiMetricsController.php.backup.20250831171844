@@ -44,8 +44,7 @@ class AiMetricsController extends AppController
         
         // Rate limiting status
         $rateLimitService = new \App\Service\Api\RateLimitService();
-        $perServiceUsage = $rateLimitService->getCurrentUsageForServices(['anthropic', 'google']);
-        $currentUsage = $rateLimitService->getCombinedUsage(['anthropic', 'google']);
+        $currentUsage = $rateLimitService->getCurrentUsage();
         
         $this->set(compact(
             'totalCalls', 
@@ -118,8 +117,7 @@ class AiMetricsController extends AppController
             
             // Rate limiting status
             $rateLimitService = new \App\Service\Api\RateLimitService();
-        $perServiceUsage = $rateLimitService->getCurrentUsageForServices(['anthropic', 'google']);
-        $currentUsage = $rateLimitService->getCombinedUsage(['anthropic', 'google']);
+            $currentUsage = $rateLimitService->getCurrentUsage();
             
             // Get queue status (active jobs) - handle case where Queue plugin might not be loaded
             $activeJobs = 0;
@@ -160,7 +158,6 @@ class AiMetricsController extends AppController
                     'taskMetrics' => $taskMetrics,
                     'recentErrors' => $recentErrors,
                     'currentUsage' => $currentUsage,
-                    'perServiceUsage' => $perServiceUsage,
                     'recentActivity' => $recentActivity,
                     'queueStatus' => [
                         'active' => $activeJobs,

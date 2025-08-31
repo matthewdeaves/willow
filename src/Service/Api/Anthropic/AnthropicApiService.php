@@ -88,6 +88,25 @@ class AnthropicApiService extends AbstractApiService
     }
 
     /**
+     * Sends a POST request to the API with the given payload and rate limiting.
+     *
+     * @param array $payload The data to be sent in the request body.
+     * @param int $timeOut Request timeout in seconds.
+     * @return \Cake\Http\Client\Response The response from the API.
+     * @throws \Cake\Http\Exception\ServiceUnavailableException If the API request fails or rate limit exceeded.
+     */
+    public function sendRequest(array $payload, int $timeOut = 30): Response
+    {
+        // Enforce rate limiting before making the API call
+        $rateLimitService = new \App\Service\Api\RateLimitService();
+        if (!$rateLimitService->enforceLimit('anthropic')) {
+            throw new \Cake\Http\Exception\ServiceUnavailableException('Hourly rate limit exceeded for Anthropic API');
+        }
+
+        return parent::sendRequest($payload, $timeOut);
+    }
+
+    /**
      * Gets the headers for the API request.
      *
      * @return array An associative array of headers.

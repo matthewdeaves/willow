@@ -422,6 +422,12 @@ class GoogleApiService
                 throw new TranslationException('Daily cost limit reached for AI services');
             }
 
+            // Enforce hourly rate limit before making the API call
+            $rateLimitService = new \App\Service\Api\RateLimitService();
+            if (!$rateLimitService->enforceLimit('google')) {
+                throw new TranslationException('Hourly rate limit exceeded for Google API');
+            }
+
             // Check cost alert before making the API call
             $currentCost = $this->metricsService->getDailyCost();
             $this->metricsService->checkCostAlert($currentCost, $cost);

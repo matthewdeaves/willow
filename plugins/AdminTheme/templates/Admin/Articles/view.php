@@ -4,6 +4,7 @@
  * @var \App\Model\Entity\Article $article
  */
 ?>
+
 <?php
     echo $this->element('actions_card', [
         'modelName' => ($article->kind == 'page') ? 'Page' : 'Post',

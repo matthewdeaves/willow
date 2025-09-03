@@ -19,8 +19,8 @@ class ArticlesTagsFixture extends TestFixture
     {
         $this->records = [
             [
-                'article_id' => '286093bb-ccc1-4ae4-ac30-f95fdace7ae0',
-                'tag_id' => '7098f505-3969-4223-828e-88f0f54b1f48',
+                'article_id' => 'aaa29809-ed48-428c-9e24-5f8d55aa0c2d',
+                'tag_id' => 'a4597c2b-5dbf-4b1f-be67-73061b00e5e6',
             ],
         ];
         parent::init();

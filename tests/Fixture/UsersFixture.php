@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Test\Fixture;
 
-use Authentication\PasswordHasher\DefaultPasswordHasher;
 use Cake\TestSuite\Fixture\TestFixture;
 
 /**
@@ -37,67 +36,23 @@ class UsersFixture extends TestFixture
      */
     public function init(): void
     {
-        $hasher = new DefaultPasswordHasher();
         $this->records = [
             [
-                'id' => '6509480c-e7e6-4e65-9c38-1423a8d09d0f',
-                'email' => 'admin@example.com',
-                'username' => 'admin@example.com',
-                'password' => $hasher->hash('password'),
+                'id' => '2d3bf4a6-a2dc-47a4-b817-dd7af2ed485d',
                 'is_admin' => 1,
+                'email' => 'Lorem ipsum dolor sit amet',
+                'password' => 'Lorem ipsum dolor sit amet',
+                'image' => '',
+                'alt_text' => 'Lorem ipsum dolor sit amet',
+                'keywords' => 'Lorem ipsum dolor sit amet',
+                'name' => 'Lorem ipsum dolor sit amet',
+                'dir' => 'Lorem ipsum dolor sit amet',
+                'size' => 1,
+                'mime' => 'Lorem ipsum dolor sit amet',
+                'created' => '2025-07-12 21:49:10',
+                'modified' => '2025-07-12 21:49:10',
+                'username' => 'Lorem ipsum dolor sit amet',
                 'active' => 1,
-                'created' => '2023-09-27 10:39:23',
-                'modified' => '2023-09-27 10:39:23',
-            ],
-            [
-                'id' => '6509480c-e7e6-4e65-9c38-1423a8d09d02',
-                'email' => 'user@example.com',
-                'username' => 'user@example.com',
-                'password' => $hasher->hash('password'),
-                'is_admin' => 0,
-                'active' => 1,
-                'created' => '2023-09-27 10:39:23',
-                'modified' => '2023-09-27 10:39:23',
-            ],
-            [
-                'id' => '6509480c-e7e6-4e65-9c38-8574a8d09d02',
-                'email' => 'user1@example.com',
-                'username' => 'user1@example.com',
-                'password' => $hasher->hash('password'),
-                'is_admin' => 0,
-                'active' => 1,
-                'created' => '2023-09-27 10:39:23',
-                'modified' => '2023-09-27 10:39:23',
-            ],
-            [
-                'id' => '6509480c-e7e6-34hy-9c38-8574a8d09d02',
-                'email' => 'user2@example.com',
-                'username' => 'user2@example.com',
-                'password' => $hasher->hash('password'),
-                'is_admin' => 0,
-                'active' => 1,
-                'created' => '2023-09-27 10:39:23',
-                'modified' => '2023-09-27 10:39:23',
-            ],
-            [
-                'id' => 'qwde480c-e7e6-34hy-9c38-8574a8d09d02',
-                'email' => 'user3@example.com',
-                'username' => 'user3@example.com',
-                'password' => $hasher->hash('password'),
-                'is_admin' => 0,
-                'active' => 1,
-                'created' => '2022-09-27 10:39:23',
-                'modified' => '2022-09-27 10:39:23',
-            ],
-            [
-                'id' => '6509480c-e7e6-4e65-9c38-1423a8d09d03',
-                'email' => 'disabled@example.com',
-                'username' => 'disabled@example.com',
-                'password' => $hasher->hash('password'),
-                'is_admin' => 0,
-                'active' => 0,
-                'created' => '2023-09-27 10:39:23',
-                'modified' => '2023-09-27 10:39:23',
             ],
         ];
         parent::init();

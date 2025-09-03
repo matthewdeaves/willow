@@ -1,0 +1,9 @@
+[
+    {
+        "version": 20250713004901,
+        "migration_name": "InitialAdminMigration",
+        "start_time": "2025-07-13T01:49:01+01:00",
+        "end_time": "2025-07-13T01:49:01+01:00",
+        "breakpoint": false
+    }
+]

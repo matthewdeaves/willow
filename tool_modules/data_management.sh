@@ -159,12 +159,14 @@ load_database_from_backup() {
     done
     echo
 
+    
     read -r -p "Enter the number of the backup to restore (or 0 to cancel): " selection
     if ! echo "$selection" | grep -E '^[0-9]+$' > /dev/null; then
         echo "Invalid selection: Not a number."
         return 1
     fi
 
+    
     local S_INT=$((selection))
     if [ "$S_INT" -eq 0 ]; then echo "Operation cancelled."; return 0; fi
     if [ "$S_INT" -lt 1 ] || [ "$S_INT" -gt "$file_count" ]; then echo "Invalid selection: Number out of range."; return 1; fi

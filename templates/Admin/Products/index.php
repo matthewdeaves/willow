@@ -9,15 +9,62 @@ $this->Html->script('AdminTheme.utils/search-handler', ['block' => true]);
 $this->Html->script('AdminTheme.utils/popover-manager', ['block' => true]); 
 ?>
 
+<?php 
+// Get pending review count for notification
+$pendingCount = \Cake\ORM\TableRegistry::getTableLocator()->get('Products')
+    ->find()
+    ->where(['verification_status' => 'pending', 'user_id IS NOT' => null])
+    ->count();
+?>
+
+<!-- Pending Review Alert -->
+<?php if ($pendingCount > 0): ?>
+<div class="alert alert-warning border-0 shadow-sm mb-3" role="alert">
+    <div class="d-flex align-items-center">
+        <div class="flex-shrink-0">
+            <i class="fas fa-exclamation-triangle fa-2x text-warning"></i>
+        </div>
+        <div class="flex-grow-1 ms-3">
+            <h6 class="alert-heading mb-1">
+                <i class="fas fa-clock me-2"></i>
+                <?= __('Pending Product Reviews') ?>
+            </h6>
+            <p class="mb-2">
+                <?= __('You have {0} product submission(s) awaiting review from community members.', $pendingCount) ?>
+            </p>
+            <div class="d-flex align-items-center">
+                <?= $this->Html->link(
+                    '<i class="fas fa-list-check me-2"></i>' . __('Review Submissions'),
+                    ['action' => 'pendingReview'],
+                    [
+                        'class' => 'btn btn-warning btn-sm me-2',
+                        'escape' => false
+                    ]
+                ) ?>
+                <small class="text-muted">
+                    <i class="fas fa-info-circle me-1"></i>
+                    <?= __('Quick approval helps maintain community engagement') ?>
+                </small>
+            </div>
+        </div>
+        <div class="flex-shrink-0">
+            <span class="badge bg-warning text-dark fs-6"><?= $pendingCount ?></span>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+
 <header class="py-3 mb-3 border-bottom">
     <div class="container-fluid d-flex align-items-center">
         <div class="d-flex align-items-center me-auto">
             <!-- Status Filter -->
             <?= $this->element('status_filter', [
                 'filters' => [
-                    'all' => ['label' => __('All'), 'params' => []],
-                    'filter1' => ['label' => __('Filter 1'), 'params' => ['status' => '0']],
-                    'filter2' => ['label' => __('Filter 2'), 'params' => ['status' => '1']],
+                    'all' => ['label' => __('All Products'), 'params' => []],
+                    'published' => ['label' => __('Published'), 'params' => ['status' => 'published']],
+                    'pending' => ['label' => __('Pending Review'), 'params' => ['status' => 'pending']],
+                    'approved' => ['label' => __('Approved'), 'params' => ['status' => 'approved']],
+                    'rejected' => ['label' => __('Rejected'), 'params' => ['status' => 'rejected']],
                 ]
             ]) ?>
             
@@ -30,7 +77,19 @@ $this->Html->script('AdminTheme.utils/popover-manager', ['block' => true]);
             ]) ?>
         </div>
         
-        <div class="flex-shrink-0">
+        <div class="flex-shrink-0 d-flex gap-2">
+            <?php if ($pendingCount > 0): ?>
+                <?= $this->Html->link(
+                    '<i class="fas fa-clock me-2"></i>' . __('Pending ({0})', $pendingCount),
+                    ['action' => 'pendingReview'],
+                    ['class' => 'btn btn-outline-warning', 'escape' => false]
+                ) ?>
+            <?php endif; ?>
+            <?= $this->Html->link(
+                '<i class="fas fa-cogs me-2"></i>' . __('Form Settings'),
+                ['action' => 'forms'],
+                ['class' => 'btn btn-outline-secondary', 'escape' => false]
+            ) ?>
             <?= $this->Html->link(
                 '<i class="fas fa-plus"></i> ' . __('New Product'),
                 ['action' => 'add'],

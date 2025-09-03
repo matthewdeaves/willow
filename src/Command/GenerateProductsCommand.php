@@ -9,7 +9,7 @@ use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
-use Cake\I18n\DateTime;
+use Cake\I18n\FrozenTime;
 use Cake\ORM\TableRegistry;
 use RuntimeException;
 
@@ -499,7 +499,7 @@ class GenerateProductsCommand extends Command
     /**
      * Generate random date within the last 6 months
      *
-     * @return \Cake\I18n\DateTime
+     * @return \Cake\I18n\FrozenTime
      */
     private function generateRandomDate(): DateTime
     {

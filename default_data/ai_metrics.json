@@ -1,1 +1,472 @@
-[]
+[
+    {
+        "id": "02f4fca0-e760-4a2f-a37e-5be033323840",
+        "task_type": "google_translate_single",
+        "execution_time_ms": 60,
+        "tokens_used": 120,
+        "cost_usd": "0.003400",
+        "success": true,
+        "error_message": null,
+        "model_used": null
+    },
+    {
+        "id": "075c97f1-64cb-4422-b0e7-9fe4a03ca6a7",
+        "task_type": "google_translate_batch",
+        "execution_time_ms": 308,
+        "tokens_used": 308,
+        "cost_usd": "0.007900",
+        "success": true,
+        "error_message": null,
+        "model_used": null
+    },
+    {
+        "id": "0ff7544f-e1f9-4ee1-be9a-27c6f3639813",
+        "task_type": "anthropic_seo_generation",
+        "execution_time_ms": 353,
+        "tokens_used": 353,
+        "cost_usd": "0.011900",
+        "success": true,
+        "error_message": null,
+        "model_used": "claude-3-sonnet"
+    },
+    {
+        "id": "118845b9-5a78-4657-89cd-158af896fa10",
+        "task_type": "anthropic_image_analysis",
+        "execution_time_ms": 763,
+        "tokens_used": 2289,
+        "cost_usd": "0.027200",
+        "success": true,
+        "error_message": null,
+        "model_used": "claude-3-sonnet"
+    },
+    {
+        "id": "11f5cf68-4665-4e13-8245-11d7a65de4b7",
+        "task_type": "google_translate_single",
+        "execution_time_ms": 120,
+        "tokens_used": 360,
+        "cost_usd": "0.002200",
+        "success": true,
+        "error_message": null,
+        "model_used": null
+    },
+    {
+        "id": "14abf4e9-64aa-489f-8357-538c082dd559",
+        "task_type": "google_translate_gallery",
+        "execution_time_ms": 134,
+        "tokens_used": null,
+        "cost_usd": null,
+        "success": false,
+        "error_message": "{\n  \"error\": {\n    \"code\": 403,\n    \"message\": \"Requests from referer \\u003cempty\\u003e are blocked.\",\n    \"errors\": [\n      {\n        \"message\": \"Requests from referer \\u003cempty\\u003e are blocked.\",\n        \"domain\": \"global\",\n        \"reason\": \"forbidden\"\n      }\n    ],\n    \"status\": \"PERMISSION_DENIED\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.ErrorInfo\",\n        \"reason\": \"API_KEY_HTTP_REFERRER_BLOCKED\",\n        \"domain\": \"googleapis.com\",\n        \"metadata\": {\n          \"service\": \"translate.googleapis.com\",\n          \"httpReferrer\": \"\\u003cempty\\u003e\",\n          \"consumer\": \"projects/624468729167\"\n        }\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.LocalizedMessage\",\n        \"locale\": \"en-US\",\n        \"message\": \"Requests from referer \\u003cempty\\u003e are blocked.\"\n      }\n    ]\n  }\n}\n",
+        "model_used": "Google Cloud Translate"
+    },
+    {
+        "id": "17ab09e4-5776-42d8-b4df-68465d4afa74",
+        "task_type": "anthropic_image_analysis",
+        "execution_time_ms": 546,
+        "tokens_used": 1092,
+        "cost_usd": "0.024900",
+        "success": true,
+        "error_message": null,
+        "model_used": "claude-3-sonnet"
+    },
+    {
+        "id": "1b85de75-7b48-49bc-b666-6b43df611955",
+        "task_type": "google_translate_single",
+        "execution_time_ms": 128,
+        "tokens_used": 384,
+        "cost_usd": "0.001000",
+        "success": true,
+        "error_message": null,
+        "model_used": null
+    },
+    {
+        "id": "21c1c154-a1ee-4870-8b9f-ea4da6154f00",
+        "task_type": "anthropic_content_analysis",
+        "execution_time_ms": 253,
+        "tokens_used": 506,
+        "cost_usd": "0.015000",
+        "success": true,
+        "error_message": null,
+        "model_used": "claude-3-sonnet"
+    },
+    {
+        "id": "3121eb3e-7393-49fa-9ed3-80afe0a4719a",
+        "task_type": "google_translate_batch",
+        "execution_time_ms": 287,
+        "tokens_used": 287,
+        "cost_usd": "0.004400",
+        "success": true,
+        "error_message": null,
+        "model_used": null
+    },
+    {
+        "id": "3a2dfc64-183a-4ea2-8676-0261bef4847a",
+        "task_type": "google_translate_batch",
+        "execution_time_ms": 334,
+        "tokens_used": 1002,
+        "cost_usd": "0.004200",
+        "success": true,
+        "error_message": null,
+        "model_used": null
+    },
+    {
+        "id": "3bc206fd-cca3-4ce1-a285-62b09f48cf90",
+        "task_type": "anthropic_content_analysis",
+        "execution_time_ms": 259,
+        "tokens_used": 259,
+        "cost_usd": "0.006200",
+        "success": true,
+        "error_message": null,
+        "model_used": "claude-3-haiku"
+    },
+    {
+        "id": "407a27ca-084c-4998-9f18-3f51bdc60481",
+        "task_type": "google_translate_batch",
+        "execution_time_ms": 299,
+        "tokens_used": 598,
+        "cost_usd": "0.004600",
+        "success": true,
+        "error_message": null,
+        "model_used": null
+    },
+    {
+        "id": "4464674e-cbcb-4d63-a353-9ed2400efa22",
+        "task_type": "anthropic_content_analysis",
+        "execution_time_ms": 339,
+        "tokens_used": 1017,
+        "cost_usd": "0.006500",
+        "success": true,
+        "error_message": null,
+        "model_used": "claude-3-sonnet"
+    },
+    {
+        "id": "4cfd47eb-734d-46f2-af86-a061f66e4138",
+        "task_type": "anthropic_seo_generation",
+        "execution_time_ms": 503,
+        "tokens_used": 1006,
+        "cost_usd": "0.012500",
+        "success": true,
+        "error_message": null,
+        "model_used": "claude-3-sonnet"
+    },
+    {
+        "id": "50012e83-79f9-4bc6-b59a-9e957eff8fb3",
+        "task_type": "google_translate_single",
+        "execution_time_ms": 107,
+        "tokens_used": 321,
+        "cost_usd": "0.003900",
+        "success": true,
+        "error_message": null,
+        "model_used": null
+    },
+    {
+        "id": "50c5db17-b3b9-4d18-a6bc-428d4103e794",
+        "task_type": "anthropic_seo_generation",
+        "execution_time_ms": 450,
+        "tokens_used": 200,
+        "cost_usd": "0.012000",
+        "success": true,
+        "error_message": null,
+        "model_used": "claude-3-haiku"
+    },
+    {
+        "id": "5fa01e03-4c79-4431-aae7-5112d4821b76",
+        "task_type": "google_translate_batch",
+        "execution_time_ms": 322,
+        "tokens_used": 322,
+        "cost_usd": "0.006400",
+        "success": true,
+        "error_message": null,
+        "model_used": null
+    },
+    {
+        "id": "62eac8c1-e8ef-4014-8c61-70579aa8fea0",
+        "task_type": "realtime_test_1",
+        "execution_time_ms": 150,
+        "tokens_used": 75,
+        "cost_usd": "0.003000",
+        "success": true,
+        "error_message": null,
+        "model_used": "claude-3-sonnet"
+    },
+    {
+        "id": "68bd25b6-78b9-4556-b5f1-3b6a27b201c1",
+        "task_type": "google_translate_gallery",
+        "execution_time_ms": 199,
+        "tokens_used": null,
+        "cost_usd": null,
+        "success": false,
+        "error_message": "{\n  \"error\": {\n    \"code\": 403,\n    \"message\": \"Requests from referer \\u003cempty\\u003e are blocked.\",\n    \"errors\": [\n      {\n        \"message\": \"Requests from referer \\u003cempty\\u003e are blocked.\",\n        \"domain\": \"global\",\n        \"reason\": \"forbidden\"\n      }\n    ],\n    \"status\": \"PERMISSION_DENIED\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.ErrorInfo\",\n        \"reason\": \"API_KEY_HTTP_REFERRER_BLOCKED\",\n        \"domain\": \"googleapis.com\",\n        \"metadata\": {\n          \"consumer\": \"projects/624468729167\",\n          \"httpReferrer\": \"\\u003cempty\\u003e\",\n          \"service\": \"translate.googleapis.com\"\n        }\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.LocalizedMessage\",\n        \"locale\": \"en-US\",\n        \"message\": \"Requests from referer \\u003cempty\\u003e are blocked.\"\n      }\n    ]\n  }\n}\n",
+        "model_used": "Google Cloud Translate"
+    },
+    {
+        "id": "6be338f4-ee8f-4ca9-ba99-83914ec5e56b",
+        "task_type": "anthropic_seo_generation",
+        "execution_time_ms": 429,
+        "tokens_used": 1287,
+        "cost_usd": "0.021000",
+        "success": true,
+        "error_message": null,
+        "model_used": "claude-3-sonnet"
+    },
+    {
+        "id": "733c1cae-95cc-49b6-a208-9f901f1231fd",
+        "task_type": "anthropic_image_analysis",
+        "execution_time_ms": 609,
+        "tokens_used": 1218,
+        "cost_usd": "0.031300",
+        "success": true,
+        "error_message": null,
+        "model_used": "claude-3-sonnet"
+    },
+    {
+        "id": "76424030-dfef-41d9-85fd-29c31efcb49b",
+        "task_type": "test_console_script",
+        "execution_time_ms": 150,
+        "tokens_used": 75,
+        "cost_usd": "0.002500",
+        "success": true,
+        "error_message": null,
+        "model_used": "test-model-v1"
+    },
+    {
+        "id": "7d2fdb0f-8f1e-4504-bfba-8022be167795",
+        "task_type": "anthropic_content_analysis",
+        "execution_time_ms": 391,
+        "tokens_used": 782,
+        "cost_usd": "0.014800",
+        "success": true,
+        "error_message": null,
+        "model_used": "claude-3-haiku"
+    },
+    {
+        "id": "809b4edf-845c-4bbd-a3a1-a3c55e4435d9",
+        "task_type": "google_translate_batch",
+        "execution_time_ms": 300,
+        "tokens_used": null,
+        "cost_usd": "0.008000",
+        "success": true,
+        "error_message": null,
+        "model_used": null
+    },
+    {
+        "id": "85c0265f-9ade-4405-9447-420fdde48a76",
+        "task_type": "anthropic_seo_generation",
+        "execution_time_ms": 529,
+        "tokens_used": 1058,
+        "cost_usd": "0.018700",
+        "success": true,
+        "error_message": null,
+        "model_used": "claude-3-sonnet"
+    },
+    {
+        "id": "85f362f0-9733-4f93-966e-b68ebe8df2bd",
+        "task_type": "google_translate_batch",
+        "execution_time_ms": 350,
+        "tokens_used": 0,
+        "cost_usd": "0.000000",
+        "success": false,
+        "error_message": "Rate limit exceeded",
+        "model_used": null
+    },
+    {
+        "id": "8d4e31dc-9288-435c-8d2f-b8449a710f1e",
+        "task_type": "google_translate_batch",
+        "execution_time_ms": 256,
+        "tokens_used": 512,
+        "cost_usd": "0.010900",
+        "success": true,
+        "error_message": null,
+        "model_used": null
+    },
+    {
+        "id": "8f595b36-ce02-4f7d-b66f-450d93bab80f",
+        "task_type": "anthropic_content_analysis",
+        "execution_time_ms": 347,
+        "tokens_used": 1041,
+        "cost_usd": "0.012100",
+        "success": true,
+        "error_message": null,
+        "model_used": "claude-3-sonnet"
+    },
+    {
+        "id": "9ccb402d-6b3f-45dd-80b3-f20d96266ba1",
+        "task_type": "google_translate_single",
+        "execution_time_ms": 103,
+        "tokens_used": 103,
+        "cost_usd": "0.001300",
+        "success": true,
+        "error_message": null,
+        "model_used": null
+    },
+    {
+        "id": "a01b8ee3-3286-402a-9ebc-7c642132ccd2",
+        "task_type": "test_console_script",
+        "execution_time_ms": 150,
+        "tokens_used": 75,
+        "cost_usd": "0.002500",
+        "success": true,
+        "error_message": null,
+        "model_used": "test-model-v1"
+    },
+    {
+        "id": "a121e4e6-4962-475a-a810-1748ec358a20",
+        "task_type": "google_translate_gallery",
+        "execution_time_ms": 114,
+        "tokens_used": null,
+        "cost_usd": null,
+        "success": false,
+        "error_message": "{\n  \"error\": {\n    \"code\": 403,\n    \"message\": \"Requests from referer \\u003cempty\\u003e are blocked.\",\n    \"errors\": [\n      {\n        \"message\": \"Requests from referer \\u003cempty\\u003e are blocked.\",\n        \"domain\": \"global\",\n        \"reason\": \"forbidden\"\n      }\n    ],\n    \"status\": \"PERMISSION_DENIED\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.ErrorInfo\",\n        \"reason\": \"API_KEY_HTTP_REFERRER_BLOCKED\",\n        \"domain\": \"googleapis.com\",\n        \"metadata\": {\n          \"service\": \"translate.googleapis.com\",\n          \"consumer\": \"projects/624468729167\",\n          \"httpReferrer\": \"\\u003cempty\\u003e\"\n        }\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.LocalizedMessage\",\n        \"locale\": \"en-US\",\n        \"message\": \"Requests from referer \\u003cempty\\u003e are blocked.\"\n      }\n    ]\n  }\n}\n",
+        "model_used": "Google Cloud Translate"
+    },
+    {
+        "id": "a1d9e21a-b7bb-4a52-8a4f-d540d0bdeda4",
+        "task_type": "realtime_test_2",
+        "execution_time_ms": 120,
+        "tokens_used": 60,
+        "cost_usd": "0.002000",
+        "success": false,
+        "error_message": "Rate limit exceeded",
+        "model_used": "claude-3-sonnet"
+    },
+    {
+        "id": "abaab3b7-4660-4def-ac9a-aebab65644c2",
+        "task_type": "google_translate_single",
+        "execution_time_ms": 80,
+        "tokens_used": null,
+        "cost_usd": "0.002000",
+        "success": true,
+        "error_message": null,
+        "model_used": null
+    },
+    {
+        "id": "b4d5599d-f31a-477d-a508-4b4603eab6dd",
+        "task_type": "google_translate_batch",
+        "execution_time_ms": 238,
+        "tokens_used": 714,
+        "cost_usd": "0.011900",
+        "success": true,
+        "error_message": null,
+        "model_used": null
+    },
+    {
+        "id": "c8c2b4b0-86ad-11f0-9fd7-3af8ce737ae0",
+        "task_type": "generate_seo",
+        "execution_time_ms": 2500,
+        "tokens_used": 150,
+        "cost_usd": "0.025000",
+        "success": true,
+        "error_message": null,
+        "model_used": "claude-3-sonnet"
+    },
+    {
+        "id": "c8c3989a-86ad-11f0-9fd7-3af8ce737ae0",
+        "task_type": "analyze_image",
+        "execution_time_ms": 3200,
+        "tokens_used": 200,
+        "cost_usd": "0.035000",
+        "success": true,
+        "error_message": null,
+        "model_used": "claude-3-sonnet"
+    },
+    {
+        "id": "c8c39e54-86ad-11f0-9fd7-3af8ce737ae0",
+        "task_type": "generate_tags",
+        "execution_time_ms": 1800,
+        "tokens_used": 100,
+        "cost_usd": "0.015000",
+        "success": false,
+        "error_message": "Rate limit exceeded",
+        "model_used": "claude-3-sonnet"
+    },
+    {
+        "id": "c8c39ff3-86ad-11f0-9fd7-3af8ce737ae0",
+        "task_type": "analyze_sentiment",
+        "execution_time_ms": 2100,
+        "tokens_used": 120,
+        "cost_usd": "0.020000",
+        "success": true,
+        "error_message": null,
+        "model_used": "claude-3-sonnet"
+    },
+    {
+        "id": "c8c3a0fc-86ad-11f0-9fd7-3af8ce737ae0",
+        "task_type": "generate_seo",
+        "execution_time_ms": 2800,
+        "tokens_used": 180,
+        "cost_usd": "0.030000",
+        "success": true,
+        "error_message": null,
+        "model_used": "claude-3-sonnet"
+    },
+    {
+        "id": "cb9f2e88-72b4-443f-95a2-bad28f09f2b8",
+        "task_type": "google_translate_batch",
+        "execution_time_ms": 264,
+        "tokens_used": 264,
+        "cost_usd": "0.006000",
+        "success": true,
+        "error_message": null,
+        "model_used": null
+    },
+    {
+        "id": "ce77d3bd-36b9-444e-a34a-849800143c66",
+        "task_type": "google_translate_gallery",
+        "execution_time_ms": 298,
+        "tokens_used": null,
+        "cost_usd": null,
+        "success": false,
+        "error_message": "{\n  \"error\": {\n    \"code\": 403,\n    \"message\": \"Requests from referer \\u003cempty\\u003e are blocked.\",\n    \"errors\": [\n      {\n        \"message\": \"Requests from referer \\u003cempty\\u003e are blocked.\",\n        \"domain\": \"global\",\n        \"reason\": \"forbidden\"\n      }\n    ],\n    \"status\": \"PERMISSION_DENIED\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.ErrorInfo\",\n        \"reason\": \"API_KEY_HTTP_REFERRER_BLOCKED\",\n        \"domain\": \"googleapis.com\",\n        \"metadata\": {\n          \"service\": \"translate.googleapis.com\",\n          \"consumer\": \"projects/624468729167\",\n          \"httpReferrer\": \"\\u003cempty\\u003e\"\n        }\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.LocalizedMessage\",\n        \"locale\": \"en-US\",\n        \"message\": \"Requests from referer \\u003cempty\\u003e are blocked.\"\n      }\n    ]\n  }\n}\n",
+        "model_used": "Google Cloud Translate"
+    },
+    {
+        "id": "cef87e2b-ba29-4c80-bc18-544018a82c5f",
+        "task_type": "test_comprehensive_check",
+        "execution_time_ms": 150,
+        "tokens_used": 100,
+        "cost_usd": "0.005000",
+        "success": true,
+        "error_message": null,
+        "model_used": "test-model"
+    },
+    {
+        "id": "d05eb350-9df8-44b1-af1e-613a21bc1656",
+        "task_type": "anthropic_content_analysis",
+        "execution_time_ms": 352,
+        "tokens_used": 704,
+        "cost_usd": "0.005500",
+        "success": true,
+        "error_message": null,
+        "model_used": "claude-3-sonnet"
+    },
+    {
+        "id": "ed50c918-5f74-4198-bc65-da55a4b877f1",
+        "task_type": "google_translate_single",
+        "execution_time_ms": 135,
+        "tokens_used": 135,
+        "cost_usd": "0.003700",
+        "success": true,
+        "error_message": null,
+        "model_used": null
+    },
+    {
+        "id": "f6ba0632-25f5-45ff-81d6-c7652ca6a9f9",
+        "task_type": "anthropic_content_analysis",
+        "execution_time_ms": 193,
+        "tokens_used": 579,
+        "cost_usd": "0.008000",
+        "success": true,
+        "error_message": null,
+        "model_used": "claude-3-haiku"
+    },
+    {
+        "id": "fb0d428c-97d1-481b-996b-06536bbd99d7",
+        "task_type": "anthropic_image_analysis",
+        "execution_time_ms": 798,
+        "tokens_used": 1596,
+        "cost_usd": "0.027000",
+        "success": true,
+        "error_message": null,
+        "model_used": "claude-3-sonnet"
+    }
+]

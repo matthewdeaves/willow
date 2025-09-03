@@ -17,6 +17,23 @@
         "twitter_description": "📸 Discover our site image assets gallery! A curated collection of digital resources and visual elements for your web projects. #DigitalAssets #WebDesign"
     },
     {
+        "id": "4671cef1-52e8-4031-8bd3-967bb1abb261",
+        "name": "micro-usb adapters",
+        "slug": "micro-usb-adapters",
+        "description": "cords, adapters, and chargers with the micro-usb end\r\n\r\nNote that there is little to no microusb cords/chargers, only adapters with dual endings (at least in america)",
+        "preview_image": "4671cef1-52e8-4031-8bd3-967bb1abb261.jpg",
+        "is_published": true,
+        "created_by": null,
+        "modified_by": null,
+        "meta_title": "Micro-USB Adapter Gallery: Essential Connector & Charging Solutions",
+        "meta_description": "Explore our comprehensive collection of micro-USB adapters, featuring dual-ended connectors and charging solutions. Browse 20 detailed images of versatile adapter options for your devices.",
+        "meta_keywords": "micro-usb adapters dual-ended connectors chargers conversion cables electronic accessories device compatibility charging solutions",
+        "facebook_description": "Need the right micro-USB adapter? Check out our gallery of 20 essential connector solutions, featuring dual-ended adapters perfect for all your device charging needs! 🔌",
+        "linkedin_description": "Explore our curated collection of micro-USB adapters and charging solutions. This comprehensive visual guide showcases 20 high-quality images of dual-ended adapters, essential for modern device connectivity. Perfect for professionals seeking reliable charging and connection solutions for their electronic devices.",
+        "instagram_description": "🔌 Power up your device game with our essential micro-USB adapter collection!\n\nSwipe through 20 detailed shots of versatile dual-ended adapters and charging solutions. Whether you're upgrading your setup or need a reliable backup, we've got every connection covered.\n\n#MicroUSB #TechAccessories #ChargingCables #AdapterLife #TechEssentials #DeviceCharging #ConnectorSolutions #TechGear #ElectronicAccessories #ChargingStation",
+        "twitter_description": "📱 Browse 20 essential micro-USB adapters and dual-ended connectors in our latest gallery. Find the perfect charging solution for your devices! #TechAccessories"
+    },
+    {
         "id": "9c58ee11-aa08-4e0d-8933-ec02f5184ac8",
         "name": "micro-usb",
         "slug": "micro-usb",
@@ -32,5 +49,22 @@
         "linkedin_description": "Explore our comprehensive micro USB cable collection, featuring essential connectivity solutions for mobile devices and electronics. These industry-standard connectors showcase the fundamental components that power our digital world, enabling reliable charging and data transfer capabilities.",
         "instagram_description": "🔌 Power up your digital life with our micro USB cable collection!\n\nEssential charging solutions for your favorite devices:\n- Smartphones\n- Tablets\n- Portable speakers\n- Power banks\n\nQuality connectors for reliable charging and data transfer. Because every connection matters! ⚡️\n\n#MicroUSB #TechAccessories #Charging #Electronics #DeviceEssentials #Connectivity #MobileAccessories #TechLife",
         "twitter_description": "📱 Power up your devices! Browse our micro USB cable collection - the essential connector for your electronic devices. #MicroUSB #TechAccessories"
+    },
+    {
+        "id": "fad79a43-644b-491f-8e6c-1ebbe02b5309",
+        "name": "type-c adapters/chargers",
+        "slug": "type-c-adapters-chargers",
+        "description": "cords and adapters with ",
+        "preview_image": "fad79a43-644b-491f-8e6c-1ebbe02b5309.jpg",
+        "is_published": true,
+        "created_by": null,
+        "modified_by": null,
+        "meta_title": "USB Type-C Adapters & Chargers Gallery | Power Accessories Collection",
+        "meta_description": "Explore our comprehensive collection of USB Type-C adapters and chargers. Find essential power accessories, charging cords, and connectivity solutions for your modern devices.",
+        "meta_keywords": "usb type-c adapters chargers power accessories charging cords connectivity solutions device compatibility fast charging power delivery",
+        "facebook_description": "Looking for USB Type-C adapters and chargers? Browse our collection of essential power accessories to keep your devices charged and connected! 🔌💪",
+        "linkedin_description": "Discover our curated selection of USB Type-C adapters and chargers, featuring essential power accessories for modern business devices. Our collection showcases reliable charging solutions, ensuring seamless connectivity and power delivery for professionals who depend on their devices.",
+        "instagram_description": "🔌 Power Your Life with USB Type-C!\n\nExplore our carefully curated collection of Type-C adapters and chargers - the essential power accessories for your modern lifestyle. Whether you're charging your laptop, smartphone, or tablet, we've got the perfect charging solution for you.\n\n#USBTypeC #ChargingAccessories #TechEssentials #PowerDelivery #ModernTechnology #ConnectivitySolutions #ChargingStation #TechLife #PowerAccessories #DeviceCharging",
+        "twitter_description": "Power up with our USB Type-C adapters & chargers collection! Essential charging solutions for all your modern devices 🔌⚡ #USBTypeC #TechAccessories"
     }
 ]

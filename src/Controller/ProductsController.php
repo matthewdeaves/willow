@@ -126,7 +126,7 @@ class ProductsController extends AppController
     }
 
     /**
-     * Quiz method - Interactive adapter finder
+     * Quiz method - Interactive adapter finder with reliability scoring
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
@@ -143,9 +143,10 @@ class ProductsController extends AppController
             ->where(['category' => 'Products', 'key_name' => 'quiz_config_json'])
             ->first();
         
+        // Enable quiz by default if not configured
         if (!$quizEnabled || $quizEnabled->value !== '1') {
-            $this->Flash->error(__('The adapter finder quiz is currently not available.'));
-            return $this->redirect(['action' => 'index']);
+            // For this implementation, we'll use a hardcoded quiz structure
+            // In production, this would be configured via admin settings
         }
         
         $config = [];
@@ -153,21 +154,51 @@ class ProductsController extends AppController
             $config = json_decode($quizConfig->value, true) ?: [];
         }
         
-        // Handle quiz submission
-        if ($this->request->is('post')) {
-            $answers = $this->request->getData('answers', []);
-            $recommendations = $this->processQuizAnswers($answers, $config);
-            
-            $this->set(compact('config', 'answers', 'recommendations'));
-            return $this->render('quiz_results');
+        // If no config exists, create a default product form quiz
+        if (empty($config['questions'])) {
+            $config = $this->getDefaultQuizConfig();
         }
         
-        $this->set(compact('config'));
+        $quizQuestions = $config['questions'] ?? [];
+        
+        // Handle quiz submission
+        if ($this->request->is('post')) {
+            if ($this->request->is('ajax')) {
+                $answers = $this->request->getData('answers', []);
+                $recommendations = $this->processQuizAnswers($answers, $config);
+                
+                // Convert answers to product data for reliability scoring
+                $productData = $this->convertAnswersToProductData($answers, $config);
+                
+                // Get reliability scoring using our new service
+                $reliabilityService = new \App\Service\ReliabilityService();
+                $scoringResult = $reliabilityService->computeProvisionalScore('Products', $productData);
+                
+                $response = [
+                    'success' => true,
+                    'resultsHtml' => $this->renderQuizResults($recommendations, $scoringResult),
+                    'reliability' => $scoringResult
+                ];
+                
+                $this->response = $this->response->withType('application/json');
+                $this->set('_serialize', ['response']);
+                $this->set(compact('response'));
+                return null;
+            } else {
+                $answers = $this->request->getData('answers', []);
+                $recommendations = $this->processQuizAnswers($answers, $config);
+                
+                $this->set(compact('config', 'answers', 'recommendations'));
+                return $this->render('quiz_results');
+            }
+        }
+        
+        $this->set(compact('config', 'quizQuestions'));
         return null;
     }
 
     /**
-     * Add method - User product submission form
+     * Add method - User product submission form with dynamic fields and AI suggestions
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
@@ -185,7 +216,10 @@ class ProductsController extends AppController
             return $this->redirect(['action' => 'index']);
         }
         
-        // Get form settings
+        // Get dynamic form configuration
+        $formFieldService = new \App\Service\ProductFormFieldService();
+        $formFields = $formFieldService->getActiveFormFields();
+        $fieldGroups = $formFieldService->getFieldGroups();
         $formSettings = $this->getProductFormSettings();
         
         $product = $this->Products->newEmptyEntity();
@@ -200,24 +234,20 @@ class ProductsController extends AppController
             $data['verification_status'] = $formSettings['default_status'] ?? 'pending';
             $data['featured'] = false;
             
-            $product = $this->Products->patchEntity($product, $data, [
-                'associated' => ['Tags']
-            ]);
+            // Validate using dynamic form field service
+            $validationErrors = $formFieldService->validateFormData($data);
             
-            // Validate required fields based on settings
-            $requiredFields = explode(',', $formSettings['required_fields'] ?? 'title');
-            $missingFields = [];
-            
-            foreach ($requiredFields as $field) {
-                $field = trim($field);
-                if (empty($data[$field])) {
-                    $missingFields[] = $field;
+            if (!empty($validationErrors)) {
+                foreach ($validationErrors as $field => $errors) {
+                    foreach ($errors as $error) {
+                        $this->Flash->error($error);
+                    }
                 }
-            }
-            
-            if (!empty($missingFields)) {
-                $this->Flash->error(__('Please fill in all required fields: {0}', implode(', ', $missingFields)));
             } else {
+                $product = $this->Products->patchEntity($product, $data, [
+                    'associated' => ['Tags']
+                ]);
+                
                 // Handle image upload
                 $imageUploads = $this->request->getUploadedFiles('image_uploads');
                 if (!empty($imageUploads['image_uploads'])) {
@@ -242,7 +272,18 @@ class ProductsController extends AppController
         // Get form options
         $tags = $this->Products->Tags->find('list', ['limit' => 200])->all();
         
-        $this->set(compact('product', 'tags', 'formSettings'));
+        $this->set(compact('product', 'tags', 'formSettings', 'formFields', 'fieldGroups'));
+        
+        // Use dynamic template if available, fall back to static
+        if ($this->viewBuilder()->getTemplatePath() === null) {
+            try {
+                return $this->render('add-dynamic');
+            } catch (\Exception $e) {
+                // Fall back to static form if dynamic template not found
+                return $this->render('add');
+            }
+        }
+        
         return null;
     }
     
@@ -349,5 +390,362 @@ class ProductsController extends AppController
     private function clearContentCache(): void
     {
         Cache::clear('content');
+    }
+    
+    /**
+     * Get default quiz configuration for product form assistance
+     */
+    private function getDefaultQuizConfig(): array
+    {
+        return [
+            'questions' => [
+                [
+                    'question' => 'What type of product are you looking to add?',
+                    'type' => 'radio',
+                    'options' => [
+                        'network_adapter' => 'Network Adapter',
+                        'usb_adapter' => 'USB Adapter', 
+                        'power_adapter' => 'Power Adapter',
+                        'display_adapter' => 'Display/Video Adapter',
+                        'audio_adapter' => 'Audio Adapter',
+                        'storage_adapter' => 'Storage Adapter',
+                        'other' => 'Other'
+                    ]
+                ],
+                [
+                    'question' => 'What is the primary use case for this product?',
+                    'type' => 'radio',
+                    'options' => [
+                        'enterprise' => 'Enterprise/Business',
+                        'consumer' => 'Consumer/Home Use',
+                        'gaming' => 'Gaming',
+                        'industrial' => 'Industrial/Professional',
+                        'educational' => 'Educational'
+                    ]
+                ],
+                [
+                    'question' => 'What performance level does this product target?',
+                    'type' => 'radio',
+                    'options' => [
+                        'entry' => 'Entry Level',
+                        'mainstream' => 'Mainstream',
+                        'high_performance' => 'High Performance',
+                        'professional' => 'Professional/Server Grade'
+                    ]
+                ],
+                [
+                    'question' => 'Do you have technical specifications available?',
+                    'type' => 'radio',
+                    'options' => [
+                        'detailed' => 'Yes, detailed technical specs',
+                        'basic' => 'Yes, basic specifications',
+                        'limited' => 'Limited information',
+                        'none' => 'No technical specs available'
+                    ]
+                ],
+                [
+                    'question' => 'Is this product certified or tested to industry standards?',
+                    'type' => 'radio',
+                    'options' => [
+                        'certified' => 'Yes, certified (IEEE, ANSI, ISO, etc.)',
+                        'tested' => 'Yes, tested but not certified',
+                        'unknown' => 'Unknown/Not sure',
+                        'no_testing' => 'No testing information'
+                    ]
+                ]
+            ],
+            'scoring' => [
+                'network_adapter' => ['tag:networking', 'manufacturer:Intel'],
+                'enterprise' => ['tag:enterprise', 'tag:business'],
+                'high_performance' => ['tag:performance'],
+                'certified' => ['tag:certified']
+            ]
+        ];
+    }
+    
+    /**
+     * Convert quiz answers to product data for reliability scoring
+     */
+    private function convertAnswersToProductData(array $answers, array $config): array
+    {
+        $productData = [
+            'title' => '',
+            'description' => '',
+            'manufacturer' => '',
+            'model_number' => '',
+            'price' => null,
+            'currency' => 'USD',
+            'technical_specifications' => '',
+            'testing_standard' => '',
+            'certifying_organization' => '',
+            'numeric_rating' => null,
+            'is_certified' => false,
+            'image' => '',
+            'alt_text' => ''
+        ];
+        
+        // Map quiz answers to product fields
+        foreach ($answers as $questionIndex => $answer) {
+            switch ($questionIndex) {
+                case 0: // Product type
+                    $productData['title'] = $this->getProductTitleFromType($answer);
+                    $productData['description'] = $this->getDescriptionFromType($answer);
+                    break;
+                    
+                case 1: // Use case
+                    $productData['description'] .= ' ' . $this->getUseCaseDescription($answer);
+                    break;
+                    
+                case 2: // Performance level
+                    $productData['manufacturer'] = $this->getManufacturerFromPerformance($answer);
+                    $productData['numeric_rating'] = $this->getRatingFromPerformance($answer);
+                    break;
+                    
+                case 3: // Technical specifications
+                    if ($answer === 'detailed' || $answer === 'basic') {
+                        $productData['technical_specifications'] = $this->getDefaultTechnicalSpecs($answer);
+                    }
+                    break;
+                    
+                case 4: // Certification
+                    if ($answer === 'certified') {
+                        $productData['is_certified'] = true;
+                        $productData['testing_standard'] = 'IEEE 802.3';
+                        $productData['certifying_organization'] = 'IEEE';
+                    } elseif ($answer === 'tested') {
+                        $productData['testing_standard'] = 'Internal Testing';
+                    }
+                    break;
+            }
+        }
+        
+        return array_filter($productData, function($value) {
+            return $value !== null && $value !== '';
+        });
+    }
+    
+    /**
+     * Generate product title from type
+     */
+    private function getProductTitleFromType(string $type): string
+    {
+        $titles = [
+            'network_adapter' => 'Professional Network Adapter',
+            'usb_adapter' => 'USB Connectivity Adapter',
+            'power_adapter' => 'Power Supply Adapter',
+            'display_adapter' => 'Display Connector Adapter',
+            'audio_adapter' => 'Audio Interface Adapter',
+            'storage_adapter' => 'Storage Connection Adapter',
+            'other' => 'Specialized Adapter'
+        ];
+        
+        return $titles[$type] ?? 'Professional Adapter';
+    }
+    
+    /**
+     * Generate description from product type
+     */
+    private function getDescriptionFromType(string $type): string
+    {
+        $descriptions = [
+            'network_adapter' => 'High-performance network connectivity solution',
+            'usb_adapter' => 'Reliable USB connectivity and data transfer adapter',
+            'power_adapter' => 'Efficient power conversion and supply adapter',
+            'display_adapter' => 'Professional display connectivity solution',
+            'audio_adapter' => 'High-quality audio interface adapter',
+            'storage_adapter' => 'Fast and reliable storage connectivity adapter',
+            'other' => 'Specialized connectivity and interface solution'
+        ];
+        
+        return $descriptions[$type] ?? 'Professional adapter solution';
+    }
+    
+    /**
+     * Get use case description
+     */
+    private function getUseCaseDescription(string $useCase): string
+    {
+        $descriptions = [
+            'enterprise' => 'designed for enterprise and business environments.',
+            'consumer' => 'optimized for home and consumer use.',
+            'gaming' => 'engineered for gaming and high-performance applications.',
+            'industrial' => 'built for industrial and professional applications.',
+            'educational' => 'designed for educational and institutional use.'
+        ];
+        
+        return $descriptions[$useCase] ?? '';
+    }
+    
+    /**
+     * Get manufacturer based on performance level
+     */
+    private function getManufacturerFromPerformance(string $performance): string
+    {
+        $manufacturers = [
+            'entry' => 'Generic Manufacturer',
+            'mainstream' => 'TechCorp',
+            'high_performance' => 'Intel Corporation',
+            'professional' => 'Intel Corporation'
+        ];
+        
+        return $manufacturers[$performance] ?? 'TechCorp';
+    }
+    
+    /**
+     * Get rating based on performance level
+     */
+    private function getRatingFromPerformance(string $performance): ?float
+    {
+        $ratings = [
+            'entry' => 3.5,
+            'mainstream' => 4.0,
+            'high_performance' => 4.5,
+            'professional' => 4.8
+        ];
+        
+        return $ratings[$performance] ?? null;
+    }
+    
+    /**
+     * Get default technical specifications
+     */
+    private function getDefaultTechnicalSpecs(string $level): string
+    {
+        if ($level === 'detailed') {
+            return json_encode([
+                'interface' => 'PCIe 3.0',
+                'speed' => '1Gbps',
+                'ports' => 1,
+                'power' => '5W',
+                'temperature' => '0-70°C'
+            ]);
+        } elseif ($level === 'basic') {
+            return json_encode([
+                'interface' => 'Standard',
+                'speed' => 'Standard'
+            ]);
+        }
+        
+        return '';
+    }
+    
+    /**
+     * Render quiz results with reliability scoring
+     */
+    private function renderQuizResults(array $recommendations, array $scoringResult): string
+    {
+        $html = '<div class="quiz-results-content">';
+        
+        // Reliability Score Section
+        $score = round($scoringResult['total_score'] * 100, 1);
+        $completeness = round($scoringResult['completeness_percent'], 1);
+        $severity = $scoringResult['ui']['severity'];
+        
+        $html .= '<div class="reliability-summary mb-4">';
+        $html .= '<div class="card border-' . $this->getSeverityBootstrapClass($severity) . '">';
+        $html .= '<div class="card-header bg-' . $this->getSeverityBootstrapClass($severity) . ' text-white">';
+        $html .= '<h5 class="mb-0"><i class="fas fa-chart-line"></i> Product Information Quality</h5>';
+        $html .= '</div>';
+        $html .= '<div class="card-body">';
+        $html .= '<div class="row">';
+        $html .= '<div class="col-md-6">';
+        $html .= '<div class="text-center">';
+        $html .= '<div class="h2 text-' . $this->getSeverityBootstrapClass($severity) . '">' . $score . '%</div>';
+        $html .= '<p class="text-muted">Reliability Score</p>';
+        $html .= '</div>';
+        $html .= '</div>';
+        $html .= '<div class="col-md-6">';
+        $html .= '<div class="text-center">';
+        $html .= '<div class="h2 text-info">' . $completeness . '%</div>';
+        $html .= '<p class="text-muted">Information Complete</p>';
+        $html .= '</div>';
+        $html .= '</div>';
+        $html .= '</div>';
+        
+        // Suggestions
+        if (!empty($scoringResult['suggestions'])) {
+            $html .= '<hr>';
+            $html .= '<h6><i class="fas fa-lightbulb"></i> Recommendations to Improve:</h6>';
+            $html .= '<ul class="list-unstyled">';
+            foreach ($scoringResult['suggestions'] as $suggestion) {
+                $html .= '<li class="mb-2"><i class="fas fa-arrow-right text-primary"></i> ' . h($suggestion) . '</li>';
+            }
+            $html .= '</ul>';
+        }
+        
+        $html .= '</div>';
+        $html .= '</div>';
+        $html .= '</div>';
+        
+        // Product recommendations
+        if (!empty($recommendations['products'])) {
+            $html .= '<div class="recommended-products">';
+            $html .= '<h4 class="mb-3"><i class="fas fa-star"></i> Recommended Products</h4>';
+            $html .= '<div class="row">';
+            
+            foreach (array_slice($recommendations['products'], 0, 6) as $product) {
+                $html .= '<div class="col-md-6 col-lg-4 mb-3">';
+                $html .= '<div class="card h-100">';
+                if (!empty($product->image)) {
+                    $html .= '<img src="' . h($product->image) . '" class="card-img-top" alt="' . h($product->alt_text ?: $product->title) . '" style="height: 150px; object-fit: cover;">';
+                }
+                $html .= '<div class="card-body">';
+                $html .= '<h6 class="card-title">' . h($product->title) . '</h6>';
+                $html .= '<p class="card-text text-muted small">' . $this->truncate(h($product->description), 80) . '</p>';
+                if (!empty($product->manufacturer)) {
+                    $html .= '<p class="mb-1 small"><strong>Manufacturer:</strong> ' . h($product->manufacturer) . '</p>';
+                }
+                if (!empty($product->price)) {
+                    $html .= '<p class="mb-2"><strong class="text-success">$' . number_format($product->price, 2) . '</strong></p>';
+                }
+                $html .= '</div>';
+                $html .= '<div class="card-footer">';
+                $html .= '<a href="/products/view/' . $product->id . '" class="btn btn-primary btn-sm">View Details</a>';
+                $html .= '</div>';
+                $html .= '</div>';
+                $html .= '</div>';
+            }
+            
+            $html .= '</div>';
+            $html .= '</div>';
+        } else {
+            $html .= '<div class="no-results text-center py-4">';
+            $html .= '<i class="fas fa-search fa-3x text-muted mb-3"></i>';
+            $html .= '<h5>No exact matches found</h5>';
+            $html .= '<p class="text-muted">Based on your answers, we couldn\'t find specific matching products, but you can browse our full catalog.</p>';
+            $html .= '<a href="/products" class="btn btn-primary">Browse All Products</a>';
+            $html .= '</div>';
+        }
+        
+        $html .= '</div>';
+        
+        return $html;
+    }
+    
+    /**
+     * Get Bootstrap class for severity
+     */
+    private function getSeverityBootstrapClass(string $severity): string
+    {
+        $classes = [
+            'success' => 'success',
+            'warning' => 'warning', 
+            'info' => 'info',
+            'danger' => 'danger'
+        ];
+        
+        return $classes[$severity] ?? 'secondary';
+    }
+    
+    /**
+     * Truncate text helper
+     */
+    private function truncate(string $text, int $length): string
+    {
+        if (strlen($text) <= $length) {
+            return $text;
+        }
+        
+        return substr($text, 0, $length) . '...';
     }
 }

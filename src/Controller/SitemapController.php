@@ -6,7 +6,7 @@ namespace App\Controller;
 use App\Utility\I18nManager;
 use Cake\Cache\Cache;
 use Cake\Event\EventInterface;
-use Cake\I18n\DateTime;
+use Cake\I18n\FrozenTime;
 use Cake\Routing\Router;
 use Cake\View\XmlView;
 use Exception;
@@ -240,7 +240,7 @@ class SitemapController extends AppController
      * Gets the last modified date for content in a specific language.
      *
      * @param string $language The language code
-     * @return \Cake\I18n\DateTime The last modification date
+     * @return \Cake\I18n\FrozenTime The last modification date
      */
     protected function getLastModifiedDateForLanguage(string $language): DateTime
     {
@@ -275,7 +275,7 @@ class SitemapController extends AppController
     /**
      * Gets the overall last modified date across all languages.
      *
-     * @return \Cake\I18n\DateTime The last modification date
+     * @return \Cake\I18n\FrozenTime The last modification date
      */
     protected function getOverallLastModifiedDate(): DateTime
     {

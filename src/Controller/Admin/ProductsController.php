@@ -528,6 +528,163 @@ class ProductsController extends AppController
     }
 
     /**
+     * Add Beautiful method - Create new product with beautiful AI-powered form
+     *
+     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+     */
+    public function addBeautiful(): ?Response
+    {
+        $product = $this->Products->newEmptyEntity();
+
+        if ($this->request->is('post')) {
+            $data = $this->request->getData();
+            $data['user_id'] = $this->getRequest()->getAttribute('identity')->id;
+            $data['verification_status'] = 'pending';
+
+            $product = $this->Products->patchEntity($product, $data, [
+                'associated' => ['Tags'],
+            ]);
+
+            // Handle image uploads
+            $imageUploads = $this->request->getUploadedFiles('image_uploads');
+            if (!empty($imageUploads['image_uploads'])) {
+                $product->imageUploads = $imageUploads['image_uploads'];
+            }
+
+            if ($this->Products->save($product)) {
+                $this->clearContentCache();
+                $this->Flash->success(__('Your amazing product has been saved! 🎉'));
+
+                // Queue verification job
+                $this->queueJob('ProductVerificationJob', [
+                    'product_id' => $product->id,
+                ]);
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('Oops! Something went wrong. Please try again.'));
+        }
+
+        // Get form options
+        $users = $this->Products->Users->find('list', ['limit' => 200])->all();
+        $articles = $this->Products->Articles
+            ->find('list', ['keyField' => 'id', 'valueField' => 'title'])
+            ->where(['is_published' => true])
+            ->orderby(['title' => 'ASC']);
+        $tags = $this->Products->Tags->find('list', ['limit' => 200])->all();
+        $token = $this->request->getAttribute('csrfToken');
+
+        $this->set(compact('product', 'users', 'articles', 'tags', 'token'));
+
+        return null;
+    }
+
+    /**
+     * AI Score method - Calculate AI score for product data
+     *
+     * @return \Cake\Http\Response JSON response with AI score and feedback
+     */
+    public function aiScore(): Response
+    {
+        $this->request->allowMethod(['post']);
+        
+        $data = $this->request->getData();
+        
+        // Calculate AI score based on product completeness and quality
+        $score = $this->calculateProductScore($data);
+        
+        return $this->response
+            ->withType('application/json')
+            ->withStringBody(json_encode($score));
+    }
+
+    /**
+     * Calculate product quality score and provide feedback
+     *
+     * @param array $data Product data from form
+     * @return array Score and feedback array
+     */
+    private function calculateProductScore(array $data): array
+    {
+        $score = 0;
+        $feedback = [];
+        
+        // Title analysis (max 30 points)
+        if (!empty($data['title'])) {
+            $titleLen = strlen(trim($data['title']));
+            if ($titleLen >= 10 && $titleLen <= 60) {
+                $score += 30;
+                $feedback[] = '✅ Perfect title length';
+            } elseif ($titleLen > 0) {
+                $score += 18;
+                if ($titleLen < 10) $feedback[] = '⚠️ Title could be more descriptive';
+                if ($titleLen > 60) $feedback[] = '⚠️ Title might be too long';
+            }
+        }
+        
+        // Description analysis (max 25 points)
+        if (!empty($data['description'])) {
+            $descLen = strlen(trim($data['description']));
+            if ($descLen >= 50) {
+                $score += 25;
+                $feedback[] = '✅ Comprehensive description provided';
+            } else {
+                $score += 12;
+                $feedback[] = '⚠️ Description could be more detailed';
+            }
+        } else {
+            $feedback[] = '❌ Missing product description';
+        }
+        
+        // Brand/manufacturer (max 15 points)
+        if (!empty($data['manufacturer'])) {
+            $score += 15;
+            $feedback[] = '✅ Brand information included';
+        } else {
+            $feedback[] = '💡 Consider adding brand/manufacturer';
+        }
+        
+        // Price information (max 15 points)
+        if (!empty($data['price']) && is_numeric($data['price']) && $data['price'] > 0) {
+            $score += 15;
+            $feedback[] = '✅ Pricing information provided';
+        } else {
+            $feedback[] = '💡 Price helps buyers make decisions';
+        }
+        
+        // Categories/Tags (max 10 points)
+        if (!empty($data['tags']) && is_array($data['tags']) && count($data['tags']) > 0) {
+            $score += 10;
+            $feedback[] = '✅ Product properly categorized';
+        } else {
+            $feedback[] = '💡 Tags help people find your product';
+        }
+        
+        // Image (max 5 points)
+        if (!empty($data['image_uploaded'])) {
+            $score += 5;
+            $feedback[] = '✅ Product image uploaded';
+        } else {
+            $feedback[] = '📷 Images make your listing more appealing';
+        }
+        
+        // Generate overall feedback
+        $overall = '';
+        if ($score >= 80) $overall = '🎉 Outstanding! Your listing looks professional and complete.';
+        elseif ($score >= 60) $overall = '👍 Great work! Just a few tweaks could make it even better.';
+        elseif ($score >= 40) $overall = '🚀 Good start! Adding more details will boost visibility.';
+        else $overall = '💪 Keep going! Every detail you add helps buyers find you.';
+        
+        return [
+            'score' => $score,
+            'maxScore' => 100,
+            'feedback' => $feedback,
+            'overall' => $overall,
+            'percentage' => round(($score / 100) * 100)
+        ];
+    }
+
+    /**
      * Add method - Create new product
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.

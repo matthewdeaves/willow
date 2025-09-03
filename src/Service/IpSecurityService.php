@@ -7,7 +7,7 @@ use App\Utility\SettingsManager;
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Http\ServerRequest;
-use Cake\I18n\DateTime;
+use Cake\I18n\FrozenTime;
 use Cake\Log\Log;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
@@ -179,7 +179,7 @@ class IpSecurityService
                 ->where(function ($exp) {
                     return $exp->or([
                         'expires_at IS' => null,
-                        'expires_at >' => DateTime::now(),
+                        'expires_at >' => FrozenTime::now(),
                     ]);
                 })
                 ->first();
@@ -212,7 +212,7 @@ class IpSecurityService
      *
      * @param string $ip The IP address to block
      * @param string $reason The reason for blocking the IP
-     * @param \Cake\I18n\DateTime|null $expiresAt Optional expiration time for the block
+     * @param \Cake\I18n\FrozenTime|null $expiresAt Optional expiration time for the block
      * @return bool True if the block was successfully saved, false otherwise
      */
     public function blockIp(string $ip, string $reason, ?DateTime $expiresAt = null): bool
@@ -223,7 +223,7 @@ class IpSecurityService
             ->where(function ($exp) {
                 return $exp->or([
                     'expires_at IS' => null,
-                    'expires_at >' => DateTime::now(),
+                    'expires_at >' => FrozenTime::now(),
                 ]);
             })
             ->first();
@@ -240,7 +240,7 @@ class IpSecurityService
                 'ip_address' => $ip,
                 'reason' => $reason,
                 'expires_at' => $expiresAt,
-                'created' => DateTime::now(),
+                'created' => FrozenTime::now(),
             ]);
         }
 
@@ -385,7 +385,7 @@ class IpSecurityService
         if ($data['count'] >= $suspiciousThreshold && (time() - $data['first_seen']) <= $suspiciousWindow) {
             $reason = __('Multiple suspicious requests detected');
             $blockHours = (int)SettingsManager::read('Security.suspiciousBlockHours', 24);
-            $expiresAt = DateTime::now()->modify("+{$blockHours} hours");
+            $expiresAt = FrozenTime::now()->modify("+{$blockHours} hours");
 
             // Check for repeat offenders
             $previousBlock = $this->blockedIpsTable->find()
@@ -397,7 +397,7 @@ class IpSecurityService
                 if ($previousBlock->expires_at === null || $previousBlock->expires_at->isPast()) {
                     // Double the block time for repeat offenders
                     $blockHours *= 2;
-                    $expiresAt = DateTime::now()->modify("+{$blockHours} hours");
+                    $expiresAt = FrozenTime::now()->modify("+{$blockHours} hours");
                     $reason = __('Repeat offender: Multiple suspicious requests detected');
                 }
             }

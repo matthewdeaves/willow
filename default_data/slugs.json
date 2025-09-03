@@ -11,6 +11,11 @@
     },
     {
         "model": "Products",
+        "foreign_key": "f5889148-e723-4659-bda9-f73a44556e0d",
+        "slug": "mac-charger"
+    },
+    {
+        "model": "Products",
         "foreign_key": "e49ec5a6-6611-47b6-8384-b4e758c07fc4",
         "slug": "philips-software-pro"
     },
@@ -115,6 +120,11 @@
         "slug": "sample-article"
     },
     {
+        "model": "Products",
+        "foreign_key": "8eb35e6d-8e64-4bdb-bc26-3370f7248d9a",
+        "slug": "mac-charger-white"
+    },
+    {
         "model": "ImageGalleries",
         "foreign_key": "9c58ee11-aa08-4e0d-8933-ec02f5184ac8",
         "slug": "micro-usb"
@@ -133,6 +143,11 @@
         "model": "Articles",
         "foreign_key": "43aab825-4bfe-4236-8655-89a8a22b83c5",
         "slug": "codebase"
+    },
+    {
+        "model": "ImageGalleries",
+        "foreign_key": "4671cef1-52e8-4031-8bd3-967bb1abb261",
+        "slug": "micro-usb-adapters"
     },
     {
         "model": "Tags",
@@ -263,6 +278,11 @@
         "model": "ImageGalleries",
         "foreign_key": "4352be42-e086-4fa2-b11d-95e48034173b",
         "slug": "site-image-assets"
+    },
+    {
+        "model": "ImageGalleries",
+        "foreign_key": "fad79a43-644b-491f-8e6c-1ebbe02b5309",
+        "slug": "type-c-adapters-chargers"
     },
     {
         "model": "Products",

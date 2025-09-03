@@ -96,5 +96,40 @@
         "start_time": "2025-08-15T00:51:09+01:00",
         "end_time": "2025-08-15T00:51:09+01:00",
         "breakpoint": false
+    },
+    {
+        "version": 20250829204918,
+        "migration_name": "SeedProductFormSettings",
+        "start_time": "2025-08-29T21:50:00+01:00",
+        "end_time": "2025-08-29T21:50:00+01:00",
+        "breakpoint": false
+    },
+    {
+        "version": 20250829225601,
+        "migration_name": "AddFieldsToAiprompts",
+        "start_time": "2025-08-30T00:08:00+01:00",
+        "end_time": "2025-08-30T00:08:00+01:00",
+        "breakpoint": false
+    },
+    {
+        "version": 20250829230717,
+        "migration_name": "AddPreviewStatusMetadataFieldsToAiprompts",
+        "start_time": "2025-08-30T00:08:00+01:00",
+        "end_time": "2025-08-30T00:08:00+01:00",
+        "breakpoint": false
+    },
+    {
+        "version": 20250830120000,
+        "migration_name": "AddPrototypeFieldsToProducts",
+        "start_time": "2025-08-30T01:01:42+01:00",
+        "end_time": "2025-08-30T01:01:42+01:00",
+        "breakpoint": false
+    },
+    {
+        "version": 20250901000000,
+        "migration_name": "CreateProductsReliability",
+        "start_time": "2025-08-31T21:10:09+01:00",
+        "end_time": "2025-08-31T21:10:09+01:00",
+        "breakpoint": false
     }
 ]

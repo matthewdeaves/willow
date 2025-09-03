@@ -7,6 +7,13 @@
         "referer": "/en"
     },
     {
+        "id": "10155d33-ac26-4089-a45b-ef49b4a4183b",
+        "article_id": "43aab825-4bfe-4236-8655-89a8a22b83c5",
+        "ip_address": "192.168.65.1",
+        "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.6 Safari/605.1.15",
+        "referer": "/en"
+    },
+    {
         "id": "13526a0b-ebb1-4866-9ce9-695c68d07696",
         "article_id": "f68d6dd4-c8c1-4736-b9a8-2db25f8e5741",
         "ip_address": "192.168.65.1",

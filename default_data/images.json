@@ -1,5 +1,55 @@
 [
     {
+        "id": "01a73118-6608-4ae9-b8e0-e0f9d8e3648a",
+        "name": "generated_image_16",
+        "alt_text": null,
+        "keywords": null,
+        "image": "38411140-1a0a-4455-9699-2e2584033a02.png",
+        "dir": "webroot/files/Images/image/",
+        "size": 1719589,
+        "mime": "image/png"
+    },
+    {
+        "id": "097e1826-439b-4cec-85c6-4b1c8ecc8e4b",
+        "name": "Coiled USB Cable",
+        "alt_text": "A green, coiled USB cable with two USB connectors on each end.",
+        "keywords": "coiled cable usb connector green technology electronics",
+        "image": "0443c36d-76e7-417a-9a4c-6c79905ab6f2.png",
+        "dir": "webroot/files/Images/image/",
+        "size": 1637750,
+        "mime": "image/png"
+    },
+    {
+        "id": "0984c8b7-221b-45ef-bc97-d228554c393d",
+        "name": "USB-C Charging Cables",
+        "alt_text": "Two black USB-C charging cables with glowing blue indicator lights, connected to each other.",
+        "keywords": "USB-C cables, charging, power, indicator lights, technology, electronics",
+        "image": "f96c0a3f-7c15-4eae-8d2d-21c01ed1f903.png",
+        "dir": "webroot/files/Images/image/",
+        "size": 1548177,
+        "mime": "image/png"
+    },
+    {
+        "id": "2062d529-6491-4ea6-a929-684ffad97021",
+        "name": "generated_image_19",
+        "alt_text": null,
+        "keywords": null,
+        "image": "cca90b11-1af7-421f-bfb9-5ad92b3a713e.png",
+        "dir": "webroot/files/Images/image/",
+        "size": 1900635,
+        "mime": "image/png"
+    },
+    {
+        "id": "222d0168-0e26-4952-9559-6d587536a0a4",
+        "name": "USB Cable",
+        "alt_text": "A black USB cable with a USB-A connector on one end and a USB-C connector on the other end, coiled in a circular shape.",
+        "keywords": "USB cable, USB-A, USB-C, connector, technology, electronics, power, data transfer",
+        "image": "97f2dcf0-b93d-4339-8e89-ab48f5e85b67.png",
+        "dir": "webroot/files/Images/image/",
+        "size": 1915750,
+        "mime": "image/png"
+    },
+    {
         "id": "24425fdb-23e7-4537-92ec-f31723996da0",
         "name": "Assortment of electronic cables and adapters",
         "alt_text": "An image showing a collection of various electronic cables, adapters, and connectors, including USB, HDMI, and other types, arranged on a table in front of a person.",
@@ -28,6 +78,66 @@
         "dir": "webroot/files/Images/image/",
         "size": 263831,
         "mime": "image/jpeg"
+    },
+    {
+        "id": "2d10fecc-f9b6-470f-b836-0d14b97fa78f",
+        "name": "USB-C Cables and Adapters",
+        "alt_text": "A collection of black USB-C cables and adapters, including a curved cable and various connector types, arranged on a plain gray background.",
+        "keywords": "usb-c cables adapters connectors technology electronics accessories",
+        "image": "60fc4b46-31ec-4631-bf64-222a0f4ee788.png",
+        "dir": "webroot/files/Images/image/",
+        "size": 1761374,
+        "mime": "image/png"
+    },
+    {
+        "id": "2d18fa67-8eaa-4e0e-99a0-a29b7c543132",
+        "name": "Coiled USB-C Cable",
+        "alt_text": "A white, coiled USB-C cable with two connectors on each end, arranged in a circular pattern against a plain background.",
+        "keywords": "USB-C cable, coiled, circular, white, technology, connectivity",
+        "image": "1c4ded25-8b08-4508-a730-ac6c3506ec93.png",
+        "dir": "webroot/files/Images/image/",
+        "size": 1618202,
+        "mime": "image/png"
+    },
+    {
+        "id": "39358ada-89e0-405f-a500-488958730741",
+        "name": "HDMI Cable Adapter",
+        "alt_text": "Two HDMI cable connectors joined together by a short black cable adapter.",
+        "keywords": "HDMI cable adapter connector technology electronics",
+        "image": "5e8b47ce-90a1-46ba-98f9-5fd62a079996.png",
+        "dir": "webroot/files/Images/image/",
+        "size": 1584502,
+        "mime": "image/png"
+    },
+    {
+        "id": "3b6b0a54-2d43-49e2-94a9-cea0bd31d0a6",
+        "name": "HDMI Hub",
+        "alt_text": "A black HDMI hub with four HDMI ports for connecting multiple HDMI devices.",
+        "keywords": "HDMI hub, HDMI ports, connectivity, electronics, technology",
+        "image": "6b08af56-222a-44eb-b5d6-de5790a5dc55.png",
+        "dir": "webroot/files/Images/image/",
+        "size": 1377864,
+        "mime": "image/png"
+    },
+    {
+        "id": "3e241378-d63c-434f-8cc3-496e0e8f7f2b",
+        "name": "generated_image",
+        "alt_text": null,
+        "keywords": null,
+        "image": "8faafdfc-2963-4397-a121-952737de083c.png",
+        "dir": "webroot/files/Images/image/",
+        "size": 1638204,
+        "mime": "image/png"
+    },
+    {
+        "id": "3e6b448b-874e-4559-af52-037d33476a92",
+        "name": "USB-C Hub",
+        "alt_text": "A black USB-C hub with multiple ports, allowing for expanded connectivity and data transfer capabilities.",
+        "keywords": "USB-C hub adapter ports connectivity data transfer",
+        "image": "b44e5f40-4274-432b-965f-d0994b765d12.png",
+        "dir": "webroot/files/Images/image/",
+        "size": 1428557,
+        "mime": "image/png"
     },
     {
         "id": "59e0690f-02cc-4df5-8dbd-82e23c645d90",
@@ -60,6 +170,66 @@
         "mime": "image/jpeg"
     },
     {
+        "id": "652cf73c-c790-438f-b282-1b11c0067f1f",
+        "name": "USB Connector",
+        "alt_text": "A close-up image of a silver and black USB connector with a puzzle-like design and two gold-colored pins.",
+        "keywords": "usb connector technology electronics device interface plug",
+        "image": "8ce41a08-ee69-485c-bdad-58b4dd224429.png",
+        "dir": "webroot/files/Images/image/",
+        "size": 2036275,
+        "mime": "image/png"
+    },
+    {
+        "id": "662ff341-c269-4688-b762-260ce0444e6f",
+        "name": "USB Cable Connector",
+        "alt_text": "Close-up image of a yellow USB cable connector on a dark background.",
+        "keywords": "USB cable connector yellow technology electronics device",
+        "image": "ecdfd3f8-e754-4b9f-b174-04f2769b0814.png",
+        "dir": "webroot/files/Images/image/",
+        "size": 1641907,
+        "mime": "image/png"
+    },
+    {
+        "id": "6ca0c6de-ca0d-4e00-98fb-40e741c3bb40",
+        "name": "USB Cable",
+        "alt_text": "A close-up image of a transparent USB cable connector with a metallic plug.",
+        "keywords": "USB cable connector plug technology electronics device",
+        "image": "c0058ff1-8be8-43b8-9b33-37ee9ada4c53.png",
+        "dir": "webroot/files/Images/image/",
+        "size": 1590145,
+        "mime": "image/png"
+    },
+    {
+        "id": "70de8efb-2931-4673-aa4a-d6e7e722744e",
+        "name": "USB Cable",
+        "alt_text": "A white USB cable coiled on a light background, with a USB-A connector on one end and a USB-C connector on the other end.",
+        "keywords": "USB cable, USB-A, USB-C, white, coiled, technology, electronics, connectivity",
+        "image": "39298e7e-afbb-462c-82e8-220f9df1550d.png",
+        "dir": "webroot/files/Images/image/",
+        "size": 1450595,
+        "mime": "image/png"
+    },
+    {
+        "id": "732f0656-687c-47fb-b524-05ca411dd1fd",
+        "name": "USB Connector",
+        "alt_text": "A close-up image of a black USB connector with a woven cord attached to it, resting on a gray surface.",
+        "keywords": "usb connector cable cord technology electronics device interface",
+        "image": "985e9037-7514-47f3-a832-21aba8893b6b.png",
+        "dir": "webroot/files/Images/image/",
+        "size": 2315694,
+        "mime": "image/png"
+    },
+    {
+        "id": "7c4ebb8e-6d14-491e-854c-154a1fc35404",
+        "name": "generated_image_14",
+        "alt_text": null,
+        "keywords": null,
+        "image": "8d49115e-ce65-4f53-b544-55d1a2cc94df.png",
+        "dir": "webroot/files/Images/image/",
+        "size": 2120346,
+        "mime": "image/png"
+    },
+    {
         "id": "96815100-91b9-400b-bbae-15d931c372a0",
         "name": "Assortment of Electronic Cables and Adapters",
         "alt_text": "An image showing a collection of various electronic cables, adapters, and connectors, including USB, HDMI, and other types, arranged on a table in front of a person.",
@@ -68,6 +238,56 @@
         "dir": "webroot/files/Images/image/",
         "size": 153147,
         "mime": "image/jpeg"
+    },
+    {
+        "id": "9809c434-1815-4d7e-b5f3-6d10cd63ae8a",
+        "name": "USB-C Cable",
+        "alt_text": "A coiled black USB-C cable with two USB-C connectors on each end, against a gray background.",
+        "keywords": "USB-C cable, power cable, data cable, charging, connectivity, electronics, technology",
+        "image": "ae0d6f12-0ddb-4099-a493-4084cee0bf4c.png",
+        "dir": "webroot/files/Images/image/",
+        "size": 1839841,
+        "mime": "image/png"
+    },
+    {
+        "id": "9b51314f-daf6-495d-84ce-7e7d14299752",
+        "name": "Micro USB Cable",
+        "alt_text": "A black micro USB cable with a braided nylon exterior, used to charge and connect electronic devices.",
+        "keywords": "micro usb cable charging device electronics braided nylon",
+        "image": "19c6010a-189d-43bd-b056-9a4f0fb36860.png",
+        "dir": "webroot/files/Images/image/",
+        "size": 2181911,
+        "mime": "image/png"
+    },
+    {
+        "id": "9eb8db58-c019-49f8-89f4-daec148cf40a",
+        "name": "USB Cable",
+        "alt_text": "A black USB cable with a USB-A connector on one end and a USB-C connector on the other end, measuring 10 feet in length.",
+        "keywords": "USB cable, USB-A, USB-C, 10 feet, black, connector, power, data transfer",
+        "image": "ccc091b7-f8c9-4a8b-80ee-c05b4a6b8e92.png",
+        "dir": "webroot/files/Images/image/",
+        "size": 1651669,
+        "mime": "image/png"
+    },
+    {
+        "id": "a4eefe20-a351-41b4-affa-d971821d808b",
+        "name": "USB-C Cable",
+        "alt_text": "A close-up image of a black USB-C cable connector on a light background.",
+        "keywords": "usb-c cable connector technology electronics device",
+        "image": "e3c5844e-2c41-406d-888b-b843a0f711a6.png",
+        "dir": "webroot/files/Images/image/",
+        "size": 1617328,
+        "mime": "image/png"
+    },
+    {
+        "id": "a7a00c4d-766d-46d0-a72e-e0c459baff10",
+        "name": "USB-C Adapter",
+        "alt_text": "A silver-colored USB-C adapter on a gray background.",
+        "keywords": "USB-C adapter technology electronics device connector port",
+        "image": "dcad8da8-bf1d-4ddd-b84e-a6b9730d6c94.png",
+        "dir": "webroot/files/Images/image/",
+        "size": 2619864,
+        "mime": "image/png"
     },
     {
         "id": "abbfc983-f52c-42f4-83f3-c539e4292e9c",
@@ -90,6 +310,16 @@
         "mime": "image/jpeg"
     },
     {
+        "id": "b4e21c68-d94a-4b88-9eb6-462541d8d6e8",
+        "name": "generated_image_3",
+        "alt_text": null,
+        "keywords": null,
+        "image": "582e67d3-28f8-4b57-87bf-922749997770.png",
+        "dir": "webroot/files/Images/image/",
+        "size": 1354717,
+        "mime": "image/png"
+    },
+    {
         "id": "be8d2543-bfe9-48d0-8e75-07ec56b27dfb",
         "name": "Tangled Cables and Chargers",
         "alt_text": "A cluttered arrangement of various USB chargers, power adapters, and tangled cables on a wooden surface.",
@@ -98,6 +328,26 @@
         "dir": "webroot/files/Images/image/",
         "size": 151226,
         "mime": "image/jpeg"
+    },
+    {
+        "id": "c511906b-7009-4cd7-b371-fddecef56aa5",
+        "name": "Purple USB Cable",
+        "alt_text": "A close-up image of a purple braided USB cable with gold-colored connectors on both ends, lying on a dark background.",
+        "keywords": "purple cable usb connector braided technology electronics",
+        "image": "ef61a8cc-988f-478b-876f-f051065fb9ea.png",
+        "dir": "webroot/files/Images/image/",
+        "size": 1819026,
+        "mime": "image/png"
+    },
+    {
+        "id": "cbce94e8-fdc7-4211-ae0d-b078d94fbc99",
+        "name": "USB-C Power Delivery Cables",
+        "alt_text": "Two black USB-C power delivery cables with orange accents, against a dark background.",
+        "keywords": "usb-c power delivery cables charging fast charging black orange",
+        "image": "c1320945-3327-41cc-8493-fa476a4c31df.png",
+        "dir": "webroot/files/Images/image/",
+        "size": 2025483,
+        "mime": "image/png"
     },
     {
         "id": "cdb0da4d-f7b4-41fb-bc5b-3411a17eb020",
@@ -110,6 +360,16 @@
         "mime": "image/jpeg"
     },
     {
+        "id": "d8904656-8312-4f08-a1b2-8fe348297b22",
+        "name": "USB Cable",
+        "alt_text": "An orange USB cable with a metal connector on one end.",
+        "keywords": "USB cable orange connector technology electronics",
+        "image": "fc67c528-51e2-4220-a94f-9256c56da31a.png",
+        "dir": "webroot/files/Images/image/",
+        "size": 2005571,
+        "mime": "image/png"
+    },
+    {
         "id": "db84d4a0-d841-4f74-b18c-bd38834a1830",
         "name": "Assortment of electronic cables and chargers",
         "alt_text": "An assortment of various electronic cables, chargers, and adapters in different colors and sizes, arranged on a wooden surface.",
@@ -120,6 +380,26 @@
         "mime": "image/jpeg"
     },
     {
+        "id": "dc20981a-9c92-46ae-be08-26743b813510",
+        "name": "USB Cable",
+        "alt_text": "A blue USB cable with a USB plug on one end and a micro-USB plug on the other end, with a glowing blue light on the micro-USB plug.",
+        "keywords": "usb cable micro-usb connector technology electronics charging data transfer",
+        "image": "dd71af7d-7167-4208-8d05-b8410ebeb546.png",
+        "dir": "webroot/files/Images/image/",
+        "size": 1476124,
+        "mime": "image/png"
+    },
+    {
+        "id": "dc79f75a-470f-4aee-803b-230f355025dc",
+        "name": "Red USB cable",
+        "alt_text": "A red USB cable with a USB plug on one end and a right-angled connector on the other end, lying on a gray surface.",
+        "keywords": "red usb cable connector technology electronics device charging",
+        "image": "646eb92e-adbd-4242-b5da-5566a34a835d.png",
+        "dir": "webroot/files/Images/image/",
+        "size": 1868083,
+        "mime": "image/png"
+    },
+    {
         "id": "e7194a94-f5d0-4c5a-878c-96a9ac094642",
         "name": "Assortment of Charging Devices",
         "alt_text": "A collection of various USB charging adapters and cables on a wooden surface.",
@@ -128,5 +408,25 @@
         "dir": "webroot/files/Images/image/",
         "size": 172892,
         "mime": "image/jpeg"
+    },
+    {
+        "id": "f0235059-b3f2-4b79-88d9-d28bf60bea72",
+        "name": "USB-C Cable",
+        "alt_text": "A silver-colored USB-C cable with a USB-A connector on one end and a USB-C connector on the other end, lying on a gray background.",
+        "keywords": "USB-C cable, USB-A, USB-C, connector, charging, data transfer, technology, electronics",
+        "image": "3d2b1c80-45fb-4243-b50a-8baa0664b393.png",
+        "dir": "webroot/files/Images/image/",
+        "size": 1702408,
+        "mime": "image/png"
+    },
+    {
+        "id": "fc95c517-7707-4381-878f-0487a379309b",
+        "name": "Purple USB Cable",
+        "alt_text": "A close-up image of a purple USB cable with a metallic USB connector on one end and a gold-colored USB connector on the other end.",
+        "keywords": "USB cable, purple, metallic, gold, technology, electronics",
+        "image": "c5853d76-564f-4986-bffb-59ce6bab2837.png",
+        "dir": "webroot/files/Images/image/",
+        "size": 3233315,
+        "mime": "image/png"
     }
 ]

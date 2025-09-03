@@ -337,6 +337,35 @@ return function (RouteBuilder $routes): void {
         );
     });
 
+    // API routes
+    $routes->prefix('Api', function (RouteBuilder $routes) {
+        // Reliability API routes
+        $routes->connect('/reliability/score', [
+            'controller' => 'Reliability',
+            'action' => 'score'
+        ]);
+        $routes->connect('/reliability/verify-checksum', [
+            'controller' => 'Reliability', 
+            'action' => 'verifyChecksum'
+        ]);
+        $routes->connect('/reliability/field-stats/{model}', [
+            'controller' => 'Reliability',
+            'action' => 'fieldStats'
+        ], [
+            'pass' => ['model']
+        ]);
+        $routes->connect('/reliability/field-stats', [
+            'controller' => 'Reliability',
+            'action' => 'fieldStats'
+        ]);
+        
+        // AI Form Field Suggestions API
+        $routes->connect('/form-ai-suggestions', [
+            'controller' => 'AiFormSuggestions',
+            'action' => 'index'
+        ]);
+    });
+
     $routes->prefix('Admin', function (RouteBuilder $routes) {
         $routes->connect('/', ['controller' => 'Articles', 'action' => 'index', 'prefix' => 'Admin']);
 
@@ -457,6 +486,44 @@ return function (RouteBuilder $routes): void {
         $routes->connect('/product-categories/reorder', [
             'controller' => 'ProductCategories',
             'action' => 'reorder'
+        ]);
+        
+        // Product Form Fields routes
+        $routes->connect('/product-form-fields', [
+            'controller' => 'ProductFormFields',
+            'action' => 'index'
+        ]);
+        $routes->connect('/product-form-fields/add', [
+            'controller' => 'ProductFormFields',
+            'action' => 'add'
+        ]);
+        $routes->connect('/product-form-fields/edit/*', [
+            'controller' => 'ProductFormFields',
+            'action' => 'edit'
+        ]);
+        $routes->connect('/product-form-fields/view/*', [
+            'controller' => 'ProductFormFields',
+            'action' => 'view'
+        ]);
+        $routes->connect('/product-form-fields/delete/*', [
+            'controller' => 'ProductFormFields',
+            'action' => 'delete'
+        ]);
+        $routes->connect('/product-form-fields/reorder/*', [
+            'controller' => 'ProductFormFields',
+            'action' => 'reorder'
+        ]);
+        $routes->connect('/product-form-fields/toggle-ai/*', [
+            'controller' => 'ProductFormFields',
+            'action' => 'toggleAi'
+        ]);
+        $routes->connect('/product-form-fields/test-ai/*', [
+            'controller' => 'ProductFormFields',
+            'action' => 'testAi'
+        ]);
+        $routes->connect('/product-form-fields/reset-order', [
+            'controller' => 'ProductFormFields',
+            'action' => 'resetOrder'
         ]);
         // END OF PRODUCTS ROUTES
 

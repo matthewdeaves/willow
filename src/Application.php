@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App;
 
 use ADmad\I18n\Middleware\I18nMiddleware;
+use App\Middleware\ApiCsrfMiddleware;
 use App\Middleware\IpBlockerMiddleware;
 use App\Middleware\RateLimitMiddleware;
 use App\Utility\I18nManager;
@@ -124,12 +125,10 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 
             // Add authentication middleware
             ->add(new AuthenticationMiddleware($this))
-
+            
             // Cross Site Request Forgery (CSRF) Protection Middleware
-            // https://book.cakephp.org/4/en/security/csrf.html#cross-site-request-forgery-csrf-middleware
-            ->add(new CsrfProtectionMiddleware([
-                'httponly' => true,
-            ]));
+            // Custom middleware that exempts API routes
+            ->add(new ApiCsrfMiddleware());
 
             // Only add security middleware if not in test environment
             // or if specifically enabled for testing

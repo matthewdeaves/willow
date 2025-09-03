@@ -1297,7 +1297,13 @@ class ProductsController extends AppController
             ->limit(10)
             ->toArray();
 
-        $this->set(compact('formSettings', 'submissionStats', 'recentSubmissions'));
+        // Load ProductFormFields for dynamic form management
+        $productFormFieldsTable = TableRegistry::getTableLocator()->get('ProductFormFields');
+        $productFormFields = $productFormFieldsTable->find('all')
+            ->orderBy(['display_order' => 'ASC'])
+            ->toArray();
+
+        $this->set(compact('formSettings', 'submissionStats', 'recentSubmissions', 'productFormFields'));
         
         return null;
     }

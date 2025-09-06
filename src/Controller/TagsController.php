@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Http\Exception\NotFoundException;
+
 /**
  * Tags Controller
  *
@@ -31,7 +33,7 @@ class TagsController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view(?string $id = null)
     {
         $tag = $this->Tags->get($id, contain: ['ParentTag', 'Articles', 'Slugs', 'TagsTranslations']);
         $this->set(compact('tag'));
@@ -66,7 +68,7 @@ class TagsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit(?string $id = null)
     {
         $tag = $this->Tags->get($id, contain: ['Articles']);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -90,7 +92,7 @@ class TagsController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete(?string $id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
         $tag = $this->Tags->get($id);
@@ -102,7 +104,7 @@ class TagsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-    
+
     /**
      * View by slug method
      *
@@ -110,21 +112,21 @@ class TagsController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function viewBySlug($slug = null)
+    public function viewBySlug(?string $slug = null)
     {
         if (!$slug) {
-            throw new \Cake\Http\Exception\NotFoundException(__('Tag not found.'));
+            throw new NotFoundException(__('Tag not found.'));
         }
-        
+
         $tag = $this->Tags->find()
             ->contain(['ParentTag', 'Articles', 'Slugs', 'TagsTranslations'])
             ->where(['Tags.slug' => $slug])
             ->first();
-            
+
         if (!$tag) {
-            throw new \Cake\Http\Exception\NotFoundException(__('Tag not found.'));
+            throw new NotFoundException(__('Tag not found.'));
         }
-        
+
         $this->set(compact('tag'));
         // Use the same view template as the regular view action
         $this->render('view');

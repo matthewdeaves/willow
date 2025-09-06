@@ -3,10 +3,14 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Service\ProductFormFieldService;
+use App\Service\ReliabilityService;
+use Cake\Cache\Cache;
 use Cake\Event\EventInterface;
+use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
 use Cake\ORM\TableRegistry;
-use Cake\Cache\Cache;
+use Exception;
 
 /**
  * Products Controller - Frontend
@@ -40,45 +44,45 @@ class ProductsController extends AppController
     {
         // Get only published products for public viewing
         $query = $this->Products->getPublishedProducts();
-        
+
         // Search functionality
         $search = $this->request->getQuery('search');
         if (!empty($search)) {
             $query = $this->Products->searchProducts($search);
         }
-        
+
         // Filtering options
         $manufacturer = $this->request->getQuery('manufacturer');
         if (!empty($manufacturer)) {
             $query->where(['Products.manufacturer LIKE' => '%' . $manufacturer . '%']);
         }
-        
+
         $tag = $this->request->getQuery('tag');
         if (!empty($tag)) {
             $query->matching('Tags', function ($q) use ($tag) {
                 return $q->where(['Tags.slug' => $tag]);
             });
         }
-        
+
         $featured = $this->request->getQuery('featured');
         if ($featured) {
             $query->where(['Products.featured' => true]);
         }
 
         $products = $this->paginate($query);
-        
+
         // Get filter options for the sidebar
         $manufacturers = $this->Products->find()
             ->select(['manufacturer'])
             ->where([
                 'manufacturer IS NOT' => null,
                 'manufacturer !=' => '',
-                'is_published' => true
+                'is_published' => true,
             ])
             ->groupBy(['manufacturer'])
             ->orderBy(['manufacturer' => 'ASC'])
             ->toArray();
-            
+
         $tags = $this->Products->Tags->find()
             ->matching('Products', function ($q) {
                 return $q->where(['Products.is_published' => true]);
@@ -90,10 +94,12 @@ class ProductsController extends AppController
         if ($this->request->is('ajax')) {
             $this->set(compact('products', 'search'));
             $this->viewBuilder()->setLayout('ajax');
+
             return $this->render('search_results');
         }
 
         $this->set(compact('products', 'manufacturers', 'tags', 'search', 'manufacturer', 'tag', 'featured'));
+
         return null;
     }
 
@@ -107,21 +113,22 @@ class ProductsController extends AppController
     public function view(?string $id = null): ?Response
     {
         $product = $this->Products->get($id, [
-            'contain' => ['Users', 'Articles', 'Tags']
+            'contain' => ['Users', 'Articles', 'Tags'],
         ]);
-        
+
         // Only show published products to public
         if (!$product->is_published) {
-            throw new \Cake\Http\Exception\NotFoundException(__('Product not found.'));
+            throw new NotFoundException(__('Product not found.'));
         }
-        
+
         // Increment view count
         $this->Products->incrementViewCount($id);
-        
+
         // Get related products
         $relatedProducts = $this->Products->getRelatedProducts($id, 4);
-        
+
         $this->set(compact('product', 'relatedProducts'));
+
         return null;
     }
 
@@ -134,66 +141,69 @@ class ProductsController extends AppController
     {
         // Get quiz settings
         $settingsTable = TableRegistry::getTableLocator()->get('Settings');
-        
+
         $quizEnabled = $settingsTable->find()
             ->where(['category' => 'Products', 'key_name' => 'quiz_enabled'])
             ->first();
-            
+
         $quizConfig = $settingsTable->find()
             ->where(['category' => 'Products', 'key_name' => 'quiz_config_json'])
             ->first();
-        
+
         // Enable quiz by default if not configured
         if (!$quizEnabled || $quizEnabled->value !== '1') {
             // For this implementation, we'll use a hardcoded quiz structure
             // In production, this would be configured via admin settings
         }
-        
+
         $config = [];
         if ($quizConfig && !empty($quizConfig->value)) {
             $config = json_decode($quizConfig->value, true) ?: [];
         }
-        
+
         // If no config exists, create a default product form quiz
         if (empty($config['questions'])) {
             $config = $this->getDefaultQuizConfig();
         }
-        
+
         $quizQuestions = $config['questions'] ?? [];
-        
+
         // Handle quiz submission
         if ($this->request->is('post')) {
             if ($this->request->is('ajax')) {
                 $answers = $this->request->getData('answers', []);
                 $recommendations = $this->processQuizAnswers($answers, $config);
-                
+
                 // Convert answers to product data for reliability scoring
                 $productData = $this->convertAnswersToProductData($answers, $config);
-                
+
                 // Get reliability scoring using our new service
-                $reliabilityService = new \App\Service\ReliabilityService();
+                $reliabilityService = new ReliabilityService();
                 $scoringResult = $reliabilityService->computeProvisionalScore('Products', $productData);
-                
+
                 $response = [
                     'success' => true,
                     'resultsHtml' => $this->renderQuizResults($recommendations, $scoringResult),
-                    'reliability' => $scoringResult
+                    'reliability' => $scoringResult,
                 ];
-                
+
                 $this->response = $this->response->withType('application/json');
                 $this->set('_serialize', ['response']);
                 $this->set(compact('response'));
+
                 return null;
             } else {
                 $answers = $this->request->getData('answers', []);
                 $recommendations = $this->processQuizAnswers($answers, $config);
-                
+
                 $this->set(compact('config', 'answers', 'recommendations'));
+
                 return $this->render('quiz_results');
             }
         }
-        
+
         $this->set(compact('config', 'quizQuestions'));
+
         return null;
     }
 
@@ -206,37 +216,38 @@ class ProductsController extends AppController
     {
         // Check if public submissions are enabled
         $settingsTable = TableRegistry::getTableLocator()->get('Settings');
-        
+
         $publicSubmissionsEnabled = $settingsTable->find()
             ->where(['category' => 'Products', 'key_name' => 'enable_public_submissions'])
             ->first();
-            
+
         if (!$publicSubmissionsEnabled || $publicSubmissionsEnabled->value !== '1') {
             $this->Flash->error(__('Public product submissions are currently not enabled.'));
+
             return $this->redirect(['action' => 'index']);
         }
-        
+
         // Get dynamic form configuration
-        $formFieldService = new \App\Service\ProductFormFieldService();
+        $formFieldService = new ProductFormFieldService();
         $formFields = $formFieldService->getActiveFormFields();
         $fieldGroups = $formFieldService->getFieldGroups();
         $formSettings = $this->getProductFormSettings();
-        
+
         $product = $this->Products->newEmptyEntity();
-        
+
         if ($this->request->is('post')) {
             $data = $this->request->getData();
-            
+
             // Set user ID and submission defaults
             $identity = $this->getRequest()->getAttribute('identity');
             $data['user_id'] = $identity ? $identity->id : null;
             $data['is_published'] = false; // Always start as unpublished
             $data['verification_status'] = $formSettings['default_status'] ?? 'pending';
             $data['featured'] = false;
-            
+
             // Validate using dynamic form field service
             $validationErrors = $formFieldService->validateFormData($data);
-            
+
             if (!empty($validationErrors)) {
                 foreach ($validationErrors as $field => $errors) {
                     foreach ($errors as $error) {
@@ -245,67 +256,67 @@ class ProductsController extends AppController
                 }
             } else {
                 $product = $this->Products->patchEntity($product, $data, [
-                    'associated' => ['Tags']
+                    'associated' => ['Tags'],
                 ]);
-                
+
                 // Handle image upload
                 $imageUploads = $this->request->getUploadedFiles('image_uploads');
                 if (!empty($imageUploads['image_uploads'])) {
                     $product->imageUploads = $imageUploads['image_uploads'];
                 }
-                
+
                 if ($this->Products->save($product)) {
                     $this->clearContentCache();
-                    
+
                     $successMessage = $formSettings['success_message'] ?? 'Your product has been submitted and is awaiting review.';
                     $this->Flash->success(__($successMessage));
-                    
+
                     // Send notification email if configured
                     $this->sendSubmissionNotification($product, $formSettings);
-                    
+
                     return $this->redirect(['action' => 'index']);
                 }
                 $this->Flash->error(__('The product could not be saved. Please, try again.'));
             }
         }
-        
+
         // Get form options
         $tags = $this->Products->Tags->find('list', ['limit' => 200])->all();
-        
+
         $this->set(compact('product', 'tags', 'formSettings', 'formFields', 'fieldGroups'));
-        
+
         // Use dynamic template if available, fall back to static
         if ($this->viewBuilder()->getTemplatePath() === null) {
             try {
                 return $this->render('add-dynamic');
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 // Fall back to static form if dynamic template not found
                 return $this->render('add');
             }
         }
-        
+
         return null;
     }
-    
+
     /**
      * Get product form settings from database
      */
     private function getProductFormSettings(): array
     {
         $settingsTable = TableRegistry::getTableLocator()->get('Settings');
-        
+
         $settings = $settingsTable->find()
             ->where(['category' => 'Products'])
             ->toArray();
-            
+
         $formSettings = [];
         foreach ($settings as $setting) {
             $formSettings[$setting->key_name] = $setting->value;
         }
-        
+
         return $formSettings;
     }
-    
+
     /**
      * Process quiz answers and return product recommendations
      */
@@ -314,10 +325,10 @@ class ProductsController extends AppController
         if (empty($config['questions']) || empty($config['scoring'])) {
             return [];
         }
-        
+
         $scores = [];
         $reasoning = [];
-        
+
         // Process each answer against scoring rules
         foreach ($answers as $questionId => $answer) {
             if (isset($config['scoring'][$answer])) {
@@ -335,16 +346,16 @@ class ProductsController extends AppController
                 }
             }
         }
-        
+
         // Find matching products
         $query = $this->Products->getPublishedProducts();
-        
+
         if (!empty($scores['tags'])) {
             $query->matching('Tags', function ($q) use ($scores) {
                 return $q->where(['Tags.slug IN' => $scores['tags']]);
             });
         }
-        
+
         if (!empty($scores['manufacturers'])) {
             $manufacturerConditions = [];
             foreach ($scores['manufacturers'] as $manufacturer) {
@@ -352,27 +363,27 @@ class ProductsController extends AppController
             }
             $query->where(['OR' => $manufacturerConditions]);
         }
-        
+
         $products = $query->limit(10)->toArray();
-        
+
         return [
             'products' => $products,
             'reasoning' => $reasoning,
-            'scores' => $scores
+            'scores' => $scores,
         ];
     }
-    
+
     /**
      * Send notification email about new product submission
      */
     private function sendSubmissionNotification($product, array $formSettings): void
     {
         $notificationEmail = $formSettings['notification_email'] ?? '';
-        
+
         if (empty($notificationEmail) || $notificationEmail === '0') {
             return;
         }
-        
+
         // In a real implementation, you would send an email here
         // For now, just log it
         $this->log(sprintf(
@@ -380,10 +391,10 @@ class ProductsController extends AppController
             $product->title,
             $product->user->username ?? 'Unknown',
             $product->user_id ?? 'Unknown',
-            $notificationEmail
+            $notificationEmail,
         ), 'info');
     }
-    
+
     /**
      * Clear content cache after operations
      */
@@ -391,7 +402,7 @@ class ProductsController extends AppController
     {
         Cache::clear('content');
     }
-    
+
     /**
      * Get default quiz configuration for product form assistance
      */
@@ -404,13 +415,13 @@ class ProductsController extends AppController
                     'type' => 'radio',
                     'options' => [
                         'network_adapter' => 'Network Adapter',
-                        'usb_adapter' => 'USB Adapter', 
+                        'usb_adapter' => 'USB Adapter',
                         'power_adapter' => 'Power Adapter',
                         'display_adapter' => 'Display/Video Adapter',
                         'audio_adapter' => 'Audio Adapter',
                         'storage_adapter' => 'Storage Adapter',
-                        'other' => 'Other'
-                    ]
+                        'other' => 'Other',
+                    ],
                 ],
                 [
                     'question' => 'What is the primary use case for this product?',
@@ -420,8 +431,8 @@ class ProductsController extends AppController
                         'consumer' => 'Consumer/Home Use',
                         'gaming' => 'Gaming',
                         'industrial' => 'Industrial/Professional',
-                        'educational' => 'Educational'
-                    ]
+                        'educational' => 'Educational',
+                    ],
                 ],
                 [
                     'question' => 'What performance level does this product target?',
@@ -430,8 +441,8 @@ class ProductsController extends AppController
                         'entry' => 'Entry Level',
                         'mainstream' => 'Mainstream',
                         'high_performance' => 'High Performance',
-                        'professional' => 'Professional/Server Grade'
-                    ]
+                        'professional' => 'Professional/Server Grade',
+                    ],
                 ],
                 [
                     'question' => 'Do you have technical specifications available?',
@@ -440,8 +451,8 @@ class ProductsController extends AppController
                         'detailed' => 'Yes, detailed technical specs',
                         'basic' => 'Yes, basic specifications',
                         'limited' => 'Limited information',
-                        'none' => 'No technical specs available'
-                    ]
+                        'none' => 'No technical specs available',
+                    ],
                 ],
                 [
                     'question' => 'Is this product certified or tested to industry standards?',
@@ -450,19 +461,19 @@ class ProductsController extends AppController
                         'certified' => 'Yes, certified (IEEE, ANSI, ISO, etc.)',
                         'tested' => 'Yes, tested but not certified',
                         'unknown' => 'Unknown/Not sure',
-                        'no_testing' => 'No testing information'
-                    ]
-                ]
+                        'no_testing' => 'No testing information',
+                    ],
+                ],
             ],
             'scoring' => [
                 'network_adapter' => ['tag:networking', 'manufacturer:Intel'],
                 'enterprise' => ['tag:enterprise', 'tag:business'],
                 'high_performance' => ['tag:performance'],
-                'certified' => ['tag:certified']
-            ]
+                'certified' => ['tag:certified'],
+            ],
         ];
     }
-    
+
     /**
      * Convert quiz answers to product data for reliability scoring
      */
@@ -481,9 +492,9 @@ class ProductsController extends AppController
             'numeric_rating' => null,
             'is_certified' => false,
             'image' => '',
-            'alt_text' => ''
+            'alt_text' => '',
         ];
-        
+
         // Map quiz answers to product fields
         foreach ($answers as $questionIndex => $answer) {
             switch ($questionIndex) {
@@ -491,22 +502,22 @@ class ProductsController extends AppController
                     $productData['title'] = $this->getProductTitleFromType($answer);
                     $productData['description'] = $this->getDescriptionFromType($answer);
                     break;
-                    
+
                 case 1: // Use case
                     $productData['description'] .= ' ' . $this->getUseCaseDescription($answer);
                     break;
-                    
+
                 case 2: // Performance level
                     $productData['manufacturer'] = $this->getManufacturerFromPerformance($answer);
                     $productData['numeric_rating'] = $this->getRatingFromPerformance($answer);
                     break;
-                    
+
                 case 3: // Technical specifications
                     if ($answer === 'detailed' || $answer === 'basic') {
                         $productData['technical_specifications'] = $this->getDefaultTechnicalSpecs($answer);
                     }
                     break;
-                    
+
                 case 4: // Certification
                     if ($answer === 'certified') {
                         $productData['is_certified'] = true;
@@ -518,12 +529,12 @@ class ProductsController extends AppController
                     break;
             }
         }
-        
-        return array_filter($productData, function($value) {
+
+        return array_filter($productData, function ($value) {
             return $value !== null && $value !== '';
         });
     }
-    
+
     /**
      * Generate product title from type
      */
@@ -536,12 +547,12 @@ class ProductsController extends AppController
             'display_adapter' => 'Display Connector Adapter',
             'audio_adapter' => 'Audio Interface Adapter',
             'storage_adapter' => 'Storage Connection Adapter',
-            'other' => 'Specialized Adapter'
+            'other' => 'Specialized Adapter',
         ];
-        
+
         return $titles[$type] ?? 'Professional Adapter';
     }
-    
+
     /**
      * Generate description from product type
      */
@@ -554,12 +565,12 @@ class ProductsController extends AppController
             'display_adapter' => 'Professional display connectivity solution',
             'audio_adapter' => 'High-quality audio interface adapter',
             'storage_adapter' => 'Fast and reliable storage connectivity adapter',
-            'other' => 'Specialized connectivity and interface solution'
+            'other' => 'Specialized connectivity and interface solution',
         ];
-        
+
         return $descriptions[$type] ?? 'Professional adapter solution';
     }
-    
+
     /**
      * Get use case description
      */
@@ -570,12 +581,12 @@ class ProductsController extends AppController
             'consumer' => 'optimized for home and consumer use.',
             'gaming' => 'engineered for gaming and high-performance applications.',
             'industrial' => 'built for industrial and professional applications.',
-            'educational' => 'designed for educational and institutional use.'
+            'educational' => 'designed for educational and institutional use.',
         ];
-        
+
         return $descriptions[$useCase] ?? '';
     }
-    
+
     /**
      * Get manufacturer based on performance level
      */
@@ -585,12 +596,12 @@ class ProductsController extends AppController
             'entry' => 'Generic Manufacturer',
             'mainstream' => 'TechCorp',
             'high_performance' => 'Intel Corporation',
-            'professional' => 'Intel Corporation'
+            'professional' => 'Intel Corporation',
         ];
-        
+
         return $manufacturers[$performance] ?? 'TechCorp';
     }
-    
+
     /**
      * Get rating based on performance level
      */
@@ -600,12 +611,12 @@ class ProductsController extends AppController
             'entry' => 3.5,
             'mainstream' => 4.0,
             'high_performance' => 4.5,
-            'professional' => 4.8
+            'professional' => 4.8,
         ];
-        
+
         return $ratings[$performance] ?? null;
     }
-    
+
     /**
      * Get default technical specifications
      */
@@ -617,30 +628,30 @@ class ProductsController extends AppController
                 'speed' => '1Gbps',
                 'ports' => 1,
                 'power' => '5W',
-                'temperature' => '0-70°C'
+                'temperature' => '0-70°C',
             ]);
         } elseif ($level === 'basic') {
             return json_encode([
                 'interface' => 'Standard',
-                'speed' => 'Standard'
+                'speed' => 'Standard',
             ]);
         }
-        
+
         return '';
     }
-    
+
     /**
      * Render quiz results with reliability scoring
      */
     private function renderQuizResults(array $recommendations, array $scoringResult): string
     {
         $html = '<div class="quiz-results-content">';
-        
+
         // Reliability Score Section
         $score = round($scoringResult['total_score'] * 100, 1);
         $completeness = round($scoringResult['completeness_percent'], 1);
         $severity = $scoringResult['ui']['severity'];
-        
+
         $html .= '<div class="reliability-summary mb-4">';
         $html .= '<div class="card border-' . $this->getSeverityBootstrapClass($severity) . '">';
         $html .= '<div class="card-header bg-' . $this->getSeverityBootstrapClass($severity) . ' text-white">';
@@ -661,7 +672,7 @@ class ProductsController extends AppController
         $html .= '</div>';
         $html .= '</div>';
         $html .= '</div>';
-        
+
         // Suggestions
         if (!empty($scoringResult['suggestions'])) {
             $html .= '<hr>';
@@ -672,17 +683,17 @@ class ProductsController extends AppController
             }
             $html .= '</ul>';
         }
-        
+
         $html .= '</div>';
         $html .= '</div>';
         $html .= '</div>';
-        
+
         // Product recommendations
         if (!empty($recommendations['products'])) {
             $html .= '<div class="recommended-products">';
             $html .= '<h4 class="mb-3"><i class="fas fa-star"></i> Recommended Products</h4>';
             $html .= '<div class="row">';
-            
+
             foreach (array_slice($recommendations['products'], 0, 6) as $product) {
                 $html .= '<div class="col-md-6 col-lg-4 mb-3">';
                 $html .= '<div class="card h-100">';
@@ -705,7 +716,7 @@ class ProductsController extends AppController
                 $html .= '</div>';
                 $html .= '</div>';
             }
-            
+
             $html .= '</div>';
             $html .= '</div>';
         } else {
@@ -716,12 +727,12 @@ class ProductsController extends AppController
             $html .= '<a href="/products" class="btn btn-primary">Browse All Products</a>';
             $html .= '</div>';
         }
-        
+
         $html .= '</div>';
-        
+
         return $html;
     }
-    
+
     /**
      * Get Bootstrap class for severity
      */
@@ -729,14 +740,14 @@ class ProductsController extends AppController
     {
         $classes = [
             'success' => 'success',
-            'warning' => 'warning', 
+            'warning' => 'warning',
             'info' => 'info',
-            'danger' => 'danger'
+            'danger' => 'danger',
         ];
-        
+
         return $classes[$severity] ?? 'secondary';
     }
-    
+
     /**
      * Truncate text helper
      */
@@ -745,7 +756,7 @@ class ProductsController extends AppController
         if (strlen($text) <= $length) {
             return $text;
         }
-        
+
         return substr($text, 0, $length) . '...';
     }
 }

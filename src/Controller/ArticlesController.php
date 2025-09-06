@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Event\EventInterface;
+use Cake\Http\Exception\NotFoundException;
 
 /**
  * Articles Controller
@@ -27,6 +28,7 @@ class ArticlesController extends AppController
         // Allow unauthenticated access to index, view, and viewBySlug actions
         $this->Authentication->addUnauthenticatedActions(['index', 'view', 'viewBySlug']);
     }
+
     /**
      * Index method
      *
@@ -48,7 +50,7 @@ class ArticlesController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view(?string $id = null)
     {
         $article = $this->Articles->get($id, contain: ['Users', 'Images', 'Tags', 'Comments', 'Slugs', 'ArticlesTranslations', 'PageViews']);
         $this->set(compact('article'));
@@ -86,7 +88,7 @@ class ArticlesController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit(?string $id = null)
     {
         $article = $this->Articles->get($id, contain: ['Images', 'Tags']);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -111,7 +113,7 @@ class ArticlesController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete(?string $id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
         $article = $this->Articles->get($id);
@@ -123,7 +125,7 @@ class ArticlesController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-    
+
     /**
      * View by slug method
      *
@@ -131,26 +133,26 @@ class ArticlesController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function viewBySlug($slug = null)
+    public function viewBySlug(?string $slug = null)
     {
         if (!$slug) {
-            throw new \Cake\Http\Exception\NotFoundException(__('Article not found.'));
+            throw new NotFoundException(__('Article not found.'));
         }
-        
+
         $article = $this->Articles->find()
             ->contain(['Users', 'Images', 'Tags', 'Comments', 'Slugs', 'ArticlesTranslations', 'PageViews'])
             ->where(['Articles.slug' => $slug])
             ->first();
-            
+
         if (!$article) {
-            throw new \Cake\Http\Exception\NotFoundException(__('Article not found.'));
+            throw new NotFoundException(__('Article not found.'));
         }
-        
+
         $this->set(compact('article'));
         // Use the article template for DefaultTheme
         $this->render('article');
     }
-    
+
     /**
      * Add comment method
      *
@@ -159,32 +161,34 @@ class ArticlesController extends AppController
     public function addComment()
     {
         $this->request->allowMethod(['post']);
-        
+
         $articleId = $this->request->getData('article_id');
         if (!$articleId) {
             $this->Flash->error(__('Invalid article specified.'));
+
             return $this->redirect(['action' => 'index']);
         }
-        
+
         // Check if article exists
         $article = $this->Articles->find()->where(['id' => $articleId])->first();
         if (!$article) {
             $this->Flash->error(__('Article not found.'));
+
             return $this->redirect(['action' => 'index']);
         }
-        
+
         // Load Comments model and create comment
         $this->loadModel('Comments');
         $comment = $this->Comments->newEmptyEntity();
         $comment = $this->Comments->patchEntity($comment, $this->request->getData());
         $comment->article_id = $articleId;
-        
+
         if ($this->Comments->save($comment)) {
             $this->Flash->success(__('Your comment has been posted.'));
         } else {
             $this->Flash->error(__('Unable to post your comment. Please, try again.'));
         }
-        
+
         // Redirect back to the article
         if ($article->slug) {
             return $this->redirect(['action' => 'viewBySlug', $article->slug]);

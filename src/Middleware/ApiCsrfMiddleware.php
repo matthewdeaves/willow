@@ -15,25 +15,25 @@ use Psr\Http\Server\RequestHandlerInterface;
 class ApiCsrfMiddleware implements MiddlewareInterface
 {
     private CsrfProtectionMiddleware $csrfMiddleware;
-    
+
     public function __construct()
     {
         $this->csrfMiddleware = new CsrfProtectionMiddleware([
             'httponly' => true,
         ]);
     }
-    
+
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         // Check if this is an API request
         $uri = $request->getUri()->getPath();
         $prefix = $request->getParam('prefix');
-        
+
         // Skip CSRF for API routes
         if (strpos($uri, '/api/') === 0 || $prefix === 'Api') {
             return $handler->handle($request);
         }
-        
+
         // Apply CSRF protection for non-API routes
         return $this->csrfMiddleware->process($request, $handler);
     }

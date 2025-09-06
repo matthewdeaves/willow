@@ -30,7 +30,7 @@ class ImageGalleriesController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view(?string $id = null)
     {
         $imageGallery = $this->ImageGalleries->get($id, contain: ['Images', 'Slugs', 'ImageGalleriesTranslations']);
         $this->set(compact('imageGallery'));
@@ -64,7 +64,7 @@ class ImageGalleriesController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit(?string $id = null)
     {
         $imageGallery = $this->ImageGalleries->get($id, contain: ['Images']);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -87,7 +87,7 @@ class ImageGalleriesController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete(?string $id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
         $imageGallery = $this->ImageGalleries->get($id);

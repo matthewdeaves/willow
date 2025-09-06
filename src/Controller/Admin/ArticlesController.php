@@ -36,6 +36,7 @@ class ArticlesController extends AppController
     public function treeIndex(): ?Response
     {
         $statusFilter = $this->request->getQuery('status');
+        $menuFilter = $this->request->getQuery('menu');
         $conditions = [
             'Articles.kind' => 'page',
         ];
@@ -44,6 +45,19 @@ class ArticlesController extends AppController
             $conditions['Articles.is_published'] = '1';
         } elseif ($statusFilter === '0') {
             $conditions['Articles.is_published'] = '0';
+        }
+
+        // Apply menu filter
+        if ($menuFilter === 'header') {
+            $conditions['Articles.main_menu'] = 1;
+        } elseif ($menuFilter === 'footer') {
+            $conditions['Articles.footer_menu'] = 1;
+        } elseif ($menuFilter === 'both') {
+            $conditions['Articles.main_menu'] = 1;
+            $conditions['Articles.footer_menu'] = 1;
+        } elseif ($menuFilter === 'none') {
+            $conditions['Articles.main_menu'] = 0;
+            $conditions['Articles.footer_menu'] = 0;
         }
 
         if ($this->request->is('ajax')) {
@@ -63,6 +77,8 @@ class ArticlesController extends AppController
                 'created',
                 'modified',
                 'is_published',
+                'main_menu',
+                'footer_menu',
             ]);
 
             $this->set(compact('articles'));
@@ -77,6 +93,8 @@ class ArticlesController extends AppController
             'modified',
             'view_count',
             'is_published',
+            'main_menu',
+            'footer_menu',
         ]);
         $this->set(compact('articles'));
 
@@ -252,10 +270,26 @@ class ArticlesController extends AppController
                 ->all();
         }
 
+        // Get parent inheritance data for menu settings (in case parent_id is set in query params)
+        $parentInheritance = [];
+        $parentId = $this->request->getQuery('parent_id');
+        if (!empty($parentId)) {
+            try {
+                $parent = $this->Articles->get($parentId);
+                $parentInheritance = [
+                    'main_menu' => $parent->main_menu ?? false,
+                    'footer_menu' => $parent->footer_menu ?? false,
+                    'parent_title' => $parent->title ?? ''
+                ];
+            } catch (RecordNotFoundException $e) {
+                // Parent not found, continue without inheritance data
+            }
+        }
+
         $users = $this->Articles->Users->find('list', limit: 200)->all();
         $tags = $this->Articles->Tags->find('list', limit: 200)->all();
         $token = $this->request->getAttribute('csrfToken');
-        $this->set(compact('article', 'users', 'tags', 'token', 'parentArticles'));
+        $this->set(compact('article', 'users', 'tags', 'token', 'parentArticles', 'parentInheritance'));
 
         return null;
     }
@@ -321,9 +355,20 @@ class ArticlesController extends AppController
                 ->all();
         }
 
+        // Get parent inheritance data for menu settings
+        $parentInheritance = [];
+        if (!empty($article->parent_id)) {
+            $parent = $this->Articles->get($article->parent_id);
+            $parentInheritance = [
+                'main_menu' => $parent->main_menu ?? false,
+                'footer_menu' => $parent->footer_menu ?? false,
+                'parent_title' => $parent->title ?? ''
+            ];
+        }
+
         $users = $this->Articles->Users->find('list', limit: 200)->all();
         $tags = $this->Articles->Tags->find('list', limit: 200)->all();
-        $this->set(compact('article', 'users', 'tags', 'parentArticles'));
+        $this->set(compact('article', 'users', 'tags', 'parentArticles', 'parentInheritance'));
 
         return null;
     }

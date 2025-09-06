@@ -354,6 +354,169 @@ class ArticlesTable extends Table
     }
 
     /**
+     * Retrieves published pages marked for display in the footer menu.
+     *
+     * This method fetches articles that meet the following criteria:
+     * - Are of type 'page'
+     * - Are published (is_published = 1)
+     * - Are marked for footer menu display (footer_menu = 1)
+     * Results are ordered by the 'lft' field for proper tree structure display.
+     * Results are cached using the 'footer_menu_pages' key in the 'content' cache config.
+     *
+     * @param array $additionalConditions Additional conditions to merge with the default query conditions
+     * @return array List of Article entities matching the criteria
+     * @throws \Cake\Database\Exception\DatabaseException When the database query fails
+     * @throws \Cake\Cache\Exception\InvalidArgumentException When cache configuration is invalid
+     */
+    public function getFooterMenuPages(string $cacheKey, array $additionalConditions = []): array
+    {
+        $conditions = [
+            'Articles.kind' => 'page',
+            'Articles.is_published' => 1,
+            'Articles.footer_menu' => 1,
+        ];
+        $conditions = array_merge($conditions, $additionalConditions);
+        $query = $this->find()
+            ->where($conditions)
+            ->orderBy(['lft' => 'ASC'])
+            ->cache($cacheKey . 'footer_menu_pages', 'content');
+
+        $results = $query->all()->toList();
+
+        return $results;
+    }
+
+    /**
+     * Retrieves published pages marked for display in the footer menu with inheritance.
+     *
+     * This method extends getFooterMenuPages to include child pages when their parent
+     * is marked for footer menu display. Child pages inherit their parent's footer_menu
+     * setting unless they have an explicit override.
+     *
+     * @param array $additionalConditions Additional conditions to merge with the default query conditions
+     * @return array List of Article entities matching the criteria with inherited footer menu settings
+     */
+    public function getFooterMenuPagesWithChildren(string $cacheKey, array $additionalConditions = []): array
+    {
+        // Get pages with footer_menu = 1 (explicitly set)
+        $explicitFooterPages = $this->getFooterMenuPages($cacheKey, $additionalConditions);
+        
+        $allFooterPages = [];
+        
+        // Add explicitly marked pages and their children
+        foreach ($explicitFooterPages as $page) {
+            $allFooterPages[] = $page;
+            
+            // Get all children of this page
+            $children = $this->find()
+                ->where([
+                    'Articles.kind' => 'page',
+                    'Articles.is_published' => 1,
+                    'Articles.lft >' => $page->lft,
+                    'Articles.rght <' => $page->rght
+                ])
+                ->orderBy(['lft' => 'ASC'])
+                ->cache($cacheKey . 'footer_children_' . $page->id, 'content')
+                ->all();
+                
+            foreach ($children as $child) {
+                $allFooterPages[] = $child;
+            }
+        }
+        
+        // Remove duplicates based on ID
+        $uniquePages = [];
+        $seenIds = [];
+        foreach ($allFooterPages as $page) {
+            if (!in_array($page->id, $seenIds)) {
+                $uniquePages[] = $page;
+                $seenIds[] = $page->id;
+            }
+        }
+        
+        return $uniquePages;
+    }
+
+    /**
+     * Retrieves published pages marked for display in the main menu with inheritance.
+     *
+     * This method extends getMainMenuPages to include child pages when their parent
+     * is marked for main menu display. Child pages inherit their parent's main_menu
+     * setting unless they have an explicit override.
+     *
+     * @param array $additionalConditions Additional conditions to merge with the default query conditions
+     * @return array List of Article entities matching the criteria with inherited main menu settings
+     */
+    public function getMainMenuPagesWithChildren(string $cacheKey, array $additionalConditions = []): array
+    {
+        // Get pages with main_menu = 1 (explicitly set)
+        $explicitMainPages = $this->getMainMenuPages($cacheKey, $additionalConditions);
+        
+        $allMainPages = [];
+        
+        // Add explicitly marked pages and their children
+        foreach ($explicitMainPages as $page) {
+            $allMainPages[] = $page;
+            
+            // Get all children of this page
+            $children = $this->find()
+                ->where([
+                    'Articles.kind' => 'page',
+                    'Articles.is_published' => 1,
+                    'Articles.lft >' => $page->lft,
+                    'Articles.rght <' => $page->rght
+                ])
+                ->orderBy(['lft' => 'ASC'])
+                ->cache($cacheKey . 'main_children_' . $page->id, 'content')
+                ->all();
+                
+            foreach ($children as $child) {
+                $allMainPages[] = $child;
+            }
+        }
+        
+        // Remove duplicates based on ID
+        $uniquePages = [];
+        $seenIds = [];
+        foreach ($allMainPages as $page) {
+            if (!in_array($page->id, $seenIds)) {
+                $uniquePages[] = $page;
+                $seenIds[] = $page->id;
+            }
+        }
+        
+        return $uniquePages;
+    }
+
+    /**
+     * Check if a page inherits menu settings from its parent.
+     *
+     * @param string $pageId The ID of the page to check
+     * @param string $menuType Either 'main_menu' or 'footer_menu'
+     * @return bool True if the page should inherit from parent, false otherwise
+     */
+    public function shouldInheritFromParent(string $pageId, string $menuType): bool
+    {
+        $page = $this->get($pageId);
+        
+        if (!$page->parent_id) {
+            return false; // Root pages don't inherit
+        }
+        
+        // Check if the page has an explicit setting (1 = yes, 0 = no, null = inherit)
+        $explicitSetting = $page->{$menuType};
+        
+        if ($explicitSetting !== null && $explicitSetting !== '') {
+            return false; // Page has explicit setting, don't inherit
+        }
+        
+        // Check if parent is marked for this menu type
+        $parent = $this->get($page->parent_id);
+        
+        return (bool)$parent->{$menuType};
+    }
+
+    /**
      * Gets an array of years and months that have published articles.
      *
      * This method queries the articles table to find all unique year/month combinations

@@ -110,6 +110,11 @@ backups/
 
 # CakePHP Book
 CakePHPBook.txt
+
+# Default Data
+default_data
+default_data/*
+
 .hidden-items.json
 docker/willowcms/config/php/php.ini
 docker/willowcms/config/php/php.ini
@@ -750,3 +755,22 @@ id_digital_ocean
 id_digital_ocean.pub
 checksums/before_app_logs.sha256
 config/etc/paths.php.bak
+default_data/ai_metrics.json
+default_data/aiprompts.json
+default_data/articles_tags.json
+default_data/articles.json
+default_data/cookie_consents.json
+default_data/image_galleries_images.json
+default_data/image_galleries.json
+default_data/images.json
+default_data/page_views.json
+default_data/phinxlog.json
+default_data/product_form_fields.json
+default_data/products_tags.json
+default_data/products.json
+default_data/settings.json
+default_data/slugs.json
+default_data/system_logs.json
+default_data/tags_translations.json
+default_data/tags.json
+default_data/users.json

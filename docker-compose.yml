@@ -51,7 +51,7 @@ services:
       - TRANSLATE_API_KEY=
       - QUEUE_DEFAULT_URL=redis://root:root@127.0.0.1:6379/0
       - QUEUE_TEST_URL=redis://root:root@127.0.0.1:6379/0
-      - EXPERIMENTAL_TESTS=On
+      - EXPERIMENTAL_TESTS=Off
       - WILLOW_ADMIN_USERNAME=admin
       - WILLOW_ADMIN_PASSWORD=password
       - WILLOW_ADMIN_EMAIL=admin@test.com
@@ -69,13 +69,10 @@ services:
       - "3310:3306"
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./docker/mysql/initdb:/docker-entrypoint-initdb.d:ro
-    healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p$MYSQL_ROOT_PASSWORD --silent"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
-      start_period: 20s
+      - mysql_data:/docker-entrypoint-initdb.d:ro
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    env_file:
+      - ./config/.env
 
   phpmyadmin:
     image: phpmyadmin

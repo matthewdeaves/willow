@@ -12,7 +12,7 @@ services:
     volumes:
       - .:/var/www/html/
       - ./docker/willowcms/config/app/cms_app_local.php:/var/www/html/config/app_local.php
-      - ./logs/nginx:/var/log/nginx/
+      - ./docker/willowcms/config/nginx/logs:/var/log/nginx/
     environment:
       - APP_NAME=WillowCMS
       - DEBUG=true
@@ -53,6 +53,46 @@ services:
       - WILLOW_ADMIN_PASSWORD=password
       - WILLOW_ADMIN_EMAIL=admin@test.com
       - APP_FULL_BASE_URL=http://localhost:8080
+      #       # - APP_NAME=${APP_NAME}
+      # - DEBUG=${DEBUG}
+      # - APP_ENCODING=${APP_ENCODING}
+      # - APP_DEFAULT_LOCALE=${APP_DEFAULT_LOCALE}
+      # - APP_DEFAULT_TIMEZONE=${APP_DEFAULT_TIMEZONE}
+      # - APP_FULL_BASE_URL=${APP_FULL_BASE_URL}
+      # - SECURITY_SALT=${SECURITY_SALT}
+      # - DB_HOST=${DB_HOST}
+      # - DB_USERNAME=${DB_USERNAME}
+      # - DB_PASSWORD=${DB_PASSWORD}
+      # - DB_DATABASE=${DB_DATABASE}
+      # - DB_PORT=${DB_PORT}
+      # - TEST_DB_HOST=${TEST_DB_HOST}
+      # - TEST_DB_USERNAME=${TEST_DB_USERNAME}
+      # - TEST_DB_PASSWORD=${TEST_DB_PASSWORD}
+      # - TEST_DB_DATABASE=${TEST_DB_DATABASE}
+      # - TEST_DB_PORT=${TEST_DB_PORT}
+      # - EMAIL_HOST=${EMAIL_HOST}
+      # - EMAIL_PORT=${EMAIL_PORT}
+      # - EMAIL_TIMEOUT=${EMAIL_TIMEOUT}
+      # - EMAIL_USERNAME=${EMAIL_USERNAME}
+      # - EMAIL_PASSWORD=${EMAIL_PASSWORD}
+      # - EMAIL_REPLY=${EMAIL_REPLY}
+      # - EMAIL_NOREPLY=${EMAIL_NOREPLY}
+      # - REDIS_USERNAME=${REDIS_USERNAME}
+      # - REDIS_PASSWORD=${REDIS_PASSWORD}
+      # - REDIS_HOST=${REDIS_HOST}
+      # - REDIS_PORT=${REDIS_PORT}
+      # - REDIS_DATABASE=${REDIS_DATABASE}
+      # - REDIS_URL=${REDIS_URL}
+      # - REDIS_TEST_URL=${REDIS_TEST_URL}
+      # - YOUTUBE_API_KEY=${YOUTUBE_API_KEY}
+      # - TRANSLATE_API_KEY=${TRANSLATE_API_KEY}
+      # - QUEUE_DEFAULT_URL=${QUEUE_DEFAULT_URL}
+      # - QUEUE_TEST_URL=${QUEUE_TEST_URL}
+      # - WILLOW_ADMIN_USERNAME=${WILLOW_ADMIN_USERNAME}
+      # - WILLOW_ADMIN_PASSWORD=${WILLOW_ADMIN_PASSWORD}
+      # - WILLOW_ADMIN_EMAIL=${WILLOW_ADMIN_EMAIL}
+      # - EXPERIMENTAL_TESTS=${EXPERIMENTAL_TESTS}
+
 
   mysql:
     image: mysql:8.4.3
@@ -294,9 +334,4 @@ volumes:
 #       - HTTP_USER=${HTTP_USER}
 #       - HTTP_PASSWORD=${HTTP_PASSWORD}
 
-# volumes:
-#   mysql_data: null
-#   redis_data: null
-#   rabbitmq_data: null
-#   jenkins_home: null
-#   mailpit_data: null
+

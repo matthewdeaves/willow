@@ -53,7 +53,7 @@ print_step() {
 
 # --- Configuration ---
 # Jenkins container is optional
-USE_JENKINS=1
+USE_JENKINS=0
 # Internationalisation data loading is optional
 LOAD_I18N=0
 # Interactive mode (can be disabled with --no-interactive)

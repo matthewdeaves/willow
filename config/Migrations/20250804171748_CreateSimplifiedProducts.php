@@ -7,6 +7,11 @@ class CreateSimplifiedProducts extends AbstractMigration
 {
     public function change(): void
     {
+        // Drop existing products table if it exists
+        if ($this->hasTable('products')) {
+            $this->table('products')->drop()->save();
+        }
+        
         // Create simplified products table
         $table = $this->table('products', [
             'id' => false,
@@ -115,6 +120,11 @@ class CreateSimplifiedProducts extends AbstractMigration
             ->addIndex(['created'], ['name' => 'idx_products_created'])
             ->create();
 
+        // Drop existing products_tags table if it exists
+        if ($this->hasTable('products_tags')) {
+            $this->table('products_tags')->drop()->save();
+        }
+        
         // Create products_tags junction table for unified tagging
         $tagsTable = $this->table('products_tags', [
             'id' => false,

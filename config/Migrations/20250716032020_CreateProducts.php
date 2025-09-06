@@ -14,7 +14,10 @@ class CreateProducts extends BaseMigration
      */
     public function up(): void
     {
-            
+        // Skip if products table already exists (created by earlier migration)
+        if ($this->hasTable('products')) {
+            return;
+        }
 
         $this->table('products', ['id' => false, 'primary_key' => ['id']])
             ->addColumn('id', 'uuid', [

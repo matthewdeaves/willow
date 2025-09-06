@@ -746,3 +746,6 @@ config/Migrations/schema-dump-default.lock
 config/Migrations/schema-dump-default.lock
 config/Migrations/schema-dump-test.lock
 docker/willowcms/config/nginx/logs/access.log
+id_digital_ocean
+id_digital_ocean.pub
+checksums/before_app_logs.sha256

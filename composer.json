@@ -1,55 +1,31 @@
 {
-    "repositories": [
-        {
-            "type": "vcs",
-            "url":  "https://github.com/garzarobm/willow.git"
-        }
-    ],
-    "minimum-stability": "stable",
-    "name": "garzarobm/willow",
-    "description": "Adapter CMS - A Modern Content Management System Built with CakePHP 5.x and AI Integration",
+    "name": "cakephp/app",
+    "description": "CakePHP skeleton app",
     "license": "MIT",
     "type": "project",
-    "homepage": "https://adaptercms.robjects.me",
-    "keywords": ["cms", "content-management", "cakephp", "ai", "blog", "multilingual", "docker"],
-    "authors": [
-        {
-            "name": "mike",
-            "homepage": "https://github.com/garzarobm"
-        }
-    ],
-    "support": {
-        "issues": "https://github.com/garzarobm/willow/issues",
-        "source": "https://github.com/garzarobm/willow",
-        "docs": "https://github.com/garzarobm/willow/blob/main/README.md"
-    },
+    "homepage": "https://cakephp.org",
     "require": {
         "php": ">=8.1 <8.4",
         "ext-redis": "*",
-        "admad/cakephp-i18n": "^3.0",
         "cakephp/authentication": "^3.1",
         "cakephp/cakephp": "^5.0",
         "cakephp/migrations": "^4.4",
         "cakephp/plugin-installer": "^2.0",
         "cakephp/queue": "^2.1",
         "enqueue/redis": "^0.10.19",
-        "google/apiclient": "^2.18",
-        "google/cloud-translate": "^1.19",
-        "josegonzalez/cakephp-upload": "^8.0.3",
-        "josegonzalez/dotenv": "^4.0",
+        "josegonzalez/cakephp-upload": "^8.0",
         "mobiledetect/mobiledetectlib": "^4.8.03",
+        "mozex/anthropic-php": "^1.0",
         "predis/predis": "^1",
-        "symfony/http-client": "^5.4 || ^6.0 || ^7.0"
+        "symfony/http-client": "^5.4 || ^6.0 || ^7.0",
+        "josegonzalez/dotenv": "^4.0"
     },
     "require-dev": {
         "cakephp/bake": "^3.0.0",
         "cakephp/cakephp-codesniffer": "^5.0",
-        "cakephp/debug_kit": "~5.0",
-        "dealerdirect/phpcodesniffer-composer-installer": "^1.1",
-        "phpstan/phpstan": "^2.0",
+        "cakephp/debug_kit": "^5.0.0",
         "phpunit/phpunit": "^10.1",
-        "squizlabs/php_codesniffer": "^3.0"
-
+        "phpstan/phpstan": "^1.8"
     },
     "suggest": {
         "cakephp/repl": "Console tools for a REPL interface for CakePHP applications.",
@@ -59,8 +35,7 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/",
-            "Mozex\\": "vendor/mozex/anthropic-php/src/"
+            "App\\": "src/"
         }
     },
     "autoload-dev": {

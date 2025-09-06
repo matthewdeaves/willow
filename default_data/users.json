@@ -13,5 +13,20 @@
         "mime": null,
         "username": "admin",
         "active": true
+    },
+    {
+        "id": "c6727550-e9eb-42ee-93e6-d7716f905b03",
+        "is_admin": true,
+        "email": "admin2@test.com",
+        "password": "$2y$10$3RzVusmyWapUbSktk8xHfuiGLkH.Vunl0xsg23D0A5LL/kdHg4Jue",
+        "image": null,
+        "alt_text": null,
+        "keywords": null,
+        "name": null,
+        "dir": null,
+        "size": null,
+        "mime": null,
+        "username": "admin2",
+        "active": true
     }
 ]

@@ -973,26 +973,13 @@ class ProductsController extends AppController
         $this->request->allowMethod(['post']);
 
         $ids = (array)$this->request->getData('ids', []);
+        $returnUrl = $this->request->getData('returnUrl', ['action' => 'pendingReview']);
 
-        // Validate that IDs were provided
-        if (empty($ids)) {
-            $this->Flash->error(__('Please select products to verify.'));
-
-            return $this->redirect($this->referer(['action' => 'pendingReview']));
-        }
-
-        // Basic sanity check - validate IDs are strings/UUIDs
-        $validIds = [];
-        foreach ($ids as $id) {
-            if (is_string($id) && !empty(trim($id))) {
-                $validIds[] = trim($id);
-            }
-        }
-
+        // Use new validation method
+        $validIds = $this->validateProductIds($ids);
         if (empty($validIds)) {
-            $this->Flash->error(__('Invalid product IDs provided.'));
-
-            return $this->redirect($this->referer(['action' => 'pendingReview']));
+            $this->Flash->error(__('Please select valid products to verify.'));
+            return $this->redirect($returnUrl);
         }
 
         // Queue verification job for each product
@@ -1004,8 +991,9 @@ class ProductsController extends AppController
 
         $count = count($validIds);
         $this->Flash->success(__('Verification has been queued for {0} product(s).', $count));
+        $this->logBulkAction('bulk_verify_standalone', $validIds, ['queued_count' => $count]);
 
-        return $this->redirect(['action' => 'pendingReview']);
+        return $this->redirect($returnUrl);
     }
 
     /**
@@ -1393,5 +1381,405 @@ class ProductsController extends AppController
             default:
                 return (string)$value ?: $default;
         }
+    }
+
+    /**
+     * Bulk edit dispatcher - handles various bulk actions
+     *
+     * @return \Cake\Http\Response
+     */
+    public function bulkEdit(): Response
+    {
+        $this->request->allowMethod(['post']);
+        
+        $action = $this->request->getData('bulk_action');
+        $selectedIds = (array)$this->request->getData('selected', []);
+        $returnUrl = $this->request->getData('returnUrl', ['action' => 'index']);
+        
+        if (empty($selectedIds)) {
+            $this->Flash->error(__('Please select at least one product.'));
+            return $this->redirect($returnUrl);
+        }
+        
+        // Log the bulk action
+        $this->logBulkAction('bulk_edit_dispatch', $selectedIds, ['action' => $action]);
+        
+        switch ($action) {
+            case 'verify':
+                return $this->bulkVerifyInternal($selectedIds, $returnUrl);
+            case 'approve':
+                return $this->bulkApproveInternal($selectedIds, $returnUrl);
+            case 'reject':
+                return $this->bulkRejectInternal($selectedIds, $returnUrl);
+            case 'publish':
+                return $this->bulkTogglePublished($selectedIds, true, $returnUrl);
+            case 'unpublish':
+                return $this->bulkTogglePublished($selectedIds, false, $returnUrl);
+            case 'feature':
+                return $this->bulkToggleFeatured($selectedIds, true, $returnUrl);
+            case 'unfeature':
+                return $this->bulkToggleFeatured($selectedIds, false, $returnUrl);
+            case 'delete':
+                return $this->bulkDelete($selectedIds, $returnUrl);
+            default:
+                $this->Flash->error(__('Unknown bulk action: {0}', $action));
+                return $this->redirect($returnUrl);
+        }
+    }
+    
+    /**
+     * Bulk verification with custom selected IDs - wrapper for existing method
+     *
+     * @param array $selectedIds Array of product IDs
+     * @param mixed $returnUrl URL to redirect to after completion
+     * @return \Cake\Http\Response
+     */
+    private function bulkVerifyInternal(array $selectedIds, mixed $returnUrl): Response
+    {
+        // Set up request data to work with existing method
+        $this->request = $this->request->withData('ids', $selectedIds);
+        $this->request = $this->request->withData('returnUrl', $returnUrl);
+        
+        return $this->bulkVerify();
+    }
+    
+    /**
+     * Bulk approve with custom selected IDs - reuse existing logic
+     *
+     * @param array $selectedIds Array of product IDs
+     * @param mixed $returnUrl URL to redirect to after completion
+     * @return \Cake\Http\Response
+     */
+    private function bulkApproveInternal(array $selectedIds, mixed $returnUrl): Response
+    {
+        // Validate IDs
+        $validIds = $this->validateProductIds($selectedIds);
+        if (empty($validIds)) {
+            $this->Flash->error(__('Invalid product IDs provided.'));
+            return $this->redirect($returnUrl);
+        }
+        
+        try {
+            $updatedCount = $this->Products->updateAll(
+                ['verification_status' => 'approved'],
+                ['id IN' => $validIds]
+            );
+            
+            $this->clearContentCache();
+            $this->Flash->success(__('Successfully approved {0} product(s).', $updatedCount));
+            $this->logBulkAction('bulk_approve', $validIds, ['updated_count' => $updatedCount]);
+        } catch (Exception $e) {
+            $this->log('Bulk approve error: ' . $e->getMessage(), 'error');
+            $this->Flash->error(__('An error occurred while approving products. Please try again.'));
+        }
+        
+        return $this->redirect($returnUrl);
+    }
+    
+    /**
+     * Bulk reject with custom selected IDs - reuse existing logic
+     *
+     * @param array $selectedIds Array of product IDs
+     * @param mixed $returnUrl URL to redirect to after completion
+     * @return \Cake\Http\Response
+     */
+    private function bulkRejectInternal(array $selectedIds, mixed $returnUrl): Response
+    {
+        // Validate IDs
+        $validIds = $this->validateProductIds($selectedIds);
+        if (empty($validIds)) {
+            $this->Flash->error(__('Invalid product IDs provided.'));
+            return $this->redirect($returnUrl);
+        }
+        
+        try {
+            $updatedCount = $this->Products->updateAll(
+                ['verification_status' => 'rejected'],
+                ['id IN' => $validIds]
+            );
+            
+            $this->clearContentCache();
+            $this->Flash->success(__('Successfully rejected {0} product(s).', $updatedCount));
+            $this->logBulkAction('bulk_reject', $validIds, ['updated_count' => $updatedCount]);
+        } catch (Exception $e) {
+            $this->log('Bulk reject error: ' . $e->getMessage(), 'error');
+            $this->Flash->error(__('An error occurred while rejecting products. Please try again.'));
+        }
+        
+        return $this->redirect($returnUrl);
+    }
+    
+    /**
+     * Bulk toggle published status
+     *
+     * @param array $selectedIds Array of product IDs (optional if from request data)
+     * @param bool $publishStatus True to publish, false to unpublish (optional if from request data)
+     * @param mixed $returnUrl URL to redirect to after completion (optional if from request data)
+     * @return \Cake\Http\Response
+     */
+    public function bulkTogglePublished(array $selectedIds = null, bool $publishStatus = null, mixed $returnUrl = null): Response
+    {
+        $this->request->allowMethod(['post']);
+        
+        // Get parameters from method call or request data
+        $selectedIds = $selectedIds ?? (array)$this->request->getData('selected', []);
+        $publishStatus = $publishStatus ?? (bool)$this->request->getData('publish_status', true);
+        $returnUrl = $returnUrl ?? $this->request->getData('returnUrl', ['action' => 'index']);
+        
+        // Validate IDs
+        $validIds = $this->validateProductIds($selectedIds);
+        if (empty($validIds)) {
+            $this->Flash->error(__('Invalid or missing product IDs.'));
+            return $this->redirect($returnUrl);
+        }
+        
+        try {
+            $updatedCount = $this->Products->updateAll(
+                ['is_published' => $publishStatus],
+                ['id IN' => $validIds]
+            );
+            
+            $this->clearContentCache();
+            $status = $publishStatus ? __('published') : __('unpublished');
+            $this->Flash->success(__('Successfully {0} {1} product(s).', $status, $updatedCount));
+            $this->logBulkAction('bulk_toggle_published', $validIds, [
+                'publish_status' => $publishStatus,
+                'updated_count' => $updatedCount
+            ]);
+        } catch (Exception $e) {
+            $this->log('Bulk toggle published error: ' . $e->getMessage(), 'error');
+            $this->Flash->error(__('An error occurred while updating product status. Please try again.'));
+        }
+        
+        return $this->redirect($returnUrl);
+    }
+    
+    /**
+     * Bulk toggle featured status
+     *
+     * @param array $selectedIds Array of product IDs (optional if from request data)
+     * @param bool $featuredStatus True to feature, false to unfeature (optional if from request data)
+     * @param mixed $returnUrl URL to redirect to after completion (optional if from request data)
+     * @return \Cake\Http\Response
+     */
+    public function bulkToggleFeatured(array $selectedIds = null, bool $featuredStatus = null, mixed $returnUrl = null): Response
+    {
+        $this->request->allowMethod(['post']);
+        
+        // Get parameters from method call or request data
+        $selectedIds = $selectedIds ?? (array)$this->request->getData('selected', []);
+        $featuredStatus = $featuredStatus ?? (bool)$this->request->getData('featured_status', true);
+        $returnUrl = $returnUrl ?? $this->request->getData('returnUrl', ['action' => 'index']);
+        
+        // Validate IDs
+        $validIds = $this->validateProductIds($selectedIds);
+        if (empty($validIds)) {
+            $this->Flash->error(__('Invalid or missing product IDs.'));
+            return $this->redirect($returnUrl);
+        }
+        
+        try {
+            $updatedCount = $this->Products->updateAll(
+                ['featured' => $featuredStatus],
+                ['id IN' => $validIds]
+            );
+            
+            $this->clearContentCache();
+            $status = $featuredStatus ? __('featured') : __('unfeatured');
+            $this->Flash->success(__('Successfully {0} {1} product(s).', $status, $updatedCount));
+            $this->logBulkAction('bulk_toggle_featured', $validIds, [
+                'featured_status' => $featuredStatus,
+                'updated_count' => $updatedCount
+            ]);
+        } catch (Exception $e) {
+            $this->log('Bulk toggle featured error: ' . $e->getMessage(), 'error');
+            $this->Flash->error(__('An error occurred while updating product status. Please try again.'));
+        }
+        
+        return $this->redirect($returnUrl);
+    }
+    
+    /**
+     * Bulk delete products
+     *
+     * @param array $selectedIds Array of product IDs (optional if from request data)
+     * @param mixed $returnUrl URL to redirect to after completion (optional if from request data)
+     * @return \Cake\Http\Response
+     */
+    public function bulkDelete(array $selectedIds = null, mixed $returnUrl = null): Response
+    {
+        $this->request->allowMethod(['post']);
+        
+        // Get parameters from method call or request data
+        $selectedIds = $selectedIds ?? (array)$this->request->getData('selected', []);
+        $returnUrl = $returnUrl ?? $this->request->getData('returnUrl', ['action' => 'index']);
+        
+        // Validate IDs
+        $validIds = $this->validateProductIds($selectedIds);
+        if (empty($validIds)) {
+            $this->Flash->error(__('Invalid or missing product IDs.'));
+            return $this->redirect($returnUrl);
+        }
+        
+        $deletedCount = 0;
+        $failedCount = 0;
+        
+        // Use connection transaction for bulk delete
+        $connection = $this->Products->getConnection();
+        $connection->transactional(function () use ($validIds, &$deletedCount, &$failedCount) {
+            foreach ($validIds as $id) {
+                try {
+                    $product = $this->Products->get($id);
+                    if ($this->Products->delete($product)) {
+                        $deletedCount++;
+                    } else {
+                        $failedCount++;
+                    }
+                } catch (Exception $e) {
+                    $this->log("Failed to delete product {$id}: " . $e->getMessage(), 'error');
+                    $failedCount++;
+                }
+            }
+        });
+        
+        $this->clearContentCache();
+        
+        if ($deletedCount > 0) {
+            $this->Flash->success(__('Successfully deleted {0} product(s).', $deletedCount));
+        }
+        if ($failedCount > 0) {
+            $this->Flash->error(__('Failed to delete {0} product(s).', $failedCount));
+        }
+        
+        $this->logBulkAction('bulk_delete', $validIds, [
+            'deleted_count' => $deletedCount,
+            'failed_count' => $failedCount
+        ]);
+        
+        return $this->redirect($returnUrl);
+    }
+    
+    /**
+     * Bulk update fields - advanced mass edit
+     *
+     * @return \Cake\Http\Response
+     */
+    public function bulkUpdateFields(): Response
+    {
+        $this->request->allowMethod(['post']);
+        
+        $selectedIds = (array)$this->request->getData('selected', []);
+        $returnUrl = $this->request->getData('returnUrl', ['action' => 'index']);
+        
+        // Validate IDs
+        $validIds = $this->validateProductIds($selectedIds);
+        if (empty($validIds)) {
+            $this->Flash->error(__('Invalid or missing product IDs.'));
+            return $this->redirect($returnUrl);
+        }
+        
+        // Define allowed fields and their validation
+        $allowedFields = [
+            'verification_status' => ['pending', 'approved', 'rejected'],
+            'is_published' => ['0', '1'],
+            'featured' => ['0', '1'],
+            'manufacturer' => 'string',
+            'price' => 'numeric',
+            'currency' => ['USD', 'EUR', 'GBP', 'CAD', 'AUD', 'JPY']
+        ];
+        
+        // Extract and validate update data
+        $updateData = [];
+        foreach ($allowedFields as $field => $validation) {
+            $value = $this->request->getData($field);
+            if ($value !== null && $value !== '') {
+                if (is_array($validation) && !in_array($value, $validation)) {
+                    $this->Flash->error(__('Invalid value for field {0}: {1}', $field, $value));
+                    return $this->redirect($returnUrl);
+                } elseif ($validation === 'numeric' && !is_numeric($value)) {
+                    $this->Flash->error(__('Invalid numeric value for field {0}: {1}', $field, $value));
+                    return $this->redirect($returnUrl);
+                } elseif ($validation === 'string' && empty(trim($value))) {
+                    continue; // Skip empty strings
+                }
+                
+                // Convert boolean-like fields
+                if (in_array($field, ['is_published', 'featured'])) {
+                    $updateData[$field] = (bool)$value;
+                } elseif ($field === 'price') {
+                    $updateData[$field] = (float)$value;
+                } else {
+                    $updateData[$field] = trim($value);
+                }
+            }
+        }
+        
+        if (empty($updateData)) {
+            $this->Flash->error(__('No valid updates provided.'));
+            return $this->redirect($returnUrl);
+        }
+        
+        try {
+            $updatedCount = $this->Products->updateAll($updateData, ['id IN' => $validIds]);
+            $this->clearContentCache();
+            $this->Flash->success(__('Successfully updated {0} product(s) with {1} field(s).', $updatedCount, count($updateData)));
+            $this->logBulkAction('bulk_update_fields', $validIds, [
+                'fields' => array_keys($updateData),
+                'updated_count' => $updatedCount
+            ]);
+        } catch (Exception $e) {
+            $this->log('Bulk update fields error: ' . $e->getMessage(), 'error');
+            $this->Flash->error(__('An error occurred while updating products. Please try again.'));
+        }
+        
+        return $this->redirect($returnUrl);
+    }
+    
+    /**
+     * Validate and filter product IDs
+     *
+     * @param array $ids Array of product IDs to validate
+     * @return array Array of valid UUIDs
+     */
+    private function validateProductIds(array $ids): array
+    {
+        $validIds = [];
+        foreach ($ids as $id) {
+            if (is_string($id) && !empty(trim($id)) && preg_match('/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i', $id)) {
+                $validIds[] = trim($id);
+            }
+        }
+        return array_unique($validIds);
+    }
+    
+    /**
+     * Log bulk actions for audit trail with checksum verification
+     *
+     * @param string $action Action name
+     * @param array $ids Array of product IDs
+     * @param array $payload Additional data
+     */
+    private function logBulkAction(string $action, array $ids, array $payload = []): void
+    {
+        $userId = $this->getRequest()->getAttribute('identity')?->id ?? 'anonymous';
+        $timestamp = date('c');
+        
+        $logData = [
+            'timestamp' => $timestamp,
+            'user_id' => $userId,
+            'action' => $action,
+            'ids' => array_values(array_unique(array_map('trim', $ids))),
+            'payload' => $payload,
+            'result' => $payload // For compatibility
+        ];
+        
+        // Sort IDs for consistent logging
+        sort($logData['ids']);
+        
+        $jsonString = json_encode($logData, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        $checksum = hash('sha256', $jsonString);
+        $logLine = "[sha256={$checksum}] {$jsonString}";
+        
+        $this->log($logLine, 'info', ['scope' => 'admin_actions']);
     }
 }

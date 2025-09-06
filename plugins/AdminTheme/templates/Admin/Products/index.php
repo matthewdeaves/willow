@@ -30,6 +30,221 @@ $this->Html->css('willow-admin', ['block' => true]);
     </div>
 </div>
 
+<style>
+.product-row.is-selected {
+    background-color: #e3f2fd !important;
+    border-left: 3px solid #2196f3;
+}
+
+.bulk-actions-bar {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    padding: 1rem;
+}
+
+.dependent-field:disabled {
+    opacity: 0.5;
+}
+
+.field-toggle:checked + label {
+    color: #0d6efd;
+    font-weight: 600;
+}
+</style>
+
+<script>
+// JavaScript for bulk actions and checkbox management
+let selectedProducts = new Set();
+
+function updateSelectedCount() {
+    document.getElementById('selected-count').textContent = selectedProducts.size;
+    document.getElementById('modal-selected-count').textContent = selectedProducts.size;
+    
+    // Enable/disable bulk action button
+    const applyButton = document.getElementById('apply-bulk-action');
+    const bulkSelect = document.getElementById('bulk-action-select');
+    applyButton.disabled = selectedProducts.size === 0 || !bulkSelect.value;
+}
+
+function toggleAllCheckboxes(source) {
+    const checkboxes = document.querySelectorAll('.product-checkbox');
+    checkboxes.forEach(function(checkbox) {
+        checkbox.checked = source.checked;
+        const row = checkbox.closest('.product-row');
+        const productId = row.dataset.productId;
+        
+        if (checkbox.checked) {
+            selectedProducts.add(productId);
+            row.classList.add('is-selected');
+        } else {
+            selectedProducts.delete(productId);
+            row.classList.remove('is-selected');
+        }
+    });
+    updateSelectedCount();
+}
+
+function handleProductCheckboxChange(checkbox) {
+    const row = checkbox.closest('.product-row');
+    const productId = row.dataset.productId;
+    
+    if (checkbox.checked) {
+        selectedProducts.add(productId);
+        row.classList.add('is-selected');
+    } else {
+        selectedProducts.delete(productId);
+        row.classList.remove('is-selected');
+    }
+    
+    // Update main select-all checkboxes
+    const allCheckboxes = document.querySelectorAll('.product-checkbox');
+    const checkedBoxes = document.querySelectorAll('.product-checkbox:checked');
+    const selectAllMain = document.getElementById('select-all');
+    const selectAllHeader = document.getElementById('select-all-header');
+    
+    if (checkedBoxes.length === allCheckboxes.length) {
+        selectAllMain.checked = true;
+        selectAllHeader.checked = true;
+        selectAllMain.indeterminate = false;
+        selectAllHeader.indeterminate = false;
+    } else if (checkedBoxes.length === 0) {
+        selectAllMain.checked = false;
+        selectAllHeader.checked = false;
+        selectAllMain.indeterminate = false;
+        selectAllHeader.indeterminate = false;
+    } else {
+        selectAllMain.indeterminate = true;
+        selectAllHeader.indeterminate = true;
+    }
+    
+    updateSelectedCount();
+}
+
+function confirmBulkAction(action, count) {
+    const actionMessages = {
+        'verify': 'queue verification for',
+        'approve': 'approve',
+        'reject': 'reject', 
+        'publish': 'publish',
+        'unpublish': 'unpublish',
+        'feature': 'feature',
+        'unfeature': 'unfeature',
+        'delete': 'permanently delete'
+    };
+    
+    const message = actionMessages[action] || action;
+    return confirm(`Are you sure you want to ${message} ${count} selected product(s)?`);
+}
+
+function updateMassEditSelectedIds() {
+    const container = document.getElementById('mass-edit-selected-ids');
+    container.innerHTML = '';
+    
+    selectedProducts.forEach(function(productId) {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'selected[]';
+        input.value = productId;
+        container.appendChild(input);
+    });
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle select-all checkboxes
+    const selectAllMain = document.getElementById('select-all');
+    const selectAllHeader = document.getElementById('select-all-header');
+    
+    if (selectAllMain) {
+        selectAllMain.addEventListener('change', function() {
+            toggleAllCheckboxes(this);
+            if (selectAllHeader) selectAllHeader.checked = this.checked;
+        });
+    }
+    
+    if (selectAllHeader) {
+        selectAllHeader.addEventListener('change', function() {
+            toggleAllCheckboxes(this);
+            if (selectAllMain) selectAllMain.checked = this.checked;
+        });
+    }
+    
+    // Handle individual product checkboxes
+    const productCheckboxes = document.querySelectorAll('.product-checkbox');
+    productCheckboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            handleProductCheckboxChange(this);
+        });
+    });
+    
+    // Handle bulk action button
+    const applyButton = document.getElementById('apply-bulk-action');
+    const bulkSelect = document.getElementById('bulk-action-select');
+    
+    if (applyButton) {
+        applyButton.addEventListener('click', function() {
+            const action = bulkSelect.value;
+            const count = selectedProducts.size;
+            
+            if (count === 0) {
+                alert('Please select at least one product.');
+                return;
+            }
+            
+            if (action === 'mass-edit') {
+                updateMassEditSelectedIds();
+                const modal = new bootstrap.Modal(document.getElementById('massEditModal'));
+                modal.show();
+                return;
+            }
+            
+            if (['delete', 'unpublish'].includes(action) && !confirmBulkAction(action, count)) {
+                return;
+            }
+            
+            // Create form and submit
+            const form = document.getElementById('bulk-actions-form');
+            const actionInput = document.createElement('input');
+            actionInput.type = 'hidden';
+            actionInput.name = 'bulk_action';
+            actionInput.value = action;
+            form.appendChild(actionInput);
+            
+            // Ensure all selected IDs are included
+            form.querySelectorAll('input[name="selected[]"]').forEach(input => {
+                input.checked = selectedProducts.has(input.value);
+            });
+            
+            form.submit();
+        });
+    }
+    
+    // Handle bulk select change to enable/disable apply button
+    if (bulkSelect) {
+        bulkSelect.addEventListener('change', function() {
+            updateSelectedCount();
+        });
+    }
+    
+    // Handle field toggles in mass edit modal
+    const fieldToggles = document.querySelectorAll('.field-toggle');
+    fieldToggles.forEach(function(toggle) {
+        toggle.addEventListener('change', function() {
+            const fieldName = this.dataset.field;
+            const dependentField = document.querySelector(`[data-depends="${this.id}"]`);
+            
+            if (dependentField) {
+                dependentField.disabled = !this.checked;
+                if (this.checked) {
+                    dependentField.focus();
+                }
+            }
+        });
+    });
+});
+</script>
+
 <!-- Filter and Search Bar -->
 <div class="row">
     <div class="col-md-12">
@@ -93,10 +308,63 @@ $this->Html->css('willow-admin', ['block' => true]);
         <div class="card">
             <div class="card-body">
                 <?php if (!empty($products)): ?>
+                    <!-- Bulk Actions Form -->
+                    <?= $this->Form->create(null, [
+                        'type' => 'post',
+                        'id' => 'bulk-actions-form',
+                        'url' => ['action' => 'bulkEdit']
+                    ]) ?>
+                    <?= $this->Form->hidden('returnUrl', ['value' => $this->request->getRequestTarget()]) ?>
+                    
+                    <!-- Bulk Actions Bar -->
+                    <div class="bulk-actions-bar mb-3">
+                        <div class="row align-items-center">
+                            <div class="col-md-3">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="select-all">
+                                    <label class="form-check-label" for="select-all">
+                                        <?= __('Select All') ?> (<span id="selected-count">0</span> <?= __('selected') ?>)
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <select name="bulk_action" class="form-control" id="bulk-action-select">
+                                        <option value=""><?= __('Bulk Actions...') ?></option>
+                                        <optgroup label="<?= __('Status') ?>">
+                                            <option value="verify"><?= __('Queue Verification') ?></option>
+                                            <option value="approve"><?= __('Approve Selected') ?></option>
+                                            <option value="reject"><?= __('Reject Selected') ?></option>
+                                        </optgroup>
+                                        <optgroup label="<?= __('Publishing') ?>">
+                                            <option value="publish"><?= __('Publish Selected') ?></option>
+                                            <option value="unpublish"><?= __('Unpublish Selected') ?></option>
+                                        </optgroup>
+                                        <optgroup label="<?= __('Featuring') ?>">
+                                            <option value="feature"><?= __('Feature Selected') ?></option>
+                                            <option value="unfeature"><?= __('Unfeature Selected') ?></option>
+                                        </optgroup>
+                                        <optgroup label="<?= __('Advanced') ?>">
+                                            <option value="mass-edit"><?= __('Mass Edit (Advanced)') ?></option>
+                                            <option value="delete"><?= __('Delete Selected') ?></option>
+                                        </optgroup>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <button type="button" id="apply-bulk-action" class="btn btn-primary" disabled>
+                                            <?= __('Apply') ?>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
+                                    <th width="30">
+                                        <input type="checkbox" id="select-all-header" class="form-check-input" onclick="toggleAllCheckboxes(this)">
+                                    </th>
                                     <th><?= $this->Paginator->sort('title', __('Title')) ?></th>
                                     <th><?= $this->Paginator->sort('manufacturer', __('Manufacturer')) ?></th>
                                     <th><?= $this->Paginator->sort('capability_name', __('Capability')) ?></th>
@@ -117,7 +385,15 @@ $this->Html->css('willow-admin', ['block' => true]);
                             </thead>
                             <tbody>
                                 <?php foreach ($products as $product): ?>
-                                <tr>
+                                <tr class="product-row" data-product-id="<?= h($product->id) ?>">
+                                    <!-- Selection checkbox -->
+                                    <td>
+                                        <?= $this->Form->checkbox('selected[]', [
+                                            'value' => $product->id,
+                                            'class' => 'product-checkbox form-check-input',
+                                            'aria-label' => __('Select product: {0}', $product->title)
+                                        ]) ?>
+                                    </td>
                                     <!-- Title with image and model -->
                                     <td>
                                         <div class="d-flex align-items-center">
@@ -327,6 +603,8 @@ $this->Html->css('willow-admin', ['block' => true]);
                             </tbody>
                         </table>
                     </div>
+                    
+                    <?= $this->Form->end() ?>
 
                     <!-- Pagination -->
                     <nav>
@@ -342,6 +620,169 @@ $this->Html->css('willow-admin', ['block' => true]);
                     <p class="text-muted">
                         <?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?>
                     </p>
+                    
+                    <!-- Mass Edit Modal -->
+                    <div class="modal fade" id="massEditModal" tabindex="-1" aria-labelledby="massEditModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <?= $this->Form->create(null, [
+                                    'type' => 'post',
+                                    'id' => 'mass-edit-form',
+                                    'url' => ['action' => 'bulkUpdateFields']
+                                ]) ?>
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="massEditModalLabel"><?= __('Mass Edit Products') ?></h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<?= __('Close') ?>"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="alert alert-info">
+                                        <?= __('Only enabled fields will be updated. Leave fields disabled to keep their current values.') ?>
+                                    </div>
+                                    
+                                    <!-- Selected products count -->
+                                    <div class="mb-3">
+                                        <strong><?= __('Selected Products:') ?> <span id="modal-selected-count">0</span></strong>
+                                    </div>
+                                    
+                                    <!-- Verification Status -->
+                                    <div class="mb-3">
+                                        <div class="form-check mb-2">
+                                            <input type="checkbox" class="form-check-input field-toggle" id="toggle-verification-status" data-field="verification_status">
+                                            <label class="form-check-label" for="toggle-verification-status">
+                                                <strong><?= __('Update Verification Status') ?></strong>
+                                            </label>
+                                        </div>
+                                        <?= $this->Form->control('verification_status', [
+                                            'type' => 'select',
+                                            'options' => [
+                                                'pending' => __('Pending'),
+                                                'approved' => __('Approved'),
+                                                'rejected' => __('Rejected')
+                                            ],
+                                            'class' => 'form-control dependent-field',
+                                            'data-depends' => 'toggle-verification-status',
+                                            'disabled' => true,
+                                            'label' => false
+                                        ]) ?>
+                                    </div>
+                                    
+                                    <!-- Publishing Status -->
+                                    <div class="mb-3">
+                                        <div class="form-check mb-2">
+                                            <input type="checkbox" class="form-check-input field-toggle" id="toggle-published" data-field="is_published">
+                                            <label class="form-check-label" for="toggle-published">
+                                                <strong><?= __('Update Published Status') ?></strong>
+                                            </label>
+                                        </div>
+                                        <?= $this->Form->control('is_published', [
+                                            'type' => 'select',
+                                            'options' => [
+                                                '1' => __('Published'),
+                                                '0' => __('Unpublished')
+                                            ],
+                                            'class' => 'form-control dependent-field',
+                                            'data-depends' => 'toggle-published',
+                                            'disabled' => true,
+                                            'label' => false
+                                        ]) ?>
+                                    </div>
+                                    
+                                    <!-- Featured Status -->
+                                    <div class="mb-3">
+                                        <div class="form-check mb-2">
+                                            <input type="checkbox" class="form-check-input field-toggle" id="toggle-featured" data-field="featured">
+                                            <label class="form-check-label" for="toggle-featured">
+                                                <strong><?= __('Update Featured Status') ?></strong>
+                                            </label>
+                                        </div>
+                                        <?= $this->Form->control('featured', [
+                                            'type' => 'select',
+                                            'options' => [
+                                                '1' => __('Featured'),
+                                                '0' => __('Not Featured')
+                                            ],
+                                            'class' => 'form-control dependent-field',
+                                            'data-depends' => 'toggle-featured',
+                                            'disabled' => true,
+                                            'label' => false
+                                        ]) ?>
+                                    </div>
+                                    
+                                    <!-- Manufacturer -->
+                                    <div class="mb-3">
+                                        <div class="form-check mb-2">
+                                            <input type="checkbox" class="form-check-input field-toggle" id="toggle-manufacturer" data-field="manufacturer">
+                                            <label class="form-check-label" for="toggle-manufacturer">
+                                                <strong><?= __('Update Manufacturer') ?></strong>
+                                            </label>
+                                        </div>
+                                        <?= $this->Form->control('manufacturer', [
+                                            'type' => 'text',
+                                            'class' => 'form-control dependent-field',
+                                            'data-depends' => 'toggle-manufacturer',
+                                            'disabled' => true,
+                                            'label' => false,
+                                            'placeholder' => __('Enter manufacturer name')
+                                        ]) ?>
+                                    </div>
+                                    
+                                    <!-- Price and Currency -->
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <div class="form-check mb-2">
+                                                <input type="checkbox" class="form-check-input field-toggle" id="toggle-price" data-field="price">
+                                                <label class="form-check-label" for="toggle-price">
+                                                    <strong><?= __('Update Price') ?></strong>
+                                                </label>
+                                            </div>
+                                            <?= $this->Form->control('price', [
+                                                'type' => 'number',
+                                                'class' => 'form-control dependent-field',
+                                                'data-depends' => 'toggle-price',
+                                                'disabled' => true,
+                                                'label' => false,
+                                                'placeholder' => '0.00',
+                                                'step' => '0.01',
+                                                'min' => '0'
+                                            ]) ?>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-check mb-2">
+                                                <input type="checkbox" class="form-check-input field-toggle" id="toggle-currency" data-field="currency">
+                                                <label class="form-check-label" for="toggle-currency">
+                                                    <strong><?= __('Update Currency') ?></strong>
+                                                </label>
+                                            </div>
+                                            <?= $this->Form->control('currency', [
+                                                'type' => 'select',
+                                                'options' => [
+                                                    'USD' => 'USD',
+                                                    'EUR' => 'EUR',
+                                                    'GBP' => 'GBP',
+                                                    'CAD' => 'CAD',
+                                                    'AUD' => 'AUD',
+                                                    'JPY' => 'JPY'
+                                                ],
+                                                'class' => 'form-control dependent-field',
+                                                'data-depends' => 'toggle-currency',
+                                                'disabled' => true,
+                                                'label' => false
+                                            ]) ?>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Hidden field for selected IDs -->
+                                    <div id="mass-edit-selected-ids"></div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?= __('Cancel') ?></button>
+                                    <button type="submit" class="btn btn-primary"><?= __('Update Selected Products') ?></button>
+                                </div>
+                                <?= $this->Form->end() ?>
+                            </div>
+                        </div>
+                    </div>
+                    
                 <?php else: ?>
                     <div class="text-center py-4">
                         <p><?= __('No products found.') ?></p>

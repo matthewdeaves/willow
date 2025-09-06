@@ -471,6 +471,28 @@ return function (RouteBuilder $routes): void {
             'controller' => 'Products',
             'action' => 'bulkReject'
         ]);
+        
+        // New bulk editing routes
+        $routes->connect('/products/bulk-edit', [
+            'controller' => 'Products',
+            'action' => 'bulkEdit'
+        ]);
+        $routes->connect('/products/bulk-toggle-published', [
+            'controller' => 'Products',
+            'action' => 'bulkTogglePublished'
+        ]);
+        $routes->connect('/products/bulk-toggle-featured', [
+            'controller' => 'Products',
+            'action' => 'bulkToggleFeatured'
+        ]);
+        $routes->connect('/products/bulk-delete', [
+            'controller' => 'Products',
+            'action' => 'bulkDelete'
+        ]);
+        $routes->connect('/products/bulk-update-fields', [
+            'controller' => 'Products',
+            'action' => 'bulkUpdateFields'
+        ]);
         $routes->connect('/products/forms', [
             'controller' => 'Products',
             'action' => 'forms'

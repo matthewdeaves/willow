@@ -439,6 +439,14 @@ return [
             'url' => env('LOG_QUERIES_URL', null),
             'scopes' => ['cake.database.queries'],
         ],
+        // Admin actions log for bulk operations with checksum verification
+        'admin_actions' => [
+            'className' => FileLog::class,
+            'path' => LOGS,
+            'file' => 'bulk_actions',
+            'levels' => ['info'],
+            'scopes' => ['admin_actions'],
+        ],
     ],
 
     /*

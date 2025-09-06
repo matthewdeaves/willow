@@ -70,6 +70,20 @@
         "breakpoint": false
     },
     {
+        "version": 20250712011843,
+        "migration_name": "AddProducts",
+        "start_time": "2025-09-06T14:45:07+01:00",
+        "end_time": "2025-09-06T14:45:07+01:00",
+        "breakpoint": false
+    },
+    {
+        "version": 20250716032020,
+        "migration_name": "CreateProducts",
+        "start_time": "2025-09-06T14:45:37+01:00",
+        "end_time": "2025-09-06T14:45:37+01:00",
+        "breakpoint": false
+    },
+    {
         "version": 20250804171748,
         "migration_name": "CreateSimplifiedProducts",
         "start_time": "2025-08-14T11:49:15+01:00",
@@ -126,10 +140,45 @@
         "breakpoint": false
     },
     {
+        "version": 20250831220317,
+        "migration_name": "AddPrototypeFieldsFromJunctionTablesToProducts",
+        "start_time": "2025-09-06T14:45:37+01:00",
+        "end_time": "2025-09-06T14:45:37+01:00",
+        "breakpoint": false
+    },
+    {
         "version": 20250901000000,
         "migration_name": "CreateProductsReliability",
         "start_time": "2025-08-31T21:10:09+01:00",
         "end_time": "2025-08-31T21:10:09+01:00",
+        "breakpoint": false
+    },
+    {
+        "version": 20250902235825,
+        "migration_name": "CreateProductFormFields",
+        "start_time": "2025-09-06T14:45:37+01:00",
+        "end_time": "2025-09-06T14:45:37+01:00",
+        "breakpoint": false
+    },
+    {
+        "version": 20250902235853,
+        "migration_name": "SeedDefaultProductFormFields",
+        "start_time": "2025-09-06T14:45:37+01:00",
+        "end_time": "2025-09-06T14:45:37+01:00",
+        "breakpoint": false
+    },
+    {
+        "version": 20250903000556,
+        "migration_name": "Status",
+        "start_time": "2025-09-06T14:45:37+01:00",
+        "end_time": "2025-09-06T14:45:37+01:00",
+        "breakpoint": false
+    },
+    {
+        "version": 20250906150252,
+        "migration_name": "AddFooterSettings",
+        "start_time": "2025-09-06T16:03:54+01:00",
+        "end_time": "2025-09-06T16:03:54+01:00",
         "breakpoint": false
     }
 ]

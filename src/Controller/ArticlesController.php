@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Event\EventInterface;
+
 /**
  * Articles Controller
  *
@@ -10,6 +12,21 @@ namespace App\Controller;
  */
 class ArticlesController extends AppController
 {
+    /**
+     * beforeFilter callback.
+     *
+     * Allow unauthenticated access to public articles
+     *
+     * @param \Cake\Event\EventInterface $event The event instance.
+     * @return void
+     */
+    public function beforeFilter(EventInterface $event): void
+    {
+        parent::beforeFilter($event);
+
+        // Allow unauthenticated access to index, view, and viewBySlug actions
+        $this->Authentication->addUnauthenticatedActions(['index', 'view', 'viewBySlug']);
+    }
     /**
      * Index method
      *
@@ -35,6 +52,8 @@ class ArticlesController extends AppController
     {
         $article = $this->Articles->get($id, contain: ['Users', 'Images', 'Tags', 'Comments', 'Slugs', 'ArticlesTranslations', 'PageViews']);
         $this->set(compact('article'));
+        // Use the article template for DefaultTheme
+        $this->render('article');
     }
 
     /**
@@ -128,8 +147,8 @@ class ArticlesController extends AppController
         }
         
         $this->set(compact('article'));
-        // Use the same view template as the regular view action
-        $this->render('view');
+        // Use the article template for DefaultTheme
+        $this->render('article');
     }
     
     /**

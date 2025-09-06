@@ -3,34 +3,32 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Products Model
+ * ProductsTags Model
  *
- * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
- * @property \App\Model\Table\ProductsTable&\Cake\ORM\Association\BelongsTo $ParentProducts
- * @property \App\Model\Table\ProductsTable&\Cake\ORM\Association\HasMany $ChildProducts
- * @property \App\Model\Table\TagsTable&\Cake\ORM\Association\BelongsToMany $Tags
- * @method \App\Model\Entity\Product newEmptyEntity()
- * @method \App\Model\Entity\Product newEntity(array $data, array $options = [])
- * @method array<\App\Model\Entity\Product> newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Product get(mixed $primaryKey, array|string $finder = 'all', \Psr\SimpleCache\CacheInterface|string|null $cache = null, \Closure|string|null $cacheKey = null, mixed ...$args)
- * @method \App\Model\Entity\Product findOrCreate($search, ?callable $callback = null, array $options = [])
- * @method \App\Model\Entity\Product patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method array<\App\Model\Entity\Product> patchEntities(iterable $entities, array $data, array $options = [])
- * @method \App\Model\Entity\Product|false save(\Cake\Datasource\EntityInterface $entity, array $options = [])
- * @method \App\Model\Entity\Product saveOrFail(\Cake\Datasource\EntityInterface $entity, array $options = [])
- * @method iterable<\App\Model\Entity\Product>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\Product>|false saveMany(iterable $entities, array $options = [])
- * @method iterable<\App\Model\Entity\Product>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\Product> saveManyOrFail(iterable $entities, array $options = [])
- * @method iterable<\App\Model\Entity\Product>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\Product>|false deleteMany(iterable $entities, array $options = [])
- * @method iterable<\App\Model\Entity\Product>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\Product> deleteManyOrFail(iterable $entities, array $options = [])
- * @mixin \Cake\ORM\Behavior\TimestampBehavior
- * @mixin \Cake\ORM\Behavior\TreeBehavior
+ * @property \App\Model\Table\ProductsTable&\Cake\ORM\Association\BelongsTo $Products
+ * @property \App\Model\Table\TagsTable&\Cake\ORM\Association\BelongsTo $Tags
+ *
+ * @method \App\Model\Entity\ProductsTag newEmptyEntity()
+ * @method \App\Model\Entity\ProductsTag newEntity(array $data, array $options = [])
+ * @method array<\App\Model\Entity\ProductsTag> newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\ProductsTag get(mixed $primaryKey, array|string $finder = 'all', \Psr\SimpleCache\CacheInterface|string|null $cache = null, \Closure|string|null $cacheKey = null, mixed ...$args)
+ * @method \App\Model\Entity\ProductsTag findOrCreate($search, ?callable $callback = null, array $options = [])
+ * @method \App\Model\Entity\ProductsTag patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method array<\App\Model\Entity\ProductsTag> patchEntities(iterable $entities, array $data, array $options = [])
+ * @method \App\Model\Entity\ProductsTag|false save(\Cake\Datasource\EntityInterface $entity, array $options = [])
+ * @method \App\Model\Entity\ProductsTag saveOrFail(\Cake\Datasource\EntityInterface $entity, array $options = [])
+ * @method iterable<\App\Model\Entity\ProductsTag>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\ProductsTag>|false saveMany(iterable $entities, array $options = [])
+ * @method iterable<\App\Model\Entity\ProductsTag>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\ProductsTag> saveManyOrFail(iterable $entities, array $options = [])
+ * @method iterable<\App\Model\Entity\ProductsTag>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\ProductsTag>|false deleteMany(iterable $entities, array $options = [])
+ * @method iterable<\App\Model\Entity\ProductsTag>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\ProductsTag> deleteManyOrFail(iterable $entities, array $options = [])
  */
-class ProductsTable extends Table
+class ProductsTagsTable extends Table
 {
     /**
      * Initialize method
@@ -42,170 +40,18 @@ class ProductsTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('products');
-        $this->setDisplayField('title');
-        $this->setPrimaryKey('id');
+        $this->setTable('products_tags');
+        $this->setDisplayField(['product_id', 'tag_id']);
+        $this->setPrimaryKey(['product_id', 'tag_id']);
 
-        $this->addBehavior('Timestamp');
-        $this->addBehavior('Tree');
-
-        $this->belongsTo('Users', [
-            'foreignKey' => 'user_id',
+        $this->belongsTo('Products', [
+            'foreignKey' => 'product_id',
             'joinType' => 'INNER',
         ]);
-        $this->belongsTo('ParentProducts', [
-            'className' => 'Products',
-            'foreignKey' => 'parent_id',
+        $this->belongsTo('Tags', [
+            'foreignKey' => 'tag_id',
+            'joinType' => 'INNER',
         ]);
-        $this->hasMany('ChildProducts', [
-            'className' => 'Products',
-            'foreignKey' => 'parent_id',
-        ]);
-        $this->belongsToMany('Tags', [
-            'foreignKey' => 'product_id',
-            'targetForeignKey' => 'tag_id',
-            'joinTable' => 'products_tags',
-        ]);
-    }
-
-    /**
-     * Default validation rules.
-     *
-     * @param \Cake\Validation\Validator $validator Validator instance.
-     * @return \Cake\Validation\Validator
-     */
-    public function validationDefault(Validator $validator): Validator
-    {
-        $validator
-            ->uuid('user_id')
-            ->notEmptyString('user_id');
-
-        $validator
-            ->scalar('kind')
-            ->maxLength('kind', 10)
-            ->notEmptyString('kind');
-
-        $validator
-            ->boolean('featured')
-            ->notEmptyString('featured');
-
-        $validator
-            ->scalar('title')
-            ->maxLength('title', 255)
-            ->requirePresence('title', 'create')
-            ->notEmptyString('title');
-
-        $validator
-            ->scalar('lede')
-            ->maxLength('lede', 400)
-            ->allowEmptyString('lede');
-
-        $validator
-            ->scalar('slug')
-            ->maxLength('slug', 191)
-            ->requirePresence('slug', 'create')
-            ->notEmptyString('slug');
-
-        $validator
-            ->scalar('body')
-            ->allowEmptyString('body');
-
-        $validator
-            ->scalar('markdown')
-            ->allowEmptyString('markdown');
-
-        $validator
-            ->scalar('summary')
-            ->allowEmptyString('summary');
-
-        $validator
-            ->scalar('image')
-            ->maxLength('image', 255)
-            ->allowEmptyFile('image');
-
-        $validator
-            ->scalar('alt_text')
-            ->maxLength('alt_text', 255)
-            ->allowEmptyString('alt_text');
-
-        $validator
-            ->scalar('keywords')
-            ->maxLength('keywords', 255)
-            ->allowEmptyString('keywords');
-
-        $validator
-            ->scalar('name')
-            ->maxLength('name', 255)
-            ->allowEmptyString('name');
-
-        $validator
-            ->scalar('dir')
-            ->maxLength('dir', 255)
-            ->allowEmptyString('dir');
-
-        $validator
-            ->integer('size')
-            ->allowEmptyString('size');
-
-        $validator
-            ->scalar('mime')
-            ->maxLength('mime', 255)
-            ->allowEmptyString('mime');
-
-        $validator
-            ->boolean('is_published')
-            ->allowEmptyString('is_published');
-
-        $validator
-            ->dateTime('published')
-            ->allowEmptyDateTime('published');
-
-        $validator
-            ->scalar('meta_title')
-            ->maxLength('meta_title', 400)
-            ->allowEmptyString('meta_title');
-
-        $validator
-            ->scalar('meta_description')
-            ->allowEmptyString('meta_description');
-
-        $validator
-            ->scalar('meta_keywords')
-            ->allowEmptyString('meta_keywords');
-
-        $validator
-            ->scalar('facebook_description')
-            ->allowEmptyString('facebook_description');
-
-        $validator
-            ->scalar('linkedin_description')
-            ->allowEmptyString('linkedin_description');
-
-        $validator
-            ->scalar('instagram_description')
-            ->allowEmptyString('instagram_description');
-
-        $validator
-            ->scalar('twitter_description')
-            ->allowEmptyString('twitter_description');
-
-        $validator
-            ->integer('word_count')
-            ->allowEmptyString('word_count');
-
-        $validator
-            ->uuid('parent_id')
-            ->allowEmptyString('parent_id');
-
-        $validator
-            ->boolean('main_menu')
-            ->notEmptyString('main_menu');
-
-        $validator
-            ->integer('view_count')
-            ->allowEmptyString('view_count');
-
-        return $validator;
     }
 
     /**
@@ -217,8 +63,8 @@ class ProductsTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
-        $rules->add($rules->existsIn(['parent_id'], 'ParentProducts'), ['errorField' => 'parent_id']);
+        $rules->add($rules->existsIn(['product_id'], 'Products'), ['errorField' => 'product_id']);
+        $rules->add($rules->existsIn(['tag_id'], 'Tags'), ['errorField' => 'tag_id']);
 
         return $rules;
     }

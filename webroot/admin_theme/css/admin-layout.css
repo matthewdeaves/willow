@@ -73,7 +73,7 @@ html, body {
   flex: 1;
   height: 100%;
   overflow-y: auto;
-  background-color: var(--bs-body-bg);
+  background-color: var(--admin-content-bg, var(--bs-body-bg));
   transition: margin-left 0.3s ease;
   min-width: 0; /* Allows flex item to shrink below content size */
 }
@@ -133,25 +133,25 @@ html, body {
 }
 
 .sidebar-link:hover {
-  background-color: var(--bs-primary-bg-subtle);
-  color: var(--bs-primary);
+  background-color: var(--admin-sidebar-hover-bg, var(--bs-primary-bg-subtle));
+  color: var(--admin-primary-bg, var(--bs-primary));
 }
 
 .sidebar-link.active {
-  background-color: var(--bs-primary) !important;
-  color: white !important;
+  background-color: var(--admin-sidebar-active-bg, var(--bs-primary)) !important;
+  color: var(--admin-sidebar-active-text, white) !important;
   border-radius: 0;
 }
 
 .sidebar-link.active:hover {
-  background-color: var(--bs-primary) !important;
-  color: white !important;
+  background-color: var(--admin-sidebar-active-bg, var(--bs-primary)) !important;
+  color: var(--admin-sidebar-active-text, white) !important;
 }
 
 /* Collapsed sidebar hover states - no animation */
 .admin-sidebar.collapsed .sidebar-link:hover {
-  background-color: var(--bs-primary-bg-subtle);
-  color: var(--bs-primary);
+  background-color: var(--admin-sidebar-hover-bg, var(--bs-primary-bg-subtle));
+  color: var(--admin-primary-bg, var(--bs-primary));
   border-radius: 6px;
   margin: 0 4px 0 4px;
   width: 52px;
@@ -161,8 +161,8 @@ html, body {
 }
 
 .admin-sidebar.collapsed .sidebar-link.active {
-  background-color: var(--bs-primary);
-  color: white;
+  background-color: var(--admin-sidebar-active-bg, var(--bs-primary));
+  color: var(--admin-sidebar-active-text, white);
   border-radius: 6px;
   margin: 0 4px 0 4px;
   width: 52px;

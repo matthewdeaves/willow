@@ -26,6 +26,8 @@ $session = $this->request->getSession();
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
   <?= $this->Html->css([
+    'AdminTheme.theme-colors',
+    'AdminTheme.enhanced-forms',
     'AdminTheme.base',
     'AdminTheme.theme',
     'AdminTheme.admin-layout',

@@ -24,7 +24,7 @@
     </a>
     
     <div class="article-meta mb-3">
-        <span class="date"><?= $article->published->format('F j, Y') ?></span> • 
+        <span class="date"><?= $article->published ? $article->published->format('F j, Y') : $article->created->format('F j, Y') ?></span> • 
         <span class="author"><?= h($article->user->username) ?></span>
     </div>
     

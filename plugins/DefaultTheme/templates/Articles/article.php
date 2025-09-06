@@ -10,7 +10,7 @@
     <header class="article-header mb-4">
         <h1 class="display-5 link-body-emphasis mb-3"><?= htmlspecialchars_decode($article->title) ?></h1>
         <div class="blog-post-meta">
-            <span class="date"><?= $article->published->format('F j, Y') ?></span>
+            <span class="date"><?= ($article->published ?? $article->created)->format('F j, Y') ?></span>
             <span class="author">by <?= h($article->user->username) ?></span>
         </div>
     </header>

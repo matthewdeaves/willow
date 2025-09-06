@@ -19,8 +19,8 @@ class ProductsTagsFixture extends TestFixture
     {
         $this->records = [
             [
-                'product_id' => 'ee79d587-10c6-4a3f-b9d5-a43db4fa4107',
-                'tag_id' => '74ac18bd-38aa-457a-9af4-b1d38aeaeff3',
+                'product_id' => 'e297cd37-1b18-40ae-976b-583300daa161',
+                'tag_id' => '93264b97-98cb-486d-9cf3-581a829fbf75',
             ],
         ];
         parent::init();

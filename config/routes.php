@@ -276,6 +276,20 @@ return function (RouteBuilder $routes): void {
         );
 
         $builder->connect('/articles/add-comment/*', ['controller' => 'Articles', 'action' => 'addComment'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+        
+        // Articles index route
+        $builder->connect(
+            '/articles',
+            [
+                'controller' => 'Articles',
+                'action' => 'index'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'articles-index',
+            ]
+        );
+        
         $builder->connect(
             '/tags',
             ['controller' => 'Tags', 'action' => 'index'],

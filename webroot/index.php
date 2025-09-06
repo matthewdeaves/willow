@@ -19,8 +19,8 @@ require dirname(__DIR__) . '/vendor/autoload.php';
 // Load path constants
 require dirname(__DIR__) . '/config/paths.php';
 
-// Load bootstrapping
-require CORE_PATH . 'config' . DS . 'bootstrap.php';
+// Note: Core bootstrap is loaded by Application::bootstrap() via parent::bootstrap()
+// Removed: require CORE_PATH . 'config' . DS . 'bootstrap.php';
 
 use Cake\Http\Server;
 

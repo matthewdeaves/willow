@@ -242,7 +242,7 @@ class SitemapController extends AppController
      * @param string $language The language code
      * @return \Cake\I18n\FrozenTime The last modification date
      */
-    protected function getLastModifiedDateForLanguage(string $language): DateTime
+    protected function getLastModifiedDateForLanguage(string $language): FrozenTime
     {
         $articlesTable = $this->fetchTable('Articles');
 
@@ -269,7 +269,7 @@ class SitemapController extends AppController
         }
 
         // Return the most recent date, or current date if no content
-        return !empty($dates) ? max($dates) : new DateTime();
+        return !empty($dates) ? max($dates) : new FrozenTime();
     }
 
     /**
@@ -277,7 +277,7 @@ class SitemapController extends AppController
      *
      * @return \Cake\I18n\FrozenTime The last modification date
      */
-    protected function getOverallLastModifiedDate(): DateTime
+    protected function getOverallLastModifiedDate(): FrozenTime
     {
         // For now, just use the same logic as single language
         // In the future, this could check translations table

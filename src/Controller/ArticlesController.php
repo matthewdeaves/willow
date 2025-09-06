@@ -104,4 +104,73 @@ class ArticlesController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    
+    /**
+     * View by slug method
+     *
+     * @param string|null $slug Article slug.
+     * @return \Cake\Http\Response|null|void Renders view
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function viewBySlug($slug = null)
+    {
+        if (!$slug) {
+            throw new \Cake\Http\Exception\NotFoundException(__('Article not found.'));
+        }
+        
+        $article = $this->Articles->find()
+            ->contain(['Users', 'Images', 'Tags', 'Comments', 'Slugs', 'ArticlesTranslations', 'PageViews'])
+            ->where(['Articles.slug' => $slug])
+            ->first();
+            
+        if (!$article) {
+            throw new \Cake\Http\Exception\NotFoundException(__('Article not found.'));
+        }
+        
+        $this->set(compact('article'));
+        // Use the same view template as the regular view action
+        $this->render('view');
+    }
+    
+    /**
+     * Add comment method
+     *
+     * @return \Cake\Http\Response|null|void Redirects after posting comment
+     */
+    public function addComment()
+    {
+        $this->request->allowMethod(['post']);
+        
+        $articleId = $this->request->getData('article_id');
+        if (!$articleId) {
+            $this->Flash->error(__('Invalid article specified.'));
+            return $this->redirect(['action' => 'index']);
+        }
+        
+        // Check if article exists
+        $article = $this->Articles->find()->where(['id' => $articleId])->first();
+        if (!$article) {
+            $this->Flash->error(__('Article not found.'));
+            return $this->redirect(['action' => 'index']);
+        }
+        
+        // Load Comments model and create comment
+        $this->loadModel('Comments');
+        $comment = $this->Comments->newEmptyEntity();
+        $comment = $this->Comments->patchEntity($comment, $this->request->getData());
+        $comment->article_id = $articleId;
+        
+        if ($this->Comments->save($comment)) {
+            $this->Flash->success(__('Your comment has been posted.'));
+        } else {
+            $this->Flash->error(__('Unable to post your comment. Please, try again.'));
+        }
+        
+        // Redirect back to the article
+        if ($article->slug) {
+            return $this->redirect(['action' => 'viewBySlug', $article->slug]);
+        } else {
+            return $this->redirect(['action' => 'view', $articleId]);
+        }
+    }
 }

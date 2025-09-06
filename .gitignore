@@ -775,3 +775,4 @@ default_data/tags_translations.json
 default_data/tags.json
 default_data/users.json
 config/Migrations/migrations.sha256
+WARP.md

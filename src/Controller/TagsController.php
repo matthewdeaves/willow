@@ -102,4 +102,31 @@ class TagsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    
+    /**
+     * View by slug method
+     *
+     * @param string|null $slug Tag slug.
+     * @return \Cake\Http\Response|null|void Renders view
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function viewBySlug($slug = null)
+    {
+        if (!$slug) {
+            throw new \Cake\Http\Exception\NotFoundException(__('Tag not found.'));
+        }
+        
+        $tag = $this->Tags->find()
+            ->contain(['ParentTag', 'Articles', 'Slugs', 'TagsTranslations'])
+            ->where(['Tags.slug' => $slug])
+            ->first();
+            
+        if (!$tag) {
+            throw new \Cake\Http\Exception\NotFoundException(__('Tag not found.'));
+        }
+        
+        $this->set(compact('tag'));
+        // Use the same view template as the regular view action
+        $this->render('view');
+    }
 }

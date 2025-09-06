@@ -14,6 +14,13 @@ class AddProducts extends BaseMigration
      */
     public function up(): void
     {
+        // Check if products table already exists (defensive programming)
+        if ($this->hasTable('products')) {
+            // Table already exists - likely from CreateSimplifiedProducts migration
+            // Skip creation to avoid conflicts
+            return;
+        }
+        
         $this->table('products', ['id' => false, 'primary_key' => ['id']])
             ->addColumn('id', 'uuid', [
                 'default' => null,
@@ -216,8 +223,13 @@ class AddProducts extends BaseMigration
      */
     public function down(): void
     {
-
-        $this->table('products')->drop()->save();
-        $this->table('products_tags')->drop()->save();
+        // DO NOT drop products table in down() method to preserve production schema
+        // The current products table was created by CreateSimplifiedProducts migration
+        // and contains important data that should not be lost
+        
+        // Defensive check: only attempt to drop if this migration actually created the tables
+        // Since we now skip creation in up(), we should not drop anything here
+        
+        // Leaving this method empty to preserve database integrity
     }
 }

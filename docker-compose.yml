@@ -51,7 +51,7 @@ services:
       - TRANSLATE_API_KEY=
       - QUEUE_DEFAULT_URL=redis://root:root@127.0.0.1:6379/0
       - QUEUE_TEST_URL=redis://root:root@127.0.0.1:6379/0
-      - EXPERIMENTAL_TESTS=Off
+      - EXPERIMENTAL_TESTS=On
       - WILLOW_ADMIN_USERNAME=admin
       - WILLOW_ADMIN_PASSWORD=password
       - WILLOW_ADMIN_EMAIL=admin@test.com

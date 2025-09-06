@@ -47,6 +47,10 @@ execute_command() {
             # Docker management commands
             execute_docker_command "$cmd_choice"
             ;;
+        20|21|22|23|24)
+            # Log management commands
+            execute_log_command "$cmd_choice"
+            ;;
         0)
             execute_system_command "0"
             ;;
@@ -86,7 +90,7 @@ main() {
     while true; do
         show_header
         show_menu
-        read -r -p "Enter your choice [0-19]: " choice_input
+        read -r -p "Enter your choice [0-24]: " choice_input
 
         if [ -z "$choice_input" ]; then # Handle empty input
             echo "Error: No input. Please enter a number."
@@ -104,8 +108,8 @@ main() {
         local choice_num
         choice_num=$((choice_input))
 
-        if [ "$choice_num" -lt 0 ] || [ "$choice_num" -gt 19 ]; then
-            echo "Error: Please enter a number between 0 and 19."
+        if [ "$choice_num" -lt 0 ] || [ "$choice_num" -gt 24 ]; then
+            echo "Error: Please enter a number between 0 and 24."
             pause
             continue
         fi

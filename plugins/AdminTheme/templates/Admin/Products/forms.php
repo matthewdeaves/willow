@@ -509,10 +509,17 @@ echo $this->element('AdminTheme.nav/products_tabs');
                     </div>
 
                     <div class="d-flex justify-content-between align-items-center">
-                        <button type="button" class="btn btn-outline-success" id="previewQuizBtn">
-                            <i class="fas fa-eye me-2"></i>
-                            <?= __('Preview Quiz') ?>
-                        </button>
+                        <?= $this->Html->link(
+                            '<i class="fas fa-eye me-2"></i>' . __('Preview Quiz'),
+                            ['controller' => 'Quiz', 'action' => 'preview', 'prefix' => false],
+                            [
+                                'class' => 'btn btn-outline-success',
+                                'id' => 'previewQuizBtn',
+                                'target' => '_blank',
+                                'escape' => false,
+                                'title' => __('Open quiz preview in new tab')
+                            ]
+                        ) ?>
                         <div>
                             <button type="button" class="btn btn-outline-secondary me-2" id="resetQuizBtn">
                                 <i class="fas fa-undo me-1"></i>

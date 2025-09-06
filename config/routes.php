@@ -212,6 +212,31 @@ return function (RouteBuilder $routes): void {
             ]
         );
         
+        // Quiz routes - Proper quiz functionality
+        $builder->connect(
+            '/quiz',
+            [
+                'controller' => 'Quiz',
+                'action' => 'take'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'quiz-take',
+            ]
+        );
+        
+        $builder->connect(
+            '/quiz/preview',
+            [
+                'controller' => 'Quiz',
+                'action' => 'preview'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'quiz-preview',
+            ]
+        );
+        
         // Products routes
         $builder->connect(
             '/products',
@@ -225,15 +250,16 @@ return function (RouteBuilder $routes): void {
             ]
         );
         
+        // Legacy redirect: /products/quiz -> /quiz
         $builder->connect(
             '/products/quiz',
             [
-                'controller' => 'Products',
-                'action' => 'quiz'
+                'controller' => 'Quiz',
+                'action' => 'take'
             ],
             [
                 'routeClass' => 'ADmad/I18n.I18nRoute',
-                '_name' => 'products-quiz',
+                '_name' => 'products-quiz-legacy',
             ]
         );
         

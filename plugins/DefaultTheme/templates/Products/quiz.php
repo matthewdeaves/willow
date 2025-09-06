@@ -177,7 +177,7 @@ $this->Html->meta('description', __('Find the perfect adapter for your needs wit
                                 ) ?>
                                 <?= $this->Html->link(
                                     __('Contact Support'),
-                                    ['controller' => 'Pages', 'action' => 'contact'],
+                                    ['controller' => 'Articles', 'action' => 'index'],
                                     ['class' => 'btn btn-outline-secondary btn-sm']
                                 ) ?>
                             </div>

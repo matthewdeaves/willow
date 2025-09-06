@@ -33,6 +33,13 @@ show_menu() {
     echo "  11) Restore Files from Backup"
     echo "  12) Clear Files Backups"
     echo
+    echo "Log Management (WillowCMS):"
+    echo "  20) Generate Log Checksums"
+    echo "  21) Verify Log Checksums"
+    echo "  22) Log Integrity Report"
+    echo "  23) Backup Logs with Verification"
+    echo "  24) Clear Log Checksums"
+    echo
     echo "System:"
     echo "  13) Clear Cache (WillowCMS)"
     echo "  14) Interactive shell on Willow CMS container"

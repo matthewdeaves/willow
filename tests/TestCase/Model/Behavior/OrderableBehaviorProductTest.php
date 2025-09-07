@@ -8,7 +8,7 @@ use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 use TypeError;
 
-class OrderableBehaviorTest extends TestCase
+class OrderableBehaviorProductTest extends TestCase
 {
     /**
      * Test fixtures

@@ -13,10 +13,10 @@ class ContactsControllerTest extends TestCase
     /**
      * Fixtures
      *
-     * @var array
+     * @var array<string>
      */
-    public $fixtures = [
-        'Contacts' => 'plugin.contact_manager.contacts'
+    protected array $fixtures = [
+        'plugin.ContactManager.Contacts'
     ];
 
     /**

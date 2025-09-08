@@ -202,7 +202,7 @@ class ProductsTable extends Table
      */
     public function getRelatedProducts(string $productId, int $limit = 5): array
     {
-        $product = $this->get($productId, ['contain' => ['Tags']]);
+        $product = $this->get($productId, contain: ['Tags']);
 
         if (empty($product->tags)) {
             return [];
@@ -227,10 +227,11 @@ class ProductsTable extends Table
      */
     public function incrementViewCount(string $productId): bool
     {
+        // updateAll returns the number of affected rows (int). Cast to bool for signature.
         return $this->updateAll(
             ['view_count = view_count + 1'],
             ['id' => $productId],
-        );
+        ) > 0;
     }
 
     /**

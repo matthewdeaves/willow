@@ -19,22 +19,32 @@ class RateLimitServiceTest extends TestCase
     {
         parent::setUp();
         
-        // Configure array cache for testing if not already configured
+        // Configure array cache for testing
         if (!Cache::configured('default')) {
             Cache::setConfig('default', ['className' => 'Array']);
+        }
+        if (!Cache::configured('rate_limit')) {
+            Cache::setConfig('rate_limit', ['className' => 'Array']);
         }
         
         // Clear any existing cache data
         Cache::clear('default');
+        Cache::clear('rate_limit');
         
         // Reset settings stub
         \App\TestSuite\Stub\SettingsManagerStub::reset();
+        
+        // Ensure clean rate limit usage for services used in tests
+        $svc = new RateLimitService(\App\TestSuite\Stub\SettingsManagerStub::class);
+        $svc->resetUsage('testsvc');
+        $svc->resetUsage('testsvc2');
     }
 
     protected function tearDown(): void
     {
         // Clear cache data but don't drop the config
         Cache::clear('default');
+        Cache::clear('rate_limit');
         
         parent::tearDown();
     }

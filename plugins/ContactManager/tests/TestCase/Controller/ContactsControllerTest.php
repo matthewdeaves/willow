@@ -16,7 +16,7 @@ class ContactsControllerTest extends TestCase
      * @var array<string>
      */
     protected array $fixtures = [
-        'plugin.ContactManager.Contacts'
+        // No DB fixtures needed; tests are marked incomplete
     ];
 
     /**

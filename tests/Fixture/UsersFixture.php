@@ -38,21 +38,24 @@ class UsersFixture extends TestFixture
     {
         $this->records = [
             [
-                'id' => '2d3bf4a6-a2dc-47a4-b817-dd7af2ed485d',
+                'id' => '6509480c-e7e6-4e65-9c38-1423a8d09d0f', // Admin user expected by tests
+                'email' => 'admin@test.com',
+                'username' => 'admin',
+                'password' => '$2y$10$abcdefghijklmnopqrstuv', // dummy hash
                 'is_admin' => 1,
-                'email' => 'Lorem ipsum dolor sit amet',
-                'password' => 'Lorem ipsum dolor sit amet',
-                'image' => '',
-                'alt_text' => 'Lorem ipsum dolor sit amet',
-                'keywords' => 'Lorem ipsum dolor sit amet',
-                'name' => 'Lorem ipsum dolor sit amet',
-                'dir' => 'Lorem ipsum dolor sit amet',
-                'size' => 1,
-                'mime' => 'Lorem ipsum dolor sit amet',
+                'active' => 1,
                 'created' => '2025-07-12 21:49:10',
                 'modified' => '2025-07-12 21:49:10',
-                'username' => 'Lorem ipsum dolor sit amet',
+            ],
+            [
+                'id' => '6509480c-e7e6-4e65-9c38-1423a8d09d02', // Non-admin user expected by tests
+                'email' => 'user@test.com',
+                'username' => 'user',
+                'password' => '$2y$10$abcdefghijklmnopqrstuv', // dummy hash
+                'is_admin' => 0,
                 'active' => 1,
+                'created' => '2025-07-12 21:49:10',
+                'modified' => '2025-07-12 21:49:10',
             ],
         ];
         parent::init();

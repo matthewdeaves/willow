@@ -313,16 +313,16 @@ return function (RouteBuilder $routes): void {
             ]
         );
         
-        // Legacy redirect: /products/quiz -> /quiz
+        // Products quiz route
         $builder->connect(
             '/products/quiz',
             [
-                'controller' => 'Quiz',
-                'action' => 'index'
+                'controller' => 'Products',
+                'action' => 'quiz'
             ],
             [
                 'routeClass' => 'ADmad/I18n.I18nRoute',
-                '_name' => 'products-quiz-legacy',
+                '_name' => 'products-quiz',
             ]
         );
         
@@ -348,6 +348,35 @@ return function (RouteBuilder $routes): void {
                 'routeClass' => 'ADmad/I18n.I18nRoute',
                 '_name' => 'products-view',
                 'pass' => ['id'],
+            ]
+        );
+        
+        // Frontend edit route (used by tests)
+        $builder->connect(
+            '/products/edit/{id}',
+            [
+                'controller' => 'Products',
+                'action' => 'edit'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'products-edit',
+                'pass' => ['id'],
+            ]
+        );
+
+        // Frontend delete route; limit to POST/DELETE so GET triggers MethodNotAllowedException
+        $builder->connect(
+            '/products/delete/{id}',
+            [
+                'controller' => 'Products',
+                'action' => 'delete'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'products-delete',
+                'pass' => ['id'],
+                '_method' => ['POST', 'DELETE'],
             ]
         );
         

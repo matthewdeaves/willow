@@ -20,10 +20,17 @@ class SlugsFixture extends TestFixture
         $this->records = [
             [
                 'id' => 'fd992ca9-870e-4f83-a1cf-40f02e956946',
-                'model' => 'Lorem ipsum dolor ',
-                'foreign_key' => '7cc57fbc-8759-49d6-9f8b-4b36e20b6a91',
-                'slug' => 'Lorem ipsum dolor sit amet',
-                'created' => 1752353347,
+                'model' => 'Articles',
+                'foreign_key' => '263a5364-a1bc-401c-9e44-49c23d066a0f',
+                'slug' => 'article-one',
+                'created' => '2025-07-12 21:48:35',
+            ],
+            [
+                'id' => 'aa992ca9-870e-4f83-a1cf-40f02e956999',
+                'model' => 'Tags',
+                'foreign_key' => '00000000-0000-0000-0000-000000000001',
+                'slug' => 'test-tag',
+                'created' => '2025-07-12 21:48:36',
             ],
         ];
         parent::init();

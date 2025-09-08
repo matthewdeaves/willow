@@ -180,13 +180,13 @@ class OrderableBehaviorProductTest extends TestCase
         // Test getting only products
         $productTree = $this->Table->getTree(
             ['kind' => 'product'],
-            ['title', 'published'],
+            ['title', 'is_published'],
         );
 
         $this->assertIsArray($productTree);
 
-        // All products should be at root level
-        $this->assertCount(6, $productTree);
+        // All products should be at root level (3 products in fixture)
+        $this->assertCount(3, $productTree);
         $this->assertTrue(array_reduce($productTree, fn($carry, $item) => $carry && $item->parent_id === null, true));
     }
 

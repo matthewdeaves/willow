@@ -19,9 +19,9 @@ class ImageGalleriesFixture extends TestFixture
     {
         $this->records = [
             [
-                'id' => '529c5e05-1b3a-4ae7-b285-163112350e23',
+                'id' => '32cf930e-1456-4cf9-ab9e-a7db7250b1ea',
                 'name' => 'Lorem ipsum dolor sit amet',
-                'slug' => 'Lorem ipsum dolor sit amet',
+                'slug' => 'lorem-ipsum-dolor-sit-amet',
                 'description' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
                 'preview_image' => 'Lorem ipsum dolor sit amet',
                 'is_published' => 1,

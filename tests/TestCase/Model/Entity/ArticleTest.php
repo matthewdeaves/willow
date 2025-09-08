@@ -49,14 +49,14 @@ class ArticleTest extends TestCase
 
         // Test moving a page to a new parent
         $data = [
-            'id' => '5119fb0c-ff60-4c16-9e25-aba3d32d5d5c', // Page Five
+            'id' => 'e98aaafa-415a-4911-8ff2-25f76b326ea4', // Page Six
             'newParentId' => '630fe0f3-7d68-472f-a1b1-c73ed3fe0c8e', // Page One
             'newIndex' => 0,
         ];
         $result = $this->Articles->reorder($data);
         $this->assertTrue($result, 'Failed to move page to a new parent');
 
-        $reorderedArticle = $this->Articles->get('5119fb0c-ff60-4c16-9e25-aba3d32d5d5c');
+        $reorderedArticle = $this->Articles->get('e98aaafa-415a-4911-8ff2-25f76b326ea4');
         $this->assertEquals('630fe0f3-7d68-472f-a1b1-c73ed3fe0c8e', $reorderedArticle->parent_id, 'Parent ID should match the new parent');
         $siblings = $this->Articles->find('children', for: $reorderedArticle->parent_id, direct: true)->toArray();
         $this->assertEquals(0, array_search($reorderedArticle->id, array_column($siblings, 'id')), 'Reordered page should be the first child');

@@ -112,9 +112,7 @@ class ProductsController extends AppController
      */
     public function view(?string $id = null): ?Response
     {
-        $product = $this->Products->get($id, [
-            'contain' => ['Users', 'Articles', 'Tags'],
-        ]);
+        $product = $this->Products->get($id, contain: ['Users', 'Articles', 'Tags']);
 
         // Only show published products to public
         if (!$product->is_published) {
@@ -123,7 +121,6 @@ class ProductsController extends AppController
 
         // Increment view count
         $this->Products->incrementViewCount($id);
-
         // Get related products
         $relatedProducts = $this->Products->getRelatedProducts($id, 4);
 
@@ -205,6 +202,63 @@ class ProductsController extends AppController
         $this->set(compact('config', 'quizQuestions'));
 
         return null;
+    }
+
+    /**
+     * Edit method - Admin-style edit for products in frontend scope
+     *
+     * @param string|null $id Product id.
+     * @return \Cake\Http\Response|null Renders view or redirects
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function edit(?string $id = null): ?Response
+    {
+        $product = $this->Products->get($id, contain: ['Users', 'Articles', 'Tags']);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $data = $this->request->getData();
+            $product = $this->Products->patchEntity($product, $data, [
+                'associated' => ['Tags'],
+            ]);
+
+            if ($this->Products->save($product)) {
+                $this->Flash->success(__('The product has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+
+            $this->Flash->error(__('The product could not be saved. Please, try again.'));
+        }
+
+        // Prepare lists for form selects
+        $users = $this->Products->Users->find('list')->toArray();
+        $articles = $this->Products->Articles->find('list')->toArray();
+        $tags = $this->Products->Tags->find('list')->toArray();
+
+        $this->set(compact('product', 'users', 'articles', 'tags'));
+
+        return null;
+    }
+
+    /**
+     * Delete method - Remove a product (POST/DELETE only)
+     *
+     * @param string|null $id Product id.
+     * @return \Cake\Http\Response|null Redirects to index
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function delete(?string $id = null): ?Response
+    {
+        $this->request->allowMethod(['post', 'delete']);
+
+        $product = $this->Products->get($id);
+        if ($this->Products->delete($product)) {
+            $this->Flash->success(__('The product has been deleted.'));
+        } else {
+            $this->Flash->error(__('The product could not be deleted. Please, try again.'));
+        }
+
+        return $this->redirect(['action' => 'index']);
     }
 
     /**

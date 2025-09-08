@@ -60,9 +60,10 @@ class ArticleEntityTest extends TestCase
 
         $article = new Article($data);
 
-        // ID should not be mass assignable (it's not in _accessible)
-        $this->assertNotEquals('should-not-be-set', $article->id);
-        $this->assertNull($article->id);
+        // When using the constructor directly, CakePHP sets all fields
+        // The $_accessible array is only enforced when using Table::newEntity() or patchEntity()
+        // So we test that the field is marked as not accessible
+        $this->assertFalse($article->isAccessible('id'), 'ID field should be marked as not accessible');
         
         // But allowed fields should be set
         $this->assertEquals('Test Article', $article->title);
@@ -121,11 +122,18 @@ class ArticleEntityTest extends TestCase
             // No meta_title or meta_description set
         ]);
 
-        // Should fallback to title for meta title
-        $this->assertEquals('Main Title', $article->getEffectiveMetaTitle());
+        // Check that the entity has the expected title and lede
+        $this->assertEquals('Main Title', $article->title);
+        $this->assertEquals('Main lede content', $article->lede);
+        
+        // Should fallback to title for meta title when meta_title is empty
+        $this->assertNull($article->meta_title, 'meta_title should be null initially');
+        $effectiveTitle = $article->getEffectiveMetaTitle();
+        $this->assertEquals('Main Title', $effectiveTitle, 'Should fallback to title when meta_title is empty');
 
-        // Should fallback to lede for meta description
-        $this->assertEquals('Main lede content', $article->getEffectiveMetaDescription());
+        // Should fallback to lede for meta description  
+        $effectiveDesc = $article->getEffectiveMetaDescription();
+        $this->assertEquals('Main lede content', $effectiveDesc);
 
         // Should not have SEO content when only fallbacks exist
         $this->assertFalse($article->hasSeoContent());

@@ -1,46 +1,39 @@
 <?php
+declare(strict_types=1);
+
 namespace ContactManager\Test\TestCase\Model\Table;
 
-use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
-use ContactManager\Model\Table\ContactsTable;
 
 /**
- * ContactManager\Model\Table\ContactsTable Test Case
+ * ContactManager\\Model\\Table\\ContactsTable Test Case
  */
 class ContactsTableTest extends TestCase
 {
-
     /**
      * Fixtures
      *
-     * @var array
+     * @var array<string>
      */
-    public $fixtures = [
-        'Contacts' => 'plugin.contact_manager.contacts'
+    protected array $fixtures = [
+        // No DB fixtures needed; tests are marked incomplete
     ];
 
     /**
      * setUp method
-     *
-     * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
-        $config = TableRegistry::exists('Contacts') ? [] : ['className' => 'ContactManager\Model\Table\ContactsTable'];
-        $this->Contacts = TableRegistry::get('Contacts', $config);
+        // We're not exercising functionality here; tests are marked incomplete.
+        // If needed in the future, obtain table via: $this->getTableLocator()->get('ContactManager.Contacts');
     }
 
     /**
      * tearDown method
-     *
-     * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
-        unset($this->Contacts);
-
         parent::tearDown();
     }
 

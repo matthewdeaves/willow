@@ -1,22 +1,21 @@
 <?php
+declare(strict_types=1);
+
 namespace ContactManager\Test\Fixture;
 
 use Cake\TestSuite\Fixture\TestFixture;
 
 /**
  * ContactsFixture
- *
  */
 class ContactsFixture extends TestFixture
 {
-
     /**
      * Fields
      *
      * @var array
      */
-    // @codingStandardsIgnoreStart
-    public $fields = [
+    public array $fields = [
         'id' => ['type' => 'integer', 'length' => 10, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
         'first_name' => ['type' => 'string', 'length' => 50, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
         'last_name' => ['type' => 'string', 'length' => 50, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
@@ -31,17 +30,17 @@ class ContactsFixture extends TestFixture
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
         ],
         '_options' => [
-'engine' => 'InnoDB', 'collation' => 'latin1_swedish_ci'
+            'engine' => 'InnoDB',
+            'collation' => 'latin1_swedish_ci',
         ],
     ];
-    // @codingStandardsIgnoreEnd
 
     /**
      * Records
      *
      * @var array
      */
-    public $records = [
+    public array $records = [
         [
             'id' => 1,
             'first_name' => 'Lorem ipsum dolor sit amet',

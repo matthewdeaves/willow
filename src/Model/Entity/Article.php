@@ -58,6 +58,7 @@ class Article extends Entity
      * @var array<string, bool>
      */
     protected array $_accessible = [
+        'id' => false,
         'user_id' => true,
         'title' => true,
         'lede' => true,

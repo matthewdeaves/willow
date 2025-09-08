@@ -96,12 +96,12 @@ trait SeoEntityTrait
         }
 
         // Fall back to entity title if available
-        if (property_exists($this, 'title') && !empty($this->title)) {
+        if (isset($this->title) && !empty($this->title)) {
             return $this->title;
         }
 
         // Fall back to entity name if available (for galleries)
-        if (property_exists($this, 'name') && !empty($this->name)) {
+        if (isset($this->name) && !empty($this->name)) {
             return $this->name;
         }
 
@@ -120,12 +120,12 @@ trait SeoEntityTrait
         }
 
         // Fall back to entity description if available
-        if (property_exists($this, 'description') && !empty($this->description)) {
+        if (isset($this->description) && !empty($this->description)) {
             return $this->description;
         }
 
         // Fall back to entity lede if available (for articles)
-        if (property_exists($this, 'lede') && !empty($this->lede)) {
+        if (isset($this->lede) && !empty($this->lede)) {
             return $this->lede;
         }
 

@@ -190,7 +190,7 @@ class IpSecurityService
                 // Determine cache TTL based on block's expiration
                 $cacheDuration = '1 day'; // Default for permanent blocks
                 if ($blockedIp->expires_at) {
-                    $now = new DateTime();
+                    $now = new \DateTimeImmutable();
                     $diffInSeconds = $blockedIp->expires_at->getTimestamp() - $now->getTimestamp();
                     if ($diffInSeconds > 0) {
                         // Cache until block expiry plus buffer
@@ -215,7 +215,7 @@ class IpSecurityService
      * @param \Cake\I18n\FrozenTime|null $expiresAt Optional expiration time for the block
      * @return bool True if the block was successfully saved, false otherwise
      */
-    public function blockIp(string $ip, string $reason, ?DateTime $expiresAt = null): bool
+    public function blockIp(string $ip, string $reason, ?\DateTimeInterface $expiresAt = null): bool
     {
         // Check for an active existing block to update
         $existing = $this->blockedIpsTable->find()
@@ -248,7 +248,7 @@ class IpSecurityService
             // Determine cache duration
             $cacheDuration = '1 day'; // Default for permanent blocks
             if ($expiresAt) {
-                $now = new DateTime();
+                $now = new \DateTimeImmutable();
                 $diffInSeconds = $expiresAt->getTimestamp() - $now->getTimestamp();
                 if ($diffInSeconds > 0) {
                     $cacheDuration = ($diffInSeconds + 60) . ' seconds';

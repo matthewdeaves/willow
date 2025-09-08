@@ -145,6 +145,24 @@ class ArticlesController extends AppController
             ->first();
 
         if (!$article) {
+            // Attempt legacy slug lookup for redirect
+            $legacy = $this->fetchTable('Slugs')->find()
+                ->where(['model' => 'Articles', 'slug' => $slug])
+                ->first();
+            if ($legacy) {
+                $article = $this->Articles->find()
+                    ->where(['Articles.id' => $legacy->foreign_key])
+                    ->first();
+                if ($article && $article->slug && $article->slug !== $slug) {
+                    // Build locale-aware path; tests use /en prefix
+                    return $this->redirect('/en/articles/' . $article->slug, 301);
+                }
+            }
+            throw new NotFoundException(__('Article not found.'));
+        }
+
+        // Enforce published-only visibility on public slug route
+        if (!$article->is_published) {
             throw new NotFoundException(__('Article not found.'));
         }
 

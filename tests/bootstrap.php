@@ -85,15 +85,22 @@ TypeFactory::map('upload.file', FileType::class);
 
 (new Migrator())->run();
 
-// Switch queue connection for testing
+// Switch queue connection for testing - force null transport to avoid external deps
 if (env('CAKE_ENV') === 'test') {
-    Configure::write('Queue.default', Configure::read('Queue.test'));
+    Configure::write('Queue.default', [
+        'url' => 'null://localhost',
+        'queue' => 'test_queue',
+        'logger' => false,
+        'receiveTimeout' => 0,
+'storeFailedJobs' => false,
+        'uniqueCache' => [
+            'className' => \Cake\Cache\Engine\FileEngine::class,
+            'prefix' => 'willow_queue_unique_test_',
+            'path' => CACHE . 'persistent' . DS . 'queue_unique_jobs' . DS . 'test' . DS,
+            'serialize' => true,
+            'duration' => '+1 week',
+        ],
+    ]);
 }
 
-QueueManager::setConfig('default', Configure::read('Queue.default') ?: [
-    'url' => 'null://localhost',
-    'queue' => 'test_queue',
-    'logger' => false,
-    'receiveTimeout' => 0,
-    'storeFailedJobs' => false,
-]);
+QueueManager::setConfig('default', Configure::read('Queue.default'));

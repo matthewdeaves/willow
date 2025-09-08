@@ -46,16 +46,22 @@ class RssController extends AppController
      */
     public function index(): void
     {
+        // Ensure XmlView is used and serialization is enabled so no template is required
+        $this->viewBuilder()
+            ->setClassName(XmlView::class)
+            ->setOption('rootNode', 'rss')
+            ->setOption('serialize', ['@version', 'channel'])
+            ->setLayout(null);
+
         $currentLang = $this->request->getParam('lang', 'en');
         $siteName = SettingsManager::read('SEO.siteName');
 
         $articlesTable = $this->fetchTable('Articles');
 
-        // Get published articles
-        $cacheKey = $this->cacheKey;
-        $articles = Cache::read($cacheKey, 'content');
-        if (!$articles) {
-            $articles = $articlesTable->find('all')
+        // Get published articles (cached per-language)
+        $cacheKey = 'rss_articles_' . $currentLang;
+        $articles = Cache::remember($cacheKey, function () use ($articlesTable) {
+            return $articlesTable->find('all')
                 ->select(['id', 'title', 'slug', 'summary', 'created'])
                 ->where([
                     'kind' => 'article',
@@ -63,8 +69,7 @@ class RssController extends AppController
                 ])
                 ->orderByDesc('created')
                 ->all();
-            Cache::write($cacheKey, $articles, 'content');
-        }
+        }, 'default');
 
         $siteUrl = Router::url(['_name' => 'home', 'lang' => $currentLang], true);
 
@@ -97,17 +102,13 @@ class RssController extends AppController
             $channelData['item'][] = [
                 'title' => $article->title,
                 'link' => $articleUrl,
-                'description' => strip_tags($article->summary),
+                'description' => strip_tags((string)$article->summary),
                 'pubDate' => $article->created->format('r'),
                 'guid' => $articleUrl,
                 'category' => __('Articles'),
                 'author' => SettingsManager::read('Email.reply_email') . ' (' . $siteName . ')',
             ];
         }
-
-        $this->viewBuilder()
-            ->setOption('rootNode', 'rss')
-            ->setOption('serialize', ['@version', 'channel']);
 
         $this->set([
             '@version' => '2.0',
@@ -116,8 +117,8 @@ class RssController extends AppController
 
         // Set response type and cache headers
         $this->response = $this->response
-        ->withType('xml')
-        ->withHeader('Content-Type', 'text/xml; charset=UTF-8')
-        ->withCache('-1 minute', '-1 minute');
+            ->withType('xml')
+            ->withHeader('Content-Type', 'text/xml; charset=UTF-8')
+            ->withCache('-1 minute', '-1 minute');
     }
 }

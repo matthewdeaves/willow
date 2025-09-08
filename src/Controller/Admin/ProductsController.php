@@ -1161,7 +1161,8 @@ class ProductsController extends AppController
                 'description' => 'Email address to notify when new products are submitted (use 0 to disable)',
             ],
             'success_message' => [
-                'default' => 'Your product has been submitted and is awaiting review. Thank you for contributing to our adapter database!',
+                'default' => 'Your product has been submitted and is awaiting review. ' .
+                    'Thank you for contributing to our adapter database!',
                 'type' => 'textarea',
                 'description' => 'Message shown to users after successful product submission',
             ],
@@ -1260,7 +1261,9 @@ class ProductsController extends AppController
 
             if ($savedSettings > 0) {
                 $this->clearContentCache();
-                $this->Flash->success(__('Product form configuration has been updated. ({0} settings saved)', $savedSettings));
+                $this->Flash->success(
+                    __('Product form configuration has been updated. ({0} settings saved)', $savedSettings),
+                );
             }
 
             if (!empty($failedSettings)) {

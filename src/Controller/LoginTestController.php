@@ -3,11 +3,18 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Http\Response;
+
 /**
  * Login Test Controller - Simple authentication test
  */
 class LoginTestController extends AppController
 {
+    /**
+     * Initialize controller
+     *
+     * @return void
+     */
     public function initialize(): void
     {
         parent::initialize();
@@ -23,7 +30,8 @@ class LoginTestController extends AppController
         $identity = $this->Authentication->getIdentity();
 
         if ($identity) {
-            $message = '✅ LOGGED IN as: ' . $identity->email . ' (Admin: ' . ($identity->is_admin ? 'Yes' : 'No') . ')';
+            $adminStatus = $identity->is_admin ? 'Yes' : 'No';
+            $message = '✅ LOGGED IN as: ' . $identity->email . ' (Admin: ' . $adminStatus . ')';
             if ($identity->is_admin) {
                 $adminUrl = $this->getRequest()->getAttribute('webroot') . 'admin/products/forms';
                 $message .= '<br><br><a href="' . $adminUrl . '">Go to Admin Panel</a>';
@@ -40,8 +48,10 @@ class LoginTestController extends AppController
 
     /**
      * Simple login form
+     *
+     * @return \Cake\Http\Response|null
      */
-    public function login()
+    public function login(): ?Response
     {
         $result = $this->Authentication->getResult();
         if ($result->isValid()) {

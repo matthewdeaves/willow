@@ -20,6 +20,11 @@ class ProductFormFieldService
     private ProductFormFieldsTable $ProductFormFields;
     private ?AiProviderInterface $aiProvider;
 
+    /**
+     * Constructor
+     *
+     * @param \App\Service\Ai\AiProviderInterface|null $aiProvider AI provider for form suggestions
+     */
     public function __construct(?AiProviderInterface $aiProvider = null)
     {
         $this->ProductFormFields = TableRegistry::getTableLocator()->get('ProductFormFields');
@@ -188,12 +193,14 @@ class ProductFormFieldService
                 switch ($rule) {
                     case 'min_length':
                         if (strlen((string)$value) < (int)$ruleValue) {
-                            $errors[$fieldName][] = $field->field_label . ' must be at least ' . $ruleValue . ' characters long.';
+                            $errors[$fieldName][] = $field->field_label . ' must be at least ' .
+                                $ruleValue . ' characters long.';
                         }
                         break;
                     case 'max_length':
                         if (strlen((string)$value) > (int)$ruleValue) {
-                            $errors[$fieldName][] = $field->field_label . ' must not exceed ' . $ruleValue . ' characters.';
+                            $errors[$fieldName][] = $field->field_label . ' must not exceed ' .
+                                $ruleValue . ' characters.';
                         }
                         break;
                     case 'min':

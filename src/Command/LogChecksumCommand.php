@@ -509,8 +509,9 @@ class LogChecksumCommand extends Command
     {
         $units = ['B', 'KB', 'MB', 'GB'];
         $unit = 0;
+        $maxUnit = count($units) - 1;
 
-        while ($size >= 1024 && $unit < count($units) - 1) {
+        while ($size >= 1024 && $unit < $maxUnit) {
             $size /= 1024;
             $unit++;
         }

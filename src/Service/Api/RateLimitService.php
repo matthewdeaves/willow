@@ -135,7 +135,6 @@ class RateLimitService
     {
         $totalCurrent = 0;
         $totalLimit = 0;
-        $limit = (int)$this->readSetting('AI.hourlyLimit', 100);
 
         foreach ($services as $service) {
             $usage = $this->getCurrentUsage($service);
@@ -182,7 +181,5 @@ class RateLimitService
             "rate_limit_anthropic_{$hour}",
             "rate_limit_google_{$hour}",
         ];
-
-        return [];
     }
 }

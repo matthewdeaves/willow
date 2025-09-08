@@ -27,3 +27,9 @@ compare and contrast services looked into but either too confusing for it to mak
 - [ ] aws integration
 - [ ] github deployment
 - [ ]
+
+## actual features still need to be donw
+
+- [ ] search function to look into products
+- [ ] not-essential: search function to look at every entity in the web app
+- [ ] implementation of inserting links and documents and having the ai document processor make a product and keep a verification score

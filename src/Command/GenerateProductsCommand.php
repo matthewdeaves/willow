@@ -123,7 +123,10 @@ class GenerateProductsCommand extends Command
                 'required' => true,
             ])
             ->addArgument('status_distribution', [
-                'help' => __('Status distribution in format "status:count,status:count" (e.g., "pending:20,approved:8,rejected:2")'),
+                'help' => __(
+                    'Status distribution in format "status:count,status:count" '
+                    . '(e.g., "pending:20,approved:8,rejected:2")',
+                ),
                 'required' => false,
                 'default' => null,
             ])
@@ -212,7 +215,11 @@ class GenerateProductsCommand extends Command
                 $product = $this->generateProduct($status, $featuredPercent, $adminOnly, $withImages);
 
                 if ($this->Products->save($product, ['associated' => ['Tags']])) {
-                    $io->verbose(__('Generated product: {0} (Status: {1})', $product->title, $product->verification_status));
+                    $io->verbose(__(
+                        'Generated product: {0} (Status: {1})',
+                        $product->title,
+                        $product->verification_status,
+                    ));
                     $successCount++;
                 } else {
                     $io->error(__('Failed to generate product: {0}', $product->title ?? 'Unknown'));
@@ -268,7 +275,10 @@ class GenerateProductsCommand extends Command
         foreach ($pairs as $pair) {
             $parts = explode(':', trim($pair));
             if (count($parts) !== 2) {
-                $io->error(__('Invalid status distribution format: {0}. Expected format: "status:count,status:count"', $pair));
+                $io->error(__(
+                    'Invalid status distribution format: {0}. Expected format: "status:count,status:count"',
+                    $pair,
+                ));
 
                 return null;
             }
@@ -277,7 +287,11 @@ class GenerateProductsCommand extends Command
             $count = (int)trim($parts[1]);
 
             if (!in_array($status, self::VALID_STATUSES, true)) {
-                $io->error(__('Invalid status: {0}. Valid statuses: {1}', $status, implode(', ', self::VALID_STATUSES)));
+                $io->error(__(
+                    'Invalid status: {0}. Valid statuses: {1}',
+                    $status,
+                    implode(', ', self::VALID_STATUSES),
+                ));
 
                 return null;
             }
@@ -463,8 +477,8 @@ class GenerateProductsCommand extends Command
         // Slight price adjustment based on status (for realism)
         $multiplier = match ($status) {
             'approved' => rand(95, 105) / 100, // Approved products vary normally
-            'pending' => rand(90, 110) / 100,  // Pending might have more variation
-            'rejected' => rand(80, 95) / 100,  // Rejected might be slightly lower
+            'pending' => rand(90, 110) / 100, // Pending might have more variation
+            'rejected' => rand(80, 95) / 100, // Rejected might be slightly lower
         };
 
         return round($basePrice * $multiplier, 2);
@@ -479,9 +493,9 @@ class GenerateProductsCommand extends Command
     private function generateReliabilityScore(string $status): float
     {
         return match ($status) {
-            'approved' => rand(750, 1000) / 100,  // 7.5 to 10.0
-            'pending' => rand(0, 500) / 100,      // 0.0 to 5.0 (not yet verified)
-            'rejected' => rand(100, 400) / 100,   // 1.0 to 4.0 (failed verification)
+            'approved' => rand(750, 1000) / 100, // 7.5 to 10.0
+            'pending' => rand(0, 500) / 100, // 0.0 to 5.0 (not yet verified)
+            'rejected' => rand(100, 400) / 100, // 1.0 to 4.0 (failed verification)
         };
     }
 
@@ -619,7 +633,9 @@ class GenerateProductsCommand extends Command
 
         for ($i = 0; $i < $tagsToCreate; $i++) {
             $tag = $tagsTable->newEmptyEntity();
-            $tagTitle = $sampleTags[$i % count($sampleTags)] . ($i >= count($sampleTags) ? ' ' . (intval($i / count($sampleTags)) + 1) : '');
+            $baseTag = $sampleTags[$i % count($sampleTags)];
+            $suffix = $i >= count($sampleTags) ? ' ' . (intval($i / count($sampleTags)) + 1) : '';
+            $tagTitle = $baseTag . $suffix;
             $tag->title = $tagTitle;
             $tag->description = "Sample tag: {$tagTitle}";
 

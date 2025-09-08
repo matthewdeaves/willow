@@ -23,6 +23,9 @@ class AiMetricsService
      */
     private AiMetricsTable $aiMetricsTable;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         /** @var \App\Model\Table\AiMetricsTable $table */
@@ -157,7 +160,9 @@ class AiMetricsService
 
         if ($currentCost < $alertThreshold && ($currentCost + $newCost) >= $alertThreshold) {
             // TODO: Implement email alert functionality
-            error_log('AI Cost Alert: Daily spending has reached $' . ($currentCost + $newCost) . ' (80% of daily limit)');
+            error_log(
+                'AI Cost Alert: Daily spending has reached $' . ($currentCost + $newCost) . ' (80% of daily limit)',
+            );
         }
     }
 
@@ -172,23 +177,23 @@ class AiMetricsService
         $startDate = '1970-01-01 00:00:00';
         $endDate = date('Y-m-d H:i:s');
         $taskSummary = $this->aiMetricsTable->getTaskTypeSummary($startDate, $endDate);
-        
+
         // Calculate totals
         $totalCalls = 0;
         $totalCost = 0.0;
-        
+
         foreach ($taskSummary as $task) {
             $totalCalls += (int)$task['count'];
             $totalCost += (float)$task['total_cost'];
         }
-        
+
         // Calculate success rate from all metrics
         $successfulCalls = $this->aiMetricsTable->find()
             ->where(['success' => true])
             ->count();
-        
-        $successRate = $totalCalls > 0 ? ($successfulCalls / $totalCalls) * 100 : 0;
-        
+
+        $successRate = $totalCalls > 0 ? $successfulCalls / $totalCalls * 100 : 0;
+
         return [
             'totalCalls' => $totalCalls,
             'successRate' => $successRate,
@@ -206,7 +211,7 @@ class AiMetricsService
     {
         // Get summary for the specified timeframe
         $summary = $this->getMetricsSummary();
-        
+
         return [
             'metrics' => $summary,
             'rateLimit' => [
@@ -234,7 +239,7 @@ class AiMetricsService
         $startDate = '1970-01-01 00:00:00';
         $endDate = date('Y-m-d H:i:s');
         $taskSummary = $this->aiMetricsTable->getTaskTypeSummary($startDate, $endDate);
-        
+
         // Transform to expected format for tests
         $result = [];
         foreach ($taskSummary as $task) {
@@ -246,7 +251,7 @@ class AiMetricsService
                 'total_tokens' => (int)$task['total_tokens'],
             ];
         }
-        
+
         return $result;
     }
 
@@ -266,8 +271,8 @@ class AiMetricsService
                 ->limit($limit)
                 ->select(['task_type', 'error_message', 'created'])
                 ->toArray();
-            
-            return array_map(function($error) {
+
+            return array_map(function ($error) {
                 return [
                     'task_type' => $error->task_type,
                     'error_message' => $error->error_message,
@@ -291,9 +296,9 @@ class AiMetricsService
         // Anthropic pricing (as of 2024):
         // Input: $3 per million tokens
         // Output: $15 per million tokens
-        $inputCost = ($inputTokens / 1000000) * 3.0;
-        $outputCost = ($outputTokens / 1000000) * 15.0;
-        
+        $inputCost = $inputTokens / 1000000 * 3.0;
+        $outputCost = $outputTokens / 1000000 * 15.0;
+
         return $inputCost + $outputCost;
     }
 }

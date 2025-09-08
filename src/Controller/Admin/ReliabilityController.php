@@ -140,7 +140,7 @@ class ReliabilityController extends AppController
         // Load entity to ensure it exists
         $entityTable = $this->fetchTable($model);
         try {
-            $entity = $entityTable->get($id);
+            $entityTable->get($id); // Verify entity exists
         } catch (RecordNotFoundException $e) {
             throw new NotFoundException(__('Record not found.'));
         }
@@ -192,7 +192,8 @@ class ReliabilityController extends AppController
                 ));
             } else {
                 $this->Flash->warning(__(
-                    'Checksum verification completed: {verified} passed, {failed} failed. Check system logs for details.',
+                    'Checksum verification completed: {verified} passed, {failed} failed. '
+                    . 'Check system logs for details.',
                     ['verified' => $verified, 'failed' => count($mismatches)],
                 ));
 

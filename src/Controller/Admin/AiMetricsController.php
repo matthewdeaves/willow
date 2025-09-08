@@ -45,7 +45,6 @@ class AiMetricsController extends AppController
 
         // Rate limiting status
         $rateLimitService = new RateLimitService();
-        $perServiceUsage = $rateLimitService->getCurrentUsageForServices(['anthropic', 'google']);
         $currentUsage = $rateLimitService->getCombinedUsage(['anthropic', 'google']);
 
         $this->set(compact(
@@ -198,7 +197,6 @@ class AiMetricsController extends AppController
      */
     public function index(): ?Response
     {
-        $statusFilter = $this->request->getQuery('status');
         $query = $this->AiMetrics->find()
             ->select([
                 'AiMetrics.id',

@@ -65,7 +65,6 @@ class ProductFormAiProvider implements AiProviderInterface
     public function getSuggestions(array $productData, array $context = []): array
     {
         $fieldName = $productData['field_name'] ?? '';
-        $fieldType = $productData['field_type'] ?? 'text';
         $existingData = $productData['existing_data'] ?? [];
 
         try {
@@ -102,6 +101,13 @@ class ProductFormAiProvider implements AiProviderInterface
         }
     }
 
+    /**
+     * Suggest product title based on manufacturer and description
+     *
+     * @param array $data Product data containing manufacturer, description, model_number
+     * @param array $context Additional context for suggestion
+     * @return array Suggestion results with confidence level
+     */
     private function suggestTitle(array $data, array $context): array
     {
         $manufacturer = $data['manufacturer'] ?? '';
@@ -140,6 +146,13 @@ class ProductFormAiProvider implements AiProviderInterface
         ];
     }
 
+    /**
+     * Suggest manufacturer based on product title and description patterns
+     *
+     * @param array $data Product data containing title and description
+     * @param array $context Additional context for suggestion
+     * @return array Suggestion results with confidence level
+     */
     private function suggestManufacturer(array $data, array $context): array
     {
         $title = strtolower($data['title'] ?? '');
@@ -167,11 +180,16 @@ class ProductFormAiProvider implements AiProviderInterface
         ];
     }
 
+    /**
+     * Suggest product description based on title and specifications
+     *
+     * @param array $data Product data containing title, manufacturer, specs
+     * @param array $context Additional context for suggestion
+     * @return array Suggestion results with confidence level
+     */
     private function suggestDescription(array $data, array $context): array
     {
         $title = $data['title'] ?? '';
-        $manufacturer = $data['manufacturer'] ?? '';
-        $modelNumber = $data['model_number'] ?? '';
         $technicalSpecs = $data['technical_specifications'] ?? '';
 
         if (!$title) {
@@ -188,19 +206,23 @@ class ProductFormAiProvider implements AiProviderInterface
         // Build description based on product type
         switch ($productType) {
             case 'usb-c':
-                $description = 'High-quality USB-C adapter that provides reliable connectivity and data transfer. Features durable construction with premium materials for long-lasting performance.';
+                $description = 'High-quality USB-C adapter that provides reliable connectivity and data transfer. '
+                    . 'Features durable construction with premium materials for long-lasting performance.';
                 if (strpos(strtolower($title), 'hdmi') !== false) {
                     $description .= ' Supports 4K video output for crystal-clear display connectivity.';
                 }
                 break;
             case 'hdmi':
-                $description = 'Premium HDMI cable/adapter designed for high-definition video and audio transmission. Supports the latest HDMI standards for optimal compatibility.';
+                $description = 'Premium HDMI cable/adapter designed for high-definition video '
+                    . 'and audio transmission. Supports the latest HDMI standards for optimal compatibility.';
                 break;
             case 'ethernet':
-                $description = 'Reliable network adapter providing fast and stable internet connectivity. Built with high-quality components for consistent performance.';
+                $description = 'Reliable network adapter providing fast and stable internet connectivity. '
+                    . 'Built with high-quality components for consistent performance.';
                 break;
             default:
-                $description = 'Quality ' . strtolower($title) . ' designed for reliable performance and durability. Built to meet high standards of connectivity and compatibility.';
+                $description = 'Quality ' . strtolower($title) . ' designed for reliable performance and durability. '
+                    . 'Built to meet high standards of connectivity and compatibility.';
         }
 
         if ($technicalSpecs) {
@@ -214,6 +236,13 @@ class ProductFormAiProvider implements AiProviderInterface
         ];
     }
 
+    /**
+     * Suggest technical specifications based on product type
+     *
+     * @param array $data Product data containing title and description
+     * @param array $context Additional context for suggestion
+     * @return array Suggestion results with confidence level
+     */
     private function suggestTechnicalSpecs(array $data, array $context): array
     {
         $title = strtolower($data['title'] ?? '');
@@ -242,10 +271,16 @@ class ProductFormAiProvider implements AiProviderInterface
         ];
     }
 
+    /**
+     * Suggest model number based on manufacturer patterns
+     *
+     * @param array $data Product data containing manufacturer
+     * @param array $context Additional context for suggestion
+     * @return array Suggestion results with confidence level
+     */
     private function suggestModelNumber(array $data, array $context): array
     {
         $manufacturer = strtolower($data['manufacturer'] ?? '');
-        $title = $data['title'] ?? '';
 
         $suggestions = [];
         $confidence = 0;
@@ -273,6 +308,13 @@ class ProductFormAiProvider implements AiProviderInterface
         ];
     }
 
+    /**
+     * Suggest price based on product type and manufacturer
+     *
+     * @param array $data Product data containing title and manufacturer
+     * @param array $context Additional context for suggestion
+     * @return array Suggestion results with confidence level
+     */
     private function suggestPrice(array $data, array $context): array
     {
         $title = strtolower($data['title'] ?? '');
@@ -316,6 +358,13 @@ class ProductFormAiProvider implements AiProviderInterface
         ];
     }
 
+    /**
+     * Suggest alt text for product images
+     *
+     * @param array $data Product data containing title and manufacturer
+     * @param array $context Additional context for suggestion
+     * @return array Suggestion results with confidence level
+     */
     private function suggestAltText(array $data, array $context): array
     {
         $title = $data['title'] ?? '';
@@ -342,6 +391,13 @@ class ProductFormAiProvider implements AiProviderInterface
         ];
     }
 
+    /**
+     * Suggest testing standards based on product type
+     *
+     * @param array $data Product data containing title and specifications
+     * @param array $context Additional context for suggestion
+     * @return array Suggestion results with confidence level
+     */
     private function suggestTestingStandard(array $data, array $context): array
     {
         $title = strtolower($data['title'] ?? '');
@@ -372,6 +428,13 @@ class ProductFormAiProvider implements AiProviderInterface
         ];
     }
 
+    /**
+     * Suggest certifying organizations based on product and standards
+     *
+     * @param array $data Product data containing testing standards and title
+     * @param array $context Additional context for suggestion
+     * @return array Suggestion results with confidence level
+     */
     private function suggestCertifyingOrganization(array $data, array $context): array
     {
         $testingStandard = strtolower($data['testing_standard'] ?? '');
@@ -402,6 +465,13 @@ class ProductFormAiProvider implements AiProviderInterface
         ];
     }
 
+    /**
+     * Get default suggestions when no specific handler exists
+     *
+     * @param array $productData Product data
+     * @param array $context Additional context
+     * @return array Empty suggestion results
+     */
     private function getDefaultSuggestions(array $productData, array $context): array
     {
         return [
@@ -411,6 +481,12 @@ class ProductFormAiProvider implements AiProviderInterface
         ];
     }
 
+    /**
+     * Extract product type from text using pattern matching
+     *
+     * @param string $text Input text to analyze
+     * @return string Detected product type or 'generic'
+     */
     private function extractProductType(string $text): string
     {
         $text = strtolower($text);
@@ -426,11 +502,20 @@ class ProductFormAiProvider implements AiProviderInterface
         return 'generic';
     }
 
+    /**
+     * Extract key terms from text by removing stop words
+     *
+     * @param string $text Input text to analyze
+     * @return array Array of key terms
+     */
     private function extractKeyTerms(string $text): array
     {
         // Simple keyword extraction
         $words = str_word_count(strtolower($text), 1);
-        $stopWords = ['the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by', 'this', 'that', 'is', 'are', 'a', 'an'];
+        $stopWords = [
+            'the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of',
+            'with', 'by', 'this', 'that', 'is', 'are', 'a', 'an',
+        ];
 
         $keywords = array_filter($words, function ($word) use ($stopWords) {
             return !in_array($word, $stopWords) && strlen($word) > 3;

@@ -121,7 +121,7 @@ class LogChecksumService
         }
 
         $results = [];
-        $checksums = $this->generateChecksums();
+        $this->generateChecksums();
 
         foreach ($this->getLogFiles() as $logFile) {
             $sourcePath = self::LOG_DIR . $logFile;

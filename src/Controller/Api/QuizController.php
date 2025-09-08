@@ -22,18 +22,25 @@ use RuntimeException;
  *
  * JSON API endpoints for the AI-powered quiz system
  * Supports both Akinator-style and comprehensive quiz modes
+ *
+ * @property \App\Model\Table\ProductsTable $Products
+ * @property \App\Model\Table\QuizSubmissionsTable $QuizSubmissions
  */
 class QuizController extends AppController
 {
     /**
      * AI Product Matcher Service
+     *
+     * @var \App\Service\Quiz\AiProductMatcherService
      */
-    private $productMatcher;
+    private AiProductMatcherService $productMatcher;
 
     /**
      * Decision Tree Service for Akinator mode
+     *
+     * @var \App\Service\Quiz\DecisionTreeService
      */
-    private $decisionTree;
+    private DecisionTreeService $decisionTree;
 
     /**
      * Initialize method
@@ -387,8 +394,12 @@ class QuizController extends AppController
      * @param array $results Match results
      * @return \App\Model\Entity\QuizSubmission Saved submission
      */
-    private function saveQuizSubmission(string $sessionId, string $quizType, array $answers, array $results): QuizSubmission
-    {
+    private function saveQuizSubmission(
+        string $sessionId,
+        string $quizType,
+        array $answers,
+        array $results,
+    ): QuizSubmission {
         $identity = $this->getRequest()->getAttribute('identity');
 
         $submission = $this->QuizSubmissions->newEntity([

@@ -67,7 +67,7 @@ class AiMetricsServiceTest extends TestCase
 
         // Create AI settings in the database (proper approach for tests)
         $settingsTable = TableRegistry::getTableLocator()->get('Settings');
-        
+
         // Create enableMetrics setting
         $settingsTable->saveOrFail($settingsTable->newEntity([
             'category' => 'AI',
@@ -226,7 +226,7 @@ class AiMetricsServiceTest extends TestCase
     {
         // Clear existing data for isolated test
         $this->aiMetricsTable->deleteAll([]);
-        
+
         // Create test metrics for today
         $today = FrozenTime::now();
         $metrics = [
@@ -257,7 +257,7 @@ class AiMetricsServiceTest extends TestCase
     {
         // Clear existing data for isolated test
         $this->aiMetricsTable->deleteAll([]);
-        
+
         // Daily limit is set to $2.50 in setUp
         $this->assertFalse($this->service->isDailyCostLimitReached());
 
@@ -283,7 +283,7 @@ class AiMetricsServiceTest extends TestCase
     {
         // Clear existing data for isolated test
         $this->aiMetricsTable->deleteAll([]);
-        
+
         // Create test data
         $this->createTestMetrics();
 
@@ -307,7 +307,7 @@ class AiMetricsServiceTest extends TestCase
     {
         // Clear existing data for isolated test
         $this->aiMetricsTable->deleteAll([]);
-        
+
         // Create test metrics
         $this->createTestMetrics();
 
@@ -331,7 +331,7 @@ class AiMetricsServiceTest extends TestCase
     public function testGoogleApiServiceIntegration(): void
     {
         $this->markTestSkipped('Google API service integration requires external dependencies');
-        
+
         $googleService = new GoogleApiService();
 
         // Check if service has metrics integration
@@ -354,7 +354,7 @@ class AiMetricsServiceTest extends TestCase
     public function testAnthropicApiServiceIntegration(): void
     {
         $this->markTestSkipped('Anthropic API service integration requires API key configuration');
-        
+
         $anthropicService = new AnthropicApiService();
 
         // Check if service has metrics recording capability
@@ -374,7 +374,7 @@ class AiMetricsServiceTest extends TestCase
     {
         // Clear existing data for isolated test
         $this->aiMetricsTable->deleteAll([]);
-        
+
         // Create metrics for different task types
         $taskTypes = [
             'google_translate' => ['count' => 5, 'cost' => 0.05],

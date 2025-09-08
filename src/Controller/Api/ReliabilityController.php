@@ -16,6 +16,11 @@ class ReliabilityController extends AppController
 {
     private ReliabilityService $reliabilityService;
 
+    /**
+     * Initialize method
+     *
+     * @return void
+     */
     public function initialize(): void
     {
         parent::initialize();
@@ -158,7 +163,9 @@ class ReliabilityController extends AppController
                 'foreign_key' => $logEntry->foreign_key,
                 'from_total_score' => $logEntry->from_total_score,
                 'to_total_score' => $logEntry->to_total_score,
-                'from_field_scores_json' => $logEntry->from_field_scores_json ? json_decode($logEntry->from_field_scores_json, true) : null,
+                'from_field_scores_json' => $logEntry->from_field_scores_json
+                    ? json_decode($logEntry->from_field_scores_json, true)
+                    : null,
                 'to_field_scores_json' => json_decode($logEntry->to_field_scores_json, true),
                 'source' => $logEntry->source,
                 'actor_user_id' => $logEntry->actor_user_id,

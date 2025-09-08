@@ -178,18 +178,18 @@ class AiMetricsControllerTest extends AppControllerTestCase
     {
         $this->get('/admin/ai-metrics/dashboard');
         $this->assertResponseOk();
-        
+
         // Check for essential dashboard elements
         $this->assertResponseContains('AI Metrics Dashboard');
         $this->assertResponseContains('live-indicator');
         $this->assertResponseContains('realtime-data');
-        
+
         // Check for metric cards
         $this->assertResponseContains('total-calls');
         $this->assertResponseContains('success-rate');
         $this->assertResponseContains('total-cost');
         $this->assertResponseContains('rate-limit-status');
-        
+
         // Check for JavaScript functionality
         $this->assertResponseContains('updateMetrics');
         $this->assertResponseContains('setInterval');
@@ -209,12 +209,12 @@ class AiMetricsControllerTest extends AppControllerTestCase
         $this->get('/admin/ai-metrics/realtime-data?timeframe=1h');
         $this->assertResponseOk();
         $this->assertContentType('application/json');
-        
+
         $response = json_decode((string)$this->_response->getBody(), true);
         $this->assertArrayHasKey('success', $response);
         $this->assertTrue($response['success']);
         $this->assertArrayHasKey('data', $response);
-        
+
         $data = $response['data'];
         $this->assertArrayHasKey('totalCalls', $data);
         $this->assertArrayHasKey('successRate', $data);
@@ -222,15 +222,15 @@ class AiMetricsControllerTest extends AppControllerTestCase
         $this->assertArrayHasKey('taskMetrics', $data);
         $this->assertArrayHasKey('queueStatus', $data);
         $this->assertArrayHasKey('recentActivity', $data);
-        
+
         // Test 24 hour timeframe
         $this->get('/admin/ai-metrics/realtime-data?timeframe=24h');
         $this->assertResponseOk();
-        
+
         // Test 7 day timeframe
         $this->get('/admin/ai-metrics/realtime-data?timeframe=7d');
         $this->assertResponseOk();
-        
+
         // Test 30 day timeframe
         $this->get('/admin/ai-metrics/realtime-data?timeframe=30d');
         $this->assertResponseOk();
@@ -248,7 +248,7 @@ class AiMetricsControllerTest extends AppControllerTestCase
         ]);
         $this->get('/admin/ai-metrics/realtime-data?timeframe=invalid');
         $this->assertResponseOk();
-        
+
         $response = json_decode((string)$this->_response->getBody(), true);
         // Should default to 24h or return error
         $this->assertArrayHasKey('success', $response);
@@ -263,7 +263,7 @@ class AiMetricsControllerTest extends AppControllerTestCase
     {
         // Logout
         $this->session(['Auth' => null]);
-        
+
         $this->get('/admin/ai-metrics/dashboard');
         // Should redirect to login
         $this->assertRedirectContains('/users/login');
@@ -278,12 +278,12 @@ class AiMetricsControllerTest extends AppControllerTestCase
     {
         // Logout
         $this->session(['Auth' => null]);
-        
+
         $this->configRequest([
             'headers' => ['X-Requested-With' => 'XMLHttpRequest'],
         ]);
         $this->get('/admin/ai-metrics/realtime-data');
-        
+
         // Should return 401 or redirect
         $this->assertResponseCode(401);
     }
@@ -297,10 +297,10 @@ class AiMetricsControllerTest extends AppControllerTestCase
     {
         // Create specific test data
         $table = $this->getTableLocator()->get('AiMetrics');
-        
+
         // Clear existing data
         $table->deleteAll([]);
-        
+
         // Add test metrics
         $table->save($table->newEntity([
             'task_type' => 'test_success',
@@ -311,7 +311,7 @@ class AiMetricsControllerTest extends AppControllerTestCase
             'model_used' => 'test',
             'created' => FrozenTime::now(),
         ]));
-        
+
         $table->save($table->newEntity([
             'task_type' => 'test_failure',
             'execution_time_ms' => 200,
@@ -321,15 +321,15 @@ class AiMetricsControllerTest extends AppControllerTestCase
             'model_used' => 'test',
             'created' => FrozenTime::now(),
         ]));
-        
+
         $this->configRequest([
             'headers' => ['X-Requested-With' => 'XMLHttpRequest'],
         ]);
         $this->get('/admin/ai-metrics/realtime-data?timeframe=24h');
-        
+
         $response = json_decode((string)$this->_response->getBody(), true);
         $data = $response['data'];
-        
+
         // Verify calculations
         $this->assertEquals(2, $data['totalCalls']);
         $this->assertEquals(50.0, $data['successRate']); // 1 success out of 2

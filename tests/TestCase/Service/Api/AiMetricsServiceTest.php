@@ -15,7 +15,7 @@ use ReflectionClass;
 
 /**
  * App\Service\Api\AiMetricsService Test Case
- * 
+ *
  * Tests comprehensive AI metrics functionality including:
  * - Metrics recording to database
  * - Cost calculation for various services
@@ -57,13 +57,13 @@ class AiMetricsServiceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         // Freeze time for deterministic tests
         FrozenTime::setTestNow('2024-01-01 12:00:00');
-        
+
         $this->service = new AiMetricsService();
         $this->aiMetricsTable = TableRegistry::getTableLocator()->get('AiMetrics');
-        
+
         // Set up test settings
         SettingsManager::write('AI.enableMetrics', true);
         SettingsManager::write('AI.dailyCostLimit', 2.50);
@@ -78,10 +78,10 @@ class AiMetricsServiceTest extends TestCase
     {
         unset($this->service);
         unset($this->aiMetricsTable);
-        
+
         // Reset frozen time
         FrozenTime::setTestNow(null);
-        
+
         parent::tearDown();
     }
 
@@ -99,16 +99,16 @@ class AiMetricsServiceTest extends TestCase
             null,
             100,
             0.005,
-            'test-model'
+            'test-model',
         );
-        
+
         $this->assertTrue($result);
-        
+
         // Verify record was created in database
         $metric = $this->aiMetricsTable->find()
             ->where(['task_type' => 'test_task'])
             ->first();
-        
+
         $this->assertNotNull($metric);
         $this->assertEquals('test_task', $metric->task_type);
         $this->assertEquals(150, $metric->execution_time_ms);
@@ -133,16 +133,16 @@ class AiMetricsServiceTest extends TestCase
             'API rate limit exceeded',
             0,
             0,
-            'test-model'
+            'test-model',
         );
-        
+
         $this->assertTrue($result);
-        
+
         // Verify error was recorded
         $metric = $this->aiMetricsTable->find()
             ->where(['task_type' => 'failed_task'])
             ->first();
-        
+
         $this->assertNotNull($metric);
         $this->assertFalse($metric->success);
         $this->assertEquals('API rate limit exceeded', $metric->error_message);
@@ -160,10 +160,10 @@ class AiMetricsServiceTest extends TestCase
         // Google Translate pricing: $20 per million characters
         $cost = $this->service->calculateGoogleTranslateCost(1000);
         $this->assertEquals(0.02, $cost);
-        
+
         $cost = $this->service->calculateGoogleTranslateCost(50000);
         $this->assertEquals(1.0, $cost);
-        
+
         $cost = $this->service->calculateGoogleTranslateCost(0);
         $this->assertEquals(0, $cost);
     }
@@ -180,12 +180,12 @@ class AiMetricsServiceTest extends TestCase
         if ($reflection->hasMethod('calculateAnthropicCost')) {
             $method = $reflection->getMethod('calculateAnthropicCost');
             $method->setAccessible(true);
-            
+
             // Test with input and output tokens
             $cost = $method->invoke($this->service, 1000, 500);
             $expectedCost = (1000 * 3 / 1000000) + (500 * 15 / 1000000);
             $this->assertEquals($expectedCost, $cost);
-            
+
             // Test with only input tokens
             $cost = $method->invoke($this->service, 2000, 0);
             $expectedCost = 2000 * 3 / 1000000;
@@ -210,7 +210,7 @@ class AiMetricsServiceTest extends TestCase
             'cost_usd' => 0.50,
             'created' => FrozenTime::now(),
         ]));
-        
+
         $this->aiMetricsTable->save($this->aiMetricsTable->newEntity([
             'task_type' => 'test2',
             'execution_time_ms' => 200,
@@ -218,7 +218,7 @@ class AiMetricsServiceTest extends TestCase
             'cost_usd' => 0.75,
             'created' => FrozenTime::now(),
         ]));
-        
+
         // Create a metric from yesterday (should not be included)
         $this->aiMetricsTable->save($this->aiMetricsTable->newEntity([
             'task_type' => 'test3',
@@ -227,7 +227,7 @@ class AiMetricsServiceTest extends TestCase
             'cost_usd' => 1.00,
             'created' => FrozenTime::now()->subDays(1),
         ]));
-        
+
         $dailyCost = $this->service->getDailyCost();
         $this->assertEquals(1.25, $dailyCost);
     }
@@ -241,10 +241,10 @@ class AiMetricsServiceTest extends TestCase
     {
         // Set daily limit to $1.00
         SettingsManager::write('AI.dailyCostLimit', 1.00);
-        
+
         // Initially should not be reached
         $this->assertFalse($this->service->isDailyCostLimitReached());
-        
+
         // Add metrics to exceed limit
         $this->aiMetricsTable->save($this->aiMetricsTable->newEntity([
             'task_type' => 'expensive_task',
@@ -253,10 +253,10 @@ class AiMetricsServiceTest extends TestCase
             'cost_usd' => 1.50,
             'created' => FrozenTime::now(),
         ]));
-        
+
         // Now limit should be reached
         $this->assertTrue($this->service->isDailyCostLimitReached());
-        
+
         // Test with metrics disabled
         SettingsManager::write('AI.enableMetrics', false);
         $this->assertFalse($this->service->isDailyCostLimitReached());
@@ -271,15 +271,15 @@ class AiMetricsServiceTest extends TestCase
     {
         // Create test metrics
         $this->createTestMetrics();
-        
+
         $summary = $this->service->getMetricsSummary('1h');
-        
+
         $this->assertArrayHasKey('totalCalls', $summary);
         $this->assertArrayHasKey('successRate', $summary);
         $this->assertArrayHasKey('totalCost', $summary);
         $this->assertArrayHasKey('avgExecutionTime', $summary);
         $this->assertArrayHasKey('taskBreakdown', $summary);
-        
+
         $this->assertEquals(3, $summary['totalCalls']);
         $this->assertEquals(66.67, round($summary['successRate'], 2));
         $this->assertEquals(0.30, $summary['totalCost']);
@@ -294,14 +294,14 @@ class AiMetricsServiceTest extends TestCase
     {
         // Create test metrics
         $this->createTestMetrics();
-        
+
         $data = $this->service->getRealtimeData('24h');
-        
+
         $this->assertArrayHasKey('metrics', $data);
         $this->assertArrayHasKey('rateLimit', $data);
         $this->assertArrayHasKey('queueStatus', $data);
         $this->assertArrayHasKey('recentActivity', $data);
-        
+
         $metrics = $data['metrics'];
         $this->assertEquals(3, $metrics['totalCalls']);
         $this->assertGreaterThan(0, $metrics['successRate']);
@@ -315,16 +315,16 @@ class AiMetricsServiceTest extends TestCase
     public function testGoogleApiServiceIntegration(): void
     {
         $googleService = new GoogleApiService();
-        
+
         // Check if service has metrics integration
         $reflection = new ReflectionClass($googleService);
         $this->assertTrue($reflection->hasProperty('metricsService'));
-        
+
         // Test that service can record metrics
         $property = $reflection->getProperty('metricsService');
         $property->setAccessible(true);
         $metricsService = $property->getValue($googleService);
-        
+
         $this->assertInstanceOf(AiMetricsService::class, $metricsService);
     }
 
@@ -336,12 +336,12 @@ class AiMetricsServiceTest extends TestCase
     public function testAnthropicApiServiceIntegration(): void
     {
         $anthropicService = new AnthropicApiService();
-        
+
         // Check if service has metrics recording capability
         $reflection = new ReflectionClass($anthropicService);
         $hasMetricsIntegration = $reflection->hasMethod('recordMetrics') ||
                                  $reflection->hasProperty('metricsService');
-        
+
         $this->assertTrue($hasMetricsIntegration, 'AnthropicApiService should have metrics integration');
     }
 
@@ -358,7 +358,7 @@ class AiMetricsServiceTest extends TestCase
             'anthropic_seo' => ['count' => 3, 'cost' => 0.15],
             'anthropic_summary' => ['count' => 2, 'cost' => 0.10],
         ];
-        
+
         foreach ($taskTypes as $type => $data) {
             for ($i = 0; $i < $data['count']; $i++) {
                 $this->aiMetricsTable->save($this->aiMetricsTable->newEntity([
@@ -370,9 +370,9 @@ class AiMetricsServiceTest extends TestCase
                 ]));
             }
         }
-        
+
         $stats = $this->service->getTaskTypeStatistics();
-        
+
         $this->assertCount(3, $stats);
         $this->assertEquals(5, $stats['google_translate']['count']);
         $this->assertEquals(0.05, $stats['google_translate']['total_cost']);
@@ -414,7 +414,7 @@ class AiMetricsServiceTest extends TestCase
                 'created' => FrozenTime::now()->subMinutes(45),
             ],
         ];
-        
+
         foreach ($metrics as $data) {
             $this->aiMetricsTable->save($this->aiMetricsTable->newEntity($data));
         }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Controller\Admin;
 
 use App\Test\TestCase\AppControllerTestCase;
+use Cake\I18n\FrozenTime;
 use Cake\TestSuite\IntegrationTestTrait;
 
 /**
@@ -202,7 +203,6 @@ class AiMetricsControllerTest extends AppControllerTestCase
      */
     public function testRealtimeDataEndpoint(): void
     {
-        // Test 1 hour timeframe
         $this->configRequest([
             'headers' => ['X-Requested-With' => 'XMLHttpRequest'],
         ]);

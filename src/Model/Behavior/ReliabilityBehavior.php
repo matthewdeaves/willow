@@ -29,10 +29,10 @@ class ReliabilityBehavior extends Behavior
     protected array $_defaultConfig = [
         'fields' => [
             // Critical verification fields (high weight, require external validation)
-            'technical_specifications' => 0.25,  // JSON specs are critical
-            'testing_standard' => 0.20,          // Must have testing standard
-            'certifying_organization' => 0.15,   // Must have certifier
-            'numeric_rating' => 0.10,            // Must have performance rating
+            'technical_specifications' => 0.25, // JSON specs are critical
+            'testing_standard' => 0.20, // Must have testing standard
+            'certifying_organization' => 0.15, // Must have certifier
+            'numeric_rating' => 0.10, // Must have performance rating
 
             // Basic product information (lower weight without verification)
             'title' => 0.08,
@@ -44,7 +44,7 @@ class ReliabilityBehavior extends Behavior
             'image' => 0.01,
             'alt_text' => 0.01,
         ],
-        'scoring_version' => 'v2.0',  // Updated version with verification focus
+        'scoring_version' => 'v2.0', // Updated version with verification focus
         'normalize' => true, // Normalize to 0.00-1.00 range
         'verification_required' => true, // Products need verification to score well
     ];

@@ -35,12 +35,12 @@ class DecisionTreeService
     /**
      * Product matcher service
      */
-    private $productMatcher;
+    private AiProductMatcherService $productMatcher;
 
     /**
      * AI service for intelligent question generation
      */
-    private $aiService;
+    private ?AnthropicApiService $aiService;
 
     /**
      * Constructor
@@ -367,7 +367,7 @@ class DecisionTreeService
                 ],
                 'iphone' => [
                     'iphone15_plus' => 'result', // iPhone 15+ with USB-C
-                    'iphone14_12' => 'result',   // iPhone 12-14 with Lightning
+                    'iphone14_12' => 'result', // iPhone 12-14 with Lightning
                     'iphone11_older' => 'result', // iPhone 11- with Lightning
                     'unsure' => 'iphone_help',
                 ],

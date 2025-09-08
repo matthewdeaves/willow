@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Service\Quiz;
 
 use App\Model\Entity\Product;
+use App\Model\Table\ProductsTable;
 use App\Service\Api\Anthropic\AnthropicApiService;
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
@@ -25,12 +26,12 @@ class AiProductMatcherService
     /**
      * AI API service for advanced scoring
      */
-    private $aiService;
+    private ?AnthropicApiService $aiService;
 
     /**
      * Products table for data access
      */
-    private $productsTable;
+    private ProductsTable $productsTable;
 
     /**
      * Configuration settings
@@ -295,7 +296,8 @@ class AiProductMatcherService
                "Rate how well this product matches the user's needs on a scale of 0.0 to 1.0.\n\n" .
                "User Profile:\n{$userProfile}\n\n" .
                "Product:\n{$productSummary}\n\n" .
-               "Consider: device compatibility, port types, power requirements, certification, budget, and brand preferences.\n" .
+               'Consider: device compatibility, port types, power requirements, ' .
+               'certification, budget, and brand preferences.\n' .
                'Respond with only a decimal score (e.g., 0.85):';
     }
 

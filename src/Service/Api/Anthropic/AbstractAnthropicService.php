@@ -9,6 +9,13 @@ abstract class AbstractAnthropicService
 {
     use LogTrait;
 
+    /**
+     * Validate AI response and apply fallback values for missing or invalid fields
+     *
+     * @param array $result The AI response result
+     * @param array $expectedKeys Expected keys with validation constraints
+     * @return array Validated result with fallbacks applied
+     */
     protected function validateAndFallback(array $result, array $expectedKeys): array
     {
         foreach ($expectedKeys as $key => $constraints) {
@@ -21,7 +28,15 @@ abstract class AbstractAnthropicService
         return $result;
     }
 
-    private function validateField(string $key, $value, array $constraints): bool
+    /**
+     * Validate a specific field value against constraints
+     *
+     * @param string $key The field key
+     * @param mixed $value The field value to validate
+     * @param array $constraints Validation constraints (currently unused but reserved for future)
+     * @return bool True if valid, false otherwise
+     */
+    private function validateField(string $key, mixed $value, array $constraints): bool
     {
         if (!is_string($value)) {
             return false;
@@ -38,6 +53,13 @@ abstract class AbstractAnthropicService
         return isset($validators[$key]) ? $validators[$key]($value) : true;
     }
 
+    /**
+     * Get smart fallback value for a specific field key
+     *
+     * @param string $key The field key needing a fallback
+     * @param array $context Available context data for generating fallbacks
+     * @return string Fallback value
+     */
     private function getSmartFallback(string $key, array $context): string
     {
         $fallbacks = [

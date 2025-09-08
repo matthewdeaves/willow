@@ -132,8 +132,11 @@ class CacheService
     /**
      * Get cached data with fallback
      */
-    public function getWithFallback(string $cacheKey, callable $fallbackCallback, string $duration = self::DEFAULT_DURATION): mixed
-    {
+    public function getWithFallback(
+        string $cacheKey,
+        callable $fallbackCallback,
+        string $duration = self::DEFAULT_DURATION,
+    ): mixed {
         $cached = Cache::read($cacheKey, self::CACHE_CONFIG);
 
         if ($cached !== null) {
@@ -237,16 +240,25 @@ class CacheService
         ], self::CACHE_CONFIG, self::STATS_DURATION);
     }
 
+    /**
+     * Warmup cache for capability categories data
+     */
     private function warmupCapabilityCategories(): void
     {
         Cache::write('capability_categories', [], self::CACHE_CONFIG, self::DEFAULT_DURATION);
     }
 
+    /**
+     * Warmup cache for port families data
+     */
     private function warmupPortFamilies(): void
     {
         Cache::write('port_families', [], self::CACHE_CONFIG, self::DEFAULT_DURATION);
     }
 
+    /**
+     * Warmup cache for device categories data
+     */
     private function warmupDeviceCategories(): void
     {
         Cache::write('device_categories', [], self::CACHE_CONFIG, self::DEFAULT_DURATION);

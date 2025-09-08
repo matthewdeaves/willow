@@ -67,9 +67,10 @@ class QuizSubmission extends Entity
     /**
      * Automatically generate UUID for new entities
      *
-     * @return void
+     * @param mixed $value The value to set
+     * @return mixed|string The UUID or original value
      */
-    protected function _setId($value)
+    protected function _setId(mixed $value): mixed
     {
         if (empty($value)) {
             return Text::uuid();

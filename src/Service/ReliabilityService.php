@@ -12,6 +12,7 @@ use App\Service\Ai\NullAiProvider;
 use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Text;
+use DateTime;
 use Exception;
 
 /**
@@ -28,6 +29,9 @@ class ReliabilityService
     private ProductsTable $productsTable;
     private AiProviderInterface $aiProvider;
 
+    /**
+     * Constructor - Initialize reliability service with required table instances
+     */
     public function __construct()
     {
         $this->reliabilityTable = TableRegistry::getTableLocator()->get('ProductsReliability');
@@ -107,7 +111,8 @@ class ReliabilityService
             'version' => 'v2.0',
             'source' => $aiSuggestions['source'] ?? 'system',
             'suggestions' => $aiSuggestions['suggestions'] ?? [],
-            'reasoning' => $aiSuggestions['reasoning'] ?? 'Score calculated using field weights and completion status',
+            'reasoning' => $aiSuggestions['reasoning']
+                ?? 'Score calculated using field weights and completion status',
             'ui' => [
                 'severity' => $severity,
                 'field_importance' => $this->calculateFieldImportance($fieldWeights, $fieldScores),
@@ -141,7 +146,10 @@ class ReliabilityService
                     'foreign_key' => $entityId,
                     'total_score' => $scoreData['total_score'],
                     'completeness_percent' => $scoreData['completeness_percent'],
-                    'field_scores_json' => json_encode($scoreData['field_scores'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
+                    'field_scores_json' => json_encode(
+                        $scoreData['field_scores'],
+                        JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES,
+                    ),
                     'scoring_version' => $scoreData['version'],
                     'last_source' => $context['source'] ?? 'system',
                     'last_calculated' => $now,
@@ -274,8 +282,11 @@ class ReliabilityService
 
     /**
      * Score JSON field (technical specifications)
+     *
+     * @param mixed $value The field value to score
+     * @return float Score between 0.0 and 1.0
      */
-    private function scoreJsonField($value): float
+    private function scoreJsonField(mixed $value): float
     {
         if (is_string($value)) {
             $decoded = json_decode($value, true);
@@ -292,8 +303,11 @@ class ReliabilityService
 
     /**
      * Score verification fields (testing_standard, certifying_organization)
+     *
+     * @param mixed $value The field value to score
+     * @return float Score between 0.0 and 1.0
      */
-    private function scoreVerificationField($value): float
+    private function scoreVerificationField(mixed $value): float
     {
         $value = trim((string)$value);
         if (strlen($value) < 2) {
@@ -317,8 +331,11 @@ class ReliabilityService
 
     /**
      * Score numeric rating fields
+     *
+     * @param mixed $value The field value to score
+     * @return float Score between 0.0 and 1.0
      */
-    private function scoreNumericField($value): float
+    private function scoreNumericField(mixed $value): float
     {
         if (is_numeric($value)) {
             $num = (float)$value;
@@ -331,16 +348,24 @@ class ReliabilityService
 
     /**
      * Score boolean field (is_certified)
+     *
+     * @param mixed $value The field value to score
+     * @return float Score between 0.0 and 1.0
      */
-    private function scoreBooleanField($value): float
+    private function scoreBooleanField(mixed $value): float
     {
         return (bool)$value ? 1.0 : 0.5; // Partial credit for false
     }
 
     /**
      * Score textual field with length considerations
+     *
+     * @param mixed $value The field value to score
+     * @param int $minLength Minimum acceptable length
+     * @param int $idealLength Ideal length for full score
+     * @return float Score between 0.0 and 1.0
      */
-    private function scoreTextualField($value, int $minLength, int $idealLength): float
+    private function scoreTextualField(mixed $value, int $minLength, int $idealLength): float
     {
         $value = trim((string)$value);
         $length = strlen($value);
@@ -358,16 +383,22 @@ class ReliabilityService
 
     /**
      * Score price field
+     *
+     * @param mixed $value The field value to score
+     * @return float Score between 0.0 and 1.0
      */
-    private function scorePriceField($value): float
+    private function scorePriceField(mixed $value): float
     {
         return is_numeric($value) && (float)$value > 0 ? 1.0 : 0.0;
     }
 
     /**
      * Score currency field
+     *
+     * @param mixed $value The field value to score
+     * @return float Score between 0.0 and 1.0
      */
-    private function scoreCurrencyField($value): float
+    private function scoreCurrencyField(mixed $value): float
     {
         $validCurrencies = ['USD', 'EUR', 'GBP', 'CAD', 'JPY', 'AUD'];
 
@@ -376,8 +407,11 @@ class ReliabilityService
 
     /**
      * Score media field (image, alt_text)
+     *
+     * @param mixed $value The field value to score
+     * @return float Score between 0.0 and 1.0
      */
-    private function scoreMediaField($value): float
+    private function scoreMediaField(mixed $value): float
     {
         $value = trim((string)$value);
 
@@ -386,16 +420,24 @@ class ReliabilityService
 
     /**
      * Score generic field
+     *
+     * @param mixed $value The field value to score
+     * @return float Score between 0.0 and 1.0
      */
-    private function scoreGenericField($value): float
+    private function scoreGenericField(mixed $value): float
     {
         return !empty($value) && trim((string)$value) !== '' ? 1.0 : 0.0;
     }
 
     /**
      * Get field score rationale for UI display
+     *
+     * @param string $field Field name
+     * @param mixed $value Field value
+     * @param float $score Calculated score
+     * @return string Human-readable rationale
      */
-    private function getFieldScoreRationale(string $field, $value, float $score): string
+    private function getFieldScoreRationale(string $field, mixed $value, float $score): string
     {
         if ($score === 0.0) {
             return 'Field is empty or invalid';
@@ -446,15 +488,31 @@ class ReliabilityService
 
     /**
      * Create log entry with checksum
+     *
+     * @param string $model Model name
+     * @param string $entityId Entity ID
+     * @param mixed $existing Existing reliability record (or null)
+     * @param array $scoreData Score data
+     * @param array $context Context information
+     * @param \DateTime $now Current timestamp
+     * @return void
      */
-    private function createLogEntry(string $model, string $entityId, $existing, array $scoreData, array $context, DateTime $now): void
-    {
+    private function createLogEntry(
+        string $model,
+        string $entityId,
+        mixed $existing,
+        array $scoreData,
+        array $context,
+        DateTime $now,
+    ): void {
         $logPayload = [
             'model' => $model,
             'foreign_key' => $entityId,
             'from_total_score' => $existing?->total_score,
             'to_total_score' => $scoreData['total_score'],
-            'from_field_scores_json' => $existing?->field_scores_json ? json_decode($existing->field_scores_json, true) : null,
+            'from_field_scores_json' => $existing?->field_scores_json
+                ? json_decode($existing->field_scores_json, true)
+                : null,
             'to_field_scores_json' => $scoreData['field_scores'],
             'source' => $context['source'] ?? 'system',
             'actor_user_id' => $context['actor_user_id'] ?? null,
@@ -471,7 +529,10 @@ class ReliabilityService
             'from_total_score' => $existing?->total_score,
             'to_total_score' => $scoreData['total_score'],
             'from_field_scores_json' => $existing?->field_scores_json,
-            'to_field_scores_json' => json_encode($scoreData['field_scores'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
+            'to_field_scores_json' => json_encode(
+                $scoreData['field_scores'],
+                JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES,
+            ),
             'source' => $context['source'] ?? 'system',
             'actor_user_id' => $context['actor_user_id'] ?? null,
             'actor_service' => $context['actor_service'] ?? 'reliability-service',

@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use DateInterval;
+use DateTime;
 
 /**
  * ProductsReliabilityLog Entity
@@ -94,6 +96,7 @@ class ProductsReliabilityLog extends Entity
         }
 
         $decoded = json_decode($this->from_field_scores_json, true);
+
         return is_array($decoded) ? $decoded : null;
     }
 
@@ -109,6 +112,7 @@ class ProductsReliabilityLog extends Entity
         }
 
         $decoded = json_decode($this->to_field_scores_json, true);
+
         return is_array($decoded) ? $decoded : null;
     }
 
@@ -131,6 +135,7 @@ class ProductsReliabilityLog extends Entity
     public function isImprovement(float $threshold = 0.01): bool
     {
         $delta = $this->score_delta;
+
         return $delta !== null && $delta > $threshold;
     }
 
@@ -143,6 +148,7 @@ class ProductsReliabilityLog extends Entity
     public function isDegradation(float $threshold = 0.01): bool
     {
         $delta = $this->score_delta;
+
         return $delta !== null && $delta < -$threshold;
     }
 
@@ -155,6 +161,7 @@ class ProductsReliabilityLog extends Entity
     public function isSignificantChange(float $threshold = 0.10): bool
     {
         $delta = $this->score_delta;
+
         return $delta !== null && abs($delta) >= $threshold;
     }
 
@@ -190,7 +197,7 @@ class ProductsReliabilityLog extends Entity
             'user' => 'User Update',
             'ai' => 'AI Analysis',
             'admin' => 'Admin Review',
-            'system' => 'System Process'
+            'system' => 'System Process',
         ];
 
         return $sourceMap[$this->source] ?? ucfirst($this->source);
@@ -292,7 +299,8 @@ class ProductsReliabilityLog extends Entity
             return false;
         }
 
-        $cutoff = new \DateTime("-{$hours} hours");
+        $cutoff = new DateTime("-{$hours} hours");
+
         return $this->created >= $cutoff;
     }
 
@@ -301,13 +309,14 @@ class ProductsReliabilityLog extends Entity
      *
      * @return \DateInterval|null
      */
-    protected function _getTimeElapsed(): ?\DateInterval
+    protected function _getTimeElapsed(): ?DateInterval
     {
         if ($this->created === null) {
             return null;
         }
 
-        $now = new \DateTime();
+        $now = new DateTime();
+
         return $now->diff($this->created);
     }
 

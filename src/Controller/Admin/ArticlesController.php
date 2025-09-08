@@ -279,7 +279,7 @@ class ArticlesController extends AppController
                 $parentInheritance = [
                     'main_menu' => $parent->main_menu ?? false,
                     'footer_menu' => $parent->footer_menu ?? false,
-                    'parent_title' => $parent->title ?? ''
+                    'parent_title' => $parent->title ?? '',
                 ];
             } catch (RecordNotFoundException $e) {
                 // Parent not found, continue without inheritance data
@@ -362,7 +362,7 @@ class ArticlesController extends AppController
             $parentInheritance = [
                 'main_menu' => $parent->main_menu ?? false,
                 'footer_menu' => $parent->footer_menu ?? false,
-                'parent_title' => $parent->title ?? ''
+                'parent_title' => $parent->title ?? '',
             ];
         }
 

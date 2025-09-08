@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use App\Model\Entity\ProductsReliability;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -13,7 +14,7 @@ use Cake\Validation\Validator;
  *
  * Manages polymorphic reliability summaries for any model. Stores current
  * reliability scores, completeness percentages, and audit information.
- * 
+ *
  * @method \App\Model\Entity\ProductsReliability newEmptyEntity()
  * @method \App\Model\Entity\ProductsReliability newEntity(array $data, array $options = [])
  * @method array<\App\Model\Entity\ProductsReliability> newEntities(array $data, array $options = [])
@@ -75,7 +76,7 @@ class ProductsReliabilityTable extends Table
                 'rule' => function ($value) {
                     return is_string($value) && preg_match('/^[A-Za-z][A-Za-z0-9]*$/', $value);
                 },
-                'message' => 'Model name must be a valid class name'
+                'message' => 'Model name must be a valid class name',
             ]);
 
         $validator
@@ -89,7 +90,7 @@ class ProductsReliabilityTable extends Table
             ->notEmptyString('total_score')
             ->add('total_score', 'range', [
                 'rule' => ['range', 0.00, 1.00],
-                'message' => 'Total score must be between 0.00 and 1.00'
+                'message' => 'Total score must be between 0.00 and 1.00',
             ]);
 
         $validator
@@ -98,7 +99,7 @@ class ProductsReliabilityTable extends Table
             ->notEmptyString('completeness_percent')
             ->add('completeness_percent', 'range', [
                 'rule' => ['range', 0.00, 100.00],
-                'message' => 'Completeness percent must be between 0.00 and 100.00'
+                'message' => 'Completeness percent must be between 0.00 and 100.00',
             ]);
 
         $validator
@@ -110,11 +111,13 @@ class ProductsReliabilityTable extends Table
                     }
                     if (is_string($value)) {
                         json_decode($value);
+
                         return json_last_error() === JSON_ERROR_NONE;
                     }
+
                     return false;
                 },
-                'message' => 'Field scores must be valid JSON'
+                'message' => 'Field scores must be valid JSON',
             ]);
 
         $validator
@@ -132,7 +135,7 @@ class ProductsReliabilityTable extends Table
                 'rule' => function ($value) {
                     return in_array($value, self::VALID_SOURCES, true);
                 },
-                'message' => 'Last source must be one of: ' . implode(', ', self::VALID_SOURCES)
+                'message' => 'Last source must be one of: ' . implode(', ', self::VALID_SOURCES),
             ]);
 
         $validator
@@ -163,7 +166,7 @@ class ProductsReliabilityTable extends Table
         // Ensure unique combination of model and foreign_key
         $rules->add($rules->isUnique(['model', 'foreign_key']), [
             'errorField' => 'foreign_key',
-            'message' => 'A reliability record already exists for this model and ID'
+            'message' => 'A reliability record already exists for this model and ID',
         ]);
 
         return $rules;
@@ -176,7 +179,7 @@ class ProductsReliabilityTable extends Table
      * @param string $id Entity ID
      * @return \App\Model\Entity\ProductsReliability|null
      */
-    public function findSummaryFor(string $model, string $id): ?\App\Model\Entity\ProductsReliability
+    public function findSummaryFor(string $model, string $id): ?ProductsReliability
     {
         return $this->find()
             ->where(['model' => $model, 'foreign_key' => $id])
@@ -217,7 +220,7 @@ class ProductsReliabilityTable extends Table
         return $this->find()
             ->where([
                 'model' => $model,
-                'total_score >=' => $minScore
+                'total_score >=' => $minScore,
             ])
             ->orderBy(['total_score' => 'DESC', 'completeness_percent' => 'DESC'])
             ->limit($limit);
@@ -238,8 +241,8 @@ class ProductsReliabilityTable extends Table
                 'model' => $model,
                 'OR' => [
                     'total_score <=' => $maxScore,
-                    'completeness_percent <=' => $maxCompleteness
-                ]
+                    'completeness_percent <=' => $maxCompleteness,
+                ],
             ])
             ->orderBy(['total_score' => 'ASC', 'completeness_percent' => 'ASC']);
     }
@@ -293,7 +296,7 @@ class ProductsReliabilityTable extends Table
         $query = $this->find()
             ->select([
                 'scoring_version',
-                'count' => $this->find()->func()->count('*')
+                'count' => $this->find()->func()->count('*'),
             ])
             ->group('scoring_version');
 
@@ -324,7 +327,7 @@ class ProductsReliabilityTable extends Table
         $query = $this->find()
             ->where([
                 'model' => $model,
-                'modified >=' => date('Y-m-d H:i:s', strtotime("-{$days} days"))
+                'modified >=' => date('Y-m-d H:i:s', strtotime("-{$days} days")),
             ])
             ->orderBy(['modified' => 'DESC']);
 

@@ -9,7 +9,6 @@ use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
-use Cake\I18n\FrozenTime;
 use Cake\ORM\TableRegistry;
 use RuntimeException;
 

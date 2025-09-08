@@ -3,20 +3,20 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\Model\Table\ProductsReliabilityTable;
 use App\Model\Table\ProductsReliabilityFieldsTable;
 use App\Model\Table\ProductsReliabilityLogsTable;
+use App\Model\Table\ProductsReliabilityTable;
 use App\Model\Table\ProductsTable;
 use App\Service\Ai\AiProviderInterface;
 use App\Service\Ai\NullAiProvider;
 use Cake\Core\Configure;
-use Cake\I18n\FrozenTime;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Text;
+use Exception;
 
 /**
  * ReliabilityService - Core service for product reliability scoring and persistence
- * 
+ *
  * Handles scoring calculations, field weighting, checksum generation,
  * and integration with AI providers for suggestions.
  */
@@ -27,18 +27,18 @@ class ReliabilityService
     private ProductsReliabilityLogsTable $logsTable;
     private ProductsTable $productsTable;
     private AiProviderInterface $aiProvider;
-    
+
     public function __construct()
     {
         $this->reliabilityTable = TableRegistry::getTableLocator()->get('ProductsReliability');
         $this->fieldsTable = TableRegistry::getTableLocator()->get('ProductsReliabilityFields');
         $this->logsTable = TableRegistry::getTableLocator()->get('ProductsReliabilityLogs');
         $this->productsTable = TableRegistry::getTableLocator()->get('Products');
-        
+
         // Initialize AI provider based on configuration
         $this->initializeAiProvider();
     }
-    
+
     /**
      * Compute provisional reliability score without persisting to database
      * Used for real-time scoring in forms
@@ -52,54 +52,54 @@ class ReliabilityService
     {
         // Get field weights from ProductsTable Reliability behavior configuration
         $fieldWeights = $this->getFieldWeights($model);
-        
+
         // Calculate scores for each field
         $fieldScores = [];
         $totalWeightedScore = 0;
         $totalWeight = 0;
         $completedFields = 0;
         $totalFields = count($fieldWeights);
-        
+
         foreach ($fieldWeights as $field => $weight) {
             $score = $this->calculateFieldScore($field, $payload[$field] ?? null);
             $contribution = $score * $weight;
             $totalWeightedScore += $contribution;
             $totalWeight += $weight;
-            
+
             if ($score > 0) {
                 $completedFields++;
             }
-            
+
             $fieldScores[$field] = [
                 'score' => round($score, 3),
                 'weight' => round($weight, 3),
                 'contribution' => round($contribution, 3),
                 'max_score' => 1.00,
-                'notes' => $this->getFieldScoreRationale($field, $payload[$field] ?? null, $score)
+                'notes' => $this->getFieldScoreRationale($field, $payload[$field] ?? null, $score),
             ];
         }
-        
+
         // Calculate final scores
         $totalScore = $totalWeight > 0 ? $totalWeightedScore / $totalWeight : 0;
-        $completenessPercent = $totalFields > 0 ? ($completedFields / $totalFields) * 100 : 0;
-        
+        $completenessPercent = $totalFields > 0 ? $completedFields / $totalFields * 100 : 0;
+
         // Get AI suggestions
         $aiContext = [
             'field_weights' => $fieldWeights,
             'field_scores' => $fieldScores,
             'total_score' => $totalScore,
-            'completeness_percent' => $completenessPercent
+            'completeness_percent' => $completenessPercent,
         ];
-        
+
         $aiSuggestions = $this->aiProvider->getSuggestions($payload, $aiContext);
-        
+
         // Determine UI severity based on score
         $severity = match (true) {
             $totalScore >= 0.80 => 'success',
             $totalScore >= 0.60 => 'warning',
             default => 'info'
         };
-        
+
         return [
             'total_score' => round($totalScore, 3),
             'completeness_percent' => round($completenessPercent, 2),
@@ -110,11 +110,11 @@ class ReliabilityService
             'reasoning' => $aiSuggestions['reasoning'] ?? 'Score calculated using field weights and completion status',
             'ui' => [
                 'severity' => $severity,
-                'field_importance' => $this->calculateFieldImportance($fieldWeights, $fieldScores)
-            ]
+                'field_importance' => $this->calculateFieldImportance($fieldWeights, $fieldScores),
+            ],
         ];
     }
-    
+
     /**
      * Persist final reliability score to database with logging
      *
@@ -127,14 +127,14 @@ class ReliabilityService
     public function persistFinalScore(string $model, string $entityId, array $scoreData, array $context = []): bool
     {
         $connection = $this->reliabilityTable->getConnection();
-        
+
         try {
-            $connection->transactional(function () use ($model, $entityId, $scoreData, $context) {
+            $connection->transactional(function () use ($model, $entityId, $scoreData, $context): void {
                 $now = new DateTime();
-                
+
                 // Get existing reliability record
                 $existing = $this->reliabilityTable->findSummaryFor($model, $entityId);
-                
+
                 // Prepare summary data
                 $summaryData = [
                     'model' => $model,
@@ -147,9 +147,9 @@ class ReliabilityService
                     'last_calculated' => $now,
                     'updated_by_user_id' => $context['actor_user_id'] ?? null,
                     'updated_by_service' => $context['actor_service'] ?? 'reliability-service',
-                    'modified' => $now
+                    'modified' => $now,
                 ];
-                
+
                 if ($existing) {
                     $summaryData['id'] = $existing->id;
                     $summary = $this->reliabilityTable->patchEntity($existing, $summaryData);
@@ -158,27 +158,28 @@ class ReliabilityService
                     $summaryData['created'] = $now;
                     $summary = $this->reliabilityTable->newEntity($summaryData);
                 }
-                
+
                 $this->reliabilityTable->saveOrFail($summary);
-                
+
                 // Update individual field scores
                 $this->updateFieldScores($model, $entityId, $scoreData['field_scores'], $now);
-                
+
                 // Create log entry with checksum
                 $this->createLogEntry($model, $entityId, $existing, $scoreData, $context, $now);
-                
+
                 // Update legacy products.reliability_score field if needed
                 $this->updateLegacyReliabilityScore($model, $entityId, $scoreData['total_score']);
             });
-            
+
             return true;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // Log error but don't throw to avoid breaking form submissions
-            error_log("ReliabilityService::persistFinalScore failed: " . $e->getMessage());
+            error_log('ReliabilityService::persistFinalScore failed: ' . $e->getMessage());
+
             return false;
         }
     }
-    
+
     /**
      * Compute checksum for log entry verification
      *
@@ -189,13 +190,13 @@ class ReliabilityService
     {
         // Ensure consistent key ordering
         ksort($payload);
-        
+
         // Canonicalize JSON representation
         $jsonString = json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-        
+
         return hash('sha256', $jsonString);
     }
-    
+
     /**
      * Calculate field importance for UI highlighting
      * Higher importance = higher weight + lower average score across corpus
@@ -208,22 +209,23 @@ class ReliabilityService
     {
         // Get corpus statistics for dynamic importance
         $stats = $this->fieldsTable->getFieldStats('Products');
-        
+
         $importance = [];
         foreach ($fieldWeights as $field => $weight) {
             $avgScore = $stats[$field]['avg_score'] ?? 0.5;
             $currentScore = $fieldScores[$field]['score'] ?? 0;
-            
+
             // Emphasize fields that are both important and commonly weak
             $normalizedImportance = $weight * (1 - $avgScore) * (1 - $currentScore);
             $importance[$field] = $normalizedImportance;
         }
-        
+
         // Return top 3 fields
         arsort($importance);
+
         return array_slice(array_keys($importance), 0, 3);
     }
-    
+
     /**
      * Get field weights from ProductsTable configuration
      *
@@ -235,12 +237,13 @@ class ReliabilityService
         if ($model === 'Products') {
             // Access the Reliability behavior configuration from ProductsTable
             $behavior = $this->productsTable->getBehavior('Reliability');
+
             return $behavior->getConfig('fields') ?? [];
         }
-        
+
         return [];
     }
-    
+
     /**
      * Calculate score for individual field
      *
@@ -248,12 +251,12 @@ class ReliabilityService
      * @param mixed $value Field value
      * @return float Score between 0.0 and 1.0
      */
-    private function calculateFieldScore(string $field, $value): float
+    private function calculateFieldScore(string $field, mixed $value): float
     {
         if ($value === null || $value === '') {
             return 0.0;
         }
-        
+
         return match ($field) {
             'technical_specifications' => $this->scoreJsonField($value),
             'testing_standard', 'certifying_organization' => $this->scoreVerificationField($value),
@@ -268,7 +271,7 @@ class ReliabilityService
             default => $this->scoreGenericField($value)
         };
     }
-    
+
     /**
      * Score JSON field (technical specifications)
      */
@@ -279,35 +282,39 @@ class ReliabilityService
             if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
                 // Higher score for more comprehensive JSON
                 $keyCount = count($decoded);
+
                 return min(1.0, $keyCount / 5); // Perfect score at 5+ keys
             }
         }
+
         return 0.0;
     }
-    
+
     /**
      * Score verification fields (testing_standard, certifying_organization)
      */
     private function scoreVerificationField($value): float
     {
         $value = trim((string)$value);
-        if (strlen($value) < 2) return 0.0;
-        
+        if (strlen($value) < 2) {
+            return 0.0;
+        }
+
         // Check for common standards/organizations
         $knownPatterns = [
             'ANSI', 'IEEE', 'ISO', 'IEC', 'FCC', 'UL', 'CE', 'ETL',
-            'NEMA', 'TIA', 'EIA', 'JEDEC', 'USB-IF'
+            'NEMA', 'TIA', 'EIA', 'JEDEC', 'USB-IF',
         ];
-        
+
         foreach ($knownPatterns as $pattern) {
             if (stripos($value, $pattern) !== false) {
                 return 1.0; // Perfect score for recognized standards
             }
         }
-        
+
         return strlen($value) >= 3 ? 0.8 : 0.4; // Good score for other text
     }
-    
+
     /**
      * Score numeric rating fields
      */
@@ -315,11 +322,13 @@ class ReliabilityService
     {
         if (is_numeric($value)) {
             $num = (float)$value;
+
             return $num > 0 ? 1.0 : 0.0;
         }
+
         return 0.0;
     }
-    
+
     /**
      * Score boolean field (is_certified)
      */
@@ -327,7 +336,7 @@ class ReliabilityService
     {
         return (bool)$value ? 1.0 : 0.5; // Partial credit for false
     }
-    
+
     /**
      * Score textual field with length considerations
      */
@@ -335,14 +344,18 @@ class ReliabilityService
     {
         $value = trim((string)$value);
         $length = strlen($value);
-        
-        if ($length < $minLength) return 0.0;
-        if ($length >= $idealLength) return 1.0;
-        
+
+        if ($length < $minLength) {
+            return 0.0;
+        }
+        if ($length >= $idealLength) {
+            return 1.0;
+        }
+
         // Linear interpolation between min and ideal length
         return ($length - $minLength) / ($idealLength - $minLength);
     }
-    
+
     /**
      * Score price field
      */
@@ -350,33 +363,35 @@ class ReliabilityService
     {
         return is_numeric($value) && (float)$value > 0 ? 1.0 : 0.0;
     }
-    
+
     /**
      * Score currency field
      */
     private function scoreCurrencyField($value): float
     {
         $validCurrencies = ['USD', 'EUR', 'GBP', 'CAD', 'JPY', 'AUD'];
+
         return in_array(strtoupper((string)$value), $validCurrencies) ? 1.0 : 0.5;
     }
-    
+
     /**
      * Score media field (image, alt_text)
      */
     private function scoreMediaField($value): float
     {
         $value = trim((string)$value);
+
         return strlen($value) > 0 ? 1.0 : 0.0;
     }
-    
+
     /**
      * Score generic field
      */
     private function scoreGenericField($value): float
     {
-        return (!empty($value) && trim((string)$value) !== '') ? 1.0 : 0.0;
+        return !empty($value) && trim((string)$value) !== '' ? 1.0 : 0.0;
     }
-    
+
     /**
      * Get field score rationale for UI display
      */
@@ -385,7 +400,7 @@ class ReliabilityService
         if ($score === 0.0) {
             return 'Field is empty or invalid';
         }
-        
+
         if ($score === 1.0) {
             return match ($field) {
                 'technical_specifications' => 'Comprehensive JSON specification provided',
@@ -393,10 +408,10 @@ class ReliabilityService
                 default => 'Complete and valid'
             };
         }
-        
+
         return 'Partially complete - could be improved';
     }
-    
+
     /**
      * Update individual field scores in database
      */
@@ -405,9 +420,9 @@ class ReliabilityService
         // Delete existing field scores
         $this->fieldsTable->deleteAll([
             'model' => $model,
-            'foreign_key' => $entityId
+            'foreign_key' => $entityId,
         ]);
-        
+
         // Insert new field scores
         $entities = [];
         foreach ($fieldScores as $field => $data) {
@@ -420,15 +435,15 @@ class ReliabilityService
                 'max_score' => $data['max_score'],
                 'notes' => $data['notes'],
                 'created' => $now,
-                'modified' => $now
+                'modified' => $now,
             ]);
         }
-        
+
         if (!empty($entities)) {
             $this->fieldsTable->saveManyOrFail($entities);
         }
     }
-    
+
     /**
      * Create log entry with checksum
      */
@@ -444,11 +459,11 @@ class ReliabilityService
             'source' => $context['source'] ?? 'system',
             'actor_user_id' => $context['actor_user_id'] ?? null,
             'actor_service' => $context['actor_service'] ?? 'reliability-service',
-            'created' => $now->format('c')
+            'created' => $now->format('c'),
         ];
-        
+
         $checksum = $this->computeChecksum($logPayload);
-        
+
         $logEntity = $this->logsTable->newEntity([
             'id' => Text::uuid(),
             'model' => $model,
@@ -462,12 +477,12 @@ class ReliabilityService
             'actor_service' => $context['actor_service'] ?? 'reliability-service',
             'message' => $context['message'] ?? 'Score updated via ReliabilityService',
             'checksum_sha256' => $checksum,
-            'created' => $now
+            'created' => $now,
         ]);
-        
+
         $this->logsTable->saveOrFail($logEntity);
     }
-    
+
     /**
      * Update legacy products.reliability_score field for backward compatibility
      */
@@ -476,11 +491,11 @@ class ReliabilityService
         if ($model === 'Products') {
             $this->productsTable->updateAll(
                 ['reliability_score' => $totalScore, 'modified' => new DateTime()],
-                ['id' => $entityId]
+                ['id' => $entityId],
             );
         }
     }
-    
+
     /**
      * Initialize AI provider based on configuration
      */
@@ -488,7 +503,7 @@ class ReliabilityService
     {
         $config = Configure::read('Reliability', []);
         $providerType = $config['aiProvider'] ?? 'null';
-        
+
         switch ($providerType) {
             case 'openai':
                 // TODO: Implement OpenAI provider when needed

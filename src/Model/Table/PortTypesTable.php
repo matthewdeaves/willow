@@ -10,7 +10,7 @@ use Cake\Validation\Validator;
 
 /**
  * PortTypes Model - Logical junction table view for port types
- * 
+ *
  * This provides a normalized view of port type data from the products table
  * for the prototype schema before actual database normalization.
  */
@@ -72,7 +72,7 @@ class PortTypesTable extends Table
     {
         $cacheKey = 'port_families';
         $families = Cache::read($cacheKey);
-        
+
         if ($families === null) {
             $families = $this->find()
                 ->select(['port_family'])
@@ -80,11 +80,11 @@ class PortTypesTable extends Table
                 ->distinct(['port_family'])
                 ->orderBy(['port_family' => 'ASC'])
                 ->toArray();
-                
+
             $families = array_column($families, 'port_family');
             Cache::write($cacheKey, $families, '1 hour');
         }
-        
+
         return $families;
     }
 
@@ -95,35 +95,35 @@ class PortTypesTable extends Table
     {
         $cacheKey = "form_factors_{$family}";
         $formFactors = Cache::read($cacheKey);
-        
+
         if ($formFactors === null) {
             $formFactors = $this->find()
                 ->select(['form_factor'])
                 ->where([
                     'port_family' => $family,
-                    'form_factor IS NOT' => null
+                    'form_factor IS NOT' => null,
                 ])
                 ->distinct(['form_factor'])
                 ->orderBy(['form_factor' => 'ASC'])
                 ->toArray();
-                
+
             $formFactors = array_column($formFactors, 'form_factor');
             Cache::write($cacheKey, $formFactors, '1 hour');
         }
-        
+
         return $formFactors;
     }
 
     /**
      * Get ports by family and form factor
      */
-    public function getPortsByFamilyAndForm(string $family, string $formFactor = null): Query
+    public function getPortsByFamilyAndForm(string $family, ?string $formFactor = null): Query
     {
         $conditions = [
             'port_family' => $family,
-            'port_family IS NOT' => null
+            'port_family IS NOT' => null,
         ];
-        
+
         if ($formFactor) {
             $conditions['form_factor'] = $formFactor;
         }
@@ -132,7 +132,7 @@ class PortTypesTable extends Table
             ->select([
                 'id', 'title', 'port_type_name', 'form_factor', 'connector_gender',
                 'pin_count', 'max_voltage', 'max_current', 'electrical_shielding',
-                'durability_cycles', 'introduced_date', 'deprecated_date'
+                'durability_cycles', 'introduced_date', 'deprecated_date',
             ])
             ->where($conditions)
             ->orderBy(['introduced_date' => 'DESC']);
@@ -147,14 +147,14 @@ class PortTypesTable extends Table
             ->select([
                 'id', 'title', 'port_family', 'form_factor',
                 'max_voltage', 'max_current', 'data_pin_count',
-                'power_pin_count', 'ground_pin_count', 'electrical_shielding'
+                'power_pin_count', 'ground_pin_count', 'electrical_shielding',
             ])
             ->where([
                 'OR' => [
                     'max_voltage IS NOT' => null,
-                    'max_current IS NOT' => null
+                    'max_current IS NOT' => null,
                 ],
-                'port_family IS NOT' => null
+                'port_family IS NOT' => null,
             ])
             ->orderBy(['max_voltage' => 'DESC', 'max_current' => 'DESC']);
     }
@@ -167,11 +167,11 @@ class PortTypesTable extends Table
         return $this->find()
             ->select([
                 'id', 'title', 'port_family', 'form_factor',
-                'durability_cycles', 'electrical_shielding', 'introduced_date'
+                'durability_cycles', 'electrical_shielding', 'introduced_date',
             ])
             ->where([
                 'durability_cycles IS NOT' => null,
-                'port_family IS NOT' => null
+                'port_family IS NOT' => null,
             ])
             ->orderBy(['durability_cycles' => 'DESC']);
     }
@@ -184,11 +184,11 @@ class PortTypesTable extends Table
         return $this->find()
             ->select([
                 'id', 'title', 'form_factor', 'introduced_date',
-                'deprecated_date', 'pin_count', 'max_voltage', 'max_current'
+                'deprecated_date', 'pin_count', 'max_voltage', 'max_current',
             ])
             ->where([
                 'port_family' => $family,
-                'introduced_date IS NOT' => null
+                'introduced_date IS NOT' => null,
             ])
             ->orderBy(['introduced_date' => 'ASC']);
     }
@@ -200,39 +200,39 @@ class PortTypesTable extends Table
     {
         $cacheKey = 'port_stats';
         $stats = Cache::read($cacheKey);
-        
+
         if ($stats === null) {
             $stats = [
                 'total_ports' => $this->find()
                     ->where(['port_family IS NOT' => null])
                     ->count(),
-                    
+
                 'port_families_count' => count($this->getPortFamilies()),
-                
+
                 'highest_voltage' => $this->find()
                     ->where(['max_voltage IS NOT' => null])
                     ->select(['max_voltage'])
                     ->orderBy(['max_voltage' => 'DESC'])
                     ->first()
                     ->max_voltage ?? 0,
-                    
+
                 'highest_current' => $this->find()
                     ->where(['max_current IS NOT' => null])
                     ->select(['max_current'])
                     ->orderBy(['max_current' => 'DESC'])
                     ->first()
                     ->max_current ?? 0,
-                    
+
                 'average_pin_count' => $this->find()
                     ->where(['pin_count IS NOT' => null])
                     ->select(['avg_pins' => 'AVG(pin_count)'])
                     ->first()
-                    ->avg_pins ?? 0
+                    ->avg_pins ?? 0,
             ];
-            
+
             Cache::write($cacheKey, $stats, '30 minutes');
         }
-        
+
         return $stats;
     }
 
@@ -244,7 +244,7 @@ class PortTypesTable extends Table
         $query = $this->find()
             ->select([
                 'id', 'title', 'port_family', 'form_factor', 'connector_gender',
-                'pin_count', 'max_voltage', 'max_current', 'durability_cycles'
+                'pin_count', 'max_voltage', 'max_current', 'durability_cycles',
             ])
             ->where(['port_family IS NOT' => null]);
 
@@ -274,7 +274,7 @@ class PortTypesTable extends Table
     {
         Cache::delete('port_families');
         Cache::delete('port_stats');
-        
+
         // Clear family-specific caches
         foreach ($this->getPortFamilies() as $family) {
             Cache::delete("form_factors_{$family}");

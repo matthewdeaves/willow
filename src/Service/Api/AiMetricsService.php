@@ -7,10 +7,11 @@ use App\Model\Table\AiMetricsTable;
 use App\Utility\SettingsManager;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Text;
+use Exception;
 
 /**
  * Centralized service for recording AI API metrics.
- * 
+ *
  * This service provides a consistent interface for recording metrics across
  * different AI API services (Anthropic, Google Translate, etc.).
  */
@@ -47,7 +48,7 @@ class AiMetricsService
         ?string $errorMessage = null,
         ?int $tokensUsed = null,
         ?float $costUsd = null,
-        ?string $modelUsed = null
+        ?string $modelUsed = null,
     ): bool {
         // Check if metrics tracking is enabled
         if (!SettingsManager::read('AI.enableMetrics', true)) {
@@ -66,10 +67,11 @@ class AiMetricsService
                 'model_used' => $modelUsed,
             ]);
 
-            return (bool) $this->aiMetricsTable->save($metrics);
-        } catch (\Exception $e) {
+            return (bool)$this->aiMetricsTable->save($metrics);
+        } catch (Exception $e) {
             // Log the error but don't throw to avoid breaking the main operation
-            error_log("Failed to record AI metrics: " . $e->getMessage());
+            error_log('Failed to record AI metrics: ' . $e->getMessage());
+
             return false;
         }
     }
@@ -87,7 +89,7 @@ class AiMetricsService
     public function calculateGoogleTranslateCost(int $characterCount): float
     {
         // Google Translate pricing: $20 per 1,000,000 characters
-        return ($characterCount / 1000000) * 20.0;
+        return $characterCount / 1000000 * 20.0;
     }
 
     /**
@@ -102,6 +104,7 @@ class AiMetricsService
         foreach ($strings as $string) {
             $totalChars += mb_strlen($string ?? '', 'UTF-8');
         }
+
         return $totalChars;
     }
 
@@ -114,7 +117,7 @@ class AiMetricsService
     {
         $today = date('Y-m-d');
         $tomorrow = date('Y-m-d', strtotime('+1 day'));
-        
+
         return $this->aiMetricsTable->getCostsByDateRange($today . ' 00:00:00', $tomorrow . ' 00:00:00');
     }
 
@@ -125,8 +128,8 @@ class AiMetricsService
      */
     public function isDailyCostLimitReached(): bool
     {
-        $dailyLimit = (float) SettingsManager::read('AI.dailyCostLimit', 2.50);
-        
+        $dailyLimit = (float)SettingsManager::read('AI.dailyCostLimit', 2.50);
+
         // If limit is 0, consider it unlimited
         if ($dailyLimit <= 0) {
             return false;
@@ -148,12 +151,12 @@ class AiMetricsService
             return;
         }
 
-        $dailyLimit = (float) SettingsManager::read('AI.dailyCostLimit', 2.50);
+        $dailyLimit = (float)SettingsManager::read('AI.dailyCostLimit', 2.50);
         $alertThreshold = $dailyLimit * 0.8; // Alert at 80% of limit
 
         if ($currentCost < $alertThreshold && ($currentCost + $newCost) >= $alertThreshold) {
             // TODO: Implement email alert functionality
-            error_log("AI Cost Alert: Daily spending has reached $" . ($currentCost + $newCost) . " (80% of daily limit)");
+            error_log('AI Cost Alert: Daily spending has reached $' . ($currentCost + $newCost) . ' (80% of daily limit)');
         }
     }
 }

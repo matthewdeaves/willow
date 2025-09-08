@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
-use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -12,7 +11,6 @@ use Cake\Validation\Validator;
  * QuizSubmissions Model
  *
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
- *
  * @method \App\Model\Entity\QuizSubmission newEmptyEntity()
  * @method \App\Model\Entity\QuizSubmission newEntity(array $data, array $options = [])
  * @method array<\App\Model\Entity\QuizSubmission> newEntities(array $data, array $options = [])
@@ -26,7 +24,6 @@ use Cake\Validation\Validator;
  * @method iterable<\App\Model\Entity\QuizSubmission>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\QuizSubmission> saveManyOrFail(iterable $entities, array $options = [])
  * @method iterable<\App\Model\Entity\QuizSubmission>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\QuizSubmission>|false deleteMany(iterable $entities, array $options = [])
  * @method iterable<\App\Model\Entity\QuizSubmission>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\QuizSubmission> deleteManyOrFail(iterable $entities, array $options = [])
- *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
 class QuizSubmissionsTable extends Table
@@ -84,11 +81,13 @@ class QuizSubmissionsTable extends Table
                 'rule' => function ($value, $context) {
                     if (is_string($value)) {
                         $decoded = json_decode($value, true);
+
                         return json_last_error() === JSON_ERROR_NONE && is_array($decoded);
                     }
+
                     return is_array($value);
                 },
-                'message' => 'Answers must be valid JSON array'
+                'message' => 'Answers must be valid JSON array',
             ]);
 
         $validator

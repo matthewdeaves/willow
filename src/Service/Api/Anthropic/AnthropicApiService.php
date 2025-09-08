@@ -5,10 +5,14 @@ namespace App\Service\Api\Anthropic;
 
 use App\Model\Table\AipromptsTable;
 use App\Service\Api\AbstractApiService;
+use App\Service\Api\RateLimitService;
 use App\Utility\SettingsManager;
 use Cake\Http\Client;
 use Cake\Http\Client\Response;
+use Cake\Http\Exception\ServiceUnavailableException;
 use Cake\ORM\TableRegistry;
+use Cake\Utility\Text;
+use Exception;
 
 /**
  * AnthropicApiService Class
@@ -98,9 +102,9 @@ class AnthropicApiService extends AbstractApiService
     public function sendRequest(array $payload, int $timeOut = 30): Response
     {
         // Enforce rate limiting before making the API call
-        $rateLimitService = new \App\Service\Api\RateLimitService();
+        $rateLimitService = new RateLimitService();
         if (!$rateLimitService->enforceLimit('anthropic')) {
-            throw new \Cake\Http\Exception\ServiceUnavailableException('Hourly rate limit exceeded for Anthropic API');
+            throw new ServiceUnavailableException('Hourly rate limit exceeded for Anthropic API');
         }
 
         return parent::sendRequest($payload, $timeOut);
@@ -232,11 +236,9 @@ class AnthropicApiService extends AbstractApiService
         return json_decode($responseData['content'][0]['text'], true);
     }
 
-
-
     /**
      * Generate the next question for Akinator-style quiz
-     * 
+     *
      * @param array $context Current quiz context and answers
      * @param array $remainingProducts Products that still match criteria
      * @return array|null Question data or null if should terminate
@@ -255,23 +257,24 @@ class AnthropicApiService extends AbstractApiService
                 'messages' => [
                     [
                         'role' => 'user',
-                        'content' => $prompt
-                    ]
-                ]
+                        'content' => $prompt,
+                    ],
+                ],
             ];
-            
-            $response = $this->sendRequest($payload);
-            return $this->parseQuestionResponse($response);
 
-        } catch (\Exception $e) {
+            $response = $this->sendRequest($payload);
+
+            return $this->parseQuestionResponse($response);
+        } catch (Exception $e) {
             $this->log('Anthropic API error generating question: ' . $e->getMessage(), 'error');
+
             return $this->generateFallbackQuestion($context, $remainingProducts);
         }
     }
 
     /**
      * Generate product recommendations with AI explanations
-     * 
+     *
      * @param array $quizAnswers User's quiz answers
      * @param array $matchedProducts Products that match criteria
      * @return array Recommendations with AI explanations
@@ -286,23 +289,24 @@ class AnthropicApiService extends AbstractApiService
                 'messages' => [
                     [
                         'role' => 'user',
-                        'content' => $prompt
-                    ]
-                ]
+                        'content' => $prompt,
+                    ],
+                ],
             ];
-            
-            $response = $this->sendRequest($payload);
-            return $this->parseRecommendationResponse($response, $matchedProducts);
 
-        } catch (\Exception $e) {
+            $response = $this->sendRequest($payload);
+
+            return $this->parseRecommendationResponse($response, $matchedProducts);
+        } catch (Exception $e) {
             $this->log('Anthropic API error generating recommendations: ' . $e->getMessage(), 'error');
+
             return $this->generateFallbackRecommendations($matchedProducts);
         }
     }
 
     /**
      * Analyze user responses to determine product filtering criteria
-     * 
+     *
      * @param array $answers Quiz answers
      * @return array Filtering criteria
      */
@@ -316,23 +320,24 @@ class AnthropicApiService extends AbstractApiService
                 'messages' => [
                     [
                         'role' => 'user',
-                        'content' => $prompt
-                    ]
-                ]
+                        'content' => $prompt,
+                    ],
+                ],
             ];
-            
-            $response = $this->sendRequest($payload);
-            return $this->parseAnalysisResponse($response);
 
-        } catch (\Exception $e) {
+            $response = $this->sendRequest($payload);
+
+            return $this->parseAnalysisResponse($response);
+        } catch (Exception $e) {
             $this->log('Anthropic API error analyzing answers: ' . $e->getMessage(), 'error');
+
             return $this->fallbackAnalyzeAnswers($answers);
         }
     }
 
     /**
      * Build prompt for question generation
-     * 
+     *
      * @param array $context Quiz context
      * @param array $products Remaining products
      * @return string Prompt for AI
@@ -346,7 +351,7 @@ class AnthropicApiService extends AbstractApiService
 
         $previousAnswers = '';
         if (!empty($context['answers'])) {
-            $previousAnswers = "Previous answers: " . json_encode($context['answers']) . "\n\n";
+            $previousAnswers = 'Previous answers: ' . json_encode($context['answers']) . "\n\n";
         }
 
         return "You are helping users find the perfect adapter/charger through an Akinator-style quiz. 
@@ -382,7 +387,7 @@ Respond with JSON in this format:
 
     /**
      * Build prompt for recommendation generation
-     * 
+     *
      * @param array $answers User answers
      * @param array $products Matched products
      * @return string Prompt for AI
@@ -391,7 +396,7 @@ Respond with JSON in this format:
     {
         $answersText = json_encode($answers, JSON_PRETTY_PRINT);
         $productsText = '';
-        
+
         foreach (array_slice($products, 0, 5) as $product) {
             $price = isset($product['price']) ? '$' . number_format($product['price'], 2) : 'N/A';
             $productsText .= "- {$product['title']} by {$product['manufacturer']} ({$price}, {$product['port_family']})\n";
@@ -426,7 +431,7 @@ Be conversational, helpful, and specific to their answers.";
 
     /**
      * Build prompt for answer analysis
-     * 
+     *
      * @param array $answers Quiz answers
      * @return string Prompt for AI
      */
@@ -460,7 +465,7 @@ Respond with JSON:
 
     /**
      * Parse question response from AI
-     * 
+     *
      * @param \Cake\Http\Client\Response $response API response
      * @return array|null Parsed question
      */
@@ -469,38 +474,38 @@ Respond with JSON:
         try {
             $responseData = $response->getJson();
             $content = $responseData['content'][0]['text'] ?? '';
-            
+
             // Extract JSON from response
             if (preg_match('/\{.*\}/s', $content, $matches)) {
                 $questionData = json_decode($matches[0], true);
-                
+
                 if ($questionData && isset($questionData['question'])) {
                     $options = $questionData['options'] ?? [
                         ['id' => 'yes', 'label' => 'Yes'],
-                        ['id' => 'no', 'label' => 'No']
+                        ['id' => 'no', 'label' => 'No'],
                     ];
-                    
+
                     return [
-                        'id' => \Cake\Utility\Text::uuid(),
+                        'id' => Text::uuid(),
                         'text' => $questionData['question'],
                         'type' => $questionData['type'] ?? 'choice',
                         'category' => $questionData['category'] ?? 'general',
-                        'options' => $options
+                        'options' => $options,
                     ];
                 }
             }
 
             return null;
-
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->log('Error parsing question response: ' . $e->getMessage(), 'error');
+
             return null;
         }
     }
 
     /**
      * Parse recommendation response from AI
-     * 
+     *
      * @param \Cake\Http\Client\Response $response API response
      * @param array $products Original products
      * @return array Parsed recommendations
@@ -510,43 +515,43 @@ Respond with JSON:
         try {
             $responseData = $response->getJson();
             $content = $responseData['content'][0]['text'] ?? '';
-            
+
             // Extract JSON from response
             if (preg_match('/\[.*\]/s', $content, $matches)) {
                 $recommendations = json_decode($matches[0], true);
-                
+
                 if (is_array($recommendations)) {
-                    return array_map(function($rec) use ($products) {
+                    return array_map(function ($rec) use ($products) {
                         $product = null;
                         if (isset($rec['product_id'])) {
-                            $product = array_filter($products, function($p) use ($rec) {
+                            $product = array_filter($products, function ($p) use ($rec) {
                                 return $p['id'] == $rec['product_id'];
                             });
                             $product = reset($product) ?: null;
                         }
-                        
+
                         return [
                             'product' => $product,
                             'confidence_score' => $rec['confidence_score'] ?? 0.8,
                             'explanation' => $rec['explanation'] ?? '',
                             'key_benefits' => $rec['key_benefits'] ?? [],
-                            'compatibility_notes' => $rec['compatibility_notes'] ?? ''
+                            'compatibility_notes' => $rec['compatibility_notes'] ?? '',
                         ];
                     }, $recommendations);
                 }
             }
 
             return $this->generateFallbackRecommendations($products);
-
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->log('Error parsing recommendation response: ' . $e->getMessage(), 'error');
+
             return $this->generateFallbackRecommendations($products);
         }
     }
 
     /**
      * Parse analysis response from AI
-     * 
+     *
      * @param \Cake\Http\Client\Response $response API response
      * @return array Parsed criteria
      */
@@ -555,27 +560,27 @@ Respond with JSON:
         try {
             $responseData = $response->getJson();
             $content = $responseData['content'][0]['text'] ?? '';
-            
+
             // Extract JSON from response
             if (preg_match('/\{.*\}/s', $content, $matches)) {
                 $criteria = json_decode($matches[0], true);
-                
+
                 if (is_array($criteria)) {
                     return $criteria;
                 }
             }
 
             return [];
-
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->log('Error parsing analysis response: ' . $e->getMessage(), 'error');
+
             return [];
         }
     }
 
     /**
      * Generate fallback question when AI fails
-     * 
+     *
      * @param array $context Quiz context
      * @param array $products Remaining products
      * @return array|null Fallback question
@@ -583,42 +588,43 @@ Respond with JSON:
     private function generateFallbackQuestion(array $context, array $products): ?array
     {
         $questionCount = count($context['answers'] ?? []);
-        
+
         // Predefined fallback questions
         $fallbackQuestions = [
             [
                 'text' => 'Do you need this adapter primarily for a laptop computer?',
-                'category' => 'device_type'
+                'category' => 'device_type',
             ],
             [
                 'text' => 'Is your device made by Apple?',
-                'category' => 'manufacturer'
+                'category' => 'manufacturer',
             ],
             [
                 'text' => 'Does your device use a USB-C port for charging?',
-                'category' => 'port_type'
+                'category' => 'port_type',
             ],
             [
                 'text' => 'Do you need fast charging capabilities?',
-                'category' => 'features'
+                'category' => 'features',
             ],
             [
                 'text' => 'Is portability important to you (small, lightweight adapter)?',
-                'category' => 'form_factor'
-            ]
+                'category' => 'form_factor',
+            ],
         ];
 
         if ($questionCount < count($fallbackQuestions)) {
             $question = $fallbackQuestions[$questionCount];
+
             return [
-                'id' => \Cake\Utility\Text::uuid(),
+                'id' => Text::uuid(),
                 'text' => $question['text'],
                 'type' => 'binary',
                 'category' => $question['category'],
                 'options' => [
                     ['id' => 'yes', 'label' => 'Yes'],
-                    ['id' => 'no', 'label' => 'No']
-                ]
+                    ['id' => 'no', 'label' => 'No'],
+                ],
             ];
         }
 
@@ -627,26 +633,26 @@ Respond with JSON:
 
     /**
      * Generate fallback recommendations when AI fails
-     * 
+     *
      * @param array $products Products to recommend
      * @return array Fallback recommendations
      */
     private function generateFallbackRecommendations(array $products): array
     {
-        return array_slice(array_map(function($product) {
+        return array_slice(array_map(function ($product) {
             return [
                 'product' => $product,
                 'confidence_score' => 0.7,
                 'explanation' => "This {$product['manufacturer']} adapter matches your requirements and is highly rated by users.",
                 'key_benefits' => ['Compatible', 'Reliable', 'Good value'],
-                'compatibility_notes' => 'Please check product specifications for exact compatibility.'
+                'compatibility_notes' => 'Please check product specifications for exact compatibility.',
             ];
         }, $products), 0, 3);
     }
 
     /**
      * Fallback analysis when AI fails
-     * 
+     *
      * @param array $answers Quiz answers
      * @return array Basic criteria extraction
      */
@@ -681,15 +687,15 @@ Respond with JSON:
      * @return void
      */
     private function recordMetrics(string $taskType, float $startTime, array $payload, bool $success, ?string $error = null): void
-{
-    if (!SettingsManager::read('AI.enableMetrics', true)) {
-        return;
-    }
-    
-    $executionTime = (microtime(true) - $startTime) * 1000;
-    $cost = $this->calculateCost($payload);
-    
-    $metric = $this->aiMetricsTable->newEntity([
+    {
+        if (!SettingsManager::read('AI.enableMetrics', true)) {
+            return;
+        }
+
+        $executionTime = (microtime(true) - $startTime) * 1000;
+        $cost = $this->calculateCost($payload);
+
+        $metric = $this->aiMetricsTable->newEntity([
         'task_type' => $taskType,
         'execution_time_ms' => (int)$executionTime,
         'tokens_used' => $payload['max_tokens'] ?? null,
@@ -697,8 +703,8 @@ Respond with JSON:
         'success' => $success,
         'error_message' => $error,
         'cost_usd' => $cost,
-    ]);
-    
-    $this->aiMetricsTable->save($metric);
-}
+        ]);
+
+        $this->aiMetricsTable->save($metric);
+    }
 }

@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Http\Response;
+
 /**
  * CookieConsents Controller
  *
@@ -31,7 +33,7 @@ class CookieConsentsController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view(?string $id = null)
     {
         $cookieConsent = $this->CookieConsents->get($id, contain: ['Users']);
         $this->set(compact('cookieConsent'));
@@ -65,7 +67,7 @@ class CookieConsentsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit(?string $id = null)
     {
         $cookieConsent = $this->CookieConsents->get($id, contain: []);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -88,7 +90,7 @@ class CookieConsentsController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete(?string $id = null): ?Response
     {
         $this->request->allowMethod(['post', 'delete']);
         $cookieConsent = $this->CookieConsents->get($id);

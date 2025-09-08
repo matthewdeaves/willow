@@ -3,14 +3,15 @@ declare(strict_types=1);
 
 namespace App\Model\Behavior;
 
-use Cake\ORM\Behavior;
-use Cake\Datasource\EntityInterface;
-use Cake\Event\EventInterface;
-use Cake\Log\Log;
 use Cake\Core\Configure;
-use Cake\I18n\DateTime;
-use Cake\Utility\Text;
+use Cake\Datasource\EntityInterface;
 use Cake\Http\Exception\InternalErrorException;
+use Cake\I18n\DateTime;
+use Cake\Log\Log;
+use Cake\ORM\Behavior;
+use Cake\ORM\Table;
+use Cake\Utility\Text;
+use Exception;
 
 /**
  * Reliability Behavior
@@ -32,7 +33,7 @@ class ReliabilityBehavior extends Behavior
             'testing_standard' => 0.20,          // Must have testing standard
             'certifying_organization' => 0.15,   // Must have certifier
             'numeric_rating' => 0.10,            // Must have performance rating
-            
+
             // Basic product information (lower weight without verification)
             'title' => 0.08,
             'description' => 0.08,
@@ -64,10 +65,10 @@ class ReliabilityBehavior extends Behavior
     public function initialize(array $config): void
     {
         parent::initialize($config);
-        
+
         // Load reliability configuration
         $this->_reliabilityConfig = Configure::read('Reliability', []);
-        
+
         // Merge model-specific config if available
         $modelName = $this->_table->getAlias();
         if (isset($this->_reliabilityConfig[$modelName])) {
@@ -244,11 +245,13 @@ class ReliabilityBehavior extends Behavior
             case 'testing_standard':
                 if (!empty($value) && is_string($value)) {
                     // Check if it looks like a real testing standard
-                    if (preg_match('/^[A-Z]{2,8}[-\s]?\d+/', $value) || 
+                    if (
+                        preg_match('/^[A-Z]{2,8}[-\s]?\d+/', $value) ||
                         strpos($value, 'ISO') !== false ||
                         strpos($value, 'ANSI') !== false ||
                         strpos($value, 'IEC') !== false ||
-                        strpos($value, 'IEEE') !== false) {
+                        strpos($value, 'IEEE') !== false
+                    ) {
                         $score = 1.0;
                         $notes = 'Valid testing standard format detected';
                     } else {
@@ -272,7 +275,7 @@ class ReliabilityBehavior extends Behavior
                             break;
                         }
                     }
-                    
+
                     if ($foundValid) {
                         $score = 1.0;
                         $notes = 'Recognized certifying organization detected';
@@ -331,7 +334,7 @@ class ReliabilityBehavior extends Behavior
     {
         $modelName = $this->_table->getAlias();
         $completenessMethod = $this->_reliabilityConfig[$modelName]['completeness_method'] ?? 'binary';
-        
+
         $totalFields = count($fields);
         if ($totalFields === 0) {
             return 0.0;
@@ -344,13 +347,13 @@ class ReliabilityBehavior extends Behavior
             // Use actual scores weighted by field importance
             $weightedSum = 0.0;
             $totalWeight = 0.0;
-            
+
             foreach ($fieldScores as $fieldData) {
                 $weightedSum += $fieldData['score'] * $fieldData['weight'];
                 $totalWeight += $fieldData['weight'];
             }
-            
-            $completeness = $totalWeight > 0 ? ($weightedSum / $totalWeight) * 100 : 0.0;
+
+            $completeness = $totalWeight > 0 ? $weightedSum / $totalWeight * 100 : 0.0;
         } else {
             // Binary method - field is complete if score > 0
             $completeFields = 0;
@@ -359,7 +362,7 @@ class ReliabilityBehavior extends Behavior
                     $completeFields++;
                 }
             }
-            $completeness = ($completeFields / $totalFields) * 100;
+            $completeness = $completeFields / $totalFields * 100;
         }
 
         return round($completeness, 2);
@@ -382,7 +385,7 @@ class ReliabilityBehavior extends Behavior
             $weightedScore = $fieldData['score'] * $fieldData['weight'];
             $totalScore += $weightedScore;
             $totalWeight += $fieldData['weight'];
-            
+
             if ($fieldData['score'] > 0.0) {
                 $completeFields++;
             }
@@ -393,7 +396,7 @@ class ReliabilityBehavior extends Behavior
             $totalScore = min(1.0, $totalScore); // Cap at 1.0
         }
 
-        $completenessPercent = $totalFields > 0 ? ($completeFields / $totalFields) * 100 : 0.0;
+        $completenessPercent = $totalFields > 0 ? $completeFields / $totalFields * 100 : 0.0;
 
         return [
             'total_score' => round($totalScore, 3),
@@ -425,7 +428,7 @@ class ReliabilityBehavior extends Behavior
 
         // Create canonical JSON representation
         $canonicalJson = json_encode($orderedPayload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-        
+
         if ($canonicalJson === false) {
             throw new InternalErrorException('Failed to encode payload for checksum calculation');
         }
@@ -445,12 +448,13 @@ class ReliabilityBehavior extends Behavior
         try {
             $modelName = $this->_table->getAlias();
             $entityId = $entity->get($this->_table->getPrimaryKey());
-            
+
             if (empty($entityId)) {
                 Log::error('ReliabilityBehavior: Cannot recalculate for entity without ID', [
                     'model' => $modelName,
-                    'entity' => $entity->toArray()
+                    'entity' => $entity->toArray(),
                 ]);
+
                 return false;
             }
 
@@ -477,14 +481,14 @@ class ReliabilityBehavior extends Behavior
 
             // Save summary and field data, create log entry
             return $this->saveSummary($modelName, $entityId, $summaryData, $fieldScores, $context, $currentReliability);
-
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error('ReliabilityBehavior: Recalculation failed', [
                 'model' => $modelName ?? 'unknown',
                 'entity_id' => $entityId ?? 'unknown',
                 'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
+                'trace' => $e->getTraceAsString(),
             ]);
+
             return false;
         }
     }
@@ -506,17 +510,17 @@ class ReliabilityBehavior extends Behavior
         array $summaryData,
         array $fieldScores,
         array $context = [],
-        ?EntityInterface $currentReliability = null
+        ?EntityInterface $currentReliability = null,
     ): bool {
         $connection = $this->_table->getConnection();
-        
+
         return $connection->transactional(function () use (
             $model,
             $entityId,
             $summaryData,
             $fieldScores,
             $context,
-            $currentReliability
+            $currentReliability,
         ) {
             $reliabilityTable = $this->_table->getTableLocator()->get('ProductsReliability');
             $fieldsTable = $this->_table->getTableLocator()->get('ProductsReliabilityFields');
@@ -541,8 +545,9 @@ class ReliabilityBehavior extends Behavior
                 Log::error('Failed to save reliability summary', [
                     'model' => $model,
                     'entity_id' => $entityId,
-                    'errors' => $reliabilityEntity->getErrors()
+                    'errors' => $reliabilityEntity->getErrors(),
                 ]);
+
                 return false;
             }
 
@@ -573,8 +578,9 @@ class ReliabilityBehavior extends Behavior
                 Log::error('Failed to save reliability log', [
                     'model' => $model,
                     'entity_id' => $entityId,
-                    'errors' => $logEntity->getErrors()
+                    'errors' => $logEntity->getErrors(),
                 ]);
+
                 return false;
             }
 
@@ -591,12 +597,12 @@ class ReliabilityBehavior extends Behavior
      * @param array $fieldScores Field scores array
      * @return void
      */
-    protected function _saveFieldScores($fieldsTable, string $model, string $entityId, array $fieldScores): void
+    protected function _saveFieldScores(Table $fieldsTable, string $model, string $entityId, array $fieldScores): void
     {
         // Delete existing field scores for this entity
         $fieldsTable->deleteAll([
             'model' => $model,
-            'foreign_key' => $entityId
+            'foreign_key' => $entityId,
         ]);
 
         // Insert new field scores
@@ -616,7 +622,7 @@ class ReliabilityBehavior extends Behavior
                     'model' => $model,
                     'entity_id' => $entityId,
                     'field' => $field,
-                    'errors' => $fieldEntity->getErrors()
+                    'errors' => $fieldEntity->getErrors(),
                 ]);
             }
         }
@@ -641,6 +647,7 @@ class ReliabilityBehavior extends Behavior
     protected function _getValidCurrencies(): array
     {
         $modelName = $this->_table->getAlias();
+
         return $this->_reliabilityConfig[$modelName]['valid_currencies'] ?? ['USD', 'EUR', 'GBP'];
     }
 
@@ -653,10 +660,11 @@ class ReliabilityBehavior extends Behavior
     protected function _isValidImagePath(string $imagePath): bool
     {
         $modelName = $this->_table->getAlias();
-        $allowedExts = $this->_reliabilityConfig[$modelName]['image_validation']['allowed_extensions'] ?? 
+        $allowedExts = $this->_reliabilityConfig[$modelName]['image_validation']['allowed_extensions'] ??
                        ['jpg', 'jpeg', 'png', 'gif', 'webp'];
-        
+
         $extension = strtolower(pathinfo($imagePath, PATHINFO_EXTENSION));
+
         return in_array($extension, $allowedExts);
     }
 
@@ -666,12 +674,12 @@ class ReliabilityBehavior extends Behavior
      * @param mixed $data JSON data
      * @return string Canonical JSON string
      */
-    protected function _canonicalizeJson($data): string
+    protected function _canonicalizeJson(mixed $data): string
     {
         if ($data === null) {
             return 'null';
         }
-        
+
         if (is_string($data)) {
             // Already JSON string, decode and re-encode canonically
             $decoded = json_decode($data, true);
@@ -680,12 +688,12 @@ class ReliabilityBehavior extends Behavior
             }
             $data = $decoded;
         }
-        
+
         // Ensure consistent sorting and formatting
         if (is_array($data)) {
             ksort($data);
         }
-        
+
         return json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?: 'null';
     }
 }

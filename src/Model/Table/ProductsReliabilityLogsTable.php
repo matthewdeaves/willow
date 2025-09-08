@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use App\Model\Entity\ProductsReliabilityLog;
 use Cake\ORM\Query;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -74,7 +75,7 @@ class ProductsReliabilityLogsTable extends Table
                 'rule' => function ($value) {
                     return is_string($value) && preg_match('/^[A-Za-z][A-Za-z0-9]*$/', $value);
                 },
-                'message' => 'Model name must be a valid class name'
+                'message' => 'Model name must be a valid class name',
             ]);
 
         $validator
@@ -87,7 +88,7 @@ class ProductsReliabilityLogsTable extends Table
             ->allowEmptyString('from_total_score')
             ->add('from_total_score', 'range', [
                 'rule' => ['range', 0.00, 1.00],
-                'message' => 'From total score must be between 0.00 and 1.00'
+                'message' => 'From total score must be between 0.00 and 1.00',
             ]);
 
         $validator
@@ -96,7 +97,7 @@ class ProductsReliabilityLogsTable extends Table
             ->notEmptyString('to_total_score')
             ->add('to_total_score', 'range', [
                 'rule' => ['range', 0.00, 1.00],
-                'message' => 'To total score must be between 0.00 and 1.00'
+                'message' => 'To total score must be between 0.00 and 1.00',
             ]);
 
         $validator
@@ -108,11 +109,13 @@ class ProductsReliabilityLogsTable extends Table
                     }
                     if (is_string($value)) {
                         json_decode($value);
+
                         return json_last_error() === JSON_ERROR_NONE;
                     }
+
                     return false;
                 },
-                'message' => 'From field scores must be valid JSON'
+                'message' => 'From field scores must be valid JSON',
             ]);
 
         $validator
@@ -122,11 +125,13 @@ class ProductsReliabilityLogsTable extends Table
                 'rule' => function ($value) {
                     if (is_string($value)) {
                         json_decode($value);
+
                         return json_last_error() === JSON_ERROR_NONE;
                     }
+
                     return false;
                 },
-                'message' => 'To field scores must be valid JSON'
+                'message' => 'To field scores must be valid JSON',
             ]);
 
         $validator
@@ -138,7 +143,7 @@ class ProductsReliabilityLogsTable extends Table
                 'rule' => function ($value) {
                     return in_array($value, self::VALID_SOURCES, true);
                 },
-                'message' => 'Source must be one of: ' . implode(', ', self::VALID_SOURCES)
+                'message' => 'Source must be one of: ' . implode(', ', self::VALID_SOURCES),
             ]);
 
         $validator
@@ -164,7 +169,7 @@ class ProductsReliabilityLogsTable extends Table
                 'rule' => function ($value) {
                     return is_string($value) && preg_match('/^[a-f0-9]{64}$/', $value);
                 },
-                'message' => 'Checksum must be a valid SHA256 hash (64 hex characters)'
+                'message' => 'Checksum must be a valid SHA256 hash (64 hex characters)',
             ]);
 
         $validator
@@ -202,7 +207,7 @@ class ProductsReliabilityLogsTable extends Table
         return $this->find()
             ->where([
                 'model' => $model,
-                'created >=' => date('Y-m-d H:i:s', strtotime("-{$days} days"))
+                'created >=' => date('Y-m-d H:i:s', strtotime("-{$days} days")),
             ])
             ->orderBy(['created' => 'DESC'])
             ->limit($limit);
@@ -267,7 +272,7 @@ class ProductsReliabilityLogsTable extends Table
             ->where([
                 'model' => $model,
                 'from_total_score IS NOT' => null,
-                'ABS(to_total_score - from_total_score) >=' => $minDelta
+                'ABS(to_total_score - from_total_score) >=' => $minDelta,
             ])
             ->orderBy(['created' => 'DESC'])
             ->limit($limit);
@@ -283,7 +288,7 @@ class ProductsReliabilityLogsTable extends Table
     public function verifyChecksums(string $model, ?string $id = null): array
     {
         $query = $this->find()->where(['model' => $model]);
-        
+
         if ($id !== null) {
             $query->where(['foreign_key' => $id]);
         }
@@ -295,7 +300,7 @@ class ProductsReliabilityLogsTable extends Table
 
         foreach ($logs as $log) {
             $computedChecksum = $this->computeLogChecksum($log);
-            
+
             if ($computedChecksum === $log->checksum_sha256) {
                 $verified++;
             } else {
@@ -304,7 +309,7 @@ class ProductsReliabilityLogsTable extends Table
                     'log_id' => $log->id,
                     'expected' => $log->checksum_sha256,
                     'computed' => $computedChecksum,
-                    'created' => $log->created
+                    'created' => $log->created,
                 ];
             }
         }
@@ -312,7 +317,7 @@ class ProductsReliabilityLogsTable extends Table
         return [
             'verified' => $verified,
             'failed' => $failed,
-            'failures' => $failures
+            'failures' => $failures,
         ];
     }
 
@@ -322,7 +327,7 @@ class ProductsReliabilityLogsTable extends Table
      * @param \App\Model\Entity\ProductsReliabilityLog $log Log entity
      * @return string SHA256 checksum
      */
-    public function computeLogChecksum(\App\Model\Entity\ProductsReliabilityLog $log): string
+    public function computeLogChecksum(ProductsReliabilityLog $log): string
     {
         // Reconstruct the payload that was used to generate the original checksum
         $payload = [
@@ -335,15 +340,15 @@ class ProductsReliabilityLogsTable extends Table
             'source' => $log->source,
             'actor_user_id' => $log->actor_user_id,
             'actor_service' => $log->actor_service,
-            'created' => $log->created->format('c')
+            'created' => $log->created->format('c'),
         ];
 
         // Ensure consistent key ordering
         ksort($payload);
-        
+
         // Canonicalize JSON representation
         $jsonString = json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-        
+
         return hash('sha256', $jsonString);
     }
 
@@ -359,11 +364,11 @@ class ProductsReliabilityLogsTable extends Table
         $results = $this->find()
             ->where([
                 'model' => $model,
-                'created >=' => date('Y-m-d H:i:s', strtotime("-{$days} days"))
+                'created >=' => date('Y-m-d H:i:s', strtotime("-{$days} days")),
             ])
             ->select([
                 'source',
-                'count' => $this->find()->func()->count('*')
+                'count' => $this->find()->func()->count('*'),
             ])
             ->group('source')
             ->orderBy(['count' => 'DESC'])
@@ -390,7 +395,7 @@ class ProductsReliabilityLogsTable extends Table
             ->where([
                 'model' => $model,
                 'from_total_score IS NOT' => null,
-                'created >=' => date('Y-m-d H:i:s', strtotime("-{$days} days"))
+                'created >=' => date('Y-m-d H:i:s', strtotime("-{$days} days")),
             ])
             ->toArray();
 
@@ -400,7 +405,7 @@ class ProductsReliabilityLogsTable extends Table
 
         foreach ($logs as $log) {
             $delta = (float)$log->to_total_score - (float)$log->from_total_score;
-            
+
             if ($delta > 0.01) { // Improved
                 $improvements++;
             } elseif ($delta < -0.01) { // Degraded
@@ -413,7 +418,7 @@ class ProductsReliabilityLogsTable extends Table
         return [
             'improvements' => $improvements,
             'degradations' => $degradations,
-            'no_change' => $noChange
+            'no_change' => $noChange,
         ];
     }
 }

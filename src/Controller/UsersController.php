@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Http\Response;
+
 /**
  * Users Controller
  *
@@ -20,12 +22,12 @@ class UsersController extends AppController
         parent::initialize();
 
         $this->Authentication->allowUnauthenticated([
-            'login', 
-            'logout', 
-            'register', 
-            'forgotPassword', 
-            'resetPassword', 
-            'confirmEmail'
+            'login',
+            'logout',
+            'register',
+            'forgotPassword',
+            'resetPassword',
+            'confirmEmail',
         ]);
     }
 
@@ -104,7 +106,7 @@ class UsersController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete(?string $id = null)
+    public function delete(?string $id = null): ?Response
     {
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
@@ -128,21 +130,21 @@ class UsersController extends AppController
         $result = $this->Authentication->getResult();
         if ($result->isValid()) {
             $this->Flash->success(__('Login successful'));
-            
+
             // Get the authenticated user
             $user = $this->Authentication->getIdentity();
-            
+
             // Check if user is admin and redirect accordingly
             if ($user && $user->is_admin) {
                 return $this->redirect(['prefix' => 'Admin', 'controller' => 'Articles', 'action' => 'index']);
             }
-            
+
             // Check for a stored redirect URL
             $redirect = $this->Authentication->getLoginRedirect();
             if ($redirect) {
                 return $this->redirect($redirect);
             }
-            
+
             // Default redirect for regular users
             return $this->redirect(['controller' => 'Articles', 'action' => 'index']);
         }
@@ -158,11 +160,11 @@ class UsersController extends AppController
      *
      * @return \Cake\Http\Response Redirects after logout.
      */
-    public function logout()
+    public function logout(): Response
     {
         $this->Authentication->logout();
         $this->Flash->success(__('You have been logged out.'));
-        
+
         return $this->redirect(['controller' => 'Articles', 'action' => 'index']);
     }
 
@@ -179,9 +181,10 @@ class UsersController extends AppController
             // Set default values for new users
             $user->is_admin = false;
             $user->active = true;
-            
+
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Registration successful. You can now log in.'));
+
                 return $this->redirect(['action' => 'login']);
             }
             $this->Flash->error(__('Registration failed. Please, try again.'));
@@ -201,6 +204,7 @@ class UsersController extends AppController
             if ($email) {
                 // This is a placeholder - you would typically send a reset email here
                 $this->Flash->success(__('If the email exists in our system, you will receive a password reset link.'));
+
                 return $this->redirect(['action' => 'login']);
             }
             $this->Flash->error(__('Please enter a valid email address.'));
@@ -213,10 +217,11 @@ class UsersController extends AppController
      * @param string|null $confirmationCode
      * @return \Cake\Http\Response|null|void
      */
-    public function resetPassword($confirmationCode = null)
+    public function resetPassword(?string $confirmationCode = null)
     {
         if (!$confirmationCode) {
             $this->Flash->error(__('Invalid reset link.'));
+
             return $this->redirect(['action' => 'login']);
         }
 
@@ -224,6 +229,7 @@ class UsersController extends AppController
             // This is a placeholder - you would typically validate the confirmation code
             // and update the user's password
             $this->Flash->success(__('Password has been reset successfully.'));
+
             return $this->redirect(['action' => 'login']);
         }
 
@@ -236,16 +242,18 @@ class UsersController extends AppController
      * @param string|null $confirmationCode
      * @return \Cake\Http\Response|null|void
      */
-    public function confirmEmail($confirmationCode = null)
+    public function confirmEmail(?string $confirmationCode = null)
     {
         if (!$confirmationCode) {
             $this->Flash->error(__('Invalid confirmation link.'));
+
             return $this->redirect(['action' => 'login']);
         }
 
         // This is a placeholder - you would typically validate the confirmation code
         // and activate the user's account
         $this->Flash->success(__('Email confirmed successfully.'));
+
         return $this->redirect(['action' => 'login']);
     }
 }

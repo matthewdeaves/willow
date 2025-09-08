@@ -5,6 +5,7 @@ namespace App\Controller\Api;
 
 use App\Controller\AppController;
 use Cake\Http\Exception\NotFoundException;
+use Exception;
 
 /**
  * API Products Controller
@@ -16,27 +17,27 @@ class ProductsController extends AppController
 {
     /**
      * Initialize method
-     * 
+     *
      * Configure API-specific settings
      */
     public function initialize(): void
     {
         parent::initialize();
-        
+
         // Disable CSRF protection for API endpoints
         $this->getEventManager()->off($this->Csrf);
-        
+
         // Set JSON response type
         $this->viewBuilder()->setClassName('Json');
         $this->set('_serialize', true);
-        
+
         // Load the Products table
         $this->loadModel('Products');
     }
 
     /**
      * Index method - Search and filter products
-     * 
+     *
      * Supports query parameters:
      * - q: Search query for title, description, keywords
      * - tags: Comma-separated list of tag names or IDs
@@ -58,43 +59,43 @@ class ProductsController extends AppController
         try {
             $request = $this->getRequest();
             $query = $this->Products->find();
-            
+
             // Default filters - only show published products
             $published = $request->getQuery('published', true);
             if ($published !== false && $published !== 'false') {
                 $query->where(['Products.is_published' => true]);
             }
-            
+
             // Search query
             $searchQuery = $request->getQuery('q');
             if (!empty($searchQuery)) {
                 $query = $this->Products->findSearch($query, ['search' => $searchQuery]);
             }
-            
+
             // Tag filters
             $tags = $request->getQuery('tags');
             if (!empty($tags)) {
                 $tagList = is_array($tags) ? $tags : explode(',', $tags);
                 $query = $this->Products->findByTags($query, $tagList);
             }
-            
+
             // Price filters
             $priceMin = $request->getQuery('price_min');
             $priceMax = $request->getQuery('price_max');
-            
+
             if (is_numeric($priceMin)) {
                 $query->where(['Products.price >=' => (float)$priceMin]);
             }
             if (is_numeric($priceMax)) {
                 $query->where(['Products.price <=' => (float)$priceMax]);
             }
-            
+
             // Featured filter
             $featured = $request->getQuery('featured');
             if ($featured === 'true' || $featured === true) {
                 $query->where(['Products.is_featured' => true]);
             }
-            
+
             // Attribute filters (JSON object)
             $attributes = $request->getQuery('attributes');
             if (!empty($attributes)) {
@@ -105,37 +106,37 @@ class ProductsController extends AppController
                     foreach ($attributes as $key => $value) {
                         if (!empty($value)) {
                             $query->where([
-                                "JSON_EXTRACT(Products.ai_attributes, '$.{$key}')" => $value
+                                "JSON_EXTRACT(Products.ai_attributes, '$.{$key}')" => $value,
                             ]);
                         }
                     }
                 }
             }
-            
+
             // Sorting
             $sort = $request->getQuery('sort', 'title');
             $direction = $request->getQuery('direction', 'asc');
-            
+
             $allowedSorts = ['title', 'price', 'popularity', 'created', 'modified'];
             if (in_array($sort, $allowedSorts)) {
                 $direction = strtolower($direction) === 'desc' ? 'DESC' : 'ASC';
                 $query->orderBy(["Products.{$sort}" => $direction]);
             }
-            
+
             // Pagination
             $page = max(1, (int)$request->getQuery('page', 1));
             $limit = min(100, max(1, (int)$request->getQuery('limit', 20)));
-            
+
             $this->paginate = [
                 'page' => $page,
                 'limit' => $limit,
-                'maxLimit' => 100
+                'maxLimit' => 100,
             ];
-            
+
             // Execute query with pagination
             $products = $this->paginate($query);
             $paging = $this->getRequest()->getAttribute('paging')['Products'];
-            
+
             // Format response
             $response = [
                 'success' => true,
@@ -147,40 +148,39 @@ class ProductsController extends AppController
                         'pages' => $paging['pageCount'],
                         'total' => $paging['count'],
                         'has_next' => $paging['hasNextPage'],
-                        'has_prev' => $paging['hasPrevPage']
-                    ]
+                        'has_prev' => $paging['hasPrevPage'],
+                    ],
                 ],
                 'query_info' => [
                     'search' => $searchQuery,
                     'tags' => $tags,
                     'price_range' => [$priceMin, $priceMax],
                     'sort' => $sort,
-                    'direction' => $direction
-                ]
+                    'direction' => $direction,
+                ],
             ];
-            
+
             $this->set($response);
-            
-        } catch (\Exception $e) {
-            $this->log("Products API index error: " . $e->getMessage(), 'error');
-            
+        } catch (Exception $e) {
+            $this->log('Products API index error: ' . $e->getMessage(), 'error');
+
             $response = [
                 'success' => false,
                 'error' => [
                     'message' => 'Failed to retrieve products',
-                    'code' => 'PRODUCTS_INDEX_ERROR'
-                ]
+                    'code' => 'PRODUCTS_INDEX_ERROR',
+                ],
             ];
-            
+
             if ($this->getRequest()->is('development')) {
                 $response['debug'] = [
                     'exception' => get_class($e),
                     'message' => $e->getMessage(),
                     'file' => $e->getFile(),
-                    'line' => $e->getLine()
+                    'line' => $e->getLine(),
                 ];
             }
-            
+
             $this->set($response);
             $this->getResponse()->withStatus(500);
         }
@@ -188,20 +188,20 @@ class ProductsController extends AppController
 
     /**
      * View method - Get a single product by ID or slug
-     * 
+     *
      * @param string|null $id Product ID or slug
      * @return void
      */
-    public function view($id = null): void
+    public function view(?string $id = null): void
     {
         try {
             if (empty($id)) {
                 throw new NotFoundException(__('Product not found'));
             }
-            
+
             $query = $this->Products->find()
                 ->where(['Products.is_published' => true]);
-            
+
             // Try to find by ID first, then by slug
             if (preg_match('/^[0-9a-f-]{36}$/i', $id)) {
                 // UUID format - search by ID
@@ -215,52 +215,50 @@ class ProductsController extends AppController
                     })
                     ->first();
             }
-            
+
             if (!$product) {
                 throw new NotFoundException(__('Product not found'));
             }
-            
+
             $response = [
                 'success' => true,
                 'data' => [
-                    'product' => $product->toArray()
-                ]
+                    'product' => $product->toArray(),
+                ],
             ];
-            
+
             $this->set($response);
-            
         } catch (NotFoundException $e) {
             $response = [
                 'success' => false,
                 'error' => [
                     'message' => $e->getMessage(),
-                    'code' => 'PRODUCT_NOT_FOUND'
-                ]
+                    'code' => 'PRODUCT_NOT_FOUND',
+                ],
             ];
-            
+
             $this->set($response);
             $this->getResponse()->withStatus(404);
-            
-        } catch (\Exception $e) {
-            $this->log("Products API view error: " . $e->getMessage(), 'error');
-            
+        } catch (Exception $e) {
+            $this->log('Products API view error: ' . $e->getMessage(), 'error');
+
             $response = [
                 'success' => false,
                 'error' => [
                     'message' => 'Failed to retrieve product',
-                    'code' => 'PRODUCT_VIEW_ERROR'
-                ]
+                    'code' => 'PRODUCT_VIEW_ERROR',
+                ],
             ];
-            
+
             if ($this->getRequest()->is('development')) {
                 $response['debug'] = [
                     'exception' => get_class($e),
                     'message' => $e->getMessage(),
                     'file' => $e->getFile(),
-                    'line' => $e->getLine()
+                    'line' => $e->getLine(),
                 ];
             }
-            
+
             $this->set($response);
             $this->getResponse()->withStatus(500);
         }

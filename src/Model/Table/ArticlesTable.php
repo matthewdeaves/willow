@@ -400,30 +400,30 @@ class ArticlesTable extends Table
     {
         // Get pages with footer_menu = 1 (explicitly set)
         $explicitFooterPages = $this->getFooterMenuPages($cacheKey, $additionalConditions);
-        
+
         $allFooterPages = [];
-        
+
         // Add explicitly marked pages and their children
         foreach ($explicitFooterPages as $page) {
             $allFooterPages[] = $page;
-            
+
             // Get all children of this page
             $children = $this->find()
                 ->where([
                     'Articles.kind' => 'page',
                     'Articles.is_published' => 1,
                     'Articles.lft >' => $page->lft,
-                    'Articles.rght <' => $page->rght
+                    'Articles.rght <' => $page->rght,
                 ])
                 ->orderBy(['lft' => 'ASC'])
                 ->cache($cacheKey . 'footer_children_' . $page->id, 'content')
                 ->all();
-                
+
             foreach ($children as $child) {
                 $allFooterPages[] = $child;
             }
         }
-        
+
         // Remove duplicates based on ID
         $uniquePages = [];
         $seenIds = [];
@@ -433,7 +433,7 @@ class ArticlesTable extends Table
                 $seenIds[] = $page->id;
             }
         }
-        
+
         return $uniquePages;
     }
 
@@ -451,30 +451,30 @@ class ArticlesTable extends Table
     {
         // Get pages with main_menu = 1 (explicitly set)
         $explicitMainPages = $this->getMainMenuPages($cacheKey, $additionalConditions);
-        
+
         $allMainPages = [];
-        
+
         // Add explicitly marked pages and their children
         foreach ($explicitMainPages as $page) {
             $allMainPages[] = $page;
-            
+
             // Get all children of this page
             $children = $this->find()
                 ->where([
                     'Articles.kind' => 'page',
                     'Articles.is_published' => 1,
                     'Articles.lft >' => $page->lft,
-                    'Articles.rght <' => $page->rght
+                    'Articles.rght <' => $page->rght,
                 ])
                 ->orderBy(['lft' => 'ASC'])
                 ->cache($cacheKey . 'main_children_' . $page->id, 'content')
                 ->all();
-                
+
             foreach ($children as $child) {
                 $allMainPages[] = $child;
             }
         }
-        
+
         // Remove duplicates based on ID
         $uniquePages = [];
         $seenIds = [];
@@ -484,7 +484,7 @@ class ArticlesTable extends Table
                 $seenIds[] = $page->id;
             }
         }
-        
+
         return $uniquePages;
     }
 
@@ -498,21 +498,21 @@ class ArticlesTable extends Table
     public function shouldInheritFromParent(string $pageId, string $menuType): bool
     {
         $page = $this->get($pageId);
-        
+
         if (!$page->parent_id) {
             return false; // Root pages don't inherit
         }
-        
+
         // Check if the page has an explicit setting (1 = yes, 0 = no, null = inherit)
         $explicitSetting = $page->{$menuType};
-        
+
         if ($explicitSetting !== null && $explicitSetting !== '') {
             return false; // Page has explicit setting, don't inherit
         }
-        
+
         // Check if parent is marked for this menu type
         $parent = $this->get($page->parent_id);
-        
+
         return (bool)$parent->{$menuType};
     }
 

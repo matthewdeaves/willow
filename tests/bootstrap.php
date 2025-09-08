@@ -16,6 +16,7 @@ declare(strict_types=1);
  */
 
 use Cake\Cache\Cache;
+use Cake\Cache\Engine\FileEngine;
 use Cake\Chronos\Chronos;
 use Cake\Core\Configure;
 use Cake\Database\TypeFactory;
@@ -92,9 +93,9 @@ if (env('CAKE_ENV') === 'test') {
         'queue' => 'test_queue',
         'logger' => false,
         'receiveTimeout' => 0,
-'storeFailedJobs' => false,
+    'storeFailedJobs' => false,
         'uniqueCache' => [
-            'className' => \Cake\Cache\Engine\FileEngine::class,
+            'className' => FileEngine::class,
             'prefix' => 'willow_queue_unique_test_',
             'path' => CACHE . 'persistent' . DS . 'queue_unique_jobs' . DS . 'test' . DS,
             'serialize' => true,

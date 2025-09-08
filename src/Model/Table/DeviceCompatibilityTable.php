@@ -10,7 +10,7 @@ use Cake\Validation\Validator;
 
 /**
  * DeviceCompatibility Model - Logical junction table view for device compatibility
- * 
+ *
  * This provides a normalized view of device compatibility data from the products table
  * for the prototype schema before actual database normalization.
  */
@@ -73,7 +73,7 @@ class DeviceCompatibilityTable extends Table
     {
         $cacheKey = 'device_categories';
         $categories = Cache::read($cacheKey);
-        
+
         if ($categories === null) {
             $categories = $this->find()
                 ->select(['device_category'])
@@ -81,11 +81,11 @@ class DeviceCompatibilityTable extends Table
                 ->distinct(['device_category'])
                 ->orderBy(['device_category' => 'ASC'])
                 ->toArray();
-                
+
             $categories = array_column($categories, 'device_category');
             Cache::write($cacheKey, $categories, '1 hour');
         }
-        
+
         return $categories;
     }
 
@@ -96,22 +96,22 @@ class DeviceCompatibilityTable extends Table
     {
         $cacheKey = "device_brands_{$category}";
         $brands = Cache::read($cacheKey);
-        
+
         if ($brands === null) {
             $brands = $this->find()
                 ->select(['device_brand'])
                 ->where([
                     'device_category' => $category,
-                    'device_brand IS NOT' => null
+                    'device_brand IS NOT' => null,
                 ])
                 ->distinct(['device_brand'])
                 ->orderBy(['device_brand' => 'ASC'])
                 ->toArray();
-                
+
             $brands = array_column($brands, 'device_brand');
             Cache::write($cacheKey, $brands, '1 hour');
         }
-        
+
         return $brands;
     }
 
@@ -124,11 +124,11 @@ class DeviceCompatibilityTable extends Table
             ->select([
                 'id', 'title', 'device_brand', 'device_model', 'compatibility_level',
                 'performance_rating', 'user_reported_rating', 'compatibility_notes',
-                'verification_date', 'verified_by'
+                'verification_date', 'verified_by',
             ])
             ->where([
                 'device_category' => $category,
-                'device_category IS NOT' => null
+                'device_category IS NOT' => null,
             ])
             ->orderBy(['performance_rating' => 'DESC']);
     }
@@ -136,13 +136,13 @@ class DeviceCompatibilityTable extends Table
     /**
      * Get compatibility by brand and model
      */
-    public function getCompatibilityByDevice(string $brand, string $model = null): Query
+    public function getCompatibilityByDevice(string $brand, ?string $model = null): Query
     {
         $conditions = [
             'device_brand' => $brand,
-            'device_brand IS NOT' => null
+            'device_brand IS NOT' => null,
         ];
-        
+
         if ($model) {
             $conditions['device_model LIKE'] = "%{$model}%";
         }
@@ -151,7 +151,7 @@ class DeviceCompatibilityTable extends Table
             ->select([
                 'id', 'title', 'device_model', 'compatibility_level',
                 'performance_rating', 'user_reported_rating', 'compatibility_notes',
-                'verification_date'
+                'verification_date',
             ])
             ->where($conditions)
             ->orderBy(['compatibility_level' => 'ASC', 'performance_rating' => 'DESC']);
@@ -165,12 +165,12 @@ class DeviceCompatibilityTable extends Table
         return $this->find()
             ->select([
                 'id', 'title', 'device_category', 'device_brand', 'device_model',
-                'compatibility_level', 'performance_rating', 'verified_by', 'verification_date'
+                'compatibility_level', 'performance_rating', 'verified_by', 'verification_date',
             ])
             ->where([
                 'verified_by IS NOT' => null,
                 'verification_date IS NOT' => null,
-                'device_category IS NOT' => null
+                'device_category IS NOT' => null,
             ])
             ->orderBy(['verification_date' => 'DESC']);
     }
@@ -188,11 +188,11 @@ class DeviceCompatibilityTable extends Table
                 'avg_user_rating' => 'AVG(user_reported_rating)',
                 'total_products' => 'COUNT(*)',
                 'full_compatibility' => 'SUM(CASE WHEN compatibility_level = "Full" THEN 1 ELSE 0 END)',
-                'partial_compatibility' => 'SUM(CASE WHEN compatibility_level = "Partial" THEN 1 ELSE 0 END)'
+                'partial_compatibility' => 'SUM(CASE WHEN compatibility_level = "Partial" THEN 1 ELSE 0 END)',
             ])
             ->where([
                 'device_category IS NOT' => null,
-                'device_brand IS NOT' => null
+                'device_brand IS NOT' => null,
             ])
             ->groupBy(['device_category', 'device_brand'])
             ->orderBy(['avg_performance' => 'DESC']);
@@ -206,11 +206,11 @@ class DeviceCompatibilityTable extends Table
         return $this->find()
             ->select([
                 'id', 'title', 'device_category', 'device_brand', 'device_model',
-                'compatibility_level', 'verification_date', 'performance_rating'
+                'compatibility_level', 'verification_date', 'performance_rating',
             ])
             ->where([
                 'verification_date IS NOT' => null,
-                'device_category IS NOT' => null
+                'device_category IS NOT' => null,
             ])
             ->orderBy(['verification_date' => 'DESC'])
             ->limit(50);
@@ -224,11 +224,11 @@ class DeviceCompatibilityTable extends Table
         return $this->find()
             ->select([
                 'id', 'title', 'device_category', 'device_brand', 'device_model',
-                'compatibility_level', 'performance_rating', 'user_reported_rating'
+                'compatibility_level', 'performance_rating', 'user_reported_rating',
             ])
             ->where([
                 'performance_rating >=' => $minRating,
-                'device_category IS NOT' => null
+                'device_category IS NOT' => null,
             ])
             ->orderBy(['performance_rating' => 'DESC']);
     }
@@ -240,51 +240,51 @@ class DeviceCompatibilityTable extends Table
     {
         $cacheKey = 'compatibility_stats';
         $stats = Cache::read($cacheKey);
-        
+
         if ($stats === null) {
             $stats = [
                 'total_devices' => $this->find()
                     ->where(['device_category IS NOT' => null])
                     ->count(),
-                    
+
                 'device_categories_count' => count($this->getDeviceCategories()),
-                
+
                 'verified_count' => $this->find()
                     ->where([
                         'verified_by IS NOT' => null,
-                        'device_category IS NOT' => null
+                        'device_category IS NOT' => null,
                     ])
                     ->count(),
-                    
+
                 'full_compatibility_count' => $this->find()
                     ->where([
                         'compatibility_level' => 'Full',
-                        'device_category IS NOT' => null
+                        'device_category IS NOT' => null,
                     ])
                     ->count(),
-                    
+
                 'average_performance' => $this->find()
                     ->where([
                         'performance_rating IS NOT' => null,
-                        'device_category IS NOT' => null
+                        'device_category IS NOT' => null,
                     ])
                     ->select(['avg_perf' => 'AVG(performance_rating)'])
                     ->first()
                     ->avg_perf ?? 0,
-                    
+
                 'average_user_rating' => $this->find()
                     ->where([
                         'user_reported_rating IS NOT' => null,
-                        'device_category IS NOT' => null
+                        'device_category IS NOT' => null,
                     ])
                     ->select(['avg_user' => 'AVG(user_reported_rating)'])
                     ->first()
-                    ->avg_user ?? 0
+                    ->avg_user ?? 0,
             ];
-            
+
             Cache::write($cacheKey, $stats, '30 minutes');
         }
-        
+
         return $stats;
     }
 
@@ -297,7 +297,7 @@ class DeviceCompatibilityTable extends Table
             ->select([
                 'id', 'title', 'device_category', 'device_brand', 'device_model',
                 'compatibility_level', 'performance_rating', 'user_reported_rating',
-                'compatibility_notes', 'verification_date'
+                'compatibility_notes', 'verification_date',
             ])
             ->where(['device_category IS NOT' => null]);
 
@@ -335,7 +335,7 @@ class DeviceCompatibilityTable extends Table
     {
         Cache::delete('device_categories');
         Cache::delete('compatibility_stats');
-        
+
         // Clear category-specific caches
         foreach ($this->getDeviceCategories() as $category) {
             Cache::delete("device_brands_{$category}");

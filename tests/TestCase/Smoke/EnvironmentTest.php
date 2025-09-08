@@ -3,8 +3,11 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Smoke;
 
-use Cake\TestSuite\TestCase;
+use Cake\Cache\Cache;
 use Cake\Core\Configure;
+use Cake\Datasource\ConnectionManager;
+use Cake\TestSuite\TestCase;
+use Exception;
 
 /**
  * Environment smoke test
@@ -32,12 +35,12 @@ class EnvironmentTest extends TestCase
     public function testCakePHPIsConfiguredForTesting(): void
     {
         $this->assertTrue(Configure::read('debug'), 'Debug mode should be enabled for testing');
-        
+
         // Environment might be null if not explicitly set, that's okay
         $environment = Configure::read('App.environment');
         $this->assertTrue(
             $environment === 'test' || $environment === null,
-            'Should be in test environment or unset (actual: ' . var_export($environment, true) . ')'
+            'Should be in test environment or unset (actual: ' . var_export($environment, true) . ')',
         );
     }
 
@@ -48,9 +51,9 @@ class EnvironmentTest extends TestCase
      */
     public function testDatabaseConnectionIsAvailable(): void
     {
-        $connection = \Cake\Datasource\ConnectionManager::get('test');
+        $connection = ConnectionManager::get('test');
         $this->assertNotNull($connection, 'Test database connection should be available');
-        
+
         // Simple query to verify connection works
         $result = $connection->execute('SELECT 1 as test_value')->fetch();
         $this->assertNotEmpty($result, 'Database query should return a result');
@@ -65,17 +68,17 @@ class EnvironmentTest extends TestCase
     public function testRedisConnectionIsAvailable(): void
     {
         try {
-            $cache = \Cake\Cache\Cache::getConfig('default');
+            $cache = Cache::getConfig('default');
             $this->assertNotNull($cache, 'Default cache configuration should exist');
-            
+
             // Try to write and read from cache
-            \Cake\Cache\Cache::write('test_key', 'test_value', 'default');
-            $value = \Cake\Cache\Cache::read('test_key', 'default');
+            Cache::write('test_key', 'test_value', 'default');
+            $value = Cache::read('test_key', 'default');
             $this->assertEquals('test_value', $value, 'Cache read/write should work');
-            
+
             // Clean up
-            \Cake\Cache\Cache::delete('test_key', 'default');
-        } catch (\Exception $e) {
+            Cache::delete('test_key', 'default');
+        } catch (Exception $e) {
             // If Redis is not available, that's okay for basic testing
             $this->markTestSkipped('Redis/Cache not available: ' . $e->getMessage());
         }

@@ -11,10 +11,10 @@ use Cake\Console\ConsoleOptionParser;
 
 /**
  * LogChecksumCommand
- * 
+ *
  * Command for generating, verifying, and managing checksums of log files
  * to ensure log integrity and detect tampering or corruption.
- * 
+ *
  * Usage examples:
  * - bin/cake log_checksum generate
  * - bin/cake log_checksum verify
@@ -24,7 +24,7 @@ use Cake\Console\ConsoleOptionParser;
 class LogChecksumCommand extends Command
 {
     /**
-     * @var LogChecksumService
+     * @var \App\Service\LogChecksumService
      */
     private LogChecksumService $checksumService;
 
@@ -40,8 +40,8 @@ class LogChecksumCommand extends Command
     /**
      * Build the option parser
      *
-     * @param ConsoleOptionParser $parser The parser to build
-     * @return ConsoleOptionParser
+     * @param \Cake\Console\ConsoleOptionParser $parser The parser to build
+     * @return \Cake\Console\ConsoleOptionParser
      */
     protected function buildOptionParser(ConsoleOptionParser $parser): ConsoleOptionParser
     {
@@ -50,7 +50,7 @@ class LogChecksumCommand extends Command
             ->addArgument('action', [
                 'help' => 'Action to perform (generate, verify, report, backup)',
                 'required' => true,
-                'choices' => ['generate', 'verify', 'report', 'backup']
+                'choices' => ['generate', 'verify', 'report', 'backup'],
             ])
             ->addOption('algorithms', [
                 'short' => 'a',
@@ -61,7 +61,7 @@ class LogChecksumCommand extends Command
                 'short' => 'f',
                 'help' => 'Output format (table, json, detailed)',
                 'default' => 'table',
-                'choices' => ['table', 'json', 'detailed']
+                'choices' => ['table', 'json', 'detailed'],
             ])
             ->addOption('backup-dir', [
                 'help' => 'Directory to store backup (for backup command)',
@@ -74,8 +74,8 @@ class LogChecksumCommand extends Command
     /**
      * Execute the command
      *
-     * @param Arguments $args Command arguments
-     * @param ConsoleIo $io Console IO
+     * @param \Cake\Console\Arguments $args Command arguments
+     * @param \Cake\Console\ConsoleIo $io Console IO
      * @return int Exit code
      */
     public function execute(Arguments $args, ConsoleIo $io): int
@@ -87,18 +87,19 @@ class LogChecksumCommand extends Command
         switch ($action) {
             case 'generate':
                 return $this->generateChecksums($io, $algorithms, $format);
-            
+
             case 'verify':
                 return $this->verifyChecksums($io, $algorithms, $format);
-            
+
             case 'report':
                 return $this->generateReport($io, $format);
-            
+
             case 'backup':
                 return $this->createBackup($io, $args->getOption('backup-dir'));
-            
+
             default:
                 $io->error('Invalid action. Use: generate, verify, report, or backup');
+
                 return static::CODE_ERROR;
         }
     }
@@ -106,7 +107,7 @@ class LogChecksumCommand extends Command
     /**
      * Generate checksums for all log files
      *
-     * @param ConsoleIo $io Console IO
+     * @param \Cake\Console\ConsoleIo $io Console IO
      * @param array $algorithms Hash algorithms to use
      * @param string $format Output format
      * @return int Exit code
@@ -115,24 +116,26 @@ class LogChecksumCommand extends Command
     {
         $io->out('<info>Generating checksums for log files...</info>');
         $io->out('Algorithms: ' . implode(', ', $algorithms));
-        
+
         $results = $this->checksumService->generateChecksums($algorithms);
-        
+
         if (empty($results)) {
             $io->warning('No log files found to process.');
+
             return static::CODE_SUCCESS;
         }
 
         $this->displayResults($io, $results, $format, 'Checksum Generation Results');
-        
+
         $io->success(sprintf('Checksums generated for %d log files.', count($results)));
+
         return static::CODE_SUCCESS;
     }
 
     /**
      * Verify checksums for all log files
      *
-     * @param ConsoleIo $io Console IO
+     * @param \Cake\Console\ConsoleIo $io Console IO
      * @param array $algorithms Hash algorithms to verify
      * @param string $format Output format
      * @return int Exit code
@@ -141,9 +144,9 @@ class LogChecksumCommand extends Command
     {
         $io->out('<info>Verifying log file checksums...</info>');
         $io->out('Algorithms: ' . implode(', ', $algorithms));
-        
+
         $results = $this->checksumService->verifyChecksums($algorithms);
-        
+
         // Display summary
         $io->out('');
         $io->out('<info>Verification Summary:</info>');
@@ -165,77 +168,80 @@ class LogChecksumCommand extends Command
         // Determine exit code based on results
         if (!empty($results['corrupted'])) {
             $io->error('CRITICAL: Some log files are corrupted!');
+
             return static::CODE_ERROR;
         } elseif (!empty($results['failed'])) {
             $io->warning('WARNING: Some log file checksums failed verification!');
+
             return static::CODE_ERROR;
         } elseif (!empty($results['missing'])) {
             $io->info('INFO: Some log files are missing checksums.');
         }
 
         $io->success('Log file verification completed.');
+
         return static::CODE_SUCCESS;
     }
 
     /**
      * Generate comprehensive integrity report
      *
-     * @param ConsoleIo $io Console IO
+     * @param \Cake\Console\ConsoleIo $io Console IO
      * @param string $format Output format
      * @return int Exit code
      */
     private function generateReport(ConsoleIo $io, string $format): int
     {
         $io->out('<info>Generating log integrity report...</info>');
-        
+
         $report = $this->checksumService->getIntegrityReport();
-        
+
         if ($format === 'json') {
             $io->out(json_encode($report, JSON_PRETTY_PRINT));
         } else {
             $this->displayIntegrityReport($io, $report);
         }
-        
+
         return static::CODE_SUCCESS;
     }
 
     /**
      * Create verified backup of log files
      *
-     * @param ConsoleIo $io Console IO
+     * @param \Cake\Console\ConsoleIo $io Console IO
      * @param string|null $backupDir Backup directory
      * @return int Exit code
      */
     private function createBackup(ConsoleIo $io, ?string $backupDir): int
     {
         $io->out('<info>Creating verified backup of log files...</info>');
-        
+
         if ($backupDir) {
             $io->out("Backup directory: {$backupDir}");
         }
-        
+
         $results = $this->checksumService->createVerifiedBackup($backupDir);
-        
+
         $io->out('');
         $io->out('<info>Backup Results:</info>');
-        
+
         $successCount = 0;
         $failureCount = 0;
-        
+
         foreach ($results as $file => $result) {
             if ($result['backed_up']) {
                 $status = $result['integrity_verified'] ? '<success>✓</success>' : '<warning>⚠</warning>';
-                $io->out("  {$status} {$file} (" . $this->formatFileSize($result['size']) . ")");
+                $io->out("  {$status} {$file} (" . $this->formatFileSize($result['size']) . ')');
                 $successCount++;
             } else {
                 $io->out("  <error>✗</error> {$file} - {$result['error']}");
                 $failureCount++;
             }
         }
-        
+
         $io->out('');
         $io->out(sprintf('Backup completed: %d successful, %d failed', $successCount, $failureCount));
-        
+
         return $failureCount > 0 ? static::CODE_ERROR : static::CODE_SUCCESS;
     }
 
@@ -253,7 +259,7 @@ class LogChecksumCommand extends Command
     /**
      * Display results in various formats
      *
-     * @param ConsoleIo $io Console IO
+     * @param \Cake\Console\ConsoleIo $io Console IO
      * @param array $results Results to display
      * @param string $format Display format
      * @param string $title Table title
@@ -263,6 +269,7 @@ class LogChecksumCommand extends Command
     {
         if ($format === 'json') {
             $io->out(json_encode($results, JSON_PRETTY_PRINT));
+
             return;
         }
 
@@ -277,7 +284,7 @@ class LogChecksumCommand extends Command
             }
 
             $io->out("<success>✓ {$file}</success>");
-            
+
             if ($format === 'detailed') {
                 foreach (['sha256', 'md5', 'sha1'] as $algo) {
                     if (isset($data[$algo])) {
@@ -286,8 +293,8 @@ class LogChecksumCommand extends Command
                 }
                 if (isset($data['file_stats'])) {
                     $stats = $data['file_stats'];
-                    $io->out("  Size: " . $this->formatFileSize($stats['size']));
-                    $io->out("  Modified: " . date('Y-m-d H:i:s', $stats['modified']));
+                    $io->out('  Size: ' . $this->formatFileSize($stats['size']));
+                    $io->out('  Modified: ' . date('Y-m-d H:i:s', $stats['modified']));
                     $io->out("  Permissions: {$stats['permissions']}");
                 }
                 $io->out('');
@@ -298,7 +305,7 @@ class LogChecksumCommand extends Command
     /**
      * Display verification results in table format
      *
-     * @param ConsoleIo $io Console IO
+     * @param \Cake\Console\ConsoleIo $io Console IO
      * @param array $results Verification results
      * @return void
      */
@@ -308,11 +315,12 @@ class LogChecksumCommand extends Command
             $results['verified'],
             $results['failed'],
             $results['missing'],
-            $results['corrupted']
+            $results['corrupted'],
         );
 
         if (empty($allFiles)) {
             $io->out('No files to display.');
+
             return;
         }
 
@@ -335,7 +343,7 @@ class LogChecksumCommand extends Command
     /**
      * Display detailed verification results
      *
-     * @param ConsoleIo $io Console IO
+     * @param \Cake\Console\ConsoleIo $io Console IO
      * @param array $results Verification results
      * @return void
      */
@@ -347,7 +355,7 @@ class LogChecksumCommand extends Command
             }
 
             $io->out('');
-            $io->out("<info>" . ucfirst($category) . " Files:</info>");
+            $io->out('<info>' . ucfirst($category) . ' Files:</info>');
             $io->hr();
 
             foreach ($results[$category] as $file => $data) {
@@ -380,7 +388,7 @@ class LogChecksumCommand extends Command
     /**
      * Display integrity report
      *
-     * @param ConsoleIo $io Console IO
+     * @param \Cake\Console\ConsoleIo $io Console IO
      * @param array $report Integrity report data
      * @return void
      */
@@ -389,23 +397,23 @@ class LogChecksumCommand extends Command
         $io->out('');
         $io->out('<info>Log File Integrity Report</info>');
         $io->hr();
-        
+
         $io->out("Generated: {$report['timestamp']}");
         $io->out("Total Log Files: {$report['total_logs']}");
-        $io->out("Overall Status: " . $this->getOverallStatusDisplay($report['overall_status']));
+        $io->out('Overall Status: ' . $this->getOverallStatusDisplay($report['overall_status']));
         $io->out('');
-        
+
         $io->out('<info>Summary:</info>');
         $summary = $report['summary'];
         $io->out("  Verified:           {$summary['verified']}");
         $io->out("  Failed:             {$summary['failed']}");
         $io->out("  Missing Checksums:  {$summary['missing_checksums']}");
         $io->out("  Corrupted:          {$summary['corrupted']}");
-        
+
         // Display recommendations based on status
         $io->out('');
         $io->out('<info>Recommendations:</info>');
-        
+
         if ($report['overall_status'] === 'OK') {
             $io->out('  <success>✓ All log files have verified integrity.</success>');
         } else {
@@ -448,7 +456,7 @@ class LogChecksumCommand extends Command
     {
         return match ($status) {
             'verified' => 'OK',
-            'failed' => 'FAILED', 
+            'failed' => 'FAILED',
             'missing' => 'MISSING',
             'corrupted' => 'CORRUPT',
             'no_checksum' => 'NO CHECKSUM',
@@ -501,12 +509,12 @@ class LogChecksumCommand extends Command
     {
         $units = ['B', 'KB', 'MB', 'GB'];
         $unit = 0;
-        
+
         while ($size >= 1024 && $unit < count($units) - 1) {
             $size /= 1024;
             $unit++;
         }
-        
+
         return round($size, 2) . ' ' . $units[$unit];
     }
 
@@ -521,11 +529,11 @@ class LogChecksumCommand extends Command
         if ($seconds < 60) {
             return "{$seconds} seconds";
         } elseif ($seconds < 3600) {
-            return round($seconds / 60) . " minutes";
+            return round($seconds / 60) . ' minutes';
         } elseif ($seconds < 86400) {
-            return round($seconds / 3600) . " hours";
+            return round($seconds / 3600) . ' hours';
         } else {
-            return round($seconds / 86400) . " days";
+            return round($seconds / 86400) . ' days';
         }
     }
 }

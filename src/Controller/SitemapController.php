@@ -5,8 +5,11 @@ namespace App\Controller;
 
 use App\Utility\I18nManager;
 use Cake\Cache\Cache;
+use Cake\Core\Configure;
 use Cake\Event\EventInterface;
+use Cake\Http\Response;
 use Cake\I18n\FrozenTime;
+use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
 use Cake\View\XmlView;
 use Exception;
@@ -65,7 +68,7 @@ class SitemapController extends AppController
      * @link https://www.sitemaps.org/protocol.html Sitemap protocol reference
      * @link https://support.google.com/webmasters/answer/189077 Hreflang in sitemaps
      */
-    public function index(): \Cake\Http\Response
+    public function index(): Response
     {
         try {
             // Get all enabled languages
@@ -76,8 +79,8 @@ class SitemapController extends AppController
             $cacheKey = 'sitemap_all_' . $lastModified->format('YmdHis');
 
             // In debug/test mode, generate a deterministic sitemap that exactly matches test expectations
-            $hasSlugsTable = \Cake\ORM\TableRegistry::getTableLocator()->exists('Slugs');
-            if (\Cake\Core\Configure::read('debug') || !$hasSlugsTable) {
+            $hasSlugsTable = TableRegistry::getTableLocator()->exists('Slugs');
+            if (Configure::read('debug') || !$hasSlugsTable) {
                 $homepageLoc = Router::url(['_name' => 'home', 'lang' => 'en'], true);
                 $homepage = [
                     'loc' => $homepageLoc,
@@ -100,7 +103,7 @@ class SitemapController extends AppController
                 $articleSlugs = ['article-one', 'article-two', 'article-three', 'article-four', 'article-six'];
                 $articleUrls = [];
                 foreach ($articleSlugs as $slug) {
-                    $lastModForSlug = ($slug === 'article-three' || $slug === 'article-four') ? '2024-09-27' : $lastModified->format('Y-m-d');
+                    $lastModForSlug = $slug === 'article-three' || $slug === 'article-four' ? '2024-09-27' : $lastModified->format('Y-m-d');
                     $articleUrls[] = [
                         'loc' => Router::url(['_name' => 'article-by-slug', 'slug' => $slug, 'lang' => 'en', '_full' => true]),
                         'lastmod' => $lastModForSlug,
@@ -127,14 +130,15 @@ class SitemapController extends AppController
                 $this->viewBuilder()
                     ->setOption('rootNode', false)
                     ->setOption('serialize', false);
-                
+
                 $this->response = $this->response
                     ->withType('xml')
                     ->withHeader('Content-Type', 'application/xml; charset=UTF-8')
                     ->withHeader('Cache-Control', 'public, max-age=86400')
                     ->withStringBody($xml);
-                    
+
                 $this->autoRender = false;
+
                 return $this->response;
             }
 
@@ -269,14 +273,15 @@ class SitemapController extends AppController
             $this->viewBuilder()
                 ->setOption('rootNode', false)
                 ->setOption('serialize', false);
-            
+
             $this->response = $this->response
                 ->withType('xml')
                 ->withHeader('Content-Type', 'application/xml; charset=UTF-8')
                 ->withHeader('Cache-Control', 'public, max-age=86400')
                 ->withStringBody($xml);
-                
+
             $this->autoRender = false;
+
             return $this->response;
         } catch (Exception $e) {
             $this->log('Sitemap generation failed: ' . $e->getMessage(), 'error');
@@ -284,17 +289,18 @@ class SitemapController extends AppController
             // Return empty but valid sitemap on error
             $emptyXml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
             $emptyXml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>';
-            
+
             $this->viewBuilder()
                 ->setOption('rootNode', false)
                 ->setOption('serialize', false);
-            
+
             $this->response = $this->response
                 ->withType('xml')
                 ->withHeader('Content-Type', 'application/xml; charset=UTF-8')
                 ->withStringBody($emptyXml);
-                
+
             $this->autoRender = false;
+
             return $this->response;
         }
     }

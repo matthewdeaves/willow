@@ -3,18 +3,19 @@ declare(strict_types=1);
 
 namespace App\Service\Quiz;
 
-use App\Service\Quiz\AiProductMatcherService;
 use App\Service\Api\Anthropic\AnthropicApiService;
-use Cake\ORM\TableRegistry;
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Log\LogTrait;
-use Cake\Utility\Hash;
+use Cake\ORM\TableRegistry;
 use Cake\Utility\Text;
+use Exception;
+use InvalidArgumentException;
+use RuntimeException;
 
 /**
  * Decision Tree Service
- * 
+ *
  * Manages Akinator-style decision tree navigation for product recommendations
  */
 class DecisionTreeService
@@ -43,7 +44,7 @@ class DecisionTreeService
 
     /**
      * Constructor
-     * 
+     *
      * @param array $config Configuration options
      */
     public function __construct(array $config = [])
@@ -57,12 +58,12 @@ class DecisionTreeService
 
         $this->loadDecisionTree();
         $this->productMatcher = new AiProductMatcherService();
-        
+
         // Initialize AI service for smart question generation
         try {
             $this->aiService = new AnthropicApiService();
             $this->log('AI service initialized for intelligent question generation', 'info');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->log('AI service initialization failed, using fallback questions: ' . $e->getMessage(), 'warning');
             $this->aiService = null;
         }
@@ -70,14 +71,14 @@ class DecisionTreeService
 
     /**
      * Start a new Akinator session
-     * 
+     *
      * @param array $context Optional context information
      * @return array Initial question and session data
      */
     public function start(array $context = []): array
     {
         $sessionId = Text::uuid();
-        
+
         // Initialize session state
         $state = [
             'session_id' => $sessionId,
@@ -92,9 +93,9 @@ class DecisionTreeService
 
         // Get first question
         $firstQuestion = $this->getQuestionForNode('root', $state);
-        
+
         if (!$firstQuestion) {
-            throw new \RuntimeException('Unable to load first question from decision tree');
+            throw new RuntimeException('Unable to load first question from decision tree');
         }
 
         // Store session state
@@ -116,7 +117,7 @@ class DecisionTreeService
 
     /**
      * Process next question based on answer
-     * 
+     *
      * @param array $state Current session state
      * @param string $answer User's answer
      * @return array Next question or terminal result
@@ -125,7 +126,7 @@ class DecisionTreeService
     {
         // Validate session
         if (empty($state['session_id'])) {
-            throw new \InvalidArgumentException('Invalid session state');
+            throw new InvalidArgumentException('Invalid session state');
         }
 
         // Initialize missing state fields
@@ -145,10 +146,10 @@ class DecisionTreeService
         // Update state with answer
         $state['answers'][$state['current_node']] = $answer;
         $state['question_count']++;
-        
+
         // Determine next node
         $nextNode = $this->getNextNode($state['current_node'], $answer);
-        
+
         // Check if we should terminate
         if ($this->shouldTerminate($state, $nextNode)) {
             return $this->generateResult($state);
@@ -157,13 +158,13 @@ class DecisionTreeService
         // Update state for next question
         $state['current_node'] = $nextNode;
         $state['visited_nodes'][] = $nextNode;
-        
+
         // Calculate current confidence
         $state['confidence'] = $this->calculateConfidence($state);
 
         // Get next question
         $nextQuestion = $this->getQuestionForNode($nextNode, $state);
-        
+
         if (!$nextQuestion) {
             // No more questions, generate result
             return $this->generateResult($state);
@@ -178,7 +179,7 @@ class DecisionTreeService
             'progress' => [
                 'current' => $state['question_count'] + 1,
                 'total' => $this->config['max_questions'],
-                'percentage' => round(($state['question_count'] / $this->config['max_questions']) * 100),
+                'percentage' => round($state['question_count'] / $this->config['max_questions'] * 100),
             ],
             'confidence' => $state['confidence'],
         ];
@@ -186,19 +187,19 @@ class DecisionTreeService
 
     /**
      * Check if we should terminate the quiz
-     * 
+     *
      * @param array $state Current state
      * @param string|null $nextNode Next node ID
      * @return bool True if should terminate
      */
-    public function isTerminal(array $state, string $nextNode = null): bool
+    public function isTerminal(array $state, ?string $nextNode = null): bool
     {
         return $this->shouldTerminate($state, $nextNode);
     }
 
     /**
      * Serialize state for persistence
-     * 
+     *
      * @param array $state State array
      * @return string Serialized state
      */
@@ -209,7 +210,7 @@ class DecisionTreeService
 
     /**
      * Deserialize state from persistence
-     * 
+     *
      * @param string $serialized Serialized state
      * @return array State array
      */
@@ -217,26 +218,27 @@ class DecisionTreeService
     {
         $decoded = base64_decode($serialized);
         $state = json_decode($decoded, true);
-        
+
         if (!is_array($state)) {
-            throw new \InvalidArgumentException('Invalid serialized state');
+            throw new InvalidArgumentException('Invalid serialized state');
         }
-        
+
         return $state;
     }
 
     /**
      * Load decision tree configuration
-     * 
+     *
      * @return void
      */
     private function loadDecisionTree(): void
     {
         $cacheKey = 'akinator_tree_v2_multichoice';
         $cached = Cache::read($cacheKey, 'quiz');
-        
+
         if ($cached !== false && is_array($cached)) {
             $this->tree = $cached;
+
             return;
         }
 
@@ -257,7 +259,7 @@ class DecisionTreeService
 
     /**
      * Build default decision tree
-     * 
+     *
      * @return array Decision tree structure
      */
     private function buildDefaultTree(): array
@@ -394,23 +396,23 @@ class DecisionTreeService
 
     /**
      * Validate tree structure
-     * 
+     *
      * @throws \RuntimeException If tree is invalid
      */
     private function validateTree(): void
     {
         if (empty($this->tree['nodes']) || empty($this->tree['edges'])) {
-            throw new \RuntimeException('Invalid decision tree: missing nodes or edges');
+            throw new RuntimeException('Invalid decision tree: missing nodes or edges');
         }
 
         if (!isset($this->tree['nodes']['root'])) {
-            throw new \RuntimeException('Invalid decision tree: missing root node');
+            throw new RuntimeException('Invalid decision tree: missing root node');
         }
     }
 
     /**
      * Get question for a specific node
-     * 
+     *
      * @param string $nodeId Node ID
      * @param array $state Current state
      * @return array|null Question data
@@ -424,7 +426,7 @@ class DecisionTreeService
                 return $aiQuestion;
             }
         }
-        
+
         // Always fall back to static tree questions
         if (!isset($this->tree['nodes'][$nodeId])) {
             // If no static tree question, generate a fallback
@@ -432,7 +434,7 @@ class DecisionTreeService
         }
 
         $node = $this->tree['nodes'][$nodeId];
-        
+
         return [
             'id' => $node['id'],
             'text' => $node['question'],
@@ -444,7 +446,7 @@ class DecisionTreeService
 
     /**
      * Generate AI-powered question based on current state
-     * 
+     *
      * @param array $state Current quiz state
      * @return array|null Generated question
      */
@@ -453,31 +455,32 @@ class DecisionTreeService
         try {
             // Get remaining products based on current answers
             $remainingProducts = $this->getRemainingProducts($state);
-            
+
             if (empty($remainingProducts) || count($remainingProducts) <= 3) {
                 return null; // Should terminate
             }
-            
+
             // Use AI to generate the next question
             $question = $this->aiService->generateNextQuestion($state, $remainingProducts);
-            
+
             if ($question) {
                 $this->log('AI generated question: ' . $question['text'], 'debug');
+
                 return $question;
             }
-            
+
             // Fall back to predefined questions if AI fails
             return $this->generateFallbackQuestion($state, $remainingProducts);
-            
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->log('Error generating AI question: ' . $e->getMessage(), 'error');
+
             return $this->generateFallbackQuestion($state, []);
         }
     }
 
     /**
      * Get products that still match current answers
-     * 
+     *
      * @param array $state Current quiz state
      * @return array Remaining products
      */
@@ -488,27 +491,27 @@ class DecisionTreeService
             $query = $Products->find()
                 ->where(['is_published' => true])
                 ->limit(1000); // Reasonable limit
-                
+
             $products = $query->toArray();
-            
+
             // Filter products based on current answers
             if (!empty($state['answers'])) {
-                $products = array_filter($products, function($product) use ($state) {
+                $products = array_filter($products, function ($product) use ($state) {
                     return $this->productMatchesAnswers($product, $state['answers']);
                 });
             }
-            
+
             return array_values($products);
-            
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->log('Error getting remaining products: ' . $e->getMessage(), 'error');
+
             return [];
         }
     }
 
     /**
      * Check if product matches current answers
-     * 
+     *
      * @param array $product Product data
      * @param array $answers Current answers
      * @return bool Whether product matches
@@ -525,7 +528,7 @@ class DecisionTreeService
                     return false;
                 }
             }
-            
+
             if (strpos($questionId, 'apple') !== false) {
                 if ($answer === 'yes' && stripos($product['manufacturer'] ?? '', 'apple') === false) {
                     return false;
@@ -534,7 +537,7 @@ class DecisionTreeService
                     return false;
                 }
             }
-            
+
             if (strpos($questionId, 'usbc') !== false || strpos($questionId, 'usb-c') !== false) {
                 if ($answer === 'yes' && stripos($product['port_family'] ?? '', 'usbc') === false) {
                     return false;
@@ -544,13 +547,13 @@ class DecisionTreeService
                 }
             }
         }
-        
+
         return true;
     }
 
     /**
      * Generate fallback question when AI is not available
-     * 
+     *
      * @param array $state Current state
      * @param array $products Remaining products
      * @return array|null Fallback question
@@ -558,29 +561,29 @@ class DecisionTreeService
     private function generateFallbackQuestion(array $state, array $products): ?array
     {
         $questionCount = count($state['answers'] ?? []);
-        
+
         // Predefined fallback questions
         $fallbackQuestions = [
             [
                 'text' => 'Do you need this adapter primarily for a laptop computer?',
-                'category' => 'device_type'
+                'category' => 'device_type',
             ],
             [
                 'text' => 'Is your device made by Apple?',
-                'category' => 'manufacturer'
+                'category' => 'manufacturer',
             ],
             [
                 'text' => 'Does your device use a USB-C port for charging?',
-                'category' => 'port_type'
+                'category' => 'port_type',
             ],
             [
                 'text' => 'Do you need fast charging capabilities?',
-                'category' => 'features'
+                'category' => 'features',
             ],
             [
                 'text' => 'Is portability important to you (small, lightweight adapter)?',
-                'category' => 'form_factor'
-            ]
+                'category' => 'form_factor',
+            ],
         ];
 
         if ($questionCount < count($fallbackQuestions)) {
@@ -589,7 +592,7 @@ class DecisionTreeService
             // Use a cycling approach or final question if we run out
             $question = $fallbackQuestions[$questionCount % count($fallbackQuestions)];
         }
-        
+
         return [
             'id' => 'fallback_' . $questionCount,
             'text' => $question['text'],
@@ -597,14 +600,14 @@ class DecisionTreeService
             'category' => $question['category'],
             'options' => [
                 ['id' => 'yes', 'label' => 'Yes'],
-                ['id' => 'no', 'label' => 'No']
-            ]
+                ['id' => 'no', 'label' => 'No'],
+            ],
         ];
     }
 
     /**
      * Get next node based on current node and answer
-     * 
+     *
      * @param string $currentNode Current node ID
      * @param string $answer User's answer
      * @return string|null Next node ID
@@ -616,12 +619,13 @@ class DecisionTreeService
         }
 
         $edges = $this->tree['edges'][$currentNode];
+
         return $edges[$answer] ?? null;
     }
 
     /**
      * Check if should terminate the quiz
-     * 
+     *
      * @param array $state Current state
      * @param string|null $nextNode Next node ID
      * @return bool
@@ -653,7 +657,7 @@ class DecisionTreeService
 
     /**
      * Calculate current confidence based on answers
-     * 
+     *
      * @param array $state Current state
      * @return float Confidence score (0.0 to 1.0)
      */
@@ -674,14 +678,14 @@ class DecisionTreeService
         // Base confidence increases with each answer
         $baseConfidence = 0.3;
         $progressMultiplier = min(1.0, $state['question_count'] / 10);
-        $weightedConfidence = $totalWeight > 0 ? ($answeredWeight / $totalWeight) : 0;
+        $weightedConfidence = $totalWeight > 0 ? $answeredWeight / $totalWeight : 0;
 
         return min(1.0, $baseConfidence + ($progressMultiplier * 0.4) + ($weightedConfidence * 0.3));
     }
 
     /**
      * Generate final result
-     * 
+     *
      * @param array $state Final state
      * @return array Quiz result
      */
@@ -691,7 +695,7 @@ class DecisionTreeService
 
         // Convert answers to standardized format for product matching
         $normalizedAnswers = $this->normalizeAnswers($state['answers']);
-        
+
         // Get product recommendations
         $matchResult = $this->productMatcher->match($normalizedAnswers, [
             'max_results' => 5,
@@ -718,7 +722,7 @@ class DecisionTreeService
 
     /**
      * Normalize Akinator answers to standard quiz format
-     * 
+     *
      * @param array $answers Raw answers from decision tree
      * @return array Normalized answers
      */
@@ -763,7 +767,7 @@ class DecisionTreeService
 
     /**
      * Store session state
-     * 
+     *
      * @param string $sessionId Session ID
      * @param array $state State data
      */
@@ -775,7 +779,7 @@ class DecisionTreeService
 
     /**
      * Retrieve session state
-     * 
+     *
      * @param string $sessionId Session ID
      * @return array|null State data
      */
@@ -783,13 +787,13 @@ class DecisionTreeService
     {
         $cacheKey = "akinator_session_{$sessionId}";
         $state = Cache::read($cacheKey, 'quiz');
-        
+
         return $state !== false ? $state : null;
     }
 
     /**
      * Clear session state
-     * 
+     *
      * @param string $sessionId Session ID
      */
     private function clearSessionState(string $sessionId): void

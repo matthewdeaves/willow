@@ -8,7 +8,7 @@ use Cake\Http\Response;
 
 /**
  * CableCapabilities Controller - Admin interface for cable capabilities logical view
- * 
+ *
  * Provides admin interface for managing cable capability data extracted from
  * the products table prototype schema.
  */
@@ -32,7 +32,7 @@ class CableCapabilitiesController extends AppController
         $this->paginate = [
             'limit' => 25,
             'order' => ['CableCapabilities.numeric_rating' => 'desc'],
-            'conditions' => ['CableCapabilities.capability_name IS NOT' => null]
+            'conditions' => ['CableCapabilities.capability_name IS NOT' => null],
         ];
 
         $cableCapabilities = $this->paginate($this->CableCapabilities);
@@ -42,7 +42,7 @@ class CableCapabilitiesController extends AppController
         // Store search context in session for return navigation
         $this->getRequest()->getSession()->write('Admin.CableCapabilities.returnContext', [
             'url' => $this->getRequest()->getRequestTarget(),
-            'search' => $this->getRequest()->getQueryParams()
+            'search' => $this->getRequest()->getQueryParams(),
         ]);
 
         $this->set(compact('cableCapabilities', 'stats', 'categories'));
@@ -57,10 +57,10 @@ class CableCapabilitiesController extends AppController
     public function view(string $id): ?Response
     {
         $capability = $this->CableCapabilities->get($id);
-        
+
         // Get return context for navigation
         $returnContext = $this->getRequest()->getSession()->read('Admin.CableCapabilities.returnContext');
-        
+
         $this->set(compact('capability', 'returnContext'));
         $this->set('_serialize', ['capability']);
 
@@ -74,7 +74,7 @@ class CableCapabilitiesController extends AppController
     {
         $this->paginate = [
             'limit' => 25,
-            'order' => ['CableCapabilities.numeric_rating' => 'desc']
+            'order' => ['CableCapabilities.numeric_rating' => 'desc'],
         ];
 
         $capabilities = $this->paginate($this->CableCapabilities->getCapabilitiesByCategory($category));
@@ -82,17 +82,17 @@ class CableCapabilitiesController extends AppController
             'total' => $capabilities->count(),
             'certified' => $this->CableCapabilities->find()
                 ->where(['capability_category' => $category, 'is_certified' => true])
-                ->count()
+                ->count(),
         ];
 
         // Store navigation context
         $this->getRequest()->getSession()->write('Admin.CableCapabilities.returnContext', [
             'url' => "/admin/cable-capabilities/category/{$category}",
-            'search' => ['category' => $category]
+            'search' => ['category' => $category],
         ]);
 
         $this->set(compact('capabilities', 'category', 'categoryStats'));
-        
+
         return null;
     }
 
@@ -103,14 +103,14 @@ class CableCapabilitiesController extends AppController
     {
         $this->paginate = [
             'limit' => 25,
-            'order' => ['CableCapabilities.certification_date' => 'desc']
+            'order' => ['CableCapabilities.certification_date' => 'desc'],
         ];
 
         $certifiedCapabilities = $this->paginate($this->CableCapabilities->getCertifiedCapabilities());
         $certificationStats = $this->CableCapabilities->getCapabilityStats();
 
         $this->set(compact('certifiedCapabilities', 'certificationStats'));
-        
+
         return null;
     }
 
@@ -120,21 +120,21 @@ class CableCapabilitiesController extends AppController
     public function search(): ?Response
     {
         $searchTerm = $this->getRequest()->getQuery('q');
-        
+
         if ($searchTerm) {
             $this->paginate = [
                 'limit' => 25,
-                'order' => ['CableCapabilities.numeric_rating' => 'desc']
+                'order' => ['CableCapabilities.numeric_rating' => 'desc'],
             ];
 
             $searchResults = $this->paginate($this->CableCapabilities->searchByTechnicalSpecs($searchTerm));
-            
+
             // Store search context
             $this->getRequest()->getSession()->write('Admin.CableCapabilities.returnContext', [
                 'url' => "/admin/cable-capabilities/search?q={$searchTerm}",
-                'search' => ['q' => $searchTerm]
+                'search' => ['q' => $searchTerm],
             ]);
-            
+
             $this->set(compact('searchResults', 'searchTerm'));
         } else {
             $searchResults = null;
@@ -151,7 +151,7 @@ class CableCapabilitiesController extends AppController
     {
         $stats = $this->CableCapabilities->getCapabilityStats();
         $categories = $this->CableCapabilities->getCapabilityCategories();
-        
+
         // Get capability trends by category
         $categoryBreakdown = [];
         foreach ($categories as $category) {
@@ -160,13 +160,13 @@ class CableCapabilitiesController extends AppController
                 ->select([
                     'total' => 'COUNT(*)',
                     'certified' => 'SUM(CASE WHEN is_certified = 1 THEN 1 ELSE 0 END)',
-                    'avg_rating' => 'AVG(numeric_rating)'
+                    'avg_rating' => 'AVG(numeric_rating)',
                 ])
                 ->first();
         }
 
         $this->set(compact('stats', 'categories', 'categoryBreakdown'));
-        
+
         return null;
     }
 
@@ -176,19 +176,19 @@ class CableCapabilitiesController extends AppController
     public function export(): Response
     {
         $this->getRequest()->allowMethod(['get']);
-        
+
         $capabilities = $this->CableCapabilities->find()
             ->select([
                 'id', 'title', 'capability_name', 'capability_category',
                 'capability_value', 'numeric_rating', 'is_certified',
-                'certification_date', 'testing_standard', 'certifying_organization'
+                'certification_date', 'testing_standard', 'certifying_organization',
             ])
             ->where(['capability_name IS NOT' => null])
             ->orderBy(['capability_category' => 'ASC', 'numeric_rating' => 'DESC'])
             ->toArray();
 
         $csvData = "ID,Product Title,Capability Name,Category,Value,Rating,Certified,Certification Date,Testing Standard,Certifying Organization\n";
-        
+
         foreach ($capabilities as $cap) {
             $csvData .= sprintf(
                 '"%s","%s","%s","%s","%s","%s","%s","%s","%s","%s"' . "\n",
@@ -201,7 +201,7 @@ class CableCapabilitiesController extends AppController
                 $cap->is_certified ? 'Yes' : 'No',
                 $cap->certification_date ? $cap->certification_date->format('Y-m-d') : '',
                 str_replace('"', '""', $cap->testing_standard ?? ''),
-                str_replace('"', '""', $cap->certifying_organization ?? '')
+                str_replace('"', '""', $cap->certifying_organization ?? ''),
             );
         }
 
@@ -219,12 +219,13 @@ class CableCapabilitiesController extends AppController
     public function returnToProducts(): Response
     {
         $returnContext = $this->getRequest()->getSession()->read('Admin.CableCapabilities.returnContext');
-        
+
         if ($returnContext && !empty($returnContext['search'])) {
             $queryString = http_build_query($returnContext['search']);
+
             return $this->redirect("/admin/products?{$queryString}");
         }
-        
+
         return $this->redirect(['controller' => 'Products', 'action' => 'index']);
     }
 }

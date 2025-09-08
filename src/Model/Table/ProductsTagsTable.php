@@ -3,17 +3,14 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
-use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
-use Cake\Validation\Validator;
 
 /**
  * ProductsTags Model
  *
  * @property \App\Model\Table\ProductsTable&\Cake\ORM\Association\BelongsTo $Products
  * @property \App\Model\Table\TagsTable&\Cake\ORM\Association\BelongsTo $Tags
- *
  * @method \App\Model\Entity\ProductsTag newEmptyEntity()
  * @method \App\Model\Entity\ProductsTag newEntity(array $data, array $options = [])
  * @method array<\App\Model\Entity\ProductsTag> newEntities(array $data, array $options = [])

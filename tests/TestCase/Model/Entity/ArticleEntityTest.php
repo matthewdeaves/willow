@@ -30,7 +30,7 @@ class ArticleEntityTest extends TestCase
             'user_id' => 'test-user-123',
             'published' => true,
             'is_published' => true,
-            'kind' => 'article'
+            'kind' => 'article',
         ];
 
         $article = new Article($data);
@@ -64,7 +64,7 @@ class ArticleEntityTest extends TestCase
         // The $_accessible array is only enforced when using Table::newEntity() or patchEntity()
         // So we test that the field is marked as not accessible
         $this->assertFalse($article->isAccessible('id'), 'ID field should be marked as not accessible');
-        
+
         // But allowed fields should be set
         $this->assertEquals('Test Article', $article->title);
         $this->assertInstanceOf(DateTime::class, $article->created);
@@ -85,7 +85,7 @@ class ArticleEntityTest extends TestCase
             'meta_description' => 'Custom meta description',
             'meta_keywords' => 'test, article, seo',
             'facebook_description' => 'Facebook description',
-            'twitter_description' => 'Twitter description'
+            'twitter_description' => 'Twitter description',
         ]);
 
         // Test hasSeoContent
@@ -125,13 +125,13 @@ class ArticleEntityTest extends TestCase
         // Check that the entity has the expected title and lede
         $this->assertEquals('Main Title', $article->title);
         $this->assertEquals('Main lede content', $article->lede);
-        
+
         // Should fallback to title for meta title when meta_title is empty
         $this->assertNull($article->meta_title, 'meta_title should be null initially');
         $effectiveTitle = $article->getEffectiveMetaTitle();
         $this->assertEquals('Main Title', $effectiveTitle, 'Should fallback to title when meta_title is empty');
 
-        // Should fallback to lede for meta description  
+        // Should fallback to lede for meta description
         $effectiveDesc = $article->getEffectiveMetaDescription();
         $this->assertEquals('Main lede content', $effectiveDesc);
 
@@ -152,7 +152,7 @@ class ArticleEntityTest extends TestCase
             'meta_title' => 'New Meta Title',
             'meta_description' => 'New meta description',
             'facebook_description' => 'New Facebook description',
-            'invalid_field' => 'Should be ignored'
+            'invalid_field' => 'Should be ignored',
         ];
 
         $result = $article->setSeoData($seoData);
@@ -180,7 +180,7 @@ class ArticleEntityTest extends TestCase
             'title' => 'Parent Article',
             'kind' => 'page',
             'lft' => 1,
-            'rght' => 4
+            'rght' => 4,
         ]);
 
         $childArticle = new Article([
@@ -188,14 +188,14 @@ class ArticleEntityTest extends TestCase
             'parent_id' => 'parent-123',
             'kind' => 'page',
             'lft' => 2,
-            'rght' => 3
+            'rght' => 3,
         ]);
 
         $this->assertEquals('Parent Article', $parentArticle->title);
         $this->assertEquals('page', $parentArticle->kind);
         $this->assertEquals(1, $parentArticle->lft);
         $this->assertEquals(4, $parentArticle->rght);
-        
+
         $this->assertEquals('Child Article', $childArticle->title);
         $this->assertEquals('parent-123', $childArticle->parent_id);
         $this->assertEquals('page', $childArticle->kind);
@@ -214,7 +214,7 @@ class ArticleEntityTest extends TestCase
         $publishedArticle = new Article([
             'title' => 'Published Article',
             'published' => true,
-            'is_published' => true
+            'is_published' => true,
         ]);
 
         $this->assertTrue($publishedArticle->published);
@@ -224,7 +224,7 @@ class ArticleEntityTest extends TestCase
         $draftArticle = new Article([
             'title' => 'Draft Article',
             'published' => false,
-            'is_published' => false
+            'is_published' => false,
         ]);
 
         $this->assertFalse($draftArticle->published);
@@ -242,7 +242,7 @@ class ArticleEntityTest extends TestCase
             'title' => 'Featured Article',
             'featured' => true,
             'main_menu' => true,
-            'footer_menu' => false
+            'footer_menu' => false,
         ]);
 
         $this->assertTrue($article->featured);
@@ -260,7 +260,7 @@ class ArticleEntityTest extends TestCase
         $article = new Article([
             'title' => 'Test Article',
             'body' => 'This is a test article with exactly ten words in the body.',
-            'word_count' => 10
+            'word_count' => 10,
         ]);
 
         $this->assertEquals(10, $article->word_count);
@@ -275,11 +275,11 @@ class ArticleEntityTest extends TestCase
     public function testMarkdownContent(): void
     {
         $markdownContent = "# Test Article\n\nThis is **bold** and this is *italic*.";
-        
+
         $article = new Article([
             'title' => 'Markdown Article',
             'markdown' => $markdownContent,
-            'body' => '<h1>Test Article</h1><p>This is <strong>bold</strong> and this is <em>italic</em>.</p>'
+            'body' => '<h1>Test Article</h1><p>This is <strong>bold</strong> and this is <em>italic</em>.</p>',
         ]);
 
         $this->assertEquals($markdownContent, $article->markdown);
@@ -297,7 +297,7 @@ class ArticleEntityTest extends TestCase
         $article = new Article([
             'title' => 'Test Article',
             'body' => 'This is a long article body with lots of content.',
-            'summary' => 'This is a short summary of the article.'
+            'summary' => 'This is a short summary of the article.',
         ]);
 
         $this->assertEquals('This is a short summary of the article.', $article->summary);
@@ -315,7 +315,7 @@ class ArticleEntityTest extends TestCase
             'facebook_description' => 'Facebook-optimized description',
             'linkedin_description' => 'LinkedIn-optimized description',
             'twitter_description' => 'Twitter-optimized description',
-            'instagram_description' => 'Instagram-optimized description'
+            'instagram_description' => 'Instagram-optimized description',
         ]);
 
         $seoData = $article->getSeoData();
@@ -323,7 +323,7 @@ class ArticleEntityTest extends TestCase
         $this->assertEquals('LinkedIn-optimized description', $seoData['linkedin_description']);
         $this->assertEquals('Twitter-optimized description', $seoData['twitter_description']);
         $this->assertEquals('Instagram-optimized description', $seoData['instagram_description']);
-        
+
         $this->assertTrue($article->hasSeoContent());
     }
 
@@ -337,7 +337,7 @@ class ArticleEntityTest extends TestCase
         $article = new Article([
             'title' => 'Serialization Test',
             'published' => true,
-            'created' => new DateTime('2024-01-01 12:00:00')
+            'created' => new DateTime('2024-01-01 12:00:00'),
         ]);
 
         // Test toArray functionality
@@ -366,7 +366,7 @@ class ArticleEntityTest extends TestCase
         $this->assertNull($article->body);
         $this->assertNull($article->user_id);
         $this->assertFalse($article->hasSeoContent());
-        
+
         $seoData = $article->getSeoData();
         $this->assertIsArray($seoData);
         $this->assertEmpty(array_filter($seoData)); // All SEO fields should be null/empty
@@ -381,7 +381,7 @@ class ArticleEntityTest extends TestCase
     {
         $article = new Article([
             'title' => 'Article with Image',
-            'image' => 'test-image.jpg'
+            'image' => 'test-image.jpg',
         ]);
 
         $this->assertEquals('test-image.jpg', $article->image);
@@ -406,7 +406,7 @@ class ArticleEntityTest extends TestCase
             'word_count' => 50,
             'kind' => 'article',
             'published' => true,
-            'is_published' => true
+            'is_published' => true,
         ];
 
         $article = new Article($data);
@@ -424,7 +424,7 @@ class ArticleEntityTest extends TestCase
             'word_count', 'kind', 'parent_id', 'lft', 'rght', 'published',
             'is_published', 'tags', 'images', 'image', 'meta_title',
             'meta_description', 'meta_keywords', 'facebook_description',
-            'linkedin_description', 'twitter_description', 'instagram_description'
+            'linkedin_description', 'twitter_description', 'instagram_description',
         ];
 
         foreach ($expectedFields as $field) {
@@ -441,7 +441,7 @@ class ArticleEntityTest extends TestCase
     {
         $article = new Article([
             'title' => 'English Title',
-            'body' => 'English body content'
+            'body' => 'English body content',
         ]);
 
         // Test that the entity uses TranslateTrait

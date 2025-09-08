@@ -5,15 +5,16 @@ namespace App\Job;
 
 use App\Service\Api\RateLimitService;
 use App\Utility\SettingsManager;
+use Cake\Cache\Cache;
 use Cake\Log\LogTrait;
 use Cake\ORM\TableRegistry;
-use Cake\Utility\Text;
+use Exception;
 use Queue\Job\JobInterface;
 use Queue\Job\JobTrait;
 
 /**
  * Enhanced AI Operation Job
- * 
+ *
  * Comprehensive background job system for AI operations with:
  * - Rate limiting enforcement
  * - Cost tracking and limits
@@ -57,7 +58,7 @@ class EnhancedAiOperationJob implements JobInterface
         $payload = $data['payload'] ?? [];
         $entityId = $data['entity_id'] ?? null;
         $entityType = $data['entity_type'] ?? null;
-        
+
         $this->log("Starting AI operation: {$operation} for {$entityType} ID: {$entityId}", 'info');
 
         try {
@@ -65,19 +66,21 @@ class EnhancedAiOperationJob implements JobInterface
             if ($this->isCircuitBreakerOpen($service)) {
                 $this->log("Circuit breaker is open for service: {$service}", 'warning');
                 $this->recordMetrics($taskType, $startTime, false, 'Circuit breaker open', $service);
+
                 return false;
             }
 
             // Enforce rate limits
             $rateLimitService = new RateLimitService();
             $limitCheck = $rateLimitService->checkLimits($service);
-            
+
             if (!$limitCheck['allowed']) {
-                $this->log("Rate limit exceeded: " . implode(', ', $limitCheck['reasons']), 'warning');
+                $this->log('Rate limit exceeded: ' . implode(', ', $limitCheck['reasons']), 'warning');
                 $this->recordMetrics($taskType, $startTime, false, 'Rate limit exceeded', $service);
-                
+
                 // Reschedule job for later
                 $this->rescheduleJob($data, 'Rate limit exceeded');
+
                 return false;
             }
 
@@ -87,14 +90,14 @@ class EnhancedAiOperationJob implements JobInterface
             if ($result['success']) {
                 // Record success metrics
                 $this->recordMetrics(
-                    $taskType, 
-                    $startTime, 
-                    true, 
-                    null, 
+                    $taskType,
+                    $startTime,
+                    true,
+                    null,
                     $service,
                     $result['tokens_used'] ?? null,
                     $result['model_used'] ?? null,
-                    $result['cost'] ?? null
+                    $result['cost'] ?? null,
                 );
 
                 // Record cost for tracking
@@ -111,8 +114,8 @@ class EnhancedAiOperationJob implements JobInterface
                 }
 
                 $this->log("AI operation completed successfully: {$operation}", 'info');
-                return true;
 
+                return true;
             } else {
                 // Handle failure
                 $error = $result['error'] ?? 'Unknown error';
@@ -128,13 +131,13 @@ class EnhancedAiOperationJob implements JobInterface
                 $currentAttempt = $data['attempt'] ?? 1;
                 if ($currentAttempt < self::MAX_RETRIES && $this->shouldRetry($result)) {
                     $this->retryJob($data, $error, $currentAttempt);
+
                     return false;
                 }
 
                 return false;
             }
-
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->log("Unexpected error in AI operation: {$e->getMessage()}", 'error');
             $this->recordMetrics($taskType, $startTime, false, $e->getMessage(), $service);
             $this->recordCircuitBreakerFailure($service);
@@ -162,26 +165,26 @@ class EnhancedAiOperationJob implements JobInterface
         switch ($operation) {
             case 'generate_seo':
                 return $this->generateSeoContent($payload, $service);
-            
+
             case 'analyze_image':
                 return $this->analyzeImage($payload, $service);
-            
+
             case 'generate_tags':
                 return $this->generateTags($payload, $service);
-            
+
             case 'analyze_sentiment':
                 return $this->analyzeSentiment($payload, $service);
-            
+
             case 'translate_content':
                 return $this->translateContent($payload, $service);
-            
+
             case 'generate_summary':
                 return $this->generateSummary($payload, $service);
-            
+
             default:
                 return [
                     'success' => false,
-                    'error' => "Unknown operation: {$operation}"
+                    'error' => "Unknown operation: {$operation}",
                 ];
         }
     }
@@ -193,11 +196,11 @@ class EnhancedAiOperationJob implements JobInterface
     {
         try {
             $seoService = $this->getServiceInstance($service, 'SeoContentGenerator');
-            
+
             $result = $seoService->generateSeoContent(
                 $payload['title'] ?? '',
                 $payload['content'] ?? '',
-                $payload['options'] ?? []
+                $payload['options'] ?? [],
             );
 
             return [
@@ -205,14 +208,13 @@ class EnhancedAiOperationJob implements JobInterface
                 'data' => $result,
                 'tokens_used' => $result['meta']['tokens_used'] ?? null,
                 'model_used' => $result['meta']['model_used'] ?? null,
-                'cost' => $result['meta']['cost'] ?? null
+                'cost' => $result['meta']['cost'] ?? null,
             ];
-
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return [
                 'success' => false,
                 'error' => $e->getMessage(),
-                'retry' => $this->isRetryableError($e)
+                'retry' => $this->isRetryableError($e),
             ];
         }
     }
@@ -224,10 +226,10 @@ class EnhancedAiOperationJob implements JobInterface
     {
         try {
             $imageService = $this->getServiceInstance($service, 'ImageAnalyzer');
-            
+
             $result = $imageService->analyzeImage(
                 $payload['image_path'] ?? '',
-                $payload['options'] ?? []
+                $payload['options'] ?? [],
             );
 
             return [
@@ -235,14 +237,13 @@ class EnhancedAiOperationJob implements JobInterface
                 'data' => $result,
                 'tokens_used' => $result['meta']['tokens_used'] ?? null,
                 'model_used' => $result['meta']['model_used'] ?? null,
-                'cost' => $result['meta']['cost'] ?? null
+                'cost' => $result['meta']['cost'] ?? null,
             ];
-
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return [
                 'success' => false,
                 'error' => $e->getMessage(),
-                'retry' => $this->isRetryableError($e)
+                'retry' => $this->isRetryableError($e),
             ];
         }
     }
@@ -254,10 +255,10 @@ class EnhancedAiOperationJob implements JobInterface
     {
         try {
             $tagService = $this->getServiceInstance($service, 'TagGenerator');
-            
+
             $result = $tagService->generateTags(
                 $payload['content'] ?? '',
-                $payload['options'] ?? []
+                $payload['options'] ?? [],
             );
 
             return [
@@ -265,14 +266,13 @@ class EnhancedAiOperationJob implements JobInterface
                 'data' => $result,
                 'tokens_used' => $result['meta']['tokens_used'] ?? null,
                 'model_used' => $result['meta']['model_used'] ?? null,
-                'cost' => $result['meta']['cost'] ?? null
+                'cost' => $result['meta']['cost'] ?? null,
             ];
-
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return [
                 'success' => false,
                 'error' => $e->getMessage(),
-                'retry' => $this->isRetryableError($e)
+                'retry' => $this->isRetryableError($e),
             ];
         }
     }
@@ -284,10 +284,10 @@ class EnhancedAiOperationJob implements JobInterface
     {
         try {
             $sentimentService = $this->getServiceInstance($service, 'CommentAnalyzer');
-            
+
             $result = $sentimentService->analyzeSentiment(
                 $payload['text'] ?? '',
-                $payload['options'] ?? []
+                $payload['options'] ?? [],
             );
 
             return [
@@ -295,14 +295,13 @@ class EnhancedAiOperationJob implements JobInterface
                 'data' => $result,
                 'tokens_used' => $result['meta']['tokens_used'] ?? null,
                 'model_used' => $result['meta']['model_used'] ?? null,
-                'cost' => $result['meta']['cost'] ?? null
+                'cost' => $result['meta']['cost'] ?? null,
             ];
-
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return [
                 'success' => false,
                 'error' => $e->getMessage(),
-                'retry' => $this->isRetryableError($e)
+                'retry' => $this->isRetryableError($e),
             ];
         }
     }
@@ -314,11 +313,11 @@ class EnhancedAiOperationJob implements JobInterface
     {
         try {
             $translationService = $this->getServiceInstance($service, 'TranslationService');
-            
+
             $result = $translationService->translate(
                 $payload['text'] ?? '',
                 $payload['target_language'] ?? 'en',
-                $payload['source_language'] ?? 'auto'
+                $payload['source_language'] ?? 'auto',
             );
 
             return [
@@ -326,14 +325,13 @@ class EnhancedAiOperationJob implements JobInterface
                 'data' => $result,
                 'tokens_used' => $result['meta']['tokens_used'] ?? null,
                 'model_used' => $result['meta']['model_used'] ?? null,
-                'cost' => $result['meta']['cost'] ?? null
+                'cost' => $result['meta']['cost'] ?? null,
             ];
-
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return [
                 'success' => false,
                 'error' => $e->getMessage(),
-                'retry' => $this->isRetryableError($e)
+                'retry' => $this->isRetryableError($e),
             ];
         }
     }
@@ -345,10 +343,10 @@ class EnhancedAiOperationJob implements JobInterface
     {
         try {
             $summaryService = $this->getServiceInstance($service, 'ContentSummarizer');
-            
+
             $result = $summaryService->summarize(
                 $payload['content'] ?? '',
-                $payload['options'] ?? []
+                $payload['options'] ?? [],
             );
 
             return [
@@ -356,14 +354,13 @@ class EnhancedAiOperationJob implements JobInterface
                 'data' => $result,
                 'tokens_used' => $result['meta']['tokens_used'] ?? null,
                 'model_used' => $result['meta']['model_used'] ?? null,
-                'cost' => $result['meta']['cost'] ?? null
+                'cost' => $result['meta']['cost'] ?? null,
             ];
-
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return [
                 'success' => false,
                 'error' => $e->getMessage(),
-                'retry' => $this->isRetryableError($e)
+                'retry' => $this->isRetryableError($e),
             ];
         }
     }
@@ -373,12 +370,12 @@ class EnhancedAiOperationJob implements JobInterface
      */
     protected function getServiceInstance(string $service, string $serviceClass)
     {
-        $className = "\\App\\Service\\Api\\" . ucfirst($service) . "\\{$serviceClass}";
-        
+        $className = '\\App\\Service\\Api\\' . ucfirst($service) . "\\{$serviceClass}";
+
         if (!class_exists($className)) {
-            throw new \Exception("Service class not found: {$className}");
+            throw new Exception("Service class not found: {$className}");
         }
-        
+
         return new $className();
     }
 
@@ -393,7 +390,7 @@ class EnhancedAiOperationJob implements JobInterface
         string $service = 'anthropic',
         ?int $tokensUsed = null,
         ?string $modelUsed = null,
-        ?float $cost = null
+        ?float $cost = null,
     ): void {
         if (!SettingsManager::read('AI.enableMetrics', true)) {
             return;
@@ -414,8 +411,7 @@ class EnhancedAiOperationJob implements JobInterface
             ]);
 
             $aiMetricsTable->save($metric);
-
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->log("Failed to record metrics: {$e->getMessage()}", 'error');
         }
     }
@@ -431,12 +427,11 @@ class EnhancedAiOperationJob implements JobInterface
 
             // Apply the AI-generated data to the entity
             $entity = $table->patchEntity($entity, $data);
-            
-            if (!$table->save($entity)) {
-                $this->log("Failed to update entity: " . json_encode($entity->getErrors()), 'error');
-            }
 
-        } catch (\Exception $e) {
+            if (!$table->save($entity)) {
+                $this->log('Failed to update entity: ' . json_encode($entity->getErrors()), 'error');
+            }
+        } catch (Exception $e) {
             $this->log("Error updating entity: {$e->getMessage()}", 'error');
         }
     }
@@ -448,21 +443,21 @@ class EnhancedAiOperationJob implements JobInterface
     {
         $nextAttempt = $currentAttempt + 1;
         $delay = self::BASE_DELAY * pow(2, $currentAttempt - 1); // Exponential backoff
-        
+
         $data['attempt'] = $nextAttempt;
         $data['retry_reason'] = $reason;
         $data['previous_attempts'] = ($data['previous_attempts'] ?? []);
         $data['previous_attempts'][] = [
             'attempt' => $currentAttempt,
             'reason' => $reason,
-            'timestamp' => date('c')
+            'timestamp' => date('c'),
         ];
 
         // Queue the retry
         $queueJobsTable = TableRegistry::getTableLocator()->get('Queue.QueuedJobs');
         $queueJobsTable->createJob(self::class, $data, [
             'notBefore' => time() + $delay,
-            'group' => 'ai_operations'
+            'group' => 'ai_operations',
         ]);
 
         $this->log("Retrying AI operation (attempt {$nextAttempt}/{self::MAX_RETRIES}) in {$delay} seconds: {$reason}", 'info');
@@ -474,12 +469,12 @@ class EnhancedAiOperationJob implements JobInterface
     protected function rescheduleJob(array $data, string $reason): void
     {
         $delay = 3600; // Reschedule for next hour
-        
+
         // Queue the rescheduled job
         $queueJobsTable = TableRegistry::getTableLocator()->get('Queue.QueuedJobs');
         $queueJobsTable->createJob(self::class, $data, [
             'notBefore' => time() + $delay,
-            'group' => 'ai_operations'
+            'group' => 'ai_operations',
         ]);
 
         $this->log("Rescheduling AI operation for next hour: {$reason}", 'info');
@@ -496,10 +491,10 @@ class EnhancedAiOperationJob implements JobInterface
     /**
      * Determine if an exception represents a retryable error
      */
-    protected function isRetryableError(\Exception $e): bool
+    protected function isRetryableError(Exception $e): bool
     {
         $message = $e->getMessage();
-        
+
         // Rate limiting, temporary network issues, etc.
         $retryablePatterns = [
             '/rate limit/i',
@@ -509,7 +504,7 @@ class EnhancedAiOperationJob implements JobInterface
             '/service unavailable/i',
             '/502/i',
             '/503/i',
-            '/504/i'
+            '/504/i',
         ];
 
         foreach ($retryablePatterns as $pattern) {
@@ -527,22 +522,22 @@ class EnhancedAiOperationJob implements JobInterface
     protected function isCircuitBreakerOpen(string $service): bool
     {
         $key = "circuit_breaker_{$service}";
-        $failures = \Cake\Cache\Cache::read($key) ?? 0;
-        
+        $failures = Cache::read($key) ?? 0;
+
         return $failures >= self::CIRCUIT_BREAKER_THRESHOLD;
     }
 
     protected function recordCircuitBreakerFailure(string $service): void
     {
         $key = "circuit_breaker_{$service}";
-        $failures = \Cake\Cache\Cache::read($key) ?? 0;
-        
-        \Cake\Cache\Cache::write($key, $failures + 1, '+1 hour');
+        $failures = Cache::read($key) ?? 0;
+
+        Cache::write($key, $failures + 1, '+1 hour');
     }
 
     protected function resetCircuitBreaker(string $service): void
     {
         $key = "circuit_breaker_{$service}";
-        \Cake\Cache\Cache::delete($key);
+        Cache::delete($key);
     }
 }

@@ -105,6 +105,7 @@ class AipromptsTable extends Table
                     if ($value === null || $value === '') {
                         return true;
                     }
+
                     return $value >= 0 && $value <= 100;
                 },
                 'message' => 'Success rate must be between 0 and 100.',

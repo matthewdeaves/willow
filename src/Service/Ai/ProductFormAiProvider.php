@@ -4,11 +4,12 @@ declare(strict_types=1);
 namespace App\Service\Ai;
 
 use Cake\Log\Log;
+use Exception;
 
 /**
  * AI Provider for Product Form Field Suggestions
- * 
- * Provides intelligent suggestions for product form fields based on 
+ *
+ * Provides intelligent suggestions for product form fields based on
  * existing data and context. Uses pattern matching and heuristic rules
  * to generate helpful auto-fill suggestions.
  */
@@ -90,12 +91,13 @@ class ProductFormAiProvider implements AiProviderInterface
                 default:
                     return $this->getDefaultSuggestions($productData, $context);
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error('ProductFormAiProvider error: ' . $e->getMessage());
+
             return [
                 'suggestions' => [],
                 'reasoning' => 'AI processing error',
-                'confidence_level' => 0
+                'confidence_level' => 0,
             ];
         }
     }
@@ -134,7 +136,7 @@ class ProductFormAiProvider implements AiProviderInterface
         return [
             'suggestions' => $suggestions,
             'reasoning' => 'Generated title based on manufacturer, product type, and key features',
-            'confidence_level' => $confidence
+            'confidence_level' => $confidence,
         ];
     }
 
@@ -161,7 +163,7 @@ class ProductFormAiProvider implements AiProviderInterface
         return [
             'suggestions' => array_unique($suggestions),
             'reasoning' => 'Identified manufacturer based on product name and description patterns',
-            'confidence_level' => $confidence
+            'confidence_level' => $confidence,
         ];
     }
 
@@ -176,7 +178,7 @@ class ProductFormAiProvider implements AiProviderInterface
             return [
                 'suggestions' => [],
                 'reasoning' => 'Need product title to generate description',
-                'confidence_level' => 0
+                'confidence_level' => 0,
             ];
         }
 
@@ -186,29 +188,29 @@ class ProductFormAiProvider implements AiProviderInterface
         // Build description based on product type
         switch ($productType) {
             case 'usb-c':
-                $description = "High-quality USB-C adapter that provides reliable connectivity and data transfer. Features durable construction with premium materials for long-lasting performance.";
+                $description = 'High-quality USB-C adapter that provides reliable connectivity and data transfer. Features durable construction with premium materials for long-lasting performance.';
                 if (strpos(strtolower($title), 'hdmi') !== false) {
-                    $description .= " Supports 4K video output for crystal-clear display connectivity.";
+                    $description .= ' Supports 4K video output for crystal-clear display connectivity.';
                 }
                 break;
             case 'hdmi':
-                $description = "Premium HDMI cable/adapter designed for high-definition video and audio transmission. Supports the latest HDMI standards for optimal compatibility.";
+                $description = 'Premium HDMI cable/adapter designed for high-definition video and audio transmission. Supports the latest HDMI standards for optimal compatibility.';
                 break;
             case 'ethernet':
-                $description = "Reliable network adapter providing fast and stable internet connectivity. Built with high-quality components for consistent performance.";
+                $description = 'Reliable network adapter providing fast and stable internet connectivity. Built with high-quality components for consistent performance.';
                 break;
             default:
-                $description = "Quality " . strtolower($title) . " designed for reliable performance and durability. Built to meet high standards of connectivity and compatibility.";
+                $description = 'Quality ' . strtolower($title) . ' designed for reliable performance and durability. Built to meet high standards of connectivity and compatibility.';
         }
 
         if ($technicalSpecs) {
-            $description .= " " . $technicalSpecs;
+            $description .= ' ' . $technicalSpecs;
         }
 
         return [
             'suggestions' => [$description],
             'reasoning' => 'Generated description based on product type and technical specifications',
-            'confidence_level' => 75
+            'confidence_level' => 75,
         ];
     }
 
@@ -228,7 +230,7 @@ class ProductFormAiProvider implements AiProviderInterface
             foreach ($this->technicalSpecs[$productType] as $category => $options) {
                 $specs[] = ucwords(str_replace('_', ' ', $category)) . ': ' . $options[0];
             }
-            
+
             $suggestions[] = implode('; ', $specs);
             $confidence = 70;
         }
@@ -236,7 +238,7 @@ class ProductFormAiProvider implements AiProviderInterface
         return [
             'suggestions' => $suggestions,
             'reasoning' => 'Generated technical specifications based on product type',
-            'confidence_level' => $confidence
+            'confidence_level' => $confidence,
         ];
     }
 
@@ -267,7 +269,7 @@ class ProductFormAiProvider implements AiProviderInterface
         return [
             'suggestions' => $suggestions,
             'reasoning' => 'Generated model number based on manufacturer naming patterns',
-            'confidence_level' => $confidence
+            'confidence_level' => $confidence,
         ];
     }
 
@@ -310,7 +312,7 @@ class ProductFormAiProvider implements AiProviderInterface
         return [
             'suggestions' => $suggestions,
             'reasoning' => 'Estimated price based on product type and manufacturer positioning',
-            'confidence_level' => $confidence
+            'confidence_level' => $confidence,
         ];
     }
 
@@ -323,7 +325,7 @@ class ProductFormAiProvider implements AiProviderInterface
             return [
                 'suggestions' => [],
                 'reasoning' => 'Need product title to generate alt text',
-                'confidence_level' => 0
+                'confidence_level' => 0,
             ];
         }
 
@@ -336,7 +338,7 @@ class ProductFormAiProvider implements AiProviderInterface
         return [
             'suggestions' => [$altText],
             'reasoning' => 'Generated accessible alt text describing the product',
-            'confidence_level' => 85
+            'confidence_level' => 85,
         ];
     }
 
@@ -366,7 +368,7 @@ class ProductFormAiProvider implements AiProviderInterface
         return [
             'suggestions' => array_unique($suggestions),
             'reasoning' => 'Suggested testing standards based on product connectivity type',
-            'confidence_level' => $confidence
+            'confidence_level' => $confidence,
         ];
     }
 
@@ -396,7 +398,7 @@ class ProductFormAiProvider implements AiProviderInterface
         return [
             'suggestions' => array_unique($suggestions),
             'reasoning' => 'Common certifying organizations for electronic products',
-            'confidence_level' => $confidence
+            'confidence_level' => $confidence,
         ];
     }
 
@@ -405,14 +407,14 @@ class ProductFormAiProvider implements AiProviderInterface
         return [
             'suggestions' => [],
             'reasoning' => 'No AI suggestions available for this field type',
-            'confidence_level' => 0
+            'confidence_level' => 0,
         ];
     }
 
     private function extractProductType(string $text): string
     {
         $text = strtolower($text);
-        
+
         foreach ($this->productTypePatterns as $type => $patterns) {
             foreach ($patterns as $pattern) {
                 if (strpos($text, $pattern) !== false) {
@@ -420,7 +422,7 @@ class ProductFormAiProvider implements AiProviderInterface
                 }
             }
         }
-        
+
         return 'generic';
     }
 
@@ -429,11 +431,11 @@ class ProductFormAiProvider implements AiProviderInterface
         // Simple keyword extraction
         $words = str_word_count(strtolower($text), 1);
         $stopWords = ['the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by', 'this', 'that', 'is', 'are', 'a', 'an'];
-        
-        $keywords = array_filter($words, function($word) use ($stopWords) {
+
+        $keywords = array_filter($words, function ($word) use ($stopWords) {
             return !in_array($word, $stopWords) && strlen($word) > 3;
         });
-        
+
         return array_values(array_unique($keywords));
     }
 }

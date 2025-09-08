@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Model\Entity\QuizSubmission;
 use App\Service\Quiz\AiProductMatcherService;
 use App\Service\Quiz\DecisionTreeService;
 use Cake\Core\Configure;
@@ -11,10 +12,12 @@ use Cake\Http\Response;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Text;
 use Exception;
+use InvalidArgumentException;
+use RuntimeException;
 
 /**
  * Quiz Controller
- * 
+ *
  * AI-powered interactive quiz to help users find suitable adapters and chargers
  * Supports both Akinator-style and comprehensive quiz modes
  *
@@ -39,11 +42,11 @@ class QuizController extends AppController
     public function initialize(): void
     {
         parent::initialize();
-        
+
         // Initialize model tables
         $this->Products = TableRegistry::getTableLocator()->get('Products');
         $this->QuizSubmissions = TableRegistry::getTableLocator()->get('QuizSubmissions');
-        
+
         // Initialize AI services
         $this->productMatcher = new AiProductMatcherService();
         $this->decisionTree = new DecisionTreeService();
@@ -64,7 +67,7 @@ class QuizController extends AppController
         // Allow unauthenticated access to all quiz actions
         $this->Authentication->addUnauthenticatedActions([
             'index', 'akinator', 'comprehensive', 'submit', 'result',
-            'take', 'preview' // Keep legacy actions for backward compatibility
+            'take', 'preview', // Keep legacy actions for backward compatibility
         ]);
     }
 
@@ -78,15 +81,16 @@ class QuizController extends AppController
         // Check if quiz system is enabled
         if (!Configure::read('Quiz.enabled')) {
             $this->Flash->error(__('The quiz system is temporarily unavailable.'));
+
             return $this->redirect(['controller' => 'Products', 'action' => 'index']);
         }
 
         // Get quiz statistics for display
         $stats = $this->getQuizStatistics();
-        
+
         // Get quiz configuration
         $config = Configure::read('Quiz');
-        
+
         $this->set([
             'title' => __('Find Your Perfect Adapter'),
             'akinator_enabled' => $config['akinator']['enabled'] ?? true,
@@ -106,6 +110,7 @@ class QuizController extends AppController
     {
         if (!Configure::read('Quiz.akinator.enabled')) {
             $this->Flash->error(__('Akinator quiz is not available.'));
+
             return $this->redirect(['action' => 'index']);
         }
 
@@ -127,6 +132,7 @@ class QuizController extends AppController
     {
         if (!Configure::read('Quiz.comprehensive.enabled')) {
             $this->Flash->error(__('Comprehensive quiz is not available.'));
+
             return $this->redirect(['action' => 'index']);
         }
 
@@ -195,7 +201,7 @@ class QuizController extends AppController
 
             // Validate answers
             if (empty($answers)) {
-                throw new \InvalidArgumentException(__('No quiz answers provided.'));
+                throw new InvalidArgumentException(__('No quiz answers provided.'));
             }
 
             // Get product recommendations
@@ -224,13 +230,12 @@ class QuizController extends AppController
             } else {
                 return $this->redirect([
                     'action' => 'result',
-                    '?' => ['submission' => $submission->id]
+                    '?' => ['submission' => $submission->id],
                 ]);
             }
-
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->log('Quiz submission error: ' . $e->getMessage(), 'error');
-            
+
             if ($this->request->is('ajax')) {
                 $response = [
                     'success' => false,
@@ -244,6 +249,7 @@ class QuizController extends AppController
                     ->withStringBody(json_encode($response));
             } else {
                 $this->Flash->error(__('Sorry, there was an error processing your quiz. Please try again.'));
+
                 return $this->redirect(['action' => 'comprehensive']);
             }
         }
@@ -257,21 +263,22 @@ class QuizController extends AppController
     public function result(): ?Response
     {
         $submissionId = $this->request->getQuery('submission');
-        
+
         if (!$submissionId) {
             $this->Flash->error(__('Invalid quiz results request.'));
+
             return $this->redirect(['action' => 'index']);
         }
 
         try {
             $submission = $this->QuizSubmissions->get($submissionId, [
-                'contain' => ['Users']
+                'contain' => ['Users'],
             ]);
 
             // Get product details for recommendations
             $productIds = $submission->matched_product_ids ?? [];
             $products = [];
-            
+
             if (!empty($productIds)) {
                 $products = $this->Products->find()
                     ->where(['Products.id IN' => $productIds])
@@ -287,9 +294,9 @@ class QuizController extends AppController
             ]);
 
             return null;
-
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->Flash->error(__('Quiz results not found or expired.'));
+
             return $this->redirect(['action' => 'index']);
         }
     }
@@ -333,7 +340,7 @@ class QuizController extends AppController
                 'total_products' => $totalProducts,
                 'avg_confidence' => round(($avgConfidence->avg_confidence ?? 0) * 100, 1),
             ];
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return [
                 'total_submissions' => 0,
                 'total_products' => 0,
@@ -351,16 +358,16 @@ class QuizController extends AppController
      * @param array $results Match results
      * @return \App\Model\Entity\QuizSubmission Saved submission
      */
-    private function saveQuizSubmission(string $sessionId, string $quizType, array $answers, array $results)
+    private function saveQuizSubmission(string $sessionId, string $quizType, array $answers, array $results): QuizSubmission
     {
         $identity = $this->getRequest()->getAttribute('identity');
-        
+
         $submission = $this->QuizSubmissions->newEntity([
             'user_id' => $identity ? $identity->id : null,
             'session_id' => $sessionId,
             'quiz_type' => $quizType,
             'answers' => $answers,
-            'matched_product_ids' => array_map(function($p) {
+            'matched_product_ids' => array_map(function ($p) {
                 return $p['product']->id;
             }, $results['products']),
             'confidence_scores' => [
@@ -372,7 +379,7 @@ class QuizController extends AppController
                 '%d products matched with %.1f%% confidence using %s method',
                 $results['total_matches'],
                 $results['overall_confidence'] * 100,
-                $results['method']
+                $results['method'],
             ),
             'analytics' => [
                 'user_agent' => $this->request->getHeaderLine('User-Agent'),
@@ -384,7 +391,7 @@ class QuizController extends AppController
         ]);
 
         if (!$this->QuizSubmissions->save($submission)) {
-            throw new \RuntimeException('Failed to save quiz submission');
+            throw new RuntimeException('Failed to save quiz submission');
         }
 
         return $submission;
@@ -402,7 +409,7 @@ class QuizController extends AppController
 
         foreach ($products as $item) {
             $product = $item['product'];
-            
+
             $formatted[] = [
                 'id' => $product->id,
                 'title' => $product->title,
@@ -431,7 +438,7 @@ class QuizController extends AppController
     private function normalizeDbConfig(array $dbConfig): array
     {
         $questions = [];
-        
+
         if (isset($dbConfig['questions']) && is_array($dbConfig['questions'])) {
             foreach ($dbConfig['questions'] as $question) {
                 $normalizedQuestion = [
@@ -442,7 +449,7 @@ class QuizController extends AppController
                     'weight' => $question['weight'] ?? 1,
                     'help_text' => $question['help_text'] ?? null,
                     'multiple' => $question['type'] === 'multiple_choice' && isset($question['multiple']) ? $question['multiple'] : false,
-                    'options' => []
+                    'options' => [],
                 ];
 
                 // Convert options to expected format
@@ -450,7 +457,7 @@ class QuizController extends AppController
                     foreach ($question['options'] as $option) {
                         $normalizedQuestion['options'][] = [
                             'key' => $option['id'] ?? $option['value'] ?? $option['key'] ?? uniqid(),
-                            'label' => $option['label'] ?? $option['text'] ?? 'Option'
+                            'label' => $option['label'] ?? $option['text'] ?? 'Option',
                         ];
                     }
                 }
@@ -464,20 +471,20 @@ class QuizController extends AppController
             'quiz_info' => $dbConfig['quiz_info'] ?? [
                 'title' => 'Smart Adapter & Charger Finder Quiz',
                 'description' => 'Find the perfect adapter for your device',
-                'estimated_time' => '2-3 minutes'
+                'estimated_time' => '2-3 minutes',
             ],
             'questions' => $questions,
             'display' => [
                 'shuffle_questions' => false,
                 'shuffle_options' => false,
                 'show_progress' => true,
-                'allow_back' => true
+                'allow_back' => true,
             ],
             'scoring' => $dbConfig['ai_matching_algorithm'] ?? [
                 'method' => 'weighted_confidence',
                 'minimum_match_score' => 0.6,
-                'max_results' => 5
-            ]
+                'max_results' => 5,
+            ],
         ];
     }
 
@@ -493,7 +500,7 @@ class QuizController extends AppController
             'quiz_info' => [
                 'title' => 'Adapter Finder Quiz',
                 'description' => 'Find the perfect adapter for your device',
-                'estimated_time' => '1 minute'
+                'estimated_time' => '1 minute',
             ],
             'questions' => [
                 [
@@ -506,20 +513,20 @@ class QuizController extends AppController
                         ['key' => 'laptop', 'label' => 'Laptop'],
                         ['key' => 'phone', 'label' => 'Phone'],
                         ['key' => 'tablet', 'label' => 'Tablet'],
-                        ['key' => 'other', 'label' => 'Other']
-                    ]
-                ]
+                        ['key' => 'other', 'label' => 'Other'],
+                    ],
+                ],
             ],
             'display' => [
                 'shuffle_questions' => false,
                 'shuffle_options' => false,
                 'show_progress' => true,
-                'allow_back' => true
+                'allow_back' => true,
             ],
             'scoring' => [
                 'method' => 'simple',
-                'max_results' => 5
-            ]
+                'max_results' => 5,
+            ],
         ];
     }
 
@@ -532,16 +539,16 @@ class QuizController extends AppController
     private function handleQuizSubmission(array $config): ?Response
     {
         $answers = $this->request->getData('answers', []);
-        
+
         // Validate required questions
         $validationErrors = $this->validateQuizAnswers($answers, $config);
-        
+
         if (!empty($validationErrors)) {
             if ($this->request->is('ajax')) {
                 $response = [
                     'success' => false,
                     'errors' => $validationErrors,
-                    'message' => __('Please answer all required questions.')
+                    'message' => __('Please answer all required questions.'),
                 ];
 
                 $this->response = $this->response->withType('application/json');
@@ -554,6 +561,7 @@ class QuizController extends AppController
                 foreach ($validationErrors as $error) {
                     $this->Flash->error($error);
                 }
+
                 return $this->redirect(['action' => 'take']);
             }
         }
@@ -561,12 +569,12 @@ class QuizController extends AppController
         // Process quiz and get recommendations
         try {
             $recommendations = $this->processQuizResults($answers, $config);
-            
+
             if ($this->request->is('ajax')) {
                 $response = [
                     'success' => true,
                     'recommendations' => $recommendations,
-                    'resultsHtml' => $this->renderQuizResults($recommendations)
+                    'resultsHtml' => $this->renderQuizResults($recommendations),
                 ];
 
                 $this->response = $this->response->withType('application/json');
@@ -578,18 +586,18 @@ class QuizController extends AppController
             } else {
                 // Non-AJAX submission - redirect to results or set variables for results view
                 $this->set(compact('recommendations', 'answers'));
+
                 return $this->render('results');
             }
-            
         } catch (Exception $e) {
             $this->log('Error processing quiz results: ' . $e->getMessage(), 'error');
-            
+
             $errorMessage = __('Sorry, there was an error processing your quiz. Please try again.');
-            
+
             if ($this->request->is('ajax')) {
                 $response = [
                     'success' => false,
-                    'message' => $errorMessage
+                    'message' => $errorMessage,
                 ];
 
                 $this->response = $this->response->withType('application/json');
@@ -600,6 +608,7 @@ class QuizController extends AppController
                 return null;
             } else {
                 $this->Flash->error($errorMessage);
+
                 return $this->redirect(['action' => 'take']);
             }
         }
@@ -620,7 +629,7 @@ class QuizController extends AppController
         foreach ($questions as $question) {
             if ($question['required'] ?? false) {
                 $questionId = $question['id'];
-                
+
                 if (!isset($answers[$questionId]) || empty($answers[$questionId])) {
                     $errors[] = __('Please answer: {0}', $question['text']);
                 }
@@ -641,13 +650,13 @@ class QuizController extends AppController
     {
         // Load Products table
         $this->loadModel('Products');
-        
+
         // Start with published products
         $query = $this->Products->getPublishedProducts();
-        
+
         // Apply filters based on answers
         $filters = $this->buildProductFilters($answers, $config);
-        
+
         if (!empty($filters['manufacturers'])) {
             $manufacturerConditions = [];
             foreach ($filters['manufacturers'] as $manufacturer) {
@@ -680,7 +689,7 @@ class QuizController extends AppController
             'filters_applied' => $filters,
             'total_found' => count($products),
             'confidence_score' => $this->calculateConfidenceScore($answers, $products),
-            'reasoning' => $this->generateRecommendationReasoning($answers, $filters)
+            'reasoning' => $this->generateRecommendationReasoning($answers, $filters),
         ];
     }
 
@@ -696,7 +705,7 @@ class QuizController extends AppController
         $filters = [
             'manufacturers' => [],
             'tags' => [],
-            'price_range' => []
+            'price_range' => [],
         ];
 
         // Map answers to product filters
@@ -705,19 +714,19 @@ class QuizController extends AppController
                 case 'device_type':
                     $filters['tags'][] = $answer;
                     break;
-                    
+
                 case 'manufacturer':
                     $filters['manufacturers'][] = $answer;
                     break;
-                    
+
                 case 'budget':
                     $filters['price_range'] = $this->parseBudgetRange($answer);
                     break;
-                    
+
                 case 'port_type':
                     $filters['tags'][] = str_replace('-', '_', $answer);
                     break;
-                    
+
                 case 'features':
                     if (is_array($answer)) {
                         $filters['tags'] = array_merge($filters['tags'], $answer);
@@ -743,7 +752,7 @@ class QuizController extends AppController
             '5-20' => ['min' => 5, 'max' => 20],
             '20-50' => ['min' => 20, 'max' => 50],
             '50-100' => ['min' => 50, 'max' => 100],
-            '100+' => ['min' => 100, 'max' => 999]
+            '100+' => ['min' => 100, 'max' => 999],
         ];
 
         return $ranges[$budgetAnswer] ?? [];
@@ -760,15 +769,15 @@ class QuizController extends AppController
     {
         $totalQuestions = count($answers);
         $productsFound = count($products);
-        
+
         if ($totalQuestions === 0) {
             return 0.0;
         }
-        
+
         // Base confidence on completeness and results
         $completeness = min($totalQuestions / 8, 1.0); // Expecting up to 8 questions
         $availability = min($productsFound / 5, 1.0);  // Expecting up to 5 good results
-        
+
         return round(($completeness * 0.6 + $availability * 0.4) * 100, 1);
     }
 
@@ -818,14 +827,14 @@ class QuizController extends AppController
         $reasoning = $recommendations['reasoning'] ?? [];
 
         $html = '<div class="quiz-results-content">';
-        
+
         // Confidence and summary
         $html .= '<div class="results-summary mb-4">';
         $html .= '<div class="confidence-score text-center mb-3">';
         $html .= '<div class="h2 text-primary">' . $confidence . '%</div>';
         $html .= '<p class="text-muted">Match Confidence</p>';
         $html .= '</div>';
-        
+
         if (!empty($reasoning)) {
             $html .= '<div class="reasoning">';
             $html .= '<h6><i class="fas fa-lightbulb"></i> ' . __('Why these recommendations:') . '</h6>';

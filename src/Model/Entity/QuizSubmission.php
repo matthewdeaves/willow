@@ -61,12 +61,12 @@ class QuizSubmission extends Entity
         'answers',
         'matched_product_ids',
         'confidence_scores',
-        'analytics'
+        'analytics',
     ];
 
     /**
      * Automatically generate UUID for new entities
-     * 
+     *
      * @return void
      */
     protected function _setId($value)
@@ -74,15 +74,16 @@ class QuizSubmission extends Entity
         if (empty($value)) {
             return Text::uuid();
         }
+
         return $value;
     }
 
     /**
      * Get the confidence score as a percentage
-     * 
+     *
      * @return float|null
      */
-    protected function _getConfidencePercentage()
+    protected function _getConfidencePercentage(): ?float
     {
         if (!empty($this->confidence_scores) && is_array($this->confidence_scores)) {
             $overall = $this->confidence_scores['overall'] ?? null;
@@ -90,15 +91,16 @@ class QuizSubmission extends Entity
                 return round($overall * 100, 1);
             }
         }
+
         return null;
     }
 
     /**
      * Get a summary of answers for display
-     * 
+     *
      * @return array
      */
-    protected function _getAnswersSummary()
+    protected function _getAnswersSummary(): array
     {
         if (!empty($this->answers) && is_array($this->answers)) {
             $summary = [];
@@ -109,8 +111,10 @@ class QuizSubmission extends Entity
                     $summary[$key] = (string)$value;
                 }
             }
+
             return $summary;
         }
+
         return [];
     }
 }

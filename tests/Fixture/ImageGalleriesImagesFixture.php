@@ -19,7 +19,7 @@ class ImageGalleriesImagesFixture extends TestFixture
     {
         $this->records = [
             [
-'id' => '6a32d011-7871-463b-9b63-7e1ec650ebaf',
+        'id' => '6a32d011-7871-463b-9b63-7e1ec650ebaf',
                 'image_gallery_id' => '32cf930e-1456-4cf9-ab9e-a7db7250b1ea',
                 'image_id' => 'f3db978e-d41d-4ade-9e64-ebcaf4322b0c',
                 'position' => 1,

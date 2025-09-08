@@ -4,14 +4,12 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Service\Api\Google;
 
 use App\Service\Api\AiMetricsService;
-use App\Service\Api\Google\GoogleApiService;
-use App\Service\Api\Google\TranslationException;
 use Cake\TestSuite\TestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * GoogleApiServiceMetricsTest
- * 
+ *
  * Tests AI metrics recording functionality in GoogleApiService
  */
 class GoogleApiServiceMetricsTest extends TestCase
@@ -68,7 +66,7 @@ class GoogleApiServiceMetricsTest extends TestCase
                 null, // no error message
                 null, // no tokens (Google doesn't provide)
                 0.0002, // cost
-                'Google Cloud Translate'
+                'Google Cloud Translate',
             );
 
         // This test would require mocking the actual Google Translate client
@@ -106,7 +104,7 @@ class GoogleApiServiceMetricsTest extends TestCase
                 $this->isType('string'), // error message
                 null,
                 null, // no cost recorded on failure
-                'Google Cloud Translate'
+                'Google Cloud Translate',
             );
 
         $this->markTestSkipped('Requires complex Google Translate client mocking');
@@ -142,7 +140,7 @@ class GoogleApiServiceMetricsTest extends TestCase
                 'Translation failed: Daily cost limit reached for AI services',
                 null,
                 null,
-                'Google Cloud Translate'
+                'Google Cloud Translate',
             );
 
         $this->markTestSkipped('Requires complex Google Translate client mocking');
@@ -184,7 +182,7 @@ class GoogleApiServiceMetricsTest extends TestCase
         // - google_translate_tag
         // - google_translate_gallery
         // are all recorded with appropriate task type names
-        
+
         $this->markTestSkipped('Requires complex integration test setup');
     }
 }

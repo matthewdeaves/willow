@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Service\Api\Google;
 
 use App\Service\Api\AiMetricsService;
-use App\Service\Api\Google\TranslationException;
+use App\Service\Api\RateLimitService;
 use App\Utility\SettingsManager;
 use Cake\Core\Configure;
 use Exception;
@@ -42,7 +42,7 @@ class GoogleApiService
         $this->translateClient = new TranslateClient([
             'key' => SettingsManager::read('Google.translateApiKey', Configure::read('TRANSLATE_API_KEY', '')),
         ]);
-        
+
         $this->metricsService = new AiMetricsService();
     }
 
@@ -84,7 +84,7 @@ class GoogleApiService
                 }
 
                 return $translatedStrings;
-            }
+            },
         );
     }
 
@@ -176,7 +176,7 @@ class GoogleApiService
                 }
 
                 return $translations;
-            }
+            },
         );
     }
 
@@ -255,7 +255,7 @@ class GoogleApiService
                 }
 
                 return $translations;
-            }
+            },
         );
     }
 
@@ -334,7 +334,7 @@ class GoogleApiService
                 }
 
                 return $translations;
-            }
+            },
         );
     }
 
@@ -406,9 +406,9 @@ class GoogleApiService
      * @param array $contentToTranslate The content being translated for cost calculation
      * @param callable $operation The translation operation to execute
      * @return mixed The result of the translation operation
-     * @throws TranslationException If the operation fails
+     * @throws \App\Service\Api\Google\TranslationException If the operation fails
      */
-    private function executeWithMetrics(string $taskType, array $contentToTranslate, callable $operation)
+    private function executeWithMetrics(string $taskType, array $contentToTranslate, callable $operation): mixed
     {
         $startTime = microtime(true);
         $success = false;
@@ -423,7 +423,7 @@ class GoogleApiService
             }
 
             // Enforce hourly rate limit before making the API call
-            $rateLimitService = new \App\Service\Api\RateLimitService();
+            $rateLimitService = new RateLimitService();
             if (!$rateLimitService->enforceLimit('google')) {
                 throw new TranslationException('Hourly rate limit exceeded for Google API');
             }
@@ -434,13 +434,14 @@ class GoogleApiService
 
             $result = $operation();
             $success = true;
+
             return $result;
         } catch (Exception $e) {
             $errorMessage = $e->getMessage();
             throw new TranslationException('Translation failed: ' . $e->getMessage(), 0, $e);
         } finally {
             // Record metrics
-            $executionTime = (int) ((microtime(true) - $startTime) * 1000);
+            $executionTime = (int)((microtime(true) - $startTime) * 1000);
             $this->metricsService->recordMetrics(
                 $taskType,
                 $executionTime,
@@ -448,7 +449,7 @@ class GoogleApiService
                 $errorMessage,
                 null, // Google Translate doesn't provide token counts
                 $success ? $cost : null, // Only record cost if successful
-                'Google Cloud Translate'
+                'Google Cloud Translate',
             );
         }
     }

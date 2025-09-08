@@ -65,7 +65,7 @@ class ProductsReliabilityFieldsTable extends Table
                 'rule' => function ($value) {
                     return is_string($value) && preg_match('/^[A-Za-z][A-Za-z0-9]*$/', $value);
                 },
-                'message' => 'Model name must be a valid class name'
+                'message' => 'Model name must be a valid class name',
             ]);
 
         $validator
@@ -82,7 +82,7 @@ class ProductsReliabilityFieldsTable extends Table
                 'rule' => function ($value) {
                     return is_string($value) && preg_match('/^[a-z][a-z0-9_]*$/', $value);
                 },
-                'message' => 'Field name must be a valid database field name'
+                'message' => 'Field name must be a valid database field name',
             ]);
 
         $validator
@@ -91,7 +91,7 @@ class ProductsReliabilityFieldsTable extends Table
             ->notEmptyString('score')
             ->add('score', 'range', [
                 'rule' => ['range', 0.00, 1.00],
-                'message' => 'Score must be between 0.00 and 1.00'
+                'message' => 'Score must be between 0.00 and 1.00',
             ]);
 
         $validator
@@ -100,7 +100,7 @@ class ProductsReliabilityFieldsTable extends Table
             ->notEmptyString('weight')
             ->add('weight', 'range', [
                 'rule' => ['range', 0.000, 1.000],
-                'message' => 'Weight must be between 0.000 and 1.000'
+                'message' => 'Weight must be between 0.000 and 1.000',
             ]);
 
         $validator
@@ -109,7 +109,7 @@ class ProductsReliabilityFieldsTable extends Table
             ->notEmptyString('max_score')
             ->add('max_score', 'range', [
                 'rule' => ['range', 0.00, 1.00],
-                'message' => 'Max score must be between 0.00 and 1.00'
+                'message' => 'Max score must be between 0.00 and 1.00',
             ]);
 
         $validator
@@ -223,7 +223,7 @@ class ProductsReliabilityFieldsTable extends Table
             ->where([
                 'model' => $model,
                 'field' => $field,
-                'score <=' => $maxScore
+                'score <=' => $maxScore,
             ])
             ->orderBy(['score' => 'ASC']);
     }
@@ -241,7 +241,7 @@ class ProductsReliabilityFieldsTable extends Table
             ->where([
                 'model' => $model,
                 'field' => $field,
-                'score' => 0.00
+                'score' => 0.00,
             ])
             ->orderBy(['modified' => 'ASC']);
     }
@@ -258,7 +258,7 @@ class ProductsReliabilityFieldsTable extends Table
             ->where(['model' => $model])
             ->select([
                 'field',
-                'avg_weight' => $this->find()->func()->avg('weight')
+                'avg_weight' => $this->find()->func()->avg('weight'),
             ])
             ->group('field')
             ->orderBy(['avg_weight' => 'DESC'])
@@ -285,7 +285,7 @@ class ProductsReliabilityFieldsTable extends Table
             ->where(['model' => $model])
             ->select([
                 'field',
-                'avg_score' => $this->find()->func()->avg('score')
+                'avg_score' => $this->find()->func()->avg('score'),
             ])
             ->group('field')
             ->orderBy(['avg_score' => 'DESC'])

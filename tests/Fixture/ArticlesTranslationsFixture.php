@@ -64,4 +64,3 @@ class ArticlesTranslationsFixture extends TestFixture
         parent::init();
     }
 }
-

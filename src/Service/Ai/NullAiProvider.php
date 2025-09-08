@@ -20,40 +20,40 @@ class NullAiProvider implements AiProviderInterface
     {
         $suggestions = [];
         $reasoning = 'Using deterministic heuristics for suggestions';
-        
+
         // Analyze missing high-weight fields
         $fieldWeights = $context['field_weights'] ?? [];
         $fieldScores = $context['field_scores'] ?? [];
-        
+
         // Sort fields by weight (descending) to prioritize important ones
         arsort($fieldWeights);
-        
+
         foreach ($fieldWeights as $field => $weight) {
             $currentScore = $fieldScores[$field]['score'] ?? 0;
-            
+
             if ($weight >= 0.15 && $currentScore < 0.5) {
                 $suggestions[] = $this->getFieldSuggestion($field, $productData);
             }
-            
+
             // Only show top 3 suggestions to avoid overwhelming users
             if (count($suggestions) >= 3) {
                 break;
             }
         }
-        
+
         // Default suggestions if none found
         if (empty($suggestions) && empty($productData['title'])) {
             $suggestions[] = 'Add a clear, descriptive product title to improve searchability.';
         }
-        
+
         return [
             'suggestions' => $suggestions,
             'reasoning' => $reasoning,
             'confidence_level' => 'high', // High confidence in heuristic rules
-            'source' => 'heuristic'
+            'source' => 'heuristic',
         ];
     }
-    
+
     /**
      * Get field-specific suggestion
      *

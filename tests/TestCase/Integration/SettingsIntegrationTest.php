@@ -34,7 +34,7 @@ class SettingsIntegrationTest extends TestCase
     {
         // Test that the settings route exists and returns a valid response
         $this->get('/admin/settings');
-        
+
         // Should redirect to language homepage when not authenticated
         $this->assertResponseCode(302);
         $this->assertRedirectContains('/en');
@@ -52,11 +52,11 @@ class SettingsIntegrationTest extends TestCase
             'headers' => [
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
-            ]
+            ],
         ]);
-        
+
         $this->get('/admin/settings.json');
-        
+
         // JSON endpoint is not implemented, should return 404
         $this->assertResponseCode(404);
         $this->assertContentType('application/json');
@@ -70,7 +70,7 @@ class SettingsIntegrationTest extends TestCase
     public function testHomePageLoads(): void
     {
         $this->get('/');
-        
+
         // Should redirect to a language-specific route
         $this->assertResponseCode(302);
         $this->assertRedirectContains('/en');
@@ -79,12 +79,12 @@ class SettingsIntegrationTest extends TestCase
     /**
      * Test that English home page loads
      *
-     * @return void  
+     * @return void
      */
     public function testEnglishHomePageLoads(): void
     {
         $this->get('/en');
-        
+
         // Should load successfully
         $this->assertResponseOk();
         $this->assertResponseContains('html');
@@ -98,7 +98,7 @@ class SettingsIntegrationTest extends TestCase
     public function testNonExistentPageReturns404(): void
     {
         $this->get('/en/non-existent-page-that-should-not-exist');
-        
+
         // Should return 404
         $this->assertResponseCode(404);
     }
@@ -111,7 +111,7 @@ class SettingsIntegrationTest extends TestCase
     public function testRobotsTxtAccessible(): void
     {
         $this->get('/robots.txt');
-        
+
         // Should load successfully
         $this->assertResponseOk();
         $this->assertContentType('text/plain');
@@ -125,12 +125,12 @@ class SettingsIntegrationTest extends TestCase
     public function testSitemapXmlRedirects(): void
     {
         $this->get('/sitemap.xml');
-        
+
         // Based on the WARP.md documentation, sitemap index has routing issues
         // So we expect this to either redirect or have issues
         $this->assertTrue(
             $this->_response->getStatusCode() >= 200,
-            'Sitemap should return some response (may redirect due to known routing issues)'
+            'Sitemap should return some response (may redirect due to known routing issues)',
         );
     }
 
@@ -142,7 +142,7 @@ class SettingsIntegrationTest extends TestCase
     public function testLanguageSpecificSitemap(): void
     {
         $this->get('/en/sitemap.xml');
-        
+
         // Language-specific sitemaps should work
         $this->assertResponseOk();
         $this->assertContentType('application/xml');
@@ -160,11 +160,11 @@ class SettingsIntegrationTest extends TestCase
         $this->configRequest([
             'headers' => [
                 'Origin' => 'https://example.com',
-            ]
+            ],
         ]);
-        
+
         $this->options('/admin/settings.json');
-        
+
         // OPTIONS request on non-existent JSON endpoint should return 404
         $this->assertResponseCode(404);
         $this->assertContentType('text/html');

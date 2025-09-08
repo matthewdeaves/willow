@@ -84,7 +84,7 @@ class Product extends Entity
     /**
      * Virtual reliability score getter for backward compatibility
      *
-     * Returns the reliability score from the ProductsReliability association 
+     * Returns the reliability score from the ProductsReliability association
      * when available, otherwise falls back to the legacy column value.
      *
      * @return float|null

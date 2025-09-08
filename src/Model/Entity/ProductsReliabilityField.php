@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use DateTime;
 
 /**
  * ProductsReliabilityField Entity
@@ -93,7 +94,7 @@ class ProductsReliabilityField extends Entity
             return 0.0;
         }
 
-        return ($this->_getScoreFloat() / $maxScore) * 100;
+        return $this->_getScoreFloat() / $maxScore * 100;
     }
 
     /**
@@ -159,6 +160,7 @@ class ProductsReliabilityField extends Entity
         // Convert snake_case to Title Case
         $words = explode('_', $this->field);
         $titleWords = array_map('ucfirst', $words);
+
         return implode(' ', $titleWords);
     }
 
@@ -234,7 +236,8 @@ class ProductsReliabilityField extends Entity
             return false;
         }
 
-        $cutoff = new \DateTime("-{$hours} hours");
+        $cutoff = new DateTime("-{$hours} hours");
+
         return $this->modified >= $cutoff;
     }
 }

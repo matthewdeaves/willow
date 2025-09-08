@@ -16,6 +16,9 @@ class ApiCsrfMiddleware implements MiddlewareInterface
 {
     private CsrfProtectionMiddleware $csrfMiddleware;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->csrfMiddleware = new CsrfProtectionMiddleware([
@@ -23,6 +26,13 @@ class ApiCsrfMiddleware implements MiddlewareInterface
         ]);
     }
 
+    /**
+     * Process the request and handle CSRF protection
+     *
+     * @param \Psr\Http\Message\ServerRequestInterface $request The request
+     * @param \Psr\Http\Server\RequestHandlerInterface $handler The request handler
+     * @return \Psr\Http\Message\ResponseInterface The response
+     */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         // Check if this is an API request

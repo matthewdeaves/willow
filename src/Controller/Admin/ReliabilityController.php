@@ -6,6 +6,7 @@ namespace App\Controller\Admin;
 use App\Controller\AppController;
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Http\Exception\NotFoundException;
+use Cake\Http\Response;
 use Cake\Log\Log;
 use Exception;
 
@@ -72,7 +73,7 @@ class ReliabilityController extends AppController
      * @return \Cake\Http\Response|null Redirects back to view
      * @throws \Cake\Http\Exception\NotFoundException When model/entity not found
      */
-    public function recalc(string $model, string $id)
+    public function recalc(string $model, string $id): ?Response
     {
         $this->request->allowMethod(['post']);
 
@@ -127,7 +128,7 @@ class ReliabilityController extends AppController
      * @return \Cake\Http\Response|null Redirects back to view
      * @throws \Cake\Http\Exception\NotFoundException When model/entity not found
      */
-    public function verifyChecksums(string $model, string $id)
+    public function verifyChecksums(string $model, string $id): ?Response
     {
         $this->request->allowMethod(['post']);
 

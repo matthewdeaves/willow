@@ -59,4 +59,3 @@ class ImageGalleriesTranslationsFixture extends TestFixture
         parent::init();
     }
 }
-

@@ -5,12 +5,13 @@ namespace App\Service;
 
 use App\Model\Table\ProductFormFieldsTable;
 use App\Service\Ai\AiProviderInterface;
-use Cake\ORM\TableRegistry;
 use Cake\Log\Log;
+use Cake\ORM\TableRegistry;
+use Exception;
 
 /**
  * Product Form Field Service
- * 
+ *
  * Handles dynamic form field generation, AI-based auto-fill suggestions,
  * and form validation for product submission forms.
  */
@@ -60,7 +61,7 @@ class ProductFormFieldService
             return [
                 'suggestions' => [],
                 'confidence' => 0,
-                'reasoning' => 'AI provider not available'
+                'reasoning' => 'AI provider not available',
             ];
         }
 
@@ -72,34 +73,33 @@ class ProductFormFieldService
             return [
                 'suggestions' => [],
                 'confidence' => 0,
-                'reasoning' => 'Field not found or AI not enabled for this field'
+                'reasoning' => 'Field not found or AI not enabled for this field',
             ];
         }
 
         try {
             // Prepare AI context based on field mapping
             $aiContext = $this->buildAiContext($field, $existingData);
-            
+
             // Generate AI prompt from template
             $prompt = $this->buildAiPrompt($field, $existingData);
-            
+
             // Get AI suggestions
             $suggestions = $this->aiProvider->getSuggestions([
                 'field_name' => $fieldName,
                 'field_type' => $field->field_type,
                 'prompt' => $prompt,
-                'existing_data' => $existingData
+                'existing_data' => $existingData,
             ], $aiContext);
 
             return $suggestions;
-
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error('AI suggestion error for field ' . $fieldName . ': ' . $e->getMessage());
-            
+
             return [
                 'suggestions' => [],
                 'confidence' => 0,
-                'reasoning' => 'AI suggestion service temporarily unavailable'
+                'reasoning' => 'AI suggestion service temporarily unavailable',
             ];
         }
     }
@@ -116,7 +116,7 @@ class ProductFormFieldService
         $context = [
             'field_type' => $field->field_type,
             'field_validation' => $field->field_validation ? json_decode($field->field_validation, true) : [],
-            'field_options' => $field->field_options ? json_decode($field->field_options, true) : []
+            'field_options' => $field->field_options ? json_decode($field->field_options, true) : [],
         ];
 
         if ($field->ai_field_mapping) {
@@ -144,7 +144,7 @@ class ProductFormFieldService
     private function buildAiPrompt(object $field, array $existingData): string
     {
         $prompt = $field->ai_prompt_template ?: '';
-        
+
         // Replace placeholders with actual data
         foreach ($existingData as $key => $value) {
             $placeholder = '{' . $key . '}';
@@ -267,9 +267,11 @@ class ProductFormFieldService
 
         try {
             $field = $this->ProductFormFields->patchEntity($field, $config);
+
             return $this->ProductFormFields->save($field) !== false;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error('Error updating field config: ' . $e->getMessage());
+
             return false;
         }
     }
@@ -285,23 +287,23 @@ class ProductFormFieldService
             'basic_information' => [
                 'title' => 'Basic Information',
                 'icon' => 'fas fa-edit',
-                'description' => 'Essential product details and identification'
+                'description' => 'Essential product details and identification',
             ],
             'media' => [
                 'title' => 'Product Images',
                 'icon' => 'fas fa-image',
-                'description' => 'Visual content and accessibility information'
+                'description' => 'Visual content and accessibility information',
             ],
             'technical_details' => [
                 'title' => 'Technical Details',
                 'icon' => 'fas fa-cog',
-                'description' => 'Technical specifications and certifications'
+                'description' => 'Technical specifications and certifications',
             ],
             'categories' => [
                 'title' => 'Categories & Tags',
                 'icon' => 'fas fa-tags',
-                'description' => 'Product categorization and classification'
-            ]
+                'description' => 'Product categorization and classification',
+            ],
         ];
     }
 }

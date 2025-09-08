@@ -4,11 +4,13 @@ declare(strict_types=1);
 namespace App\Model\Table;
 
 use App\Model\Behavior\ImageValidationTrait;
+use App\Model\Entity\Product;
 use Cake\Log\LogTrait;
 use Cake\ORM\Behavior\Translate\TranslateTrait;
 use Cake\ORM\Query;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Exception;
 
 class ProductsTable extends Table
 {
@@ -44,7 +46,7 @@ class ProductsTable extends Table
                 'testing_standard' => 0.20,          // Must have testing standard
                 'certifying_organization' => 0.15,   // Must have certifier
                 'numeric_rating' => 0.10,            // Must have performance rating
-                
+
                 // Basic product information (lower weight without verification)
                 'title' => 0.08,
                 'description' => 0.08,
@@ -84,7 +86,7 @@ class ProductsTable extends Table
             'bindingKey' => 'id',
             'foreignKey' => 'foreign_key',
             'conditions' => ['ProductsReliability.model' => 'Products'],
-            'dependent' => true
+            'dependent' => true,
         ]);
     }
 
@@ -247,7 +249,7 @@ class ProductsTable extends Table
         if (!empty($filters['capability_name'])) {
             $query->where(['Products.capability_name LIKE' => '%' . $filters['capability_name'] . '%']);
         }
-        
+
         if (!empty($filters['capability_category'])) {
             $query->where(['Products.capability_category' => $filters['capability_category']]);
         }
@@ -256,11 +258,11 @@ class ProductsTable extends Table
         if (!empty($filters['port_family'])) {
             $query->where(['Products.port_family' => $filters['port_family']]);
         }
-        
+
         if (!empty($filters['form_factor'])) {
             $query->where(['Products.form_factor' => $filters['form_factor']]);
         }
-        
+
         if (!empty($filters['connector_gender'])) {
             $query->where(['Products.connector_gender' => $filters['connector_gender']]);
         }
@@ -269,11 +271,11 @@ class ProductsTable extends Table
         if (!empty($filters['device_category'])) {
             $query->where(['Products.device_category' => $filters['device_category']]);
         }
-        
+
         if (!empty($filters['device_brand'])) {
             $query->where(['Products.device_brand LIKE' => '%' . $filters['device_brand'] . '%']);
         }
-        
+
         if (!empty($filters['compatibility_level'])) {
             $query->where(['Products.compatibility_level' => $filters['compatibility_level']]);
         }
@@ -282,7 +284,7 @@ class ProductsTable extends Table
         if (isset($filters['is_certified'])) {
             $query->where(['Products.is_certified' => (bool)$filters['is_certified']]);
         }
-        
+
         if (!empty($filters['certifying_organization'])) {
             $query->where(['Products.certifying_organization LIKE' => '%' . $filters['certifying_organization'] . '%']);
         }
@@ -291,7 +293,7 @@ class ProductsTable extends Table
         if (!empty($filters['min_performance_rating'])) {
             $query->where(['Products.performance_rating >=' => $filters['min_performance_rating']]);
         }
-        
+
         if (!empty($filters['min_numeric_rating'])) {
             $query->where(['Products.numeric_rating >=' => $filters['min_numeric_rating']]);
         }
@@ -302,8 +304,8 @@ class ProductsTable extends Table
                 'OR' => [
                     'JSON_UNQUOTE(JSON_EXTRACT(Products.technical_specifications, "$.description")) LIKE' => '%' . $filters['technical_search'] . '%',
                     'Products.spec_description LIKE' => '%' . $filters['technical_search'] . '%',
-                    'Products.adapter_functionality LIKE' => '%' . $filters['technical_search'] . '%'
-                ]
+                    'Products.adapter_functionality LIKE' => '%' . $filters['technical_search'] . '%',
+                ],
             ]);
         }
 
@@ -312,10 +314,10 @@ class ProductsTable extends Table
 
     /**
      * Find products for quiz-based matching
-     * 
+     *
      * @param array $answers Quiz answers from user
      * @param array $constraints Additional filtering constraints
-     * @return Query
+     * @return \Cake\ORM\Query
      */
     public function findForQuiz(array $answers = [], array $constraints = []): Query
     {
@@ -331,8 +333,8 @@ class ProductsTable extends Table
                 'OR' => [
                     'Products.device_category LIKE' => "%{$deviceType}%",
                     'Products.title LIKE' => "%{$deviceType}%",
-                    'Products.description LIKE' => "%{$deviceType}%"
-                ]
+                    'Products.description LIKE' => "%{$deviceType}%",
+                ],
             ]);
         }
 
@@ -348,8 +350,12 @@ class ProductsTable extends Table
             if (is_array($answers['budget_range'])) {
                 $min = $answers['budget_range']['min'] ?? null;
                 $max = $answers['budget_range']['max'] ?? null;
-                if ($min) $query->where(['Products.price >=' => $min]);
-                if ($max) $query->where(['Products.price <=' => $max]);
+                if ($min) {
+                    $query->where(['Products.price >=' => $min]);
+                }
+                if ($max) {
+                    $query->where(['Products.price <=' => $max]);
+                }
             }
         }
 
@@ -371,7 +377,7 @@ class ProductsTable extends Table
 
     /**
      * Score products with AI-assisted matching
-     * 
+     *
      * @param array $products List of products to score
      * @param array $answers User quiz answers
      * @return array Product IDs mapped to confidence scores
@@ -379,7 +385,7 @@ class ProductsTable extends Table
     public function scoreWithAi(array $products, array $answers): array
     {
         $scores = [];
-        
+
         foreach ($products as $product) {
             $score = $this->calculateProductScore($product, $answers);
             $scores[$product->id] = $score;
@@ -387,18 +393,18 @@ class ProductsTable extends Table
 
         // Sort by score (highest first)
         arsort($scores);
-        
+
         return $scores;
     }
 
     /**
      * Calculate individual product score based on quiz answers
-     * 
+     *
      * @param \App\Model\Entity\Product $product
      * @param array $answers
      * @return float Score between 0.0 and 1.0
      */
-    private function calculateProductScore($product, array $answers): float
+    private function calculateProductScore(Product $product, array $answers): float
     {
         $score = 0.0;
         $totalWeight = 0.0;
@@ -407,14 +413,14 @@ class ProductsTable extends Table
         if (!empty($answers['device_type'])) {
             $weight = 0.3;
             $totalWeight += $weight;
-            
+
             $deviceType = strtolower($answers['device_type']);
             $productFields = [
                 strtolower($product->device_category ?? ''),
                 strtolower($product->title ?? ''),
-                strtolower($product->description ?? '')
+                strtolower($product->description ?? ''),
             ];
-            
+
             foreach ($productFields as $field) {
                 if (str_contains($field, $deviceType)) {
                     $score += $weight;
@@ -427,10 +433,10 @@ class ProductsTable extends Table
         if (!empty($answers['manufacturer'])) {
             $weight = 0.2;
             $totalWeight += $weight;
-            
+
             $manufacturer = strtolower($answers['manufacturer']);
             $productManufacturer = strtolower($product->manufacturer ?? '');
-            
+
             if (str_contains($productManufacturer, $manufacturer)) {
                 $score += $weight;
             }
@@ -440,10 +446,10 @@ class ProductsTable extends Table
         if (!empty($answers['port_type'])) {
             $weight = 0.25;
             $totalWeight += $weight;
-            
+
             $portType = strtolower($answers['port_type']);
             $productPort = strtolower($product->port_family ?? '');
-            
+
             if (str_contains($productPort, $portType)) {
                 $score += $weight;
             }
@@ -453,11 +459,11 @@ class ProductsTable extends Table
         if (!empty($answers['budget_range']) && $product->price) {
             $weight = 0.15;
             $totalWeight += $weight;
-            
+
             if (is_array($answers['budget_range'])) {
                 $min = $answers['budget_range']['min'] ?? 0;
                 $max = $answers['budget_range']['max'] ?? 9999;
-                
+
                 if ($product->price >= $min && $product->price <= $max) {
                     $score += $weight;
                 }
@@ -468,7 +474,7 @@ class ProductsTable extends Table
         if (!empty($answers['certification_required'])) {
             $weight = 0.1;
             $totalWeight += $weight;
-            
+
             if ($answers['certification_required'] === 'yes' && $product->is_certified) {
                 $score += $weight;
             } elseif ($answers['certification_required'] === 'no') {
@@ -484,7 +490,7 @@ class ProductsTable extends Table
     /**
      * Get products needing normalization (prototype cleanup)
      */
-    public function getByPortCompatibility(string $portFamily, string $formFactor = null): Query
+    public function getByPortCompatibility(string $portFamily, ?string $formFactor = null): Query
     {
         $query = $this->find()
             ->where(['Products.port_family' => $portFamily])
@@ -501,7 +507,7 @@ class ProductsTable extends Table
     /**
      * Get products by device compatibility
      */
-    public function getByDeviceCompatibility(string $deviceCategory, string $deviceBrand = null): Query
+    public function getByDeviceCompatibility(string $deviceCategory, ?string $deviceBrand = null): Query
     {
         $query = $this->find()
             ->where(['Products.device_category' => $deviceCategory])
@@ -523,7 +529,7 @@ class ProductsTable extends Table
         return $this->find()
             ->where([
                 'Products.is_certified' => true,
-                'Products.certifying_organization IS NOT' => null
+                'Products.certifying_organization IS NOT' => null,
             ])
             ->contain(['Users', 'Tags'])
             ->orderBy(['Products.certification_date' => 'DESC']);
@@ -558,7 +564,7 @@ class ProductsTable extends Table
                 'currency' => 'USD',
                 'image' => 'usb-c-hdmi-adapter.jpg',
                 'alt_text' => 'USB-C to HDMI 4K adapter with cable',
-                
+
                 // Capability fields
                 'capability_name' => 'Video Output Conversion',
                 'capability_category' => 'Display',
@@ -566,7 +572,7 @@ class ProductsTable extends Table
                     'max_resolution' => '4096x2160@60Hz',
                     'color_depth' => '8-bit',
                     'hdr_support' => true,
-                    'audio_passthrough' => true
+                    'audio_passthrough' => true,
                 ]),
                 'testing_standard' => 'HDMI 2.0 Compliance',
                 'certifying_organization' => 'HDMI Licensing LLC',
@@ -574,13 +580,13 @@ class ProductsTable extends Table
                 'numeric_rating' => 8.5,
                 'is_certified' => true,
                 'certification_date' => '2024-01-15',
-                
+
                 // Category fields
                 'parent_category_name' => 'Display Adapters',
                 'category_description' => 'Adapters for converting video signals between different connector types',
                 'category_icon' => 'fas fa-tv',
                 'display_order' => 1,
-                
+
                 // Port/Connector fields
                 'port_type_name' => 'USB-C',
                 'endpoint_position' => 'end_a',
@@ -597,7 +603,7 @@ class ProductsTable extends Table
                 'ground_pin_count' => 4,
                 'electrical_shielding' => 'Braided Shield',
                 'durability_cycles' => 10000,
-                
+
                 // Device compatibility
                 'device_category' => 'Laptop',
                 'device_brand' => 'Apple',
@@ -608,7 +614,7 @@ class ProductsTable extends Table
                 'verification_date' => '2024-02-01',
                 'verified_by' => 'TechConnector QA Team',
                 'user_reported_rating' => 8.8,
-                
+
                 // Physical specs
                 'physical_spec_name' => 'Cable Length',
                 'spec_value' => '6 inches',
@@ -618,7 +624,7 @@ class ProductsTable extends Table
                 'spec_description' => 'Short 6-inch cable perfect for portable use',
                 'introduced_date' => '2016-01-01',
                 'physical_specs_summary' => '6" cable, aluminum housing',
-                
+
                 // Administrative
                 'prototype_notes' => 'Sample data for testing prototype schema - USB-C adapter',
                 'needs_normalization' => true,
@@ -626,7 +632,7 @@ class ProductsTable extends Table
                 'featured' => true,
                 'verification_status' => 'verified',
                 'reliability_score' => 9.1,
-                'view_count' => 0
+                'view_count' => 0,
             ],
             [
                 'id' => '550e8400-e29b-41d4-a716-446655440002',
@@ -640,14 +646,14 @@ class ProductsTable extends Table
                 'currency' => 'USD',
                 'image' => 'lightning-usb-cable.jpg',
                 'alt_text' => 'White Lightning to USB-A cable',
-                
+
                 // Capability fields
                 'capability_name' => 'Data Transfer & Charging',
                 'capability_category' => 'Power & Data',
                 'technical_specifications' => json_encode([
                     'data_rate' => 'USB 2.0 - 480 Mbps',
                     'charging_power' => '12W',
-                    'mfi_certified' => true
+                    'mfi_certified' => true,
                 ]),
                 'testing_standard' => 'MFi Certification',
                 'certifying_organization' => 'Apple Inc.',
@@ -655,13 +661,13 @@ class ProductsTable extends Table
                 'numeric_rating' => 7.8,
                 'is_certified' => true,
                 'certification_date' => '2023-09-20',
-                
+
                 // Category fields
                 'parent_category_name' => 'Charging Cables',
                 'category_description' => 'Cables for charging and data transfer',
                 'category_icon' => 'fas fa-bolt',
                 'display_order' => 2,
-                
+
                 // Port/Connector fields
                 'port_type_name' => 'Lightning',
                 'endpoint_position' => 'end_b',
@@ -678,7 +684,7 @@ class ProductsTable extends Table
                 'ground_pin_count' => 2,
                 'electrical_shielding' => 'Aluminum Foil',
                 'durability_cycles' => 5000,
-                
+
                 // Device compatibility
                 'device_category' => 'Smartphone',
                 'device_brand' => 'Apple',
@@ -689,7 +695,7 @@ class ProductsTable extends Table
                 'verification_date' => '2024-01-10',
                 'verified_by' => 'AppleConnect Testing',
                 'user_reported_rating' => 8.2,
-                
+
                 // Physical specs
                 'physical_spec_name' => 'Cable Length',
                 'spec_value' => '3 feet',
@@ -699,7 +705,7 @@ class ProductsTable extends Table
                 'spec_description' => 'Standard 3-foot length for everyday use',
                 'introduced_date' => '2012-09-21',
                 'physical_specs_summary' => '3ft cable, TPE jacket',
-                
+
                 // Administrative
                 'prototype_notes' => 'Sample data for testing prototype schema - Lightning cable',
                 'needs_normalization' => true,
@@ -707,26 +713,29 @@ class ProductsTable extends Table
                 'featured' => false,
                 'verification_status' => 'verified',
                 'reliability_score' => 8.3,
-                'view_count' => 0
-            ]
+                'view_count' => 0,
+            ],
         ];
 
         try {
             foreach ($sampleProducts as $productData) {
                 $productData['created'] = date('Y-m-d H:i:s');
                 $productData['modified'] = date('Y-m-d H:i:s');
-                
+
                 $product = $this->newEntity($productData);
                 if (!$this->save($product)) {
                     $this->log('Failed to insert sample product: ' . json_encode($product->getErrors()), 'error');
+
                     return false;
                 }
             }
-            
+
             $this->log('Successfully inserted ' . count($sampleProducts) . ' sample products', 'info');
+
             return true;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->log('Error inserting sample data: ' . $e->getMessage(), 'error');
+
             return false;
         }
     }

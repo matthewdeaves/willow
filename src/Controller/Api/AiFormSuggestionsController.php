@@ -6,6 +6,7 @@ namespace App\Controller\Api;
 use App\Controller\AppController;
 use App\Service\ProductFormFieldService;
 use Cake\Http\Response;
+use Exception;
 
 /**
  * API Controller for AI Form Suggestions
@@ -18,7 +19,7 @@ class AiFormSuggestionsController extends AppController
     /**
      * Handle AI suggestion requests for product form fields
      *
-     * @return Response JSON response with AI suggestions
+     * @return \Cake\Http\Response JSON response with AI suggestions
      */
     public function index(): Response
     {
@@ -28,14 +29,14 @@ class AiFormSuggestionsController extends AppController
             // Get request data
             $fieldName = $this->request->getData('field_name');
             $existingData = $this->request->getData('existing_data', []);
-            
+
             if (empty($fieldName)) {
                 return $this->response
                     ->withType('application/json')
                     ->withStatus(400)
                     ->withStringBody(json_encode([
                         'success' => false,
-                        'error' => 'Field name is required'
+                        'error' => 'Field name is required',
                     ]));
             }
 
@@ -45,10 +46,10 @@ class AiFormSuggestionsController extends AppController
                 ->where([
                     'field_name' => $fieldName,
                     'is_active' => true,
-                    'ai_enabled' => true
+                    'ai_enabled' => true,
                 ])
                 ->first();
-                
+
             if (!$field) {
                 return $this->response
                     ->withType('application/json')
@@ -56,16 +57,16 @@ class AiFormSuggestionsController extends AppController
                         'success' => true,
                         'suggestions' => [],
                         'confidence_level' => 0,
-                        'reasoning' => 'AI suggestions not available for this field'
+                        'reasoning' => 'AI suggestions not available for this field',
                     ]));
             }
 
             // Initialize service
             $productFormFieldService = new ProductFormFieldService();
-            
+
             // Get AI suggestion using field ID
             $suggestion = $productFormFieldService->getAiSuggestion($field->id, $existingData);
-            
+
             if ($suggestion === null) {
                 return $this->response
                     ->withType('application/json')
@@ -73,7 +74,7 @@ class AiFormSuggestionsController extends AppController
                         'success' => true,
                         'suggestions' => [],
                         'confidence_level' => 0,
-                        'reasoning' => 'No AI suggestion available for this field at this time'
+                        'reasoning' => 'No AI suggestion available for this field at this time',
                     ]));
             }
 
@@ -88,20 +89,19 @@ class AiFormSuggestionsController extends AppController
                     'success' => true,
                     'suggestions' => $suggestions,
                     'confidence_level' => $confidenceLevel,
-                    'reasoning' => $reasoning
+                    'reasoning' => $reasoning,
                 ]));
-
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->response
                 ->withType('application/json')
                 ->withStatus(500)
                 ->withStringBody(json_encode([
                     'success' => false,
-                    'error' => 'Internal server error: ' . $e->getMessage()
+                    'error' => 'Internal server error: ' . $e->getMessage(),
                 ]));
         }
     }
-    
+
     /**
      * Calculate confidence level based on available data
      */
@@ -109,14 +109,14 @@ class AiFormSuggestionsController extends AppController
     {
         $baseConfidence = 50;
         $bonusPerField = 10;
-        
+
         // Higher confidence with more existing data
-        $dataCount = count(array_filter($existingData, function($value) {
+        $dataCount = count(array_filter($existingData, function ($value) {
             return !empty($value) && $value !== '';
         }));
-        
+
         $confidence = min(95, $baseConfidence + ($dataCount * $bonusPerField));
-        
+
         // Specific field adjustments
         switch ($fieldName) {
             case 'manufacturer':
@@ -129,28 +129,28 @@ class AiFormSuggestionsController extends AppController
                 return $confidence;
         }
     }
-    
+
     /**
      * Generate reasoning text for the suggestion
      */
     private function generateReasoning(string $fieldName, array $existingData): string
     {
         $reasons = [];
-        
+
         if (!empty($existingData['title'])) {
             $reasons[] = "based on the product title '{$existingData['title']}'";
         }
-        
+
         if (!empty($existingData['manufacturer'])) {
             $reasons[] = "considering the manufacturer '{$existingData['manufacturer']}'";
         }
-        
+
         if (!empty($existingData['description'])) {
             $reasons[] = 'analyzing the product description';
         }
-        
+
         $context = empty($reasons) ? 'the available product information' : implode(' and ', $reasons);
-        
+
         switch ($fieldName) {
             case 'manufacturer':
                 return "Suggested manufacturer {$context}.";

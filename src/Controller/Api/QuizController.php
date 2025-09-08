@@ -4,16 +4,22 @@ declare(strict_types=1);
 namespace App\Controller\Api;
 
 use App\Controller\AppController;
+use App\Model\Entity\QuizSubmission;
 use App\Service\Quiz\AiProductMatcherService;
 use App\Service\Quiz\DecisionTreeService;
+use Cake\Core\Configure;
+use Cake\Event\EventInterface;
 use Cake\Http\Exception\BadRequestException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
+use Cake\ORM\TableRegistry;
 use Cake\Utility\Text;
+use Exception;
+use RuntimeException;
 
 /**
  * API Quiz Controller
- * 
+ *
  * JSON API endpoints for the AI-powered quiz system
  * Supports both Akinator-style and comprehensive quiz modes
  */
@@ -35,17 +41,17 @@ class QuizController extends AppController
     public function initialize(): void
     {
         parent::initialize();
-        
+
         // Initialize model tables
-        $this->Products = \Cake\ORM\TableRegistry::getTableLocator()->get('Products');
-        $this->QuizSubmissions = \Cake\ORM\TableRegistry::getTableLocator()->get('QuizSubmissions');
-        
+        $this->Products = TableRegistry::getTableLocator()->get('Products');
+        $this->QuizSubmissions = TableRegistry::getTableLocator()->get('QuizSubmissions');
+
         // JSON responses are handled via view class
-        
+
         // Initialize AI services
         $this->productMatcher = new AiProductMatcherService();
         $this->decisionTree = new DecisionTreeService();
-        
+
         // Set JSON view class for all actions
         $this->viewBuilder()->setClassName('Json');
     }
@@ -53,14 +59,14 @@ class QuizController extends AppController
     /**
      * beforeFilter callback
      */
-    public function beforeFilter(\Cake\Event\EventInterface $event): void
+    public function beforeFilter(EventInterface $event): void
     {
         parent::beforeFilter($event);
 
         // Allow unauthenticated access to quiz API endpoints
         $this->Authentication->addUnauthenticatedActions([
             'akinatorStart', 'akinatorNext', 'akinatorResult',
-            'comprehensiveSubmit'
+            'comprehensiveSubmit',
         ]);
 
         // CSRF is handled by ApiCsrfMiddleware
@@ -68,7 +74,7 @@ class QuizController extends AppController
 
     /**
      * Start Akinator quiz session
-     * 
+     *
      * POST /api/quiz/akinator/start.json
      */
     public function akinatorStart(): Response
@@ -78,7 +84,7 @@ class QuizController extends AppController
         try {
             $context = $this->request->getData('context', []);
             $result = $this->decisionTree->start($context);
-            
+
             $this->log("Akinator quiz started via API: {$result['session_id']}", 'info');
 
             $response = [
@@ -89,10 +95,9 @@ class QuizController extends AppController
             return $this->response
                 ->withType('application/json')
                 ->withStringBody(json_encode($response));
-
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->log('Akinator start error: ' . $e->getMessage(), 'error');
-            
+
             $response = [
                 'success' => false,
                 'error' => [
@@ -111,7 +116,7 @@ class QuizController extends AppController
 
     /**
      * Process next Akinator question
-     * 
+     *
      * POST /api/quiz/akinator/next.json
      */
     public function akinatorNext(): Response
@@ -142,7 +147,6 @@ class QuizController extends AppController
             return $this->response
                 ->withType('application/json')
                 ->withStringBody(json_encode($response));
-
         } catch (BadRequestException $e) {
             $response = [
                 'success' => false,
@@ -156,10 +160,9 @@ class QuizController extends AppController
                 ->withType('application/json')
                 ->withStatus(400)
                 ->withStringBody(json_encode($response));
-
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->log('Akinator next error: ' . $e->getMessage(), 'error');
-            
+
             $response = [
                 'success' => false,
                 'error' => [
@@ -178,7 +181,7 @@ class QuizController extends AppController
 
     /**
      * Get Akinator quiz result
-     * 
+     *
      * GET /api/quiz/akinator/result.json?session_id=xxx
      */
     public function akinatorResult(): Response
@@ -187,7 +190,7 @@ class QuizController extends AppController
 
         try {
             $sessionId = $this->request->getQuery('session_id');
-            
+
             if (!$sessionId) {
                 throw new BadRequestException(__('Missing required parameter: session_id.'));
             }
@@ -205,7 +208,7 @@ class QuizController extends AppController
             // Get product details
             $productIds = $submission->matched_product_ids ?? [];
             $products = [];
-            
+
             if (!empty($productIds)) {
                 $products = $this->Products->find()
                     ->where(['Products.id IN' => $productIds])
@@ -229,7 +232,6 @@ class QuizController extends AppController
             return $this->response
                 ->withType('application/json')
                 ->withStringBody(json_encode($response));
-
         } catch (BadRequestException $e) {
             $response = [
                 'success' => false,
@@ -243,7 +245,6 @@ class QuizController extends AppController
                 ->withType('application/json')
                 ->withStatus(400)
                 ->withStringBody(json_encode($response));
-
         } catch (NotFoundException $e) {
             $response = [
                 'success' => false,
@@ -257,10 +258,9 @@ class QuizController extends AppController
                 ->withType('application/json')
                 ->withStatus(404)
                 ->withStringBody(json_encode($response));
-
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->log('Akinator result error: ' . $e->getMessage(), 'error');
-            
+
             $response = [
                 'success' => false,
                 'error' => [
@@ -279,7 +279,7 @@ class QuizController extends AppController
 
     /**
      * Submit comprehensive quiz
-     * 
+     *
      * POST /api/quiz/comprehensive/submit.json
      */
     public function comprehensiveSubmit(): Response
@@ -323,7 +323,6 @@ class QuizController extends AppController
             return $this->response
                 ->withType('application/json')
                 ->withStringBody(json_encode($response));
-
         } catch (BadRequestException $e) {
             $response = [
                 'success' => false,
@@ -337,10 +336,9 @@ class QuizController extends AppController
                 ->withType('application/json')
                 ->withStatus(400)
                 ->withStringBody(json_encode($response));
-
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->log('Comprehensive submit error: ' . $e->getMessage(), 'error');
-            
+
             $response = [
                 'success' => false,
                 'error' => [
@@ -361,12 +359,12 @@ class QuizController extends AppController
      * Validate quiz answers structure
      *
      * @param array $answers Quiz answers
-     * @throws BadRequestException If validation fails
+     * @throws \Cake\Http\Exception\BadRequestException If validation fails
      */
     private function validateAnswers(array $answers): void
     {
         $requiredFields = ['device_type'];
-        
+
         foreach ($requiredFields as $field) {
             if (empty($answers[$field])) {
                 throw new BadRequestException(__('Missing required answer: {0}', $field));
@@ -389,16 +387,16 @@ class QuizController extends AppController
      * @param array $results Match results
      * @return \App\Model\Entity\QuizSubmission Saved submission
      */
-    private function saveQuizSubmission(string $sessionId, string $quizType, array $answers, array $results)
+    private function saveQuizSubmission(string $sessionId, string $quizType, array $answers, array $results): QuizSubmission
     {
         $identity = $this->getRequest()->getAttribute('identity');
-        
+
         $submission = $this->QuizSubmissions->newEntity([
             'user_id' => $identity ? $identity->id : null,
             'session_id' => $sessionId,
             'quiz_type' => $quizType,
             'answers' => $answers,
-            'matched_product_ids' => array_map(function($p) {
+            'matched_product_ids' => array_map(function ($p) {
                 return $p['product']->id;
             }, $results['products']),
             'confidence_scores' => [
@@ -410,7 +408,7 @@ class QuizController extends AppController
                 '%d products matched with %.1f%% confidence using %s method',
                 $results['total_matches'],
                 $results['overall_confidence'] * 100,
-                $results['method']
+                $results['method'],
             ),
             'analytics' => [
                 'user_agent' => $this->request->getHeaderLine('User-Agent'),
@@ -423,7 +421,7 @@ class QuizController extends AppController
         ]);
 
         if (!$this->QuizSubmissions->save($submission)) {
-            throw new \RuntimeException('Failed to save quiz submission');
+            throw new RuntimeException('Failed to save quiz submission');
         }
 
         return $submission;
@@ -441,7 +439,7 @@ class QuizController extends AppController
 
         foreach ($products as $item) {
             $product = $item['product'];
-            
+
             $formatted[] = [
                 'product' => [
                     'id' => $product->id,
@@ -456,9 +454,9 @@ class QuizController extends AppController
                     'device_category' => $product->device_category,
                     'port_family' => $product->port_family,
                     'url' => $this->Url->build([
-                        'controller' => 'Products', 
-                        'action' => 'view', 
-                        $product->id
+                        'controller' => 'Products',
+                        'action' => 'view',
+                        $product->id,
                     ]),
                 ],
                 'confidence_score' => $item['confidence_score'],
@@ -496,9 +494,9 @@ class QuizController extends AppController
                 'device_category' => $product->device_category,
                 'port_family' => $product->port_family,
                 'url' => $this->Url->build([
-                    'controller' => 'Products', 
-                    'action' => 'view', 
-                    $product->id
+                    'controller' => 'Products',
+                    'action' => 'view',
+                    $product->id,
                 ]),
             ];
         }
@@ -512,9 +510,9 @@ class QuizController extends AppController
      * @param \Exception $e Exception
      * @return array|null Debug details or null if debug is disabled
      */
-    private function getDebugDetails(\Exception $e): ?array
+    private function getDebugDetails(Exception $e): ?array
     {
-        if (!\Cake\Core\Configure::read('debug')) {
+        if (!Configure::read('debug')) {
             return null;
         }
 

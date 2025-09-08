@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use DateTime;
 
 /**
  * ProductsReliability Entity
@@ -60,6 +61,7 @@ class ProductsReliability extends Entity
         }
 
         $decoded = json_decode($this->field_scores_json, true);
+
         return is_array($decoded) ? $decoded : null;
     }
 
@@ -135,7 +137,7 @@ class ProductsReliability extends Entity
      */
     public function needsAttention(float $minScore = 0.70, float $minCompleteness = 80.0): bool
     {
-        return $this->_getTotalScoreFloat() < $minScore || 
+        return $this->_getTotalScoreFloat() < $minScore ||
                $this->_getCompletenessPercentFloat() < $minCompleteness;
     }
 
@@ -150,7 +152,7 @@ class ProductsReliability extends Entity
             'user' => 'User Update',
             'ai' => 'AI Analysis',
             'admin' => 'Admin Review',
-            'system' => 'System Process'
+            'system' => 'System Process',
         ];
 
         return $sourceMap[$this->last_source] ?? ucfirst($this->last_source);
@@ -168,7 +170,8 @@ class ProductsReliability extends Entity
             return false;
         }
 
-        $cutoff = new \DateTime("-{$hours} hours");
+        $cutoff = new DateTime("-{$hours} hours");
+
         return $this->modified >= $cutoff;
     }
 }

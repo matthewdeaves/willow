@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Controller\Admin;
 
 use App\Test\TestCase\AppControllerTestCase;
-use Cake\I18n\FrozenTime;
 use Cake\TestSuite\IntegrationTestTrait;
 
 /**
@@ -189,7 +188,7 @@ class AiMetricsControllerTest extends AppControllerTestCase
         $this->assertResponseContains('total-calls');
         $this->assertResponseContains('success-rate');
         $this->assertResponseContains('total-cost');
-        $this->assertResponseContains('rate-limit-value');
+        $this->assertResponseContains('rate-limit-status');
 
         // Check for JavaScript functionality
         $this->assertResponseContains('updateMetrics');
@@ -203,6 +202,7 @@ class AiMetricsControllerTest extends AppControllerTestCase
      */
     public function testRealtimeDataEndpoint(): void
     {
+        // Test 1 hour timeframe
         $this->configRequest([
             'headers' => ['X-Requested-With' => 'XMLHttpRequest'],
         ]);
@@ -265,10 +265,8 @@ class AiMetricsControllerTest extends AppControllerTestCase
         $this->session(['Auth' => null]);
 
         $this->get('/admin/ai-metrics/dashboard');
-        // The system redirects to the localized home page with login prompt
-        // This is the actual behavior based on the routing and auth middleware
-        $this->assertResponseCode(302);
-        $this->assertRedirectContains('/en'); // Redirects to localized homepage
+        // Should redirect to login
+        $this->assertRedirectContains('/users/login');
     }
 
     /**
@@ -286,9 +284,8 @@ class AiMetricsControllerTest extends AppControllerTestCase
         ]);
         $this->get('/admin/ai-metrics/realtime-data');
 
-        // The actual behavior is a 302 redirect, not 401
-        // This matches the middleware behavior for unauthenticated requests
-        $this->assertResponseCode(302);
+        // Should return 401 or redirect
+        $this->assertResponseCode(401);
     }
 
     /**

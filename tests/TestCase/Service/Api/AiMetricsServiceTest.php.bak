@@ -8,7 +8,6 @@ use App\Service\Api\AiMetricsService;
 use App\Service\Api\Anthropic\AnthropicApiService;
 use App\Service\Api\Google\GoogleApiService;
 use App\Utility\SettingsManager;
-use Cake\Cache\Cache;
 use Cake\I18n\FrozenTime;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
@@ -65,27 +64,9 @@ class AiMetricsServiceTest extends TestCase
         $this->service = new AiMetricsService();
         $this->aiMetricsTable = TableRegistry::getTableLocator()->get('AiMetrics');
 
-        // Create AI settings in the database (proper approach for tests)
-        $settingsTable = TableRegistry::getTableLocator()->get('Settings');
-        
-        // Create enableMetrics setting
-        $settingsTable->saveOrFail($settingsTable->newEntity([
-            'category' => 'AI',
-            'key_name' => 'enableMetrics',
-            'value' => 1,
-            'value_type' => 'bool',
-        ]));
-
-        // Create dailyCostLimit setting
-        $settingsTable->saveOrFail($settingsTable->newEntity([
-            'category' => 'AI',
-            'key_name' => 'dailyCostLimit',
-            'value' => '2.50',
-            'value_type' => 'numeric',
-        ]));
-
-        // Clear cache to ensure fresh settings
-        Cache::clear(SettingsManager::getCacheConfig());
+        // Set up test settings
+        SettingsManager::write('AI.enableMetrics', true);
+        SettingsManager::write('AI.dailyCostLimit', 2.50);
     }
 
     /**
@@ -100,9 +81,6 @@ class AiMetricsServiceTest extends TestCase
 
         // Reset frozen time
         FrozenTime::setTestNow(null);
-
-        // Clear cache
-        Cache::clear(SettingsManager::getCacheConfig());
 
         parent::tearDown();
     }
@@ -224,28 +202,34 @@ class AiMetricsServiceTest extends TestCase
      */
     public function testGetDailyCost(): void
     {
-        // Clear existing data for isolated test
-        $this->aiMetricsTable->deleteAll([]);
-        
-        // Create test metrics for today
-        $today = FrozenTime::now();
-        $metrics = [
-            ['cost_usd' => 0.50, 'created' => $today],
-            ['cost_usd' => 0.25, 'created' => $today],
-            ['cost_usd' => 0.75, 'created' => $today->subDays(1)], // Yesterday
-        ];
+        // Create some test metrics for today
+        $this->aiMetricsTable->save($this->aiMetricsTable->newEntity([
+            'task_type' => 'test1',
+            'execution_time_ms' => 100,
+            'success' => true,
+            'cost_usd' => 0.50,
+            'created' => FrozenTime::now(),
+        ]));
 
-        foreach ($metrics as $data) {
-            $entity = $this->aiMetricsTable->newEntity(array_merge([
-                'task_type' => 'test',
-                'execution_time_ms' => 100,
-                'success' => true,
-            ], $data));
-            $this->aiMetricsTable->save($entity);
-        }
+        $this->aiMetricsTable->save($this->aiMetricsTable->newEntity([
+            'task_type' => 'test2',
+            'execution_time_ms' => 200,
+            'success' => true,
+            'cost_usd' => 0.75,
+            'created' => FrozenTime::now(),
+        ]));
+
+        // Create a metric from yesterday (should not be included)
+        $this->aiMetricsTable->save($this->aiMetricsTable->newEntity([
+            'task_type' => 'test3',
+            'execution_time_ms' => 150,
+            'success' => true,
+            'cost_usd' => 1.00,
+            'created' => FrozenTime::now()->subDays(1),
+        ]));
 
         $dailyCost = $this->service->getDailyCost();
-        $this->assertEquals(0.75, $dailyCost); // Only today's costs (0.50 + 0.25)
+        $this->assertEquals(1.25, $dailyCost);
     }
 
     /**
@@ -255,23 +239,27 @@ class AiMetricsServiceTest extends TestCase
      */
     public function testIsDailyCostLimitReached(): void
     {
-        // Clear existing data for isolated test
-        $this->aiMetricsTable->deleteAll([]);
-        
-        // Daily limit is set to $2.50 in setUp
+        // Set daily limit to $1.00
+        SettingsManager::write('AI.dailyCostLimit', 1.00);
+
+        // Initially should not be reached
         $this->assertFalse($this->service->isDailyCostLimitReached());
 
-        // Add metrics to reach the limit
-        $entity = $this->aiMetricsTable->newEntity([
+        // Add metrics to exceed limit
+        $this->aiMetricsTable->save($this->aiMetricsTable->newEntity([
             'task_type' => 'expensive_task',
-            'execution_time_ms' => 100,
+            'execution_time_ms' => 1000,
             'success' => true,
-            'cost_usd' => 2.60, // Over the limit
+            'cost_usd' => 1.50,
             'created' => FrozenTime::now(),
-        ]);
-        $this->aiMetricsTable->save($entity);
+        ]));
 
+        // Now limit should be reached
         $this->assertTrue($this->service->isDailyCostLimitReached());
+
+        // Test with metrics disabled
+        SettingsManager::write('AI.enableMetrics', false);
+        $this->assertFalse($this->service->isDailyCostLimitReached());
     }
 
     /**
@@ -281,17 +269,16 @@ class AiMetricsServiceTest extends TestCase
      */
     public function testGetMetricsSummary(): void
     {
-        // Clear existing data for isolated test
-        $this->aiMetricsTable->deleteAll([]);
-        
-        // Create test data
+        // Create test metrics
         $this->createTestMetrics();
 
-        $summary = $this->service->getMetricsSummary();
+        $summary = $this->service->getMetricsSummary('1h');
 
         $this->assertArrayHasKey('totalCalls', $summary);
         $this->assertArrayHasKey('successRate', $summary);
         $this->assertArrayHasKey('totalCost', $summary);
+        $this->assertArrayHasKey('avgExecutionTime', $summary);
+        $this->assertArrayHasKey('taskBreakdown', $summary);
 
         $this->assertEquals(3, $summary['totalCalls']);
         $this->assertEquals(66.67, round($summary['successRate'], 2));
@@ -305,9 +292,6 @@ class AiMetricsServiceTest extends TestCase
      */
     public function testGetRealtimeData(): void
     {
-        // Clear existing data for isolated test
-        $this->aiMetricsTable->deleteAll([]);
-        
         // Create test metrics
         $this->createTestMetrics();
 
@@ -330,8 +314,6 @@ class AiMetricsServiceTest extends TestCase
      */
     public function testGoogleApiServiceIntegration(): void
     {
-        $this->markTestSkipped('Google API service integration requires external dependencies');
-        
         $googleService = new GoogleApiService();
 
         // Check if service has metrics integration
@@ -353,8 +335,6 @@ class AiMetricsServiceTest extends TestCase
      */
     public function testAnthropicApiServiceIntegration(): void
     {
-        $this->markTestSkipped('Anthropic API service integration requires API key configuration');
-        
         $anthropicService = new AnthropicApiService();
 
         // Check if service has metrics recording capability
@@ -372,9 +352,6 @@ class AiMetricsServiceTest extends TestCase
      */
     public function testGetTaskTypeStatistics(): void
     {
-        // Clear existing data for isolated test
-        $this->aiMetricsTable->deleteAll([]);
-        
         // Create metrics for different task types
         $taskTypes = [
             'google_translate' => ['count' => 5, 'cost' => 0.05],

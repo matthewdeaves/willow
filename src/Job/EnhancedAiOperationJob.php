@@ -367,8 +367,13 @@ class EnhancedAiOperationJob implements JobInterface
 
     /**
      * Get service instance for the specified service and class
+     *
+     * @param string $service Service namespace (e.g. 'Anthropic', 'Google')
+     * @param string $serviceClass Concrete service class name (e.g. 'SeoContentGenerator')
+     * @return object Instance of the resolved service
+     * @throws \Exception When class does not exist
      */
-    protected function getServiceInstance(string $service, string $serviceClass)
+    protected function getServiceInstance(string $service, string $serviceClass): object
     {
         $className = '\\App\\Service\\Api\\' . ucfirst($service) . "\\{$serviceClass}";
 
@@ -460,7 +465,14 @@ class EnhancedAiOperationJob implements JobInterface
             'group' => 'ai_operations',
         ]);
 
-        $this->log("Retrying AI operation (attempt {$nextAttempt}/{self::MAX_RETRIES}) in {$delay} seconds: {$reason}", 'info');
+        $message = sprintf(
+            'Retrying AI operation (attempt %d/%d) in %d seconds: %s',
+            $nextAttempt,
+            self::MAX_RETRIES,
+            $delay,
+            (string)$reason,
+        );
+        $this->log($message, 'info');
     }
 
     /**
@@ -527,6 +539,12 @@ class EnhancedAiOperationJob implements JobInterface
         return $failures >= self::CIRCUIT_BREAKER_THRESHOLD;
     }
 
+    /**
+     * Record a circuit breaker failure for a service.
+     *
+     * @param string $service Service key
+     * @return void
+     */
     protected function recordCircuitBreakerFailure(string $service): void
     {
         $key = "circuit_breaker_{$service}";
@@ -535,6 +553,12 @@ class EnhancedAiOperationJob implements JobInterface
         Cache::write($key, $failures + 1, '+1 hour');
     }
 
+    /**
+     * Reset the circuit breaker for a service.
+     *
+     * @param string $service Service key
+     * @return void
+     */
     protected function resetCircuitBreaker(string $service): void
     {
         $key = "circuit_breaker_{$service}";

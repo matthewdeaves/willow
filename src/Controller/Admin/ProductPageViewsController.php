@@ -19,7 +19,7 @@ use Exception;
  *
  * @property \App\Model\Table\PageViewsTable $PageViews
  */
-class PageViewsController extends AppController
+class ProductPageViewsController extends AppController
 {
     use LogTrait;
 

@@ -28,13 +28,17 @@ class QuizController extends AppController
 {
     /**
      * AI Product Matcher Service
+     *
+     * @var \App\Service\Quiz\AiProductMatcherService
      */
-    private $productMatcher;
+    private AiProductMatcherService $productMatcher;
 
     /**
      * Decision Tree Service for Akinator mode
+     *
+     * @var \App\Service\Quiz\DecisionTreeService
      */
-    private $decisionTree;
+    private DecisionTreeService $decisionTree;
 
     /**
      * Initialize method
@@ -358,8 +362,12 @@ class QuizController extends AppController
      * @param array $results Match results
      * @return \App\Model\Entity\QuizSubmission Saved submission
      */
-    private function saveQuizSubmission(string $sessionId, string $quizType, array $answers, array $results): QuizSubmission
-    {
+    private function saveQuizSubmission(
+        string $sessionId,
+        string $quizType,
+        array $answers,
+        array $results,
+    ): QuizSubmission {
         $identity = $this->getRequest()->getAttribute('identity');
 
         $submission = $this->QuizSubmissions->newEntity([
@@ -448,7 +456,8 @@ class QuizController extends AppController
                     'required' => $question['required'] ?? true,
                     'weight' => $question['weight'] ?? 1,
                     'help_text' => $question['help_text'] ?? null,
-                    'multiple' => $question['type'] === 'multiple_choice' && isset($question['multiple']) ? $question['multiple'] : false,
+                    'multiple' => $question['type'] === 'multiple_choice' &&
+                        isset($question['multiple']) ? $question['multiple'] : false,
                     'options' => [],
                 ];
 
@@ -776,7 +785,7 @@ class QuizController extends AppController
 
         // Base confidence on completeness and results
         $completeness = min($totalQuestions / 8, 1.0); // Expecting up to 8 questions
-        $availability = min($productsFound / 5, 1.0);  // Expecting up to 5 good results
+        $availability = min($productsFound / 5, 1.0); // Expecting up to 5 good results
 
         return round(($completeness * 0.6 + $availability * 0.4) * 100, 1);
     }
@@ -857,20 +866,26 @@ class QuizController extends AppController
                 $html .= '<div class="col-md-6 col-lg-4 mb-3">';
                 $html .= '<div class="card h-100">';
                 if (!empty($product->image)) {
-                    $html .= '<img src="' . h($product->image) . '" class="card-img-top" alt="' . h($product->alt_text ?: $product->title) . '" style="height: 150px; object-fit: cover;">';
+                    $altText = h($product->alt_text ?: $product->title);
+                    $html .= '<img src="' . h($product->image) . '" class="card-img-top" '
+                        . 'alt="' . $altText . '" style="height: 150px; object-fit: cover;">';
                 }
                 $html .= '<div class="card-body">';
                 $html .= '<h6 class="card-title">' . h($product->title) . '</h6>';
-                $html .= '<p class="card-text text-muted small">' . $this->truncateText(h($product->description ?? ''), 80) . '</p>';
+                $html .= '<p class="card-text text-muted small">'
+                    . $this->truncateText(h($product->description ?? ''), 80) . '</p>';
                 if (!empty($product->manufacturer)) {
-                    $html .= '<p class="mb-1 small"><strong>Manufacturer:</strong> ' . h($product->manufacturer) . '</p>';
+                    $html .= '<p class="mb-1 small"><strong>Manufacturer:</strong> '
+                        . h($product->manufacturer) . '</p>';
                 }
                 if (!empty($product->price)) {
-                    $html .= '<p class="mb-2"><strong class="text-success">$' . number_format($product->price, 2) . '</strong></p>';
+                    $html .= '<p class="mb-2"><strong class="text-success">$'
+                        . number_format($product->price, 2) . '</strong></p>';
                 }
                 $html .= '</div>';
                 $html .= '<div class="card-footer">';
-                $html .= '<a href="/products/view/' . $product->id . '" class="btn btn-primary btn-sm">View Details</a>';
+                $html .= '<a href="/products/view/' . $product->id . '" '
+                    . 'class="btn btn-primary btn-sm">View Details</a>';
                 $html .= '</div>';
                 $html .= '</div>';
                 $html .= '</div>';
@@ -882,7 +897,9 @@ class QuizController extends AppController
             $html .= '<div class="no-results text-center py-4">';
             $html .= '<i class="fas fa-search fa-3x text-muted mb-3"></i>';
             $html .= '<h5>' . __('No matches found') . '</h5>';
-            $html .= '<p class="text-muted">' . __('We couldn\'t find products matching your criteria, but you can browse our full catalog.') . '</p>';
+            $html .= '<p class="text-muted">'
+                . __('We couldn\'t find products matching your criteria, but you can browse our full catalog.')
+                . '</p>';
             $html .= '<a href="/products" class="btn btn-primary">' . __('Browse All Products') . '</a>';
             $html .= '</div>';
         }

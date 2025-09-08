@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Model\Entity\Product;
 use App\Service\ProductFormFieldService;
 use App\Service\ReliabilityService;
 use Cake\Cache\Cache;
@@ -303,7 +304,7 @@ class ProductsController extends AppController
             $validationErrors = $formFieldService->validateFormData($data);
 
             if (!empty($validationErrors)) {
-                foreach ($validationErrors as $field => $errors) {
+                foreach ($validationErrors as $errors) {
                     foreach ($errors as $error) {
                         $this->Flash->error($error);
                     }
@@ -322,7 +323,8 @@ class ProductsController extends AppController
                 if ($this->Products->save($product)) {
                     $this->clearContentCache();
 
-                    $successMessage = $formSettings['success_message'] ?? 'Your product has been submitted and is awaiting review.';
+                    $successMessage = $formSettings['success_message'] ??
+                        'Your product has been submitted and is awaiting review.';
                     $this->Flash->success(__($successMessage));
 
                     // Send notification email if configured
@@ -384,7 +386,7 @@ class ProductsController extends AppController
         $reasoning = [];
 
         // Process each answer against scoring rules
-        foreach ($answers as $questionId => $answer) {
+        foreach ($answers as $answer) {
             if (isset($config['scoring'][$answer])) {
                 $rules = $config['scoring'][$answer];
                 foreach ($rules as $rule) {
@@ -429,8 +431,12 @@ class ProductsController extends AppController
 
     /**
      * Send notification email about new product submission
+     *
+     * @param \App\Model\Entity\Product $product The product entity
+     * @param array $formSettings Form configuration settings
+     * @return void
      */
-    private function sendSubmissionNotification($product, array $formSettings): void
+    private function sendSubmissionNotification(Product $product, array $formSettings): void
     {
         $notificationEmail = $formSettings['notification_email'] ?? '';
 
@@ -752,20 +758,26 @@ class ProductsController extends AppController
                 $html .= '<div class="col-md-6 col-lg-4 mb-3">';
                 $html .= '<div class="card h-100">';
                 if (!empty($product->image)) {
-                    $html .= '<img src="' . h($product->image) . '" class="card-img-top" alt="' . h($product->alt_text ?: $product->title) . '" style="height: 150px; object-fit: cover;">';
+                    $altText = h($product->alt_text ?: $product->title);
+                    $html .= '<img src="' . h($product->image) . '" class="card-img-top" '
+                        . 'alt="' . $altText . '" style="height: 150px; object-fit: cover;">';
                 }
                 $html .= '<div class="card-body">';
                 $html .= '<h6 class="card-title">' . h($product->title) . '</h6>';
-                $html .= '<p class="card-text text-muted small">' . $this->truncate(h($product->description), 80) . '</p>';
+                $html .= '<p class="card-text text-muted small">'
+                    . $this->truncate(h($product->description), 80) . '</p>';
                 if (!empty($product->manufacturer)) {
-                    $html .= '<p class="mb-1 small"><strong>Manufacturer:</strong> ' . h($product->manufacturer) . '</p>';
+                    $html .= '<p class="mb-1 small"><strong>Manufacturer:</strong> '
+                        . h($product->manufacturer) . '</p>';
                 }
                 if (!empty($product->price)) {
-                    $html .= '<p class="mb-2"><strong class="text-success">$' . number_format($product->price, 2) . '</strong></p>';
+                    $html .= '<p class="mb-2"><strong class="text-success">$'
+                        . number_format($product->price, 2) . '</strong></p>';
                 }
                 $html .= '</div>';
                 $html .= '<div class="card-footer">';
-                $html .= '<a href="/products/view/' . $product->id . '" class="btn btn-primary btn-sm">View Details</a>';
+                $html .= '<a href="/products/view/' . $product->id . '" '
+                    . 'class="btn btn-primary btn-sm">View Details</a>';
                 $html .= '</div>';
                 $html .= '</div>';
                 $html .= '</div>';
@@ -777,7 +789,8 @@ class ProductsController extends AppController
             $html .= '<div class="no-results text-center py-4">';
             $html .= '<i class="fas fa-search fa-3x text-muted mb-3"></i>';
             $html .= '<h5>No exact matches found</h5>';
-            $html .= '<p class="text-muted">Based on your answers, we couldn\'t find specific matching products, but you can browse our full catalog.</p>';
+            $html .= '<p class="text-muted">Based on your answers, we couldn\'t find specific '
+                . 'matching products, but you can browse our full catalog.</p>';
             $html .= '<a href="/products" class="btn btn-primary">Browse All Products</a>';
             $html .= '</div>';
         }

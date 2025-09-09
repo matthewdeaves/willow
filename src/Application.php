@@ -137,7 +137,12 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             // Add authorization middleware after authentication
             ->add(new AuthorizationMiddleware($this, [
                 'identityDecorator' => function ($auth, $user) {
-                    return $user->setAuthorization($auth);
+                    // If the user is already our User entity, inject the authorization service
+                    if ($user instanceof \App\Model\Entity\User) {
+                        return $user->setAuthorization($auth);
+                    }
+                    // Otherwise, wrap it in the default decorator
+                    return new \Authorization\IdentityDecorator($auth, $user);
                 },
             ]))
 
@@ -211,6 +216,8 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         $authenticationService = new AuthenticationService([
             'unauthenticatedRedirect' => Router::url(['prefix' => false, 'controller' => 'Users', 'action' => 'login']),
             'queryParam' => 'redirect',
+            // Return the User entity directly as the identity instead of wrapping it
+            'identityClass' => false,
         ]);
 
         $fields = [

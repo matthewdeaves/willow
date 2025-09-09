@@ -846,3 +846,6 @@ config/app.php
 config/app.php
 willow_cms_code.txt
 .markdownlint.json
+.devcontainer/devcontainer.json
+.devcontainer/docker-compose.yml
+.github/dependabot.yml

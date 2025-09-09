@@ -5,9 +5,10 @@ namespace App\Model\Entity;
 
 use ArrayAccess;
 use App\Model\Enum\Role;
+use Authentication\IdentityInterface as AuthenticationIdentityInterface;
 use Authentication\PasswordHasher\DefaultPasswordHasher;
 use Authorization\AuthorizationServiceInterface;
-use Authorization\IdentityInterface;
+use Authorization\IdentityInterface as AuthorizationIdentityInterface;
 use Authorization\Policy\Result;
 use Authorization\Policy\ResultInterface;
 use Cake\ORM\Entity;
@@ -30,7 +31,7 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\Article[] $articles
  */
-class User extends Entity implements IdentityInterface
+class User extends Entity implements AuthenticationIdentityInterface, AuthorizationIdentityInterface
 {
     use ImageUrlTrait;
     
@@ -82,7 +83,7 @@ class User extends Entity implements IdentityInterface
      * This ensures that passwords are stored securely in the database and prevents
      * overwriting existing passwords with empty values during updates.
      *
-     * @param string $password The plain text password to be hashed.
+     * @param  string $password The plain text password to be hashed.
      * @return string|null The hashed password if the input is not empty, or the original password value.
      */
     protected function _setPassword(string $password): ?string
@@ -101,8 +102,8 @@ class User extends Entity implements IdentityInterface
      * and if the current object's ID matches the provided user ID. If both conditions are met, it returns true,
      * indicating that the user is attempting to disable their own account.
      *
-     * @param string $userId The ID of the user whose account is being checked.
-     * @param array $data An associative array containing account data, including the 'active' flag.
+     * @param  string $userId The ID of the user whose account is being checked.
+     * @param  array  $data   An associative array containing account data, including the 'active' flag.
      * @return bool|null Returns true if the account is being disabled by the user themselves, false otherwise.
      *                   (Note: The method always returns a boolean, so the null part of the return type
      *                   is not utilized in the current implementation.)
@@ -125,8 +126,8 @@ class User extends Entity implements IdentityInterface
      * account owner is attempting to remove their own admin privileges, otherwise
      * it returns false.
      *
-     * @param string $userId The ID of the user attempting to modify the account.
-     * @param array $data An associative array containing the account data, including the 'is_admin' flag.
+     * @param  string $userId The ID of the user attempting to modify the account.
+     * @param  array  $data   An associative array containing the account data, including the 'is_admin' flag.
      * @return bool|null Returns true if the admin account is being demoted by the owner, false otherwise.
      *                   (Note: The method always returns a boolean, so the null part of the return type
      *                   is not utilized in the current implementation.)
@@ -236,7 +237,7 @@ class User extends Entity implements IdentityInterface
     /**
      * Sets the authorization service for this identity.
      *
-     * @param \Authorization\AuthorizationServiceInterface $service The authorization service
+     * @param  \Authorization\AuthorizationServiceInterface $service The authorization service
      * @return $this
      */
     public function setAuthorization(AuthorizationServiceInterface $service)
@@ -248,8 +249,8 @@ class User extends Entity implements IdentityInterface
     /**
      * Check whether the current identity can perform an action.
      *
-     * @param string $action The action to check authorization for.
-     * @param mixed $resource The resource to check authorization for.
+     * @param  string $action   The action to check authorization for.
+     * @param  mixed  $resource The resource to check authorization for.
      * @return bool
      */
     public function can(string $action, mixed $resource): bool
@@ -263,8 +264,8 @@ class User extends Entity implements IdentityInterface
     /**
      * Check whether the current identity can perform an action and get a result.
      *
-     * @param string $action The action to check authorization for.
-     * @param mixed $resource The resource to check authorization for.
+     * @param  string $action   The action to check authorization for.
+     * @param  mixed  $resource The resource to check authorization for.
      * @return \Authorization\Policy\ResultInterface
      */
     public function canResult(string $action, mixed $resource): ResultInterface
@@ -279,9 +280,9 @@ class User extends Entity implements IdentityInterface
     /**
      * Apply authorization scope conditions/restrictions.
      *
-     * @param string $action The action to check authorization for.
-     * @param mixed $resource The resource to check authorization for.
-     * @param mixed $optionalArgs Multiple additional arguments which are passed to the scope
+     * @param  string $action       The action to check authorization for.
+     * @param  mixed  $resource     The resource to check authorization for.
+     * @param  mixed  $optionalArgs Multiple additional arguments which are passed to the scope
      * @return mixed The modified resource
      * @throws \Authorization\Exception\ForbiddenException
      */
@@ -306,9 +307,9 @@ class User extends Entity implements IdentityInterface
     /**
      * Get the primary key/id field for this identity.
      *
-     * @return string|int|null
+     * @return array|string|int|null
      */
-    public function getIdentifier(): mixed
+    public function getIdentifier(): array|string|int|null
     {
         return $this->id;
     }

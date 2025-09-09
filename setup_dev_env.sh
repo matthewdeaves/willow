@@ -86,14 +86,14 @@ else
 fi
 # Add after line 85 in setup_dev_env.sh
 print_step "Loading application environment variables..."
-if [ -f "config/.env" ]; then
-    # Export variables from config/.env to make them available to docker-compose
+if [ -f "cakephp/config/.env" ]; then
+    # Export variables from cakephp/config/.env to make them available to docker-compose
     set -a  # Automatically export all variables
-    source config/.env
+    source cakephp/config/.env
     set +a  # Stop automatically exporting
-    print_success "Loaded environment variables from config/.env"
+    print_success "Loaded environment variables from cakephp/config/.env"
 else
-    print_error "config/.env file not found!"
+    print_error "cakephp/config/.env file not found!"
     exit 1
 fi
 # Service name for the main application container
@@ -387,7 +387,7 @@ handle_operation() {
             ;;
         migrate)
             print_step "Running database migrations..."
-            if docker compose exec "$MAIN_APP_SERVICE" bin/cake migrations migrate; then
+            if docker compose exec "$MAIN_APP_SERVICE" /var/www/html/bin/cake migrations migrate; then
                 print_success "Migrations completed successfully"
             else
                 print_error "Failed to run migrations"
@@ -414,6 +414,7 @@ print_step "Creating required directories..."
 # If logs/nginx is created by this user, the chmod below shouldn't need sudo.
 # However, if logs/nginx pre-exists with other ownership, sudo would be needed for chmod.
 mkdir -p logs/nginx
+mkdir -p cakephp/logs cakephp/tmp cakephp/webroot/files
 if chmod 777 logs/nginx 2>/dev/null; then
     print_success "Created logs/nginx directory"
 else
@@ -439,8 +440,8 @@ fi
 
 print_step "Checking if database has been set up (looking for 'settings' table)..."
 # docker compose exec exits with 0 if command succeeds, 1 if fails.
-# We assume bin/cake check_table_exists settings exits 0 if table exists, non-zero otherwise.
-if docker compose exec "$MAIN_APP_SERVICE" bin/cake check_table_exists settings 2>/dev/null; then
+# We assume /var/www/html/bin/cake check_table_exists settings exits 0 if table exists, non-zero otherwise.
+if docker compose exec "$MAIN_APP_SERVICE" /var/www/html/bin/cake check_table_exists settings 2>/dev/null; then
     TABLE_EXISTS_INITIAL=0 # True, table exists
 else
     TABLE_EXISTS_INITIAL=1 # False, table does not exist / command failed
@@ -470,7 +471,7 @@ fi
 
 # Re-check if database has been set up, as it might have been wiped.
 print_step "Re-checking if database has been set up..."
-if docker compose exec "$MAIN_APP_SERVICE" bin/cake check_table_exists settings 2>/dev/null; then
+if docker compose exec "$MAIN_APP_SERVICE" /var/www/html/bin/cake check_table_exists settings 2>/dev/null; then
     TABLE_EXISTS_FINAL=0
 else
     TABLE_EXISTS_FINAL=1
@@ -480,26 +481,26 @@ if [ "$TABLE_EXISTS_FINAL" -ne 0 ]; then # If table still does not exist (or com
     print_info "Running initial application setup..."
 
     print_step "Setting permissions for logs, tmp, webroot (dev environment)..."
-    # These directories are expected to be at the project root.
+    # These directories are expected to be in the cakephp folder.
     # If they are not owned by the user running script, sudo will be invoked on Linux.
     # Ensure these directories exist before running this script or handle their creation.
     # For `logs/`, it's partially handled by `mkdir -p logs/nginx` earlier.
     # Consider creating tmp/ and webroot/ explicitly if they might not exist.
-    for dir in logs tmp webroot; do
+    for dir in cakephp/logs cakephp/tmp cakephp/webroot; do
         if [ ! -d "$dir" ]; then
-            print_warning "Directory '$dir' does not exist. Skipping chmod for it."
+            print_warning "Directory '$dir' does not exist. Creating it..."
+            mkdir -p "$dir"
+        fi
+        if chmod -R 777 "$dir/" 2>/dev/null; then
+            print_success "Set permissions for $dir"
         else
-            if chmod -R 777 "$dir/" 2>/dev/null; then
-                print_success "Set permissions for $dir"
-            else
-                print_warning "Could not set permissions for $dir (may need sudo)"
-            fi
+            print_warning "Could not set permissions for $dir (may need sudo)"
         fi
     done
 
 
     print_step "Running database migrations..."
-    if docker compose exec "$MAIN_APP_SERVICE" bin/cake migrations migrate; then
+    if docker compose exec "$MAIN_APP_SERVICE" /var/www/html/bin/cake migrations migrate; then
         print_success "Database migrations completed"
     else
         print_error "Failed to run database migrations"
@@ -507,7 +508,7 @@ if [ "$TABLE_EXISTS_FINAL" -ne 0 ]; then # If table still does not exist (or com
     fi
 
     print_step "Creating default admin user (admin@test.com / password)..."
-    if docker compose exec "$MAIN_APP_SERVICE" bin/cake create_user -u admin -p password -e admin@test.com -a 1; then
+    if docker compose exec "$MAIN_APP_SERVICE" /var/www/html/bin/cake create_user -u admin -p password -e admin@test.com -a 1; then
         print_success "Default admin user created"
         print_info "Login credentials: ${BOLD}admin@test.com${RESET} / ${BOLD}password${RESET}"
     else
@@ -517,13 +518,13 @@ if [ "$TABLE_EXISTS_FINAL" -ne 0 ]; then # If table still does not exist (or com
 
     print_step "Importing default data (aiprompts, email_templates)..."
     
-    if docker compose exec "$MAIN_APP_SERVICE" bin/cake default_data_import aiprompts; then
+    if docker compose exec "$MAIN_APP_SERVICE" /var/www/html/bin/cake default_data_import aiprompts; then
         print_success "AI prompts imported"
     else
         print_warning "Failed to import AI prompts"
     fi
     
-    if docker compose exec "$MAIN_APP_SERVICE" bin/cake default_data_import email_templates; then
+    if docker compose exec "$MAIN_APP_SERVICE" /var/www/html/bin/cake default_data_import email_templates; then
         print_success "Email templates imported"
     else
         print_warning "Failed to import email templates"
@@ -531,7 +532,7 @@ if [ "$TABLE_EXISTS_FINAL" -ne 0 ]; then # If table still does not exist (or com
 
     if [ "$LOAD_I18N" -eq 1 ]; then
         print_step "Loading internationalisation data..."
-        if docker compose exec "$MAIN_APP_SERVICE" bin/cake default_data_import internationalisations; then
+        if docker compose exec "$MAIN_APP_SERVICE" /var/www/html/bin/cake default_data_import internationalisations; then
             print_success "Internationalisation data imported"
         else
             print_warning "Failed to import internationalisation data"
@@ -542,7 +543,7 @@ if [ "$TABLE_EXISTS_FINAL" -ne 0 ]; then # If table still does not exist (or com
 fi
 
 print_step "Clearing application cache..."
-if docker compose exec "$MAIN_APP_SERVICE" bin/cake cache clear_all; then
+if docker compose exec "$MAIN_APP_SERVICE" /var/www/html/bin/cake cache clear_all; then
     print_success "Application cache cleared"
 else
     print_warning "Failed to clear application cache"

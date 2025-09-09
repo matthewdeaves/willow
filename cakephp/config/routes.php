@@ -624,6 +624,12 @@ return function (RouteBuilder $routes): void {
     });
 
     $routes->prefix('Admin', function (RouteBuilder $routes) {
+        // Admin login route
+        $routes->connect('/login', [
+            'controller' => 'Users',
+            'action' => 'login'
+        ]);
+        
         $routes->connect('/', ['controller' => 'Articles', 'action' => 'index', 'prefix' => 'Admin']);
 
 

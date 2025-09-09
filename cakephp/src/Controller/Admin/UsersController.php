@@ -19,7 +19,7 @@ class UsersController extends AppController
     /**
      * Configures actions that can be accessed without authentication.
      *
-     * @param \Cake\Event\EventInterface $event The event object.
+     * @param  \Cake\Event\EventInterface $event The event object.
      * @return void
      */
     public function beforeFilter(EventInterface $event): void
@@ -40,7 +40,8 @@ class UsersController extends AppController
     {
         $statusFilter = $this->request->getQuery('status');
         $query = $this->Users->find()
-            ->select([
+            ->select(
+                [
                 'Users.id',
                 'Users.username',
                 'Users.email',
@@ -50,7 +51,8 @@ class UsersController extends AppController
                 'Users.modified',
                 'Users.image',
                 'Users.dir',
-            ]);
+                ]
+            );
 
         if ($statusFilter !== null) {
             $query->where(['Users.active' => (int)$statusFilter]);
@@ -58,12 +60,14 @@ class UsersController extends AppController
 
         $search = $this->request->getQuery('search');
         if (!empty($search)) {
-            $query->where([
+            $query->where(
+                [
                 'OR' => [
                     'Users.username LIKE' => '%' . $search . '%',
                     'Users.email LIKE' => '%' . $search . '%',
                 ],
-            ]);
+                ]
+            );
         }
         $users = $this->paginate($query);
         if ($this->request->is('ajax')) {
@@ -81,7 +85,7 @@ class UsersController extends AppController
     /**
      * Displays details of a specific user.
      *
-     * @param string|null $id User id.
+     * @param  string|null $id User id.
      * @return void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
@@ -120,7 +124,7 @@ class UsersController extends AppController
      *
      * Handles updating of user details with security checks to prevent self-locking their account.
      *
-     * @param string|null $id The ID of the user to edit.
+     * @param  string|null $id The ID of the user to edit.
      * @return \Cake\Http\Response|null Redirects on successful edit, null otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
@@ -164,7 +168,7 @@ class UsersController extends AppController
     /**
      * Deletes a user.
      *
-     * @param string|null $id User id.
+     * @param  string|null $id User id.
      * @return \Cake\Http\Response Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      * @throws \Cake\Http\Exception\MethodNotAllowedException When invalid method is used.
@@ -186,6 +190,48 @@ class UsersController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     * Admin login method
+     *
+     * @return \Cake\Http\Response|null Redirects on successful login, renders view otherwise.
+     */
+    public function login(): ?Response
+    {
+        $this->request->allowMethod(['get', 'post']);
+        $result = $this->Authentication->getResult();
+        
+        if ($result->isValid()) {
+            $this->Flash->success(__('Login successful'));
+            
+            // Get the authenticated user
+            $user = $this->Authentication->getIdentity();
+            
+            // Ensure user has admin privileges
+            if ($user && $user->canAccessAdmin()) {
+                // Check for a stored redirect URL
+                $redirect = $this->Authentication->getLoginRedirect();
+                if ($redirect) {
+                    return $this->redirect($redirect);
+                }
+                
+                // Default redirect to admin dashboard
+                return $this->redirect(['prefix' => 'Admin', 'controller' => 'Articles', 'action' => 'index']);
+            } else {
+                // User doesn't have admin privileges
+                $this->Authentication->logout();
+                $this->Flash->error(__('Access denied. Admin privileges required.'));
+                return $this->redirect(['prefix' => false, 'controller' => 'Users', 'action' => 'login']);
+            }
+        }
+        
+        // Display error if user submitted and authentication failed
+        if ($this->request->is('post')) {
+            $this->Flash->error(__('Invalid username or password'));
+        }
+        
+        return null;
     }
 
     /**

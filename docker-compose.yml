@@ -10,7 +10,7 @@ services:
     ports: 
       - "8080:80"
     volumes:
-      - .:/var/www/html/
+      - ./cakephp:/var/www/html/
       - ./docker/willowcms/config/app/cms_app_local.php:/var/www/html/config/app_local.php
       - ./docker/willowcms/config/nginx/logs:/var/log/nginx/
     environment:
@@ -109,7 +109,7 @@ services:
       # - mysql_data:/docker-entrypoint-initdb.d:ro
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
     env_file:
-      - ./config/.env
+      - ./cakephp/config/.env
 
   phpmyadmin:
     image: phpmyadmin

@@ -5,9 +5,10 @@ namespace App\Model\Entity;
 
 use ArrayAccess;
 use App\Model\Enum\Role;
+use Authentication\IdentityInterface as AuthenticationIdentityInterface;
 use Authentication\PasswordHasher\DefaultPasswordHasher;
 use Authorization\AuthorizationServiceInterface;
-use Authorization\IdentityInterface;
+use Authorization\IdentityInterface as AuthorizationIdentityInterface;
 use Authorization\Policy\Result;
 use Authorization\Policy\ResultInterface;
 use Cake\ORM\Entity;
@@ -30,7 +31,7 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\Article[] $articles
  */
-class User extends Entity implements IdentityInterface
+class User extends Entity implements AuthenticationIdentityInterface, AuthorizationIdentityInterface
 {
     use ImageUrlTrait;
     
@@ -306,9 +307,9 @@ class User extends Entity implements IdentityInterface
     /**
      * Get the primary key/id field for this identity.
      *
-     * @return string|int|null
+     * @return array|string|int|null
      */
-    public function getIdentifier(): mixed
+    public function getIdentifier(): array|string|int|null
     {
         return $this->id;
     }

@@ -189,6 +189,48 @@ class UsersController extends AppController
     }
 
     /**
+     * Admin login method
+     *
+     * @return \Cake\Http\Response|null Redirects on successful login, renders view otherwise.
+     */
+    public function login(): ?Response
+    {
+        $this->request->allowMethod(['get', 'post']);
+        $result = $this->Authentication->getResult();
+        
+        if ($result->isValid()) {
+            $this->Flash->success(__('Login successful'));
+            
+            // Get the authenticated user
+            $user = $this->Authentication->getIdentity();
+            
+            // Ensure user has admin privileges
+            if ($user && $user->canAccessAdmin()) {
+                // Check for a stored redirect URL
+                $redirect = $this->Authentication->getLoginRedirect();
+                if ($redirect) {
+                    return $this->redirect($redirect);
+                }
+                
+                // Default redirect to admin dashboard
+                return $this->redirect(['prefix' => 'Admin', 'controller' => 'Articles', 'action' => 'index']);
+            } else {
+                // User doesn't have admin privileges
+                $this->Authentication->logout();
+                $this->Flash->error(__('Access denied. Admin privileges required.'));
+                return $this->redirect(['prefix' => false, 'controller' => 'Users', 'action' => 'login']);
+            }
+        }
+        
+        // Display error if user submitted and authentication failed
+        if ($this->request->is('post')) {
+            $this->Flash->error(__('Invalid username or password'));
+        }
+        
+        return null;
+    }
+
+    /**
      * Logs out the current user.
      *
      * @return \Cake\Http\Response|null Redirects to the login page.

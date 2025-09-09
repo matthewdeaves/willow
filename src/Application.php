@@ -25,6 +25,7 @@ use Authentication\AuthenticationService;
 use Authentication\AuthenticationServiceInterface;
 use Authentication\AuthenticationServiceProviderInterface;
 use Authentication\Identifier\AbstractIdentifier;
+use Authentication\Identity;
 use Authentication\Middleware\AuthenticationMiddleware;
 use Authorization\AuthorizationService;
 use Authorization\AuthorizationServiceInterface;
@@ -216,8 +217,15 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         $authenticationService = new AuthenticationService([
             'unauthenticatedRedirect' => Router::url(['prefix' => false, 'controller' => 'Users', 'action' => 'login']),
             'queryParam' => 'redirect',
-            // Return the User entity directly as the identity instead of wrapping it
-            'identityClass' => false,
+            // Use a callable to return the User entity directly if it already implements IdentityInterface
+            'identityClass' => function ($data) {
+                // If the data is already our User entity, return it directly
+                if ($data instanceof \App\Model\Entity\User) {
+                    return $data;
+                }
+                // Otherwise wrap it in the default Identity class
+                return new \Authentication\Identity($data);
+            },
         ]);
 
         $fields = [

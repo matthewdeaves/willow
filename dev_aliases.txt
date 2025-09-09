@@ -3,11 +3,11 @@
 # Usage: cake_shell some_command --option 'value'
 #        cake_shell bake migration_snapshot Initial
 cake_shell() {
-    local cmd="docker compose exec willowcms bin/cake"
+    local cmd="docker compose exec willowcms /var/www/html/bin/cake"
     if [ "$#" -gt 0 ]; then
-        # Corrected quoting for arguments passed to bin/cake
+        # Corrected quoting for arguments passed to /var/www/html/bin/cake
         # Each argument should be individually quoted if it contains spaces.
-        # This loop handles arguments more robustly for the 'bin/cake' command.
+        # This loop handles arguments more robustly for the '/var/www/html/bin/cake' command.
         local args_string=""
         for arg in "$@"; do
             args_string="$args_string \"$arg\"" # Quote each argument
@@ -41,12 +41,12 @@ alias willowcms_shell='docker compose exec -it willowcms /bin/sh'
 #        phpunit tests/TestCase/MyTest.php
 #        phpunit --filter testMyMethod tests/TestCase/MyTest.php
 phpunit() {
-    # 'php' is the command, 'vendor/bin/phpunit' and subsequent items are its arguments.
+    # 'php' is the command, '/var/www/html/vendor/bin/phpunit' and subsequent items are its arguments.
     # The willowcms_exec function will handle this correctly.
     if [ "$#" -gt 0 ]; then
-        willowcms_exec php vendor/bin/phpunit "$@"
+        willowcms_exec php /var/www/html/vendor/bin/phpunit "$@"
     else
-        willowcms_exec php vendor/bin/phpunit
+        willowcms_exec php /var/www/html/vendor/bin/phpunit
     fi
 }
 
@@ -56,16 +56,16 @@ alias phpunit_cov_html='phpunit --coverage-html webroot/coverage tests/TestCase/
 # Code Quality Commands
 alias composer_cs_check='willowcms_exec composer cs-check'
 alias composer_cs_fix='willowcms_exec composer cs-fix'
-alias phpcs_sniff='willowcms_exec php vendor/bin/phpcs --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/'
-alias phpcs_fix='willowcms_exec php vendor/bin/phpcbf'
-alias phpstan_analyse='willowcms_exec php vendor/bin/phpstan analyse src/'
+alias phpcs_sniff='willowcms_exec php /var/www/html/vendor/bin/phpcs --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/'
+alias phpcs_fix='willowcms_exec php /var/www/html/vendor/bin/phpcbf'
+alias phpstan_analyse='willowcms_exec php /var/www/html/vendor/bin/phpstan analyse src/'
 
 # Composer Commands
 alias composer_update='willowcms_exec composer update'
 
 # Queue Worker
-alias cake_queue_worker='willowcms_exec bin/cake queue worker'
-alias cake_queue_worker_verbose='willowcms_exec bin/cake queue worker --verbose'
+alias cake_queue_worker='willowcms_exec /var/www/html/bin/cake queue worker'
+alias cake_queue_worker_verbose='willowcms_exec /var/www/html/bin/cake queue worker --verbose'
 
 # Set permissions for specific directories (executed inside the container)
 alias set_permissions='willowcms_exec chmod -R 777 tmp logs webroot' # Be cautious with 777
@@ -82,9 +82,9 @@ alias docker_down='docker compose down'
 alias docker_downv='docker compose down -v'
 alias docker_logs='docker compose logs -f'
 alias docker_dev_prune='docker system prune -a'
-alias docker_dev_build='docker compose --env-file ./config/.env build'
-alias docker_dev_up='docker compose --env-file ./config/.env up --build'
-alias docker_dev_restart='docker compose --env-file ./config/.env restart'
+alias docker_dev_build='docker compose --env-file ./cakephp/config/.env build'
+alias docker_dev_up='docker compose --env-file ./cakephp/config/.env up --build'
+alias docker_dev_restart='docker compose --env-file ./cakephp/config/.env restart'
 alias docker_dev_prune='docker compose down && docker system prune -a'
 alias docker_dev_down='docker compose down -v'
 
@@ -123,13 +123,13 @@ bake_diff() {
 }
 
 # i18n Commands
-alias i18n_extract='willowcms_exec bin/cake i18n extract --paths /var/www/html/src,/var/www/html/plugins,/var/www/html/templates'
-alias i18n_load='willowcms_exec bin/cake load_default18n'
-alias i18n_translate='willowcms_exec bin/cake translate_i18n'
-alias i18n_gen_po='willowcms_exec bin/cake generate_po_files'
+alias i18n_extract='willowcms_exec /var/www/html/bin/cake i18n extract --paths /var/www/html/src,/var/www/html/plugins,/var/www/html/templates'
+alias i18n_load='willowcms_exec /var/www/html/bin/cake load_default18n'
+alias i18n_translate='willowcms_exec /var/www/html/bin/cake translate_i18n'
+alias i18n_gen_po='willowcms_exec /var/www/html/bin/cake generate_po_files'
 
 # default data Commands
-alias export_data='willowcms_exec bin/cake default_data_export'
+alias export_data='willowcms_exec /var/www/html/bin/cake default_data_export'
 
 # Change ownership of current directory to current user on the host
 change_ownership() {

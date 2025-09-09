@@ -1,15 +1,16 @@
 # CakePHP specific files #
 ##########################
-/config/app_local.php
-/config/.env*
+/cakephp/config/app_local.php
+/cakephp/config/.env*
 .env*
 .env.local
 .env.production
 .env.staging
 .env.testing
+/cakephp/logs/*
+/cakephp/tmp/*
+/cakephp/vendor/*
 /logs/*
-/tmp/*
-/vendor/*
 
 # Willow code_exports #
 #######################
@@ -27,31 +28,31 @@ willow_cms_code_Utilities.txt
 
 # Code Coverage Report #
 ########################
-/webroot/coverage
+/cakephp/webroot/coverage
 
 # Willow specific files/folders #
 #################################
-/webroot/files/*
-!/webroot/files/Images
-/webroot/files/Images/*
-!/webroot/files/Images/image
-/webroot/files/Images/image/*
-!/webroot/files/Images/image/.gitkeep
-!/webroot/files/Users
-/webroot/files/Users/*
-!/webroot/files/Users/image
-/webroot/files/Users/image/*
-!/webroot/files/Users/image/.gitkeep
-!/webroot/files/Articles
-/webroot/files/Articles/*
-!/webroot/files/Articles/image
-/webroot/files/Articles/image/*
-!/webroot/files/Articles/image/.gitkeep
+/cakephp/webroot/files/*
+!/cakephp/webroot/files/Images
+/cakephp/webroot/files/Images/*
+!/cakephp/webroot/files/Images/image
+/cakephp/webroot/files/Images/image/*
+!/cakephp/webroot/files/Images/image/.gitkeep
+!/cakephp/webroot/files/Users
+/cakephp/webroot/files/Users/*
+!/cakephp/webroot/files/Users/image
+/cakephp/webroot/files/Users/image/*
+!/cakephp/webroot/files/Users/image/.gitkeep
+!/cakephp/webroot/files/Articles
+/cakephp/webroot/files/Articles/*
+!/cakephp/webroot/files/Articles/image
+/cakephp/webroot/files/Articles/image/*
+!/cakephp/webroot/files/Articles/image/.gitkeep
 /dump.rdb
 
 # Robots.txt #
 ##############
-/webroot/robots.txt.template
+/cakephp/webroot/robots.txt.template
 
 # Willow Dev Env Setup #
 ########################

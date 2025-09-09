@@ -21,7 +21,7 @@
         </tr>
     </thead>
     <tbody>
-    <?php foreach ($contacts as $contact): ?>
+    <?php foreach ($contacts as $contact) : ?>
         <tr>
             <td><?= $this->Number->format($contact->id) ?></td>
             <td><?= h($contact->first_name) ?></td>

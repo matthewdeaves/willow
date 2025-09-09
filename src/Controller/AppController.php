@@ -58,6 +58,7 @@ class AppController extends Controller
         $this->cacheKey = hash('xxh3', json_encode($this->request->getAttribute('params')));
         $this->loadComponent('Flash');
         $this->loadComponent('Authentication.Authentication'); // Loads the component
+        $this->loadComponent('Authorization.Authorization'); // Loads the authorization component
 
         // Initialize ConsentService
         $this->consentService = new ConsentService();
@@ -81,6 +82,11 @@ class AppController extends Controller
     {
         parent::beforeFilter($event); // Call parent's beforeFilter
 
+        // Skip authorization for non-admin routes (frontend is public)
+        if (!$this->isAdminRequest()) {
+            $this->Authorization->skipAuthorization();
+        }
+
         I18nManager::setLocaleForLanguage($this->request->getParam('lang', 'en'));
 
         $identity = null;
@@ -100,11 +106,17 @@ class AppController extends Controller
         }
 
         if ($this->isAdminRequest()) {
-            // If there is no identity, or the identifier part of the identity is null/empty
-            if (!$identity || !$identity->getIdentifier() || $identity->get('is_admin') == false) {
-                $this->Flash->error(__('Access denied. You must be logged in as an admin to view this page.'));
+            // Check if user has permission to access admin area
+            if (!$identity || !$identity->getIdentifier()) {
+                $this->Flash->error(__('Access denied. You must be logged in to view this page.'));
                 $event->setResult($this->redirect(['_name' => 'home', 'prefix' => false]));
-
+                return;
+            }
+            
+            // Check if user's role can access admin
+            if (!$identity->canAccessAdmin()) {
+                $this->Flash->error(__('Access denied. Your role does not have permission to access the admin area.'));
+                $event->setResult($this->redirect(['_name' => 'home', 'prefix' => false]));
                 return;
             }
 

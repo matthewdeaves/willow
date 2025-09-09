@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Model\Table;
 
 use App\Model\Behavior\ImageValidationTrait;
+use App\Model\Enum\Role;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -77,6 +78,13 @@ class UsersTable extends Table
         $validator
             ->email('email')
             ->notEmptyString('email');
+
+        $validator
+            ->scalar('role')
+            ->maxLength('role', 32)
+            ->requirePresence('role', 'create')
+            ->notEmptyString('role')
+            ->inList('role', array_column(Role::cases(), 'value'), __('Invalid role'));
 
         $this->addOptionalImageValidation($validator, 'image', [
             'messages' => [

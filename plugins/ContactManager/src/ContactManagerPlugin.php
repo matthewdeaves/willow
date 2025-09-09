@@ -54,7 +54,7 @@ class ContactManagerPlugin extends BasePlugin
         parent::routes($routes);
         // This will connect the /contact-manager/controller/action URLs to the appropriate controller and action.
         // You can also add custom routes here if needed.
-        $routes->plugin('ContactManager', function (RouteBuilder $builder) {
+        $routes->plugin('ContactManager', function (RouteBuilder $builder): void {
             // Connect the default routes for all controllers in the ContactManager plugin.
             $builder->fallbacks();
         });

@@ -1,7 +1,8 @@
 <?php
+declare(strict_types=1);
+
 namespace ContactManager\Test\TestCase\Controller;
 
-use ContactManager\Controller\ContactsController;
 use Cake\TestSuite\TestCase;
 
 /**
@@ -9,7 +10,6 @@ use Cake\TestSuite\TestCase;
  */
 class ContactsControllerTest extends TestCase
 {
-
     /**
      * Fixtures
      *

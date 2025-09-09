@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace AdminTheme\Model\Table;
 
-
-
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -14,7 +12,6 @@ use Cake\Validation\Validator;
  *
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  * @property \App\Model\Table\TagsTable&\Cake\ORM\Association\BelongsToMany $Tags
- *
  * @method \App\Model\Entity\Product newEmptyEntity()
  * @method \App\Model\Entity\Product newEntity(array $data, array $options = [])
  * @method array<\App\Model\Entity\Product> newEntities(array $data, array $options = [])
@@ -28,7 +25,6 @@ use Cake\Validation\Validator;
  * @method iterable<\App\Model\Entity\Product>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\Product> saveManyOrFail(iterable $entities, array $options = [])
  * @method iterable<\App\Model\Entity\Product>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\Product>|false deleteMany(iterable $entities, array $options = [])
  * @method iterable<\App\Model\Entity\Product>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\Product> deleteManyOrFail(iterable $entities, array $options = [])
- *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  * @mixin \Cake\ORM\Behavior\TreeBehavior
  */

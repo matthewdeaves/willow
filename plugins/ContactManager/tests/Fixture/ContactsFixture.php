@@ -51,7 +51,7 @@ class ContactsFixture extends TestFixture
             'city' => 'Lorem ip',
             'state' => 'Lorem ip',
             'country' => 'Lorem ip',
-            'created' => '2015-03-10'
+            'created' => '2015-03-10',
         ],
     ];
 }

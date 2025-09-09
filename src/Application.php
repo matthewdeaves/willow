@@ -26,6 +26,11 @@ use Authentication\AuthenticationServiceInterface;
 use Authentication\AuthenticationServiceProviderInterface;
 use Authentication\Identifier\AbstractIdentifier;
 use Authentication\Middleware\AuthenticationMiddleware;
+use Authorization\AuthorizationService;
+use Authorization\AuthorizationServiceInterface;
+use Authorization\AuthorizationServiceProviderInterface;
+use Authorization\Middleware\AuthorizationMiddleware;
+use Authorization\Policy\OrmResolver;
 use Cake\Core\Configure;
 use Cake\Core\ContainerInterface;
 use Cake\Datasource\FactoryLocator;
@@ -47,7 +52,7 @@ use Psr\Http\Message\ServerRequestInterface;
  *
  * @extends \Cake\Http\BaseApplication<\App\Application>
  */
-class Application extends BaseApplication implements AuthenticationServiceProviderInterface
+class Application extends BaseApplication implements AuthenticationServiceProviderInterface, AuthorizationServiceProviderInterface
 {
     /**
      * Load all the application configuration and bootstrap logic.
@@ -128,6 +133,13 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 
             // Add authentication middleware
             ->add(new AuthenticationMiddleware($this))
+
+            // Add authorization middleware after authentication
+            ->add(new AuthorizationMiddleware($this, [
+                'identityDecorator' => function ($auth, $user) {
+                    return $user->setAuthorization($auth);
+                },
+            ]))
 
             // Cross Site Request Forgery (CSRF) Protection Middleware
             // Custom middleware that exempts API routes
@@ -225,5 +237,18 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         ]);
 
         return $authenticationService;
+    }
+
+    /**
+     * Returns an authorization service instance.
+     *
+     * @param \Psr\Http\Message\ServerRequestInterface $request The request object.
+     * @return \Authorization\AuthorizationServiceInterface The authorization service instance.
+     */
+    public function getAuthorizationService(ServerRequestInterface $request): AuthorizationServiceInterface
+    {
+        $resolver = new OrmResolver();
+
+        return new AuthorizationService($resolver);
     }
 }

@@ -212,6 +212,59 @@ return function (RouteBuilder $routes): void {
             ]
         );
         
+        // Static pages routes
+        $builder->connect(
+            '/about-author',
+            [
+                'controller' => 'Pages',
+                'action' => 'display',
+                'about_author'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'aboutAuthor',
+            ]
+        );
+        
+        $builder->connect(
+            '/hire-me',
+            [
+                'controller' => 'Pages',
+                'action' => 'display',
+                'hire_me'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'hireMe',
+            ]
+        );
+        
+        $builder->connect(
+            '/follow-me',
+            [
+                'controller' => 'Pages',
+                'action' => 'display',
+                'follow_me'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'followMe',
+            ]
+        );
+        
+        $builder->connect(
+            '/github',
+            [
+                'controller' => 'Pages',
+                'action' => 'display',
+                'github'
+            ],
+            [
+                'routeClass' => 'ADmad/I18n.I18nRoute',
+                '_name' => 'githubRepo',
+            ]
+        );
+        
         // Quiz routes - AI-powered quiz functionality
         $builder->connect(
             '/quiz',

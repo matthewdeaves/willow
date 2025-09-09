@@ -2,10 +2,10 @@
     <h3><?= __('Actions') ?></h3>
     <ul class="side-nav">
         <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $contact->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $contact->id)]
-            )
+            __('Delete'),
+            ['action' => 'delete', $contact->id],
+            ['confirm' => __('Are you sure you want to delete # {0}?', $contact->id)],
+        )
         ?></li>
         <li><?= $this->Html->link(__('List Contacts'), ['action' => 'index']) ?></li>
     </ul>

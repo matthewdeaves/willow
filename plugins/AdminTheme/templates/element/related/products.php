@@ -26,8 +26,8 @@
                         <?php endif; ?>
                         <td><?= h($product->kind) ?></td>
                         <td>
-                            <?php $ruleName = ($product->kind == 'product') ? 'product-by-slug' : 'page-by-slug';?>
-                            <?php if ($product->is_published == true): ?>
+                            <?php $ruleName = $product->kind == 'product' ? 'product-by-slug' : 'page-by-slug';?>
+                            <?php if ($product->is_published == true) : ?>
                                 <?= $this->Html->link(
                                     $product->title,
                                     [
@@ -36,19 +36,19 @@
                                         'slug' => $product->slug,
                                         '_name' => $ruleName,
                                     ],
-                                    ['escape' => false]
+                                    ['escape' => false],
                                 );
                                 ?>
-                            <?php else: ?>
+                            <?php else : ?>
                                 <?= $this->Html->link(
                                     $product->title,
                                     [
                                         'prefix' => 'Admin',
                                         'controller' => 'Products',
                                         'action' => 'view',
-                                        $product->id
+                                        $product->id,
                                     ],
-                                    ['escape' => false]
+                                    ['escape' => false],
                                 ) ?>
                             <?php endif; ?>
                         </td>

@@ -1,17 +1,18 @@
 <?php
 declare(strict_types=1);
+
 // plugins/ContactManager/src/Model/Table/ContactsTable.php
 // plugins/ContactManager/src/Model/Entity/Contact.php:
 namespace ContactManager\Model\Entity;
 
-
 use Cake\ORM\Entity;
+
 /**
  * Contact Entity
  *
  * This class represents a contact entity in the ContactManager plugin.
- * It defines the properties of a contact and specifies which fields can be mass assigned.  
- * 
+ * It defines the properties of a contact and specifies which fields can be mass assigned.
+ *
  * @property string $first_name
  * @property string $last_name
  * @property string $email

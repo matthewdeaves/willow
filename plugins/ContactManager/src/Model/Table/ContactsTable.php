@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * ContactManager Plugin
  *
@@ -12,11 +13,9 @@ declare(strict_types=1);
 // plugins/ContactManager/src/Model/Table/ContactsTable.php
 namespace ContactManager\Model\Table;
 
-
-use Cake\ORM\Table;
 use Cake\ORM\RulesChecker;
+use Cake\ORM\Table;
 use Cake\Validation\Validator;
-
 
 class ContactsTable extends Table
 {
@@ -40,7 +39,7 @@ class ContactsTable extends Table
      * @return \Cake\Validation\Validator
      */
     public function validationDefault(Validator $validator): Validator
-    { 
+    {
         // $validator
         //     ->add('id', 'valid', ['rule' => 'numeric'])
         //     ->allowEmpty('id', 'create')
@@ -75,10 +74,12 @@ class ContactsTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->isUnique(['email']));
+
         return $rules;
     }
 
-    public function tryme(){
-        return "hey this is call form ContactManager Plugin";
+    public function tryme()
+    {
+        return 'hey this is call form ContactManager Plugin';
     }
 }

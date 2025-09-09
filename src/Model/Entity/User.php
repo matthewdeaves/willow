@@ -3,7 +3,13 @@ declare(strict_types=1);
 
 namespace App\Model\Entity;
 
+use ArrayAccess;
+use App\Model\Enum\Role;
 use Authentication\PasswordHasher\DefaultPasswordHasher;
+use Authorization\AuthorizationServiceInterface;
+use Authorization\IdentityInterface;
+use Authorization\Policy\Result;
+use Authorization\Policy\ResultInterface;
 use Cake\ORM\Entity;
 
 /**
@@ -14,6 +20,7 @@ use Cake\ORM\Entity;
  * @property string $password
  * @property string|null $email
  * @property bool $is_admin
+ * @property string $role
  * @property bool $active
  * @property string|null $image
  * @property string|null $keywords
@@ -23,9 +30,16 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\Article[] $articles
  */
-class User extends Entity
+class User extends Entity implements IdentityInterface
 {
     use ImageUrlTrait;
+    
+    /**
+     * Authorization service instance
+     *
+     * @var \Authorization\AuthorizationServiceInterface|null
+     */
+    protected ?AuthorizationServiceInterface $_authorization = null;
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -40,6 +54,7 @@ class User extends Entity
         'username' => true,
         'password' => true,
         'email' => true,
+        'role' => false, // Prevent mass assignment by default
         'created' => true,
         'modified' => true,
         'articles' => true,
@@ -124,5 +139,177 @@ class User extends Entity
         }
 
         return false;
+    }
+
+    /**
+     * Get the Role enum instance for this user
+     *
+     * @return \App\Model\Enum\Role|null
+     */
+    public function getRoleEnum(): ?Role
+    {
+        if (!isset($this->role)) {
+            // Backward compatibility: if role is not set but is_admin is true, return admin
+            if ($this->is_admin) {
+                return Role::ADMIN;
+            }
+            return Role::USER;
+        }
+        
+        return Role::tryFromString($this->role);
+    }
+
+    /**
+     * Check if the user is an administrator
+     *
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        // Backward compatibility: check both role and is_admin
+        return $this->role === Role::ADMIN->value || $this->is_admin === true;
+    }
+
+    /**
+     * Check if the user is an editor
+     *
+     * @return bool
+     */
+    public function isEditor(): bool
+    {
+        return $this->role === Role::EDITOR->value;
+    }
+
+    /**
+     * Check if the user is an author
+     *
+     * @return bool
+     */
+    public function isAuthor(): bool
+    {
+        return $this->role === Role::AUTHOR->value;
+    }
+
+    /**
+     * Check if the user is a regular logged-in user
+     *
+     * @return bool
+     */
+    public function isUser(): bool
+    {
+        return $this->role === Role::USER->value || (!$this->role && !$this->is_admin);
+    }
+
+    /**
+     * Check if the user can access the admin panel
+     *
+     * @return bool
+     */
+    public function canAccessAdmin(): bool
+    {
+        $roleEnum = $this->getRoleEnum();
+        return $roleEnum ? $roleEnum->canAccessAdmin() : false;
+    }
+
+    /**
+     * Check if the user can edit any content (not just their own)
+     *
+     * @return bool
+     */
+    public function canEditAnyContent(): bool
+    {
+        $roleEnum = $this->getRoleEnum();
+        return $roleEnum ? $roleEnum->canEditAnyContent() : false;
+    }
+
+    /**
+     * Check if the user can manage other users
+     *
+     * @return bool
+     */
+    public function canManageUsers(): bool
+    {
+        $roleEnum = $this->getRoleEnum();
+        return $roleEnum ? $roleEnum->canManageUsers() : false;
+    }
+    
+    /**
+     * Sets the authorization service for this identity.
+     *
+     * @param \Authorization\AuthorizationServiceInterface $service The authorization service
+     * @return $this
+     */
+    public function setAuthorization(AuthorizationServiceInterface $service)
+    {
+        $this->_authorization = $service;
+        return $this;
+    }
+    
+    /**
+     * Check whether the current identity can perform an action.
+     *
+     * @param string $action The action to check authorization for.
+     * @param mixed $resource The resource to check authorization for.
+     * @return bool
+     */
+    public function can(string $action, mixed $resource): bool
+    {
+        if ($this->_authorization === null) {
+            return false;
+        }
+        return $this->_authorization->can($this, $action, $resource);
+    }
+    
+    /**
+     * Check whether the current identity can perform an action and get a result.
+     *
+     * @param string $action The action to check authorization for.
+     * @param mixed $resource The resource to check authorization for.
+     * @return \Authorization\Policy\ResultInterface
+     */
+    public function canResult(string $action, mixed $resource): ResultInterface
+    {
+        if ($this->_authorization === null) {
+            // Return a failed result when no authorization service is set
+            return new Result(false, 'Authorization service not set.');
+        }
+        return $this->_authorization->canResult($this, $action, $resource);
+    }
+    
+    /**
+     * Apply authorization scope conditions/restrictions.
+     *
+     * @param string $action The action to check authorization for.
+     * @param mixed $resource The resource to check authorization for.
+     * @param mixed $optionalArgs Multiple additional arguments which are passed to the scope
+     * @return mixed The modified resource
+     * @throws \Authorization\Exception\ForbiddenException
+     */
+    public function applyScope(string $action, mixed $resource, mixed ...$optionalArgs): mixed
+    {
+        if ($this->_authorization === null) {
+            throw new \Authorization\Exception\ForbiddenException(null, 'Authorization service not set.');
+        }
+        return $this->_authorization->applyScope($this, $action, $resource, ...$optionalArgs);
+    }
+    
+    /**
+     * Get the original data for this identity.
+     *
+     * @return \ArrayAccess|array
+     */
+    public function getOriginalData(): \ArrayAccess|array
+    {
+        return $this;
+    }
+    
+    /**
+     * Get the primary key/id field for this identity.
+     *
+     * @return string|int|null
+     */
+    public function getIdentifier(): mixed
+    {
+        return $this->id;
     }
 }

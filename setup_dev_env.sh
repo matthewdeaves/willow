@@ -431,7 +431,7 @@ else
 fi
 
 print_step "Installing/updating Composer dependencies..."
-if docker compose exec "$MAIN_APP_SERVICE" cd /var/www/html composer installcomposer install composer install --no-interaction --prefer-dist --optimize-autoloader; then
+if docker compose exec "$MAIN_APP_SERVICE" composer install --no-interaction --prefer-dist --optimize-autoloader; then
     print_success "Composer dependencies installed"
 else
     print_error "Failed to install Composer dependencies"

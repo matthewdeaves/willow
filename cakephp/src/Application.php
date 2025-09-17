@@ -229,20 +229,20 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         ]);
 
         $fields = [
-                AbstractIdentifier::CREDENTIAL_USERNAME => 'email',
+                AbstractIdentifier::CREDENTIAL_USERNAME => 'username',
                 AbstractIdentifier::CREDENTIAL_PASSWORD => 'password',
         ];
 
         // Load the authenticators, you want session first
         $authenticationService->loadAuthenticator('Authentication.Session');
-        // Configure form data check to pick email and password
+        // Configure form data check to pick username and password
         $authenticationService->loadAuthenticator('Authentication.Form', [
             'fields' => $fields,
             'loginUrl' => Router::url(['prefix' => false, 'controller' => 'Users', 'action' => 'login']),
         ]);
 
-        // Load identifiers, ensure we check email and password fields
-        $authenticationService->loadIdentifier('Authentication.Password', [
+        // Load our custom multi-field identifier that supports both username and email
+        $authenticationService->loadIdentifier('App.MultiField', [
             'fields' => $fields,
             'resolver' => [
                 'className' => 'Authentication.Orm',

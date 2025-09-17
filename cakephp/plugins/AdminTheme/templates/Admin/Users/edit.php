@@ -85,6 +85,7 @@
                                     'text' => __('Image'),
                                     'class' => 'form-label'
                                 ],
+                                'accept' => 'image/png,image/jpeg,image/gif',
                                 'class' => 'form-control' . ($this->Form->isFieldError('image') ? ' is-invalid' : ''),
                                 'id' => 'customFile'
                             ]) ?>

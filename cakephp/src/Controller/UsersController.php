@@ -4,6 +4,9 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Http\Response;
+use Cake\Mailer\Mailer;
+use Cake\Utility\Security;
+use Cake\Routing\Router;
 
 /**
  * Users Controller
@@ -177,10 +180,14 @@ class UsersController extends AppController
     {
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
+            $user = $this->Users->patchEntity($user, $this->request->getData(), [
+                'validate' => 'register'
+            ]);
+            
             // Set default values for new users
             $user->is_admin = false;
             $user->active = true;
+            $user->role = 'user'; // Set default role
 
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Registration successful. You can now log in.'));
@@ -202,8 +209,59 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $email = $this->request->getData('email');
             if ($email) {
-                // This is a placeholder - you would typically send a reset email here
-                $this->Flash->success(__('If the email exists in our system, you will receive a password reset link.'));
+                $user = $this->Users->findByEmail($email)->first();
+                
+                if ($user) {
+                    // Generate a secure reset token
+                    $resetToken = bin2hex(Security::randomBytes(32));
+                    $expiryTime = new \DateTime('+24 hours');
+                    
+                    // Save the reset token to the user
+                    $user->reset_token = $resetToken;
+                    $user->reset_token_expires = $expiryTime;
+                    
+                    if ($this->Users->save($user)) {
+                        // Send password reset email
+                        $resetUrl = Router::url([
+                            '_name' => 'reset-password',
+                            'confirmationCode' => $resetToken
+                        ], true);
+                        
+                        try {
+                            // Use mailpit for local development, otherwise use default transport
+                            $transport = env('DEBUG', false) ? 'mailpit' : env('EMAIL_DEFAULT_TRANSPORT', 'gmail');
+                            $mailer = new Mailer();
+                            
+                            $emailContent = "Hello " . ($user->username ?: $user->email) . ",\n\n" .
+                                           "You have requested a password reset for your account.\n\n" .
+                                           "Please click the following link to reset your password:\n" .
+                                           $resetUrl . "\n\n" .
+                                           "This link will expire in 24 hours.\n\n" .
+                                           "If you did not request this password reset, please ignore this email.\n\n" .
+                                           "Best regards,\n" .
+                                           env('APP_NAME', 'WillowCMS');
+                            
+                            $mailer
+                                ->setTransport($transport)
+                                ->setTo($email)
+                                ->setFrom([env('EMAIL_FROM_ADDRESS', 'noreply@willowcms.app') => env('EMAIL_FROM_NAME', 'WillowCMS')])
+                                ->setSubject('Password Reset Request - ' . env('APP_NAME', 'WillowCMS'))
+                                ->deliver($emailContent);
+                                
+                            $this->Flash->success(__('If the email exists in our system, you will receive a password reset link.'));
+                        } catch (\Exception $e) {
+                            // Log the error but don't reveal it to the user
+                            $this->log('Password reset email failed: ' . $e->getMessage(), 'error');
+                            $this->Flash->success(__('If the email exists in our system, you will receive a password reset link.'));
+                        }
+                    } else {
+                        $this->Flash->error(__('There was an error processing your request. Please try again.'));
+                        return;
+                    }
+                } else {
+                    // Don't reveal that the email doesn't exist
+                    $this->Flash->success(__('If the email exists in our system, you will receive a password reset link.'));
+                }
 
                 return $this->redirect(['action' => 'login']);
             }
@@ -221,19 +279,46 @@ class UsersController extends AppController
     {
         if (!$confirmationCode) {
             $this->Flash->error(__('Invalid reset link.'));
-
             return $this->redirect(['action' => 'login']);
+        }
+
+        // Find user by reset token
+        $user = $this->Users->find()
+            ->where([
+                'reset_token' => $confirmationCode,
+                'reset_token_expires >' => new \DateTime()
+            ])
+            ->first();
+
+        if (!$user) {
+            $this->Flash->error(__('Invalid or expired reset link. Please request a new password reset.'));
+            return $this->redirect(['action' => 'forgotPassword']);
         }
 
         if ($this->request->is('post')) {
-            // This is a placeholder - you would typically validate the confirmation code
-            // and update the user's password
-            $this->Flash->success(__('Password has been reset successfully.'));
-
-            return $this->redirect(['action' => 'login']);
+            $password = $this->request->getData('password');
+            $confirmPassword = $this->request->getData('confirm_password');
+            
+            if (empty($password) || strlen($password) < 6) {
+                $this->Flash->error(__('Password must be at least 6 characters long.'));
+            } elseif ($password !== $confirmPassword) {
+                $this->Flash->error(__('Passwords do not match.'));
+            } else {
+                // Update the user's password and clear reset token
+                $user->password = $password;
+                $user->reset_token = null;
+                $user->reset_token_expires = null;
+                
+                if ($this->Users->save($user)) {
+                    $this->Flash->success(__('Password has been reset successfully. You can now log in with your new password.'));
+                    return $this->redirect(['action' => 'login']);
+                } else {
+                    $this->Flash->error(__('There was an error updating your password. Please try again.'));
+                }
+            }
         }
 
-        $this->set(compact('confirmationCode'));
+        $this->set(compact('confirmationCode', 'user'));
     }
 
     /**

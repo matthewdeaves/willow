@@ -843,6 +843,16 @@ return function (RouteBuilder $routes): void {
         ], [
             'routeClass' => 'ADmad/I18n.I18nRoute'
         ]);
+        
+        // Cost Analysis page route - Added from pending integration
+        $routes->connect('/pages/cost-analysis', [
+            'controller' => 'Pages',
+            'action' => 'costAnalysis'
+        ], [
+            'routeClass' => 'ADmad/I18n.I18nRoute',
+            '_name' => 'admin.pages.cost-analysis'
+        ]);
+        
         $routes->connect('/pages/add', [
             'controller' => 'Pages',
             'action' => 'add'

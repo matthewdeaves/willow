@@ -5,18 +5,18 @@
         <h1 class="h3 mb-3 fw-normal"><?= __('Log In') ?></h1>
 
         <div class="form-floating">
-            <?= $this->Form->input('email', [
-                'type' => 'email',
+            <?= $this->Form->input('username', [
+                'type' => 'text',
                 'required' => true,
                 'class' => 'form-control',
-                'placeholder' => 'name@example.com',
+                'placeholder' => 'username or email@example.com',
                 'id' => 'floatingInput',
                 'label' => false,
                 'templates' => [
                     'inputContainer' => '{{content}}'
                 ]
             ]) ?>
-            <label for="floatingInput">Email address</label>
+            <label for="floatingInput">Username or Email</label>
         </div>
 
         <div class="form-floating">

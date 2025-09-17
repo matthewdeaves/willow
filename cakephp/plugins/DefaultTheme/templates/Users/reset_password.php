@@ -2,7 +2,7 @@
 <div class="col-md-6 container mt-4 mb-3">
     <div class="row">
         <?= $this->Flash->render() ?>
-        <?= $this->Form->create($user, ['url' => ['_name' => 'reset-password', $confirmationCode], 'class' => 'needs-validation', 'novalidate' => true]) ?>
+        <?= $this->Form->create(null, ['url' => ['_name' => 'reset-password', $confirmationCode], 'class' => 'needs-validation', 'novalidate' => true]) ?>
         <h1 class="h3 mb-3 fw-normal text-center"><?= __('Reset Your Password') ?></h1>
 
         <fieldset>

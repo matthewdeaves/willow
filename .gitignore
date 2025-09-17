@@ -883,3 +883,7 @@ cakephp/dump.rdb
 logs.before.sha256
 cakephp/dump.rdb
 cakephp/dump.rdb
+docker/mailpit/data/mailpit.db-shm
+docker/mailpit/data/mailpit.db-wal
+docker/mailpit/data/mailpit.db-shm
+docker/mailpit/data/mailpit.db-wal

@@ -5,6 +5,8 @@ namespace App\Model\Table;
 
 use App\Model\Behavior\ImageValidationTrait;
 use App\Model\Enum\Role;
+use App\Model\Table\QueueableJobsTrait;
+use Cake\Log\LogTrait;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -13,6 +15,7 @@ use Cake\Validation\Validator;
 class UsersTable extends Table
 {
     use ImageValidationTrait;
+    use LogTrait;
     use QueueableJobsTrait;
 
     /**
@@ -64,27 +67,69 @@ class UsersTable extends Table
             ->minLength('password', 8, __('Password must be at least 8 characters long'))
             ->maxLength('password', 255)
             ->requirePresence('password', 'create')
-            ->allowEmptyString('password', __('Required'))
+            ->allowEmptyString('password', 'update')
             ->notEmptyString('password', null, 'create');
 
         $validator
             ->scalar('confirm_password')
             ->maxLength('confirm_password', 255)
             ->requirePresence('confirm_password', 'create')
-            ->allowEmptyString('confirm_password', __('Required'))
+            ->allowEmptyString('confirm_password', 'update')
+            ->notEmptyString('confirm_password', null, 'create')
+            ->sameAs('confirm_password', 'password', 'Passwords do not match');
+
+        $validator
+            ->email('email')
+            ->requirePresence('email', 'create')
+            ->notEmptyString('email');
+
+        $validator
+            ->scalar('role')
+            ->maxLength('role', 32)
+            ->allowEmptyString('role')
+            ->inList('role', array_column(Role::cases(), 'value'), __('Invalid role'));
+
+        $this->addOptionalImageValidation($validator, 'image', [
+            'messages' => [
+                'mimeType' => 'Please upload only images (jpeg, png, gif).',
+                'fileSize' => 'Image must be less than 10MB.',
+            ],
+        ]);
+
+        return $validator;
+    }
+
+    /**
+     * Validation rules for user registration.
+     *
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @return \Cake\Validation\Validator
+     */
+    public function validationRegister(Validator $validator): Validator
+    {
+        $validator
+            ->scalar('username')
+            ->maxLength('username', 50)
+            ->requirePresence('username', 'create')
+            ->notEmptyString('username');
+
+        $validator
+            ->scalar('password')
+            ->minLength('password', 8, __('Password must be at least 8 characters long'))
+            ->maxLength('password', 255)
+            ->requirePresence('password', 'create')
+            ->notEmptyString('password', null, 'create');
+
+        $validator
+            ->scalar('confirm_password')
+            ->maxLength('confirm_password', 255)
+            ->requirePresence('confirm_password', 'create')
             ->notEmptyString('confirm_password', null, 'create')
             ->sameAs('confirm_password', 'password', 'Passwords do not match');
 
         $validator
             ->email('email')
             ->notEmptyString('email');
-
-        $validator
-            ->scalar('role')
-            ->maxLength('role', 32)
-            ->requirePresence('role', 'create')
-            ->notEmptyString('role')
-            ->inList('role', array_column(Role::cases(), 'value'), __('Invalid role'));
 
         $this->addOptionalImageValidation($validator, 'image', [
             'messages' => [

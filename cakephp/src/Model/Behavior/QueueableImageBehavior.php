@@ -171,9 +171,12 @@ class QueueableImageBehavior extends Behavior
                 // Add the model alias to the data for AI job.
                 $data['model'] = $event->getSubject()->getAlias();
 
-                // If image analysis is specifically enabled, queue that job.
+                // If image analysis is specifically enabled, queue that job to RabbitMQ.
                 if (SettingsManager::read('AI.imageAnalysis')) {
-                    $this->_table->queueJob('App\Job\ImageAnalysisJob', $data);
+                    $this->_table->queueJob('App\Job\ImageAnalysisJob', $data, [
+                        'config' => 'rabbitmq',
+                        'queue' => 'image_analysis',
+                    ]);
                 }
             }
         }

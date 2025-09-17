@@ -107,6 +107,12 @@ class UsersController extends AppController
             $user->setAccess('is_admin', true);
             $user->setAccess('active', true);
             $user = $this->Users->patchEntity($user, $this->request->getData());
+            
+            // Set default role if not provided
+            if (empty($user->role)) {
+                $user->role = $user->is_admin ? 'admin' : 'user';
+            }
+            
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
 
@@ -138,6 +144,12 @@ class UsersController extends AppController
             $user->setAccess('active', true);
 
             $data = $this->request->getData();
+
+            // Remove empty password fields to allow image-only updates without triggering password validation
+            if (empty($data['password'])) {
+                unset($data['password']);
+                unset($data['confirm_password']);
+            }
 
             // Prevent changing own admin status
             if ($user->lockAdminAccountError($currentUser->id, $data)) {

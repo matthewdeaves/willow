@@ -10,7 +10,8 @@
     <thead>
       <tr>
             <th><?= __('Image') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('email') ?></th>
+            <th scope="col"><?= $this->Paginator->sort('username', __('Username')) ?></th>
+            <th scope="col"><?= $this->Paginator->sort('email', __('Email')) ?></th>
             <th scope="col"><?= $this->Paginator->sort('is_admin', __('Admin')) ?></th>
             <th scope="col"><?= $this->Paginator->sort('active', __('Active')) ?></th>
             <th scope="col"><?= __('Actions') ?></th>
@@ -26,6 +27,7 @@
             </div>
             <?php endif; ?>
           </td>
+          <td><?= h($user->username) ?></td>
           <td><?= $this->Html->link(h($user->email), 'mailto:' . h($user->email)) ?></td>
           <td>
             <?= $user->is_admin ? '<span class="badge bg-success">' . __('Yes') . '</span>' : '<span class="badge bg-warning">' . __('No') . '</span>'; ?>

@@ -7,6 +7,7 @@ use App\Utility\SettingsManager;
 use ArrayObject;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
+use Cake\Log\LogTrait;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -19,6 +20,7 @@ use Cake\Validation\Validator;
  */
 class CommentsTable extends Table
 {
+    use LogTrait;
     use QueueableJobsTrait;
 
     /**

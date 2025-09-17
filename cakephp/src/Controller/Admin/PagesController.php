@@ -418,4 +418,227 @@ class PagesController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    /**
+     * Cost Analysis page for deployment platforms
+     * 
+     * Provides comprehensive cost analysis for different server deployment
+     * platforms over a 10-year period, including AI API cost comparisons.
+     * 
+     * Route: /admin/pages/cost-analysis
+     * 
+     * @return \Cake\Http\Response|null|void Renders view
+     */
+    public function costAnalysis(): void
+    {
+        $this->set('pageTitle', __('Server Deployment Cost Analysis'));
+        $this->set('title', __('Cost Analysis'));
+
+        // Platform cost comparison data - updated for 2025
+        $platforms = [
+            [
+                'id' => 'kind-local',
+                'name' => __('Kind (Local)'),
+                'category' => 'zero-cost',
+                'monthly_cost' => 0,
+                'yearly_cost' => 0,
+                'ten_year_cost' => 0,
+                'difficulty' => __('Very Low'),
+                'experience_needed' => __('Basic'),
+                'scalability' => __('None'),
+                'pros' => [
+                    __('True $0 cost for development'),
+                    __('Perfect for local testing'),
+                    __('No external dependencies'),
+                    __('Great for learning CakePHP')
+                ],
+                'cons' => [
+                    __('No production capabilities'),
+                    __('No external access'),
+                    __('Limited to development only'),
+                    __('No real-world traffic simulation')
+                ],
+                'best_for' => __('Local development & testing'),
+                'color_class' => 'success',
+                'icon' => 'fas fa-laptop-code'
+            ],
+            [
+                'id' => 'digital-ocean',
+                'name' => __('DigitalOcean Droplet'),
+                'category' => 'low-cost',
+                'monthly_cost' => 7,
+                'yearly_cost' => 84,
+                'ten_year_cost' => 840,
+                'difficulty' => __('Low'),
+                'experience_needed' => __('Basic-Intermediate'),
+                'scalability' => __('Manual'),
+                'pros' => [
+                    __('Perfect for demos and early production'),
+                    __('Excellent value for money ($7/month)'),
+                    __('Simple, predictable pricing'),
+                    __('Great for showcasing Willow CMS'),
+                    __('Easy to set up in minutes'),
+                    __('Solid performance for development')
+                ],
+                'cons' => [
+                    __('Manual scaling required'),
+                    __('Basic monitoring tools'),
+                    __('Need to manage server updates')
+                ],
+                'best_for' => __('Demos, prototypes, and early production'),
+                'color_class' => 'primary',
+                'recommended' => true,
+                'icon' => 'fab fa-digital-ocean'
+            ],
+            [
+                'id' => 'docker-compose',
+                'name' => __('Docker Compose'),
+                'category' => 'low-cost',
+                'monthly_cost' => 8,
+                'yearly_cost' => 96,
+                'ten_year_cost' => 960,
+                'difficulty' => __('Low'),
+                'experience_needed' => __('Basic-Intermediate'),
+                'scalability' => __('Manual'),
+                'pros' => [
+                    __('Perfect for Willow CMS with Redis/MySQL'),
+                    __('Easy dev to production transition'),
+                    __('Excellent for queue workers and jobs'),
+                    __('Version controlled infrastructure'),
+                    __('Works with existing Docker development')
+                ],
+                'cons' => [
+                    __('Limited auto-scaling capabilities'),
+                    __('No built-in orchestration'),
+                    __('Manual health monitoring required')
+                ],
+                'best_for' => __('Full-featured CMS deployments'),
+                'color_class' => 'primary',
+                'icon' => 'fab fa-docker'
+            ],
+            [
+                'id' => 'kubernetes-do',
+                'name' => __('Kubernetes (DigitalOcean)'),
+                'category' => 'moderate-cost',
+                'monthly_cost' => 25,
+                'yearly_cost' => 300,
+                'ten_year_cost' => 3000,
+                'difficulty' => __('High'),
+                'experience_needed' => __('Advanced'),
+                'scalability' => __('Auto'),
+                'pros' => [
+                    __('Production-ready orchestration'),
+                    __('Excellent scaling capabilities'),
+                    __('Industry standard'),
+                    __('Auto-healing and rolling updates'),
+                    __('Great for microservices')
+                ],
+                'cons' => [
+                    __('Complexity overhead'),
+                    __('Requires Kubernetes expertise'),
+                    __('Higher costs'),
+                    __('Learning curve is steep')
+                ],
+                'best_for' => __('High-traffic applications'),
+                'color_class' => 'warning',
+                'icon' => 'fas fa-dharmachakra'
+            ],
+            [
+                'id' => 'github-actions',
+                'name' => __('GitHub Actions CI/CD'),
+                'category' => 'low-cost',
+                'monthly_cost' => 7,
+                'yearly_cost' => 84,
+                'ten_year_cost' => 840,
+                'difficulty' => __('Medium'),
+                'experience_needed' => __('Intermediate'),
+                'scalability' => __('Auto (CI/CD)'),
+                'pros' => [
+                    __('Free tier for public repositories'),
+                    __('Integrated with GitHub workflow'),
+                    __('Automated deployment capabilities'),
+                    __('Great for continuous deployment')
+                ],
+                'cons' => [
+                    __('May require self-hosted runner'),
+                    __('Usage limits on free tier'),
+                    __('Complex for advanced workflows')
+                ],
+                'best_for' => __('Automated CI/CD pipelines'),
+                'color_class' => 'info',
+                'icon' => 'fab fa-github'
+            ],
+            [
+                'id' => 'heroku',
+                'name' => __('Heroku'),
+                'category' => 'expensive',
+                'monthly_cost' => 51,
+                'yearly_cost' => 612,
+                'ten_year_cost' => 6120,
+                'difficulty' => __('Low'),
+                'experience_needed' => __('Basic'),
+                'scalability' => __('Auto'),
+                'pros' => [
+                    __('Simple deployment process'),
+                    __('Managed platform'),
+                    __('Easy to get started'),
+                    __('Built-in CI/CD')
+                ],
+                'cons' => [
+                    __('Very expensive for resources provided'),
+                    __('Limited customization'),
+                    __('Vendor lock-in'),
+                    __('Performance limitations')
+                ],
+                'best_for' => __('Rapid prototyping'),
+                'color_class' => 'error',
+                'icon' => 'fas fa-cube'
+            ]
+        ];
+
+        // AI cost data - updated estimates for 2025
+        $aiCosts = [
+            'anthropic_claude' => 20, // $20 per 1M characters
+            'estimated_monthly' => 250, // Conservative estimate
+            'estimated_yearly' => 3000, // $250 * 12
+            'openai_gpt4' => 60, // $60 per 1M tokens (for comparison)
+        ];
+
+        // Key insights based on Willow CMS usage patterns
+        $insights = [
+            __('Start with a $7/month DigitalOcean droplet for demos and prototypes'),
+            __('Infrastructure costs are minimal compared to AI API usage (~$3000/year)'),
+            __('Focus optimization efforts on AI prompt efficiency, not server costs'),
+            __('Platform choice has minimal impact on total cost of ownership (TCO)'),
+            __('Scale to production-ready platforms only after validating features'),
+            __('DigitalOcean + Docker Compose handles most CMS workloads perfectly')
+        ];
+
+        // Development timeline recommendations
+        $timeline = [
+            'phase_1' => [
+                'title' => __('Phase 1: Demo & Feature Development (Months 1-6)'),
+                'description' => __('Deploy on $7/month DigitalOcean droplet for demos, feedback, and feature validation'),
+                'cost_range' => [0, 42],
+                'platforms' => ['kind-local', 'digital-ocean'],
+                'recommendation' => __('Perfect for showcasing Willow CMS to users and stakeholders')
+            ],
+            'phase_2' => [
+                'title' => __('Phase 2: Production Preparation (Months 7-18)'),
+                'description' => __('Add Docker Compose for multi-container setup with Redis, MySQL, and queue workers'),
+                'cost_range' => [84, 168],
+                'platforms' => ['docker-compose', 'github-actions'],
+                'recommendation' => __('Handles real production workload with automated deployments')
+            ],
+            'phase_3' => [
+                'title' => __('Phase 3: Scale Only When Necessary (Years 2-10)'),
+                'description' => __('Most projects stay with Docker Compose. Scale to Kubernetes only for high traffic'),
+                'cost_range' => [960, 3000],
+                'platforms' => ['docker-compose', 'kubernetes-do'],
+                'recommendation' => __('Kubernetes needed only for enterprise-scale deployments')
+            ]
+        ];
+
+        $this->set(compact('platforms', 'aiCosts', 'insights', 'timeline'));
+    }
 }

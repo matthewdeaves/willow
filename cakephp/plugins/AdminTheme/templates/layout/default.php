@@ -360,6 +360,30 @@ $session = $this->request->getSession();
           </div>
 
           <?= $this->Html->link(
+            '<i class="fas fa-tasks sidebar-icon"></i><span class="sidebar-text ms-2">' . __('Queue Configuration') . '</span>',
+            ['prefix' => 'Admin', 'controller' => 'QueueConfigurations', 'action' => 'index'],
+            [
+              'class' => 'list-group-item list-group-item-action border-0 sidebar-link' . ($activeCtl == 'QueueConfigurations' ? ' active' : ''),
+              'escape' => false,
+              'title' => __('Manage Queue Configurations'),
+              'data-bs-toggle' => 'tooltip',
+              'data-bs-placement' => 'right'
+            ]
+          ) ?>
+
+          <?= $this->Html->link(
+            '<i class="fas fa-calculator sidebar-icon"></i><span class="sidebar-text ms-2">' . __('Cost Analysis') . '</span>',
+            ['prefix' => 'Admin', 'controller' => 'Pages', 'action' => 'costAnalysis'],
+            [
+              'class' => 'list-group-item list-group-item-action border-0 sidebar-link' . (($activeCtl == 'Pages' && $this->request->getParam('action') === 'costAnalysis') ? ' active' : ''),
+              'escape' => false,
+              'title' => __('Server Deployment Cost Analysis'),
+              'data-bs-toggle' => 'tooltip',
+              'data-bs-placement' => 'right'
+            ]
+          ) ?>
+
+          <?= $this->Html->link(
             '<i class="fas fa-cog sidebar-icon"></i><span class="sidebar-text ms-2">' . __('Settings') . '</span>',
             ['prefix' => 'Admin', 'controller' => 'Settings', 'action' => 'index'],
             [
@@ -599,6 +623,24 @@ $session = $this->request->getSession();
           <div class="list-group-item list-group-item-action border-0 sidebar-header">
             <h6 class="mb-1 text-muted"><?= __('Administration') ?></h6>
           </div>
+
+          <?= $this->Html->link(
+            '<i class="fas fa-tasks me-2"></i>' . __('Queue Configuration'),
+            ['prefix' => 'Admin', 'controller' => 'QueueConfigurations', 'action' => 'index'],
+            [
+              'class' => 'list-group-item list-group-item-action border-0' . ($activeCtl == 'QueueConfigurations' ? ' active' : ''),
+              'escape' => false
+            ]
+          ) ?>
+
+          <?= $this->Html->link(
+            '<i class="fas fa-calculator me-2"></i>' . __('Cost Analysis'),
+            ['prefix' => 'Admin', 'controller' => 'Pages', 'action' => 'costAnalysis'],
+            [
+              'class' => 'list-group-item list-group-item-action border-0' . (($activeCtl == 'Pages' && $this->request->getParam('action') === 'costAnalysis') ? ' active' : ''),
+              'escape' => false
+            ]
+          ) ?>
 
           <?= $this->Html->link(
             '<i class="fas fa-cog me-2"></i>' . __('Settings'),

@@ -86,6 +86,13 @@ try {
     Configure::load('app', 'default', false);
     Configure::load('security', 'default', false); // The 'false' makes it so it won't throw an error if the file doesn't exist, though you likely want it to exist.
     Configure::load('app_quiz', 'default', true); // Load quiz configuration with fallback
+    
+    // Load RabbitMQ queue configuration and merge it into existing config.
+    try {
+        Configure::load('queue', 'default', true);
+    } catch (\Throwable $e) {
+        // Silently ignore if queue.php is absent in some environments
+    }
 } catch (\Exception $e) {
     exit($e->getMessage() . "\n");
 }

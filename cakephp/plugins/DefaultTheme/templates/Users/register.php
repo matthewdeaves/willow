@@ -12,6 +12,15 @@
         <fieldset>
 
             <div class="mb-3">
+                <?php echo $this->Form->control('username', ['class' => 'form-control' . ($this->Form->isFieldError('username') ? ' is-invalid' : '')]); ?>
+                <?php if ($this->Form->isFieldError('username')): ?>
+                    <div class="invalid-feedback">
+                        <?= $this->Form->error('username') ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+
+            <div class="mb-3">
                 <?php echo $this->Form->control('email', ['class' => 'form-control' . ($this->Form->isFieldError('email') ? ' is-invalid' : '')]); ?>
                 <?php if ($this->Form->isFieldError('email')): ?>
                     <div class="invalid-feedback">

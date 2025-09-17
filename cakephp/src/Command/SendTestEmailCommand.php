@@ -73,13 +73,16 @@ class SendTestEmailCommand extends Command
         $io->out('Sending test email to: ' . $to);
         
         try {
-            $mailer = new Mailer('default');
-            $mailer->setTo($to)
-                   ->setSubject('WillowCMS Gmail SMTP Test - ' . date('Y-m-d H:i:s'))
-                   ->deliver('This is a test email sent via Gmail SMTP from WillowCMS. If you are reading this, the Gmail SMTP configuration is working correctly!');
+            // Use mailpit transport for testing
+            $mailer = new Mailer();
+            $mailer->setTransport('mailpit')
+                   ->setTo($to)
+                   ->setFrom(['noreply@willowcms.app' => 'WillowCMS'])
+                   ->setSubject('WillowCMS MailPit Test - ' . date('Y-m-d H:i:s'))
+                   ->deliver('This is a test email sent via MailPit SMTP from WillowCMS. If you are reading this in MailPit, the email configuration is working correctly!');
             
-            $io->success("Test email sent successfully to {$to}!");
-            $io->out('Please check the recipient\'s inbox (and spam folder) to confirm delivery.');
+            $io->success("Test email sent successfully to {$to} via MailPit!");
+            $io->out('Please check MailPit at http://localhost:8025 to view the email.');
             
             return static::CODE_SUCCESS;
         } catch (\Exception $e) {

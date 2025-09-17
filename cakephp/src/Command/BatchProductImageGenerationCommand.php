@@ -443,12 +443,14 @@ class BatchProductImageGenerationCommand extends Command
     /**
      * Display additional help information
      *
+     * @param \Cake\Console\ConsoleOptionParser $parser Option parser
+     * @param \Cake\Console\Arguments $args Command arguments
      * @param \Cake\Console\ConsoleIo $io Console IO
      * @return void
      */
-    public function displayHelp(ConsoleIo $io): void
+    public function displayHelp(ConsoleOptionParser $parser, Arguments $args, ConsoleIo $io): void
     {
-        parent::displayHelp($io);
+        parent::displayHelp($parser, $args, $io);
         
         $io->hr();
         $io->out('<info>Examples:</info>');

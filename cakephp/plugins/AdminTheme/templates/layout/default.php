@@ -277,9 +277,9 @@ $session = $this->request->getSession();
 
           <?= $this->Html->link(
             '<i class="fas fa-file-alt sidebar-icon"></i><span class="sidebar-text ms-2">' . __('Pages') . '</span>',
-            ['prefix' => 'Admin', 'controller' => 'Articles', 'action' => 'treeIndex'],
+            ['prefix' => 'Admin', 'controller' => 'Pages', 'action' => 'index'],
             [
-              'class' => 'list-group-item list-group-item-action border-0 sidebar-link' . (($activeCtl == 'Articles' && $activeAct == 'treeIndex') || (!empty($this->request->getQuery('kind'))) ? ' active' : ''),
+              'class' => 'list-group-item list-group-item-action border-0 sidebar-link' . ($activeCtl == 'Pages' ? ' active' : ''),
               'escape' => false,
               'title' => __('Pages'),
               'data-bs-toggle' => 'tooltip',
@@ -536,9 +536,9 @@ $session = $this->request->getSession();
 
           <?= $this->Html->link(
             '<i class="fas fa-file-alt me-2"></i>' . __('Pages'),
-            ['prefix' => 'Admin', 'controller' => 'Articles', 'action' => 'treeIndex'],
+            ['prefix' => 'Admin', 'controller' => 'Pages', 'action' => 'index'],
             [
-              'class' => 'list-group-item list-group-item-action border-0' . (($activeCtl == 'Articles' && $activeAct == 'treeIndex') || (!empty($this->request->getQuery('kind'))) ? ' active' : ''),
+              'class' => 'list-group-item list-group-item-action border-0' . ($activeCtl == 'Pages' ? ' active' : ''),
               'escape' => false
             ]
           ) ?>

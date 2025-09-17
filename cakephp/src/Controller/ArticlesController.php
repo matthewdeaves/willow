@@ -37,11 +37,137 @@ class ArticlesController extends AppController
      */
     public function index()
     {
-        $query = $this->Articles->find()
-            ->contain(['Users']);
-        $articles = $this->paginate($query);
+        // Load settings for home page feeds configuration
+        $settingsTable = null;
+        $homepageFeeds = [
+            'featured_articles' => true,
+            'recent_articles' => true,
+            'products' => true,
+            'image_galleries' => true,
+            'pages' => false
+        ];
+        
+        try {
+            $settingsTable = $this->fetchTable('Settings');
+            // Use individual settings for better control
+            $homepageFeeds = [
+                'featured_articles' => $this->_getSettingValue($settingsTable, 'homepage_featured_articles_enabled', true),
+                'recent_articles' => $this->_getSettingValue($settingsTable, 'homepage_latest_articles_enabled', true),
+                'products' => $this->_getSettingValue($settingsTable, 'homepage_latest_products_enabled', true),
+                'image_galleries' => true, // Keep galleries enabled for now
+                'pages' => false
+            ];
+        } catch (\Exception $e) {
+            // Continue with defaults if settings table is not available
+        }
+        
+        // Get the main articles feed
+        try {
+            $query = $this->Articles->find()
+                ->where(['Articles.is_published' => true])
+                ->order(['Articles.created' => 'DESC']);
+                
+            $articles = $this->paginate($query);
+        } catch (\Exception $e) {
+            // Fallback to basic query if associations don't exist
+            $query = $this->Articles->find()->order(['Articles.created' => 'DESC']);
+            $articles = $this->paginate($query);
+        }
 
-        $this->set(compact('articles'));
+        // Get featured articles (promoted or high-rated)
+        $featuredArticles = [];
+        if ($homepageFeeds['featured_articles']) {
+            try {
+                $featuredArticles = $this->Articles->find()
+                    ->where(['Articles.is_published' => true])
+                    ->order(['Articles.created' => 'DESC'])
+                    ->limit(3)
+                    ->all();
+            } catch (\Exception $e) {
+                // Continue without featured articles if there's an issue
+                $featuredArticles = [];
+            }
+        }
+        
+        // Get recent products with reliability scores
+        $recentProducts = [];
+        if ($homepageFeeds['products']) {
+            try {
+                $productsTable = $this->fetchTable('Products');
+                $recentProducts = $productsTable->find()
+                    ->contain(['Images'])
+                    ->where(['Products.status' => 'active'])
+                    ->order([
+                        'Products.rel_score' => 'DESC',
+                        'Products.created' => 'DESC'
+                    ])
+                    ->limit(6)
+                    ->all();
+            } catch (\Exception $e) {
+                // Products table might not exist yet, continue without it
+            }
+        }
+        
+        // Get recent image galleries
+        $recentGalleries = [];
+        if ($homepageFeeds['image_galleries']) {
+            try {
+                $galleriesTable = $this->fetchTable('ImageGalleries');
+                $recentGalleries = $galleriesTable->find()
+                    ->contain(['Images'])
+                    ->where(['ImageGalleries.is_published' => true])
+                    ->order(['ImageGalleries.created' => 'DESC'])
+                    ->limit(4)
+                    ->all();
+            } catch (\Exception $e) {
+                // Image galleries table might not exist yet, continue without it
+            }
+        }
+        
+        // Get popular tags
+        $popularTags = [];
+        try {
+            $tagsTable = $this->fetchTable('Tags');
+            $popularTags = $tagsTable->find()
+                ->order(['Tags.article_count' => 'DESC'])
+                ->limit(15)
+                ->all();
+        } catch (\Exception $e) {
+            // Tags table might not exist, continue without it
+        }
+        
+        // Get recent pages if enabled
+        $recentPages = [];
+        if ($homepageFeeds['pages']) {
+            // This would be for custom pages, can be implemented later
+        }
+        
+        // Development info for the sidebar
+        $developmentInfo = [
+            'server_costs' => [
+                'hosting' => 'Self-hosted Docker',
+                'monthly_cost' => '$0 (excluding API costs)',
+                'apis_used' => ['OpenAI', 'GitHub Actions']
+            ],
+            'tech_stack' => [
+                'backend' => 'CakePHP 5.x',
+                'frontend' => 'Bootstrap 5 + Custom CSS',
+                'database' => 'MySQL 8.x',
+                'containerization' => 'Docker Compose',
+                'queue' => 'Redis + CakePHP Queue'
+            ]
+        ];
+        
+        $this->set(compact(
+            'articles', 
+            'featuredArticles', 
+            'recentProducts', 
+            'recentGalleries', 
+            'popularTags', 
+            'recentPages',
+            'homepageFeeds',
+            'developmentInfo'
+        ));
     }
 
     /**
@@ -213,6 +339,33 @@ class ArticlesController extends AppController
             return $this->redirect(['action' => 'viewBySlug', $article->slug]);
         } else {
             return $this->redirect(['action' => 'view', $articleId]);
+        }
+    }
+    
+    /**
+     * Safely get a setting value with fallback to default
+     *
+     * @param mixed $settingsTable The settings table instance
+     * @param string $key The setting key
+     * @param mixed $default Default value if setting not found
+     * @return mixed Setting value or default
+     */
+    private function _getSettingValue($settingsTable, string $key, $default)
+    {
+        if (!$settingsTable) {
+            return $default;
+        }
+        
+        try {
+            // Try to use getSettingValue method if available
+            if (method_exists($settingsTable, 'getSettingValue')) {
+                $result = $settingsTable->getSettingValue('homepage', $key);
+                return $result !== null ? $result : $default;
+            }
+            
+            return $default;
+        } catch (\Exception $e) {
+            return $default;
         }
     }
 }

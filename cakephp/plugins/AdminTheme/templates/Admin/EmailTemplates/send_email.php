@@ -27,7 +27,8 @@
                         'options' => $emailTemplates,
                         'empty' => 'Select an email template',
                         'class' => 'form-control',
-                        'label' => ['class' => 'mb-2', 'text' => 'Email Template']
+                        'label' => ['class' => 'mb-2', 'text' => 'Email Template'],
+                        'value' => isset($selectedTemplateId) ? $selectedTemplateId : null
                     ]) ?>
                     </div>
 

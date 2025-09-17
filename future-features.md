@@ -2,11 +2,7 @@
 
 ## developing the server cost and about pages pages
 
-- [ ] compare and contrast costs of developing server (focus on that it costs zero dollars, minus the api ai and the prompts used to assist in code generation)
-
-## publishing the page and deploying
-
-compare and contrast services looked into but either too confusing for it to make sense for actual production use
+task: compare and contrast costs of developing server (focus on that it costs zero dollars, minus the api ai and the prompts used to assist in code generation).
 
 - [ ] portainer
 - [ ] digital ocean (droplet, kubernetes, etc., )
@@ -14,12 +10,15 @@ compare and contrast services looked into but either too confusing for it to mak
 - [ ] kubernetes
 - [ ] helm
 - [ ] kind
-- [ ] rehd hat open shift
+- [ ] red hat open shift
 - [ ] docker compose
 - [ ] docker build
-- [ ] aws integration
-- [ ] github deployment
-- [ ]
+- [ ] aws integration (EC2)
+- [ ]  deployment through google cloud
+- [ ]  deployment via
+- [ ] CI/CD actions
+- [ ] cloudflared containers
+- [ ] remote.it
 
 ## actual features still need to be donw
 

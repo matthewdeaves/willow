@@ -284,25 +284,6 @@ return [
      * 'YourTransport.php', where 'Your' is the name of the transport.
      */
     'EmailTransport' => [
-        'gmail' => [
-            'className' => 'Smtp',
-            'host' => env('EMAIL_HOST', 'smtp.gmail.com'),
-            'port' => (int)env('EMAIL_PORT', 587),
-            'username' => env('EMAIL_USERNAME'),
-            'password' => env('EMAIL_PASSWORD'),
-            'tls' => filter_var(env('EMAIL_TLS', true), FILTER_VALIDATE_BOOLEAN),
-            'timeout' => (int)env('EMAIL_TIMEOUT', 30),
-            'client' => null,
-        ],
-        'mailpit' => [
-            'className' => 'Smtp',
-            'host' => env('MAILPIT_HOST', 'mailpit'),
-            'port' => (int)env('MAILPIT_PORT', 1025),
-            'username' => null,
-            'password' => null,
-            'tls' => false,
-            'timeout' => 30,
-        ],
         'default' => [
             'className' => MailTransport::class,
             /*
@@ -335,8 +316,8 @@ return [
      */
     'Email' => [
         'default' => [
-            'transport' => env('EMAIL_DEFAULT_TRANSPORT', 'gmail'),
-            'from' => [env('EMAIL_FROM_ADDRESS', 'mike.mail.tester@gmail.com') => env('EMAIL_FROM_NAME', 'WillowCMS')],
+            'transport' => 'default',
+            'from' => env('EMAIL_REPLY'),
             /*
              * Will by default be set to config value of App.encoding, if that exists otherwise to UTF-8.
              */

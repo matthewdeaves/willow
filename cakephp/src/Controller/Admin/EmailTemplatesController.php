@@ -246,7 +246,10 @@ class EmailTemplatesController extends AppController
             return $this->redirect(['action' => 'index']);
         }
 
-        $this->set(compact('emailTemplates', 'users'));
+        // Pre-select template if passed in query parameters
+        $selectedTemplateId = $this->request->getQuery('template');
+        
+        $this->set(compact('emailTemplates', 'users', 'selectedTemplateId'));
 
         return null;
     }

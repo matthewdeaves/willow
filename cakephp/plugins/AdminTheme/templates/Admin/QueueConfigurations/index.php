@@ -15,7 +15,10 @@
             </form>
         </div>
         <div class="flex-shrink-0">
-            <?= $this->Html->link(__('New Queue Configuration'), ['action' => 'add'], ['class' => 'btn btn-primary']) ?>
+            <button id="refreshHealthBtn" class="btn btn-outline-info me-2" title="<?= __('Refresh Health Status') ?>" data-bs-toggle="tooltip">
+                <i class="fas fa-sync-alt"></i> <?= __('Health Check') ?>
+            </button>
+            <?= $this->Html->link(__('New Queue Configuration'), ['action' => 'add'], ['class' => 'btn btn-primary me-2']) ?>
             <?= $this->Html->link(__('Sync Configurations'), ['action' => 'sync'], [
                 'class' => 'btn btn-success',
                 'confirm' => __('This will update the queue.php config file with current database settings. Continue?')
@@ -49,6 +52,7 @@
                                 <th scope="col" class="text-center"><?= __('Workers') ?></th>
                                 <th scope="col" class="text-center"><?= __('Priority') ?></th>
                                 <th scope="col" class="text-center"><?= __('Status') ?></th>
+                                <th scope="col" class="text-center"><?= __('Health') ?></th>
                                 <th scope="col" class="text-center"><?= __('Actions') ?></th>
                             </tr>
                         </thead>
@@ -100,6 +104,19 @@
                                                 <i class="fas fa-times-circle me-1"></i><?= __('Disabled') ?>
                                             </span>
                                         <?php endif; ?>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="health-status" data-config-id="<?= $config->id ?>">
+                                            <?php if ($config->enabled): ?>
+                                                <span class="badge bg-secondary health-checking">
+                                                    <i class="fas fa-spinner fa-spin me-1"></i><?= __('Checking...') ?>
+                                                </span>
+                                            <?php else: ?>
+                                                <span class="badge bg-muted">
+                                                    <i class="fas fa-ban me-1"></i><?= __('Disabled') ?>
+                                                </span>
+                                            <?php endif; ?>
+                                        </div>
                                     </td>
                                     <td class="text-center">
                                         <div class="btn-group" role="group" aria-label="Actions">
@@ -168,9 +185,11 @@
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('queueConfigSearch');
     const resultsContainer = document.querySelector('#ajax-target');
+    const refreshHealthBtn = document.getElementById('refreshHealthBtn');
 
     let debounceTimer;
 
+    // Search functionality
     searchInput.addEventListener('input', function() {
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(() => {
@@ -190,21 +209,105 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.text())
             .then(html => {
                 resultsContainer.innerHTML = html;
-                // Re-initialize tooltips after updating content
-                const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-                tooltipTriggerList.map(function (tooltipTriggerEl) {
-                    return new bootstrap.Tooltip(tooltipTriggerEl);
-                });
+                initializeTooltips();
+                // Auto-refresh health after search results load
+                setTimeout(checkAllHealthStatus, 500);
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => console.error('Search error:', error));
 
         }, 300); // Debounce for 300ms
     });
 
-    // Initialize tooltips on page load
-    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-    });
+    // Health check functionality
+    function checkHealthStatus(configId) {
+        const healthDiv = document.querySelector(`[data-config-id="${configId}"]`);
+        if (!healthDiv) return;
+
+        // Show checking state
+        healthDiv.innerHTML = '<span class="badge bg-secondary"><i class="fas fa-spinner fa-spin me-1"></i><?= __('Checking...') ?></span>';
+
+        fetch(`<?= $this->Url->build(['action' => 'healthCheck']) ?>/${configId}`, {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && data.health) {
+                updateHealthDisplay(healthDiv, data.health);
+            } else {
+                healthDiv.innerHTML = '<span class="badge bg-danger"><i class="fas fa-exclamation-triangle me-1"></i><?= __('Error') ?></span>';
+            }
+        })
+        .catch(error => {
+            console.error('Health check error for config', configId, error);
+            healthDiv.innerHTML = '<span class="badge bg-warning"><i class="fas fa-question-circle me-1"></i><?= __('Unknown') ?></span>';
+        });
+    }
+
+    function updateHealthDisplay(healthDiv, healthData) {
+        let badgeClass, icon, text, title;
+        
+        if (healthData.healthy) {
+            badgeClass = 'bg-success';
+            icon = 'fas fa-check-circle';
+            text = '<?= __('Healthy') ?>';
+            title = `<?= __('Response time: ') ?>${healthData.response_time_ms}ms`;
+        } else {
+            badgeClass = 'bg-danger';
+            icon = 'fas fa-exclamation-triangle';
+            text = '<?= __('Unhealthy') ?>';
+            title = healthData.message || '<?= __('Connection failed') ?>';
+        }
+        
+        healthDiv.innerHTML = `<span class="badge ${badgeClass}" title="${title}" data-bs-toggle="tooltip">` +
+                             `<i class="${icon} me-1"></i>${text}</span>`;
+        
+        // Re-initialize tooltip for the new element
+        const tooltip = healthDiv.querySelector('[data-bs-toggle="tooltip"]');
+        if (tooltip) {
+            new bootstrap.Tooltip(tooltip);
+        }
+    }
+
+    function checkAllHealthStatus() {
+        const healthDivs = document.querySelectorAll('.health-status[data-config-id]');
+        healthDivs.forEach(div => {
+            const configId = div.getAttribute('data-config-id');
+            // Only check enabled configs (skip disabled ones)
+            if (div.querySelector('.health-checking, .badge:not(.bg-muted)')) {
+                checkHealthStatus(configId);
+            }
+        });
+    }
+
+    // Refresh health button handler
+    if (refreshHealthBtn) {
+        refreshHealthBtn.addEventListener('click', function() {
+            const icon = this.querySelector('i');
+            icon.classList.add('fa-spin');
+            
+            checkAllHealthStatus();
+            
+            // Remove spin after a delay
+            setTimeout(() => {
+                icon.classList.remove('fa-spin');
+            }, 2000);
+        });
+    }
+
+    function initializeTooltips() {
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    }
+
+    // Initialize tooltips and health checks on page load
+    initializeTooltips();
+    
+    // Auto-check health status after page loads
+    setTimeout(checkAllHealthStatus, 1000);
 });
 <?php $this->Html->scriptEnd(); ?>

@@ -183,6 +183,173 @@ class QueueConfigurationsController extends AppController
     }
 
     /**
+     * Check health status of a queue configuration
+     *
+     * @param string|null $id Queue Configuration id.
+     * @return \Cake\Http\Response
+     */
+    public function healthCheck(?string $id = null): Response
+    {
+        $this->viewBuilder()->setLayout('ajax');
+        
+        try {
+            $queueConfiguration = $this->QueueConfigurations->get($id);
+            $healthStatus = $this->checkQueueHealth($queueConfiguration);
+            
+            $this->set([
+                'success' => true,
+                'health' => $healthStatus,
+                '_serialize' => ['success', 'health']
+            ]);
+        } catch (Exception $e) {
+            $this->set([
+                'success' => false,
+                'error' => $e->getMessage(),
+                '_serialize' => ['success', 'error']
+            ]);
+        }
+
+        return $this->render();
+    }
+
+    /**
+     * Check health status of all queue configurations
+     *
+     * @return \Cake\Http\Response
+     */
+    public function healthCheckAll(): Response
+    {
+        $this->viewBuilder()->setLayout('ajax');
+        
+        $queueConfigurations = $this->QueueConfigurations->find()
+            ->where(['enabled' => true])
+            ->toArray();
+        
+        $healthStatuses = [];
+        
+        foreach ($queueConfigurations as $config) {
+            $healthStatuses[$config->id] = $this->checkQueueHealth($config);
+        }
+        
+        $this->set([
+            'success' => true,
+            'health_statuses' => $healthStatuses,
+            '_serialize' => ['success', 'health_statuses']
+        ]);
+
+        return $this->render();
+    }
+
+    /**
+     * Check the health of a queue configuration
+     *
+     * @param \App\Model\Entity\QueueConfiguration $config
+     * @return array
+     */
+    private function checkQueueHealth(\App\Model\Entity\QueueConfiguration $config): array
+    {
+        $startTime = microtime(true);
+        $healthy = false;
+        $message = '';
+        $details = [];
+        
+        try {
+            // Check basic connectivity with timeout
+            $connection = @fsockopen($config->host, $config->port, $errno, $errstr, 5);
+            
+            if ($connection) {
+                $healthy = true;
+                $message = 'Connection successful';
+                
+                // Add queue-specific health checks
+                if ($config->queue_type === 'rabbitmq') {
+                    $details = $this->checkRabbitMQHealth($config, $connection);
+                } elseif ($config->queue_type === 'redis') {
+                    $details = $this->checkRedisHealth($config, $connection);
+                }
+                
+                fclose($connection);
+            } else {
+                $healthy = false;
+                $message = "Connection failed: {$errstr} (Error {$errno})";
+            }
+        } catch (Exception $e) {
+            $healthy = false;
+            $message = 'Health check error: ' . $e->getMessage();
+        }
+        
+        $responseTime = round((microtime(true) - $startTime) * 1000, 2);
+        
+        return [
+            'healthy' => $healthy,
+            'message' => $message,
+            'response_time_ms' => $responseTime,
+            'details' => $details,
+            'checked_at' => date('Y-m-d H:i:s'),
+            'config_id' => $config->id,
+            'config_name' => $config->name,
+            'host' => $config->host,
+            'port' => $config->port,
+            'queue_type' => $config->queue_type
+        ];
+    }
+    
+    /**
+     * Check RabbitMQ-specific health
+     *
+     * @param \App\Model\Entity\QueueConfiguration $config
+     * @param resource $connection
+     * @return array
+     */
+    private function checkRabbitMQHealth(\App\Model\Entity\QueueConfiguration $config, $connection): array
+    {
+        return [
+            'queue_type' => 'RabbitMQ',
+            'vhost' => $config->vhost ?? '/',
+            'username' => $config->username ?? 'guest',
+            'ssl_enabled' => $config->ssl_enabled,
+            'exchange' => $config->exchange,
+            'routing_key' => $config->routing_key,
+            'status' => 'Port accessible - full AMQP health check would require additional libraries'
+        ];
+    }
+    
+    /**
+     * Check Redis-specific health  
+     *
+     * @param \App\Model\Entity\QueueConfiguration $config
+     * @param resource $connection
+     * @return array
+     */
+    private function checkRedisHealth(\App\Model\Entity\QueueConfiguration $config, $connection): array
+    {
+        $details = [
+            'queue_type' => 'Redis',
+            'database' => $config->db_index ?? 0,
+            'status' => 'Port accessible'
+        ];
+        
+        // Try to send a simple PING command if it's Redis
+        try {
+            fwrite($connection, "*1\r\n$4\r\nPING\r\n");
+            $response = fread($connection, 1024);
+            
+            if (strpos($response, '+PONG') === 0) {
+                $details['status'] = 'Redis PING successful';
+                $details['redis_response'] = 'PONG';
+            } else {
+                $details['status'] = 'Port accessible but Redis PING failed';
+                $details['redis_response'] = trim($response);
+            }
+        } catch (Exception $e) {
+            $details['status'] = 'Port accessible but Redis communication failed';
+            $details['error'] = $e->getMessage();
+        }
+        
+        return $details;
+    }
+
+    /**
      * Updates the queue.php configuration file with current database settings
      *
      * @return void

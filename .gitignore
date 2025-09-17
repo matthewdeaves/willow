@@ -109,6 +109,18 @@ project_files_backups
 project_mysql_backups
 backups/
 
+# Prevent leaking secrets in helper files
+helper-files(use-only-if-you-get-lost)/docker-backups/
+
+# Prevent secret leakage in database backups
+project_mysql_backups/
+*.sql
+
+# Additional secret protection patterns
+*.backup
+*.dump
+docker-compose-*.yml
+
 # CakePHP Book
 CakePHPBook.txt
 

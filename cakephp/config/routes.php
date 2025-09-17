@@ -216,52 +216,56 @@ return function (RouteBuilder $routes): void {
         $builder->connect(
             '/about-author',
             [
-                'controller' => 'Pages',
-                'action' => 'display',
-                'about_author'
+                'controller' => 'Articles',
+                'action' => 'view-by-slug',
+                'slug' => 'about-author'
             ],
             [
                 'routeClass' => 'ADmad/I18n.I18nRoute',
                 '_name' => 'aboutAuthor',
+                'pass' => ['slug']
             ]
         );
         
         $builder->connect(
             '/hire-me',
             [
-                'controller' => 'Pages',
-                'action' => 'display',
-                'hire_me'
+                'controller' => 'Articles',
+                'action' => 'view-by-slug',
+                'slug' => 'hire-me'
             ],
             [
                 'routeClass' => 'ADmad/I18n.I18nRoute',
                 '_name' => 'hireMe',
+                'pass' => ['slug']
             ]
         );
         
         $builder->connect(
             '/follow-me',
             [
-                'controller' => 'Pages',
-                'action' => 'display',
-                'follow_me'
+                'controller' => 'Articles',
+                'action' => 'view-by-slug',
+                'slug' => 'follow-me'
             ],
             [
                 'routeClass' => 'ADmad/I18n.I18nRoute',
                 '_name' => 'followMe',
+                'pass' => ['slug']
             ]
         );
         
         $builder->connect(
             '/github',
             [
-                'controller' => 'Pages',
-                'action' => 'display',
-                'github'
+                'controller' => 'Articles',
+                'action' => 'view-by-slug',
+                'slug' => 'github'
             ],
             [
                 'routeClass' => 'ADmad/I18n.I18nRoute',
                 '_name' => 'githubRepo',
+                'pass' => ['slug']
             ]
         );
         
@@ -830,6 +834,50 @@ return function (RouteBuilder $routes): void {
             'action' => 'verifyChecksums'
         ], [
             'pass' => ['model', 'id']
+        ]);
+        
+        // Admin Pages routes
+        $routes->connect('/pages', [
+            'controller' => 'Pages',
+            'action' => 'index'
+        ], [
+            'routeClass' => 'ADmad/I18n.I18nRoute'
+        ]);
+        $routes->connect('/pages/add', [
+            'controller' => 'Pages',
+            'action' => 'add'
+        ], [
+            'routeClass' => 'ADmad/I18n.I18nRoute'
+        ]);
+        $routes->connect('/pages/edit/*', [
+            'controller' => 'Pages',
+            'action' => 'edit'
+        ], [
+            'routeClass' => 'ADmad/I18n.I18nRoute'
+        ]);
+        $routes->connect('/pages/view/*', [
+            'controller' => 'Pages',
+            'action' => 'view'
+        ], [
+            'routeClass' => 'ADmad/I18n.I18nRoute'
+        ]);
+        $routes->connect('/pages/delete/*', [
+            'controller' => 'Pages',
+            'action' => 'delete'
+        ], [
+            'routeClass' => 'ADmad/I18n.I18nRoute'
+        ]);
+        $routes->connect('/pages/generate-connect-pages', [
+            'controller' => 'Pages',
+            'action' => 'generateConnectPages'
+        ], [
+            'routeClass' => 'ADmad/I18n.I18nRoute'
+        ]);
+        $routes->connect('/pages/bulk-delete', [
+            'controller' => 'Pages',
+            'action' => 'bulkDelete'
+        ], [
+            'routeClass' => 'ADmad/I18n.I18nRoute'
         ]);
         
         $routes->fallbacks(DashedRoute::class);

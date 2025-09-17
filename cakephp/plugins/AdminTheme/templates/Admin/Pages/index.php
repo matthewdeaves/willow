@@ -242,7 +242,7 @@
                                 <small>
                                     <?= $this->Html->link(
                                         '<i class="bi bi-eye me-1"></i>' . __('View'),
-                                        ['_name' => 'pages-display', $page->slug],
+                                        ['controller' => 'Articles', 'action' => 'view-by-slug', 'slug' => $page->slug, 'prefix' => false],
                                         ['escape' => false, 'class' => 'text-muted', 'target' => '_blank']
                                     ) ?>
                                 </small>

@@ -54,7 +54,7 @@
                         
                         <?= $this->Html->link(
                             '<i class="bi bi-eye me-1"></i>' . __('View Live'),
-                            ['_name' => 'pages-display', $page->slug],
+                            ['controller' => 'Articles', 'action' => 'view-by-slug', 'slug' => $page->slug, 'prefix' => false],
                             [
                                 'class' => 'btn btn-outline-primary btn-sm ms-2',
                                 'escape' => false,
@@ -221,7 +221,7 @@
                     
                     <?= $this->Html->link(
                         '<i class="bi bi-eye me-2"></i>' . __('View Live'),
-                        ['_name' => 'pages-display', $page->slug],
+                        ['controller' => 'Articles', 'action' => 'view-by-slug', 'slug' => $page->slug, 'prefix' => false],
                         [
                             'class' => 'btn btn-outline-success',
                             'escape' => false,

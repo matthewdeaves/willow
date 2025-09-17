@@ -162,22 +162,22 @@
                     <div class="list-group list-group-flush">
                         <?= $this->Html->link(
                             '<i class="bi bi-person-badge me-2"></i> About the Author',
-                            ['controller' => 'Pages', 'action' => 'display', 'about_author'],
+                            ['controller' => 'Articles', 'action' => 'view-by-slug', 'slug' => 'about-author'],
                             ['class' => 'list-group-item list-group-item-action', 'escape' => false]
                         ) ?>
                         <?= $this->Html->link(
                             '<i class="bi bi-github me-2"></i> GitHub Repository',
-                            ['controller' => 'Pages', 'action' => 'display', 'github'],
+                            ['controller' => 'Articles', 'action' => 'view-by-slug', 'slug' => 'github'],
                             ['class' => 'list-group-item list-group-item-action', 'escape' => false]
                         ) ?>
                         <?= $this->Html->link(
                             '<i class="bi bi-briefcase me-2"></i> Hire Me',
-                            ['controller' => 'Pages', 'action' => 'display', 'hire_me'],
+                            ['controller' => 'Articles', 'action' => 'view-by-slug', 'slug' => 'hire-me'],
                             ['class' => 'list-group-item list-group-item-action', 'escape' => false]
                         ) ?>
                         <?= $this->Html->link(
                             '<i class="bi bi-heart me-2"></i> Follow Me',
-                            ['controller' => 'Pages', 'action' => 'display', 'follow_me'],
+                            ['controller' => 'Articles', 'action' => 'view-by-slug', 'slug' => 'follow-me'],
                             ['class' => 'list-group-item list-group-item-action', 'escape' => false]
                         ) ?>
                     </div>
@@ -227,7 +227,7 @@
                         </ul>
                         
                         <div class="mt-3">
-                            <?= $this->Html->link('Learn More →', ['controller' => 'Pages', 'action' => 'display', 'github'], ['class' => 'btn btn-sm btn-outline-secondary']) ?>
+                            <?= $this->Html->link('Learn More →', ['controller' => 'Articles', 'action' => 'view-by-slug', 'slug' => 'github'], ['class' => 'btn btn-sm btn-outline-secondary']) ?>
                         </div>
                     </div>
                 </div>

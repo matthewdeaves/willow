@@ -8,6 +8,7 @@ use Cake\Cache\Cache;
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Http\Response;
 use Cake\ORM\Query;
+use Cake\ORM\TableRegistry;
 use Exception;
 
 /**
@@ -21,6 +22,11 @@ use Exception;
 class PagesController extends AppController
 {
     /**
+     * @var \App\Model\Table\ArticlesTable
+     */
+    protected $Articles;
+
+    /**
      * Initialize method
      *
      * @return void
@@ -28,7 +34,7 @@ class PagesController extends AppController
     public function initialize(): void
     {
         parent::initialize();
-        $this->loadModel('Articles');
+        $this->Articles = TableRegistry::getTableLocator()->get('Articles');
     }
 
     /**

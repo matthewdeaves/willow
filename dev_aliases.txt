@@ -50,6 +50,12 @@ phpunit() {
     fi
 }
 
+# Script Shortcuts - use refactored script locations
+# Usage: wt all | wt controller | wt --filter SomeTest tests/TestCase/
+alias wt='./scripts/run_tests.sh'
+# Usage: wdev --help | wdev --wipe | wdev
+alias wdev='./run_dev_env.sh'
+
 alias phpunit_cov='phpunit --coverage-text'
 alias phpunit_cov_html='phpunit --coverage-html webroot/coverage tests/TestCase/'
 
@@ -82,9 +88,9 @@ alias docker_down='docker compose down'
 alias docker_downv='docker compose down -v'
 alias docker_logs='docker compose logs -f'
 alias docker_dev_prune='docker system prune -a'
-alias docker_dev_build='docker compose --env-file ./cakephp/config/.env build'
-alias docker_dev_up='docker compose --env-file ./cakephp/config/.env up --build'
-alias docker_dev_restart='docker compose --env-file ./cakephp/config/.env restart'
+alias docker_dev_build='docker compose build'
+alias docker_dev_up='docker compose up --build'
+alias docker_dev_restart='docker compose restart'
 alias docker_dev_prune='docker compose down && docker system prune -a'
 alias docker_dev_down='docker compose down -v'
 

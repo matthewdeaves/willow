@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # SCRIPT BEHAVIOR
 # Exit immediately if a command exits with a non-zero status.
 # Treat unset variables as an error when substituting.
 # Pipelines return the exit status of the last command to exit with a non-zero status,
 # or zero if no command exited with a non-zero status.
-set -e -u -o pipefail
+set -euo pipefail
 
 # --- Color Configuration ---
 # Check if terminal supports colors
@@ -62,38 +62,78 @@ INTERACTIVE=1
 # Options are: wipe, rebuild, restart, migrate, continue
 OPERATION=""
 
-# Set UID/GID for Docker containers (Apple Silicon compatibility)
-if [[ "$(uname -m)" == "arm64" && "$(uname -s)" == "Darwin" ]]; then
-    # On Apple Silicon Macs, create .env file with host user's UID/GID to avoid permission issues
-    HOST_UID=$(id -u)
-    HOST_GID=$(id -g)
-    print_info "Detected Apple Silicon Mac - creating .env with UID:GID ${HOST_UID}:${HOST_GID}"
-    
-    # Create/update .env file for docker-compose
-    {
-        echo "UID=${HOST_UID}"
-        echo "GID=${HOST_GID}"
-    } > .env
-    
-    print_success "Created .env file for Apple Silicon compatibility"
-else
-    print_info "Using default UID:GID (1000:1000) for Docker containers"
-    # Remove .env file if it exists to use defaults
-    if [[ -f .env ]]; then
-        rm .env
-        print_info "Removed .env file to use defaults"
+# --- Environment File Provisioning ---
+COMPOSE_DIR="$(pwd)"
+APP_ENV_FILE="${COMPOSE_DIR}/cakephp/config/.env"
+COMPOSE_ENV_FILE="${COMPOSE_DIR}/.env"
+
+print_step "Setting up environment configuration..."
+
+# Create project root .env from .env.example if it doesn't exist
+if [[ ! -f "${COMPOSE_ENV_FILE}" ]]; then
+    if [[ -f "${COMPOSE_DIR}/.env.example" ]]; then
+        print_info "Creating project root .env from .env.example..."
+        cp "${COMPOSE_DIR}/.env.example" "${COMPOSE_ENV_FILE}"
+        print_success "Created ${COMPOSE_ENV_FILE}"
+    else
+        print_error "Missing .env.example file in project root!"
+        exit 1
     fi
-fi
-# Add after line 85 in setup_dev_env.sh
-print_step "Loading application environment variables..."
-if [ -f "cakephp/config/.env" ]; then
-    # Export variables from cakephp/config/.env to make them available to docker-compose
-    set -a  # Automatically export all variables
-    source cakephp/config/.env
-    set +a  # Stop automatically exporting
-    print_success "Loaded environment variables from cakephp/config/.env"
 else
-    print_error "cakephp/config/.env file not found!"
+    print_info "Project root .env already exists, leaving it unchanged"
+fi
+
+# Set UID/GID for Docker containers (platform compatibility)
+HOST_UID=$(id -u)
+HOST_GID=$(id -g)
+print_info "Setting UID:GID to ${HOST_UID}:${HOST_GID} for container file permissions"
+
+# Update DOCKER_UID/DOCKER_GID in the .env file
+if grep -q "^DOCKER_UID=" "${COMPOSE_ENV_FILE}"; then
+    sed -i.bak "s/^DOCKER_UID=.*/DOCKER_UID=${HOST_UID}/" "${COMPOSE_ENV_FILE}"
+else
+    echo "DOCKER_UID=${HOST_UID}" >> "${COMPOSE_ENV_FILE}"
+fi
+
+if grep -q "^DOCKER_GID=" "${COMPOSE_ENV_FILE}"; then
+    sed -i.bak "s/^DOCKER_GID=.*/DOCKER_GID=${HOST_GID}/" "${COMPOSE_ENV_FILE}"
+else
+    echo "DOCKER_GID=${HOST_GID}" >> "${COMPOSE_ENV_FILE}"
+fi
+
+# Create CakePHP .env from .env.example if it doesn't exist
+if [[ ! -f "${APP_ENV_FILE}" ]]; then
+    if [[ -f "${COMPOSE_DIR}/cakephp/config/.env.example" ]]; then
+        print_info "Creating CakePHP .env from .env.example..."
+        cp "${COMPOSE_DIR}/cakephp/config/.env.example" "${APP_ENV_FILE}"
+        
+        # Generate a secure SECURITY_SALT
+        if command -v openssl &> /dev/null; then
+            SECURITY_SALT=$(openssl rand -hex 32)
+            print_info "Generating secure SECURITY_SALT..."
+            sed -i.bak "s/change-me-in-setup/${SECURITY_SALT}/" "${APP_ENV_FILE}"
+        else
+            print_warning "OpenSSL not found. Please manually set SECURITY_SALT in ${APP_ENV_FILE}"
+        fi
+        
+        print_success "Created ${APP_ENV_FILE}"
+    else
+        print_error "Missing .env.example file in cakephp/config/!"
+        exit 1
+    fi
+else
+    print_info "CakePHP .env already exists, leaving it unchanged"
+fi
+
+print_step "Loading Docker Compose environment variables..."
+if [[ -f "${COMPOSE_ENV_FILE}" ]]; then
+    # Export variables from project root .env to make them available to docker-compose
+    set -a  # Automatically export all variables
+    source "${COMPOSE_ENV_FILE}"
+    set +a  # Stop automatically exporting
+    print_success "Loaded environment variables from ${COMPOSE_ENV_FILE}"
+else
+    print_error "Docker Compose .env file not found at ${COMPOSE_ENV_FILE}!"
     exit 1
 fi
 # Service name for the main application container

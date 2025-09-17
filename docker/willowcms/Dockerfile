@@ -9,6 +9,7 @@ RUN apk add --no-cache \
     curl \
     imagemagick \
     nginx \
+    mysql-client \
     php83 \
     php83-ctype \
     php83-curl \
@@ -43,7 +44,7 @@ RUN apk add --no-cache \
     wget \
     unzip \
     bash && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/cache/apk/*
 
 # Configure Redis
 RUN echo "requirepass ${REDIS_PASSWORD}" >> /etc/redis.conf && \

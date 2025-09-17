@@ -75,7 +75,7 @@ log_error() {
 check_docker() {
     if ! docker compose ps | grep -q "${DOCKER_SERVICE}.*Up"; then
         log_error "Docker service '${DOCKER_SERVICE}' is not running"
-        log_info "Please start the development environment with: ./setup_dev_env.sh"
+        log_info "Please start the development environment with: ./run_dev_env.sh"
         exit 1
     fi
 }

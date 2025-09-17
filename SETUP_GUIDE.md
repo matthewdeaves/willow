@@ -5,7 +5,7 @@
 To set up the development environment, simply run:
 
 ```bash
-./setup_dev_env.sh
+./run_dev_env.sh
 ```
 
 This script will:
@@ -31,19 +31,19 @@ The setup script supports several operation modes:
 
 ```bash
 # Normal startup with prompts
-./setup_dev_env.sh
+./run_dev_env.sh
 
 # Start with Jenkins and internationalization data
-./setup_dev_env.sh -j -i
+./run_dev_env.sh -j -i
 
 # Rebuild containers without prompts
-./setup_dev_env.sh --rebuild --no-interactive
+./run_dev_env.sh --rebuild --no-interactive
 
 # Wipe data and restart with Jenkins
-./setup_dev_env.sh --wipe -j
+./run_dev_env.sh --wipe -j
 
 # Just run migrations
-./setup_dev_env.sh --migrate
+./run_dev_env.sh --migrate
 ```
 
 ## Development Aliases
@@ -55,6 +55,8 @@ source dev_aliases.txt
 ```
 
 Key aliases include:
+- `wt` - Run tests (`./scripts/run_tests.sh`)
+- `wdev` - Development environment setup (`./run_dev_env.sh`)
 - `cake_shell` - Run CakePHP console commands
 - `phpunit` - Run PHPUnit tests  
 - `willowcms_shell` - Access container shell
@@ -93,13 +95,15 @@ phpunit_cov
 
 - If containers fail to start, check logs: `docker compose logs -f`
 - For permission issues, use the `change_ownership` function from dev_aliases.txt
-- To rebuild completely: `./setup_dev_env.sh --rebuild --no-interactive`
+- To rebuild completely: `./run_dev_env.sh --rebuild --no-interactive`
 
 ## File Structure
 
 ```
 willow/
-├── setup_dev_env.sh           # Main setup script
+├── run_dev_env.sh             # Main development environment script
+├── scripts/
+│   └── run_tests.sh           # Test runner script
 ├── docker-compose.yml         # Docker services configuration
 ├── .env                       # Docker Compose environment variables
 ├── .env.example              # Template for Docker environment

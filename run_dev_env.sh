@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # SCRIPT BEHAVIOR
 # Exit immediately if a command exits with a non-zero status.
 # Treat unset variables as an error when substituting.
 # Pipelines return the exit status of the last command to exit with a non-zero status,
 # or zero if no command exited with a non-zero status.
-set -e -u -o pipefail
+set -euo pipefail
 
 # --- Color Configuration ---
 # Check if terminal supports colors

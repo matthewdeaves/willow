@@ -50,6 +50,12 @@ phpunit() {
     fi
 }
 
+# Script Shortcuts - use refactored script locations
+# Usage: wt all | wt controller | wt --filter SomeTest tests/TestCase/
+alias wt='./scripts/run_tests.sh'
+# Usage: wdev --help | wdev --wipe | wdev
+alias wdev='./run_dev_env.sh'
+
 alias phpunit_cov='phpunit --coverage-text'
 alias phpunit_cov_html='phpunit --coverage-html webroot/coverage tests/TestCase/'
 

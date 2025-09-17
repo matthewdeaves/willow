@@ -33,3 +33,9 @@ compare and contrast services looked into but either too confusing for it to mak
 - [ ] search function to look into products
 - [ ] not-essential: search function to look at every entity in the web app
 - [ ] implementation of inserting links and documents and having the ai document processor make a product and keep a verification score
+
+## fix
+
+- [] fix code imports
+- [] fix form admin for quiz form routes /admin/product/forms
+-

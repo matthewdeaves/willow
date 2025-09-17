@@ -112,6 +112,49 @@ class ImageGenerationService extends AbstractApiService
     }
 
     /**
+     * Generate an image for a product based on its details
+     *
+     * @param string $productTitle The product title
+     * @param string $description The product description (optional)
+     * @param string $manufacturer The product manufacturer (optional)
+     * @param array $options Additional generation options
+     * @return array|null Generated image data or null on failure
+     */
+    public function generateProductImage(string $productTitle, string $description = '', string $manufacturer = '', array $options = []): ?array
+    {
+        $enabled = SettingsManager::read('AI.imageGeneration.enabled', false);
+        
+        if (!$enabled) {
+            $this->log('Image generation is disabled in settings', 'info');
+            return null;
+        }
+
+        // Create a product-specific prompt
+        $prompt = $this->buildProductImagePrompt($productTitle, $description, $manufacturer, $options);
+        
+        // Set product-specific options
+        $options = array_merge([
+            'context' => 'product listing image',
+            'style' => 'commercial',
+            'orientation' => 'square'
+        ], $options);
+        
+        switch ($this->provider) {
+            case self::PROVIDER_OPENAI:
+                return $this->generateWithOpenAI($prompt, $options);
+            case self::PROVIDER_ANTHROPIC:
+                return $this->generateWithAnthropic($prompt, $options);
+            case self::PROVIDER_STOCK:
+                // For stock photos, use product title + manufacturer as search query
+                $searchQuery = trim($manufacturer . ' ' . $productTitle);
+                return $this->generateWithStockAPI($searchQuery, $options);
+            default:
+                $this->log("Unsupported image generation provider: {$this->provider}", 'error');
+                return null;
+        }
+    }
+
+    /**
      * Generate image using OpenAI DALL-E
      *
      * @param string $prompt Image generation prompt
@@ -310,6 +353,65 @@ class ImageGenerationService extends AbstractApiService
                 $prompt = "A professional, high-quality image representing '{$title}'. {$content}. Clean, modern aesthetic suitable for {$context}.";
         }
 
+        return $prompt;
+    }
+
+    /**
+     * Build an appropriate image generation prompt from product details
+     *
+     * @param string $title Product title
+     * @param string $description Product description
+     * @param string $manufacturer Product manufacturer
+     * @param array $options Additional options
+     * @return string Generated prompt
+     */
+    private function buildProductImagePrompt(string $title, string $description = '', string $manufacturer = '', array $options = []): string
+    {
+        $style = $options['style'] ?? 'commercial';
+        $context = $options['context'] ?? 'product listing image';
+        $orientation = $options['orientation'] ?? 'square';
+        
+        // Build product description for prompt
+        $productDetails = $title;
+        
+        if (!empty($manufacturer)) {
+            $productDetails = $manufacturer . ' ' . $productDetails;
+        }
+        
+        if (!empty($description)) {
+            // Clean and shorten description
+            $cleanDescription = strip_tags($description);
+            $cleanDescription = substr($cleanDescription, 0, 150);
+            if (strlen($cleanDescription) >= 150) {
+                $cleanDescription = substr($cleanDescription, 0, strrpos($cleanDescription, ' ')) . '...';
+            }
+            $productDetails .= '. ' . $cleanDescription;
+        }
+        
+        // Build the prompt based on the style and context
+        switch ($style) {
+            case 'commercial':
+                $prompt = "Professional product photography of {$productDetails}. Clean white background, studio lighting, high quality commercial image, {$orientation} format, suitable for {$context}.";
+                break;
+            case 'lifestyle':
+                $prompt = "Lifestyle product photo showing {$productDetails} in use. Natural lighting, real-world setting, attractive composition, {$orientation} format, suitable for {$context}.";
+                break;
+            case 'technical':
+                $prompt = "Technical product illustration of {$productDetails}. Clean, detailed, engineering-style drawing with specifications visible, {$orientation} format, suitable for {$context}.";
+                break;
+            case 'minimalist':
+                $prompt = "Minimalist product photo of {$productDetails}. Simple composition, clean background, modern aesthetic, {$orientation} format, suitable for {$context}.";
+                break;
+            case 'artistic':
+                $prompt = "Artistic product photography of {$productDetails}. Creative lighting and composition, visually appealing, {$orientation} format, suitable for {$context}.";
+                break;
+            default: // professional
+                $prompt = "High-quality professional image of {$productDetails}. Clean, well-lit, commercial grade photography, {$orientation} format, suitable for {$context}.";
+        }
+        
+        // Add quality and technical specifications
+        $prompt .= " High resolution, sharp focus, professional quality.";
+        
         return $prompt;
     }
 

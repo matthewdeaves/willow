@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Model\Table;
 
 use App\Model\Behavior\ImageValidationTrait;
+use App\Model\Behavior\ProductImageDetectionTrait;
 use App\Model\Entity\Product;
 use Cake\Log\LogTrait;
 use Cake\ORM\Behavior\Translate\TranslateTrait;
@@ -17,6 +18,7 @@ class ProductsTable extends Table
     use ImageValidationTrait;
     use LogTrait;
     use TranslateTrait;
+    use ProductImageDetectionTrait;
 
     /**
      * Initialize hook
@@ -59,6 +61,16 @@ class ProductsTable extends Table
             ],
             'scoring_version' => 'v2.0', // Updated version with verification focus
             'verification_required' => true, // Products need verification to score well
+        ]);
+
+        // Queue image generation for products that need images
+        $this->addBehavior('QueueableImage', [
+            'jobClass' => 'ProductImageGenerationJob',
+            'triggerFields' => ['title', 'description', 'manufacturer'],
+            'imageField' => 'image',
+            'queueOnCreate' => true,
+            'queueOnUpdate' => true,
+            'priority' => 'normal'
         ]);
 
         // Core relationships

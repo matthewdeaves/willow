@@ -135,7 +135,7 @@ class ImageGenerationService extends AbstractApiService
         // Set product-specific options
         $options = array_merge([
             'context' => 'product listing image',
-            'style' => 'commercial',
+            'style' => 'natural',
             'orientation' => 'square'
         ], $options);
         

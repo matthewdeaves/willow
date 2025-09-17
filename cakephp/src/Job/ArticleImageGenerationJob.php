@@ -92,7 +92,7 @@ class ArticleImageGenerationJob extends AbstractJob
                 $article->body ?? '',
                 [
                     'context' => 'article header image',
-                    'style' => 'professional',
+                    'style' => 'vivid',
                     'orientation' => 'landscape'
                 ]
             );

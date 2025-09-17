@@ -83,11 +83,12 @@ class SettingsManager
      * for the value. If the value is not found in the cache, it retrieves the value from the database using
      * the Settings table. The result is then cached to optimize future requests.
      *
-     * The method supports two types of reads:
+     * The method supports three types of reads:
      * 1. Reading all settings for a category (e.g., 'ImageSizes')
      * 2. Reading a specific setting within a category (e.g., 'ImageSizes.medium')
+     * 3. Reading nested settings using a three-part path (e.g., 'AI.imageGeneration.enabled')
      *
-     * @param string $path The dot-separated path to the setting (e.g., 'category' or 'category.key_name').
+     * @param string $path The dot-separated path to the setting (e.g., 'category' or 'category.key_name' or 'parent.category.key_name').
      * @param mixed $default The default value to return if the setting is not found.
      * @return mixed The setting value if found, otherwise the default value.
      *               For category-level requests, returns an array of all settings in that category.
@@ -106,10 +107,17 @@ class SettingsManager
         $parts = explode('.', $path);
         $category = $parts[0] ?? null;
         $keyName = $parts[1] ?? null;
+        $nestedKey = $parts[2] ?? null;
 
         $settingsTable = TableRegistry::getTableLocator()->get('Settings');
 
-        if ($keyName === null) {
+        // Handle three-level nested paths like 'AI.imageGeneration.enabled'
+        if ($nestedKey !== null) {
+            // For nested paths like AI.imageGeneration.enabled, look for imageGeneration.enabled
+            $nestedCategory = $keyName;
+            $nestedKeyName = $nestedKey;
+            $value = $settingsTable->getSettingValue($nestedCategory, $nestedKeyName);
+        } elseif ($keyName === null) {
             // Fetch all settings for the category
             $value = $settingsTable->getSettingValue($category);
         } else {

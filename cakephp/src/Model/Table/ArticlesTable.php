@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Model\Table;
 
 use App\Model\Behavior\ImageValidationTrait;
+use App\Model\Table\ArticleImageDetectionTrait;
 use App\Utility\SettingsManager;
 use ArrayObject;
 use Cake\Datasource\EntityInterface;
@@ -41,6 +42,7 @@ use DateTime;
  */
 class ArticlesTable extends Table
 {
+    use ArticleImageDetectionTrait;
     use ImageValidationTrait;
     use LogTrait;
     use QueueableJobsTrait;
@@ -260,6 +262,18 @@ class ArticlesTable extends Table
             if (SettingsManager::read('AI.articleTranslations')) {
                 $this->queueJob('App\Job\TranslateArticleJob', $data);
             }
+        }
+
+        // Check for image generation for published articles without images
+        if (
+            $entity->is_published
+            && $entity->kind == 'article'
+            && SettingsManager::read('AI.enabled')
+            && SettingsManager::read('AI.imageGeneration.enabled')
+            && !$noMessage
+        ) {
+            // Queue image generation job for articles that need images
+            $this->queueImageGenerationIfNeeded($entity);
         }
     }
 

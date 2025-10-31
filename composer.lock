@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "83e5192d79920344bc6b33b4f814d3b8",
+    "content-hash": "18410ab74d259de668ccdbf54cdb3d93",
     "packages": [
         {
             "name": "admad/cakephp-i18n",
@@ -1254,22 +1254,22 @@
         },
         {
             "name": "google/cloud-translate",
-            "version": "v1.21.0",
+            "version": "v2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-cloud-php-translate.git",
-                "reference": "5ef17ec64c86bc96b2258ddae779de8a38942ee4"
+                "reference": "c45371e614d42b522a3382cdeff15e5b4bbb64a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-cloud-php-translate/zipball/5ef17ec64c86bc96b2258ddae779de8a38942ee4",
-                "reference": "5ef17ec64c86bc96b2258ddae779de8a38942ee4",
+                "url": "https://api.github.com/repos/googleapis/google-cloud-php-translate/zipball/c45371e614d42b522a3382cdeff15e5b4bbb64a5",
+                "reference": "c45371e614d42b522a3382cdeff15e5b4bbb64a5",
                 "shasum": ""
             },
             "require": {
                 "google/cloud-core": "^1.57",
-                "google/gax": "^1.36.0",
-                "php": "^8.0"
+                "google/gax": "^1.38.0",
+                "php": "^8.1"
             },
             "require-dev": {
                 "erusev/parsedown": "^1.6",
@@ -1304,9 +1304,9 @@
             ],
             "description": "Cloud Translation Client for PHP",
             "support": {
-                "source": "https://github.com/googleapis/google-cloud-php-translate/tree/v1.21.0"
+                "source": "https://github.com/googleapis/google-cloud-php-translate/tree/v2.1.1"
             },
-            "time": "2025-02-03T23:47:57+00:00"
+            "time": "2025-10-07T18:41:09+00:00"
         },
         {
             "name": "google/common-protos",
@@ -4700,19 +4700,20 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.31.0",
+            "version": "v1.33.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "85181ba99b2345b0ef10ce42ecac37612d9fd341"
+                "reference": "6d857f4d76bd4b343eac26d6b539585d2bc56493"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/85181ba99b2345b0ef10ce42ecac37612d9fd341",
-                "reference": "85181ba99b2345b0ef10ce42ecac37612d9fd341",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/6d857f4d76bd4b343eac26d6b539585d2bc56493",
+                "reference": "6d857f4d76bd4b343eac26d6b539585d2bc56493",
                 "shasum": ""
             },
             "require": {
+                "ext-iconv": "*",
                 "php": ">=7.2"
             },
             "provide": {
@@ -4760,7 +4761,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.31.0"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.33.0"
             },
             "funding": [
                 {
@@ -4772,11 +4773,15 @@
                     "type": "github"
                 },
                 {
+                    "url": "https://github.com/nicolas-grekas",
+                    "type": "github"
+                },
+                {
                     "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-09T11:45:10+00:00"
+            "time": "2024-12-23T08:48:59+00:00"
         },
         {
             "name": "symfony/polyfill-php83",

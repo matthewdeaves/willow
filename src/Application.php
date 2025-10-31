@@ -210,15 +210,15 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         $authenticationService->loadAuthenticator('Authentication.Form', [
             'fields' => $fields,
             'loginUrl' => Router::url(['prefix' => false, 'controller' => 'Users', 'action' => 'login']),
-        ]);
-
-        // Load identifiers, ensure we check email and password fields
-        $authenticationService->loadIdentifier('Authentication.Password', [
-            'fields' => $fields,
-            'resolver' => [
-                'className' => 'Authentication.Orm',
-                'userModel' => 'Users',
-                'finder' => 'auth',
+            'identifier' => [
+                'Authentication.Password' => [
+                    'fields' => $fields,
+                    'resolver' => [
+                        'className' => 'Authentication.Orm',
+                        'userModel' => 'Users',
+                        'finder' => 'auth',
+                    ],
+                ],
             ],
         ]);
 

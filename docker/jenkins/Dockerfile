@@ -4,7 +4,7 @@ FROM jenkins/jenkins:lts
 USER root
 
 # Install necessary packages
-RUN apt-get update && apt-get install -y lsb-release curl software-properties-common wget
+RUN apt-get update && apt-get install -y lsb-release curl wget
 
 # Add PHP 8.3 repository
 RUN curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg

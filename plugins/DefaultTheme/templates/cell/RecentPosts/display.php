@@ -1,0 +1,1 @@
+<?= $this->element('site/articles_list', ['articles' => $articles, 'title' => $title]) ?>

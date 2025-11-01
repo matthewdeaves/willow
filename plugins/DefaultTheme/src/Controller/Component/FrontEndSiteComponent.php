@@ -54,11 +54,10 @@ class FrontEndSiteComponent extends Component
             $skipActions = ['login', 'logout', 'register', 'edit', 'forgotPassword', 'resetPassword', 'confirmEmail'];
             if (in_array($request->getParam('action'), $skipActions)) {
                 // Set minimal required variables
+                // Note: Featured articles and archives are now handled by View Cells
                 $controller->set([
                     'menuPages' => [],
                     'rootTags' => [],
-                    'featuredArticles' => [],
-                    'articleArchives' => [],
                     'siteLanguages' => I18nManager::getEnabledLanguages(),
                     'selectedSiteLanguage' => $request->getParam('lang', 'en')
                 ]);
@@ -70,6 +69,7 @@ class FrontEndSiteComponent extends Component
         $articlesTable = $controller->fetchTable('Articles');
         $tagsTable = $controller->fetchTable('Tags');
 
+        // Fetch navigation data (still needed for menu elements)
         $menuPages = [];
         switch(SettingsManager::read('SitePages.mainMenuShow', 'root')) {
             case "root":
@@ -90,10 +90,7 @@ class FrontEndSiteComponent extends Component
                 break;
         }
 
-        $featuredArticles = $articlesTable->getFeatured($cacheKey);
-        
-        $articleArchives = $articlesTable->getArchiveDates($cacheKey);
-
+        // Fetch privacy policy for footer
         $privacyPolicyId = SettingsManager::read('SitePages.privacyPolicy', null);
         if ($privacyPolicyId && $privacyPolicyId != 'None') {
             $privacyPolicy = $articlesTable->find()
@@ -101,17 +98,17 @@ class FrontEndSiteComponent extends Component
                 ->where(['id' => $privacyPolicyId])
                 ->cache($cacheKey . 'priv_page', 'content')
                 ->first();
-                
+
             if ($privacyPolicy) {
                 $controller->set('sitePrivacyPolicy', $privacyPolicy->toArray());
             }
         }
-        
+
+        // Set navigation data
+        // Note: Featured articles and archives are now handled by View Cells
         $controller->set(compact(
             'menuPages',
             'rootTags',
-            'featuredArticles',
-            'articleArchives',
         ));
         
         $controller->set('siteLanguages', I18nManager::getEnabledLanguages());

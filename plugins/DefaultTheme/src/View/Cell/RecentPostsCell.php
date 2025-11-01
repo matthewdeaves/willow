@@ -38,6 +38,13 @@ class RecentPostsCell extends Cell
         }
 
         $articlesTable = $this->fetchTable('Articles');
+
+        // Generate cache key if not provided
+        if ($cacheKey === null) {
+            $lang = $this->request->getParam('lang', 'en');
+            $cacheKey = 'recent_' . $lang . '_';
+        }
+
         $articles = $articlesTable->getRecentArticles($cacheKey, $conditions);
 
         $this->set('articles', $articles);

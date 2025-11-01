@@ -31,6 +31,13 @@ class ArchivesCell extends Cell
     public function display(?string $cacheKey = null): void
     {
         $articlesTable = $this->fetchTable('Articles');
+
+        // Generate cache key if not provided
+        if ($cacheKey === null) {
+            $lang = $this->request->getParam('lang', 'en');
+            $cacheKey = 'archives_' . $lang . '_';
+        }
+
         $articleArchives = $articlesTable->getArchiveDates($cacheKey);
 
         $this->set('articleArchives', $articleArchives);

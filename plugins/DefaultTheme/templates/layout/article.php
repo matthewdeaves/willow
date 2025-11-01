@@ -33,9 +33,9 @@
             <div class="sidebar-content">
                 <div class="d-none d-lg-block position-sticky" style="top: 2rem;">
 
-                <?= $this->cell('DefaultTheme.FeaturedPosts', ['cacheKey' => $this->cacheKey ?? null]) ?>
+                <?= $this->cell('DefaultTheme.FeaturedPosts') ?>
 
-                <?= $this->cell('DefaultTheme.RecentPosts', ['cacheKey' => $this->cacheKey ?? null]) ?>
+                <?= $this->cell('DefaultTheme.RecentPosts') ?>
 
                 <?= $this->element('site/elsewhere') ?>
 
@@ -45,10 +45,10 @@
                 <div class="d-lg-none mt-4">
                     <div class="row">
                         <div class="col-md-6">
-                            <?= $this->cell('DefaultTheme.FeaturedPosts', ['cacheKey' => $this->cacheKey ?? null]) ?>
+                            <?= $this->cell('DefaultTheme.FeaturedPosts') ?>
                         </div>
                         <div class="col-md-6">
-                            <?= $this->cell('DefaultTheme.RecentPosts', ['cacheKey' => $this->cacheKey ?? null]) ?>
+                            <?= $this->cell('DefaultTheme.RecentPosts') ?>
                         </div>
                     </div>
                     <?= $this->element('site/elsewhere') ?>

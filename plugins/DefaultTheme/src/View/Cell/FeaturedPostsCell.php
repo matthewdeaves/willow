@@ -32,6 +32,13 @@ class FeaturedPostsCell extends Cell
     public function display(?string $cacheKey = null, ?string $title = null): void
     {
         $articlesTable = $this->fetchTable('Articles');
+
+        // Generate cache key if not provided
+        if ($cacheKey === null) {
+            $lang = $this->request->getParam('lang', 'en');
+            $cacheKey = 'featured_' . $lang . '_';
+        }
+
         $articles = $articlesTable->getFeatured($cacheKey);
 
         $this->set('articles', $articles);

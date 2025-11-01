@@ -36,6 +36,13 @@ class RelatedPagesCell extends Cell
 
         if ($articleId) {
             $articlesTable = $this->fetchTable('Articles');
+
+            // Generate cache key if not provided
+            if ($cacheKey === null) {
+                $lang = $this->request->getParam('lang', 'en');
+                $cacheKey = 'related_' . $lang . '_' . $articleId;
+            }
+
             $pages = $articlesTable->find('children', for: $articleId)
                 ->select(['id', 'title', 'slug', 'lede', 'published', 'image_id'])
                 ->contain(['Images'])

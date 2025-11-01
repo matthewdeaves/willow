@@ -160,15 +160,9 @@ class ArticlesController extends AppController
             Cache::write($cacheKey, $articles, 'content');
         }
 
-        $recentArticles = [];
-        if ($this->request->getQuery('page') > 1) {
-            $recentArticles = $this->Articles->getRecentArticles($this->cacheKey);
-        }
-
         $this->set(compact(
             'articles',
             'selectedTagId',
-            'recentArticles',
         ));
 
         $this->viewBuilder()->setLayout('article_index');
@@ -275,8 +269,6 @@ class ArticlesController extends AppController
             ->select(['slug', 'title', 'id'])
             ->all();
 
-        $recentArticles = $this->Articles->getRecentArticles($this->cacheKey, ['Articles.id NOT IN' => [$article->id]]);
-
         $this->recordPageView($article->id);
 
         $this->set(compact(
@@ -284,7 +276,6 @@ class ArticlesController extends AppController
             'childPages',
             'selectedTagId',
             'crumbs',
-            'recentArticles',
         ));
 
         return $this->render($article->kind);

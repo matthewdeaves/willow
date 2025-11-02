@@ -1,5 +1,8 @@
-  <?php if (!empty($consentData) && $consentData['analytics_consent']) :?>
-    <?= $this->SiteConfig->googleTagManagerHead() ?>
+<?php
+use App\Utility\SettingsManager;
+
+if (!empty($consentData) && $consentData['analytics_consent']) :?>
+    <?= SettingsManager::read('Google.tagManagerHead', '') ?>
     <?php endif; ?>
     <?= $this->Html->script('willow-modal') ?>
     <?= $this->Html->script('DefaultTheme.color-modes') ?>

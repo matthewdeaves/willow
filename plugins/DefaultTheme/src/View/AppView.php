@@ -28,6 +28,5 @@ class AppView extends View
         // Load DefaultTheme helpers
         $this->loadHelper('DefaultTheme.MetaTags');
         $this->loadHelper('DefaultTheme.Navigation');
-        $this->loadHelper('DefaultTheme.SiteConfig');
     }
 }

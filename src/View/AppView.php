@@ -46,7 +46,6 @@ class AppView extends View
         // Load DefaultTheme helpers (available when plugin is loaded)
         $this->loadHelper('DefaultTheme.MetaTags');
         $this->loadHelper('DefaultTheme.Navigation');
-        $this->loadHelper('DefaultTheme.SiteConfig');
     }
 
     /**

@@ -53,6 +53,13 @@
     </div>
 </article>
 
-<?php if ($this->SiteConfig->areCommentsEnabledFor($article->kind)): ?>
+<?php
+use App\Utility\SettingsManager;
+
+if (
+    (SettingsManager::read('Comments.articlesEnabled') && $article->kind == 'article') ||
+    (SettingsManager::read('Comments.pagesEnabled') && $article->kind == 'page')
+):
+?>
     <?= $this->cell('DefaultTheme.ArticleComments', ['article' => $article]) ?>
 <?php endif; ?>

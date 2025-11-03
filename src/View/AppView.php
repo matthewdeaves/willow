@@ -41,6 +41,11 @@ class AppView extends View
         $this->loadHelper('Authentication.Identity');
         $this->loadHelper('Video');
         $this->addHelper('Gallery');
+        $this->addHelper('Content');
+
+        // Load DefaultTheme helpers (available when plugin is loaded)
+        $this->loadHelper('DefaultTheme.MetaTags');
+        $this->loadHelper('DefaultTheme.Navigation');
     }
 
     /**

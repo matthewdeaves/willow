@@ -15,8 +15,8 @@
                         '?' => ['year' => $year],
                     ],
                     [
-                        'class' => $isYearActive 
-                            ? 'fw-bold text-decoration-none' 
+                        'class' => $isYearActive
+                            ? 'fw-bold text-decoration-none'
                             : 'text-decoration-none',
                     ]
                 );
@@ -34,15 +34,15 @@
                             [
                                 'lang' => $this->request->getParam('lang'),
                                 '_name' => 'home',
-                                '?' => 
+                                '?' =>
                                     [
-                                        'year' => $year, 
+                                        'year' => $year,
                                         'month' => $month,
                                     ]
                             ],
                             [
-                                'class' => $isActive 
-                                    ? 'fw-bold text-decoration-none' 
+                                'class' => $isActive
+                                    ? 'fw-bold text-decoration-none'
                                     : 'text-decoration-none',
                             ]
                         );

@@ -617,16 +617,16 @@
         },
         {
             "name": "enqueue/dsn",
-            "version": "0.10.26",
+            "version": "0.10.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-enqueue/dsn.git",
-                "reference": "1948d3c5918ee2bdf833392d02f14e05d4006979"
+                "reference": "43e223c984bec7095d6a0d4ff70bb3d9e084fb30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-enqueue/dsn/zipball/1948d3c5918ee2bdf833392d02f14e05d4006979",
-                "reference": "1948d3c5918ee2bdf833392d02f14e05d4006979",
+                "url": "https://api.github.com/repos/php-enqueue/dsn/zipball/43e223c984bec7095d6a0d4ff70bb3d9e084fb30",
+                "reference": "43e223c984bec7095d6a0d4ff70bb3d9e084fb30",
                 "shasum": ""
             },
             "require": {
@@ -666,7 +666,7 @@
                 "issues": "https://github.com/php-enqueue/enqueue-dev/issues",
                 "source": "https://github.com/php-enqueue/enqueue-dev"
             },
-            "time": "2025-04-27T13:30:31+00:00"
+            "time": "2025-12-21T18:13:12+00:00"
         },
         {
             "name": "enqueue/enqueue",
@@ -823,16 +823,16 @@
         },
         {
             "name": "enqueue/redis",
-            "version": "0.10.26",
+            "version": "0.10.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-enqueue/redis.git",
-                "reference": "2aa6a2fa9b43f92d338ca867ae3569337ce1acaf"
+                "reference": "e1ec36591e4003a35e42057fcfe94b962b9610c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-enqueue/redis/zipball/2aa6a2fa9b43f92d338ca867ae3569337ce1acaf",
-                "reference": "2aa6a2fa9b43f92d338ca867ae3569337ce1acaf",
+                "url": "https://api.github.com/repos/php-enqueue/redis/zipball/e1ec36591e4003a35e42057fcfe94b962b9610c5",
+                "reference": "e1ec36591e4003a35e42057fcfe94b962b9610c5",
                 "shasum": ""
             },
             "require": {
@@ -883,7 +883,7 @@
                 "issues": "https://github.com/php-enqueue/enqueue-dev/issues",
                 "source": "https://github.com/php-enqueue/enqueue-dev"
             },
-            "time": "2025-04-27T14:55:34+00:00"
+            "time": "2025-12-21T18:13:12+00:00"
         },
         {
             "name": "enqueue/simple-client",
@@ -3731,20 +3731,20 @@
         },
         {
             "name": "ramsey/uuid",
-            "version": "4.9.1",
+            "version": "4.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ramsey/uuid.git",
-                "reference": "81f941f6f729b1e3ceea61d9d014f8b6c6800440"
+                "reference": "8429c78ca35a09f27565311b98101e2826affde0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ramsey/uuid/zipball/81f941f6f729b1e3ceea61d9d014f8b6c6800440",
-                "reference": "81f941f6f729b1e3ceea61d9d014f8b6c6800440",
+                "url": "https://api.github.com/repos/ramsey/uuid/zipball/8429c78ca35a09f27565311b98101e2826affde0",
+                "reference": "8429c78ca35a09f27565311b98101e2826affde0",
                 "shasum": ""
             },
             "require": {
-                "brick/math": "^0.8.8 || ^0.9 || ^0.10 || ^0.11 || ^0.12 || ^0.13 || ^0.14",
+                "brick/math": "^0.8.16 || ^0.9 || ^0.10 || ^0.11 || ^0.12 || ^0.13 || ^0.14",
                 "php": "^8.0",
                 "ramsey/collection": "^1.2 || ^2.0"
             },
@@ -3803,9 +3803,9 @@
             ],
             "support": {
                 "issues": "https://github.com/ramsey/uuid/issues",
-                "source": "https://github.com/ramsey/uuid/tree/4.9.1"
+                "source": "https://github.com/ramsey/uuid/tree/4.9.2"
             },
-            "time": "2025-09-04T20:59:21+00:00"
+            "time": "2025-12-14T04:43:48+00:00"
         },
         {
             "name": "rize/uri-template",

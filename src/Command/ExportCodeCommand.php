@@ -247,7 +247,7 @@ class ExportCodeCommand extends Command
 
             $this->writeSectionFooter($currentHandle, $dirKey);
 
-            if ($separateFiles && $currentHandle) {
+            if ($separateFiles) {
                 fclose($currentHandle);
                 $io->info(sprintf("Exported '%s' to separate file.", $dirKey));
             }

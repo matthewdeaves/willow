@@ -74,6 +74,7 @@ class DefaultDataExportCommand extends Command
             $io->info(sprintf('Output directory "%s" created.', $outputDir));
         }
 
+        /** @var \Cake\Database\Connection $connection */
         $connection = ConnectionManager::get('default');
         $allTables = $connection->getSchemaCollection()->listTables();
 
@@ -126,8 +127,6 @@ class DefaultDataExportCommand extends Command
                 }
             }
         }
-
-        return Command::CODE_SUCCESS;
     }
 
     /**
@@ -163,9 +162,6 @@ class DefaultDataExportCommand extends Command
             $io->error(sprintf('Failed to export data from %d table(s). Check logs above.', $failedCount));
 
             return Command::CODE_ERROR;
-        }
-        if ($exportedCount === 0 && $failedCount === 0) {
-            $io->info('No tables were available or specified to export.');
         }
 
         return Command::CODE_SUCCESS;

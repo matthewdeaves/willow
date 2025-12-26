@@ -151,13 +151,13 @@ class InvestigateArticleCommand extends Command
             // This includes job queuing, processing, completion, and failure logs
             $systemLogs = TableRegistry::getTableLocator()->get('SystemLogs');
             $translationErrors = $systemLogs->find()
-                ->where([
-                    'OR' => [
-                        'message LIKE' => '%TranslateArticleJob%',
-                        'message LIKE' => '%translation%',
-                        'message LIKE' => '%' . $article->id . '%',
-                    ],
-                ])
+                ->where(function ($exp) use ($article) {
+                    return $exp->or([
+                        $exp->like('message', '%TranslateArticleJob%'),
+                        $exp->like('message', '%translation%'),
+                        $exp->like('message', '%' . $article->id . '%'),
+                    ]);
+                })
                 ->orderByDesc('created')
                 ->limit(10)
                 ->toArray();
@@ -178,13 +178,13 @@ class InvestigateArticleCommand extends Command
             // 4. Search system logs for SEO generation activities and errors
             // Includes ArticleSeoUpdateJob processing and AI-powered SEO content generation
             $seoErrors = $systemLogs->find()
-                ->where([
-                    'OR' => [
-                        'message LIKE' => '%ArticleSeoUpdateJob%',
-                        'message LIKE' => '%SEO%',
-                        'message LIKE' => '%seo%',
-                    ],
-                ])
+                ->where(function ($exp) {
+                    return $exp->or([
+                        $exp->like('message', '%ArticleSeoUpdateJob%'),
+                        $exp->like('message', '%SEO%'),
+                        $exp->like('message', '%seo%'),
+                    ]);
+                })
                 ->orderByDesc('created')
                 ->limit(10)
                 ->toArray();

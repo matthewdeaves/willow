@@ -19,6 +19,7 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\DateTime|null $modified
  *
  * @property \App\Model\Entity\User $user
+ * @property \App\Model\Entity\Article|null $article
  */
 class Comment extends Entity
 {

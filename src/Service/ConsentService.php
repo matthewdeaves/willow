@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use Cake\Http\ServerRequest;
 use InvalidArgumentException;
-use Psr\Http\Message\ServerRequestInterface;
 use RuntimeException;
 
 /**
@@ -24,12 +24,12 @@ class ConsentService
      * - Processes consent cookie if present
      * - Returns data ready for view consumption
      *
-     * @param \Psr\Http\Message\ServerRequestInterface $request The request object
+     * @param \Cake\Http\ServerRequest $request The request object
      * @return array Array containing sessionId and consentData for view
      * @throws \RuntimeException If session cannot be started
      * @throws \InvalidArgumentException If cookie data cannot be decoded
      */
-    public function getConsentData(ServerRequestInterface $request): array
+    public function getConsentData(ServerRequest $request): array
     {
         $sessionId = $this->startSessionIfNeeded($request);
         $consentData = $this->handleConsentCookie($request);
@@ -43,11 +43,11 @@ class ConsentService
      * Retrieves the consent cookie from the request and decodes it.
      * Returns null if no cookie is present or if decoding fails.
      *
-     * @param \Psr\Http\Message\ServerRequestInterface $request The request object
+     * @param \Cake\Http\ServerRequest $request The request object
      * @return array|null Decoded consent data or null if not present/invalid
      * @throws \InvalidArgumentException If cookie data cannot be decoded
      */
-    public function handleConsentCookie(ServerRequestInterface $request): ?array
+    public function handleConsentCookie(ServerRequest $request): ?array
     {
         $consentCookie = $request->getCookie('consent_cookie');
 
@@ -70,11 +70,11 @@ class ConsentService
      * Ensures the session is properly initialized before accessing
      * session data. This is essential for consent tracking.
      *
-     * @param \Psr\Http\Message\ServerRequestInterface $request The request object
+     * @param \Cake\Http\ServerRequest $request The request object
      * @return string The session ID
      * @throws \RuntimeException If session cannot be started
      */
-    public function startSessionIfNeeded(ServerRequestInterface $request): string
+    public function startSessionIfNeeded(ServerRequest $request): string
     {
         $session = $request->getSession();
 

@@ -11,10 +11,32 @@ use Cake\ORM\Entity;
  *
  * @property string $id
  * @property string $title
+ * @property string|null $slug
+ * @property string|null $description
+ * @property string|null $name
+ * @property string|null $parent_id
+ * @property int|null $lft
+ * @property int|null $rght
+ * @property bool|null $main_menu
+ * @property string|null $image
+ * @property string|null $dir
+ * @property string|null $alt_text
+ * @property string|null $keywords
+ * @property int|null $size
+ * @property string|null $mime
+ * @property string|null $meta_title
+ * @property string|null $meta_description
+ * @property string|null $meta_keywords
+ * @property string|null $facebook_description
+ * @property string|null $linkedin_description
+ * @property string|null $twitter_description
+ * @property string|null $instagram_description
  * @property \Cake\I18n\DateTime|null $created
  * @property \Cake\I18n\DateTime|null $modified
  *
  * @property \App\Model\Entity\Article[] $articles
+ * @property \App\Model\Entity\Tag|null $parent_tag
+ * @property \App\Model\Entity\Tag[] $child_tags
  */
 class Tag extends Entity
 {

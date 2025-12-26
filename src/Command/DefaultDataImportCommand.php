@@ -127,7 +127,7 @@ class DefaultDataImportCommand extends Command
             }
         }
 
-        if (empty($filesToProcess)) {
+        if (count($filesToProcess) === 0) {
             $io->info('No files selected or found for import.');
 
             return Command::CODE_SUCCESS;
@@ -152,10 +152,6 @@ class DefaultDataImportCommand extends Command
             $io->error(sprintf('Failed to import data from %d file(s). Check messages above.', $failedImports));
 
             return Command::CODE_ERROR;
-        }
-
-        if ($successfulImports === 0 && $failedImports === 0) {
-            $io->info('No data was imported.');
         }
 
         return Command::CODE_SUCCESS;
@@ -249,14 +245,6 @@ class DefaultDataImportCommand extends Command
             $connection->begin();
             $io->info(sprintf('Attempting to delete existing records from table: %s', $tableAlias));
             $deleteResult = $table->deleteAll([]);
-            if ($deleteResult === false) {
-                throw new Exception(
-                    sprintf(
-                        'Failed to delete existing records from table: %s. An error occurred.',
-                        $tableAlias,
-                    ),
-                );
-            }
             $io->out(sprintf('Deleted %d existing record(s) from table: %s', $deleteResult, $tableAlias));
 
             $importedCount = 0;

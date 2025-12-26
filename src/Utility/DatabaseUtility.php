@@ -32,17 +32,22 @@ class DatabaseUtility
         }
 
         // Define the query to check for the table's existence
-        $query = "SELECT COUNT(*) FROM information_schema.tables 
+        $query = "SELECT COUNT(*) FROM information_schema.tables
                   WHERE table_schema = :table_schema
                   AND table_name = :table_name";
 
         // Execute the query with the provided table name and database schema
+        /** @var \Cake\Database\Connection $connection */
         $result = $connection->execute($query, [
             'table_schema' => $dbDatabase,
             'table_name' => $tableName,
         ])->fetch('assoc');
 
         // Check if the table exists and the database name is valid
-        return !empty(array_values($result)[0]) && $dbDatabase !== false;
+        if (!is_array($result)) {
+            return false;
+        }
+
+        return !empty(array_values($result)[0]);
     }
 }

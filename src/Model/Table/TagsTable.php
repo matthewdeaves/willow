@@ -16,6 +16,7 @@ use Cake\Validation\Validator;
  * Tags Model
  *
  * @property \App\Model\Table\ArticlesTable&\Cake\ORM\Association\BelongsToMany $Articles
+ * @property \Cake\ORM\Association\BelongsTo $ParentTag
  * @method \App\Model\Entity\Tag newEmptyEntity()
  * @method \App\Model\Entity\Tag newEntity(array $data, array $options = [])
  * @method array<\App\Model\Entity\Tag> newEntities(array $data, array $options = [])
@@ -29,7 +30,16 @@ use Cake\Validation\Validator;
  * @method iterable<\App\Model\Entity\Tag>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\Tag> saveManyOrFail(iterable $entities, array $options = [])
  * @method iterable<\App\Model\Entity\Tag>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\Tag>|false deleteMany(iterable $entities, array $options = [])
  * @method iterable<\App\Model\Entity\Tag>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\Tag> deleteManyOrFail(iterable $entities, array $options = [])
+ * @method void setLocale(string $locale)
+ * @method string getLocale()
+ * @method array getTree(array $conditions = [], array $fields = [])
+ * @method bool reorder(array $data)
+ * @method array getSimpleThreadedArray(string|null $parentId = null)
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
+ * @mixin \Cake\ORM\Behavior\TranslateBehavior
+ * @mixin \App\Model\Behavior\OrderableBehavior
+ * @mixin \App\Model\Behavior\SlugBehavior
+ * @mixin \App\Model\Behavior\QueueableImageBehavior
  */
 class TagsTable extends Table
 {

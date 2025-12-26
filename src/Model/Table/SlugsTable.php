@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Model\Table;
 
 use Cake\Core\App;
+use Cake\Log\LogTrait;
 use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -30,6 +31,8 @@ use Exception;
  */
 class SlugsTable extends Table
 {
+    use LogTrait;
+
     /**
      * Initialize method
      *

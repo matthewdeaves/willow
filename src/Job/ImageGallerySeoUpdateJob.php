@@ -18,14 +18,14 @@ class ImageGallerySeoUpdateJob extends AbstractJob
     /**
      * Instance of the Anthropic API service.
      *
-     * @var \App\Service\Api\AnthropicApiService
+     * @var \App\Service\Api\Anthropic\AnthropicApiService
      */
     private AnthropicApiService $anthropicService;
 
     /**
      * Constructor to allow dependency injection for testing
      *
-     * @param \App\Service\Api\AnthropicApiService|null $anthropicService
+     * @param \App\Service\Api\Anthropic\AnthropicApiService|null $anthropicService
      */
     public function __construct(?AnthropicApiService $anthropicService = null)
     {

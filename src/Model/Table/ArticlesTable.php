@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Model\Table;
 
 use App\Model\Behavior\ImageValidationTrait;
+use App\Utility\ContentSanitizer;
 use App\Utility\SettingsManager;
 use ArrayObject;
 use Cake\Datasource\EntityInterface;
@@ -30,6 +31,7 @@ use DateTime;
  * @property \Cake\ORM\Association\BelongsToMany $Tags
  * @property \Cake\ORM\Association\HasMany $PageViews
  * @property \Cake\ORM\Association\HasMany $Slugs
+ * @property \Cake\ORM\Association\HasMany $Comments
  * @method \App\Model\Entity\Article newEmptyEntity()
  * @method \App\Model\Entity\Article newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\Article[] newEntities(array $data, array $options = [])
@@ -38,6 +40,17 @@ use DateTime;
  * @method \App\Model\Entity\Article patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\Article[] patchEntities(iterable $entities, array $data, array $options = [])
  * @method \App\Model\Entity\Article|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method void setLocale(string $locale)
+ * @method string getLocale()
+ * @method array getTree(array $conditions = [], array $fields = [])
+ * @method bool reorder(array $data)
+ * @mixin \Cake\ORM\Behavior\TimestampBehavior
+ * @mixin \Cake\ORM\Behavior\TranslateBehavior
+ * @mixin \App\Model\Behavior\CommentableBehavior
+ * @mixin \App\Model\Behavior\OrderableBehavior
+ * @mixin \App\Model\Behavior\SlugBehavior
+ * @mixin \App\Model\Behavior\ImageAssociableBehavior
+ * @mixin \App\Model\Behavior\QueueableImageBehavior
  */
 class ArticlesTable extends Table
 {
@@ -177,6 +190,11 @@ class ArticlesTable extends Table
         // Check if is_published has changed to published
         if ($entity->isDirty('is_published') && $entity->is_published) {
             $entity->published = new DateTime('now');
+        }
+
+        // Sanitize body content to prevent XSS attacks
+        if ($entity->isDirty('body') && !empty($entity->body)) {
+            $entity->body = ContentSanitizer::sanitize((string)$entity->body);
         }
 
         // Calculate word count if body is set or modified
@@ -379,6 +397,7 @@ class ArticlesTable extends Table
 
         $dates = [];
         foreach ($query as $result) {
+            /** @var object{year: int, month: int} $result */
             $year = $result->year;
             if (!isset($dates[$year])) {
                 $dates[$year] = [];

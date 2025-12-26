@@ -15,13 +15,23 @@
  * @license       MIT License (https://opensource.org/licenses/mit-license.php)
  */
 
-// For built-in server
+// For built-in server (development only)
+// Security: This block only runs with PHP's built-in CLI server, never in production.
+// Path traversal is prevented by checking for '..' in the path.
 if (PHP_SAPI === 'cli-server') {
     $_SERVER['PHP_SELF'] = '/' . basename(__FILE__);
 
     $url = parse_url(urldecode($_SERVER['REQUEST_URI']));
+    if ($url === false || !isset($url['path'])) {
+        return false;
+    }
+    // Validate path doesn't contain traversal attempts
+    if (strpos($url['path'], '..') !== false) {
+        return false;
+    }
     $file = __DIR__ . $url['path'];
-    if (strpos($url['path'], '..') === false && strpos($url['path'], '.') !== false && is_file($file)) {
+    // nosemgrep: php.lang.security.injection.tainted-filename.tainted-filename
+    if (strpos($url['path'], '.') !== false && is_file($file)) {
         return false;
     }
 }

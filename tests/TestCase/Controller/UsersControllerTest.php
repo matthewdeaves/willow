@@ -5,6 +5,7 @@ namespace App\Test\TestCase\Controller;
 
 use App\Model\Table\UsersTable;
 use App\Test\TestCase\AppControllerTestCase;
+use App\Utility\SettingsManager;
 use Cake\Cache\Cache;
 use Cake\Datasource\FactoryLocator;
 use Cake\TestSuite\IntegrationTestTrait;
@@ -70,6 +71,9 @@ class UsersControllerTest extends AppControllerTestCase
 
         // Clear rate limiting cache to make sure /login is not blocked
         Cache::clear('rate_limit');
+
+        // Clear settings cache to ensure fixture values are used
+        SettingsManager::clearCache();
     }
 
     /**

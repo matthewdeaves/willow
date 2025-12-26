@@ -89,6 +89,36 @@ docker compose exec willowcms composer cs-fix
 docker compose exec willowcms composer stan
 ```
 
+### Security Scanning
+
+The project includes security vulnerability scanning tools that run both locally and in CI:
+
+```bash
+# phpcs-security-audit - PHP security rules (runs in container)
+docker compose exec willowcms php vendor/bin/phpcs --standard=phpcs-security.xml --report=summary src/
+# or with alias:
+phpcs_security
+
+# phpcs-security-audit with full details
+docker compose exec willowcms php vendor/bin/phpcs --standard=phpcs-security.xml src/
+# or with alias:
+phpcs_security_full
+
+# Semgrep - OWASP Top 10 and PHP security (runs via Docker image)
+docker run --rm -v "$(pwd):/src" returntocorp/semgrep semgrep --config p/php --config p/owasp-top-ten --config p/security-audit src/
+# or with alias:
+semgrep_security
+
+# Semgrep quick scan (PHP rules only)
+semgrep_quick
+```
+
+**CI Integration**: GitHub Actions runs both phpcs-security-audit and Semgrep (OWASP Top 10 rules) on every push and pull request. Security scan failures are non-blocking but should be reviewed.
+
+**Configuration**:
+- `phpcs-security.xml` - PHP CodeSniffer security rules with ParanoiaMode disabled
+- Semgrep uses community rulesets: `p/php`, `p/owasp-top-ten`, `p/security-audit`
+
 ### Database & Cache
 
 ```bash

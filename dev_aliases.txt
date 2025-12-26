@@ -61,6 +61,18 @@ alias phpcs_sniff='willowcms_exec php vendor/bin/phpcs --standard=vendor/cakephp
 alias phpcs_fix='willowcms_exec php vendor/bin/phpcbf'
 alias phpstan_analyse='willowcms_exec php vendor/bin/phpstan analyse src/'
 
+# Security Scanning Commands
+alias phpcs_security='willowcms_exec php vendor/bin/phpcs --standard=phpcs-security.xml --report=summary src/'
+alias phpcs_security_full='willowcms_exec php vendor/bin/phpcs --standard=phpcs-security.xml src/'
+
+# Semgrep security scan (runs via Docker - no installation needed)
+semgrep_security() {
+    docker run --rm -v "$(pwd):/src" returntocorp/semgrep semgrep --config p/php --config p/owasp-top-ten --config p/security-audit src/
+}
+semgrep_quick() {
+    docker run --rm -v "$(pwd):/src" returntocorp/semgrep semgrep --config p/php src/
+}
+
 # Composer Commands
 alias composer_update='willowcms_exec composer update'
 

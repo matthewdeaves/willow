@@ -16,12 +16,14 @@ use Cake\ORM\Entity;
  * @property bool $is_admin
  * @property bool $active
  * @property string|null $image
+ * @property string|null $dir
  * @property string|null $keywords
  * @property string|null $alt_text
  * @property \Cake\I18n\DateTime|null $created
  * @property \Cake\I18n\DateTime|null $modified
  *
  * @property \App\Model\Entity\Article[] $articles
+ * @property \App\Model\Entity\Comment[] $comments
  */
 class User extends Entity
 {

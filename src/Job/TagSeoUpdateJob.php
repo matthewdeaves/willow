@@ -18,7 +18,7 @@ class TagSeoUpdateJob extends AbstractJob
     /**
      * The Anthropic API service used for generating SEO content.
      *
-     * @var \App\Service\Api\AnthropicApiService
+     * @var \App\Service\Api\Anthropic\AnthropicApiService
      */
     private AnthropicApiService $anthropicService;
 

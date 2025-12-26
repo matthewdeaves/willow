@@ -3,14 +3,22 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Model\Entity\User;
 use App\Service\ConsentService;
 use App\Utility\I18nManager;
 use Cake\Controller\Controller;
 use Cake\Core\Configure;
 use Cake\Event\EventInterface;
 use Cake\Log\LogTrait;
-// No explicit `use Cake\Http\Response;` needed just for redirecting in beforeFilter
 
+/**
+ * Application Controller
+ *
+ * Base controller for all application controllers.
+ *
+ * @property \Authentication\Controller\Component\AuthenticationComponent $Authentication
+ * @property \Cake\Controller\Component\FlashComponent $Flash
+ */
 class AppController extends Controller
 {
     use LogTrait;
@@ -91,17 +99,28 @@ class AppController extends Controller
         }
 
         if ($identity) {
-            $profilePic = $identity->image_url;
-
-            // Only set profilePic if the user has an actual image file
-            if ($profilePic && $identity->image) {
-                $this->set(compact('profilePic'));
+            $originalData = $identity->getOriginalData();
+            if ($originalData instanceof User) {
+                $profilePic = $originalData->image_url ?? null;
+                // Only set profilePic if the user has an actual image file
+                if ($profilePic && $originalData->image) {
+                    $this->set(compact('profilePic'));
+                }
             }
         }
 
         if ($this->isAdminRequest()) {
             // If there is no identity, or the identifier part of the identity is null/empty
-            if (!$identity || !$identity->getIdentifier() || $identity->get('is_admin') == false) {
+            $isAdmin = false;
+            if ($identity) {
+                $originalData = $identity->getOriginalData();
+                if ($originalData instanceof User) {
+                    $isAdmin = (bool)$originalData->is_admin;
+                } elseif (is_array($originalData)) {
+                    $isAdmin = !empty($originalData['is_admin']);
+                }
+            }
+            if (!$identity || !$identity->getIdentifier() || !$isAdmin) {
                 $this->Flash->error(__('Access denied. You must be logged in as an admin to view this page.'));
                 $event->setResult($this->redirect(['_name' => 'home', 'prefix' => false]));
 

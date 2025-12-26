@@ -31,7 +31,7 @@ class ArticlesController extends AppController
     /**
      * Retrieves a hierarchical list of articles that are marked as pages.
      *
-     * @return void
+     * @return \Cake\Http\Response|null
      */
     public function treeIndex(): ?Response
     {
@@ -225,7 +225,7 @@ class ArticlesController extends AppController
             $article = $this->Articles->patchEntity($article, $data);
 
             // Handle image uploads
-            $imageUploads = $this->request->getUploadedFiles('image_uploads');
+            $imageUploads = $this->request->getUploadedFiles();
             if (!empty($imageUploads['image_uploads'])) {
                 $article->imageUploads = $imageUploads['image_uploads'];
             }
@@ -282,7 +282,7 @@ class ArticlesController extends AppController
             $article = $this->Articles->patchEntity($article, $data);
 
             // Handle image uploads
-            $imageUploads = $this->request->getUploadedFiles('image_uploads') ?? [];
+            $imageUploads = $this->request->getUploadedFiles();
             if (!empty($imageUploads['image_uploads'])) {
                 $article->imageUploads = $imageUploads['image_uploads'];
             }
@@ -332,10 +332,10 @@ class ArticlesController extends AppController
      * Deletes an article.
      *
      * @param string|null $id Article ID.
-     * @return void
+     * @return \Cake\Http\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete(?string $id = null): void
+    public function delete(?string $id = null): ?Response
     {
         $this->request->allowMethod(['post', 'delete']);
         $article = $this->Articles->get($id);
@@ -349,11 +349,11 @@ class ArticlesController extends AppController
 
         // Check if 'kind' is in the request parameters
         if ($this->request->getData('kind') == 'page') {
-            $this->redirect(['action' => 'treeIndex']);
+            return $this->redirect(['action' => 'treeIndex']);
         }
 
-        $action = $this->request->getQuery('kind') == 'page' ? 'tree-index' : 'index';
+        $action = $this->request->getQuery('kind') == 'page' ? 'treeIndex' : 'index';
 
-        $this->redirect(['action' => $action]);
+        return $this->redirect(['action' => $action]);
     }
 }

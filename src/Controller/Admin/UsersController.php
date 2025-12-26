@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
+use App\Model\Entity\User;
 use Cake\Event\EventInterface;
 use Cake\Http\Response;
 
@@ -127,7 +128,11 @@ class UsersController extends AppController
     public function edit(?string $id = null): ?Response
     {
         $user = $this->Users->get($id, contain: []);
-        $currentUser = $this->Authentication->getIdentity();
+        $identity = $this->Authentication->getIdentity();
+        $originalData = $identity->getOriginalData();
+        $currentUserId = $originalData instanceof User
+            ? $originalData->id
+            : ($originalData['id'] ?? null);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user->setAccess('is_admin', true);
@@ -136,13 +141,13 @@ class UsersController extends AppController
             $data = $this->request->getData();
 
             // Prevent changing own admin status
-            if ($user->lockAdminAccountError($currentUser->id, $data)) {
+            if ($user->lockAdminAccountError($currentUserId, $data)) {
                 $this->Flash->error(__('You cannot remove your own admin status.'));
 
                 return $this->redirect(['action' => 'edit', $id]);
             }
             //prevent disabling own account
-            if ($user->lockEnabledAccountError($currentUser->id, $data)) {
+            if ($user->lockEnabledAccountError($currentUserId, $data)) {
                 $this->Flash->error(__('You cannot disable your own account.'));
 
                 return $this->redirect(['action' => 'edit', $id]);
@@ -173,8 +178,12 @@ class UsersController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
-        $currentUser = $this->Authentication->getIdentity();
-        if ($currentUser->id == $user->id) {
+        $identity = $this->Authentication->getIdentity();
+        $originalData = $identity->getOriginalData();
+        $currentUserId = $originalData instanceof User
+            ? $originalData->id
+            : ($originalData['id'] ?? null);
+        if ($currentUserId == $user->id) {
             $this->Flash->error(__('No deleting your own account.'));
 
             return $this->redirect(['action' => 'index']);

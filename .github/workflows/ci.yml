@@ -19,10 +19,10 @@ jobs:
 
     strategy:
       matrix:
-        php-version: ['8.1', '8.2', '8.3']
+        php-version: ['8.1', '8.2', '8.3', '8.4']
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
 
     - name: Setup MySQL
       run: |
@@ -77,3 +77,25 @@ jobs:
     - name: Run PHPStan
       run: php -d memory_limit=-1 vendor/bin/phpstan analyse src/
       continue-on-error: true
+
+    - name: Run Security Audit (phpcs-security-audit)
+      run: vendor/bin/phpcs --standard=phpcs-security.xml --report=summary src/
+      continue-on-error: true
+
+  security:
+    runs-on: ubuntu-latest
+    name: Security Scan (Semgrep)
+    continue-on-error: true
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Run Semgrep
+      uses: returntocorp/semgrep-action@v1
+      with:
+        config: >-
+          p/php
+          p/owasp-top-ten
+          p/security-audit
+      env:
+        SEMGREP_RULES: "p/php p/owasp-top-ten p/security-audit"

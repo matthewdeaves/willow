@@ -7,7 +7,7 @@ use App\Utility\I18nManager;
 use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
-use Cake\ORM\ResultSet;
+use Cake\Datasource\ResultSetInterface;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Filesystem;
 
@@ -51,7 +51,7 @@ class GeneratePoFilesCommand extends Command
             $dirPath = dirname($filePath);
 
             if (!is_dir($dirPath)) {
-                $filesystem->mkdir($dirPath, 0755, true);
+                mkdir($dirPath, 0755, true);
             }
 
             $filesystem->dumpFile($filePath, $poContent);
@@ -65,10 +65,10 @@ class GeneratePoFilesCommand extends Command
      * Generates the content for a .po file.
      *
      * @param string $locale The locale for which the .po file is generated.
-     * @param \Cake\ORM\ResultSet $translations The translations to include in the .po file.
+     * @param \Cake\Datasource\ResultSetInterface $translations The translations to include in the .po file.
      * @return string The content of the .po file.
      */
-    protected function generatePoContent(string $locale, ResultSet $translations): string
+    protected function generatePoContent(string $locale, ResultSetInterface $translations): string
     {
         $header = <<<EOT
 # LANGUAGE translation of CakePHP Application

@@ -9,10 +9,16 @@ use Cake\ORM\Entity;
  * Setting Entity
  *
  * @property string $id
+ * @property int|null $ordering
  * @property string $category
  * @property string $key_name
  * @property string|null $value
  * @property string $type
+ * @property string|null $value_type
+ * @property bool|null $value_obscure
+ * @property string|null $description
+ * @property mixed $data
+ * @property string|null $column_width
  * @property \Cake\I18n\DateTime|null $created
  * @property \Cake\I18n\DateTime|null $modified
  */

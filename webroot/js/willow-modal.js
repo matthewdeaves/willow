@@ -44,6 +44,66 @@
  */
 
 /**
+ * Create modal DOM structure programmatically (XSS-safe)
+ * Uses DOM methods instead of innerHTML/insertAdjacentHTML for security
+ * @param {Object} options - Modal configuration options
+ * @returns {HTMLElement} The modal element
+ */
+function createModalElement(options) {
+    // Create modal container
+    const modal = document.createElement('div');
+    modal.className = 'modal fade';
+    modal.id = 'dynamicModal';
+    modal.tabIndex = -1;
+    modal.setAttribute('aria-hidden', 'true');
+
+    // Create modal dialog
+    const dialog = document.createElement('div');
+    dialog.className = 'modal-dialog modal-dialog-centered ' + (options.dialogClass || '');
+
+    // Create modal content
+    const content = document.createElement('div');
+    content.className = 'modal-content';
+
+    // Create modal header
+    const header = document.createElement('div');
+    header.className = 'modal-header';
+
+    // Create title (using textContent for XSS safety)
+    const title = document.createElement('h1');
+    title.className = 'modal-title fs-5';
+    title.textContent = options.title || '';
+    header.appendChild(title);
+
+    // Create close button if closeable
+    if (options.closeable) {
+        const closeBtn = document.createElement('button');
+        closeBtn.type = 'button';
+        closeBtn.className = 'btn-close';
+        closeBtn.setAttribute('data-bs-dismiss', 'modal');
+        closeBtn.setAttribute('aria-label', 'Close');
+        header.appendChild(closeBtn);
+    }
+
+    // Create modal body
+    const body = document.createElement('div');
+    body.className = 'modal-body';
+
+    // Create content container
+    const contentDiv = document.createElement('div');
+    contentDiv.id = 'dynamicModalContent';
+    body.appendChild(contentDiv);
+
+    // Assemble modal structure
+    content.appendChild(header);
+    content.appendChild(body);
+    dialog.appendChild(content);
+    modal.appendChild(dialog);
+
+    return modal;
+}
+
+/**
  * WillowModal Configuration Object
  * Centralized configuration for all modal operations
  */
@@ -174,23 +234,9 @@ window.WillowModalConfig = {
  */
 window.WillowModal = {
     show: function(url, options = {}) {
-        const modalHtml = `
-            <div class="modal fade" id="dynamicModal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered ${options.dialogClass || ''}">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5">${options.title || ''}</h1>
-                            ${options.closeable ? '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' : ''}
-                        </div>
-                        <div class="modal-body">
-                            <div id="dynamicModalContent"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>`;
-
-        document.body.insertAdjacentHTML('beforeend', modalHtml);
-        const modalEl = document.getElementById('dynamicModal');
+        // Create modal using DOM methods (XSS-safe)
+        const modalEl = createModalElement(options);
+        document.body.appendChild(modalEl);
         const modal = new bootstrap.Modal(modalEl, {
             backdrop: options.static ? 'static' : true,
             keyboard: !options.static
@@ -346,23 +392,11 @@ window.WillowModal = {
         };
         const config = { ...defaults, ...options };
 
-        const modalHtml = `
-            <div class="modal fade" id="dynamicModal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered ${config.dialogClass || ''}">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5">${config.title || ''}</h1>
-                            ${config.closeable ? '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' : ''}
-                        </div>
-                        <div class="modal-body">
-                            <div id="dynamicModalContent">${content}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>`;
-
-        document.body.insertAdjacentHTML('beforeend', modalHtml);
-        const modalEl = document.getElementById('dynamicModal');
+        // Create modal using DOM methods (XSS-safe)
+        const modalEl = createModalElement(config);
+        document.body.appendChild(modalEl);
+        // Insert content separately - caller is responsible for content safety
+        document.getElementById('dynamicModalContent').innerHTML = content;
         const modal = new bootstrap.Modal(modalEl, {
             backdrop: config.static ? 'static' : true,
             keyboard: !config.static

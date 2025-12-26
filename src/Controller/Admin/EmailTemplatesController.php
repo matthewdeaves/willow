@@ -329,8 +329,9 @@ class EmailTemplatesController extends AppController
                     '_name' => 'confirm-email',
                     $confirmationCode,
                 ], true);
-        }
 
-        return false;
+            default:
+                return '';
+        }
     }
 }

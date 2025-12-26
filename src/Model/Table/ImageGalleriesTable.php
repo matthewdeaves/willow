@@ -32,7 +32,12 @@ use Exception;
  * @method iterable<\App\Model\Entity\ImageGallery>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\ImageGallery> saveManyOrFail(iterable $entities, array $options = [])
  * @method iterable<\App\Model\Entity\ImageGallery>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\ImageGallery>|false deleteMany(iterable $entities, array $options = [])
  * @method iterable<\App\Model\Entity\ImageGallery>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\ImageGallery> deleteManyOrFail(iterable $entities, array $options = [])
+ * @method void setLocale(string $locale)
+ * @method string getLocale()
+ * @method object|null getGalleryForPlaceholder(string $galleryId, bool $requirePublished = true, ?string $cacheKey = null)
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
+ * @mixin \Cake\ORM\Behavior\TranslateBehavior
+ * @mixin \App\Model\Behavior\SlugBehavior
  */
 class ImageGalleriesTable extends Table
 {

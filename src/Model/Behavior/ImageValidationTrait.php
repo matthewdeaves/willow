@@ -30,6 +30,25 @@ use Cake\Validation\Validator;
 trait ImageValidationTrait
 {
     /**
+     * Allowed file extensions for image uploads (security measure)
+     *
+     * @var array<string>
+     */
+    private array $allowedImageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+
+    /**
+     * Dangerous file extensions that should never be allowed
+     *
+     * @var array<string>
+     */
+    private array $dangerousExtensions = [
+        'php', 'php3', 'php4', 'php5', 'php7', 'phtml', 'phar',
+        'exe', 'sh', 'bash', 'bat', 'cmd', 'com',
+        'js', 'jsp', 'asp', 'aspx', 'cgi', 'pl', 'py', 'rb',
+        'htaccess', 'htpasswd',
+    ];
+
+    /**
      * Add standard image validation rules to a validator
      *
      * @param \Cake\Validation\Validator $validator The validator instance
@@ -44,16 +63,25 @@ trait ImageValidationTrait
         bool $required = false,
         array $options = [],
     ): Validator {
-        // Merge default options with provided options
-        $config = array_merge([
-            'allowedMimeTypes' => ['image/jpeg', 'image/png', 'image/gif'],
+        // Default configuration
+        $defaults = [
+            'allowedMimeTypes' => ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
+            'allowedExtensions' => $this->allowedImageExtensions,
             'maxFileSize' => '10MB',
             'messages' => [
-                'mimeType' => __('Please upload only images (jpeg, png, gif).'),
+                'mimeType' => __('Please upload only images (jpeg, png, gif, webp).'),
                 'fileSize' => __('Image must be less than 10MB.'),
                 'required' => __('An image file is required.'),
+                'extension' => __('Invalid file extension. Only jpg, jpeg, png, gif, webp allowed.'),
+                'dangerous' => __('This file type is not allowed for security reasons.'),
             ],
-        ], $options);
+        ];
+
+        // Deep merge options with defaults (messages array needs special handling)
+        $config = array_merge($defaults, $options);
+        if (isset($options['messages'])) {
+            $config['messages'] = array_merge($defaults['messages'], $options['messages']);
+        }
 
         // Handle required validation
         if ($required) {
@@ -88,7 +116,84 @@ trait ImageValidationTrait
                         && $context['data'][$field]->getError() === UPLOAD_ERR_OK;
                 },
             ],
+            'safeExtension' => [
+                'rule' => function ($value) use ($config) {
+                    return $this->validateFileExtension($value, $config['allowedExtensions']);
+                },
+                'message' => $config['messages']['extension'],
+                'on' => function ($context) use ($field) {
+                    return !empty($context['data'][$field])
+                        && is_object($context['data'][$field])
+                        && method_exists($context['data'][$field], 'getError')
+                        && $context['data'][$field]->getError() === UPLOAD_ERR_OK;
+                },
+            ],
+            'notDangerous' => [
+                'rule' => function ($value) {
+                    return $this->validateNotDangerousExtension($value);
+                },
+                'message' => $config['messages']['dangerous'],
+                'on' => function ($context) use ($field) {
+                    return !empty($context['data'][$field])
+                        && is_object($context['data'][$field])
+                        && method_exists($context['data'][$field], 'getError')
+                        && $context['data'][$field]->getError() === UPLOAD_ERR_OK;
+                },
+            ],
         ]);
+    }
+
+    /**
+     * Validate that file extension is in the allowed list
+     *
+     * @param mixed $value The uploaded file object
+     * @param array $allowedExtensions List of allowed extensions
+     * @return bool
+     */
+    private function validateFileExtension(mixed $value, array $allowedExtensions): bool
+    {
+        if (!is_object($value) || !method_exists($value, 'getClientFilename')) {
+            return false;
+        }
+
+        $filename = $value->getClientFilename();
+        if (empty($filename)) {
+            return false;
+        }
+
+        $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+
+        return in_array($extension, $allowedExtensions, true);
+    }
+
+    /**
+     * Validate that file does not have a dangerous extension
+     * Checks all extensions in the filename (e.g., shell.php.jpg)
+     *
+     * @param mixed $value The uploaded file object
+     * @return bool True if safe, false if dangerous
+     */
+    private function validateNotDangerousExtension(mixed $value): bool
+    {
+        if (!is_object($value) || !method_exists($value, 'getClientFilename')) {
+            return false;
+        }
+
+        $filename = $value->getClientFilename();
+        if (empty($filename)) {
+            return false;
+        }
+
+        // Check all parts of the filename for dangerous extensions
+        // This catches tricks like "shell.php.jpg" or "file.phtml.png"
+        $parts = explode('.', strtolower($filename));
+        foreach ($parts as $part) {
+            if (in_array($part, $this->dangerousExtensions, true)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**

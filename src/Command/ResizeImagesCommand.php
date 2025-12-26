@@ -24,7 +24,7 @@ class ResizeImagesCommand extends Command
     /**
      * Stores the model names and their respective columns to process.
      *
-     * @var array<string, string>
+     * @var array<string, array<string, string>>
      */
     protected array $modelsWithImages = [
         'Users' => [
@@ -92,16 +92,16 @@ class ResizeImagesCommand extends Command
         foreach ($this->modelsWithImages as $model => $columns) {
             $imagesTable = $this->fetchTable($model);
             $images = $imagesTable->find('all')
-            ->select(['id', $columns['image'], $columns['dir']])
-            ->where([$columns['image'] . ' IS NOT' => null])
+            ->select(['id', $columns['file'], $columns['dir']])
+            ->where([$columns['file'] . ' IS NOT' => null])
             ->toArray();
 
             foreach ($images as $image) {
                 $folder = ROOT . DS . $image->dir;
-                $original = $folder . $image->{$columns['image']};
+                $original = $folder . $image->{$columns['file']};
                 if (file_exists($original)) {
                     foreach (SettingsManager::read('ImageSizes') as $width) {
-                        $this->createImage($folder, $image->{$columns['image']}, intval($width));
+                        $this->createImage($folder, $image->{$columns['file']}, intval($width));
                     }
                 }
             }

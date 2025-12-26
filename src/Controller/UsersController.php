@@ -322,8 +322,6 @@ class UsersController extends AppController
 
             return $this->redirect(['action' => 'register']);
         }
-
-        return null;
     }
 
     /**

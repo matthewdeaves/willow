@@ -65,14 +65,14 @@ class CookieConsentsController extends AppController
 
             $consentType = $this->request->getData('consent_type');
             if ($consentType === 'essential') {
-                $newConsent->analytics_consent = 0;
-                $newConsent->functional_consent = 0;
-                $newConsent->marketing_consent = 0;
+                $newConsent->analytics_consent = false;
+                $newConsent->functional_consent = false;
+                $newConsent->marketing_consent = false;
             }
             if ($consentType === 'all') {
-                $newConsent->analytics_consent = 1;
-                $newConsent->functional_consent = 1;
-                $newConsent->marketing_consent = 1;
+                $newConsent->analytics_consent = true;
+                $newConsent->functional_consent = true;
+                $newConsent->marketing_consent = true;
             }
 
             if ($this->CookieConsents->save($newConsent)) {

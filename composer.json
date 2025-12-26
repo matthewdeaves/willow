@@ -1,7 +1,7 @@
 {
     "name": "matthewdeaves/willow",
     "description": "Willow CMS - A Modern Content Management System Built with CakePHP 5.x and AI Integration",
-    "license": "MIT",
+    "license": "GPL-3.0-or-later",
     "type": "project",
     "homepage": "https://willowcms.app",
     "keywords": ["cms", "content-management", "cakephp", "ai", "blog", "multilingual", "docker"],
@@ -17,9 +17,10 @@
         "docs": "https://github.com/matthewdeaves/willow/blob/main/README.md"
     },
     "require": {
-        "php": ">=8.1 <8.4",
+        "php": ">=8.1 <8.5",
         "ext-redis": "*",
         "admad/cakephp-i18n": "^3.0",
+        "symfony/config": "^6.4.0 <6.4.27",
         "cakephp/authentication": "^3.1",
         "cakephp/cakephp": "^5.0",
         "cakephp/migrations": "^4.4",
@@ -27,17 +28,19 @@
         "cakephp/queue": "^2.1",
         "enqueue/redis": "^0.10.19",
         "google/apiclient": "^2.18",
-        "google/cloud-translate": "^1.19",
+        "google/cloud-translate": "^2.1.1",
         "josegonzalez/cakephp-upload": "^8.0.3",
         "josegonzalez/dotenv": "^4.0",
         "mobiledetect/mobiledetectlib": "^4.8.03",
-        "predis/predis": "^1",
+        "predis/predis": "^3.3.0",
         "symfony/http-client": "^5.4 || ^6.0 || ^7.0"
     },
     "require-dev": {
+        "cakedc/cakephp-phpstan": "^4.1",
         "cakephp/bake": "^3.0.0",
-        "cakephp/cakephp-codesniffer": "^5.0",
+        "cakephp/cakephp-codesniffer": "^5.3.0",
         "cakephp/debug_kit": "~5.0",
+        "pheromone/phpcs-security-audit": "^2.0",
         "phpstan/phpstan": "^2.0",
         "phpunit/phpunit": "^10.1"
     },

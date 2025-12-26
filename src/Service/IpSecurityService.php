@@ -75,11 +75,9 @@ class IpSecurityService
         }
 
         // Try CakePHP's built-in method
-        if (method_exists($request, 'clientIp')) {
-            $ip = $request->clientIp();
-            if ($ip && $this->isValidIp($ip)) {
-                return $ip;
-            }
+        $ip = $request->clientIp();
+        if ($ip && $this->isValidIp($ip)) {
+            return $ip;
         }
 
         $serverParams = $request->getServerParams();
@@ -187,20 +185,11 @@ class IpSecurityService
             $blockedStatus = $blockedIp !== null;
 
             if ($blockedStatus && $blockedIp) {
-                // Determine cache TTL based on block's expiration
-                $cacheDuration = '1 day'; // Default for permanent blocks
-                if ($blockedIp->expires_at) {
-                    $now = new DateTime();
-                    $diffInSeconds = $blockedIp->expires_at->getTimestamp() - $now->getTimestamp();
-                    if ($diffInSeconds > 0) {
-                        // Cache until block expiry plus buffer
-                        $cacheDuration = ($diffInSeconds + 60) . ' seconds';
-                    }
-                }
-                Cache::write($cacheKey, true, 'ip_blocker', $cacheDuration);
+                // Cache blocked status using config's default duration
+                Cache::write($cacheKey, true, 'ip_blocker');
             } else {
-                // IP is not blocked, cache this status for a short time
-                Cache::write($cacheKey, false, 'ip_blocker', '5 minutes');
+                // IP is not blocked, cache this status
+                Cache::write($cacheKey, false, 'ip_blocker');
             }
         }
 
@@ -245,18 +234,9 @@ class IpSecurityService
         }
 
         if ($this->blockedIpsTable->save($entity)) {
-            // Determine cache duration
-            $cacheDuration = '1 day'; // Default for permanent blocks
-            if ($expiresAt) {
-                $now = new DateTime();
-                $diffInSeconds = $expiresAt->getTimestamp() - $now->getTimestamp();
-                if ($diffInSeconds > 0) {
-                    $cacheDuration = ($diffInSeconds + 60) . ' seconds';
-                }
-            }
-
+            // Cache blocked status using config's default duration
             $cacheKey = 'blocked_ip_' . md5($ip);
-            Cache::write($cacheKey, true, 'ip_blocker', $cacheDuration);
+            Cache::write($cacheKey, true, 'ip_blocker');
 
             Log::warning(__('IP address blocked: {0} for {1}', [$ip, $reason]), [
                 'ip' => $ip,

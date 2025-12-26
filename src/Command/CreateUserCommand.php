@@ -7,7 +7,6 @@ use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
-use Cake\Datasource\EntityInterface;
 use Cake\Log\LogTrait;
 use Cake\ORM\Table; // Added for type hinting
 
@@ -150,6 +149,7 @@ class CreateUserCommand extends Command
             ['scope' => ['user_management', 'user_creation']],
         );
 
+        /** @var \App\Model\Entity\User $user */
         $user = $usersTable->newEmptyEntity();
         // Allow mass assignment for these fields during creation
         $user->setAccess('is_admin', true);
@@ -194,9 +194,10 @@ class CreateUserCommand extends Command
         $email = $args->getOption('email');
         $newPassword = $args->getOption('password');
 
+        /** @var \App\Model\Entity\User|null $user */
         $user = $usersTable->findByEmail($email)->first();
 
-        if (!$user instanceof EntityInterface) { // Check if user was found
+        if (!$user) { // Check if user was found
             $io->warning(sprintf('User with email "%s" not found.', $email));
             $this->log(
                 sprintf('Password update failed: User with email "%s" not found.', $email),

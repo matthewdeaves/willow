@@ -109,7 +109,7 @@ class ContentHelper extends Helper
         // Only add loading="lazy" and avoid adding classes that might break existing functionality
         $content = preg_replace_callback(
             '/<img([^>]*)>/i',
-            function ($matches) use ($options) {
+            function ($matches) {
                 $attributes = $matches[1];
 
                 // Add loading="lazy" if not present

@@ -139,9 +139,9 @@ class SlugBehavior extends Behavior
             ];
 
             try {
-                // Save slug history - use regular save to avoid transaction conflicts
+                // Save slug history - use atomic false to avoid nested transaction conflicts
                 $slugEntity = $slugsTable->newEntity($slugData);
-                if (!$slugsTable->save($slugEntity)) {
+                if (!$slugsTable->save($slugEntity, ['atomic' => false])) {
                     $event->getSubject()->log(sprintf(
                         'Failed to save slug history for slug: %s',
                         $slug,

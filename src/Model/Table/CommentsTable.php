@@ -7,18 +7,28 @@ use App\Utility\SettingsManager;
 use ArrayObject;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
+use Cake\Log\LogTrait;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * CommentsTable Entity
+ * CommentsTable
  *
  * Represents the comments table in the database. Manages relationships with Users and Articles,
  * defines validation rules, and sets up integrity checks for the comments data.
+ *
+ * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
+ * @property \App\Model\Table\ArticlesTable&\Cake\ORM\Association\BelongsTo $Articles
+ * @method \App\Model\Entity\Comment newEmptyEntity()
+ * @method \App\Model\Entity\Comment newEntity(array $data, array $options = [])
+ * @method \App\Model\Entity\Comment get(mixed $primaryKey, array|string $finder = 'all', \Psr\SimpleCache\CacheInterface|string|null $cache = null, \Closure|string|null $cacheKey = null, mixed ...$args)
+ * @method \App\Model\Entity\Comment|false save(\Cake\Datasource\EntityInterface $entity, array $options = [])
+ * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
 class CommentsTable extends Table
 {
+    use LogTrait;
     use QueueableJobsTrait;
 
     /**

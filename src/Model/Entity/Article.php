@@ -33,13 +33,23 @@ use Cake\ORM\Entity;
  * @property string|null $parent_id
  * @property int|null $lft
  * @property int|null $rght
- * @property bool $published
+ * @property \Cake\I18n\DateTime|null $published
  * @property bool $is_published
  * @property string|null $image
+ * @property string|null $dir
+ * @property string|null $alt_text
+ * @property int|null $view_count
+ * @property array|null $imageUploads
+ * @property array|null $unlinkedImages
  *
  * @property \App\Model\Entity\User $user
  * @property \App\Model\Entity\Tag[] $tags
  * @property \App\Model\Entity\Image[] $images
+ * @property \App\Model\Entity\Comment[] $comments
+ * @property \App\Model\Entity\Slug[] $slugs
+ * @property \App\Model\Entity\PageView[] $page_views
+ * @property \App\Model\Entity\Article|null $parent_article
+ * @property \App\Model\Entity\Article[] $child_articles
  */
 class Article extends Entity
 {

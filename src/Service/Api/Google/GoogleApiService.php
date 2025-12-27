@@ -77,9 +77,73 @@ class GoogleApiService
     }
 
     /**
-     * Translates an article title and body into multiple languages using the Google Translate API.
+     * Translates content fields into multiple languages using the Google Translate API.
+     *
+     * This is the core translation method that handles the common logic for all content types.
+     * It supports HTML content preprocessing for fields that may contain code blocks, videos,
+     * or galleries.
+     *
+     * @param array<string, string> $fields Associative array of field name => value to translate
+     * @param array<string> $htmlFields Field names that should be preprocessed for HTML content
+     * @param bool $useHtmlFormat Whether to use HTML format for translation (preserves HTML tags)
+     * @return array<string, array<string, string>> Translations keyed by locale, then field name
+     */
+    public function translateContent(array $fields, array $htmlFields = [], bool $useHtmlFormat = false): array
+    {
+        $locales = array_filter(SettingsManager::read('Translations', []));
+
+        if (empty($locales)) {
+            return [];
+        }
+
+        $this->preservedBlocks = [];
+
+        // Preprocess HTML fields
+        $processedFields = [];
+        foreach ($fields as $fieldName => $value) {
+            if (in_array($fieldName, $htmlFields, true)) {
+                $processedFields[$fieldName] = $this->preprocessContent($value);
+            } else {
+                $processedFields[$fieldName] = $value;
+            }
+        }
+
+        $fieldNames = array_keys($processedFields);
+        $fieldValues = array_values($processedFields);
+
+        $translations = [];
+        foreach ($locales as $locale => $enabled) {
+            $options = [
+                'source' => 'en',
+                'target' => $locale,
+            ];
+
+            if ($useHtmlFormat) {
+                $options['format'] = 'html';
+            }
+
+            $translationResult = $this->translateClient->translateBatch($fieldValues, $options);
+
+            foreach ($fieldNames as $index => $fieldName) {
+                $translatedText = $translationResult[$index]['text'];
+
+                // Postprocess HTML fields to restore preserved blocks
+                if (in_array($fieldName, $htmlFields, true)) {
+                    $translatedText = $this->postprocessContent($translatedText);
+                }
+
+                $translations[$locale][$fieldName] = $translatedText;
+            }
+        }
+
+        return $translations;
+    }
+
+    /**
+     * Translates an article into multiple languages using the Google Translate API.
      *
      * @param string $title The title of the article to be translated.
+     * @param string $lede The lede of the article to be translated.
      * @param string $body The body of the article to be translated (can contain HTML).
      * @param string $summary The summary of the article to be translated.
      * @param string $meta_title The meta title of the article to be translated.
@@ -105,52 +169,27 @@ class GoogleApiService
         string $instagram_description,
         string $twitter_description,
     ): array {
-        $locales = array_filter(SettingsManager::read('Translations', []));
-
-        $this->preservedBlocks = [];
-
-        $processedBody = $this->preprocessContent($body);
-
-        $translations = [];
-        foreach ($locales as $locale => $enabled) {
-            $translationResult = $this->translateClient->translateBatch(
-                [
-                    $title,
-                    $lede,
-                    $processedBody,
-                    $summary,
-                    $meta_title,
-                    $meta_description,
-                    $meta_keywords,
-                    $facebook_description,
-                    $linkedin_description,
-                    $instagram_description,
-                    $twitter_description,
-                ],
-                [
-                    'source' => 'en',
-                    'target' => $locale,
-                    'format' => 'html',
-                ],
-            );
-            $translations[$locale]['title'] = $translationResult[0]['text'];
-            $translations[$locale]['lede'] = $translationResult[1]['text'];
-            $translations[$locale]['body'] = $this->postprocessContent($translationResult[2]['text']);
-            $translations[$locale]['summary'] = $translationResult[3]['text'];
-            $translations[$locale]['meta_title'] = $translationResult[4]['text'];
-            $translations[$locale]['meta_description'] = $translationResult[5]['text'];
-            $translations[$locale]['meta_keywords'] = $translationResult[6]['text'];
-            $translations[$locale]['facebook_description'] = $translationResult[7]['text'];
-            $translations[$locale]['linkedin_description'] = $translationResult[8]['text'];
-            $translations[$locale]['instagram_description'] = $translationResult[9]['text'];
-            $translations[$locale]['twitter_description'] = $translationResult[10]['text'];
-        }
-
-        return $translations;
+        return $this->translateContent(
+            [
+                'title' => $title,
+                'lede' => $lede,
+                'body' => $body,
+                'summary' => $summary,
+                'meta_title' => $meta_title,
+                'meta_description' => $meta_description,
+                'meta_keywords' => $meta_keywords,
+                'facebook_description' => $facebook_description,
+                'linkedin_description' => $linkedin_description,
+                'instagram_description' => $instagram_description,
+                'twitter_description' => $twitter_description,
+            ],
+            ['body'], // HTML fields that need preprocessing
+            true, // Use HTML format
+        );
     }
 
     /**
-     * Translates a tag title and description into multiple languages using the Google Translate API.
+     * Translates a tag into multiple languages using the Google Translate API.
      *
      * @param string $title The title of the tag to be translated.
      * @param string $description The description of the tag to be translated.
@@ -175,43 +214,21 @@ class GoogleApiService
         string $instagram_description,
         string $twitter_description,
     ): array {
-        $locales = array_filter(SettingsManager::read('Translations', []));
-
-        $translations = [];
-        foreach ($locales as $locale => $enabled) {
-            $translationResult = $this->translateClient->translateBatch(
-                [
-                    $title,
-                    $description,
-                    $meta_title,
-                    $meta_description,
-                    $meta_keywords,
-                    $facebook_description,
-                    $linkedin_description,
-                    $instagram_description,
-                    $twitter_description,
-                ],
-                [
-                    'source' => 'en',
-                    'target' => $locale,
-                ],
-            );
-            $translations[$locale]['title'] = $translationResult[0]['text'];
-            $translations[$locale]['description'] = $translationResult[1]['text'];
-            $translations[$locale]['meta_title'] = $translationResult[2]['text'];
-            $translations[$locale]['meta_description'] = $translationResult[3]['text'];
-            $translations[$locale]['meta_keywords'] = $translationResult[4]['text'];
-            $translations[$locale]['facebook_description'] = $translationResult[5]['text'];
-            $translations[$locale]['linkedin_description'] = $translationResult[6]['text'];
-            $translations[$locale]['instagram_description'] = $translationResult[7]['text'];
-            $translations[$locale]['twitter_description'] = $translationResult[8]['text'];
-        }
-
-        return $translations;
+        return $this->translateContent([
+            'title' => $title,
+            'description' => $description,
+            'meta_title' => $meta_title,
+            'meta_description' => $meta_description,
+            'meta_keywords' => $meta_keywords,
+            'facebook_description' => $facebook_description,
+            'linkedin_description' => $linkedin_description,
+            'instagram_description' => $instagram_description,
+            'twitter_description' => $twitter_description,
+        ]);
     }
 
     /**
-     * Translates an image gallery name and description into multiple languages using the Google Translate API.
+     * Translates an image gallery into multiple languages using the Google Translate API.
      *
      * @param string $name The name of the gallery to be translated.
      * @param string $description The description of the gallery to be translated.
@@ -236,39 +253,17 @@ class GoogleApiService
         string $instagram_description,
         string $twitter_description,
     ): array {
-        $locales = array_filter(SettingsManager::read('Translations', []));
-
-        $translations = [];
-        foreach ($locales as $locale => $enabled) {
-            $translationResult = $this->translateClient->translateBatch(
-                [
-                    $name,
-                    $description,
-                    $meta_title,
-                    $meta_description,
-                    $meta_keywords,
-                    $facebook_description,
-                    $linkedin_description,
-                    $instagram_description,
-                    $twitter_description,
-                ],
-                [
-                    'source' => 'en',
-                    'target' => $locale,
-                ],
-            );
-            $translations[$locale]['name'] = $translationResult[0]['text'];
-            $translations[$locale]['description'] = $translationResult[1]['text'];
-            $translations[$locale]['meta_title'] = $translationResult[2]['text'];
-            $translations[$locale]['meta_description'] = $translationResult[3]['text'];
-            $translations[$locale]['meta_keywords'] = $translationResult[4]['text'];
-            $translations[$locale]['facebook_description'] = $translationResult[5]['text'];
-            $translations[$locale]['linkedin_description'] = $translationResult[6]['text'];
-            $translations[$locale]['instagram_description'] = $translationResult[7]['text'];
-            $translations[$locale]['twitter_description'] = $translationResult[8]['text'];
-        }
-
-        return $translations;
+        return $this->translateContent([
+            'name' => $name,
+            'description' => $description,
+            'meta_title' => $meta_title,
+            'meta_description' => $meta_description,
+            'meta_keywords' => $meta_keywords,
+            'facebook_description' => $facebook_description,
+            'linkedin_description' => $linkedin_description,
+            'instagram_description' => $instagram_description,
+            'twitter_description' => $twitter_description,
+        ]);
     }
 
     /**

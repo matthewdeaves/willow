@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Service\Api\Anthropic;
 
 use App\Model\Table\AipromptsTable;
-use App\Service\Api\Anthropic\AnthropicApiService;
+use App\Service\Api\AiProviderInterface;
 use App\Service\Api\Anthropic\ArticleTagsGenerator;
 use Cake\Http\Client\Response;
 use Cake\TestSuite\TestCase;
@@ -27,7 +27,7 @@ class ArticleTagsGeneratorTest extends TestCase
         'app.Aiprompts',
     ];
 
-    private AnthropicApiService $mockApiService;
+    private AiProviderInterface $mockApiService;
     private AipromptsTable $aipromptsTable;
     private ArticleTagsGenerator $generator;
 
@@ -38,7 +38,7 @@ class ArticleTagsGeneratorTest extends TestCase
     {
         parent::setUp();
 
-        $this->mockApiService = $this->createMock(AnthropicApiService::class);
+        $this->mockApiService = $this->createMock(AiProviderInterface::class);
         $this->aipromptsTable = $this->getTableLocator()->get('Aiprompts');
         $this->generator = new ArticleTagsGenerator($this->mockApiService, $this->aipromptsTable);
     }

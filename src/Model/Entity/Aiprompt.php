@@ -12,6 +12,7 @@ use Cake\ORM\Entity;
  * @property string $task_type
  * @property string $system_prompt
  * @property string $model
+ * @property string|null $openrouter_model
  * @property int $max_tokens
  * @property float $temperature
  * @property \Cake\I18n\DateTime $created
@@ -32,6 +33,7 @@ class Aiprompt extends Entity
         'task_type' => true,
         'system_prompt' => true,
         'model' => true,
+        'openrouter_model' => true,
         'max_tokens' => true,
         'temperature' => true,
         'created' => true,

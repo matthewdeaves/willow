@@ -3,33 +3,33 @@ declare(strict_types=1);
 
 namespace App\Job;
 
-use App\Service\Api\Anthropic\AnthropicApiService;
+use App\Service\Api\AiService;
 use Cake\Queue\Job\Message;
 use Interop\Queue\Processor;
 
 /**
  * TagSeoUpdateJob
  *
- * This job is responsible for updating SEO-related information for tags using the Anthropic API.
+ * This job is responsible for updating SEO-related information for tags using AI.
  * It processes queued messages, retrieves tag information, generates SEO content, and updates the tag record.
  */
 class TagSeoUpdateJob extends AbstractJob
 {
     /**
-     * The Anthropic API service used for generating SEO content.
+     * The AI service used for generating SEO content.
      *
-     * @var \App\Service\Api\Anthropic\AnthropicApiService
+     * @var \App\Service\Api\AiService
      */
-    private AnthropicApiService $anthropicService;
+    private AiService $aiService;
 
     /**
      * Constructor to allow dependency injection for testing.
      *
-     * @param \App\Service\Api\Anthropic\AnthropicApiService|null $anthropicService The Anthropic API service instance.
+     * @param \App\Service\Api\AiService|null $aiService The AI service instance.
      */
-    public function __construct(?AnthropicApiService $anthropicService = null)
+    public function __construct(?AiService $aiService = null)
     {
-        $this->anthropicService = $anthropicService ?? new AnthropicApiService();
+        $this->aiService = $aiService ?? new AiService();
     }
 
     /**
@@ -45,7 +45,7 @@ class TagSeoUpdateJob extends AbstractJob
     /**
      * Executes the job to update tag SEO information.
      *
-     * This method processes the queued message, retrieves the tag, generates SEO content using the Anthropic API,
+     * This method processes the queued message, retrieves the tag, generates SEO content using AI,
      * and updates the tag record with the new SEO information.
      *
      * @param \Cake\Queue\Job\Message $message The message containing the job data.
@@ -64,7 +64,7 @@ class TagSeoUpdateJob extends AbstractJob
         $tag = $tagsTable->get($id);
 
         return $this->executeWithErrorHandling($id, function () use ($tag, $tagsTable, $title) {
-            $seoResult = $this->anthropicService->generateTagSeo(
+            $seoResult = $this->aiService->generateTagSeo(
                 (string)$title,
                 (string)$tag->description,
             );

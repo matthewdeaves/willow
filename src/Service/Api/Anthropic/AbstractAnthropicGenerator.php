@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Service\Api\Anthropic;
 
 use App\Model\Table\AipromptsTable;
+use App\Service\Api\AiProviderInterface;
 use Cake\Log\LogTrait;
 use InvalidArgumentException;
 
@@ -18,11 +19,11 @@ abstract class AbstractAnthropicGenerator
     use LogTrait;
 
     /**
-     * The Anthropic API service used for sending requests and parsing responses.
+     * The AI provider service used for sending requests and parsing responses.
      *
-     * @var \App\Service\Api\Anthropic\AnthropicApiService
+     * @var \App\Service\Api\AiProviderInterface
      */
-    protected AnthropicApiService $apiService;
+    protected AiProviderInterface $apiService;
 
     /**
      * The AI prompts table for retrieving prompt data necessary for generation.
@@ -36,10 +37,10 @@ abstract class AbstractAnthropicGenerator
      *
      * Initializes the API service and AI prompts table.
      *
-     * @param \App\Service\Api\Anthropic\AnthropicApiService $apiService The Anthropic API service.
+     * @param \App\Service\Api\AiProviderInterface $apiService The AI provider service.
      * @param \App\Model\Table\AipromptsTable $aipromptsTable The AI prompts table.
      */
-    public function __construct(AnthropicApiService $apiService, AipromptsTable $aipromptsTable)
+    public function __construct(AiProviderInterface $apiService, AipromptsTable $aipromptsTable)
     {
         $this->apiService = $apiService;
         $this->aipromptsTable = $aipromptsTable;
@@ -47,6 +48,10 @@ abstract class AbstractAnthropicGenerator
 
     /**
      * Retrieves prompt data for a specific task from the AI prompts table.
+     *
+     * The model returned depends on the configured provider:
+     * - For 'openrouter': uses the openrouter_model field
+     * - For 'anthropic' (or any other): uses the model field
      *
      * @param string $task The task type for which to retrieve prompt data.
      * @return array The retrieved prompt data.
@@ -62,9 +67,15 @@ abstract class AbstractAnthropicGenerator
             throw new InvalidArgumentException("Unknown task: {$task}");
         }
 
+        // Select the appropriate model based on the provider
+        $providerName = $this->apiService->getProviderName();
+        $model = $providerName === 'openrouter' && !empty($prompt->openrouter_model)
+            ? $prompt->openrouter_model
+            : $prompt->model;
+
         return [
             'system_prompt' => $prompt->system_prompt,
-            'model' => $prompt->model,
+            'model' => $model,
             'max_tokens' => $prompt->max_tokens,
             'temperature' => $prompt->temperature,
         ];

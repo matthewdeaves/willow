@@ -3,33 +3,33 @@ declare(strict_types=1);
 
 namespace App\Job;
 
-use App\Service\Api\Anthropic\AnthropicApiService;
+use App\Service\Api\AiService;
 use Cake\Queue\Job\Message;
 use Interop\Queue\Processor;
 
 /**
  * ImageAnalysisJob
  *
- * This job is responsible for analyzing images using the Anthropic API.
+ * This job is responsible for analyzing images using AI.
  * It processes messages from the queue to analyze images and update their metadata.
  */
 class ImageAnalysisJob extends AbstractJob
 {
     /**
-     * Instance of the Anthropic API service.
+     * Instance of the AI service.
      *
-     * @var \App\Service\Api\Anthropic\AnthropicApiService
+     * @var \App\Service\Api\AiService
      */
-    private AnthropicApiService $anthropicService;
+    private AiService $aiService;
 
     /**
      * Constructor to allow dependency injection for testing
      *
-     * @param \App\Service\Api\Anthropic\AnthropicApiService|null $anthropicService
+     * @param \App\Service\Api\AiService|null $aiService
      */
-    public function __construct(?AnthropicApiService $anthropicService = null)
+    public function __construct(?AiService $aiService = null)
     {
-        $this->anthropicService = $anthropicService ?? new AnthropicApiService();
+        $this->aiService = $aiService ?? new AiService();
     }
 
     /**
@@ -63,7 +63,7 @@ class ImageAnalysisJob extends AbstractJob
             $modelTable = $this->getTable($model);
             $image = $modelTable->get($id);
 
-            $analysisResult = $this->anthropicService->analyzeImage($folderPath . $file);
+            $analysisResult = $this->aiService->analyzeImage($folderPath . $file);
 
             if ($analysisResult) {
                 $image->name = $analysisResult['name'];

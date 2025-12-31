@@ -1,38 +1,32 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Service\Api\Anthropic;
+namespace App\Service\Api;
 
 use App\Model\Table\AipromptsTable;
-use App\Service\Api\AbstractApiService;
-use App\Service\Api\AiProviderInterface;
-use App\Utility\SettingsManager;
-use Cake\Http\Client;
-use Cake\Http\Client\Response;
+use App\Service\Api\Anthropic\ArticleTagsGenerator;
+use App\Service\Api\Anthropic\CommentAnalyzer;
+use App\Service\Api\Anthropic\ImageAnalyzer;
+use App\Service\Api\Anthropic\SeoContentGenerator;
+use App\Service\Api\Anthropic\TextSummaryGenerator;
+use App\Service\Api\Anthropic\TranslationGenerator;
 use Cake\ORM\TableRegistry;
 
 /**
- * AnthropicApiService Class
+ * AiService Class
  *
- * This service class provides an interface to interact with the Anthropic API,
- * handling various AI-related tasks such as SEO content generation, image analysis,
- * comment moderation, and text summarization.
+ * Unified AI service that uses the configured provider (Anthropic or OpenRouter).
+ * This class provides the same API as AnthropicApiService but supports provider switching
+ * based on application settings.
+ *
+ * Jobs and other consumers should use this class to benefit from provider flexibility.
  */
-class AnthropicApiService extends AbstractApiService implements AiProviderInterface
+class AiService
 {
     /**
-     * The base URL for the Anthropic API.
-     *
-     * @var string
+     * @var \App\Service\Api\AiProviderInterface The AI provider instance.
      */
-    private const API_URL = 'https://api.anthropic.com/v1/messages';
-
-    /**
-     * The version of the Anthropic API being used.
-     *
-     * @var string
-     */
-    private const API_VERSION = '2023-06-01';
+    private AiProviderInterface $provider;
 
     /**
      * @var \App\Model\Table\AipromptsTable The table instance for AI prompts.
@@ -65,41 +59,48 @@ class AnthropicApiService extends AbstractApiService implements AiProviderInterf
     private TextSummaryGenerator $textSummaryGenerator;
 
     /**
-     * @var \App\Service\Api\Anthropic\TranslationGenerator The text summary generator service.
+     * @var \App\Service\Api\Anthropic\TranslationGenerator The translation generator service.
      */
     private TranslationGenerator $translationGenerator;
 
     /**
-     * AnthropicApiService constructor.
+     * AiService constructor.
      *
-     * Initializes the service with necessary dependencies and configurations.
+     * Creates the service with the configured provider or an injected one for testing.
+     *
+     * @param \App\Service\Api\AiProviderInterface|null $provider Optional provider for testing.
      */
-    public function __construct()
+    public function __construct(?AiProviderInterface $provider = null)
     {
-        $apiKey = SettingsManager::read('Anthropic.apiKey');
-        parent::__construct(new Client(), $apiKey, self::API_URL, self::API_VERSION);
-
+        $this->provider = $provider ?? AiServiceFactory::createProvider();
         $this->aipromptsTable = TableRegistry::getTableLocator()->get('Aiprompts');
-        $this->seoContentGenerator = new SeoContentGenerator($this, $this->aipromptsTable);
-        $this->imageAnalyzer = new ImageAnalyzer($this, $this->aipromptsTable);
-        $this->commentAnalyzer = new CommentAnalyzer($this, $this->aipromptsTable);
-        $this->articleTagsGenerator = new ArticleTagsGenerator($this, $this->aipromptsTable);
-        $this->textSummaryGenerator = new TextSummaryGenerator($this, $this->aipromptsTable);
-        $this->translationGenerator = new TranslationGenerator($this, $this->aipromptsTable);
+
+        $this->seoContentGenerator = new SeoContentGenerator($this->provider, $this->aipromptsTable);
+        $this->imageAnalyzer = new ImageAnalyzer($this->provider, $this->aipromptsTable);
+        $this->commentAnalyzer = new CommentAnalyzer($this->provider, $this->aipromptsTable);
+        $this->articleTagsGenerator = new ArticleTagsGenerator($this->provider, $this->aipromptsTable);
+        $this->textSummaryGenerator = new TextSummaryGenerator($this->provider, $this->aipromptsTable);
+        $this->translationGenerator = new TranslationGenerator($this->provider, $this->aipromptsTable);
     }
 
     /**
-     * Gets the headers for the API request.
+     * Gets the current provider instance.
      *
-     * @return array An associative array of headers.
+     * @return \App\Service\Api\AiProviderInterface The AI provider.
      */
-    protected function getHeaders(): array
+    public function getProvider(): AiProviderInterface
     {
-        return [
-            'x-api-key' => $this->apiKey,
-            'anthropic-version' => $this->apiVersion,
-            'Content-Type' => 'application/json',
-        ];
+        return $this->provider;
+    }
+
+    /**
+     * Gets the provider name.
+     *
+     * @return string The provider identifier.
+     */
+    public function getProviderName(): string
+    {
+        return $this->provider->getProviderName();
     }
 
     /**
@@ -188,9 +189,6 @@ class AnthropicApiService extends AbstractApiService implements AiProviderInterf
     /**
      * Translates an array of strings from one locale to another.
      *
-     * This method utilizes the TranslationGenerator service to perform translations
-     * of the provided strings from the specified source locale to the target locale.
-     *
      * @param array $strings The array of strings to be translated.
      * @param string $localeFrom The locale code of the source language (e.g., 'en_US').
      * @param string $localeTo The locale code of the target language (e.g., 'fr_FR').
@@ -199,38 +197,5 @@ class AnthropicApiService extends AbstractApiService implements AiProviderInterf
     public function translateStrings(array $strings, string $localeFrom, string $localeTo): array
     {
         return $this->translationGenerator->generateTranslation($strings, $localeFrom, $localeTo);
-    }
-
-    /**
-     * Parses the response from the API.
-     *
-     * @param \Cake\Http\Client\Response $response The HTTP response from the API.
-     * @return array The parsed response data.
-     */
-    public function parseResponse(Response $response): array
-    {
-        $responseData = $response->getJson();
-
-        return json_decode($responseData['content'][0]['text'], true);
-    }
-
-    /**
-     * Checks if the provider is properly configured.
-     *
-     * @return bool True if the Anthropic API key is set and not a placeholder.
-     */
-    public function isConfigured(): bool
-    {
-        return !empty($this->apiKey) && $this->apiKey !== 'your-api-key-here';
-    }
-
-    /**
-     * Gets the provider name for logging purposes.
-     *
-     * @return string The provider identifier.
-     */
-    public function getProviderName(): string
-    {
-        return 'anthropic';
     }
 }

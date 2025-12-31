@@ -57,9 +57,6 @@ parameters:
           path: src/Job/*
         - identifier: property.phpDocType
           path: src/Job/*
-        # Never-returning methods (handleEmptySeoFields pattern)
-        - identifier: return.unusedType
-          path: src/Job/*
         # Unknown class annotations in behaviors
         - identifier: class.notFound
           path: src/Model/Behavior/*

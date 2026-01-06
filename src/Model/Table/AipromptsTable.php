@@ -61,9 +61,14 @@ class AipromptsTable extends Table
 
         $validator
             ->scalar('model')
-            ->maxLength('model', 50)
+            ->maxLength('model', 100)
             ->requirePresence('model', 'create')
             ->notEmptyString('model');
+
+        $validator
+            ->scalar('openrouter_model')
+            ->maxLength('openrouter_model', 100)
+            ->allowEmptyString('openrouter_model');
 
         $validator
             ->integer('max_tokens')

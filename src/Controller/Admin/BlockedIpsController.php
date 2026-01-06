@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
+use App\Controller\Admin\Trait\SearchableTrait;
 use App\Controller\AppController;
 use Cake\Cache\Cache;
 use Cake\Http\Response;
@@ -14,6 +15,8 @@ use Cake\Http\Response;
  */
 class BlockedIpsController extends AppController
 {
+    use SearchableTrait;
+
     /**
      * Index method
      *
@@ -32,26 +35,7 @@ class BlockedIpsController extends AppController
                 'BlockedIps.modified',
             ]);
 
-        $search = $this->request->getQuery('search');
-        if (!empty($search)) {
-            $query->where([
-                'OR' => [
-                    'BlockedIps.ip_address LIKE' => '%' . $search . '%',
-                    'BlockedIps.reason LIKE' => '%' . $search . '%',
-                ],
-            ]);
-        }
-
-        $blockedIps = $this->paginate($query);
-        if ($this->request->is('ajax')) {
-            $this->set(compact('blockedIps', 'search'));
-            $this->viewBuilder()->setLayout('ajax');
-
-            return $this->render('search_results');
-        }
-        $this->set(compact('blockedIps'));
-
-        return null;
+        return $this->handleSearch($query, 'blockedIps', ['ip_address', 'reason']);
     }
 
     /**

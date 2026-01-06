@@ -24,8 +24,12 @@
                             <td><?= h($aiprompt->task_type) ?></td>
                         </tr>
                         <tr>
-                            <th><?= __('Model') ?></th>
+                            <th><?= __('Model (Anthropic)') ?></th>
                             <td><?= h($aiprompt->model) ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= __('Model (OpenRouter)') ?></th>
+                            <td><?= h($aiprompt->openrouter_model) ?></td>
                         </tr>
                         <tr>
                             <th><?= __('Max Tokens') ?></th>

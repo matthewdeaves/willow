@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Service\Api\Anthropic;
 
 use App\Model\Table\AipromptsTable;
+use App\Service\Api\AiProviderInterface;
 use App\Service\Api\Anthropic\AbstractAnthropicGenerator;
-use App\Service\Api\Anthropic\AnthropicApiService;
 use Cake\Http\Client\Response;
 use Cake\TestSuite\TestCase;
 use InvalidArgumentException;
@@ -27,7 +27,7 @@ class AbstractAnthropicGeneratorTest extends TestCase
         'app.Aiprompts',
     ];
 
-    private AnthropicApiService $mockApiService;
+    private AiProviderInterface $mockApiService;
     private AipromptsTable $aipromptsTable;
     private TestAnthropicGenerator $generator;
 
@@ -38,7 +38,8 @@ class AbstractAnthropicGeneratorTest extends TestCase
     {
         parent::setUp();
 
-        $this->mockApiService = $this->createMock(AnthropicApiService::class);
+        $this->mockApiService = $this->createMock(AiProviderInterface::class);
+        $this->mockApiService->method('getProviderName')->willReturn('anthropic');
         $this->aipromptsTable = $this->getTableLocator()->get('Aiprompts');
         $this->generator = new TestAnthropicGenerator($this->mockApiService, $this->aipromptsTable);
     }
@@ -52,15 +53,16 @@ class AbstractAnthropicGeneratorTest extends TestCase
     }
 
     /**
-     * Test getPromptData retrieves correct prompt data
+     * Test getPromptData retrieves correct prompt data for Anthropic provider
      */
-    public function testGetPromptDataSuccess(): void
+    public function testGetPromptDataSuccessForAnthropic(): void
     {
         // Create a test prompt in the database
         $promptData = [
             'task_type' => 'test_task',
             'system_prompt' => 'Test system prompt',
             'model' => 'claude-3-sonnet-20240229',
+            'openrouter_model' => 'anthropic/claude-3-sonnet',
             'max_tokens' => 1000,
             'temperature' => 0.7,
         ];
@@ -68,6 +70,77 @@ class AbstractAnthropicGeneratorTest extends TestCase
 
         $result = $this->generator->getPromptDataPublic('test_task');
 
+        // Should use the 'model' field for Anthropic provider
+        $expected = [
+            'system_prompt' => 'Test system prompt',
+            'model' => 'claude-3-sonnet-20240229',
+            'max_tokens' => 1000,
+            'temperature' => 0.7,
+        ];
+
+        $this->assertEquals($expected, $result);
+    }
+
+    /**
+     * Test getPromptData retrieves correct prompt data for OpenRouter provider
+     */
+    public function testGetPromptDataSuccessForOpenRouter(): void
+    {
+        // Create a mock provider that returns 'openrouter'
+        $openrouterMock = $this->createMock(AiProviderInterface::class);
+        $openrouterMock->method('getProviderName')->willReturn('openrouter');
+
+        $generator = new TestAnthropicGenerator($openrouterMock, $this->aipromptsTable);
+
+        // Create a test prompt in the database
+        $promptData = [
+            'task_type' => 'openrouter_test_task',
+            'system_prompt' => 'Test system prompt',
+            'model' => 'claude-3-sonnet-20240229',
+            'openrouter_model' => 'anthropic/claude-3-sonnet',
+            'max_tokens' => 1000,
+            'temperature' => 0.7,
+        ];
+        $this->aipromptsTable->save($this->aipromptsTable->newEntity($promptData));
+
+        $result = $generator->getPromptDataPublic('openrouter_test_task');
+
+        // Should use the 'openrouter_model' field for OpenRouter provider
+        $expected = [
+            'system_prompt' => 'Test system prompt',
+            'model' => 'anthropic/claude-3-sonnet',
+            'max_tokens' => 1000,
+            'temperature' => 0.7,
+        ];
+
+        $this->assertEquals($expected, $result);
+    }
+
+    /**
+     * Test getPromptData falls back to model when openrouter_model is empty
+     */
+    public function testGetPromptDataFallbackWhenOpenRouterModelEmpty(): void
+    {
+        // Create a mock provider that returns 'openrouter'
+        $openrouterMock = $this->createMock(AiProviderInterface::class);
+        $openrouterMock->method('getProviderName')->willReturn('openrouter');
+
+        $generator = new TestAnthropicGenerator($openrouterMock, $this->aipromptsTable);
+
+        // Create a test prompt without openrouter_model
+        $promptData = [
+            'task_type' => 'fallback_test_task',
+            'system_prompt' => 'Test system prompt',
+            'model' => 'claude-3-sonnet-20240229',
+            'openrouter_model' => null,
+            'max_tokens' => 1000,
+            'temperature' => 0.7,
+        ];
+        $this->aipromptsTable->save($this->aipromptsTable->newEntity($promptData));
+
+        $result = $generator->getPromptDataPublic('fallback_test_task');
+
+        // Should fall back to 'model' field when openrouter_model is empty
         $expected = [
             'system_prompt' => 'Test system prompt',
             'model' => 'claude-3-sonnet-20240229',

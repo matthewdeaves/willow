@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Job;
 
-use App\Service\Api\Anthropic\AnthropicApiService;
+use App\Service\Api\AiService;
 use App\Service\Api\Google\GoogleApiService;
 use App\Utility\SettingsManager;
 use Cake\Queue\Job\Message;
@@ -12,30 +12,30 @@ use Interop\Queue\Processor;
 /**
  * TranslateI18nJob
  *
- * This job processes messages to update internationalizations using either the Anthropic or Google API.
+ * This job processes messages to update internationalizations using either AI (via Anthropic/OpenRouter) or Google API.
  * It retrieves the internationalizations based on the provided IDs and updates them in batches.
  */
 class TranslateI18nJob extends AbstractJob
 {
     /**
-     * @var \App\Service\Api\Anthropic\AnthropicApiService|\App\Service\Api\Google\GoogleApiService The API service instance.
+     * @var \App\Service\Api\AiService|\App\Service\Api\Google\GoogleApiService The API service instance.
      */
-    private AnthropicApiService|GoogleApiService $apiService;
+    private AiService|GoogleApiService $apiService;
 
     /**
      * Constructor to allow dependency injection for testing
      *
-     * @param \App\Service\Api\Anthropic\AnthropicApiService|null $anthropicService
+     * @param \App\Service\Api\AiService|null $aiService
      * @param \App\Service\Api\Google\GoogleApiService|null $googleService
      */
-    public function __construct(?AnthropicApiService $anthropicService = null, ?GoogleApiService $googleService = null)
+    public function __construct(?AiService $aiService = null, ?GoogleApiService $googleService = null)
     {
         $apiProvider = SettingsManager::read('i18n.provider', 'google');
 
         if ($apiProvider === 'google') {
             $this->apiService = $googleService ?? new GoogleApiService();
         } else {
-            $this->apiService = $anthropicService ?? new AnthropicApiService();
+            $this->apiService = $aiService ?? new AiService();
         }
     }
 

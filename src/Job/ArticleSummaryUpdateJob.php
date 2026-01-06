@@ -3,53 +3,33 @@ declare(strict_types=1);
 
 namespace App\Job;
 
-use App\Service\Api\Anthropic\AnthropicApiService;
-use App\Service\Api\Anthropic\TextSummaryGenerator;
+use App\Service\Api\AiService;
 use Cake\Queue\Job\Message;
 use Interop\Queue\Processor;
 
 /**
  * ArticleSummaryUpdateJob
  *
- * This job is responsible for generating and updating the summary of an article using the TextSummaryGenerator.
+ * This job is responsible for generating and updating the summary of an article using AI.
  * It processes messages from the queue to update the summary field of an article.
  */
 class ArticleSummaryUpdateJob extends AbstractJob
 {
     /**
-     * Instance of the TextSummaryGenerator service.
+     * Instance of the AI service.
      *
-     * @var \App\Service\Api\Anthropic\TextSummaryGenerator
+     * @var \App\Service\Api\AiService
      */
-    private TextSummaryGenerator $summaryGenerator;
+    private AiService $aiService;
 
     /**
      * Constructor to allow dependency injection for testing
      *
-     * @param \App\Service\Api\Anthropic\TextSummaryGenerator|null $summaryGenerator
+     * @param \App\Service\Api\AiService|null $aiService
      */
-    public function __construct(?TextSummaryGenerator $summaryGenerator = null)
+    public function __construct(?AiService $aiService = null)
     {
-        if ($summaryGenerator) {
-            $this->summaryGenerator = $summaryGenerator;
-        }
-    }
-
-    /**
-     * Get the TextSummaryGenerator instance, creating it if needed
-     *
-     * @return \App\Service\Api\Anthropic\TextSummaryGenerator
-     */
-    private function getSummaryGenerator(): TextSummaryGenerator
-    {
-        if (!isset($this->summaryGenerator)) {
-            $this->summaryGenerator = new TextSummaryGenerator(
-                new AnthropicApiService(),
-                $this->getTable('Aiprompts'),
-            );
-        }
-
-        return $this->summaryGenerator;
+        $this->aiService = $aiService ?? new AiService();
     }
 
     /**
@@ -66,7 +46,7 @@ class ArticleSummaryUpdateJob extends AbstractJob
      * Executes the job to generate and update article summary.
      *
      * This method processes the message, retrieves the article, generates a summary
-     * using the TextSummaryGenerator, and updates the article with the new summary.
+     * using AI, and updates the article with the new summary.
      *
      * @param \Cake\Queue\Job\Message $message The message containing article data.
      * @return string|null Returns Processor::ACK on success, Processor::REJECT on failure.
@@ -84,7 +64,7 @@ class ArticleSummaryUpdateJob extends AbstractJob
         $article = $articlesTable->get($id);
 
         return $this->executeWithErrorHandling($id, function () use ($article, $articlesTable) {
-            $summaryResult = $this->getSummaryGenerator()->generateTextSummary(
+            $summaryResult = $this->aiService->generateTextSummary(
                 'article',
                 (string)strip_tags($article->body),
             );

@@ -4,34 +4,34 @@ declare(strict_types=1);
 namespace App\Job;
 
 use App\Model\Entity\Comment;
-use App\Service\Api\Anthropic\AnthropicApiService;
+use App\Service\Api\AiService;
 use Cake\Queue\Job\Message;
 use Interop\Queue\Processor;
 
 /**
  * CommentAnalysisJob Class
  *
- * This job is responsible for analyzing comments using the Anthropic API service.
+ * This job is responsible for analyzing comments using AI.
  * It processes comments from the queue, performs analysis, and updates the comment status
  * based on the analysis results.
  */
 class CommentAnalysisJob extends AbstractJob
 {
     /**
-     * Instance of the Anthropic API service.
+     * Instance of the AI service.
      *
-     * @var \App\Service\Api\Anthropic\AnthropicApiService
+     * @var \App\Service\Api\AiService
      */
-    private AnthropicApiService $anthropicService;
+    private AiService $aiService;
 
     /**
      * Constructor to allow dependency injection for testing
      *
-     * @param \App\Service\Api\Anthropic\AnthropicApiService|null $anthropicService
+     * @param \App\Service\Api\AiService|null $aiService
      */
-    public function __construct(?AnthropicApiService $anthropicService = null)
+    public function __construct(?AiService $aiService = null)
     {
-        $this->anthropicService = $anthropicService ?? new AnthropicApiService();
+        $this->aiService = $aiService ?? new AiService();
     }
 
     /**
@@ -47,7 +47,7 @@ class CommentAnalysisJob extends AbstractJob
     /**
      * Executes the comment analysis job.
      *
-     * This method performs comment analysis using the Anthropic API service,
+     * This method performs comment analysis using AI,
      * updating the comment status based on the analysis results.
      *
      * @param \Cake\Queue\Job\Message $message The message containing job data.
@@ -77,7 +77,7 @@ class CommentAnalysisJob extends AbstractJob
         }
 
         return $this->executeWithErrorHandling($commentId, function () use ($comment, $content) {
-            $analysisResult = $this->anthropicService->analyzeComment($content);
+            $analysisResult = $this->aiService->analyzeComment($content);
 
             if ($analysisResult) {
                 $this->updateCommentStatus($comment, $analysisResult);

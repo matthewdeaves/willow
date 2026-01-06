@@ -146,4 +146,177 @@ class GoogleApiServiceTest extends TestCase
         $preservedBlocks = $preservedBlocksProperty->getValue($this->googleApiService);
         $this->assertEmpty($preservedBlocks);
     }
+
+    /**
+     * Test that pre and code HTML tags are preserved during preprocessing
+     */
+    public function testPreprocessContentPreservesHtmlCodeTags(): void
+    {
+        $content = 'Some text <pre class="highlight">$foo = "bar";</pre> and <code>inline code</code> more text.';
+
+        $reflection = new ReflectionClass(GoogleApiService::class);
+        $method = $reflection->getMethod('preprocessContent');
+        $method->setAccessible(true);
+
+        $preservedBlocksProperty = $reflection->getProperty('preservedBlocks');
+        $preservedBlocksProperty->setAccessible(true);
+        $preservedBlocksProperty->setValue($this->googleApiService, []);
+
+        $result = $method->invoke($this->googleApiService, $content);
+
+        // Check that HTML code tags were replaced with placeholders
+        $this->assertStringNotContainsString('<pre', $result);
+        $this->assertStringNotContainsString('<code>', $result);
+        $this->assertStringContainsString('<!--PRESERVED_BLOCK_', $result);
+
+        // Verify the original content was stored
+        $preservedBlocks = $preservedBlocksProperty->getValue($this->googleApiService);
+        $allPreservedContent = implode('', $preservedBlocks);
+        $this->assertStringContainsString('<pre class="highlight">$foo = "bar";</pre>', $allPreservedContent);
+        $this->assertStringContainsString('<code>inline code</code>', $allPreservedContent);
+    }
+
+    /**
+     * Test that multiple gallery placeholders are all preserved
+     */
+    public function testPreprocessContentPreservesMultipleGalleries(): void
+    {
+        $content = 'Gallery 1: [gallery:11111111-1111-1111-1111-111111111111:grid:First] text ' .
+            '[gallery:22222222-2222-2222-2222-222222222222:carousel:Second] more text ' .
+            '[gallery:33333333-3333-3333-3333-333333333333:list:Third]';
+
+        $reflection = new ReflectionClass(GoogleApiService::class);
+        $method = $reflection->getMethod('preprocessContent');
+        $method->setAccessible(true);
+
+        $preservedBlocksProperty = $reflection->getProperty('preservedBlocks');
+        $preservedBlocksProperty->setAccessible(true);
+        $preservedBlocksProperty->setValue($this->googleApiService, []);
+
+        $result = $method->invoke($this->googleApiService, $content);
+
+        // Should have 3 preserved blocks
+        $preservedBlocks = $preservedBlocksProperty->getValue($this->googleApiService);
+        $this->assertCount(3, $preservedBlocks);
+
+        // All galleries should be removed from result
+        $this->assertStringNotContainsString('[gallery:', $result);
+
+        // All galleries should be in preserved blocks
+        $allPreservedContent = implode('', $preservedBlocks);
+        $this->assertStringContainsString('11111111-1111-1111-1111-111111111111', $allPreservedContent);
+        $this->assertStringContainsString('22222222-2222-2222-2222-222222222222', $allPreservedContent);
+        $this->assertStringContainsString('33333333-3333-3333-3333-333333333333', $allPreservedContent);
+    }
+
+    /**
+     * Test preprocess and postprocess roundtrip with complex content
+     */
+    public function testPreprocessPostprocessRoundtrip(): void
+    {
+        $originalContent = <<<'HTML'
+<h1>Article Title</h1>
+<p>Here is some content with a code block:</p>
+<pre><code class="php">
+echo "Hello World";
+$x = 1 + 2;
+</code></pre>
+<p>And here is a gallery:</p>
+[gallery:550e8400-e29b-41d4-a716-446655440000:grid:My Photos]
+<p>And a YouTube video:</p>
+[youtube:dQw4w9WgXcQ:640:480:Rick Roll]
+<p>The end.</p>
+HTML;
+
+        $reflection = new ReflectionClass(GoogleApiService::class);
+        $preprocessMethod = $reflection->getMethod('preprocessContent');
+        $preprocessMethod->setAccessible(true);
+        $postprocessMethod = $reflection->getMethod('postprocessContent');
+        $postprocessMethod->setAccessible(true);
+
+        $preservedBlocksProperty = $reflection->getProperty('preservedBlocks');
+        $preservedBlocksProperty->setAccessible(true);
+        $preservedBlocksProperty->setValue($this->googleApiService, []);
+
+        // Preprocess
+        $preprocessed = $preprocessMethod->invoke($this->googleApiService, $originalContent);
+
+        // Postprocess
+        $restored = $postprocessMethod->invoke($this->googleApiService, $preprocessed);
+
+        // Content should be fully restored
+        $this->assertEquals($originalContent, $restored);
+    }
+
+    /**
+     * Test preprocessing with empty content
+     */
+    public function testPreprocessContentWithEmptyString(): void
+    {
+        $reflection = new ReflectionClass(GoogleApiService::class);
+        $method = $reflection->getMethod('preprocessContent');
+        $method->setAccessible(true);
+
+        $preservedBlocksProperty = $reflection->getProperty('preservedBlocks');
+        $preservedBlocksProperty->setAccessible(true);
+        $preservedBlocksProperty->setValue($this->googleApiService, []);
+
+        $result = $method->invoke($this->googleApiService, '');
+
+        $this->assertEquals('', $result);
+        $preservedBlocks = $preservedBlocksProperty->getValue($this->googleApiService);
+        $this->assertEmpty($preservedBlocks);
+    }
+
+    /**
+     * Test preprocessing with content that has no special blocks
+     */
+    public function testPreprocessContentWithNoSpecialBlocks(): void
+    {
+        $content = '<p>This is just regular HTML content with <strong>bold</strong> text.</p>';
+
+        $reflection = new ReflectionClass(GoogleApiService::class);
+        $method = $reflection->getMethod('preprocessContent');
+        $method->setAccessible(true);
+
+        $preservedBlocksProperty = $reflection->getProperty('preservedBlocks');
+        $preservedBlocksProperty->setAccessible(true);
+        $preservedBlocksProperty->setValue($this->googleApiService, []);
+
+        $result = $method->invoke($this->googleApiService, $content);
+
+        // Content should remain unchanged
+        $this->assertEquals($content, $result);
+        $preservedBlocks = $preservedBlocksProperty->getValue($this->googleApiService);
+        $this->assertEmpty($preservedBlocks);
+    }
+
+    /**
+     * Test markdown code blocks are preserved
+     */
+    public function testPreprocessContentPreservesMarkdownCodeBlocks(): void
+    {
+        $content = "Some text\n```javascript\nfunction hello() {\n  return 'world';\n}\n```\nMore text";
+
+        $reflection = new ReflectionClass(GoogleApiService::class);
+        $method = $reflection->getMethod('preprocessContent');
+        $method->setAccessible(true);
+
+        $preservedBlocksProperty = $reflection->getProperty('preservedBlocks');
+        $preservedBlocksProperty->setAccessible(true);
+        $preservedBlocksProperty->setValue($this->googleApiService, []);
+
+        $result = $method->invoke($this->googleApiService, $content);
+
+        // Check that markdown code block was replaced
+        $this->assertStringNotContainsString('```javascript', $result);
+        $this->assertStringContainsString('<!--PRESERVED_BLOCK_', $result);
+        $this->assertStringContainsString('Some text', $result);
+        $this->assertStringContainsString('More text', $result);
+
+        // Verify the code block was stored
+        $preservedBlocks = $preservedBlocksProperty->getValue($this->googleApiService);
+        $allPreservedContent = implode('', $preservedBlocks);
+        $this->assertStringContainsString('function hello()', $allPreservedContent);
+    }
 }

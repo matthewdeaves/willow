@@ -3,33 +3,33 @@ declare(strict_types=1);
 
 namespace App\Job;
 
-use App\Service\Api\Anthropic\AnthropicApiService;
+use App\Service\Api\AiService;
 use Cake\Queue\Job\Message;
 use Interop\Queue\Processor;
 
 /**
  * ArticleSeoUpdateJob
  *
- * This job is responsible for updating the SEO metadata of an article using the Anthropic API.
+ * This job is responsible for updating the SEO metadata of an article using AI.
  * It processes messages from the queue to update various SEO-related fields of an article.
  */
 class ArticleSeoUpdateJob extends AbstractJob
 {
     /**
-     * Instance of the Anthropic API service.
+     * Instance of the AI service.
      *
-     * @var \App\Service\Api\Anthropic\AnthropicApiService
+     * @var \App\Service\Api\AiService
      */
-    private AnthropicApiService $anthropicService;
+    private AiService $aiService;
 
     /**
      * Constructor to allow dependency injection for testing
      *
-     * @param \App\Service\Api\Anthropic\AnthropicApiService|null $anthropicService
+     * @param \App\Service\Api\AiService|null $aiService
      */
-    public function __construct(?AnthropicApiService $anthropicService = null)
+    public function __construct(?AiService $aiService = null)
     {
-        $this->anthropicService = $anthropicService ?? new AnthropicApiService();
+        $this->aiService = $aiService ?? new AiService();
     }
 
     /**
@@ -61,7 +61,7 @@ class ArticleSeoUpdateJob extends AbstractJob
             $articlesTable = $this->getTable('Articles');
             $article = $articlesTable->get($id);
 
-            $seoResult = $this->anthropicService->generateArticleSeo(
+            $seoResult = $this->aiService->generateArticleSeo(
                 (string)$title,
                 (string)strip_tags($article->body),
             );

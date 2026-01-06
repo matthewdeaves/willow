@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Job;
 
-use App\Service\Api\Anthropic\AnthropicApiService;
+use App\Service\Api\AiService;
 use Cake\ORM\Entity;
 use Cake\ORM\Table;
 use Cake\Queue\Job\Message;
@@ -12,26 +12,26 @@ use Interop\Queue\Processor;
 /**
  * ArticleTagUpdateJob
  *
- * This job is responsible for updating the tags of an article using the Anthropic API.
+ * This job is responsible for updating the tags of an article using AI.
  * It processes messages from the queue to generate and update tags for articles.
  */
 class ArticleTagUpdateJob extends AbstractJob
 {
     /**
-     * Instance of the Anthropic API service.
+     * Instance of the AI service.
      *
-     * @var \App\Service\Api\Anthropic\AnthropicApiService
+     * @var \App\Service\Api\AiService
      */
-    private AnthropicApiService $anthropicService;
+    private AiService $aiService;
 
     /**
      * Constructor to allow dependency injection for testing
      *
-     * @param \App\Service\Api\Anthropic\AnthropicApiService|null $anthropicService
+     * @param \App\Service\Api\AiService|null $aiService
      */
-    public function __construct(?AnthropicApiService $anthropicService = null)
+    public function __construct(?AiService $aiService = null)
     {
-        $this->anthropicService = $anthropicService ?? new AnthropicApiService();
+        $this->aiService = $aiService ?? new AiService();
     }
 
     /**
@@ -47,7 +47,7 @@ class ArticleTagUpdateJob extends AbstractJob
     /**
      * Executes the job to update article tags.
      *
-     * This method processes the message, retrieves the article, generates new tags using the Anthropic API,
+     * This method processes the message, retrieves the article, generates new tags using AI,
      * and updates the article with the new tags.
      *
      * @param \Cake\Queue\Job\Message $message The message containing article data.
@@ -74,7 +74,7 @@ class ArticleTagUpdateJob extends AbstractJob
         $allTags = $tagsTable->getSimpleThreadedArray();
 
         return $this->executeWithErrorHandling($id, function () use ($article, $tagsTable, $articlesTable, $allTags) {
-            $tagResult = $this->anthropicService->generateArticleTags(
+            $tagResult = $this->aiService->generateArticleTags(
                 $allTags,
                 (string)$article->title,
                 (string)strip_tags($article->body),

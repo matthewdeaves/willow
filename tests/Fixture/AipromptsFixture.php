@@ -29,6 +29,7 @@ class AipromptsFixture extends TestFixture
 
 Respond in valid JSON with these data items. Use your best judgment for ambiguous images.',
                 'model' => 'claude-3-haiku-20240307',
+                'openrouter_model' => 'anthropic/claude-3-haiku',
                 'max_tokens' => 1000,
                 'temperature' => 0.2,
                 'created' => 1728732013,
@@ -44,7 +45,8 @@ Respond in valid JSON with these data items. Use your best judgment for ambiguou
 - **audience**: The target audience for this article.
 
 Respond in valid JSON format with these elements.',
-                'model' => 'gpt-4-1106-preview',
+                'model' => 'claude-sonnet-4-5-20250929',
+                'openrouter_model' => 'anthropic/claude-sonnet-4.5',
                 'max_tokens' => 1500,
                 'temperature' => 0.3,
                 'created' => 1728732014,

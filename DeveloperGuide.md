@@ -32,7 +32,8 @@ This guide provides everything developers need to understand, contribute to, and
    - [Continuous Integration](#continuous-integration)
 
 5. [🤖 AI Integration](#-ai-integration)
-   - [Anthropic API Services](#anthropic-api-services)
+   - [AI Provider Architecture](#ai-provider-architecture)
+   - [OpenRouter Integration](#openrouter-integration)
    - [Google Translate API](#google-translate-api)
    - [Custom AI Extensions](#custom-ai-extensions)
 
@@ -111,7 +112,7 @@ willow/
 │   │   ├── Behavior/              # Reusable model behaviors
 │   │   ├── Entity/                # Entity classes
 │   │   └── Table/                 # Table classes with business logic
-│   ├── 🔌 Service/Api/             # AI and external API integrations
+│   ├── 🔌 Service/Api/             # AI and external API integrations (Anthropic, OpenRouter, Google)
 │   ├── ⚡ Job/                     # Background job classes
 │   ├── 🛠️ Command/                 # CLI command tools
 │   ├── 🛡️ Middleware/              # Security and request processing
@@ -645,47 +646,102 @@ GitHub Actions automatically test all commits and pull requests:
 
 ## 🤖 AI Integration
 
-### Anthropic API Services
+### AI Provider Architecture
 
-Willow CMS integrates Claude AI for various content operations:
+Willow CMS uses a provider-agnostic architecture for AI services, allowing you to switch between Anthropic (direct) and OpenRouter:
 
 #### **Architecture**
 ```
 src/Service/Api/
-├── AbstractApiService.php          # Base API service
+├── AbstractApiService.php           # Base API service
+├── AiProviderInterface.php          # Common interface for AI providers
+├── AiService.php                    # Unified facade for AI operations
+├── AiServiceFactory.php             # Creates appropriate provider
 ├── Anthropic/
-│   ├── AnthropicApiService.php     # Main API client
-│   ├── CommentAnalyzer.php         # Comment moderation
-│   ├── ImageAnalyzer.php           # Image analysis
-│   ├── SeoContentGenerator.php     # SEO content
-│   ├── ArticleTagsGenerator.php    # Tag generation
-│   ├── TextSummaryGenerator.php    # Content summarization
-│   └── TranslationGenerator.php    # AI translation
+│   ├── AnthropicApiService.php      # Direct Anthropic API client
+│   ├── AbstractAnthropicGenerator.php # Base generator class
+│   ├── CommentAnalyzer.php          # Comment moderation
+│   ├── ImageAnalyzer.php            # Image analysis
+│   ├── SeoContentGenerator.php      # SEO content
+│   ├── ArticleTagsGenerator.php     # Tag generation
+│   ├── TextSummaryGenerator.php     # Content summarization
+│   └── TranslationGenerator.php     # AI translation
+├── OpenRouter/
+│   └── OpenRouterApiService.php     # OpenRouter API client
 └── Google/
-    └── GoogleApiService.php        # Google Translate
+    └── GoogleApiService.php         # Google Translate
 ```
 
-#### **Usage Examples**
+#### **Provider Interface**
+All AI providers implement `AiProviderInterface`:
 ```php
+interface AiProviderInterface
+{
+    public function sendRequest(array $payload, int $timeout = 30): Response;
+    public function parseResponse(Response $response): array;
+    public function isConfigured(): bool;
+    public function getProviderName(): string;
+}
+```
+
+#### **Using AI Services**
+```php
+// The AiService facade automatically uses the configured provider
+$aiService = new AiService();
+
 // Generate SEO content
-$seoGenerator = new SeoContentGenerator();
-$seoContent = $seoGenerator->generate($article->title, $article->body);
+$seoContent = $aiService->seoContentGenerator()->generate($article->title, $article->body);
 
 // Analyze image
-$imageAnalyzer = new ImageAnalyzer();
-$analysis = $imageAnalyzer->analyze($imagePath);
+$analysis = $aiService->imageAnalyzer()->analyze($imagePath);
 
 // Moderate comment
-$commentAnalyzer = new CommentAnalyzer();
-$isAppropriate = $commentAnalyzer->analyze($comment->content);
+$result = $aiService->commentAnalyzer()->analyze($comment->content);
+
+// Generate tags
+$tags = $aiService->articleTagsGenerator()->generate($article->title, $article->body);
+```
+
+#### **Direct Generator Usage**
+```php
+// Create provider via factory
+$provider = AiServiceFactory::createProvider();
+$aipromptsTable = TableRegistry::getTableLocator()->get('Aiprompts');
+
+// Create specific generator
+$seoGenerator = new SeoContentGenerator($provider, $aipromptsTable);
+$seoContent = $seoGenerator->generate($title, $body);
 ```
 
 #### **Configuration**
-AI services are configured through the admin settings panel:
-- API keys management
-- Feature toggles
-- Rate limiting
-- Cost monitoring
+
+**Provider Selection** (Admin > Settings > Anthropic):
+- `provider`: `anthropic` (direct) or `openrouter`
+- `apiKey`: Anthropic API key
+- `openRouterApiKey`: OpenRouter API key
+
+**Per-Task Model Configuration** (Admin > AI Prompts):
+Each AI task has two model fields:
+- `model`: Model for direct Anthropic API (e.g., `claude-3-haiku-20240307`)
+- `openrouter_model`: Model for OpenRouter (e.g., `anthropic/claude-3-haiku`)
+
+The system automatically selects the appropriate model based on the configured provider.
+
+### OpenRouter Integration
+
+OpenRouter provides access to multiple AI providers through a single API:
+
+```php
+// OpenRouter can use any supported model
+// Configure per-task in aiprompts table:
+// - model: claude-3-haiku-20240307 (for direct Anthropic)
+// - openrouter_model: anthropic/claude-3-haiku (for OpenRouter)
+
+// You can also use non-Claude models via OpenRouter:
+// - openrouter_model: openai/gpt-4o
+// - openrouter_model: google/gemini-pro
+// - openrouter_model: meta-llama/llama-3-70b-instruct
+```
 
 ### Google Translate API
 
@@ -702,16 +758,42 @@ $translations = $googleApi->translateStrings([
 
 ### Custom AI Extensions
 
-Extend AI functionality by creating new service classes:
+Extend AI functionality by implementing the provider interface:
 
 ```php
-class CustomAiService extends AbstractApiService {
-    protected function getApiUrl(): string {
-        return 'https://api.example.com/v1/';
+// Create a new provider
+class CustomAiProvider implements AiProviderInterface {
+    public function sendRequest(array $payload, int $timeout = 30): Response {
+        // Implementation
     }
-    
-    public function customAnalysis(string $content): array {
-        return $this->makeRequest('analyze', ['content' => $content]);
+
+    public function parseResponse(Response $response): array {
+        // Parse response into array format
+    }
+
+    public function isConfigured(): bool {
+        return !empty($this->apiKey);
+    }
+
+    public function getProviderName(): string {
+        return 'custom';
+    }
+}
+
+// Or create a new generator
+class CustomGenerator extends AbstractAnthropicGenerator {
+    protected function getExpectedKeys(): array {
+        return ['result', 'confidence'];
+    }
+
+    protected function getLoggerName(): string {
+        return 'CustomGenerator';
+    }
+
+    public function analyze(string $content): array {
+        $promptData = $this->getPromptData('custom_analysis');
+        $payload = $this->createPayload($promptData, $content);
+        return $this->sendApiRequest($payload);
     }
 }
 ```
@@ -1043,6 +1125,9 @@ docker compose exec mysql mysql -u cms_user -ppassword cms
 - **Docker Integration**: Complete development environment with all necessary services
 
 ### **AI & Translation Features**
+- **OpenRouter Integration**: Access multiple AI providers (Claude, GPT-4, Gemini, Llama) through one API
+- **Provider Abstraction**: Clean interface-based architecture for switching AI providers
+- **Per-Task Model Configuration**: Configure different models for each AI task type
 - **Enhanced API Integration**: Improved Anthropic API service with better error handling
 - **Gallery Translation**: Multi-language support for image gallery metadata
 - **Content Translation**: Automatic translation workflows for articles and UI
@@ -1082,6 +1167,7 @@ set_permissions
 
 - **[CakePHP Book](https://book.cakephp.org/5/en/index.html)** - Framework documentation
 - **[Anthropic API Docs](https://docs.anthropic.com/)** - AI integration reference
+- **[OpenRouter Docs](https://openrouter.ai/docs)** - Multi-provider AI API
 - **[Docker Documentation](https://docs.docker.com/)** - Container management
 - **[PHPUnit Manual](https://phpunit.de/documentation.html)** - Testing framework
 - **[Bootstrap Documentation](https://getbootstrap.com/docs/)** - UI framework

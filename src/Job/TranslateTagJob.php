@@ -3,40 +3,17 @@ declare(strict_types=1);
 
 namespace App\Job;
 
-use App\Service\Api\Google\GoogleApiService;
-use App\Utility\SettingsManager;
-use Cake\Queue\Job\Message;
-use Cake\Queue\QueueManager;
-use Interop\Queue\Processor;
+use Cake\Datasource\EntityInterface;
 
 /**
- * TranslateTagJob class
+ * TranslateTagJob Class
  *
- * This job is responsible for translating tag data using the Google API service.
- * It retrieves the tag data from the database, translates the specified fields,
- * and saves the translated data back to the database.
+ * Job for translating tag content using the Google Translate API.
  */
-class TranslateTagJob extends AbstractJob
+class TranslateTagJob extends AbstractTranslateJob
 {
     /**
-     * @var \App\Service\Api\Google\GoogleApiService The API service instance.
-     */
-    private GoogleApiService $apiService;
-
-    /**
-     * Constructor to allow dependency injection for testing.
-     *
-     * @param \App\Service\Api\Google\GoogleApiService|null $googleService The Google API service instance.
-     */
-    public function __construct(?GoogleApiService $googleService = null)
-    {
-        $this->apiService = $googleService ?? new GoogleApiService();
-    }
-
-    /**
-     * Get the human-readable job type name for logging
-     *
-     * @return string The job type description
+     * @inheritDoc
      */
     protected static function getJobType(): string
     {
@@ -44,117 +21,52 @@ class TranslateTagJob extends AbstractJob
     }
 
     /**
-     * Execute the job.
-     *
-     * @param \Cake\Queue\Job\Message $message The job message.
-     * @return string|null The result of the job execution.
+     * @inheritDoc
      */
-    public function execute(Message $message): ?string
+    protected function getTableAlias(): string
     {
-        if (!$this->validateArguments($message, ['id', 'title'])) {
-            return Processor::REJECT;
-        }
-
-        $id = $message->getArgument('id');
-        $title = $message->getArgument('title');
-        $attempt = $message->getArgument('_attempt', 0);
-
-        // Check if translations are enabled
-        if (empty(array_filter(SettingsManager::read('Translations', [])))) {
-            $this->log(
-                sprintf('No languages enabled for translation: %s : %s', $id, $title),
-                'warning',
-                ['group_name' => static::class],
-            );
-
-            return Processor::REJECT;
-        }
-
-        $tagsTable = $this->getTable('Tags');
-        $tag = $tagsTable->get($id);
-
-        // If there are empty SEO fields, requeue to wait for them to be populated
-        if (!empty($tagsTable->emptySeoFields($tag))) {
-            return $this->handleEmptySeoFields($id, $title, $attempt);
-        }
-
-        return $this->executeWithErrorHandling($id, function () use ($tag, $tagsTable) {
-            $result = $this->apiService->translateTag(
-                (string)$tag->title,
-                (string)$tag->description,
-                (string)$tag->meta_title,
-                (string)$tag->meta_description,
-                (string)$tag->meta_keywords,
-                (string)$tag->facebook_description,
-                (string)$tag->linkedin_description,
-                (string)$tag->instagram_description,
-                (string)$tag->twitter_description,
-            );
-
-            if ($result) {
-                foreach ($result as $locale => $translation) {
-                    $tag->translation($locale)->title = $translation['title'];
-                    $tag->translation($locale)->description = $translation['description'];
-                    $tag->translation($locale)->meta_title = $translation['meta_title'];
-                    $tag->translation($locale)->meta_description = $translation['meta_description'];
-                    $tag->translation($locale)->meta_keywords = $translation['meta_keywords'];
-                    $tag->translation($locale)->facebook_description = $translation['facebook_description'];
-                    $tag->translation($locale)->linkedin_description = $translation['linkedin_description'];
-                    $tag->translation($locale)->instagram_description = $translation['instagram_description'];
-                    $tag->translation($locale)->twitter_description = $translation['twitter_description'];
-
-                    $tagsTable->save($tag, ['noMessage' => true]);
-                }
-
-                return true;
-            }
-
-            return false;
-        }, $title);
+        return 'Tags';
     }
 
     /**
-     * Handle the case where SEO fields are empty by requeuing the job
-     *
-     * @param string $id The tag ID
-     * @param string $title The tag title
-     * @param int $attempt The current attempt number
-     * @return string|null
+     * @inheritDoc
      */
-    private function handleEmptySeoFields(string $id, string $title, int $attempt): ?string
+    protected function getRequiredArguments(): array
     {
-        if ($attempt >= 5) {
-            $this->logJobError($id, sprintf('Tag still has empty SEO fields after %d attempts', $attempt), $title);
+        return ['id', 'title'];
+    }
 
-            return Processor::REJECT;
-        }
+    /**
+     * @inheritDoc
+     */
+    protected function getDisplayNameArgument(): string
+    {
+        return 'title';
+    }
 
-        $data = [
-            'id' => $id,
-            'title' => $title,
-            '_attempt' => $attempt + 1,
+    /**
+     * @inheritDoc
+     */
+    protected function getEntityTypeName(): string
+    {
+        return 'Tag';
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function getFieldsForTranslation(EntityInterface $entity): array
+    {
+        return [
+            'title' => (string)$entity->title,
+            'description' => (string)$entity->description,
+            'meta_title' => (string)$entity->meta_title,
+            'meta_description' => (string)$entity->meta_description,
+            'meta_keywords' => (string)$entity->meta_keywords,
+            'facebook_description' => (string)$entity->facebook_description,
+            'linkedin_description' => (string)$entity->linkedin_description,
+            'instagram_description' => (string)$entity->instagram_description,
+            'twitter_description' => (string)$entity->twitter_description,
         ];
-
-        QueueManager::push(
-            static::class,
-            $data,
-            [
-                'config' => 'default',
-                'delay' => 10 * ($attempt + 1),
-            ],
-        );
-
-        $this->log(
-            sprintf(
-                'Tag has empty SEO fields, re-queuing with %d second delay: %s : %s',
-                10 * ($attempt + 1),
-                $id,
-                $title,
-            ),
-            'info',
-            ['group_name' => static::class],
-        );
-
-        return Processor::ACK;
     }
 }

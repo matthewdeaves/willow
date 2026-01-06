@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-This file provides comprehensive guidance to Claude Code (claude.ai/code) when working with the Willow CMS codebase.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Essential Commands
 
@@ -309,19 +309,25 @@ The interactive management tool provides menu-driven access to common developmen
    - `CommentableBehavior` - Adds commenting functionality to any model
    - `QueueableImageBehavior` - Queues image processing jobs
 
-4. **Queue-Based Processing**: Heavy operations are offloaded to background jobs
+4. **Queue-Based Processing**: Heavy operations are offloaded to background jobs (`src/Job/`)
    - `ProcessImageJob` - Image resizing and thumbnail generation
    - `ImageAnalysisJob` - AI-powered image analysis for alt text and keywords
    - `ArticleSeoUpdateJob` - AI-generated SEO content for articles
    - `ArticleTagUpdateJob` - Automatic tag generation for articles
    - `ArticleSummaryUpdateJob` - Generate article summaries
+   - `TagSeoUpdateJob` - AI-generated SEO content for tags
+   - `ImageGallerySeoUpdateJob` - AI-generated SEO content for image galleries
+   - `GenerateGalleryPreviewJob` - Gallery preview image generation
    - `CommentAnalysisJob` - AI comment moderation
    - `SendEmailJob` - Asynchronous email sending
-   - `TranslateArticleJob`, `TranslateI18nJob`, `TranslateTagJob` - Translation tasks
+   - `TranslateArticleJob`, `TranslateI18nJob`, `TranslateTagJob`, `TranslateImageGalleryJob` - Translation tasks
 
-5. **AI Integration Architecture**: Modular API service design
-   - `AbstractApiService` - Base class for all API integrations
-   - `AnthropicApiService` - Anthropic Claude API implementation
+5. **AI Integration Architecture**: Modular API service design with provider abstraction
+   - `AiProviderInterface` - Common interface for all AI providers
+   - `AiService` - Unified facade for AI operations
+   - `AiServiceFactory` - Creates appropriate provider based on settings
+   - `AnthropicApiService` - Direct Anthropic Claude API implementation
+   - `OpenRouterApiService` - OpenRouter API implementation (access to multiple models)
    - `GoogleApiService` - Google Translate API implementation
    - Specialized generators/analyzers for specific AI tasks
 
@@ -382,20 +388,26 @@ The interactive management tool provides menu-driven access to common developmen
 
 ### Integration Points
 
-1. **Anthropic Claude API**: Used for content analysis and generation
+1. **AI Provider System**: Switchable AI providers via admin settings
+   - **Anthropic Claude API** (Direct): Native integration with Claude models
+   - **OpenRouter**: Access to multiple AI providers (Claude, GPT-4, Gemini, Llama, etc.)
+   - Provider selection via `Anthropic.provider` setting
+   - Per-task model configuration in `aiprompts` table (`model` and `openrouter_model` columns)
+
+2. **AI Content Features**: Powered by configured provider
    - Comment moderation and spam detection
    - Image analysis for alt text and keywords
    - SEO content generation (meta descriptions, titles)
    - Article summarization and tag generation
    - Translation services (backup to Google Translate)
 
-2. **Google Translate API**: Professional translation service
+3. **Google Translate API**: Professional translation service
    - More accurate than general-purpose AI for translations
    - Batch translation support with cost optimization
    - Automatic locale detection and validation
    - Primary translation service with AI fallback
 
-3. **Redis**: Cache and queue backend
+4. **Redis**: Cache and queue backend
    - Queue job storage and processing
    - Session storage in production environments
    - Cache storage for high-traffic sites
@@ -432,7 +444,11 @@ src/
 │   └── Table/                      # Table classes
 ├── Service/Api/                    # API integrations
 │   ├── AbstractApiService.php
+│   ├── AiProviderInterface.php     # Common AI provider interface
+│   ├── AiService.php               # Unified AI service facade
+│   ├── AiServiceFactory.php        # Provider factory
 │   ├── Anthropic/                  # Anthropic API services
+│   ├── OpenRouter/                 # OpenRouter API services
 │   └── Google/                     # Google API services
 ├── Job/                           # Queue job classes
 ├── Middleware/                    # Custom middleware
@@ -497,7 +513,34 @@ Use `config/.env.example` as template for environment-specific settings:
 ### API Rate Limits
 
 - **Anthropic API**: Respect tier-based limits
+- **OpenRouter**: Follows provider-specific limits (varies by model)
 - **Google Translate API**: Monitor usage and costs
 - **Built-in Rate Limiting**: Configurable per endpoint
 
+### AI Provider Configuration
+
+Willow CMS supports multiple AI providers through a unified interface:
+
+**Settings** (Admin > Settings > Anthropic):
+- `provider`: Select `anthropic` (direct) or `openrouter`
+- `apiKey`: Anthropic API key (for direct access)
+- `openRouterApiKey`: OpenRouter API key
+
+**Per-Task Model Configuration** (Admin > AI Prompts):
+- `model`: Model name for direct Anthropic API (e.g., `claude-3-haiku-20240307`)
+- `openrouter_model`: Model name for OpenRouter (e.g., `anthropic/claude-3-haiku`)
+
+The system automatically selects the appropriate model column based on the configured provider. OpenRouter allows using any supported model (Claude, GPT-4, Gemini, Llama, etc.) while the direct Anthropic API is limited to Claude models.
+
 This architecture provides a solid foundation for scaling Willow CMS while maintaining code quality and developer experience.
+
+## Claude Code-Specific Notes
+
+When working in this codebase:
+
+1. **Always run commands through Docker**: All PHP commands must be executed inside the `willowcms` container
+2. **Test AI features with queue workers**: Start `cake_queue_worker_verbose` before testing any AI-related functionality
+3. **Check for existing patterns**: Before creating new code, search for similar implementations in `src/` and `plugins/`
+4. **Use CakePHP conventions**: Follow strict naming conventions (e.g., `ArticlesController` for `articles` table)
+5. **Run tests before completing work**: Use `phpunit` to verify changes don't break existing functionality
+6. **Code quality gates**: Run `phpcs_sniff` and `phpstan_analyse` to catch issues early

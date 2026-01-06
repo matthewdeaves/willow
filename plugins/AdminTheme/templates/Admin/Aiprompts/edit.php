@@ -39,14 +39,30 @@
                             <?php endif; ?>
                         </div>
                                         <div class="mb-3">
-                            <?php echo $this->Form->control('model', ['class' => 'form-control' . ($this->Form->isFieldError('model') ? ' is-invalid' : '')]); ?>
-                                                                                        <?php if ($this->Form->isFieldError('model')): ?>
+                            <?php echo $this->Form->control('model', [
+                                'class' => 'form-control' . ($this->Form->isFieldError('model') ? ' is-invalid' : ''),
+                                'label' => __('Model (Anthropic)'),
+                            ]); ?>
+                            <small class="form-text text-muted"><?= __('Model name for Anthropic API (e.g., claude-sonnet-4-5-20250929)') ?></small>
+                            <?php if ($this->Form->isFieldError('model')): ?>
                                 <div class="invalid-feedback">
                                     <?= $this->Form->error('model') ?>
                                 </div>
                             <?php endif; ?>
                         </div>
-                                        <div class="mb-3">
+                        <div class="mb-3">
+                            <?php echo $this->Form->control('openrouter_model', [
+                                'class' => 'form-control' . ($this->Form->isFieldError('openrouter_model') ? ' is-invalid' : ''),
+                                'label' => __('Model (OpenRouter)'),
+                            ]); ?>
+                            <small class="form-text text-muted"><?= __('Model name for OpenRouter API (e.g., anthropic/claude-3.5-sonnet, openai/gpt-4o)') ?></small>
+                            <?php if ($this->Form->isFieldError('openrouter_model')): ?>
+                                <div class="invalid-feedback">
+                                    <?= $this->Form->error('openrouter_model') ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="mb-3">
                             <?php echo $this->Form->control('max_tokens', ['class' => 'form-control' . ($this->Form->isFieldError('max_tokens') ? ' is-invalid' : '')]); ?>
                                                                                         <?php if ($this->Form->isFieldError('max_tokens')): ?>
                                 <div class="invalid-feedback">

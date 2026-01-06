@@ -162,12 +162,28 @@ The interactive management tool provides easy access to common tasks:
 
 Willow CMS integrates with leading AI services for enhanced functionality:
 
-### Anthropic Claude API
+### AI Providers
+
+Choose between two AI providers:
+
+**Anthropic Claude API (Direct)**
+- Native integration with Claude models
+- Direct API access for lowest latency
+- Requires Anthropic API key
+
+**OpenRouter**
+- Access to multiple AI providers through one API
+- Use Claude, GPT-4, Gemini, Llama, and more
+- Flexible model selection per task
+- Requires OpenRouter API key
+
+### AI Features
 - Content analysis and generation
-- SEO optimization
-- Image analysis
-- Comment moderation
-- Article summarization
+- SEO optimization (meta titles, descriptions, keywords)
+- Image analysis (alt text, keywords)
+- Comment moderation and spam detection
+- Article summarization and tag generation
+- Social media descriptions (Facebook, Twitter, LinkedIn, Instagram)
 
 ### Google Translate API
 - Professional-grade translations
@@ -177,11 +193,14 @@ Willow CMS integrates with leading AI services for enhanced functionality:
 ### Configuration
 
 1. Navigate to **Settings**: [http://localhost:8080/admin/settings](http://localhost:8080/admin/settings)
-2. Add your API keys:
-   - Anthropic API key
+2. Select your AI provider (Anthropic or OpenRouter)
+3. Add your API keys:
+   - Anthropic API key (for direct access)
+   - OpenRouter API key (for OpenRouter provider)
    - Google Translate API key
-3. Enable AI features and select desired languages
-4. Start a queue worker to process AI jobs
+4. Configure models per task in **AI Prompts** (Admin > AI Prompts)
+5. Enable AI features and select desired languages
+6. Start a queue worker to process AI jobs
 
 ---
 
@@ -205,7 +224,8 @@ willow/
 │   │   ├── Entity/                # Entity classes with business logic
 │   │   └── Table/                 # Table classes with queries
 │   ├── 🔌 Service/Api/             # AI and external API integrations
-│   │   ├── Anthropic/             # Claude AI services
+│   │   ├── Anthropic/             # Claude AI services (direct)
+│   │   ├── OpenRouter/            # OpenRouter API services
 │   │   └── Google/                # Google Translate services
 │   ├── ⚡ Job/                     # Background job classes
 │   ├── 🛠️ Command/                 # CLI command tools
@@ -367,6 +387,7 @@ See the [LICENSE](LICENSE) file for complete details.
 
 - **[CakePHP](https://cakephp.org)**: The robust PHP framework powering Willow CMS
 - **[Anthropic](https://anthropic.com)**: AI capabilities via Claude API
+- **[OpenRouter](https://openrouter.ai)**: Multi-provider AI API gateway
 - **[Google Cloud](https://cloud.google.com)**: Translation services
 - **Community**: All contributors and users who make this project possible
 

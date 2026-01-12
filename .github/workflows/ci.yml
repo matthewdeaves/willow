@@ -155,7 +155,7 @@ jobs:
         REDIS_URL: "redis://127.0.0.1:6379/0"
 
     - name: Upload Coverage Artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: phpunit-coverage
         path: |
@@ -191,14 +191,14 @@ jobs:
           --report=json src/ tests/ > phpcs.json || true
 
     - name: Upload PHPStan Results
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: phpstan-results
         path: phpstan.json
         retention-days: 30
 
     - name: Upload PHPCS Results
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: phpcs-results
         path: phpcs.json
@@ -226,7 +226,7 @@ jobs:
           --report=json src/ > security-phpcs.json || true
 
     - name: Upload Security Results
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: security-results
         path: security-phpcs.json
@@ -252,7 +252,7 @@ jobs:
       run: vendor/bin/phpmd src/ json phpmd.xml > phpmd.json || true
 
     - name: Upload Complexity Results
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: complexity-results
         path: phpmd.json
@@ -275,7 +275,7 @@ jobs:
         npx jscpd src/ plugins/ webroot/ --reporters json --output jscpd-report/ || true
 
     - name: Upload Duplication Results
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: duplication-results
         path: jscpd-report/

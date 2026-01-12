@@ -12,12 +12,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Optional
 
-try:
-    import defusedxml.ElementTree as ET
-except ImportError:
-    # Fallback for environments without defusedxml
-    # nosemgrep: python.lang.security.use-defused-xml.use-defused-xml
-    import xml.etree.ElementTree as ET
+import defusedxml.ElementTree as ET
 
 
 # Rating thresholds
@@ -88,7 +83,6 @@ def parse_coverage_xml(filepath: str) -> dict:
         return result
 
     try:
-        # nosemgrep: python.lang.security.use-defused-xml-parse.use-defused-xml-parse
         tree = ET.parse(filepath)
         root = tree.getroot()
 

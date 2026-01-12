@@ -1,0 +1,150 @@
+name: Metrics Dashboard
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
+    branches: [main]
+
+# Allow one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  process-metrics:
+    runs-on: ubuntu-latest
+    # Only run if CI succeeded
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v6
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Install Python dependencies
+      run: pip install defusedxml
+
+    - name: Create artifacts directory
+      run: mkdir -p artifacts
+
+    - name: Download Coverage Artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: phpunit-coverage
+        path: artifacts/coverage
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        run-id: ${{ github.event.workflow_run.id }}
+      continue-on-error: true
+
+    - name: Download PHPStan Results
+      uses: actions/download-artifact@v4
+      with:
+        name: phpstan-results
+        path: artifacts/phpstan
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        run-id: ${{ github.event.workflow_run.id }}
+      continue-on-error: true
+
+    - name: Download PHPCS Results
+      uses: actions/download-artifact@v4
+      with:
+        name: phpcs-results
+        path: artifacts/phpcs
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        run-id: ${{ github.event.workflow_run.id }}
+      continue-on-error: true
+
+    - name: Download Security Results
+      uses: actions/download-artifact@v4
+      with:
+        name: security-results
+        path: artifacts/security
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        run-id: ${{ github.event.workflow_run.id }}
+      continue-on-error: true
+
+    - name: Download Complexity Results
+      uses: actions/download-artifact@v4
+      with:
+        name: complexity-results
+        path: artifacts/complexity
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        run-id: ${{ github.event.workflow_run.id }}
+      continue-on-error: true
+
+    - name: Download Duplication Results
+      uses: actions/download-artifact@v4
+      with:
+        name: duplication-results
+        path: artifacts/duplication
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        run-id: ${{ github.event.workflow_run.id }}
+      continue-on-error: true
+
+    - name: List downloaded artifacts
+      run: find artifacts -type f -name "*.json" -o -name "*.xml" | head -20
+
+    - name: Process Metrics
+      run: |
+        python .github/scripts/process_metrics.py \
+          --coverage artifacts/coverage/coverage.xml \
+          --phpstan artifacts/phpstan/phpstan.json \
+          --phpcs artifacts/phpcs/phpcs.json \
+          --security artifacts/security/security-phpcs.json \
+          --phpmd artifacts/complexity/phpmd.json \
+          --jscpd artifacts/duplication/jscpd-report.json \
+          --template .github/templates/dashboard.html \
+          --output-dir site/metrics \
+          --commit-sha ${{ github.event.workflow_run.head_sha }}
+
+    - name: Create site structure
+      run: |
+        # Create root index.html redirect
+        cat > site/index.html << 'EOF'
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="utf-8">
+          <meta http-equiv="refresh" content="0; url=metrics/">
+          <title>Redirecting...</title>
+        </head>
+        <body>
+          <p>Redirecting to <a href="metrics/">metrics dashboard</a>...</p>
+        </body>
+        </html>
+        EOF
+
+        # Create .nojekyll file
+        touch site/.nojekyll
+
+        # Copy coverage HTML report if it exists
+        if [ -d "artifacts/coverage/coverage-html" ]; then
+          cp -r artifacts/coverage/coverage-html site/metrics/coverage
+        fi
+
+    - name: Upload Pages Artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: site
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: process-metrics
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4

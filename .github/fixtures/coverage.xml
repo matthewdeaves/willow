@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1704067200">
+  <project timestamp="1704067200">
+    <metrics files="50" loc="15000" ncloc="12000" classes="100" methods="500" coveredmethods="400" conditionals="0" coveredconditionals="0" statements="3000" coveredstatements="2250" elements="3500" coveredelements="2650"/>
+    <package name="App">
+      <file name="/var/www/html/src/Controller/ArticlesController.php">
+        <class name="ArticlesController" namespace="App\Controller">
+          <metrics complexity="5" methods="10" coveredmethods="8" conditionals="0" coveredconditionals="0" statements="100" coveredstatements="75" elements="110" coveredelements="83"/>
+        </class>
+        <line num="1" type="stmt" count="1"/>
+        <line num="10" type="stmt" count="1"/>
+        <line num="20" type="stmt" count="0"/>
+        <metrics loc="150" ncloc="120" classes="1" methods="10" coveredmethods="8" conditionals="0" coveredconditionals="0" statements="100" coveredstatements="75" elements="110" coveredelements="83"/>
+      </file>
+    </package>
+  </project>
+</coverage>

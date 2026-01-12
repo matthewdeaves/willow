@@ -1,0 +1,89 @@
+{
+  "statistics": {
+    "detectionDate": "2024-01-01T12:00:00.000Z",
+    "formats": {
+      "php": {
+        "sources": 120,
+        "clones": 6,
+        "duplicatedLines": 150,
+        "duplicatedTokens": 400,
+        "lines": 15234,
+        "tokens": 85000,
+        "percentage": 0.98
+      },
+      "javascript": {
+        "sources": 20,
+        "clones": 2,
+        "duplicatedLines": 25,
+        "duplicatedTokens": 80,
+        "lines": 2500,
+        "tokens": 12000,
+        "percentage": 1.0
+      },
+      "css": {
+        "sources": 15,
+        "clones": 1,
+        "duplicatedLines": 15,
+        "duplicatedTokens": 40,
+        "lines": 1800,
+        "tokens": 8000,
+        "percentage": 0.83
+      }
+    },
+    "total": {
+      "sources": 155,
+      "clones": 9,
+      "duplicatedLines": 190,
+      "duplicatedTokens": 520,
+      "lines": 19534,
+      "tokens": 105000,
+      "percentage": 0.97
+    },
+    "clones": 9,
+    "duplicatedLines": 190,
+    "lines": 19534,
+    "percentage": 0.97
+  },
+  "duplicates": [
+    {
+      "format": "php",
+      "lines": 25,
+      "tokens": 120,
+      "firstFile": {
+        "name": "src/Controller/ArticlesController.php",
+        "start": 45,
+        "end": 70,
+        "startLoc": {"line": 45, "column": 1},
+        "endLoc": {"line": 70, "column": 1}
+      },
+      "secondFile": {
+        "name": "src/Controller/TagsController.php",
+        "start": 50,
+        "end": 75,
+        "startLoc": {"line": 50, "column": 1},
+        "endLoc": {"line": 75, "column": 1}
+      },
+      "fragment": "// Similar CRUD logic..."
+    },
+    {
+      "format": "php",
+      "lines": 15,
+      "tokens": 80,
+      "firstFile": {
+        "name": "src/Model/Behavior/SlugBehavior.php",
+        "start": 20,
+        "end": 35,
+        "startLoc": {"line": 20, "column": 1},
+        "endLoc": {"line": 35, "column": 1}
+      },
+      "secondFile": {
+        "name": "src/Model/Behavior/SeoSlugBehavior.php",
+        "start": 25,
+        "end": 40,
+        "startLoc": {"line": 25, "column": 1},
+        "endLoc": {"line": 40, "column": 1}
+      },
+      "fragment": "// Similar slug generation..."
+    }
+  ]
+}

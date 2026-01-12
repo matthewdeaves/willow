@@ -1,0 +1,49 @@
+{
+  "totals": {
+    "errors": 5,
+    "file_errors": 3
+  },
+  "files": {
+    "/var/www/html/src/Controller/ArticlesController.php": {
+      "errors": 2,
+      "messages": [
+        {
+          "message": "Parameter $id of method ArticlesController::view() has invalid type int.",
+          "line": 45,
+          "ignorable": true
+        },
+        {
+          "message": "Method ArticlesController::edit() should return void but returns mixed.",
+          "line": 78,
+          "ignorable": true
+        }
+      ]
+    },
+    "/var/www/html/src/Model/Table/ArticlesTable.php": {
+      "errors": 2,
+      "messages": [
+        {
+          "message": "Property ArticlesTable::$belongsTo has no type specified.",
+          "line": 20,
+          "ignorable": true
+        },
+        {
+          "message": "Method ArticlesTable::findPublished() has no return type specified.",
+          "line": 55,
+          "ignorable": true
+        }
+      ]
+    },
+    "/var/www/html/src/Service/AiService.php": {
+      "errors": 1,
+      "messages": [
+        {
+          "message": "Parameter $prompt of method AiService::generate() expects string, mixed given.",
+          "line": 102,
+          "ignorable": true
+        }
+      ]
+    }
+  },
+  "errors": []
+}

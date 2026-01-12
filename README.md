@@ -7,6 +7,13 @@
 [![CakePHP](https://img.shields.io/badge/CakePHP-5.x-red)](https://cakephp.org)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
+[![Coverage](https://matthewdeaves.github.io/willow/metrics/badges/coverage.svg)](https://matthewdeaves.github.io/willow/metrics/)
+[![PHPStan](https://matthewdeaves.github.io/willow/metrics/badges/phpstan.svg)](https://matthewdeaves.github.io/willow/metrics/)
+[![Code Style](https://matthewdeaves.github.io/willow/metrics/badges/phpcs.svg)](https://matthewdeaves.github.io/willow/metrics/)
+[![Security](https://matthewdeaves.github.io/willow/metrics/badges/security.svg)](https://matthewdeaves.github.io/willow/metrics/)
+
+[**View Metrics Dashboard**](https://matthewdeaves.github.io/willow/metrics/)
+
 Willow CMS is a powerful, AI-enhanced content management system that combines the robustness of CakePHP 5.x with cutting-edge AI capabilities. Built with developers in mind, it offers a complete Docker development environment and production-ready features.
 
 **🆓 FREE & OPEN SOURCE** • **🔧 FULLY CUSTOMIZABLE**

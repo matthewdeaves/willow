@@ -99,3 +99,185 @@ jobs:
           p/security-audit
       env:
         SEMGREP_RULES: "p/php p/owasp-top-ten p/security-audit"
+
+  # Metrics Jobs - Generate artifacts for the metrics dashboard
+  # These run on PHP 8.3 only and produce JSON/XML artifacts
+
+  metrics-coverage:
+    runs-on: ubuntu-latest
+    name: Metrics - Coverage
+    needs: test
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Setup MySQL
+      run: |
+        sudo service mysql start
+        mysql -e 'CREATE DATABASE IF NOT EXISTS cms_test;' -uroot -proot
+
+    - name: Setup Redis
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y redis-server
+        sudo service redis-server start
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3'
+        extensions: mbstring, intl, pdo_mysql, pcntl, sockets, bcmath, zip
+        coverage: xdebug
+
+    - name: Install Composer dependencies
+      run: composer update --no-interaction --prefer-dist
+
+    - name: Copy Configs
+      run: |
+        cp docker/github/app_local.php config/app_local.php
+        cp docker/github/app.php config/app.php
+
+    - name: Run PHPUnit with Coverage
+      run: |
+        php -d display_errors=on vendor/bin/phpunit \
+          --coverage-clover coverage.xml \
+          --coverage-html coverage-html/ \
+          --coverage-text
+      env:
+        XDEBUG_MODE: coverage
+        REDIS_HOST: 127.0.0.1
+        REDIS_PORT: 6379
+        REDIS_PASSWORD: ""
+        REDIS_URL: "redis://127.0.0.1:6379/0"
+
+    - name: Upload Coverage Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: phpunit-coverage
+        path: |
+          coverage.xml
+          coverage-html/
+        retention-days: 30
+
+  metrics-static-analysis:
+    runs-on: ubuntu-latest
+    name: Metrics - Static Analysis
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3'
+        extensions: mbstring, intl
+
+    - name: Install Composer dependencies
+      run: composer update --no-interaction --prefer-dist
+
+    - name: Run PHPStan (JSON output)
+      run: |
+        php -d memory_limit=-1 vendor/bin/phpstan analyse src/ \
+          --error-format=json > phpstan.json || true
+
+    - name: Run PHP CodeSniffer (JSON output)
+      run: |
+        vendor/bin/phpcs \
+          --standard=vendor/cakephp/cakephp-codesniffer/CakePHP \
+          --report=json src/ tests/ > phpcs.json || true
+
+    - name: Upload PHPStan Results
+      uses: actions/upload-artifact@v4
+      with:
+        name: phpstan-results
+        path: phpstan.json
+        retention-days: 30
+
+    - name: Upload PHPCS Results
+      uses: actions/upload-artifact@v4
+      with:
+        name: phpcs-results
+        path: phpcs.json
+        retention-days: 30
+
+  metrics-security:
+    runs-on: ubuntu-latest
+    name: Metrics - Security
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3'
+        extensions: mbstring, intl
+
+    - name: Install Composer dependencies
+      run: composer update --no-interaction --prefer-dist
+
+    - name: Run Security Audit (JSON output)
+      run: |
+        vendor/bin/phpcs --standard=phpcs-security.xml \
+          --report=json src/ > security-phpcs.json || true
+
+    - name: Upload Security Results
+      uses: actions/upload-artifact@v4
+      with:
+        name: security-results
+        path: security-phpcs.json
+        retention-days: 30
+
+  metrics-complexity:
+    runs-on: ubuntu-latest
+    name: Metrics - Complexity
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3'
+        extensions: mbstring, intl
+
+    - name: Install Composer dependencies
+      run: composer update --no-interaction --prefer-dist
+
+    - name: Run PHPLOC
+      run: vendor/bin/phploc --log-json=phploc.json src/
+
+    - name: Run PHPMD (JSON output)
+      run: vendor/bin/phpmd src/ json phpmd.xml > phpmd.json || true
+
+    - name: Upload Complexity Results
+      uses: actions/upload-artifact@v4
+      with:
+        name: complexity-results
+        path: |
+          phploc.json
+          phpmd.json
+        retention-days: 30
+
+  metrics-duplication:
+    runs-on: ubuntu-latest
+    name: Metrics - Duplication
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Run jscpd
+      run: |
+        npx jscpd src/ plugins/ webroot/ --reporters json --output jscpd-report/
+
+    - name: Upload Duplication Results
+      uses: actions/upload-artifact@v4
+      with:
+        name: duplication-results
+        path: jscpd-report/
+        retention-days: 30

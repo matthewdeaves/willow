@@ -1,0 +1,48 @@
+{
+  "totals": {
+    "errors": 1,
+    "warnings": 2,
+    "fixable": 0
+  },
+  "files": {
+    "/var/www/html/src/Controller/ArticlesController.php": {
+      "errors": 0,
+      "warnings": 1,
+      "messages": [
+        {
+          "message": "Possible SQL injection vulnerability",
+          "source": "Security.Drupal7.DynQueries.D7DynQueriesDirectVar",
+          "severity": 5,
+          "fixable": false,
+          "type": "WARNING",
+          "line": 123,
+          "column": 15
+        }
+      ]
+    },
+    "/var/www/html/src/Controller/UsersController.php": {
+      "errors": 1,
+      "warnings": 1,
+      "messages": [
+        {
+          "message": "Possible XSS vulnerability - user input not escaped",
+          "source": "Security.BadFunctions.EasyXSS.EasyXSSwarn",
+          "severity": 5,
+          "fixable": false,
+          "type": "ERROR",
+          "line": 85,
+          "column": 10
+        },
+        {
+          "message": "File inclusion with variable path",
+          "source": "Security.BadFunctions.FileFunctions.WarnFileFunctions",
+          "severity": 5,
+          "fixable": false,
+          "type": "WARNING",
+          "line": 150,
+          "column": 5
+        }
+      ]
+    }
+  }
+}

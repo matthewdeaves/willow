@@ -1,0 +1,54 @@
+{
+  "version": "@package_version@",
+  "package": "phpmd",
+  "timestamp": "2024-01-01T12:00:00+00:00",
+  "files": [
+    {
+      "file": "/var/www/html/src/Controller/ArticlesController.php",
+      "violations": [
+        {
+          "beginLine": 45,
+          "endLine": 95,
+          "rule": "CyclomaticComplexity",
+          "ruleSet": "Code Size Rules",
+          "priority": 3,
+          "description": "The method index() has a Cyclomatic Complexity of 12. The configured cyclomatic complexity threshold is 10."
+        },
+        {
+          "beginLine": 100,
+          "endLine": 150,
+          "rule": "NPathComplexity",
+          "ruleSet": "Code Size Rules",
+          "priority": 3,
+          "description": "The method edit() has an NPath complexity of 256. The configured NPath complexity threshold is 200."
+        }
+      ]
+    },
+    {
+      "file": "/var/www/html/src/Service/AiService.php",
+      "violations": [
+        {
+          "beginLine": 80,
+          "endLine": 180,
+          "rule": "ExcessiveMethodLength",
+          "ruleSet": "Code Size Rules",
+          "priority": 3,
+          "description": "The method generate() has 105 lines of code. Current threshold is set to 100. Avoid really long methods."
+        }
+      ]
+    },
+    {
+      "file": "/var/www/html/src/Model/Table/ArticlesTable.php",
+      "violations": [
+        {
+          "beginLine": 10,
+          "endLine": 15,
+          "rule": "UnusedPrivateField",
+          "ruleSet": "Unused Code Rules",
+          "priority": 3,
+          "description": "Avoid unused private fields such as '$_cache'."
+        }
+      ]
+    }
+  ]
+}

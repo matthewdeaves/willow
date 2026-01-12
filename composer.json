@@ -41,6 +41,8 @@
         "cakephp/cakephp-codesniffer": "^5.3.0",
         "cakephp/debug_kit": "~5.0",
         "pheromone/phpcs-security-audit": "^2.0",
+        "phploc/phploc": "^7.0",
+        "phpmd/phpmd": "^2.15",
         "phpstan/phpstan": "^2.0",
         "phpunit/phpunit": "^10.1"
     },

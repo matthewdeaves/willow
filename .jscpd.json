@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json.schemastore.org/jscpd.json",
+  "threshold": 0,
+  "reporters": ["json", "html", "console"],
+  "output": "jscpd-report",
+  "format": ["php", "javascript", "css"],
+  "ignore": [
+    "vendor/**",
+    "node_modules/**",
+    "tests/Fixture/**",
+    "config/Migrations/**",
+    "tmp/**",
+    "logs/**",
+    "**/*.min.js",
+    "**/*.min.css",
+    "**/semantic.min.js",
+    "**/semantic.min.css",
+    "**/normalize.min.css",
+    "**/milligram.min.css"
+  ],
+  "minLines": 5,
+  "minTokens": 50,
+  "absolute": false,
+  "gitignore": true
+}

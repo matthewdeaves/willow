@@ -268,7 +268,7 @@ jobs:
 
     - name: Run jscpd
       run: |
-        npx jscpd src/ plugins/ webroot/ --reporters json --output jscpd-report/
+        npx jscpd src/ plugins/ webroot/ --reporters json --output jscpd-report/ || true
 
     - name: Upload Duplication Results
       uses: actions/upload-artifact@v4

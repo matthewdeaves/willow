@@ -11,6 +11,8 @@
 [![PHPStan](https://matthewdeaves.github.io/willow/metrics/badges/phpstan.svg)](https://matthewdeaves.github.io/willow/metrics/)
 [![Code Style](https://matthewdeaves.github.io/willow/metrics/badges/phpcs.svg)](https://matthewdeaves.github.io/willow/metrics/)
 [![Security](https://matthewdeaves.github.io/willow/metrics/badges/security.svg)](https://matthewdeaves.github.io/willow/metrics/)
+[![PHPMD](https://matthewdeaves.github.io/willow/metrics/badges/phpmd.svg)](https://matthewdeaves.github.io/willow/metrics/)
+[![Duplication](https://matthewdeaves.github.io/willow/metrics/badges/duplication.svg)](https://matthewdeaves.github.io/willow/metrics/)
 
 [**View Metrics Dashboard**](https://matthewdeaves.github.io/willow/metrics/)
 

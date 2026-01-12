@@ -31,6 +31,9 @@ jobs:
       with:
         python-version: '3.12'
 
+    - name: Install Python dependencies
+      run: pip install defusedxml
+
     - name: Create artifacts directory
       run: mkdir -p artifacts
 
@@ -98,7 +101,6 @@ jobs:
           --phpstan artifacts/phpstan/phpstan.json \
           --phpcs artifacts/phpcs/phpcs.json \
           --security artifacts/security/security-phpcs.json \
-          --phploc artifacts/complexity/phploc.json \
           --phpmd artifacts/complexity/phpmd.json \
           --jscpd artifacts/duplication/jscpd-report.json \
           --template .github/templates/dashboard.html \

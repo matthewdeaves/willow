@@ -8,10 +8,16 @@ import argparse
 import json
 import os
 import sys
-import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Optional
+
+try:
+    import defusedxml.ElementTree as ET
+except ImportError:
+    # Fallback for environments without defusedxml
+    # nosemgrep: python.lang.security.use-defused-xml.use-defused-xml
+    import xml.etree.ElementTree as ET
 
 
 # Rating thresholds
@@ -308,6 +314,7 @@ def parse_phpmd_json(filepath: str) -> dict:
         'by_ruleset': {},
         'files_affected': 0,
         'rating': None,
+        'badge_url': None,
     }
 
     if not os.path.exists(filepath):
@@ -337,6 +344,15 @@ def parse_phpmd_json(filepath: str) -> dict:
             result['violations'] = total_violations
             result['by_ruleset'] = rulesets
             result['files_affected'] = len(affected_files)
+
+            # Calculate rating based on violations (using same thresholds as phpcs)
+            if result['violations'] is not None:
+                result['rating'] = calculate_rating('phpcs', result['violations'])
+                result['badge_url'] = generate_badge_url(
+                    'PHPMD',
+                    str(result['violations']) + ' issues',
+                    result['rating']
+                )
     except json.JSONDecodeError as e:
         print(f"Error parsing PHPMD JSON: {e}")
     except Exception as e:
@@ -469,7 +485,7 @@ def generate_badges(output_dir: str, metrics: dict) -> None:
         ('phpstan', metrics.get('phpstan', {}).get('errors'), ' errors', 'phpstan'),
         ('phpcs', metrics.get('phpcs', {}).get('violations'), ' issues', 'phpcs'),
         ('security', metrics.get('security', {}).get('issues'), ' issues', 'security'),
-        ('complexity', metrics.get('phploc', {}).get('avg_complexity'), ' avg', 'complexity'),
+        ('phpmd', metrics.get('phpmd', {}).get('violations'), ' issues', 'phpcs'),  # Use phpcs thresholds
         ('duplication', metrics.get('jscpd', {}).get('percentage'), '%', 'duplication'),
     ]
 
@@ -537,6 +553,20 @@ def format_language_breakdown(by_language: dict) -> str:
     return ' | '.join(parts)
 
 
+def format_ruleset_breakdown(by_ruleset: dict) -> str:
+    """Format PHPMD ruleset breakdown as HTML."""
+    if not by_ruleset:
+        return ''
+
+    parts = []
+    for ruleset, count in sorted(by_ruleset.items()):
+        # Shorten ruleset names
+        short_name = ruleset.replace(' Rules', '').replace('Code ', '')
+        parts.append(f"<strong>{short_name}</strong>: {count}")
+
+    return ' | '.join(parts)
+
+
 def generate_dashboard_html(template_path: str, output_path: str, metrics: dict, history: list, commit_sha: str) -> None:
     """Generate the dashboard HTML from template."""
     # Read template
@@ -548,7 +578,7 @@ def generate_dashboard_html(template_path: str, output_path: str, metrics: dict,
     phpstan = metrics.get('phpstan', {})
     phpcs = metrics.get('phpcs', {})
     security = metrics.get('security', {})
-    phploc = metrics.get('phploc', {})
+    phpmd = metrics.get('phpmd', {})
     jscpd = metrics.get('jscpd', {})
 
     # Format history for charts
@@ -558,7 +588,7 @@ def generate_dashboard_html(template_path: str, output_path: str, metrics: dict,
         'phpstan': [entry.get('phpstan', {}).get('errors') for entry in history[-30:]],
         'phpcs': [entry.get('phpcs', {}).get('violations') for entry in history[-30:]],
         'security': [entry.get('security', {}).get('issues') for entry in history[-30:]],
-        'complexity': [entry.get('phploc', {}).get('avg_complexity') for entry in history[-30:]],
+        'phpmd': [entry.get('phpmd', {}).get('violations') for entry in history[-30:]],
         'duplication': [entry.get('jscpd', {}).get('percentage') for entry in history[-30:]],
     }
 
@@ -578,12 +608,10 @@ def generate_dashboard_html(template_path: str, output_path: str, metrics: dict,
         '{{ security_rating }}': security.get('rating', 'N/A'),
         '{{ security_high }}': str(security.get('high', 0)),
         '{{ security_medium }}': str(security.get('medium', 0)),
-        '{{ complexity_avg }}': str(phploc.get('avg_complexity', 'N/A')),
-        '{{ complexity_rating }}': phploc.get('rating', 'N/A'),
-        '{{ complexity_max }}': str(phploc.get('max_complexity', 0)),
-        '{{ loc }}': str(phploc.get('loc', 0)),
-        '{{ classes }}': str(phploc.get('classes', 0)),
-        '{{ methods }}': str(phploc.get('methods', 0)),
+        '{{ phpmd_violations }}': str(phpmd.get('violations', 'N/A')),
+        '{{ phpmd_rating }}': phpmd.get('rating', 'N/A'),
+        '{{ phpmd_files }}': str(phpmd.get('files_affected', 0)),
+        '{{ phpmd_rulesets }}': format_ruleset_breakdown(phpmd.get('by_ruleset', {})),
         '{{ duplication_percentage }}': str(jscpd.get('percentage', 'N/A')),
         '{{ duplication_rating }}': jscpd.get('rating', 'N/A'),
         '{{ duplication_clones }}': str(jscpd.get('clones', 0)),
@@ -611,7 +639,6 @@ def main():
     parser.add_argument('--phpstan', help='Path to phpstan.json')
     parser.add_argument('--phpcs', help='Path to phpcs.json')
     parser.add_argument('--security', help='Path to security-phpcs.json')
-    parser.add_argument('--phploc', help='Path to phploc.json')
     parser.add_argument('--phpmd', help='Path to phpmd.json')
     parser.add_argument('--jscpd', help='Path to jscpd.json')
     parser.add_argument('--template', help='Path to dashboard HTML template')
@@ -628,7 +655,7 @@ def main():
             'phpstan': {'errors': 5, 'files_with_errors': 3, 'rating': 'B'},
             'phpcs': {'violations': 15, 'errors': 5, 'warnings': 10, 'rating': 'B'},
             'security': {'issues': 1, 'high': 0, 'medium': 1, 'rating': 'B'},
-            'phploc': {'loc': 15000, 'classes': 100, 'methods': 500, 'avg_complexity': 4.5, 'max_complexity': 15, 'rating': 'A'},
+            'phpmd': {'violations': 10, 'files_affected': 5, 'by_ruleset': {'Code Size Rules': 8, 'Unused Code Rules': 2}, 'rating': 'B'},
             'jscpd': {'percentage': 2.5, 'clones': 5, 'duplicated_lines': 100, 'rating': 'A'},
         }
     else:
@@ -637,7 +664,6 @@ def main():
             'phpstan': parse_phpstan_json(args.phpstan) if args.phpstan else {},
             'phpcs': parse_phpcs_json(args.phpcs) if args.phpcs else {},
             'security': parse_security_json(args.security) if args.security else {},
-            'phploc': parse_phploc_json(args.phploc) if args.phploc else {},
             'phpmd': parse_phpmd_json(args.phpmd) if args.phpmd else {},
             'jscpd': parse_jscpd_json(args.jscpd) if args.jscpd else {},
         }
@@ -658,7 +684,7 @@ def main():
         'phpstan': metrics.get('phpstan', {}),
         'phpcs': metrics.get('phpcs', {}),
         'security': metrics.get('security', {}),
-        'phploc': metrics.get('phploc', {}),
+        'phpmd': metrics.get('phpmd', {}),
         'jscpd': metrics.get('jscpd', {}),
     }
     history.append(current_entry)
@@ -690,7 +716,7 @@ def main():
     print(f"  - PHPStan errors: {metrics.get('phpstan', {}).get('errors', 'N/A')}")
     print(f"  - PHPCS violations: {metrics.get('phpcs', {}).get('violations', 'N/A')}")
     print(f"  - Security issues: {metrics.get('security', {}).get('issues', 'N/A')}")
-    print(f"  - Avg complexity: {metrics.get('phploc', {}).get('avg_complexity', 'N/A')}")
+    print(f"  - PHPMD violations: {metrics.get('phpmd', {}).get('violations', 'N/A')}")
     print(f"  - Duplication: {metrics.get('jscpd', {}).get('percentage', 'N/A')}%")
 
 

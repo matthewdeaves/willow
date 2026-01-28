@@ -38,7 +38,7 @@ jobs:
       run: mkdir -p artifacts
 
     - name: Download Coverage Artifact
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v7
       with:
         name: phpunit-coverage
         path: artifacts/coverage
@@ -47,7 +47,7 @@ jobs:
       continue-on-error: true
 
     - name: Download PHPStan Results
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v7
       with:
         name: phpstan-results
         path: artifacts/phpstan
@@ -56,7 +56,7 @@ jobs:
       continue-on-error: true
 
     - name: Download PHPCS Results
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v7
       with:
         name: phpcs-results
         path: artifacts/phpcs
@@ -65,7 +65,7 @@ jobs:
       continue-on-error: true
 
     - name: Download Security Results
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v7
       with:
         name: security-results
         path: artifacts/security
@@ -74,7 +74,7 @@ jobs:
       continue-on-error: true
 
     - name: Download Complexity Results
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v7
       with:
         name: complexity-results
         path: artifacts/complexity
@@ -83,7 +83,7 @@ jobs:
       continue-on-error: true
 
     - name: Download Duplication Results
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v7
       with:
         name: duplication-results
         path: artifacts/duplication

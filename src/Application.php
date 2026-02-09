@@ -23,7 +23,6 @@ use App\Utility\I18nManager;
 use Authentication\AuthenticationService;
 use Authentication\AuthenticationServiceInterface;
 use Authentication\AuthenticationServiceProviderInterface;
-use Authentication\Identifier\AbstractIdentifier;
 use Authentication\Middleware\AuthenticationMiddleware;
 use Cake\Core\Configure;
 use Cake\Core\ContainerInterface;
@@ -200,8 +199,8 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         ]);
 
         $fields = [
-                AbstractIdentifier::CREDENTIAL_USERNAME => 'email',
-                AbstractIdentifier::CREDENTIAL_PASSWORD => 'password',
+            'username' => 'email',
+            'password' => 'password',
         ];
 
         // Load the authenticators, you want session first
@@ -211,13 +210,12 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             'fields' => $fields,
             'loginUrl' => Router::url(['prefix' => false, 'controller' => 'Users', 'action' => 'login']),
             'identifier' => [
-                'Authentication.Password' => [
-                    'fields' => $fields,
-                    'resolver' => [
-                        'className' => 'Authentication.Orm',
-                        'userModel' => 'Users',
-                        'finder' => 'auth',
-                    ],
+                'className' => 'Authentication.Password',
+                'fields' => $fields,
+                'resolver' => [
+                    'className' => 'Authentication.Orm',
+                    'userModel' => 'Users',
+                    'finder' => 'auth',
                 ],
             ],
         ]);

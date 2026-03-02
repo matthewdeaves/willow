@@ -126,16 +126,16 @@
         },
         {
             "name": "cakephp/authentication",
-            "version": "4.0.0",
+            "version": "4.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/authentication.git",
-                "reference": "8faadabacd15c3e9dc3f5e95c7b32a2bfc153a8a"
+                "reference": "5c6afb1c6d858b25032d4d044bfecbb7ce4d6e57"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/authentication/zipball/8faadabacd15c3e9dc3f5e95c7b32a2bfc153a8a",
-                "reference": "8faadabacd15c3e9dc3f5e95c7b32a2bfc153a8a",
+                "url": "https://api.github.com/repos/cakephp/authentication/zipball/5c6afb1c6d858b25032d4d044bfecbb7ce4d6e57",
+                "reference": "5c6afb1c6d858b25032d4d044bfecbb7ce4d6e57",
                 "shasum": ""
             },
             "require": {
@@ -191,7 +191,7 @@
                 "issues": "https://github.com/cakephp/authentication/issues",
                 "source": "https://github.com/cakephp/authentication"
             },
-            "time": "2026-02-01T08:09:07+00:00"
+            "time": "2026-02-27T02:57:39+00:00"
         },
         {
             "name": "cakephp/cakephp",

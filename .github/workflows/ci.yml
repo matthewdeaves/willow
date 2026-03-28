@@ -49,6 +49,7 @@ jobs:
       run: |
         composer require "cakephp/cakephp:<5.2.11" --no-update
         composer require "symfony/console:<7" --no-update
+        composer require "robmorgan/phinx:0.16.10" --no-update
 
     - name: Install Composer dependencies
       run: |

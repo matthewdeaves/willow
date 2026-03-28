@@ -22,7 +22,7 @@ jobs:
         php-version: ['8.1', '8.2', '8.3', '8.4']
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
     - name: Setup MySQL
       run: |
@@ -38,7 +38,7 @@ jobs:
         redis-cli ping
 
     - name: Setup PHP
-      uses: shivammathur/setup-php@v2
+      uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2
       with:
         php-version: ${{ matrix.php-version }}
         extensions: mbstring, intl, pdo_mysql, pcntl, sockets, bcmath, zip
@@ -51,7 +51,11 @@ jobs:
     - name: Install Composer dependencies
       run: |
         composer config platform.php ${{ matrix.php-version }}
-        composer update --no-interaction --prefer-dist --ignore-platform-reqs
+        if [ "${{ matrix.php-version }}" = "8.1" ]; then
+          composer update --no-interaction --prefer-dist --ignore-platform-reqs
+        else
+          composer install --no-interaction --prefer-dist --ignore-platform-reqs
+        fi
 
     - name: Copy Configs
       run: |
@@ -92,10 +96,10 @@ jobs:
     continue-on-error: true
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
     - name: Run Semgrep
-      uses: returntocorp/semgrep-action@v1
+      uses: returntocorp/semgrep-action@713efdd345f3035192eaa63f56867b88e63e4e5d # v1
       with:
         config: >-
           p/php
@@ -113,7 +117,7 @@ jobs:
     needs: test
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
     - name: Setup MySQL
       run: |
@@ -127,14 +131,14 @@ jobs:
         sudo service redis-server start
 
     - name: Setup PHP
-      uses: shivammathur/setup-php@v2
+      uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2
       with:
         php-version: '8.3'
         extensions: mbstring, intl, pdo_mysql, pcntl, sockets, bcmath, zip
         coverage: xdebug
 
     - name: Install Composer dependencies
-      run: composer update --no-interaction --prefer-dist
+      run: composer install --no-interaction --prefer-dist
 
     - name: Copy Configs
       run: |
@@ -155,7 +159,7 @@ jobs:
         REDIS_URL: "redis://127.0.0.1:6379/0"
 
     - name: Upload Coverage Artifacts
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
       with:
         name: phpunit-coverage
         path: |
@@ -168,16 +172,16 @@ jobs:
     name: Metrics - Static Analysis
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
     - name: Setup PHP
-      uses: shivammathur/setup-php@v2
+      uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2
       with:
         php-version: '8.3'
         extensions: mbstring, intl
 
     - name: Install Composer dependencies
-      run: composer update --no-interaction --prefer-dist
+      run: composer install --no-interaction --prefer-dist
 
     - name: Run PHPStan (JSON output)
       run: |
@@ -191,14 +195,14 @@ jobs:
           --report=json src/ tests/ > phpcs.json || true
 
     - name: Upload PHPStan Results
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
       with:
         name: phpstan-results
         path: phpstan.json
         retention-days: 30
 
     - name: Upload PHPCS Results
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
       with:
         name: phpcs-results
         path: phpcs.json
@@ -209,16 +213,16 @@ jobs:
     name: Metrics - Security
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
     - name: Setup PHP
-      uses: shivammathur/setup-php@v2
+      uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2
       with:
         php-version: '8.3'
         extensions: mbstring, intl
 
     - name: Install Composer dependencies
-      run: composer update --no-interaction --prefer-dist
+      run: composer install --no-interaction --prefer-dist
 
     - name: Run Security Audit (JSON output)
       run: |
@@ -226,7 +230,7 @@ jobs:
           --report=json src/ > security-phpcs.json || true
 
     - name: Upload Security Results
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
       with:
         name: security-results
         path: security-phpcs.json
@@ -237,22 +241,22 @@ jobs:
     name: Metrics - Complexity
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
     - name: Setup PHP
-      uses: shivammathur/setup-php@v2
+      uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2
       with:
         php-version: '8.3'
         extensions: mbstring, intl
 
     - name: Install Composer dependencies
-      run: composer update --no-interaction --prefer-dist
+      run: composer install --no-interaction --prefer-dist
 
     - name: Run PHPMD (JSON output)
       run: vendor/bin/phpmd src/ json phpmd.xml > phpmd.json || true
 
     - name: Upload Complexity Results
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
       with:
         name: complexity-results
         path: phpmd.json
@@ -263,10 +267,10 @@ jobs:
     name: Metrics - Duplication
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
     - name: Setup Node.js
-      uses: actions/setup-node@v6
+      uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6
       with:
         node-version: '20'
 
@@ -275,7 +279,7 @@ jobs:
         npx jscpd src/ plugins/ webroot/ --reporters json --output jscpd-report/ || true
 
     - name: Upload Duplication Results
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
       with:
         name: duplication-results
         path: jscpd-report/

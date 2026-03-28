@@ -44,9 +44,11 @@ jobs:
         extensions: mbstring, intl, pdo_mysql, pcntl, sockets, bcmath, zip
         coverage: xdebug
 
-    - name: Pin CakePHP for PHP 8.1 compatibility
+    - name: Pin dependencies for PHP 8.1 compatibility
       if: matrix.php-version == '8.1'
-      run: composer require "cakephp/cakephp:<5.2.11" --no-update
+      run: |
+        composer require "cakephp/cakephp:<5.2.11" --no-update
+        composer require "symfony/console:<7" --no-update
 
     - name: Install Composer dependencies
       run: |

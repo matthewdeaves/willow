@@ -20,7 +20,7 @@ Willow CMS is a powerful, AI-enhanced content management system that combines th
 
 **🆓 FREE & OPEN SOURCE** • **🔧 FULLY CUSTOMIZABLE**
 
-**🚀 [Live Demo](https://willowcms.app) | 📖 [Development Blog](https://willowcms.app) | 📄 [GPL-3.0 License](#-license)**
+**📄 [GPL-3.0 License](#-license)**
 
 ---
 

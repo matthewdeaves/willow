@@ -60,6 +60,9 @@ jobs:
           composer install --no-interaction --prefer-dist --ignore-platform-reqs
         fi
 
+    - name: Audit Composer dependencies
+      run: composer audit
+
     - name: Copy Configs
       run: |
         cp docker/github/app_local.php config/app_local.php

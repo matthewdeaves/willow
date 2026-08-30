@@ -25,7 +25,7 @@ jobs:
         php-version: ['8.1', '8.2', '8.3', '8.4']
 
     steps:
-    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v6
 
     - name: Setup MySQL
       run: |
@@ -105,7 +105,7 @@ jobs:
     continue-on-error: true
 
     steps:
-    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v6
 
     - name: Run Semgrep
       uses: returntocorp/semgrep-action@713efdd345f3035192eaa63f56867b88e63e4e5d # v1
@@ -126,7 +126,7 @@ jobs:
     needs: test
 
     steps:
-    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v6
 
     - name: Setup MySQL
       run: |
@@ -181,7 +181,7 @@ jobs:
     name: Metrics - Static Analysis
 
     steps:
-    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v6
 
     - name: Setup PHP
       uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2
@@ -222,7 +222,7 @@ jobs:
     name: Metrics - Security
 
     steps:
-    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v6
 
     - name: Setup PHP
       uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2
@@ -250,7 +250,7 @@ jobs:
     name: Metrics - Complexity
 
     steps:
-    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v6
 
     - name: Setup PHP
       uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2
@@ -276,7 +276,7 @@ jobs:
     name: Metrics - Duplication
 
     steps:
-    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v6
 
     - name: Setup Node.js
       uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
